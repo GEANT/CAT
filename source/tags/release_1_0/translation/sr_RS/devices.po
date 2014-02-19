@@ -1,0 +1,835 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>, 2012.
+#   <marko.stojakovic@rcub.bg.ac.rs>, 2012.
+#   <natasa.lemajic@rcub.bg.ac.rs>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-12-24 08:53+0100\n"
+"PO-Revision-Date: 2012-12-19 10:04+0000\n"
+"Last-Translator: Marina Vermezovic <marina.vermezovic@rcub.bg.ac.rs>\n"
+"Language-Team: Serbian (http://www.transifex.com/projects/p/cat/language/"
+"sr/)\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: devices/apple_mobileconfig/mobileconfig.php:120
+#, php-format
+msgid "Network configuration profile '%s' of '%s' - provided by %s"
+msgstr "Profil za konfigurisanje mreže '%s' od '%s' - obezbeđen od %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:162
+msgid ""
+"The profile will install itself after you click (or tap) the button. You "
+"will be asked for confirmation/input at several points:"
+msgstr "Profil će se sam instalirati nakon što pritisnete dugme. "
+
+#: devices/apple_mobileconfig/mobileconfig.php:164
+msgid "to install the profile"
+msgstr "instalirati profil"
+
+#: devices/apple_mobileconfig/mobileconfig.php:165
+msgid "to accept the server certificate authority"
+msgid_plural "to accept the server certificate authorities"
+msgstr[0] "prihvatiti sertifikaciono telo servera"
+msgstr[1] "prihvatiti sertifikaciona tela servera"
+msgstr[2] "prihvatiti sertifikaciona tela servera"
+
+#: devices/apple_mobileconfig/mobileconfig.php:167
+#, php-format
+msgid "(%d times)"
+msgstr "(%d puta)"
+
+#: devices/apple_mobileconfig/mobileconfig.php:169
+msgid "to enter the username and password of your institution"
+msgstr "da biste uneli korisničko ime i lozinku za vašu instituciju"
+
+#: devices/apple_mobileconfig/mobileconfig.php:171
+#, php-format
+msgid "(%d times each, because %s is installed for %d SSIDs)"
+msgstr "(%d puta svaki, jer je %s instaliran za %d SSID-eva)"
+
+#: devices/apple_mobileconfig/mobileconfig.php:236
+#, php-format
+msgid "%s configuration for network name %s"
+msgstr "%s konfiguracija za mrežno ime %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:238
+#, php-format
+msgid "SSID %s"
+msgstr "SSID %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:281
+msgid "Your Identity Providers Certification Authority"
+msgstr "Sertifikaciono telo vašeg Davaoca Identiteta"
+
+#: devices/apple_mobileconfig/mobileconfig.php:283
+msgid "Identity Provider's CA"
+msgstr "CA Davaoca Identiteta"
+
+#: devices/ms/Vista7.php:32 devices/ms/W8.php:33
+msgid ""
+"Anonymous identities do not use the realm as specified in the profile - it "
+"is derived from the suffix of the user's username input instead."
+msgstr ""
+"Anonimni identiteti ne koriste domen koji je specificiran u profilu - umesto "
+"toga, domen se izvodi iz sufiksa koji se nalazi u korisničkom imenu."
+
+#: devices/ms/Vista7.php:78 devices/ms/W8.php:78 devices/ms/XP.php:77
+#, php-format
+msgid ""
+"%s installer will be in the form of an EXE file. It will configure %s on "
+"your device, by creating wireless network profiles.<p>When you click the "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"%s program za instaliranje će biti u formi EXE fajla. Konfigurisaće %s na "
+"vašem uređaju, tako što će napraviti profile za bežične mreže. <p> Kada "
+"kliknete na dugme za preuzimanje, vaš Internet pretraživač će sačuvati "
+"program za instaliranje. Kopirajte ga na uređaj koji želite da konfigurišete "
+"i pokrenite ga."
+
+#: devices/ms/Vista7.php:82 devices/ms/W8.php:82 devices/ms/XP.php:81
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr ""
+"Kao dodatak <strong>%s</strong> program za instaliranje će takođe "
+"konfigurisati pristup sledećim mrežama:"
+
+#: devices/ms/Vista7.php:84 devices/ms/W8.php:84 devices/ms/XP.php:83
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to:"
+msgstr ""
+"Kao dodatak <strong>%s</strong> program za instaliranje će takođe "
+"konfigurisati pristup:"
+
+#: devices/ms/Vista7.php:97 devices/ms/W8.php:98
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
+msgstr ""
+"Da biste se konektovali na mrežu biće vam potreban personalni sertifikat u "
+"formi p12 fajla. Sertifikat treba da dobijete od svoje matične institucije. "
+"Pogledajte stranicu za podršku da biste saznali kako možete dobiti ovaj "
+"sertifikat. Fajlovi koji sadrže personalni sertifikat su zaštićeni lozinkom. "
+"Tokom procesa instalacije morate imati i taj fajl i odgovarajuću lozinku."
+
+#: devices/ms/Vista7.php:99 devices/ms/W8.php:100 devices/ms/XP.php:96
+#: devices/linux/Linux.php:100
+msgid ""
+"In order to connect to the network you will need an account from your home "
+"institution. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
+msgstr ""
+"Da biste se konektovali na mrežu biće vam potreban nalog dobijen od vaše "
+"matične institucije. Pogledajte stranicu za podršku da biste saznali kako "
+"možete dobiti ovaj nalog. Verovatno je vaš nalog već aktiviran."
+
+#: devices/ms/Vista7.php:102 devices/ms/XP.php:98
+msgid ""
+"The installer will also install additional software - SecureW2 EAP Suite "
+"(GNU General Public License).<p>You will be requested to enter your account "
+"credentials into a pop box during the installation. This information will be "
+"saved so that you will reconnect to the network automatically each time you "
+"are in the range."
+msgstr ""
+"Program za instaliranje će, takođe, instalirati dodatni softver - SecureW2 "
+"EAP Suite (GNU General Public License).<p>Tokom instalacije tražiće vam se "
+"da unesete korisničke kredencijale. Ovi podaci biće sačuvani da biste ste se "
+"automatski konektovali na mrežu svaki put kada se nađete u njenom dometu."
+
+#: devices/ms/Vista7.php:107 devices/ms/W8.php:102
+msgid ""
+"When you are connecting to the network for the first time, Windows will pop "
+"up a login box, where you should enter your user name and password. This "
+"information will be saved so that you will reconnect to the network "
+"automatically each time you are in the range."
+msgstr ""
+"Kada se prvi put konektujete na mrežu, pojaviće se login prozor u kom treba "
+"da unesete svoje korisničko ime i lozinku. Ovi podaci biće sačuvani da biste "
+"ste se automatski konektovali na mrežu svaki put kada se nađete u njenom "
+"dometu."
+
+#: devices/ms/Vista7.php:110 devices/ms/W8.php:105
+msgid ""
+"You will be required to enter the same credentials for each of the "
+"configured notworks:"
+msgstr ""
+"Tražiće vam se da unesete iste kredencijale za svaku konfigurisanu mrežu:"
+
+#: devices/ms/Vista7.php:384 devices/ms/XP.php:194
+msgid "Login credentials"
+msgstr "Kredencijali za prijavu"
+
+#: devices/ms/Vista7.php:452 devices/ms/Vista7.php:453 devices/ms/W8.php:350
+#: devices/ms/W8.php:351 devices/ms/XP.php:249 devices/ms/XP.php:250
+#, php-format
+msgid "%s installer for %s"
+msgstr "%s program za instalaciju za %s"
+
+#: devices/ms/Files/common.inc:111
+#, php-format
+msgid "Welcome to the %s installer"
+msgstr "Dobrodošli u %s program za instaliranje"
+
+#: devices/ms/Files/common.inc:112 devices/ms/Files/xp/common.inc:109
+msgid "Installation complete"
+msgstr "Instaliranje završeno"
+
+#: devices/ms/Files/common.inc:113 devices/ms/Files/xp/common.inc:110
+msgid "Network profiles have been installed."
+msgstr "Mrežni profili su instalirani."
+
+#: devices/ms/Files/common.inc:113 devices/ms/Files/xp/common.inc:110
+msgid "Your system is ready."
+msgstr "Vaš sistem je spreman."
+
+#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:111
+msgid "Network installation had errors."
+msgstr "Desile su se greške pri instaliranju mreže."
+
+#: devices/ms/Files/common.inc:114 devices/ms/Files/common.inc:604
+#: devices/ms/Files/xp/common.inc:111 devices/ms/Files/xp/common.inc:491
+msgid "Please contact ${SUPPORT}."
+msgstr "Molimo vas kontaktirajte ${SUPPORT}."
+
+#: devices/ms/Files/common.inc:123 devices/ms/Files/xp/common.inc:120
+msgid "Accept"
+msgstr "Prihvatam"
+
+#: devices/ms/Files/common.inc:124 devices/ms/Files/xp/common.inc:121
+msgid ""
+"If you accept the conditions then select Accept and then click Install to "
+"continue."
+msgstr ""
+"Ako prihvatate uslove korišćenja, odabarite Prihvatam i kliknite na "
+"Instaliraj da bi nastavili."
+
+#: devices/ms/Files/common.inc:130 devices/ms/Files/xp/common.inc:127
+msgid "Finish"
+msgstr "Završi"
+
+#: devices/ms/Files/common.inc:149
+msgid "searching for certificate"
+msgstr "traženje sertifikata"
+
+#: devices/ms/Files/common.inc:205 devices/ms/Files/xp/common.inc:142
+msgid "installing certificate"
+msgstr "instaliranje sertifikata"
+
+#: devices/ms/Files/common.inc:209
+msgid "could not install certificate"
+msgstr "neuspela instalacija sertifikata"
+
+#: devices/ms/Files/common.inc:327
+msgid ""
+"The non TKIP profiles are preferred. Always use them if you have a choice."
+msgstr ""
+"Profili koji ne sadrže TKIP se preferiraju. Ukoliko imate izbora, uvek "
+"koristite njih."
+
+#: devices/ms/Files/common.inc:329
+msgid "The non TKIP profile is preferred. Always use it if you have a choice."
+msgstr ""
+"Profil koji ne sadrži TKIP se preferira. Ukoliko imate izbora, uvek ga "
+"koristite."
+
+#: devices/ms/Files/common.inc:335 devices/ms/Files/xp/common.inc:244
+#: devices/linux/Linux.php:137
+msgid "This installer has been prepared for ${ORGANISATION}"
+msgstr "Program za instaliranje je spreman za ${ORGANISATION}"
+
+#: devices/ms/Files/common.inc:336
+msgid "The installer will create the following wireless profiles:"
+msgstr "Ovaj program za instaliranje će kreirati sledeće bežične profile:"
+
+#: devices/ms/Files/common.inc:339 devices/ms/Files/xp/common.inc:248
+#: devices/linux/Linux.php:137
+msgid "More information and comments:"
+msgstr "Više informacija i komentara:"
+
+#: devices/ms/Files/common.inc:364 devices/ms/Files/xp/common.inc:274
+#: devices/linux/Linux.php:138
+msgid "Installer created with software from the GEANT project."
+msgstr ""
+"Ovaj instaler kreiran uz korišćenje softvera razvijenim u okviru GEANT "
+"projekta."
+
+#: devices/ms/Files/common.inc:388
+msgid "This installer works with Windows 8 only"
+msgstr "Ovaj program za instaliranje radi samo sa Windows 8"
+
+#: devices/ms/Files/common.inc:395 devices/ms/Files/common.inc:438
+msgid "This installer works with Windows Vista and Windows 7 only"
+msgstr ""
+"Ovaj program za instaliranje namenjen je samo za Windows Vista i Windows 7 "
+"operativnim sistemima"
+
+#: devices/ms/Files/common.inc:454 devices/ms/Files/xp/common.inc:346
+msgid ""
+"Windows wireless configuration service is not enabled. The installer cannot "
+"continue."
+msgstr ""
+"Windows wireless konfiguracioni servis nije uključen. Instalacija se ne može "
+"nastaviti."
+
+#: devices/ms/Files/common.inc:458 devices/ms/Files/xp/common.inc:350
+msgid "No wireless interfaces found. The installer cannot continue."
+msgstr "Wireless interfejs nije pronađen. Instalacija se ne može nastaviti."
+
+#: devices/ms/Files/common.inc:466 devices/ms/Files/xp/common.inc:359
+msgid "Profiles installation"
+msgstr "Instaliranje profila"
+
+#: devices/ms/Files/common.inc:471
+msgid "Checking for profile $R1"
+msgstr "Provera profila $R1"
+
+#: devices/ms/Files/common.inc:475
+msgid "found profile $R1"
+msgstr "pronađen profil $R1"
+
+#: devices/ms/Files/common.inc:492
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION} and the user group: ${USER_GROUP}."
+msgstr ""
+"Program za instaliranje će raditi ispravno samo ako ste korisnik "
+"${ORGANISATION} i ako ste u korisničkoj grupi: ${USER_GROUP}."
+
+#: devices/ms/Files/common.inc:492 devices/ms/Files/common.inc:494
+#: devices/ms/Files/xp/common.inc:385 devices/ms/Files/xp/common.inc:387
+msgid "Click OK to continue with installation."
+msgstr "Kliknite OK da biste nastavili sa instaliranjem."
+
+#: devices/ms/Files/common.inc:494
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION}."
+msgstr ""
+"Program za instaliranje radi ispravno samo ako ste korisnik ${ORGANISATION}."
+
+#: devices/ms/Files/common.inc:502 devices/ms/Files/xp/common.inc:395
+msgid ""
+"Please read the additional information from your home institution which will "
+"be displayed in a moment."
+msgstr ""
+"Molimo vas da pročitate dodatne informacije koje je pružila vaša matična "
+"institucija, a koje će biti uskoro prikazane."
+
+#: devices/ms/Files/common.inc:527 devices/ms/Files/xp/common.inc:420
+msgid "Restart system now"
+msgstr "Sada restartujte sistem"
+
+#: devices/ms/Files/common.inc:529 devices/ms/Files/xp/common.inc:422
+msgid "I will restart later"
+msgstr "Restartovaću sistem kasnije"
+
+#: devices/ms/Files/common.inc:589 devices/ms/Files/xp/common.inc:482
+msgid "deleting profile $R1"
+msgstr "brisanje profila $R1"
+
+#: devices/ms/Files/common.inc:596 devices/ms/Files/xp/common.inc:486
+msgid "installing profile $R1"
+msgstr "instaliranje profila $R1"
+
+#: devices/ms/Files/common.inc:604 devices/ms/Files/xp/common.inc:491
+msgid "Profile installation error for $R1."
+msgstr "Greška pri instaliranju profila $R1."
+
+#: devices/ms/Files/common.inc:616
+msgid "installing credentials for profile $R1"
+msgstr "instalacija kredencijala za profil $R1"
+
+#: devices/ms/Files/common.inc:621
+msgid "Credentials installation problem"
+msgstr "Problem sa instalacijom kredencijala"
+
+#: devices/ms/Files/common.inc:630
+#, php-format
+msgid "%s installer for"
+msgstr "%s program za instalaciju za"
+
+#: devices/ms/Files/common.inc:630 devices/ms/Files/xp/common.inc:503
+msgid "Install personal certificate"
+msgstr "Instaliraj personalni sertifikat "
+
+#: devices/ms/Files/common.inc:635 devices/ms/Files/xp/common.inc:508
+msgid "Preparing to install personal certificate."
+msgstr "Instaliranje personalnog sertifikata se priprema."
+
+#: devices/ms/Files/common.inc:635 devices/ms/Files/xp/common.inc:508
+msgid "Click OK to continue"
+msgstr "Klikni OK da bi nastavili"
+
+#: devices/ms/Files/common.inc:641 devices/ms/Files/xp/common.inc:514
+msgid "Certificate files (*.p12)"
+msgstr "Sertifikati (*.p12)"
+
+#: devices/ms/Files/common.inc:641 devices/ms/Files/xp/common.inc:514
+msgid "Certificate files (*pfx)"
+msgstr "Sertifikati (*pfx)"
+
+#: devices/ms/Files/common.inc:641
+msgid "All files"
+msgstr "Svi fajlovi"
+
+#: devices/ms/Files/common.inc:644 devices/ms/Files/xp/common.inc:517
+msgid "Selected file: $Cert_file"
+msgstr "Odabrani fajl: $Cert_file"
+
+#: devices/ms/Files/common.inc:649 devices/ms/Files/xp/common.inc:519
+msgid "certificate password:"
+msgstr "lozinka za sertifikat:"
+
+#: devices/ms/Files/common.inc:661 devices/ms/Files/xp/common.inc:531
+msgid "No certificate file selected"
+msgstr "Nije odabran nijedan sertifikat"
+
+#: devices/ms/Files/common.inc:673 devices/ms/Files/xp/common.inc:543
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr "Netačna lozinka za sertifikat $\\r$\\nunesite ponovo"
+
+#: devices/ms/Files/common.inc:683
+msgid "User credentials"
+msgstr "Korisnički kredencijali:"
+
+#: devices/ms/Files/common.inc:687
+msgid "Username:"
+msgstr "Korisničko ime:"
+
+#: devices/ms/Files/common.inc:690
+msgid "Password:"
+msgstr "Lozinka:"
+
+#: devices/ms/Files/common.inc:693
+msgid "Repeat password:"
+msgstr "Ponovo unesite lozinku."
+
+#: devices/ms/Files/common.inc:704
+msgid "Missing username"
+msgstr "Nedostaje korisničko ime"
+
+#: devices/ms/Files/common.inc:709
+msgid "Missing password"
+msgstr "Nedostaje lozinka"
+
+#: devices/ms/Files/common.inc:715
+msgid "Password missmatch"
+msgstr "Lozinke nisu iste"
+
+#: devices/ms/Files/common.inc:754
+#, php-format
+msgid ""
+"In order to install/update %s access all selected steps need to be "
+"performed. Click Continue to proceed"
+msgstr ""
+"Kako biste instalirali/ažurirali %s pristup moraju se ponoviti svi odabrani "
+"koraci. Kliknite Nastavi da biste nastavili"
+
+#: devices/ms/Files/common.inc:755 devices/ms/Files/xp/common.inc:565
+msgid ""
+"If an option is not selected by default, then it is either not available or "
+"optional."
+msgstr ""
+"Ukoliko opcija nije unapred odabrana, onda ili nije dostupna, ili nije "
+"opcionalna."
+
+#: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
+msgid "Installation of the personal certificate"
+msgstr "Instaliranje personalnog sertifikata"
+
+#: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
+msgid "Components installation"
+msgstr "Instaliranje komponenti"
+
+#: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
+msgid "Personal certificate"
+msgstr "Personalni sertifikat"
+
+#: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
+#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+msgid "Installation of network profiles"
+msgstr "Instaliranje mrežnih profila"
+
+#: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
+#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+msgid "profiles"
+msgstr "profili"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
+#: devices/ms/Files/pwd.inc:12 devices/ms/Files/pwd.inc:34
+#: devices/ms/Files/ttls.inc:7
+msgid "Installation"
+msgstr "Instaliranje"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
+#: devices/ms/Files/pwd.inc:34 devices/ms/Files/ttls.inc:7
+msgid "Network profiles update"
+msgstr "Ažuriranje mrežnih profila"
+
+#: devices/ms/Files/eap_w8.inc:56 devices/ms/Files/peap_tls.inc:63
+msgid "Information about components"
+msgstr "Informacije o komponentama"
+
+#: devices/ms/Files/pwd.inc:5 devices/ms/Files/ttls.inc:16
+msgid "user profile"
+msgstr "korisnički profil"
+
+#: devices/ms/Files/pwd.inc:10 devices/ms/Files/ttls.inc:21
+msgid "install program"
+msgstr "instaliraj program"
+
+#: devices/ms/Files/pwd.inc:25
+msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
+msgstr ""
+"Greška prilikom instalacije EAP-pwd. Molimo vas da pokušate ponovo ili "
+"kontaktirajte ${SUPPORT}."
+
+#: devices/ms/Files/ttls.inc:34
+msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
+msgstr ""
+"Greška prilikom instalacije SecureW2. Molimo vas da pokušate ponovo ili "
+"kontaktirajte ${SUPPORT}."
+
+#: devices/ms/Files/xp/common.inc:108
+msgid "Welcome to the eduroam installer"
+msgstr "Dobro došli u eduroam program za instaliranje"
+
+#: devices/ms/Files/xp/common.inc:245
+msgid "The installer will create network profile:"
+msgstr " Ovaj program za instaliranje će kreirati sledeće mrežne profile:"
+
+#: devices/ms/Files/xp/common.inc:247
+msgid ""
+"You will be able to use eduroam in most institutions however due to Windows "
+"XP limitations and differences in network settings at different "
+"institutions, you may be sometimes required to repeat the connection for the "
+"system to reconfigure."
+msgstr ""
+"Ovo vam omogućava da koristite eduroam u većini institucija, međutim zbog "
+"ograničenja Windows XP operativnog sistema i zbog različitih mrežnih "
+"podešavanja u različitim institucijama, u nekim situacijama ćete morati da "
+"osvežite konekciju kako bi se sistem ponovo podesio."
+
+#: devices/ms/Files/xp/common.inc:334
+msgid "This installer works with Windows XP SP3 only"
+msgstr "Program za instaliranje je namenjen samo za Windows XP SP3"
+
+#: devices/ms/Files/xp/common.inc:503
+msgid "eduroam installer for"
+msgstr "Program za instaliranje eduroam-a za"
+
+#: devices/ms/Files/xp/common.inc:564
+msgid ""
+"In order to install/update eduroam access all selected steps need to be "
+"performed. Click Continue to proceed"
+msgstr ""
+"Da biste instalirali/ažurirali pristup eduroam-u, svi odabrani koraci se "
+"moraju izvršiti. Kliknite Nastavi da biste produžili"
+
+#: devices/linux/Linux.php:78
+msgid ""
+"The installer is in the form of a bash script. It will try to configure "
+"eduroam under Network Manager and if this is either not appropriate for your "
+"system or your version of Network Manager is too old, a wpa_supplicant "
+"config file will be created instead."
+msgstr ""
+"Program za instaliranje je u formi bash skripte. Pokušaće da konfiguriše "
+"eduroam pod Netwok Manager, a ako to nije podržano od strane vašeg sistema "
+"ili je verzija vašeg Network Manager-a previše stara, umesto toga kreiraće "
+"wpa_supplicant konfiguracioni fajl."
+
+#: devices/linux/Linux.php:82
+msgid ""
+"In addition to <strong>eduroam</strong> the installer will also configure "
+"access to the following networks:"
+msgstr ""
+"Kao dodatak uz <strong>eduroam</strong> program za instaliranje će takođe "
+"konfigurisati pristup za sledeće mreže:"
+
+#: devices/linux/Linux.php:84
+msgid ""
+"In addition to <strong>eduroam</strong> the installer will also configure "
+"access to:"
+msgstr ""
+"Kao dodatak uz <strong>eduroam</strong> program za instaliranje će takođe "
+"konfigurisati pristup za:"
+
+#: devices/linux/Linux.php:96
+msgid ""
+"The installer will create .eduroam sub-directory in your home directory and "
+"will copy your server certificates there."
+msgstr ""
+"Program za instaliranje će kreirati .eduroam poddirektorijum u vašem home "
+"direktorijumu, gde će kopirati serverske sertifikate."
+
+#: devices/linux/Linux.php:98
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .eduroam directory."
+msgstr ""
+"U cilju povezivanja na mrežu, biće vam potreban lični sertifikat u formi p12 "
+"fajla. Ovaj sertifikat bi trebalo da dobijete od vaše matične institucije. "
+"Informišite se kako da nabavite sertifikat na stranici za podršku. Ovi "
+"sertifikacioni fajlovi su zaštićeni lozinkom. Za potrebe procesa "
+"instalacije, očekuje se da posedujete sertifikacioni fajl kao i lozinku. Vaš "
+"p12 fajl će takođe biti kopiran u .eduroam direktorijum. "
+
+#: devices/linux/Linux.php:102
+msgid ""
+"You will be requested to enter your account credentials during the "
+"installation. This information will be saved so that you will reconnect to "
+"the network automatically each time you are in the range."
+msgstr ""
+"Tražiće vam se da unesete svoje korisničke kredencijale tokom instalacije. "
+"Ovi podaci biće sačuvani da biste ste se automatski konektovali na mrežu "
+"svaki put kada se nađete u njenom dometu."
+
+#: devices/linux/Linux.php:111
+#, php-format
+msgid "Directory %s exists; some of its files may be overwritten."
+msgstr ""
+"Direktorijum %s postoji; neki fajlovi unutar ovog direktorijuma mogu biti "
+"prebrisani."
+
+#: devices/linux/Linux.php:111 devices/linux/Linux.php:125
+#: devices/linux/Linux.php:149 devices/linux/Linux.php:165
+msgid "Continue"
+msgstr "Nastavi"
+
+#: devices/linux/Linux.php:121
+msgid "Installation successful"
+msgstr "Instalacija je uspešno obavljena"
+
+#: devices/linux/Linux.php:123
+msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
+msgstr ""
+"Konfiguracija Network Manager-a nije uspela, generisanje wpa_supplicant.conf "
+"konfiguracionog fajla"
+
+#: devices/linux/Linux.php:125
+#, php-format
+msgid "File %s exists; it will be overwritten."
+msgstr "Fajl %s postoji; biće prebrisan."
+
+#: devices/linux/Linux.php:129
+#, php-format
+msgid "Output written to %s"
+msgstr "Rezultat je upisan u %s"
+
+#: devices/linux/Linux.php:146
+#, php-format
+msgid ""
+"This installer will only work properly if you are a member of %s and the "
+"user group: %s."
+msgstr ""
+"Ovaj program za instaliranje će ispravno funkcionisati samo ako ste član %s "
+"i korisničke grupe: %s."
+
+#: devices/linux/Linux.php:148
+#, php-format
+msgid "This installer will only work properly if you are a member of %s."
+msgstr ""
+"Ovaj program za instaliranje će ispravno funkcionisati samo ako ste član %s."
+
+#: devices/linux/Linux.php:245
+msgid "Y"
+msgstr "DA"
+
+#: devices/linux/Linux.php:246
+msgid "N"
+msgstr "NE"
+
+#: devices/linux/Linux.php:301 devices/linux/Linux.php:306
+msgid "Really quit?"
+msgstr "Da li zaista želite da odustanete?"
+
+#: devices/linux/Linux.php:359
+msgid "enter your userid"
+msgstr "unesite vaše korisničko ime"
+
+#: devices/linux/Linux.php:365
+msgid "enter your password"
+msgstr "unesite svoju lozinku"
+
+#: devices/linux/Linux.php:368
+msgid "repeat your password"
+msgstr "ponovo unesite svoju lozinku"
+
+#: devices/linux/Linux.php:372
+msgid "passwords do not match"
+msgstr "lozinke se razlikuju"
+
+#: devices/linux/Linux.php:430 devices/linux/Linux.php:434
+#: devices/linux/Linux.php:446
+msgid "personal certificate file (p12 or pfx)"
+msgstr "personalni sertifikat (p12 ili pfx)"
+
+#: devices/linux/Linux.php:455
+msgid "file not found"
+msgstr "fajl nije pronađen"
+
+#: devices/linux/Linux.php:465 devices/linux/Linux.php:468
+msgid "enter the password for the certificate file"
+msgstr "unesite lozinku za sertifikat"
+
+#: devices/test_module/TestModule.php:121
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Ovaj program za instaliranje je samo primer. Generisaće zip fajl koji će "
+"sadržati sertifikate Davaoca Identiteta, informacije i logo fajlove (ako su "
+"definisani od strane administratora Davaoca Identiteta) i sve dostupne "
+"atribute."
+
+#. / welcomletter: header of document
+#: devices/welcomeletter/welcomeletter.php:84
+msgid "Welcome Letter"
+msgstr "Pismo dobrodošlice"
+
+#. / welcomletter: footer
+#: devices/welcomeletter/welcomeletter.php:86
+msgid "eduroam® - supporting academic mobility since 2003"
+msgstr "eduroam® - supporting academic mobility since 2003"
+
+#. / welcomeletter: the headline (bold, large)
+#: devices/welcomeletter/welcomeletter.php:88
+msgid "Welcome aboard the eduroam® user community!"
+msgstr "Dobrodošli u eduroam® zajednicu!"
+
+#. / welcomeletter: initial greeting
+#: devices/welcomeletter/welcomeletter.php:90
+#, php-format
+msgid "Dear user from %s,"
+msgstr "Dragi korisniče iz %s,"
+
+#. / welcomeletter: sales pitch paragraph :-)
+#: devices/welcomeletter/welcomeletter.php:92
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Želeli bismo da Vam poželimo toplu dobrodošlicu u zajednicu od više miliona "
+"korisnika eduroam® servisa! Od sada pa nadalje, bićete u mogućnosti da "
+"koristite internet resurse na više hiljada univerziteta, u istraživačkim "
+"centrima i drugim lokacijama na svetu. Sve potpuno besplatno!"
+
+#. / welcomeletter: log in now paragraph
+#: devices/welcomeletter/welcomeletter.php:94
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Sada kada ste preuzeli i instalirali konfigurator vašeg uređaja, sve što je "
+"potrebno da uradite jeste da pronađete najbližu eduroam® pristupnu tačku i "
+"unesete vaše korisničke kredencijale (to je naš formalni naziv za korisničko "
+"ime i lozinku) - da biste bili online!"
+
+#. / welcomeletter: explain support procedure
+#: devices/welcomeletter/welcomeletter.php:96
+#, php-format
+msgid ""
+"Should you have any problems using this service, please always contact the "
+"helpdesk of %s. They will diagnose the problem and help you out. You can "
+"reach them via the means below:"
+msgstr ""
+"Ako budete imali problema sa korišćenjem servisa, molimo Vas da kontaktirate "
+"IT službu vaše institucije %s. Oni će vam pomoći u dijagnostikovanju i "
+"otklanjanju problema. Možete ih kontaktirati preko:"
+
+#. / welcomeletter: explain manual config
+#: devices/welcomeletter/welcomeletter.php:98
+msgid ""
+"If you ever need to configure a different device for eduroam manually, you "
+"will need the configuration information for your institution. We have "
+"summarised this information in the appendix on page 2 for you."
+msgstr ""
+"Ako nekada želite da ručno konfigurišete drugi uređaj da koristi eduroam, "
+"biće vam potrebne konfiguracione informacije za vašu instituciju. Mi smo "
+"rezimirali ove informacije u dodatku na strani broj 2."
+
+#. / welcomeletter: have fun
+#: devices/welcomeletter/welcomeletter.php:100
+msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
+msgstr "Želimo vam puno zabave na eduroam® pristupnim tačkama širom sveta."
+
+#. / welcomeletter: title of the big boss
+#: devices/welcomeletter/welcomeletter.php:102
+msgid "Chairman of the Global eduroam® Governance Committee"
+msgstr "Chairman of the Global eduroam® Governance Committee"
+
+#. / welcomeletter: header: appendix with config info
+#: devices/welcomeletter/welcomeletter.php:104
+msgid "Appendix: Configuration Information"
+msgstr "Dodatak: informacije o konfiguraciji"
+
+#. / welcomeletter: header: appendix with config info
+#: devices/welcomeletter/welcomeletter.php:106
+#, php-format
+msgid ""
+"Use the information below to configure your devices manually. Please keep in "
+"mind that these settings are only valid for users of profile '%s' from %s – "
+"they are different for everyone else, and there is no use sharing them with "
+"other people."
+msgstr ""
+"Iskoristite ove informacije za ručnu konfiguraciju vašeg uređaja. Imajte na "
+"umu da su ova podešavanja validna samo za korisnike profila '%s' sa %s - ona "
+"su različita za sve ostale, i nema smisla deliti ih sa drugima."
+
+#: devices/welcomeletter/welcomeletter.php:110
+msgid "E-Mail:"
+msgstr "E-Mail:"
+
+#: devices/welcomeletter/welcomeletter.php:114
+msgid "Special EAP Type support URL:"
+msgstr "URL za poseban EAP tip:"
+
+#: devices/welcomeletter/welcomeletter.php:118
+msgid "Phone:"
+msgstr "Telefon:"
+
+#: devices/welcomeletter/welcomeletter.php:122
+msgid "Web:"
+msgstr "Web:"
+
+#: devices/welcomeletter/welcomeletter.php:129
+msgid "Server Name:"
+msgstr "Ime servera:"
+
+#: devices/welcomeletter/welcomeletter.php:162
+msgid ""
+"This button creates a personalised welcome letter from eduroam Operations "
+"for you. The file is in OpenDocument format (ODT); you can open it e.g. with "
+"LibreOffice."
+msgstr ""
+"Ovo dugme za vas kreira presonalizovano pismo dobrodošlice od strane eduroam "
+"Operations tima. Dokument je u formatu OpenDocument (ODT); možete ga "
+"otvoriti pomoću, na primer, LibreOffice-a."

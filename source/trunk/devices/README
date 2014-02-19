@@ -1,0 +1,3 @@
+Each new device should reside in a separate subdirectory of the devices directory.
+Devices need to be configured in the devices.php file (see te file for more information).
+

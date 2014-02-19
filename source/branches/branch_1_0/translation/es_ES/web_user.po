@@ -1,0 +1,648 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# AMS <alberto_martinez@deusto.es>, 2013
+# José Manuel Macías, 2013
+# José Manuel Macías, 2012
+# José Manuel Macías, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-29 15:08+0100\n"
+"PO-Revision-Date: 2013-11-20 12:52+0000\n"
+"Last-Translator: AMS <alberto_martinez@deusto.es>\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/cat/language/"
+"es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: web/user/cat_info.php:31 web/user/faq.php:32
+#, php-format
+msgid ""
+"eduroam is a global WiFi roaming consortium which gives members of education "
+"and research access to the internet <i>for free</i> on all eduroam hotspots "
+"on the planet. There are several million eduroam users already, enjoying "
+"free internet access on more than 6.000 hotspots! Visit <a href='http://www."
+"eduroam.org'>the eduroam homepage</a> for more details."
+msgstr ""
+"eduroam es un consorcio de roaming WiFi global, que permite ofrece a "
+"miembros de la comunidad educativa y de investigación acceso a Internet "
+"<i>gratis</i> en todas las localizaciones del planeta. ¡Ya hay varios "
+"usuarios de eduroam disfrutando de acceso gratuito a Internet en más de "
+"6.000 localizaciones! Visita <a href='http://www.eduroam.org'>la página web "
+"de eduroam</a> para más detalles."
+
+#: web/user/cat_info.php:36
+#, php-format
+msgid ""
+"<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
+"%s administrators enter their %s configuration details and based on them, "
+"<span class='edu_cat'>%s</span> builds customised installers for a number of "
+"popular platforms. An installer prepared for one institution will not work "
+"for users of another one, therefore if your institution is not on the list, "
+"you cannot use this system. Please contact your local administrators and try "
+"to influence them to add your institution configuration to <span "
+"class='edu_cat'>%s</span>."
+msgstr ""
+"<span class='edu_cat'>%s</span> se construye como una plataforma de "
+"colaboración.<p>Los administradores locales de %s introducen los detalles de "
+"configuración %s y basados en estos, <span class='edu_cat'>%s</span> genera "
+"instaladores personalizados para varias plataformas populares. Un instalador "
+"generado para una institución no funcionará para usuarios de otra "
+"institución y, por lo tanto, si tu institución no aparece en la lista, no "
+"puedes usar este sistema. Por favor, contacta con tus administradores e "
+"intenta convencerlos para que añadan la configuración de tu institución a "
+"<span class='edu_cat'>%s</span>."
+
+#: web/user/cat_info.php:43
+#, php-format
+msgid ""
+"The most important need is adding new installer modules, which will "
+"configure particular devices.  CAT is makig this easy for you. If you know "
+"how to create an automatic installer then fitting it into CAT should be a "
+"piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
+"a>, but please also take a look at <a href='%s'>CAT documentation</a>."
+msgstr ""
+"La necesidad más importante en CAT es añadir nuevos módulos de instalador, "
+"que configurarán dispositivos concretos. CAT hace ésto fácil para ti. Si "
+"sabes cómo crear un instalador automático, añadirlo a CAT debería ser muy "
+"sencillo. Deberías comenzar por contactar con nosotros en <a href='mailto:"
+"%s'>%s</a> pero, por favor, échale antes un ojo a <a href='%s'>la "
+"documentación de CAT</a>."
+
+#: web/user/cat_info.php:46
+#, php-format
+msgid ""
+"If you are an end user experiencing a problem with the installation or usage "
+"of the network then please start by reporting it to your local IT support."
+"<p> If you are a CAT network administrator or would like to report a problem "
+"or suggestion about the CAT system as a whole, then contact %s. The language "
+"there is English only."
+msgstr ""
+"Si eres un usuario final teniendo problemas con la instalación o uso de la "
+"red por favor empieza por informar de ello al soporte TIC de tu institución."
+"<p> Si eres una administrador de red en CAT y quieres informar de un "
+"problema o tienes un consejo acerca del sistema CAT en general, entonces "
+"contacta con %s. El idioma a utilizar ahí es únicamente el inglés."
+
+#: web/user/cat_info.php:60
+#, php-format
+msgid ""
+"You must have received an invitation from your national %s operator before "
+"being able to manage your institution. If that is the case, please continue "
+"and log in."
+msgstr ""
+"Debes haber recibido una invitación del operador nacional de %s antes de "
+"poder administrar tu institución. Si ese es el caso, por favor continúa e "
+"inicia sesión."
+
+#: web/user/cat_info.php:62
+msgid "Please authenticate yourself and login"
+msgstr "Por favor, identifícate e inicia sesión"
+
+#: web/user/cat_info.php:63
+msgid "Login"
+msgstr "Inicio de sesión"
+
+#: web/user/faq.php:6
+#, php-format
+msgid "My institution is not listed. Can't I just use any of the other ones?"
+msgstr ""
+"Mi institución no aparece en la lista. ¿No puedo usar el instalador de otra "
+"institución?"
+
+#: web/user/faq.php:7
+#, php-format
+msgid ""
+"No! The installers contain security settings which are specific to the "
+"institution. If you are not from that institution, your computer will detect "
+"that you are about to send your username and credential to an unauthorised "
+"server and will abort the login. Using a different institution installer is "
+"<i>guaranteed to not work</i>!"
+msgstr ""
+"¡No! Los instaladores contienen configuraciones de seguridad específicos de "
+"cada institución. Si no perteneces a esa institución tu ordenador detectará "
+"que vas a enviar tu nombre de usuario y credenciales a un servidor no "
+"autorizado y abortará el inicio de sesión. El usar el instalador de una "
+"institución distinta a la tuya es <i>garantía de que no te funcionará</i>"
+
+#: web/user/faq.php:12
+#, php-format
+msgid "What can I do to get my institution listed?"
+msgstr "¿Qué puedo hacer para que mi institución aparezca?"
+
+#: web/user/faq.php:13
+#, php-format
+msgid ""
+"Contact %s administrators at your home institution and complain. It will "
+"take at most one hour of their time to get things done."
+msgstr ""
+"Contacta a los administradores de %s en tu institución y quéjate. Sólo les "
+"llevará una hora de su tiempo hacer lo necesario para aparecer aquí."
+
+#: web/user/faq.php:18
+#, php-format
+msgid "My device is not listed! Does that mean I can't do %s?"
+msgstr ""
+"¡Mi dispositivo no aparece listado! ¿Eso significa que no podré conectarme a "
+"%s?"
+
+#: web/user/faq.php:19
+#, php-format
+msgid ""
+"No. The CAT tool can only support Operating Systems which can be "
+"automatically configured in some way. Many other devices can still be used "
+"with %s, but must be configured manually. Please contact your %s Identity "
+"Provider to get help in setting up such a device."
+msgstr ""
+"No necesariamente. La utilidad CAT sólo soporta Sistemas Operativos que "
+"pueden configurarse de alguna manera. Muchos otros dispositivos se podrán "
+"seguir utilizando en %s, pero necesitarán ser configurados manualmente. Por "
+"favor, contacta con tu institución %s para que te ayuden a configurar tu "
+"dispositivo."
+
+#: web/user/faq.php:24
+#, php-format
+msgid ""
+"I can connect to %s simply by providing username and password, what is the "
+"point of using an installer?"
+msgstr ""
+"Si puedo conectarme a %s simplemente usando usuario y contraseña, ¿qué gano "
+"usando un instalador?"
+
+#: web/user/faq.php:25
+#, php-format
+msgid ""
+"When you are connecting from an unconfigured device your security is at "
+"risk. The very point of preconfiguration is to set up security, when this is "
+"done, your device will first confirm that it talks to the correct "
+"authentication server and will never send your password to an untrusted one."
+msgstr ""
+"Cuando te conectas desde un dispositivo mal configurado, tu seguridad está "
+"en riesgo. La principal ventaja de configurar bien es la seguridad. Cuando "
+"se utiliza una buena configuración tu dispositivo confirmará siempre que "
+"habla con el servidor de autenticación correcto, y que nunca enviará tus "
+"credenciales a un servidor no confiable."
+
+#: web/user/faq.php:31
+#, php-format
+msgid "What is this eduroam thing anyway?"
+msgstr "¿De qué va esto de eduroam?"
+
+#: web/user/faq.php:38
+#, php-format
+msgid "Is it safe to use %s installers?"
+msgstr "¿Es seguro usar los instaladores de %s?"
+
+#: web/user/faq.php:39
+#, php-format
+msgid ""
+"%s installers configure security settings on your device, therefore you "
+"should be sure that you are using genuine ones."
+msgstr ""
+"Los instaladores %s configuran los parámetros de seguridad en su "
+"dispositivo, por tanto, debería estar seguro de usar instaladores genuinos."
+
+#: web/user/faq.php:39
+#, php-format
+msgid ""
+"This is why %s installers are digitally signed by %s. Watch out for a system "
+"message confirming this."
+msgstr ""
+"Éste es el motivo por el que los instaladores %s están firmados digitalmente "
+"por %s. Comprueba que aparece un mensaje confirmándolo."
+
+#: web/user/faq.php:45
+msgid ""
+"Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
+"commonly downloaded and possibly harmful. Should I be concerned?"
+msgstr ""
+"El filtro SmartScreen de Windows o Internet Explorer me dicen que este "
+"fichero no es descargado habitualmente y que posiblemente podría ser dañino. "
+"¿Debería preocuparme?"
+
+#: web/user/faq.php:46
+msgid ""
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+"Al contrario de lo que el nombre sugiere, SmartScreen no es demasiado "
+"inteligente. Esta advertencia solamente significa que este fichero no ha "
+"sido aún descargado por suficientes usuarios para que Microsoft lo considere "
+"popular (lo cual extrañamente bastaría para considerarlo \"seguro\"). Ese "
+"mensaje por sí sólo no es un problema de seguridad."
+
+#: web/user/faq.php:46
+#, php-format
+msgid ""
+"So long as the file is carrying a valid signature from %s, the download is "
+"safe."
+msgstr ""
+"Siempre que este fichero lleve una firma válida de %s, la descarga es segura."
+
+#: web/user/faq.php:46
+#, php-format
+msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
+msgstr ""
+"Por favor, consulta también la FAQ de Microsoft sobre SmartScreen en %s."
+
+#: web/user/faq.php:52
+#, php-format
+msgid "Why is there no support for Android?"
+msgstr "¿Cómo es que no hay soporte para Android?"
+
+#: web/user/faq.php:53
+#, php-format
+msgid ""
+"%s relies on technologies being available on the target platform - we need "
+"to be able to 'feed' security settings from a configuration file which you "
+"can download. Many Operating Systems like Apple and Microsoft have that "
+"functionality, but for Android no such mechanism exists."
+msgstr ""
+"%s se basa en tecnologías que están disponibles en la plataforma objetivo - "
+"necesitamos \"alimentar\" las configuraciones de seguridad a partir de un "
+"fichero que puedas descargar. Muchos sistemas operativos como los de Apple y "
+"Microsoft disponen de esa funcionalidad, pero Android no dispone de un "
+"mecanismo similar."
+
+#: web/user/faq.php:55
+#, php-format
+msgid ""
+"That is - <i>to our knowledge</i>. If you are a developer with some good "
+"knowledge about Android's APIs, and you know how to do it - please let us "
+"know; we would be delighted!"
+msgstr ""
+"Esto es <i>según lo que sabemos</i>. Si eres un desarrollador con buen "
+"conocimiento de las APIs de Android y sabes cómo hacerlo, por favor, "
+"háznoslo saber. ¡Estaremos encantados!"
+
+#: web/user/faq.php:61
+#, php-format
+msgid ""
+"I can see %s network and my device is configured but it does not connect, "
+"what can be the cause?"
+msgstr ""
+"Puedo ver la red %s y mi dispositivo está configurado, pero no se conecta. "
+"¿Cuál puede ser la causa?"
+
+#: web/user/faq.php:62
+#, php-format
+msgid ""
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; there "
+"may be something wrong with the configuration of the network; your account "
+"may have expired; there may be a connection problem with your home "
+"authentication server; you may have broken the regulations of the network "
+"you are using and have been refused access as a consequence. You should "
+"contact your home institution and report the problem, the administrators "
+"should be able to trace your connections."
+msgstr ""
+"Puede haber distintos motivos. La red que ves puede no ser una red %s "
+"auténtica y que tu dispositivo interrumpa silenciosamente el intento de "
+"conectase. Puede que haya algo incorrecto en la configuración de la red. Tu "
+"cuenta puede haber expirado. Puede haber un problema de conexión con el "
+"servidor de autenticación de tu institución. Puedes haber incumplido las "
+"normas de la red en la que te encuentras y que se deniegue el acceso como "
+"consecuencia. En cualquier caso, deberías contactar con tu institución e "
+"informar el problema, los administradores deberían poder rastrear tus "
+"problemas de conexión."
+
+#: web/user/faq.php:68
+#, php-format
+msgid "I have a question about this web site. Whom should I contact?"
+msgstr "Tengo una pregunta sobre este sitio web. ¿Con quién debo contactar?"
+
+#: web/user/faq.php:69
+#, php-format
+msgid "You should send a mail to %s."
+msgstr "Envía un correo electrónico a %s."
+
+#: web/user/faq.php:92
+msgid "Frequently Asked Questions"
+msgstr "Preguntas Frecuentemente Preguntadas"
+
+#: web/user/tou.php:3
+msgid "Terms of Use"
+msgstr "Términos de uso"
+
+#: web/user/js/cat_js.php:16 web/basic.php:309
+msgid ""
+"This is embarrassing. Generation of your installer failed. System admins "
+"have been notified. We will try to take care of the problem as soon as "
+"possible."
+msgstr ""
+"Esto es embarazoso. La generación de tu instalador ha fallado. Los "
+"administradores del sistema han sido notificados. Trataremos de encargarnos "
+"del problema tan pronto nos sea posible."
+
+#: web/user/js/cat_js.php:35 web/basic.php:195
+msgid "no matching data found"
+msgstr "no se encontraron datos coincidentes"
+
+#: web/user/js/cat_js.php:43
+msgid "Selected institution:"
+msgstr "Institución seleccionada:"
+
+#: web/user/js/cat_js.php:46
+msgid "select"
+msgstr "seleccionar"
+
+#: web/user/js/cat_js.php:158
+msgid "WWW:"
+msgstr "Página web:"
+
+#: web/user/js/cat_js.php:160
+msgid "email:"
+msgstr "correo electrónico:"
+
+#: web/user/js/cat_js.php:162
+msgid "tel:"
+msgstr "teléfono:"
+
+#: web/user/js/cat_js.php:164
+msgid ""
+"If you encounter problems, then you can obtain direct assistance from you "
+"home organisation at:"
+msgstr "Si encuentras problemas, puedes obtener ayuda de tu organización en:"
+
+#: web/user/js/cat_js.php:166 web/basic.php:283 web/basic.php:333
+msgid ""
+"If you encounter problems you should ask for help at your home institution"
+msgstr "Si encuentras problemas deberías pedir ayuda a tu institución"
+
+#: web/user/js/cat_js.php:184
+msgid ""
+"Your site administrator has specified that this device should be configured "
+"with resources located on a local page. When you click <b>Continue</b> this "
+"page will be opened in a new window/tab."
+msgstr ""
+"El administrador para tu organización ha especificado que este dispositivo "
+"debería ser configurado con recursos propios en una página de tu "
+"organización. Cuando hagas click en <b>Continuar</b> la página se abrirá en "
+"una nueva ventana/solapa."
+
+#: web/user/js/cat_js.php:184 web/user/js/cat_js.php:210 web/basic.php:254
+#: web/index.php:212
+msgid "Continue"
+msgstr "Continuar"
+
+#: web/user/js/cat_js.php:196
+msgid ""
+"This device cannot be configured with settings provided by your institution"
+msgstr ""
+"Este dispositivo no puede ser configurado con la configuración proporcionada "
+"por tu institución"
+
+#: web/user/js/cat_js.php:366
+msgid "Home institution"
+msgstr "Institución"
+
+#: web/user/js/cat_js.php:367
+msgid "Select your <strong>institution<\\/strong>"
+msgstr "Selecciona tu <strong>institucion<\\/strong>"
+
+#: web/user/js/cat_js.php:368
+msgid "Help, my institution is not on the list"
+msgstr "Ayuda, mi institución no está en la lista"
+
+#: web/user/js/cat_js.php:369
+#, php-format
+msgid ""
+"This system relies on information supplied by local %s administrators. If "
+"your institution is not on the list, then nag them to add information to the "
+"%s database."
+msgstr ""
+"Este sistema hace uso de la información que han proporcionado los "
+"administradores de %s. Si tu institución no está en la lista, solicítales "
+"que añadan la información a la base de datos de %s."
+
+#: web/user/js/cat_js.php:370
+msgid "Locate me more accurately using HTML5 Geo-Location"
+msgstr "Localízame con mayor fiabilidad usando geolocalización HTML5"
+
+#: web/user/js/cat_js.php:371
+msgid "Show institutions in"
+msgstr "Mostrar instituciones en"
+
+#: web/user/js/cat_js.php:372
+msgid "all countries"
+msgstr "todos los países"
+
+#: web/user/js/cat_js.php:373
+msgid "or search for an institution, in example Univerity of Oslo"
+msgstr "o busca una institución. Por ejemplo, 'Universidad de Sevilla'"
+
+#: web/user/js/cat_js.php:374
+msgid "show all countries"
+msgstr "mostrar todos los países"
+
+#: web/user/js/cat_js.php:375
+msgid "Results limited to"
+msgstr "Resultados limitados a "
+
+#: web/user/js/cat_js.php:376
+msgid "entries - show more"
+msgstr "entradas - mostrar más"
+
+#: web/user/js/cat_js.php:377
+msgid "Nearby"
+msgstr "Próximo"
+
+#: web/user/js/cat_js.php:378
+msgid "Location timeout"
+msgstr "Expirado el tiempo de espera para la localización"
+
+#: web/user/js/cat_js.php:379
+msgid "Could not get your position"
+msgstr "No se pudo determinar tu posición"
+
+#: web/user/js/cat_js.php:380
+msgid "Your browser has denied access to your location"
+msgstr "Tu navegador ha denegado el acceso a tu localización"
+
+#: web/user/js/cat_js.php:381
+msgid "Unknown location error"
+msgstr "Error de localización desconocida"
+
+#: web/user/js/cat_js.php:382
+msgid "You are here:"
+msgstr "Te encuentras aquí:"
+
+#: web/user/js/cat_js.php:383
+msgid "Getting your location..."
+msgstr "Obteniendo tu localización..."
+
+#: web/user/js/cat_js.php:384
+msgid "Nearby providers shown on top."
+msgstr "Los proveedores cercanos se muestran primero."
+
+#: web/user/js/roll.php:122
+msgid "MS Windows"
+msgstr "MS Windows"
+
+#: web/user/js/roll.php:122
+msgid "8, 7, Vista, XP"
+msgstr "8, 7, Vista, XP"
+
+#: web/user/js/roll.php:123
+msgid "Apple OS X"
+msgstr "OS X de Apple"
+
+#: web/user/js/roll.php:123
+msgid "Mountain Lion, Lion"
+msgstr "Mountain Lion, Lion"
+
+#: web/user/js/roll.php:124
+msgid "Apple iOS devices"
+msgstr "Dispositivos iOS de Apple"
+
+#: web/user/js/roll.php:124
+msgid "iPhone, iPad, iPod touch"
+msgstr "iPhone, iPad, iPod touch"
+
+#: web/user/js/roll.php:125
+msgid "Linux"
+msgstr "Linux"
+
+#: web/user/js/roll.php:125
+msgid "all major distributions"
+msgstr "distribuciones principales"
+
+#: web/basic.php:95
+msgid "not available with settings provided by your institution"
+msgstr "no disponible con la configuración proporcionada por tu institución"
+
+#: web/basic.php:100 web/index.php:113
+msgid "View this page in"
+msgstr "Ver esta página en"
+
+#: web/basic.php:117
+msgid "you will be redirected to a local support page"
+msgstr "vas a ser redirigido a una página de soporte de tu institución"
+
+#: web/basic.php:138
+msgid "Your choice"
+msgstr "Tu elección"
+
+#: web/basic.php:203
+msgid "Change country"
+msgstr "Cambiar país"
+
+#: web/basic.php:223
+msgid "Select your institution"
+msgstr "Selecciona tu institución"
+
+#: web/basic.php:239 web/basic.php:241 web/index.php:197
+msgid "Select the user group"
+msgstr "Selecciona el grupo de usuarios"
+
+#: web/basic.php:287 web/index.php:217
+msgid "Choose an installer to download"
+msgstr "Elige el instalador que quieres descargar"
+
+#: web/basic.php:303
+msgid "Profile does not match the institution"
+msgstr "El perfil no coincide con la institución"
+
+#: web/basic.php:323
+msgid "Download installer for"
+msgstr "Descarga el instalador para"
+
+#: web/basic.php:359 web/index.php:258
+#, php-format
+msgid "Release %s"
+msgstr "Versión %s"
+
+#: web/basic.php:361 web/index.php:260
+msgid "Unreleased SVN Revision"
+msgstr "Versión de SVN no publicada"
+
+#: web/index.php:110
+#, php-format
+msgid "Welcome to %s"
+msgstr "Bienvenido a %s"
+
+#: web/index.php:119
+msgid "Start page"
+msgstr "Página de inicio"
+
+#: web/index.php:123
+msgid "Authenticating"
+msgstr "Autenticando"
+
+#: web/index.php:127
+msgid "Close"
+msgstr "Cerrar"
+
+#: web/index.php:138 web/index.php:139
+#, php-format
+msgid "About %s"
+msgstr "Acerca de %s"
+
+#: web/index.php:140
+#, php-format
+msgid "Terms of use"
+msgstr "Términos de uso"
+
+#: web/index.php:141
+#, php-format
+msgid "FAQ"
+msgstr "FAQ"
+
+#: web/index.php:142
+#, php-format
+msgid "Report a problem"
+msgstr "Reportar un problema"
+
+#: web/index.php:143
+#, php-format
+msgid "Become a CAT developer"
+msgstr "Conviértete en desarrollador de CAT"
+
+#: web/index.php:144
+#, php-format
+msgid "%s admin:<br>manage your IdP"
+msgstr "Administrador de %s:<br>administra tu IdP"
+
+#: web/index.php:159
+#, php-format
+msgid "%s installation made easy:"
+msgstr "La instalación de %s hecha fácil:"
+
+#: web/index.php:162
+msgid "Custom built for your home institution"
+msgstr "Paquete construido para tu institución"
+
+#: web/index.php:166
+#, php-format
+msgid "Digitally signed by the organisation that coordinates %s: %s"
+msgstr "Firmando por la organización que coordina %s: %s"
+
+#: web/index.php:178 web/index.php:180
+#, php-format
+msgid "%s user:<br>download your %s installer"
+msgstr "Usuario de %s:<br>descarga tu instalador %s"
+
+#: web/index.php:189
+msgid "select another"
+msgstr "selecciona otra"
+
+#: web/index.php:208
+msgid ""
+"Your local administrator has specified that this user group should be "
+"supported locally.<br>\n"
+"                            When you click <b>Continue</b> this support page "
+"will be opened in a new window/tab."
+msgstr ""
+"El administrador de tu organización ha determinado que este grupo de "
+"usuarios debe recibir soporte localmente.<br>⏎Cuando haga click en "
+"<b>Continuar</b> esta página de soporte se abrirá en una nueva ventana/"
+"pestaña."

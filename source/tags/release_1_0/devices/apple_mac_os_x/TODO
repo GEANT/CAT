@@ -1,0 +1,15 @@
+
+for a 0.9 release 
+  - operating system version detection
+  - check if installer works in previous Mac OS X versions (pre-Snow Leopard)
+  - make it compatible with Mac OS X Lion
+  - Make it able to support EAP-TLS (Tomasz request)
+
+for the upcoming, first-usable, release (a.k.a. 0.2)
+  - on-the-fly installer creation
+  - saving user password requires make the installer ask for user permissions?
+  - branding support
+
+for the first svn committed relase (a.k.a. 0.1)
+  - just Mac OS X profile creation (using part of Stefan code)
+

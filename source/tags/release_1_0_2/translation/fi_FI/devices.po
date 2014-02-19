@@ -1,0 +1,810 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+#   <Jari.Miettinen@csc.fi>, 2012.
+# Jari Miettinen <Jari.Miettinen@csc.fi>, 2013.
+# Tomi Salmi <tomi.salmi@csc.fi>, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-25 09:52+0100\n"
+"PO-Revision-Date: 2013-02-06 13:02+0000\n"
+"Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
+"language/fi_FI/)\n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: devices/apple_mobileconfig/mobileconfig.php:120
+#, php-format
+msgid "Network configuration profile '%s' of '%s' - provided by %s"
+msgstr "Verkkokonfiguraatioprofiili %s, %s - %s:n toimittama"
+
+#: devices/apple_mobileconfig/mobileconfig.php:162
+msgid ""
+"The profile will install itself after you click (or tap) the button. You "
+"will be asked for confirmation/input at several points:"
+msgstr ""
+"Profiilisi asentuu, kun napsautat nappia. Sinulta kysytään varmistus ja "
+"lisätietoja useassa vaiheessa:"
+
+#: devices/apple_mobileconfig/mobileconfig.php:164
+msgid "to install the profile"
+msgstr "asentaaksesi profiilin"
+
+#: devices/apple_mobileconfig/mobileconfig.php:165
+msgid "to accept the server certificate authority"
+msgid_plural "to accept the server certificate authorities"
+msgstr[0] "hyväksyäksesi palvelinvarmenteen myöntäjän"
+msgstr[1] "hyväksyäksesi palvelinvarmenteiden myöntäjät"
+
+#: devices/apple_mobileconfig/mobileconfig.php:167
+#, php-format
+msgid "(%d times)"
+msgstr "(%d kertaa)"
+
+#: devices/apple_mobileconfig/mobileconfig.php:169
+msgid "to enter the username and password of your institution"
+msgstr "antaaksesi kotiorganisaatiosi käyttäjätunnuksen ja salasanan"
+
+#: devices/apple_mobileconfig/mobileconfig.php:171
+#, php-format
+msgid "(%d times each, because %s is installed for %d SSIDs)"
+msgstr "(%d kertaa, koska %s on asennettu %d SSID:lle)"
+
+#: devices/apple_mobileconfig/mobileconfig.php:236
+#, php-format
+msgid "%s configuration for network name %s"
+msgstr "%s konfigurointi verkkonimelle %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:238
+#, php-format
+msgid "SSID %s"
+msgstr "SSID %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:281
+msgid "Your Identity Providers Certification Authority"
+msgstr "Sinun IdP CA"
+
+#: devices/apple_mobileconfig/mobileconfig.php:283
+msgid "Identity Provider's CA"
+msgstr "IdP:n CA"
+
+#: devices/ms/Vista7.php:32 devices/ms/W8.php:33
+msgid ""
+"Anonymous identities do not use the realm as specified in the profile - it "
+"is derived from the suffix of the user's username input instead."
+msgstr ""
+"Anonyymit identiteetit eivät käytä samaa toimialueetta kuin mitä on "
+"määritelty profiilissa - se rakennetaan käyttäjän käyttäjätunnuksen "
+"perusteella."
+
+#: devices/ms/Vista7.php:78 devices/ms/W8.php:78 devices/ms/XP.php:77
+#, php-format
+msgid ""
+"%s installer will be in the form of an EXE file. It will configure %s on "
+"your device, by creating wireless network profiles.<p>When you click the "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"Asennusohjelma %s on EXE-tiedosto. Se konfiguroi %s sinun tietokoneeseesi "
+"tekemällä langattoman verkon käyttöprofiilin.<p>Kun napsautat lataa-nappia, "
+"niin asennusohjelma tallentuu selaimeesi. Kopioii tämä tiedosto siihen "
+"laitteeseen, jonka haluat asentaa ja suorita ohjelma."
+
+#: devices/ms/Vista7.php:82 devices/ms/W8.php:82 devices/ms/XP.php:81
+#: devices/linux/Linux.php:82
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr ""
+"<strong>%s</strong> lisäksi asennusohjelma määrittää pääsyn myös seuraaviin "
+"verkkoihin:"
+
+#: devices/ms/Vista7.php:84 devices/ms/W8.php:84 devices/ms/XP.php:83
+#: devices/linux/Linux.php:84
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to:"
+msgstr "<strong>%s</strong> lisäksi asennusohjelma määrittää pääsyn myös:"
+
+#: devices/ms/Vista7.php:97 devices/ms/W8.php:98
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
+msgstr ""
+"Jotta voit liittyä verkkoon tarvitset henkilövarmenteen p12 tiedostona. "
+"Sinun pitäisi saada tämä varmenne kotiorganisaatiostasi. Tutki tukisivua "
+"selvittäksesi, miten varmenne hankitaan. Varmennetiedostot ovat suojattu "
+"salasanalla. Tarvitset sekä tiedoston että salasanan asennuksen aikana."
+
+#: devices/ms/Vista7.php:99 devices/ms/W8.php:100 devices/ms/XP.php:96
+#: devices/linux/Linux.php:100
+msgid ""
+"In order to connect to the network you will need an account from your home "
+"institution. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
+msgstr ""
+"Jotta voit liittyä verkkoon tarvitse tunnuksen kotiorganisaatiostasi. Tutki "
+"tukisivua selvittääksesi, miten käyttäjätunnus hankitaan. Todennäköisesti "
+"tunnuksesi on jo olemassa."
+
+#: devices/ms/Vista7.php:102 devices/ms/XP.php:98
+msgid ""
+"The installer will also install additional software - SecureW2 EAP Suite "
+"(GNU General Public License).<p>You will be requested to enter your account "
+"credentials into a pop box during the installation. This information will be "
+"saved so that you will reconnect to the network automatically each time you "
+"are in the range."
+msgstr ""
+"Asennusohjelma asentaa myös ohjelman SecureW2 EAP Suite (GNU General Public "
+"Licence). <p>Sinua pyydetään antamaan käyttäjätietosi asennuksen aikana. "
+"Tiedot tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina "
+"kun olet kuuluvuusalueella."
+
+#: devices/ms/Vista7.php:107 devices/ms/W8.php:102
+msgid ""
+"When you are connecting to the network for the first time, Windows will pop "
+"up a login box, where you should enter your user name and password. This "
+"information will be saved so that you will reconnect to the network "
+"automatically each time you are in the range."
+msgstr ""
+"Kun kirjaudut verkkoon ensimmäisen kerran, Windows avaa kirjautumisikkunan, "
+"johon sinun pitää kirjoittaa käyttäjätunnus ja salasana. Tiedot "
+"tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun "
+"olet kuuluvuusalueella."
+
+#: devices/ms/Vista7.php:110 devices/ms/W8.php:105
+msgid ""
+"You will be required to enter the same credentials for each of the "
+"configured notworks:"
+msgstr ""
+"Sinua pyydetään antamaan samat käyttäjätiedot kaikille määritellyille "
+"verkoille:"
+
+#: devices/ms/Vista7.php:384 devices/ms/XP.php:194
+msgid "Login credentials"
+msgstr "Kirjautumisen käyttäjätunnukset"
+
+#: devices/ms/Vista7.php:452 devices/ms/Vista7.php:453 devices/ms/W8.php:350
+#: devices/ms/W8.php:351 devices/ms/XP.php:249 devices/ms/XP.php:250
+#, php-format
+msgid "%s installer for %s"
+msgstr "%s asennusohjelma %s varten"
+
+#: devices/ms/Files/common.inc:112
+#, php-format
+msgid "Welcome to the %s installer"
+msgstr "Tervetuloa %s asennusohjelmaan"
+
+#: devices/ms/Files/common.inc:113 devices/ms/Files/xp/common.inc:109
+msgid "Installation complete"
+msgstr "Asennus on valmis"
+
+#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:110
+msgid "Network profiles have been installed."
+msgstr "Verkkoprofiilit on asennettu."
+
+#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:110
+msgid "Your system is ready."
+msgstr "Järjestelmäsi on valmis."
+
+#: devices/ms/Files/common.inc:115 devices/ms/Files/xp/common.inc:111
+msgid "Network installation had errors."
+msgstr "Verkkoasennuksessa oli virheitä."
+
+#: devices/ms/Files/common.inc:115 devices/ms/Files/common.inc:609
+#: devices/ms/Files/xp/common.inc:111 devices/ms/Files/xp/common.inc:491
+msgid "Please contact ${SUPPORT}."
+msgstr "Ole hyvä ja ota yhteyttä: ${SUPPORT}."
+
+#: devices/ms/Files/common.inc:124 devices/ms/Files/xp/common.inc:120
+msgid "Accept"
+msgstr "Hyväksy"
+
+#: devices/ms/Files/common.inc:125 devices/ms/Files/xp/common.inc:121
+msgid ""
+"If you accept the conditions then select Accept and then click Install to "
+"continue."
+msgstr "Jos hyväksyt ehdot, valitse Hyväksy ja napsauta Asenna jatkaaksesi."
+
+#: devices/ms/Files/common.inc:131 devices/ms/Files/xp/common.inc:127
+msgid "Finish"
+msgstr "Lopeta"
+
+#: devices/ms/Files/common.inc:150
+msgid "searching for certificate"
+msgstr "etsitään varmennetta"
+
+#: devices/ms/Files/common.inc:206 devices/ms/Files/xp/common.inc:142
+msgid "installing certificate"
+msgstr "asennetaan varmennetta"
+
+#: devices/ms/Files/common.inc:210
+msgid "could not install certificate"
+msgstr "varmennetta ei voitu asentaa"
+
+#: devices/ms/Files/common.inc:328
+msgid ""
+"The non TKIP profiles are preferred. Always use them if you have a choice."
+msgstr ""
+"Suositellaan käytettäväksi ei-TKIP-profiileja. Käytä niitä aina, jos "
+"mahdollista."
+
+#: devices/ms/Files/common.inc:330
+msgid "The non TKIP profile is preferred. Always use it if you have a choice."
+msgstr ""
+"Suositellaan käytettäväksi ei-TKIP-profiilia. Käytä sitä aina, jos "
+"mahdollista."
+
+#: devices/ms/Files/common.inc:336 devices/ms/Files/xp/common.inc:244
+#: devices/linux/Linux.php:137
+msgid "This installer has been prepared for ${ORGANISATION}"
+msgstr "Organisaation ${ORGANISATION} asennusohjelma"
+
+#: devices/ms/Files/common.inc:337
+msgid "The installer will create the following wireless profiles:"
+msgstr "Asennusohjelma tekee seuraavat langattoman verkon profiilit:"
+
+#: devices/ms/Files/common.inc:340 devices/ms/Files/xp/common.inc:248
+#: devices/linux/Linux.php:137
+msgid "More information and comments:"
+msgstr "Lisätietoa ja kommentit:"
+
+#: devices/ms/Files/common.inc:365 devices/ms/Files/xp/common.inc:274
+#: devices/linux/Linux.php:138
+msgid "Installer created with software from the GEANT project."
+msgstr "Asennusohjelma on tehty GEANT-projektissa. "
+
+#: devices/ms/Files/common.inc:391
+msgid "This installer works with Windows 8 only"
+msgstr "Tämä asennusohjelma toimii vain Windows 8:ssa"
+
+#: devices/ms/Files/common.inc:400 devices/ms/Files/common.inc:439
+msgid "This installer works with Windows Vista and Windows 7 only"
+msgstr ""
+"Tämä asennusohjelma toimii ainoastaan Windows Vistassa ja Windows 7:ssä."
+
+#: devices/ms/Files/common.inc:455 devices/ms/Files/xp/common.inc:346
+msgid ""
+"Windows wireless configuration service is not enabled. The installer cannot "
+"continue."
+msgstr ""
+"Langattoman verkon määrittelypalvelu ei ole käynnissä Windowsissa. "
+"Asennusohjelma ei voi jatkaa eteenpäin."
+
+#: devices/ms/Files/common.inc:459 devices/ms/Files/xp/common.inc:350
+msgid "No wireless interfaces found. The installer cannot continue."
+msgstr ""
+"Langattomia verkkolaitteita ei löytynyt. Asennusohjelma ei voi jatkaa "
+"eteenpäin."
+
+#: devices/ms/Files/common.inc:467 devices/ms/Files/xp/common.inc:359
+msgid "Profiles installation"
+msgstr "Profiilien asennus"
+
+#: devices/ms/Files/common.inc:472
+msgid "Checking for profile $R1"
+msgstr "Tarkastetaan profiilia $R1"
+
+#: devices/ms/Files/common.inc:479
+msgid "found profile $R1"
+msgstr "profiili $R1 löydetty"
+
+#: devices/ms/Files/common.inc:498
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION} and the user group: ${USER_GROUP}."
+msgstr ""
+"Asennusohjelma toimii oikein vain jos, olet organisaation ${ORGANISATION} "
+"käyttäjä ja kuulut käyttäjäryhmään ${USER_GROUP}."
+
+#: devices/ms/Files/common.inc:498 devices/ms/Files/common.inc:500
+#: devices/ms/Files/xp/common.inc:385 devices/ms/Files/xp/common.inc:387
+msgid "Click OK to continue with installation."
+msgstr "Napsauta OK jatkaaksesi asennusta."
+
+#: devices/ms/Files/common.inc:500
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION}."
+msgstr ""
+"Asennusohjelma toimii oikein vain, jos olet organisaation ${ORGANISATION} "
+"käyttäjä."
+
+#: devices/ms/Files/common.inc:508 devices/ms/Files/xp/common.inc:395
+msgid ""
+"Please read the additional information from your home institution which will "
+"be displayed in a moment."
+msgstr ""
+"Ole hyvä ja lue oman kotiorganisaatiosi lisätiedot, jotka näkyvät hetken "
+"kuluttua."
+
+#: devices/ms/Files/common.inc:533 devices/ms/Files/xp/common.inc:420
+msgid "Restart system now"
+msgstr "Käynnistä järjestelmä nyt uudelleen."
+
+#: devices/ms/Files/common.inc:535 devices/ms/Files/xp/common.inc:422
+msgid "I will restart later"
+msgstr "Uudelleenkäynnistän myöhemmin"
+
+#: devices/ms/Files/common.inc:594 devices/ms/Files/xp/common.inc:482
+msgid "deleting profile $R1"
+msgstr "poistetaan profiili $R1"
+
+#: devices/ms/Files/common.inc:601 devices/ms/Files/xp/common.inc:486
+msgid "installing profile $R1"
+msgstr "asennetaan profiili $R1"
+
+#: devices/ms/Files/common.inc:609 devices/ms/Files/xp/common.inc:491
+msgid "Profile installation error for $R1."
+msgstr "Profiilin $R1 asennusvirhe."
+
+#: devices/ms/Files/common.inc:621
+msgid "installing credentials for profile $R1"
+msgstr "asennetaan käyttäjätiedot profiilille $R1"
+
+#: devices/ms/Files/common.inc:626
+msgid "Credentials installation problem"
+msgstr "Käyttäjätietojen asennusongelma"
+
+#: devices/ms/Files/common.inc:635
+#, php-format
+msgid "%s installer for"
+msgstr "%s asennusohjelma"
+
+#: devices/ms/Files/common.inc:635 devices/ms/Files/xp/common.inc:503
+msgid "Install personal certificate"
+msgstr "asenna henkilövarmenne"
+
+#: devices/ms/Files/common.inc:640 devices/ms/Files/xp/common.inc:508
+msgid "Preparing to install personal certificate."
+msgstr "Valmistaudutaan asentamaan henkilövarmenne."
+
+#: devices/ms/Files/common.inc:640 devices/ms/Files/xp/common.inc:508
+msgid "Click OK to continue"
+msgstr "Napsauta OK jatkaaksesi"
+
+#: devices/ms/Files/common.inc:646 devices/ms/Files/xp/common.inc:514
+msgid "Certificate files (*.p12)"
+msgstr "Varmennetiedostot (*.p12)"
+
+#: devices/ms/Files/common.inc:646 devices/ms/Files/xp/common.inc:514
+msgid "Certificate files (*pfx)"
+msgstr "Varmennetiedostot (*pfx)"
+
+#: devices/ms/Files/common.inc:646
+msgid "All files"
+msgstr "Kaikki tiedostot"
+
+#: devices/ms/Files/common.inc:649 devices/ms/Files/xp/common.inc:517
+msgid "Selected file: $Cert_file"
+msgstr "Valittu tiedosto: $Cert_file"
+
+#: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:519
+msgid "certificate password:"
+msgstr "varmenteen salasana:"
+
+#: devices/ms/Files/common.inc:666 devices/ms/Files/xp/common.inc:531
+msgid "No certificate file selected"
+msgstr "Varmennetiedostoa ei ole valittu"
+
+#: devices/ms/Files/common.inc:678 devices/ms/Files/xp/common.inc:543
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr "Väärä varmenteen salasana$\\r$\\nanna uudelleen"
+
+#: devices/ms/Files/common.inc:688
+msgid "User credentials"
+msgstr "Käyttäjätiedot"
+
+#: devices/ms/Files/common.inc:692
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+#: devices/ms/Files/common.inc:695
+msgid "Password:"
+msgstr "Salasana:"
+
+#: devices/ms/Files/common.inc:698
+msgid "Repeat password:"
+msgstr "Toista salasana:"
+
+#: devices/ms/Files/common.inc:709
+msgid "Missing username"
+msgstr "Käyttäjänimi puuttuu"
+
+#: devices/ms/Files/common.inc:714
+msgid "Missing password"
+msgstr "Salasana puuttuu"
+
+#: devices/ms/Files/common.inc:720
+msgid "Password missmatch"
+msgstr "Salasanat eivät täsmää"
+
+#: devices/ms/Files/common.inc:757
+#, php-format
+msgid ""
+"In order to install/update %s access all selected steps need to be "
+"performed. Click Continue to proceed"
+msgstr ""
+"Asentaaksesi tai päivittääksesi %s kaikki valitut vaiheet tulee suorittaa. "
+"Klikkaa Jatka."
+
+#: devices/ms/Files/common.inc:758 devices/ms/Files/xp/common.inc:565
+msgid ""
+"If an option is not selected by default, then it is either not available or "
+"optional."
+msgstr ""
+"Jos valintaa ei ole tehty oletuksena, se ei ole saatavilla tai vaihtoehtona."
+
+#: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
+msgid "Installation of the personal certificate"
+msgstr "Henkilövarmenteen asennus"
+
+#: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
+msgid "Components installation"
+msgstr "Komponenttien asennus"
+
+#: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
+msgid "Personal certificate"
+msgstr "Henkilövarmenne"
+
+#: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
+#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+msgid "Installation of network profiles"
+msgstr "Verkkoprofiilien asennus"
+
+#: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
+#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+msgid "profiles"
+msgstr "profiilit"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
+#: devices/ms/Files/pwd.inc:12 devices/ms/Files/pwd.inc:34
+#: devices/ms/Files/ttls.inc:7
+msgid "Installation"
+msgstr "Asennus"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
+#: devices/ms/Files/pwd.inc:34 devices/ms/Files/ttls.inc:7
+msgid "Network profiles update"
+msgstr "Verkkoprofiilien päivitys"
+
+#: devices/ms/Files/eap_w8.inc:56 devices/ms/Files/peap_tls.inc:63
+msgid "Information about components"
+msgstr "tietoa komponenteista"
+
+#: devices/ms/Files/pwd.inc:5 devices/ms/Files/ttls.inc:16
+msgid "user profile"
+msgstr "käyttäjäprofiili"
+
+#: devices/ms/Files/pwd.inc:10 devices/ms/Files/ttls.inc:21
+msgid "install program"
+msgstr "asennusohjelma"
+
+#: devices/ms/Files/pwd.inc:25
+msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
+msgstr ""
+"EAP-pwd-asennusvirhe. Ole hyvä ja yritä uudelleen tai ota yhteyttä "
+"käyttötukeen: ${SUPPORT}."
+
+#: devices/ms/Files/ttls.inc:34
+msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
+msgstr ""
+"SecureW2-asennusvirhe. Ole hyvä ja yritä uudelleen tai ota yhteyttä "
+"käyttötukeen: ${SUPPORT}."
+
+#: devices/ms/Files/xp/common.inc:108
+msgid "Welcome to the eduroam installer"
+msgstr "Tervetuloa eduroamin asennusohjelmaan"
+
+#: devices/ms/Files/xp/common.inc:245
+msgid "The installer will create network profile:"
+msgstr "Asennusohjelma tekee seuraavan verkkoprofiilin:"
+
+#: devices/ms/Files/xp/common.inc:247
+msgid ""
+"You will be able to use eduroam in most institutions however due to Windows "
+"XP limitations and differences in network settings at different "
+"institutions, you may be sometimes required to repeat the connection for the "
+"system to reconfigure."
+msgstr ""
+"Voit käyttää eduroamia useimmissa organisaatioissa. Kuitenkin Windows XP:n "
+"rajoitteiden ja verkkomääritysten erojen vuoksi voit joskus joutua tekemään "
+"yhteyden uudelleen, jotta järjestelmä konfiguroituisi oikein."
+
+#: devices/ms/Files/xp/common.inc:334
+msgid "This installer works with Windows XP SP3 only"
+msgstr "Tämä asennusohjelma toimii vain Windows XP SP3:ssa."
+
+#: devices/ms/Files/xp/common.inc:503
+msgid "eduroam installer for"
+msgstr "eduroamin asennusohjelma"
+
+#: devices/ms/Files/xp/common.inc:564
+msgid ""
+"In order to install/update eduroam access all selected steps need to be "
+"performed. Click Continue to proceed"
+msgstr ""
+"Jatkaaksesi eduroamin asennusta tai päivitystä kaikkien tarpeellisten "
+"vaiheiden täytyy olla tehty. Napsauta Jatka jatkaaksesi"
+
+#: devices/linux/Linux.php:78
+msgid ""
+"The installer is in the form of a bash script. It will try to configure "
+"eduroam under Network Manager and if this is either not appropriate for your "
+"system or your version of Network Manager is too old, a wpa_supplicant "
+"config file will be created instead."
+msgstr ""
+"Asennusohjelma on bash-komentojonotiedosto. Se yrittää määritellä eduroamia "
+"Network Manageriin. Jos tämä ei onnistu tai laitteesi Network Manager on "
+"liian vanha, tehdään wpa_supplicant-konfiguraatiotiedosto."
+
+#: devices/linux/Linux.php:96
+msgid ""
+"The installer will create .eduroam sub-directory in your home directory and "
+"will copy your server certificates there."
+msgstr ""
+"Asennusohjelma luo .eduroam-alihakemiston kotihakemistoosi ja kopioi sinne "
+"palvelinvarmenteen."
+
+#: devices/linux/Linux.php:98
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .eduroam directory."
+msgstr ""
+"Jotta voisit liittyä verkkoon tarvitset henkilövarmenteen p12-tiedostossa. "
+"Saat varmenteen kotiorganisaatiostasi. Tutki tukisivua, miten saat "
+"varmenteen haltuusi. Varmennetiedostot ovat salasanasuojattuja. Tarvitset "
+"sekä tiedoston että salasanan asennuksen aikana. Toimittamasi p12-tiedosto "
+"kopioidaan .eduroam-hakemistoon."
+
+#: devices/linux/Linux.php:102
+msgid ""
+"You will be requested to enter your account credentials during the "
+"installation. This information will be saved so that you will reconnect to "
+"the network automatically each time you are in the range."
+msgstr ""
+"Sinua pyydetään antamaan käyttäjätietosi asennuksen aikana. Tiedot "
+"tallennetaan, jotta pääset kirjautumaan verkkoon automaattisesti aina kun "
+"olet kuuluvuusalueella."
+
+#: devices/linux/Linux.php:111
+#, php-format
+msgid "Directory %s exists; some of its files may be overwritten."
+msgstr "Hakemisto %s on olemassa; jotkut sen tiedostoista ylikirjoitetaan."
+
+#: devices/linux/Linux.php:111 devices/linux/Linux.php:125
+#: devices/linux/Linux.php:149 devices/linux/Linux.php:165
+msgid "Continue"
+msgstr "Jatka"
+
+#: devices/linux/Linux.php:121
+msgid "Installation successful"
+msgstr "Asennus onnistui"
+
+#: devices/linux/Linux.php:123
+msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
+msgstr ""
+"Network Managerin määritys epäonnistui, luodaan wpa_supplicant.conf-tiedosto"
+
+#: devices/linux/Linux.php:125
+#, php-format
+msgid "File %s exists; it will be overwritten."
+msgstr "Tiedosto %s on jo olemassa; se ylikirjoitetaan."
+
+#: devices/linux/Linux.php:129
+#, php-format
+msgid "Output written to %s"
+msgstr "Tulostus kirjoitettiin tiedostoon %s"
+
+#: devices/linux/Linux.php:146
+#, php-format
+msgid ""
+"This installer will only work properly if you are a member of %s and the "
+"user group: %s."
+msgstr ""
+"Asennusohjelma toimii oikein, jos kotiorganisaatiosi on %s ja kuulut "
+"käyttäjäryhmään: %s."
+
+#: devices/linux/Linux.php:148
+#, php-format
+msgid "This installer will only work properly if you are a member of %s."
+msgstr "Asennusohjelma toimii oikein, jos kotiorganisaatiosi on %s."
+
+#: devices/linux/Linux.php:245
+msgid "Y"
+msgstr "K"
+
+#: devices/linux/Linux.php:246
+msgid "N"
+msgstr "E"
+
+#: devices/linux/Linux.php:301 devices/linux/Linux.php:306
+msgid "Really quit?"
+msgstr "Haluatko varmasti lopettaa?"
+
+#: devices/linux/Linux.php:359
+msgid "enter your userid"
+msgstr "käyttäjätunnus"
+
+#: devices/linux/Linux.php:365
+msgid "enter your password"
+msgstr "salasana"
+
+#: devices/linux/Linux.php:368
+msgid "repeat your password"
+msgstr "toista salasana"
+
+#: devices/linux/Linux.php:372
+msgid "passwords do not match"
+msgstr "salasanat eroavat toisistaan"
+
+#: devices/linux/Linux.php:430 devices/linux/Linux.php:434
+#: devices/linux/Linux.php:446
+msgid "personal certificate file (p12 or pfx)"
+msgstr "henkilövarmennetiedosto (p12 tai pfx)"
+
+#: devices/linux/Linux.php:455
+msgid "file not found"
+msgstr "tiedostoa ei löytynyt"
+
+#: devices/linux/Linux.php:465 devices/linux/Linux.php:468
+msgid "enter the password for the certificate file"
+msgstr "varmennetiedoston salasana"
+
+#: devices/test_module/TestModule.php:121
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Tämä asennusohjelma on esimerkki. Ohjelma tekee .zip-tiedoston, jossa on IdP-"
+"varmenteet, lisätiedot ja logo (jos IdP:n ylläpitäjä on määritellyt ne) sekä "
+"kopio olemassaolevista attribuuteista."
+
+#. / welcomletter: header of document
+#: devices/welcomeletter/welcomeletter.php:84
+msgid "Welcome Letter"
+msgstr "Tervetuliaskirje"
+
+#. / welcomletter: footer
+#: devices/welcomeletter/welcomeletter.php:86
+msgid "eduroam® - supporting academic mobility since 2003"
+msgstr "eduroam® - tukemassa akateemista liikkuvuutta vuodesta 2003"
+
+#. / welcomeletter: the headline (bold, large)
+#: devices/welcomeletter/welcomeletter.php:88
+msgid "Welcome aboard the eduroam® user community!"
+msgstr "Tervetuloa mukaan eduroam®-yhteisöön!"
+
+#. / welcomeletter: initial greeting
+#: devices/welcomeletter/welcomeletter.php:90
+#, php-format
+msgid "Dear user from %s,"
+msgstr "Hyvä %s käyttäjä,"
+
+#. / welcomeletter: sales pitch paragraph :-)
+#: devices/welcomeletter/welcomeletter.php:92
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"lämpimästi tervetuloa miljoonien eduroam®-käyttäjien joukkoon! Tästä "
+"eteenpäin voit käyttää tuhansien yliopistojen, tutkimuskeskusten ja muiden "
+"organisaatioiden internet-yhteyspalveluja ilmaiseksi kaikkialla maailmassa."
+
+#. / welcomeletter: log in now paragraph
+#: devices/welcomeletter/welcomeletter.php:94
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Nyt kun olet ladannut ja asentanut asennusohjelman sinun tarvitsee enää "
+"etsiä lähin eduroam®-hotspot ja kirjautua verkkon (antamalla "
+"käyttäjätunnuksesi ja salasanasi tai käyttämällä henkilövarmennetta) - näin "
+"olet verkossa!"
+
+#. / welcomeletter: explain support procedure
+#: devices/welcomeletter/welcomeletter.php:96
+#, php-format
+msgid ""
+"Should you have any problems using this service, please always contact the "
+"helpdesk of %s. They will diagnose the problem and help you out. You can "
+"reach them via the means below:"
+msgstr ""
+"Jos sinulla on käyttöongelmia, ota yhteyttä kotiorganisaatiosi %s "
+"ylläpitoon. He tutkivat ongelman ja antavat apua. Saat yhteyden seuraavalla "
+"tavalla:"
+
+#. / welcomeletter: explain manual config
+#: devices/welcomeletter/welcomeletter.php:98
+msgid ""
+"If you ever need to configure a different device for eduroam manually, you "
+"will need the configuration information for your institution. We have "
+"summarised this information in the appendix on page 2 for you."
+msgstr ""
+"Jos sinun tarvitsee konfiguroida toinen laite eduroam-käyttöön käsin, "
+"tarvitset tähän asennusohjeet kotiorganisaatiostasi. Nämä tiedot on kerätty "
+"liitteeseen 2 sinua varten."
+
+#. / welcomeletter: have fun
+#: devices/welcomeletter/welcomeletter.php:100
+msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
+msgstr ""
+"Toivottavasti sinulle on paljon iloa eduroam®-hotspoteista kaikkialla "
+"maailmassa."
+
+#. / welcomeletter: title of the big boss
+#: devices/welcomeletter/welcomeletter.php:102
+msgid "Chairman of the Global eduroam® Governance Committee"
+msgstr "Maailmanlaajuisen eduroam® Hallintokomitean Puheenjohtaja"
+
+#. / welcomeletter: header: appendix with config info
+#: devices/welcomeletter/welcomeletter.php:104
+msgid "Appendix: Configuration Information"
+msgstr "Liite: "
+
+#. / welcomeletter: header: appendix with config info
+#: devices/welcomeletter/welcomeletter.php:106
+#, php-format
+msgid ""
+"Use the information below to configure your devices manually. Please keep in "
+"mind that these settings are only valid for users of profile '%s' from %s – "
+"they are different for everyone else, and there is no use sharing them with "
+"other people."
+msgstr ""
+"Käytä seuraavia tietoja, jos haluat konfiguroida laitteen käsin. Muista, "
+"että nämä asetukset soveltuvat vain profiilille %s, organisaatiosta %s. "
+"Muiden käyttäjien profiilit ovat erilaisia ja niitä ei voi jakaa toisten "
+"kanssa."
+
+#: devices/welcomeletter/welcomeletter.php:110
+msgid "E-Mail:"
+msgstr "email:"
+
+#: devices/welcomeletter/welcomeletter.php:114
+msgid "Special EAP Type support URL:"
+msgstr "Erityisen EAP-tyypin tuki-URL:"
+
+#: devices/welcomeletter/welcomeletter.php:118
+msgid "Phone:"
+msgstr "Puhelinnumero:"
+
+#: devices/welcomeletter/welcomeletter.php:122
+msgid "Web:"
+msgstr "WWW:"
+
+#: devices/welcomeletter/welcomeletter.php:129
+msgid "Server Name:"
+msgstr "Palvelimen nimi:"
+
+#: devices/welcomeletter/welcomeletter.php:162
+msgid ""
+"This button creates a personalised welcome letter from eduroam Operations "
+"for you. The file is in OpenDocument format (ODT); you can open it e.g. with "
+"LibreOffice."
+msgstr ""
+"Tämä nappi luo personoidun tervetuliaiskirjeen eduroam Ylläpidolta. Tiedosto "
+"on OpenDocument-tyyppinen (ODT); sen voi avata esimerkiksi LibreOffice-"
+"ohjelmalla."

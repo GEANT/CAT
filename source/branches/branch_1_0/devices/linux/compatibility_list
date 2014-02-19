@@ -1,0 +1,51 @@
+These distributions have been tested and NM was successfuly configured:
+In most cases LiveCD were tested for PEAP installation
+Not all LiveCDs run at the user level therefore some isues may have been
+overlooked.
+
+Centos 6.2
+Debian 6.0.4 GNOME, KDE
+Dreamlinux 5.0
+Fedora 16
+Fedora 17
+Mandriva 2011  (the connection procedure is not entirely strighforward)
+Mint 9 - LTE (LXDE,FLUXBOX, KDE, GNOME,Xfce)
+Mint 13 (Cinamon, Mate, Xfce)
+OpenSuse 12.1 GNOME, KDE
+OpenSuse 12.2 Milestone 3 GNOME, KDE
+OpenSuse 12.2 KDE
+Sabayon 9 (GNOME, Xfce, KDE)
+Ultimate Edition 3.4
+Ubuntu 9.4
+Ubuntu 12.04 LTE 
+Ubuntu 12.10
+Zorun OS 6 Core
+
+Failed
+Gentoo 12.0 - network management based on wicd
+gNewSense 2.3  - network manager in pre 0.8 version
+MEPIS 8.5 - network manager in pre 0.8 version
+NimbleX-2010-Beta - network management based on wicd
+Slax 6.1.2 - NM - unknown problem
+Zenwalk 6.4  - network management based on wicd
+SliTaz 4.0 - no bash available on live CD
+Porteus 1.2 - no Python on live CD
+Mageia 2 - proprietary network manager
+
+
+Distro Watch major distributions
+Mint 13               -  yes
+Ubuntu 12.04          -  yes 
+fedora 17             -  yes
+Debian 6.0            -  yes
+openSUSE 12.1         -  yes
+ArchLinux 2011.08.19  -  no (no bash on live)
+PCLinuxOS 2012.02     -  no (based on Drak)
+CentOS 6.2            -  yes
+Mageia 2              -  no (based on Drak)
+Slackware 13.37       -  not tested but live distros like Salix, Zewnwalk use wicd,
+                         while Kongoni workes with a sudo.
+
+
+
+

@@ -1,0 +1,2429 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# José Manuel Macías, 2012
+# lgstoguj <jorge.tomas@ehu.es>, 2013
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-05 13:15+0100\n"
+"PO-Revision-Date: 2013-11-20 10:57+0000\n"
+"Last-Translator: lgstoguj <jorge.tomas@ehu.es>\n"
+"Language-Team: Basque (Spain) (http://www.transifex.com/projects/p/cat/"
+"language/eu_ES/)\n"
+"Language: eu_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: web/admin/action_enrollment.php:41
+msgid "Error creating new IdP binding!"
+msgstr "Errorea, IdParekin lotura berria sortzean "
+
+#: web/admin/action_enrollment.php:45
+msgid ""
+"Sorry... this token has already been used to create an institution. If you "
+"got it from a mailing list, probably someone else used it before you."
+msgstr ""
+"Sentitzen dut… gonbidapen hau dagoeneko erabili da erakunde bat sortzeko. "
+"Posta-zerrenda batetik jaso bazenuen, ziur asko, beste norbaitek erabili du "
+"zure aurretik. "
+
+#: web/admin/action_enrollment.php:47
+msgid ""
+"Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
+"Please ask your federation administrator for a new one."
+msgstr ""
+"Sentitzen dut… gonbidapen hau iraungi egin da. Gonbidapenak 24 orduan baino "
+"ez dira baliagarriak. Mesedez, eskatu beste bat zure federazioko "
+"administratzaileari. "
+
+#: web/admin/action_enrollment.php:49
+msgid ""
+"Sorry... you have come to the enrollment page without a valid token. Are you "
+"a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"profile page</a> instead."
+msgstr ""
+"Sentitzen dut… baliozko gonbidapenik gabe iritsi zara izena emateko "
+"orrialdera. Azpijokoan al zabiltza? Hala ez bada, <ahref='overview_user."
+"php'> -(e)ra joan beharko zenuke, zure </a> profil-orrialdera. "
+
+#: web/admin/action_realmcheck.php:20
+msgid "eduPKI"
+msgstr "eduPKI"
+
+#: web/admin/action_realmcheck.php:21
+msgid "non eduPKI, but accredited"
+msgstr "ez eduPKI, baina egiaztatua "
+
+#: web/admin/action_realmcheck.php:22
+msgid "Nicolaus Copernicus University"
+msgstr "Nicolaus Copernicus Unibertsitatea "
+
+#: web/admin/action_realmcheck.php:23
+msgid "accredited"
+msgstr "egiaztatua"
+
+#: web/admin/action_realmcheck.php:24
+msgid "non-accredited"
+msgstr "egiaztatu gabea"
+
+#: web/admin/action_realmcheck.php:25
+msgid "correct certificate"
+msgstr "egiaztagiri zuzena"
+
+#: web/admin/action_realmcheck.php:26
+msgid "certificate with wrong policy OID"
+msgstr "OID politika okerreko egiaztagiria"
+
+#: web/admin/action_realmcheck.php:27
+msgid "expired certificate"
+msgstr "egiaztagiria iraungi egin da"
+
+#: web/admin/action_realmcheck.php:28
+msgid "revoked certificate"
+msgstr "baliogabetutako egiaztagiria"
+
+#: web/admin/action_realmcheck.php:29
+msgid "pass"
+msgstr "pasatu"
+
+#: web/admin/action_realmcheck.php:30
+msgid "fail"
+msgstr "akatsa"
+
+#: web/admin/action_realmcheck.php:31
+msgid "eduroam-accredited CA (now only for tests)"
+msgstr "eduroamerako egiaztatutako CA (probetarako baino ez)"
+
+#: web/admin/action_realmcheck.php:37 web/admin/action_realmcheck.php:320
+#: web/admin/inc/credentialcheck.php:65
+msgid "This check is not configured."
+msgstr "Egiaztapena ez dago konfiguratuta."
+
+#: web/admin/action_realmcheck.php:42
+#, php-format
+msgid "This realm has %d NAPTR records, "
+msgstr "Domeinu honek %d NAPTR erregistro ditu."
+
+#: web/admin/action_realmcheck.php:50
+#, php-format
+msgid "out of which %d are %s NAPTR records."
+msgstr "horietatik %d, hain zuzen, NAPTR %s erregistroak dira."
+
+#: web/admin/action_realmcheck.php:53
+#, php-format
+msgid "but none are %s NAPTR records."
+msgstr "baina ez dago NAPTR %s erregistro bakar bat ere."
+
+#: web/admin/action_realmcheck.php:57
+msgid "There are no NAPTR records for this realm."
+msgstr "Ez dago NAPTR erregistrorik domeinu honetarako."
+
+#: web/admin/action_realmcheck.php:65
+msgid "Checking NAPTR format compliance: flag = S and regex = (empty) ..."
+msgstr ""
+"NAPTR formatuarekiko adostasuna egiaztatzen: flag = S eta regex = "
+"(hutsik) ... "
+
+#: web/admin/action_realmcheck.php:69
+msgid ""
+"<strong>Error:</strong> eduroam discovery profile only supports 'S' type "
+"NAPTRs."
+msgstr ""
+"<strong>Errorea:</strong> eduroamen  aurkikuntza-profilak 'S' motako NAPTRak "
+"baino ez ditu onartzen."
+
+#: web/admin/action_realmcheck.php:74
+msgid ""
+"<strong>Error:</strong> eduroam discovery profile only supports NAPTRs with "
+"empty regex."
+msgstr ""
+"<strong>Errorea:</strong> eduroamen aurkikuntza-profilak  adierazpen "
+"erregular hutseko NAPTRak baino ez ditu onartzen."
+
+#: web/admin/action_realmcheck.php:87
+msgid "Trying to resolve the SRVs into host names ... "
+msgstr "Host izenetan SRV erregistroak ebazten saiatzen... "
+
+#: web/admin/action_realmcheck.php:94
+#, php-format
+msgid "<strong>Error:</strong> SRV entry %s could not be resolved!"
+msgstr "<strong>Errorea:</strong> SRV %s sarrera ezin da ebatzi!"
+
+#: web/admin/action_realmcheck.php:100
+#, php-format
+msgid "%d host names discovered."
+msgstr "ebatzitako %d host izen."
+
+#: web/admin/action_realmcheck.php:114
+#, php-format
+msgid "<strong>Error:</strong> Host name %s could not be resolved!"
+msgstr "<strong>Errorea:</strong> %s host izena ezin da ebatzi!"
+
+#: web/admin/action_realmcheck.php:124
+#, php-format
+msgid "%d IP addresses discovered."
+msgstr "aurkitutako %d IP helbide."
+
+#: web/admin/action_realmcheck.php:165
+msgid "Sanity check for dynamic discovery of realms"
+msgstr "Domeinuen aurkikuntza dinamikorako baliagarritasunaren egiaztapena."
+
+#: web/admin/action_realmcheck.php:173
+msgid "more"
+msgstr "gehiago"
+
+#: web/admin/action_realmcheck.php:175 web/admin/action_realmcheck.php:365
+msgid "Show detailed information for all tests"
+msgstr "Proba guztietarako informazio zehatza erakutsi"
+
+#: web/admin/action_realmcheck.php:176
+msgid "Hide detailed information for all tests"
+msgstr "Proba guztietarako informazio zehatza ezkutatu"
+
+#: web/admin/action_realmcheck.php:252
+msgid ""
+"You asked for a realm check, but we don't know the realm for this profile!"
+msgstr ""
+"Domeinu-egiaztapen bat eskatu zenuen, baina ez dakigu zein den profil "
+"honetarako domeinua!"
+
+#: web/admin/action_realmcheck.php:260 web/admin/action_realmcheck.php:264
+msgid "No valid realm name given, cannot execute any checks!"
+msgstr ""
+"Ez da inolako domeinu baliagarririk adierazi; beraz, ezin da azterketarik "
+"egin!"
+
+#: web/admin/action_realmcheck.php:268
+msgid "STATIC"
+msgstr "ESTATIKOA"
+
+#: web/admin/action_realmcheck.php:269
+msgid "DYNAMIC"
+msgstr "DINAMIKOA"
+
+#: web/admin/action_realmcheck.php:273
+#, php-format
+msgid "Checking realm %s"
+msgstr "%s domeinua egiaztatzen"
+
+#: web/admin/action_realmcheck.php:277
+msgid "DNS checks"
+msgstr "DNS azterketak"
+
+#: web/admin/action_realmcheck.php:284
+msgid "Skipping further discovery checks because of previous errors!"
+msgstr ""
+"Lehenagoko erroreak direla tarteko, aurkikuntza-azterketa gehiago egitea "
+"saihesten!"
+
+#: web/admin/action_realmcheck.php:294 web/admin/action_realmcheck.php:296
+#, php-format
+msgid "Realm is <strong>%s</strong> "
+msgstr "<strong>%s</strong> da domeinua"
+
+#: web/admin/action_realmcheck.php:294
+msgid "with no DNS errors encountered. Congratulations!"
+msgstr "ez da inolako DNS errorerik aurkitu. Zorionak!"
+
+#: web/admin/action_realmcheck.php:296
+msgid "but there were DNS errors! Check them!"
+msgstr "baina DNS erroreak aurkitu dira! Begiratu itzazu!"
+
+#: web/admin/action_realmcheck.php:314
+msgid "STATIC connectivity tests"
+msgstr "Konektibitateari buruzko estatistika-probak"
+
+#: web/admin/action_realmcheck.php:318
+#, php-format
+msgid ""
+"This check sends a request for the realm through various entry points of the "
+"%s infrastructure. The request will contain the 'Operator-Name' attribute, "
+"and will be larger than 1500 Bytes to catch two common configuration "
+"problems.<br/>Since we don't have actual credentials for the realm, we can't "
+"authenticate successfully - so the expected outcome is to get an Access-"
+"Reject after having gone through an EAP conversation."
+msgstr ""
+"Egiaztapen honek eskaera bat bidaliko dio zure domeinuari, %s azpiegiturako "
+"hainbat sarrera-punturen bitartez. Eskaerak, hain zuzen, 'Operator-Name' "
+"ezaugarria dauka eta 1500 byte baino handiagoa izango da, ohiko bi "
+"konfigurazio-arazo egiaztatzen ahalegintzeko.<br />Zure domeinuan konturik "
+"ez dugunez, ezin dugu gure burua benetakotzat egiaztatu - beraz, EAP "
+"elkarrizketa bat izan ondoren, Access-Reject bat eskuratzea da espero "
+"duguna. "
+
+#: web/admin/action_realmcheck.php:322
+#, php-format
+msgid "Checking from <strong>%s</strong>: "
+msgstr "<strong>%s</strong> -(e)tik egiaztatzen:"
+
+#: web/admin/action_realmcheck.php:330 web/admin/action_realmcheck.php:380
+#: web/admin/action_realmcheck.php:469
+#, php-format
+msgid "elapsed time: %d"
+msgstr "Igarotako denbora: %d "
+
+#: web/admin/action_realmcheck.php:338
+#, php-format
+msgid ""
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
+"but it did not finish after %d seconds!"
+msgstr ""
+"<strong>Probak HUTS EGIN DU </strong>: noranzko biko RADIUS elkarrizketa bat "
+"izan da, baina %d segundoren ostean, ez da amaitu! "
+
+#: web/admin/action_realmcheck.php:340
+#, php-format
+msgid ""
+"<strong>Test FAILED</strong>: no reply from the RADIUS server after %s "
+"seconds. Either the responsible server is down, or routing is broken!"
+msgstr ""
+"<strong>Probak HUTS EGIN DU </strong>: %s segundoren ostean, RADIUS "
+"zerbitzaritik ez da erantzunik jaso. Edo zerbitzaria gaizki dabil edo "
+"routinga apurtuta dago!"
+
+#: web/admin/action_realmcheck.php:344
+msgid ""
+"<strong>Test FAILED</strong>: the request was rejected immediately, without "
+"EAP conversation! Either the responsible server is down, or routing is "
+"broken!"
+msgstr ""
+"<strong>Probak HUTS EGIN DU </strong>: eskaerari berehala egin zaio uko, "
+"inolako EAP elkarrizketarik egin gabe! Edo zerbitzaria gaizki dabil edo "
+"routinga apurtuta dago! "
+
+#: web/admin/action_realmcheck.php:346
+msgid ""
+"<strong>Test FAILED</strong>: the request was rejected immediately, without "
+"EAP conversation. This is not necessarily an error: if the RADIUS server "
+"enforces that outer identities correspond to an existing username, then this "
+"result is expected. In all other cases, the server appears misconfigured."
+msgstr ""
+"<strong>Probak HUTS EGIN DU</strong>: eskaerari berehala egin zaio uko, "
+"inolako EAP elkarrizketarik egin gabe. Hau ez da errore bat izan behar "
+"derrigor: RADIUS zerbitzariak behartzen badu bat etortzera kanpoko "
+"identitateak eta dagoen erabiltzaile bat, orduan emaitza hau itxarotekoa da. "
+"Beste kasu guztietan, zerbitzaria gaizki konfiguratuta dagoela ematen du."
+
+#: web/admin/action_realmcheck.php:348
+msgid ""
+"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
+"multiple round-trips was carried out, and ended in an Access-Reject as "
+"planned."
+msgstr ""
+"<strong>Proba ondo joan da</strong>: RADIUS elkarrizketa bat gauzatu da, "
+"joan-etorriko bidaia ugarirekin, eta espero bezala, Access-Reject batekin "
+"amaitu da. "
+
+#: web/admin/action_realmcheck.php:351
+#, php-format
+msgid ""
+"<strong>Strange</strong>: there is a packet count mismatch. Maybe bad "
+"connectivity and retransmits? I had %d Access-Requests, %d Access-Challenges "
+"and %d Access-Rejects."
+msgstr ""
+"<strong>Arraroa</strong>: sorten kontuan bat-etortze akats bat gertatu da. "
+"Konektibitate edo emanaldi kaskarrak, beharbada? %d Access-Request, %d "
+"Access-Challenge eta %d Access-Reject lortu dira. "
+
+#: web/admin/action_realmcheck.php:360
+msgid "DYNAMIC connectivity tests"
+msgstr "Aurkikuntza DINAMIKORAKO probak"
+
+#: web/admin/action_realmcheck.php:366
+msgid "Checking server handshake..."
+msgstr "Zerbitzariarekiko handshakea egiaztatzen... "
+
+#: web/admin/action_realmcheck.php:369 web/admin/action_realmcheck.php:450
+msgid ""
+"Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
+"this time."
+msgstr ""
+"OpenSSLren mugak direla tarteko, une honetan, ezin dira IPv6 helbideak "
+"egiaztatu. "
+
+#: web/admin/action_realmcheck.php:384
+msgid ""
+"<strong>ERROR</strong>: the server presented a certificate which is from an "
+"unknown authority!"
+msgstr ""
+"<strong>ERROREA</strong>: baimen ezezaguneko egiaztagiri bat aurkeztu du "
+"zerbitzariak! "
+
+#: web/admin/action_realmcheck.php:389
+msgid "Completed."
+msgstr "Osatua."
+
+#: web/admin/action_realmcheck.php:394
+msgid "Server certificate"
+msgstr "Zerbitzari-egiaztagiria "
+
+#: web/admin/action_realmcheck.php:396
+msgid "Subject"
+msgstr "Gaia "
+
+#: web/admin/action_realmcheck.php:397
+msgid "Issuer"
+msgstr "Igorlea "
+
+#: web/admin/action_realmcheck.php:399
+msgid "SubjectAltName"
+msgstr "Gai alternatiboa (SubjectAltName)"
+
+#: web/admin/action_realmcheck.php:403
+msgid "Certificate policies"
+msgstr "Egiaztatze-politikak "
+
+#: web/admin/action_realmcheck.php:408
+msgid "crlDistributionPoints"
+msgstr "crlDistributionPoints "
+
+#: web/admin/action_realmcheck.php:411
+msgid "authorityInfoAccess"
+msgstr "authorityInfoAccess"
+
+#: web/admin/action_realmcheck.php:419
+msgid "Checking if certificates from  CAs are accepted..."
+msgstr "CAen egiaztagiriak onartzen ote diren egiaztatzen... "
+
+#: web/admin/action_realmcheck.php:420
+msgid ""
+"A few client certificates will be tested to check if servers are resistant "
+"to some certificate problems."
+msgstr ""
+"Bezero-egiaztagiri batzuk egiaztatuko dira, egiaztagiri-arazo batzuk jasaten "
+"ote dituzten aztertzeko. "
+
+#: web/admin/action_realmcheck.php:446
+msgid "Tests skipped because of previous errors."
+msgstr ""
+"Aldez aurretiko errore batzuengatik, bertan behera geratu dira probak. "
+
+#: web/admin/action_realmcheck.php:458
+msgid "Client certificate from"
+msgstr "Honako honen bezero-egiaztagiria: "
+
+#: web/admin/action_realmcheck.php:465
+msgid "expected result: "
+msgstr "espero den emaitza:"
+
+#: web/admin/action_realmcheck.php:478
+msgid "certificate expired"
+msgstr "egiaztagiria iraungi egin da "
+
+#: web/admin/action_realmcheck.php:480
+msgid "certificate was revoked"
+msgstr "egiaztagiri baliogabetua "
+
+#: web/admin/action_realmcheck.php:482
+msgid "bad policy"
+msgstr "politika kaskarra "
+
+#: web/admin/action_realmcheck.php:484
+msgid "unknown authority"
+msgstr "baimen ezezaguna "
+
+#: web/admin/action_realmcheck.php:487
+msgid "unknown authority or no certificate policy or another problem"
+msgstr ""
+"baimen ezezaguna, ez dago egiaztagiri-politikarik edo bestelako arazoren bat "
+
+#: web/admin/action_realmcheck.php:491
+msgid "Server accepted this client certificate"
+msgstr "Zerbitzariak onartu du bezero-egiaztagiria "
+
+#: web/admin/action_realmcheck.php:494
+msgid "You should update your list of accredited CAs"
+msgstr "Eguneratu egin beharko zenuke egiaztatutako zure CAen zerrenda "
+
+#: web/admin/action_realmcheck.php:496
+msgid "from here"
+msgstr "hemendik"
+
+#: web/admin/action_realmcheck.php:498
+msgid "Server did not accept this client certificate - reason"
+msgstr "Zerbitzariak ez du onartu bezero-egiaztagiri hau - arrazoia "
+
+#: web/admin/action_realmcheck.php:505
+msgid "Server accepted this client certificate, but should not have"
+msgstr ""
+"Zerbitzariak onartu du bezero-egiaztagiri hau, baina ez luke onartu behar "
+
+#: web/admin/action_realmcheck.php:509 web/admin/action_realmcheck.php:513
+msgid "Server did not accept this client certificate"
+msgstr "Zerbitzariak ez du onartu bezero-egiaztagiri hau"
+
+#: web/admin/action_realmcheck.php:518
+msgid "Rest of tests for this CA skipped"
+msgstr "CA honetarako gainerako probak baztertu egin dira"
+
+#: web/admin/action_realmcheck.php:530
+msgid "Some errors were found during the tests, see below"
+msgstr "Probak egin bitartean, hainbat errore bilatu dira, ikusi beheraxeago"
+
+#: web/admin/action_realmcheck.php:532
+msgid "All tests passed, congratulations!"
+msgstr "Proba guztiak gainditu dira, zorionak!"
+
+#: web/admin/action_realmcheck.php:547
+msgid "Live login test"
+msgstr "Benetakotzat egiaztatzeko azterketa "
+
+#: web/admin/action_realmcheck.php:551
+msgid ""
+"If you enter an existing login credential here, you can test the actual "
+"authentication from various checkpoints all over the world."
+msgstr ""
+"Egon badauden sinestamendu batzuk sartzen badituzu hemen, munduko hainbat "
+"puntutatik egiaztatu ahal izango duzu benetakoak diren."
+
+#: web/admin/action_realmcheck.php:552
+msgid ""
+"The test will use all EAP types you have set in your profile information to "
+"check whether the right CAs and server names are used, and of course whether "
+"the login with these credentials and the given EAP type actually worked. If "
+"you have set anonymous outer ID, the test will use that."
+msgstr ""
+"Azterketak, hain zuzen, bere profileko informazioan definitu dituzun EAP "
+"mota guztiak erabiliko ditu, egiaztatze-baimenak eta zerbitzari-izenak "
+"erabiltzen direla egiaztatzeko, eta baita emandako EAP motarekin eta "
+"sinestamenduekin benetakotzat egiaztatzeak funtzionatzen duela ikusteko ere. "
+"Kanpoko nortasun anonimo bat definitu bazenuen, azterketak horixe erabiliko "
+"du. "
+
+#: web/admin/action_realmcheck.php:553
+msgid ""
+"Note: the tool purposefully does not offer you to save these credentials, "
+"and they will never be saved in any way on the server side. Please use only "
+"<strong>temporary test accounts</strong> here; permanently valid test "
+"accounts in the wild are considered harmful!"
+msgstr ""
+"Oharra: tresnak ez du ematen sinestamenduak gordetzeko aukerarik, eta "
+"zerbitzarian ere ez dira gordeko. Mesedez, erabili soilik hemen <strong>aldi "
+"baterako proba-kontuak</strong>; behin betiko proba-kontuak kaltegarriak "
+"izan daitezke!"
+
+#: web/admin/action_realmcheck.php:555
+msgid "For all EAP types"
+msgstr "EAP mota guztiak "
+
+#: web/admin/action_realmcheck.php:556
+msgid "Username:"
+msgstr "Erabiltzaile-izena: "
+
+#: web/admin/action_realmcheck.php:564
+msgid "Password-based EAP types"
+msgstr "Pasahitzean oinarritutako EAP motak "
+
+#: web/admin/action_realmcheck.php:565
+msgid "Password:"
+msgstr "Pasahitza:"
+
+#: web/admin/action_realmcheck.php:568
+msgid "Certificate-based EAP types"
+msgstr "TEgiaztagirietan oinarritutako EAP motak "
+
+#: web/admin/action_realmcheck.php:569
+msgid "Certificate file:"
+msgstr "Egiaztagiriaren fitxategia: "
+
+#: web/admin/action_realmcheck.php:570
+msgid "Private key, if any:"
+msgstr "Gako pribatua, baldin badago: "
+
+#: web/admin/action_realmcheck.php:571
+msgid "Submit credentials"
+msgstr "Sinestamenduak bidali "
+
+#: web/admin/action_realmcheck.php:580 web/admin/overview_installers.php:154
+msgid "Return to dashboard"
+msgstr "Itzuli aginte-panelera"
+
+#: web/admin/edit_idp.php:33
+#, php-format
+msgid "%s: IdP enrollment wizard (step 2)"
+msgstr "%s: IdP konfiguratzeko morroia (2. pausoa) "
+
+#: web/admin/edit_idp.php:35
+#, php-format
+msgid "%s: Editing IdP '%s'"
+msgstr "%s: '%s' IdP editatzen"
+
+#: web/admin/edit_idp.php:76
+msgid "Step 2: General Information about your IdP"
+msgstr "2. pausoa: Zure IdPari buruzko informazio orokorra "
+
+#: web/admin/edit_idp.php:78
+#, php-format
+msgid "Editing IdP information for '%s'"
+msgstr "'%s' -(e)rako IdPari buruzko informazioa editatzen"
+
+#: web/admin/edit_idp.php:82
+msgid "General Institution Properties"
+msgstr "Erakundearen propietate orokorrak "
+
+#: web/admin/edit_idp.php:85 web/admin/edit_profile.php:169
+msgid "Country:"
+msgstr "Herrialdea: "
+
+#: web/admin/edit_idp.php:101
+msgid ""
+"Hello, newcomer. Your institution is new to us. This wizard will ask you "
+"several questions about your IdP, so that we can generate beautiful profiles "
+"for you in the end. All of the information below is optional, but it is "
+"important to fill out as many fields as possible for the benefit of your end "
+"users."
+msgstr ""
+"Kaixo, iritsi berria zaren hori. Zure erakundea berria da guretzat. Morroi "
+"honek zure IdPari buruzko hainbat galdera egingo dizkizu, eta azkenean, "
+"profil eder batzuk sortuko dira zuretzat. Beheragoko informazio guztia "
+"aukerakoa da, baina garrantzitsua da ahalik eta eremu gehien betetzea, zure "
+"azken erabiltzaileen mesedetan. "
+
+#: web/admin/edit_idp.php:104
+msgid "General Information"
+msgstr "Informazio orokorra "
+
+#: web/admin/edit_idp.php:108
+msgid ""
+"This is the place where you can describe your institution in a fine-grained "
+"way. The solicited information is used as follows:"
+msgstr ""
+"Hementxe deskribatu dezakezu zure erakundea modu zehatzagoan. Eskatutako "
+"informazioa era honetan erabiliko da: "
+
+#: web/admin/edit_idp.php:110
+msgid ""
+"<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
+"all installers where a custom logo is possible. We accept any image format, "
+"but for best results, we suggest SVG. If you don't upload a logo, we will "
+"use the generic logo instead (see top-right corner of this page)."
+msgstr ""
+"strong>Logotipoa</strong>: logotipo bat emanez gero, logotipo pertsonalizatu "
+"bat jartzea posible den toki guztietan jarriko dugu. Zeinahi irudi-formatu "
+"onartuko dugu, baina emaitza hobeak lortzearren, SVG erabiltzea iradokitzen "
+"dizugu. Logotiporik igotzen ez baduzu, eduroamen logotipo orokorra erabiliko "
+"dugu (ikusi orrialde honetako goiko eskuineko aldea). "
+
+#: web/admin/edit_idp.php:111
+msgid ""
+"<strong>Terms of Use</strong>: Some installers support displaying text to "
+"the user during installation time. If so, we will make that happen if you "
+"upload an RTF file or plain text file to display."
+msgstr ""
+"strong>Erabilera-baldintzak</strong>: Instalatzaile batzuek, instalazioak "
+"iraun bitartean, testu bat erakusteko aukera dute. Hala bada, testu hori "
+"erakutsiko dugu, baldin eta RTF dokumentu bat edo testu lau bat igotzen "
+"baduzu. "
+
+#: web/admin/edit_idp.php:114
+msgid "Additional SSIDs:"
+msgstr "SSID gehigarriak: "
+
+#: web/admin/edit_idp.php:114
+msgid "SSIDs:"
+msgstr "SSIDak: "
+
+#: web/admin/edit_idp.php:120
+#, php-format
+msgid "We will always configure this SSID for WPA2/AES: %s."
+msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
+msgstr[0] "SSID beti konfiguratuko dugu WPA2/AES -(e)rako: %s. "
+msgstr[1] "SSID beti konfiguratuko dugu WPA2/AES -(e)rako: %s. "
+
+#: web/admin/edit_idp.php:122
+msgid ""
+"They will also be configured for WPA/TKIP if the device supports multiple "
+"encryption types."
+msgstr ""
+"WPA/TKIP kodetzerako ere konfiguratuko dira, baldin eta gailuak hainbat "
+"kodetze mota onartzen baditu. "
+
+#: web/admin/edit_idp.php:123
+#, php-format
+msgid ""
+"It is also possible to define custom additional SSIDs with the options '%s' "
+"and '%s' below."
+msgstr ""
+"Era berean, beheragoko '%s' eta '%s' aukerekin, SSID bereki gehigarri bat "
+"ere definitu daiteke. "
+
+#: web/admin/edit_idp.php:125
+msgid "Please configure which SSIDs should be configured in the installers."
+msgstr ""
+"Mesedez, konfiguratu zer SSID konfiguratu beharko liratekeen "
+"instalatzaileetan. "
+
+#: web/admin/edit_idp.php:127
+msgid ""
+"By default, we will only configure the SSIDs with WPA2/AES encryption. By "
+"using the '(with WPA/TKIP)' option you can specify that we should include "
+"legacy support for WPA/TKIP where possible."
+msgstr ""
+"Lehenetsita, WPA2/AES kodetzea duten SSIDak baino ez ditugu konfiguratuko. "
+"'(WPA/TKIP-rekin)' aukera erabilita, zehaztu dezakezu WPA/TKIPerako "
+"euskarria ere gehitzeko, horretarako aukera dagoenean. "
+
+#: web/admin/edit_idp.php:137 web/admin/edit_idp.php:164
+#: web/admin/edit_idp.php:177 web/admin/edit_profile.php:228
+#: web/admin/edit_profile.php:434 web/admin/edit_profile.php:465
+#: web/admin/edit_user.php:46 web/admin/inc/toggleRedirect.inc.php:105
+msgid "Add new option"
+msgstr "Beste aukera bat gehitu "
+
+#: web/admin/edit_idp.php:150
+msgid "Helpdesk Details for all users"
+msgstr ""
+"Helpdesk-i (erabiltzailearen arretarako zerbitzua) buruzko zehaztasunak, "
+"erabiltzaile guztientzat"
+
+#: web/admin/edit_idp.php:154
+msgid ""
+"If your IdP provides a helpdesk for its users, it would be nice if you would "
+"tell us the pointers to this helpdesk. Some site installers might be able to "
+"signal this information to the user if he gets stuck."
+msgstr ""
+"Zure IdPak erabiltzailearen arretarako zerbitzu bat eskaintzen badie "
+"erabiltzaileei, ondo legoke horri buruzko zehaztasunak ematea. Instalatzaile "
+"batzuek informazio horren berri eman ahal izango diote erabiltzaileari, "
+"akatsen bat hautemanez gero. "
+
+#: web/admin/edit_idp.php:156
+msgid ""
+"If you enter a value here, it will be added to the site installers for all "
+"your users, and will be displayed on the download page. If you operate "
+"separate helpdesks for different user groups (we call this 'profiles'), or "
+"operate no help desk at all (shame on you!), you can also leave any of these "
+"fields empty and optionally specify per-profile helpdesk information later "
+"in this wizard."
+msgstr ""
+"Hemen balioren bat sartzen baduzu, erabiltzaile guztien instalatzaileetan "
+"gehituko da, eta deskargen orrialdean erakutsiko da. Hainbat erabiltzaile-"
+"talderentzat (‘profil’ deituko diegu) erabiltzaileen arretarako zerbitzu bat "
+"eskaintzen baduzu edo ez baduzu horrelako zerbitzurik eskaintzen (lotsa eman "
+"beharko lizuke!), hutsik utzi dezakezu eremu horietakoren bat, eta nahi "
+"izanez gero, aurrerago, morroi honetan, profil bakoitzarentzat "
+"erabiltzailearen arretarako zerbitzu bat zehaztu."
+
+#: web/admin/edit_idp.php:166
+msgid "EAP details for all users"
+msgstr "EAP zehaztasunak, erabiltzaile guztientzat "
+
+#: web/admin/edit_idp.php:169
+msgid ""
+"Most EAP methods need server-side authentication details, like the CA "
+"certificate and/or server name(s) of your authentication servers. If all the "
+"EAP methods you support work with the same CA and or Common Names of "
+"servers, you can enter them here and they will be added as trust anchors in "
+"all profiles. If the details differ per profile or per EAP-type, you can "
+"also enter them in the individual profiles later."
+msgstr ""
+"Metodo gehienek zerbitzariaren zehaztasunak behar dituzte; esate baterako, "
+"egiaztagiria sinatzen duen CA edo benetakotzat egiaztatzen duen/duten "
+"zerbitzarien izena(k). Onartutako EAP metodo guztiek CA edo/eta zerbitzarien "
+"Common Name berberarekin funtzionatzen badute, hemen sartu ditzakezu, eta "
+"konfiantzazko finkagailu bezala gehituko dira profil guztietan. Eta "
+"zehaztasunak profilagatik edo EAP motagatik desberdintzen badira, banaka-"
+"banaka sartu ahal izango dituzu profil bakoitzean, gerora. "
+
+#: web/admin/edit_idp.php:170
+#, php-format
+msgid ""
+"<strong>Note well: </strong>The server-side validation is a cornerstone of "
+"%s; without it, users are subject to man-in-the-middle attacks! We will not "
+"generate site installers without Trusted CA anchors and server names."
+msgstr ""
+"<strong>Ohar garrantzitsua: </strong> Zerbitzariaren alboko baliozkotzea "
+"giltzarria da %s -(e)n; hura gabe, erabiltzaileek man-in-the-middle erasoa "
+"jasan dezakete! Ondorioz, ez dira sortuko instalatzaileak, CAren eta "
+"zerbitzari-izenaren daturik gabe. "
+
+#: web/admin/edit_idp.php:181
+#, php-format
+msgid ""
+"When you are sure that everything is correct, please click on %sContinue ..."
+"%s"
+msgstr ""
+"Ziur zaudenean dena zuzen dagoela, mesedez, sakatu %sJarraitu ...%s aukera"
+
+#: web/admin/edit_idp.php:183 web/admin/edit_profile.php:470
+#: web/admin/edit_user.php:51 web/admin/inc/toggleRedirect.inc.php:108
+msgid "Save data"
+msgstr "Datuak gorde Guardar datos"
+
+#: web/admin/edit_idp.php:183 web/admin/edit_profile.php:470
+#: web/admin/edit_user.php:54
+msgid "Discard changes"
+msgstr "Aldaketak baztertu "
+
+#: web/admin/edit_idp_result.php:30
+#, php-format
+msgid "IdP enrollment wizard (step 2 completed)"
+msgstr "IdP izena emateko morroia (2. pausoa osatuta)"
+
+#: web/admin/edit_idp_result.php:41
+#, php-format
+msgid "Submitted attributes for IdP '%s'"
+msgstr "'%s' IdPrako bidalitako ezaugarriak"
+
+#: web/admin/edit_idp_result.php:62 web/admin/edit_idp_result.php:69
+msgid "(WPA2/AES and WPA/TKIP)"
+msgstr "(WPA2/AES eta WPA/TKIP)"
+
+#: web/admin/edit_idp_result.php:62 web/admin/edit_idp_result.php:73
+msgid "(WPA2/AES)"
+msgstr "(WPA2/AES)"
+
+#: web/admin/edit_idp_result.php:81
+#, php-format
+msgid "Your installers will configure the following SSID: <strong>%s</strong>"
+msgid_plural ""
+"Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgstr[0] ""
+"Zure instalatzaileek hurrengo SSIDa konfiguratuko dute: <strong>%s</strong>"
+msgstr[1] ""
+"Zure instalatzaileek hurrengo SSIDak konfiguratuko dituzte: <strong>%s</"
+"strong>"
+
+#: web/admin/edit_idp_result.php:81
+msgid "SSID configured"
+msgid_plural "SSIDs configured"
+msgstr[0] "Konfiguratutako SSIDa"
+msgstr[1] "Konfiguratutako SSIDak"
+
+#: web/admin/edit_idp_result.php:83
+msgid ""
+"We cannot generate installers unless you configure at least one SSID to use!"
+msgstr ""
+"Ezin dugu instalatzailerik sortu ez baduzu konfiguratzen SSID bat gutxienez!"
+
+#: web/admin/edit_idp_result.php:93 web/admin/edit_profile_result.php:163
+msgid "Continue to dashboard"
+msgstr "Joan aginte-panelera"
+
+#: web/admin/edit_idp_result.php:95
+msgid "Continue to profile definition"
+msgstr "Jarraitu, profil-definiziora "
+
+#: web/admin/edit_profile.php:21
+#, php-format
+msgid "%s: IdP Enrollment Wizard (Step 3)"
+msgstr "%s: IdP izena emateko morroia (3. pausoa) "
+
+#: web/admin/edit_profile.php:159
+msgid "Step 3: Defining a user group profile"
+msgstr "3. pausoa: Erabiltzaile-taldearen profila definitzen"
+
+#: web/admin/edit_profile.php:161
+#, php-format
+msgid "Edit profile '%s' ..."
+msgstr "'%s' profila editatzen ... "
+
+#: web/admin/edit_profile.php:165 web/admin/overview_idp.php:41
+msgid "General Institution Details"
+msgstr "Erakundearen zehaztasun orokorrak"
+
+#: web/admin/edit_profile.php:184 web/admin/overview_idp.php:59
+msgid "Global Helpdesk Details"
+msgstr "Helpdesken aukera orokorrak"
+
+#: web/admin/edit_profile.php:188 web/admin/overview_idp.php:65
+msgid "Global EAP Options"
+msgstr "EAP aukera orokorrak"
+
+#: web/admin/edit_profile.php:197
+msgid "General Profile properties"
+msgstr "Profilaren propietate orokorrak "
+
+#: web/admin/edit_profile.php:201
+msgid ""
+"We will now define a profile for your user group(s).  You can add as many "
+"profiles as you like by choosing the appropriate button on the end of the "
+"page. After we are done, the wizard is finished and you will be taken to the "
+"main IdP administration page."
+msgstr ""
+"Orain, zure erabiltzaile-taldearentzat/taldeentzat profil bat definituko "
+"dugu. Nahi beste profil gehitu ditzakezu, orrialdearen amaieran botoi egokia "
+"aukeratuta. Amaitutakoan, morroiak ere lana bukatuta izango du, eta IdParen "
+"administrazio-orri nagusira bideratuko zaitu. "
+
+#: web/admin/edit_profile.php:203
+msgid "Profile Name and RADIUS realm"
+msgstr "Profil-izena eta RADIUS domeinua"
+
+#: web/admin/edit_profile.php:206
+msgid ""
+"First of all we need a name for the profile. This will be displayed to end "
+"users, so you may want to choose a descriptive name like 'Professors', "
+"'Students of the Faculty of Bioscience', etc."
+msgstr ""
+"Lehenik eta behin, izen bat behar dugu profilarentzat. Azken erabiltzaileei "
+"izen horren berri emango zaie. Beraz, ahal izanez gero, izen deskribatzaile "
+"bat erabili daiteke; esaterako, ‘Irakasleak’, ‘Biologia Fakultateko "
+"ikasleak’, etab. "
+
+#: web/admin/edit_profile.php:207
+msgid ""
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
+"the user has selected the profile name in the list."
+msgstr ""
+"Nahi izanez gero, testu deskribatzaile luzeago bat jar dezakezu, profila "
+"norentzat den adierazteko. Hala eginez gero, behin erabiltzaileak zerrendako "
+"izena aukeratzen duenean, deskarga-orrian ikusi ahal izango da testua. "
+
+#: web/admin/edit_profile.php:208
+msgid "You can also tell us your RADIUS realm. "
+msgstr "Zure RADIUS domeinua zein den esan diezagukezu. "
+
+#: web/admin/edit_profile.php:210
+#, php-format
+msgid ""
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
+msgstr ""
+"Hori erabilgarria da, baldin eta gero, %s azpiegituran zure domeinuak duen "
+"irisgarritasuna neurtzeko azterketa-modulua baliatu nahi baduzu. "
+
+#: web/admin/edit_profile.php:211
+msgid ""
+"It is required to enter the realm name if you want to support anonymous "
+"outer identities (see below)."
+msgstr ""
+"Kanpoko nortasun anonimoak onartzea nahi baduzu (ikusi beheraxeago), "
+"ezinbestekoa da domeinuaren izena jakinaraztea. "
+
+#: web/admin/edit_profile.php:236
+msgid "Realm:"
+msgstr "Domeinua: "
+
+#: web/admin/edit_profile.php:256
+msgid "Anonymity Support"
+msgstr "Anonimotasun-euskarria"
+
+#: web/admin/edit_profile.php:260
+#, php-format
+msgid ""
+"Some installers support a feature called 'Anonymous outer identity'. If you "
+"don't know what this is, please read <a href='%s'>this article</a>. Do you "
+"want us to generate installers with anonymous outer identities where "
+"available? You need to fill out the 'Realm' field above for this to work."
+msgstr ""
+"Instalatzaile batzuek 'Kanpoko nortasun anonimoa' izeneko ezaugarri bat "
+"onartzen dute. Mesedez, zer den ez badakizu, irakurri <a href='%s'>artikulu "
+"hau</a>. Aukera dagoenean, nahi al duzu kanpoko nortasun anonimoa duten "
+"instalatzaileak sortzea? Honek funtziona dezan, gorago aipatutako 'Domeinua' "
+"eremua bete beharko duzu. "
+
+#: web/admin/edit_profile.php:260
+#, php-format
+msgid ""
+"If you enable this feature, we will by default use the anonymous id "
+"'anonymous@realm' in the device configurations. You can optionally change "
+"that by typing in the local anonymisation part in the text field."
+msgstr ""
+"Ezaugarri horiek prestatzen badituzu, gailuen konfigurazioetan, "
+"'anonymous@realm' nortasun anonimoa erabiliko dugu, lehenetsita. Baina alda "
+"dezakezu, testu-eremuaren tokiko zatian idatzita. "
+
+#: web/admin/edit_profile.php:265
+msgid "Enable Anonymous Outer Identity:"
+msgstr "Kanpoko nortasun anonimoa prestatu: "
+
+#: web/admin/edit_profile.php:276
+msgid "Installer Download Location"
+msgstr "Instalatzailearen deskarga-lokalizazioa "
+
+#: web/admin/edit_profile.php:280
+msgid ""
+"The CAT has a download area for end users. There, they will, for example, "
+"learn about the support pointers you entered earlier. The CAT can also "
+"immediately offer the installers for the profile for download. If you don't "
+"want that, you can instead enter a web site location where you want your "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
+"on the dashboard)."
+msgstr ""
+"CAT tresnak deskarga-eremu bat dauka erabiltzaileentzat. Bertan, zure "
+"erabiltzaileek, besteak beste, arestian aipatutako euskarri-argibideak "
+"ezagutzeko aukera izango dute. CATek, era berean, profilerako "
+"instalatzaileen berehalako deskarga eskaini dezake. Hori nahi izan ezean, "
+"web-helbide bat sar dezakezu, zure erabiltzaileak berriz bideratzeko. "
+"Administratzailea zarenez, beti deskargatu ahal izango dituzu profilak, "
+"orrialde horretan jartzeko (ikusi Aginte-paneleko 'Bateragarritasun-"
+"matrizea' botoia). "
+
+#: web/admin/edit_profile.php:285
+msgid "Redirect end users to own web page:"
+msgstr "Azken erabiltzaileak webgune berekira berriz bideratzea: "
+
+#: web/admin/edit_profile.php:298
+msgid "Supported EAP types"
+msgstr "Onartutako EAP motak "
+
+#: web/admin/edit_profile.php:301
+msgid ""
+"Now, we need to know which EAP types your IdP supports. If you support "
+"multiple EAP types, you can assign every type a priority (1=highest). This "
+"tool will always generate an automatic installer for the EAP type with the "
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
+msgstr ""
+"Orain, zure IdPak zer-nolako EAP motak onartzen dituen jakin behar dugu. EAP "
+"mota ugari onartzen baditu, bakoitzari lehentasun-maila bat eman diezaiokezu "
+"(gehienez, 1). Tresna horrek instalatzaile automatikoa sortuko du beti "
+"gehieneko lehentasunezkoentzat; baina erabiltzailearen gailuak ezin badu EAP "
+"mota hori erabili, eta soilik orduan, zerrendan beheragokoa den EAP bat "
+"erabiliko da. "
+
+#: web/admin/edit_profile.php:324
+msgid "EAP options inherited from Global level:"
+msgstr "Maila orokorretik jasotako EAP aukerak: "
+
+#. / option count and enumeration
+#. / Example: "(3x) Server Name"
+#: web/admin/edit_profile.php:328
+#, php-format
+msgid "(%dx) %s"
+msgstr "(%dx) %s"
+
+#: web/admin/edit_profile.php:356
+msgid "Supported EAP types for this profile"
+msgstr "Profil honetarako onartutako EAP motak "
+
+#: web/admin/edit_profile.php:370
+msgid ""
+"Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
+"(green) area. Prioritisation is done automatically, depending on where you "
+"\"drop\" the method."
+msgstr ""
+"Arrastatu EAP metodoak eta jaregin onartutako metodoen eremuan (berdean). "
+"Lehentasunak automatikoki ezarriko dira, emandako ordenaren arabera. "
+
+#: web/admin/edit_profile.php:378
+msgid "Unsupported EAP types"
+msgstr "Onartzen ez diren EAP motak "
+
+#: web/admin/edit_profile.php:405
+msgid "Helpdesk Details for this profile"
+msgstr ""
+"Erabiltzaileen arretarako zerbitzuari buruzko zehaztasunak, profil honetarako"
+
+#: web/admin/edit_profile.php:418 web/admin/edit_profile.php:449
+#, php-format
+msgid ""
+"The option %s is already defined IdP-wide. If you set it here on profile "
+"level, this setting will override the IdP-wide one."
+msgid_plural ""
+"The options %s are already defined IdP-wide. If you set them here on profile "
+"level, these settings will override the IdP-wide ones."
+msgstr[0] ""
+"%s aukera dagoeneko definituta dago IdP osoarentzat. Profil honen arabera "
+"konfiguratzen baduzu, IdParen balio orokorrak gainetik idatziko dira. "
+msgstr[1] ""
+"%s aukerak dagoeneko definituta daude IdP osoarentzat. Profil honen arabera "
+"konfiguratzen badituzu, IdParen balio orokorrak gainetik idatziko dira. "
+
+#: web/admin/edit_profile.php:437
+msgid "EAP Details for this profile"
+msgstr "EAP zehaztasunak, profil honetarako "
+
+#: web/admin/edit_profile.php:469
+msgid ""
+"When you are sure that everything is correct, please click on 'Save data' "
+"and you will be taken to your IdP Dashboard page."
+msgstr ""
+"Dena ondo dagoela ziur zaudenean, egin klik ‘Gorde datuak' botoian, eta "
+"IdParen aginte-panelera bideratuko zaitu. "
+
+#: web/admin/edit_profile_result.php:32
+#, php-format
+msgid "%s: Profile wizard (step 3 completed)"
+msgstr "%s: Profilen morroia (3. pausoa amaituta) "
+
+#: web/admin/edit_profile_result.php:89
+msgid "Darn! Could not get a proper profile handle!"
+msgstr "Arraioa! Ez du lortzen profil-kudeatzaile egokirik! "
+
+#: web/admin/edit_profile_result.php:94
+msgid "Submitted attributes for this profile"
+msgstr "Profil honetarako bidalitako ezaugarriak "
+
+#: web/admin/edit_profile_result.php:100
+#, php-format
+msgid "Realm: <strong>%s</strong>"
+msgstr "Domeinua: <strong>%s</strong> "
+
+#: web/admin/edit_profile_result.php:107
+msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
+msgstr "Ezin dira aktibatu kanpoko nortasun anonimoak: domeinua falta da! "
+
+#: web/admin/edit_profile_result.php:110
+#, php-format
+msgid ""
+"Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
+"identity is <strong>%s</strong>"
+msgstr ""
+"Nortasun anonimoaren euskarria <strong>%s</strong> da eta kanpoko nortasun "
+"anonimoa <strong>%s</strong> da."
+
+#: web/admin/edit_profile_result.php:110
+msgid "ON"
+msgstr "ON"
+
+#: web/admin/edit_profile_result.php:114
+#, php-format
+msgid "Anonymous Identity support is <strong>%s</strong>"
+msgstr "Nortasun anonimoaren euskarria <strong>%s</strong> -(e)n dago"
+
+#: web/admin/edit_profile_result.php:114
+msgid "OFF"
+msgstr "OFF"
+
+#: web/admin/edit_profile_result.php:123
+msgid "Redirection can't be activated - you did not specify a target location!"
+msgstr "Jarraitu, eta joan hurrengo profilera"
+
+#: web/admin/edit_profile_result.php:129
+msgid "Redirection is <strong>OFF</strong>"
+msgstr "Berriz bideratzeko modua <strong>INDARGABETUTA</strong> dago"
+
+#: web/admin/edit_profile_result.php:146
+msgid "Supported EAP Type: "
+msgstr "Onartutako EAP mota: "
+
+#: web/admin/edit_profile_result.php:152
+#, php-format
+msgid ""
+"Supported EAP Type: <strong>%s</strong> is missing required information %s !"
+msgstr ""
+"Onartutako EAP motari <strong>%s</strong> beharrezko %s informazioa falta "
+"zaio! "
+
+#: web/admin/edit_profile_result.php:152
+msgid ""
+"The EAP type was added to the profile, but you need to complete the missing "
+"information before we can produce installers for you."
+msgstr ""
+"EAP mota profilari gehitu zaio, baina falta den informazioa bete behar duzu, "
+"zuretzako instalatzaileak sortu ditzagun. "
+
+#: web/admin/edit_profile_result.php:168
+msgid "Continue to Installer Fine-Tuning and Download"
+msgstr "Jarraitu, eta joan instalatzailearen doikuntzetara eta deskargara "
+
+#: web/admin/edit_user.php:19 web/admin/edit_user.php:27
+msgid "Editing User Attributes"
+msgstr "Erabiltzaileren ezaugarriak editatzen "
+
+#: web/admin/edit_user.php:31
+msgid "Current User Attributes"
+msgstr "Erabiltzaileren ezaugarriak editatzen "
+
+#: web/admin/edit_user.php:40
+msgid "Your attributes"
+msgstr "Zure ezaugarriak "
+
+#: web/admin/edit_user_result.php:18
+msgid "User Attributes - Summary of submitted data"
+msgstr "Erabiltzaile-ezaugarriak - Bidalitako datuen laburpena "
+
+#: web/admin/edit_user_result.php:26
+msgid ""
+"The page was called with insufficient data. Please report this as an error."
+msgstr ""
+"Orrialde hau behar baino datu gutxiagorekin eskatu da. Mesedez, jaso ezazu "
+"errore moduan. "
+
+#: web/admin/edit_user_result.php:32
+msgid "Submitted attributes"
+msgstr "Bidalitako ezaugarriak "
+
+#: web/admin/edit_user_result.php:54
+msgid "Continue to user overview page"
+msgstr "Jarraitu, eta joan erabiltzailearen ikuspegi orokorreko orrialdera"
+
+#: web/admin/overview_federation.php:21
+#, php-format
+msgid "%s: Federation Management"
+msgstr "%s: Federazioaren administrazioa "
+
+#: web/admin/overview_federation.php:31
+msgid "Federation Overview"
+msgstr "Federazioaren ikuspegi orokorra"
+
+#: web/admin/overview_federation.php:34 web/admin/overview_user.php:39
+msgid "Your Personal Information"
+msgstr "Zure informazio pertsonala"
+
+#: web/admin/overview_federation.php:39 web/admin/overview_user.php:44
+msgid "Unique Identifier"
+msgstr "Identifikatzaile bakarra "
+
+#: web/admin/overview_federation.php:44 web/admin/overview_user.php:49
+msgid "click to display"
+msgstr "egin klik, erakusteko "
+
+#: web/admin/overview_federation.php:54
+msgid "You are not a federation manager."
+msgstr "Ez zara federazioko managerra. "
+
+#: web/admin/overview_federation.php:65
+#, php-format
+msgid "Federation Statistics: %s"
+msgstr "Federazio estatistikak: %s"
+
+#: web/admin/overview_federation.php:69
+msgid "IdPs Total"
+msgstr "IdPs Guztira"
+
+#: web/admin/overview_federation.php:69
+msgid "Public Download"
+msgstr "Deskarga publikoak"
+
+#: web/admin/overview_federation.php:72
+msgid "Downloads"
+msgstr "Deskargak"
+
+#: web/admin/overview_federation.php:72
+msgid "Admin"
+msgstr "Administratzailea"
+
+#: web/admin/overview_federation.php:72
+msgid "User"
+msgstr "Erabiltzailea"
+
+#: web/admin/overview_federation.php:88 web/admin/inc/manageAdmins.inc.php:89
+msgid "The invitation email was sent successfully."
+msgstr "Gonbidapen-mezua ondo bidali da."
+
+#: web/admin/overview_federation.php:88 web/admin/inc/manageAdmins.inc.php:89
+msgid "The invitation email was sent."
+msgstr "Gonbidapen-mezua bidali da. "
+
+#: web/admin/overview_federation.php:90 web/admin/inc/manageAdmins.inc.php:91
+#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:107
+msgid "The invitation email could not be sent!"
+msgstr "Gonbidapen-mezua ezin izan da bidali!"
+
+#: web/admin/overview_federation.php:92 web/admin/inc/manageAdmins.inc.php:93
+msgid "Error: unknown result code of invitation!?!"
+msgstr "Errorea: Gonbidapenean, emaitza-kode ezezaguna! "
+
+#: web/admin/overview_federation.php:92 web/admin/inc/manageAdmins.inc.php:93
+msgid "Unknown result!"
+msgstr "emaitza ezezaguna! "
+
+#: web/admin/overview_federation.php:97
+#, php-format
+msgid "Need help? Refer to the <a href='%s'>Federation Operator manual</a>"
+msgstr ""
+"Laguntza behar duzu? Eskuratu <a href='%s'>Federazioko Operatzailearen "
+"gidaliburua</a>"
+
+#: web/admin/overview_federation.php:104 web/admin/overview_user.php:96
+#: web/admin/inc/common.inc.php:34
+msgid "Institution Name"
+msgstr "Erakundearen izena "
+
+#: web/admin/overview_federation.php:109
+#, php-format
+msgid "%s Database Sync Status"
+msgstr "%s base-datuaren sinkronizazio-egoera"
+
+#: web/admin/overview_federation.php:111 web/admin/overview_user.php:96
+msgid "Administrator Management"
+msgstr "Administratzaileen kudeaketa "
+
+#: web/admin/overview_federation.php:116
+#, php-format
+msgid "Your federation %s contains the following institutions:"
+msgstr "Zure %s federazioak honako erakunde hauek biltzen ditu: "
+
+#: web/admin/overview_federation.php:143
+msgid "Manage DB Link"
+msgstr "Datu-basearekiko lotura kudeatzea "
+
+#: web/admin/overview_federation.php:146
+msgid "NOT linked"
+msgstr "EZ lotua "
+
+#: web/admin/overview_federation.php:148
+msgid "Linked"
+msgstr "Lotua "
+
+#: web/admin/overview_federation.php:159 web/admin/overview_user.php:132
+msgid "Add/Remove Administrators"
+msgstr "Administratzaileak Gehitu/Ezabatu "
+
+#: web/admin/overview_federation.php:170
+msgid "Pending invitations in your federation:"
+msgstr "Zure federazioan, bidaltzeko dauden gonbidapenak: "
+
+#: web/admin/overview_federation.php:186
+msgid "Revoke Invitation"
+msgstr "Gonbidapena baliogabetu "
+
+#: web/admin/overview_federation.php:200 web/admin/overview_user.php:159
+msgid "Register New Institution!"
+msgstr "Erakunde berria erregistratu "
+
+#: web/admin/overview_idp.php:22
+#, php-format
+msgid "%s: IdP Dashboard"
+msgstr "%s: IdParen aginte-panela "
+
+#: web/admin/overview_idp.php:37
+msgid "Identity Provider Overview"
+msgstr "Nortasun-hornitzaileari begiraldia "
+
+#: web/admin/overview_idp.php:39
+msgid "IdP-wide settings"
+msgstr "IdParen konfigurazio orokorra"
+
+#: web/admin/overview_idp.php:45
+msgid "Country"
+msgstr "Herrialdea"
+
+#: web/admin/overview_idp.php:71
+msgid "Institution Download Area QR Code"
+msgstr "Erakundearen deskarga-eremurako QR kodea "
+
+#: web/admin/overview_idp.php:97
+msgid "Edit IdP-wide settings"
+msgstr "IdParen konfigurazio orokorra editatu"
+
+#: web/admin/overview_idp.php:102
+#, php-format
+msgid "Do you really want to delete your IdP %s?"
+msgstr "Benetan ezabatu nahi duzu v%s profila? "
+
+#: web/admin/overview_idp.php:102
+msgid "Delete IdP"
+msgstr "IdP ezabatu "
+
+#: web/admin/overview_idp.php:109
+msgid "Available Support actions"
+msgstr "Eskuragarri dauden euskarri-ekintzak "
+
+#: web/admin/overview_idp.php:114
+msgid "Check another realm's reachability"
+msgstr "Egiaztatu beste domeinu bat lortu daitekeela"
+
+#: web/admin/overview_idp.php:117 web/admin/overview_idp.php:126
+#: web/admin/overview_user.php:150
+msgid "Go!"
+msgstr "Aurrera! "
+
+#: web/admin/overview_idp.php:123
+msgid "Check server status of European federations"
+msgstr "Egiaztatu Europako federazioen zerbitzarien egoera"
+
+#: web/admin/overview_idp.php:133
+msgid "Profiles for this institution"
+msgstr "Erakunde honentzako profilak"
+
+#: web/admin/overview_idp.php:137
+msgid "There are not yet any profiles for your institution."
+msgstr "Oraindik ez dago profilik zure erakundearentzat"
+
+#: web/admin/overview_idp.php:155
+msgid "<strong>EAP Types</strong> (in order of preference):"
+msgstr "<strong>EAP motak</strong> (lehentasun-ordena): "
+
+#: web/admin/overview_idp.php:162
+msgid "OK"
+msgstr "OK"
+
+#: web/admin/overview_idp.php:165
+msgid "Information needed!"
+msgstr "Informazioa behar da! "
+
+#: web/admin/overview_idp.php:179
+msgid "Option override on EAP Method level is in effect."
+msgstr "EAP metodoaren mailan, aukera gainetik idazten da. "
+
+#: web/admin/overview_idp.php:186
+msgid "Option override on profile level is in effect."
+msgstr "Profil-mailan, aukera gainetik idazten da. "
+
+#: web/admin/overview_idp.php:188
+msgid "The information in this profile is incomplete."
+msgstr "Profil honetako informazioa ez dago osatuta. "
+
+#: web/admin/overview_idp.php:190
+msgid "This profile is shown on the user download interface."
+msgstr "Profila erabiltzailearen deskarga-interfazean erakutsiko da. "
+
+#: web/admin/overview_idp.php:192
+#, php-format
+msgid ""
+"This profile is NOT shown on the user download interface, even though we "
+"have enough information to show. To enable the profile, add the attribute "
+"\"%s\" and tick the corresponding box."
+msgstr ""
+"Profila EZ da erakutsiko erabiltzailearen deskarga-interfazean, ezta "
+"erakusteko nahiko informazio baldin badago ere. Profila prestatzeko, \"%s\" "
+"ezaugarria gehitu, eta dagokion laukitxoa prestatu. "
+
+#: web/admin/overview_idp.php:195
+#, php-format
+msgid "Profile: %s"
+msgstr "Profila: %s "
+
+#. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
+#: web/admin/overview_idp.php:201
+#, php-format
+msgid "Read this <a href='%s'>tip</a>."
+msgstr "Irakurri <a href='%s'>aholku</a> hau."
+
+#: web/admin/overview_idp.php:211
+msgid "The realm can only be checked if you configure the realm!"
+msgstr "Domeinua soilik egiaztatuko da berau konfiguratzen baduzu!"
+
+#: web/admin/overview_idp.php:212
+msgid "Check realm reachability"
+msgstr "egiaztatu domeinua lortzeko modukoa dela "
+
+#: web/admin/overview_idp.php:216
+msgid "You have not fully configured any supported EAP types!"
+msgstr "Ez duzu erabat konfiguratu onartutako EAP mota bakar bat ere! "
+
+#: web/admin/overview_idp.php:217
+msgid "Installer Fine-Tuning and Download"
+msgstr "Instalatzailearen doikuntzak eta deskarga "
+
+#: web/admin/overview_idp.php:225
+msgid "Edit"
+msgstr "Editatu "
+
+#: web/admin/overview_idp.php:228
+#, php-format
+msgid "Do you really want to delete the profile %s?"
+msgstr "Benetan ezabatu nahi duzu %s profila? "
+
+#: web/admin/overview_idp.php:229
+msgid "Delete"
+msgstr "Ezabatu "
+
+#: web/admin/overview_idp.php:238
+msgid "User Download Link"
+msgstr "Erabiltzaileentzako deskarga-esteka "
+
+#: web/admin/overview_idp.php:255
+msgid "User Downloads"
+msgstr "Erabiltzaileen deskargak "
+
+#: web/admin/overview_idp.php:271
+msgid "Add new profile ..."
+msgstr "Gehitu profil berria... "
+
+#: web/admin/overview_installers.php:22
+msgid "Device Compatibility matrix"
+msgstr "Bateragarriak diren gailuen matrizea "
+
+#: web/admin/overview_installers.php:38
+#, php-format
+msgid "Device compatiblity matrix for %s of %s "
+msgstr "%s -(e)ko %s -(r)entzat gailuen bateragarritasun-matrizea"
+
+#: web/admin/overview_installers.php:42
+msgid "Device"
+msgstr "Gailua "
+
+#: web/admin/overview_installers.php:51
+msgid "EAP-Type-specific options..."
+msgstr "EAP motaren aukera espezifikoak"
+
+#: web/admin/overview_installers.php:71
+msgid "Device-specific options..."
+msgstr "Gailuaren aukera espezifikoak"
+
+#: web/admin/overview_installers.php:81
+msgid "Download"
+msgstr "Deskargatu "
+
+#: web/admin/overview_installers.php:136
+msgid "Legend:"
+msgstr "Idazkuna: "
+
+#: web/admin/overview_installers.php:138
+msgid "redirection is set"
+msgstr "berriz bideratzea aktibatuta "
+
+#: web/admin/overview_installers.php:139
+msgid "will be offered on download site"
+msgstr "deskarga-gunean eskainiko da"
+
+#: web/admin/overview_installers.php:140
+msgid "configured, but not preferred EAP type"
+msgstr "konfiguratuta, baina ez da lehenetsitako EAP mota "
+
+#: web/admin/overview_installers.php:141
+msgid "incomplete configuration"
+msgstr "ez da erabat konfiguratu "
+
+#: web/admin/overview_installers.php:142
+msgid "not supported by CAT"
+msgstr "CATek ez du onartu "
+
+#: web/admin/overview_installers.php:146
+msgid "Footnotes:"
+msgstr "Oin-oharrak: "
+
+#: web/admin/overview_user.php:22
+#, php-format
+msgid "%s: User Management"
+msgstr "%s: Erabiltzaileen kudeaketa "
+
+#: web/admin/overview_user.php:36
+msgid "User Overview"
+msgstr "Erabiltzailearen ikuspegi orokorra"
+
+#: web/admin/overview_user.php:57
+msgid "Edit User Details"
+msgstr "Erabiltzaileen zehaztasunak editatu"
+
+#: web/admin/overview_user.php:60
+msgid "Click here to manage your federations"
+msgstr "Egin klik hemen, zure federazioa kudeatzeko"
+
+#: web/admin/overview_user.php:67
+#, php-format
+msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
+msgstr ""
+"(Laguntza behar duzu? Eskuratu <a href='%s'>IdP administratzailearen "
+"gidaliburua</a>)"
+
+#: web/admin/overview_user.php:73
+#, php-format
+msgid "You are managing the following institution:"
+msgid_plural "You are managing the following <strong>%d</strong> institutions:"
+msgstr[0] "Honako erakunde hau kudeatzen ari zara: "
+msgstr[1] ""
+"Honako erakunde hauek kudeatzen ari zara: Estás administrando las siguientes "
+"<strong>%d</strong> instituciones:"
+
+#: web/admin/overview_user.php:96
+msgid "Other admins of this institution"
+msgstr "Erakunde honetako beste administratzaile batzuk"
+
+#: web/admin/overview_user.php:98
+#, php-format
+msgid "Institutions in federation %s"
+msgstr "%s federazioko erakundea"
+
+#: web/admin/overview_user.php:126
+msgid "other user"
+msgid_plural "other users"
+msgstr[0] "beste erabiltzaile bat "
+msgstr[1] "beste erabiltzaile batzuk "
+
+#: web/admin/overview_user.php:139
+msgid "You are not managing any institutions."
+msgstr "Ez zabiltza kudeatzen inolako erakunderik. "
+
+#: web/admin/overview_user.php:143
+msgid ""
+"Please ask your federation administrator to invite you to become an "
+"institution administrator."
+msgstr ""
+"Mesedez, eskatu zure federazioko administratzaileari erakundeko "
+"administratzaile izateko gonbidapena egiteko zuri. "
+
+#: web/admin/overview_user.php:147
+msgid ""
+"Did you receive an invitation token to manage an institution? Please paste "
+"it here:"
+msgstr ""
+"jaso al duzu gonbidapen-token bat, erakunde bat kudeatzeko? Hala bada, "
+"mesedez, sartu hemen: "
+
+#: web/admin/inc/admin_footer.php:16
+#, php-format
+msgid "Release %s"
+msgstr "%s bertsioa"
+
+#: web/admin/inc/admin_footer.php:18
+msgid "Unreleased SVN Revision"
+msgstr "Argitaratu gabeko SVN bertsioa "
+
+#: web/admin/inc/admin_header.php:47
+#, php-format
+msgid "%s<br />IdP Configuration Interface"
+msgstr "%s<br />IdParen konfigurazio-interfazea"
+
+#: web/admin/inc/admin_header.php:53
+msgid "View this page in"
+msgstr "Ikusi webgunea hemen:"
+
+#: web/admin/inc/admin_header.php:63
+msgid "You are:"
+msgstr "Zu hauxe zara:"
+
+#: web/admin/inc/admin_header.php:63 web/admin/inc/manageDBLink.inc.php:88
+msgid "Unnamed User"
+msgstr "Izenik gabeko erabiltzailea"
+
+#: web/admin/inc/admin_header.php:65
+msgid "Go to your Profile page"
+msgstr "Joan zure profilaren orrialdera "
+
+#: web/admin/inc/admin_header.php:65
+msgid "Start page"
+msgstr "Hasierako orrialdea "
+
+#: web/admin/inc/common.inc.php:30
+msgid "Support: Web"
+msgstr "Euskarria: Web "
+
+#: web/admin/inc/common.inc.php:31
+msgid "Support: EAP Types"
+msgstr "Euskarria: EAP motak"
+
+#: web/admin/inc/common.inc.php:32
+msgid "Support: Phone"
+msgstr "Euskarria: Telefonoa "
+
+#: web/admin/inc/common.inc.php:33
+msgid "Support: E-Mail"
+msgstr "Euskarria: Posta elektronikoa "
+
+#: web/admin/inc/common.inc.php:35 web/admin/inc/geo_widget.php:281
+msgid "Location"
+msgstr "Lokalizazioa "
+
+#: web/admin/inc/common.inc.php:36
+msgid "Logo URL"
+msgstr "Logotipoaren URL"
+
+#: web/admin/inc/common.inc.php:37
+msgid "Logo image"
+msgstr "Logotipoaren irudia "
+
+#: web/admin/inc/common.inc.php:38
+msgid "Name (CN) of Authentication Server"
+msgstr "Autentifikazio zerbitzariaren izena (CN)"
+
+#: web/admin/inc/common.inc.php:39
+msgid "Enable device assessment"
+msgstr "Gailuaren ebaluazioa prestatu "
+
+#: web/admin/inc/common.inc.php:40
+msgid "Terms of Use"
+msgstr "Erabilera-baldintzak "
+
+#: web/admin/inc/common.inc.php:41
+msgid "CA Certificate URL"
+msgstr "CA egiaztagiriaren URL "
+
+#: web/admin/inc/common.inc.php:42
+msgid "CA Certificate File"
+msgstr "CA egiaztagiriaren fitxategia "
+
+#: web/admin/inc/common.inc.php:43
+msgid "Profile Display Name"
+msgstr "Profil-izena "
+
+#: web/admin/inc/common.inc.php:44
+msgid "Production-Ready"
+msgstr "Ekoizpenerako prest"
+
+#: web/admin/inc/common.inc.php:45
+msgid "Extra text on downloadpage for device"
+msgstr "Testu gehigarria, gailuaren deskarga-orrialderako  "
+
+#: web/admin/inc/common.inc.php:46
+msgid "Redirection Target"
+msgstr "Deskargaren norakoa "
+
+#: web/admin/inc/common.inc.php:47
+msgid "Extra text on downloadpage for EAP method"
+msgstr "EAP metodoarentzako deskarga-orrialdean, testu gehigarria "
+
+#: web/admin/inc/common.inc.php:48
+msgid "Turn on selection of EAP-TLS User-Name"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:49
+msgid "Profile Description"
+msgstr "Profilaren deskribapena "
+
+#: web/admin/inc/common.inc.php:50 web/admin/inc/manageAdmins.inc.php:100
+msgid "Federation Administrator"
+msgstr "Federazioaren administratzailea "
+
+#: web/admin/inc/common.inc.php:51
+msgid "Real Name"
+msgstr "Nombre real"
+
+#: web/admin/inc/common.inc.php:52
+msgid "E-Mail Address"
+msgstr "Helbide elektronikoa "
+
+#: web/admin/inc/common.inc.php:53
+msgid "PEAP-MSCHAPv2"
+msgstr "PEAP-MSCHAPv2"
+
+#: web/admin/inc/common.inc.php:54
+msgid "TLS"
+msgstr "TLS"
+
+#: web/admin/inc/common.inc.php:55
+msgid "TTLS-PAP"
+msgstr "TTLS-PAP"
+
+#: web/admin/inc/common.inc.php:56
+msgid "TTLS-MSCHAPv2"
+msgstr "TTLS-MSCHAPv2"
+
+#: web/admin/inc/common.inc.php:57
+msgid "TTLS-GTC"
+msgstr "TTLS-GTC"
+
+#: web/admin/inc/common.inc.php:58
+msgid "FAST-GTC"
+msgstr "FAST-GTC"
+
+#: web/admin/inc/common.inc.php:59
+msgid "EAP-pwd"
+msgstr "EAP-pwd"
+
+#: web/admin/inc/common.inc.php:63
+msgid "Additional SSID"
+msgstr "SSID gehigarria "
+
+#: web/admin/inc/common.inc.php:64
+msgid "Additional SSID (with WPA/TKIP)"
+msgstr "SSID gehigarria (WPA/TKIPrekin) "
+
+#: web/admin/inc/common.inc.php:66
+msgid "SSID"
+msgstr "SSID"
+
+#: web/admin/inc/common.inc.php:67
+msgid "SSID (with WPA/TKIP)"
+msgstr "SSID (WPA/TKIPrekin) "
+
+#: web/admin/inc/common.inc.php:82
+#, php-format
+msgid ""
+"This attribute can be set if you want to configure an additional SSID "
+"besides the default SSIDs for %s. It is almost always a bad idea not to use "
+"the default SSIDs. The only exception is if you have premises with an "
+"overlap of the radio signal with another %s hotspot. Typical misconceptions "
+"about additional SSIDs include: I want to have a local SSID for my own "
+"users. It is much better to use the default SSID and separate user groups "
+"with VLANs. That approach has two advantages: 1) your users will configure "
+"%s properly because it is their everyday SSID; 2) if you use a custom name "
+"and advertise this one as extra secure, your users might at some point roam "
+"to another place which happens to have the same SSID name. They might then "
+"be misled to believe that they are connecting to an extra secure network "
+"while they are not."
+msgstr ""
+"%s -(e)rako lehenetsitako zure SSIDez gainera, SSID gehigarri bat "
+"konfiguratu nahi baduzu, ezaugarri hau finka dezakezu. Gehientsuenetan, ez "
+"da ideia ona izaten ez erabiltzea lehenetsitako SSIDak. Salbuespen bakarra "
+"dago; alegia, irrati-seinaleari beste %s kokagune bat gainjartzen zaion "
+"kokaguneak izatea. SSID gehigarriak izatearekin lotutako hutsegiteetako bat "
+"hau da: nire erabiltzaileentzako tokiko SSID bat eduki nahi dut. Askoz hobea "
+"da lehenetsitako SSID erabiltzea eta erabiltzaileak VLANen bidez bereiztea. "
+"Horrek bi abantaila ditu: 1) zure erabiltzaileek behar bezala konfiguratuko "
+"dute %s , euren ohiko SSID izango baita; 2) izen berezi bat erabiltzen "
+"baduzu eta benetan segurua dela zabaltzen baduzu, zure erabiltzaileek, "
+"uneren batean, SSID izen bereko beste toki batean egin dezakete roaming. "
+"Hala bada, pentsa dezakete sare benetan segurura ari direla konektatzen, eta "
+"ez da hala. "
+
+#: web/admin/inc/common.inc.php:99
+msgid "OK!"
+msgstr "OK!"
+
+#: web/admin/inc/common.inc.php:112
+msgid "Warning!"
+msgstr "Adi! "
+
+#: web/admin/inc/common.inc.php:125
+msgid "Error!"
+msgstr "Errorea! "
+
+#: web/admin/inc/common.inc.php:138
+msgid "Remark"
+msgstr "Oharra "
+
+#: web/admin/inc/common.inc.php:241 web/admin/inc/common.inc.php:258
+msgid "Error, ROWID expected."
+msgstr "Errorea, ROWID espero zen. "
+
+#: web/admin/inc/common.inc.php:248
+msgid "There was an error processing the certificate!"
+msgstr "Egiaztagiria prozesatzean, errorea izan da! "
+
+#: web/admin/inc/common.inc.php:259
+msgid "Preview of logo file"
+msgstr "Fitxategiaren aurrebista, logotipoarekin"
+
+#: web/admin/inc/common.inc.php:270
+msgid "File exists"
+msgstr "Fitxategia lehendik dago "
+
+#: web/admin/inc/common.inc.php:270
+msgid "Preview"
+msgstr "Aurrebistaratu "
+
+#: web/admin/inc/common.inc.php:293 web/admin/inc/option_html.inc.php:116
+msgid "default/other languages"
+msgstr "lehenetsita/beste hizkuntza batzuk "
+
+#. / Device assessment is "on"
+#: web/admin/inc/common.inc.php:322 web/admin/inc/option_html.inc.php:200
+msgid "on"
+msgstr "AKTIBATUTA "
+
+#. / Device assessment is "off"
+#: web/admin/inc/common.inc.php:322 web/admin/inc/option_html.inc.php:203
+msgid "off"
+msgstr "AKTIBATU GABE "
+
+#: web/admin/inc/credentialcheck.php:54
+#, php-format
+msgid "<strong>%s</strong> from <strong>%s</strong>"
+msgstr "<strong>%s</strong> <strong>%s</strong> -(e)tik "
+
+#: web/admin/inc/credentialcheck.php:56
+#, php-format
+msgid "Login with <strong>%s</strong> from <strong>%s</strong> failed!"
+msgstr ""
+"<strong>%s</strong> -(e)tik  <strong>%s</strong> -(e)n sarbideak huts egin "
+"du! "
+
+#: web/admin/inc/credentialcheck.php:71 web/admin/inc/credentialcheck.php:96
+#, php-format
+msgid ""
+"Could not check <strong>%s</strong> from <strong>%s</strong> - no username "
+"submitted!"
+msgstr ""
+"<strong>%s</strong> -(e)tik ezin izan da <strong>%s</strong> egiaztatu - ez "
+"da inolako erabiltzaile-izenik eman!"
+
+#: web/admin/inc/credentialcheck.php:71 web/admin/inc/credentialcheck.php:96
+msgid "Username missing"
+msgstr "Erabiltzaile-izena falta da "
+
+#: web/admin/inc/credentialcheck.php:75 web/admin/inc/credentialcheck.php:100
+#, php-format
+msgid ""
+"Could not check <strong>%s</strong> from <strong>%s</strong> - no password "
+"submitted!"
+msgstr ""
+"<strong>%s</strong> -(e)tik ezin izan da <strong>%s</strong> egiaztatu - ez "
+"da inolako pasahitzik eman! "
+
+#: web/admin/inc/credentialcheck.php:75 web/admin/inc/credentialcheck.php:100
+msgid "Password missing"
+msgstr "Pasahitza falta da "
+
+#: web/admin/inc/credentialcheck.php:79 web/admin/inc/credentialcheck.php:110
+#, php-format
+msgid ""
+"Sorry, we don't know how to handle the inner EAP method in <strong>%s</"
+"strong> from <strong>%s</strong>!"
+msgstr ""
+"Sentitzen dugu, ez dakigu nola erabili barneko EAP metodoa <strong>%s</"
+"strong> -(e)ko <strong>%s</strong> -(e)n"
+
+#: web/admin/inc/credentialcheck.php:110
+msgid "Unknown inner method"
+msgstr "Barneko metodo ezezaguna "
+
+#: web/admin/inc/credentialcheck.php:129 web/admin/inc/credentialcheck.php:132
+#, php-format
+msgid "Sorry... we don't know how to test the EAP type %s from %s."
+msgstr "Sentitzen dugu... ez dakigu nola probatu %s -(e)ko %s EAP mota. "
+
+#: web/admin/inc/credentialcheck.php:129
+msgid "Test not implemented"
+msgstr "Proba inplementatu gabe"
+
+#: web/admin/inc/credentialcheck.php:132
+msgid "Unknown outer method"
+msgstr "Kanpoko mota ezezaguna "
+
+#: web/admin/inc/credentialcheck.php:145
+msgid ""
+"Your profile does not contain a valid realm name. We can only check the "
+"validity of a realm if you let us know the realm name. Please consider going "
+"to your profile properties and enter the realm name."
+msgstr ""
+"Zure profilak ez dauka domeinu-izen baliagarririk. Domeinuaren "
+"baliozkotasuna egiaztatzeko, ezinbestekoa zaigu domeinuaren izena jakitea. "
+"Mesedez, zoaz zure profileko propietateetara, eta adierazi zein den "
+"domeinuaren izena. "
+
+#: web/admin/inc/geo_widget.php:99
+msgid "This is location "
+msgstr "Hauxe da lokalizazioa "
+
+#: web/admin/inc/geo_widget.php:178
+msgid "nothing entered in the address field"
+msgstr "Helbidearen eremuan, ez duzu ezer sartu "
+
+#: web/admin/inc/geo_widget.php:198
+msgid "locating"
+msgstr "bilatzen "
+
+#: web/admin/inc/geo_widget.php:285
+msgid ""
+"The user download interface (see <a href='../'>here</a>), uses geolocation "
+"to suggest possibly matching IdPs to the user. The more precise you define "
+"the location here, the easier your users will find you."
+msgstr ""
+"Erabiltzaileen deskarga-interfazeak (ikusi <a href='../'>hemen</a>) "
+"geolokalizazioa darabil ziur asko erabiltzailearengandik hurbil dauden IdPak "
+"iradokitzeko. Beharrezkoena, orain, zuk hemen lokalizazio bat definitzea da; "
+"hartara, zure erabiltzaileentzat errazagoa izango da zu lokalizatzea. "
+
+#: web/admin/inc/geo_widget.php:288
+msgid ""
+"<li>Drag the marker in the map to your place, or</li>\n"
+"<li>enter your street address in the field below for lookup, or</li>\n"
+"<li>use the 'Locate Me!' button</li>"
+msgstr ""
+"<li>Utzi markagailua erortzen mapan, zure kokagunearen gainean, edo</li>⏎ "
+"<li>sartu zure helbidea beheragoko eremuan, edo</li>⏎ <li>erabili bila "
+"nazazu!</li> botoia"
+
+#: web/admin/inc/geo_widget.php:293
+msgid "We will use the coordinates as indicated by the marker for geolocation."
+msgstr ""
+"Geolokalizaziorako, markagailuak adierazitako koordenatuak erabiliko ditugu. "
+
+#: web/admin/inc/geo_widget.php:296
+msgid ""
+"You can enter an <strong>additional</strong> location here. You can see the "
+"already defined locations in the 'General Information' field."
+msgstr ""
+"Hemen, lokalizazio <strong>gehigarri</strong> bat sar dezakezu. Dagoeneko "
+"definitutako lokalizazioak 'Informazio orokorra' eremuan ikus ditzakezu. "
+
+#: web/admin/inc/geo_widget.php:298
+msgid "Address:"
+msgstr "Helbidea: "
+
+#: web/admin/inc/geo_widget.php:298
+msgid "Find address"
+msgstr "Bilatu helbidea "
+
+#: web/admin/inc/geo_widget.php:298
+msgid "Locate Me!"
+msgstr "Bila nazazu! "
+
+#: web/admin/inc/geo_widget.php:301
+msgid "Latitude:"
+msgstr "Latitudea: "
+
+#: web/admin/inc/geo_widget.php:301
+msgid "Longitude:"
+msgstr "Longitudea: "
+
+#: web/admin/inc/input_validation.inc.php:17
+msgid "Input validation error: "
+msgstr "Errorea, sarrera baliozkotzean: "
+
+#: web/admin/inc/input_validation.inc.php:22
+msgid "Value for IdP is not an integer!"
+msgstr "IdPrako balioa ez da osokoa! "
+
+#: web/admin/inc/input_validation.inc.php:29
+#: web/admin/inc/input_validation.inc.php:37
+msgid "This IdP identifier is not accessible!"
+msgstr "IdParen identifikatzailea ez dago erabilgarri! "
+
+#: web/admin/inc/input_validation.inc.php:45
+msgid "Value for profile is not an integer!"
+msgstr "Profilarentzako balioa ez da osokoa!"
+
+#: web/admin/inc/input_validation.inc.php:52
+#: web/admin/inc/input_validation.inc.php:57
+msgid "This profile is not accessible!"
+msgstr "Profil hau ez dago erabilgarri! "
+
+#: web/admin/inc/input_validation.inc.php:66
+msgid "This device does not exist!"
+msgstr "Gailu hau ez da existitzen! "
+
+#: web/admin/inc/input_validation.inc.php:93
+msgid "Realm contains an @ sign!"
+msgstr "Domeinuak @ sinboloa dauka! "
+
+#: web/admin/inc/input_validation.inc.php:97
+msgid "Realm begins with a . (dot)!"
+msgstr "Domeinua . (puntu) batekin hasten da! "
+
+#: web/admin/inc/input_validation.inc.php:101
+msgid "Realm ends with a . (dot)!"
+msgstr "Domeinua . (puntu) batekin amaitzen da! "
+
+#: web/admin/inc/input_validation.inc.php:105
+msgid "Realm does not contain at least one . (dot)!"
+msgstr "Domeinuak ez dauka ezta . (puntu) bakar bat ere! "
+
+#: web/admin/inc/input_validation.inc.php:109
+msgid "Realm contains spaces!"
+msgstr "Domeinuak tarteak ditu! "
+
+#: web/admin/inc/input_validation.inc.php:118
+msgid "The user identifier is not an ASCII string!"
+msgstr "Erabiltzaile-identifikatzailea ez da ASCII katea! "
+
+#: web/admin/inc/input_validation.inc.php:127
+msgid "Token is not a hexadecimal string!"
+msgstr "Tokena ez da kate hamaseitarra! "
+
+#: web/admin/inc/input_validation.inc.php:135
+msgid "Coordinate is not a numeric value!"
+msgstr "Koordenatua ez da zenbakizko balioa! "
+
+#: web/admin/inc/input_validation.inc.php:140
+msgid "Coordinate is out of bounds. Which planet are you from?"
+msgstr "Koordenatua mugetatik kanpo dago. Zer planetatakoa zara? "
+
+#: web/admin/inc/input_validation.inc.php:152
+msgid "Wrong coordinate encoding!"
+msgstr "Koordenatuen kodetze okerra! "
+
+#: web/admin/inc/input_validation.inc.php:159
+msgid "Invalid structure in multi-language attribute!"
+msgstr "Hizkuntza anitzeko ezaugarriaren egitura ez da baliagarria! "
+
+#: web/admin/inc/input_validation.inc.php:166
+msgid "Unknown state of boolean option!"
+msgstr "Aukera boolearrerako egoera ezezaguna! "
+
+#: web/admin/inc/manageAdmins.inc.php:49
+msgid ""
+"You do not have the necessary privileges to alter administrators of this "
+"institution. In fact, you shouldn't have come this far!"
+msgstr ""
+"Ez daukazu behar besteko pribilegiorik erakunde honetako administratzaileak "
+"nahasteko. Egia esan, ez zenuke honaino iritsi behar!"
+
+#: web/admin/inc/manageAdmins.inc.php:81
+#, php-format
+msgid "Administrators for IdP '%s'"
+msgstr "'%s' IdPrako administratzaileak "
+
+#: web/admin/inc/manageAdmins.inc.php:100
+msgid ""
+"You are the federation administrator of this IdP. You can invite new "
+"administrators, who can in turn appoint further administrators on their own."
+msgstr ""
+"Zeu zara federazioko administratzailea IdP honetarako. Administratzaile "
+"berriei egin diezaiekezu gonbita, eta haiek ere beste administratzaile "
+"batzuei. "
+
+#: web/admin/inc/manageAdmins.inc.php:106
+msgid ""
+"You are an administrator of this IdP who was directly appointed by the "
+"federation administrator. You can appoint further administrators, but these "
+"can't in turn appoint any more administrators."
+msgstr ""
+"Zure federazioko administratzaileak sortutako IdP honen administratzailea "
+"zara. Administratzaile gehiago ere gehitu ditzakezu, nahi izanez gero; baina "
+"horiek ezingo dituzte beste batzuk gehitu. "
+
+#: web/admin/inc/manageAdmins.inc.php:106
+msgid "Directly Appointed IdP Administrator"
+msgstr "Zuzenean gonbidatutako administratzailea. "
+
+#: web/admin/inc/manageAdmins.inc.php:119
+msgid "User without name"
+msgstr "Izenik gabeko erabiltzailea "
+
+#: web/admin/inc/manageAdmins.inc.php:127
+#, php-format
+msgid "(originally invited as %s)"
+msgstr "(hasiera batean, %s gisa gonbidatua) "
+
+#: web/admin/inc/manageAdmins.inc.php:129
+msgid "(self-appointed)"
+msgstr "(auto-gonbidatua) "
+
+#: web/admin/inc/manageAdmins.inc.php:135
+msgid "Delete Administrator"
+msgstr "Ezabatu administratzailea"
+
+#: web/admin/inc/manageAdmins.inc.php:148
+#: web/admin/inc/manageDBLink.inc.php:174
+msgid "Pending invitations for this IdP"
+msgstr "IdP honetarako bidaltzeko dauden gonbidapenak  "
+
+#: web/admin/inc/manageAdmins.inc.php:157
+msgid "New administrator's email address:"
+msgstr "Administratzailearen posta-helbide berria: "
+
+#: web/admin/inc/manageAdmins.inc.php:157
+msgid "Invite new administrator"
+msgstr "Administratzaile berri bati gonbidapena bidali: "
+
+#: web/admin/inc/manageAdmins.inc.php:169
+msgid "Take control of this institution"
+msgstr "Egoeraren kontrola eskuratu. "
+
+#: web/admin/inc/manageAdmins.inc.php:175
+#: web/admin/inc/manageDBLink.inc.php:184
+#: web/admin/inc/manageNewInst.inc.php:136
+msgid "Close"
+msgstr "Itxi "
+
+#: web/admin/inc/manageDBLink.inc.php:40
+#, php-format
+msgid ""
+"You do not have the necessary privileges to manage the %s DB link state of "
+"this institution."
+msgstr ""
+"Ez daukazu behar besteko pribilegiorik erakunde honetarako %s datu-baserako "
+"loturaren egoera kudeatzeko. "
+
+#: web/admin/inc/manageDBLink.inc.php:57
+#, php-format
+msgid "%s Database Link Status for IdP '%s'"
+msgstr "%s datu-basearen lotura-egoera, '%s' IdPrako. "
+
+#: web/admin/inc/manageDBLink.inc.php:64
+#, php-format
+msgid "This institution is linked to the %s database."
+msgstr "Erakundeak %s datu-basearekin dauka lotura. "
+
+#: web/admin/inc/manageDBLink.inc.php:65
+#, php-format
+msgid ""
+"The following information about the IdP is stored in the %s DB and %s DB:"
+msgstr ""
+"IdPari buruzko honako informazio hau %s datu-basean eta %s datu-basean dago "
+"metatuta:"
+
+#: web/admin/inc/manageDBLink.inc.php:66
+#, php-format
+msgid "Information in <strong>%s Database</strong>"
+msgstr "Informazioa <strong> %s datu-basean</strong> "
+
+#: web/admin/inc/manageDBLink.inc.php:79 web/admin/inc/manageDBLink.inc.php:98
+#, php-format
+msgid "Institution Name (%s)"
+msgstr "Erakundearen izena (%s) "
+
+#: web/admin/inc/manageDBLink.inc.php:89
+msgid "Administrator [invited as]"
+msgstr "Administratzailea [gonbidatua honako hau bezala] "
+
+#: web/admin/inc/manageDBLink.inc.php:100
+msgid "Administrator email"
+msgstr "Administratzailearen helbide elektronikoa "
+
+#: web/admin/inc/manageDBLink.inc.php:106
+#, php-format
+msgid "This institution is not yet linked to the %s database."
+msgstr "Erakunde honek oraindik ez dauka loturarik %s datu-basearekin. "
+
+#: web/admin/inc/manageDBLink.inc.php:107
+msgid ""
+"This means that its profiles are not made available on the user download "
+"page."
+msgstr ""
+"Horrek esan nahi du profilak ez daudela erabilgarri erabiltzailearen "
+"deskarga-orrialdean. "
+
+#: web/admin/inc/manageDBLink.inc.php:108
+#, php-format
+msgid "You can link it to the %s database below."
+msgstr "%s datu-basearekin lotu dezakezu, beheraxeago. "
+
+#: web/admin/inc/manageDBLink.inc.php:111
+#, php-format
+msgid ""
+"Please select an entity from the %s DB which corresponds to this CAT "
+"institution."
+msgstr ""
+"Mesedez, aukeratu CAT erakunde honekin bat datorren %s datu-baseko entitate "
+"bat. "
+
+#: web/admin/inc/manageDBLink.inc.php:113
+#, php-format
+msgid ""
+"Particularly promising entries (names in CAT and %s DB are a 100%% match) "
+"are on top of the list."
+msgstr ""
+"Zerrendaren hasieran daude etorkizun handiko sarrerak (CATeko eta %s -(e)ko "
+"datu-baseetako izenak bat datoz 100%%). "
+
+#: web/admin/inc/manageDBLink.inc.php:114
+msgid "Link to this entity?"
+msgstr "erakunde honekin lotu? "
+
+#: web/admin/inc/manageDBLink.inc.php:114
+msgid "Name of the institution"
+msgstr "Erakundearen izena "
+
+#: web/admin/inc/manageDBLink.inc.php:114
+msgid "Administrators"
+msgstr "Administratzaileak "
+
+#: web/admin/inc/manageDBLink.inc.php:165
+msgid "Create Link"
+msgstr "Sortu esteka "
+
+#: web/admin/inc/manageNewInst.inc.php:39
+#, php-format
+msgid "You do not have the necessary privileges to register new IdPs."
+msgstr "Ez daukazu behar besteko pribilegiorik IdP berriak erregistratzeko. "
+
+#: web/admin/inc/manageNewInst.inc.php:46
+#, php-format
+msgid "%s - Register New Institution"
+msgstr "%s - Erakunde berria erregistratu"
+
+#: web/admin/inc/manageNewInst.inc.php:49
+msgid ""
+"On this page, you can add new institutions to your federation. Please fill "
+"out the form below to send out an email invitation to the new institution's "
+"administrator."
+msgstr ""
+"Orrialde honetan, erakunde berriak gehitu ditzakezu zure federaziora. "
+"Mesedez, bete beherago duzun galdetegia, erakundeko administratzaile "
+"berriarentzako gonbidapen-mezu elektronikoa bidaltzeko. "
+
+#: web/admin/inc/manageNewInst.inc.php:51
+#, php-format
+msgid ""
+"You can either register a known IdP (as defined in the %s database) or "
+"create a totally new IdP."
+msgstr ""
+"IdP ezagun bat (%s datu-basean dagoeneko definituta dagoena) erregistratu "
+"edo IdP erabat berria sortu dezakezu. "
+
+#: web/admin/inc/manageNewInst.inc.php:52
+#, php-format
+msgid ""
+"The latter one is typically for institutions which are yet in a testing "
+"phase and therefore don't appear in the %s database yet."
+msgstr ""
+"Azken hori, hain zuzen, oraindik proba-fasean dauden, eta beraz, oraindik %s "
+"datu-basean agertzen ez diren erakundeentzat da, bereziki. "
+
+#: web/admin/inc/manageNewInst.inc.php:53
+#, php-format
+msgid ""
+"Please keep in mind that any profiles of such new institutions will only be "
+"made available on the user download page after you have linked them to an "
+"entity in the %s database (but they are otherwise fully functional)."
+msgstr ""
+"Mesedez, kontuan izan erakunde berrien profilak erabiltzaileen deskarga-"
+"orrialdean egongo direla behin %s datu-basean erakunde bati lotu ondoren "
+"(nahiz eta kasu guztietan, erabat funtzionalak izan).  "
+
+#: web/admin/inc/manageNewInst.inc.php:62
+msgid "Existing IdP:"
+msgstr "IdP hau lehendik dago: "
+
+#: web/admin/inc/manageNewInst.inc.php:67
+msgid "--- select IdP here ---"
+msgstr "--- Aukeratu hemen IdPa --- "
+
+#: web/admin/inc/manageNewInst.inc.php:106
+msgid "New IdP"
+msgstr "IdP berria"
+
+#: web/admin/inc/manageNewInst.inc.php:109
+msgid "Name"
+msgstr "Izena "
+
+#: web/admin/inc/manageNewInst.inc.php:111
+msgid "Federation"
+msgstr "Federazioa "
+
+#: web/admin/inc/manageNewInst.inc.php:127
+msgid "Administrator's E-Mail:"
+msgstr "Administratzailearen helbide elektronikoa: "
+
+#: web/admin/inc/manageNewInst.inc.php:132
+msgid "Send invitation"
+msgstr "Bidali gonbidapena "
+
+#: web/admin/inc/option_html.inc.php:115
+msgid "select language"
+msgstr "aukeratu hizkuntza "
+
+#: web/admin/inc/option_html.inc.php:157
+msgid "(default/other languages)"
+msgstr "(lehenetsita/beste hizkuntza batzuk) "
+
+#: web/admin/inc/option_html.inc.php:172
+msgid "Click to see location"
+msgstr "Egin klik lokalizazioa ikusteko "
+
+#: web/admin/inc/option_html.inc.php:188
+msgid "file content"
+msgstr "fitxategiaren edukia "
+
+#. / number of times attribute is present, and its name
+#. / Example: "5x Support E-Mail"
+#: web/admin/inc/option_parse.inc.php:249
+#: web/admin/inc/option_parse.inc.php:253
+#, php-format
+msgid "%dx %s"
+msgstr "%ds %s"
+
+#: web/admin/inc/option_parse.inc.php:257
+#, php-format
+msgid ""
+"You did not set a 'default language' value for %s. This means we can only "
+"display this string for installers which are <strong>exactly</strong> in the "
+"language you configured. For the sake of all other languages, you may want "
+"to edit the profile again and populate the 'default/other' language field."
+msgstr ""
+"Ez duzu ezarri %s -(e)rako ‘lehenetsitako hizkuntza’ baliorik. Horrek esan "
+"nahi du soil-soilik erakutsi ditzakegula <strong>zehazki</strong> "
+"konfiguratutako hizkuntza horretan dauden instalatzaileak. Gainerako "
+"hizkuntzen mesedetan, berriro editatu beharko zenuke profila, eta balioren "
+"bat jarri hizkuntza-eremuan, ‘lehenetsita/beste hizkuntza batzuk’ "
+"aukerarentzat. "
+
+#: web/admin/inc/overview_js.php:37 web/admin/inc/overview_js.php:94
+msgid "No email address provided"
+msgstr "Ez duzu eman helbide elektronikorik "
+
+#: web/admin/inc/overview_js.php:50 web/admin/inc/overview_js.php:105
+msgid "Invitation sent to:"
+msgstr "Gonbidapena honako honi bidali zaio: "
+
+#: web/admin/inc/overview_js.php:79
+msgid "Mail address to invite:"
+msgstr "Gonbidapena bidali beharreko helbide elektronikoa: "
+
+#: web/admin/inc/sendinvite.inc.php:51
+msgid ""
+"Something's wrong... you are a federation admin, but not for the federation "
+"the requested institution belongs to!"
+msgstr ""
+"Zerbait oker dabil... federazio bateko administratzailea zara, baina ez "
+"eskatutako erakundeari dagokion federaziokoa! "
+
+#: web/admin/inc/sendinvite.inc.php:58
+#, php-format
+msgid ""
+"an administrator of the %s Identity Provider \"%s\" has invited you to "
+"manage the IdP together with him."
+msgstr ""
+"%s \"%s\" nortasun-hornitzaile baten administratzaileak berarekin batera IdP "
+"kudeatzeko gonbita egin dizu. "
+
+#: web/admin/inc/sendinvite.inc.php:74
+msgid ""
+"Something's wrong... you want to create a new institution, but are not a "
+"federation admin for the federation it should be in!"
+msgstr ""
+"Zerbait oker dabil... erakunde berri bat sortu nahi duzu, baina ez zara "
+"erakunde horri dagokion federazioko administratzailea! "
+
+#: web/admin/inc/sendinvite.inc.php:78
+#, php-format
+msgid "a %s operator has invited you to manage the future IdP  \"%s\" (%s)."
+msgstr ""
+"%s -(e)ko operadore batek etorkizuneko  \"%s\" (%s) IdP kudeatzeko gonbita "
+"egin dizu. "
+
+#: web/admin/inc/sendinvite.inc.php:100
+#, php-format
+msgid "a %s operator has invited you to manage the IdP  \"%s\"."
+msgstr "%s -(e)ko operadore batek \"%s\" IdP kudeatzeko gonbita egin dizu. "
+
+#: web/admin/inc/sendinvite.inc.php:100
+#, php-format
+msgid "This invitation is valid for 24 hours from now, i.e. until %s."
+msgstr ""
+"Gonbidapen hau baliagarria izango da oraintxe hasi eta 24 orduan; alegia, %s "
+"-ak arte."
+
+#: web/admin/inc/sendinvite.inc.php:115
+msgid "Hello,"
+msgstr "Kaixo, "
+
+#: web/admin/inc/sendinvite.inc.php:117
+msgid ""
+"To enlist as an administrator for that IdP, please click on the following "
+"link:"
+msgstr ""
+"IdP honetarako administratzaileen zerrendan sartzeko, sakatu honako esteka "
+"honi, mesedez: "
+
+#: web/admin/inc/sendinvite.inc.php:121
+#, php-format
+msgid ""
+"If clicking the link doesn't work, you can also go to the %s Administrator "
+"Interface at"
+msgstr ""
+"Ezin badiozu estekari jarraitu edo ez badu funtzionatzen, %s -(e)ko "
+"administratzaile-interfazera ere jo dezakezu, hemen "
+
+#: web/admin/inc/sendinvite.inc.php:126
+msgid "and enter the invitation token"
+msgstr "eta gonbidapen-tokena sartu "
+
+#: web/admin/inc/sendinvite.inc.php:128
+msgid "manually. Please do not reply to this email, it is a send-only address."
+msgstr ""
+"eskuz. Mesedez, ez erantzun mezu honi, helbide horrek ez baitu existitzen. "
+
+#: web/admin/inc/sendinvite.inc.php:130
+#, php-format
+msgid "We wish you a lot of fun with the %s."
+msgstr "%s erabilita ondo pasa dezazula opa dizugu. "
+
+#: web/admin/inc/sendinvite.inc.php:132
+#, php-format
+msgid ""
+"Sincerely,\n"
+"\n"
+"Your friendly folks from %s Operations"
+msgstr "Adeitasunez,⏎ ⏎ %s -(e)ko eragiketa-taldeko zure adiskideak  "
+
+#: web/admin/inc/sendinvite.inc.php:144
+#, php-format
+msgid "%s: you have been invited to manage an IdP"
+msgstr "%s: IdP bat kudeatzeko gonbita jaso duzu "
+
+#: web/admin/inc/toggleRedirect.inc.php:48
+msgid ""
+"This page needs to be called either for EAP-Types OR for devices, not both "
+"simultaneously!"
+msgstr ""
+"Orrialde hau EAP motentzat edo gailuentzat eskatu behar da, baina ez "
+"bientzat aldi berean! "
+
+#: web/admin/inc/toggleRedirect.inc.php:55
+msgid ""
+"This page needs to be called either for EAP-Types OR for devices, but none "
+"of the two were set!"
+msgstr ""
+"Orrialde hau EAP motentzat edo gailuentzat dago prestatuta, baina ez duzu "
+"horrelakorik eman! "
+
+#: web/admin/inc/toggleRedirect.inc.php:77
+#, php-format
+msgid "device <strong>%s</strong>"
+msgstr "Gailua <strong>%s</strong> "
+
+#: web/admin/inc/toggleRedirect.inc.php:83
+#, php-format
+msgid "EAP-Type <strong>%s</strong>"
+msgstr "EAP mota <strong>%s</strong> "
+
+#: web/admin/inc/toggleRedirect.inc.php:89
+msgid "Fine-tuning options for "
+msgstr "Doitze-aukerak, honako hauetarako: "

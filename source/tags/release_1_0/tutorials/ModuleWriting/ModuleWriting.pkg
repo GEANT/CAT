@@ -1,0 +1,159 @@
+<refentry id="{@id}">
+ <refnamediv>
+  <refname>Writing device modules for the eduroam Configuration Assistant Tool</refname>
+  <refpurpose>Here, you will learn everything you need to know!</refpurpose>
+ </refnamediv>
+ <refsynopsisdiv>
+  <author>
+    {@link mailto:twoln@umk.pl Tomasz Wolniewicz}
+   <authorblurb>
+   </authorblurb>
+  </author>
+ </refsynopsisdiv>
+ {@toc}
+  <refsect1 id="{@id intro}">
+<title>Introduction</title>
+<para>
+<emphasis>eduroam Configuration Assistant Tool (CAT)</emphasis> is a user-oriented system helping to configure various wireless devices for eduroam.
+</para>
+<para>
+CAT database contains information provided by local eduroam admins, i.e. items like supported EAP methods, trusted RADIUS server names, trusted server certificates, etc. 
+</para>
+<para>
+CAT installers are device dependant entities (Windows installers, XML profiles, etc.), which carry all institution related information. Such a installer is created when a user selects his/her
+ instition, possibly also user group and one of supported devices. Installers are provided in a number of supported languages (please help in translation effort).
+</para>
+<para>See {@tutorial ModuleWriting.pkg#glosary} for a more detailed description of terms used in this text.
+</para>
+</refsect1>
+  <refsect1 id="{@id what-is}">
+<title>What is a device module and how does it interface with the CAT system?</title>
+<para>
+Device module makes use of information availabe in the CAT database available via the CAT API and produces the installer file. 
+</para>
+<para>
+The module MUST configure the device for accessing the the list of SSIDs passed to it by the CAT module API. The module publishes the
+ set of EAP methods it can support, CAT API compares this to the priotarised list of EAP types 
+supported by a given profile and returns the most appropriate one. Device module creates a confgurator for this EAP method. If the device requires to be separately configured for WPA2/AES and WPA/TKIP then
+it should use the inforation passed by the API, specyfying which encryptions must be supported. As a rule, if WPA/TKIP is specified, then WPA2/AES must also be configured for this SSID. 
+</para>
+</refsect1>
+<refsect1 id="{@id what-does}">
+<title>What does the CAT API do for device modules?</title>
+<para>
+Before passing control to the device module, CAT system prepares a few things for the module to use.These include:
+</para>
+<itemizedlist>
+<listitem>
+intefacing with the user;
+</listitem>
+<listitem>
+getting all configuration parameters from the CAT database;
+</listitem>
+<listitem>creating a temporary working directory;
+</listitem>
+<listitem>preapring certificate files and making them ready for stroring in the working directory;
+</listitem>
+<listitem>storing information files in the working directory (possibly changing the character set).
+</listitem>
+</itemizedlist>
+<para>
+After the device module produces the installer file, it leaves it in its working directory and passes back its name. CAT API delivers the file to the user.
+</para>
+<para>
+It is important to understand how the device module fits into the whole picture, so here is s short descrption.
+An external caller (for instance {@link GUI::generateInstaller()}) creates the module device instance and prepares
+its environment for a given user profile by calling {@link DeviceConfig::setup()} method.
+Finally, the module {@link DeviceConfig::writeInstaller ()} is called and the returned path name is used for user download.
+
+</para>
+</refsect1>
+<refsect1 id="{@id dir-structure}">
+<title>Directory structure and naming</title>
+<para>
+All device modules reside in the <emphasis>devices</emphasis> directory. Each device module has its own subdirectory.
+If a device module requires additional files that will need to be coppied to the working directory,
+then these files should be placed in the <emphasis>Files</emphasis> subdirectory of the module directory.
+</para>
+<para>
+The name of the module directory may be arbitraty, but the name of the module file and the name of the device class must be synchronised. 
+For instance, if the name of the module is <emphasis>TestModule</emphasis>, then it's source file should be called <emphasis>TestModule.php</emphasis>
+and the name of the class must be <emphasis>Device_TestModule</emphasis>. 
+</para>
+<para>
+Naming is defined in the {@link devices.php} file, it is a configuration feature and is irrelevant external from the moule point of view.
+</para>
+</refsect1>
+
+ <refsect1 id="{@id driver-code}">
+<title>Device driver code</title>
+<para>
+See the {@link TestModule.php} for a working example.
+</para>
+<para>
+We assume, that you are know how to write a device installer itself. 
+If not, then this tutorial will not teach you that. It will only show how to get hold
+of parameters that you need to build into your code.
+</para>
+<para>
+Typically, to produce an installer you need to know:
+<itemizedlist>
+<listitem>the certificate of the CA which has signed the RADIUS server certificate,
+</listitem>
+<listitem>the names of the trusted RADIUS servers,
+</listitem>
+<listitem>the EAP method to be used,
+</listitem>
+<listitem>the SSIDs to connect to.
+</listitem>
+</itemizedlist>
+
+ The installer will only work properly for users from one institution and, possibly one user
+group, it would be wise to display an appropraite warning. If an institution has only one user group, then it makes no sense to make users aware that this concept exists and device modules should probably try to hide this. The <emphasis>internal:profile_count</emphasis> can be used to check how many profiles a given institution has.
+</para>
+<para>
+In some environments it is possible to display additional text information (pehaps a list of usage terms), it may be also possible to customise the installer graphics by adding the institution logo. 
+All these will be available to the device module.
+</para>
+<para>
+The device module class  <emphasis>MUST</emphasis> extend the {@link DeviceConfig} class, thus obtaining access to all methods and properties provided by this class. 
+Check the documentation of that class for a complete list.
+</para>
+<para>
+The module class <emphasis>MUST</emphasis> define a constructor and this constructor <emphasis>MUST</emphasis> set
+<emphasis>$this->supportedEapMethods</emphasis> to to an array listing EAP methods supported by this particular device.
+</para>
+<para>
+The module <emphasis>MUST</emphasis> define a <emphasis>writeInstaller()</emphasis> method which is to produce the actual installer file.
+All useful profile properties are provided within the device's <emphasis>attributes</emphasis> property (see {@link DeviceConfig}) and set by the setup(Profile $profile) method
+when a device module is being prepared to be called.
+</para>
+<para>
+ The <emphasis>writeInstaller</emphasis> method must create the installer in the form of a single file in the module.
+</para>
+</refsect1>
+ <refsect1 id="{@id glosary}">
+<title>Glosary</title>
+<variablelist>
+<varlistentry>
+       <term>Device:</term>
+       <listitem>
+          <to>An operating system instance which covers a group of wireless client devices; it may be just a group of oerating systems like "Microsoft Windows Vista and newer" or "Android smartphones" or "iOS devices" </to>
+       </listitem>
+</varlistentry>
+<varlistentry>
+       <term>Profile:</term>
+       <listitem>
+<to>A group of users which share the same network configuration parameters (except for user credentials), thus a profile shares the same supported EAP methiods, the same trusted servers etc. Even if the
+entire institution needs only one profile it will always be created; installers are prepared per (profile, device) touple.
+</to>
+</listitem>
+</varlistentry>
+    </variablelist>
+</refsect1>
+<refsect1 id="{@id see_also}">
+<title>SEE ALSO</title>
+{@link TestModule.php, DeviceConfig, GUI}
+</refsect1>
+</refentry>
+

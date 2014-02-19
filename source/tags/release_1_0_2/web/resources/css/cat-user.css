@@ -1,0 +1,123 @@
+body {
+    background: #fff url(../../resources/images/bg_grey_tile.png) repeat-x;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:11px;
+    height: 100%;
+    margin:0;
+    padding:0;
+    padding-left: 0px;
+    min-width: 700px;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+button {
+    background: #0a698e; 
+    color: #FFFFFF; 
+    height: 23px;
+    box-shadow: 10px 10px 5px #888888;
+}
+
+#slides img {
+    position: absolute;
+     top: 145px;
+     right: 60px;
+}
+
+#slides span {
+    position: absolute;
+    left: 180px;
+    color: #fff;
+    font-size:16px;
+}
+
+#left_menu td {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+#user_info {
+    padding-left: 30px; 
+    font-size: 11px;  
+    font-weight: normal; 
+}
+
+#devices {
+    padding-left: 30px;
+    font-size: 11px;  
+    font-weight: normal
+}
+
+#profile_list {
+    width: 30em; 
+    padding-left: 10px; 
+    padding-right: 0px; 
+    background: #0a698e; 
+    color: white; 
+    box-shadow: 10px 10px 5px #888888;
+}
+
+#profiles {
+    padding-left: 30px; 
+    font-size: 11px; 
+    padding-bottom: 10px 
+}
+
+#device_list button {
+    width: 25em; 
+    font-size: 11px;  
+    font-weight: normal; 
+    font-style: normal;
+}
+
+#device_list button.more_info_b {
+    width: 23px; 
+    font-family:Times-Roman; 
+    font-size: 18px;  
+    font-weight: bold; 
+    font-style: italic;
+}
+
+#institution_name {
+    font-size: 14px; 
+    padding-top: 4px; 
+    padding-bottom: 12px; 
+    padding-left: 30px; 
+    background: #bcd7e8; 
+    text-align: left; 
+    text-shadow: 10px 10px 5px #888888;
+}
+
+#welcome {
+    padding: 20px; 
+    padding-left: 30px; 
+    text-align: justify; 
+    border-bottom-style:solid; 
+    border-bottom-width:5px; 
+    border-color: #bcd7e8; 
+    font-size: 11px ;
+    font-weight: normal;
+}
+
+#idp_logo {
+   display:none;
+   position:absolute;
+   right:30px;
+   max-height:150px;
+   padding-top:10px;
+}
+
+#profile_desc {
+   display:none;
+    background: #f0f0f0;
+    position: relative;
+    border: 1px solid #dddddd;
+    margin: 5px;
+    padding: 5px;
+    max-width: 49%;
+    min-width: 30em;
+    min-height: 25px;
+    vertical-align: top;
+    border-radius: 6px;
+    box-shadow: 5px 5px 5px #666666;
+}

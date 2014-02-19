@@ -1,0 +1,163 @@
+<?php
+/***********************************************************************************
+ * (c) 2011-12 DANTE Ltd. on behalf of the GN3 consortium
+ * License: see the LICENSE file in the root directory
+ ***********************************************************************************/
+?>
+<?php
+
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+
+require_once 'Options.php';
+
+// validation functions return HTML snippets. Ideally, should be called after
+// HTML <head>, for beautiful output even in these error cases
+
+function input_validation_error($customtext) {
+    return "<p>" . _("Input validation error: ") . $customtext . "</p>";
+}
+
+function valid_IdP($input, $owner = 0) {
+    if (!is_numeric($input)) {
+        echo input_validation_error(_("Value for IdP is not an integer!"));
+        exit(1);
+    }
+    try {
+        $temp = new IdP($input);
+    }
+    catch (Exception $fail) {
+        echo input_validation_error(_("This IdP identifier is not accessible!"));
+        exit(1);
+    }
+    
+    if ($owner !== 0) { // check if the authenticated user is allowed to see this institution
+        foreach ($temp->owner() as $oneowner)
+            if ($oneowner['ID'] == $owner)
+                return $temp;
+        echo input_validation_error(_("This IdP identifier is not accessible!"));
+        exit(1);
+    }
+    return $temp;
+}
+
+function valid_Profile($input, $idp_identifier = NULL) {
+    if (!is_numeric($input)) {
+        echo input_validation_error(_("Value for profile is not an integer!"));
+        exit(1);
+    }
+    try {
+        $temp = new Profile($input);
+    }
+    catch (Exception $fail) {
+        echo input_validation_error(_("This profile is not accessible!"));
+        exit(1);
+    }
+    
+    if ($idp_identifier !== NULL && $temp->institution != $idp_identifier) {
+        echo input_validation_error(_("This profile is not accessible!"));
+        exit(1);
+    }
+    return $temp;
+}
+
+function valid_Device($input) {
+    $devicelist = Devices::listDevices();
+    if (!isset($devicelist[$input]))
+        echo input_validation_error(_("This device does not exist!"));
+    return $input;
+}
+
+function valid_string_db($input) {
+    // chop out invalid characters
+    $retval = iconv("UTF-8", "UTF-8//IGNORE", $input);
+
+    if (!get_magic_quotes_gpc()) { // we need to call addslashes
+        $retval = addslashes($retval);
+    }
+    return $retval;
+}
+
+function valid_Realm($input) {
+    // bark on invalid constructs
+    if (preg_match("/@/", $input) == 1) {
+        echo input_validation_error(_("Realm contains an @ sign!"));
+        return FALSE;
+    }
+    if (preg_match("/^\./", $input) == 1) {
+        echo input_validation_error(_("Realm begins with a . (dot)!"));
+        return FALSE;
+    }
+    if (preg_match("/\.$/", $input) == 1) {
+        echo input_validation_error(_("Realm ends with a . (dot)!"));
+        return FALSE;
+    }
+    if (preg_match("/\./", $input) == 0) {
+        echo input_validation_error(_("Realm does not contain at least one . (dot)!"));
+        return FALSE;
+    }
+    if (preg_match("/ /", $input) == 1) {
+        echo input_validation_error(_("Realm contains spaces!"));
+        return FALSE;
+    }
+    return $input;
+}
+
+function valid_user($input) {
+    $retval = $input;
+    if ($input != "" && !ctype_print($input)) {
+        echo input_validation_error(_("The user identifier is not an ASCII string!"));
+        exit(1);
+    }
+    return $retval;
+}
+
+function valid_token($input) {
+    $retval = $input;
+    if ($input != "" && preg_match('/[^0-9a-fA-F]/', $input) != 0) {
+        echo input_validation_error(_("Token is not a hexadecimal string!"));
+        exit(1);
+    }
+    return $retval;
+}
+
+function valid_coordinate($input) {
+    if (!is_numeric($input)) {
+        echo input_validation_error(_("Coordinate is not a numeric value!"));
+        exit(1);
+    }
+    // lat and lon are always in the range of [-180;+180]
+    if ($input < -180 || $input > 180) {
+        echo input_validation_error(_("Coordinate is out of bounds. Which planet are you from?"));
+        exit(1);
+    }
+    return $input;
+}
+
+function valid_coord_serialized($input) {
+    if (is_array(unserialize($input))) {
+        $tentative = unserialize($input);
+        if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat']))
+            return $input;
+    } else {
+        echo input_validation_error(_("Wrong coordinate encoding!"));
+        exit(1);
+    }
+}
+
+function valid_multilang($content) {
+    if (!is_array($content) || !isset($content["lang"]) || !isset($content["content"])) {
+        echo input_validation_error(_("Invalid structure in multi-language attribute!"));
+        exit(1);
+    }
+}
+
+function valid_boolean($input) {
+    if ($input != "on") {
+        echo input_validation_error(_("Unknown state of boolean option!"));
+        exit(1);
+    }
+    else
+        return $input;
+}
+
+?>

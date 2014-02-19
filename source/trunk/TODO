@@ -1,0 +1,52 @@
+Label Definition
+===========
++ done
+- in progress/done partially
+! to be done
+? not sure if we want to do this
+
+1.0
+========
+
+! Manuals
+
+Later
+=======
+
+Admin Interface
+----------------------
+- check and complain if an admin tries to upload a *server* certificate
+! pre-fill inst admins mail addresses from eduroam DB if known (but allow override)
+? wizard mode - should have a switch on every page (Feature)
+? control in which language notification emails are sent
+? support for TCS certificates (not require to upload the full chain)
+! replace system() calls to qrencode with PHP library call
+! specify SSID to be /removed/ from client config after successful installation
+! wired 802.1X configuration support
+! specify if transparent proxies should be enabled (or do this unconditionally?)
+
+User interface
+--------------------
++ detect OS and make "featured download" of best match
+! Windows installers should give users a hint what to do if they downloaded the wrong installer
+! self-service troubleshooting for end-users
++ remove hard-coded "TERENA" mentions on rollover and FAQ entries
++ better logo handling for DiscoJuice
+
+Core
+-------
+? New approach to options passed to device modules (development) - SUSPENDED
+! unify access to consortium logo
+
+Device modules
+-----------------------
+- Wired support (done for Apple)
+! Turn off TKIP for Linux
++ Windows modules, correct the text about profiles to be installed if there is only one
+? Windows modules - NEA (??)
+? Windows modules - EAP-PWD support update (if new version from Aruba)
+? Linux - big installer GUI (Feature)
+! Linux - WICD support
+! Linux - SUSE XML variant support
+! all OS: ability to remove bootstrap SSIDs
+! all OS: enable to configure transparent proxy detection

@@ -1,0 +1,279 @@
+Changes in release 1.0.2
+========================
+Configuration parameter changes
+-------------------------------
+[NEW]          Config::$PATHS['rad_eap_test']
+               explicit or implicit specification of rad_eap_test; see FEAT#2
+
+Bugfixes and Features
+---------------------
+- [BUGFIX #1]  the "Add new options" button for EAP-specific details and device-
+               specific details now works
+- [BUGFIX #2]  Problem with installer filename generation fixed globally
+               by adding a generic approach common to all device modules
+- [BUGFIX #3]  heuristics in RADIUS checks tried to be too clever. There is a
+               configuration which was diagnosed as error condition, but is not
+               necessarily an error. Downgraded to WARNING and an explanation
+               was added under which circumstances this is correct behaviour
+- [FEATURE #1] after editing IdP details, explicit confirmation which SSIDs with
+               which security settings will be configured is displayed
+- [FEATURE #2]  rad_eap_test can be configured with an explicit path
+               this solves a problem of installations which put this script 
+               in non-standard places
+
+Changes in release 1.0.1
+========================
+
+Configuration parameter changes
+-------------------------------
+[NEW]          Config::$CONSORTIUM['signer_name']
+               Organisation Name in code signing; see BF#1
+               defaults to empty, can be omitted
+[NEW]          Config::$CONSORTIUM['deployment-voodoo']
+               extra code paths for some high-profile deployments, see BF#2
+               defaults to empty, can be omitted
+
+Bugfixes and Features
+---------------------
+- [BUGFIX #1]  the name "TERENA" for installer signatures was hard-wired. It
+               is now a config item; if omitted, no "signed by" advertising is
+               done
+- [BUGFIX #2]  use of eduroam DB depended on a heuristics about DB host
+               "monitor.eduroam.org", which failed in some circumstances
+               introducing new config variable for this one particular deploy-
+               ment
+- [BUGFIX #3]  various spelling and grammar fixes
+- [BUGFIX #4]  fix wrong error message when trying to consume an already-used
+               token
+- [BUGFIX #6]  Terms of Use text which is not perfectly valid UTF-8 could make
+               the mobileconfig module produce garbled installers. Incorrect
+               characters will now be translit-ignored.
+- [BUGIFX #7]  federation operator API rewritten to actually work
+- [BUGFIX #8]  installer generation broke when inst or or profile names
+               contained slashes
+- [FEATURE #1] Slovak translation
+- [FEATURE #2] Finnish translation
+- [FEATURE #3] Norwegian (Bokmal) translation
+
+Changes in release 1.0
+=====================
+- [BUGFIX]     fix spelling mistake "fiitting"
+- [BUGFIX]     better explanations for digital signature script for Windows
+- [BUGFIX]     make admin login more visible in pop-up window (proper
+               button)
+- [BUGXIX]     more space added at the bottom of the main window (the footer
+               was obsuring the view on shor windows).
+- [BUGXIX]     devices.php no_cache global option was not taken into account
+- [BUGXIX]     fixes to info text - the list of SSIDs was not displayed properly
+- [BUGXIX]     SSIDs with spaces were not properly handled by Windows installers
+- [BUGXIX]     IdPs were not sorted in the DB link popup
+- [BUGXIX]     Close button in Manage DB link was causing a POST
+- [BUGFIX]     NSIS variables not properly set for W8, as a result password
+               did not appear for Windows 8 TLS
+- [BUGFIX]     Confirmation text on the ToU Windows page was commented out
+               as a result the default NSIS text was diplayed instead
+- [BUGFIX]     arguments to infoCAT on the main page were not properly escaped, 
+               which could cause apostrophy problems
+
+Changes in release 1.0-rc1
+=====================
+- [BUGFIX]     Windows module did not work for Vista without SP1
+- [BUGFIX]     removed all PHPdoc parser errors and warnings
+- [BUGFIX]     grammar and punctuation fixes throughout the UI
+- [BUGFIX]     auto-set the radio button in manage DB link if "other" is used
+- [BUGFIX]     non-fedadmin users in the eduroam DB are not any more falsely
+               classified as being fedadmin for the (non-existing, non-working)
+               "NULL" federation
+- [FEATURE]    Apple iOS installer download help is now displaying texts condi-
+               tional to number of CAs/number of SSIDs installed
+- [FEATURE]    Apple iOS installers now also support TTLS-MSCHAPv2
+- [FEATURE]    Admins now also have a "Start page" link to the main site
+- [FEATURE]    we now also generate QR codes for deeplinking to the inst level
+               (not just individual profiles) Some insts might want to drop
+               their users into the profile selection stage.
+- [FEATURE]    Additional startup screen for the Linux module
+- [FEATURE]    Improvement in handling deep linking
+- [FEATURE]    Debugging for Windows modules, you can now enable a lot of
+               messages on the client, temporary files are not deleted either
+- [FEATURE]    allow superadmins to delete old temporary directories
+               conveniently from their home page
+- [FEATURE]    Installation check includes whether default values were changed
+               in the config, and whether all client cert related files exist
+
+Changes in release 1.0-beta2
+=====================
+- [BUGFIX]     if an invitation mail can't be sent, don't make the institution
+               pending
+- [BUGFIX]     make the shortcut link profile generation -> installer fine-
+               tuning work under all conditions
+- [BUGFIX]     User page footer must stay at the bottom during page scrolls
+- [BUGFIX]     ToU file contents conversion into proper CP for Windows
+               installers
+- [BUGFIX]     Active country list must be limited to those with configured and
+               active IdPs
+- [BUGFIX]     basic.php should not allow for setting a non-active county
+- [BUGFIX]     allow option containers to render with more space if needed
+- [BUGFIX]     escape POST values for MySQL write in manageNewInst.inc.php
+- [BUGFIX]     federation admin privileges stay confined in own federation
+               (only affects users without fed admin rights in one fed, but
+               with such rights in another)
+- [BUGFIX]     provide a working link to the explanation of anon outer IDs
+- [BUGFIX]     make credential check work if more than one CA is configured
+- [BUGFIX]     fix an E_NOTICE when retrieving user options
+- [BUGFIX]     Windows installers were attempting to add intermediate CA certs
+               to the root store and failed without any error message
+- [BUGFIX]     Institution logo positioning
+- [BUGFIX]     parse PEM files correctly even if they contain multiple CAs and
+               intermediate "garbage" text
+- [BUGFIX]     after parsing a CA repository from URL successfully, display that 
+               fact on the summary page
+- [BUGFIX]     generate the doc/ directory inside web/
+- [BUGFIX]     strings in geolocation need to be miltilingial, discojuice fix 
+               was required
+- [BUGFIX]     some option names were shown twice under "Add new options"
+- [BUGFIX]     support email was showing up in place of support URL on Windows
+               installers welcome screen
+- [BUGFIX]     when no TKIP profiles were required, Windows installer still 
+               issued the TKIP message on the main screen
+- [BUGFIX]     Windows modules failed when no CA certificates were supplied
+               (this could happen for EAP-PWD - only preofiles)
+- [BUGFIX]     When an intaller gereation failed the user was directed to
+               a non-existant address, an error message is now displayed.
+- [BUGFIX]     fix welcomeletter generation if logo is PNG
+- [BUGFIX]     info_file in Windows now uses the correct charset
+- [FEATURE]    Installation check includes whether downloads directory is
+               writable
+- [FEATURE]    Installation check includes whether all locales are available
+- [FEATURE]    Installation check includes check for openssl presence + version
+- [FEATURE]    mobileconfig module now displays info_file text (up to 1218 B)
+- [FEATURE]    federation admins can now revoke issued invitations
+- [FEATURE]    show privilege level when adding new administrators
+- [FEATURE]    invitation mails explicitly state until when the token is valid
+- [FEATURE]    a BCC address to receive copies of the invitation mails can now
+               optionally be specified (defaults to NULL)
+- [FEATURE]    fed admin can immediately add himself as admin of his IdPs (no
+               need to send mail to himself)
+- [STRUCTURE]  New approach to devices allowing to share directories and common
+               files
+
+
+Changes in release 1.0-beta1
+=====================
+Main screen
+-----------------
+when admin button is pushed, it may take a while before authentication goes
+  through, hence a message should be displayed on the screen. (Feature) DONE
+going from the main screen to admin does not preserve language (Bug) FIXED
+
+Admin Interface
+-----------------------
+Invitations should display a message when sent (Feature) FIXED
+Fields do not switch to file upload in chrome (Bug) FIXED
+compatibility matrix - download button - missing slash in URL (Bug) FIXED
+idp_wizard, wizard mode - hardcoded link to user interface (Bug) FIXED
+allow user to update his personal details (Feature)
+allow fedadmin and co-admins to delete an admin (Feature)
+flag profiles as "production" - before that, don't show to users (Feature)
+keep invite mail address permanently to identify users (Feature)
+allow to specify custom anonymous outer identity values (Feature)
+default for anonymous outer identities changed to "anonymous@" instead of "<empty>@" (Feature)
+
+Admin interface internals
+--------------------------------------
+NAPTR records are case sensitive (Bug) FIXED
+audit trail of changes to DB data (Feature)
+
+User interface
+-----------------------
+DiscoJuice icons fail on SVG (Bug) FIXED - Imagic seemed to have problems with non-english locale (??)
+Borders look bad in IE (Bug) FIXED
+Profile choice does not work properly in some browsers (Bug) FIXED - "click" instead of "select" event was used
+Profile select is not shown properly on Motorola XZOOM (Bug) FIXED - dirty chack setting select size to 1 if agent matches "Android"
+IE 8 fails in 'foreEach' method (Bug) FIXED - used jQuery.each instead
+CSS problems in IE8,IE7 (Problem) FIXED mostly 
+Group download buttons per vendor (Feature) DONE
+basic.php does not show the profile name on the final download screen (Bug) DONE
+basic.php should try to recognise user's country (Feature)
+
+User interface internals
+-------------------------------------
+Installer caching (Development) DONE
+Counters for total installers served (Feature) DONE
+Federation operator privileges management (Feature) DONE
+
+Core
+---------
+Google API3 (Development)  DONE 
+New layout of directories, simplification od admin/user interfaces interaction - DONE
+
+Device modules
+-----------------------
+situations where support data have not been given need to be handled with a default test substitution - DONE
+Linux - wpa_supplicant (Feature) DONE
+Linux - Network manager (Feature) DONE
+Windows modules - test for wireless interface being enabled (Feature) DONE 
+Windows modules - test for exestence of certificates in stores before adding
+mobileconfig: display different strings for MacOS vs. iOS (Feature)
+mobileconfig: enable "hidden networks" flag (Feature)
+
+Utilities
+-----------
+Stale installers cleanup (Development) DONE
+
+Documentation
+---------------------
+Source code copyright notices added (all PHP files)
+
+Changes in release 1.0-alpha3
+======================
+New translations:
+Italian
+Serbian
+Swedish
+
+New devices
+Windows 8 with native TTLS-PAP support
+
+Certificate handling - now it is possible to uload fill certificate
+chains as PEM files, the system is picking out root certificates so that
+installers are able to pick the correct fingerprints
+
+Changes prior to release 1.0-alpha3
+==========================
+2011-08-09  - T. Wolniewicz
+Just listing changes since Alpha 1.0
+Fixed language support - in Helper set_profile has been split into set_lang 
+  and set_profile, in user and device files domain switching has been added
+Fixed multiple SSID support in Vista7.php
+Fixed a small bug in ttls.nsi (the forward button was shown before SW2 has completed)
+Added some translation
+2011-05-31  -  S. Winter
+
+Device.php
+Helper.php
+  Moved base dir for temporary files to Config
+  allow recursive directory creation
+all files
+  add a debug() function to increase/decrease verbosity
+testvectors.php
+  uses two different profiles to generate a TTLS/Vista and PEAP/Vista profile
+
+2011-05-24  -  T. Wolniewicz
+IdP.php 
+  changed certificate handling in addCA, so that the certificate would be
+  always available in both PEM and DER format. 
+  Also changed the way in which we determine if the certificate is in the PEM
+  format, to avoid the warning message from openssl_x509_read.
+  The return array from addCA now contains the pem and der fields.
+
+Device.php
+  $FPATH_main and $FPATH properties have been added
+  createTemporaryDirectory method was added
+  saveCertificateFiles function was added
+  $selected_eap public propertty was added for reporting purposes.
+Vista.php
+  Major extensions, still in prelimintary state.
+  Certificates and profiles are now saved in a temporary subdirectory 
+  if the directory pointed to by $FPATH_main
+
+          

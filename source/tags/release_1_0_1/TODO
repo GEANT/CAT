@@ -1,0 +1,41 @@
+Label Definition
+===========
++ done
+- in progress/done partially
+! to be done
+? not sure if we want to do this
+
+1.0
+========
+
+! Manuals
+
+Later
+=======
+
+Admin Interface
+----------------------
+- check and complain if an admin tries to upload a *server* certificate
+! pre-fill inst admins mail addresses from eduroam DB if known (but allow override)
+? wizard mode - should have a switch on every page (Feature)
+? control in which language notification emails are sent
+? support for TCS certificates (not require to upload the full chain)
+
+User interface
+--------------------
+! detect OS and make "featured download" of best match
+! Windows installers should give users a hint what to do if they downloaded the wrong installer
++ remove hard-coded "TERENA" mentions on rollover and FAQ entries
+
+Core
+-------
+? New approach to options passed to device modules (development) - SUSPENDED
+! unify access to consortium logo
+
+Device modules
+-----------------------
+? Windows modules - NEA (??)
+? Windows modules - EAP-PWD support update (if new version from Aruba)
+? Linux - big installer GUI (Feature)
+! Linux - WICD support
+! Linux - SUSE XML variant support

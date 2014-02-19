@@ -1,0 +1,957 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-06 13:59+0100\n"
+"PO-Revision-Date: 2012-12-11 13:59+0100\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: devices/apple_mobileconfig/mobileconfig.php:120
+#, php-format
+msgid "Network configuration profile '%s' of '%s' - provided by %s"
+msgstr "Profil '%s' z grupy '%s' dla iPhona - dostarczony przez %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:162
+msgid ""
+"The profile will install itself after you click (or tap) the button. You "
+"will be asked for confirmation/input at several points:"
+msgstr ""
+"Profil zainstaluje się automatycznie po kliknięciu przycisku. Kilkakrotnie "
+"zostaniesz poproszony o wprowadzenie danych lub potwierdzenie:"
+
+#: devices/apple_mobileconfig/mobileconfig.php:164
+msgid "to install the profile"
+msgstr "aby zainstalować profil"
+
+#: devices/apple_mobileconfig/mobileconfig.php:165
+msgid "to accept the server certificate authority"
+msgid_plural "to accept the server certificate authorities"
+msgstr[0] "aby zaaceptować Urząd Certyfikacyjny serwera"
+msgstr[1] "Urząd Certyfikacyjny Twojego dostawcy tożsamości"
+
+#: devices/apple_mobileconfig/mobileconfig.php:167
+#, php-format
+msgid "(%d times)"
+msgstr "(%d razy)"
+
+#: devices/apple_mobileconfig/mobileconfig.php:169
+msgid "to enter the username and password of your institution"
+msgstr "aby wprowadzić identyfikator i hasło dla Twojej instytucji"
+
+#: devices/apple_mobileconfig/mobileconfig.php:171
+#, php-format
+msgid "(%d times each, because %s is installed for %d SSIDs)"
+msgstr "(%d razy ponieważ %s jest instalowane dla %d SSID)"
+
+#: devices/apple_mobileconfig/mobileconfig.php:236
+#, php-format
+msgid "%s configuration for network name %s"
+msgstr "konfiguracja %s dla sieci %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:238
+#, php-format
+msgid "SSID %s"
+msgstr "SSID %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:281
+msgid "Your Identity Providers Certification Authority"
+msgstr "Urząd Certyfikacyjny Twojego dostawcy tożsamości"
+
+#: devices/apple_mobileconfig/mobileconfig.php:283
+msgid "Identity Provider's CA"
+msgstr "Urząd certyfikacyjny dostawcy tożsamości"
+
+#: devices/ms/Vista7.php:32 devices/ms/W8.php:33
+msgid ""
+"Anonymous identities do not use the realm as specified in the profile - it "
+"is derived from the suffix of the user's username input instead."
+msgstr ""
+"Identyfikator anonimowy jest tworzony na podstawie identyfikatora, który "
+"wprowadzi użytkownik. Ustawienie realmu z danych profilu nie będzie używane."
+
+#: devices/ms/Vista7.php:78 devices/ms/W8.php:78 devices/ms/XP.php:77
+#, php-format
+msgid ""
+"%s installer will be in the form of an EXE file. It will configure %s on "
+"your device, by creating wireless network profiles.<p>When you click the "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"Instalator %s zostanie przygotowany w postaci pliku EXE. Instalator "
+"skonfiguruje  %s na Twoim urządzeniu tworząc na nim niezbędne profile "
+"sieciowe.<p>Kiedy klikniesz przycisk pobierania, instalator zostanie "
+"zachowany przez przeglądarkę. Skopiuj go na urządzenie, które chcesz "
+"skonfigurować i uruchom."
+
+#: devices/ms/Vista7.php:82 devices/ms/W8.php:82 devices/ms/XP.php:81
+#: devices/linux/Linux.php:82
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to the following networks:"
+msgstr ""
+"Oprócz sieci <strong>%s</strong>, instalator skonfiguruje również "
+"następujące sieci:"
+
+#: devices/ms/Vista7.php:84 devices/ms/W8.php:84 devices/ms/XP.php:83
+#: devices/linux/Linux.php:84
+#, php-format
+msgid ""
+"In addition to <strong>%s</strong> the installer will also configure access "
+"to:"
+msgstr ""
+"Oprócz sieci <strong>%s</strong>, instalator skonfiguruje również sieć:"
+
+#: devices/ms/Vista7.php:97 devices/ms/W8.php:98
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process."
+msgstr ""
+"Do połączenia z siecią niezbędny będzie certyfikat osobisty w postaci pliku "
+"p12. Taki certyfikat powinien otrzymać od swojej instytucji macierzystej. "
+"Sprawdź lokalne strony wsparcia eduroam, aby się dowiedzieć jaka obowiązuje "
+"procedura. Certyfikaty indywidualne są chronione hasłem. W czasie procesu "
+"instalacji będziesz musiał dysponować zarówno plikiem certyfikatu jak i "
+"hasłem."
+
+#: devices/ms/Vista7.php:99 devices/ms/W8.php:100 devices/ms/XP.php:96
+#: devices/linux/Linux.php:100
+msgid ""
+"In order to connect to the network you will need an account from your home "
+"institution. You should consult the support page to find out how this "
+"account can be obtained. It is very likely that your account is already "
+"activated."
+msgstr ""
+"Do połączenia z siecią niezbędne Ci będzie konto użytkownika w instytucji "
+"macierzystej. Sprawdź lokalne strony wsparcia eduroam, aby dowiedzieć się,"
+"jak można takie konto uzyskać. Jest bardzo prawdopodobne, że Twoje konto "
+"jest już aktywne."
+
+#: devices/ms/Vista7.php:102 devices/ms/XP.php:98
+msgid ""
+"The installer will also install additional software - SecureW2 EAP Suite "
+"(GNU General Public License).<p>You will be requested to enter your account "
+"credentials into a pop box during the installation. This information will be "
+"saved so that you will reconnect to the network automatically each time you "
+"are in the range."
+msgstr ""
+"Instalator doinstaluje również dodatkowe oprogramowanie - SecureW2 EAP Suite "
+"(na licencji GPL).<p>W czasie instalacji pojawi się okienko, do którego "
+"należy wprowadzić identyfikator i hasło do konta. Ta informacja zostanie "
+"zachowana na komputerze i kolejne połączenia będą już następowały "
+"automatycznie."
+
+#: devices/ms/Vista7.php:107 devices/ms/W8.php:102
+msgid ""
+"When you are connecting to the network for the first time, Windows will pop "
+"up a login box, where you should enter your user name and password. This "
+"information will be saved so that you will reconnect to the network "
+"automatically each time you are in the range."
+msgstr ""
+"Przy pierwszym połączeniu z siecią Windows wyświetli okienko logowania, do "
+"którego należy wprowadzić identyfikator i hasło do konta. Ta informacja "
+"zostanie zachowana na komputerze i kolejne połączenia będą już następowały "
+"automatycznie."
+
+#: devices/ms/Vista7.php:110 devices/ms/W8.php:105
+msgid ""
+"You will be required to enter the same credentials for each of the "
+"configured notworks:"
+msgstr ""
+"Będziesz musiał wprowadzić te same dane logowania do każdej ze "
+"skonfigurowanych sieci:"
+
+#: devices/ms/Vista7.php:384 devices/ms/XP.php:194
+msgid "Login credentials"
+msgstr "Dane logowania"
+
+#: devices/ms/Vista7.php:452 devices/ms/Vista7.php:453 devices/ms/W8.php:350
+#: devices/ms/W8.php:351 devices/ms/XP.php:249 devices/ms/XP.php:250
+#, php-format
+msgid "%s installer for %s"
+msgstr "Instalator %s dla %s"
+
+#: devices/ms/Files/common.inc:112
+#, php-format
+msgid "Welcome to the %s installer"
+msgstr "Witamy w instalatorze %s"
+
+#: devices/ms/Files/common.inc:113 devices/ms/Files/xp/common.inc:109
+msgid "Installation complete"
+msgstr "Instalacja zakończona"
+
+#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:110
+msgid "Network profiles have been installed."
+msgstr "Profile sieciowe zostały zainstalowane."
+
+#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:110
+msgid "Your system is ready."
+msgstr "System gotowy do pracy."
+
+#: devices/ms/Files/common.inc:115 devices/ms/Files/xp/common.inc:111
+msgid "Network installation had errors."
+msgstr "W czasie instalacji wystąpiły błędy."
+
+#: devices/ms/Files/common.inc:115 devices/ms/Files/common.inc:609
+#: devices/ms/Files/xp/common.inc:111 devices/ms/Files/xp/common.inc:491
+msgid "Please contact ${SUPPORT}."
+msgstr "Skontaktuj się z ${SUPPORT}"
+
+#: devices/ms/Files/common.inc:124 devices/ms/Files/xp/common.inc:120
+msgid "Accept"
+msgstr "Akceptuję"
+
+#: devices/ms/Files/common.inc:125 devices/ms/Files/xp/common.inc:121
+msgid ""
+"If you accept the conditions then select Accept and then click Install to "
+"continue."
+msgstr ""
+"Jeżeli akceptujesz te warunki, to wybierz Akceptuję i kliknij Instaluj, aby "
+"kontynuować"
+
+#: devices/ms/Files/common.inc:131 devices/ms/Files/xp/common.inc:127
+msgid "Finish"
+msgstr "Zakończ"
+
+#: devices/ms/Files/common.inc:150
+msgid "searching for certificate"
+msgstr "szukam certyfikatu"
+
+#: devices/ms/Files/common.inc:206 devices/ms/Files/xp/common.inc:142
+msgid "installing certificate"
+msgstr "instaluję certyfikat"
+
+#: devices/ms/Files/common.inc:210
+msgid "could not install certificate"
+msgstr "instaluję certyfikat"
+
+#: devices/ms/Files/common.inc:328
+msgid ""
+"The non TKIP profiles are preferred. Always use them if you have a choice."
+msgstr "Jeżeli masz inny wybór, to nie korzystaj z profili TKIP."
+
+#: devices/ms/Files/common.inc:330
+msgid "The non TKIP profile is preferred. Always use it if you have a choice."
+msgstr "Jeżeli masz inny wybór, to nie korzystaj z profilu TKIP."
+
+#: devices/ms/Files/common.inc:336 devices/ms/Files/xp/common.inc:244
+#: devices/linux/Linux.php:137
+msgid "This installer has been prepared for ${ORGANISATION}"
+msgstr "Ten instalator został przygotowany dla instytucji: ${ORGANISATION}"
+
+#: devices/ms/Files/common.inc:337
+msgid "The installer will create the following wireless profiles:"
+msgstr "Instalator stworzy następujące profile bezprzewodowe:"
+
+#: devices/ms/Files/common.inc:340 devices/ms/Files/xp/common.inc:248
+#: devices/linux/Linux.php:137
+msgid "More information and comments:"
+msgstr "Więcej informacji i uwagi:"
+
+#: devices/ms/Files/common.inc:365 devices/ms/Files/xp/common.inc:274
+#: devices/linux/Linux.php:138
+msgid "Installer created with software from the GEANT project."
+msgstr ""
+"Instalator został stworzony przy pomocy oprogramowania przygotowanego przez "
+"projekt GEANT."
+
+#: devices/ms/Files/common.inc:391
+msgid "This installer works with Windows 8 only"
+msgstr "Ten instalator pracuje wyłącznie w systemie Windows 8"
+
+#: devices/ms/Files/common.inc:400 devices/ms/Files/common.inc:439
+msgid "This installer works with Windows Vista and Windows 7 only"
+msgstr "Ten instalator pracuje wyłącznie w systemie Vista i Windows 7"
+
+#: devices/ms/Files/common.inc:455 devices/ms/Files/xp/common.inc:346
+msgid ""
+"Windows wireless configuration service is not enabled. The installer cannot "
+"continue."
+msgstr ""
+"Usługa konfiguracji sieci bezprzewodowej nie jest włączona. Konfigurator nie "
+"może kontynuować."
+
+#: devices/ms/Files/common.inc:459 devices/ms/Files/xp/common.inc:350
+msgid "No wireless interfaces found. The installer cannot continue."
+msgstr ""
+"Nie znaleziono interfejsów bezprzewodowych. Konfigurator nie może "
+"kontynuować."
+
+#: devices/ms/Files/common.inc:467 devices/ms/Files/xp/common.inc:359
+msgid "Profiles installation"
+msgstr "Instalacja profili sieciowych"
+
+#: devices/ms/Files/common.inc:472
+msgid "Checking for profile $R1"
+msgstr "Sprawdzam obecność profilu $R1"
+
+#: devices/ms/Files/common.inc:479
+msgid "found profile $R1"
+msgstr "znaleziono profil $R1"
+
+#: devices/ms/Files/common.inc:498
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION} and the user group: ${USER_GROUP}."
+msgstr ""
+"Ten instalator będzie poprawnie działał tylko jeżeli jesteś członkiem grupy "
+"${USER_GROUP} w ${ORGANISATION}."
+
+#: devices/ms/Files/common.inc:498 devices/ms/Files/common.inc:500
+#: devices/ms/Files/xp/common.inc:385 devices/ms/Files/xp/common.inc:387
+msgid "Click OK to continue with installation."
+msgstr "Kliknij OK, aby kontynuować."
+
+#: devices/ms/Files/common.inc:500
+msgid ""
+"This installer will only work properly if you are a member of "
+"${ORGANISATION}."
+msgstr ""
+"Ten instalator będzie poprawnie działał tylko jeżeli Twoją instytucją "
+"macierzystą jest ${ORGANISATION}."
+
+#: devices/ms/Files/common.inc:508 devices/ms/Files/xp/common.inc:395
+msgid ""
+"Please read the additional information from your home institution which will "
+"be displayed in a moment."
+msgstr "Przeczytaj dodatkowe informacje, które zostaną za chwilę wyświetlone."
+
+#: devices/ms/Files/common.inc:533 devices/ms/Files/xp/common.inc:420
+msgid "Restart system now"
+msgstr "Zrestartuj system"
+
+#: devices/ms/Files/common.inc:535 devices/ms/Files/xp/common.inc:422
+msgid "I will restart later"
+msgstr "Zrestartuję sam później"
+
+#: devices/ms/Files/common.inc:594 devices/ms/Files/xp/common.inc:482
+msgid "deleting profile $R1"
+msgstr "kasuję profil $R1"
+
+#: devices/ms/Files/common.inc:601 devices/ms/Files/xp/common.inc:486
+msgid "installing profile $R1"
+msgstr "instaluję profil $R1"
+
+#: devices/ms/Files/common.inc:609 devices/ms/Files/xp/common.inc:491
+msgid "Profile installation error for $R1."
+msgstr "W czasie instalacji $R1 wystąpiły błędy."
+
+#: devices/ms/Files/common.inc:621
+msgid "installing credentials for profile $R1"
+msgstr "instaluję dane użytkownika dla profilu $R1"
+
+#: devices/ms/Files/common.inc:626
+msgid "Credentials installation problem"
+msgstr "Problem z instalacją danych użytkownika"
+
+#: devices/ms/Files/common.inc:635
+#, php-format
+msgid "%s installer for"
+msgstr "Instalator %s"
+
+#: devices/ms/Files/common.inc:635 devices/ms/Files/xp/common.inc:503
+msgid "Install personal certificate"
+msgstr "Instaluję certyfikat osobisty"
+
+#: devices/ms/Files/common.inc:640 devices/ms/Files/xp/common.inc:508
+msgid "Preparing to install personal certificate."
+msgstr "Gotowy  do zainstalowania certyfikatu osobistego"
+
+#: devices/ms/Files/common.inc:640 devices/ms/Files/xp/common.inc:508
+msgid "Click OK to continue"
+msgstr "Kliknij OK, aby kontynuować"
+
+#: devices/ms/Files/common.inc:646 devices/ms/Files/xp/common.inc:514
+msgid "Certificate files (*.p12)"
+msgstr "Pliki certyfikatów (*.p12)"
+
+#: devices/ms/Files/common.inc:646 devices/ms/Files/xp/common.inc:514
+msgid "Certificate files (*pfx)"
+msgstr "Pliki certyfikatów (*.pfx)"
+
+#: devices/ms/Files/common.inc:646
+msgid "All files"
+msgstr "Wszystkie pliki"
+
+#: devices/ms/Files/common.inc:649 devices/ms/Files/xp/common.inc:517
+msgid "Selected file: $Cert_file"
+msgstr "Wybrany plik: $Cert_file"
+
+#: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:519
+msgid "certificate password:"
+msgstr "hasło do certyfikatu:"
+
+#: devices/ms/Files/common.inc:666 devices/ms/Files/xp/common.inc:531
+msgid "No certificate file selected"
+msgstr "Nie wybrano pliku certyfikatu"
+
+#: devices/ms/Files/common.inc:678 devices/ms/Files/xp/common.inc:543
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr "Nieprawidłowe hasło certyfikatu$\\r$\\nwprowadź ponownie"
+
+#: devices/ms/Files/common.inc:688
+msgid "User credentials"
+msgstr "Dane logowania"
+
+#: devices/ms/Files/common.inc:692
+msgid "Username:"
+msgstr "Użytkownik:"
+
+#: devices/ms/Files/common.inc:695
+msgid "Password:"
+msgstr "Hasło:"
+
+#: devices/ms/Files/common.inc:698
+msgid "Repeat password:"
+msgstr "Powtórz hasło"
+
+#: devices/ms/Files/common.inc:709
+msgid "Missing username"
+msgstr "Brakująca nazwa użytkownika"
+
+#: devices/ms/Files/common.inc:714
+msgid "Missing password"
+msgstr "Brak hasła"
+
+#: devices/ms/Files/common.inc:720
+msgid "Password missmatch"
+msgstr "Niezgodność haseł"
+
+#: devices/ms/Files/common.inc:757
+#, php-format
+msgid ""
+"In order to install/update %s access all selected steps need to be "
+"performed. Click Continue to proceed"
+msgstr ""
+"W celu zainstalowania/odświeżenia obsługi %s wykonane zostaną wszystkie "
+"wybrane kroki kroki. Kliknij Dalej, aby kontynuować."
+
+#: devices/ms/Files/common.inc:758 devices/ms/Files/xp/common.inc:565
+msgid ""
+"If an option is not selected by default, then it is either not available or "
+"optional."
+msgstr ""
+"Jeżeli jakaś opcja nie jest domyślnie zaznaczona, to albo jest niedostępna, "
+"albo nieobowiązkowa."
+
+#: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
+msgid "Installation of the personal certificate"
+msgstr "Instaluję certyfikat osobisty"
+
+#: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
+msgid "Components installation"
+msgstr "Instalacja składników"
+
+#: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
+msgid "Personal certificate"
+msgstr "Certyfikat osobisty"
+
+#: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
+#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+msgid "Installation of network profiles"
+msgstr "Instalacja profili sieciowych"
+
+#: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
+#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+msgid "profiles"
+msgstr "profile"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
+#: devices/ms/Files/pwd.inc:12 devices/ms/Files/pwd.inc:34
+#: devices/ms/Files/ttls.inc:7
+msgid "Installation"
+msgstr "Instalacja"
+
+#: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
+#: devices/ms/Files/pwd.inc:34 devices/ms/Files/ttls.inc:7
+msgid "Network profiles update"
+msgstr "Odświeżenie profili sieciowych"
+
+#: devices/ms/Files/eap_w8.inc:56 devices/ms/Files/peap_tls.inc:63
+msgid "Information about components"
+msgstr "Informacja o składnikach"
+
+#: devices/ms/Files/pwd.inc:5 devices/ms/Files/ttls.inc:16
+msgid "user profile"
+msgstr "profil użytkownika"
+
+#: devices/ms/Files/pwd.inc:10 devices/ms/Files/ttls.inc:21
+msgid "install program"
+msgstr "instalacja programu"
+
+#: devices/ms/Files/pwd.inc:25
+msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
+msgstr ""
+"Błąd instalacji EAP-pwd. Spróbuj ponownie, albo skontaktuj się z ${SUPPORT}"
+
+#: devices/ms/Files/ttls.inc:34
+msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
+msgstr ""
+"Błąd instalacji programu SecureW2. Spróbuj ponownie, albo skontaktuj się z "
+"${SUPPORT}"
+
+#: devices/ms/Files/xp/common.inc:108
+msgid "Welcome to the eduroam installer"
+msgstr "Witamy w instalatorze eduroam"
+
+#: devices/ms/Files/xp/common.inc:245
+msgid "The installer will create network profile:"
+msgstr "Instalator stworzy następujące profile sieciowe:"
+
+#: devices/ms/Files/xp/common.inc:247
+msgid ""
+"You will be able to use eduroam in most institutions however due to Windows "
+"XP limitations and differences in network settings at different "
+"institutions, you may be sometimes required to repeat the connection for the "
+"system to reconfigure."
+msgstr ""
+"Dzięki temu będziesz miał możliwość korzystania z eduroam w większości "
+"instytucji. Niestety z powodu ograniczeń systemu Windows XP oraz różnych "
+"ustawień szyfrowania w instytucjach, niekiedy niezbędna będzie dwukrotna "
+"próba połączenia, zanim system się odpowiednio zrekonfiguruje."
+
+#: devices/ms/Files/xp/common.inc:334
+msgid "This installer works with Windows XP SP3 only"
+msgstr "Ten instalator pracuje wyłącznie w systemie Windows XP SP3"
+
+#: devices/ms/Files/xp/common.inc:503
+msgid "eduroam installer for"
+msgstr "Instalator eduroam dla"
+
+#: devices/ms/Files/xp/common.inc:564
+msgid ""
+"In order to install/update eduroam access all selected steps need to be "
+"performed. Click Continue to proceed"
+msgstr ""
+"W celu zainstalowania/odświeżenia obsługi eduroam wykonane zostaną wszystkie "
+"wybrane kroki kroki. Kliknij Dalej, aby kontynuować."
+
+#: devices/linux/Linux.php:78
+msgid ""
+"The installer is in the form of a bash script. It will try to configure "
+"eduroam under Network Manager and if this is either not appropriate for your "
+"system or your version of Network Manager is too old, a wpa_supplicant "
+"config file will be created instead."
+msgstr ""
+"Instalator jest skryptem bash. Będzie się starał skonfigurować dostęp do "
+"eduroam przy pomocy Network Managera, a jeżeli to nie jest odpowiednie w "
+"Twoim systemie, albo Twoja wersja Network Managera jest zbyt stara, to "
+"przygotowany zostanie plik konfiguracyjny dla wpa_supplicanta."
+
+#: devices/linux/Linux.php:96
+msgid ""
+"The installer will create .eduroam sub-directory in your home directory and "
+"will copy your server certificates there."
+msgstr ""
+"Instalator utworzy podkatalog .eduroam w katalogu domowym i skopiuje tam "
+"certyfikaty serwerów."
+
+#: devices/linux/Linux.php:98
+msgid ""
+"In order to connect to the network you will need an a personal certificate "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
+"be obtained. Such certificate files are password protected. You should have "
+"both the file and the password available during the installation process. "
+"Your p12 file will also be copied to the .eduroam directory."
+msgstr ""
+"Do połączenia z siecią niezbędny będzie certyfikat osobisty w postaci pliku "
+"p12. Taki certyfikat powinieneś otrzymać od swojej instytucji macierzystej. "
+"Sprawdź lokalne strony wsparcia eduroam, aby się dowiedzieć jaka obowiązuje "
+"procedura. Certyfikaty indywidualne są chronione hasłem. W czasie procesu "
+"instalacji będziesz musiał dysponować zarówno plikiem certyfikatu jak i "
+"hasłem."
+
+#: devices/linux/Linux.php:102
+msgid ""
+"You will be requested to enter your account credentials during the "
+"installation. This information will be saved so that you will reconnect to "
+"the network automatically each time you are in the range."
+msgstr ""
+"W czasie instalacji zostaniesz poproszona/y o podanie identyfikatora i hasła "
+"logowania. Te dane zostaną zapamiętane, tak by kolejne połączenia do sieci "
+"następowały automatycznie."
+
+#: devices/linux/Linux.php:111
+#, php-format
+msgid "Directory %s exists; some of its files may be overwritten."
+msgstr "Katalog %s już istnieje; niektóre pliki mogą ulec zmianie."
+
+#: devices/linux/Linux.php:111 devices/linux/Linux.php:125
+#: devices/linux/Linux.php:149 devices/linux/Linux.php:165
+msgid "Continue"
+msgstr "Kontynuować"
+
+#: devices/linux/Linux.php:121
+msgid "Installation successful"
+msgstr "Instalacja zakończona"
+
+#: devices/linux/Linux.php:123
+msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
+msgstr ""
+"Nie udało się skonfigurować Network Managera, tworzę konfigurację "
+"wpa_suplicant"
+
+#: devices/linux/Linux.php:125
+#, php-format
+msgid "File %s exists; it will be overwritten."
+msgstr "Plik %s już istnieje i zostanie zastąpiony nowym."
+
+#: devices/linux/Linux.php:129
+#, php-format
+msgid "Output written to %s"
+msgstr "Wynik zapisano w %s"
+
+#: devices/linux/Linux.php:146
+#, php-format
+msgid ""
+"This installer will only work properly if you are a member of %s and the "
+"user group: %s."
+msgstr ""
+"Ten instalator będzie poprawnie działał tylko jeżeli Twoją instytucją "
+"macierzystą jest %s i jesteś członkiem grupy %s."
+
+#: devices/linux/Linux.php:148
+#, php-format
+msgid "This installer will only work properly if you are a member of %s."
+msgstr ""
+"Ten instalator będzie poprawnie działał tylko jeżeli Twoją instytucją "
+"macierzystą jest %s."
+
+#: devices/linux/Linux.php:245
+msgid "Y"
+msgstr "T"
+
+#: devices/linux/Linux.php:246
+msgid "N"
+msgstr "N"
+
+#: devices/linux/Linux.php:301 devices/linux/Linux.php:306
+msgid "Really quit?"
+msgstr "Naprawdę zakończyć?"
+
+#: devices/linux/Linux.php:359
+msgid "enter your userid"
+msgstr "wprowadź identyfikator użytkownika"
+
+#: devices/linux/Linux.php:365
+msgid "enter your password"
+msgstr "wprowadź hasło"
+
+#: devices/linux/Linux.php:368
+msgid "repeat your password"
+msgstr "powtórz hasło"
+
+#: devices/linux/Linux.php:372
+msgid "passwords do not match"
+msgstr "niezgodność haseł"
+
+#: devices/linux/Linux.php:430 devices/linux/Linux.php:434
+#: devices/linux/Linux.php:446
+msgid "personal certificate file (p12 or pfx)"
+msgstr "plik certyfikatu osobistego (p12 lub pfx)"
+
+#: devices/linux/Linux.php:455
+msgid "file not found"
+msgstr "plik nie istnieje"
+
+#: devices/linux/Linux.php:465 devices/linux/Linux.php:468
+msgid "enter the password for the certificate file"
+msgstr "wprowadź hasło do certyfikatu"
+
+#: devices/test_module/TestModule.php:121
+msgid ""
+"This installer is an example only. It produces a zip file containig the IdP "
+"certificates, info and logo files (if such have been defined by the IdP "
+"administrator) and a dump of all available attributes."
+msgstr ""
+"Ten instalator to jedynie przykład. Przygotowuje archiwum zip zawierające "
+"certyfikaty instytucji, pliki informacyjne oraz logo (o ile zostały dodane "
+"przez administratora instytucji) oraz plik ze zrzutem wszystkich dostępnych "
+"atrybutów."
+
+#. / welcomletter: header of document
+#: devices/welcomeletter/welcomeletter.php:84
+msgid "Welcome Letter"
+msgstr "List powitalny"
+
+#. / welcomletter: footer
+#: devices/welcomeletter/welcomeletter.php:86
+msgid "eduroam® - supporting academic mobility since 2003"
+msgstr "eduroam® - usługa wspierająca akademicką mobilność od 2003 "
+
+#. / welcomeletter: the headline (bold, large)
+#: devices/welcomeletter/welcomeletter.php:88
+msgid "Welcome aboard the eduroam® user community!"
+msgstr "Witamy w społeczności eduroam"
+
+#. / welcomeletter: initial greeting
+#: devices/welcomeletter/welcomeletter.php:90
+#, php-format
+msgid "Dear user from %s,"
+msgstr "Drogi użytkowniku z instytucji %s,"
+
+#. / welcomeletter: sales pitch paragraph :-)
+#: devices/welcomeletter/welcomeletter.php:92
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+"Gorąco witamy wśród kilkumilionowej rzeszy użytkowników usługi eduroam®! Od "
+"teraz będziesz mógł korzystać z dostępu internetowego na tysiącach "
+"uniwersytetów, centrów badawczych i innych miejsc na świecie. A wszystko to "
+"uzyskujesz bez żadnych opłat!"
+
+#. / welcomeletter: log in now paragraph
+#: devices/welcomeletter/welcomeletter.php:94
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Po tym jak już ściągnąłeś konfigurator kliencki, musisz tylko odnaleźć w "
+"pobliżu hotspot eduroam® oraz wprowadzić swoje dane uwierzytelniania (tak "
+"nazywamy parę 'identyfikator użytkownika i hasło' lub 'osobisty certyfikat') "
+"i będziesz podłączony!"
+
+#. / welcomeletter: explain support procedure
+#: devices/welcomeletter/welcomeletter.php:96
+#, php-format
+msgid ""
+"Should you have any problems using this service, please always contact the "
+"helpdesk of %s. They will diagnose the problem and help you out. You can "
+"reach them via the means below:"
+msgstr ""
+"Jeśli masz jakieś problemy związane z korzystaniem z usługi, to skontaktuj "
+"się z helpdeskiem w instytucji %s. Po zdiagnozowaniu problemu uzyskasz "
+"pomoc. Możesz dotrzeć do heldesku następująco:"
+
+#. / welcomeletter: explain manual config
+#: devices/welcomeletter/welcomeletter.php:98
+msgid ""
+"If you ever need to configure a different device for eduroam manually, you "
+"will need the configuration information for your institution. We have "
+"summarised this information in the appendix on page 2 for you."
+msgstr ""
+"Jeśli będziesz kiedyś potrzebował skonfigurować inne urządzenie eduroam "
+"ręcznie, będą Ci potrzebne dane konfiguracyjne Twojej instytucji. Zestaw "
+"informacji niezbędnej do tego znajduje się w dodatku na stronie 2."
+
+#. / welcomeletter: have fun
+#: devices/welcomeletter/welcomeletter.php:100
+msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
+msgstr "Życzymy Ci dobrej zabawy dzięki hotspotom eduroam® na naszej planecie."
+
+#. / welcomeletter: title of the big boss
+#: devices/welcomeletter/welcomeletter.php:102
+msgid "Chairman of the Global eduroam® Governance Committee"
+msgstr "Przewodniczący Global eduroam® Governance Committee"
+
+#. / welcomeletter: header: appendix with config info
+#: devices/welcomeletter/welcomeletter.php:104
+msgid "Appendix: Configuration Information"
+msgstr "Dodatek: Informacje konfiguracyjne"
+
+#. / welcomeletter: header: appendix with config info
+#: devices/welcomeletter/welcomeletter.php:106
+#, php-format
+msgid ""
+"Use the information below to configure your devices manually. Please keep in "
+"mind that these settings are only valid for users of profile '%s' from %s – "
+"they are different for everyone else, and there is no use sharing them with "
+"other people."
+msgstr ""
+"Użyj poniższej informacji do ręcznej konfiguracji urządzeń. Pamiętaj, że te "
+"ustawienia są ważne wyłącznie dla użytkowników profilu '%s' z instytucji %s "
+"- nie należy więc dzielić się nimi z innymi użytkownikami. "
+
+#: devices/welcomeletter/welcomeletter.php:110
+msgid "E-Mail:"
+msgstr "Mail:"
+
+#: devices/welcomeletter/welcomeletter.php:114
+msgid "Special EAP Type support URL:"
+msgstr "URL wsparcia dla tego typu EAP:"
+
+#: devices/welcomeletter/welcomeletter.php:118
+msgid "Phone:"
+msgstr "Telefon:"
+
+#: devices/welcomeletter/welcomeletter.php:122
+msgid "Web:"
+msgstr "WWW:"
+
+#: devices/welcomeletter/welcomeletter.php:129
+msgid "Server Name:"
+msgstr "Nazwa serwera:"
+
+#: devices/welcomeletter/welcomeletter.php:162
+msgid ""
+"This button creates a personalised welcome letter from eduroam Operations "
+"for you. The file is in OpenDocument format (ODT); you can open it e.g. with "
+"LibreOffice."
+msgstr ""
+"Ten przycisk pozwala utworzyć spersonalizowany list powitalny od zespołu "
+"operacyjnego eduroam. Plik jest w formacie OpenDocument (ODT); do jego "
+"otwarcia można użyć np. LibreOffice."
+
+#~ msgid ""
+#~ "In addition to <strong>eduroam</strong> the installer will also configure "
+#~ "access to the following networks:"
+#~ msgstr ""
+#~ "Oprócz sieci <strong>eduroam</strong>, instalator skonfiguruje również "
+#~ "następujące sieci:"
+
+#~ msgid ""
+#~ "In addition to <strong>eduroam</strong> the installer will also configure "
+#~ "access to:"
+#~ msgstr ""
+#~ "Oprócz sieci <strong>eduroam</strong>, instalator skonfiguruje również "
+#~ "sieć:"
+
+#~ msgid "MS Windows 8"
+#~ msgstr "MS Windows 8"
+
+#~ msgid "MS Windows 7"
+#~ msgstr "MS Windows 7"
+
+#~ msgid "MS Windows Vista"
+#~ msgstr "MS Windows Vista"
+
+#~ msgid "MS Windows XP SP3"
+#~ msgstr "MS Windows XP SP3"
+
+#~ msgid "Apple Mac OS X Mountain Lion"
+#~ msgstr "Apple Mac OS X Mountain Lion"
+
+#~ msgid "Apple Mac OS X Lion"
+#~ msgstr "Apple Mac OS X Lion"
+
+#~ msgid "Apple iOS mobile devices"
+#~ msgstr "Przenośne urządzenia Apple (iOS)"
+
+#~ msgid "Linux"
+#~ msgstr "Linux"
+
+#~ msgid "Test"
+#~ msgstr "Test"
+
+#~ msgid ""
+#~ "to accept the server certificate authorities (multiple times if the "
+#~ "profile contains more than one certificate)"
+#~ msgstr ""
+#~ "aby zatwierdzić urząd certyfikacyjny serwera (kilkakrotnie, jeżeli profil "
+#~ "zawiera więcej niż jeden certyfikat)"
+
+#~ msgid ""
+#~ "eduroam installer will be in the form of an EXE file. It will configure "
+#~ "eduroam on your device, by creating wireless network profiles.<p>When you "
+#~ "click the download button, the installer will be saved by your browser. "
+#~ "Copy it to the machine you want to configure and execute."
+#~ msgstr ""
+#~ "Instalator eduroam zostanie przygotowany w postaci pliku EXE. Instalator "
+#~ "skonfiguruje Twoje urządzenie tworząc na nim niezbędne profile sieciowe."
+#~ "<p>Kiedy klikniesz przycisk pobierania, instalator zostanie zachowany "
+#~ "przez przeglądarkę. Skopiuj go na urządzenie, które chcesz skonfigurować "
+#~ "i uruchom."
+
+#~ msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}"
+#~ msgstr ""
+#~ "Błąd instalacji programu SecureW2. Spróbuj ponownie, albo skontaktuj się "
+#~ "z ${SUPPORT}"
+
+#~ msgid ""
+#~ "The installer will also install additional software - SecureW2 EAP Suite "
+#~ "(GNU General Public License).<p>You will be requested to enter your "
+#~ "account credentials into a pop box during the installation. This "
+#~ "information will be saved so that you will reconnect to eduroam "
+#~ "automatically each time you are in the range."
+#~ msgstr ""
+#~ "Instalator doinstaluje również dodatkowe oprogramowanie - SecureW2 EAP "
+#~ "Suite (na licencji GPL).<p>W czasie instalacji pojawi się okienko, do "
+#~ "którego należy wprowadzić identyfikator i hasło do konta. Ta informacja "
+#~ "zostanie zachowana na komputerze i kolejne połączenia będą już "
+#~ "następowały automatycznie."
+
+#~ msgid "enter your userid in the form id@domain"
+#~ msgstr "Wprowadź swój identyfikator w postaci użytkonik@domena"
+
+#~ msgid "Unsupported version of Network Manager:"
+#~ msgstr "Niewspierana wersja Network Managera:"
+
+#~ msgid "Please send all questions and comments to"
+#~ msgstr "Pytania i komentarze przekaż na adres"
+
+#~ msgid "More information can be found at ${URL}."
+#~ msgstr "Więcej informacji na stronie ${URL}"
+
+#~ msgid ""
+#~ "In order to connect to eduroam you will need an a personal certificate in "
+#~ "the form of a p12 file. You should obtain this certificate from your home "
+#~ "institution. Consult the support page to find out how this certificate "
+#~ "can be obtained. Such certificate files are password protected. You "
+#~ "should have both the file and the password available during the "
+#~ "installation process."
+#~ msgstr ""
+#~ "Do połączenia z eduroam niezbędny będzie certyfikat osobisty w postaci "
+#~ "pliku p12. Taki certyfikat powinien otrzymać od swojej instytucji "
+#~ "macierzystej. Sprawdź lokalne strony wsparcia eduroam, aby się dowiedzieć "
+#~ "jaka obowiązuje procedura. Certyfikaty indywidualne są chronione hasłem. "
+#~ "W czasie procesy instalacji będziesz musiał dysponować zarówno plikiem "
+#~ "certyfikatu jak i hasłem."
+
+#~ msgid ""
+#~ "In order to connect to eduroam you will need an account from your home "
+#~ "institution. You should consult the support page to find out how this "
+#~ "account can be obtained. It is very likely that your account is already "
+#~ "activated."
+#~ msgstr ""
+#~ "Do połączenia z eduroam niezbędne Ci będzie konto użytkownika w "
+#~ "instytucji macierzystej. Sprawdź lokalne strony wsparcie eduroam, aby "
+#~ "dowiedzieć się jak można takie konto uzyskać. Jest bardzo prawdopodobne, "
+#~ "że Twoje konto jest już aktywne."
+
+#~ msgid ""
+#~ "When you are connecting to eduroam for the first time, Windows will pop "
+#~ "up a login box, where you should enter your user name and password. This "
+#~ "information will be saved so that you will reconnect to eduroam "
+#~ "automatically each time you are in the range."
+#~ msgstr ""
+#~ "Przy pierwszym połączeniu z eduroam, Windows wyświetli okienko logowania, "
+#~ "do którego należy wprowadzić identyfikator i hasło do konta. Ta "
+#~ "informacja zostanie zachowana na komputerze i kolejne połączenia będą już "
+#~ "następowały automatycznie."
+
+#~ msgid "Linux - under development"
+#~ msgstr "Linux - w trakcie prac"
+
+#, fuzzy
+#~ msgid "MS Windows Vista and newer"
+#~ msgstr "MS Windows Vista"
+
+#, fuzzy
+#~ msgid "Apple mobile devices and Mac OS X Lion"
+#~ msgstr "Apple Mac OS X Lion"
+
+#~ msgid "Apple Mac OS X (pre-Lion)"
+#~ msgstr "Apple Mac OS X Snow Leopard i wcześniejsze"
+
+#~ msgid "Please contact your site administrator."
+#~ msgstr "Skontaktuj się z lokalnym administratorem eduroam."

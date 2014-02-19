@@ -1,0 +1,26 @@
+#!/bin/bash
+# see HOWTO in this directory to learn how to produce the files you need
+# all certificates and key files should be in the directory pointed to by MY_PATH
+
+# MY_PATH - Full path to the directory in which the certificates and keys are located
+# Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
+# The directory must be accessible by the Apache proceess
+
+MY_PATH=""
+
+# Public key in PEM format 
+PUBKEY="xxx_cert.pem"
+# Matching private key in PEM format
+PRIVKEY="xxx_key.pem"
+# private key password
+# PASS will not escape strange characters correctly so please use "safe" ones
+# PASS can be empty or not set at all if the private key is not protected
+PASS=""
+# full CA chain to be included in the signature
+CA_CHAIN="CAs.pem"
+
+if [ -n "$PASS" ] ; then
+  passin="-passin pass:$PASS"
+fi
+
+openssl smime -sign -signer "$MY_PATH/$PUBKEY" -inkey "$MY_PATH/$PRIVKEY"  $passin -certfile "$MY_PATH/$CA_CHAIN" -nodetach -outform der -in $1 -out $2

@@ -1,0 +1,345 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# esmeralda <epires@fccn.pt>, 2012
+# psimoes <psimoes@fccn.pt>, 2013
+# psimoes <psimoes@fccn.pt>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-29 15:12+0100\n"
+"PO-Revision-Date: 2013-11-19 16:38+0000\n"
+"Last-Translator: psimoes <psimoes@fccn.pt>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"cat/language/pt_PT/)\n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/DeviceConfig.php:128
+#, php-format
+msgid "your local %s support"
+msgstr "o seu suporte local %s"
+
+#: core/DeviceConfig.php:129
+#, php-format
+msgid "your local %s support page"
+msgstr "a página do seu suporte local %s"
+
+#: core/DeviceConfig.php:161
+msgid "Sorry, this should not happen - no additional information is available"
+msgstr ""
+"Lamentamos, não era suposto isto acontecer - não há informação adicional"
+
+#: core/Federation.php:74
+msgid "Andorra"
+msgstr "Andorra"
+
+#: core/Federation.php:75
+msgid "Austria"
+msgstr "Austria"
+
+#: core/Federation.php:76
+msgid "Belgium"
+msgstr "Bélgica"
+
+#: core/Federation.php:77
+msgid "Bulgaria"
+msgstr "Bulgária"
+
+#: core/Federation.php:78
+msgid "Cyprus"
+msgstr "Chipre"
+
+#: core/Federation.php:79
+msgid "Czech Republic"
+msgstr "República Checa"
+
+#: core/Federation.php:80
+msgid "Denmark"
+msgstr "Dinamarca"
+
+#: core/Federation.php:81
+msgid "Estonia"
+msgstr "Estónia"
+
+#: core/Federation.php:82
+msgid "Finland"
+msgstr "Finlândia"
+
+#: core/Federation.php:83
+msgid "France"
+msgstr "França"
+
+#: core/Federation.php:84
+msgid "Germany"
+msgstr "Alemanha"
+
+#: core/Federation.php:85
+msgid "Greece"
+msgstr "Grécia"
+
+#: core/Federation.php:86
+msgid "Croatia"
+msgstr "Croácia"
+
+#: core/Federation.php:87
+msgid "Ireland"
+msgstr "Irlanda"
+
+#: core/Federation.php:88
+msgid "Iceland"
+msgstr "Islândia"
+
+#: core/Federation.php:89
+msgid "Italy"
+msgstr "Itália"
+
+#: core/Federation.php:90
+msgid "Hungary"
+msgstr "Hungria"
+
+#: core/Federation.php:91
+msgid "Luxembourg"
+msgstr "Luxemburgo"
+
+#: core/Federation.php:92
+msgid "Latvia"
+msgstr "Letónia"
+
+#: core/Federation.php:93
+msgid "Lithuania"
+msgstr "Lituânia"
+
+#: core/Federation.php:94
+msgid "Macedonia"
+msgstr "Macedónia"
+
+#: core/Federation.php:95
+msgid "Serbia"
+msgstr "Sérvia"
+
+#: core/Federation.php:96
+msgid "Netherlands"
+msgstr "Holanda"
+
+#: core/Federation.php:97
+msgid "Norway"
+msgstr "Noruega"
+
+#: core/Federation.php:98
+msgid "Poland"
+msgstr "Polónia"
+
+#: core/Federation.php:99
+msgid "Portugal"
+msgstr "Portugal"
+
+#: core/Federation.php:100
+msgid "Romania"
+msgstr "Roménia"
+
+#: core/Federation.php:101
+msgid "Slovenia"
+msgstr "Eslovénia"
+
+#: core/Federation.php:102
+msgid "Spain"
+msgstr "Espanha"
+
+#: core/Federation.php:103
+msgid "Sweden"
+msgstr "Suécia"
+
+#: core/Federation.php:104
+msgid "Slovakia"
+msgstr "Eslováquia"
+
+#: core/Federation.php:105
+msgid "Switzerland"
+msgstr "Suíça"
+
+#: core/Federation.php:106
+msgid "Turkey"
+msgstr "Turquia"
+
+#: core/Federation.php:107
+msgid "United Kingdom"
+msgstr "Reino Unido"
+
+#: core/Federation.php:109
+msgid "Australia"
+msgstr "Austrália"
+
+#: core/Federation.php:110
+msgid "Canada"
+msgstr "Canadá"
+
+#: core/Federation.php:111
+msgid "Israel"
+msgstr "Israel"
+
+#: core/Federation.php:112
+msgid "Japan"
+msgstr "Japão"
+
+#: core/Federation.php:113
+msgid "New Zealand"
+msgstr "Nova Zelândia"
+
+#: core/Federation.php:114
+msgid "U.S.A."
+msgstr "E.U.A."
+
+#: core/Federation.php:115
+msgid "Brazil"
+msgstr "Brazil"
+
+#: core/Federation.php:116
+msgid "Chile"
+msgstr "Chile"
+
+#: core/Federation.php:117
+msgid "Peru"
+msgstr "Perú"
+
+#: core/Federation.php:118
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: core/Federation.php:119
+msgid "Default"
+msgstr "Por omissão"
+
+#: core/Federation.php:120
+msgid "Armenia"
+msgstr "Arménia"
+
+#: core/Federation.php:121
+msgid "Azerbaijan"
+msgstr "Azerbeijão"
+
+#: core/Federation.php:122
+msgid "Belarus"
+msgstr "Bielorrússia"
+
+#: core/Federation.php:123
+msgid "Ecuador"
+msgstr "Equador"
+
+#: core/Federation.php:124
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: core/Federation.php:125
+msgid "Kenya"
+msgstr "Quénia"
+
+#: core/Federation.php:126
+msgid "Kyrgyzstan"
+msgstr "Quirguistão"
+
+#: core/Federation.php:127
+msgid "Korea"
+msgstr "Coreia"
+
+#: core/Federation.php:128
+msgid "Kazakhstan"
+msgstr "CazaquistãoCazaquistão"
+
+#: core/Federation.php:129
+msgid "Morocco"
+msgstr "Marrocos"
+
+#: core/Federation.php:130
+msgid "Moldova"
+msgstr "Moldávia"
+
+#: core/Federation.php:131
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: core/Federation.php:132
+msgid "Macau"
+msgstr "Macau"
+
+#: core/Federation.php:133
+msgid "Malta"
+msgstr "Malta"
+
+#: core/Federation.php:134
+msgid "Russia"
+msgstr "Rússia"
+
+#: core/Federation.php:135
+msgid "Singapore"
+msgstr "Singapura"
+
+#: core/Federation.php:136
+msgid "Thailand"
+msgstr "Tailândia"
+
+#: core/Federation.php:137
+msgid "Taiwan"
+msgstr "Formosa"
+
+#: core/Federation.php:138
+msgid "South Africa"
+msgstr "África do Sul"
+
+#: core/Federation.php:156
+msgid "Could not create a new Institution!"
+msgstr "Não foi possível criar uma nova <strong>Entidade</strong>!"
+
+#: core/IdP.php:307
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the Identity Provider %s in your %s federation %s has been deleted from %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"Bom dia,<br><br>o fornecedor de identidade %s na %s federação %s foi apagado "
+"da %s.<br><br>Julgamos ser útil fazer-lhe chegar esta informação."
+"<br><br>Cumprimentos,<br>%s"
+
+#: core/IdP.php:316
+msgid "IdP in your federation was deleted"
+msgstr "IdP removido da federação"
+
+#. / arguments are: 1. IdP name;
+#. /                2. consortium name (e.g. eduroam);
+#. /                3. federation shortname, e.g. "LU";
+#. /                4. product name (e.g. eduroam CAT);
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/UserManagement.php:147
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+"Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s %s "
+"foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser "
+"útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
+
+#: core/UserManagement.php:156
+msgid "IdP in your federation was created"
+msgstr "IdP criado na federação."

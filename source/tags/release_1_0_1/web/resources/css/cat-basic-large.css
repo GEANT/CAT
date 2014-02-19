@@ -1,0 +1,20 @@
+body {font-size:12px;
+font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+ul li {padding-bottom:4ex}
+select {font-size:12;}
+
+div.user_info {background:yellow; padding:8px}
+
+div.footer {
+    padding-top: 20px;
+    text-align:left;
+}
+
+div.download {
+   font-weight: bold;
+   color: red;
+   background:#aaa;
+  padding: 20px;
+}
+

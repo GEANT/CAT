@@ -1,0 +1,65 @@
+In order to configure signing based on scripts in this directory, you must start
+with requesting a software signing certificate from a publickly reconisable certificate provider.
+
+You should also obtain and install the osslsigncode package (http://osslsigncode.sourceforge.net/)
+
+If you are using a PFX (P12) file - xxx.pfx start with step 1
+If you have speparate certifificate and key in PEM format, go to step 2
+
+Your goal is to produce certificate/key pairs
+xxx_cert.spc xxx_key.der   - these are for Windows signing
+xxx_cert.pem xxx_key.pem   - these are for Apple mobileconfig signing
+for Apple you will also need certificates of all trust path in a CAs.pem file
+
+You can change those names of course, but if you keep them, the you will not have to modify
+the scripts
+
+Prepare certificates
+~~~~~~~~~~~~~~~~~~~~
+1. Extract PEM certificate and ke files. The key file cannot be password protected
+
+openssl pkcs12 -in xxx.pfx -nokeys -out xxx_cert.pem
+openssl pkcs12 -in xxx.pfx -nocerts -nodes -out xxx_key.pem
+
+2. convert the key from PEM to DER format
+
+openssl rsa -in xxx_key.pem -out xxx_key.der -outform der
+
+3. prepare an SPC file - you will need PEM certificates of all CAs up to the root CA and your code signing certificate
+the order of certificate files is irrelevant.
+
+openssl crl2pkcs7 -nocrl -certfile xxx_cert.pem -certfile CA1.pem -certfile CA2.pem -certfile CA3.pem -outform DER -out xxx.spc
+
+4. Prepare a CAs.pem file by concatenating all CA files:
+
+cat CA1.pem CA2.pem CA3.pem > CAs.pem
+
+5. Copy xxx_cert.spc xxx_key.der xxx_cert.pem xxx_key.pem CAs.pem to the appropriate directory
+Beware that this directory must be protected against the WEB download, othewise you keys mey be compromised. 
+The directory must be accessible by the Apache proceess
+
+
+Prepare Scripts
+~~~~~~~~~~~~~~~
+
+Copy the template scripts to your working copies:
+
+cp mobileconfig_sign-template  mobileconfig_sign
+cp ms_windows_sign-template ms_windows_sign
+
+Modify both scripts by setting MY_PATH pointing to the directory whre you store your keys and certificates.
+
+ms_windows_sign will require defining URL and NAME values 
+
+If you have kept the certificate file names as in this HOWTO then nothing else needs to be modified,
+otherwise you need to set file names to their proper values.
+
+Both scripts should be readeable and executable (but not writeable) by the Apache process.
+
+Enable signing
+~~~~~~~~~~~~~~
+
+edit devices/devices.php and change the sign option value form 0 to 1
+
+
+

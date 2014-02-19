@@ -1,0 +1,658 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# José Manuel Macías, 2013
+# José Manuel Macías, 2012
+# lgstoguj <jorge.tomas@ehu.es>, 2013
+# José Manuel Macías, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-11-29 15:08+0100\n"
+"PO-Revision-Date: 2013-11-20 12:52+0000\n"
+"Last-Translator: lgstoguj <jorge.tomas@ehu.es>\n"
+"Language-Team: Basque (Spain) (http://www.transifex.com/projects/p/cat/"
+"language/eu_ES/)\n"
+"Language: eu_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: web/user/cat_info.php:31 web/user/faq.php:32
+#, php-format
+msgid ""
+"eduroam is a global WiFi roaming consortium which gives members of education "
+"and research access to the internet <i>for free</i> on all eduroam hotspots "
+"on the planet. There are several million eduroam users already, enjoying "
+"free internet access on more than 6.000 hotspots! Visit <a href='http://www."
+"eduroam.org'>the eduroam homepage</a> for more details."
+msgstr ""
+"roaming WiFi orokorreko partzuergoa da eduroam, eta hezkuntza- zein ikerketa-"
+"komunitateetako kideei Interneterako sarbidea ematen die  <i>doan</i> "
+"munduko bazter guztietan. Dagoeneko badira eduroamen erabiltzaile batzuk, "
+"6.000tik gora lokalizaziotatik Interneterako doako sarbideaz gozatzen ari "
+"direnak! Zehaztasun gehiago izateko, zoaz <a href='http://www.eduroam."
+"org'>eduroamen web-orrialdera</a> . "
+
+#: web/user/cat_info.php:36
+#, php-format
+msgid ""
+"<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
+"%s administrators enter their %s configuration details and based on them, "
+"<span class='edu_cat'>%s</span> builds customised installers for a number of "
+"popular platforms. An installer prepared for one institution will not work "
+"for users of another one, therefore if your institution is not on the list, "
+"you cannot use this system. Please contact your local administrators and try "
+"to influence them to add your institution configuration to <span "
+"class='edu_cat'>%s</span>."
+msgstr ""
+"<span class='edu_cat'>%s</span> , bestalde, lankidetza-plataforma bat da.<p> "
+"%s -(e)ko tokiko administratzaileek %s konfigurazio-zehaztasunak txertatzen "
+"dituzte, eta horietan oinarrituta, <span class='edu_cat'>%s</span> -(e)k "
+"instalatzaile pertsonalizatuak sortzen ditu, hainbat herri-"
+"plataformarentzat. Erakunde batentzat sortutako instalatzaile batek ez du "
+"balio beste erakunde bateko erabiltzaileentzat, eta ondorioz, zure erakundea "
+"ez bada ageri zerrendan, ezin duzu sistema hau erabili. Mesedez, jar zaitez "
+"harremanetan zure administratzaileekin, eta egin ahaleginak zure "
+"erakundearen konfigurazioa <span class='edu_cat'>%s</span> -(e)ra gehitu "
+"dezaten. "
+
+#: web/user/cat_info.php:43
+#, php-format
+msgid ""
+"The most important need is adding new installer modules, which will "
+"configure particular devices.  CAT is makig this easy for you. If you know "
+"how to create an automatic installer then fitting it into CAT should be a "
+"piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
+"a>, but please also take a look at <a href='%s'>CAT documentation</a>."
+msgstr ""
+"CATen dagoen premia handiena, hain zuzen, instalatzaile-modulu berriak "
+"gehitzea da, gailu zehatzak konfiguratzeko balioko dutenak. CATek "
+"erraztasunak ematen dizkizu horretarako. Instalatzaile automatiko bat nola "
+"sortu baldin badakizu, erraz asmatuko duzu CATera gehitzen. Lehenik eta "
+"behin, gurekin jarri beharko zenuke harremanetan, <a href='mailto:%s'>%s</a> "
+"helbidean, baina aldez aurretik, mesedez, eman begiratu bat <a "
+"href='%s'CATen dokumentazioa</a> -ri. "
+
+#: web/user/cat_info.php:46
+#, php-format
+msgid ""
+"If you are an end user experiencing a problem with the installation or usage "
+"of the network then please start by reporting it to your local IT support."
+"<p> If you are a CAT network administrator or would like to report a problem "
+"or suggestion about the CAT system as a whole, then contact %s. The language "
+"there is English only."
+msgstr ""
+"Sarea instalatzean edo erabiltzean arazorik baduzu erabiltzailea izanik, jar "
+"zaitez harremanetan zure erakundearen ELZ/CAU zerbitzuarekin.<p> CAT sareko "
+"administratzailea bazara edo CAT sistemaren inguruan arazoa edo iradokizuna "
+"bidali nahi baduzu, jar zaitez harremanetan %s -rekin. Bertan, Ingelesa "
+"baino ez da erabiliko."
+
+#: web/user/cat_info.php:60
+#, php-format
+msgid ""
+"You must have received an invitation from your national %s operator before "
+"being able to manage your institution. If that is the case, please continue "
+"and log in."
+msgstr ""
+"Zure erakundea kudeatu aurretik, ezinbestekoa da %s -(e)ko operadore "
+"nazionalaren gonbidapena jasotzea. Jaso baduzu, jarraitu aurrera, mesedez, "
+"eta hasi saioa. "
+
+#: web/user/cat_info.php:62
+msgid "Please authenticate yourself and login"
+msgstr "Mesedez, identifikatu zeure burua eta hasi saioa"
+
+#: web/user/cat_info.php:63
+msgid "Login"
+msgstr "Saioaren hasiera"
+
+#: web/user/faq.php:6
+#, php-format
+msgid "My institution is not listed. Can't I just use any of the other ones?"
+msgstr ""
+"Nire erakundea ez da ageri zerrendan. Ezin dut erabili beste erakunde baten "
+"instalatzailea? "
+
+#: web/user/faq.php:7
+#, php-format
+msgid ""
+"No! The installers contain security settings which are specific to the "
+"institution. If you are not from that institution, your computer will detect "
+"that you are about to send your username and credential to an unauthorised "
+"server and will abort the login. Using a different institution installer is "
+"<i>guaranteed to not work</i>!"
+msgstr ""
+"Ez! Instalatzaileek erakunde bakoitzaren segurtasun-konfigurazio "
+"espezifikoak dituzte. Ez bazara erakunde horretakoa, zure ordenagailua "
+"ohartuko da zure izena eta sinestamenduak baimendu gabeko zerbitzari batera "
+"bidaltzera zoazela, eta eten egingo du saioaren hasiera. Zurea ez den "
+"erakunde baten instalatzailea erabiltzen baduzu, <i>ez funtzionatzeko "
+"bermea</i> izango duzu."
+
+#: web/user/faq.php:12
+#, php-format
+msgid "What can I do to get my institution listed?"
+msgstr "Zer egin dezaket nire erakundea bertan agertu dadin? "
+
+#: web/user/faq.php:13
+#, php-format
+msgid ""
+"Contact %s administrators at your home institution and complain. It will "
+"take at most one hour of their time to get things done."
+msgstr ""
+"Jarri harremanetan, zure erakundeko %s -(e)ko administratzaileekin, eta "
+"kexatu. Ordubete baino ez dute beharko hemen agertzeko egin beharrekoa "
+"gauzatzeko. "
+
+#: web/user/faq.php:18
+#, php-format
+msgid "My device is not listed! Does that mean I can't do %s?"
+msgstr ""
+"Nire gailua ez da ageri zerrendan? Zer esan nahi du horrek, ezin dudala "
+"konektatu %s -(e)ra? "
+
+#: web/user/faq.php:19
+#, php-format
+msgid ""
+"No. The CAT tool can only support Operating Systems which can be "
+"automatically configured in some way. Many other devices can still be used "
+"with %s, but must be configured manually. Please contact your %s Identity "
+"Provider to get help in setting up such a device."
+msgstr ""
+"Ez, ezinbestean. CAT erabilgarritasunak moduren batean konfiguratu "
+"daitezkeen Sistema Eragileak baino ez ditu onartzen. Beste gailu asko "
+"erabiltzen jarraitu ahal izango dira %s -(e)n, baina ezinbestekoa izango da "
+"eskuz konfiguratzea. Mesedez, jarri zure %s erakundearekin harremanetan, "
+"zure gailua konfiguratzen lagun diezazuten. "
+
+#: web/user/faq.php:24
+#, php-format
+msgid ""
+"I can connect to %s simply by providing username and password, what is the "
+"point of using an installer?"
+msgstr ""
+"Erabiltzailea eta pasahitza erabiltze hutsarekin %s -(e)ra konektatu "
+"naiteke. Zer irabazten dut instalatzaile bat erabilita? "
+
+#: web/user/faq.php:25
+#, php-format
+msgid ""
+"When you are connecting from an unconfigured device your security is at "
+"risk. The very point of preconfiguration is to set up security, when this is "
+"done, your device will first confirm that it talks to the correct "
+"authentication server and will never send your password to an untrusted one."
+msgstr ""
+"Gaizki konfiguratutako gailu batetik konektatzen zarenean, zure segurtasuna "
+"arriskuan dago. Segurtasuna da ondo konfiguratzearen abantaila nagusia. "
+"Konfigurazio on bat erabiltzen denean, zure gailuak beti baieztatuko dizu "
+"benetakotzat egiaztatzeko zerbitzari zuzenarekin ari dela hizketan, eta "
+"sekula ez dituela bidaliko zure sinestamenduak konfiantzazkoa ez den "
+"zerbitzari batera. "
+
+#: web/user/faq.php:31
+#, php-format
+msgid "What is this eduroam thing anyway?"
+msgstr "Zertan datza eduroam delako hau? "
+
+#: web/user/faq.php:38
+#, php-format
+msgid "Is it safe to use %s installers?"
+msgstr "Segurua al da %s -(e)ko instalatzaileak erabiltzea? "
+
+#: web/user/faq.php:39
+#, php-format
+msgid ""
+"%s installers configure security settings on your device, therefore you "
+"should be sure that you are using genuine ones."
+msgstr ""
+"%s instalatzaileek segurtasun-ezaugarri guztiak betetzen dituzte zure "
+"gailuan; horrenbestez, ziur egon behar zenuke benetako instalatzaileak "
+"erabiltzen dituzula. "
+
+#: web/user/faq.php:39
+#, php-format
+msgid ""
+"This is why %s installers are digitally signed by %s. Watch out for a system "
+"message confirming this."
+msgstr ""
+"Horregatik, %s instalatzaileak modu digitalean %s -(e)k sinatuta daude. "
+"Egiaztatu hori baieztatzen duen mezu bat ageri dela. "
+
+#: web/user/faq.php:45
+msgid ""
+"Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
+"commonly downloaded and possibly harmful. Should I be concerned?"
+msgstr ""
+"Windows-eko SmartScreen-ek edo Internet Explorer-ek esaten didate fitxategi "
+"hau ez dela askotan deskargatzen eta ziurrenez kaltegarria da… arduratzekoa "
+"da?"
+
+#: web/user/faq.php:46
+msgid ""
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+"Bere izenak bestela esaten badu ere, ‘SmartScreen’ ez da oso azkarra. Abisu "
+"honek bakarrik esan nahi du erabiltzaileek ez dutela fitxategi hau nahiko "
+"bider deskargatu Microsoft-ek oso zabaldua dagoela kontsideratu dezan (honek "
+"‘seguru’ bihurtuko balu ere). Mezu hau, bera bakarrik, ez da segurtasuneko "
+"arazo bat."
+
+#: web/user/faq.php:46
+#, php-format
+msgid ""
+"So long as the file is carrying a valid signature from %s, the download is "
+"safe."
+msgstr ""
+"Fitxategi honek %s enpresaren baliozko sinadura bat badarama, deskarga "
+"segurua da."
+
+#: web/user/faq.php:46
+#, php-format
+msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
+msgstr ""
+"Mesedez, begiratu baita ere SmartScreen-ari buruzko Microsoft-en FAQ-a "
+"hemen: %s."
+
+#: web/user/faq.php:52
+#, php-format
+msgid "Why is there no support for Android?"
+msgstr "Nolatan ez dago euskarririk Androidentzat?"
+
+#: web/user/faq.php:53
+#, php-format
+msgid ""
+"%s relies on technologies being available on the target platform - we need "
+"to be able to 'feed' security settings from a configuration file which you "
+"can download. Many Operating Systems like Apple and Microsoft have that "
+"functionality, but for Android no such mechanism exists."
+msgstr ""
+"%s , hain zuzen, helburu den plataforman eskuragarri dauden teknologietan "
+"oinarritzen da  - segurtasun-konfigurazioak ‘elikatu’ behar ditugu, "
+"deskargatu dezakezun fitxategi batetik abiatuta. Sistema eragile askok, "
+"esaterako, Apple edo Microsoftenak, badute funtzionaltasun hori, baina "
+"Androidentzat ez dago aukerarik. "
+
+#: web/user/faq.php:55
+#, php-format
+msgid ""
+"That is - <i>to our knowledge</i>. If you are a developer with some good "
+"knowledge about Android's APIs, and you know how to do it - please let us "
+"know; we would be delighted!"
+msgstr ""
+"Alegia, - <i>dakigunaren arabera</i>. Androiden APIak ondo ezagutzen "
+"badituzu, eta nola egiten den baldin badakizu - mesedez, jakinarazi "
+"iezaguzu; pozik hartuko zaitugu! "
+
+#: web/user/faq.php:61
+#, php-format
+msgid ""
+"I can see %s network and my device is configured but it does not connect, "
+"what can be the cause?"
+msgstr ""
+"%s sarea ikusi dezaket eta nire gailua konfiguratuta dago, baina ez da "
+"konektatzen. Zergatik izan daiteke? "
+
+#: web/user/faq.php:62
+#, php-format
+msgid ""
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; there "
+"may be something wrong with the configuration of the network; your account "
+"may have expired; there may be a connection problem with your home "
+"authentication server; you may have broken the regulations of the network "
+"you are using and have been refused access as a consequence. You should "
+"contact your home institution and report the problem, the administrators "
+"should be able to trace your connections."
+msgstr ""
+"Hainbat arrazoi egon daitezke. Ikusten duzun sarea, beharbada, ez da egiazko "
+"%s sarea izango, eta beraz, zure gailuak isilpean eten dezake konektatzeko "
+"ahalegina; agian, sarearen konfigurazioan zerbait oker egongo da; edo zure "
+"kontua iraungita egon daiteke; zure erakundearen benetakotzat egiaztatzeko "
+"zerbitzuarekin konexio arazoren bat egon liteke; edo zauden sarearen arauak "
+"urratuko zenituen beharbada, eta horregatik uko egiten dizu sartzea. "
+"Nolanahi ere, zure erakundearekin jarri behar duzu harremanetan, eta "
+"arazoaren berri eman. Administratzaileek ebatzi beharko dituzte zure konexio-"
+"arazoak. "
+
+#: web/user/faq.php:68
+#, php-format
+msgid "I have a question about this web site. Whom should I contact?"
+msgstr ""
+"Webgune honi buruzko galdera bat daukat. Norekin jarri behar dut "
+"harremanetan? "
+
+#: web/user/faq.php:69
+#, php-format
+msgid "You should send a mail to %s."
+msgstr "Bidali mezu elektroniko bat %s -(e)ri. "
+
+#: web/user/faq.php:92
+msgid "Frequently Asked Questions"
+msgstr "Egiten diren ohiko galderak "
+
+#: web/user/tou.php:3
+msgid "Terms of Use"
+msgstr "Erabilera-baldintzak "
+
+#: web/user/js/cat_js.php:16 web/basic.php:309
+msgid ""
+"This is embarrassing. Generation of your installer failed. System admins "
+"have been notified. We will try to take care of the problem as soon as "
+"possible."
+msgstr ""
+"Gertatutakoa ez da batere atsegina. Zure instalatzailea sortzeko prozesuak "
+"huts egin du. Sistemaren administratzaileak jakinaren gainean daude. "
+"Ahaleginduko gara arazoa ahalik eta bizkorren ebazten. "
+
+#: web/user/js/cat_js.php:35 web/basic.php:195
+msgid "no matching data found"
+msgstr "ez dira aurkitu bat datozen datuak "
+
+#: web/user/js/cat_js.php:43
+msgid "Selected institution:"
+msgstr "Aukeratutako erakundea: "
+
+#: web/user/js/cat_js.php:46
+msgid "select"
+msgstr "aukeratu "
+
+#: web/user/js/cat_js.php:158
+msgid "WWW:"
+msgstr "Web-orria: "
+
+#: web/user/js/cat_js.php:160
+msgid "email:"
+msgstr "Helbide elektronikoa: "
+
+#: web/user/js/cat_js.php:162
+msgid "tel:"
+msgstr "Telefono-zenbakia: "
+
+#: web/user/js/cat_js.php:164
+msgid ""
+"If you encounter problems, then you can obtain direct assistance from you "
+"home organisation at:"
+msgstr "Arazorik izanez gero, zure erakundearen laguntza jasoko duzu, hemen: "
+
+#: web/user/js/cat_js.php:166 web/basic.php:283 web/basic.php:333
+msgid ""
+"If you encounter problems you should ask for help at your home institution"
+msgstr "Arazorik izanez gero, eskatu laguntza zure erakundeari"
+
+#: web/user/js/cat_js.php:184
+msgid ""
+"Your site administrator has specified that this device should be configured "
+"with resources located on a local page. When you click <b>Continue</b> this "
+"page will be opened in a new window/tab."
+msgstr ""
+"Zure erakundearen administratzaileak adierazi du gailu hau hainbat "
+"baliabiderekin konfiguratu beharko litzatekeela zure erakundearen orrialde "
+"batean. <b>Jarraitu</b> aukeran klik egiten duzunean, orrialdea beste leiho "
+"batean irekiko da. "
+
+#: web/user/js/cat_js.php:184 web/user/js/cat_js.php:210 web/basic.php:254
+#: web/index.php:212
+msgid "Continue"
+msgstr "Jarraitu "
+
+#: web/user/js/cat_js.php:196
+msgid ""
+"This device cannot be configured with settings provided by your institution"
+msgstr ""
+"Gailu hau ezin da konfiguratu zure erakundeak emandako konfigurazioarekin "
+
+#: web/user/js/cat_js.php:366
+msgid "Home institution"
+msgstr "Erakundea "
+
+#: web/user/js/cat_js.php:367
+msgid "Select your <strong>institution<\\/strong>"
+msgstr "Aukeratu zure <strong>erakundea<\\/strong> "
+
+#: web/user/js/cat_js.php:368
+msgid "Help, my institution is not on the list"
+msgstr "Laguntza, nire erakundea ez da ageri zerrendan "
+
+#: web/user/js/cat_js.php:369
+#, php-format
+msgid ""
+"This system relies on information supplied by local %s administrators. If "
+"your institution is not on the list, then nag them to add information to the "
+"%s database."
+msgstr ""
+"Sistema honek %s -(e)ko administratzaileek emandako informazioa darabil. "
+"Zure erakundea ez badago zerrendan, eskatu informazioa %s datu-basean "
+"gehitzeko. "
+
+#: web/user/js/cat_js.php:370
+msgid "Locate me more accurately using HTML5 Geo-Location"
+msgstr ""
+"Fidagarritasun handiagoarekin lokalizatu, HTML5 geolokalizazioa erabilita"
+
+#: web/user/js/cat_js.php:371
+msgid "Show institutions in"
+msgstr "Erakutsi hemengo erakundeak: "
+
+#: web/user/js/cat_js.php:372
+msgid "all countries"
+msgstr "herrialde guztiak "
+
+#: web/user/js/cat_js.php:373
+msgid "or search for an institution, in example Univerity of Oslo"
+msgstr "edo bilatu erakunde bat; esaterako, Sevillako Unibertsitatea "
+
+#: web/user/js/cat_js.php:374
+msgid "show all countries"
+msgstr "erakutsi herrialde guztiak "
+
+#: web/user/js/cat_js.php:375
+msgid "Results limited to"
+msgstr "Emaitzak honako hauetara mugatuta: "
+
+#: web/user/js/cat_js.php:376
+msgid "entries - show more"
+msgstr "sarrerak - erakutsi gehiago "
+
+#: web/user/js/cat_js.php:377
+msgid "Nearby"
+msgstr "Hurrengoa "
+
+#: web/user/js/cat_js.php:378
+msgid "Location timeout"
+msgstr "Itxarote-denbora iraungi da "
+
+#: web/user/js/cat_js.php:379
+msgid "Could not get your position"
+msgstr "Ezinezkoa izan da zure kokagunea zehaztea "
+
+#: web/user/js/cat_js.php:380
+msgid "Your browser has denied access to your location"
+msgstr "Zure nabigatzaileak uko egin dio sarbidea zure lokalizazioari"
+
+#: web/user/js/cat_js.php:381
+msgid "Unknown location error"
+msgstr "Errorea, lokalizazio ezezagunagatik "
+
+#: web/user/js/cat_js.php:382
+msgid "You are here:"
+msgstr "Hementxe zaude:"
+
+#: web/user/js/cat_js.php:383
+msgid "Getting your location..."
+msgstr "Zure lokalizazioa lortzen... "
+
+#: web/user/js/cat_js.php:384
+msgid "Nearby providers shown on top."
+msgstr "Hurbileko hornitzaileak erakusten dira lehenengo. "
+
+#: web/user/js/roll.php:122
+msgid "MS Windows"
+msgstr "MS Windows"
+
+#: web/user/js/roll.php:122
+msgid "8, 7, Vista, XP"
+msgstr "8, 7, Vista, XP"
+
+#: web/user/js/roll.php:123
+msgid "Apple OS X"
+msgstr "Apple-ren OS X"
+
+#: web/user/js/roll.php:123
+msgid "Mountain Lion, Lion"
+msgstr "Mountain Lion, Lion"
+
+#: web/user/js/roll.php:124
+msgid "Apple iOS devices"
+msgstr "Apple-ren iOS gailuak"
+
+#: web/user/js/roll.php:124
+msgid "iPhone, iPad, iPod touch"
+msgstr "iPhone, iPad, iPod touch"
+
+#: web/user/js/roll.php:125
+msgid "Linux"
+msgstr "Linux"
+
+#: web/user/js/roll.php:125
+msgid "all major distributions"
+msgstr "banaketa nagusiak"
+
+#: web/basic.php:95
+msgid "not available with settings provided by your institution"
+msgstr "ez dago eskuragarri zure erakundeak emandako konfigurazioan "
+
+#: web/basic.php:100 web/index.php:113
+msgid "View this page in"
+msgstr "Ikusi orrialde hau hemen:"
+
+#: web/basic.php:117
+msgid "you will be redirected to a local support page"
+msgstr "zure erakundearen euskarri-orrialde batera bideratuko zaitugu"
+
+#: web/basic.php:138
+msgid "Your choice"
+msgstr "Zure aukera "
+
+#: web/basic.php:203
+msgid "Change country"
+msgstr "Aldatu herrialdea"
+
+#: web/basic.php:223
+msgid "Select your institution"
+msgstr "Aukeratu zure erakundea "
+
+#: web/basic.php:239 web/basic.php:241 web/index.php:197
+msgid "Select the user group"
+msgstr "Aukeratu erabiltzaile-taldea "
+
+#: web/basic.php:287 web/index.php:217
+msgid "Choose an installer to download"
+msgstr "Aukeratu deskargatu nahi duzun instalatzailea "
+
+#: web/basic.php:303
+msgid "Profile does not match the institution"
+msgstr "Profila ez dator bat erakundearekin"
+
+#: web/basic.php:323
+msgid "Download installer for"
+msgstr "Deskargatu instalatzailea, honako honetarako: "
+
+#: web/basic.php:359 web/index.php:258
+#, php-format
+msgid "Release %s"
+msgstr "%s bertsioa"
+
+#: web/basic.php:361 web/index.php:260
+msgid "Unreleased SVN Revision"
+msgstr "Argitaratu gabeko SVN bertsioa "
+
+#: web/index.php:110
+#, php-format
+msgid "Welcome to %s"
+msgstr "Ongi etorri %s -(e)ra"
+
+#: web/index.php:119
+msgid "Start page"
+msgstr "Hasierako orrialdea "
+
+#: web/index.php:123
+msgid "Authenticating"
+msgstr "Benetakotzat egiaztatzen"
+
+#: web/index.php:127
+msgid "Close"
+msgstr "Itxi "
+
+#: web/index.php:138 web/index.php:139
+#, php-format
+msgid "About %s"
+msgstr "%s -(e)ri buruz"
+
+#: web/index.php:140
+#, php-format
+msgid "Terms of use"
+msgstr "Erabilera-baldintzak "
+
+#: web/index.php:141
+#, php-format
+msgid "FAQ"
+msgstr "FAQ"
+
+#: web/index.php:142
+#, php-format
+msgid "Report a problem"
+msgstr "Arazo baten berri eman "
+
+#: web/index.php:143
+#, php-format
+msgid "Become a CAT developer"
+msgstr "Bihur zaitez CATen garatzaile "
+
+#: web/index.php:144
+#, php-format
+msgid "%s admin:<br>manage your IdP"
+msgstr "%s administratzailea:<br>kudeatu zure IdP "
+
+#: web/index.php:159
+#, php-format
+msgid "%s installation made easy:"
+msgstr "Erraz egin da %s -(r)en instalazioa: "
+
+#: web/index.php:162
+msgid "Custom built for your home institution"
+msgstr "Zure erakundearentzat eratutako sorta "
+
+#: web/index.php:166
+#, php-format
+msgid "Digitally signed by the organisation that coordinates %s: %s"
+msgstr "%s koordinatzen duen erakundeak sinatua: %s "
+
+#: web/index.php:178 web/index.php:180
+#, php-format
+msgid "%s user:<br>download your %s installer"
+msgstr "%s -(r)en erabiltzailea:<br>deskargatu zure %s instalatzailea"
+
+#: web/index.php:189
+msgid "select another"
+msgstr "aukeratu beste bat "
+
+#: web/index.php:208
+msgid ""
+"Your local administrator has specified that this user group should be "
+"supported locally.<br>\n"
+"                            When you click <b>Continue</b> this support page "
+"will be opened in a new window/tab."
+msgstr ""
+"Zure erakundeko administratzaileak erabaki du erabiltzaile-talde honek "
+"tokiko euskarria jaso behar duela.<br>\n"
+" <b>Jarraitu</b> aukeran klik egiten duzunean, euskarri-orrialde hori beste "
+"leiho batean irekiko da. "

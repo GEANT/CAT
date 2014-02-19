@@ -1,0 +1,16 @@
+This directory contains additional files for Windows installer modules.
+
+Aruba_EAP_pwd.exe - PWD installer supplied by Aruba
+cat_bg.bmp - defualt background
+common.inc - common NSIS code for all modules but XP
+eap_w8.inc - W8 specific code
+eduroam_150.bmp - eduroam header
+eduroam32.ico - EXE icon
+peap_tls.inc - PEAP/TLS code for Vista/W7 installers
+pwd.inc - EAP-PWD code (calling Aruba installer)
+SecureW2_EAP_Suite_113.zip - GPL version of SecureW2 used for TTLS up to W7
+setEAPCred.exe - user credentials installer supplied by Gareth Ayres 
+ttls.inc - TTLS support via SW2 for versions up to W7
+wlan_test.exe - utility for checking wireless status of Windows
+xp/ -  contains XP specific version of common.inc
+

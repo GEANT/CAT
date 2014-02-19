@@ -1,0 +1,258 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-02-26 11:13+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: core/DeviceConfig.php:128
+#, php-format
+msgid "your local %s support"
+msgstr ""
+
+#: core/DeviceConfig.php:129
+#, php-format
+msgid "your local %s support page"
+msgstr ""
+
+#: core/DeviceConfig.php:161
+msgid "Sorry, this should not happen - no additional information is available"
+msgstr ""
+
+#: core/Federation.php:72
+msgid "Andorra"
+msgstr ""
+
+#: core/Federation.php:73
+msgid "Austria"
+msgstr ""
+
+#: core/Federation.php:74
+msgid "Belgium"
+msgstr ""
+
+#: core/Federation.php:75
+msgid "Bulgaria"
+msgstr ""
+
+#: core/Federation.php:76
+msgid "Cyprus"
+msgstr ""
+
+#: core/Federation.php:77
+msgid "Czech Republic"
+msgstr ""
+
+#: core/Federation.php:78
+msgid "Denmark"
+msgstr ""
+
+#: core/Federation.php:79
+msgid "Estonia"
+msgstr ""
+
+#: core/Federation.php:80
+msgid "Finland"
+msgstr ""
+
+#: core/Federation.php:81
+msgid "France"
+msgstr ""
+
+#: core/Federation.php:82
+msgid "Germany"
+msgstr ""
+
+#: core/Federation.php:83
+msgid "Greece"
+msgstr ""
+
+#: core/Federation.php:84
+msgid "Croatia"
+msgstr ""
+
+#: core/Federation.php:85
+msgid "Ireland"
+msgstr ""
+
+#: core/Federation.php:86
+msgid "Iceland"
+msgstr ""
+
+#: core/Federation.php:87
+msgid "Italy"
+msgstr ""
+
+#: core/Federation.php:88
+msgid "Hungary"
+msgstr ""
+
+#: core/Federation.php:89
+msgid "Luxembourg"
+msgstr ""
+
+#: core/Federation.php:90
+msgid "Latvia"
+msgstr ""
+
+#: core/Federation.php:91
+msgid "Lithuania"
+msgstr ""
+
+#: core/Federation.php:92
+msgid "Macedonia"
+msgstr ""
+
+#: core/Federation.php:93
+msgid "Serbia"
+msgstr ""
+
+#: core/Federation.php:94
+msgid "Netherlands"
+msgstr ""
+
+#: core/Federation.php:95
+msgid "Norway"
+msgstr ""
+
+#: core/Federation.php:96
+msgid "Poland"
+msgstr ""
+
+#: core/Federation.php:97
+msgid "Portugal"
+msgstr ""
+
+#: core/Federation.php:98
+msgid "Romania"
+msgstr ""
+
+#: core/Federation.php:99
+msgid "Slovenia"
+msgstr ""
+
+#: core/Federation.php:100
+msgid "Spain"
+msgstr ""
+
+#: core/Federation.php:101
+msgid "Sweden"
+msgstr ""
+
+#: core/Federation.php:102
+msgid "Slovakia"
+msgstr ""
+
+#: core/Federation.php:103
+msgid "Switzerland"
+msgstr ""
+
+#: core/Federation.php:104
+msgid "Turkey"
+msgstr ""
+
+#: core/Federation.php:105
+msgid "United Kingdom"
+msgstr ""
+
+#: core/Federation.php:107
+msgid "Australia"
+msgstr ""
+
+#: core/Federation.php:108
+msgid "Canada"
+msgstr ""
+
+#: core/Federation.php:109
+msgid "Israel"
+msgstr ""
+
+#: core/Federation.php:110
+msgid "Japan"
+msgstr ""
+
+#: core/Federation.php:111
+msgid "New Zealand"
+msgstr ""
+
+#: core/Federation.php:112
+msgid "U.S.A."
+msgstr ""
+
+#: core/Federation.php:113
+msgid "Brazil"
+msgstr ""
+
+#: core/Federation.php:114
+msgid "Chile"
+msgstr ""
+
+#: core/Federation.php:115
+msgid "Peru"
+msgstr ""
+
+#: core/Federation.php:116
+msgid "Venezuela"
+msgstr ""
+
+#: core/Federation.php:117
+msgid "Default"
+msgstr ""
+
+#: core/Federation.php:135
+msgid "Could not create a new Institution!"
+msgstr ""
+
+#: core/IdP.php:307
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the Identity Provider %s in your %s federation %s has been deleted from %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+
+#: core/IdP.php:316
+msgid "IdP in your federation was deleted"
+msgstr ""
+
+#. / arguments are: 1. IdP name;
+#. /                2. consortium name (e.g. eduroam);
+#. /                3. federation shortname, e.g. "LU";
+#. /                4. product name (e.g. eduroam CAT);
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#: core/UserManagement.php:147
+#, php-format
+msgid ""
+"Hi,\n"
+"\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
+"\n"
+"We thought you might want to know.\n"
+"\n"
+"Best regards,\n"
+"\n"
+"%s"
+msgstr ""
+
+#: core/UserManagement.php:156
+msgid "IdP in your federation was created"
+msgstr ""
