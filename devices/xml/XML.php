@@ -1,0 +1,299 @@
+<?php
+/* *********************************************************************************
+ * (c) 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia
+ * License: see the LICENSE file in the root directory
+ ***********************************************************************************/
+?>
+<?php
+
+/**
+ * This file defines an abstract class used for generic XML
+ * devices
+ * actual modules only define available EAP types.
+ *
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
+ *
+ * @package ModuleWriting
+ */
+
+
+require_once('DeviceConfig.php');
+require_once('XML.inc.php');
+
+/**
+  * This class implements full functionality of the generic XML device
+  * the only fuction of the extenstions of this class is to specify
+  * supported EAP methods.
+  * Instead of specifying supported EAPS an extension can set $all_eaps to true
+  * this will cause the installer to configure all EAP methods supported by 
+  * the current profile.
+  */
+abstract class Device_XML extends DeviceConfig {
+
+/**
+ * $lang_scope can be 'global' wheb all lang and all lang-specific information
+ * is dumped or 'single' when only the selected lang (and defaults) are passed
+ * NOTICE: 'global' is not yet supported
+ */
+public $lang_scope;
+public $all_eaps = FALSE;
+public $VendorSpecific;
+
+public function writeDeviceInfo() {
+    $ssid_ct=count($this->attributes['internal:SSID']);
+    $out = "<p>";
+    $out .= _("This is a generic installer producing the CAT xml profile.");
+    return $out;
+    }
+
+public function writeInstaller() {
+    $attr = $this->attributes;
+    $NAMEIDFORMAT = 'urn:RFC4282:realm';
+//EAPIdentityProvider  begin
+    $eap_idp = new EAPIdentityProvider();
+    $eap_idp->setProperty('NameIDFormat',$NAMEIDFORMAT);
+    $eap_idp->setProperty('DisplayName',$this->getDisplayName());
+    $eap_idp->setProperty('Description',$this->getSimpleMLAttribute('profile:description'));
+// AuthenticationMethods start
+    $eap_idp->setProperty('CompatibleUses',$this->getCompatibleUses());
+// ProviderLogo->
+    $eap_idp->setProperty('ProviderLogo',$this->getProviderLogo());
+    $eap_idp->setProperty('TermsOfUse',$this->getSimpleMLAttribute('support:info_file'));
+    $eap_idp->setProperty('Helpdesk',$this->getHelpdesk());
+// ProviderLocation
+//AuthenticationMethods
+//ID attribute
+//lang attribute
+    $authmethods = array();
+    if($this->all_eaps)
+      $EAPs = $attr['all_eaps'];
+    else
+      $EAPs = array( $this->selected_eap);
+
+    foreach ($EAPs as $eap) {
+       $authmethods[] = $this->getAuthMethod($eap);
+    }
+    $authenticationmethods = new AuthenticationMethods();
+    $authenticationmethods->setProperty('AuthenticationMethods',$authmethods);
+    $eap_idp->setProperty('AuthenticationMethods',$authenticationmethods);
+    if($this->lang_scope === 'single')
+       $eap_idp->setAttributes(array('lang' => $this->lang_index));
+
+// EAPIdentityProvicer end
+
+// Generate XML
+
+    $rootname = 'EAPIdentityProviderList';
+    $root = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"generic-data-strawman.xsd\"></{$rootname}>");
+
+    marshalObject($root,$eap_idp);
+    $dom = dom_import_simplexml($root)->ownerDocument;
+    $res = $dom->schemaValidate(CAT::$root .'/devices/xml/generic-data-strawman.xsd');
+    $f = fopen($this->installerBasename.'.eap-config',"w");
+    fwrite($f,$dom->saveXML());
+    fclose($f);
+    return($this->installerBasename.'.eap-config');
+}
+
+private $AttributeNames = array (
+   'support:email' => 'EmailAddress',
+   'support:url'   => 'WebAddress',
+   'support:phone' => 'Phone',
+   'profile:description' => 'Description',
+   'support:info_file' => 'TermsOfUse',
+   'general:logo_file' => 'ProviderLogo',
+);
+
+private function getSimpleAttribute($attr_name) {
+   if(isset($this->attributes[$attr_name][0]) && $this->attributes[$attr_name][0]) {
+      $a = $this->attributes[$attr_name];
+      if(! isset($this->AttributeNames[$attr_name])) {
+         debug(4,"Missing class definition for $attr_name\n");
+         return;
+      }
+      $class_name = $this->AttributeNames[$attr_name];
+      $obj = new $class_name();
+      $obj->setValue($a[0]);
+      return($obj);   
+   } else
+     return '';
+}
+
+
+private function getSimpleMLAttribute($attr_name) {
+   if(isset($this->attributes[$attr_name][0]) && $this->attributes[$attr_name][0]) {
+      $a = $this->attributes[$attr_name];
+      if(! isset($this->AttributeNames[$attr_name])) {
+         debug(4,"Missing class definition for $attr_name\n");
+         return;
+      }
+      $class_name = $this->AttributeNames[$attr_name];
+      $objs = array();
+      if($this->lang_scope === 'global') {
+         foreach( $a['langs'] as $l => $v ) {
+            $l = ( $l === 'C' ? 'any' : $l );
+            $obj = new $class_name();
+            $obj->setValue($v);
+            $obj->setAttributes(array('lang' => $l));
+            $objs[] = $obj;
+         }
+       } else {
+         $obj = new $class_name();
+         $obj->setValue($a[0]);
+         $objs[] = $obj;
+      }
+
+      return($objs);
+      } else
+     return '';
+}
+
+private function getDisplayName() {
+   $attr = $this->attributes;
+   $objs = array();
+   if($this->lang_scope === 'global') {
+      $I = $attr['general:instname']['langs'];
+      if($attr['internal:profile_count'][0] > 1)
+        $P = $attr['profile:name']['langs'];
+      foreach( $I as $l => $v ) {
+        $l = ( $l === 'C' ? 'any' : $l );
+        $displayname = new DisplayName();
+        if(isset($P)) {
+          $p = isset($P[$l]) ? $P[$l] : $P['C'];  
+          $v .= ' - '. $p;
+        }
+        $displayname->setValue($v);
+        $displayname->setAttributes(array('lang' => $l));
+        $objs[] = $displayname;
+      }
+   } else {
+   $displayname = new DisplayName();
+   $v = $attr['general:instname'][0];
+   if($attr['internal:profile_count'][0] > 1)
+       $v .= ' - '.$attr['profile:name'][0];
+   $displayname->setValue($v);
+     $objs[] = $displayname;
+   }
+   return $objs;
+}
+
+private function getProviderLogo() {
+   $attr = $this->attributes;
+   if(isset($attr['general:logo_file'][0])){
+      $logo_string = base64_encode($attr['general:logo_file'][0]);
+      $logo_mime = 'image/'.$attr['internal:logo_file'][0]['mime'];
+      $providerlogo = new ProviderLogo();
+      $providerlogo->setAttributes(array('mime'=>$logo_mime, 'encoding'=>'base64'));
+      $providerlogo->setValue($logo_string);
+      return $providerlogo;
+  }
+}
+  
+private function getHelpdesk() {
+   $helpdesk = new Helpdesk();
+   $helpdesk->setProperty('EmailAddress',$this->getSimpleMLAttribute('support:email'));
+   $helpdesk->setProperty('WebAddress',$this->getSimpleMLAttribute('support:url'));
+   $helpdesk->setProperty('Phone',$this->getSimpleMLAttribute('support:phone'));
+   return $helpdesk;  
+}
+
+private function getCompatibleUses() {
+   $SSIDs = $this->attributes['internal:SSID'];
+   $compatibleuses = new CompatibleUses();
+   $ieee80211s = array();
+   foreach ($SSIDs as $ssid => $ciph) {
+      $ieee80211 = new IEEE80211();
+      $ieee80211->setProperty('SSID',$ssid);
+      $ieee80211->setProperty('MinRSNProto', $ciph == 'AES' ? 'CCMP' : 'TKIP');
+      $ieee80211s[] = $ieee80211;
+   }
+   $compatibleuses->setProperty('IEEE80211',$ieee80211s);
+   return($compatibleuses);
+}
+
+private function getAuthenticationMethodParams($eap) {
+   $inner = EAP::innerAuth($eap);
+   $outer_id = $eap["OUTER"];
+
+   if(isset($inner["METHOD"]) && $inner["METHOD"]) {
+      $innerauthmethod = new InnerAuthenticationMethod();
+      $class_name = $inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod';
+      $eapmethod = new $class_name();
+      $eaptype = new  Type();
+      $eaptype->setValue($inner['METHOD']); 
+      $eapmethod->setProperty('Type',$eaptype);
+      $innerauthmethod->setProperty($class_name,$eapmethod);
+      return array('inner_method'=>$innerauthmethod,'methodID'=> $outer_id, 'inner_methodID'=>$inner['METHOD']);
+   } else
+   return array('inner_method'=>0,'methodID'=>$outer_id, 'inner_methodID'=>0);
+}
+
+private function getAuthMethod($eap) {
+   $attr = $this->attributes;
+   $eapParams = $this->getAuthenticationMethodParams($eap);
+   $authmethod = new AuthenticationMethod();
+   $eapmethod = new EAPMethod();
+   $eaptype = new Type();
+   $eaptype->setValue($eapParams['methodID']);
+   $eapmethod->setProperty('Type',$eaptype);
+   if(isset($this->VendorSpecific)) {
+     $vendorspecifics = array();
+     foreach($this->VendorSpecific as $vs) {
+        $vendorspecific = new VendorSpecific();
+/*
+print "<pre>";
+print_r($vs['value']);
+print "</pre>";
+*/
+        $vs['value']->addAttribute('xsi:noNamespaceSchemaLocation',"xxx.xsd");
+        $vendorspecific->setValue($vs['value']);
+        $vendorspecific->setAttributes(array('vendor'=>$vs['vendor']));
+        $vendorspecifics[] = $vendorspecific;
+     }
+     $eapmethod->setProperty('VendorSpecific',$vendorspecifics);
+   }
+   $authmethod->setProperty('EAPMethod',$eapmethod);
+
+// ServerSideCredentials
+   $serversidecredential = new ServerSideCredential();
+
+// Certificates and server names
+
+   $CAs = array();
+   $cas = $attr['internal:CAs'][0];
+   foreach ($cas as $ca) {
+      $CA = new CA();
+      $CA->setValue(base64_encode($ca['der']));
+      $CA->setAttributes(array('format'=>'X.509', 'encoding'=>'base64'));
+      $CAs[] = $CA;
+   }
+
+   $serverids = array();
+   $servers = $attr['eap:server_name'];
+   foreach ($servers as $server) {
+      $serverid = new ServerID();
+      $serverid->setValue($server);
+      $serverids[] = $serverid; 
+   }
+
+   $serversidecredential->setProperty('EAPType',$eaptype->getValue());
+   $serversidecredential->setProperty('CA',$CAs);
+   $serversidecredential->setProperty('ServerID',$serverids);
+   $authmethod->setProperty('ServerSideCredential',$serversidecredential);
+
+// ClientSideCredentials
+
+   $clientsidecredential = new ClientSideCredential();
+
+// AnonymousIdentity 
+   if($attr['internal:use_anon_outer'] [0])
+      $clientsidecredential->setProperty('AnonymousIdentity',$attr['internal:anon_local_value'][0].'@'.$attr['internal:realm'][0]);
+   $clientsidecredential->setProperty('EAPType',$eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
+   $authmethod->setProperty('ClientSideCredential',$clientsidecredential);
+   if($eapParams['inner_method'])
+      $authmethod->setProperty('InnerAuthenticationMethod',$eapParams['inner_method']);
+   return $authmethod;
+}
+
+
+}

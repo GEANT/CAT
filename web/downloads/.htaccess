@@ -1,0 +1,3 @@
+AddType application/x-apple-aspen-config .mobileconfig
+AddType application/x-sh .sh
+AddType application/x-dosexec .exe
