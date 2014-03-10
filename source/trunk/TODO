@@ -24,6 +24,7 @@ Admin Interface
 ! specify SSID to be /removed/ from client config after successful installation
 ! wired 802.1X configuration support
 ! specify if transparent proxies should be enabled (or do this unconditionally?)
+! allow custom outer ID for the static "shallow" tests (get around immediate outer reject)
 
 User interface
 --------------------
