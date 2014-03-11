@@ -17,5 +17,15 @@ PRIVKEY="xxx_key.der"
 URL=""
 # product name
 NAME=""
+# timestamp URL
+# you should be using timestamping to make sure the signatures will still
+# be valid even if the signing certificate has expired
+# All you need to do is point to a timestamping provider
+TIMESTAMP_URL=""
 
-osslsigncode -spc "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -in  $1 -out $2
+if [ -z "$TIMESTAMP_URL"] ; then
+  osslsigncode -spc "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -in  $1 -out $2
+else
+  osslsigncode -spc "$MY_PATH/$SPC" -key "$MY_PATH/$PRIVKEY" -n "$NAME" -i "$URL" -t "$TIMESTAMP_URL" -in  $1 -out $2
+fi
+
