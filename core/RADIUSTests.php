@@ -22,10 +22,10 @@ require_once("EAP.php");
 require_once("X509.php");
 require_once("Helper.php");
 
-define("L_OK",0);
-define("L_WARN",1);
-define("L_ERROR",2);
-define("L_REMARK",3);
+define("L_OK", 0);
+define("L_WARN", 1);
+define("L_ERROR", 2);
+define("L_REMARK", 3);
 
 
 // generic return codes
@@ -129,7 +129,7 @@ define("CERTPROB_TRUST_ROOT_NOT_REACHED", -209);
  */
 define("CERTPROB_SERVER_NAME_MISMATCH", -210);
 /**
- * The certificate does not set any BasicContraints; particularly no CA = TRUE|FALSE
+ * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
  */
 define("CERTPROB_NO_BASICCONSTRAINTS", -211);
 /**
@@ -190,8 +190,9 @@ class RADIUSTests {
     public $NAPTR_hostname_records;
 
     /**
-      */
+     */
     public $TLS_certkeys = array();
+
     /**
      * Constructor for the EAPTests class. The single mandatory parameter is the
      * realm for which the tests are to be carried out.
@@ -319,208 +320,208 @@ class RADIUSTests {
     }
 
 // generic return codes
-   function initialise_errors() {
-     $oldlocale = CAT::set_locale('core');
-     $this->return_codes = array();
-/**
- * Test was executed and the result was as expected.
- */
-     $code = RETVAL_OK;
-     $this->return_codes[$code]["message"] = _("Completed");
-     $this->return_codes[$code]["severity"] = L_OK;
+    function initialise_errors() {
+        $oldlocale = CAT::set_locale('core');
+        $this->return_codes = array();
+        /**
+         * Test was executed and the result was as expected.
+         */
+        $code = RETVAL_OK;
+        $this->return_codes[$code]["message"] = _("Completed");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * Test could not be run because CAT software isn't configured for it
- */
-     $code = RETVAL_NOTCONFIGURED;
+        /**
+         * Test could not be run because CAT software isn't configured for it
+         */
+        $code = RETVAL_NOTCONFIGURED;
 
-/**
- * Test skipped because there was nothing to be done
- */
-     $code = RETVAL_SKIPPED;
-     $this->return_codes[$code]["message"] = _("This check was skipped.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * Test skipped because there was nothing to be done
+         */
+        $code = RETVAL_SKIPPED;
+        $this->return_codes[$code]["message"] = _("This check was skipped.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * test executed, and there were errors
- */
-     $code = RETVAL_INVALID;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * test executed, and there were errors
+         */
+        $code = RETVAL_INVALID;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
 // return codes specific to NAPTR existence checks
-/**
- * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
- */
-     $code = RETVAL_NONAPTR;
-     $this->return_codes[$code]["message"] = _("This realm has no NAPTR records.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+         */
+        $code = RETVAL_NONAPTR;
+        $this->return_codes[$code]["message"] = _("This realm has no NAPTR records.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
- */
-     $code = RETVAL_ONLYUNRELATEDNAPTR;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+         */
+        $code = RETVAL_ONLYUNRELATEDNAPTR;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
 // return codes specific to authentication checks
-/**
- * no reply at all from remote RADIUS server
- */
-     $code = RETVAL_NO_RESPONSE;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_ERROR;
+        /**
+         * no reply at all from remote RADIUS server
+         */
+        $code = RETVAL_NO_RESPONSE;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
-/**
- * auth flow stopped somewhere in the middle of a conversation
- */
-     $code = RETVAL_SERVER_UNFINISHED_COMM;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_ERROR;
+        /**
+         * auth flow stopped somewhere in the middle of a conversation
+         */
+        $code = RETVAL_SERVER_UNFINISHED_COMM;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
-/**
- * a RADIUS server did not want to talk EAP with us, but at least replied with a Reject
- */
-     $code = RETVAL_IMMEDIATE_REJECT;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_WARN;
+        /**
+         * a RADIUS server did not want to talk EAP with us, but at least replied with a Reject
+         */
+        $code = RETVAL_IMMEDIATE_REJECT;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_WARN;
 
-/**
- * a RADIUS server talked EAP with us, but didn't like us in the end
- */
-     $code = RETVAL_CONVERSATION_REJECT;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_WARN;
+        /**
+         * a RADIUS server talked EAP with us, but didn't like us in the end
+         */
+        $code = RETVAL_CONVERSATION_REJECT;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_WARN;
 
-/**
- * a RADIUS server refuses connection
- */
-     $code = RETVAL_CONNECTION_REFUSED;
-     $this->return_codes[$code]["message"] = _("Conection refused");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * a RADIUS server refuses connection
+         */
+        $code = RETVAL_CONNECTION_REFUSED;
+        $this->return_codes[$code]["message"] = _("Conection refused");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * not enough data provided to perform an authentication
- */
-     $code = RETVAL_INCOMPLETE_DATA;
-     $this->return_codes[$code]["message"] = _("Not enough data provided to perform an authentication");
-     $this->return_codes[$code]["severity"] = L_ERROR;
+        /**
+         * not enough data provided to perform an authentication
+         */
+        $code = RETVAL_INCOMPLETE_DATA;
+        $this->return_codes[$code]["message"] = _("Not enough data provided to perform an authentication");
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
 // certificate property errors
-/**
- * The root CA certificate was sent by the EAP server.
- */
-     $code = CERTPROB_ROOT_INCLUDED;
-     $this->return_codes[$code]["message"] = _("The certificate chain includes the root CA certificate. This does not serve any useful purpose but inflates the packet exchange, possibly leading to more round-trips and thus slower authentication.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The root CA certificate was sent by the EAP server.
+         */
+        $code = CERTPROB_ROOT_INCLUDED;
+        $this->return_codes[$code]["message"] = _("The certificate chain includes the root CA certificate. This does not serve any useful purpose but inflates the packet exchange, possibly leading to more round-trips and thus slower authentication.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * There was more than one server certificate in the EAP server's chain.
- */
-     $code = CERTPROB_TOO_MANY_SERVER_CERTS;
-     $this->return_codes[$code]["message"] = _("There is more than one server certificate in the chain.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * There was more than one server certificate in the EAP server's chain.
+         */
+        $code = CERTPROB_TOO_MANY_SERVER_CERTS;
+        $this->return_codes[$code]["message"] = _("There is more than one server certificate in the chain.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * There was no server certificate in the EAP server's chain.
- */
-     $code = CERTPROB_NO_SERVER_CERT;
-     $this->return_codes[$code]["message"] = _("There is no server certificate in the chain.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * There was no server certificate in the EAP server's chain.
+         */
+        $code = CERTPROB_NO_SERVER_CERT;
+        $this->return_codes[$code]["message"] = _("There is no server certificate in the chain.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The/a server certificate was signed with an MD5 signature.
- */
-     $code = CERTPROB_MD5_SIGNATURE_SERVER;
-     $this->return_codes[$code]["message"] = _("The server certificate is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The/a server certificate was signed with an MD5 signature.
+         */
+        $code = CERTPROB_MD5_SIGNATURE_SERVER;
+        $this->return_codes[$code]["message"] = _("The server certificate is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * An intermediate CA certificate was signed with an MD5 signature.
- */
-     $code = CERTPROB_MD5_SIGNATURE_INTERMEDIATE;
-     $this->return_codes[$code]["message"] = _("An intermediate CA is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * An intermediate CA certificate was signed with an MD5 signature.
+         */
+        $code = CERTPROB_MD5_SIGNATURE_INTERMEDIATE;
+        $this->return_codes[$code]["message"] = _("An intermediate CA is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
- */
-     $code = CERTPROB_NO_TLS_WEBSERVER_OID;
-     $this->return_codes[$code]["message"] = _("The server certificate does not have the extension 'extendedKeyUsage: TLS Web Server Authentication'. Most Microsoft Operating Systems will fail to validate this certificate.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
+         */
+        $code = CERTPROB_NO_TLS_WEBSERVER_OID;
+        $this->return_codes[$code]["message"] = _("The server certificate does not have the extension 'extendedKeyUsage: TLS Web Server Authentication'. Most Microsoft Operating Systems will fail to validate this certificate.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
- */
-     $code = CERTPROB_NO_CDP;
-     $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
+         */
+        $code = CERTPROB_NO_CDP;
+        $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
- */
-     $code = CERTPROB_NO_CDP_HTTP;
-     $this->return_codes[$code]["message"] = _("The server certificate does not have the extension 'CRL Distribution Point' pointing to an HTTP/HTTPS URL. Some Operating Systems (currently only Windows Phone 8) will fail to validate this certificate.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
+         */
+        $code = CERTPROB_NO_CDP_HTTP;
+        $this->return_codes[$code]["message"] = _("The server certificate does not have the extension 'CRL Distribution Point' pointing to an HTTP/HTTPS URL. Some Operating Systems (currently only Windows Phone 8) will fail to validate this certificate.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
- */
-     $code = CERTPROB_NO_CRL_AT_CDP_URL;
-     $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice.");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
+         */
+        $code = CERTPROB_NO_CRL_AT_CDP_URL;
+        $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice.");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The received certificate chain did not end in any of the trust roots configured in the profile properties.
- */
-     $code = CERTPROB_TRUST_ROOT_NOT_REACHED;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The received certificate chain did not end in any of the trust roots configured in the profile properties.
+         */
+        $code = CERTPROB_TRUST_ROOT_NOT_REACHED;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The received server certificate's name did not match the configured name in the profile properties.
- */
-     $code = CERTPROB_SERVER_NAME_MISMATCH;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The received server certificate's name did not match the configured name in the profile properties.
+         */
+        $code = CERTPROB_SERVER_NAME_MISMATCH;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The certificate does not set any BasicContraints; particularly no CA = TRUE|FALSE
- */
-     $code = CERTPROB_NO_BASICCONSTRAINTS;
-     $this->return_codes[$code]["message"] = _("At least one certificate did not contain any BasicConstraints extension; which makes it unclear if it's a CA certificate or end-entity certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate for EAP purposes!");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
+         */
+        $code = CERTPROB_NO_BASICCONSTRAINTS;
+        $this->return_codes[$code]["message"] = _("At least one certificate did not contain any BasicConstraints extension; which makes it unclear if it's a CA certificate or end-entity certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate for EAP purposes!");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server presented a certificate which is from an unknown authority
- */
-     $code = CERTPROB_UNKNOWN_CA;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server presented a certificate which is from an unknown authority
+         */
+        $code = CERTPROB_UNKNOWN_CA;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server accepted this client certificate, but should not have
- */
-     $code = CERTPROB_WRONGLY_ACCEPT;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server accepted this client certificate, but should not have
+         */
+        $code = CERTPROB_WRONGLY_ACCEPT;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server does not accept this client certificate, but should have
- */
-     $code = CERTPROB_WRONGLY_NOT_ACCEPTED;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server does not accept this client certificate, but should have
+         */
+        $code = CERTPROB_WRONGLY_NOT_ACCEPTED;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-/**
- * The server does accept this client certificate
- */
-     $code = CERTPROB_NOT_ACCEPTED;
-     $this->return_codes[$code]["message"] = _("");
-     $this->return_codes[$code]["severity"] = L_OK;
+        /**
+         * The server does accept this client certificate
+         */
+        $code = CERTPROB_NOT_ACCEPTED;
+        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["severity"] = L_OK;
 
-     CAT::set_locale($oldlocale);
-   }
+        CAT::set_locale($oldlocale);
+    }
 
     /**
      * Tests if NAPTR records can be resolved to SRVs. Will only run if NAPTR
@@ -539,7 +540,7 @@ class RADIUSTests {
             $this->NAPTR_compliance();
         // we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
         if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RETVAL_INVALID) {
-            $this->NAPTR_SRV_executed =RETVAL_SKIPPED;
+            $this->NAPTR_SRV_executed = RETVAL_SKIPPED;
             return RETVAL_SKIPPED;
         }
 
@@ -550,8 +551,7 @@ class RADIUSTests {
             $temp_result = dns_get_record($edupointer["replacement"], DNS_SRV);
             if ($temp_result === FALSE || count($temp_result) == 0) {
                 $SRV_errors[] = array("TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']);
-            }
-            else
+            } else
                 foreach ($temp_result as $res)
                     $SRV_targets[] = array("hostname" => $res["target"], "port" => $res["port"]);
         }
@@ -588,8 +588,7 @@ class RADIUSTests {
             $host_resolution = array_merge($host_resolution_6, $host_resolution_4);
             if ($host_resolution === FALSE || count($host_resolution) == 0) {
                 $resolution_errors[] = array("TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']);
-            }
-            else
+            } else
                 foreach ($host_resolution as $address)
                     if (isset($address["ip"]))
                         $ip_addresses[] = array("family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => "");
@@ -615,9 +614,12 @@ class RADIUSTests {
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_servercert($servercert) {
+        debug(4, "SERVER CERT IS: " . print_r($servercert, TRUE));
         $returnarray = Array();
-        if (preg_match("/md5/i", $servercert['full_details']['signature_algorithm']))
-            $returnarray[] = CERTPROB_MD5_SIGNATURE_SERVER;
+        // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
+        // so call that function and memorise the outcome
+        $returnarray = array_merge($this->property_check_intermediate($servercert));
+
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
             $returnarray[] = CERTPROB_NO_CDP_HTTP;
@@ -636,26 +638,25 @@ class RADIUSTests {
                     $returnarray[] = CERTPROB_NO_CRL_AT_CDP_URL;
             }
         }
-        /* echo "<pre>";
-        print_r($servercert);
-        echo "</pre>"; */
-        if ($servercert['basicconstraints_set'] == 0)
-            $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
+
         return $returnarray;
     }
 
     /**
      * This function parses a X.509 intermediate CA cert and checks if it finds client device incompatibilities
      * 
-     * @param array $servercert the properties of the certificate as returned by processCertificate()
+     * @param array $intermediate_ca the properties of the certificate as returned by processCertificate()
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_intermediate($intermediate_ca) {
         $returnarray = Array();
-        if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm']))
+        if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE_INTERMEDIATE;
-        if ($intermediate_ca['basicconstraints_set'] == 0)
+        }
+        debug(4, "CA CERT IS: " . print_r($intermediate_ca, TRUE));
+        if ($intermediate_ca['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
+        }
         return $returnarray;
     }
 
@@ -743,7 +744,7 @@ network={
                 fclose($clientcertfile);
                 $config .= "  private_key=\"./client.p12\"\n";
                 $config .= "  private_key_passwd=\"$password\"\n";
-            $log_config .= "  private_key_passwd=\"not logged for security reasons\"\n";
+                $log_config .= "  private_key_passwd=\"not logged for security reasons\"\n";
             } else {
                 $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
                 return RETVAL_NOT_CONFIGURED;
@@ -910,6 +911,7 @@ network={
             return RETVAL_OK;
         }
     }
+
     /**
      * This function parses a X.509 cert and returns all certificatePolicies OIDs
      * 
@@ -924,7 +926,7 @@ network={
                     $oids[$key] = $oid;
         }
         return $oids;
-   }
+    }
 
     /**
      * This function parses a X.509 cert and returns the value of $field
@@ -932,7 +934,7 @@ network={
      * @param structure $cert (returned from openssl_x509_parse) 
      * @return string value of the issuer field or ''
      */
-    function property_certificate_get_issuer($cert)  {
+    function property_certificate_get_issuer($cert) {
         $issuer = '';
         foreach ($cert['issuer'] as $key => $val)
             if (is_array($val))
@@ -940,8 +942,9 @@ network={
                     $issuer .= "/$key=$v";
             else
                 $issuer .= "/$key=$val";
-       return $issuer;
+        return $issuer;
     }
+
     /**
      * This function parses a X.509 cert and returns the value of $field
      * 
@@ -949,10 +952,10 @@ network={
      * @param string $field 
      * @return string value of the extention named $field or ''
      */
-    function property_certificate_get_field($cert, $field)  {
+    function property_certificate_get_field($cert, $field) {
         if ($cert['extensions'][$field]) {
             return $cert['extensions'][$field];
-        }        
+        }
         return '';
     }
 
@@ -974,6 +977,7 @@ network={
         $testresults['returncode'] = $result;
         return $opensslbabble;
     }
+
     /**
      * This function parses openssl s_client result
      * 
@@ -985,69 +989,70 @@ network={
      * @param int $k results array key
      * @return int return code
      */
-    function openssl_result($host, $testtype, $opensslbabble, $testresults, $type='', $k=0) {
+    function openssl_result($host, $testtype, $opensslbabble, $testresults, $type = '', $k = 0) {
         $res = RETVAL_OK;
         switch ($testtype) {
-        case "capath":
-            if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
-                $testresults[$host]['status'] = RETVAL_CONNECTION_REFUSED;
-                $res = RETVAL_INVALID;
-            } 
-            if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-                $testresults[$host]['cert_oddity'] = CERTPROB_UNKNOWN_CA;
-                $testresults[$host]['status'] = RETVAL_INVALID;
-                $res = RETVAL_INVALID;
-            } 
-            if (preg_match('/verify return:1/', implode($opensslbabble))) {
-                $testresults[$host]['status'] = RETVAL_OK;
-                $servercert = implode("\n", $opensslbabble);
-                $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercert);
-                $data = openssl_x509_parse($servercert);
-                $testresults[$host]['certdata']['subject'] = $data['name'];
-                $testresults[$host]['certdata']['issuer'] = $this->property_certificate_get_issuer($data);
-                if (($altname = $this->property_certificate_get_field($data, 'subjectAltName'))) {
-                    $testresults[$host]['certdata']['extensions']['subjectaltname'] = $altname;
+            case "capath":
+                if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
+                    $testresults[$host]['status'] = RETVAL_CONNECTION_REFUSED;
+                    $res = RETVAL_INVALID;
                 }
-                $oids = $this->property_check_policy($data);
-                if (!empty($oids)) {
-                    foreach ($oids as $k => $o)
-                      $testresults[$host]['certdata']['extensions']['policyoid'][] = " $o ($k)";
+                if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
+                    $testresults[$host]['cert_oddity'] = CERTPROB_UNKNOWN_CA;
+                    $testresults[$host]['status'] = RETVAL_INVALID;
+                    $res = RETVAL_INVALID;
                 }
-                if (($crl = $this->property_certificate_get_field($data, 'crlDistributionPoints'))) {
-                    $testresults[$host]['certdata']['extensions']['crlDistributionPoint'] = $crl;
+                if (preg_match('/verify return:1/', implode($opensslbabble))) {
+                    $testresults[$host]['status'] = RETVAL_OK;
+                    $servercert = implode("\n", $opensslbabble);
+                    $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercert);
+                    $data = openssl_x509_parse($servercert);
+                    $testresults[$host]['certdata']['subject'] = $data['name'];
+                    $testresults[$host]['certdata']['issuer'] = $this->property_certificate_get_issuer($data);
+                    if (($altname = $this->property_certificate_get_field($data, 'subjectAltName'))) {
+                        $testresults[$host]['certdata']['extensions']['subjectaltname'] = $altname;
+                    }
+                    $oids = $this->property_check_policy($data);
+                    if (!empty($oids)) {
+                        foreach ($oids as $k => $o)
+                            $testresults[$host]['certdata']['extensions']['policyoid'][] = " $o ($k)";
+                    }
+                    if (($crl = $this->property_certificate_get_field($data, 'crlDistributionPoints'))) {
+                        $testresults[$host]['certdata']['extensions']['crlDistributionPoint'] = $crl;
+                    }
+                    if (($ocsp = $this->property_certificate_get_field($data, 'authorityInfoAccess'))) {
+                        $testresults[$host]['certdata']['extensions']['authorityInfoAccess'] = $ocsp;
+                    }
                 }
-                if (($ocsp = $this->property_certificate_get_field($data, 'authorityInfoAccess'))) {
-                    $testresults[$host]['certdata']['extensions']['authorityInfoAccess'] = $ocsp;
+                break;
+            case "clients":
+                $ret = $testresults[$host]['ca'][$type]['certificate'][$k]['returncode'];
+                $output = implode($opensslbabble);
+                $unknownca = 0;
+                if ($ret == 0)
+                    $testresults[$host]['ca'][$type]['certificate'][$k]['connected'] = 1;
+                else {
+                    $testresults[$host]['ca'][$type]['certificate'][$k]['connected'] = 0;
+                    if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
+                        $testresults[$host]['ca'][$type]['certificate'][$k]['returncode'] = RETVAL_CONNECTION_REFUSED;
+                    } elseif (preg_match('/sslv3 alert certificate expired/', $output))
+                        $res_comment = _("certificate expired");
+                    elseif (preg_match('/sslv3 alert certificate revoked/', $output))
+                        $res_comment = _("certificate was revoked");
+                    elseif (preg_match('/SSL alert number 46/', $output))
+                        $res_comment = _("bad policy");
+                    elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
+                        $res_comment = _("unknown authority");
+                        $testresults[$host]['ca'][$type]['certificate'][$k]['reason'] = CERTPROB_UNKNOWN_CA;
+                    } else
+                        $res_comment = _("unknown authority or no certificate policy or another problem");
+                    $testresults[$host]['ca'][$type]['certificate'][$k]['resultcomment'] = $res_comment;
                 }
-            } 
-            break;
-        case "clients":
-            $ret = $testresults[$host]['ca'][$type]['certificate'][$k]['returncode'];
-            $output = implode($opensslbabble);
-            $unknownca = 0;
-            if ($ret == 0)
-                $testresults[$host]['ca'][$type]['certificate'][$k]['connected'] = 1;
-            else {
-                $testresults[$host]['ca'][$type]['certificate'][$k]['connected'] = 0;
-                if (preg_match('/connect: Connection refused/', implode($opensslbabble)))  {
-                   $testresults[$host]['ca'][$type]['certificate'][$k]['returncode'] = RETVAL_CONNECTION_REFUSED;
-                } elseif (preg_match('/sslv3 alert certificate expired/', $output))
-                    $res_comment = _("certificate expired");
-                elseif (preg_match('/sslv3 alert certificate revoked/', $output))
-                    $res_comment = _("certificate was revoked");
-                elseif (preg_match('/SSL alert number 46/', $output))
-                    $res_comment = _("bad policy");
-                elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
-                    $res_comment = _("unknown authority");
-                    $testresults[$host]['ca'][$type]['certificate'][$k]['reason'] = CERTPROB_UNKNOWN_CA;
-                } else
-                    $res_comment = _("unknown authority or no certificate policy or another problem");
-                $testresults[$host]['ca'][$type]['certificate'][$k]['resultcomment'] = $res_comment;
-            }
-            break;
+                break;
         }
         return $res;
     }
+
     /**
      * This function executes openssl s_clientends command to check if a server accept a CA
      * @param string $host IP:port
@@ -1056,12 +1061,13 @@ network={
     public function CApath_check($host) {
 
         $res = RETVAL_OK;
-        if (preg_match("/\[/", $host)) 
-           return RETVAL_INVALID;
+        if (preg_match("/\[/", $host))
+            return RETVAL_INVALID;
         $opensslbabble = $this->openssl_s_client($host, '', &$this->TLS_CA_checks_result[$host]);
         $res = $this->openssl_result($host, 'capath', $opensslbabble, &$this->TLS_CA_checks_result);
         return $res;
     }
+
     /**
      * This function performs 
      * This function performs executes openssl s_client command to check if a server accept a client certificate
@@ -1071,45 +1077,46 @@ network={
     public function TLS_clients_side_check($host) {
         $res = RETVAL_OK;
         if (is_array(Config::$RADIUSTESTS['TLS-clientcerts']) && count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0) {
-            if (preg_match("/\[/", $host)) 
+            if (preg_match("/\[/", $host))
                 return RETVAL_INVALID;
             foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $type => $tlsclient) {
-               $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
-               $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
-               $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
-               $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['issuer'] = $tlsclient['issuerCA'];
-               foreach ($tlsclient['certificates'] as $k => $cert) {
-                   $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
-                   $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
-                   $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected']; 
-                   $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
-                   $opensslbabble = $this->openssl_s_client($host, $add,  &$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
-                   $res = $this->openssl_result($host, 'clients', $opensslbabble, &$this->TLS_clients_checks_result, $type, $k);
-                   if ($cert['expected'] == 'PASS') {
-                       if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
-                           if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
-                               $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_NOT_ACCEPTED;
-                               $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
-                               break;
-                           }
-                       }
-                   } else {
-                       if ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) 
-                           $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_WRONGLY_ACCEPTED;
-                        
-                       if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
-                           $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
-echo "koniec zabawy2<br>";
-                           break;
-                       }
-                   }
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['issuer'] = $tlsclient['issuerCA'];
+                foreach ($tlsclient['certificates'] as $k => $cert) {
+                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
+                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
+                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
+                    $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
+                    $opensslbabble = $this->openssl_s_client($host, $add, &$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                    $res = $this->openssl_result($host, 'clients', $opensslbabble, &$this->TLS_clients_checks_result, $type, $k);
+                    if ($cert['expected'] == 'PASS') {
+                        if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
+                            if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_NOT_ACCEPTED;
+                                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
+                                break;
+                            }
+                        }
+                    } else {
+                        if ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected'])
+                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_WRONGLY_ACCEPTED;
+
+                        if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
+                            echo "koniec zabawy2<br>";
+                            break;
+                        }
+                    }
                 }
             }
         } else {
-           return RETVAL_SKIPPED;
+            return RETVAL_SKIPPED;
         }
         return $res;
     }
+
 }
 
 ?>
