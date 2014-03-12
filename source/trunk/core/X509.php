@@ -100,10 +100,10 @@ public function processCertificate ($cadata) {
     // is this a CA? or not? Treat as server, but add a warning...
     if (isset($mydetails['extensions']['basicConstraints'])) {
        $out['ca'] = preg_match('/^CA:TRUE/',$mydetails['extensions']['basicConstraints']);
-       $out['basiccontraints_set'] = 1;
+       $out['basicconstraints_set'] = 1;
     } else {
        $out['ca'] = 0; // we need to resolve this ambiguity
-       $out['basiccontraints_set'] = 0;
+       $out['basicconstraints_set'] = 0;
     }
     
     if( $out['ca'] > 0 && $out['root'] == 0 )
