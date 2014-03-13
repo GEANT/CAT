@@ -29,7 +29,12 @@ Changes in trunk
                 CERTPROB_NO_CDP_HTTP
                 CERTPROB_NO_CRL_AT_CDP_URL
                 CERTPROB_TRUST_ROOT_NOT_REACHED
+                CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
+                CERTPROB_LOW_KEY_LENGTH
                 CERTPROB_SERVER_NAME_MISMATCH
+                CERTPROB_SERVER_NAME_PARTIAL_MATCH
+                CERTPROB_NOT_A_HOSTNAME
+                CERTPROB_WILDCARD_IN_NAME
 - [FEATURE #7] Windows: Install profiles first and do not ask for credentials
                when profiles fail
 - [FEATURE #8] Mac OS, iOS: support wired ethernet configuration
