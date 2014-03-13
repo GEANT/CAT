@@ -943,8 +943,11 @@
             $image = self::image($frame, $pixelPerPoint, $outerFrame);
             
             if ($filename === false) {
-                Header("Content-type: image/png");
-                ImagePng($image);
+                // Header("Content-type: image/png");
+                ob_start();
+                imagepng($image);
+                $output = ob_get_clean();
+                return $output;
             } else {
                 if($saveandprint===TRUE){
                     ImagePng($image, $filename);
@@ -3299,7 +3302,7 @@
                 
                 $maxSize = (int)(QR_PNG_MAXIMUM_SIZE / (count($tab)+2*$this->margin));
                 
-                QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint);
+                return QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint);
             
             } catch (Exception $e) {
             
