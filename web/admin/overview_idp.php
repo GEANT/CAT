@@ -12,6 +12,7 @@ require_once("CAT.php");
 require_once("Federation.php");
 require_once("IdP.php");
 require_once("Profile.php");
+require_once("phpqrcode.php");
 
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
@@ -72,9 +73,9 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            exec("qrencode -l Q -o - " . escapeshellarg($displayurl) . " | base64", $b64encodedresult);
+            $b64encodedresult = base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q));
             ?>
-            <img src="data:image/png;base64,<?php foreach ($b64encodedresult as $row) echo $row;?>" alt="QR-code"/>
+            <img src="data:image/png;base64,<?php echo $b64encodedresult;?>" alt="QR-code"/>
             <br>
             <?php echo "<a href='$displayurl'>$displayurl</a>";?>
         </div>

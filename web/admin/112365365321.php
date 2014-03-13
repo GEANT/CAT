@@ -107,11 +107,6 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 else
                     echo UI_error("'<strong>makensis</strong>' not found in your \$PATH!");
 
-                if (exec("which qrencode") != "")
-                    echo UI_okay("'<strong>qrencode</strong>' binary found.");
-                else
-                    echo UI_error("'<strong>qrencode</strong>' not found in your \$PATH!");
-
                 if (exec("which zip") != "")
                     echo UI_okay("'<strong>zip</strong>' binary found.");
                 else

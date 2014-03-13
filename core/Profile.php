@@ -749,14 +749,10 @@ class Profile {
             if (isset($attribs['device-specific:redirect'])) {
                 $b64encodedresult = base64_encode(QRcode::png($attribs['device-specific:redirect'][0], FALSE, QR_ECLEVEL_Q));
                 $this->addAttribute("profile:QR-user", $b64encodedresult, 0);
-                debug(4,QRcode::png($attribs['device-specific:redirect'][0], FALSE, QR_ECLEVEL_Q));
             } else {
                 $displayurl = ( $_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $this->institution . "&profile=" . $this->identifier;
-                debug(4, "Executing qrencode for URL $displayurl\n");
                 $b64encodedresult = base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q));
                 $this->addAttribute("profile:QR-user", $b64encodedresult, 0);
-                debug(4,QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q));
-                debug(4,$b64encodedresult);
             }
             DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
             return;
