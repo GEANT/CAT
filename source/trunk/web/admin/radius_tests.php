@@ -124,7 +124,13 @@ debug(4,"TLS_TEST:");
                   $o = array();
                   $o['code'] = $oddity;
                   $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
-                  $o['level'] = L_REMARK;
+                  // why is this always REMARK? There is at least one significant error to show, and it transpires as an error for the overall check:
+                  if ($oddity == CERTPROB_TRUST_ROOT_NOT_REACHED || $oddity == CERTPROB_SERVER_NAME_MISMATCH) {
+                      $o['level'] = L_ERROR;
+                      $returnarray['level'] = L_ERROR;
+                  } else {
+                      $o['level'] = L_REMARK;
+                  }
                   $returnarray['cert_oddities'][] = $o;
                }
             } else {

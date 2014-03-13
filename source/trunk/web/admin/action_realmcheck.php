@@ -301,11 +301,16 @@ function run_udp () {
    $(".results_tr").remove();
 <?php
 foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
+    if ($check_thorough)
+        $extraarg = "profile_id: ".$my_profile->identifier.", ";
+    else
+        $extraarg = "";
+    
    print "
 $(\"#src".$hostindex."_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
 
-$.get('radius_tests.php',{test_type: 'udp', realm: realm, src: $hostindex, lang: '".$cat->lang_index."', hostindex: '$hostindex'  }, udp, 'json');
+$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '".$cat->lang_index."', hostindex: '$hostindex'  }, udp, 'json');
 ";
 }
 ?>

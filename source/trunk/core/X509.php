@@ -112,8 +112,8 @@ public function processCertificate ($cadata) {
      $mydetails['type'] = 'server';
     $out['full_details'] = $mydetails;
     
-    // we are also interested in the signature algorithm, with ..._parse doesn't
-    // tell us :-(
+    // we are also interested in the signature algorithm and length of public key,
+    // whith ..._parse doesn't tell us :-(
     
     
     openssl_x509_export($myca, $output, FALSE);
@@ -122,6 +122,11 @@ public function processCertificate ($cadata) {
     else
       $out['full_details']['signature_algorithm'] = $output;
  
+    if((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $match)) && is_numeric($match[1])) 
+      $out['full_details']['public_key_length'] = $match[1];
+    else
+      $out['full_details']['public_key_length'] = $output;
+    
     return $out;
 }
 
