@@ -72,6 +72,13 @@ Configuration parameter changes
                 the "dark" main color of the user interface
 [OBSOLETE]      Config::$PATHS['rad_eap_test']
                 wo don't need this wrapper any more, using eapol_test directly
+[OBSOLETE]      Config::$PATHS['qrencode']
+                wo don't need this any more, QRs are generated with a library
+
+
+Schema changes
+--------------
+
 
 Changes in release 1.0.3
 ========================

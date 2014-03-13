@@ -42,13 +42,11 @@ correctly. The prerequisites are:
 <listitem>Apache2 Web Server</listitem>
 <listitem>MySQL Server</listitem>
 <listitem>PHP 5.3</listitem>
-<listitem>PHP extensions: "gettext", "openssl", "PECL:IMagick", "GeoIP" and "MySQL"</listitem>
+<listitem>PHP extensions: "gettext", "openssl", "PECL:IMagick", "GeoIP", "GD" and "MySQL"</listitem>
 <listitem>simpleSAMLphp</listitem>
 <listitem>NSIS 2.46 or higher - either as a native Linux binary or on Wine</listitem>
-<listitem>qrencode</listitem>
 <listitem>zip</listitem>
 <listitem>wpa_supplicant (eapol_test utility)</listitem>
-<listitem>rad_eap_test - correctly configured to find eapol_test in the system</listitem>
 <listitem>OpenSSL</listitem>
 </itemizedlist>
 </refsect1>
