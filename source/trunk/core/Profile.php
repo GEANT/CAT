@@ -24,6 +24,7 @@ require_once('IdP.php');
 require_once('EAP.php');
 require_once('X509.php');
 require_once('devices/devices.php');
+require_once('phpqrcode.php');
 
 define("AVAILABLE", 0);
 define("UNAVAILABLE", 1);
@@ -746,13 +747,16 @@ class Profile {
         } else { // lets generate and store the internal attribute for QR tags
             debug(4, "Generating QR code...\n");
             if (isset($attribs['device-specific:redirect'])) {
-                exec("qrencode -l Q -o - " . escapeshellarg($attribs['device-specific:redirect'][0]) . " | base64", $b64encodedresult);
-                $this->addAttribute("profile:QR-user", implode($b64encodedresult), 0);
+                $b64encodedresult = base64_encode(QRcode::png($attribs['device-specific:redirect'][0], FALSE, QR_ECLEVEL_Q));
+                $this->addAttribute("profile:QR-user", $b64encodedresult, 0);
+                debug(4,QRcode::png($attribs['device-specific:redirect'][0], FALSE, QR_ECLEVEL_Q));
             } else {
                 $displayurl = ( $_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $this->institution . "&profile=" . $this->identifier;
                 debug(4, "Executing qrencode for URL $displayurl\n");
-                exec("qrencode -l Q -o - " . escapeshellarg($displayurl) . " | base64", $b64encodedresult);
-                $this->addAttribute("profile:QR-user", implode($b64encodedresult), 0);
+                $b64encodedresult = base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q));
+                $this->addAttribute("profile:QR-user", $b64encodedresult, 0);
+                debug(4,QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q));
+                debug(4,$b64encodedresult);
             }
             DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
             return;
