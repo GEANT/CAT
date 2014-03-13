@@ -99,11 +99,11 @@ define("CERTPROB_NO_SERVER_CERT", -202);
 /**
  * The/a server certificate was signed with an MD5 signature.
  */
-define("CERTPROB_MD5_SIGNATURE_SERVER", -203);
+define("CERTPROB_MD5_SIGNATURE", -204);
 /**
- * An intermediate CA certificate was signed with an MD5 signature.
+ * one of the keys in the cert chain was smaller than 1024 bits
  */
-define("CERTPROB_MD5_SIGNATURE_INTERMEDIATE", -204);
+define("CERTPROB_LOW_KEY_LENGTH", -220);
 /**
  * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
  */
@@ -125,9 +125,25 @@ define("CERTPROB_NO_CRL_AT_CDP_URL", -208);
  */
 define("CERTPROB_TRUST_ROOT_NOT_REACHED", -209);
 /**
+ * The received certificate chain did not carry the necessary intermediate CAs in the EAP conversation. Only the CAT Intermediate CA installation can complete the chain.
+ */
+define("CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES", -216);
+/**
  * The received server certificate's name did not match the configured name in the profile properties.
  */
 define("CERTPROB_SERVER_NAME_MISMATCH", -210);
+/**
+ * The received server certificate's name did not match the configured name in the profile properties.
+ */
+define("CERTPROB_SERVER_NAME_PARTIAL_MATCH", -217);
+/**
+ * One of the names in the cert was not a hostname.
+ */
+define("CERTPROB_NOT_A_HOSTNAME", -218);
+/**
+ * One of the names contained a wildcard character.
+ */
+define("CERTPROB_WILDCARD_IN_NAME", -219);
 /**
  * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
  */
@@ -430,19 +446,19 @@ class RADIUSTests {
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
-         * The/a server certificate was signed with an MD5 signature.
+         * A certificate was signed with an MD5 signature.
          */
-        $code = CERTPROB_MD5_SIGNATURE_SERVER;
-        $this->return_codes[$code]["message"] = _("The server certificate is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
+        $code = CERTPROB_MD5_SIGNATURE;
+        $this->return_codes[$code]["message"] = _("At least one certificate in the chain is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
-         * An intermediate CA certificate was signed with an MD5 signature.
+         * Low public key length (<1024)
          */
-        $code = CERTPROB_MD5_SIGNATURE_INTERMEDIATE;
-        $this->return_codes[$code]["message"] = _("An intermediate CA is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
+        $code = CERTPROB_LOW_KEY_LENGTH;
+        $this->return_codes[$code]["message"] = _("At least one certificate in the chain had a public key of less than 1024 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
         $this->return_codes[$code]["severity"] = L_OK;
-
+        
         /**
          * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
          */
@@ -472,17 +488,41 @@ class RADIUSTests {
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
+         * The server certificate's names contained at least which was not a hostname.
+         */
+        $code = CERTPROB_NOT_A_HOSTNAME;
+        $this->return_codes[$code]["message"] = _("The certificate contained a CN or subjectAltName:DNS which does not parse as a hostname. This can be problematic on some supplicants. If the certificate also contains names which are a proper hostname, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
+        $this->return_codes[$code]["severity"] = L_OK;
+        
+        /**
+         * The server certificate's names contained at least one wildcard name.
+         */
+        $code = CERTPROB_WILDCARD_IN_NAME;
+        $this->return_codes[$code]["message"] = _("The certificate contained a CN or subjectAltName:DNS which contains a wildcard ('*'). This can be problematic on some supplicants. If the certificate also contains names which are wildcardless, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
+        $this->return_codes[$code]["severity"] = L_OK;
+
+        /**
          * The received certificate chain did not end in any of the trust roots configured in the profile properties.
          */
         $code = CERTPROB_TRUST_ROOT_NOT_REACHED;
-        $this->return_codes[$code]["message"] = _("");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["message"] = _("The server certificate could not be verified to the root CA you configured in your profile!");
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
+        $code = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+        $this->return_codes[$code]["message"] = _("The certificate chain as received in EAP was not sufficient to verify the certificate to the root CA in your profile. It was verified using the intermediate CAs in your profile though. You should consider sending the required intermediate CAs inside the EAP conversation.");
+        $this->return_codes[$code]["severity"] = L_OK;
         /**
          * The received server certificate's name did not match the configured name in the profile properties.
          */
         $code = CERTPROB_SERVER_NAME_MISMATCH;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The EAP server name does not match any of the configured names in your profile!");
+        $this->return_codes[$code]["severity"] = L_ERROR;
+
+        /**
+         * The received server certificate's name only matched either CN or subjectAltName, but not both
+         */
+        $code = CERTPROB_SERVER_NAME_PARTIAL_MATCH;
+        $this->return_codes[$code]["message"] = _("The configured EAP server name matches either the CN or a subjectAltName:DNS of the incoming certificate; best current practice is that the certificate should contain the name in BOTH places.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
@@ -614,7 +654,7 @@ class RADIUSTests {
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_servercert($servercert) {
-        debug(4, "SERVER CERT IS: " . print_r($servercert, TRUE));
+        // debug(4, "SERVER CERT IS: " . print_r($servercert, TRUE));
         $returnarray = Array();
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
@@ -638,6 +678,26 @@ class RADIUSTests {
                     $returnarray[] = CERTPROB_NO_CRL_AT_CDP_URL;
             }
         }
+        // check for wildcards
+
+        $CN = array($servercert['full_details']['subject']['CN']);
+        $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+        $sAN_DNS = array();
+        foreach ($sAN_list as $san_name)
+            if (preg_match("/^DNS:/", $san_name))
+                $sAN_DNS[] = substr($san_name, 4);
+
+        $allnames = array_merge($CN, $sAN_DNS);
+        if (preg_match("/\*/",implode($allnames)))
+                $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
+        
+        // check for real hostname
+        foreach ($allnames as $onename) {
+            // TODO: uncomment this as soon as we can require 5.4 for IDN
+            // if (filter_var("foo@".idn_to_ascii($onename),FILTER_VALIDATE_EMAIL) === FALSE)
+            if (filter_var("foo@".$onename,FILTER_VALIDATE_EMAIL) === FALSE)
+                    $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
+        }
 
         return $returnarray;
     }
@@ -651,12 +711,14 @@ class RADIUSTests {
     public function property_check_intermediate($intermediate_ca) {
         $returnarray = Array();
         if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
-            $returnarray[] = CERTPROB_MD5_SIGNATURE_INTERMEDIATE;
+            $returnarray[] = CERTPROB_MD5_SIGNATURE;
         }
-        debug(4, "CA CERT IS: " . print_r($intermediate_ca, TRUE));
+        // debug(4, "CA CERT IS: " . print_r($intermediate_ca, TRUE));
         if ($intermediate_ca['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
         }
+        if ($intermediate_ca['full_details']['public_key_length'] < 1024)
+            $returnarray[] = CERTPROB_LOW_KEY_LENGTH;
         return $returnarray;
     }
 
@@ -816,8 +878,9 @@ network={
         // 1) does the incoming chain have a root in one of the configured roots
         //    if not, this is a signficant configuration error
         // return this with one or more of the CERTPROB_ constants (see defs)
-        // TODO: TRUST_ROOT_NOT_REACHED
-        //       have optional param to exclude potential knowledge about intermediates
+        // TRUST_ROOT_NOT_REACHED
+        // TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
+        // then check the presented names
         $x509 = new X509();
         $certarray = $x509->splitCertificate(fread(fopen($tmp_dir . "/serverchain.pem", "r"), "1000000"));
         // we want no root cert, and exactly one server cert
@@ -849,14 +912,15 @@ network={
                 if ($cert['ca'] == 0 && $cert['root'] != 1) {
                     $number_server++;
                     $servercert = $cert;
-                    if ($number_server == 1)
+                    if ($number_server == 1) {
                         fwrite($server_and_intermediate_file, $cert_pem);
+                    }
                 } else
                 if ($cert['root'] == 1) {
                     $number_root++;
-                    $newrootcafile = fopen($tmp_dir . "/root-ca/cert$number_root.pem", "w");
-                    fwrite($newrootcafile, $cert_pem);
-                    fclose($newrootcafile);
+                    // do not save the root CA, it serves no purpose
+                    // chain checks need to be against the UPLOADED CA of the
+                    // IdP/profile, not against an EAP-discovered CA
                 } else {
                     $intermediate_cas[] = $cert;
                     fwrite($server_and_intermediate_file, $cert_pem);
@@ -877,15 +941,107 @@ network={
         foreach ($intermediate_cas as $intermediate_ca)
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->property_check_intermediate($intermediate_ca));
         // check trust chain for completeness
-        system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca/ > /dev/null");
-        system(Config::$PATHS['openssl'] . " verify -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem > /dev/null");
-        rrmdir($tmp_dir);
-        //
-        // TODO evaluate the results of the openssl call
-        // 
-        // TODO check the hostname against ... subject? subjectAltName? both?
-        // 
-        // dump the details in a class variable in case someone cares
+        // works only for thorough checks, not shallow, so:
+        if ($this->profile) {
+            $number_configured_roots = 0;
+            $my_profile = $this->profile;
+            $ca_store = $my_profile->getAttributes("eap:ca_file");
+            // make a copy of the EAP-received chain and add the configured intermediates, if any
+            copy($tmp_dir . "/incomingchain.pem", $tmp_dir . "/allnonrootcerts.pem");
+            $certbag = fopen($tmp_dir . "/allnonrootcerts.pem", a);
+            foreach ($ca_store as $one_ca) {
+                $x509 = new X509();
+                $decoded = $x509->processCertificate($one_ca['value']);
+                if ($decoded['ca'] == 1) {
+                    if ($decoded['root'] == 1) {
+                        $root_CA = fopen($tmp_dir . "/root-ca/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
+                        fwrite($root_CA, $one_ca['value']);
+                        fclose($root_CA);
+                        $number_configured_roots = $number_configured_roots + 1;
+                    } else { // add to the bag
+                        fwrite($certbag, $one_ca['value']);
+                    }
+                }
+            }
+            fclose($certbag);
+            // now c_rehash the root CA directory ...
+            system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca/ > /dev/null");
+            // ... and run *two* verification tests: one with only the EAP-received intermediates
+            $verify_result_eaponly = Array();
+            exec(Config::$PATHS['openssl'] . " verify -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
+            // ... and one which includes the configured intermediates
+            $verify_result_allcerts = Array();
+            exec(Config::$PATHS['openssl'] . " verify -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
+            debug(4, "Chain verify pass 1: " . print_r($verify_result_eaponly, TRUE) . "\n");
+            debug(4, "Chain verify pass 2: " . print_r($verify_result_allcerts, TRUE) . "\n");
+            // rrmdir($tmp_dir);
+            // for both passes, openssl should havd returned exactly one line of
+            // output, and it should have ended with the string "OK", everything
+            //  else is fishy
+            // the test with "allnonrootcerts" (pass 2) has a higher likelihood
+            // of success, it has at least the certs of pass 1, and possibly more
+            // so if pass 2 failed, no way to reach the root!
+
+            if (!preg_match("/OK$/", $verify_result_allcerts[0])) {
+                $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+            } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) {
+                $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+            }
+
+            // check the incoming hostname (both Subject:CN and subjectAltName:DNS
+            // against what is configured in the profile; it's a significant error
+            // if there is no match!
+            // FAIL if none of the configured names show up in the server cert
+            // WARN if the configured name is only in either CN or sAN:DNS
+
+            debug(4, "Evaluating names of server cert; the cert is: \n" . print_r($servercert, TRUE) . "\n");
+            $CN = array($servercert['full_details']['subject']['CN']);
+            $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+            $sAN_DNS = array();
+            foreach ($sAN_list as $san_name)
+                if (preg_match("/^DNS:/", $san_name))
+                    $sAN_DNS[] = substr($san_name, 4);
+
+            $confnames = $my_profile->getAttributes("eap:server_name");
+            $expected_names = array();
+            foreach ($confnames as $tuple)
+                $expected_names[] = $tuple['value'];
+
+            // Strategy for checks: we are TOTALLY happy if any one of the
+            // configured names shows up in both the CN and a sAN
+            // This is the primary check.
+            // If that was not the case, we are PARTIALLY happy if any one of
+            // the configured names was in either of the CN or sAN lists.
+            // we are UNHAPPY if no names match!
+            $happiness = "UNHAPPY";
+            foreach ($expected_names as $expected_name) {
+                debug(4, "Managing expectations for $expected_name: " . print_r($CN, TRUE) . print_r($sAN_DNS, TRUE));
+                debug(4, "*" . $sAN_DNS[0] . "* *" . $sAN_DNS[1] . "*");
+                if (array_search($expected_name, $CN) !== FALSE && array_search($expected_name, $sAN_DNS) !== FALSE) {
+                    debug(4, "Totally happy!");
+                    $happiness = "TOTALLY";
+                    break;
+                } else {
+                    if (array_search($expected_name, $CN) !== FALSE || array_search($expected_name, $sAN_DNS) !== FALSE) {
+                        $happiness = "PARTIALLY";
+                        // keep trying with other expected names! We could be happier!
+                    }
+                }
+            }
+
+            switch ($happiness) {
+                case "UNHAPPY":
+                    $testresults['cert_oddities'][] = CERTPROB_SERVER_NAME_MISMATCH;
+                    break;
+                case "PARTIALLY":
+                    $testresults['cert_oddities'][] = CERTPROB_SERVER_NAME_PARTIAL_MATCH;
+                    break;
+                default: // nothing to complain about!
+                    break;
+            }
+
+            // TODO: dump the details in a class variable in case someone cares
+        }
         $this->UDP_reachability_result[$probeindex] = $testresults;
         // if neither an Accept or Reject were generated, there is definitely a problem
         if ($accepts + $rejects == 0) { // no final response. hm.
