@@ -166,8 +166,8 @@ function getLocalisedValue($val_arr, $locale) {
 function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $inputgd = imagecreatefromstring($inputpngstring);
     
-    debug(4,"Consortium logo is at: ".CAT::$root."/web/resources/images/consortium_logo.png");
-    $logogd = imagecreatefrompng(CAT::$root."/web/resources/images/consortium_logo.png");
+    debug(4,"Consortium logo is at: ".CAT::$root."/web/resources/images/consortium_logo_large.png");
+    $logogd = imagecreatefrompng(CAT::$root."/web/resources/images/consortium_logo_large.png");
     
     $sizeinput = array(imagesx($inputgd),imagesy($inputgd));
     $sizelogo = array(imagesx($logogd),imagesy($logogd));
@@ -175,7 +175,7 @@ function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $margins
     // make our logo cover approx 15% of area to be sure; mind that there's a $symbolsize * $marginsymbols pixel white border around each edge
     $totalpixels = ($sizeinput[0] - $symbolsize*$marginsymbols) * ($sizeinput[1] - $symbolsize*$marginsymbols);
     $totallogopixels = ($sizelogo[0]) * ($sizelogo[1]);
-    $maxoccupy = $totalpixels * 0.10;
+    $maxoccupy = $totalpixels * 0.04;
     // find out how much we have to scale down logo to reach 10% QR estate
     $scale = sqrt($maxoccupy / $totallogopixels);
     debug(4,"Scaling info: $scale, $maxoccupy, $totallogopixels\n");
