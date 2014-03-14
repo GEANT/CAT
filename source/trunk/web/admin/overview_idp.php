@@ -73,7 +73,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data://image/png;base64,".base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12));
+            $uri = "data://image/png;base64,".base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
             echo "<img width='".($size[0]/4)."' height='".($size[1]/4)."' src='$uri' alt='QR-code'/>";
             ?>
@@ -247,7 +247,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             else
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://' ) . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-            $uri = "data://image/png;base64,".base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12));
+            $uri = "data://image/png;base64,".base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
             echo "<img width='".($size[0]/4)."' height='".($size[1]/4)."' src='$uri' alt='QR-code'/>";
 
