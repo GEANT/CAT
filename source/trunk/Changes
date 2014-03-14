@@ -78,7 +78,7 @@ Configuration parameter changes
 
 Schema changes
 --------------
-
+profile:QR-user is now obsolete (no need for persistent storage of QR code)
 
 Changes in release 1.0.3
 ========================

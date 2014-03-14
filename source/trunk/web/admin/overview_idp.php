@@ -73,9 +73,10 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $b64encodedresult = base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q));
+            $uri = "data://image/png;base64,".base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12));
+            $size = getimagesize($uri);
+            echo "<img width='".($size[0]/4)."' height='".($size[1]/4)."' src='$uri' alt='QR-code'/>";
             ?>
-            <img src="data:image/png;base64,<?php echo $b64encodedresult;?>" alt="QR-code"/>
             <br>
             <?php echo "<a href='$displayurl'>$displayurl</a>";?>
         </div>
@@ -246,10 +247,9 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             else
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://' ) . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-            $QRattr = $profile_list->getAttributes("profile:QR-user");
-
-            if (count($QRattr > 0))
-                echo(previewImageinHTML('ROWID-' . $QRattr[0]['level'] . '-' . $QRattr[0]['row']));
+            $uri = "data://image/png;base64,".base64_encode(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12));
+            $size = getimagesize($uri);
+            echo "<img width='".($size[0]/4)."' height='".($size[1]/4)."' src='$uri' alt='QR-code'/>";
 
             //echo "<nobr>$displayurl</nobr></a>";
             echo "<p>$displayurl</p></a>";
