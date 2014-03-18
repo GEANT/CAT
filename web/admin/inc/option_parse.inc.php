@@ -89,7 +89,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                     break;
                 case "text":
                     if (isset($a["$obj_id-1"]) && $a["$obj_id-1"] != "")
-                        $content = valid_string_db($a["$obj_id-1"],1);
+                        $content = valid_string_db($a["$obj_id-1"], 1);
                     else {
                         continue 2;
                     }
@@ -105,7 +105,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 // echo "In file processing ...<br/>";
                     if (isset($a["$obj_id-1"]) && $a["$obj_id-1"] != "") { // was already in, by ROWID reference, extract
                         // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                        $content = valid_string_db(urldecode($a["$obj_id-1"]),1);
+                        $content = valid_string_db(urldecode($a["$obj_id-1"]), 1);
                     } else if (isset($a["$obj_id-2"]) && ($a["$obj_id-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
                         $content = downloadFile("file:///" . $a["$obj_id-2"]);
@@ -114,8 +114,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                             continue 2;
                         }
                         $content = base64_encode($content);
-                    }
-                    else
+                    } else
                         continue 2;
                     break;
                 case "boolean":
@@ -130,15 +129,9 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                     exit(1);
             }
             if ($lang != "" && preg_match("/^ROWID-.*-([0-9]+)/", $content) == 0) { // new value, encode as language array
-                // all string options for multilang are already addslashed, which breaks serialize!
-                // strip slashes, and do addslash after serializing!
-                if ($optioninfo["type"] == "string" || $optioninfo["type"] == "text" || $optioninfo["type"] == "file")
-                    $content = stripslashes ($content);
-                // add the new option - do addslashes ourselves after the serialize
-                    $options[] = Array("$obj_value" => addslashes(serialize(Array("lang" => $lang, "content" => $content))));
-                
-            }
-            else // just store it (could be a literal value or a ROWID reference)
+                // add the new option with lang 
+                $options[] = Array("$obj_value" => serialize(Array("lang" => $lang, "content" => $content)));
+            } else // just store it (could be a literal value or a ROWID reference)
                 $options[] = Array("$obj_value" => $content);
         }
     }
@@ -202,10 +195,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 
 // 3b: convert geo_lat and geo_long to geo_coordinate array
 
-    if (isset($_POST['geo_long'])
-            && isset($_POST['geo_lat'])
-            && $_POST['geo_long'] != ""
-            && $_POST['geo_lat'] != "") {
+    if (isset($_POST['geo_long']) && isset($_POST['geo_lat']) && $_POST['geo_long'] != "" && $_POST['geo_lat'] != "") {
 
         $lat = valid_coordinate($_POST['geo_lat']);
         $lon = valid_coordinate($_POST['geo_long']);

@@ -31,7 +31,7 @@ require_once('Helper.php');
 class DBConnection {
 
     /**
-     * This is the only usable function. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
+     * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
      * @return DBConnection the (only) instance of this class
      */
     private function handle($db) {
@@ -68,7 +68,7 @@ class DBConnection {
     public function __clone() {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
-
+    
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
      * @param string $querystring the query to be executed
@@ -83,9 +83,12 @@ class DBConnection {
             debug(1,"ERROR: Cannot send query to $db database (no connection)!");
             return FALSE;
         }
-        $result = mysqli_query($instance->connection, $querystring);
+        
+        $escapedstring = mysqli_real_escape_string($instance->connection, $querystring);
+        
+        $result = mysqli_query($instance->connection, $escapedstring);
         if ($result == FALSE) {
-            debug(1,"ERROR: Cannot execute query in $db database (query was '$querystring')!");
+            debug(1,"ERROR: Cannot execute query in $db database - (escaped) query was '$escapedstring'!");
             return FALSE;
         }
         
