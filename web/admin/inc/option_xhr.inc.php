@@ -24,26 +24,28 @@ if (isset($_GET["class"])) {
 
     $list = $optioninfo->availableOptions($_GET["class"]);
 
-    if ($_GET["class"] == "general") {
+    switch ($_GET['class']) {
+    case "general":
         $blacklist_item = array_search("general:geo_coordinates", $list);
         if ($blacklist_item !== FALSE) {
             unset($list[$blacklist_item]);
             $list = array_values($list);
         }
-    } else if ($_GET["class"] == "profile") {
-        $blacklist_item = array_search("profile:QR-user", $list);
-        if ($blacklist_item !== FALSE) {
-            unset($list[$blacklist_item]);
-            $list = array_values($list);
-        }
-    } else if ($_GET["class"] == "user") {
+        break;
+    case "user":
         $blacklist_item = array_search("user:fedadmin", $list);
         if ($blacklist_item !== FALSE) {
             unset($list[$blacklist_item]);
             $list = array_values($list);
         }
+        break;
+    case "profile":
+    case "media":
+        break;
+    default:
+        debug(1,"Unknown type of option!");
+        exit(1);
     }
-
     // echo "<pre>".print_r($list)."</pre>";
 
     echo optiontext(0, $list);

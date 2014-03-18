@@ -183,6 +183,10 @@ $idpoptions = $my_inst->getAttributes();
         </table>
     </div>
     <div class="infobox">
+        <h2><?php echo _("Media Properties"); ?></h2>
+        <table><?php echo infoblock($idpoptions, "media", "IdP"); ?></table>
+    </div>
+    <div class="infobox">
         <h2><?php echo _("Global Helpdesk Details"); ?></h2>
         <table><?php echo infoblock($idpoptions, "support", "IdP"); ?></table>
     </div>

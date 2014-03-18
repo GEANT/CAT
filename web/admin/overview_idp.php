@@ -63,6 +63,12 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 <?php echo infoblock($idpoptions, "support", "IdP"); ?>
             </table>
         </div>
+        <div class="infobox">
+            <h2><?php echo _("Media Properties"); ?></h2>
+            <table>
+<?php echo infoblock($idpoptions, "media", "IdP"); ?>
+            </table>
+        </div>
         <div class='infobox'>
             <h2><?php echo _("Global EAP Options"); ?></h2>
             <table>
