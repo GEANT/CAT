@@ -123,8 +123,6 @@ function productheader($area, $language) {
     echo "<form action='" . $place['path'] . "' method='GET'>" . _("View this page in") . " ";
     echo "<select id='lang' name='lang' onchange='this.form.submit()'>";
     foreach (Config::$LANGUAGES as $lang => $value) {
-        // $new_url = $place['path'] . ( $short == "" ? "?" : "?" . $short . "&" ) . "lang=$lang";
-        //$enc_url = htmlspecialchars($new_url);
         echo "<option value='$lang' ".(strtoupper($language) == strtoupper($lang) ? "selected" : "" )." >" . $value['display'] . "</option> ";
     }
     echo "</select>";
