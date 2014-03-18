@@ -75,7 +75,11 @@ class DBConnection {
      * @return string
      */
     public static function escape_value($db, $value) {
-        return mysqli_real_escape_string(DBConnection::handle($db), $value);
+        $handle = DBConnection::handle($db);
+        debug(5,"Escaping $value for DB $db to get a safe query value.\n");
+        $escaped = mysqli_real_escape_string($handle->connection, $value);
+        debug(5,"This is the result: $escaped .\n");
+        return $escaped;
     }
     
     /**
