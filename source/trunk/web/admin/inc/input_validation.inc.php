@@ -10,6 +10,7 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once 'Options.php';
+require_once 'DBConnection.php';
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
@@ -77,8 +78,6 @@ function valid_string_db($input, $allow_whitspace = 0) {
         $retval = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
     else // even if we allow whitespace, not pathological ones!
         $retval = preg_replace('/(\0|\r|\x0b)/', '', $retval);
-
-    $retval = addslashes($retval);
 
     return $retval;
 }

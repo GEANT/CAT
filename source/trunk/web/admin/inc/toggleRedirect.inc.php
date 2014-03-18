@@ -40,8 +40,6 @@ if (isset($_POST['device'])) {
 $eaptype = NULL;
 if (isset($_POST['eaptype'])) {
     $eaptype = unserialize(stripslashes($_POST['eaptype']));
-    $encoded_method = serialize($eaptype);
-    $slashed_method = addslashes($encoded_method);
 }
 
 // there is either one or the other. If both are set, something's fishy.
