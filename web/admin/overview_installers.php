@@ -44,11 +44,10 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
 
             <?php
             foreach ($preflist as $method) {
-                $encoded_method = serialize($method);
-                $slashed_method = addslashes($encoded_method);
+                $slashed_method = addslashes(serialize($method));
                 echo "<th style='min-width:200px'>" . display_name($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;'>
-                        <input type='hidden' name='eaptype' value='" . (get_magic_quotes_gpc() == 0 ? $slashed_method : $encoded_method) . "'>
+                        <input type='hidden' name='eaptype' value='$slashed_method'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
                         </form></th>";
             }
