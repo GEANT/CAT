@@ -1217,6 +1217,7 @@ network={
     public function CApath_check($host) {
 
         $res = RETVAL_OK;
+        // FIXME: PHP Fatal error:  Call-time pass-by-reference has been removed in /var/www/cat/source/trunk/core/RADIUSTests.php on line 1222
         if (preg_match("/\[/", $host))
             return RETVAL_INVALID;
         $opensslbabble = $this->openssl_s_client($host, '', &$this->TLS_CA_checks_result[$host]);
@@ -1232,6 +1233,7 @@ network={
      */
     public function TLS_clients_side_check($host) {
         $res = RETVAL_OK;
+        // FIXME: PHP Fatal error:  Call-time pass-by-reference has been removed in /var/www/cat/source/trunk/core/RADIUSTests.php on line 1249
         if (is_array(Config::$RADIUSTESTS['TLS-clientcerts']) && count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0) {
             if (preg_match("/\[/", $host))
                 return RETVAL_INVALID;
