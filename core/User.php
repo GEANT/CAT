@@ -61,6 +61,7 @@ class User {
      * @param string $user_id User Identifier as per authentication source
      */
     public function __construct($user_id) {
+        $user_id = DBConnection::escape_value(User::$DB_TYPE, $user_id);
         $optioninstance = Options::instance();
         $this->identifier = $user_id;
         $this->priv_attributes = array();
@@ -146,9 +147,12 @@ class User {
      * @param type $attr_value value of the attribute to add
      */
     public function addAttribute($attr_name, $attr_value) {
+        $escaped_name = DBConnection::escape_value(User::$DB_TYPE, $this->identifier);
+        $attr_name = DBConnection::escape_value(User::$DB_TYPE, $attr_name);
+        $attr_value = DBConnection::escape_value(User::$DB_TYPE, $attr_value);
         if (!Config::$DB['userdb-readonly'])
             DBConnection::exec(User::$DB_TYPE, "INSERT INTO user_options (user_id, option_name, option_value) VALUES('"
-                    . $this->identifier . "', '"
+                    . $escaped_name . "', '"
                     . $attr_name . "', '"
                     . $attr_value
                     . "')");

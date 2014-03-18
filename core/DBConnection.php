@@ -68,6 +68,15 @@ class DBConnection {
     public function __clone() {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
+    /**
+     * 
+     * @param string $db The database to do escapting for
+     * @param string $value The value to escape
+     * @return string
+     */
+    public static function escape_value($db, $value) {
+        return mysqli_real_escape_string(DBConnection::handle($db), $value);
+    }
     
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
@@ -84,11 +93,9 @@ class DBConnection {
             return FALSE;
         }
         
-        $escapedstring = mysqli_real_escape_string($instance->connection, $querystring);
-        
-        $result = mysqli_query($instance->connection, $escapedstring);
+        $result = mysqli_query($instance->connection, $querystring);
         if ($result == FALSE) {
-            debug(1,"ERROR: Cannot execute query in $db database - (escaped) query was '$escapedstring'!");
+            debug(1,"ERROR: Cannot execute query in $db database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
         

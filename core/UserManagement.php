@@ -64,6 +64,7 @@ class UserManagement {
      * @return string
      */
     public function checkTokenValidity($token) {
+        $token = DBConnection::escape_value(UserManagement::$DB_TYPE, $token);
         $check = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT invite_token, cat_institution_id 
                            FROM invitations 
                            WHERE invite_token = '$token' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
@@ -97,6 +98,8 @@ class UserManagement {
      * @return IdP 
      */
     public function createIdPFromToken($token, $owner) {
+        $token = DBConnection::escape_value(UserManagement::$DB_TYPE, $token);
+        $owner = DBConnection::escape_value(UserManagement::$DB_TYPE, $owner);
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
         $instinfo = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
@@ -170,7 +173,8 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function addAdminToIdp($idp, $user) {
-        DBConnection::exec(UserManagement::$DB_TYPE, "INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES('$idp->identifier','$user','FED','SELF-APPOINTED')");
+        $user = DBConnection::escape_value(UserManagement::$DB_TYPE, $user);
+        DBConnection::exec(UserManagement::$DB_TYPE, "INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES($idp->identifier,'$user','FED','SELF-APPOINTED')");
         return TRUE;
     }
     
@@ -181,7 +185,8 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function removeAdminFromIdP($idp, $user) {
-        DBConnection::exec(UserManagement::$DB_TYPE, "DELETE from ownership WHERE institution_id = '$idp->identifier' AND user_id = '$user'");
+        $user = DBConnection::escape_value(UserManagement::$DB_TYPE, $user);
+        DBConnection::exec(UserManagement::$DB_TYPE, "DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = '$user'");
         return TRUE;
     }
 
@@ -194,6 +199,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function invalidateToken($token) {
+        $token = DBConnection::escape_value(UserManagement::$DB_TYPE, $token);
         DBConnection::exec(UserManagement::$DB_TYPE, "UPDATE invitations SET used = 1 WHERE invite_token = '$token'");
         return TRUE;
     }
@@ -211,18 +217,24 @@ Best regards,
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createToken($by_fedadmin, $for, $inst_identifier, $external_id = 0, $country = 0) {
+        $for = DBConnection::escape_value(UserManagement::$DB_TYPE, $for);
         $token = sha1(base_convert(rand(10e16, 10e20), 10, 36)) . sha1(base_convert(rand(10e16, 10e20), 10, 36));
+
         $level = ($by_fedadmin ? "FED" : "INST");
         if ($inst_identifier instanceof IdP) {
             DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES('$level', '$for', '$token',$inst_identifier->identifier)");
             return $token;
         } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
             // what country are we talking about?
+            $newname = DBConnection::escape_value(UserManagement::$DB_TYPE,valid_string_db($inst_identifier));
             $extinfo = Federation::getExternalDBEntityDetails($external_id);
-            DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$for', '$token', '" . valid_string_db($inst_identifier) . "', '" . $extinfo['country'] . "',  '" . valid_string_db($external_id) . "')");
+            $externalhandle = DBConnection::escape_value(UserManagement::$DB_TYPE,valid_string_db($external_id));
+            DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$for', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
             return $token;
         } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$for', '$token', '" . valid_string_db($inst_identifier) . "', '" . valid_string_db($country) . "')");
+            $newname = DBConnection::escape_value(UserManagement::$DB_TYPE,valid_string_db($inst_identifier));
+            $newcountry = DBConnection::escape_value(UserManagement::$DB_TYPE,valid_string_db($country));
+            DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$for', '$token', '" . $newname . "', '" . $newcountry . "')");
             return $token;
         } else {
             echo "FAIL!";
@@ -266,6 +278,7 @@ Best regards,
      */
     public function listInstitutionsByAdmin($userid) {
         $returnarray = array();
+        $userid = DBConnection::escape_value(UserManagement::$DB_TYPE, $userid);
         $institutions = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT institution_id FROM ownership WHERE user_id = '$userid' ORDER BY institution_id");
         while ($a = mysqli_fetch_object($institutions))
             $returnarray[] = $a->institution_id;

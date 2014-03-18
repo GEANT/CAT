@@ -207,6 +207,7 @@ class IdP {
      * @return int attribute count
      */
     public function isAttributeAvailable($option_name) {
+        $option_name = DBConnection::escape_value(IdP::$DB_TYPE, $option_name);
         $result = DBConnection::exec(IdP::$DB_TYPE, "SELECT row FROM institution_option
               WHERE institution_id = $this->identifier AND option_name = '$option_name'");
         return(mysqli_num_rows($result));
@@ -284,6 +285,8 @@ class IdP {
      * @param mixed $attr_value Value of the attribute. Can be anything; will be stored in the DB as-is.
      */
     public function addAttribute($attr_name, $attr_value) {
+        $attr_name = DBConnection::escape_value(IdP::$DB_TYPE, $attr_name);
+        $attr_value = DBConnection::escape_value(IdP::$DB_TYPE, $attr_value);
         DBConnection::exec(IdP::$DB_TYPE, "INSERT INTO institution_option (institution_id, option_name, option_value) VALUES("
                 . $this->identifier . ", '"
                 . $attr_name . "', '"
@@ -426,6 +429,7 @@ Best regards,
     }
 
     public function setExternalDBId($identifier) {
+        $identifier = DBConnection::escape_value(IdP::$DB_TYPE, $identifier);
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $already_used = DBConnection::exec(IdP::$DB_TYPE, "SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$identifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
 

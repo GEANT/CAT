@@ -272,14 +272,14 @@ class Profile {
      * update the last_changed timestamp for this profile
      */
     public function updateFreshness() {
-        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = '$this->identifier'");
+        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
     }
 
     /**
      * gets the last-modified timestamp (useful for caching "dirty" check)
      */
     public function getFreshness() {
-        $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT last_change FROM profile WHERE profile_id = '$this->identifier'");
+        $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT last_change FROM profile WHERE profile_id = $this->identifier");
         if ($a = mysqli_fetch_object($exec_update)) {
             return $a->last_change;
         }
@@ -297,9 +297,10 @@ class Profile {
      * @return mixed a string with the path to the configurator download, or NULL if it needs to be regenerated
      */
     public function testCache($device) {
+        $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
         $result = DBConnection::exec(Profile::$DB_TYPE, "SELECT download_path, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$device' AND lang = '$this->lang_index'");
         if ($result && $cache = mysqli_fetch_object($result)) {
-            $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = '$this->identifier'");
+            $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lc = mysqli_fetch_object($exec_update)->last_change) {
                 if ($lc < $cache->tm) {
                     debug(4, "Installer cached:$cache->download_path\n");
@@ -322,6 +323,8 @@ class Profile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path) {
+        $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
+        $path   = DBConnection::escape_value(Profile::$DB_TYPE, $path);
         DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id,device_id,download_path,lang,installer_time) 
                                         VALUES ($this->identifier, '$device', '$path', '$this->lang_index', CURRENT_TIMESTAMP ) 
                                         ON DUPLICATE KEY UPDATE download_path = '$path', installer_time = CURRENT_TIMESTAMP");
@@ -335,7 +338,7 @@ class Profile {
      * @return TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
-
+        $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
         if ($area == "admin" || $area == "user") {
             DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$device','$this->lang_index', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
@@ -376,8 +379,10 @@ class Profile {
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushAttributes($eap_type_id = 0, $device = 0) {
-        if ($device !== 0)
+        if ($device !== 0) {
+            $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
             $devicetext = "AND device_id = '$device'";
+        }
         else
             $devicetext = "";
         DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM profile_option WHERE profile_id = $this->identifier $devicetext AND eap_method_id = $eap_type_id AND option_name NOT LIKE '%_file'");
@@ -410,8 +415,11 @@ class Profile {
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
     public function addAttribute($attr_name, $attr_value, $eap_type, $device = 0) {
+        $attr_name = DBConnection::escape_value(Profile::$DB_TYPE, $attr_name);
+        $attr_value = DBConnection::escape_value(Profile::$DB_TYPE, $attr_value);
+        
         DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO profile_option (profile_id, option_name, option_value, eap_method_id" . ($device !== 0 ? ",device_id" : "") . ") 
-                          VALUES(" . $this->identifier . ", '$attr_name', '$attr_value', $eap_type" . ($device !== 0 ? ",'$device'" : "" ) . ")");
+                          VALUES(". $this->identifier . ", '$attr_name', '$attr_value', $eap_type" . ($device !== 0 ? ",'". DBConnection::escape_value(Profile::$DB_TYPE, $device) . "'" : "" ) . ")");
         $this->updateFreshness();
     }
 
@@ -465,7 +473,8 @@ class Profile {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
     public function setRealm($realm) {
-        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET realm = '" . $realm . "' WHERE profile_id = $this->identifier");
+        $realm = DBConnection::escape_value(Profile::$DB_TYPE, $realm);
+        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET realm = '$realm' WHERE profile_id = $this->identifier");
         $this->realm = $realm;
     }
 
