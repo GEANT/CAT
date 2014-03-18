@@ -68,6 +68,15 @@ function addEapServerOption() {
     }
 }
 
+function addMediaOption() {
+    if( this.readyState == 4 && this.status == 200 ) {
+        var field = document.getElementById("expandable_media_options");
+        var div = document.createElement('tbody');
+        div.innerHTML = this.responseText;
+        field.appendChild(div.firstChild);
+    }
+}
+
 function addDeviceOption() {
     if( this.readyState == 4 && this.status == 200 ) {
         var field = document.getElementById("expandable_device-specific_options");
@@ -111,6 +120,10 @@ function addDefaultProfileOptions() {
 
 function addDefaultEapServerOptions() {
     getXML(addEapServerOption,"inc/option_xhr.inc.php?class=eap");
+}
+
+function addDefaultMediaOptions() {
+    getXML(addMediaOption,"inc/option_xhr.inc.php?class=eap");
 }
 
 function addDeviceOptions() {
