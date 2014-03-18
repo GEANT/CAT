@@ -60,6 +60,7 @@ Changes in trunk
 - [FEATURE #25] QR codes now include the consortium logo (10% symbol obstruction, 25% allowed)
 - [STRUCTURE #1]  web/user/GUI.php renamed to core/UserAPI.php
 - [STRUCTURE #2]  web/user/cat_back.php renamed to web/user/API.php
+- [STRUCTURE #3]  updated PHP requirements to 5.5
 
 Configuration parameter changes
 -------------------------------
