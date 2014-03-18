@@ -338,6 +338,11 @@ class Federation {
             echo "<p>" . _("Could not create a new Institution!") . "</p>";
             exit(1);
         }
+        // escape all strings
+        $owner_id = DBConnection::escape_value(Federation::$DB_TYPE, $owner_id);
+        $level = DBConnection::escape_value(Federation::$DB_TYPE, $level);
+        $mail = DBConnection::escape_value(Federation::$DB_TYPE, $mail);
+        
         if ($owner_id != "PENDING")
             DBConnection::exec(Federation::$DB_TYPE, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$owner_id', $identifier, '$level', '$mail')");
         return $identifier;
@@ -463,6 +468,8 @@ class Federation {
                           ON institution.inst_id = profile.inst_id" .
                 ($active_only ? " WHERE profile.showtime = 1" : "");
         if ($country) {
+            // escape the parameter
+            $country = DBConnection::escape_value(Federation::$DB_TYPE, $country);
             $query .= ($active_only ? " AND" : " WHERE");
             $query .= " institution.country = '$country'";
         }
