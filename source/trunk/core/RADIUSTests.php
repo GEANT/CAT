@@ -1124,7 +1124,7 @@ network={
      * @param string $arg arguments to add to the openssl command 
      * @return string result of oenssl s_client ...
      */
-    function openssl_s_client($host, $arg, $testresults) {
+    function openssl_s_client($host, $arg, &$testresults) {
         debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         exec(Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
@@ -1145,7 +1145,7 @@ network={
      * @param int $k results array key
      * @return int return code
      */
-    function openssl_result($host, $testtype, $opensslbabble, $testresults, $type = '', $k = 0) {
+    function openssl_result($host, $testtype, $opensslbabble, &$testresults, $type = '', $k = 0) {
         $res = RETVAL_OK;
         switch ($testtype) {
             case "capath":
@@ -1220,8 +1220,11 @@ network={
         // FIXME: PHP Fatal error:  Call-time pass-by-reference has been removed in /var/www/cat/source/trunk/core/RADIUSTests.php on line 1222
         if (preg_match("/\[/", $host))
             return RETVAL_INVALID;
-        $opensslbabble = $this->openssl_s_client($host, '', &$this->TLS_CA_checks_result[$host]);
-        $res = $this->openssl_result($host, 'capath', $opensslbabble, &$this->TLS_CA_checks_result);
+        if (!isset($this->TLS_CA_checks_result[$host])) 
+          $this->TLS_CA_checks_result[$host] = array();
+        $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
+fputs($f, serialize($this->TLS_CA_checks_result)."\n");
+        $res = $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
         return $res;
     }
 
@@ -1247,8 +1250,10 @@ network={
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
                     $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
-                    $opensslbabble = $this->openssl_s_client($host, $add, &$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
-                    $res = $this->openssl_result($host, 'clients', $opensslbabble, &$this->TLS_clients_checks_result, $type, $k);
+                    if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]))
+                      $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = array();
+                    $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                    $res = $this->openssl_result($host, 'clients', $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                     if ($cert['expected'] == 'PASS') {
                         if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
                             if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {

@@ -648,7 +648,7 @@ class Profile {
             $name = $b['name'];
             $temp1[] = $name;
             $level = $b['level'];
-            $S[$l] = $z[$l];
+//            $S[$l] = $z[$l];
             $value = $b['value'];
             if (!isset($temp[$name][$level]))
                 $temp[$name][$level] = array();
@@ -667,7 +667,7 @@ class Profile {
                         foreach ($z as $l => $w)
                             $S[$l] = $w;
                 }
-                if (!$s && isset($temp[$name]['IdP'])) {
+                if (!$S && isset($temp[$name]['IdP'])) {
                     foreach ($temp[$name]['IdP'] as $z)
                         foreach ($z as $l => $w)
                             $S[$l] = $w;
