@@ -230,7 +230,7 @@ debug(4,$this->attributes['support:info_file']);
       include($source);
       $output = ob_get_clean();
       if($encoding) {
-        $output_c = iconv('UTF-8',$encoding.'//IGNORE',$output);
+        $output_c = iconv('UTF-8',$encoding.'//TRANSLIT',$output);
         if($output_c)
            $output = $output_c;
       }
@@ -243,7 +243,7 @@ debug(4,$this->attributes['support:info_file']);
    }
 
    final protected function translateString($source_string,$encoding) {
-        $output_c = iconv('UTF-8',$encoding.'//IGNORE',$source_string);
+        $output_c = iconv('UTF-8',$encoding.'//TRANSLIT',$source_string);
         if($output_c) 
            $source_string  = str_replace('"','$\\"',$output_c);
         else
@@ -303,16 +303,18 @@ debug(4,$this->attributes['support:info_file']);
     */
    private function getInstallerBasename() {
       $replace_pattern = '/[ ()\/\'"]+/';
-      $inst = iconv("UTF-8", "US-ASCII//IGNORE", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][0]));
+      debug(4,"getInstallerBasename1:".$this->attributes['general:instname'][0]."\n");
+      $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][0]));
+      debug(4,"getInstallerBasename2:$inst\n");
       $Inst_a = explode('_',$inst);
       if(count($Inst_a) > 2) {
          $inst = '';
          foreach($Inst_a as $i)
            $inst .= $i[0];
       }   
-      $c_name = iconv("UTF-8", "US-ASCII//IGNORE", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
+      $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
       if($this->attributes['internal:profile_count'][0] > 1) {
-         $prof = iconv("UTF-8", "US-ASCII//IGNORE", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
+         $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
          return $c_name. '-'. $this->getDeviceId() . $inst .'-'. $prof;
       }
       return $c_name. '-'. $this->getDeviceId() . $inst;
