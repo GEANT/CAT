@@ -493,18 +493,15 @@ p12dialog
 
 
 private function glueServerNames($server_list) {
-//print_r($server_list);
+  if(! $server_list)
+    return FALSE;
  $A0 =  array_reverse(explode('.',array_shift($server_list)));
  $B = $A0;
- if($server_list) {
      foreach($server_list as $a) {
      $A= array_reverse(explode('.',$a));
      $B = array_intersect_assoc($A0,$A);
      $A0 = $B;
    }
-  } else {
-    return FALSE;
-  }
   return(implode('.',array_reverse($B)));
 }
 
