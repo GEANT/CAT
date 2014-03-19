@@ -9,10 +9,17 @@ SectionEnd
 Section "<?php echo _("Installation of network profiles")?>" "<?php echo _("profiles")?>"
 SectionIn RO
 !insertmacro MUI_HEADER_TEXT "<?php echo _("Installation")?>" "<?php echo _("Network profiles update")?>"
-File "w8/wlan_prof-*.xml"
+File "w8/*lan_prof*.xml"
 
+
+${If} $wireless_result == 0
 Call CheckWirelessProfiles
 Call CreateWirelessProfiles 
+${EndIf}
+
+${If} $wired == 1
+  Call CreateLanProfile
+${EndIf}
 ;Sleep 2000
 SendMessage $HWNDPARENT "0x408" "1" ""
 Sleep 2000

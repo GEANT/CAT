@@ -11,18 +11,24 @@ Section "<?php echo _("Installation of network profiles")?>" "<?php echo _("prof
 SectionIn RO
 !insertmacro MUI_HEADER_TEXT "<?php echo _("Installation")?>" "<?php echo _("Network profiles update")?>"
 !ifdef W8
-File "w8/wlan_prof-*.xml"
+File "w8/*lan_prof*.xml"
 !else
 ${If} $WindowsVer == 6
-File "vista/wlan_prof-*.xml"
+File "vista/*lan_prof*.xml"
 ${EndIf}
 ${If} $WindowsVer == 7
-File "w7/wlan_prof-*.xml"
+File "w7/*lan_prof*.xml"
 ${EndIf}
 !endif
 
+${If} $wireless_result == 0
 Call CheckWirelessProfiles
 Call CreateWirelessProfiles 
+${EndIf}
+${If} $wired == 1
+  Call CreateLanProfile
+${EndIf}
+
 ;Sleep 2000
 SendMessage $HWNDPARENT "0x408" "1" ""
 Sleep 2000

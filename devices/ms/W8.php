@@ -41,18 +41,22 @@ class Device_W8 extends WindowsCommon {
 
      $SSIDs = $this->attributes['internal:SSID'];
      $this->prepareInstallerLang();
-
+     $set_wired = $this->attributes['general:wired'][0] == 'on' ? 1 : 0;
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap ==  EAP::$TTLS_PAP || $this->selected_eap == EAP::$TTLS_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
        $WindowsProfile = array();
+       $eap_config = $this->prepareEapConfig($this->attributes);
        $i = 0;
        foreach ($SSIDs as $ssid => $cipher) {
           if($cipher == 'TKIP') {
-             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$this->attributes,$i);
+             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eap_config,$i);
              $i++;
           }
-          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$this->attributes,$i);
+          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eap_config,$i);
           $i++;
+       }
+       if($set_wired) {
+         $this->writeLANprofile($eap_config);
        }
      } else {
        error("  this EAP type is not handled yet");
@@ -60,7 +64,7 @@ class Device_W8 extends WindowsCommon {
      }
     debug(4,"WindowsProfile"); debug(4,$WindowsProfile);
     
-    $this->writeProfilesNSH($WindowsProfile, $CA_files);
+    $this->writeProfilesNSH($WindowsProfile, $CA_files,$set_wired);
     $this->copyFiles($this->selected_eap);
     if(isset($this->attributes['internal:logo_file']))
        $this->combineLogo($this->attributes['internal:logo_file']);
@@ -117,59 +121,24 @@ else {
     return $out;
   }
 
-// $auth can be one of: "WPA", "WPA2"
-// $encryption can be one of: "TKIP", "AES"
-// $servers is an array of allowed server names (regular expressions allowed)
-// $ca is an array of allowed CA fingerprints
 
-/**
- * produce PEAP, TLS and TTLS configuration files for Windows 8
- */
-  private function writeWLANprofile($wlan_profile_name,$ssid,$auth,$encryption,$attr,$i) {
-    $w8_ext = '';
-    $eap = $this->selected_eap;
-    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2  && $eap != EAP::$TTLS_PAP && $eap != EAP::$TTLS_MSCHAP2 && $eap != EAP::$PWD ) {
-      debug(2,"this method only allows TLS or PEAP or TTLS or EAP-pwd");
-      error("this method only allows TLS or PEAP or TTLS or EAP-pwd");
-     return;
-    }
+private function prepareEapConfig($attr) {
+   $eap = $this->selected_eap;
+   $w8_ext = '';
    $use_anon = $attr['internal:use_anon_outer'] [0];
    if ($use_anon) {
-     $outer_id = $attr['internal:anon_local_value'][0].'@'.$attr['internal:realm'][0];
      $outer_user = $attr['internal:anon_local_value'][0];
+     $outer_id = $outer_user.'@'.$attr['internal:realm'][0];
    }
    $servers = implode(';',$attr['eap:server_name']);
    $ca_array = $attr['internal:CAs'][0];
 
-$profile_file_contents = '<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-<name>'.$wlan_profile_name.'</name>
-<SSIDConfig>
-<SSID>
-<name>'.$ssid.'</name>
-</SSID>
-<nonBroadcast>true</nonBroadcast>
-</SSIDConfig>
-<connectionType>ESS</connectionType>
-<connectionMode>auto</connectionMode>
-<autoSwitch>false</autoSwitch>
-<MSM>
-<security>
-<authEncryption>
-<authentication>'.$auth.'</authentication>
-<encryption>'.$encryption.'</encryption>
-<useOneX>true</useOneX>
-</authEncryption>
-<PMKCacheMode>enabled</PMKCacheMode> 
-<PMKCacheTTL>720</PMKCacheTTL> 
-<PMKCacheSize>128</PMKCacheSize> 
-<preAuthMode>disabled</preAuthMode> 
-<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
-<cacheUserData>true</cacheUserData>
-<authMode>user</authMode>
-<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+
+$profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
-<Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
+';
+
+$profile_file_contents .= '<Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
     $this->selected_eap["OUTER"].'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
@@ -311,22 +280,96 @@ $profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisionin
    $profile_file_contents .= '<ConfigBlob></ConfigBlob>';
 }
 
-$profile_file_contents_end = '</EapHostConfig></EAPConfig>
+$profile_file_contents_end = '</EapHostConfig></EAPConfig>';
+$return_array = array();
+$return_array['w8'] = $profile_file_contents.$w8_ext.$profile_file_contents_end;
+return $return_array;
+}
+
+// $auth can be one of: "WPA", "WPA2"
+// $encryption can be one of: "TKIP", "AES"
+// $servers is an array of allowed server names (regular expressions allowed)
+// $ca is an array of allowed CA fingerprints
+
+/**
+ * produce PEAP, TLS and TTLS configuration files for Windows 8
+ */
+  private function writeWLANprofile($wlan_profile_name,$ssid,$auth,$encryption,$eap_config,$i) {
+$profile_file_contents = '<?xml version="1.0"?>
+<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+<name>'.$wlan_profile_name.'</name>
+<SSIDConfig>
+<SSID>
+<name>'.$ssid.'</name>
+</SSID>
+<nonBroadcast>true</nonBroadcast>
+</SSIDConfig>
+<connectionType>ESS</connectionType>
+<connectionMode>auto</connectionMode>
+<autoSwitch>false</autoSwitch>
+<MSM>
+<security>
+<authEncryption>
+<authentication>'.$auth.'</authentication>
+<encryption>'.$encryption.'</encryption>
+<useOneX>true</useOneX>
+</authEncryption>
+';
+if($auth == 'WPA2') 
+$profile_file_contents .= '<PMKCacheMode>enabled</PMKCacheMode> 
+<PMKCacheTTL>720</PMKCacheTTL> 
+<PMKCacheSize>128</PMKCacheSize> 
+<preAuthMode>disabled</preAuthMode> 
+';
+$profile_file_contents .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+<cacheUserData>true</cacheUserData>
+<authMode>user</authMode>
+';
+
+$closing = '
 </OneX>
 </security>
 </MSM>
 </WLANProfile>
 ';
+
 if(! is_dir('w8'))
   mkdir('w8');
 $xml_f_name = "w8/wlan_prof-$i.xml";
 $xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents.$w8_ext.$profile_file_contents_end);
+fwrite($xml_f,$profile_file_contents. $eap_config['w8']. $closing) ;
 fclose($xml_f);
 debug(2,"Installer has been written into directory $this->FPATH\n");
 debug(4,"WWWWLAN_Profile:$wlan_profile_name:$encryption\n");
 return("\"$wlan_profile_name\" \"$encryption\"");
 }
+
+private function writeLANprofile($eap_config) {
+$profile_file_contents = '<?xml version="1.0"?>
+<LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
+<MSM>
+<security>
+<OneXEnforced>false</OneXEnforced>
+<OneXEnabled>true</OneXEnabled>
+<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+';
+$closing = '
+</OneX>
+</security>
+</MSM>
+</LANProfile>
+';
+
+if(! is_dir('w8'))
+  mkdir('w8');
+$xml_f_name = "w8/lan_prof.xml";
+$xml_f = fopen($xml_f_name,'w');
+fwrite($xml_f,$profile_file_contents. $eap_config['w8']. $closing) ;
+fclose($xml_f);
+debug(2,"Installer has been written into directory $this->FPATH\n");
+}
+
+
 
 private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
@@ -373,18 +416,23 @@ $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 !endif
 ';
 
+if($attr['general:wired'][0] == 'on')
+  $fcontents .= '!define WIRED
+';
+
 $f = fopen('main.nsh','w');
 fwrite($f, $fcontents);
 fclose($f);
 
 }
 
-private function writeProfilesNSH($P,$ca_array) {
+private function writeProfilesNSH($P,$ca_array,$wired=0) {
 debug(4,"writeProfilesNSH");
 debug(4,$P);
 $fcontents = '';
   foreach($P as $p) 
     $fcontents .= "!insertmacro define_wlan_profile $p\n";
+
 $f = fopen('profiles.nsh','w');
 fwrite($f, $fcontents);
 fclose($f);
@@ -405,6 +453,7 @@ private function copyFiles ($eap) {
 debug(4,"copyFiles start\n");
    $result;
    $result = $this->copyFile('wlan_test.exe');
+   $result = $this->copyFile('install_wired.cmd');
    $result = $this->copyFile('setEAPCred.exe');
    $result = $this->copyFile('cat_bg.bmp');
    $result = $this->copyFile('base64.nsh');

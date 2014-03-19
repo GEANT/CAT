@@ -69,6 +69,8 @@ Var WindowsName
 Var profile_count
 Var aes_count
 Var welcome_message
+Var wired
+
 !ifdef TLS
   Var Cert_file
   Var PFX_install
@@ -155,6 +157,13 @@ Function .onInit
   Pop $profile_count
   Push 0
   Pop $aes_count
+ !ifdef WIRED
+    Push 1
+  !else
+    Push 0
+  !endif
+  Pop $wired
+
   !include "profiles.nsh"
   IntOp $profile_count $profile_count - 1
   File "wlan_test.exe";
@@ -171,7 +180,11 @@ Function .onInit
 
 
   Call Vista_Check
-  Call Wireless_Check
+ ${If} $wired == 1
+    Call CheckWired
+  ${Else}
+    Call Wireless_Check
+  ${EndIf}
 FunctionEnd
 
 
@@ -341,6 +354,14 @@ Function Vista_Check
   ${EndIf}
 FunctionEnd
 
+Function CreateLanProfile
+ DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
+  nsExec::Exec '"netsh" lan add profile $TEMP\lan_prof.xml'
+  Pop $0
+;  Delete "$TEMP\lan_prof.xml"
+FunctionEnd
+
+
 ; Check if wireless intefaces and service are running
 Function Wireless_Check
   nsExec::Exec "$TEMP\wlan_test.exe"
@@ -354,6 +375,20 @@ Function Wireless_Check
     Quit
   ${EndIf}
 FunctionEnd
+
+; Check for running dot3svc service required for 802.1x on wired interfaces
+  Function CheckWired
+;    IfSilent wired
+    MessageBox MB_YESNO "<?php echo_nsi( _("Do you want to enable eduroam on wired interfaces?"))?>" IDYES wired
+    push 0
+    pop $wired
+  wired:
+  ${If} $wired == 1
+    nsExec::Exec  '"sc" start dot3svc'
+    nsExec::Exec  '"sc" config dot3svc start= auto'
+  ${EndIf}
+  FunctionEnd
+
 
 ;================================
 

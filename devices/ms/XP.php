@@ -41,8 +41,7 @@ class Device_XP extends WindowsCommon {
 
      $SSIDs = $this->attributes['internal:SSID'];
      $this->prepareInstallerLang();
-
-
+     $set_wired = $this->attributes['general:wired'][0] == 'on' ? 1 : 0;
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2) {
        $WindowsProfile = array();
@@ -52,6 +51,10 @@ class Device_XP extends WindowsCommon {
           $i++;
        }
      } elseif($this->selected_eap == EAP::$TTLS_PAP) {
+       if($set_wired) {
+         $eap_config = $this->prepareEapConfig($this->attributes);
+         $this->writeLANprofile($eap_config);
+       }
        $WindowsProfile = $this->writeSW2profile($this->attributes,$CA_files);
      } else {
        error("  this EAP type is not handled yet");
@@ -119,6 +122,37 @@ class Device_XP extends WindowsCommon {
 debug(2,"Installer has been written into directory $this->FPATH\n");
 debug(4,"WLAN_Profile:$wlan_profile_name:$encryption\n");
 return("\"$wlan_profile_name\" \"$encryption\"");
+}
+
+
+private function writeLANprofile($eap_config) {
+$profile_file_contents = '<?xml version="1.0"?>
+<LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
+<MSM>
+<security>
+<OneXEnforced>false</OneXEnforced>
+<OneXEnabled>true</OneXEnabled>
+<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+';
+$closing = '
+</OneX>
+</security>
+</MSM>
+</LANProfile>
+';
+$xml_f_name = "lan_prof.xml";
+$xml_f = fopen($xml_f_name,'w');
+fwrite($xml_f,$profile_file_contents. $eap_config['xp']. $closing) ;
+fclose($xml_f);
+}
+
+
+private function prepareEapConfig($attr) {
+  $profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig"><EapMethod><Type xmlns="http://www.microsoft.com/provisioning/EapCommon">21</Type><VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId><VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType><AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId></EapMethod><ConfigBlob>440045004600410055004C0054000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000</ConfigBlob></EapHostConfig></EAPConfig>
+';
+$return_array = array();
+$return_array['xp'] = $profile_file_contents;
+return $return_array;
 }
 
 private function glueServerNames($server_list) {
@@ -251,6 +285,7 @@ private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
 $fcontents = '';
 // $fcontents = "!define ALLOW_VISTA\n";
+$fcontents = "!define XP\n";
 if($eap["OUTER"] == PEAP) 
   $eap_str = 'PEAP';
 if($eap["OUTER"] == TLS) 
@@ -283,6 +318,10 @@ $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 !endif
 ';
 
+
+if($attr['general:wired'][0] == 'on')
+  $fcontents .= '!define WIRED
+';
 $f = fopen('main.nsh','w');
 fwrite($f, $fcontents);
 fclose($f);

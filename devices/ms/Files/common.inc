@@ -21,12 +21,18 @@ Var HEADLINE_FONT
 	!include "main.nsh"
         !include "WordFunc.nsh"
         !include "FileFunc.nsh"
+SetCompressor bzip2
+!ifdef WIRED
+   !ifdef EXECLEVEL
+      !undef EXECLEVEL
+   !endif
+      !define EXECLEVEL "admin"
+!endif
 !ifdef SW2
-        !include "ZipDLL.nsh"
+      !include "ZipDLL.nsh"
 !endif
 
 XPStyle on
-SetCompressor bzip2
 
 
 ${Array} "Profile_names" 5 40
@@ -65,11 +71,16 @@ Var aes_count
 Var tkip_count
 Var welcome_message
 Var get_credentials
+Var get_wireless_credentials
+Var get_wired_credentials
 Var VistaNoSP
 Var W7
 Var WindowsVer
 Var WindowsName
 Var Symantec_installed
+Var wireless_result
+Var wired
+Var force_wired
 !ifdef TLS
   Var Cert_file
   Var PFX_install
@@ -84,6 +95,7 @@ Var Symantec_installed
   Var UNAME
   Var PASS1_F
   Var PASS1
+  Var PASS_B64
   Var PASS2_F
   Var PASS2
 !endif
@@ -120,7 +132,6 @@ Var Symantec_installed
 !define MUI_HEADERIMAGE_BITMAP "cat_150.bmp"
 !define MUI_COMPONENTSPAGE_SMALLDESC
 
-;TRANSLATION
 !define WELCOME_HEADER "<?php printf(sprint_nsi(_("Welcome to the %s installer")),Config::$CONSORTIUM['name'])?>"
 !define FAREWELL_HEADER "<?php echo_nsi( _("Installation complete"))?>"
 !define FAREWELL_TEXT	"<?php echo_nsi( _("Network profiles have been installed."))?>$\r$\n$\n <?php echo_nsi(  _("Your system is ready."))?>"
@@ -132,7 +143,6 @@ Var Symantec_installed
 ;--------------------------------
 ; License file
 !ifdef LICENSE_FILE
-;TRANSLATION
 LicenseForceSelection checkbox "<?php echo_nsi( _("Accept"))?>"
 LicenseText "<?php echo_nsi(_("If you accept the conditions then select Accept and then click Install to continue."))?>"
 LicenseData ${LICENSE_FILE}
@@ -171,7 +181,6 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
    DetailPrint "<?php echo_nsi( _("searching for certificate"))?> ${ca_file}"
    File "${ca_file}"
    ${Delete_files->Push} "${ca_file}"
-;;TRANSLATION
    !insertmacro debug_cat 2 "Testing machine store root"
    !insertmacro debug_cat 3 "Execute: certutil -store root ${ca_fingerprint}"
    nsExec::Exec '"certutil" -store root ${ca_fingerprint}'
@@ -242,19 +251,19 @@ no_install_${ca_file}:
 Function .onInit
   ${GetParameters} $R0
   ${GetOptions} "$R0" "-DEBUG=" $R1
-        IfErrors 0 +3
-        Push 0
-        Goto +2
-        Push $R1
+  IfErrors 0 +3
+  Push 0
+  Goto +2
+  Push $R1
   Pop $Debug_cat
 
   !insertmacro MUI_LANGDLL_DISPLAY
   SetOutPath $TEMP 
   !ifdef DEBUG_CAT
     ${If} $Debug_cat > 0
-      FileOpen $Debug_file CAT.log w
+      FileOpen $Debug_file "$DOCUMENTS\CAT.log" w
       IfSilent +2
-      MessageBox MB_OK|MB_ICONEXCLAMATION "Debug mode - see information in $TEMP\CAT.log"
+      MessageBox MB_OK|MB_ICONEXCLAMATION "Debug mode - see information in $DOCUMENTS\CAT.log"
     ${EndIf}
   !endif
 
@@ -271,6 +280,18 @@ Function .onInit
   Pop $tkip_count
   Push 0
   Pop $get_credentials
+  Push 0
+  Pop $get_wireless_credentials
+  Push 0
+  Pop $get_wired_credentials
+  !ifdef WIRED 
+    Push 1
+  !else
+    Push 0
+  !endif
+  Pop $wired
+  Push 0
+  Pop $force_wired
   !include "profiles.nsh"
   IntOp $profile_count $profile_count - 1
   File "wlan_test.exe"
@@ -285,12 +306,17 @@ Function .onInit
     File "${EXTERNAL_INFO}"
     ${Delete_files->Push} "${EXTERNAL_INFO}"
   !endif
+  !ifdef WIRED
+    File "install_wired.cmd"
+    ${Delete_files->Push} "install_wired.cmd"
+  !endif
   Push 0
   Pop $profile_fail
 
 
   Call wVersionCheck
   Call Wireless_Check
+  Call NoWirelessConfirm
   Call CheckSymantec
 FunctionEnd
 
@@ -394,21 +420,18 @@ Function ShowControls
 FunctionEnd
 
 Function PrepareWelcomeText  
-
-${Profile_names->Concat} $R0 ", "
-
-;TRANSLATION
-${If} $tkip_count > 0
-  ${If} $aes_count > 1
-    StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profiles are preferred. Always use them if you have a choice."))?>"
+  ${Profile_names->Concat} $R0 ", "
+  ${If} $tkip_count > 0
+    ${If} $aes_count > 1
+      StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profiles are preferred. Always use them if you have a choice."))?>"
+    ${Else}
+     StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profile is preferred. Always use it if you have a choice."))?>"
+    ${EndIf}
   ${Else}
-      StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profile is preferred. Always use it if you have a choice."))?>"
+    StrCpy $R1 ""
   ${EndIf}
-${Else}
-  StrCpy $R1 ""
-${EndIf}
-${If} $profile_count > 0
-StrCpy $welcome_message "<?php echo_nsi( _("This installer has been prepared for \${ORGANISATION}"))?>.$\r$\n\
+  ${If} $profile_count > 0
+    StrCpy $welcome_message "<?php echo_nsi( _("This installer has been prepared for \${ORGANISATION}"))?>.$\r$\n\
 <?php echo_nsi( _("The installer will create the following wireless profiles:"))?>$\r$\n\
 $R0.\
 $R1$\r$\n$\n\
@@ -458,7 +481,6 @@ $\r$\n$\r$\n<?php echo_nsi( _("Installer created with software from the GEANT pr
 FunctionEnd
 
 
-
 ;  Check for Windows Version
 ;
 Function wVersionCheck
@@ -479,8 +501,8 @@ Function wVersionCheck
     Call Cleanup
 !endif
   ${EndIf}
-  push 8
-  pop $WindowsVer
+  Push 8
+  Pop $WindowsVer
 !else
   ${If} $R5 < 2
     IfSilent +2
@@ -492,20 +514,20 @@ Function wVersionCheck
     ${If} $R1 >= 7000
       Push 1
       Pop $W7
-      push 7
-      pop $WindowsVer
+      Push 7
+      Pop $WindowsVer
     ${ElseIf} $R1 >= 6001
       Push 0
       Pop $W7
-      push 6
-      pop $WindowsVer
+      Push 6
+      Pop $WindowsVer
     ${Else}
       Push 0
       Pop $W7
       Push 1
       Pop $VistaNoSP
-      push 6
-      pop $WindowsVer
+      Push 6
+      Pop $WindowsVer
     ${EndIf}
   ${EndIf}
   !insertmacro debug_cat 3 "VistaNoSP:$VistaNoSP; W7:$W7"
@@ -514,7 +536,6 @@ Function wVersionCheck
   Pop $R0
   !insertmacro debug_cat 3 "Version $R0"
   IntOp $R1 $R0 & 0xff
-;TRANSLATION
   !insertmacro debug_cat 3 "Version $R1"
   ${If} $R1 < 6
     IfSilent +2
@@ -529,44 +550,94 @@ FunctionEnd
 
 ; Check if wireless intefaces and service are running
 Function Wireless_Check
+  !insertmacro debug_cat 2 "Checking for wireless interfaces"
   !insertmacro debug_cat 3 "Exec: $TEMP\wlan_test.exe"
   nsExec::Exec "$TEMP\wlan_test.exe"
-  Pop $0
-  !insertmacro debug_cat 3 "wlan_test.exe returned $0"
-  ${If} $0 == 1
-    !insertmacro debug_cat 1 "wlan_test.exe did not find wireless configuration service"
-    IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("Windows wireless configuration service is not enabled. The installer cannot continue."))?>"
-    Call Cleanup
-  ${EndIf}
-  ${If} $0 == 2
-    !insertmacro debug_cat 1 "wlan_test.exe did not find wireless interfaces"
-    IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("No wireless interfaces found. The installer cannot continue."))?>"
-    Call Cleanup
+  Pop $wireless_result
+  !insertmacro debug_cat 3 "wlan_test.exe returned $wireless_result"
+  ${If} $wireless_result > 0 
+     !insertmacro debug_cat 2 "Wireless problem: $wireless_result"
+  ${Else}
+     !insertmacro debug_cat 2 "Wireless check OK"
   ${EndIf}
 FunctionEnd
 
+
+; If a wireless problem has been found, decide what to do
+Function NoWirelessConfirm
+  File "check_wired.cmd"
+  nsExec::Exec "$TEMP\check_wired.cmd"
+  Pop $0
+  Delete "$TEMP\check_wired.cmd"
+  ${If} $0 > 0
+    Push 0
+    Pop $wired
+  ${EndIf}
+  ${If} $wired == 0
+    ${If} $wireless_result == 1
+      !insertmacro debug_cat 1 "wlan_test.exe did not find wireless configuration service"
+      IfSilent +2
+      MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("Windows wireless configuration service is not enabled. The installer cannot continue."))?>"
+      Call Cleanup
+    ${EndIf}
+    ${If} $wireless_result == 2
+      IfSilent +2
+      MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("No wireless interfaces found. The installer cannot continue."))?>"
+      Call Cleanup
+    ${EndIf}
+  ${Else}
+    ${If} $wireless_result > 0
+       IfSilent +3
+       MessageBox MB_YESNO "<?php echo_nsi( _("No wireless interfaces found. Wireless access will not be configured. Would you like to continue and configure access on the wired interface?"))?>" IDYES wired_yes
+       Call Cleanup
+       wired_yes:
+       Push 1
+       Pop $force_wired
+    ${EndIf}
+  ${EndIf}
+FunctionEnd
+
+; ask if wired interfaces should be installed
+Function WiredConfirm
+  !insertmacro debug_cat 4 "Entering WiredConfirm with wireless_result=$wireless_result; wired=$wired"
+  ${If} $wireless_result == 0
+    ${If} $wired == 1
+      ${If} $force_wired == 0
+        IfSilent wired
+        MessageBox MB_YESNO "<?php echo_nsi( _("Do you want to enable access on wired interfaces?"))?>" IDYES wired
+        Push 0
+        Pop $wired
+      ${EndIf}
+    wired:
+    ${If} $wired == 1
+      !insertmacro debug_cat 2 "Setting up dot3svc"
+      nsExec::Exec  '"sc" start dot3svc'
+      nsExec::Exec  '"sc" config dot3svc start= auto'
+    ${EndIf}
+    ${EndIf}
+  ${EndIf}
+FunctionEnd
+
+
 ; Check for installed EAP metod
   Function CheckEAP
-    pop $R0
+    Pop $R0
     !insertmacro debug_cat 3 "testing for EAP: $R0"
     readRegStr $0 HKLM "SYSTEM\CurrentControlSet\services\RasMan\PPP\EAP\$R0" Path
     !insertmacro debug_cat 3 "EAP test returned: $0"
-    push $0
+    Push $0
   FunctionEnd
 
-; Chect for Symantec problem
+; Check for Symantec problem
   Function CheckSymantec
-    push 88
+    Push 88
     call CheckEAP
-    pop $Symantec_installed
+    Pop $Symantec_installed
     !insertmacro debug_cat 3 "Symantec test returned: $Symantec_installed"
   FunctionEnd
 
 ;================================
 
-;TRANSLATION
 Function ShowInstfiles
   !insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Profiles installation"))?>" " "
 !ifndef SW2
@@ -574,6 +645,7 @@ Function ShowInstfiles
 !endif
 FunctionEnd
 ;================================
+;  Check if a wireless profile exist and put it on delete list
 Function ProfileCheck
   Pop $R0
   ${Profile_names->Read} $R1 $R0
@@ -593,6 +665,7 @@ Function ProfileCheck
 FunctionEnd
 ;==========================
 
+; Check which wireless profiles already exist and should be deleted
 Function CheckWirelessProfiles
   !ifdef CRED
   File setEAPCred.exe
@@ -605,8 +678,8 @@ Function CheckWirelessProfiles
 FunctionEnd
 ;=============================
 
+; make sure that the user understand that this is a customised installer
 Function confirmUserGroup
-;TRANSLATION
 !ifdef USER_GROUP
 IfSilent +2
 MessageBox MB_OKCANCEL "<?php echo_nsi(_("This installer will only work properly if you are a member of \${ORGANISATION} and the user group: \${USER_GROUP}."))?>$\r$\n<?php echo_nsi(_("Click OK to continue with installation."))?>" IDOK cont
@@ -713,6 +786,32 @@ Call ShowAllButtons
   ${EndIf}
 FunctionEnd
 
+;=============================
+Function CreateLanProfile
+ !insertmacro debug_cat 2 "nstalling wired profile"
+ DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
+  !insertmacro debug_cat 3 "Execute: netsh lan add profile $TEMP\lan_prof.xml"
+  ${Commands->Shift} "netsh wlan add profile $TEMP\lan_prof.xml"
+;  ${Commands->Shift} "del $TEMP\lan_prof.xml"
+  nsExec::Exec '"netsh" lan add profile $TEMP\lan_prof.xml'
+  Pop $0
+  !insertmacro debug_cat 3 "netsh returned $0"
+  ${If} $0 == 0
+    Push 1
+    Pop $get_credentials
+    Push 1
+    Pop $get_wired_credentials
+  ${EndIf}
+  !ifndef DEBUG_CAT
+     Delete "$TEMP\lan_prof.xml"
+  !endif
+  !ifdef DEBUG_CAT
+   ${If} $Debug_cat == 0
+     Delete "$TEMP\lan_prof.xml"
+  ${EndIf}
+  !endif
+FunctionEnd
+;=============================
 
 !ifdef SW2
 Function FinishLeave
@@ -727,30 +826,20 @@ FunctionEnd
 ;=========================
 
 ;==========================
+; Install all required wireless profiles
 Function CreateWirelessProfiles
   ${ForEach} $R9 0 $profile_count + 1
     Push $R9
     Call InstallProfile
   ${Next}
 FunctionEnd
-;=============================
-Function InstallUserCredentials
-  !ifndef CRED
-    Abort
-  !endif
-  ${ForEach} $R9 0 $profile_count + 1
-    Push $R9
-    Call InstallCred
-  ${Next}
-FunctionEnd
-;=============================
 
+; re-install a wireless profile and set the credentials flag if succeded
 Function InstallProfile
   Pop $R0
   ${Profile_names->Read} $R1 $R0
   ${Profile_states->Read} $R2 $R0
   ${If} $R2 == ${PROFILE_STATE_DELETE}
-;TRANSLATION
     DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
     !insertmacro debug_cat 1 'deleting profile "$R1"'
     !insertmacro debug_cat 3 'Execute: netsh wlan delete profile "$R1"'
@@ -760,7 +849,6 @@ Function InstallProfile
     !insertmacro debug_cat 3 "netsh returned $0"
     !insertmacro debug_cat 1 "Profile $R1 deleted"
   ${EndIf}
-;TRANSLATION
   DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
   !insertmacro debug_cat 3 "Execute: netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   ${Commands->Shift} "netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
@@ -768,7 +856,6 @@ Function InstallProfile
   nsExec::Exec '"netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
   Pop $0
   !insertmacro debug_cat 3 "netsh returned $0"
-;TRANSLATION
   ${If} $0 <> 0
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
     IfSilent +2
@@ -779,6 +866,8 @@ Function InstallProfile
   ${Else}
     Push 1
     Pop $get_credentials
+    Push 1
+    Pop $get_wireless_credentials
   !ifndef DEBUG_CAT
      Delete "$TEMP\wlan_prof-$R0.xml"
   !endif
@@ -790,7 +879,41 @@ Function InstallProfile
   ${EndIf}
 FunctionEnd
 
-Function InstallCred
+; Install credentials for wired
+Function InstallWiredCred
+    !insertmacro debug_cat 1 "installing credentials for wired"
+    DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
+    FileOpen $9 "$TEMP\user_cred.xml" w
+    FileWrite $9 "<?xml version=$\"1.0$\"?>$\r$\n\
+<EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
+<EapMethod>$\r$\n\
+<eapCommon:Type>25</eapCommon:Type>$\r$\n\
+<eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
+</EapMethod>$\r$\n\
+<Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:MsPeap=$\"http://www.microsoft.com/provisioning/MsPeapUserPropertiesV1$\" xmlns:MsChapV2=$\"http://www.microsoft.com/provisioning/MsChapV2UserPropertiesV1$\">$\r$\n\
+<baseEap:Eap>$\r$\n\
+<baseEap:Type>25</baseEap:Type>$\r$\n\
+<MsPeap:EapType>$\r$\n\
+<baseEap:Eap>$\r$\n\
+<baseEap:Type>26</baseEap:Type>$\r$\n\
+<MsChapV2:EapType>$\r$\n"
+
+FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
+<MsChapV2:Password>$PASS1</MsChapV2:Password>$\r$\n\
+</MsChapV2:EapType>$\r$\n\
+</baseEap:Eap>$\r$\n\
+</MsPeap:EapType>$\r$\n\
+</baseEap:Eap>$\r$\n\
+</Credentials>$\r$\n\
+</EapHostUserCredentials>$\r$\n"
+   FileClose $9
+  !insertmacro debug_cat 3 "Execute: $TEMP\install_wired.cmd"
+  nsExec::Exec "$TEMP\install_wired.cmd"
+FunctionEnd
+
+;=============================
+; Install credentials for a wireless profile
+Function InstallWirelessCred
   Pop $R0
   ${Profile_names->Read} $R1 $R0
   ${Profile_states->Read} $R2 $R0
@@ -799,8 +922,8 @@ Function InstallCred
 
     DetailPrint "<?php echo_nsi(_("installing credentials for profile \$R1"))?>"
     !insertmacro debug_cat 3 "Execute: $TEMP\setEAPCred.exe $\"$UNAME$\" $\"base_64_password_not_recorded$\" $\"$R1$\""
-    nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS1$\" $\"$R1$\""
-    pop $0
+    nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS_B64$\" $\"$R1$\""
+    Pop $0
     !insertmacro debug_cat 3 "setEAPCred.exe returned $0"
     StrCmp $0 0 Cont1
 ; Error Label, show error box
@@ -842,7 +965,6 @@ FunctionEnd
 ;===========================
 
 Function PFXCertificateSelectLeave
-;TRANSLATION
    ${If} $Cert_file == ""
       MessageBox MB_OK  "<?php echo_nsi(_("No certificate file selected"))?>"
       Call Cleanup
@@ -865,6 +987,8 @@ Function PFXCertificateSelectLeave
 FunctionEnd
 ;===========================
 !endif
+
+; User credentials dialog
 !ifdef CRED
 Function UserCredentials
   ${If} $get_credentials == 0
@@ -887,6 +1011,7 @@ Function UserCredentials
         nsDialogs::Show
 FunctionEnd
 
+; Handle user input
 Function SaveCredentials
 ${NSD_GetText} $UNAME_F $UNAME
 ${NSD_GetText} $PASS1_F $PASS1
@@ -907,10 +1032,38 @@ MessageBox MB_OK "<?php echo_nsi(_("Password missmatch"))?>"
 Abort
 ${EndIf}
 ${Base64_Encode} $PASS1
-Pop $PASS1
-Call InstallUserCredentials
+Pop $PASS_B64
+Call InstallWirelessUserCredentials
+Call InstallWiredUserCredentials
 Call ShowAllButtons
 FunctionEnd
+;=============================
+Function InstallWirelessUserCredentials
+  !ifndef CRED
+    Abort
+  !endif
+  ${If} $get_wireless_credentials == 0
+    Goto WirelessEnd
+  ${EndIf}
+  ${ForEach} $R9 0 $profile_count + 1
+    Push $R9
+    Call InstallWirelessCred
+  ${Next}
+WirelessEnd:
+FunctionEnd
+;=============================
+
+Function InstallWiredUserCredentials
+  !ifndef CRED
+    Abort
+  !endif
+  ${If} $get_wired_credentials == 0
+    Goto WiredEnd
+  ${EndIf}
+   Call InstallWiredCred
+WiredEnd:
+FunctionEnd
+
 !endif
 
 
@@ -936,6 +1089,7 @@ FunctionEnd
 
 Page custom nsDialogsWelcome
 Page custom confirmUserGroup
+Page custom WiredConfirm
 ;============================
 !ifdef LICENSE_FILE
   Page license
