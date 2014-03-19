@@ -40,19 +40,28 @@ class Device_Vista7 extends WindowsCommon {
 
      $SSIDs = $this->attributes['internal:SSID'];
      $this->prepareInstallerLang();
+     $set_wired = $this->attributes['general:wired'][0] == 'on' ? 1 : 0;
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
        $WindowsProfile = array();
+       $eap_config = $this->prepareEapConfig($this->attributes);
        $i = 0;
        foreach ($SSIDs as $ssid => $cipher) {
           if($cipher == 'TKIP') {
-             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$this->attributes,$i);
+             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eap_config,$i);
              $i++;
           }
-          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$this->attributes,$i);
+          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eap_config,$i);
           $i++;
        }
+       if($set_wired) {
+         $this->writeLANprofile($eap_config);
+       }
      } elseif($this->selected_eap == EAP::$TTLS_PAP) {
+       if($set_wired) {
+         $eap_config = $this->prepareEapConfig($this->attributes);
+         $this->writeLANprofile($eap_config);
+       }
        $WindowsProfile = $this->writeSW2profile($this->attributes,$CA_files);
      } else {
        error("  this EAP type is not handled yet");
@@ -60,7 +69,7 @@ class Device_Vista7 extends WindowsCommon {
      }
     debug(4,"WindowsProfile"); debug(4,$WindowsProfile);
     
-    $this->writeProfilesNSH($WindowsProfile, $CA_files);
+    $this->writeProfilesNSH($WindowsProfile, $CA_files,$set_wired);
     $this->copyFiles($this->selected_eap);
     if(isset($this->attributes['internal:logo_file']))
        $this->combineLogo($this->attributes['internal:logo_file']);
@@ -123,21 +132,13 @@ class Device_Vista7 extends WindowsCommon {
   return($out);
 }
 
-// $auth can be one of: "WPA", "WPA2"
-// $encryption can be one of: "TKIP", "AES"
-// $servers is an array of allowed server names (regular expressions allowed)
-// $ca is an array of allowed CA fingerprints
-
-/**
- * produce PEAP and TLS configuration files for Vista and Windows 7
- */
-  private function writeWLANprofile($wlan_profile_name,$ssid,$auth,$encryption,$attr,$i) {
+private function prepareEapConfig($attr) {
     $vista_ext = '';
     $w7_ext = '';
     $eap = $this->selected_eap;
-    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD) {
-      debug(2,"this method only allows TLS, PEAP or EAP-pwd");
-      error("this method only allows TLS, PEAP or EAP-pwd");
+    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
+      debug(2,"this method only allows TLS, PEAP, EAP-TTLS-PAP or EAP-pwd");
+      error("this method only allows TLS, PEAP, EAP-TTLS-PAP, or EAP-pwd");
      return;
     }
    $use_anon = $attr['internal:use_anon_outer'] [0];
@@ -146,38 +147,26 @@ class Device_Vista7 extends WindowsCommon {
    }
    $servers = implode(';',$attr['eap:server_name']);
    $ca_array = $attr['internal:CAs'][0];
+   $author_id = $eap == EAP::$TTLS_PAP ? "29114" : "0";
 
-$profile_file_contents = '<?xml version="1.0"?>
-<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-<name>'.$wlan_profile_name.'</name>
-<SSIDConfig>
-<SSID>
-<name>'.$ssid.'</name>
-</SSID>
-<nonBroadcast>true</nonBroadcast>
-</SSIDConfig>
-<connectionType>ESS</connectionType>
-<connectionMode>auto</connectionMode>
-<autoSwitch>false</autoSwitch>
-<MSM>
-<security>
-<authEncryption>
-<authentication>'.$auth.'</authentication>
-<encryption>'.$encryption.'</encryption>
-<useOneX>true</useOneX>
-</authEncryption>
-<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
-<authMode>user</authMode>
-<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+  $profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
 <Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
     $this->selected_eap["OUTER"] .'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
-<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
+<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$author_id.'</AuthorId>
 </EapMethod>
 ';
-if( $eap == EAP::$TLS) {
+if ( $eap == EAP::$TTLS_PAP) {
+   $profile_file_contents .= '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+<eap-ttls xmlns="http://schemas.securew2.com/eapconfig/eap-ttls/v0">
+<Profile>DEFAULT</Profile>
+</eap-ttls>
+</Config>
+';
+}
+elseif( $eap == EAP::$TLS) {
   $profile_file_contents .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
@@ -280,29 +269,110 @@ $w7_ext .='</EapType>
 ';
 } elseif ( $eap == EAP::$PWD) {
    $profile_file_contents .= '<ConfigBlob></ConfigBlob>';
-}
+} 
+
+
 
 $profile_file_contents_end = '</EapHostConfig></EAPConfig>
+';
+$return_array = array();
+$return_array['vista']= $profile_file_contents.$vista_ext.$profile_file_contents_end;
+$return_array['w7']= $profile_file_contents.$w7_ext.$profile_file_contents_end;
+return $return_array;
+}
+
+
+// $auth can be one of: "WPA", "WPA2"
+// $encryption can be one of: "TKIP", "AES"
+// $servers is an array of allowed server names (regular expressions allowed)
+// $ca is an array of allowed CA fingerprints
+
+/**
+ * produce PEAP and TLS configuration files for Vista and Windows 7
+ */
+  private function writeWLANprofile($wlan_profile_name,$ssid,$auth,$encryption,$eap_config,$i) {
+$profile_file_contents = '<?xml version="1.0"?>
+<WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
+<name>'.$wlan_profile_name.'</name>
+<SSIDConfig>
+<SSID>
+<name>'.$ssid.'</name>
+</SSID>
+<nonBroadcast>true</nonBroadcast>
+</SSIDConfig>
+<connectionType>ESS</connectionType>
+<connectionMode>auto</connectionMode>
+<autoSwitch>false</autoSwitch>
+<MSM>
+<security>
+<authEncryption>
+<authentication>'.$auth.'</authentication>
+<encryption>'.$encryption.'</encryption>
+<useOneX>true</useOneX>
+</authEncryption>
+';
+if($auth == 'WPA2')
+$profile_file_contents .= '<PMKCacheMode>enabled</PMKCacheMode>
+<PMKCacheTTL>720</PMKCacheTTL>
+<PMKCacheSize>128</PMKCacheSize>
+<preAuthMode>disabled</preAuthMode>
+';
+$profile_file_contents .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+<cacheUserData>true</cacheUserData>
+<authMode>user</authMode>
+';
+
+$closing = '
 </OneX>
 </security>
 </MSM>
 </WLANProfile>
 ';
+
 if(! is_dir('w7'))
   mkdir('w7');
 if(! is_dir('vista'))
   mkdir('vista');
 $xml_f_name = "vista/wlan_prof-$i.xml";
 $xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents.$vista_ext.$profile_file_contents_end);
+fwrite($xml_f,$profile_file_contents. $eap_config['vista']. $closing) ;
 fclose($xml_f);
 $xml_f_name = "w7/wlan_prof-$i.xml";
 $xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents.$w7_ext.$profile_file_contents_end);
+fwrite($xml_f,$profile_file_contents. $eap_config['w7']. $closing) ;
 fclose($xml_f);
 debug(2,"Installer has been written into directory $this->FPATH\n");
 debug(4,"WLAN_Profile:$wlan_profile_name:$encryption\n");
 return("\"$wlan_profile_name\" \"$encryption\"");
+}
+
+private function writeLANprofile($eap_config) {
+$profile_file_contents = '<?xml version="1.0"?>
+<LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
+<MSM>
+<security>
+<OneXEnforced>false</OneXEnforced>
+<OneXEnabled>true</OneXEnabled>
+<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+';
+$closing = '
+</OneX>
+</security>
+</MSM>
+</LANProfile>
+';
+if(! is_dir('w7'))
+  mkdir('w7');
+if(! is_dir('vista'))
+  mkdir('vista');
+$xml_f_name = "vista/lan_prof.xml";
+$xml_f = fopen($xml_f_name,'w');
+fwrite($xml_f,$profile_file_contents. $eap_config['vista']. $closing) ;
+fclose($xml_f);
+$xml_f_name = "w7/lan_prof.xml";
+$xml_f = fopen($xml_f_name,'w');
+fwrite($xml_f,$profile_file_contents. $eap_config['w7']. $closing) ;
+fclose($xml_f);
 }
 
 private function glueServerNames($server_list) {
@@ -494,18 +564,23 @@ $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 !endif
 ';
 
+if($attr['general:wired'][0] == 'on')
+  $fcontents .= '!define WIRED
+';
+
 $f = fopen('main.nsh','w');
 fwrite($f, $fcontents);
 fclose($f);
 
 }
 
-private function writeProfilesNSH($P,$ca_array) {
+private function writeProfilesNSH($P,$ca_array,$wired=0) {
 debug(4,"writeProfilesNSH");
 debug(4,$P);
-$fcontents = '';
+  $fcontents = '';
   foreach($P as $p) 
     $fcontents .= "!insertmacro define_wlan_profile $p\n";
+  
 $f = fopen('profiles.nsh','w');
 fwrite($f, $fcontents);
 fclose($f);
@@ -527,6 +602,8 @@ debug(4,"copyFiles start\n");
 debug(4,"code_page=".$this->code_page."\n");
    $result;
    $result = $this->copyFile('wlan_test.exe');
+   $result = $this->copyFile('check_wired.cmd');
+   $result = $this->copyFile('install_wired.cmd');
    $result = $this->copyFile('setEAPCred.exe');
    $result = $this->copyFile('base64.nsh');
    $result = $this->copyFile('cat_bg.bmp');

@@ -50,6 +50,7 @@ protected function combineLogo($Logos) {
 // logo wull be shited up by this much
  $vshift = 20;
  $bg_image = new Imagick('cat_bg.bmp');
+ $bg_image->setFormat('BMP3');
  $bg_image_size = $bg_image->getImageGeometry();
  $logo = new Imagick($Logos[0]['name']);
  $logo_size = $logo->getImageGeometry();
@@ -72,7 +73,7 @@ protected function combineLogo($Logos) {
 $bg_image->compositeImage($logo, $logo->getImageCompose(), $hoffset, $voffset);
 
 //new image is saved as the background
-$bg_image->writeImage('cat_bg.bmp');
+$bg_image->writeImage('BMP3:cat_bg.bmp');
 }
 
 protected function signInstaller($attr) {
@@ -94,7 +95,7 @@ protected function msInfoFile($attr) {
  $out = '';
 if(isset($attr['support:info_file'])) {
     $out .= '!define EXTERNAL_INFO "';
-  debug(4,"Info file type ".$attr['support:info_file'][0]['mime']."\n");
+//  debug(4,"Info file type ".$attr['support:info_file'][0]['mime']."\n");
   if ($attr['internal:info_file'][0]['mime'] == 'rtf')
      $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
   elseif( $attr['internal:info_file'][0]['mime'] == 'txt') {

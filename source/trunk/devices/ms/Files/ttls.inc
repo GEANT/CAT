@@ -25,6 +25,18 @@ IfSilent +3
 File SecureW2.INF
 Goto +2
 File /oname=SecureW2.INF SecureW2S.INF
+!ifdef WIRED
+!ifdef XP
+  File "lan_prof.xml"
+!else
+${If} $WindowsVer == 6
+File "vista/lan_prof.xml"
+${EndIf}
+${If} $WindowsVer == 7
+File "w7/lan_prof.xml"
+${EndIf}
+!endif
+!endif
 File SecureW2_EAP_Suite_113.zip
 !insertmacro ZIPDLL_EXTRACT $TEMP\SecureW2_EAP_Suite_113.zip $TEMP SecureW2_EAP_Suite_113.exe
 Delete $TEMP\SecureW2_EAP_Suite_113.zip
@@ -37,6 +49,9 @@ StrCmp $0 0 Koniec
         MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo _('SecureW2 installation error. Please try again or contact ${SUPPORT}.')?>"
         Quit
 Koniec:
+${If} $wired == 1
+  Call CreateLanProfile
+${EndIf}
 Delete "$TEMP\SecureW2_EAP_Suite_113.exe"
 Delete "$TEMP\SecureW2.INF"
 Delete "$TEMP\SecureW2S.INF"
