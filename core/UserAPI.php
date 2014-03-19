@@ -510,6 +510,7 @@ public function detectOS() {
        if(!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
 
           $_SESSION['browser_os'] = $dev_id;
+          debug(4,"Browser_id: $dev_id\n");
           return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));
        }
        else {

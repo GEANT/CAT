@@ -36,7 +36,7 @@ class Device_macosx extends DeviceConfig {
    * this array holds the list of EAP methods supported by this device
    */
     final public function __construct() {
-      debug(4,"got device: $device\n");
+//      debug(4,"got device: $device\n");
       //$this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
       // Restrict the list of supported EAP methods to EAP-TTLS+PAP... for now...
       $this->supportedEapMethods  = array(EAP::$TTLS_PAP);

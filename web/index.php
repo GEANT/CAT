@@ -90,6 +90,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         var download_message;
 <?php
 $OS = $Gui->detectOS();
+debug(4,$OS);
 if($OS)
    print "recognised_os = '".$OS['id']."';\n";
 $download_message = sprintf(_("Download your %s installer"),Config::$CONSORTIUM['name']);
@@ -266,7 +267,7 @@ include("user/js/cat_js.php");
                                                    <?php print $download_message ?>
                                              </div>
                                              <div class='download_button_text' style='font-size:20px; bottom: 5px; '>
-                                                <? echo $OS['display']?>
+                                                <?php echo $OS['display']?>
                                              </div>
                                          </button>
                                          <div class='device_info' id='info_g_<?php echo $OS['id']?>'></div>
