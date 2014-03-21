@@ -453,6 +453,7 @@ private function copyFiles ($eap) {
 debug(4,"copyFiles start\n");
    $result;
    $result = $this->copyFile('wlan_test.exe');
+   $result = $this->copyFile('check_wired.cmd');
    $result = $this->copyFile('install_wired.cmd');
    $result = $this->copyFile('setEAPCred.exe');
    $result = $this->copyFile('cat_bg.bmp');
