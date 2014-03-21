@@ -26,7 +26,7 @@ User interface
 + detect OS and make "featured download" of best match
 + remove hard-coded "TERENA" mentions on rollover and FAQ entries
 + better logo handling for DiscoJuice
-! Windows installers should give users a hint what to do if they downloaded the wrong installer
++ Windows installers should give users a hint what to do if they downloaded the wrong installer
 ! self-service troubleshooting for end-users
 
 Core
@@ -36,8 +36,8 @@ Core
 Device modules
 -----------------------
 + Windows modules, correct the text about profiles to be installed if there is only one
-- Wired support (done for Apple)
-! Turn off TKIP for Linux
+- Wired support (done for Apple and Windows - impossible for Linux cince it breaks down non-1x connectivity)
++ Turn off TKIP for Linux
 ! Linux - WICD support
 ! Linux - SUSE XML variant support
 ! all OS: ability to remove bootstrap SSIDs

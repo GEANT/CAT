@@ -603,7 +603,12 @@ class EduroamNMConfigTool:
             \'ssid\': dbus.ByteArray(ssid),
             \'security\': \'802-11-wireless-security\'
         })
-        s_wsec = dbus.Dictionary({\'key-mgmt\': \'wpa-eap\'})
+        s_wsec = dbus.Dictionary({
+            \'key-mgmt\': \'wpa-eap\',
+            \'proto\': [\'rsn\',],
+            \'pairwise\': [\'ccmp\',],
+            \'group\': [\'ccmp\',]
+        })
         s_8021x = dbus.Dictionary({
             \'eap\': [\''.strtolower($e['OUTER']).'\'],
             \'identity\': \'$USER_NAME\',
