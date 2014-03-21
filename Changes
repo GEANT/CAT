@@ -58,6 +58,8 @@ Changes in trunk
 - [FEATURE #23] Added sorting option to listProfiles in UserAPI
 - [FEATURE #24] Added timestamping support to Windows code signing
 - [FEATURE #25] QR codes now include the consortium logo (10% symbol obstruction, 25% allowed)
+- [FEATURE #26] Windows installer - moved the debug log file to the Documents directory
+- [FEATURE #27] Linux installer - force WPA2/AES
 - [STRUCTURE #1]  web/user/GUI.php renamed to core/UserAPI.php
 - [STRUCTURE #2]  web/user/cat_back.php renamed to web/user/API.php
 - [STRUCTURE #3]  updated PHP requirements to 5.5
