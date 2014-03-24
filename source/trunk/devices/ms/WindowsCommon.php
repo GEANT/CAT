@@ -100,7 +100,7 @@ if(isset($attr['support:info_file'])) {
      $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
   elseif( $attr['internal:info_file'][0]['mime'] == 'txt') {
      $in_txt = file_get_contents($attr['internal:info_file'][0]['name']);
-     $out_txt = iconv('UTF-8',$this->code_page.'//IGNORE',$in_txt);
+     $out_txt = iconv('UTF-8',$this->code_page.'//TRANSLIT',$in_txt);
      file_put_contents('info_f.txt',$out_txt);
      $out = '!define LICENSE_FILE " info_f.txt';
   }
