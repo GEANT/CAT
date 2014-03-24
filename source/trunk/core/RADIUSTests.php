@@ -845,7 +845,7 @@ network={
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
         if ($frag)
             for ($i = 0; $i < 6; $i++) // 6 x 250 bytes means UDP fragmentation will occur - good!
-                $cmdline .= '-N126:s:"1cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat..cat.cat.cat.cat.cat.cat.cat.cat.cat.cat.cat..cat.cat.cat.cat.eduroam.org" ';
+                $cmdline .= '-N26:x:0000625A0BF961616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161 ';
         $cmdline .= " | grep 'RADIUS message:' | cut -d ' ' -f 3 | cut -d '=' -f 2";
         debug(4, "Shallow reachability check cmdline: $cmdline\n");
         debug(4, "Shallow reachability check config: $tmp_dir\n$log_config\n");
