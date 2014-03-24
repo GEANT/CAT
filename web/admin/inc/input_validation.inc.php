@@ -69,7 +69,7 @@ function valid_Device($input) {
 
 function valid_string_db($input, $allow_whitspace = 0) {
     // always chop out invalid characters, and surrounding whitespace
-    $retval = trim(iconv("UTF-8", "UTF-8//IGNORE", $input));
+    $retval = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
     // if some funny person wants to inject markup tags, remove them
     $retval = filter_var($retval, FILTER_SANITIZE_STRING, array("flags" => FILTER_FLAG_NO_ENCODE_QUOTES));
     // unless explicitly wanted, take away intermediate disturbing whitespace

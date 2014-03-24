@@ -77,12 +77,11 @@ class Device_mobileconfig extends DeviceConfig {
 
         // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
         // also escape htmlspecialchars
-        // with PHP 5.5, we can finally use the ENT_XML1 flag for conversion
 
-        $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//IGNORE", preg_replace(array('/ /', '/\//'), '_', $this->attributes['general:instname'][0]))), ENT_XML1, 'UTF-8');
-        $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//IGNORE", preg_replace(array('/ /', '/\//'), '_', $this->attributes['profile:name'][0]))), ENT_XML1, 'UTF-8');
-        $this->massaged_country = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//IGNORE", preg_replace(array('/ /', '/\//'), '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
-        $this->massaged_consortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//IGNORE", preg_replace(array('/ /', '/\//'), '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
+        $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['general:instname'][0]))), ENT_XML1, 'UTF-8');
+        $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['profile:name'][0]))), ENT_XML1, 'UTF-8');
+        $this->massaged_country = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
+        $this->massaged_consortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
 
         // inst and profile MUST NOT be empty (needed to construct apple OID strings)
@@ -149,7 +148,7 @@ class Device_mobileconfig extends DeviceConfig {
       <key>ConsentText</key>
          <dict>
             <key>default</key>
-               <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . "</string>
+               <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . "</string>
          </dict>
          ";
 
