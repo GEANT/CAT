@@ -378,7 +378,7 @@ FunctionEnd
 
 ; Check for running dot3svc service required for 802.1x on wired interfaces
   Function CheckWired
-;    IfSilent wired
+    IfSilent wired
     MessageBox MB_YESNO "<?php echo_nsi( _("Do you want to enable eduroam on wired interfaces?"))?>" IDYES wired
     push 0
     pop $wired
