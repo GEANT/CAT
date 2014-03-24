@@ -138,7 +138,7 @@ include("user/js/cat_js.php");
             <div id="info_window"></div>
             <span id="close_button"><?php echo _("Close") ?></span>
         </div>
-        <form id="cat_form" name="cat_form" method="POST" action="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>/">
+        <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>/">
         <div id="main_body">
 <?php if(! isset($_REQUEST['idp']) || ! $_REQUEST['idp']) { ?>
                 <table id="front_page">

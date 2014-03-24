@@ -46,7 +46,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
             foreach ($preflist as $method) {
                 $escaped_method = htmlspecialchars(serialize($method));
                 echo "<th style='min-width:200px'>" . display_name($method) . "<br/>
-                        <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;'>
+                        <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escaped_method'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
                         </form></th>";
@@ -66,7 +66,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
 
             echo "<tr>";
             echo "<td align='center'><img src='../resources/images/vendorlogo/" . $description['group'] . ".png' alt='logo'></td><td>" . $description['display'] . "<br/>
-                        <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;'>
+                        <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='device' value='$index'>
                         <button class='redirect' type='submit'>" . _("Device-specific options...") . "</button>
                         </form>
@@ -75,8 +75,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $display_footnote = FALSE;
-//                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/download.php?profile=$my_profile->identifier&idp=$my_profile->institution&lang=" . CAT::$lang_index . "' method='post'>
-                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . CAT::$lang_index . "' method='post'>
+                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . CAT::$lang_index . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='id' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . _("Download") . "</button>
@@ -150,7 +149,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
         echo "</table>";
     }
     ?>
-    <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>'>
+    <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
         <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>'>
             <?php echo _("Return to dashboard"); ?>
         </button>

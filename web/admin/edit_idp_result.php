@@ -98,9 +98,9 @@ if (isset($_POST['submitbutton'])) {
         }
 
         if ($_POST['submitbutton'] == BUTTON_SAVE)
-            echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
+            echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
         else if ($_POST['submitbutton'] == BUTTON_CONTINUE)
-            echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier'><button type='submit'>" . _("Continue to profile definition") . "</button></form>";
+            echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to profile definition") . "</button></form>";
     }
 }
 footer();

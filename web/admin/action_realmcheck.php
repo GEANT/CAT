@@ -542,7 +542,7 @@ print "<table id='results$hostindex'  style='width:100%'>
                       echo "<div id='disposable_credential_container'><p>" . _("If you enter an existing login credential here, you can test the actual authentication from various checkpoints all over the world.") . "</p>
                     <p>" . _("The test will use all EAP types you have set in your profile information to check whether the right CAs and server names are used, and of course whether the login with these credentials and the given EAP type actually worked. If you have set anonymous outer ID, the test will use that.") . "</p>
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
-                    <form enctype='multipart/form-data' id='live_form'>
+                    <form enctype='multipart/form-data' id='live_form' accept-charset='UTF-8'>
                     <input type='hidden' name='test_type' value='udp_login'>
                     <input type='hidden' name='lang' value='".$cat->lang_index."'>
                     <input type='hidden' name='profile_id' value='".$my_profile->identifier."'>
@@ -590,7 +590,7 @@ echo "
 </div>
 ";
               ?>
-    <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>'>
+    <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
         <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to dashboard"); ?></button>
     </form>
     <script>

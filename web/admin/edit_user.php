@@ -35,7 +35,7 @@ $user = new User($_SESSION['user']);
             <?php echo infoblock($user->getAttributes(), "user", "User"); ?>
         </table>
     </div>
-    <form enctype='multipart/form-data' action='edit_user_result.php' method='post'>
+    <form enctype='multipart/form-data' action='edit_user_result.php' method='post' accept-charset='UTF-8'>
         <fieldset class="option_container">
             <legend>
                 <strong><?php echo _("Your attributes"); ?></strong>

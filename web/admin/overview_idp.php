@@ -102,12 +102,12 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     <table>
         <tr>
             <td>
-                <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post'>
+                <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <button type='submit' name='submitbutton' value='<?php echo BUTTON_EDIT; ?>'><?php echo _("Edit IdP-wide settings"); ?></button>
                 </form>
             </td>
             <td>
-                <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post'>
+                <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                     <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
                 </form>
 
@@ -121,7 +121,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || Config::$RADIUSTESTS['TLS-discoverytag'] != "")
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
-                        <td><form method='post' action='action_realmcheck.php?inst_id=$my_inst->identifier'>
+                        <td><form method='post' action='action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
                               <input type='text' name='realm' id='realm'>
                               <button type='submit'>" . _("Go!") . "</button>
                             </form>
@@ -131,7 +131,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             echo "<tr>
                         <td>" . _("Check server status of European federations") . "</td>
                         <td>
-                           <form action='http://monitor.eduroam.org'>
+                           <form action='http://monitor.eduroam.org' accept-charset='UTF-8'>
                               <button type='submit'>" . _("Go!") . "</button>
                            </form>
                         </td>
@@ -218,12 +218,12 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $has_realm = $has_realm[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
         if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || ( count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0 && Config::$RADIUSTESTS['TLS-discoverytag'] != ""))
-            echo "<form action='action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post'>
+            echo "<form action='action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>
                           </form>";
-        echo "<form action='overview_installers.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post'>
+        echo "<form action='overview_installers.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_eaptypes ? "" : "disabled='disabled'  title='" . _("You have not fully configured any supported EAP types!") . "'") . ">
                                   " . _("Installer Fine-Tuning and Download") . "
                               </button>
@@ -231,11 +231,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                    </div>";
 
         echo "        <div class='buttongroupprofilebox' style='clear:both;'>
-                          <form action='edit_profile.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post'>
+                          <form action='edit_profile.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                                <hr/>
                                <button type='submit' name='profile_action' value='edit'>" . _("Edit") . "</button>
                           </form>
-                          <form action='edit_profile_result.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post'>
+                          <form action='edit_profile_result.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                                <button class='delete' type='submit' name='submitbutton' value='" . BUTTON_DELETE . "' onclick=\"return confirm('" . sprintf(_("Do you really want to delete the profile %s?"), $profile_name) . "')\">
                                    " . _("Delete") . "
                                </button>
@@ -275,7 +275,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         echo "<div style='height:20px'></div>";
     }
     ?>
-    <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post'>
+    <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
         <div>
             <button type='submit' name='profile_action' value='new'>
                 <?php echo _("Add new profile ..."); ?>

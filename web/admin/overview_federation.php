@@ -125,7 +125,7 @@ $user = new User($_SESSION['user']);
                 if (Config::$DB['enforce-external-sync']) {
                     if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
                         echo "<td>";
-                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;'>
+                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <button type='submit'>" . _("Manage DB Link") . "</button> ";
 
                         if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_SYNCED) {
@@ -140,7 +140,7 @@ $user = new User($_SESSION['user']);
                 // admin management
                 echo "<td>
                                <div style='white-space: nowrap;'>
-                                  <form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $index . "' onsubmit='popupRedirectWindow(this); return false;'>
+                                  <form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $index . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                       <button type='submit'>" .
                 _("Add/Remove Administrators") . "
                                       </button>
@@ -168,7 +168,7 @@ $user = new User($_SESSION['user']);
                         $oneinvite['mail'] . "
                                     </td>
                                     <td>";
-                        echo "<form method='post' action='overview_federation.php'>
+                        echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
                                 <button class='delete' type='submit' name='submitbutton' value='" . BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
                               </form>";
@@ -182,7 +182,7 @@ $user = new User($_SESSION['user']);
     <hr/>
     <br/>
     <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-                            return false;'>
+                            return false;' accept-charset='UTF-8'>
         <button type='submit' class='download'>
             <?php echo _("Register New Institution!"); ?>
         </button>

@@ -132,7 +132,7 @@ if (!$is_fed_admin && $is_admin_with_blessing) {
 
         echo "</td>
               <td>
-                <form action='inc/manageAdmins.inc.php?inst_id=" . $my_inst->identifier . "' method='post' " . ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ) . ">
+                <form action='inc/manageAdmins.inc.php?inst_id=" . $my_inst->identifier . "' method='post' " . ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ) . " accept-charset='UTF-8'>
                 <input type='hidden' name='admin_id' value='" . $oneowner['ID'] . "'></input>
                 <button type='submit' name='submitbutton' class='delete' value='" . BUTTON_DELETE . "'>" . _("Delete Administrator") . "</button>
                 </form>
@@ -155,7 +155,7 @@ if (count($pending_invites) > 0) {
 }
 ?>
 <br/>
-<form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;'>
+<form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
     <?php echo _("New administrator's email address:"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
@@ -167,12 +167,12 @@ if ($is_fed_admin) {
             $is_admin_himself = TRUE;
     }
 
-    if (!$is_admin_himself) echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;'>
+    if (!$is_admin_himself) echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='" . BUTTON_TAKECONTROL . "'>" . _("Take control of this institution") . "</button>
 </form>";
 }
 ?>
 <hr/>
-<form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post'>
+<form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>' onclick='removeMsgbox(); return false;'><?php echo _("Close"); ?></button>
 </form>

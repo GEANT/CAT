@@ -120,7 +120,7 @@ function productheader($area, $language) {
     echo "<h1>$cap1</h1>";
     echo "</div><!--header_captions-->";
     echo "<div id='langselection' style='padding-top:20px; padding-left:10px;'>";
-    echo "<form action='" . $place['path'] . "' method='GET'>" . _("View this page in") . " ";
+    echo "<form action='" . $place['path'] . "' method='GET' accept-charset='UTF-8'>" . _("View this page in") . " ";
     echo "<select id='lang' name='lang' onchange='this.form.submit()'>";
     foreach (Config::$LANGUAGES as $lang => $value) {
         echo "<option value='$lang' ".(strtoupper($language) == strtoupper($lang) ? "selected" : "" )." >" . $value['display'] . "</option> ";

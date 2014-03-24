@@ -89,7 +89,7 @@ if ($device) {
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>
 <hr/>
 
-<form action='inc/toggleRedirect.inc.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $my_profile->identifier; ?>' method='post'><?php echo $extrainput; ?>
+<form action='inc/toggleRedirect.inc.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $my_profile->identifier; ?>' method='post' accept-charset='UTF-8'><?php echo $extrainput; ?>
     <table id='expandable_<?php echo $keyword;?>_options'>
         <?php
 // see if we already have any attributes; if so, display these

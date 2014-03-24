@@ -46,7 +46,7 @@ if (isset($_POST['option']))
     ?>
 </table>
 <br/>
-<form method='post' action='overview_user.php'>
+<form method='post' action='overview_user.php' accept-charset='UTF-8'>
     <button type='submit'>
         <?php echo _("Continue to user overview page"); ?>
     </button>

@@ -95,7 +95,7 @@ else
         </table>
     </div>
 <?php
-echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizard_style ? "&wizard=true" : "") . "' method='post'>
+echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizard_style ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
 
 if ($wizard_style)

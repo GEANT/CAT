@@ -195,7 +195,7 @@ $idpoptions = $my_inst->getAttributes();
         <table><?php echo infoblock($idpoptions, "eap", "IdP"); ?></table>
     </div>
     <?php
-    echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($edit_mode ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post'>
+    echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($edit_mode ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
     ?>
     <fieldset class="option_container">

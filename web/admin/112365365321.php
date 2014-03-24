@@ -34,7 +34,7 @@ if (!in_array($user->identifier, Config::$SUPERADMINS) && !in_array("I do not ca
 $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 ?>
     <h1>By. Your. Command.</h1>
-    <form action="112365365321.php" method="POST">
+    <form action="112365365321.php" method="POST" accept-charset="UTF-8">
         <fieldset class="option_container">
             <legend>
                 <strong>Configuration Check</strong>

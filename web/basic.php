@@ -185,7 +185,7 @@ debug(4,"\n----------------------------------SIMPLE.PHP------------------------\
         <meta charset="utf-8" /> 
     </head>
     <body style="">
-<form method="POST" action="<?php echo $_SERVER['SCRIPT_NAME']?>">
+<form method="POST" action="<?php echo $_SERVER['SCRIPT_NAME']?>" accept-charset='UTF-8'>
 <?php //print '<pre>'; print_r($_REQUEST); print_r($Gui->Args); print '</pre>'; ?>
         <img src="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/images/consortium_logo.png" style="padding-right:20px; padding-top:20px; float:right" alt="logo" />
          <?php
