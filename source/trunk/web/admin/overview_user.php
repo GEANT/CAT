@@ -58,7 +58,7 @@ $user = new User($_SESSION['user']);
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
 
         if ($user->isFederationAdmin())
-            echo '<form action="overview_federation.php" method="GET"><button type="submit">' . _("Click here to manage your federations") . '</button></form>';
+            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>' . _('Click here to manage your federations') . '</button></form>";
         ?>
     </div>
     <?php
@@ -125,7 +125,7 @@ $user = new User($_SESSION['user']);
                 // echo $admin . "<br/>";
                 echo "</td><td>";
                 if ($i_am_blessed)
-                    echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
+                    echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
                 echo "</td></tr>";
             }
         }
@@ -138,7 +138,7 @@ $user = new User($_SESSION['user']);
         echo "<p>" . _("Please ask your federation administrator to invite you to become an institution administrator.") . "</p>";
         echo "<hr/>
              <div style='white-space: nowrap;'>
-                <form action='action_enrollment.php' method='get'>" .
+                <form action='action_enrollment.php' method='get' accept-charset='UTF-8'>" .
         _("Did you receive an invitation token to manage an institution? Please paste it here:") .
         "        <input type='text' id='token' name='token'/>
                     <button type='submit'>" .
@@ -149,7 +149,7 @@ $user = new User($_SESSION['user']);
     } else { // self-service registration is allowed! Yay :-)
         echo "<hr>
             <div style='white-space: nowrap;'>
-        <form action='action_enrollment.php' method='get'><button type='submit'>
+        <form action='action_enrollment.php' method='get'><button type='submit' accept-charset='UTF-8'>
                 <input type='hidden' id='token' name='token' value='SELF-REGISTER'/>" .
         _("Register New Institution!") . "
             </button>

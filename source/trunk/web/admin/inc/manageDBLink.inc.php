@@ -109,7 +109,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE && is
         echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
         printf(_("You can link it to the %s database below."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name']);
         $candidates = $my_inst->getExternalDBSyncCandidates();
-        echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post'>";
+        echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
         printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), Config::$CONSORTIUM['name']) . " ";
         if (count($candidates) > 0)
             printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), Config::$CONSORTIUM['name']);
@@ -182,6 +182,6 @@ if (count($pending_invites) > 0) {
 ?>
 <br/>
 <hr/>
-<form action='inc/manageDBLink.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post'>
+<form action='inc/manageDBLink.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>' onclick='removeMsgbox(); return false'><?php echo _("Close"); ?></button>
 </form>

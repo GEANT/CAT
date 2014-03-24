@@ -155,12 +155,12 @@ $profile->flushSupportedEapMethods();
     ?>
 </table>
 <br/>
-<form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>'>
+<form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
     <button type='submit'><?php echo _("Continue to dashboard"); ?></button>
 </form>
 <?php
 if (count($profile->getEapMethodsinOrderOfPreference(1)) > 0)
-    echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$profile->identifier'>
+    echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$profile->identifier' accept-charset='UTF-8'>
         <button type='submit'>" . _("Continue to Installer Fine-Tuning and Download") . "</button>
     </form>";
 footer();

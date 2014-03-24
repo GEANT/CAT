@@ -56,7 +56,7 @@ if (Config::$DB['enforce-external-sync']) {
 };
 ?>
 <hr/>
-<form name='sendinvite' action='inc/sendinvite.inc.php' method='post'>
+<form name='sendinvite' action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
     <table>
         <?php
         if (Config::$DB['enforce-external-sync']) {
@@ -134,6 +134,6 @@ if (Config::$DB['enforce-external-sync']) {
     <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE;?>'><?php echo _("Send invitation"); ?></button>
 </form>
 <br/>
-<form action='inc/manageNewInst.inc.php' method='post'>
+<form action='inc/manageNewInst.inc.php' method='post' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>'><?php echo _("Close"); ?></button>
 </form>
