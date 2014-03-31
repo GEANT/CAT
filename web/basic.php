@@ -90,6 +90,8 @@ $this->set_locale('core');
 }
 
 public function displayDeviceStatus($s) {
+    if ($s == -1)
+        return(-1);
     if ($s > 0)
         return(_("not available with settings provided by your institution"));
     return('');
@@ -112,6 +114,8 @@ public function passArgument($arg_name) {
 }
 
 public function printDevices($arg, $text, $status = '', $redirected = 0) {
+if($status === -1)
+ return;
     if ($redirected)
         print '<li><a href="' . $redirected . '">' . $text . '</a> - ' . _("you will be redirected to a local support page") . "\n";
     else {
@@ -309,8 +313,13 @@ print $Gui->passArgument('lang');
                     return;
                 }
                 $extra_text = '';
-                if(isset($D['device_customtext']) && $D['device_customtext']) 
+                if(isset($D['message']) && $D['message']) 
+                  $extra_text = $D['message']; 
+                if(isset($D['device_customtext']) && $D['device_customtext']) {
+                  if($extra_text)
+                    $extra_text .= '<p>';
                   $extra_text = $D['device_customtext']; 
+                }
                 if(isset($D['eap_customtext']) && $D['eap_customtext']) {
                   if($extra_text)
                     $extra_text .= '<p>';
