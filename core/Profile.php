@@ -25,6 +25,7 @@ require_once('EAP.php');
 require_once('X509.php');
 require_once('devices/devices.php');
 
+define("HIDDEN", -1);
 define("AVAILABLE", 0);
 define("UNAVAILABLE", 1);
 define("INCOMPLETE", 2);
@@ -593,6 +594,7 @@ class Profile {
         if ($locale == 0)
             $locale = $this->lang_index;
         $redirect_url = 0;
+        $message = 0;
         $returnarray = array();
         $redirect = $this->getAttributes("device-specific:redirect", 0, 0);
         if ($redirect) {
@@ -604,30 +606,30 @@ class Profile {
         foreach (Devices::listDevices() as $d => $D) {
             $factory = new DeviceFactory($d);
             $dev = $factory->device;
-            $extended_info = 0;
             $redirect_url = getLocalisedValue($this->getAttributes("device-specific:redirect", 0, $d), $locale);
             $dev_status = AVAILABLE;
+            if(isset($D['options']) && isset($D['options']['message']) && $D['options']['message']) 
+               $message = $D['options']['message'];
+
             if ($redirect_url === 0) {
-                $eap = $dev->getPreferredEapType($preferred_eap);
-                if ($eap) {
-                    if (isset($EAP_options["eap-specific:customtext"][serialize($eap)]))
-                        $eap_customtext = $EAP_options["eap-specific:customtext"][serialize($eap)];
-                    else {
-                        $eap_customtext = getLocalisedValue($this->getAttributes("eap-specific:customtext", $eap, 0), $locale);
-                        $EAP_options["eap-specific:customtext"][serialize($eap)] = $eap_customtext;
-                    }
-                    if ($eap_customtext)
-                        $extended_info = 1;
-                    $device_customtext = getLocalisedValue($this->getAttributes("device-specific:customtext", 0, $d), $locale);
-                    if ($device_customtext)
-                        $extended_info = 1;
-                } else {
+                if(isset($D['options']) && isset($D['options']['redirect']) && $D['options']['redirect']) {
+                   $dev_status = HIDDEN;
+                }  else {
+                   $eap = $dev->getPreferredEapType($preferred_eap);
+                   if ($eap) {
+                       if (isset($EAP_options["eap-specific:customtext"][serialize($eap)]))
+                           $eap_customtext = $EAP_options["eap-specific:customtext"][serialize($eap)];
+                       else {
+                           $eap_customtext = getLocalisedValue($this->getAttributes("eap-specific:customtext", $eap, 0), $locale);
+                           $EAP_options["eap-specific:customtext"][serialize($eap)] = $eap_customtext;
+                       }
+                       $device_customtext = getLocalisedValue($this->getAttributes("device-specific:customtext", 0, $d), $locale);
+                   } else {
                     $dev_status = UNAVAILABLE;
-                }
+                   }
+               }
             }
-            else
-                $extended_info = 1;
-            $returnarray[] = array('id' => $d, 'display' => $D['display'], 'status' => $dev_status, 'redirect' => $redirect_url, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext);
+            $returnarray[] = array('id' => $d, 'display' => $D['display'], 'status' => $dev_status, 'redirect' => $redirect_url, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext, 'message' => $message);
         }
         return $returnarray;
     }
