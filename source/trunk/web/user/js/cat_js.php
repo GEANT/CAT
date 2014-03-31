@@ -160,7 +160,6 @@ function resetDevices() {
      $("#profile_id").val(prof);
      txt = '';
      $.post('user/API.php', {action: 'profileAttributes', lang: lang, id: profile}, function(data) {
-alert(data);
        j = $.parseJSON(data).data;
        if(j.description !== undefined && j.description) {
          $("#profile_desc").text(j.description);
