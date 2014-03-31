@@ -121,7 +121,7 @@ class UserAPI extends CAT {
     $factory = new DeviceFactory($device);
     $dev = $factory->device;
     if(isset($dev)) {
-       $dev->setup($profile);
+//       $dev->setup($profile);
        $out = $dev->writeDeviceInfo();
    }
     $this->set_locale("web_user");

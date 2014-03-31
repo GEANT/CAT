@@ -98,7 +98,7 @@ abstract class DeviceConfig {
 debug(4,"INFO_FILE:\n");
 debug(4,$this->attributes);
        if(! $this->selected_eap) {
-          error("No EAP type specified");
+          error("No EAP type specified.");
           exit;
        }
        // create temporary directory, its path will be saved in $this->FPATH;
@@ -409,7 +409,7 @@ debug(4,$this->attributes['support:info_file']);
           $a['all_eaps'] = $eaps;
           return($a);
      } else {
-       error("no supported eap types found for this profile");
+       error("No supported eap types found for this profile.");
        return(FALSE);
   }
   }
