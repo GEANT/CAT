@@ -610,6 +610,8 @@ class Profile {
             $dev_status = AVAILABLE;
             if(isset($D['options']) && isset($D['options']['message']) && $D['options']['message']) 
                $message = $D['options']['message'];
+            else
+               $message = 0;
 
             if ($redirect_url === 0) {
                 if(isset($D['options']) && isset($D['options']['redirect']) && $D['options']['redirect']) {
