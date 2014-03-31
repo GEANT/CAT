@@ -104,6 +104,7 @@ function resetDevices() {
  $(".device_list button").removeClass('disabledDevice');
  $(".device_list button").removeClass('additionalInfo');
  $('.device_list button').unbind('click');
+ $('.device_list tr').show();
  $('.device_info').html('');
  $('.device_info').hide();
  $("#user_welcome").hide();

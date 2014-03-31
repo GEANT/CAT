@@ -144,7 +144,7 @@ public static function listDevices() {
     'options'=>array(
        'sign'=>0,
        'device_id'=>'XP',
-       'message' => _("MS Windows XP is no longer supported by Microsoft, therefore it can be unsecure and should not really be used"),
+       'message' => _("MS Windows XP is no longer supported by Microsoft, therefore it can be unsecure and should not really be used."),
        'mime'=>'application/x-dosexec',
       ),
    ),
@@ -207,8 +207,17 @@ public static function listDevices() {
      'match'=>'Linux',
      'directory'=>'linux',
      'module' => 'Linux',
-    'options'=>array(
+     'options'=>array(
        'mime'=>'application/x-sh',
+      ),
+   ),
+ 'android'=>array(
+     'group' => "android",
+     'display'=>_("Android"),
+     'directory'=>'redirect_dev',
+     'module'=>'RedirectDev',
+     'options'=>array(
+       'redirect'=>1,
       ),
    ),
  'welcomeletter'=>array(
