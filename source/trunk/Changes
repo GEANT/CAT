@@ -60,6 +60,10 @@ Changes in trunk
 - [FEATURE #25] QR codes now include the consortium logo (10% symbol obstruction, 25% allowed)
 - [FEATURE #26] Windows installer - moved the debug log file to the Documents directory
 - [FEATURE #27] Linux installer - force WPA2/AES
+- [FEATURE #28] Support for additions messages displayed before download
+                and configurable globally in devices.php, can be used for legacy  devices
+- [FEATURE #29] Support for unsupported devices that can be shown when device-specific redirects
+                are set
 - [STRUCTURE #1]  web/user/GUI.php renamed to core/UserAPI.php
 - [STRUCTURE #2]  web/user/cat_back.php renamed to web/user/API.php
 - [STRUCTURE #3]  updated PHP requirements to 5.5

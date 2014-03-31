@@ -34,6 +34,11 @@ class Devices{
  *         for device development, should not be used in production
  * - 'hidden' if defined and equal to 1 will hide the device form listing - 
  *         useful for device development 
+ * - 'redirect if defined and equal to 1 will only show the device on the listing
+ *         if device redirect has been defined by the admin
+ * - 'message' if defined will cause a display of the contents of this option as
+ *         an additional warning
+ *
  * - 'device_id' - used in building the installer filename; when this option
  *         is not defined, the filename will use the index from 
  *         the listDevices array; when defined and not empty, it will be 
@@ -49,6 +54,7 @@ public static $Options=array(
   'sign'=>0,
   'no_cache'=>0,
   'hidden'=>0,
+  'redirect'=>0,
 );
 
 /**
@@ -138,9 +144,22 @@ public static function listDevices() {
     'options'=>array(
        'sign'=>0,
        'device_id'=>'XP',
+       'message' => _("MS Windows XP is no longer supported by Microsoft, therefore it can be unsecure and should not really be used"),
        'mime'=>'application/x-dosexec',
       ),
    ),
+    
+ 'win-rt'=>array(
+    'group' => "microsoft",
+    'display'=>_("Windows RT"),
+    'directory'=>'redirect_dev',
+    'module'=>'RedirectDev',
+    'options'=>array(
+      'hidden'=>0,
+      'redirect'=>1,
+      ),
+   ),
+    
 	
  'apple_m_lion'=>array(
     'group' => "apple",

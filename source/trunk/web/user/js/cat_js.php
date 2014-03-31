@@ -160,6 +160,7 @@ function resetDevices() {
      $("#profile_id").val(prof);
      txt = '';
      $.post('user/API.php', {action: 'profileAttributes', lang: lang, id: profile}, function(data) {
+alert(data);
        j = $.parseJSON(data).data;
        if(j.description !== undefined && j.description) {
          $("#profile_desc").text(j.description);
@@ -192,9 +193,12 @@ function resetDevices() {
           $("#"+v.id).addClass('disabledDevice');
           $("#download_button_header_"+v.id).html("<?php echo _("This device cannot be configured with settings provided by your institution")?>");
           $("#info_b_"+v.id+",#g_info_b_"+v.id).hide();
-        } else 
-//          $("#info_b_"+v.id).show();
-          $("#info_b_"+v.id+",#g_info_b_"+v.id).show();
+        } else  {
+          if(v.status == -1)
+            $("#"+v.id).parent().parent().hide();
+          else
+            $("#info_b_"+v.id+",#g_info_b_"+v.id).show();
+        }
         if(v.redirect != '0') {
           $("#"+v.id).addClass('additionalInfo');
           $("#"+v.id).click(function(event){
@@ -206,7 +210,7 @@ function resetDevices() {
             });
                
           });
-        } else if(v.device_customtext != '0' || v.eap_customtext != '0' || v.status > 0) {
+        } else if(v.device_customtext != '0' || v.eap_customtext != '0' || v.message != '0' || v.status > 0) {
           var continue_text = "<?php echo _("Continue");?>";
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
@@ -216,6 +220,11 @@ function resetDevices() {
               continue_text = "<?php echo _("Close");?>";
             } else {
             t = i_div.html();
+            if(v.message != '0') {
+                if (t != '')
+                  t += '<br>';
+                t +=  v.message;
+            }
             if(v.device_customtext != '0') {
                 if (t != '')
                   t += '<br>';
