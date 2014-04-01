@@ -69,6 +69,11 @@ class XMLElement {
   public function areAttributes() {
     return empty($this->attributes)?0:1;
   }
+  public function setAttribute($attribute,$value) {
+    if( ! isset($this->attributes))
+       $this->attributes = array();
+    $this->attributes[$attribute] = $value;
+  }
   public function setProperty($property,$value) {
     $this->$property = $value;
   }
@@ -82,81 +87,47 @@ class XMLElement {
   }
 }
 class EAPIdentityProvider extends XMLElement {
-  protected $NameIDFormat;
-  protected $DisplayName;
-  protected $Description;
+  protected $ValidUntil; 
   protected $AuthenticationMethods;
-  protected $CompatibleUses;
-  protected $ProviderLocation;
-  protected $ProviderLogo;
-  protected $TermsOfUse;
-  protected $Helpdesk;
-}
-class DisplayName extends XMLElement {
-}
-class Description extends XMLElement {
-}
-class TermsOfUse extends XMLElement {
+  protected $ProviderInfo;
+  protected $VendorSpecific;
 }
 
-class Helpdesk extends XMLElement {
-  protected $EmailAddress;
-  protected $WebAddress;
-  protected $Phone;
-}
-class EmailAddress extends XMLElement {
-}
-class WebAddress extends XMLElement {
-}
-class Phone extends XMLElement {
-}
-class ProviderLocation extends XMLElement {
-  protected $Longitude;
-  protected $Latitude;
-}
-class ProviderLogo  extends XMLElement {
-}
-class CompatibleUses  extends XMLElement {
-  protected $IEEE80211;
-  protected $IEEE8023_NetworkID;
-  public function setIEEE80211($ieee80211) {
-    $this->IEEE80211 = $ieee80211;
-  }
-}
-class IEEE80211 extends XMLElement {
-  protected $SSID;
-  protected $ConsortiumOID;
-  protected $MinRSNProto;
-}
-class IEEE8023_NetworkID extends XMLElement {
-}
 class AuthenticationMethods extends XMLElement {
   protected $AuthenticationMethod;
 }
-class EAPMethod extends XMLElement {
-  protected $Type;
-  protected $TypeSpecific;
-  protected $VendorSpecific;
-}
-class Type extends XMLElement {
-}
-class TypeSpecific extends XMLElement {
-}
-class VendorSpecific extends XMLElement {
-}
-class NonEAPAuthMethod extends XMLElement {
-  protected $Type;
-}
+
 class AuthenticationMethod extends XMLElement {
   protected $EAPMethod;
   protected $ServerSideCredential;
   protected $ClientSideCredential;
   protected $InnerAuthenticationMethod;
 }
+
+class EAPMethod extends XMLElement {
+  protected $Type;
+  protected $TypeSpecific;
+  protected $VendorSpecific;
+}
+
+class NonEAPAuthMethod extends XMLElement {
+  protected $Type;
+  protected $TypeSpecific;
+  protected $VendorSpecific;
+}
+
+class Type extends XMLElement {
+}
+
+class TypeSpecific extends XMLElement {
+}
+
+class VendorSpecific extends XMLElement {
+}
+
 class ServerSideCredential extends XMLElement {
   protected $CA; // multi
   protected $ServerID; //multi
-  protected $EAPType;
   public function getAll() {
     if(isset(XMLElement::$AuthMethodElements['server'][$this->EAPType]) && XMLElement::$AuthMethodElements['server'][$this->EAPType]) {
     $E = XMLElement::$AuthMethodElements['server'][$this->EAPType];
@@ -170,16 +141,18 @@ class ServerSideCredential extends XMLElement {
   }
   }
 }
+
 class ServerID extends XMLElement {
 }
+
 class ClientSideCredential extends XMLElement {
-  protected $AnonymousIdentity;
+  protected $OuterIdentity;
   protected $UserName;
   protected $Password;
   protected $ClientCertificate;
-  protected $OneTimeToken;
+  protected $Passphrase;
   protected $PAC;
-  protected $EAPType;
+  protected $ProvisionPAC;
   public function getAll() {
     if(isset(XMLElement::$AuthMethodElements['client'][$this->EAPType]) && XMLElement::$AuthMethodElements['client'][$this->EAPType]) {
     $E = XMLElement::$AuthMethodElements['client'][$this->EAPType];
@@ -195,19 +168,82 @@ debug(4,$E);
     }
   }
 }
+class ClientCertificate extends XMLElement {
+}
 class CA extends XMLElement {
 }
 class InnerAuthenticationMethod extends XMLElement {
   protected $EAPMethod;
   protected $NonEAPAuthMethod;
+  protected $ServerSideCredential;
   protected $ClientSideCredential;
 }
 
+class ProviderInfo extends XMLElement {
+  protected $DisplayName;
+  protected $Description;
+  protected $ProviderLocation;
+  protected $ProviderLogo;
+  protected $TermsOfUse;
+  protected $Helpdesk;
+}
+
+class DisplayName extends XMLElement {
+}
+
+class Description extends XMLElement {
+}
+
+class ProviderLocation extends XMLElement {
+  protected $Longitude;
+  protected $Latitude;
+}
+
+class ProviderLogo  extends XMLElement {
+}
+
+class TermsOfUse extends XMLElement {
+}
+
+class Helpdesk extends XMLElement {
+  protected $EmailAddress;
+  protected $WebAddress;
+  protected $Phone;
+}
+
+class EmailAddress extends XMLElement {
+}
+
+class WebAddress extends XMLElement {
+}
+
+class Phone extends XMLElement {
+}
+
+
+/*
+class CompatibleUses  extends XMLElement {
+  protected $IEEE80211;
+  protected $IEEE8023;
+  protected $ABFAB;
+}
+class IEEE80211 extends XMLElement {
+  protected $SSID;
+  protected $ConsortiumOID;
+  protected $MinRSNProto;
+}
+
+class IEEE8023 extends XMLElement {
+  protected $NetworkID;
+}
+class ABFAB extends XMLElement {
+  protected $ServiceIdentifier;
+}
+
+*/
 function SimpleXMLElement_append($key, $value) {
   if (trim((string) $value) == '') {
-#print '<pre>'; print_r($value); print '</pre>';
     $element = $key->addChild($value->getName());
-//print 'addChild '.$value->getName() .'<br>';
     foreach ($value->attributes() as $attKey => $attValue) {
       $element->addAttribute($attKey, $attValue);
     }
@@ -224,14 +260,19 @@ function marshalObject($node, $object) {
   $name = get_class($object);
   $name = preg_replace("/_/", "-", $name);
   if ($object->getValue()) $val = $object->getValue();
-  else $val == '';
+  else $val = '';
   $simplexmlelement = '';
   if ($val instanceof SimpleXMLElement) {
     $simplexmlelement = $val;
     $val = '';
   }
-  if ($val) $node = $node->addChild($name, $val);
-  else $node = $node->addChild($name);
+  if ($val) { 
+    if(getType($val) == 'string')
+       $val = preg_replace('/&/','&amp;',$val);
+    $node = $node->addChild($name, $val);
+  } 
+  else 
+    $node = $node->addChild($name);
   if ($object->areAttributes()) {
     $attrs = $object->getAttributes();
     foreach ($attrs as $attrt=>$attrv)

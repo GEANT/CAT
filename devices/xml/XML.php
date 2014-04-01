@@ -11,6 +11,7 @@
  * devices
  * actual modules only define available EAP types.
  *
+ * @author Maja Gorecka-Wolniewicz <mgw@umk.pl>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @package ModuleWriting
@@ -48,20 +49,15 @@ public function writeDeviceInfo() {
 
 public function writeInstaller() {
     $attr = $this->attributes;
-    $NAMEIDFORMAT = 'urn:RFC4282:realm';
+    $NAMESPACE = 'urn:RFC4282:realm';
 //EAPIdentityProvider  begin
     $eap_idp = new EAPIdentityProvider();
-    $eap_idp->setProperty('NameIDFormat',$NAMEIDFORMAT);
-    $eap_idp->setProperty('DisplayName',$this->getDisplayName());
-    $eap_idp->setProperty('Description',$this->getSimpleMLAttribute('profile:description'));
-// AuthenticationMethods start
-    $eap_idp->setProperty('CompatibleUses',$this->getCompatibleUses());
-// ProviderLogo->
-    $eap_idp->setProperty('ProviderLogo',$this->getProviderLogo());
-    $eap_idp->setProperty('TermsOfUse',$this->getSimpleMLAttribute('support:info_file'));
-    $eap_idp->setProperty('Helpdesk',$this->getHelpdesk());
-// ProviderLocation
+//    $eap_idp->setProperty('ValidUntil',$this->getValidUntil());
+// ProviderInfo->
+    $eap_idp->setProperty('ProviderInfo',$this->getProviderInfo());
+// TODO    $eap_idp->setProperty('VendorSpecific',$this->getVendorSpecific());
 //AuthenticationMethods
+// TODO
 //ID attribute
 //lang attribute
     $authmethods = array();
@@ -76,19 +72,23 @@ public function writeInstaller() {
     $authenticationmethods = new AuthenticationMethods();
     $authenticationmethods->setProperty('AuthenticationMethods',$authmethods);
     $eap_idp->setProperty('AuthenticationMethods',$authenticationmethods);
+    $eap_idp->setAttribute('ID','XXX');
+    $eap_idp->setAttribute('namespace',$NAMESPACE);
     if($this->lang_scope === 'single')
-       $eap_idp->setAttributes(array('lang' => $this->lang_index));
+       $eap_idp->setAttribute('lang',$this->lang_index);
+    $eap_idp->setAttribute('version','1');
+    
 
-// EAPIdentityProvicer end
+// EAPIdentityProvider end
 
 // Generate XML
 
     $rootname = 'EAPIdentityProviderList';
-    $root = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"generic-data-strawman.xsd\"></{$rootname}>");
+    $root = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"eap-metadata.xsd\"></{$rootname}>");
 
     marshalObject($root,$eap_idp);
     $dom = dom_import_simplexml($root)->ownerDocument;
-    $res = $dom->schemaValidate(CAT::$root .'/devices/xml/generic-data-strawman.xsd');
+    $res = $dom->schemaValidate(CAT::$root .'/devices/xml/eap-metadata.xsd');
     $f = fopen($this->installerBasename.'.eap-config',"w");
     fwrite($f,$dom->saveXML());
     fclose($f);
@@ -188,6 +188,42 @@ private function getProviderLogo() {
       return $providerlogo;
   }
 }
+
+private function getProviderInfo() {
+   $providerinfo = new ProviderInfo();
+   $providerinfo->setProperty('DisplayName',$this->getDisplayName());
+   $providerinfo->setProperty('Description',$this->getSimpleMLAttribute('profile:description'));
+   $providerinfo->setProperty('ProviderLocation',$this->getProvideLocation());
+   $providerinfo->setProperty('ProviderLogo',$this->getProviderLogo());
+   $providerinfo->setProperty('TermsOfUse',$this->getSimpleMLAttribute('support:info_file'));
+   $providerinfo->setProperty('Helpdesk',$this->getHelpdesk());
+   return $providerinfo;
+}
+
+private function getProvideLocation() {
+   $attr = $this->attributes;
+   if(isset($attr['general:geo_coordinates'])){
+      $at = $attr['general:geo_coordinates'];
+      if (count($at) > 1) {
+          $at1 = array();
+          foreach ($at as $a) {
+               $providerlocation = new ProviderLocation();
+               $b = unserialize($a);
+               $providerlocation->setProperty('Longitude',$b['lon']);
+               $providerlocation->setProperty('Latitude',$b['lat']);
+               $at1[] = $providerlocation;
+          }
+         }
+         else {
+               $providerlocation = new ProviderLocation();
+               $b = unserialize($at);
+               $providerlocation->Longitude = $b['lon'];
+               $providerlocation->Latitude = $b['lat'];
+               $at1 = $providerlocation;
+         }
+         return$at1;
+    }
+}
   
 private function getHelpdesk() {
    $helpdesk = new Helpdesk();
@@ -208,6 +244,7 @@ private function getCompatibleUses() {
       $ieee80211s[] = $ieee80211;
    }
    $compatibleuses->setProperty('IEEE80211',$ieee80211s);
+// TODO IEEE8023, ABFAB
    return($compatibleuses);
 }
 
@@ -240,11 +277,6 @@ private function getAuthMethod($eap) {
      $vendorspecifics = array();
      foreach($this->VendorSpecific as $vs) {
         $vendorspecific = new VendorSpecific();
-/*
-print "<pre>";
-print_r($vs['value']);
-print "</pre>";
-*/
         $vs['value']->addAttribute('xsi:noNamespaceSchemaLocation',"xxx.xsd");
         $vendorspecific->setValue($vs['value']);
         $vendorspecific->setAttributes(array('vendor'=>$vs['vendor']));
@@ -285,9 +317,9 @@ print "</pre>";
 
    $clientsidecredential = new ClientSideCredential();
 
-// AnonymousIdentity 
+// OuterIdentity 
    if($attr['internal:use_anon_outer'] [0])
-      $clientsidecredential->setProperty('AnonymousIdentity',$attr['internal:anon_local_value'][0].'@'.$attr['internal:realm'][0]);
+      $clientsidecredential->setProperty('OuterIdentity',$attr['internal:anon_local_value'][0].'@'.$attr['internal:realm'][0]);
    $clientsidecredential->setProperty('EAPType',$eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
    $authmethod->setProperty('ClientSideCredential',$clientsidecredential);
    if($eapParams['inner_method'])
