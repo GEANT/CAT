@@ -363,6 +363,7 @@ private function GetRootURL() {
  */
 
  public function sendLogo($idp_id, $disco=FALSE) {
+   $ExpStr = '';
    if($disco && is_file($this->root.'/web/downloads/logos/'.$idp_id.'.png')) {
       debug(4,"Using cached logo for: $idp_id\n");
       $blob = file_get_contents($this->root.'/web/downloads/logos/'.$idp_id.'.png');
