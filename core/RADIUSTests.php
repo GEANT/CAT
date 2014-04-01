@@ -458,7 +458,7 @@ class RADIUSTests {
         $code = CERTPROB_LOW_KEY_LENGTH;
         $this->return_codes[$code]["message"] = _("At least one certificate in the chain had a public key of less than 1024 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
         $this->return_codes[$code]["severity"] = L_OK;
-        
+
         /**
          * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
          */
@@ -493,7 +493,7 @@ class RADIUSTests {
         $code = CERTPROB_NOT_A_HOSTNAME;
         $this->return_codes[$code]["message"] = _("The certificate contained a CN or subjectAltName:DNS which does not parse as a hostname. This can be problematic on some supplicants. If the certificate also contains names which are a proper hostname, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
         $this->return_codes[$code]["severity"] = L_OK;
-        
+
         /**
          * The server certificate's names contained at least one wildcard name.
          */
@@ -688,15 +688,15 @@ class RADIUSTests {
                 $sAN_DNS[] = substr($san_name, 4);
 
         $allnames = array_merge($CN, $sAN_DNS);
-        if (preg_match("/\*/",implode($allnames)))
-                $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
-        
+        if (preg_match("/\*/", implode($allnames)))
+            $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
+
         // check for real hostname
         foreach ($allnames as $onename) {
             // TODO: uncomment this as soon as we can require 5.4 for IDN
             // if (filter_var("foo@".idn_to_ascii($onename),FILTER_VALIDATE_EMAIL) === FALSE)
-            if (filter_var("foo@".$onename,FILTER_VALIDATE_EMAIL) === FALSE)
-                    $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
+            if (filter_var("foo@" . $onename, FILTER_VALIDATE_EMAIL) === FALSE)
+                $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
         }
 
         return $returnarray;
@@ -744,6 +744,28 @@ class RADIUSTests {
      */
     public function UDP_reachability($probeindex, $opname_check = TRUE, $frag = TRUE) {
         return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "ihavenopassword", $opname_check, $frag);
+    }
+
+    private function filter_packettype($inputarray) {
+        $retarray = array();
+        foreach ($inputarray as $line) {
+            if (preg_match("/RADIUS message:/", $line)) {
+                $linecomponents = explode(" ", $line);
+                $packettype_exploded = explode("=", $linecomponents[2]);
+                $packettype = $packettype_exploded[1];
+                $retarray[] = $packettype;
+            }
+        }
+        return $retarray;
+    }
+
+    private function check_mschap_691_r($inputarray) {
+        foreach ($inputarray as $lineid => $line) {
+            if (preg_match("/MSCHAPV2: error 691/", $line) && preg_match("/MSCHAPV2: retry is allowed/", $inputarray[$lineid + 1])) {
+                return TRUE;
+            }
+        }
+        return FALSE;
     }
 
     public function UDP_login($probeindex, $eaptype, $user, $password, $opname_check = TRUE, $frag = TRUE, $clientcertdata = NULL) {
@@ -833,6 +855,7 @@ network={
 
         $testresults = array();
         $testresults['cert_oddities'] = array();
+        $packetflow_orig = array();
         $packetflow = array();
         $cmdline = Config::$PATHS['eapol_test'] .
                 " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
@@ -846,12 +869,17 @@ network={
         if ($frag)
             for ($i = 0; $i < 6; $i++) // 6 x 250 bytes means UDP fragmentation will occur - good!
                 $cmdline .= '-N26:x:0000625A0BF961616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161 ';
-        $cmdline .= " | grep 'RADIUS message:' | cut -d ' ' -f 3 | cut -d '=' -f 2";
+
         debug(4, "Shallow reachability check cmdline: $cmdline\n");
         debug(4, "Shallow reachability check config: $tmp_dir\n$log_config\n");
         $time_start = microtime(true);
-        exec($cmdline, $packetflow);
+        exec($cmdline, $packetflow_orig);
         $time_stop = microtime(true);
+        debug(5, print_r($packetflow_orig, TRUE));
+        $packetflow = $this->filter_packettype($packetflow_orig);
+        if ($packetflow[count($packetflow)] = 11 && $this->check_mschap_691_r($packetflow_orig))
+            $packetflow[count($packetflow)] = 3;
+        debug(5, print_r($packetflow, TRUE));
         $testresults['time_millisec'] = ($time_stop - $time_start) * 1000;
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
@@ -1220,10 +1248,10 @@ network={
         // FIXME: PHP Fatal error:  Call-time pass-by-reference has been removed in /var/www/cat/source/trunk/core/RADIUSTests.php on line 1222
         if (preg_match("/\[/", $host))
             return RETVAL_INVALID;
-        if (!isset($this->TLS_CA_checks_result[$host])) 
-          $this->TLS_CA_checks_result[$host] = array();
+        if (!isset($this->TLS_CA_checks_result[$host]))
+            $this->TLS_CA_checks_result[$host] = array();
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
-fputs($f, serialize($this->TLS_CA_checks_result)."\n");
+        fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
         $res = $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
         return $res;
     }
@@ -1251,7 +1279,7 @@ fputs($f, serialize($this->TLS_CA_checks_result)."\n");
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
                     $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
                     if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]))
-                      $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = array();
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = array();
                     $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                     $res = $this->openssl_result($host, 'clients', $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                     if ($cert['expected'] == 'PASS') {
