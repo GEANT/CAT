@@ -123,7 +123,7 @@ function addDefaultEapServerOptions() {
 }
 
 function addDefaultMediaOptions() {
-    getXML(addMediaOption,"inc/option_xhr.inc.php?class=eap");
+    getXML(addMediaOption,"inc/option_xhr.inc.php?class=media");
 }
 
 function addDeviceOptions() {
