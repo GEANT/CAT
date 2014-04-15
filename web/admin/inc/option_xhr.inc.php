@@ -39,8 +39,11 @@ if (isset($_GET["class"])) {
             $list = array_values($list);
         }
         break;
+    case "eap":
+    case "support":
     case "profile":
     case "media":
+            $list = array_values($list);
         break;
     default:
         debug(1,"Unknown type of option!");
