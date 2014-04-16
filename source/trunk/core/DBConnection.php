@@ -34,7 +34,7 @@ class DBConnection {
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
      * @return DBConnection the (only) instance of this class
      */
-    private function handle($db) {
+    private static function handle($db) {
         switch (strtoupper($db)) {
             case "INST":
                 if (!isset(self::$instance_inst)) {
