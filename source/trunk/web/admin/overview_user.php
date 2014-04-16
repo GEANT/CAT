@@ -58,7 +58,7 @@ $user = new User($_SESSION['user']);
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
 
         if ($user->isFederationAdmin())
-            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>' . _('Click here to manage your federations') . '</button></form>";
+            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to manage your federations') . "</button></form>";
         ?>
     </div>
     <?php
