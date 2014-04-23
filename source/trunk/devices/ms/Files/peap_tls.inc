@@ -62,7 +62,7 @@ Function showComponents
   ${If} $PFX_install == 0
     SectionSetFlags ${cert} 0
   ${Else}
-    SectionSetFlags ${cert} 17
+    SectionSetFlags ${cert} 1
   ${EndIf}
 
 ;TRANSLATION
