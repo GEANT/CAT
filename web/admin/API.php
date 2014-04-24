@@ -34,7 +34,7 @@ function return_error($code, $description) {
     echo "</CAT-API-Response>\n";
 }
 
-echo "<?xml>\n";
+echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
 
 if (!isset(Config::$CONSORTIUM['registration_API_keys']) || count(Config::$CONSORTIUM['registration_API_keys']) == 0) {
     return_error(ERROR_API_DISABLED, "API is disabled in this instance of CAT");
