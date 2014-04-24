@@ -79,7 +79,7 @@ switch($sanitised_action) {
         $mgmt = new UserManagement();
         $fed = new Federation($federation);
         $idp = new IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
-        print_r($_POST);
+        // print_r($_POST);
         // that's a bit unpleasant... processSubmittedFields reads directly from
         // POST, but I need to do some sanitising first.
         // TODO For 1.1, make sure that pSF gets is field as a parameter, not implicitly via POST
