@@ -120,7 +120,8 @@ debug(4,$this->attributes['support:info_file']);
        if(isset($this->attributes['general:logo_file']))
           $this->attributes['internal:logo_file'] = 
              $this->saveLogoFile($this->attributes['general:logo_file']);
-       $this->attributes['internal:SSID'] = $this->getSSIDs();
+       $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];;
+       $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];;
        $this->lang_index = CAT::$lang_index;
        // phpMD says the below is not needed. Wow.
        // $idp = new IdP($profile->institution);
@@ -329,26 +330,35 @@ debug(4,$this->attributes['support:info_file']);
     return $d_id;
   }
 
+
   private function getSSIDs() {
-    $S=array();
+    $S['add']=array();
+    $S['del']=array();
     if (isset(Config::$CONSORTIUM['ssid'])) {
        foreach (Config::$CONSORTIUM['ssid'] as $ssid) {
         if(isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] == TRUE)
-          $S[$ssid] = 'TKIP';
-        else
-          $S[$ssid] = 'AES';
+          $S['add'][$ssid] = 'TKIP';
+        else {
+          $S['add'][$ssid] = 'AES';
+          $S['del'][$ssid] = 'TKIP';
+        }
        }
     }
     if(isset($this->attributes['general:SSID'])) {
       $SSID = $this->attributes['general:SSID'];
 
       foreach($SSID as $ssid)
-         $S[$ssid] = 'AES';
+         $S['add'][$ssid] = 'AES';
       }
     if(isset($this->attributes['general:SSID_with_legacy'])) {
       $SSID = $this->attributes['general:SSID_with_legacy'];
       foreach($SSID as $ssid)
-         $S[$ssid] = 'TKIP';
+         $S['add'][$ssid] = 'TKIP';
+    }
+    if(isset($this->attributes['media:remove_SSID'])) {
+      $SSID = $this->attributes['media:remove_SSID'];
+      foreach($SSID as $ssid)
+         $S['del'][$ssid] = 'DEL';
     }
     return $S;
   }
