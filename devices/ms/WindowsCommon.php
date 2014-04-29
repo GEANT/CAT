@@ -113,6 +113,18 @@ if(isset($attr['support:info_file'])) {
   return $out;
 }
 
+
+protected function writeAdditionalDeletes($P) {
+  if(count($P) == 0 )
+    return;
+  $f = fopen('profiles.nsh','a');
+  fwrite($f,"!define AdditionalDeletes\n");
+  foreach ($P as $p)
+    fwrite($f,"!insertmacro define_delete_profile \"$p\"\n");
+  fclose($f);
+}
+
+
 public $LANGS=array(
 'fr'=>array('nsis'=>"French",'cp'=>'1252'),
 'de'=>array('nsis'=>"German",'cp'=>'1252'),

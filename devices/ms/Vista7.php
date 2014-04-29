@@ -39,8 +39,17 @@ class Device_Vista7 extends WindowsCommon {
      $CA_files = $this->saveCertificateFiles('der');
 
      $SSIDs = $this->attributes['internal:SSID'];
+     $delSSIDs = $this->attributes['internal:remove_SSID'];
      $this->prepareInstallerLang();
      $set_wired = $this->attributes['general:wired'][0] == 'on' ? 1 : 0;
+//   create a list of profiles to be deleted after installation
+     $delProfiles = array();
+     foreach ($delSSIDs as $ssid => $cipher) {
+         if($cipher == 'DEL') 
+          $delProfiles[] = $ssid;
+         if($cipher == 'TKIP') 
+          $delProfiles[] = $ssid.' (TKIP)';
+     }
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
        $WindowsProfile = array();
@@ -70,6 +79,7 @@ class Device_Vista7 extends WindowsCommon {
     debug(4,"WindowsProfile"); debug(4,$WindowsProfile);
     
     $this->writeProfilesNSH($WindowsProfile, $CA_files,$set_wired);
+    $this->writeAdditionalDeletes($delProfiles);
     $this->copyFiles($this->selected_eap);
     if(isset($this->attributes['internal:logo_file']))
        $this->combineLogo($this->attributes['internal:logo_file']);

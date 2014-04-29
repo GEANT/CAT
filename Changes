@@ -66,6 +66,7 @@ Changes in trunk
                 and configurable globally in devices.php, can be used for legacy  devices
 - [FEATURE #29] Support for unsupported devices that can be shown when device-specific redirects
                 are set
+- [FEATURE #30] Core and Windows support for profile deletion (also including the Consrtium TKIP profile)
 - [STRUCTURE #1]  web/user/GUI.php renamed to core/UserAPI.php
 - [STRUCTURE #2]  web/user/cat_back.php renamed to web/user/API.php
 - [STRUCTURE #3]  updated PHP requirements to 5.5
