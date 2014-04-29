@@ -95,7 +95,7 @@ public static function listDevices() {
  'w8'=>array(
    'group' => "microsoft",
    'display'=>_("MS Windows 8, 8.1"),
-   'match'=>'Windows NT 6[._]2',
+   'match'=>'Windows NT 6[._][23]',
    'directory'=>'ms',
    'module'=>'W8',
    'signer'=>'ms_windows_sign',
