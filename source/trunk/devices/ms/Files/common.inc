@@ -51,6 +51,13 @@ ${ArrayFunc} ReadNext
 ${ArrayFunc} Push
 ${ArrayFunc} ReadClose
 
+${Array} "Additional_deletes" 5 40
+${ArrayFunc} ReadFirst
+${ArrayFunc} ReadNext
+${ArrayFunc} Push
+${ArrayFunc} ReadClose
+
+
 ${Array} "Commands" 6 80
 ${ArrayFunc} ReadFirst
 ${ArrayFunc} ReadNext
@@ -164,6 +171,10 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
 !endif
 !macroend
 
+!macro define_delete_profile prof
+  ${Additional_deletes->Push} "${prof}" 
+!macroend
+
 
 !macro define_wlan_profile prof enc
   ${Profile_names->Write} $profile_count "${prof}"
@@ -272,6 +283,7 @@ Function .onInit
   ${Profile_states->Init}
   ${Delete_files->Init}
   ${Commands->Init}
+  ${Additional_deletes->Init}
   Push 0
   Pop $profile_count
   Push 0
@@ -649,21 +661,35 @@ FunctionEnd
 Function ProfileCheck
   Pop $R0
   ${Profile_names->Read} $R1 $R0
-  DetailPrint "<?php echo_nsi( _("Checking for profile \$R1"))?>"
-  !insertmacro debug_cat 2 "Checking for profile $R1"
-  !insertmacro debug_cat 3 "Exec: netsh wlan show profiles $R1"
-  nsExec::Exec  '"netsh" wlan show profiles "$R1"'
+  Push $R1
+  call FindProfile
   Pop $0
-  !insertmacro debug_cat 3 "netsh returned $0"
   ${If} $0 == 0
-    !insertmacro debug_cat 1 "found profile $R1"
-    DetailPrint "<?php echo_nsi( _("found profile \$R1"))?>"
     ${Profile_states->Write} $R0 ${PROFILE_STATE_DELETE}
   ${Else}
     ${Profile_states->Write} $R0 0
   ${EndIf}
 FunctionEnd
 ;==========================
+
+Function FindProfile
+  Pop $R8
+  DetailPrint "<?php echo_nsi( _("Checking for profile \$R8"))?>"
+  !insertmacro debug_cat 2 "Checking for profile $R8"
+  !insertmacro debug_cat 3 "Exec: netsh wlan show profiles $R8"
+  nsExec::Exec  '"netsh" wlan show profiles "$R8"'
+  Pop $0
+  !insertmacro debug_cat 4 "netsh returned $0"
+  ${If} $0 == 0
+    !insertmacro debug_cat 1 "found profile $R8"
+    DetailPrint "<?php echo_nsi( _("found profile \$R8"))?>"
+    Push 0
+  ${Else}
+    !insertmacro debug_cat 1 "profile $R8 not found"
+    Push 1
+  ${EndIf}
+FunctionEnd
+
 
 ; Check which wireless profiles already exist and should be deleted
 Function CheckWirelessProfiles
@@ -790,12 +816,12 @@ FunctionEnd
 Function CreateLanProfile
  !insertmacro debug_cat 2 "nstalling wired profile"
  DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
-  !insertmacro debug_cat 3 "Execute: netsh lan add profile $TEMP\lan_prof.xml"
+  !insertmacro debug_cat 3 "E not foundxecute: netsh lan add profile $TEMP\lan_prof.xml"
   ${Commands->Shift} "netsh wlan add profile $TEMP\lan_prof.xml"
 ;  ${Commands->Shift} "del $TEMP\lan_prof.xml"
   nsExec::Exec '"netsh" lan add profile $TEMP\lan_prof.xml'
   Pop $0
-  !insertmacro debug_cat 3 "netsh returned $0"
+  !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 == 0
     Push 1
     Pop $get_credentials
@@ -846,7 +872,7 @@ Function InstallProfile
     ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
     nsExec::Exec '"netsh" wlan delete profile "$R1"'
     Pop $0
-    !insertmacro debug_cat 3 "netsh returned $0"
+    !insertmacro debug_cat 4 "netsh returned $0"
     !insertmacro debug_cat 1 "Profile $R1 deleted"
   ${EndIf}
   DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
@@ -855,7 +881,7 @@ Function InstallProfile
 ;  ${Commands->Shift} "del $TEMP\wlan_prof-$R0.xml"
   nsExec::Exec '"netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
   Pop $0
-  !insertmacro debug_cat 3 "netsh returned $0"
+  !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 <> 0
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
     IfSilent +2
@@ -877,6 +903,28 @@ Function InstallProfile
   ${EndIf}
   !endif
   ${EndIf}
+  !ifdef AdditionalDeletes
+     !insertmacro debug_cat 1 'Additional Deletes'
+     ClearErrors
+     ${Additional_deletes->ReadFirst} $R5 $R1
+     Loop2:
+     IfErrors Done2
+     Push $R1
+     call FindProfile
+     Pop $0
+     ${If} $0 == 0
+       DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
+       !insertmacro debug_cat 1 'deleting profile "$R1"'
+       !insertmacro debug_cat 3 'Execute: netsh wlan delete profile "$R1"'
+       ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
+       nsExec::Exec '"netsh" wlan delete profile "$R1"'
+     ${EndIf}
+     ClearErrors
+     ${Additional_deletes->ReadNext} $R5 $R1
+     Goto Loop2
+     Done2:
+     ${Additional_deletes->ReadClose} $R5
+  !endif
 FunctionEnd
 
 ; Install credentials for wired
