@@ -362,7 +362,7 @@ class RADIUSTests {
          * test executed, and there were errors
          */
         $code = RETVAL_INVALID;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("There were errors during the test.");
         $this->return_codes[$code]["severity"] = L_OK;
 
 // return codes specific to NAPTR existence checks
@@ -377,7 +377,7 @@ class RADIUSTests {
          * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
          */
         $code = RETVAL_ONLYUNRELATEDNAPTR;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("NAPTR records were found, but all of them refer to unrelated services.");
         $this->return_codes[$code]["severity"] = L_OK;
 
 // return codes specific to authentication checks
@@ -385,35 +385,35 @@ class RADIUSTests {
          * no reply at all from remote RADIUS server
          */
         $code = RETVAL_NO_RESPONSE;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("There was no reply at all from the RADIUS server.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
          * auth flow stopped somewhere in the middle of a conversation
          */
         $code = RETVAL_SERVER_UNFINISHED_COMM;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("There was a bidirectional communication with the RADIUS server, but it ended halfway through.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
          * a RADIUS server did not want to talk EAP with us, but at least replied with a Reject
          */
         $code = RETVAL_IMMEDIATE_REJECT;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The RADIUS server immediately rejected the authentication request in its first reply.");
         $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * a RADIUS server talked EAP with us, but didn't like us in the end
          */
         $code = RETVAL_CONVERSATION_REJECT;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The RADIUS server rejected the authentication request after an EAP conversation.");
         $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * a RADIUS server refuses connection
          */
         $code = RETVAL_CONNECTION_REFUSED;
-        $this->return_codes[$code]["message"] = _("Conection refused");
+        $this->return_codes[$code]["message"] = _("Connection refused");
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
@@ -536,28 +536,28 @@ class RADIUSTests {
          * The server presented a certificate which is from an unknown authority
          */
         $code = CERTPROB_UNKNOWN_CA;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The server presented a certificate from an unknown authority.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
          * The server accepted this client certificate, but should not have
          */
         $code = CERTPROB_WRONGLY_ACCEPT;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The server accepted the INVALID client certificate.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
          * The server does not accept this client certificate, but should have
          */
         $code = CERTPROB_WRONGLY_NOT_ACCEPTED;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The server rejected the client certificate, even though it was valid.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
          * The server does accept this client certificate
          */
         $code = CERTPROB_NOT_ACCEPTED;
-        $this->return_codes[$code]["message"] = _("");
+        $this->return_codes[$code]["message"] = _("The server rejected the client certificate.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         CAT::set_locale($oldlocale);
