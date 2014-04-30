@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-25 10:33+0100\n"
+"POT-Creation-Date: 2014-04-30 13:31+0200\n"
 "PO-Revision-Date: 2013-02-17 09:40+0000\n"
 "Last-Translator: MarkoE <marko.eremija@amres.ac.rs>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/cat/language/"
@@ -205,11 +205,37 @@ msgstr ""
 "poruku sistema koja će ovo potvrditi."
 
 #: web/user/faq.php:45
+msgid ""
+"Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
+"commonly downloaded and possibly harmful. Should I be concerned?"
+msgstr ""
+
+#: web/user/faq.php:46
+msgid ""
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+
+#: web/user/faq.php:46
+#, php-format
+msgid ""
+"So long as the file is carrying a valid signature from %s, the download is "
+"safe."
+msgstr ""
+
+#: web/user/faq.php:46
+#, php-format
+msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
+msgstr ""
+
+#: web/user/faq.php:52
 #, php-format
 msgid "Why is there no support for Android?"
 msgstr "Zašto nema podrške za Android?"
 
-#: web/user/faq.php:46
+#: web/user/faq.php:53
 #, php-format
 msgid ""
 "%s relies on technologies being available on the target platform - we need "
@@ -223,7 +249,7 @@ msgstr ""
 "Apple i Microsoft imaju tu funkcionalnost, ali kod Androida ne postoji takav "
 "mehanizam."
 
-#: web/user/faq.php:48
+#: web/user/faq.php:55
 #, php-format
 msgid ""
 "That is - <i>to our knowledge</i>. If you are a developer with some good "
@@ -234,7 +260,7 @@ msgstr ""
 "dobro poznavanje Andoidovih API-ja, i znate kako da to uradite - molimo vas "
 "da nas obavestite; bićemo oduševljeni!"
 
-#: web/user/faq.php:54
+#: web/user/faq.php:61
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
@@ -243,7 +269,7 @@ msgstr ""
 "Vidim %s mrežu i uređaj je ispravno konfigurisan, ali se ne mogu povezati. "
 "Koji bi mogao biti uzrok?"
 
-#: web/user/faq.php:55
+#: web/user/faq.php:62
 #, php-format
 msgid ""
 "There can be a number of different reasons. The network you see may not be a "
@@ -263,17 +289,17 @@ msgstr ""
 "i prijavite problem, administratori mogu da  utvrde zbog čega je došlo do "
 "problema."
 
-#: web/user/faq.php:61
+#: web/user/faq.php:68
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
 msgstr "Imam pitanje u vezi ove web stranice. Koga  mogu da kontaktiram?"
 
-#: web/user/faq.php:62
+#: web/user/faq.php:69
 #, php-format
 msgid "You should send a mail to %s."
 msgstr "Trebalo bi da pošaljete mejl %s."
 
-#: web/user/faq.php:85
+#: web/user/faq.php:92
 msgid "Frequently Asked Questions"
 msgstr "Često postavljena pitanja"
 
@@ -281,7 +307,7 @@ msgstr "Često postavljena pitanja"
 msgid "Terms of Use"
 msgstr "Pravila korišćenja"
 
-#: web/user/js/cat_js.php:16 web/basic.php:315
+#: web/user/js/cat_js.php:22 web/basic.php:312
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
@@ -290,31 +316,32 @@ msgstr ""
 "Ovo je neprijatno. Generisanje vašeg programa za instalaciju nije uspelo. "
 "Administratori sistema su obavešteni. Pokušaćemo da rešimo problem što pre."
 
-#: web/user/js/cat_js.php:35
-msgid "no matching data found"
+#: web/user/js/cat_js.php:49
+#, fuzzy
+msgid "no maching data found"
 msgstr "nema podataka koji se poklapaju"
 
-#: web/user/js/cat_js.php:43
+#: web/user/js/cat_js.php:58
 msgid "Selected institution:"
 msgstr "Odabrane institucija:"
 
-#: web/user/js/cat_js.php:46
+#: web/user/js/cat_js.php:63
 msgid "select"
 msgstr "odaberite"
 
-#: web/user/js/cat_js.php:157
+#: web/user/js/cat_js.php:173
 msgid "WWW:"
 msgstr "WWW:"
 
-#: web/user/js/cat_js.php:159
+#: web/user/js/cat_js.php:175
 msgid "email:"
 msgstr "email:"
 
-#: web/user/js/cat_js.php:161
+#: web/user/js/cat_js.php:177
 msgid "tel:"
 msgstr "tel:"
 
-#: web/user/js/cat_js.php:163
+#: web/user/js/cat_js.php:179
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from you "
 "home organisation at:"
@@ -322,13 +349,20 @@ msgstr ""
 "Ukoliko naiđete na problem, za pomoć se možete obratiti vašoj matičnoj "
 "instituciji na:"
 
-#: web/user/js/cat_js.php:165 web/basic.php:289 web/basic.php:339
+#: web/user/js/cat_js.php:181 web/basic.php:286 web/basic.php:344
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
 msgstr ""
 "Ukoliko naiđete na problem, za pomoć se obratite vašoj matičnoj instituciji"
 
-#: web/user/js/cat_js.php:183
+#: web/user/js/cat_js.php:194 web/user/js/cat_js.php:219
+msgid ""
+"This device cannot be configured with settings provided by your institution"
+msgstr ""
+"Ovaj uređaj se ne može konfigurisati prema podešavanjima koja je unela vaša "
+"institucija"
+
+#: web/user/js/cat_js.php:206
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -338,31 +372,28 @@ msgstr ""
 "koji se nalaze na lokalnoj stranici. Kada kliknete na <b>Nastavi</b> ova "
 "stranica će se otvoriti u novom prizoru/jezičku."
 
-#: web/user/js/cat_js.php:183 web/user/js/cat_js.php:209 web/basic.php:260
-#: web/index.php:212
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/basic.php:257
+#: web/index.php:246
 msgid "Continue"
 msgstr "Nastavi"
 
-#: web/user/js/cat_js.php:195
-msgid ""
-"This device cannot be configured with settings provided by your institution"
-msgstr ""
-"Ovaj uređaj se ne može konfigurisati prema podešavanjima koja je unela vaša "
-"institucija"
+#: web/user/js/cat_js.php:220 web/index.php:139
+msgid "Close"
+msgstr "Zatvori"
 
-#: web/user/js/cat_js.php:356
+#: web/user/js/cat_js.php:457
 msgid "Home institution"
 msgstr "Matična institucija"
 
-#: web/user/js/cat_js.php:357
+#: web/user/js/cat_js.php:458
 msgid "Select your <strong>institution<\\/strong>"
 msgstr "Odaberite vašu <strong>instituciju<\\/strong>"
 
-#: web/user/js/cat_js.php:358
+#: web/user/js/cat_js.php:459
 msgid "Help, my institution is not on the list"
 msgstr "Upomoć, moja institucija nije na listi"
 
-#: web/user/js/cat_js.php:359
+#: web/user/js/cat_js.php:460
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -373,63 +404,63 @@ msgstr ""
 "administratori. Ukoliko vaša institucija nije na listi, onda ih zamolite da "
 "unesu informacije u %s bazu."
 
-#: web/user/js/cat_js.php:360
+#: web/user/js/cat_js.php:461
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Lociraj me preciznije koristeći HTML5 geolokaciju"
 
-#: web/user/js/cat_js.php:361
+#: web/user/js/cat_js.php:462
 msgid "Show institutions in"
 msgstr "Prikaži institucije u"
 
-#: web/user/js/cat_js.php:362
+#: web/user/js/cat_js.php:463
 msgid "all countries"
 msgstr "sve zemlje"
 
-#: web/user/js/cat_js.php:363
+#: web/user/js/cat_js.php:464
 msgid "or search for an institution, in example Univerity of Oslo"
 msgstr "ili traži instituciju, npr. Rudarsko-geološki fakultet"
 
-#: web/user/js/cat_js.php:364
+#: web/user/js/cat_js.php:465
 msgid "show all countries"
 msgstr "prikaži sve zemlje"
 
-#: web/user/js/cat_js.php:365
+#: web/user/js/cat_js.php:466
 msgid "Results limited to"
 msgstr "Rezultati ograničeni na"
 
-#: web/user/js/cat_js.php:366
+#: web/user/js/cat_js.php:467
 msgid "entries - show more"
 msgstr "ulazi - prikazi više"
 
-#: web/user/js/cat_js.php:367
+#: web/user/js/cat_js.php:468
 msgid "Nearby"
 msgstr "U blizini"
 
-#: web/user/js/cat_js.php:368
+#: web/user/js/cat_js.php:469
 msgid "Location timeout"
 msgstr "Vremensko ograničenje za određivanje lokacije je isteklo"
 
-#: web/user/js/cat_js.php:369
+#: web/user/js/cat_js.php:470
 msgid "Could not get your position"
 msgstr "Nije moguće odrediti vašu lokaciju"
 
-#: web/user/js/cat_js.php:370
+#: web/user/js/cat_js.php:471
 msgid "Your browser has denied access to your location"
 msgstr "Vaš internet pretraživač je blokirao pristup vašoj lokaciji"
 
-#: web/user/js/cat_js.php:371
+#: web/user/js/cat_js.php:472
 msgid "Unknown location error"
 msgstr "Nepoznata greška o lokaciji"
 
-#: web/user/js/cat_js.php:372
+#: web/user/js/cat_js.php:473
 msgid "You are here:"
 msgstr "Vi ste ovde:"
 
-#: web/user/js/cat_js.php:373
+#: web/user/js/cat_js.php:474
 msgid "Getting your location..."
 msgstr "Određivanje vaše lokacije:"
 
-#: web/user/js/cat_js.php:374
+#: web/user/js/cat_js.php:475
 msgid "Nearby providers shown on top."
 msgstr "Obližnji provajderi su prikazani na vrhu."
 
@@ -465,134 +496,174 @@ msgstr "Linux"
 msgid "all major distributions"
 msgstr "sve važnije verzije"
 
-#: web/basic.php:95
+#: web/basic.php:96
 msgid "not available with settings provided by your institution"
 msgstr "nije dostupno sa podešavanjima koje je obezbedila vaša institucija"
 
-#: web/basic.php:100 web/index.php:113
+#: web/basic.php:101 web/index.php:125
 msgid "View this page in"
 msgstr "Pogledajte ovu stranicu na nekom od sledećih jezika"
 
-#: web/basic.php:117
+#: web/basic.php:120
 msgid "you will be redirected to a local support page"
 msgstr "bićete preusmereni na lokalnu stranicu za podršku"
 
-#: web/basic.php:138
+#: web/basic.php:141
 msgid "Your choice"
 msgstr "Vaš izbor"
 
-#: web/basic.php:197
-msgid "This is a service under preparation, do not expect it to work."
-msgstr "Ovo je servis u pripremi, ne očekujte da radi ispravno."
-
-#: web/basic.php:201
+#: web/basic.php:198
 msgid "no matching data found"
 msgstr "nema podataka koji se poklapaju"
 
-#: web/basic.php:209
+#: web/basic.php:206
 msgid "Change country"
 msgstr "Promeni zemlju"
 
-#: web/basic.php:229
+#: web/basic.php:226
 msgid "Select your institution"
 msgstr "Odaberite vašu instituciju"
 
-#: web/basic.php:245 web/basic.php:247 web/index.php:197
+#: web/basic.php:242 web/basic.php:244 web/index.php:211
 msgid "Select the user group"
 msgstr "Odaberite korisničku grupu"
 
-#: web/basic.php:293 web/index.php:217
+#: web/basic.php:290 web/index.php:294
 msgid "Choose an installer to download"
 msgstr "Odaberite program za instaliranje za preuzimanje"
 
-#: web/basic.php:309
+#: web/basic.php:306
 msgid "Profile does not match the institution"
 msgstr "Profil ne odgovara instituciji"
 
-#: web/basic.php:329
+#: web/basic.php:334
 msgid "Download installer for"
 msgstr "Preuzmite program za instaliranje"
 
-#: web/basic.php:365 web/index.php:258
-#, php-format
-msgid "Release %s"
-msgstr "Verzija %s"
-
-#: web/basic.php:367 web/index.php:260
-msgid "Unreleased SVN Revision"
-msgstr "Neobjavljena SVN revizija"
-
-#: web/index.php:110
-#, php-format
-msgid "Welcome to %s"
-msgstr "Dobrodošli na %s"
-
-#: web/index.php:119
-msgid "Start page"
-msgstr "Početna stranica"
-
-#: web/index.php:123
-msgid "Authenticating"
-msgstr "Autentifikovanje"
-
-#: web/index.php:127
-msgid "Close"
-msgstr "Zatvori"
-
-#: web/index.php:138 web/index.php:139
-#, php-format
-msgid "About %s"
-msgstr "O %s"
-
-#: web/index.php:140
+#: web/basic.php:366 web/index.php:152
 #, php-format
 msgid "Terms of use"
 msgstr "Uslovi korišćenja"
 
-#: web/index.php:141
+#: web/basic.php:371 web/index.php:335 web/tou.php:56
+#, php-format
+msgid "Release %s"
+msgstr "Verzija %s"
+
+#: web/basic.php:373 web/index.php:337 web/tou.php:58
+msgid "Unreleased SVN Revision"
+msgstr "Neobjavljena SVN revizija"
+
+#: web/index.php:96
+#, fuzzy, php-format
+msgid "Download your %s installer"
+msgstr "%s korisnik:<br>preuzmite vaš %s instaler"
+
+#: web/index.php:122
+#, php-format
+msgid "Welcome to %s"
+msgstr "Dobrodošli na %s"
+
+#: web/index.php:131
+msgid "Start page"
+msgstr "Početna stranica"
+
+#: web/index.php:135
+msgid "Authenticating"
+msgstr "Autentifikovanje"
+
+#: web/index.php:150 web/index.php:151
+#, php-format
+msgid "About %s"
+msgstr "O %s"
+
+#: web/index.php:153
 #, php-format
 msgid "FAQ"
 msgstr "Često postavljena pitanja"
 
-#: web/index.php:142
+#: web/index.php:154
 #, php-format
 msgid "Report a problem"
 msgstr "Prijavite problem"
 
-#: web/index.php:143
+#: web/index.php:155
 #, php-format
 msgid "Become a CAT developer"
 msgstr "Postanite CAT developer"
 
-#: web/index.php:144
+#: web/index.php:156
 #, php-format
 msgid "%s admin:<br>manage your IdP"
 msgstr "%s admin:<br>upravljate vašim Davaocem Identiteta"
 
-#: web/index.php:159
+#: web/index.php:171
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s olakšana instalacija:"
 
-#: web/index.php:162
+#: web/index.php:174
 msgid "Custom built for your home institution"
 msgstr "Prilagođeno vašoj matičnoj instituciji"
 
-#: web/index.php:166
+#: web/index.php:178
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitalno potpisani od organizacije koja kooridinira %s: %s"
 
-#: web/index.php:178 web/index.php:180
+#: web/index.php:191
 #, php-format
 msgid "%s user:<br>download your %s installer"
 msgstr "%s korisnik:<br>preuzmite vaš %s instaler"
 
-#: web/index.php:189
+#: web/index.php:203
 msgid "select another"
 msgstr "odaberite drugi"
 
-#: web/index.php:208
+#: web/index.php:223
+msgid "Welcome aboard the eduroam® user community!"
+msgstr ""
+
+#: web/index.php:225
+msgid ""
+"Your download will start shortly, in case of problems with automatic "
+"download please use this direct <a href=''>link</a>."
+msgstr ""
+
+#: web/index.php:227
+#, php-format
+msgid "Dear user from %s,"
+msgstr ""
+
+#: web/index.php:229
+msgid ""
+"we would like to warmly welcome you among the several million users of "
+"eduroam®! From now on, you will be able to use internet access resources on "
+"thousands of universities, research centres and other places all over the "
+"globe. All of this completely free of charge!"
+msgstr ""
+
+#: web/index.php:232
+msgid ""
+"Now that you have downloaded and installed a client configurator, all you "
+"need to do is find an eduroam® hotspot in your vicinity and enter your user "
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+
+#: web/index.php:234
+#, php-format
+msgid ""
+"Should you have any problems using this service, please always contact the "
+"helpdesk of %s. They will diagnose the problem and help you out. You can "
+"reach them via the means shown above."
+msgstr ""
+
+#: web/index.php:238
+msgid "Back to downloads"
+msgstr ""
+
+#: web/index.php:242
 msgid ""
 "Your local administrator has specified that this user group should be "
 "supported locally.<br>\n"
@@ -603,6 +674,13 @@ msgstr ""
 "bude podržana lokalno.<br>\n"
 "                            Kada kliknete <b>Nastavi</b> stranica za podršku "
 "će biti otvorena u novom prozoru/kartici."
+
+#: web/index.php:288
+msgid "All platforms"
+msgstr ""
+
+#~ msgid "This is a service under preparation, do not expect it to work."
+#~ msgstr "Ovo je servis u pripremi, ne očekujte da radi ispravno."
 
 #~ msgid ""
 #~ "%s installers configure your security therefore you should be sure that "
