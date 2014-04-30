@@ -153,9 +153,9 @@ geo_widget_body($wizard_style, $additional);
 <?php
 if ($wizard_style)
     echo "<p>" .
-    _("") . "</p>
+    _("TBD: texts for wizard mode") . "</p>
           <p>" .
-    _("") . "</p>";
+    _("TBD: more texts for wizard mode") . "</p>";
 ?>
 
         <table id="expandable_media_options">
