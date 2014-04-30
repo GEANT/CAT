@@ -59,16 +59,22 @@ function display_name($input) {
         _("TTLS-GTC") => EAP::$TTLS_GTC,
         _("FAST-GTC") => EAP::$FAST_GTC,
         _("EAP-pwd") => EAP::$PWD,
+        _("Wired 802.1X?") => "media:wired",
+        _("Remove/Disable SSID") => "media:remove_SSID",
     );
 
     if(count(Config::$CONSORTIUM['ssid']) > 0) {
-      $DisplayNames[_("Additional SSID")] = "general:SSID";
-      $DisplayNames[_("Additional SSID (with WPA/TKIP)")] = "general:SSID_with_legacy";
+      $DisplayNames[_("Additional SSID")] = "media:SSID";
+      $DisplayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     } else {
-      $DisplayNames[_("SSID")] = "general:SSID";
-      $DisplayNames[_("SSID (with WPA/TKIP)")] = "general:SSID_with_legacy";  
+      $DisplayNames[_("SSID")] = "media:SSID";
+      $DisplayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";  
     }
 
+    if (count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0)
+    $DisplayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
+    $DisplayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
+    
     $find = array_search($input, $DisplayNames);
 
     if ($find === FALSE) {
