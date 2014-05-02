@@ -17,7 +17,8 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
     // we expect the variable $class to contain the class of options
     // print_r($prepopulate);
     $optioninfo = Options::instance();
-    if (is_array($prepopulate) && count($prepopulate) > 0) { // editing... fill with values
+    if (is_array($prepopulate) && count($prepopulate) > 1) { // editing... fill with values
+        // the test was for "1" because the attribute internal:country ALWAYS exists!
         $a = 0;
         foreach ($prepopulate as $option)
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
