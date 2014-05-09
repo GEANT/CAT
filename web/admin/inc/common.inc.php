@@ -36,7 +36,7 @@ function display_name($input) {
         _("Location") => "general:geo_coordinates",
         _("Logo URL") => "general:logo_url",
         _("Logo image") => "general:logo_file",
-        _("Configure Wired Ethernet") => "general:wired",
+        _("Configure Wired Ethernet") => "media:wired",
         _("Name (CN) of Authentication Server") => "eap:server_name",
         _("Enable device assessment") => "eap:enable_nea",
         _("Terms of Use") => "support:info_file",
@@ -59,7 +59,6 @@ function display_name($input) {
         _("TTLS-GTC") => EAP::$TTLS_GTC,
         _("FAST-GTC") => EAP::$FAST_GTC,
         _("EAP-pwd") => EAP::$PWD,
-        _("Wired 802.1X?") => "media:wired",
         _("Remove/Disable SSID") => "media:remove_SSID",
     );
 
@@ -87,7 +86,7 @@ function display_name($input) {
 function tooltip($input) {
     $descriptions = array ();
     if (count(Config::$CONSORTIUM['ssid']) > 0) 
-        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'],  Config::$CONSORTIUM['name'])] = "general:SSID";
+        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'],  Config::$CONSORTIUM['name'])] = "media:SSID";
 
     $find = array_search($input,$descriptions);
 

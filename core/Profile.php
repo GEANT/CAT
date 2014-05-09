@@ -732,10 +732,10 @@ class Profile {
             // TODO: or maybe just a per-device redirect? would be good enough...
         }
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
-        if (!isset($attribs['general:SSID']) &&
-                !isset($attribs['general:SSID_with_legacy']) &&
+        if (!isset($attribs['media:SSID']) &&
+                !isset($attribs['media:SSID_with_legacy']) &&
                 (!isset(Config::$CONSORTIUM['ssid']) || count(Config::$CONSORTIUM['ssid']) == 0) &&
-                !isset($attribs['general:wired']))
+                !isset($attribs['media:wired']))
             $proper_config = FALSE;
         return $proper_config;
     }

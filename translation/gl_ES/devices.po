@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-25 10:33+0100\n"
+"POT-Creation-Date: 2014-04-30 12:51+0200\n"
 "PO-Revision-Date: 2013-02-07 09:40+0000\n"
 "Last-Translator: Miguel González Mirón <miguel.gonzalez@udc.es>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -19,12 +19,94 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/apple_mobileconfig/mobileconfig.php:118
+#: devices/devices-template.php:97
+msgid "MS Windows 8, 8.1"
+msgstr ""
+
+#: devices/devices-template.php:111
+msgid "MS Windows 7"
+msgstr ""
+
+#: devices/devices-template.php:125
+msgid "MS Windows Vista"
+msgstr ""
+
+#: devices/devices-template.php:139
+msgid "MS Windows XP SP3"
+msgstr ""
+
+#: devices/devices-template.php:147
+msgid ""
+"MS Windows XP is no longer supported by Microsoft, therefore it can be "
+"unsecure and should not really be used."
+msgstr ""
+
+#: devices/devices-template.php:154
+msgid "Windows RT"
+msgstr ""
+
+#: devices/devices-template.php:166
+msgid "Apple Mac OS X Mountain Lion"
+msgstr ""
+
+#: devices/devices-template.php:180
+msgid "Apple Mac OS X Lion"
+msgstr ""
+
+#: devices/devices-template.php:193
+msgid "Apple iOS mobile devices"
+msgstr ""
+
+#: devices/devices-template.php:206
+msgid "Linux"
+msgstr ""
+
+#: devices/devices-template.php:216
+msgid "Android"
+msgstr ""
+
+#. / welcomletter: header of document
+#: devices/devices-template.php:225 devices/welcomeletter/welcomeletter.php:84
+msgid "Welcome Letter"
+msgstr "Carta de benvida"
+
+#: devices/devices-template.php:235
+msgid "Test"
+msgstr ""
+
+#: devices/devices-template.php:244
+msgid "Generic profile TTLS-PAP"
+msgstr ""
+
+#: devices/devices-template.php:254
+msgid "Generic profile TTLS-MSCHAPv2"
+msgstr ""
+
+#: devices/devices-template.php:264
+#, fuzzy
+msgid "Generic profile PEAP"
+msgstr "perfil de usuario"
+
+#: devices/devices-template.php:274
+#, fuzzy
+msgid "Generic profile TLS"
+msgstr "perfil de usuario"
+
+#: devices/devices-template.php:284
+#, fuzzy
+msgid "Generic profile PWD"
+msgstr "perfil de usuario"
+
+#: devices/devices-template.php:293
+msgid "Generic profile ALL EAPs"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig.php:133
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Perfil de configuración da rede '%s' de '%s' - proporcionado por %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:158
+#: devices/apple_mobileconfig/mobileconfig.php:178
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
@@ -32,45 +114,63 @@ msgstr ""
 "O perfil instalarase por si mesmo  despois de que prema (ou toque) o botón. "
 "Preguntaráselle pola confirmación/input en varios puntos:"
 
-#: devices/apple_mobileconfig/mobileconfig.php:160
+#: devices/apple_mobileconfig/mobileconfig.php:180
 msgid "to install the profile"
 msgstr "para instalar o perfil"
 
-#: devices/apple_mobileconfig/mobileconfig.php:161
+#: devices/apple_mobileconfig/mobileconfig.php:181
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "para aceptar a autoridade de certificados de servidor"
 msgstr[1] "para aceptar as autoridades de certificados de servidor"
 
-#: devices/apple_mobileconfig/mobileconfig.php:163
+#: devices/apple_mobileconfig/mobileconfig.php:183
 #, php-format
 msgid "(%d times)"
 msgstr "(%d veces)"
 
-#: devices/apple_mobileconfig/mobileconfig.php:165
+#: devices/apple_mobileconfig/mobileconfig.php:185
 msgid "to enter the username and password of your institution"
 msgstr "para que introduza o nome de usuario e contrasina da súa institución"
 
-#: devices/apple_mobileconfig/mobileconfig.php:167
+#: devices/apple_mobileconfig/mobileconfig.php:187
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d veces cada vez, porque %s é instalada para %d SSIDs)"
 
-#: devices/apple_mobileconfig/mobileconfig.php:232
+#: devices/apple_mobileconfig/mobileconfig.php:262
+#, fuzzy, php-format
+msgid "%s configuration for wired network"
+msgstr "configuración %s para o nome de rede %s"
+
+#: devices/apple_mobileconfig/mobileconfig.php:264
+#, php-format
+msgid "%s Hotspot 2.0 configuration"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig.php:266
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "configuración %s para o nome de rede %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:234
+#: devices/apple_mobileconfig/mobileconfig.php:271
+msgid "Wired Network"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig.php:273
+msgid "Hotspot 2.0 Settings"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig.php:275
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:277
+#: devices/apple_mobileconfig/mobileconfig.php:371
 msgid "Your Identity Providers Certification Authority"
 msgstr "A autoridade de certificación do seu fornecedor de identidade"
 
-#: devices/apple_mobileconfig/mobileconfig.php:279
+#: devices/apple_mobileconfig/mobileconfig.php:373
 msgid "Identity Provider's CA"
 msgstr "AC do provedor de identidade"
 
@@ -82,7 +182,7 @@ msgstr ""
 "As identidades anónimas non usan a zona como se especifica no perfil - en "
 "cambio, derívase do sufixo do nome do usuario "
 
-#: devices/ms/Vista7.php:78 devices/ms/W8.php:78 devices/ms/XP.php:77
+#: devices/ms/Vista7.php:97 devices/ms/W8.php:95 devices/ms/XP.php:80
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -95,7 +195,7 @@ msgstr ""
 "instalador será salvado polo voso navegador. Cópiao ao ordenador no que será "
 "congigurado e logo execútao."
 
-#: devices/ms/Vista7.php:82 devices/ms/W8.php:82 devices/ms/XP.php:81
+#: devices/ms/Vista7.php:101 devices/ms/W8.php:99 devices/ms/XP.php:84
 #: devices/linux/Linux.php:82
 #, php-format
 msgid ""
@@ -105,7 +205,7 @@ msgstr ""
 "Ademáis de a <strong>%s</strong> o instalador tamén configurará acceso ás "
 "redes seguintes:"
 
-#: devices/ms/Vista7.php:84 devices/ms/W8.php:84 devices/ms/XP.php:83
+#: devices/ms/Vista7.php:103 devices/ms/W8.php:101 devices/ms/XP.php:86
 #: devices/linux/Linux.php:84
 #, php-format
 msgid ""
@@ -114,7 +214,7 @@ msgid ""
 msgstr ""
 "Ademáis de a <strong>%s</strong> o instalador tamén configurará acceso a"
 
-#: devices/ms/Vista7.php:97 devices/ms/W8.php:98
+#: devices/ms/Vista7.php:116 devices/ms/W8.php:115
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your home "
@@ -129,7 +229,7 @@ msgstr ""
 "protexidos por contrasinal. Debería ter ambos, o ficheiro e o contrasinal "
 "dispoñibles durante o proceso de instalación."
 
-#: devices/ms/Vista7.php:99 devices/ms/W8.php:100 devices/ms/XP.php:96
+#: devices/ms/Vista7.php:118 devices/ms/W8.php:117 devices/ms/XP.php:99
 #: devices/linux/Linux.php:100
 msgid ""
 "In order to connect to the network you will need an account from your home "
@@ -141,7 +241,7 @@ msgstr ""
 "consultar a páxina de asistencia técnica par atopar como se debe obter esta "
 "conta. Seguramente a súa conta xa está activada."
 
-#: devices/ms/Vista7.php:102 devices/ms/XP.php:98
+#: devices/ms/Vista7.php:121 devices/ms/XP.php:101
 msgid ""
 "The installer will also install additional software - SecureW2 EAP Suite "
 "(GNU General Public License).<p>You will be requested to enter your account "
@@ -155,7 +255,7 @@ msgstr ""
 "que poida reconectar á rede automaticamente cada vez que estea na área de "
 "cobertura."
 
-#: devices/ms/Vista7.php:107 devices/ms/W8.php:102
+#: devices/ms/Vista7.php:126 devices/ms/W8.php:119
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -167,7 +267,7 @@ msgstr ""
 "contrasinal. Esta información gardarase para que poida reconectar coa rede "
 "automaticamente cada vez que estea na área de cobertura."
 
-#: devices/ms/Vista7.php:110 devices/ms/W8.php:105
+#: devices/ms/Vista7.php:129 devices/ms/W8.php:122
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
@@ -175,108 +275,116 @@ msgstr ""
 "Pediráselle que introduza as mesmas credenciais para cada unha das redes "
 "configuradas:"
 
-#: devices/ms/Vista7.php:386 devices/ms/XP.php:194
+#: devices/ms/Vista7.php:470 devices/ms/XP.php:227
 msgid "Login credentials"
 msgstr "Credenciais para o inicio de sesión"
 
-#: devices/ms/Vista7.php:454 devices/ms/Vista7.php:455 devices/ms/W8.php:351
-#: devices/ms/W8.php:352 devices/ms/XP.php:249 devices/ms/XP.php:250
+#: devices/ms/Vista7.php:555 devices/ms/Vista7.php:556 devices/ms/W8.php:411
+#: devices/ms/W8.php:412 devices/ms/XP.php:300 devices/ms/XP.php:301
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instalador %s para %s"
 
-#: devices/ms/Files/common.inc:112
+#: devices/ms/Files/common.inc:142 devices/ms/Files/xp/common.inc:111
 #, php-format
 msgid "Welcome to the %s installer"
 msgstr "Benvido ao instalador %s "
 
-#: devices/ms/Files/common.inc:113 devices/ms/Files/xp/common.inc:109
+#: devices/ms/Files/common.inc:143 devices/ms/Files/xp/common.inc:112
 msgid "Installation complete"
 msgstr "Instalación completa"
 
-#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:110
+#: devices/ms/Files/common.inc:144 devices/ms/Files/xp/common.inc:113
 msgid "Network profiles have been installed."
 msgstr "Instaláronse perfís de rede."
 
-#: devices/ms/Files/common.inc:114 devices/ms/Files/xp/common.inc:110
+#: devices/ms/Files/common.inc:144 devices/ms/Files/xp/common.inc:113
 msgid "Your system is ready."
 msgstr "O seu sistema está listo."
 
-#: devices/ms/Files/common.inc:115 devices/ms/Files/xp/common.inc:111
+#: devices/ms/Files/common.inc:145 devices/ms/Files/xp/common.inc:114
 msgid "Network installation had errors."
 msgstr "A instalación de rede contén erros."
 
-#: devices/ms/Files/common.inc:115 devices/ms/Files/common.inc:609
-#: devices/ms/Files/xp/common.inc:111 devices/ms/Files/xp/common.inc:491
+#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:888
 msgid "Please contact ${SUPPORT}."
 msgstr "Contacte con  ${SUPPORT}."
 
-#: devices/ms/Files/common.inc:124 devices/ms/Files/xp/common.inc:120
+#: devices/ms/Files/common.inc:153 devices/ms/Files/xp/common.inc:123
 msgid "Accept"
 msgstr "Aceptar"
 
-#: devices/ms/Files/common.inc:125 devices/ms/Files/xp/common.inc:121
+#: devices/ms/Files/common.inc:154 devices/ms/Files/xp/common.inc:124
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
 msgstr ""
 "De aceptar as condicións, seleccione Aceptar e prema Instalar para continuar"
 
-#: devices/ms/Files/common.inc:131 devices/ms/Files/xp/common.inc:127
+#: devices/ms/Files/common.inc:160 devices/ms/Files/xp/common.inc:130
 msgid "Finish"
 msgstr "Finalizar"
 
-#: devices/ms/Files/common.inc:150
+#: devices/ms/Files/common.inc:192
 msgid "searching for certificate"
 msgstr "buscando o certificado"
 
-#: devices/ms/Files/common.inc:206 devices/ms/Files/xp/common.inc:142
+#: devices/ms/Files/common.inc:250 devices/ms/Files/xp/common.inc:145
 msgid "installing certificate"
 msgstr "Instalación do certificado"
 
-#: devices/ms/Files/common.inc:210
+#: devices/ms/Files/common.inc:256
 msgid "could not install certificate"
 msgstr "non foi posíbel instalar o certificado"
 
-#: devices/ms/Files/common.inc:328
+#: devices/ms/Files/common.inc:438
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
 "Os perfís que non son TKIP terán preferencia. Úseos sempre que teña "
 "oportunidade."
 
-#: devices/ms/Files/common.inc:330
+#: devices/ms/Files/common.inc:440
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr "Prefírese o perfil que non é TKIP. Úseo sempre se ten elección."
 
-#: devices/ms/Files/common.inc:336 devices/ms/Files/xp/common.inc:244
+#: devices/ms/Files/common.inc:446 devices/ms/Files/common.inc:454
 #: devices/linux/Linux.php:137
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr "Este instalador preparouse para ${ORGANISATION}"
 
-#: devices/ms/Files/common.inc:337
+#: devices/ms/Files/common.inc:447
 msgid "The installer will create the following wireless profiles:"
 msgstr "O instalador creará os seguintes perfís de rede sen fíos:"
 
-#: devices/ms/Files/common.inc:340 devices/ms/Files/xp/common.inc:248
-#: devices/linux/Linux.php:137
+#: devices/ms/Files/common.inc:450 devices/ms/Files/common.inc:457
+#: devices/ms/Files/xp/common.inc:262 devices/linux/Linux.php:137
 msgid "More information and comments:"
 msgstr "Máis información e comentarios:"
 
-#: devices/ms/Files/common.inc:365 devices/ms/Files/xp/common.inc:274
+#: devices/ms/Files/common.inc:455
+#, fuzzy
+msgid "The installer will create the wireless profile:"
+msgstr "O instalador creará os seguintes perfís de rede sen fíos:"
+
+#: devices/ms/Files/common.inc:483 devices/ms/Files/xp/common.inc:288
 #: devices/linux/Linux.php:138
 msgid "Installer created with software from the GEANT project."
 msgstr "Instalador creado con software do proxecto GEANT."
 
-#: devices/ms/Files/common.inc:391
-msgid "This installer works with Windows 8 only"
-msgstr "Este instalador soamente funciona con Windows 8"
+#: devices/ms/Files/common.inc:511
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"8. Please download the correct installer and try again."
+msgstr ""
 
-#: devices/ms/Files/common.inc:400 devices/ms/Files/common.inc:439
-msgid "This installer works with Windows Vista and Windows 7 only"
-msgstr "O instalador soamente funciona en Windows Vista e Windows 7."
+#: devices/ms/Files/common.inc:521 devices/ms/Files/common.inc:554
+msgid ""
+"You are running Windows $WindowsName but this installer is only for Windows "
+"Vista and Windows 7. Please download the correct installer and try again."
+msgstr ""
 
-#: devices/ms/Files/common.inc:455 devices/ms/Files/xp/common.inc:346
+#: devices/ms/Files/common.inc:592 devices/ms/Files/xp/common.inc:370
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
@@ -284,25 +392,37 @@ msgstr ""
 "O servizo de configuración de redes sen fíos de Windows non está activado. O "
 "instalador non pode continuar."
 
-#: devices/ms/Files/common.inc:459 devices/ms/Files/xp/common.inc:350
+#: devices/ms/Files/common.inc:597 devices/ms/Files/xp/common.inc:374
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr ""
 "Non se atoparon interfaces de redes sen fíos. O instalador non pode "
 "continuar."
 
-#: devices/ms/Files/common.inc:467 devices/ms/Files/xp/common.inc:359
+#: devices/ms/Files/common.inc:603
+msgid ""
+"No wireless interfaces found. Wireless access will not be configured. Would "
+"you like to continue and configure access on the wired interface?"
+msgstr ""
+
+#: devices/ms/Files/common.inc:619
+msgid "Do you want to enable access on wired interfaces?"
+msgstr ""
+
+#: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:397
 msgid "Profiles installation"
 msgstr "Instalación de perfís"
 
-#: devices/ms/Files/common.inc:472
-msgid "Checking for profile $R1"
+#: devices/ms/Files/common.inc:677
+#, fuzzy
+msgid "Checking for profile $R8"
 msgstr "Comprobación do perfil $R1"
 
-#: devices/ms/Files/common.inc:479
-msgid "found profile $R1"
+#: devices/ms/Files/common.inc:685
+#, fuzzy
+msgid "found profile $R8"
 msgstr "atopado perfil $R1"
 
-#: devices/ms/Files/common.inc:498
+#: devices/ms/Files/common.inc:711 devices/ms/Files/xp/common.inc:423
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -310,12 +430,12 @@ msgstr ""
 "Este instalador soamente funciona correctamente se é un membro de "
 "${ORGANISATION} e se o seu grupo de usuarios é ${USER_GROUP}."
 
-#: devices/ms/Files/common.inc:498 devices/ms/Files/common.inc:500
-#: devices/ms/Files/xp/common.inc:385 devices/ms/Files/xp/common.inc:387
+#: devices/ms/Files/common.inc:711 devices/ms/Files/common.inc:714
+#: devices/ms/Files/xp/common.inc:423 devices/ms/Files/xp/common.inc:425
 msgid "Click OK to continue with installation."
 msgstr "Prema OK para continuar coa instalación"
 
-#: devices/ms/Files/common.inc:500
+#: devices/ms/Files/common.inc:714 devices/ms/Files/xp/common.inc:425
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
@@ -323,7 +443,7 @@ msgstr ""
 "Este instalador soamente funcionará apropiadamente se é vostede un membro de "
 "${ORGANISATION}."
 
-#: devices/ms/Files/common.inc:508 devices/ms/Files/xp/common.inc:395
+#: devices/ms/Files/common.inc:722 devices/ms/Files/xp/common.inc:433
 msgid ""
 "Please read the additional information from your home institution which will "
 "be displayed in a moment."
@@ -331,123 +451,49 @@ msgstr ""
 "Lea a información adicional da súa institución que se lle presentará nun "
 "momento."
 
-#: devices/ms/Files/common.inc:533 devices/ms/Files/xp/common.inc:420
+#: devices/ms/Files/common.inc:774 devices/ms/Files/xp/common.inc:458
 msgid "Restart system now"
 msgstr "Reiniciar o sistema agora"
 
-#: devices/ms/Files/common.inc:535 devices/ms/Files/xp/common.inc:422
+#: devices/ms/Files/common.inc:776 devices/ms/Files/xp/common.inc:460
 msgid "I will restart later"
 msgstr "Reiniciarei máis tarde"
 
-#: devices/ms/Files/common.inc:594 devices/ms/Files/xp/common.inc:482
+#: devices/ms/Files/common.inc:787
+msgid ""
+"Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
+"be due to the fact that Symantec Endpoint Protection is installed on your "
+"machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_eduroam. Start it by double-"
+"clicking, It will install the profiles. You will need to login to eduroam "
+"with your username and password."
+msgstr ""
+
+#: devices/ms/Files/common.inc:818 devices/ms/Files/xp/common.inc:358
+#, fuzzy
+msgid "installing wired profile"
+msgstr "instalación do perfil $R1"
+
+#: devices/ms/Files/common.inc:869 devices/ms/Files/common.inc:916
+#: devices/ms/Files/xp/common.inc:520
 msgid "deleting profile $R1"
 msgstr "eliminación do perfil $R1"
 
-#: devices/ms/Files/common.inc:601 devices/ms/Files/xp/common.inc:486
+#: devices/ms/Files/common.inc:878 devices/ms/Files/xp/common.inc:524
 msgid "installing profile $R1"
 msgstr "instalación do perfil $R1"
 
-#: devices/ms/Files/common.inc:609 devices/ms/Files/xp/common.inc:491
+#: devices/ms/Files/common.inc:888 devices/ms/Files/xp/common.inc:529
 msgid "Profile installation error for $R1."
 msgstr "Produciuse un erro na instalación do perfil para $R1."
 
-#: devices/ms/Files/common.inc:621
-msgid "installing credentials for profile $R1"
+#: devices/ms/Files/common.inc:933
+#, fuzzy
+msgid "installing credentials for wired"
 msgstr "instalación de credenciais para o perfil $R1"
-
-#: devices/ms/Files/common.inc:626
-msgid "Credentials installation problem"
-msgstr "Produciuse un problema na instalación de credenciais"
-
-#: devices/ms/Files/common.inc:635
-#, php-format
-msgid "%s installer for"
-msgstr "Instalador %s para"
-
-#: devices/ms/Files/common.inc:635 devices/ms/Files/xp/common.inc:503
-msgid "Install personal certificate"
-msgstr "Instalar o certificado persoal"
-
-#: devices/ms/Files/common.inc:640 devices/ms/Files/xp/common.inc:508
-msgid "Preparing to install personal certificate."
-msgstr "Preparación para instalar o certificado persoal."
-
-#: devices/ms/Files/common.inc:640 devices/ms/Files/xp/common.inc:508
-msgid "Click OK to continue"
-msgstr "Prema en OK para continuar"
-
-#: devices/ms/Files/common.inc:646 devices/ms/Files/xp/common.inc:514
-msgid "Certificate files (*.p12)"
-msgstr "Ficheiros do certificado (*.p12)"
-
-#: devices/ms/Files/common.inc:646 devices/ms/Files/xp/common.inc:514
-msgid "Certificate files (*pfx)"
-msgstr "Ficheiros do certificado (*pfx)"
-
-#: devices/ms/Files/common.inc:646
-msgid "All files"
-msgstr "Todos os ficheiros"
-
-#: devices/ms/Files/common.inc:649 devices/ms/Files/xp/common.inc:517
-msgid "Selected file: $Cert_file"
-msgstr "Seleccionar o ficheiro: $Cert_file"
-
-#: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:519
-msgid "certificate password:"
-msgstr "contrasinal do certificado:"
-
-#: devices/ms/Files/common.inc:666 devices/ms/Files/xp/common.inc:531
-msgid "No certificate file selected"
-msgstr "Non se seleccionou o ficheiro do certificado"
-
-#: devices/ms/Files/common.inc:678 devices/ms/Files/xp/common.inc:543
-msgid "Incorrect certificate password$\\r$\\nenter again"
-msgstr "Contrasinal incorrecto do certificado$\\r$\\nintrodúzao outra vez"
-
-#: devices/ms/Files/common.inc:688
-msgid "User credentials"
-msgstr "Credenciais de usuario"
-
-#: devices/ms/Files/common.inc:692
-msgid "Username:"
-msgstr "Nome de usuario:"
-
-#: devices/ms/Files/common.inc:695
-msgid "Password:"
-msgstr "Contrasinal:"
-
-#: devices/ms/Files/common.inc:698
-msgid "Repeat password:"
-msgstr "Repetir o contrasinal:"
-
-#: devices/ms/Files/common.inc:709
-msgid "Missing username"
-msgstr "Perdeuse o nome de usuario:"
-
-#: devices/ms/Files/common.inc:714
-msgid "Missing password"
-msgstr "Perdeuse o contrasinal"
-
-#: devices/ms/Files/common.inc:720
-msgid "Password missmatch"
-msgstr "O contrasinal non coincide"
-
-#: devices/ms/Files/common.inc:757
-#, php-format
-msgid ""
-"In order to install/update %s access all selected steps need to be "
-"performed. Click Continue to proceed"
-msgstr ""
-"Para instalar/actualizar o acceso %s todos os pasos seleccionados necesitan "
-"estar satisfeitos. Prema continuar para proceder"
-
-#: devices/ms/Files/common.inc:758 devices/ms/Files/xp/common.inc:565
-msgid ""
-"If an option is not selected by default, then it is either not available or "
-"optional."
-msgstr ""
-"De non estar unha opción seleccionada de modo predeterminado, ben non está "
-"dispoñible ben é opcional."
 
 #: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
 msgid "Installation of the personal certificate"
@@ -462,27 +508,27 @@ msgid "Personal certificate"
 msgstr "Certificado persoal"
 
 #: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
-#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+#: devices/ms/Files/pwd.inc:31 devices/ms/Files/ttls.inc:5
 msgid "Installation of network profiles"
 msgstr "Instalación de perfís de rede"
 
 #: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
-#: devices/ms/Files/pwd.inc:32 devices/ms/Files/ttls.inc:5
+#: devices/ms/Files/pwd.inc:31 devices/ms/Files/ttls.inc:5
 msgid "profiles"
 msgstr "perfís"
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
-#: devices/ms/Files/pwd.inc:12 devices/ms/Files/pwd.inc:34
+#: devices/ms/Files/pwd.inc:11 devices/ms/Files/pwd.inc:33
 #: devices/ms/Files/ttls.inc:7
 msgid "Installation"
 msgstr "Instalación"
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
-#: devices/ms/Files/pwd.inc:34 devices/ms/Files/ttls.inc:7
+#: devices/ms/Files/pwd.inc:33 devices/ms/Files/ttls.inc:7
 msgid "Network profiles update"
 msgstr "actualizar os perfís de rede"
 
-#: devices/ms/Files/eap_w8.inc:56 devices/ms/Files/peap_tls.inc:63
+#: devices/ms/Files/eap_w8.inc:63 devices/ms/Files/peap_tls.inc:69
 msgid "Information about components"
 msgstr "Información sobre compoñentes"
 
@@ -490,31 +536,37 @@ msgstr "Información sobre compoñentes"
 msgid "user profile"
 msgstr "perfil de usuario"
 
-#: devices/ms/Files/pwd.inc:10 devices/ms/Files/ttls.inc:21
+#: devices/ms/Files/pwd.inc:9 devices/ms/Files/ttls.inc:21
 msgid "install program"
 msgstr "instalar programa"
 
-#: devices/ms/Files/pwd.inc:25
+#: devices/ms/Files/pwd.inc:24
 msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
 msgstr ""
 "Produciuse un erro na instalación de EAP-pwd. Probe outra vez ou contacte "
 "con ${SUPPORT}."
 
-#: devices/ms/Files/ttls.inc:34
+#: devices/ms/Files/ttls.inc:49
 msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
 msgstr ""
 "Produciuse un erro na instalación de SecureW2. Probe outra vez ou contacte "
 "con  ${SUPPORT}."
 
-#: devices/ms/Files/xp/common.inc:108
-msgid "Welcome to the eduroam installer"
-msgstr "Benvido/a ao instalador do eduroam"
+#: devices/ms/Files/xp/common.inc:114 devices/ms/Files/xp/common.inc:529
+#, fuzzy
+msgid "Please contact \\${SUPPORT}."
+msgstr "Contacte con  ${SUPPORT}."
 
-#: devices/ms/Files/xp/common.inc:245
+#: devices/ms/Files/xp/common.inc:258
+#, fuzzy
+msgid "This installer has been prepared for \\${ORGANISATION}"
+msgstr "Este instalador preparouse para ${ORGANISATION}"
+
+#: devices/ms/Files/xp/common.inc:259
 msgid "The installer will create network profile:"
 msgstr "O instalador creará un perfil de rede:"
 
-#: devices/ms/Files/xp/common.inc:247
+#: devices/ms/Files/xp/common.inc:261
 msgid ""
 "You will be able to use eduroam in most institutions however due to Windows "
 "XP limitations and differences in network settings at different "
@@ -526,21 +578,73 @@ msgstr ""
 "distintas institucións, pode ser necesario en ocasións ter que repetir a "
 "conexión para que o sistema se reconfigure."
 
-#: devices/ms/Files/xp/common.inc:334
-msgid "This installer works with Windows XP SP3 only"
-msgstr "Este instalador soamente funciona con Windows XP SP3"
-
-#: devices/ms/Files/xp/common.inc:503
-msgid "eduroam installer for"
-msgstr "instalador eduroam para"
-
-#: devices/ms/Files/xp/common.inc:564
+#: devices/ms/Files/xp/common.inc:350
 msgid ""
-"In order to install/update eduroam access all selected steps need to be "
+"You are running Windows $WindowsName but this installer is only for Windows "
+"XP. Please download the correct installer and try again."
+msgstr ""
+
+#: devices/ms/Files/xp/common.inc:382
+msgid "Do you want to enable eduroam on wired interfaces?"
+msgstr ""
+
+#: devices/ms/Files/xp/common.inc:541
+#, php-format
+msgid "%s installer for"
+msgstr "Instalador %s para"
+
+#: devices/ms/Files/xp/common.inc:541
+msgid "Install personal certificate"
+msgstr "Instalar o certificado persoal"
+
+#: devices/ms/Files/xp/common.inc:546
+msgid "Preparing to install personal certificate."
+msgstr "Preparación para instalar o certificado persoal."
+
+#: devices/ms/Files/xp/common.inc:546
+msgid "Click OK to continue"
+msgstr "Prema en OK para continuar"
+
+#: devices/ms/Files/xp/common.inc:552
+msgid "Certificate files (*.p12)"
+msgstr "Ficheiros do certificado (*.p12)"
+
+#: devices/ms/Files/xp/common.inc:552
+msgid "Certificate files (*pfx)"
+msgstr "Ficheiros do certificado (*pfx)"
+
+#: devices/ms/Files/xp/common.inc:555
+msgid "Selected file: $Cert_file"
+msgstr "Seleccionar o ficheiro: $Cert_file"
+
+#: devices/ms/Files/xp/common.inc:557
+msgid "certificate password:"
+msgstr "contrasinal do certificado:"
+
+#: devices/ms/Files/xp/common.inc:569
+msgid "No certificate file selected"
+msgstr "Non se seleccionou o ficheiro do certificado"
+
+#: devices/ms/Files/xp/common.inc:581
+msgid "Incorrect certificate password$\\r$\\nenter again"
+msgstr "Contrasinal incorrecto do certificado$\\r$\\nintrodúzao outra vez"
+
+#: devices/ms/Files/xp/common.inc:602
+#, php-format
+msgid ""
+"In order to install/update %s access all selected steps need to be "
 "performed. Click Continue to proceed"
 msgstr ""
-"Para instalar/actualizar o acceso eduroam todos os pasos seleccionados "
-"necesitan estar satisfeitos. Prema Contiuar para proceder"
+"Para instalar/actualizar o acceso %s todos os pasos seleccionados necesitan "
+"estar satisfeitos. Prema continuar para proceder"
+
+#: devices/ms/Files/xp/common.inc:603
+msgid ""
+"If an option is not selected by default, then it is either not available or "
+"optional."
+msgstr ""
+"De non estar unha opción seleccionada de modo predeterminado, ben non está "
+"dispoñible ben é opcional."
 
 #: devices/linux/Linux.php:78
 msgid ""
@@ -632,44 +736,44 @@ msgstr ""
 msgid "This installer will only work properly if you are a member of %s."
 msgstr "Este instalador soamente funcionará apropiadamente se é membro de %s."
 
-#: devices/linux/Linux.php:245
+#: devices/linux/Linux.php:246
 msgid "Y"
 msgstr "S"
 
-#: devices/linux/Linux.php:246
+#: devices/linux/Linux.php:247
 msgid "N"
 msgstr "N"
 
-#: devices/linux/Linux.php:301 devices/linux/Linux.php:306
+#: devices/linux/Linux.php:304 devices/linux/Linux.php:309
 msgid "Really quit?"
 msgstr "Desexa sair?"
 
-#: devices/linux/Linux.php:359
+#: devices/linux/Linux.php:362
 msgid "enter your userid"
 msgstr "introduza o seu id de usuario"
 
-#: devices/linux/Linux.php:365
+#: devices/linux/Linux.php:368
 msgid "enter your password"
 msgstr "escriba o seu contrasinal"
 
-#: devices/linux/Linux.php:368
+#: devices/linux/Linux.php:371
 msgid "repeat your password"
 msgstr "repita o seu contrasinal"
 
-#: devices/linux/Linux.php:372
+#: devices/linux/Linux.php:375
 msgid "passwords do not match"
 msgstr "os contrasinais non coinciden"
 
-#: devices/linux/Linux.php:430 devices/linux/Linux.php:434
-#: devices/linux/Linux.php:446
+#: devices/linux/Linux.php:434 devices/linux/Linux.php:438
+#: devices/linux/Linux.php:450
 msgid "personal certificate file (p12 or pfx)"
 msgstr "ficheiro de certificado persoal (p12 ou pfx)"
 
-#: devices/linux/Linux.php:455
+#: devices/linux/Linux.php:459
 msgid "file not found"
 msgstr "o ficheiro non se atopou"
 
-#: devices/linux/Linux.php:465 devices/linux/Linux.php:468
+#: devices/linux/Linux.php:469 devices/linux/Linux.php:472
 msgid "enter the password for the certificate file"
 msgstr "introduza o contrasinal para o ficheiro de certificado"
 
@@ -682,11 +786,6 @@ msgstr ""
 "Este instalador soamente é un exemplo. Produce un ficheiro zip que contén os "
 "certificados IdP, info e os ficheiros do logo (se é que o administrador de "
 "IdP os definiu) e un envorcado de atributos dispoñibles."
-
-#. / welcomletter: header of document
-#: devices/welcomeletter/welcomeletter.php:84
-msgid "Welcome Letter"
-msgstr "Carta de benvida"
 
 #. / welcomletter: footer
 #: devices/welcomeletter/welcomeletter.php:86
@@ -813,6 +912,55 @@ msgstr ""
 "Este botón crea unha carta de benvida personalizada das operacións con "
 "eduroam para vostede. O ficheiro está en formato OpenDocument (ODT); pode "
 "abrilo con LibreOffice, por exemplo."
+
+#~ msgid "This installer works with Windows 8 only"
+#~ msgstr "Este instalador soamente funciona con Windows 8"
+
+#~ msgid "This installer works with Windows Vista and Windows 7 only"
+#~ msgstr "O instalador soamente funciona en Windows Vista e Windows 7."
+
+#~ msgid "Credentials installation problem"
+#~ msgstr "Produciuse un problema na instalación de credenciais"
+
+#~ msgid "All files"
+#~ msgstr "Todos os ficheiros"
+
+#~ msgid "User credentials"
+#~ msgstr "Credenciais de usuario"
+
+#~ msgid "Username:"
+#~ msgstr "Nome de usuario:"
+
+#~ msgid "Password:"
+#~ msgstr "Contrasinal:"
+
+#~ msgid "Repeat password:"
+#~ msgstr "Repetir o contrasinal:"
+
+#~ msgid "Missing username"
+#~ msgstr "Perdeuse o nome de usuario:"
+
+#~ msgid "Missing password"
+#~ msgstr "Perdeuse o contrasinal"
+
+#~ msgid "Password missmatch"
+#~ msgstr "O contrasinal non coincide"
+
+#~ msgid "Welcome to the eduroam installer"
+#~ msgstr "Benvido/a ao instalador do eduroam"
+
+#~ msgid "This installer works with Windows XP SP3 only"
+#~ msgstr "Este instalador soamente funciona con Windows XP SP3"
+
+#~ msgid "eduroam installer for"
+#~ msgstr "instalador eduroam para"
+
+#~ msgid ""
+#~ "In order to install/update eduroam access all selected steps need to be "
+#~ "performed. Click Continue to proceed"
+#~ msgstr ""
+#~ "Para instalar/actualizar o acceso eduroam todos os pasos seleccionados "
+#~ "necesitan estar satisfeitos. Prema Contiuar para proceder"
 
 #~ msgid ""
 #~ "In addition to <strong>eduroam</strong> the installer will also configure "
