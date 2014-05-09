@@ -122,6 +122,7 @@ debug(4,$this->attributes['support:info_file']);
              $this->saveLogoFile($this->attributes['general:logo_file']);
        $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];;
        $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];;
+       $this->attributes['internal:consortia'] = $this->getConsortia();
        $this->lang_index = CAT::$lang_index;
        // phpMD says the below is not needed. Wow.
        // $idp = new IdP($profile->institution);
@@ -363,6 +364,15 @@ debug(4,$this->attributes['support:info_file']);
     return $S;
   }
 
+  private function getConsortia() {
+      $OIs = array();
+      $OIs = array_merge($OIs, Config::$CONSORTIUM['interworking-consortium-oi']);
+      if (isset($this->attributes['media:consortium_OI']))
+          foreach ($this->attributes['media:consortium_OI'] as $new_oi)
+            $OIs[] = $new_oi;
+      return $OIs;
+  }
+  
   /**
    * An array with shorthand definitions for MIME types
    * @var array
