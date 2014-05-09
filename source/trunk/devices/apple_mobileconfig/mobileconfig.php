@@ -101,6 +101,7 @@ class Device_mobileconfig extends DeviceConfig {
         }
 
         $ssid_list = $this->attributes['internal:SSID'];
+        $OI_list = $this->attributes['internal:consortia'];
         $server_names = $this->attributes['eap:server_name'];
         $uuid_list = $this->list_ca_uuids($this->attributes['internal:CAs'][0]);
         $eap_type = $this->selected_eap;
@@ -118,11 +119,7 @@ class Device_mobileconfig extends DeviceConfig {
             $include_wired = TRUE;
         else
             $include_wired = FALSE;
-        if (isset(Config::$CONSORTIUM['interworking-consortium-oi']))
-            $OI_list = Config::$CONSORTIUM['interworking-consortium-oi'];
-        else
-            $OI_list = array();
-        // TODO: allow admins to configure their own OIs in attributes, add here
+        
         $output_xml .= $this->all_network_blocks($ssid_list, $OI_list, $server_names, $uuid_list, $eap_type, $include_wired, $use_realm);
 
         $output_xml .= $this->all_ca($this->attributes['internal:CAs'][0]);
