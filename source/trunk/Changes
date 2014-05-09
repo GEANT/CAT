@@ -46,7 +46,7 @@ Changes in trunk
 - [FEATURE #11] Logos generated for DiscoJuice are now cached in the filesystem
 - [FEATURE #12] New layout of the download page
 - [FEATURE #13] The device id can be passed to the GUI to replace the OS selfdetection
-- [FEATURE #14] Hotspot 2.0: now generate Mac/iOS profiles with consortium OI
+- [FEATURE #14] Hotspot 2.0: now generate Mac/iOS profiles with consortium OIs
 - [FEATURE #15] background image of windows installers now generated dynamically,
                 not hard-wired to the eduroam name and logo any more (file
                 devices/ms/Files/cat_bg.bmp is now obsolete)
@@ -67,9 +67,15 @@ Changes in trunk
 - [FEATURE #29] Support for unsupported devices that can be shown when device-specific redirects
                 are set
 - [FEATURE #30] Core and Windows support for profile deletion (also including the Consrtium TKIP profile)
-- [STRUCTURE #1]  web/user/GUI.php renamed to core/UserAPI.php
-- [STRUCTURE #2]  web/user/cat_back.php renamed to web/user/API.php
-- [STRUCTURE #3]  updated PHP requirements to 5.5
+- [FEATURE #31] MacOS and iOS can't delete SSIDs, but will now instead install
+                the bootstrap SSID as no-auto-connect, effectively disabling it
+- [FEATURE #32] When creating a new CAT inst from eduroam DB, prefill email field
+                with the names and mails from eduroam DB
+- [STRUCTURE #1] web/user/GUI.php renamed to core/UserAPI.php
+- [STRUCTURE #2] web/user/cat_back.php renamed to web/user/API.php
+- [STRUCTURE #3] updated PHP requirements to 5.5
+- [STRUCTURE #4] SSIDs, wired, delete-bootstrap, consortium-OI are now their own
+                 configuration category ("Media")
 
 Configuration parameter changes
 -------------------------------
@@ -90,6 +96,8 @@ Configuration parameter changes
 Schema changes
 --------------
 profile:QR-user is now obsolete (no need for persistent storage of QR code)
+general:SSID has been renamed to media:SSID
+general:SSID_with_legacy has been renamed to media:SSID_with_legacy
 
 Changes in release 1.0.3
 ========================

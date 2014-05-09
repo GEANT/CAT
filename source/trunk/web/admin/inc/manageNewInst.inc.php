@@ -65,30 +65,34 @@ if (Config::$DB['enforce-external-sync']) {
                      </td>";
 
             echo "<td colspan='2'>
-                <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true'>
+                <select id='externals' name='externals' onchange='document.sendinvite.creation[0].checked=true; document.sendinvite.mailaddr.value=this.options[this.selectedIndex].id;'>
                     <option value='FREETEXT'>" . _("--- select IdP here ---") . "</option>";
 
             foreach ($feds as $fed_value) {
                 $thefed = new Federation(strtoupper($fed_value['value']));
                 $temparray = array();
                 $idparray = array();
+                $contacts = array();
                 $entities = $thefed->listUnmappedExternalEntities();
                 // lets see if we have inst names in the current language
                 foreach ($entities as $entity)
                     if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang']) && $entity['lang'] == CAT::$lang_index) {
                         $idparray[$entity['ID']] = $entity['name'];
+                        $contacts[$entity['ID']] = $entity['contactlist'];
                         $temparray[] = $entity['ID'];
                     }
                 // now add the remaining in English language
                 foreach ($entities as $entity)
                     if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang']) && $entity['lang'] == "en") {
                         $idparray[$entity['ID']] = $entity['name'];
+                        $contacts[$entity['ID']] = $entity['contactlist'];
                         $temparray[] = $entity['ID'];
                     }
                 // if there are still entries remaining, pick any language we find
                 foreach ($entities as $entity)
                     if (array_search($entity['ID'], $temparray) === FALSE) {
                         $idparray[$entity['ID']] = $entity['name'];
+                        $contacts[$entity['ID']] = $entity['contactlist'];
                         $temparray[] = $entity['ID'];
                     }
             $current_locale = setlocale(LC_ALL,0);
@@ -96,7 +100,7 @@ if (Config::$DB['enforce-external-sync']) {
             asort($idparray,SORT_LOCALE_STRING);
             setlocale(LC_ALL,$current_locale);
             foreach ($idparray as $id => $v) {
-                echo "<option value='" . $id . "'>[" . $fed_value['value'] . "] " . $v . "</option>";
+                echo "<option id='".$contacts[$id]."' value='" . $id . "'>[" . $fed_value['value'] . "] " . $v . "</option>";
             }
             }
 
