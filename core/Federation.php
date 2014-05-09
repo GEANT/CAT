@@ -405,7 +405,7 @@ class Federation {
         $returnarray = array();
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = array();
-            $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, name AS collapsed_name 
+            $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, name AS collapsed_name, contact AS collapsed_contact 
                                                                                 FROM view_active_idp_institution 
                                                                                 WHERE country = '" . strtolower($this->identifier) . "'");
             $already_used = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT external_db_id FROM institution 
@@ -424,10 +424,22 @@ class Federation {
                 if (in_array($a->id, $usedarray))
                     continue;
                 $names = explode('#', $a->collapsed_name);
+                $contacts = explode('#', $a->collapsed_contact);
                 foreach ($names as $name) {
                     $perlang = explode(': ', $name, 2);
-                    $returnarray[] = array("ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1]);
+                    $mailnames = "";
+                    foreach ($contacts as $contact) {
+                        $matches = array();
+                        preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
+                        if ($matches[2] != "") {
+                            if ($mailnames != "")
+                                $mailnames .= ", ";
+                            $mailnames .= '"'.$matches[1].'" <'.$matches[2].'>';
+                        }
+                    }
+                    $returnarray[] = array("ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1], "contactlist" => $mailnames);
                 }
+                
             }
         }
         return $returnarray;
