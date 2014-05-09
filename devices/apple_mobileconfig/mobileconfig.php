@@ -328,6 +328,37 @@ class Device_mobileconfig extends DeviceConfig {
         return $retval;
     }
 
+    private function removenetwork_block($SSID,$sequence) {
+        $retval = "
+<dict>
+	<key>AutoJoin</key>
+	<false/>
+	<key>EncryptionType</key>
+	<string>None</string>
+	<key>HIDDEN_NETWORK</key>
+	<false/>
+	<key>IsHotspot</key>
+	<false/>
+	<key>PayloadDescription</key>
+	<string>".sprintf(_("This SSID should not be used after bootstrapping %s"),Config::$CONSORTIUM['name'])."</string>
+	<key>PayloadDisplayName</key>
+	<string>"._("Disabled WiFi network")."</string>
+	<key>PayloadIdentifier</key>
+	<string>".Device_mobileconfig::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.wifi.disabled.$sequence</string>
+	<key>PayloadType</key>
+	<string>com.apple.wifi.managed</string>
+	<key>PayloadUUID</key>
+	<string>".uuid()."</string>
+	<key>PayloadVersion</key>
+	<real>1</real>
+	<key>ProxyType</key>
+	<string>Auto</string>
+	<key>SSID_STR</key>
+	<string>$SSID</string>
+</dict>
+";
+        return $retval;
+    }
     private function all_network_blocks($SSID_list, $OI_list, $server_list, $CA_UUID_list, $eap_type, $include_wired, $realm = 0) {
         $retval = "";
         $this->serial = 0;
@@ -338,6 +369,9 @@ class Device_mobileconfig extends DeviceConfig {
             $retval .= $this->network_block("IRRELEVANT", NULL, $server_list, $CA_UUID_list, $eap_type, TRUE, $realm);
         if (count($OI_list) > 0)
             $retval .= $this->network_block("IRRELEVANT", $OI_list, $server_list, $CA_UUID_list, $eap_type, FALSE, $realm);
+        if (isset($this->attributes['media:remove_SSID']) )
+            foreach ($this->attributes['media:remove_SSID'] as $index => $remove_SSID) 
+                $retval .= $this->removenetwork_block($remove_SSID, $index);
         return $retval;
     }
 
