@@ -64,9 +64,9 @@ if (isset($_POST['submitbutton'])) {
             foreach (Config::$CONSORTIUM['ssid'] as $ssidname)
                 $ssids[] = $ssidname . " " . (isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
 
-        $custom_ssids_wpa2 = $my_inst->getAttributes("general:SSID");
-        $custom_ssids_wpa = $my_inst->getAttributes("general:SSID_with_legacy");
-        $wired_support = $my_inst->getAttributes("general:wired");
+        $custom_ssids_wpa2 = $my_inst->getAttributes("media:SSID");
+        $custom_ssids_wpa = $my_inst->getAttributes("media:SSID_with_legacy");
+        $wired_support = $my_inst->getAttributes("media:wired");
 
         if (count($custom_ssids_wpa) > 0)
             foreach ($custom_ssids_wpa as $ssidname)

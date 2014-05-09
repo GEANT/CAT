@@ -344,14 +344,14 @@ debug(4,$this->attributes['support:info_file']);
         }
        }
     }
-    if(isset($this->attributes['general:SSID'])) {
-      $SSID = $this->attributes['general:SSID'];
+    if(isset($this->attributes['media:SSID'])) {
+      $SSID = $this->attributes['media:SSID'];
 
       foreach($SSID as $ssid)
          $S['add'][$ssid] = 'AES';
       }
-    if(isset($this->attributes['general:SSID_with_legacy'])) {
-      $SSID = $this->attributes['general:SSID_with_legacy'];
+    if(isset($this->attributes['media:SSID_with_legacy'])) {
+      $SSID = $this->attributes['media:SSID_with_legacy'];
       foreach($SSID as $ssid)
          $S['add'][$ssid] = 'TKIP';
     }
@@ -486,8 +486,8 @@ debug(4,$this->attributes['support:info_file']);
  *
  * these attributes are available and can be used, but the "internal" attributes are better suited for modules
  * -  eap:ca_file    -      certificate of the CA signing the RADIUS server key                                         
- * - <b>general:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
- * - <b>general:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
+ * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
+ * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
  *
  * @see X509::processCertificate()
  * @var array $attributes

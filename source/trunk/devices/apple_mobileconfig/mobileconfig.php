@@ -114,7 +114,7 @@ class Device_mobileconfig extends DeviceConfig {
          <array>";
 
         // did the admin want wired config?
-        if (isset($this->attributes['general:wired']))
+        if (isset($this->attributes['media:wired']))
             $include_wired = TRUE;
         else
             $include_wired = FALSE;
@@ -312,8 +312,12 @@ class Device_mobileconfig extends DeviceConfig {
                <key>DisplayedOperatorName</key>
                <string>".Config::$CONSORTIUM['name']."</string>
                <key>DomainName</key>
-               <string>foo.net.example</string>
-                "; // TODO: add DomainName (=configured realm)
+               <string>";
+            // what do we do if we did not get a realm? try to leave empty...
+                if (isset($this->attributes['internal:realm']))
+                    $retval .= $this->attributes['internal:realm'][0];
+            $retval .= "</string>
+                ";
             $retval .= "
                 <key>RoamingConsortiumOIs</key>
                 <array>";

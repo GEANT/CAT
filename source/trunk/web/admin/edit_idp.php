@@ -122,7 +122,7 @@ if ($wizard_style) {
         echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(Config::$CONSORTIUM['ssid'])), $ssidlist);
         if (Config::$CONSORTIUM['tkipsupport'])
             echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
-        echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("general:SSID"), display_name("general:SSID_with_legacy"));
+        echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
     } else {
         echo _("Please configure which SSIDs should be configured in the installers.");
     }

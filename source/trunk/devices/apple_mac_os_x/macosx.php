@@ -95,7 +95,7 @@ class Device_macosx extends DeviceConfig {
     $raw_document = "";
 
 
-    $ssid_list = $this->attributes['general:SSID'];
+    $ssid_list = $this->attributes['media:SSID'];
     $server_names = $this->attributes['eap:server_name'];
     $uuid_list = $this->list_ca_uuids($this->attributes['internal:CAs'][0]);
     $ca_list = $this->attributes['internal:CAs'][0];

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-25 09:52+0100\n"
+"POT-Creation-Date: 2014-04-30 12:57+0200\n"
 "PO-Revision-Date: 2012-12-10 11:16+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -19,206 +19,283 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:128
+#: core/DeviceConfig.php:129
 #, php-format
 msgid "your local %s support"
 msgstr "el vostre suport local %s"
 
-#: core/DeviceConfig.php:129
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support page"
 msgstr "la vostra pàgina de suport local %s"
 
-#: core/DeviceConfig.php:161
+#: core/DeviceConfig.php:162
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Disculpeu, això no hauria de passar - no hi ha més informació disponible"
 
-#: core/Federation.php:72
+#: core/Federation.php:74
 msgid "Andorra"
 msgstr "Andorra"
 
-#: core/Federation.php:73
+#: core/Federation.php:75
 msgid "Austria"
 msgstr "Austria"
 
-#: core/Federation.php:74
+#: core/Federation.php:76
 msgid "Belgium"
 msgstr "Bèlgica"
 
-#: core/Federation.php:75
+#: core/Federation.php:77
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
-#: core/Federation.php:76
+#: core/Federation.php:78
 msgid "Cyprus"
 msgstr "Xipre"
 
-#: core/Federation.php:77
+#: core/Federation.php:79
 msgid "Czech Republic"
 msgstr "República Txeca"
 
-#: core/Federation.php:78
+#: core/Federation.php:80
 msgid "Denmark"
 msgstr "Dinamarca"
 
-#: core/Federation.php:79
+#: core/Federation.php:81
 msgid "Estonia"
 msgstr "Estonia"
 
-#: core/Federation.php:80
+#: core/Federation.php:82
 msgid "Finland"
 msgstr "Finlàndia"
 
-#: core/Federation.php:81
+#: core/Federation.php:83
 msgid "France"
 msgstr "França"
 
-#: core/Federation.php:82
+#: core/Federation.php:84
 msgid "Germany"
 msgstr "Alemanya"
 
-#: core/Federation.php:83
+#: core/Federation.php:85
 msgid "Greece"
 msgstr "Grècia"
 
-#: core/Federation.php:84
+#: core/Federation.php:86
 msgid "Croatia"
 msgstr "Croàcia"
 
-#: core/Federation.php:85
+#: core/Federation.php:87
 msgid "Ireland"
 msgstr "Irlanda"
 
-#: core/Federation.php:86
+#: core/Federation.php:88
 msgid "Iceland"
 msgstr "Islàndia"
 
-#: core/Federation.php:87
+#: core/Federation.php:89
 msgid "Italy"
 msgstr "Italia"
 
-#: core/Federation.php:88
+#: core/Federation.php:90
 msgid "Hungary"
 msgstr "Hungria"
 
-#: core/Federation.php:89
+#: core/Federation.php:91
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: core/Federation.php:90
+#: core/Federation.php:92
 msgid "Latvia"
 msgstr "Letònia"
 
-#: core/Federation.php:91
+#: core/Federation.php:93
 msgid "Lithuania"
 msgstr "Lituània"
 
-#: core/Federation.php:92
+#: core/Federation.php:94
 msgid "Macedonia"
 msgstr "Macedònia"
 
-#: core/Federation.php:93
+#: core/Federation.php:95
 msgid "Serbia"
 msgstr "Serbia"
 
-#: core/Federation.php:94
+#: core/Federation.php:96
 msgid "Netherlands"
 msgstr "Holanda"
 
-#: core/Federation.php:95
+#: core/Federation.php:97
 msgid "Norway"
 msgstr "Noruega"
 
-#: core/Federation.php:96
+#: core/Federation.php:98
 msgid "Poland"
 msgstr "Polònia"
 
-#: core/Federation.php:97
+#: core/Federation.php:99
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/Federation.php:98
+#: core/Federation.php:100
 msgid "Romania"
 msgstr "Romania"
 
-#: core/Federation.php:99
+#: core/Federation.php:101
 msgid "Slovenia"
 msgstr "Eslovènia"
 
-#: core/Federation.php:100
+#: core/Federation.php:102
 msgid "Spain"
 msgstr "Espanya"
 
-#: core/Federation.php:101
+#: core/Federation.php:103
 msgid "Sweden"
 msgstr "Suècia"
 
-#: core/Federation.php:102
+#: core/Federation.php:104
 msgid "Slovakia"
 msgstr "Eslovàquia"
 
-#: core/Federation.php:103
+#: core/Federation.php:105
 msgid "Switzerland"
 msgstr "Suissa"
 
-#: core/Federation.php:104
+#: core/Federation.php:106
 msgid "Turkey"
 msgstr "Turquia"
 
-#: core/Federation.php:105
+#: core/Federation.php:107
 msgid "United Kingdom"
 msgstr "Regne Unit"
 
-#: core/Federation.php:107
+#: core/Federation.php:109
 msgid "Australia"
 msgstr "Austràlia"
 
-#: core/Federation.php:108
+#: core/Federation.php:110
 msgid "Canada"
 msgstr "Canadà"
 
-#: core/Federation.php:109
+#: core/Federation.php:111
 msgid "Israel"
 msgstr "Israel"
 
-#: core/Federation.php:110
+#: core/Federation.php:112
 msgid "Japan"
 msgstr "Japó"
 
-#: core/Federation.php:111
+#: core/Federation.php:113
 msgid "New Zealand"
 msgstr "Nova Zelanda"
 
-#: core/Federation.php:112
+#: core/Federation.php:114
 msgid "U.S.A."
 msgstr "U.S.A."
 
-#: core/Federation.php:113
+#: core/Federation.php:115
 msgid "Brazil"
 msgstr "Brasil"
 
-#: core/Federation.php:114
+#: core/Federation.php:116
 msgid "Chile"
 msgstr "Xile"
 
-#: core/Federation.php:115
+#: core/Federation.php:117
 msgid "Peru"
 msgstr "Perú"
 
-#: core/Federation.php:116
+#: core/Federation.php:118
 msgid "Venezuela"
 msgstr "Veneçola"
 
-#: core/Federation.php:117
+#: core/Federation.php:119
 msgid "Default"
 msgstr "Per defecte"
 
+#: core/Federation.php:120
+msgid "Armenia"
+msgstr ""
+
+#: core/Federation.php:121
+msgid "Azerbaijan"
+msgstr ""
+
+#: core/Federation.php:122
+msgid "Belarus"
+msgstr ""
+
+#: core/Federation.php:123
+msgid "Ecuador"
+msgstr ""
+
+#: core/Federation.php:124
+msgid "Hong Kong"
+msgstr ""
+
+#: core/Federation.php:125
+msgid "Kenya"
+msgstr ""
+
+#: core/Federation.php:126
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: core/Federation.php:127
+msgid "Korea"
+msgstr ""
+
+#: core/Federation.php:128
+msgid "Kazakhstan"
+msgstr ""
+
+#: core/Federation.php:129
+msgid "Morocco"
+msgstr ""
+
+#: core/Federation.php:130
+msgid "Moldova"
+msgstr ""
+
+#: core/Federation.php:131
+msgid "Montenegro"
+msgstr ""
+
+#: core/Federation.php:132
+msgid "Macau"
+msgstr ""
+
+#: core/Federation.php:133
+msgid "Malta"
+msgstr ""
+
+#: core/Federation.php:134
+msgid "Russia"
+msgstr ""
+
 #: core/Federation.php:135
+msgid "Singapore"
+msgstr ""
+
+#: core/Federation.php:136
+#, fuzzy
+msgid "Thailand"
+msgstr "Finlàndia"
+
+#: core/Federation.php:137
+msgid "Taiwan"
+msgstr ""
+
+#: core/Federation.php:138
+msgid "South Africa"
+msgstr ""
+
+#: core/Federation.php:338
 msgid "Could not create a new Institution!"
 msgstr "No es pot crear una nova Institució!"
 
-#: core/IdP.php:307
+#: core/IdP.php:336
 #, php-format
 msgid ""
 "Hi,\n"
@@ -242,16 +319,254 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:316
+#: core/IdP.php:345
 msgid "IdP in your federation was deleted"
 msgstr "S'ha esborrat l'IdP a la vostra federació"
+
+#: core/RADIUSTests.php:232
+msgid "eduPKI"
+msgstr ""
+
+#: core/RADIUSTests.php:233
+msgid "Nicolaus Copernicus University"
+msgstr ""
+
+#: core/RADIUSTests.php:234
+msgid "accredited"
+msgstr ""
+
+#: core/RADIUSTests.php:235
+msgid "non-accredited"
+msgstr ""
+
+#: core/RADIUSTests.php:236
+msgid "correct certificate"
+msgstr ""
+
+#: core/RADIUSTests.php:237
+msgid "certificate with wrong policy OID"
+msgstr ""
+
+#: core/RADIUSTests.php:238
+msgid "expired certificate"
+msgstr ""
+
+#: core/RADIUSTests.php:239
+msgid "revoked certificate"
+msgstr ""
+
+#: core/RADIUSTests.php:240
+msgid "pass"
+msgstr ""
+
+#: core/RADIUSTests.php:241
+msgid "fail"
+msgstr ""
+
+#: core/RADIUSTests.php:242
+msgid "eduroam-accredited CA (now only for tests)"
+msgstr ""
+
+#: core/RADIUSTests.php:346
+msgid "Completed"
+msgstr ""
+
+#: core/RADIUSTests.php:358
+msgid "This check was skipped."
+msgstr ""
+
+#: core/RADIUSTests.php:365
+msgid "There were errors during the test."
+msgstr ""
+
+#: core/RADIUSTests.php:373
+msgid "This realm has no NAPTR records."
+msgstr ""
+
+#: core/RADIUSTests.php:380
+msgid "NAPTR records were found, but all of them refer to unrelated services."
+msgstr ""
+
+#: core/RADIUSTests.php:388
+msgid "There was no reply at all from the RADIUS server."
+msgstr ""
+
+#: core/RADIUSTests.php:395
+msgid ""
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+
+#: core/RADIUSTests.php:402
+msgid ""
+"The RADIUS server immediately rejected the authentication request in its "
+"first reply."
+msgstr ""
+
+#: core/RADIUSTests.php:409
+msgid ""
+"The RADIUS server rejected the authentication request after an EAP "
+"conversation."
+msgstr ""
+
+#: core/RADIUSTests.php:416
+msgid "Connection refused"
+msgstr ""
+
+#: core/RADIUSTests.php:423
+msgid "Not enough data provided to perform an authentication"
+msgstr ""
+
+#: core/RADIUSTests.php:431
+msgid ""
+"The certificate chain includes the root CA certificate. This does not serve "
+"any useful purpose but inflates the packet exchange, possibly leading to "
+"more round-trips and thus slower authentication."
+msgstr ""
+
+#: core/RADIUSTests.php:438
+msgid "There is more than one server certificate in the chain."
+msgstr ""
+
+#: core/RADIUSTests.php:445
+msgid "There is no server certificate in the chain."
+msgstr ""
+
+#: core/RADIUSTests.php:452
+msgid ""
+"At least one certificate in the chain is signed with the MD5 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+
+#: core/RADIUSTests.php:459
+msgid ""
+"At least one certificate in the chain had a public key of less than 1024 "
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+
+#: core/RADIUSTests.php:466
+msgid ""
+"The server certificate does not have the extension 'extendedKeyUsage: TLS "
+"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+"validate this certificate."
+msgstr ""
+
+#: core/RADIUSTests.php:473
+msgid ""
+"The server certificate did not include a CRL Distribution Point, creating "
+"compat problems with Windows Phone 8"
+msgstr ""
+
+#: core/RADIUSTests.php:480
+msgid ""
+"The server certificate does not have the extension 'CRL Distribution Point' "
+"pointing to an HTTP/HTTPS URL. Some Operating Systems (currently only "
+"Windows Phone 8) will fail to validate this certificate."
+msgstr ""
+
+#: core/RADIUSTests.php:487
+msgid ""
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certifice."
+msgstr ""
+
+#: core/RADIUSTests.php:494
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+
+#: core/RADIUSTests.php:501
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which contains a "
+"wildcard ('*'). This can be problematic on some supplicants. If the "
+"certificate also contains names which are wildcardless, and you only use "
+"those for your supplicant configuration, then you can safely ignore this "
+"notice."
+msgstr ""
+
+#: core/RADIUSTests.php:508
+msgid ""
+"The server certificate could not be verified to the root CA you configured "
+"in your profile!"
+msgstr ""
+
+#: core/RADIUSTests.php:512
+msgid ""
+"The certificate chain as received in EAP was not sufficient to verify the "
+"certificate to the root CA in your profile. It was verified using the "
+"intermediate CAs in your profile though. You should consider sending the "
+"required intermediate CAs inside the EAP conversation."
+msgstr ""
+
+#: core/RADIUSTests.php:518
+msgid ""
+"The EAP server name does not match any of the configured names in your "
+"profile!"
+msgstr ""
+
+#: core/RADIUSTests.php:525
+msgid ""
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
+"should contain the name in BOTH places."
+msgstr ""
+
+#: core/RADIUSTests.php:532
+msgid ""
+"At least one certificate did not contain any BasicConstraints extension; "
+"which makes it unclear if it's a CA certificate or end-entity certificate. "
+"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
+"for EAP purposes!"
+msgstr ""
+
+#: core/RADIUSTests.php:539
+msgid "The server presented a certificate from an unknown authority."
+msgstr ""
+
+#: core/RADIUSTests.php:546
+msgid "The server accepted the INVALID client certificate."
+msgstr ""
+
+#: core/RADIUSTests.php:553
+msgid "The server rejected the client certificate, even though it was valid."
+msgstr ""
+
+#: core/RADIUSTests.php:560
+msgid "The server rejected the client certificate."
+msgstr ""
+
+#: core/RADIUSTests.php:1223
+msgid "certificate expired"
+msgstr ""
+
+#: core/RADIUSTests.php:1225
+msgid "certificate was revoked"
+msgstr ""
+
+#: core/RADIUSTests.php:1227
+msgid "bad policy"
+msgstr ""
+
+#: core/RADIUSTests.php:1229
+msgid "unknown authority"
+msgstr ""
+
+#: core/RADIUSTests.php:1232
+msgid "unknown authority or no certificate policy or another problem"
+msgstr ""
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:147
+#: core/UserManagement.php:150
 #, php-format
 msgid ""
 "Hi,\n"
@@ -276,6 +591,6 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/UserManagement.php:156
+#: core/UserManagement.php:159
 msgid "IdP in your federation was created"
 msgstr "S'ha creat l'IdP a la vostra federació"
