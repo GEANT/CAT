@@ -41,7 +41,7 @@ Device modules
 ! Linux - WICD support
 ! Linux - SUSE XML variant support
 ! Linux - Hotspot 2.0 / Passpoint support (wpa_supplicant only)
-! all OS: ability to remove bootstrap SSIDs
+- all OS: ability to remove bootstrap SSIDs (done for MacOS / iOS)
 ! all OS: enable to configure transparent proxy detection
 ? Windows modules - EAP-PWD support update (if new version from Aruba)
 ? Linux - big installer GUI (Feature)
