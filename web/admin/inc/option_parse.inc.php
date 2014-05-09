@@ -82,7 +82,15 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             switch ($optioninfo["type"]) {
                 case "string":
                     if (isset($a["$obj_id-0"]) && $a["$obj_id-0"] != "")
-                        $content = valid_string_db($a["$obj_id-0"]);
+                        if ($obj_value == "media:consortium_OI") {
+                            $content = valid_consortium_oi($a["$obj_id-0"]);
+                            if ($content === FALSE) {
+                                $bad[] = $obj_value;
+                                continue 2;
+                            }
+                        } else {
+                            $content = valid_string_db($a["$obj_id-0"]);
+                        }
                     else {
                         continue 2;
                     }
