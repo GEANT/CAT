@@ -693,9 +693,7 @@ class RADIUSTests {
 
         // check for real hostname
         foreach ($allnames as $onename) {
-            // TODO: uncomment this as soon as we can require 5.4 for IDN
-            // if (filter_var("foo@".idn_to_ascii($onename),FILTER_VALIDATE_EMAIL) === FALSE)
-            if (filter_var("foo@" . $onename, FILTER_VALIDATE_EMAIL) === FALSE)
+            if (filter_var("foo@".idn_to_ascii($onename),FILTER_VALIDATE_EMAIL) === FALSE)
                 $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
         }
 
