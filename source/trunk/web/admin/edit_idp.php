@@ -112,22 +112,6 @@ if ($wizard_style) {
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
                          <li>" . _("<strong>Terms of Use</strong>: Some installers support displaying text to the user during installation time. If so, we will make that happen if you upload an RTF file or plain text file to display.") . "</li>";
 
-    echo "<li>";
-    echo "<strong>" . ( count(Config::$CONSORTIUM['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
-    if (count(Config::$CONSORTIUM['ssid']) > 0) {
-        $ssidlist = "";
-        foreach (Config::$CONSORTIUM['ssid'] as $ssid)
-            $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
-        $ssidlist = substr($ssidlist, 2);
-        echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(Config::$CONSORTIUM['ssid'])), $ssidlist);
-        if (Config::$CONSORTIUM['tkipsupport'])
-            echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
-        echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
-    } else {
-        echo _("Please configure which SSIDs should be configured in the installers.");
-    }
-    echo " " . _("By default, we will only configure the SSIDs with WPA2/AES encryption. By using the '(with WPA/TKIP)' option you can specify that we should include legacy support for WPA/TKIP where possible.");
-    echo "</li>";
     echo "</ul>";
 }
 ?>
@@ -151,11 +135,49 @@ geo_widget_body($wizard_style, $additional);
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>
 <?php
-if ($wizard_style)
+if ($wizard_style) {
     echo "<p>" .
-    _("TBD: texts for wizard mode") . "</p>
-          <p>" .
-    _("TBD: more texts for wizard mode") . "</p>";
+    sprintf(_("In this section, you define on which media %s should be configured on user devices."),Config::$CONSORTIUM['name']) . "</p>
+          <ul>";
+    echo "<li>";
+    echo "<strong>" . ( count(Config::$CONSORTIUM['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
+    if (count(Config::$CONSORTIUM['ssid']) > 0) {
+        $ssidlist = "";
+        foreach (Config::$CONSORTIUM['ssid'] as $ssid)
+            $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
+        $ssidlist = substr($ssidlist, 2);
+        echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(Config::$CONSORTIUM['ssid'])), $ssidlist);
+        if (Config::$CONSORTIUM['tkipsupport'])
+            echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
+        echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
+    } else {
+        echo _("Please configure which SSIDs should be configured in the installers.");
+    }
+    echo " " . _("By default, we will only configure the SSIDs with WPA2/AES encryption. By using the '(with WPA/TKIP)' option you can specify that we should include legacy support for WPA/TKIP where possible.");
+    echo "</li>";
+
+    echo "<li>";
+    echo "<strong>" . ( count(Config::$CONSORTIUM['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
+    if (count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0) {
+        $consortiumlist = "";
+        foreach (Config::$CONSORTIUM['interworking-consortium-oi'] as $oi)
+            $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
+        $consortiumlist = substr($consortiumlist, 2);
+        echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(Config::$CONSORTIUM['interworking-consortium-oi'])), $consortiumlist);
+        
+        echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), display_name("media:consortium_OI"));
+    } else {
+        echo _("Please configure which Consortium OIs should be configured in the installers.");
+    }   
+    echo "</li>";
+    echo "<li><strong>"._("Support for wired IEEE 802.1X:")." </strong>"
+    . _("If you want to configure your users' devices with IEEE 802.1X support for wired ethernet, please check the corresponding box. Note that this makes the installation process a bit more difficult on some platforms (Windows: needs administrator privileges; Apple: attempting to install a profile with wired support on a device without an active wired ethernet card will fail).").
+            "</li>";
+    echo "<li><strong>"._("Removal of bootstrap/onboarding SSIDs:")." </strong>"
+            . _("If you use a captive portal to distribute configurations, you may want to unconfigure/disable that SSID after the bootstrap process. With this option, the SSID will either be removed, or be defined as 'Only connect manually'.")
+            . "</li>";
+    echo "</ul>";
+}
 ?>
 
         <table id="expandable_media_options">

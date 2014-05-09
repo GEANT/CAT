@@ -82,6 +82,15 @@ function valid_string_db($input, $allow_whitspace = 0) {
     return $retval;
 }
 
+function valid_consortium_oi($input) {
+    $shallow = valid_string_db($input);
+    if (strlen($shallow) != 6 && strlen($shallow) != 10)
+        return FALSE;
+    if (!preg_match("/^[a-fA-F0-9]+$/",$shallow))
+            return FALSE;
+    return $shallow;
+}
+
 function valid_Realm($input) {
     // basic string checks
     $check = valid_string_db($input);
