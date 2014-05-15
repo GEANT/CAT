@@ -352,7 +352,7 @@ function prompt_nonempty_string {
       read -p "${prompt}: " out_s
     done
   fi
-  echo $out_s;
+  echo "$out_s";
 }
 
 function user_cred {

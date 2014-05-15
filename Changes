@@ -8,6 +8,7 @@ Changes in trunk
 - [BUGFIX #6]  Linux module fix - user confirmation function
 - [BUGFIX #7]  Windows TLS modules did not allow users to unset the installation of the PFX file
 - [BUGFIX #8]  Corrected match pattern for Windows 8.1
+- [BUGFIX #9]  Linux module - incorrect behaviur with some special chracters in passwords
 
 
 - [FEATURE #1] admin interface allows admin to select wired interfaces as target
