@@ -45,6 +45,9 @@ if (isset($_GET["class"])) {
     case "media":
             $list = array_values($list);
         break;
+    case "device-specific":
+    case "eap-specific":
+        break;
     default:
         debug(1,"Unknown type of option!");
         exit(1);

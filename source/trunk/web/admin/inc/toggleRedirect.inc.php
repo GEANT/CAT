@@ -95,10 +95,11 @@ if ($device) {
 // see if we already have any attributes; if so, display these
         $interesting_attribs = array();
 
-        foreach ($attribs as $attrib)
+        foreach ($attribs as $attrib) {
             if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))
                 $interesting_attribs[] = $attrib;
-
+        }
+        // print_r($interesting_attribs);
         add_option($keyword, $interesting_attribs);
         ?>
     </table>
