@@ -239,7 +239,7 @@ include("user/js/cat_js.php");
                        </p>
                     </div> <!-- id="user_welcomer_page" -->
                     <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
-                        <?php echo _("Your local administrator has specified that this user group should be supported locally.<br>
+                        <?php echo _("Your local administrator has specified a redirect to a local support page.<br>
                             When you click <b>Continue</b> this support page will be opened in a new window/tab."); ?>
                         <br>
                             <span class="redirect_link">
