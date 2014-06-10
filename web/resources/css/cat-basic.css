@@ -1,8 +1,22 @@
-body {font-size:20px;
+body {
+   font-size:25px;
+   font-size:5vw;
+
 font-family:Verdana, Arial, Helvetica, sans-serif;
 }
+
+h1 {
+ font-size:35px;
+ font-size:7vw;
+}
 ul li {padding-bottom:4ex}
-select {font-size:30px;}
+select {
+   font-size:25px;
+   font-size:5vw;
+   width: 100%;
+   background:#0a698e;
+   color: #ffffff;
+}
 
 div.user_info {background:yellow; padding:8px}
 
@@ -23,3 +37,36 @@ div.download {
   padding: 20px;
 }
 
+button, #devices {
+   font-size:25px;
+   font-size:5vw;
+   width: 100%;
+   background:#0a698e;
+   color: #ffffff;
+   border-radius:10px ; 
+   border-radius:2vw ; 
+   cursor: pointer;
+   border: 0; 
+    padding: 10px;
+    padding: 2vw;
+}
+
+#user_choice {
+  font-size: 60%;
+  padding: 5px;
+  padding: 1vw;
+  background: #eee;
+}
+
+#unsupported_os {
+  color: red;
+}
+
+#motd {
+  color: red;
+  background: yellow;
+  font-size:15px;
+  font-size:3vw;
+  padding: 5px;
+  padding: 1vw;
+}

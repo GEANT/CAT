@@ -446,7 +446,7 @@ private function geoDistance($P1,$P2) {
   * @return array $IdPs -  list of arrays ('id', 'name');
   */
 
-public function orderIdentityProviders($L,$country) {
+public function orderIdentityProviders($country) {
      $idps = Federation::listAllIdentityProviders(1,$country);
 
   $U = $this->locateUser();
@@ -500,8 +500,6 @@ public function detectOS() {
       $device = $Dev[$dev_id];
       return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));
    }
-   if(isset($_SESSION['browser_os']))
-       return $_SESSION['browser_os'];
    $browser = $_SERVER['HTTP_USER_AGENT'];
    debug(4,"HTTP_USER_AGENT=$browser\n");
    foreach ($Dev as $dev_id => $device) {
@@ -510,7 +508,6 @@ public function detectOS() {
      if(preg_match('/'.$device['match'].'/',$browser)) {
        if(!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
 
-          $_SESSION['browser_os'] = $dev_id;
           debug(4,"Browser_id: $dev_id\n");
           return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));
        }

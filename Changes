@@ -72,6 +72,7 @@ Changes in trunk
                 the bootstrap SSID as no-auto-connect, effectively disabling it
 - [FEATURE #32] When creating a new CAT inst from eduroam DB, prefill email field
                 with the names and mails from eduroam DB
+- [FEATURE #33] Smartphone interface has been completely redesigned
 - [STRUCTURE #1] web/user/GUI.php renamed to core/UserAPI.php
 - [STRUCTURE #2] web/user/cat_back.php renamed to web/user/API.php
 - [STRUCTURE #3] updated PHP requirements to 5.5
