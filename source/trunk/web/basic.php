@@ -189,12 +189,14 @@ public function listDevices() {
    $profile_redirect = 0;
    $redirect_target = '';
    $device_redirects = '';
+   $selected_os = 0;
+   $unsupported_message = '<div id="unsupported_os">'._("Your operating system was not properly detected, is not supported yet or cannot be configured with settings provided by your institution")."</div><br>";
+   
    $a = $this->profileAttributes($this->Profile->identifier);
    $thedevices = $a['devices'];
+   $message = '';
    if(! $os)
-     $out = '<div id="unsupported_os">'._("Your operating system was not properly detected or is not supported yet.")."</div><br>";
-   else
-     $out = '';
+     $message = $unsupported_message;
    $out .= _("Choose an installer to download").'<br>';
    $out .= '<select name="device" onchange="set_device(this)">';
    $i= 0;
@@ -211,6 +213,7 @@ public function listDevices() {
       $out .= '<option value="'.$D['id'].'"';
       if($D['id'] == $os) {
         $out .= ' selected';
+        $selected_os = 1;
         if($D['redirect']) {
            $redirect_target = $D['redirect'];
         }
@@ -220,6 +223,9 @@ public function listDevices() {
       $i++;
    }
    $out .= '</select>';
+   if( $selected_os == 0)
+      $message = $unsupported_message;
+   $out = $message . $out;
    if($profile_redirect)
       $out = '';
    if($redirect_target) {
