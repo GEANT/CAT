@@ -386,6 +386,8 @@ debug(4,"\n----------------------------------SIMPLE.PHP------------------------\
           document.getElementById('reset_dev').value = 1;
       if(id.name == 'idp') 
           document.getElementById('reset_dev').value = 1;
+      if(id.name == 'start_over') 
+          document.getElementById('devices_h').value = 0;
       if(id.name == 'devices') 
           document.getElementById('devices_h').value = 1;
          my_form.submit();
