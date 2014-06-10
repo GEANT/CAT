@@ -161,9 +161,24 @@ public static function listDevices() {
    ),
     
 	
+ 'apple_mav'=>array(
+    'group' => "apple",
+    'display'=>_("Apple OS X Mavericks"),
+    'match'=>'Mac OS X 10[._]8',
+    'directory'=>'apple_mobileconfig',
+    'module'=>'mobileconfig',
+    'signer'=>'mobileconfig_sign',
+    'options'=>array(
+       'sign'=>0,
+       'device_id'=>'MacOS',
+       'mime'=>'application/x-apple-aspen-config',
+      ),
+    ),
+	
+	
  'apple_m_lion'=>array(
     'group' => "apple",
-    'display'=>_("Apple Mac OS X Mountain Lion"),
+    'display'=>_("Apple OS X Mountain Lion"),
     'match'=>'Mac OS X 10[._]8',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig',
@@ -177,7 +192,7 @@ public static function listDevices() {
 	
  'apple_lion'=>array(
     'group' => "apple",
-    'display'=>_("Apple Mac OS X Lion"),
+    'display'=>_("Apple OS X Lion"),
     'match'=>'Mac OS X 10[._]7',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig',
@@ -204,7 +219,7 @@ public static function listDevices() {
  'linux'=>array(
      'group' => "linux",
      'display'=>_("Linux"),
-     'match'=>'Linux',
+     'match'=>'Linux(?!.*Android)',
      'directory'=>'linux',
      'module' => 'Linux',
      'options'=>array(
@@ -214,6 +229,7 @@ public static function listDevices() {
  'android'=>array(
      'group' => "android",
      'display'=>_("Android"),
+     'match'=>'Android',
      'directory'=>'redirect_dev',
      'module'=>'RedirectDev',
      'options'=>array(
