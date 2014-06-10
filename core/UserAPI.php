@@ -507,7 +507,6 @@ public function detectOS() {
         continue;
      if(preg_match('/'.$device['match'].'/',$browser)) {
        if(!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
-
           debug(4,"Browser_id: $dev_id\n");
           return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));
        }
