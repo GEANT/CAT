@@ -28,6 +28,10 @@ ${EndIf}
 ${If} $wired == 1
   Call CreateLanProfile
 ${EndIf}
+!ifdef CRED
+  Call InstallUserCredentials
+!endif
+
 
 ;Sleep 2000
 SendMessage $HWNDPARENT "0x408" "1" ""

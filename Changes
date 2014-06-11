@@ -38,8 +38,7 @@ Changes in trunk
                 CERTPROB_SERVER_NAME_PARTIAL_MATCH
                 CERTPROB_NOT_A_HOSTNAME
                 CERTPROB_WILDCARD_IN_NAME
-- [FEATURE #7] Windows: Install profiles first and do not ask for credentials
-               when profiles fail
+- [FEATURE #7] This feature has been reversed, number is lef for consistency
 - [FEATURE #8] Mac OS, iOS: support wired ethernet configuration
 - [FEATURE #9] Simple text inteface to TOU display
 - [FEATURE #10]A changed approach to JSON transfer schema as an openning

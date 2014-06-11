@@ -77,9 +77,9 @@ Var profile_count
 Var aes_count
 Var tkip_count
 Var welcome_message
-Var get_credentials
-Var get_wireless_credentials
-Var get_wired_credentials
+;Var get_credentials
+Var install_wireless_credentials
+Var install_wired_credentials
 Var VistaNoSP
 Var W7
 Var WindowsVer
@@ -290,12 +290,12 @@ Function .onInit
   Pop $aes_count
   Push 0
   Pop $tkip_count
+;  Push 0
+;  Pop $get_credentials
   Push 0
-  Pop $get_credentials
+  Pop $install_wireless_credentials
   Push 0
-  Pop $get_wireless_credentials
-  Push 0
-  Pop $get_wired_credentials
+  Pop $install_wired_credentials
   !ifdef WIRED 
     Push 1
   !else
@@ -816,18 +816,19 @@ FunctionEnd
 Function CreateLanProfile
  !insertmacro debug_cat 2 "nstalling wired profile"
  DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
-  !insertmacro debug_cat 3 "E not foundxecute: netsh lan add profile $TEMP\lan_prof.xml"
-  ${Commands->Shift} "netsh wlan add profile $TEMP\lan_prof.xml"
-;  ${Commands->Shift} "del $TEMP\lan_prof.xml"
+  !insertmacro debug_cat 3 "execute: netsh lan add profile $TEMP\lan_prof.xml"
+  ${Commands->Shift} "netsh lan add profile $TEMP\lan_prof.xml"
+  ${Commands->Shift} "del $TEMP\lan_prof.xml"
   nsExec::Exec '"netsh" lan add profile $TEMP\lan_prof.xml'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
-  ${If} $0 == 0
+;  ${If} $0 == 0
+;    Push 1
+;    Pop $get_credentials
+     !insertmacro debug_cat 1 "Wired profile created"
     Push 1
-    Pop $get_credentials
-    Push 1
-    Pop $get_wired_credentials
-  ${EndIf}
+    Pop $install_wired_credentials
+;  ${EndIf}
   !ifndef DEBUG_CAT
      Delete "$TEMP\lan_prof.xml"
   !endif
@@ -890,10 +891,11 @@ Function InstallProfile
     Push 1
     Pop $profile_fail
   ${Else}
+     !insertmacro debug_cat 1 "Profile $R1 created"
+;    Push 1
+;    Pop $get_credentials
     Push 1
-    Pop $get_credentials
-    Push 1
-    Pop $get_wireless_credentials
+    Pop $install_wireless_credentials
   !ifndef DEBUG_CAT
      Delete "$TEMP\wlan_prof-$R0.xml"
   !endif
@@ -1039,9 +1041,9 @@ FunctionEnd
 ; User credentials dialog
 !ifdef CRED
 Function UserCredentials
-  ${If} $get_credentials == 0
-    Abort
-  ${EndIf}
+;  ${If} $get_credentials == 0
+;    Abort
+;  ${EndIf}
   call ShowNextCancelButtons
   !insertmacro MUI_HEADER_TEXT "<?php echo_nsi(_("User credentials"))?>" " "
         nsDialogs::Create 1018
@@ -1081,16 +1083,20 @@ Abort
 ${EndIf}
 ${Base64_Encode} $PASS1
 Pop $PASS_B64
-Call InstallWirelessUserCredentials
-Call InstallWiredUserCredentials
 Call ShowAllButtons
+FunctionEnd
+;=============================
+Function InstallUserCredentials
+  Call InstallWirelessUserCredentials
+  Call InstallWiredUserCredentials
 FunctionEnd
 ;=============================
 Function InstallWirelessUserCredentials
   !ifndef CRED
     Abort
   !endif
-  ${If} $get_wireless_credentials == 0
+  !insertmacro debug_cat 4 "Installing wireless credentials"
+  ${If} $install_wireless_credentials == 0
     Goto WirelessEnd
   ${EndIf}
   ${ForEach} $R9 0 $profile_count + 1
@@ -1105,7 +1111,7 @@ Function InstallWiredUserCredentials
   !ifndef CRED
     Abort
   !endif
-  ${If} $get_wired_credentials == 0
+  ${If} $install_wired_credentials == 0
     Goto WiredEnd
   ${EndIf}
    Call InstallWiredCred
@@ -1155,11 +1161,11 @@ Page custom PFXCertificateSelect PFXCertificateSelectLeave
 ;=============================
 !endif
 ;=============================
-Page instfiles ShowInstfiles
-;=============================
 !ifdef CRED
 Page custom UserCredentials SaveCredentials
 !endif
+;=============================
+Page instfiles ShowInstfiles
 ;=============================
 !ifdef SW2
 PageEx custom
