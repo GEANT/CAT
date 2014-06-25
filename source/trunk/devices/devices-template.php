@@ -170,7 +170,7 @@ public static function listDevices() {
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
-       'device_id'=>'MacOS',
+       'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
@@ -185,7 +185,7 @@ public static function listDevices() {
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
-       'device_id'=>'MacOS',
+       'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
@@ -199,20 +199,20 @@ public static function listDevices() {
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
-       'device_id'=>'MacOS',
+       'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
  'mobileconfig'=>array(
     'group' => "apple",     
     'display'=>_("Apple iOS mobile devices"),
-    'match'=>'iOS|iPad',
+    'match'=>'iOS|iPad|iPhone|iPod',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
-       'device_id'=>'',
+       'device_id'=>'iOS',
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
