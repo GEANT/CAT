@@ -34,7 +34,6 @@ Device modules
 + Windows modules, correct the text about profiles to be installed if there is only one
 + Turn off TKIP for Linux
 - Wired support (done for Apple and Windows - impossible for Linux cince it breaks down non-1x connectivity)
-- all OS: ability to remove bootstrap SSIDs (done for MacOS / iOS)
 ! Linux - WICD support
 ! Linux - SUSE XML variant support
 ! Linux - Hotspot 2.0 / Passpoint support (wpa_supplicant only)
