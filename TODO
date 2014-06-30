@@ -13,8 +13,8 @@ Admin Interface
 + replace system() calls to qrencode with PHP library call
 + specify SSID to be /removed/ from client config after successful installation
 + pre-fill inst admins mail addresses from eduroam DB if known (but allow override)
++ wired 802.1X configuration support
 - check and complain if an admin tries to upload a *server* certificate
-- wired 802.1X configuration support
 ! specify if transparent proxies should be enabled (or do this unconditionally?)
 ! allow custom outer ID for the static "shallow" tests (get around immediate outer reject)
 ? wizard mode - should have a switch on every page (Feature)
@@ -29,22 +29,18 @@ User interface
 + Windows installers should give users a hint what to do if they downloaded the wrong installer
 ! self-service troubleshooting for end-users
 
-Core
--------
-! unify access to consortium logo
-
 Device modules
 -----------------------
 + Windows modules, correct the text about profiles to be installed if there is only one
-- Wired support (done for Apple and Windows - impossible for Linux cince it breaks down non-1x connectivity)
 + Turn off TKIP for Linux
+- Wired support (done for Apple and Windows - impossible for Linux cince it breaks down non-1x connectivity)
+- all OS: ability to remove bootstrap SSIDs (done for MacOS / iOS)
 ! Linux - WICD support
 ! Linux - SUSE XML variant support
 ! Linux - Hotspot 2.0 / Passpoint support (wpa_supplicant only)
 - all OS: ability to remove bootstrap SSIDs (done for Windows, MacOS / iOS)
 ! all OS: enable to configure transparent proxy detection
 ? Windows modules - EAP-PWD support update (if new version from Aruba)
-? Linux - big installer GUI (Feature)
 
 Later
 =====
@@ -52,3 +48,8 @@ Core
 ----
 ? New approach to options passed to device modules (development) - SUSPENDED
 ? Windows modules - NEA (??)
+? unify access to consortium logo
+
+Device Modules
+--------------
+? Linux - big installer GUI (Feature)
