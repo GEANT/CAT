@@ -31,17 +31,7 @@ require_once('Helper.php');
  *
  * @package Developer
  */
-class Device_mobileconfig extends DeviceConfig {
-
-    /**
-     * this array holds the list of EAP methods supported by this device
-     */
-    // public static $my_eap_methods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$FAST_GTC);
-    final public function __construct() {
-        $this->supportedEapMethods = array(EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2);
-        debug(4, "This device supports the following EAP methods: ");
-        debug(4, $this->supportedEapMethods);
-    }
+abstract class mobileconfig_superclass extends DeviceConfig {
 
     private $massaged_inst;
     private $massaged_profile;
@@ -115,7 +105,7 @@ class Device_mobileconfig extends DeviceConfig {
          <array>";
 
         // did the admin want wired config?
-        if (isset($this->attributes['media:wired']))
+        if (isset($this->attributes['media:wired']) && __CLASS__ == "Device_mobileconfig_os_x")
             $include_wired = TRUE;
         else
             $include_wired = FALSE;
@@ -131,7 +121,7 @@ class Device_mobileconfig extends DeviceConfig {
       <key>PayloadDisplayName</key>
          <string>" . Config::$CONSORTIUM['name'] . "</string>
       <key>PayloadIdentifier</key>
-         <string>" . Device_mobileconfig::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang</string>
+         <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang</string>
       <key>PayloadOrganization</key>
          <string>" . $this->attributes['general:instname'][0] . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . $this->attributes['profile:name'][0] . ")" : "") . "</string>
       <key>PayloadType</key>
@@ -201,7 +191,7 @@ class Device_mobileconfig extends DeviceConfig {
 
     private function network_block($ssid, $oi, $server_list, $CA_UUID_list, $eap_type, $wired, $realm = 0) {
         $SSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
-        $retval .= "
+        $retval = "
             <dict>
                <key>EAPClientConfiguration</key>
                   <dict>
@@ -272,7 +262,7 @@ class Device_mobileconfig extends DeviceConfig {
             $retval .= sprintf(_("SSID %s"), $SSID);
         $retval .= "</string>
                <key>PayloadIdentifier</key>
-                  <string>" . Device_mobileconfig::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.";
+                  <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.";
         if ($wired)
             $retval .= "firstactiveethernet";
         else if ( count($oi) == 0 )
@@ -344,7 +334,7 @@ class Device_mobileconfig extends DeviceConfig {
 	<key>PayloadDisplayName</key>
 	<string>"._("Disabled WiFi network")."</string>
 	<key>PayloadIdentifier</key>
-	<string>".Device_mobileconfig::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.wifi.disabled.$sequence</string>
+	<string>".mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.wifi.disabled.$sequence</string>
 	<key>PayloadType</key>
 	<string>com.apple.wifi.managed</string>
 	<key>PayloadUUID</key>
@@ -403,7 +393,7 @@ class Device_mobileconfig extends DeviceConfig {
                <key>PayloadDisplayName</key>
                <string>" . _("Identity Provider's CA") . "</string>
                <key>PayloadIdentifier</key>
-               <string>" . Device_mobileconfig::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.credential.$serial</string>
+               <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.credential.$serial</string>
                <key>PayloadOrganization</key>
                <string>" . $this->massaged_consortium . ".1x-config.org</string>
                <key>PayloadType</key>

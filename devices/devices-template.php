@@ -166,7 +166,7 @@ public static function listDevices() {
     'display'=>_("Apple OS X Mavericks"),
     'match'=>'Mac OS X 10[._]8',
     'directory'=>'apple_mobileconfig',
-    'module'=>'mobileconfig',
+    'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
@@ -181,7 +181,7 @@ public static function listDevices() {
     'display'=>_("Apple OS X Mountain Lion"),
     'match'=>'Mac OS X 10[._]8',
     'directory'=>'apple_mobileconfig',
-    'module'=>'mobileconfig',
+    'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
@@ -195,7 +195,7 @@ public static function listDevices() {
     'display'=>_("Apple OS X Lion"),
     'match'=>'Mac OS X 10[._]7',
     'directory'=>'apple_mobileconfig',
-    'module'=>'mobileconfig',
+    'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
@@ -208,7 +208,7 @@ public static function listDevices() {
     'display'=>_("Apple iOS mobile devices"),
     'match'=>'iOS|iPad|iPhone|iPod',
     'directory'=>'apple_mobileconfig',
-    'module'=>'mobileconfig',
+    'module'=>'mobileconfig_ios',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
        'sign'=>0,
