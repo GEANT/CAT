@@ -41,7 +41,7 @@ class Device_Vista7 extends WindowsCommon {
      $SSIDs = $this->attributes['internal:SSID'];
      $delSSIDs = $this->attributes['internal:remove_SSID'];
      $this->prepareInstallerLang();
-     $set_wired = $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
+     $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
      $delProfiles = array();
      foreach ($delSSIDs as $ssid => $cipher) {
@@ -574,7 +574,7 @@ $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 !endif
 ';
 
-if($attr['media:wired'][0] == 'on')
+if(isset($this->attributes['media:wired'][0]) && $attr['media:wired'][0] == 'on')
   $fcontents .= '!define WIRED
 ';
 
