@@ -55,6 +55,11 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 else
                     echo UI_error("<strong>PHP</strong> is too old. We need at least $needversion, but you only have ".phpversion(). ".");
 
+                if (function_exists('idn_to_ascii'))
+                    echo UI_okay("PHP can handle internationalisation.");
+                else
+                    echo UI_error("PHP can <strongNOT</strong> handle internationalisation (idn_to_ascii() from php5-intl).");
+                
                 if (function_exists('gettext'))
                     echo UI_okay("PHP extension <strong>GNU Gettext</strong> is installed.");
                 else
