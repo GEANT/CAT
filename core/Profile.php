@@ -367,7 +367,8 @@ class Profile {
         $finalarray = array();
         $devlist = Devices::listDevices();
         foreach ($returnarray as $dev_id => $count)
-            $finalarray[$devlist[$dev_id]['display']] = $count;
+            if (isset($devlist[$dev_id]))
+                    $finalarray[$devlist[$dev_id]['display']] = $count;
         return $finalarray;
     }
 
