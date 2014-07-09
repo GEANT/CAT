@@ -108,8 +108,43 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 else
                     echo UI_error("<strong>openssl</strong> was not found on your system!");
 
-                if (exec("which makensis") != "")
+                if (exec("which makensis") != "") {
                     echo UI_okay("'<strong>makensis</strong>' binary found.");
+                    $pathname = 'downloads' . '/' . md5(time() . rand());
+                    $tmp_dir = dirname(dirname(__FILE__)) . '/' . $pathname;
+                    if (!mkdir($tmp_dir, 0700, true)) {
+                        error("unable to create temporary directory (eap test): $tmp_dir\n");
+                    } else {
+                      chdir($tmp_dir);
+                      $NSIS_Modules = array(
+                         "NSISArray.nsh",
+                         "FileFunc.nsh",
+                         "ZipDLL.nsh",
+                      );
+                      $exe= '/tt.exe';
+                      $NSIS_Module_status = array();
+                      foreach ($NSIS_Modules as $module) {
+                         exec("makensis -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
+                         if($retval > 0) {
+                            $o = preg_grep('/include.*'.$module.'/',$out);
+                            if(count($o) > 0)
+                              $NSIS_Module_status[$module] = 0;
+                            else
+                              $NSIS_Module_status[$module] = 1;
+                         }
+                      }
+                      if(is_file($exe))
+                         unlink($exe);
+
+                      foreach ($NSIS_Module_status as $module => $status) {
+                        if($status == 1)
+                           echo UI_okay("NSIS module '<strong>$module</strong>' found.");
+                        else
+                           echo UI_error("NSIS module '<strong>$module</strong>' not found.");
+
+                      }
+                   }
+                }
                 else
                     echo UI_error("'<strong>makensis</strong>' not found in your \$PATH!");
 
