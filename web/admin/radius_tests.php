@@ -10,10 +10,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("RADIUSTests.php");
 require_once("inc/common.inc.php");
 
+/* these are already defined in RADIUSTests.php, which we include
 define("L_OK",0);
 define("L_REMARK",1);
 define("L_WARN",2);
-define("L_ERROR",3);
+define("L_ERROR",3);*/
 
 ini_set('display_errors', '0');
 
