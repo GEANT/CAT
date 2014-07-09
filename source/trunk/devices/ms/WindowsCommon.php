@@ -97,7 +97,7 @@ if(isset($attr['support:info_file'])) {
     $out .= '!define EXTERNAL_INFO "';
 //  debug(4,"Info file type ".$attr['support:info_file'][0]['mime']."\n");
   if ($attr['internal:info_file'][0]['mime'] == 'rtf')
-     $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
+     $out = '!define LICENSE_FILE "'. $attr['internal:info_file'][0]['name'];
   elseif( $attr['internal:info_file'][0]['mime'] == 'txt') {
      $in_txt = file_get_contents($attr['internal:info_file'][0]['name']);
      $out_txt = iconv('UTF-8',$this->code_page.'//TRANSLIT',$in_txt);
