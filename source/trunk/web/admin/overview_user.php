@@ -59,6 +59,8 @@ $user = new User($_SESSION['user']);
 
         if ($user->isFederationAdmin())
             echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to manage your federations') . "</button></form>";
+        if ($user->isSuperadmin())
+            echo "<form action='112365365321.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to access the superadmin page') . "</button></form>";
         ?>
     </div>
     <?php

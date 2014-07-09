@@ -212,6 +212,16 @@ class User {
         }
     }
 
+   /**
+    * This function tests if the current user has been configured as the system superadmin, i.e. if the user is allowed
+    * to execute the 112365365321.php script
+    *
+    * @return boolean TRUE if the user is a superadmin, FALSE if not 
+    */
+    public function isSuperadmin() {
+       return in_array($this->identifier, Config::$SUPERADMINS);
+    }
+
     public function sendMailToUser($subject, $content) {
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) // we don't know his mail address
