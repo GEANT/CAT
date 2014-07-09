@@ -41,7 +41,7 @@ correctly. The prerequisites are:
 <itemizedlist>
 <listitem>Apache2 Web Server</listitem>
 <listitem>MySQL Server</listitem>
-<listitem>PHP 5.3</listitem>
+<listitem>PHP 5.5.14 or higher; on Ubuntu also the "php5-intl" package</listitem>
 <listitem>PHP extensions: "gettext", "openssl", "PECL:IMagick", "GeoIP", "GD" and "MySQL"</listitem>
 <listitem>simpleSAMLphp</listitem>
 <listitem>NSIS 2.46 or higher - either as a native Linux binary or on Wine</listitem>
