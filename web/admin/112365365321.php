@@ -49,10 +49,11 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 if (in_array("I do not care about security!", Config::$SUPERADMINS))
                     echo UI_warning("You do not care about security. This page should be made accessible to the CAT admin only! See config.php 'Superadmins'!");
 
-                if (version_compare(phpversion(), '5.5.14', '>='))
+                $needversion = "5.5.14";
+                if (version_compare(phpversion(), $needversion, '>='))
                     echo UI_okay("<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
                 else
-                    echo UI_error("<strong>PHP</strong> is too old. We need at least 5.3");
+                    echo UI_error("<strong>PHP</strong> is too old. We need at least $needversion, but you only have ".phpversion(). ".");
 
                 if (function_exists('gettext'))
                     echo UI_okay("PHP extension <strong>GNU Gettext</strong> is installed.");
