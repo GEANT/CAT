@@ -157,9 +157,10 @@ function productheader($area, $language) {
     echo "<h2>$cap2</h2>";
     echo "</div><!--secondarycaptions-->";
 
-    echo "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>";
-    echo "<p class='MOTD'>" . Config::$APPEARANCE['MOTD'] . "</p>";
-    echo "</div><!--header_MOTD-->";
+    if (isset(Config::$APPEARANCE['MOTD']) && Config::$APPEARANCE['MOTD'] != "") 
+        echo "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>
+              <p class='MOTD'>" . Config::$APPEARANCE['MOTD'] . "</p>
+              </div><!--header_MOTD-->";
 
     // echo $_SERVER['PHP_SELF'];
     echo "<div class='sidebar'><p>";
