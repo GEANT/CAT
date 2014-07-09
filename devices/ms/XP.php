@@ -41,7 +41,7 @@ class Device_XP extends WindowsCommon {
 
      $SSIDs = $this->attributes['internal:SSID'];
      $this->prepareInstallerLang();
-     $set_wired = $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
+     $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2) {
        $WindowsProfile = array();
@@ -319,7 +319,7 @@ $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
 
 
-if($attr['media:wired'][0] == 'on')
+if(isset($this->attributes['media:wired'][0]) && $attr['media:wired'][0] == 'on')
   $fcontents .= '!define WIRED
 ';
 $f = fopen('main.nsh','w');
