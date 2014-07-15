@@ -1,9 +1,15 @@
+<?php
+include(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+$colour1 = Config::$APPEARANCE['colour1'];
+$colour2 = Config::$APPEARANCE['colour2'];
+header('Content-type: text/css; charset=utf-8');
+?>
 html {
     height: 100%;
 }
 
 body {
-    background: #bcd7e8;
+    background: <?php echo $colour1;?>;
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:11px;
     height: 100%;
@@ -17,7 +23,7 @@ body {
 }
 
 button {
-    background: #0a698e; 
+    background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     min-height: 23px;
     border-left-style: outset; 
@@ -185,9 +191,9 @@ div.header {
     border-bottom-style:solid;
     border-top-width:5px; 
     border-bottom-width:5px; 
-    border-color: #bcd7e8;
+    border-color: <?php echo $colour1;?>;
     padding-left:30px;
-    color: #0a698e;
+    color: <?php echo $colour2;?>;
 }
 
 div.pagecontent {
@@ -380,7 +386,7 @@ div.ca-summary {
 
 span.edu_cat {
     font-weight: bold;
-    color: #0a698e;
+    color: <?php echo $colour2;?>;
 }
 
 span.tooltip {
@@ -493,7 +499,7 @@ p.MOTD {
     border-bottom-style:solid;
     border-top-width:5px; 
     border-bottom-width:5px; 
-    border-color: #bcd7e8; 
+    border-color: <?php echo $colour1;?>; 
     padding-left:30px;
 }
 
@@ -541,7 +547,7 @@ td.vendor img {
 }
 
 span.redirect_link {
-    background: #0a698e; color: #FFFFFF; height: 23px;
+    background: <?php echo $colour2;?>; color: #FFFFFF; height: 23px;
     border-left-style: inset; border-left-width: 1px; border-left-color: #8bbacb;
     border-top-style: inset; border-top-width: 1px; border-top-color: #8bbacb;
     border-right-style: outset; border-right-width: 2px; border-right-color: #043d52;
@@ -588,7 +594,7 @@ span.redirect_link a:active {
 }
 
 #close_button {
-    background: #0a698e; 
+    background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     height: 23px;
     border-left-style: inset; 
@@ -667,7 +673,7 @@ span.redirect_link a:active {
     width: 30em; 
     padding-left: 10px; 
     padding-right: 0px; 
-    background: #0a698e; 
+    background: <?php echo $colour2;?>; 
     color: white; 
     box-shadow: 10px 10px 5px #888888;
 }
@@ -676,7 +682,7 @@ span.redirect_link a:active {
     width: 30em; 
     padding-left: 10px; 
     padding-right: 00px; 
-    background: #0a698e; 
+    background: <?php echo $colour2;?>; 
     color: #FFFFFF; 
     box-shadow: 10px 10px 5px #888888;
 }
@@ -731,7 +737,7 @@ span.redirect_link a:active {
     padding-top: 4px; 
     padding-bottom: 12px; 
     padding-left: 30px; 
-    background: #bcd7e8; 
+    background: <?php echo $colour1;?>; 
     text-align: left; 
     text-shadow: 10px 10px 5px #888888;
 }
@@ -741,9 +747,9 @@ span.redirect_link a:active {
     border-bottom-style:solid;
     border-top-width:5px;
     border-bottom-width:5px;
-    border-color: #bcd7e8;
+    border-color: <?php echo $colour1;?>;
     padding-left:30px;
-    color: #0a698e;
+    color: <?php echo $colour2;?>;
 }
 
 #heading h1 { 
@@ -762,7 +768,7 @@ span.redirect_link a:active {
     text-align: justify;
     border-bottom-style:solid;
     border-bottom-width:5px;
-    border-color: #bcd7e8;
+    border-color: <?php echo $colour1;?>;
     font-size: 11px;
     font-weight: normal;
 }
@@ -810,7 +816,7 @@ span.redirect_link a:active {
 
 #faq {
     padding: 20px;
-    color: #0a698e;
+    color: <?php echo $colour2;?>;
     background: #ffffff;
 }
 
@@ -863,7 +869,7 @@ span.redirect_link a:active {
 
 #line1 {
     top:145px;
-    color: #0A698E;
+    color: <?php echo $colour2;?>;
     font-size:20px;
 }
 
@@ -918,7 +924,7 @@ span.redirect_link a:active {
 
 #menu_column {
     border-right:solid;
-    border-color: #bcd7e8;
+    border-color: <?php echo $colour1;?>;
     border-width:5px;
     min-height:400px;
     padding-left: 10px;
@@ -929,7 +935,7 @@ span.redirect_link a:active {
 
 #front_page_leftmenu {
     border-right:solid; 
-    border-color: #bcd7e8; 
+    border-color: <?php echo $colour1;?>; 
     border-width:5px; 
     min-height:400px; 
     padding-left: 10px; 
@@ -958,11 +964,11 @@ span.redirect_link a:active {
 }
 
 a:link {
-    color:#0a698e;
+    color:<?php echo $colour2;?>;
 }
 
 a:visited {
-    color:#0a698e;
+    color:<?php echo $colour2;?>;
 }
 
 a:hover {
@@ -970,7 +976,7 @@ a:hover {
 }
 
 a:active {
-    color:#0a698e;
+    color:<?php echo $colour2;?>;
 }
 
 .comment {
