@@ -152,7 +152,7 @@ function productheader($area, $language) {
     // content from here on will SCROLL instead of being fixed at the top
     echo "<div class='pagecontent'>
           <div class='trick'>";
-    echo "<div id='secondrow' style='border-bottom:5px solid #BCD7E8; min-height:100px;'>";
+    echo "<div id='secondrow' style='border-bottom:5px solid ". Config::$APPEARANCE['colour1']."; min-height:100px;'>";
     echo "<div id='secondarycaptions' style='display:inline-block; float:left'>";
     echo "<h2>$cap2</h2>";
     echo "</div><!--secondarycaptions-->";
