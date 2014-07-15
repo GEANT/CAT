@@ -15,7 +15,6 @@ Admin Interface
 + pre-fill inst admins mail addresses from eduroam DB if known (but allow override)
 + wired 802.1X configuration support
 - check and complain if an admin tries to upload a *server* certificate
-! specify if transparent proxies should be enabled (or do this unconditionally?)
 ! allow custom outer ID for the static "shallow" tests (get around immediate outer reject)
 ? wizard mode - should have a switch on every page (Feature)
 ? control in which language notification emails are sent
@@ -27,28 +26,39 @@ User interface
 + remove hard-coded "TERENA" mentions on rollover and FAQ entries
 + better logo handling for DiscoJuice
 + Windows installers should give users a hint what to do if they downloaded the wrong installer
-! self-service troubleshooting for end-users
 
 Device modules
 -----------------------
 + Windows modules, correct the text about profiles to be installed if there is only one
 + Turn off TKIP for Linux
-- Wired support (done for Apple and Windows - impossible for Linux cince it breaks down non-1x connectivity)
-! Linux - WICD support
-! Linux - SUSE XML variant support
-! Linux - Hotspot 2.0 / Passpoint support (wpa_supplicant only)
-- all OS: ability to remove bootstrap SSIDs (done for Windows, MacOS / iOS)
++ Wired support Apple OS X, Windows
++ remove bootstrap SSIDs: Apple OS X/iOS, Windows
+! Linux - remove bootstrap SSIDs
 ! all OS: enable to configure transparent proxy detection
-? Windows modules - EAP-PWD support update (if new version from Aruba)
 
 Later
 =====
 Core
 ----
-? New approach to options passed to device modules (development) - SUSPENDED
-? Windows modules - NEA (??)
-? unify access to consortium logo
+? Windows modules - NEA
+  (nobody seems to demand support for this)
+? easy re-branding for deployment (colours, logo)
+  (low priority: only relevant for non-eduroam uses of CAT)
+
+User Interface
+--------------
+! self-service troubleshooting for end-users
+  (standalone: postponed to beta phase or retrofit for 1.1.x)
 
 Device Modules
 --------------
 ? Linux - big installer GUI (Feature)
+? Linux - WICD support
+          (postponed: WICD looks very dead at the moment)
+? Linux - SUSE XML variant support
+          (postponed: looks easy, but nobody actually asked for that)
+! Linux - Hotspot 2.0 / Passpoint support (wpa_supplicant only)
+          (blocked by: wpa_supplicant D-BUS API does not expose this property)
+! Linux - Wired 1X support
+          (blocked by: NetworkManager goes into undefined behaviour on non-1X
+          networks is 1X is configured)
