@@ -86,9 +86,9 @@ Configuration parameter changes
                 path to openssl's CA name hashing tool
 [NEW]           Config::$CONSORTIUM['interworking-consortium-oi']
                 array of sonsortium OIs which should be configured in installers
-[NEW]           Config::$APPEARANCE['color1']
+[NEW]           Config::$APPEARANCE['colour1']
                 the "light" main color of the user interface
-[NEW]           Config::$APPEARANCE['color2']
+[NEW]           Config::$APPEARANCE['colour2']
                 the "dark" main color of the user interface
 [OBSOLETE]      Config::$PATHS['rad_eap_test']
                 wo don't need this wrapper any more, using eapol_test directly

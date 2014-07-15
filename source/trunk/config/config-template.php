@@ -40,8 +40,8 @@ class Config {
         'invitation-bcc-mail' => NULL,
         'defaultlocale' => 'en',
         'MOTD' => "Release Candidate. All bugs to be shot on sight!",
-        'color1' => '#BCD7E8',
-        'color2' => '#0A698E',
+        'colour1' => '#BCD7E8',
+        'colour2' => '#0A698E',
     );
 
     /**
