@@ -46,9 +46,9 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
     // we need to construct the right path to the consortium logo; we are either
     // in the admin area or on the main index.php ...
     if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE)
-        $css_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/css/cat.css";
+        $css_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/css/cat.css.php";
     else
-        $css_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . "/resources/css/cat.css";
+        $css_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . "/resources/css/cat.css.php";
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
         $css_url = "https://" . $css_url;
     else
