@@ -258,7 +258,7 @@ ${Profile_names->Concat} $R0 ", "
 StrCpy $welcome_message "<?php echo_nsi( _('This installer has been prepared for \${ORGANISATION}'))?>.$\r$\n\
 <?php echo_nsi( _("The installer will create network profile:"))?> \
 $R0.$\r$\n$\n\
-<?php echo_nsi( _("You will be able to use eduroam in most institutions however due to Windows XP limitations and differences in network settings at different institutions, you may be sometimes required to repeat the connection for the system to reconfigure."))?>$\r$\n$\n\
+<?php sprintf(sprint_nsi( _("You will be able to use %s in most institutions however due to Windows XP limitations and differences in network settings at different institutions, you may be sometimes required to repeat the connection for the system to reconfigure.")),Config::$CONSORTIUM['name'])?>$\r$\n$\n\
 <?php echo_nsi( _("More information and comments:"))?>$\r$\n\
    EMAIL: ${SUPPORT}$\r$\n\
    WWW: ${URL}"
@@ -379,7 +379,7 @@ FunctionEnd
 ; Check for running dot3svc service required for 802.1x on wired interfaces
   Function CheckWired
     IfSilent wired
-    MessageBox MB_YESNO "<?php echo_nsi( _("Do you want to enable eduroam on wired interfaces?"))?>" IDYES wired
+    MessageBox MB_YESNO "<?php sprintf(sprint_nsi( _("Do you want to enable %s on wired interfaces?")),Config::$CONSORTIUM['name'])?>" IDYES wired
     push 0
     pop $wired
   wired:
