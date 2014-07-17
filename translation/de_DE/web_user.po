@@ -1,24 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Stefan Winter, 2011-2012.
+# Stefan Winter, 2011-2012, 2014.
 #   <stefan.winter@gmail.com>, 2012-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
-"PO-Revision-Date: 2013-02-11 10:01+0000\n"
+"POT-Creation-Date: 2014-07-17 16:01+0200\n"
+"PO-Revision-Date: 2014-07-17 15:57+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/cat/language/"
-"de/)\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"de/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: web/user/cat_info.php:31 web/user/faq.php:32
 #, php-format
@@ -63,7 +63,7 @@ msgstr ""
 #, fuzzy, php-format
 msgid ""
 "The most important need is adding new installer modules, which will "
-"configure particular devices.  CAT is makig this easy for you. If you know "
+"configure particular devices.  CAT is making this easy for you. If you know "
 "how to create an automatic installer then fitting it into CAT should be a "
 "piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
 "a>, but please also take a look at <a href='%s'>CAT documentation</a>."
@@ -200,23 +200,26 @@ msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
 msgstr ""
+"%s Installationsprogramme ändern Sicherheitseinstellungen auf Ihrem Gerät, "
+"daher sollten Sie immer sicherstellen, dass Sie das echte Programm verwenden."
 
 #: web/user/faq.php:39
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is why %s installers are digitally signed by %s. Watch out for a system "
 "message confirming this."
 msgstr ""
-"%s Installationsprogramme ändern Sicherheitseinstellungen auf Ihrem Gerät, "
-"daher sollten Sie immer darauf achten, dass die Echtheit der Programme "
-"geprüft ist. Darum sind %s Installationsprogramme immer von TERENA signiert. "
-"Achten Sie auf Ihrem Gerät auf die Benachrichtigung, dass dies der Fall ist."
+"Darum sind %s Installationsprogramme immer von %s signiert. Achten Sie auf "
+"Ihrem Gerät auf die Benachrichtigung, dass dies der Fall ist."
 
 #: web/user/faq.php:45
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
 msgstr ""
+"Windows 'SmartScreen' oder 'Internet Explorer' warnen mich davor, dass das "
+"Installationsprogrammnicht oft heruntergeladen wurde und möglicherweise eine "
+"Gefahr darstellt. Sollte ich mir Sorgen machen?"
 
 #: web/user/faq.php:46
 msgid ""
@@ -225,6 +228,12 @@ msgid ""
 "users to make Microsoft consider it popular (which would strangely enough "
 "make it be considered 'safe'). This message alone is not a security problem."
 msgstr ""
+"Entgegen der Behauptung im Produktnamen ist 'SmartScreen' nicht sehr smart. "
+"Die Warnung bedeutet lediglich, dass die Datei noch nicht von genug Nutzern "
+"heruntergeladen wurde, um als etabliert zu gelten; Microsoft schließt "
+"(seltsamerweis) aus der Anzahl von Herunterladevorgängen, dass das Programm "
+"dann wohl auch sicher ist. Diese Nachricht alleine ist also kein Grund, sich "
+"Sorgen zu machen."
 
 #: web/user/faq.php:46
 #, php-format
@@ -232,11 +241,15 @@ msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
 msgstr ""
+"Solange das Installationsprogramm eine gültige Signatur von %s hat, ist das "
+"Programm in Ordnung."
 
 #: web/user/faq.php:46
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr ""
+"Sehen Sie sich zu diesem Thema auch gerne Microsoft's FAQ zum Thema "
+"SmartScreen unter %s an."
 
 #: web/user/faq.php:52
 #, php-format
@@ -327,8 +340,7 @@ msgstr ""
 "werden uns des Problems baldmöglichst annehmen."
 
 #: web/user/js/cat_js.php:49
-#, fuzzy
-msgid "no maching data found"
+msgid "no matching data found"
 msgstr "Keine passenden Daten gefunden"
 
 #: web/user/js/cat_js.php:58
@@ -383,7 +395,7 @@ msgstr ""
 "bedient werden soll. Statt dessen werden Sie nach einem Klick auf <b>Weiter</"
 "b> auf eine lokale Unterstützungsseite weitergeleitet."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:246
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:249
 msgid "Continue"
 msgstr "Weiter"
 
@@ -508,67 +520,67 @@ msgid "all major distributions"
 msgstr "alle größeren Distributionen"
 
 #: web/basic.php:128
-#, fuzzy
 msgid "Select your country"
-msgstr "Bitte wählen Sie ihre Heimatorganisation"
+msgstr "Bitte wählen Sie Ihr Land"
 
 #: web/basic.php:146
 msgid "Select your institution"
-msgstr "Bitte wählen Sie ihre Heimatorganisation"
+msgstr "Bitte wählen Sie Ihre Heimatorganisation"
 
 #: web/basic.php:166 web/index.php:211
 msgid "Select the user group"
-msgstr "Bitte wählen Sie ihre Benutzergruppe aus"
+msgstr "Bitte wählen Sie Ihre Benutzergruppe aus"
 
 #: web/basic.php:193
-#, fuzzy
 msgid ""
 "Your operating system was not properly detected, is not supported yet or "
 "cannot be configured with settings provided by your institution"
 msgstr ""
-"Dieses Gerät kann nicht für ihre Organisation konfiguriert werden "
-"(inkompatible Einstellungen)"
+"Ihr Betriebssystem wurde nicht zweifelsfrei identifiziert, wird von CAT "
+"nicht unterstützt, oder lässt sich mit den Konfigurationsangaben Ihrer "
+"Heimatorganisation nicht betreiben."
 
-#: web/basic.php:200 web/index.php:294
+#: web/basic.php:200 web/index.php:297
 msgid "Choose an installer to download"
 msgstr "Wählen Sie einen Installer zum Herunterladen"
 
 #: web/basic.php:233 web/basic.php:271
-#, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
-msgstr "Sie werden auf eine lokale Unterstützungsseite weitergeleitet"
+msgstr ""
+"Ihr Administrator hat verfügt, dass Sie auf eine lokale Unterstützungsseite "
+"weitergeleitet werden sollen."
 
 #: web/basic.php:233
 msgid "When you click <b>CONTINUE</b> this support page will be opened."
-msgstr ""
+msgstr "Wenn Sie auf <b>WEITER</b> drücken, wird diese Seite geöffnet."
 
 #: web/basic.php:235
 msgid "CONTINUE to local support page"
-msgstr ""
+msgstr "WEITER zur lokalen Unterstützungsseite"
 
 #: web/basic.php:239
-#, fuzzy
 msgid "Do you have an account at this institution?"
-msgstr "Profil passt nicht zur Heimatorganisation"
+msgstr "Haben Sie bei dieser Organisation ein Benutzerkonto?"
 
 #: web/basic.php:239
 msgid ""
 "If so and if the other settings above are OK then click here to download..."
 msgstr ""
+"Falls ja, und falls alle anderen Angaben oben stimmen, dann klicken Sie "
+"bitte hier zum Herunterladen..."
 
 #: web/basic.php:271
 msgid "Click on the link below to continue."
-msgstr ""
+msgstr "Klicken Sie auf den Link zum Fortfahren."
 
 #: web/basic.php:304
 msgid "Download installer for"
 msgstr "Herunterladen des Installers für"
 
 #: web/basic.php:306
-#, fuzzy
 msgid "Start over"
-msgstr "Startseite"
+msgstr "Neu beginnen"
 
 #: web/basic.php:316 web/index.php:125
 msgid "View this page in"
@@ -579,19 +591,19 @@ msgstr "Diese Seite anzeigen in"
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: web/basic.php:447 web/index.php:335 web/tou.php:56
+#: web/basic.php:447 web/index.php:338 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Version %s"
 
-#: web/basic.php:449 web/index.php:337 web/tou.php:58
+#: web/basic.php:449 web/index.php:340 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Nicht veröffentlichte SVN Version"
 
 #: web/index.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Download your %s installer"
-msgstr "%s Benutzer:<br>Laden Sie Ihr %s Installationsprogramm hier herunter"
+msgstr "Laden Sie Ihr %s Installationsprogramm herunter"
 
 #: web/index.php:122
 #, php-format
@@ -641,9 +653,9 @@ msgid "Custom built for your home institution"
 msgstr "Maßgeschneidert für Ihre Heimatorganisation"
 
 #: web/index.php:178
-#, fuzzy, php-format
+#, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr "Digital signiert vom Betreiber von eduroam: TERENA"
+msgstr "Digital signiert vom Betreiber von %s: %s"
 
 #: web/index.php:191
 #, php-format
@@ -656,72 +668,88 @@ msgstr "andere auswählen"
 
 #: web/index.php:223
 msgid "Welcome aboard the eduroam® user community!"
-msgstr ""
+msgstr "Willkommen in Welt von eduroam®!"
 
-#: web/index.php:225
+#. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
+#: web/index.php:227
 msgid ""
 "Your download will start shortly, in case of problems with automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
+"Das Herunterladen des Installationsprogramms beginnt in wenigen Sekunden. "
+"Bei Problemen mit dem automatischen Herunterladen nutzen Sie bitte diesen <a "
+"href=''>Link</a>."
 
-#: web/index.php:227
+#: web/index.php:230
 #, php-format
 msgid "Dear user from %s,"
-msgstr ""
+msgstr "Sehr geehrter %s Nutzer,"
 
-#: web/index.php:229
+#: web/index.php:232
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
+"wir möchten Sie gerne von Herzen willkommen heißen in der mehrere Millionen "
+"Nutzer umfassenden Welt von eduroam®! Von nun an können Sie den "
+"internetzugang an tausenden Universitäten, Forschungszentren, und anderen "
+"Orten überall auf der Welt nutzen. Und das völlig kostenfrei!"
 
-#: web/index.php:232
+#: web/index.php:235
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Nachdem Sie das Installationsprogramm heruntergeladen und installiert haben, "
+"müssen Sie sich nur noch in die Nähe eines eduroam® Hotspots begeben und "
+"Ihre Zugangsdaten eingeben (also zum Beispiel Ihren Benutzernamen/Passwort "
+"oder Ihr persönliches Nutzerzertifikat) - und schon sind Sie online!"
 
-#: web/index.php:234
+#: web/index.php:237
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
+"Sollten Sie Probleme bei der Nutzung des Dienstes haben, wenden Sie sich "
+"bitte immer an die lokale IT-Unterstützung ihrer Organisation %s. Dort kann "
+"man das Problem diagnostizieren und Ihnen helfen. Wie Sie die lokale "
+"Unterstützung erreichen, können Sie weiter oben nachlesen."
 
-#: web/index.php:238
+#: web/index.php:241
 msgid "Back to downloads"
-msgstr ""
+msgstr "Zurück zum Herunterladen"
 
-#: web/index.php:242
-#, fuzzy
+#: web/index.php:245
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>\n"
 "                            When you click <b>Continue</b> this support page "
 "will be opened in a new window/tab."
 msgstr ""
-"Ihr lokaler Administrator hat entschieden, dass ihre Benutzergruppe hier "
-"nicht bedient werden soll.<br/>\n"
-"Statt dessen werden Sie nach einem Klick auf <b>Weiter</b> auf eine lokale "
-"Unterstützungsseite weitergeleitet."
+"Ihr lokaler Administrator hat verfügt, dass Sie auf eine lokale "
+"Unterstützungsseite weitergeleitet werden sollen.<br>\n"
+"Wenn Sie auf <b>Weiter</b> drücken, wird diese Seite in einem neuen Fenster "
+"oder Tab geöffnet."
 
-#: web/index.php:288
+#: web/index.php:291
 msgid "All platforms"
-msgstr ""
+msgstr "Alle Plattformen"
+
+#, fuzzy
+#~ msgid "no maching data found"
+#~ msgstr "Keine passenden Daten gefunden"
 
 #~ msgid "not available with settings provided by your institution"
 #~ msgstr "Nicht verfügbar mit den Einstellungen für ihre Organisation"
 
 #~ msgid "Your choice"
 #~ msgstr "Ihre Auswahl"
-
-#~ msgid "no matching data found"
-#~ msgstr "Keine passenden Daten gefunden"
 
 #~ msgid "Change country"
 #~ msgstr "Land wechseln"

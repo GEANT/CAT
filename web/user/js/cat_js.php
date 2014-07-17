@@ -46,7 +46,7 @@ var generation_error = "<?php echo _("This is embarrassing. Generation of your i
     j = $.parseJSON(data);
     result = j.status;
     if(! result) {
-      alert("<?php echo _("no maching data found")?>");
+      alert("<?php echo _("no matching data found")?>");
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/'?>';
     }
     j = j.data;

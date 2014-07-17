@@ -40,7 +40,7 @@ switch($page) {
      include('tou.php');
      return;
   case 'develop':
-     $out = sprintf(_("The most important need is adding new installer modules, which will configure particular devices.  CAT is makig this easy for you. If you know how to create an automatic installer then fitting it into CAT should be a piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT documentation</a>."),Config::$APPEARANCE['admin-mail'],Config::$APPEARANCE['admin-mail'],'doc/');
+     $out = sprintf(_("The most important need is adding new installer modules, which will configure particular devices.  CAT is making this easy for you. If you know how to create an automatic installer then fitting it into CAT should be a piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT documentation</a>."),Config::$APPEARANCE['admin-mail'],Config::$APPEARANCE['admin-mail'],'doc/');
     break;
    case 'report':
      $out = sprintf(_("Please send a problem report to <a href='mailto:%s'>%s</a>. Some screen dumps are very welcome."),Config::$APPEARANCE['admin-mail'],Config::$APPEARANCE['admin-mail']);

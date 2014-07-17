@@ -222,7 +222,10 @@ include("user/js/cat_js.php");
                        <?php $olddomain = CAT::set_locale("devices"); ?>
                        <strong><?php echo _("Welcome aboard the eduroam® user community!")?></strong>
                        <p>
-                       <span id="download_info"><?php echo _("Your download will start shortly, in case of problems with automatic download please use this direct <a href=''>link</a>.") ?>
+                       <span id="download_info"><?php 
+                       /// the empty href is dynamically exchanged with the actual path by jQuery at runtime
+                       echo _("Your download will start shortly, in case of problems with automatic download please use this direct <a href=''>link</a>.") 
+                       ?>
                        <p>
                        <?php printf(_("Dear user from %s,"),"<span class='inst_name'></span>") ?>
                        <br/>

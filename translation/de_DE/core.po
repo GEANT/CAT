@@ -1,24 +1,24 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
 # Stefan Winter, 2012.
-#   <stefan.winter@restena.lu>, 2011.
+#   <stefan.winter@restena.lu>, 2011, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
-"PO-Revision-Date: 2012-12-10 13:47+0000\n"
+"POT-Creation-Date: 2014-07-17 16:01+0200\n"
+"PO-Revision-Date: 2014-07-17 15:29+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/cat/language/"
-"de/)\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"de/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: core/DeviceConfig.php:130
 #, php-format
@@ -218,15 +218,15 @@ msgstr "Standard"
 
 #: core/Federation.php:120
 msgid "Armenia"
-msgstr ""
+msgstr "Armenien"
 
 #: core/Federation.php:121
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Aserbaidschan"
 
 #: core/Federation.php:122
 msgid "Belarus"
-msgstr ""
+msgstr "Weißrussland"
 
 #: core/Federation.php:123
 msgid "Ecuador"
@@ -281,9 +281,8 @@ msgid "Singapore"
 msgstr ""
 
 #: core/Federation.php:136
-#, fuzzy
 msgid "Thailand"
-msgstr "Finnland"
+msgstr "Thailand"
 
 #: core/Federation.php:137
 msgid "Taiwan"
@@ -326,97 +325,107 @@ msgstr "IdP in Ihrer Föderation wurde gelöscht"
 
 #: core/RADIUSTests.php:232
 msgid "eduPKI"
-msgstr ""
+msgstr "eduPKI"
 
 #: core/RADIUSTests.php:233
 msgid "Nicolaus Copernicus University"
-msgstr ""
+msgstr "Nikolaus Kopernikus Universität"
 
 #: core/RADIUSTests.php:234
 msgid "accredited"
-msgstr ""
+msgstr "akkreditiert"
 
 #: core/RADIUSTests.php:235
 msgid "non-accredited"
-msgstr ""
+msgstr "nicht akkreditiert"
 
 #: core/RADIUSTests.php:236
 msgid "correct certificate"
-msgstr ""
+msgstr "Korrektes Zertifikat"
 
 #: core/RADIUSTests.php:237
 msgid "certificate with wrong policy OID"
-msgstr ""
+msgstr "Zertifikat mit falscher Policy OID"
 
 #: core/RADIUSTests.php:238
 msgid "expired certificate"
-msgstr ""
+msgstr "Abgelaufenes Zertifikat"
 
 #: core/RADIUSTests.php:239
 msgid "revoked certificate"
-msgstr ""
+msgstr "Gesperrtes Zertifikat"
 
 #: core/RADIUSTests.php:240
 msgid "pass"
-msgstr ""
+msgstr "Akzeptieren"
 
 #: core/RADIUSTests.php:241
 msgid "fail"
-msgstr ""
+msgstr "Ablehnen"
 
 #: core/RADIUSTests.php:242
 msgid "eduroam-accredited CA (now only for tests)"
-msgstr ""
+msgstr "eduroam-akkreditierte CA (nur für Testzwecke)"
 
 #: core/RADIUSTests.php:346
 msgid "Completed"
-msgstr ""
+msgstr "Abgeschlossen"
 
 #: core/RADIUSTests.php:358
 msgid "This check was skipped."
-msgstr ""
+msgstr "Dieser Test wurde übersprungen."
 
 #: core/RADIUSTests.php:365
 msgid "There were errors during the test."
-msgstr ""
+msgstr "Im Test sind Fehler aufgetreten."
 
 #: core/RADIUSTests.php:373
 msgid "This realm has no NAPTR records."
-msgstr ""
+msgstr "Dieser Realm hat keine NAPTR Einträge."
 
 #: core/RADIUSTests.php:380
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
+"NAPTR Einträge wurden gefunden, haben aber nicht den erwarteten "
+"Dienstbezeichner."
 
 #: core/RADIUSTests.php:388
 msgid "There was no reply at all from the RADIUS server."
-msgstr ""
+msgstr "Der RADIUS Server hat nicht geantwortet."
 
 #: core/RADIUSTests.php:395
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
+"Es gab zwar eine bidirektionale Kommunikation mit dem RADIUS Server, aber "
+"sie endete frühzeitig."
 
 #: core/RADIUSTests.php:402
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr ""
+"Der RADIUS Server antwortete im ersten Antwortpaket sofort mit einer "
+"Ablehnung der Anfrage."
 
 #: core/RADIUSTests.php:409
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr ""
+"Der RADIUS Server antwortete nach Durchführung einer EAP Konversation mit "
+"einer Ablehnung der Anfrage."
 
 #: core/RADIUSTests.php:416
 msgid "Connection refused"
-msgstr ""
+msgstr "Verbindungsaufbau abgelehnt."
 
 #: core/RADIUSTests.php:423
 msgid "Not enough data provided to perform an authentication"
 msgstr ""
+"Es sind nicht genügend Daten vorhanden, um eine Authentifizierungsanfrage "
+"durchzuführen"
 
 #: core/RADIUSTests.php:431
 msgid ""
@@ -424,14 +433,18 @@ msgid ""
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
 msgstr ""
+"Die empfangene Zertifikatskette enthält das Wurzelzertifikat der CA. Das ist "
+"nicht zweckdienlich, und führt lediglich zu einer Vergrößerung der zu "
+"übertragenden Datenmenge und damit zu längeren Wartezeiten bei der "
+"Authentifizierung."
 
 #: core/RADIUSTests.php:438
 msgid "There is more than one server certificate in the chain."
-msgstr ""
+msgstr "In der Zertifikatskette befindet sich mehr als ein Serverzertifikat."
 
 #: core/RADIUSTests.php:445
 msgid "There is no server certificate in the chain."
-msgstr ""
+msgstr "In der Zertifikatskette befindet sich KEIN Serverzertifikat."
 
 #: core/RADIUSTests.php:452
 msgid ""
@@ -439,6 +452,8 @@ msgid ""
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
+"Mindestens ein Zertifikat ist dem MD5-Signaturalgorithmus signiert. Viele "
+"Betriebssysteme, darunter Apple iOS, akzeptieren solche Zertifikate nicht."
 
 #: core/RADIUSTests.php:459
 msgid ""
@@ -446,6 +461,8 @@ msgid ""
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
+"Mindestens ein Zertifkat hat einen öffentlichen Schlüssel von weniger als "
+"1024 Bit. Viele moderne Betriebssysteme akzeptieren solche Zertifikate nicht."
 
 #: core/RADIUSTests.php:466
 msgid ""
@@ -453,12 +470,17 @@ msgid ""
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
 msgstr ""
+"Das Serverzertifikat enthält keine 'extendedKeyUsage: TLS Web Server "
+"Authentication'. Die meisten Microsoft Betriebssysteme akzeptieren dieses "
+"Zertifikat nicht."
 
 #: core/RADIUSTests.php:473
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compat problems with Windows Phone 8"
 msgstr ""
+"Das Serverzertifikat enthält keinen Verweis auf einen CRL Distribution "
+"Point. Unter Windows Phone 8 führt dies zu Problemen."
 
 #: core/RADIUSTests.php:480
 msgid ""
@@ -466,6 +488,9 @@ msgid ""
 "pointing to an HTTP/HTTPS URL. Some Operating Systems (currently only "
 "Windows Phone 8) will fail to validate this certificate."
 msgstr ""
+"Das Serverzertifikat enthält keinen Verweis auf einen 'CRL Distribution "
+"Point' mit HTTP/HTTPS Protokoll. Einige Betriebssysteme (momentan nur "
+"Windows Phone 8) akzeptieren dieses Zertifikat nicht."
 
 #: core/RADIUSTests.php:487
 msgid ""
@@ -473,6 +498,9 @@ msgid ""
 "non-existing location. Some Operating Systems check certificate validity by "
 "consulting the CRL and will fail to validate the certifice."
 msgstr ""
+"Der Verweis auf den 'CRL Distribution Point' im Serverzertifikat zeigt auf "
+"eine nicht existierendes Ziel. Betriebssysteme, die die CRL tatsächlich "
+"überprüfen wollen, werden das Zertifikat nicht akzeptabel finden."
 
 #: core/RADIUSTests.php:494
 msgid ""
@@ -481,6 +509,11 @@ msgid ""
 "also contains names which are a proper hostname, and you only use those for "
 "your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
+"Das Zertifikat enthält einen CN oder subjectAltName:DNS, der kein gültiger "
+"Rechnername im DNS ist. Auf einigen Plattformen können solche Namen "
+"problematisch sein. Sofern das Zertifikat auch weitere Namen enthält die "
+"gültige Rechnernamen sind, und Sie nur diese Namen für die "
+"Gerätekonfiguration verwenden, können Sie diesen Hinweis ignorieren."
 
 #: core/RADIUSTests.php:501
 msgid ""
@@ -490,6 +523,11 @@ msgid ""
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
 msgstr ""
+"Das Zertifikat enthält einen CN oder subjectAltName:DNS, der eine Wildcard "
+"enthält ('*'). Auf einigen Plattformen können solche Namen problematisch "
+"sein. Sofern das Zertifikat auch weitere Namen enthält die keine Wildcard "
+"enthalten, und Sie nur diese Namen für die Gerätekonfiguration verwenden, "
+"können Sie diesen Hinweis ignorieren."
 
 #: core/RADIUSTests.php:508
 msgid ""
