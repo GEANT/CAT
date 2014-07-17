@@ -24,7 +24,7 @@ function footer() {
         echo _("Unreleased SVN Revision");
     }
 
-    echo "&copy; 2011-13 DANTE Ltd. on behalf of the GN3 consortium";
+    echo "&copy; 2011-14 DANTE Ltd. on behalf of the GN3 consortium";
     echo "</td>
           <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
     if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
