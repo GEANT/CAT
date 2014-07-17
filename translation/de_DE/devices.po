@@ -1,75 +1,77 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
 # Stefan Winter, 2011.
 #   <stefan.winter@gmail.com>, 2012.
-#   <stefan.winter@restena.lu>, 2011.
+#   <stefan.winter@restena.lu>, 2011, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
-"PO-Revision-Date: 2013-02-06 13:02+0000\n"
+"POT-Creation-Date: 2014-07-17 16:23+0200\n"
+"PO-Revision-Date: 2014-07-17 16:22+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/cat/language/"
-"de/)\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"de/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: devices/devices-template.php:97
 msgid "MS Windows 8, 8.1"
-msgstr ""
+msgstr "MS Windows 8, 8.1"
 
 #: devices/devices-template.php:111
 msgid "MS Windows 7"
-msgstr ""
+msgstr "MS Windows 7"
 
 #: devices/devices-template.php:125
 msgid "MS Windows Vista"
-msgstr ""
+msgstr "MS Windows Vista"
 
 #: devices/devices-template.php:139
 msgid "MS Windows XP SP3"
-msgstr ""
+msgstr "MS Windows XP SP3"
 
 #: devices/devices-template.php:147
 msgid ""
 "MS Windows XP is no longer supported by Microsoft, therefore it can be "
 "unsecure and should not really be used."
 msgstr ""
+"MS Windows XP wird von Microsoft nicht mehr unterstützt. Es ist unsicher und "
+"von der Nutzung dieses Betriebssystems wird dringend abgeraten."
 
 #: devices/devices-template.php:154
 msgid "Windows RT"
-msgstr ""
+msgstr "Windows RT"
 
 #: devices/devices-template.php:166
 msgid "Apple OS X Mavericks"
-msgstr ""
+msgstr "Apple OS X Mavericks"
 
 #: devices/devices-template.php:181
 msgid "Apple OS X Mountain Lion"
-msgstr ""
+msgstr "Apple OS X Mountain Lion"
 
 #: devices/devices-template.php:195
 msgid "Apple OS X Lion"
-msgstr ""
+msgstr "Apple OS X Lion"
 
 #: devices/devices-template.php:208
 msgid "Apple iOS mobile devices"
-msgstr ""
+msgstr "Apple iOS Mobilgeräte"
 
 #: devices/devices-template.php:221
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: devices/devices-template.php:231
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: devices/devices-template.php:241
 msgid "Welcome Letter"
@@ -77,39 +79,36 @@ msgstr "Willkommensbrief"
 
 #: devices/devices-template.php:251
 msgid "Test"
-msgstr ""
+msgstr "Test"
 
 #: devices/devices-template.php:260
 msgid "Generic profile TTLS-PAP"
-msgstr ""
+msgstr "Allgemeines Profil TTLS-PAP"
 
 #: devices/devices-template.php:270
 msgid "Generic profile TTLS-MSCHAPv2"
-msgstr ""
+msgstr "Allgemeines Profil TTLS-MSCHAPv2"
 
 #: devices/devices-template.php:280
-#, fuzzy
 msgid "Generic profile PEAP"
-msgstr "Benutzerprofil"
+msgstr "Allgemeines Profil PEAP"
 
 #: devices/devices-template.php:290
-#, fuzzy
 msgid "Generic profile TLS"
-msgstr "Benutzerprofil"
+msgstr "Allgemeines Profil TLS"
 
 #: devices/devices-template.php:300
-#, fuzzy
 msgid "Generic profile PWD"
-msgstr "Benutzerprofil"
+msgstr "Allgemeines Profil PWD"
 
 #: devices/devices-template.php:309
 msgid "Generic profile ALL EAPs"
-msgstr ""
+msgstr "Allgemeines Profil - alle EAP Typen"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:120
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
-msgstr "Netzwerkprofil '%s' of '%s' - bereitgestellt von %s"
+msgstr "Netzwerkprofil '%s' von '%s' - bereitgestellt von %s"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:165
 msgid ""
@@ -144,14 +143,14 @@ msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr " (%d mal, da %s für %d SSIDs installiert wird)"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:249
-#, fuzzy, php-format
+#, php-format
 msgid "%s configuration for wired network"
-msgstr "%s Konfiguration für das Netzwerk %s"
+msgstr "%s Konfiguration für Kabelnetzwerke"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:251
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
-msgstr ""
+msgstr "%s Hotspot 2.0 Konfiguration"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:253
 #, php-format
@@ -160,11 +159,11 @@ msgstr "%s Konfiguration für das Netzwerk %s"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:258
 msgid "Wired Network"
-msgstr ""
+msgstr "Kabelnetzwerk"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:260
 msgid "Hotspot 2.0 Settings"
-msgstr ""
+msgstr "Hotspot 2.0 Konfiguration"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:262
 #, php-format
@@ -175,10 +174,12 @@ msgstr "SSID %s"
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
+"Dieses Netzwerk sollte nicht weiter genutzt werden, nachdem die Einrichtung "
+"von %s abgeschlossen ist"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:335
 msgid "Disabled WiFi network"
-msgstr ""
+msgstr "Deaktiviertes WLAN Netzwerk"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:392
 msgid "Your Identity Providers Certification Authority"
@@ -384,7 +385,6 @@ msgid "More information and comments:"
 msgstr "Mehr Informationen und Kommentare:"
 
 #: devices/ms/Files/common.inc:455
-#, fuzzy
 msgid "The installer will create the wireless profile:"
 msgstr ""
 "Dieses Installationsprogramm wird die folgenden WLAN Profile einrichten:"
@@ -400,12 +400,18 @@ msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8. Please download the correct installer and try again."
 msgstr ""
+"Sie benutzen Windows $WindowsName , aber dieses Installationsprogramm ist "
+"speziell fürWindows 8. Bitte laden Sie das richtige Installationsprogramm "
+"herunter und versuchen Sie es noch einmal."
 
 #: devices/ms/Files/common.inc:521 devices/ms/Files/common.inc:554
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
 msgstr ""
+"Sie benutzen Windows $WindowsName , aber dieses Installationsprogramm ist "
+"speziell fürWindows Vista und 7. Bitte laden Sie das richtige "
+"Installationsprogramm herunter und versuchen Sie es noch einmal."
 
 #: devices/ms/Files/common.inc:592 devices/ms/Files/xp/common.inc:370
 msgid ""
@@ -426,24 +432,25 @@ msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
 msgstr ""
+"Es wurde keine WLAN-Schnittstelle gefunden. Kabelloser Zugang wird nicht "
+"konfiguriert. Möchten Sie trotzdem weitermachen und den kabelgebundenen "
+"Zugang einrichten?"
 
 #: devices/ms/Files/common.inc:619
 msgid "Do you want to enable access on wired interfaces?"
-msgstr ""
+msgstr "Möchten Sie den Zugang für kabelgebundene Netzwerke einrichten?"
 
 #: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:397
 msgid "Profiles installation"
 msgstr "Installation der Profile"
 
 #: devices/ms/Files/common.inc:677
-#, fuzzy
 msgid "Checking for profile $R8"
-msgstr "Überprüfung von Profile $R1"
+msgstr "Suche nach Profil $R8"
 
 #: devices/ms/Files/common.inc:685
-#, fuzzy
 msgid "found profile $R8"
-msgstr "Profil $R1 gefunden"
+msgstr "Profil $R8 gefunden"
 
 #: devices/ms/Files/common.inc:711 devices/ms/Files/xp/common.inc:423
 msgid ""
@@ -494,11 +501,21 @@ msgid ""
 "clicking, It will install the profiles. You will need to login to eduroam "
 "with your username and password."
 msgstr ""
+"Bitte LESEN Sie diese Nachricht; sie ist WICHTIG.$\\r$\\nDie Probleme bei "
+"der Installation hängen wahrscheinlich damit zusammen, dass bei Ihnen "
+"Symantec Endpoint Protection (SEP) installiert ist.$\\r$\\nObwohl es sich "
+"bei diesem Problem um einen Fehler in SEP handelt, an dem das "
+"Installationsprogramm nichts ändern kann, gibt es doch eine Möglichkeit, den "
+"Fehler zu umgehen.$\\r$\\nWenn Sie das Installationsprogramm beenden, dann "
+"wird danach ein Ordner mit dem Explorer geöffnet (er könnte versteckt "
+"geöffnet werden, unterhalb von anderen Fenstern). In diesem Ordner finden "
+"Sie ein ausführbares Skript namens inst_eduroam. Nach einem Doppelklick auf "
+"dieses Skript wird die Installation fertig gestellt. Danach können Sie sich "
+"in eduroam mit Ihrem Benutzernamen und Passwort einloggen."
 
 #: devices/ms/Files/common.inc:818 devices/ms/Files/xp/common.inc:358
-#, fuzzy
 msgid "installing wired profile"
-msgstr "Installieren des Profils $R1"
+msgstr "Installieren des Profils für kabelgebundene Netzwerke"
 
 #: devices/ms/Files/common.inc:870 devices/ms/Files/common.inc:918
 #: devices/ms/Files/xp/common.inc:520
@@ -514,9 +531,8 @@ msgid "Profile installation error for $R1."
 msgstr "Fehler bei der Installation des Profils $R1."
 
 #: devices/ms/Files/common.inc:935
-#, fuzzy
 msgid "installing credentials for wired"
-msgstr "Installieren der Benutzerdaten für Profil $R1"
+msgstr "Installieren der Benutzerdaten für kabelgebundene Netzwerke"
 
 #: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
 msgid "Installation of the personal certificate"
@@ -576,14 +592,12 @@ msgstr ""
 "wenden Sie sich an ${SUPPORT}."
 
 #: devices/ms/Files/xp/common.inc:114 devices/ms/Files/xp/common.inc:529
-#, fuzzy
 msgid "Please contact \\${SUPPORT}."
-msgstr "Bitte kontaktieren Sie ${SUPPORT}."
+msgstr "Bitte kontaktieren Sie \\${SUPPORT}."
 
 #: devices/ms/Files/xp/common.inc:258
-#, fuzzy
 msgid "This installer has been prepared for \\${ORGANISATION}"
-msgstr "Dieses Installationsprogramm wurde für ${ORGANISATION} hergestellt."
+msgstr "Dieses Installationsprogramm wurde für \\${ORGANISATION} hergestellt."
 
 #: devices/ms/Files/xp/common.inc:259
 msgid "The installer will create network profile:"
@@ -607,6 +621,9 @@ msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "XP. Please download the correct installer and try again."
 msgstr ""
+"Sie benutzen Windows $WindowsName , aber dieses Installationsprogramm ist "
+"speziell fürWindows XP. Bitte laden Sie das richtige Installationsprogramm "
+"herunter und versuchen Sie es noch einmal."
 
 #: devices/ms/Files/xp/common.inc:382
 msgid "Do you want to enable eduroam on wired interfaces?"
