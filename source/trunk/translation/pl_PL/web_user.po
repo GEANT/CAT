@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
+"POT-Creation-Date: 2014-07-17 16:01+0200\n"
 "PO-Revision-Date: 2012-12-11 14:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -58,7 +58,7 @@ msgstr ""
 #, fuzzy, php-format
 msgid ""
 "The most important need is adding new installer modules, which will "
-"configure particular devices.  CAT is makig this easy for you. If you know "
+"configure particular devices.  CAT is making this easy for you. If you know "
 "how to create an automatic installer then fitting it into CAT should be a "
 "piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
 "a>, but please also take a look at <a href='%s'>CAT documentation</a>."
@@ -317,8 +317,7 @@ msgstr ""
 "jak najszybciej."
 
 #: web/user/js/cat_js.php:49
-#, fuzzy
-msgid "no maching data found"
+msgid "no matching data found"
 msgstr "nie znaleziono danych"
 
 #: web/user/js/cat_js.php:58
@@ -371,7 +370,7 @@ msgstr ""
 "skonfigurowane w oparciu o wskazówki na lokalnej stronie wsparcia. Po "
 "kliknięciu <b>Dalej</b> ta strona zostanie otwarta w nowym oknie/zakładce."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:246
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:249
 msgid "Continue"
 msgstr "Dalej"
 
@@ -515,7 +514,7 @@ msgstr ""
 "To urządzenie nie może zostać skonfigurowane na podstawie ustawień "
 "dostarczonych przez Twoją instytucję"
 
-#: web/basic.php:200 web/index.php:294
+#: web/basic.php:200 web/index.php:297
 msgid "Choose an installer to download"
 msgstr "Wybierz instalator, który chcesz pobrać"
 
@@ -565,12 +564,12 @@ msgstr "Wybierz język:"
 msgid "Terms of use"
 msgstr "Warunki korzystania"
 
-#: web/basic.php:447 web/index.php:335 web/tou.php:56
+#: web/basic.php:447 web/index.php:338 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Wersja %s"
 
-#: web/basic.php:449 web/index.php:337 web/tou.php:58
+#: web/basic.php:449 web/index.php:340 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Nieopublikowana wersja SVN"
 
@@ -644,18 +643,19 @@ msgstr "wybierz inną"
 msgid "Welcome aboard the eduroam® user community!"
 msgstr ""
 
-#: web/index.php:225
+#. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
+#: web/index.php:227
 msgid ""
 "Your download will start shortly, in case of problems with automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 
-#: web/index.php:227
+#: web/index.php:230
 #, php-format
 msgid "Dear user from %s,"
 msgstr ""
 
-#: web/index.php:229
+#: web/index.php:232
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -663,7 +663,7 @@ msgid ""
 "globe. All of this completely free of charge!"
 msgstr ""
 
-#: web/index.php:232
+#: web/index.php:235
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -671,7 +671,7 @@ msgid ""
 "certificate') - and be online!"
 msgstr ""
 
-#: web/index.php:234
+#: web/index.php:237
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -679,11 +679,11 @@ msgid ""
 "reach them via the means shown above."
 msgstr ""
 
-#: web/index.php:238
+#: web/index.php:241
 msgid "Back to downloads"
 msgstr ""
 
-#: web/index.php:242
+#: web/index.php:245
 #, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
@@ -696,18 +696,19 @@ msgstr ""
 "<br>Po kliknięciu <b>Dalej</b> ta strona zostanie otwarta w nowym oknie/"
 "zakładce."
 
-#: web/index.php:288
+#: web/index.php:291
 msgid "All platforms"
 msgstr ""
+
+#, fuzzy
+#~ msgid "no maching data found"
+#~ msgstr "nie znaleziono danych"
 
 #~ msgid "not available with settings provided by your institution"
 #~ msgstr "niedostępne dla ustawień wprowadzonych przez Twoja instytucję"
 
 #~ msgid "Your choice"
 #~ msgstr "Twój wybór"
-
-#~ msgid "no matching data found"
-#~ msgstr "nie znaleziono danych"
 
 #~ msgid "Change country"
 #~ msgstr "Zmień kraj"
