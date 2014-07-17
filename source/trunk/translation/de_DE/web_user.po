@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-17 16:01+0200\n"
-"PO-Revision-Date: 2014-07-17 15:57+0200\n"
+"PO-Revision-Date: 2014-07-17 16:07+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -60,7 +60,7 @@ msgstr ""
 "hier im <span class='edu_cat'>%s</span> System einzupflegen."
 
 #: web/user/cat_info.php:43
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The most important need is adding new installer modules, which will "
 "configure particular devices.  CAT is making this easy for you. If you know "
