@@ -784,8 +784,8 @@ Call ShowAllButtons
     ${If} $Symantec_installed  != 0
      !insertmacro debug_cat 3 "Symantec problem"
      IfSilent +2
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_eduroam. Start it by double-clicking, It will install the profiles. You will need to login to eduroam with your username and password.")) ?>"
-    Exec '"explorer" /select,"$EXEDIR\inst_eduroam.cmd"'
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php sprintf(sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),Config::$CONSORTIUM['name']) ?>"
+    Exec '"explorer" /select,"$EXEDIR\inst_cat.cmd"'
     Quit
 
     ${EndIf}
