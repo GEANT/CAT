@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 12:58+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2012-08-07 13:31+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
@@ -41,248 +41,248 @@ msgid ""
 "profile page</a> instead."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:28
+#: web/admin/action_realmcheck.php:29
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Hälsocheck för dynamsik upptäckt av realm:er"
 
-#: web/admin/action_realmcheck.php:44
+#: web/admin/action_realmcheck.php:45
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Du efterfrågande en realm check men vi känner inte till realmen för denna "
 "profil!"
 
-#: web/admin/action_realmcheck.php:51
+#: web/admin/action_realmcheck.php:52
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "Ingen valid realm namn angivet, ingen check kunde utföras!"
 
-#: web/admin/action_realmcheck.php:54
+#: web/admin/action_realmcheck.php:55
 msgid "STATIC"
 msgstr "STATISK"
 
-#: web/admin/action_realmcheck.php:55
+#: web/admin/action_realmcheck.php:56
 msgid "DYNAMIC"
 msgstr "DYNAMISK"
 
-#: web/admin/action_realmcheck.php:77
+#: web/admin/action_realmcheck.php:78
 msgid "pass"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:78
+#: web/admin/action_realmcheck.php:79
 msgid "fail"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:79
+#: web/admin/action_realmcheck.php:80
 #, fuzzy
 msgid "Client certificate:"
 msgstr "Certifikat fil:"
 
-#: web/admin/action_realmcheck.php:80
+#: web/admin/action_realmcheck.php:81
 msgid "expected result: "
 msgstr ""
 
-#: web/admin/action_realmcheck.php:81
+#: web/admin/action_realmcheck.php:82
 msgid "Server accepted this client certificate"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:82
+#: web/admin/action_realmcheck.php:83
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:83
+#: web/admin/action_realmcheck.php:84
 msgid "Server did not accept this client certificate"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:84
+#: web/admin/action_realmcheck.php:85
 msgid "Server did not accept this client certificate - reason"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:85
+#: web/admin/action_realmcheck.php:86
 msgid "Rest of tests for this CA skipped"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:86
+#: web/admin/action_realmcheck.php:87
 msgid "You should update your list of accredited CAs"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:87
+#: web/admin/action_realmcheck.php:88
 msgid "Get it from here."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:89
+#: web/admin/action_realmcheck.php:90
 msgid "more"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:91 web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:486
 msgid "Show detailed information for all tests"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:94
+#: web/admin/action_realmcheck.php:95
 msgid "Connection refused"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:97 web/admin/radius_tests.php:227
+#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:228
 msgid "Server certificate"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:229
+#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:230
 msgid "Subject"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:230
+#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:231
 msgid "Issuer"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:232
+#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:233
 msgid "SubjectAltName"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:236
+#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:237
 msgid "Certificate policies"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:102
+#: web/admin/action_realmcheck.php:103
 msgid "crlDistributionPoint"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:103 web/admin/radius_tests.php:244
+#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:245
 msgid "authorityInfoAccess"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:104
+#: web/admin/action_realmcheck.php:105
 msgid "Hide detailed information for all tests"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:148
+#: web/admin/action_realmcheck.php:149
 msgid "missing username and/or password"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:194 web/admin/action_realmcheck.php:260
-#: web/admin/action_realmcheck.php:271
+#: web/admin/action_realmcheck.php:195 web/admin/action_realmcheck.php:261
+#: web/admin/action_realmcheck.php:272
 #, fuzzy, php-format
 msgid "elapsed time: %sms."
 msgstr "förfluten tid: %d"
 
-#: web/admin/action_realmcheck.php:260 web/admin/action_realmcheck.php:268
+#: web/admin/action_realmcheck.php:261 web/admin/action_realmcheck.php:269
 #, php-format
 msgid "Connected to: %s"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:321
+#: web/admin/action_realmcheck.php:322
 #, php-format
 msgid "Realm testing for: %s"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:329 web/admin/action_realmcheck.php:341
+#: web/admin/action_realmcheck.php:330 web/admin/action_realmcheck.php:342
 msgid "DNS checks"
 msgstr "DNS kontroller"
 
-#: web/admin/action_realmcheck.php:330
+#: web/admin/action_realmcheck.php:331
 #, fuzzy
 msgid "Static connectivity tests"
 msgstr "STATISKA anslutnings tester"
 
-#: web/admin/action_realmcheck.php:331
+#: web/admin/action_realmcheck.php:332
 #, fuzzy
 msgid "Dynamic connectivity tests"
 msgstr "DYNAMISKA anslutnings tester"
 
-#: web/admin/action_realmcheck.php:332
+#: web/admin/action_realmcheck.php:333
 #, fuzzy
 msgid "Live login tests"
 msgstr "Live login test"
 
-#: web/admin/action_realmcheck.php:346
+#: web/admin/action_realmcheck.php:347
 msgid "Checking NAPTR existence:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:349
+#: web/admin/action_realmcheck.php:350
 #, fuzzy
 msgid "This realm has no NAPTR records."
 msgstr "Denna realm har %d NAPTR records, "
 
-#: web/admin/action_realmcheck.php:352
+#: web/admin/action_realmcheck.php:353
 #, fuzzy, php-format
 msgid "This realm has NAPTR records, but none are associated with %s."
 msgstr "Denna realm har %d NAPTR records, "
 
-#: web/admin/action_realmcheck.php:355
+#: web/admin/action_realmcheck.php:356
 #, fuzzy, php-format
 msgid "This realm has %d %s NAPTR records."
 msgstr "Denna realm har %d NAPTR records, "
 
-#: web/admin/action_realmcheck.php:362
+#: web/admin/action_realmcheck.php:363
 #, fuzzy
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
 "Checkar att NAPTR formatet överenstämmer: flag = S och regex = (empty) ..."
 
-#: web/admin/action_realmcheck.php:366
+#: web/admin/action_realmcheck.php:367
 msgid "No issues found."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:369 web/admin/action_realmcheck.php:385
+#: web/admin/action_realmcheck.php:370 web/admin/action_realmcheck.php:386
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:379
+#: web/admin/action_realmcheck.php:380
 #, fuzzy
 msgid "Checking SRVs:"
 msgstr "Checkar realm %s"
 
-#: web/admin/action_realmcheck.php:382 web/admin/action_realmcheck.php:398
+#: web/admin/action_realmcheck.php:383 web/admin/action_realmcheck.php:399
 msgid "This check was skipped."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:388
+#: web/admin/action_realmcheck.php:389
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d host namn upptäckta."
 
-#: web/admin/action_realmcheck.php:395
+#: web/admin/action_realmcheck.php:396
 msgid "Checking IP address resolution:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:401
+#: web/admin/action_realmcheck.php:402
 #, fuzzy, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "<strong>Felmeddelande:</strong> Host namnet %s kunde inte lösas ut!"
 
-#: web/admin/action_realmcheck.php:404
+#: web/admin/action_realmcheck.php:405
 #, fuzzy, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP addresser upptäckta."
 
-#: web/admin/action_realmcheck.php:411 web/admin/action_realmcheck.php:414
+#: web/admin/action_realmcheck.php:412 web/admin/action_realmcheck.php:415
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Realmen är <strong>%s</strong> "
 
-#: web/admin/action_realmcheck.php:411
+#: web/admin/action_realmcheck.php:412
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "utan att några DNS fel inträffade. Grattis!"
 
-#: web/admin/action_realmcheck.php:414
+#: web/admin/action_realmcheck.php:415
 msgid "but there were DNS errors! Check them!"
 msgstr "men det var DNS fel! kolla upp dem!"
 
-#: web/admin/action_realmcheck.php:414
+#: web/admin/action_realmcheck.php:415
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:445
+#: web/admin/action_realmcheck.php:446
 #, fuzzy
 msgid "Repeat static connectivity tests"
 msgstr "STATISKA anslutnings tester"
 
-#: web/admin/action_realmcheck.php:448
+#: web/admin/action_realmcheck.php:449
 msgid "STATIC connectivity tests"
 msgstr "STATISKA anslutnings tester"
 
-#: web/admin/action_realmcheck.php:450
+#: web/admin/action_realmcheck.php:451
 #, php-format
 msgid ""
 "This check sends a request for the realm through various entry points of the "
@@ -293,38 +293,38 @@ msgid ""
 "Reject after having gone through an EAP conversation."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:455 web/admin/action_realmcheck.php:571
+#: web/admin/action_realmcheck.php:456 web/admin/action_realmcheck.php:572
 #, fuzzy, php-format
 msgid "Testing from: %s"
 msgstr "Checkar realm %s"
 
-#: web/admin/action_realmcheck.php:460 web/admin/action_realmcheck.php:498
-#: web/admin/action_realmcheck.php:516 web/admin/action_realmcheck.php:576
+#: web/admin/action_realmcheck.php:461 web/admin/action_realmcheck.php:499
+#: web/admin/action_realmcheck.php:517 web/admin/action_realmcheck.php:577
 msgid "testing..."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:476
+#: web/admin/action_realmcheck.php:477
 #, fuzzy
 msgid "Repeat dynamic connectivity tests"
 msgstr "STATISKA anslutnings tester"
 
-#: web/admin/action_realmcheck.php:480
+#: web/admin/action_realmcheck.php:481
 msgid "DYNAMIC connectivity tests"
 msgstr "DYNAMISKA anslutnings tester"
 
-#: web/admin/action_realmcheck.php:484
+#: web/admin/action_realmcheck.php:485
 msgid "Some errors were found during the tests, see below"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:484
+#: web/admin/action_realmcheck.php:485
 msgid "All tests passed, congratulations!"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:486
 msgid "Checking server handshake..."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:488 web/admin/action_realmcheck.php:508
+#: web/admin/action_realmcheck.php:489 web/admin/action_realmcheck.php:509
 msgid ""
 "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
 "this time."
@@ -332,21 +332,21 @@ msgstr ""
 "På grund av begänsningar i OpenSSL ärdet inte möljigt att testa IPv6 "
 "adresser just nu."
 
-#: web/admin/action_realmcheck.php:524
+#: web/admin/action_realmcheck.php:525
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:524
+#: web/admin/action_realmcheck.php:525
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:538
+#: web/admin/action_realmcheck.php:539
 msgid "Live login test"
 msgstr "Live login test"
 
-#: web/admin/action_realmcheck.php:542
+#: web/admin/action_realmcheck.php:543
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -354,7 +354,7 @@ msgstr ""
 "Om du matar in existerande inloggningsuppgifter kan du testa om inloggning "
 "fungerar från olika testpunkter runt om i världen."
 
-#: web/admin/action_realmcheck.php:543
+#: web/admin/action_realmcheck.php:544
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -367,7 +367,7 @@ msgstr ""
 "och given EAP-typ faktiskt fungerade. Om du har ställt anonym yttre ID "
 "kommer testet att använda det."
 
-#: web/admin/action_realmcheck.php:544
+#: web/admin/action_realmcheck.php:545
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -379,45 +379,45 @@ msgstr ""
 "sidan. Vänligen använd bara <strong>tillfälliga testkonton</strong> här; "
 "permanent valida testkonton på drift inte önskvärt och anses som skadligt!"
 
-#: web/admin/action_realmcheck.php:550
+#: web/admin/action_realmcheck.php:551
 msgid "For all EAP types"
 msgstr "För alla EAP typer"
 
-#: web/admin/action_realmcheck.php:551
+#: web/admin/action_realmcheck.php:552
 msgid "Username:"
 msgstr "Användarnamn:"
 
-#: web/admin/action_realmcheck.php:559
+#: web/admin/action_realmcheck.php:560
 msgid "Password-based EAP types"
 msgstr "Lösenordsbaserade EAP-typer"
 
-#: web/admin/action_realmcheck.php:560
+#: web/admin/action_realmcheck.php:561
 msgid "Password:"
 msgstr "Lösenord:"
 
-#: web/admin/action_realmcheck.php:563
+#: web/admin/action_realmcheck.php:564
 msgid "Certificate-based EAP types"
 msgstr "Certifikate-baserade EAP typer"
 
-#: web/admin/action_realmcheck.php:564
+#: web/admin/action_realmcheck.php:565
 #, fuzzy
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Certifikat fil:"
 
-#: web/admin/action_realmcheck.php:565
+#: web/admin/action_realmcheck.php:566
 #, fuzzy
 msgid "Certificate password, if any:"
 msgstr "Privat nycel, om sådan existerar:"
 
-#: web/admin/action_realmcheck.php:566
+#: web/admin/action_realmcheck.php:567
 msgid "Login username, if different from Usename above:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:567
+#: web/admin/action_realmcheck.php:568
 msgid "Submit credentials"
 msgstr "Tillhandahåll användare/lösenord"
 
-#: web/admin/action_realmcheck.php:594 web/admin/overview_installers.php:154
+#: web/admin/action_realmcheck.php:595 web/admin/overview_installers.php:154
 msgid "Return to dashboard"
 msgstr "Återvänd till dashborden"
 
@@ -503,72 +503,122 @@ msgstr ""
 "vid installationen. Om så är fallet kommer vi att fixa det om du laddar upp "
 "en  visningsfil i RTF eller vanlig text."
 
-#: web/admin/edit_idp.php:116
+#: web/admin/edit_idp.php:123 web/admin/edit_idp.php:188
+#: web/admin/edit_idp.php:205 web/admin/edit_idp.php:218
+#: web/admin/edit_profile.php:234 web/admin/edit_profile.php:440
+#: web/admin/edit_profile.php:471 web/admin/edit_user.php:47
+#: web/admin/inc/toggleRedirect.inc.php:106
+msgid "Add new option"
+msgstr "Lägg till en annan option"
+
+#: web/admin/edit_idp.php:136 web/admin/edit_profile.php:186
+#: web/admin/overview_idp.php:67
+#, fuzzy
+msgid "Media Properties"
+msgstr "Overgripande Profil egenskaper"
+
+#: web/admin/edit_idp.php:140
+#, php-format
+msgid ""
+"In this section, you define on which media %s should be configured on user "
+"devices."
+msgstr ""
+
+#: web/admin/edit_idp.php:143
 msgid "Additional SSIDs:"
 msgstr ""
 
-#: web/admin/edit_idp.php:116
+#: web/admin/edit_idp.php:143
 msgid "SSIDs:"
 msgstr ""
 
-#: web/admin/edit_idp.php:122
+#: web/admin/edit_idp.php:149
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/edit_idp.php:124
+#: web/admin/edit_idp.php:151
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
 msgstr ""
 
-#: web/admin/edit_idp.php:125
+#: web/admin/edit_idp.php:152
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
 "and '%s' below."
 msgstr ""
 
-#: web/admin/edit_idp.php:127
+#: web/admin/edit_idp.php:154
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr ""
 
-#: web/admin/edit_idp.php:129
+#: web/admin/edit_idp.php:156
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
 "legacy support for WPA/TKIP where possible."
 msgstr ""
 
-#: web/admin/edit_idp.php:139 web/admin/edit_idp.php:166
-#: web/admin/edit_idp.php:183 web/admin/edit_idp.php:196
-#: web/admin/edit_profile.php:234 web/admin/edit_profile.php:440
-#: web/admin/edit_profile.php:471 web/admin/edit_user.php:47
-#: web/admin/inc/toggleRedirect.inc.php:105
-msgid "Add new option"
-msgstr "Lägg till en annan option"
-
-#: web/admin/edit_idp.php:152 web/admin/edit_profile.php:186
-#: web/admin/overview_idp.php:67
-#, fuzzy
-msgid "Media Properties"
-msgstr "Overgripande Profil egenskaper"
-
-#: web/admin/edit_idp.php:156
-msgid "TBD: texts for wizard mode"
+#: web/admin/edit_idp.php:160
+msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
 msgstr ""
 
-#: web/admin/edit_idp.php:158
-msgid "TBD: more texts for wizard mode"
+#: web/admin/edit_idp.php:160
+msgid "Hotspot 2.0 / Passpoint Consortia:"
 msgstr ""
 
-#: web/admin/edit_idp.php:169
+#: web/admin/edit_idp.php:166
+#, php-format
+msgid "We will always configure this Consortium OI: %s."
+msgid_plural "We will always configure these Consortium OIs: %s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/admin/edit_idp.php:168
+#, php-format
+msgid ""
+"It is also possible to define custom additional OIs with the option '%s' "
+"below."
+msgstr ""
+
+#: web/admin/edit_idp.php:170
+msgid ""
+"Please configure which Consortium OIs should be configured in the installers."
+msgstr ""
+
+#: web/admin/edit_idp.php:173
+msgid "Support for wired IEEE 802.1X:"
+msgstr ""
+
+#: web/admin/edit_idp.php:174
+msgid ""
+"If you want to configure your users' devices with IEEE 802.1X support for "
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
+msgstr ""
+
+#: web/admin/edit_idp.php:176
+msgid "Removal of bootstrap/onboarding SSIDs:"
+msgstr ""
+
+#: web/admin/edit_idp.php:177
+msgid ""
+"If you use a captive portal to distribute configurations, you may want to "
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
+msgstr ""
+
+#: web/admin/edit_idp.php:191
 msgid "Helpdesk Details for all users"
 msgstr "Helpdesk Detaljer för alla anvämdare"
 
-#: web/admin/edit_idp.php:173
+#: web/admin/edit_idp.php:195
 #, fuzzy
 msgid ""
 "If your IdP provides a helpdesk for its users, it would be nice if you would "
@@ -581,7 +631,7 @@ msgstr ""
 "            kan ha möjligheten att signalera denna information till "
 "användaren om den kör fast."
 
-#: web/admin/edit_idp.php:175
+#: web/admin/edit_idp.php:197
 #, fuzzy
 msgid ""
 "If you enter a value here, it will be added to the site installers for all "
@@ -602,11 +652,11 @@ msgstr ""
 "            lämna valfritt av dessa fält tomma och om så önskas specificera\n"
 "            helpdesk information per-profil senare i denna guide."
 
-#: web/admin/edit_idp.php:185
+#: web/admin/edit_idp.php:207
 msgid "EAP details for all users"
 msgstr "EAP detaljer för alla användare"
 
-#: web/admin/edit_idp.php:188
+#: web/admin/edit_idp.php:210
 #, fuzzy
 msgid ""
 "Most EAP methods need server-side authentication details, like the CA "
@@ -627,7 +677,7 @@ msgstr ""
 "profil eller per EAP-type,\n"
 "            kan du även mata in dem i de ndividuella profilerna senare."
 
-#: web/admin/edit_idp.php:189
+#: web/admin/edit_idp.php:211
 #, fuzzy, php-format
 msgid ""
 "<strong>Note well: </strong>The server-side validation is a cornerstone of "
@@ -639,19 +689,19 @@ msgstr ""
 "            sk man-in-the-middle attacker! Vi kommer inte att generera "
 "installerare utan sk \"Trusted CA\" ankare och server namn."
 
-#: web/admin/edit_idp.php:200
+#: web/admin/edit_idp.php:222
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
 msgstr ""
 
-#: web/admin/edit_idp.php:202 web/admin/edit_profile.php:476
-#: web/admin/edit_user.php:52 web/admin/inc/toggleRedirect.inc.php:108
+#: web/admin/edit_idp.php:224 web/admin/edit_profile.php:476
+#: web/admin/edit_user.php:52 web/admin/inc/toggleRedirect.inc.php:109
 msgid "Save data"
 msgstr "Spara data"
 
-#: web/admin/edit_idp.php:202 web/admin/edit_profile.php:476
+#: web/admin/edit_idp.php:224 web/admin/edit_profile.php:476
 #: web/admin/edit_user.php:55
 msgid "Discard changes"
 msgstr "Kasta bort förändringarna"
@@ -1088,7 +1138,7 @@ msgstr ""
 msgid "Deployment Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:81 web/admin/overview_user.php:92
+#: web/admin/overview_federation.php:81 web/admin/overview_user.php:94
 #: web/admin/inc/common.inc.php:35
 msgid "Institution Name"
 msgstr "Institutionsens Namn"
@@ -1098,7 +1148,7 @@ msgstr "Institutionsens Namn"
 msgid "%s Database Sync Status"
 msgstr ""
 
-#: web/admin/overview_federation.php:90 web/admin/overview_user.php:92
+#: web/admin/overview_federation.php:90 web/admin/overview_user.php:94
 msgid "Administrator Management"
 msgstr ""
 
@@ -1119,7 +1169,7 @@ msgstr ""
 msgid "Linked"
 msgstr ""
 
-#: web/admin/overview_federation.php:145 web/admin/overview_user.php:128
+#: web/admin/overview_federation.php:145 web/admin/overview_user.php:130
 msgid "Add/Remove Administrators"
 msgstr ""
 
@@ -1131,7 +1181,7 @@ msgstr ""
 msgid "Revoke Invitation"
 msgstr ""
 
-#: web/admin/overview_federation.php:187 web/admin/overview_user.php:154
+#: web/admin/overview_federation.php:187 web/admin/overview_user.php:156
 msgid "Register New Institution!"
 msgstr ""
 
@@ -1178,7 +1228,7 @@ msgid "Check another realm's reachability"
 msgstr "Testa en annan realm:s tillgänglighet"
 
 #: web/admin/overview_idp.php:126 web/admin/overview_idp.php:135
-#: web/admin/overview_user.php:145
+#: web/admin/overview_user.php:147
 msgid "Go!"
 msgstr "Kör!"
 
@@ -1355,40 +1405,44 @@ msgstr ""
 msgid "Click here to manage your federations"
 msgstr ""
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:63
+msgid "Click here to access the superadmin page"
+msgstr ""
+
+#: web/admin/overview_user.php:72
 #, php-format
 msgid "You are managing the following institution:"
 msgid_plural "You are managing the following <strong>%d</strong> institutions:"
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/admin/overview_user.php:92
+#: web/admin/overview_user.php:94
 msgid "Other admins of this institution"
 msgstr "Andra admis för denna institution"
 
-#: web/admin/overview_user.php:94
+#: web/admin/overview_user.php:96
 #, php-format
 msgid "Institutions in federation %s"
 msgstr ""
 
-#: web/admin/overview_user.php:122
+#: web/admin/overview_user.php:124
 #, fuzzy
 msgid "other user"
 msgid_plural "other users"
 msgstr[0] "andra anvädare"
 msgstr[1] "andra anvädare"
 
-#: web/admin/overview_user.php:135
+#: web/admin/overview_user.php:137
 msgid "You are not managing any institutions."
 msgstr "Du hanterar inga institutioner."
 
-#: web/admin/overview_user.php:138
+#: web/admin/overview_user.php:140
 msgid ""
 "Please ask your federation administrator to invite you to become an "
 "institution administrator."
 msgstr ""
 
-#: web/admin/overview_user.php:142
+#: web/admin/overview_user.php:144
 msgid ""
 "Did you receive an invitation token to manage an institution? Please paste "
 "it here:"
@@ -1396,12 +1450,12 @@ msgstr ""
 "Erhöll du en inbjudnings \"token\" för att hantera en institution? Var "
 "vänlig klistra då in det här:"
 
-#: web/admin/radius_tests.php:76
+#: web/admin/radius_tests.php:77
 #, fuzzy
 msgid "<strong>Test succesful.</strong>"
 msgstr "Realm: <strong>%s</strong>"
 
-#: web/admin/radius_tests.php:79
+#: web/admin/radius_tests.php:80
 #, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
@@ -1411,11 +1465,11 @@ msgstr ""
 "EAP konversation!  Antingen är den ansvariga servern nere eller så är "
 "routingen trasig!"
 
-#: web/admin/radius_tests.php:84
+#: web/admin/radius_tests.php:85
 msgid "This method cannot be tested"
 msgstr ""
 
-#: web/admin/radius_tests.php:87
+#: web/admin/radius_tests.php:88
 #, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
@@ -1426,7 +1480,7 @@ msgstr ""
 "EAP konversation!  Antingen är den ansvariga servern nere eller så är "
 "routingen trasig!"
 
-#: web/admin/radius_tests.php:89 web/admin/radius_tests.php:146
+#: web/admin/radius_tests.php:90 web/admin/radius_tests.php:147
 #, fuzzy, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1436,7 +1490,7 @@ msgstr ""
 "%s sekunder. Antingen är den ansvariga servern nere eller så är routingen "
 "trasig!"
 
-#: web/admin/radius_tests.php:93 web/admin/radius_tests.php:150
+#: web/admin/radius_tests.php:94 web/admin/radius_tests.php:151
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1445,12 +1499,12 @@ msgstr ""
 "<strong>Testet MISSLYCKADES</strong>: det var en dubbelriktad RADIUS "
 "konversation, men den slutfördes inte efter %d sekunder!"
 
-#: web/admin/radius_tests.php:98
+#: web/admin/radius_tests.php:99
 #, fuzzy
 msgid "<strong>Test FAILED</strong>"
 msgstr "Realm: <strong>%s</strong>"
 
-#: web/admin/radius_tests.php:120
+#: web/admin/radius_tests.php:121
 #, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
@@ -1462,7 +1516,7 @@ msgstr ""
 "flertalet \"tur-och-returer\" utfördes och slutade med en förväntad Access-"
 "Reject."
 
-#: web/admin/radius_tests.php:137
+#: web/admin/radius_tests.php:138
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -1472,7 +1526,7 @@ msgstr ""
 "flertalet \"tur-och-returer\" utfördes och slutade med en förväntad Access-"
 "Reject."
 
-#: web/admin/radius_tests.php:142
+#: web/admin/radius_tests.php:143
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1481,11 +1535,11 @@ msgid ""
 "it is unreachable."
 msgstr ""
 
-#: web/admin/radius_tests.php:154
+#: web/admin/radius_tests.php:155
 msgid "unhandled error"
 msgstr ""
 
-#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:217
+#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:218
 #, fuzzy
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
@@ -1494,16 +1548,16 @@ msgstr ""
 "<strong>FEL</strong>: servern presenterade ett cerifikat som kommer från en "
 "okänd källa!"
 
-#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:171
+#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:172
 #, php-format
 msgid "elapsed time: %d"
 msgstr "förfluten tid: %d"
 
-#: web/admin/radius_tests.php:222
+#: web/admin/radius_tests.php:223
 msgid "Completed."
 msgstr ""
 
-#: web/admin/radius_tests.php:241
+#: web/admin/radius_tests.php:242
 msgid "crlDistributionPoints"
 msgstr ""
 
@@ -1629,38 +1683,34 @@ msgid "EAP-pwd"
 msgstr ""
 
 #: web/admin/inc/common.inc.php:62
-msgid "Wired 802.1X?"
-msgstr ""
-
-#: web/admin/inc/common.inc.php:63
 msgid "Remove/Disable SSID"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:67
+#: web/admin/inc/common.inc.php:66
 msgid "Additional SSID"
 msgstr "Extra SSID"
 
-#: web/admin/inc/common.inc.php:68
+#: web/admin/inc/common.inc.php:67
 msgid "Additional SSID (with WPA/TKIP)"
 msgstr "Extra SSID (med WPA/TKIP)"
 
-#: web/admin/inc/common.inc.php:70
+#: web/admin/inc/common.inc.php:69
 msgid "SSID"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:71
+#: web/admin/inc/common.inc.php:70
 msgid "SSID (with WPA/TKIP)"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:75
+#: web/admin/inc/common.inc.php:74
 msgid "Additional HS20 Consortium OI"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:76
+#: web/admin/inc/common.inc.php:75
 msgid "HS20 Consortium OI"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:90
+#: web/admin/inc/common.inc.php:89
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -1677,57 +1727,57 @@ msgid ""
 "while they are not."
 msgstr ""
 
-#: web/admin/inc/common.inc.php:107
+#: web/admin/inc/common.inc.php:106
 msgid "OK!"
 msgstr "OK!"
 
-#: web/admin/inc/common.inc.php:120
+#: web/admin/inc/common.inc.php:119
 msgid "Warning!"
 msgstr "Warning!"
 
-#: web/admin/inc/common.inc.php:133
+#: web/admin/inc/common.inc.php:132
 msgid "Error!"
 msgstr "Fel!"
 
-#: web/admin/inc/common.inc.php:146
+#: web/admin/inc/common.inc.php:145
 msgid "Remark"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:249 web/admin/inc/common.inc.php:269
+#: web/admin/inc/common.inc.php:248 web/admin/inc/common.inc.php:268
 msgid "Error, ROWID expected."
 msgstr "Fel, ROWID förväntades."
 
-#: web/admin/inc/common.inc.php:256
+#: web/admin/inc/common.inc.php:255
 msgid "There was an error processing the certificate!"
 msgstr "Ett fel inträffade under hantering av certifikatet!"
 
-#: web/admin/inc/common.inc.php:261
+#: web/admin/inc/common.inc.php:260
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr ""
 
-#: web/admin/inc/common.inc.php:270
+#: web/admin/inc/common.inc.php:269
 msgid "Preview of logo file"
 msgstr "Förhandsvisa logo-filen"
 
-#: web/admin/inc/common.inc.php:281
+#: web/admin/inc/common.inc.php:280
 msgid "File exists"
 msgstr "Filen finns"
 
-#: web/admin/inc/common.inc.php:281
+#: web/admin/inc/common.inc.php:280
 msgid "Preview"
 msgstr "Förhansvisa"
 
-#: web/admin/inc/common.inc.php:304 web/admin/inc/option_html.inc.php:116
+#: web/admin/inc/common.inc.php:303 web/admin/inc/option_html.inc.php:117
 msgid "default/other languages"
 msgstr ""
 
 #. / Device assessment is "on"
-#: web/admin/inc/common.inc.php:333 web/admin/inc/option_html.inc.php:200
+#: web/admin/inc/common.inc.php:332 web/admin/inc/option_html.inc.php:201
 msgid "on"
 msgstr "på"
 
 #. / Device assessment is "off"
-#: web/admin/inc/common.inc.php:333 web/admin/inc/option_html.inc.php:203
+#: web/admin/inc/common.inc.php:332 web/admin/inc/option_html.inc.php:204
 msgid "off"
 msgstr "av"
 
@@ -1889,51 +1939,51 @@ msgstr "Denna profil är inte tillgänglig!"
 msgid "This device does not exist!"
 msgstr "Denna enhet finns inte!"
 
-#: web/admin/inc/input_validation.inc.php:90
+#: web/admin/inc/input_validation.inc.php:99
 msgid "Realm contains an @ sign!"
 msgstr ""
 
-#: web/admin/inc/input_validation.inc.php:94
+#: web/admin/inc/input_validation.inc.php:103
 msgid "Realm begins with a . (dot)!"
 msgstr ""
 
-#: web/admin/inc/input_validation.inc.php:98
+#: web/admin/inc/input_validation.inc.php:107
 msgid "Realm ends with a . (dot)!"
 msgstr ""
 
-#: web/admin/inc/input_validation.inc.php:102
+#: web/admin/inc/input_validation.inc.php:111
 msgid "Realm does not contain at least one . (dot)!"
 msgstr ""
 
-#: web/admin/inc/input_validation.inc.php:106
+#: web/admin/inc/input_validation.inc.php:115
 msgid "Realm contains spaces!"
 msgstr ""
 
-#: web/admin/inc/input_validation.inc.php:115
+#: web/admin/inc/input_validation.inc.php:124
 msgid "The user identifier is not an ASCII string!"
 msgstr "Användaridentifieraren är inte en ASCII string!"
 
-#: web/admin/inc/input_validation.inc.php:124
+#: web/admin/inc/input_validation.inc.php:133
 msgid "Token is not a hexadecimal string!"
 msgstr "Denna token är inte en hexadecimal sträng!"
 
-#: web/admin/inc/input_validation.inc.php:132
+#: web/admin/inc/input_validation.inc.php:141
 msgid "Coordinate is not a numeric value!"
 msgstr "Koordinaten är inte ett numeriskt värde!"
 
-#: web/admin/inc/input_validation.inc.php:137
+#: web/admin/inc/input_validation.inc.php:146
 msgid "Coordinate is out of bounds. Which planet are you from?"
 msgstr "Koordinaten är utanför gränsvärdena. Du vet väl att jorden är rund."
 
-#: web/admin/inc/input_validation.inc.php:149
+#: web/admin/inc/input_validation.inc.php:158
 msgid "Wrong coordinate encoding!"
 msgstr "Felaktig koordinat kodning."
 
-#: web/admin/inc/input_validation.inc.php:156
+#: web/admin/inc/input_validation.inc.php:165
 msgid "Invalid structure in multi-language attribute!"
 msgstr "Invalid struktur i ett flerspråks attribut!"
 
-#: web/admin/inc/input_validation.inc.php:163
+#: web/admin/inc/input_validation.inc.php:172
 msgid "Unknown state of boolean option!"
 msgstr "Okänt läge för boolean option!"
 
@@ -2002,7 +2052,7 @@ msgstr "Profiler för din institution"
 
 #: web/admin/inc/manageAdmins.inc.php:177
 #: web/admin/inc/manageDBLink.inc.php:186
-#: web/admin/inc/manageNewInst.inc.php:138
+#: web/admin/inc/manageNewInst.inc.php:142
 msgid "Close"
 msgstr "Stäng"
 
@@ -2145,51 +2195,51 @@ msgstr ""
 msgid "--- select IdP here ---"
 msgstr ""
 
-#: web/admin/inc/manageNewInst.inc.php:108
+#: web/admin/inc/manageNewInst.inc.php:112
 msgid "New IdP"
 msgstr ""
 
-#: web/admin/inc/manageNewInst.inc.php:111
+#: web/admin/inc/manageNewInst.inc.php:115
 msgid "Name"
 msgstr ""
 
-#: web/admin/inc/manageNewInst.inc.php:113
+#: web/admin/inc/manageNewInst.inc.php:117
 msgid "Federation"
 msgstr ""
 
-#: web/admin/inc/manageNewInst.inc.php:129
+#: web/admin/inc/manageNewInst.inc.php:133
 msgid "Administrator's E-Mail:"
 msgstr "Administratörens E-Post:"
 
-#: web/admin/inc/manageNewInst.inc.php:134
+#: web/admin/inc/manageNewInst.inc.php:138
 msgid "Send invitation"
 msgstr ""
 
-#: web/admin/inc/option_html.inc.php:115
+#: web/admin/inc/option_html.inc.php:116
 msgid "select language"
 msgstr "välj språk"
 
-#: web/admin/inc/option_html.inc.php:157
+#: web/admin/inc/option_html.inc.php:158
 msgid "(default/other languages)"
 msgstr ""
 
-#: web/admin/inc/option_html.inc.php:172
+#: web/admin/inc/option_html.inc.php:173
 msgid "Click to see location"
 msgstr "Klicka för att se plats"
 
-#: web/admin/inc/option_html.inc.php:188
+#: web/admin/inc/option_html.inc.php:189
 msgid "file content"
 msgstr "filinnehåll"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/admin/inc/option_parse.inc.php:239
-#: web/admin/inc/option_parse.inc.php:243
+#: web/admin/inc/option_parse.inc.php:247
+#: web/admin/inc/option_parse.inc.php:251
 #, php-format
 msgid "%dx %s"
 msgstr ""
 
-#: web/admin/inc/option_parse.inc.php:247
+#: web/admin/inc/option_parse.inc.php:255
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "

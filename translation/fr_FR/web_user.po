@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 13:31+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2013-02-11 10:20+0000\n"
 "Last-Translator: Nicolas.Garnier <nicolas.garnier@renater.fr>\n"
 "Language-Team: French (France) (http://www.transifex.com/projects/p/cat/"
@@ -309,7 +309,7 @@ msgstr "Questions Fréquentes"
 msgid "Terms of Use"
 msgstr "Conditions d'utilisation"
 
-#: web/user/js/cat_js.php:22 web/basic.php:312
+#: web/user/js/cat_js.php:22 web/basic.php:282
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
@@ -352,7 +352,7 @@ msgstr ""
 "Si vous rencontrez des problèmes, vous pouvez obtenir de l'aide directement "
 "auprès de votre établissement à : "
 
-#: web/user/js/cat_js.php:181 web/basic.php:286 web/basic.php:344
+#: web/user/js/cat_js.php:181 web/basic.php:261
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
 msgstr ""
@@ -377,8 +377,7 @@ msgstr ""
 "vous aurez cliqué sur <b>Continuer</b>, cette page sera ouverte dans une "
 "nouvelle fenêtre ou un nouvel onglet."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/basic.php:257
-#: web/index.php:246
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:246
 msgid "Continue"
 msgstr "Continuer"
 
@@ -501,61 +500,84 @@ msgstr "Linux"
 msgid "all major distributions"
 msgstr "Toutes distributions majeures"
 
-#: web/basic.php:96
-msgid "not available with settings provided by your institution"
-msgstr "pas disponible avec les paramètres fournis par votre établissement"
+#: web/basic.php:128
+#, fuzzy
+msgid "Select your country"
+msgstr "Sélectionnez votre établissement"
 
-#: web/basic.php:101 web/index.php:125
-msgid "View this page in"
-msgstr "Voir cette page dans"
-
-#: web/basic.php:120
-msgid "you will be redirected to a local support page"
-msgstr "vous allez être redirigé(e) vers une page de support locale"
-
-#: web/basic.php:141
-msgid "Your choice"
-msgstr "Votre choix"
-
-#: web/basic.php:198
-msgid "no matching data found"
-msgstr "aucune donnée correspondante trouvée."
-
-#: web/basic.php:206
-msgid "Change country"
-msgstr "Changer de pays"
-
-#: web/basic.php:226
+#: web/basic.php:146
 msgid "Select your institution"
 msgstr "Sélectionnez votre établissement"
 
-#: web/basic.php:242 web/basic.php:244 web/index.php:211
+#: web/basic.php:166 web/index.php:211
 msgid "Select the user group"
 msgstr "Sélectionnez le groupe d'utilisateur"
 
-#: web/basic.php:290 web/index.php:294
+#: web/basic.php:193
+#, fuzzy
+msgid ""
+"Your operating system was not properly detected, is not supported yet or "
+"cannot be configured with settings provided by your institution"
+msgstr ""
+"Ce périphérique ne peut être configuré avec les paramètres fournis par votre "
+"établissement"
+
+#: web/basic.php:200 web/index.php:294
 msgid "Choose an installer to download"
 msgstr "Choisissez un installateur à télécharger"
 
-#: web/basic.php:306
-msgid "Profile does not match the institution"
+#: web/basic.php:233 web/basic.php:271
+#, fuzzy
+msgid ""
+"Your local administrator has specified a redirect to a local support page."
+msgstr "vous allez être redirigé(e) vers une page de support locale"
+
+#: web/basic.php:233
+msgid "When you click <b>CONTINUE</b> this support page will be opened."
+msgstr ""
+
+#: web/basic.php:235
+msgid "CONTINUE to local support page"
+msgstr ""
+
+#: web/basic.php:239
+#, fuzzy
+msgid "Do you have an account at this institution?"
 msgstr "Ce profil ne correspond pas à votre établissement"
 
-#: web/basic.php:334
+#: web/basic.php:239
+msgid ""
+"If so and if the other settings above are OK then click here to download..."
+msgstr ""
+
+#: web/basic.php:271
+msgid "Click on the link below to continue."
+msgstr ""
+
+#: web/basic.php:304
 msgid "Download installer for"
 msgstr "Télécharger l'installateur pour"
 
-#: web/basic.php:366 web/index.php:152
+#: web/basic.php:306
+#, fuzzy
+msgid "Start over"
+msgstr "Page de démarrage"
+
+#: web/basic.php:316 web/index.php:125
+msgid "View this page in"
+msgstr "Voir cette page dans"
+
+#: web/basic.php:442 web/index.php:152
 #, php-format
 msgid "Terms of use"
 msgstr "Conditions d'utilisation"
 
-#: web/basic.php:371 web/index.php:335 web/tou.php:56
+#: web/basic.php:447 web/index.php:335 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Version %s"
 
-#: web/basic.php:373 web/index.php:337 web/tou.php:58
+#: web/basic.php:449 web/index.php:337 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Version SVN non publiée"
 
@@ -669,9 +691,10 @@ msgid "Back to downloads"
 msgstr ""
 
 #: web/index.php:242
+#, fuzzy
 msgid ""
-"Your local administrator has specified that this user group should be "
-"supported locally.<br>\n"
+"Your local administrator has specified a redirect to a local support page."
+"<br>\n"
 "                            When you click <b>Continue</b> this support page "
 "will be opened in a new window/tab."
 msgstr ""
@@ -683,6 +706,18 @@ msgstr ""
 #: web/index.php:288
 msgid "All platforms"
 msgstr ""
+
+#~ msgid "not available with settings provided by your institution"
+#~ msgstr "pas disponible avec les paramètres fournis par votre établissement"
+
+#~ msgid "Your choice"
+#~ msgstr "Votre choix"
+
+#~ msgid "no matching data found"
+#~ msgstr "aucune donnée correspondante trouvée."
+
+#~ msgid "Change country"
+#~ msgstr "Changer de pays"
 
 #~ msgid "This is a service under preparation, do not expect it to work."
 #~ msgstr ""

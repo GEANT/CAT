@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 13:31+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2013-02-13 08:10+0000\n"
 "Last-Translator: dpenezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/cat/"
@@ -304,7 +304,7 @@ msgstr "Često postavljana pitanja"
 msgid "Terms of Use"
 msgstr "Uvijeti korištenja"
 
-#: web/user/js/cat_js.php:22 web/basic.php:312
+#: web/user/js/cat_js.php:22 web/basic.php:282
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
@@ -345,7 +345,7 @@ msgid ""
 "home organisation at:"
 msgstr "Ako naiđete na problem pomoć možete dobiti na :"
 
-#: web/user/js/cat_js.php:181 web/basic.php:286 web/basic.php:344
+#: web/user/js/cat_js.php:181 web/basic.php:261
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
 msgstr "Ako naiđete na problem kontaktirajte administratora vaše institucije"
@@ -365,8 +365,7 @@ msgstr ""
 "resursa definiranih na vanjskoj stranici. Toj stranici možete pristupiti "
 "klikom na <b>Nastavi</b>."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/basic.php:257
-#: web/index.php:246
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:246
 msgid "Continue"
 msgstr "Nastavi"
 
@@ -488,61 +487,82 @@ msgstr "Linux"
 msgid "all major distributions"
 msgstr "sve važnije distribucije"
 
-#: web/basic.php:96
-msgid "not available with settings provided by your institution"
-msgstr "nije moguće prema postavkama institucije"
+#: web/basic.php:128
+#, fuzzy
+msgid "Select your country"
+msgstr "Odaberite instituciju"
 
-#: web/basic.php:101 web/index.php:125
-msgid "View this page in"
-msgstr "Pogledajte stranicu u"
-
-#: web/basic.php:120
-msgid "you will be redirected to a local support page"
-msgstr "biti će te preusmjereni na lokalnu stranicu podrške"
-
-#: web/basic.php:141
-msgid "Your choice"
-msgstr "Vaš odabir"
-
-#: web/basic.php:198
-msgid "no matching data found"
-msgstr "nije pronađen niti jedan podatak"
-
-#: web/basic.php:206
-msgid "Change country"
-msgstr "Promjena zemlje"
-
-#: web/basic.php:226
+#: web/basic.php:146
 msgid "Select your institution"
 msgstr "Odaberite instituciju"
 
-#: web/basic.php:242 web/basic.php:244 web/index.php:211
+#: web/basic.php:166 web/index.php:211
 msgid "Select the user group"
 msgstr "Odaberite korisničku grupu"
 
-#: web/basic.php:290 web/index.php:294
+#: web/basic.php:193
+#, fuzzy
+msgid ""
+"Your operating system was not properly detected, is not supported yet or "
+"cannot be configured with settings provided by your institution"
+msgstr "Uređaj je nemoguće konfigurirati temeljem podataka s vaše institucije"
+
+#: web/basic.php:200 web/index.php:294
 msgid "Choose an installer to download"
 msgstr "Odaberite installer za dohvat"
 
-#: web/basic.php:306
-msgid "Profile does not match the institution"
+#: web/basic.php:233 web/basic.php:271
+#, fuzzy
+msgid ""
+"Your local administrator has specified a redirect to a local support page."
+msgstr "biti će te preusmjereni na lokalnu stranicu podrške"
+
+#: web/basic.php:233
+msgid "When you click <b>CONTINUE</b> this support page will be opened."
+msgstr ""
+
+#: web/basic.php:235
+msgid "CONTINUE to local support page"
+msgstr ""
+
+#: web/basic.php:239
+#, fuzzy
+msgid "Do you have an account at this institution?"
 msgstr "Profil ne odgovara vašoj instituciji"
 
-#: web/basic.php:334
+#: web/basic.php:239
+msgid ""
+"If so and if the other settings above are OK then click here to download..."
+msgstr ""
+
+#: web/basic.php:271
+msgid "Click on the link below to continue."
+msgstr ""
+
+#: web/basic.php:304
 msgid "Download installer for"
 msgstr "Dohvatite installer za"
 
-#: web/basic.php:366 web/index.php:152
+#: web/basic.php:306
+#, fuzzy
+msgid "Start over"
+msgstr "Početak stranice"
+
+#: web/basic.php:316 web/index.php:125
+msgid "View this page in"
+msgstr "Pogledajte stranicu u"
+
+#: web/basic.php:442 web/index.php:152
 #, php-format
 msgid "Terms of use"
 msgstr "Uvjeti korištenja"
 
-#: web/basic.php:371 web/index.php:335 web/tou.php:56
+#: web/basic.php:447 web/index.php:335 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Verzija %s"
 
-#: web/basic.php:373 web/index.php:337 web/tou.php:58
+#: web/basic.php:449 web/index.php:337 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Neobjavljena SVN verzija"
 
@@ -656,9 +676,10 @@ msgid "Back to downloads"
 msgstr ""
 
 #: web/index.php:242
+#, fuzzy
 msgid ""
-"Your local administrator has specified that this user group should be "
-"supported locally.<br>\n"
+"Your local administrator has specified a redirect to a local support page."
+"<br>\n"
 "                            When you click <b>Continue</b> this support page "
 "will be opened in a new window/tab."
 msgstr ""
@@ -668,6 +689,18 @@ msgstr ""
 #: web/index.php:288
 msgid "All platforms"
 msgstr ""
+
+#~ msgid "not available with settings provided by your institution"
+#~ msgstr "nije moguće prema postavkama institucije"
+
+#~ msgid "Your choice"
+#~ msgstr "Vaš odabir"
+
+#~ msgid "no matching data found"
+#~ msgstr "nije pronađen niti jedan podatak"
+
+#~ msgid "Change country"
+#~ msgstr "Promjena zemlje"
 
 #~ msgid "This is a service under preparation, do not expect it to work."
 #~ msgstr "Ovje servis u nastajanju, ne očekujte da radi."

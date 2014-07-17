@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 12:51+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2013-02-06 13:02+0000\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -46,129 +46,141 @@ msgid "Windows RT"
 msgstr ""
 
 #: devices/devices-template.php:166
-msgid "Apple Mac OS X Mountain Lion"
+msgid "Apple OS X Mavericks"
 msgstr ""
 
-#: devices/devices-template.php:180
-msgid "Apple Mac OS X Lion"
+#: devices/devices-template.php:181
+msgid "Apple OS X Mountain Lion"
 msgstr ""
 
-#: devices/devices-template.php:193
+#: devices/devices-template.php:195
+msgid "Apple OS X Lion"
+msgstr ""
+
+#: devices/devices-template.php:208
 msgid "Apple iOS mobile devices"
 msgstr ""
 
-#: devices/devices-template.php:206
+#: devices/devices-template.php:221
 msgid "Linux"
 msgstr ""
 
-#: devices/devices-template.php:216
+#: devices/devices-template.php:231
 msgid "Android"
 msgstr ""
 
-#. / welcomletter: header of document
-#: devices/devices-template.php:225 devices/welcomeletter/welcomeletter.php:84
+#: devices/devices-template.php:241
 msgid "Welcome Letter"
 msgstr "Carta de Benvinguda"
 
-#: devices/devices-template.php:235
+#: devices/devices-template.php:251
 msgid "Test"
 msgstr ""
 
-#: devices/devices-template.php:244
+#: devices/devices-template.php:260
 msgid "Generic profile TTLS-PAP"
 msgstr ""
 
-#: devices/devices-template.php:254
+#: devices/devices-template.php:270
 msgid "Generic profile TTLS-MSCHAPv2"
 msgstr ""
 
-#: devices/devices-template.php:264
+#: devices/devices-template.php:280
 #, fuzzy
 msgid "Generic profile PEAP"
 msgstr "perfil d'usuari"
 
-#: devices/devices-template.php:274
+#: devices/devices-template.php:290
 #, fuzzy
 msgid "Generic profile TLS"
 msgstr "perfil d'usuari"
 
-#: devices/devices-template.php:284
+#: devices/devices-template.php:300
 #, fuzzy
 msgid "Generic profile PWD"
 msgstr "perfil d'usuari"
 
-#: devices/devices-template.php:293
+#: devices/devices-template.php:309
 msgid "Generic profile ALL EAPs"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:133
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:120
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Perfil de configuració de xarxa '%s' de '%s' - proveït per %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:178
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:165
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
 msgstr "El perfil s'instal.larà un cop cliqueu el botó"
 
-#: devices/apple_mobileconfig/mobileconfig.php:180
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:167
 msgid "to install the profile"
 msgstr "per a instal.lar el perfil"
 
-#: devices/apple_mobileconfig/mobileconfig.php:181
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:168
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "per a acceptar l'autoritat de certificació del servidor"
 msgstr[1] "per a acceptar les autoritats de certificació del servidor"
 
-#: devices/apple_mobileconfig/mobileconfig.php:183
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:170
 #, php-format
 msgid "(%d times)"
 msgstr "(%d vegades)"
 
-#: devices/apple_mobileconfig/mobileconfig.php:185
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:172
 msgid "to enter the username and password of your institution"
 msgstr "per a entrar l'identificador i contrasenya de la vostra institució"
 
-#: devices/apple_mobileconfig/mobileconfig.php:187
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:174
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d vegades cada un, perquè %s s'ha instal.lat per a %d SSIDs)"
 
-#: devices/apple_mobileconfig/mobileconfig.php:262
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:249
 #, fuzzy, php-format
 msgid "%s configuration for wired network"
 msgstr "%s configuració per a la xarxa %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:264
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:251
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:266
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:253
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s configuració per a la xarxa %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:271
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:258
 msgid "Wired Network"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:273
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:260
 msgid "Hotspot 2.0 Settings"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:275
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:262
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:371
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:333
+#, php-format
+msgid "This SSID should not be used after bootstrapping %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:335
+msgid "Disabled WiFi network"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:392
 msgid "Your Identity Providers Certification Authority"
 msgstr "Autoritat de certificació del vostre proveidor d'identitat"
 
-#: devices/apple_mobileconfig/mobileconfig.php:373
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:394
 msgid "Identity Provider's CA"
 msgstr "CA del proveidor d'identitat"
 
@@ -302,7 +314,7 @@ msgstr "El vostre sistema està preparat."
 msgid "Network installation had errors."
 msgstr "La instal.lació de xarda ha donat errors."
 
-#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:888
+#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:889
 msgid "Please contact ${SUPPORT}."
 msgstr "Sisplau contacteu a ${SUPPORT}."
 
@@ -473,20 +485,20 @@ msgstr ""
 msgid "installing wired profile"
 msgstr "instal.lant el perfil $R1"
 
-#: devices/ms/Files/common.inc:869 devices/ms/Files/common.inc:916
+#: devices/ms/Files/common.inc:870 devices/ms/Files/common.inc:918
 #: devices/ms/Files/xp/common.inc:520
 msgid "deleting profile $R1"
 msgstr "esborrant el perfil $R1"
 
-#: devices/ms/Files/common.inc:878 devices/ms/Files/xp/common.inc:524
+#: devices/ms/Files/common.inc:879 devices/ms/Files/xp/common.inc:524
 msgid "installing profile $R1"
 msgstr "instal.lant el perfil $R1"
 
-#: devices/ms/Files/common.inc:888 devices/ms/Files/xp/common.inc:529
+#: devices/ms/Files/common.inc:889 devices/ms/Files/xp/common.inc:529
 msgid "Profile installation error for $R1."
 msgstr "Error d'instal.lació de perfil per a $R1."
 
-#: devices/ms/Files/common.inc:933
+#: devices/ms/Files/common.inc:935
 #, fuzzy
 msgid "installing credentials for wired"
 msgstr "instal.lant credencials per al perfil $R1"
@@ -524,7 +536,7 @@ msgstr "Instal.lació"
 msgid "Network profiles update"
 msgstr "Actualització dels perfils de xarxa"
 
-#: devices/ms/Files/eap_w8.inc:63 devices/ms/Files/peap_tls.inc:69
+#: devices/ms/Files/eap_w8.inc:66 devices/ms/Files/peap_tls.inc:73
 msgid "Information about components"
 msgstr "Informació sobre els components"
 
@@ -784,129 +796,99 @@ msgstr ""
 "els certificats de l'IdP, arxius d'informació i logo (si l'administrador ho "
 "ha definit) i un bolcat dels atributs disponibles."
 
-#. / welcomletter: footer
-#: devices/welcomeletter/welcomeletter.php:86
-msgid "eduroam® - supporting academic mobility since 2003"
-msgstr "eduroam® - donant suport a la mobilitat acadèmica des de 2003"
+#~ msgid "eduroam® - supporting academic mobility since 2003"
+#~ msgstr "eduroam® - donant suport a la mobilitat acadèmica des de 2003"
 
-#. / welcomeletter: the headline (bold, large)
-#: devices/welcomeletter/welcomeletter.php:88
-msgid "Welcome aboard the eduroam® user community!"
-msgstr "Benvingut/da a la comunitat d'usuaris eduroam®"
+#~ msgid "Welcome aboard the eduroam® user community!"
+#~ msgstr "Benvingut/da a la comunitat d'usuaris eduroam®"
 
-#. / welcomeletter: initial greeting
-#: devices/welcomeletter/welcomeletter.php:90
-#, php-format
-msgid "Dear user from %s,"
-msgstr "Benvolgut/da usuari de %s,"
+#~ msgid "Dear user from %s,"
+#~ msgstr "Benvolgut/da usuari de %s,"
 
-#. / welcomeletter: sales pitch paragraph :-)
-#: devices/welcomeletter/welcomeletter.php:92
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"volem donar-te calidament la benvinguda a la comunitat de diversos milions "
-"de participants d'eduroam®! A partir d'ara, podràs utilitzar l'accés "
-"internet a milers d'universitats, centres de recerca i d'altres llocs arreu "
-"del món. I de forma totalment gratuita!"
+#~ msgid ""
+#~ "we would like to warmly welcome you among the several million users of "
+#~ "eduroam®! From now on, you will be able to use internet access resources "
+#~ "on thousands of universities, research centres and other places all over "
+#~ "the globe. All of this completely free of charge!"
+#~ msgstr ""
+#~ "volem donar-te calidament la benvinguda a la comunitat de diversos "
+#~ "milions de participants d'eduroam®! A partir d'ara, podràs utilitzar "
+#~ "l'accés internet a milers d'universitats, centres de recerca i d'altres "
+#~ "llocs arreu del món. I de forma totalment gratuita!"
 
-#. / welcomeletter: log in now paragraph
-#: devices/welcomeletter/welcomeletter.php:94
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Un cop heu descarregat i insta.lat el configurador de client, només cal que "
-"trobeu un punt eduroam® a prop i introduiu les vostres credencials (és el "
-"nom que donem a 'identificador i contrasenya' o 'certificat personal') i "
-"connecteu-vos!"
+#~ msgid ""
+#~ "Now that you have downloaded and installed a client configurator, all you "
+#~ "need to do is find an eduroam® hotspot in your vicinity and enter your "
+#~ "user credentials (this is our fancy name for 'username and password' or "
+#~ "'personal certificate') - and be online!"
+#~ msgstr ""
+#~ "Un cop heu descarregat i insta.lat el configurador de client, només cal "
+#~ "que trobeu un punt eduroam® a prop i introduiu les vostres credencials "
+#~ "(és el nom que donem a 'identificador i contrasenya' o 'certificat "
+#~ "personal') i connecteu-vos!"
 
-#. / welcomeletter: explain support procedure
-#: devices/welcomeletter/welcomeletter.php:96
-#, php-format
-msgid ""
-"Should you have any problems using this service, please always contact the "
-"helpdesk of %s. They will diagnose the problem and help you out. You can "
-"reach them via the means below:"
-msgstr ""
-"Si us trobeu amb qualsevol problema, sisplau poseu-vos sempre en contacte "
-"amb el centre de suport de %s. Us diagnosticaran el problema i us ajudaran a "
-"resoldre'l. Podeu contactar per les següents vies:"
+#~ msgid ""
+#~ "Should you have any problems using this service, please always contact "
+#~ "the helpdesk of %s. They will diagnose the problem and help you out. You "
+#~ "can reach them via the means below:"
+#~ msgstr ""
+#~ "Si us trobeu amb qualsevol problema, sisplau poseu-vos sempre en contacte "
+#~ "amb el centre de suport de %s. Us diagnosticaran el problema i us "
+#~ "ajudaran a resoldre'l. Podeu contactar per les següents vies:"
 
-#. / welcomeletter: explain manual config
-#: devices/welcomeletter/welcomeletter.php:98
-msgid ""
-"If you ever need to configure a different device for eduroam manually, you "
-"will need the configuration information for your institution. We have "
-"summarised this information in the appendix on page 2 for you."
-msgstr ""
-"Si mai heu de configurar manualment un dispositiu diferent per a eduroam, "
-"necessitareu la informació de configuració de la vostra institució. Hem "
-"resumit aquesta informació a l'appendix de la pàgina 2."
+#~ msgid ""
+#~ "If you ever need to configure a different device for eduroam manually, "
+#~ "you will need the configuration information for your institution. We have "
+#~ "summarised this information in the appendix on page 2 for you."
+#~ msgstr ""
+#~ "Si mai heu de configurar manualment un dispositiu diferent per a eduroam, "
+#~ "necessitareu la informació de configuració de la vostra institució. Hem "
+#~ "resumit aquesta informació a l'appendix de la pàgina 2."
 
-#. / welcomeletter: have fun
-#: devices/welcomeletter/welcomeletter.php:100
-msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
-msgstr "Us desitgem que disfruteu dels accessos eduroam® per tot el planeta."
+#~ msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
+#~ msgstr ""
+#~ "Us desitgem que disfruteu dels accessos eduroam® per tot el planeta."
 
-#. / welcomeletter: title of the big boss
-#: devices/welcomeletter/welcomeletter.php:102
-msgid "Chairman of the Global eduroam® Governance Committee"
-msgstr "President del Global eduroam® Governance Committee"
+#~ msgid "Chairman of the Global eduroam® Governance Committee"
+#~ msgstr "President del Global eduroam® Governance Committee"
 
-#. / welcomeletter: header: appendix with config info
-#: devices/welcomeletter/welcomeletter.php:104
-msgid "Appendix: Configuration Information"
-msgstr "Apèndix: Informació de configuració"
+#~ msgid "Appendix: Configuration Information"
+#~ msgstr "Apèndix: Informació de configuració"
 
-#. / welcomeletter: header: appendix with config info
-#: devices/welcomeletter/welcomeletter.php:106
-#, php-format
-msgid ""
-"Use the information below to configure your devices manually. Please keep in "
-"mind that these settings are only valid for users of profile '%s' from %s – "
-"they are different for everyone else, and there is no use sharing them with "
-"other people."
-msgstr ""
-"Utilitzeu la informació inferior per a configurar els dispositius "
-"manualment. Tingueu present que aquests paràmetres només són vàlids per als "
-"usuaris del perfil '%s' de %s i que són diferents per a qualsevol altres, i "
-"que no té sentit compartir-ho amb altre gent."
+#~ msgid ""
+#~ "Use the information below to configure your devices manually. Please keep "
+#~ "in mind that these settings are only valid for users of profile '%s' from "
+#~ "%s – they are different for everyone else, and there is no use sharing "
+#~ "them with other people."
+#~ msgstr ""
+#~ "Utilitzeu la informació inferior per a configurar els dispositius "
+#~ "manualment. Tingueu present que aquests paràmetres només són vàlids per "
+#~ "als usuaris del perfil '%s' de %s i que són diferents per a qualsevol "
+#~ "altres, i que no té sentit compartir-ho amb altre gent."
 
-#: devices/welcomeletter/welcomeletter.php:110
-msgid "E-Mail:"
-msgstr "Correu electrònic:"
+#~ msgid "E-Mail:"
+#~ msgstr "Correu electrònic:"
 
-#: devices/welcomeletter/welcomeletter.php:114
-msgid "Special EAP Type support URL:"
-msgstr "URL de suport per a tipus EAP:"
+#~ msgid "Special EAP Type support URL:"
+#~ msgstr "URL de suport per a tipus EAP:"
 
-#: devices/welcomeletter/welcomeletter.php:118
-msgid "Phone:"
-msgstr "Telèfon:"
+#~ msgid "Phone:"
+#~ msgstr "Telèfon:"
 
-#: devices/welcomeletter/welcomeletter.php:122
-msgid "Web:"
-msgstr "Web:"
+#~ msgid "Web:"
+#~ msgstr "Web:"
 
-#: devices/welcomeletter/welcomeletter.php:129
-msgid "Server Name:"
-msgstr "Nom de Servidor:"
+#~ msgid "Server Name:"
+#~ msgstr "Nom de Servidor:"
 
-#: devices/welcomeletter/welcomeletter.php:164
-msgid ""
-"This button creates a personalised welcome letter from eduroam Operations "
-"for you. The file is in OpenDocument format (ODT); you can open it e.g. with "
-"LibreOffice."
-msgstr ""
-"Aquest botó crearà per tu una carta personalitzada de benvinguda des de "
-"Operacions eduroam. El fitxer es troba en format OpenDocument(ODT); podeu "
-"obrir-lo amb LibreOffice (per exemple)"
+#~ msgid ""
+#~ "This button creates a personalised welcome letter from eduroam Operations "
+#~ "for you. The file is in OpenDocument format (ODT); you can open it e.g. "
+#~ "with LibreOffice."
+#~ msgstr ""
+#~ "Aquest botó crearà per tu una carta personalitzada de benvinguda des de "
+#~ "Operacions eduroam. El fitxer es troba en format OpenDocument(ODT); podeu "
+#~ "obrir-lo amb LibreOffice (per exemple)"
 
 #~ msgid "This installer works with Windows 8 only"
 #~ msgstr "Aquest instal·lador funciona només amb Windows 8"

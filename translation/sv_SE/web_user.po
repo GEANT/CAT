@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 13:31+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2012-08-07 13:24+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
@@ -256,7 +256,7 @@ msgstr ""
 msgid "Terms of Use"
 msgstr ""
 
-#: web/user/js/cat_js.php:22 web/basic.php:312
+#: web/user/js/cat_js.php:22 web/basic.php:282
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
@@ -293,7 +293,7 @@ msgid ""
 "home organisation at:"
 msgstr "Om du får problem bör du sök direkthjälp via din egen institution på:"
 
-#: web/user/js/cat_js.php:181 web/basic.php:286 web/basic.php:344
+#: web/user/js/cat_js.php:181 web/basic.php:261
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
 msgstr "Om du får problem bör du kontakta supporten på din hemmainstitution"
@@ -313,8 +313,7 @@ msgstr ""
 "resurser på lokala websidor. När du klickar <b>Fortsätt</b> kommer denna "
 "sida kommer att öppnas i ett nytt fönster/tab."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/basic.php:257
-#: web/index.php:246
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:246
 msgid "Continue"
 msgstr "Fortsätt"
 
@@ -439,61 +438,82 @@ msgstr ""
 msgid "all major distributions"
 msgstr "Välj din institution"
 
-#: web/basic.php:96
-msgid "not available with settings provided by your institution"
-msgstr "ej tillgängligt med de iställningar som er institution har anget."
+#: web/basic.php:128
+#, fuzzy
+msgid "Select your country"
+msgstr "Välj din institution"
 
-#: web/basic.php:101 web/index.php:125
-msgid "View this page in"
-msgstr "Titta på sidan i"
-
-#: web/basic.php:120
-msgid "you will be redirected to a local support page"
-msgstr "du kommer att bli omdirigerad till en lokal supportsida"
-
-#: web/basic.php:141
-msgid "Your choice"
-msgstr "Ditt val"
-
-#: web/basic.php:198
-msgid "no matching data found"
-msgstr ""
-
-#: web/basic.php:206
-msgid "Change country"
-msgstr ""
-
-#: web/basic.php:226
+#: web/basic.php:146
 msgid "Select your institution"
 msgstr "Välj din institution"
 
-#: web/basic.php:242 web/basic.php:244 web/index.php:211
+#: web/basic.php:166 web/index.php:211
 msgid "Select the user group"
 msgstr "Välj användargrupp"
 
-#: web/basic.php:290 web/index.php:294
+#: web/basic.php:193
+#, fuzzy
+msgid ""
+"Your operating system was not properly detected, is not supported yet or "
+"cannot be configured with settings provided by your institution"
+msgstr "Denna enhet kan inte konfigureras med din institutions"
+
+#: web/basic.php:200 web/index.php:294
 msgid "Choose an installer to download"
 msgstr "Välj vilken installerare du vill ladda ned"
 
-#: web/basic.php:306
-msgid "Profile does not match the institution"
+#: web/basic.php:233 web/basic.php:271
+#, fuzzy
+msgid ""
+"Your local administrator has specified a redirect to a local support page."
+msgstr "du kommer att bli omdirigerad till en lokal supportsida"
+
+#: web/basic.php:233
+msgid "When you click <b>CONTINUE</b> this support page will be opened."
+msgstr ""
+
+#: web/basic.php:235
+msgid "CONTINUE to local support page"
+msgstr ""
+
+#: web/basic.php:239
+#, fuzzy
+msgid "Do you have an account at this institution?"
 msgstr "Profilen matchar inte institutionen"
 
-#: web/basic.php:334
+#: web/basic.php:239
+msgid ""
+"If so and if the other settings above are OK then click here to download..."
+msgstr ""
+
+#: web/basic.php:271
+msgid "Click on the link below to continue."
+msgstr ""
+
+#: web/basic.php:304
 msgid "Download installer for"
 msgstr "Ladda ned installerare för"
 
-#: web/basic.php:366 web/index.php:152
+#: web/basic.php:306
+#, fuzzy
+msgid "Start over"
+msgstr "Startsida"
+
+#: web/basic.php:316 web/index.php:125
+msgid "View this page in"
+msgstr "Titta på sidan i"
+
+#: web/basic.php:442 web/index.php:152
 #, php-format
 msgid "Terms of use"
 msgstr ""
 
-#: web/basic.php:371 web/index.php:335 web/tou.php:56
+#: web/basic.php:447 web/index.php:335 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Version %s"
 
-#: web/basic.php:373 web/index.php:337 web/tou.php:58
+#: web/basic.php:449 web/index.php:337 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Ickeslåppt SVN Revision"
 
@@ -610,8 +630,8 @@ msgstr ""
 #: web/index.php:242
 #, fuzzy
 msgid ""
-"Your local administrator has specified that this user group should be "
-"supported locally.<br>\n"
+"Your local administrator has specified a redirect to a local support page."
+"<br>\n"
 "                            When you click <b>Continue</b> this support page "
 "will be opened in a new window/tab."
 msgstr ""
@@ -623,6 +643,12 @@ msgstr ""
 #: web/index.php:288
 msgid "All platforms"
 msgstr ""
+
+#~ msgid "not available with settings provided by your institution"
+#~ msgstr "ej tillgängligt med de iställningar som er institution har anget."
+
+#~ msgid "Your choice"
+#~ msgstr "Ditt val"
 
 #~ msgid "This is a service under preparation, do not expect it to work."
 #~ msgstr "Denna tjänst är under utveckling, problem kan fortfarande finnas."
