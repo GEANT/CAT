@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 12:57+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2012-12-18 15:14+0000\n"
 "Last-Translator: dsafar <dsafar@srce.hr>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/cat/"
@@ -21,17 +21,17 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: core/DeviceConfig.php:129
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support"
 msgstr "lokalna podrška %s"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:131
 #, php-format
 msgid "your local %s support page"
 msgstr "stranica lokalne podrške %s"
 
-#: core/DeviceConfig.php:162
+#: core/DeviceConfig.php:163
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Pogreška, nema dodatnih informacija"
 
@@ -541,23 +541,23 @@ msgstr ""
 msgid "The server rejected the client certificate."
 msgstr ""
 
-#: core/RADIUSTests.php:1223
+#: core/RADIUSTests.php:1221
 msgid "certificate expired"
 msgstr ""
 
-#: core/RADIUSTests.php:1225
+#: core/RADIUSTests.php:1223
 msgid "certificate was revoked"
 msgstr ""
 
-#: core/RADIUSTests.php:1227
+#: core/RADIUSTests.php:1225
 msgid "bad policy"
 msgstr ""
 
-#: core/RADIUSTests.php:1229
+#: core/RADIUSTests.php:1227
 msgid "unknown authority"
 msgstr ""
 
-#: core/RADIUSTests.php:1232
+#: core/RADIUSTests.php:1230
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 

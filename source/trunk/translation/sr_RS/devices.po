@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 12:51+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: 2013-02-06 13:02+0000\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: Serbian (http://www.transifex.com/projects/p/cat/language/"
@@ -49,130 +49,142 @@ msgid "Windows RT"
 msgstr ""
 
 #: devices/devices-template.php:166
-msgid "Apple Mac OS X Mountain Lion"
+msgid "Apple OS X Mavericks"
 msgstr ""
 
-#: devices/devices-template.php:180
-msgid "Apple Mac OS X Lion"
+#: devices/devices-template.php:181
+msgid "Apple OS X Mountain Lion"
 msgstr ""
 
-#: devices/devices-template.php:193
+#: devices/devices-template.php:195
+msgid "Apple OS X Lion"
+msgstr ""
+
+#: devices/devices-template.php:208
 msgid "Apple iOS mobile devices"
 msgstr ""
 
-#: devices/devices-template.php:206
+#: devices/devices-template.php:221
 msgid "Linux"
 msgstr ""
 
-#: devices/devices-template.php:216
+#: devices/devices-template.php:231
 msgid "Android"
 msgstr ""
 
-#. / welcomletter: header of document
-#: devices/devices-template.php:225 devices/welcomeletter/welcomeletter.php:84
+#: devices/devices-template.php:241
 msgid "Welcome Letter"
 msgstr "Pismo dobrodošlice"
 
-#: devices/devices-template.php:235
+#: devices/devices-template.php:251
 msgid "Test"
 msgstr ""
 
-#: devices/devices-template.php:244
+#: devices/devices-template.php:260
 msgid "Generic profile TTLS-PAP"
 msgstr ""
 
-#: devices/devices-template.php:254
+#: devices/devices-template.php:270
 msgid "Generic profile TTLS-MSCHAPv2"
 msgstr ""
 
-#: devices/devices-template.php:264
+#: devices/devices-template.php:280
 #, fuzzy
 msgid "Generic profile PEAP"
 msgstr "korisnički profil"
 
-#: devices/devices-template.php:274
+#: devices/devices-template.php:290
 #, fuzzy
 msgid "Generic profile TLS"
 msgstr "korisnički profil"
 
-#: devices/devices-template.php:284
+#: devices/devices-template.php:300
 #, fuzzy
 msgid "Generic profile PWD"
 msgstr "korisnički profil"
 
-#: devices/devices-template.php:293
+#: devices/devices-template.php:309
 msgid "Generic profile ALL EAPs"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:133
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:120
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
 msgstr "Profil za konfigurisanje mreže '%s' od '%s' - obezbeđen od %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:178
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:165
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
 msgstr "Profil će se sam instalirati nakon što pritisnete dugme. "
 
-#: devices/apple_mobileconfig/mobileconfig.php:180
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:167
 msgid "to install the profile"
 msgstr "instalirati profil"
 
-#: devices/apple_mobileconfig/mobileconfig.php:181
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:168
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
 msgstr[0] "prihvatiti sertifikaciono telo servera"
 msgstr[1] "prihvatiti sertifikaciona tela servera"
 msgstr[2] "prihvatiti sertifikaciona tela servera"
 
-#: devices/apple_mobileconfig/mobileconfig.php:183
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:170
 #, php-format
 msgid "(%d times)"
 msgstr "(%d puta)"
 
-#: devices/apple_mobileconfig/mobileconfig.php:185
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:172
 msgid "to enter the username and password of your institution"
 msgstr "da biste uneli korisničko ime i lozinku za vašu instituciju"
 
-#: devices/apple_mobileconfig/mobileconfig.php:187
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:174
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
 msgstr "(%d puta svaki, jer je %s instaliran za %d SSID-eva)"
 
-#: devices/apple_mobileconfig/mobileconfig.php:262
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:249
 #, fuzzy, php-format
 msgid "%s configuration for wired network"
 msgstr "%s konfiguracija za mrežno ime %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:264
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:251
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:266
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:253
 #, php-format
 msgid "%s configuration for network name %s"
 msgstr "%s konfiguracija za mrežno ime %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:271
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:258
 msgid "Wired Network"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:273
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:260
 msgid "Hotspot 2.0 Settings"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig.php:275
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:262
 #, php-format
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfig.php:371
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:333
+#, php-format
+msgid "This SSID should not be used after bootstrapping %s"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:335
+msgid "Disabled WiFi network"
+msgstr ""
+
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:392
 msgid "Your Identity Providers Certification Authority"
 msgstr "Sertifikaciono telo vašeg Davaoca Identiteta"
 
-#: devices/apple_mobileconfig/mobileconfig.php:373
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:394
 msgid "Identity Provider's CA"
 msgstr "CA Davaoca Identiteta"
 
@@ -307,7 +319,7 @@ msgstr "Vaš sistem je spreman."
 msgid "Network installation had errors."
 msgstr "Desile su se greške pri instaliranju mreže."
 
-#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:888
+#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:889
 msgid "Please contact ${SUPPORT}."
 msgstr "Molimo vas kontaktirajte ${SUPPORT}."
 
@@ -480,20 +492,20 @@ msgstr ""
 msgid "installing wired profile"
 msgstr "instaliranje profila $R1"
 
-#: devices/ms/Files/common.inc:869 devices/ms/Files/common.inc:916
+#: devices/ms/Files/common.inc:870 devices/ms/Files/common.inc:918
 #: devices/ms/Files/xp/common.inc:520
 msgid "deleting profile $R1"
 msgstr "brisanje profila $R1"
 
-#: devices/ms/Files/common.inc:878 devices/ms/Files/xp/common.inc:524
+#: devices/ms/Files/common.inc:879 devices/ms/Files/xp/common.inc:524
 msgid "installing profile $R1"
 msgstr "instaliranje profila $R1"
 
-#: devices/ms/Files/common.inc:888 devices/ms/Files/xp/common.inc:529
+#: devices/ms/Files/common.inc:889 devices/ms/Files/xp/common.inc:529
 msgid "Profile installation error for $R1."
 msgstr "Greška pri instaliranju profila $R1."
 
-#: devices/ms/Files/common.inc:933
+#: devices/ms/Files/common.inc:935
 #, fuzzy
 msgid "installing credentials for wired"
 msgstr "instalacija kredencijala za profil $R1"
@@ -531,7 +543,7 @@ msgstr "Instaliranje"
 msgid "Network profiles update"
 msgstr "Ažuriranje mrežnih profila"
 
-#: devices/ms/Files/eap_w8.inc:63 devices/ms/Files/peap_tls.inc:69
+#: devices/ms/Files/eap_w8.inc:66 devices/ms/Files/peap_tls.inc:73
 msgid "Information about components"
 msgstr "Informacije o komponentama"
 
@@ -794,128 +806,98 @@ msgstr ""
 "definisani od strane administratora Davaoca Identiteta) i sve dostupne "
 "atribute."
 
-#. / welcomletter: footer
-#: devices/welcomeletter/welcomeletter.php:86
-msgid "eduroam® - supporting academic mobility since 2003"
-msgstr "eduroam® - supporting academic mobility since 2003"
+#~ msgid "eduroam® - supporting academic mobility since 2003"
+#~ msgstr "eduroam® - supporting academic mobility since 2003"
 
-#. / welcomeletter: the headline (bold, large)
-#: devices/welcomeletter/welcomeletter.php:88
-msgid "Welcome aboard the eduroam® user community!"
-msgstr "Dobrodošli u eduroam® zajednicu!"
+#~ msgid "Welcome aboard the eduroam® user community!"
+#~ msgstr "Dobrodošli u eduroam® zajednicu!"
 
-#. / welcomeletter: initial greeting
-#: devices/welcomeletter/welcomeletter.php:90
-#, php-format
-msgid "Dear user from %s,"
-msgstr "Dragi korisniče iz %s,"
+#~ msgid "Dear user from %s,"
+#~ msgstr "Dragi korisniče iz %s,"
 
-#. / welcomeletter: sales pitch paragraph :-)
-#: devices/welcomeletter/welcomeletter.php:92
-msgid ""
-"we would like to warmly welcome you among the several million users of "
-"eduroam®! From now on, you will be able to use internet access resources on "
-"thousands of universities, research centres and other places all over the "
-"globe. All of this completely free of charge!"
-msgstr ""
-"Želeli bismo da Vam poželimo toplu dobrodošlicu u zajednicu od više miliona "
-"korisnika eduroam® servisa! Od sada pa nadalje, bićete u mogućnosti da "
-"koristite internet resurse na više hiljada univerziteta, u istraživačkim "
-"centrima i drugim lokacijama na svetu. Sve potpuno besplatno!"
+#~ msgid ""
+#~ "we would like to warmly welcome you among the several million users of "
+#~ "eduroam®! From now on, you will be able to use internet access resources "
+#~ "on thousands of universities, research centres and other places all over "
+#~ "the globe. All of this completely free of charge!"
+#~ msgstr ""
+#~ "Želeli bismo da Vam poželimo toplu dobrodošlicu u zajednicu od više "
+#~ "miliona korisnika eduroam® servisa! Od sada pa nadalje, bićete u "
+#~ "mogućnosti da koristite internet resurse na više hiljada univerziteta, u "
+#~ "istraživačkim centrima i drugim lokacijama na svetu. Sve potpuno "
+#~ "besplatno!"
 
-#. / welcomeletter: log in now paragraph
-#: devices/welcomeletter/welcomeletter.php:94
-msgid ""
-"Now that you have downloaded and installed a client configurator, all you "
-"need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal "
-"certificate') - and be online!"
-msgstr ""
-"Sada kada ste preuzeli i instalirali konfigurator vašeg uređaja, sve što je "
-"potrebno da uradite jeste da pronađete najbližu eduroam® pristupnu tačku i "
-"unesete vaše korisničke kredencijale (to je naš formalni naziv za korisničko "
-"ime i lozinku) - da biste bili online!"
+#~ msgid ""
+#~ "Now that you have downloaded and installed a client configurator, all you "
+#~ "need to do is find an eduroam® hotspot in your vicinity and enter your "
+#~ "user credentials (this is our fancy name for 'username and password' or "
+#~ "'personal certificate') - and be online!"
+#~ msgstr ""
+#~ "Sada kada ste preuzeli i instalirali konfigurator vašeg uređaja, sve što "
+#~ "je potrebno da uradite jeste da pronađete najbližu eduroam® pristupnu "
+#~ "tačku i unesete vaše korisničke kredencijale (to je naš formalni naziv za "
+#~ "korisničko ime i lozinku) - da biste bili online!"
 
-#. / welcomeletter: explain support procedure
-#: devices/welcomeletter/welcomeletter.php:96
-#, php-format
-msgid ""
-"Should you have any problems using this service, please always contact the "
-"helpdesk of %s. They will diagnose the problem and help you out. You can "
-"reach them via the means below:"
-msgstr ""
-"Ako budete imali problema sa korišćenjem servisa, molimo Vas da kontaktirate "
-"IT službu vaše institucije %s. Oni će vam pomoći u dijagnostikovanju i "
-"otklanjanju problema. Možete ih kontaktirati preko:"
+#~ msgid ""
+#~ "Should you have any problems using this service, please always contact "
+#~ "the helpdesk of %s. They will diagnose the problem and help you out. You "
+#~ "can reach them via the means below:"
+#~ msgstr ""
+#~ "Ako budete imali problema sa korišćenjem servisa, molimo Vas da "
+#~ "kontaktirate IT službu vaše institucije %s. Oni će vam pomoći u "
+#~ "dijagnostikovanju i otklanjanju problema. Možete ih kontaktirati preko:"
 
-#. / welcomeletter: explain manual config
-#: devices/welcomeletter/welcomeletter.php:98
-msgid ""
-"If you ever need to configure a different device for eduroam manually, you "
-"will need the configuration information for your institution. We have "
-"summarised this information in the appendix on page 2 for you."
-msgstr ""
-"Ako nekada želite da ručno konfigurišete drugi uređaj da koristi eduroam, "
-"biće vam potrebne konfiguracione informacije za vašu instituciju. Mi smo "
-"rezimirali ove informacije u dodatku na strani broj 2."
+#~ msgid ""
+#~ "If you ever need to configure a different device for eduroam manually, "
+#~ "you will need the configuration information for your institution. We have "
+#~ "summarised this information in the appendix on page 2 for you."
+#~ msgstr ""
+#~ "Ako nekada želite da ručno konfigurišete drugi uređaj da koristi eduroam, "
+#~ "biće vam potrebne konfiguracione informacije za vašu instituciju. Mi smo "
+#~ "rezimirali ove informacije u dodatku na strani broj 2."
 
-#. / welcomeletter: have fun
-#: devices/welcomeletter/welcomeletter.php:100
-msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
-msgstr "Želimo vam puno zabave na eduroam® pristupnim tačkama širom sveta."
+#~ msgid "We wish you a lot of fun on eduroam® hotspots all over the planet."
+#~ msgstr "Želimo vam puno zabave na eduroam® pristupnim tačkama širom sveta."
 
-#. / welcomeletter: title of the big boss
-#: devices/welcomeletter/welcomeletter.php:102
-msgid "Chairman of the Global eduroam® Governance Committee"
-msgstr "Chairman of the Global eduroam® Governance Committee"
+#~ msgid "Chairman of the Global eduroam® Governance Committee"
+#~ msgstr "Chairman of the Global eduroam® Governance Committee"
 
-#. / welcomeletter: header: appendix with config info
-#: devices/welcomeletter/welcomeletter.php:104
-msgid "Appendix: Configuration Information"
-msgstr "Dodatak: informacije o konfiguraciji"
+#~ msgid "Appendix: Configuration Information"
+#~ msgstr "Dodatak: informacije o konfiguraciji"
 
-#. / welcomeletter: header: appendix with config info
-#: devices/welcomeletter/welcomeletter.php:106
-#, php-format
-msgid ""
-"Use the information below to configure your devices manually. Please keep in "
-"mind that these settings are only valid for users of profile '%s' from %s – "
-"they are different for everyone else, and there is no use sharing them with "
-"other people."
-msgstr ""
-"Iskoristite ove informacije za ručnu konfiguraciju vašeg uređaja. Imajte na "
-"umu da su ova podešavanja validna samo za korisnike profila '%s' sa %s - ona "
-"su različita za sve ostale, i nema smisla deliti ih sa drugima."
+#~ msgid ""
+#~ "Use the information below to configure your devices manually. Please keep "
+#~ "in mind that these settings are only valid for users of profile '%s' from "
+#~ "%s – they are different for everyone else, and there is no use sharing "
+#~ "them with other people."
+#~ msgstr ""
+#~ "Iskoristite ove informacije za ručnu konfiguraciju vašeg uređaja. Imajte "
+#~ "na umu da su ova podešavanja validna samo za korisnike profila '%s' sa %s "
+#~ "- ona su različita za sve ostale, i nema smisla deliti ih sa drugima."
 
-#: devices/welcomeletter/welcomeletter.php:110
-msgid "E-Mail:"
-msgstr "E-Mail:"
+#~ msgid "E-Mail:"
+#~ msgstr "E-Mail:"
 
-#: devices/welcomeletter/welcomeletter.php:114
-msgid "Special EAP Type support URL:"
-msgstr "URL za poseban EAP tip:"
+#~ msgid "Special EAP Type support URL:"
+#~ msgstr "URL za poseban EAP tip:"
 
-#: devices/welcomeletter/welcomeletter.php:118
-msgid "Phone:"
-msgstr "Telefon:"
+#~ msgid "Phone:"
+#~ msgstr "Telefon:"
 
-#: devices/welcomeletter/welcomeletter.php:122
-msgid "Web:"
-msgstr "Web:"
+#~ msgid "Web:"
+#~ msgstr "Web:"
 
-#: devices/welcomeletter/welcomeletter.php:129
-msgid "Server Name:"
-msgstr "Ime servera:"
+#~ msgid "Server Name:"
+#~ msgstr "Ime servera:"
 
-#: devices/welcomeletter/welcomeletter.php:164
-msgid ""
-"This button creates a personalised welcome letter from eduroam Operations "
-"for you. The file is in OpenDocument format (ODT); you can open it e.g. with "
-"LibreOffice."
-msgstr ""
-"Ovo dugme za vas kreira presonalizovano pismo dobrodošlice od strane eduroam "
-"Operations tima. Dokument je u formatu OpenDocument (ODT); možete ga "
-"otvoriti pomoću, na primer, LibreOffice-a."
+#~ msgid ""
+#~ "This button creates a personalised welcome letter from eduroam Operations "
+#~ "for you. The file is in OpenDocument format (ODT); you can open it e.g. "
+#~ "with LibreOffice."
+#~ msgstr ""
+#~ "Ovo dugme za vas kreira presonalizovano pismo dobrodošlice od strane "
+#~ "eduroam Operations tima. Dokument je u formatu OpenDocument (ODT); možete "
+#~ "ga otvoriti pomoću, na primer, LibreOffice-a."
 
 #~ msgid "This installer works with Windows 8 only"
 #~ msgstr "Ovaj program za instaliranje radi samo sa Windows 8"

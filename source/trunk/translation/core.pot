@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-30 13:01+0200\n"
+"POT-Creation-Date: 2014-07-17 15:08+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: core/DeviceConfig.php:129
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support"
 msgstr ""
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:131
 #, php-format
 msgid "your local %s support page"
 msgstr ""
 
-#: core/DeviceConfig.php:162
+#: core/DeviceConfig.php:163
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 
@@ -527,23 +527,23 @@ msgstr ""
 msgid "The server rejected the client certificate."
 msgstr ""
 
-#: core/RADIUSTests.php:1223
+#: core/RADIUSTests.php:1221
 msgid "certificate expired"
 msgstr ""
 
-#: core/RADIUSTests.php:1225
+#: core/RADIUSTests.php:1223
 msgid "certificate was revoked"
 msgstr ""
 
-#: core/RADIUSTests.php:1227
+#: core/RADIUSTests.php:1225
 msgid "bad policy"
 msgstr ""
 
-#: core/RADIUSTests.php:1229
+#: core/RADIUSTests.php:1227
 msgid "unknown authority"
 msgstr ""
 
-#: core/RADIUSTests.php:1232
+#: core/RADIUSTests.php:1230
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 
