@@ -1,4 +1,4 @@
-VERSION = CAT-1.0
+VERSION = CAT-1.1alpha1
 VV = $(VERSION)/
 .PHONY: translation
 
@@ -14,7 +14,7 @@ translation:
 	echo "*** Generating templates from source ***"
 	echo "****************************************"
 	xgettext --from-code=UTF-8 --add-comments=/ -L php -d core core/*.php -o translation/core.pot
-	xgettext --from-code=UTF-8 --add-comments=/ -L php -d device devices/*.php devices/apple_mobileconfig/*.php devices/ms/*.php devices/ms/Files/*.inc devices/ms/Files/xp/*.inc devices/linux/Linux.php devices/test_module/*.php devices/welcomeletter/welcomeletter.php -o translation/devices.pot
+	xgettext --from-code=UTF-8 --add-comments=/ -L php -d device devices/*.php devices/apple_mobileconfig/*.php devices/ms/*.php devices/ms/Files/*.inc devices/ms/Files/xp/*.inc devices/linux/Linux.php devices/test_module/*.php -o translation/devices.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -L php -d web_admin web/admin/*.php web/admin/inc/*.php -o translation/web_admin.pot
 	xgettext --from-code=UTF-8 --add-comments=/ -L php -d web_user web/user/*.php web/user/inc/*.php web/user/js/*.php web/*.php -o translation/web_user.pot
 	for lang in `find translation/ -maxdepth 1 -mindepth 1 -type d | grep -v .svn`; do \
