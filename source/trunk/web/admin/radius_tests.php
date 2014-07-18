@@ -54,8 +54,7 @@ switch ($test_type) {
       $global_level = L_OK;
       foreach ($eaps as $eap) {
          if($eap  == EAP::$TLS) {
-debug(4,"TLS_TEST:");
-           if(isset($_FILES) && isset($_FILES['cert']['tmp_name']) ) {
+           if($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
               $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
               $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : "";
               $tls_username = isset($_REQUEST['tls_username']) && $_REQUEST['tls_username'] ? $_REQUEST['tls_username'] : $user_name;

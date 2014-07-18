@@ -143,13 +143,22 @@ $errorstate = array();
   });
   $("#submit_credentials").click(function(event) {
     event.preventDefault();
-  $("#disposable_credential_container").hide();
-  $("#live_login_results").show();
-    if($.trim($("#username").val()) == '' || $.trim($("#username").val()) == '') {
-      alert('<?php echo _("missing username and/or password") ?>');
+    var missing = 0;
+    $(".mandatory").each(function(index) {
+      if($.trim($(this).val()) == '') {
+         $(this).addClass('missing_input');
+         missing = 1;
+      }
+      else
+         $(this).removeClass('missing_input');
+    });
+    if(missing) {
+      alert('<?php echo _("Some required input missing") ?>');
       return;
     }
-  run_login($("#username").val(),$("#password").val());
+  $("#disposable_credential_container").hide();
+  $("#live_login_results").show();
+  run_login();
   } );
 });
 
@@ -273,7 +282,7 @@ function udp_login(data, status) {
    });
 }
 
-function run_login (username,password) {
+function run_login () {
    $(".live_results_tr").remove();
    var formData = new FormData($('#live_form')[0]);
 <?php
@@ -547,24 +556,23 @@ print "<table id='results$hostindex'  style='width:100%'>
                     <input type='hidden' name='test_type' value='udp_login'>
                     <input type='hidden' name='lang' value='".$cat->lang_index."'>
                     <input type='hidden' name='profile_id' value='".$my_profile->identifier."'>
-                    <table>
-                        <tr><td colspan='2'><strong>" . _("For all EAP types") . "</strong></td></tr>
-                        <tr><td>" . _("Username:") . "</td><td><input type='text' id='username' name='username'/></td></tr>";
-
-                      // ask for password if PW-based EAP method is active
-
-                      if (in_array(EAP::$PEAP_MSCHAP2, $prof_compl) ||
+                    <table id='live_tests'>";
+// if any password based EAP methods are available enable this section
+              if (in_array(EAP::$PEAP_MSCHAP2, $prof_compl) ||
                               in_array(EAP::$TTLS_MSCHAP2, $prof_compl) ||
                               in_array(EAP::$TTLS_PAP, $prof_compl)
-                      )
-                          echo "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
-                        <tr><td>" . _("Password:") . "</td><td><input type='text' id='password' name='password'/></td></tr>";
+                      ) { 
+                          echo  "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
+                        <tr><td>" . _("Real (inner) username:") . "</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";
+                           echo "<tr><td>" . _("Anonymous outer ID (optional):") . "</td><td><input type='text' id='outer_username' name='outer_username'/></td></tr>";
+                          echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
+               }
                       // ask for cert + privkey if TLS-based method is active
                       if (in_array(EAP::$TLS, $prof_compl))
                           echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>
-                        <tr><td>" . _("Login username, if different from Usename above:") . "</td><td><input type='text' id='tls_username' name='tls_username'/></td></tr>";
+                        <tr><td>" . _("Username, if different from certificate Subject:") . "</td><td><input type='text' id='tls_username' name='tls_username'/></td></tr>";
                       echo "<tr><td colspan='2'><button id='submit_credentials'>" . _("Submit credentials") . "</button></td></tr></table></form>";
                       echo "<div id='live_login_results' style='display:none'>";
                       foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
