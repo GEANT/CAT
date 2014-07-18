@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
+"POT-Creation-Date: 2014-07-18 11:09+0200\n"
 "PO-Revision-Date: 2012-11-08 21:42+0000\n"
 "Last-Translator: Panos Bouklis <panos@echidna-band.com>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
@@ -122,7 +122,7 @@ msgstr "από εδώ"
 msgid "more"
 msgstr "περισσότερα"
 
-#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:486
+#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:495
 msgid "Show detailed information for all tests"
 msgstr "Εμφάνιση λεπτομερών πληροφοριών για όλους τους ελεγχους"
 
@@ -130,23 +130,23 @@ msgstr "Εμφάνιση λεπτομερών πληροφοριών για όλ
 msgid "Connection refused"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:228
+#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:227
 msgid "Server certificate"
 msgstr "Πιστοποιητικό εξυπηρετητή"
 
-#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:230
+#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:229
 msgid "Subject"
 msgstr "Θέμα"
 
-#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:231
+#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:230
 msgid "Issuer"
 msgstr "Εκδότης"
 
-#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:233
+#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:232
 msgid "SubjectAltName"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:237
+#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:236
 msgid "Certificate policies"
 msgstr "Πολιτικές πιστοποιητικών"
 
@@ -154,7 +154,7 @@ msgstr "Πολιτικές πιστοποιητικών"
 msgid "crlDistributionPoint"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:245
+#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:244
 msgid "authorityInfoAccess"
 msgstr ""
 
@@ -162,137 +162,137 @@ msgstr ""
 msgid "Hide detailed information for all tests"
 msgstr "Απόκρυψη λεπτομερών πληροφοριών για όλους τους ελεγχους"
 
-#: web/admin/action_realmcheck.php:149
-msgid "missing username and/or password"
+#: web/admin/action_realmcheck.php:156
+msgid "Some required input is missing!"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:195 web/admin/action_realmcheck.php:261
-#: web/admin/action_realmcheck.php:272
+#: web/admin/action_realmcheck.php:204 web/admin/action_realmcheck.php:270
+#: web/admin/action_realmcheck.php:281
 #, fuzzy, php-format
 msgid "elapsed time: %sms."
 msgstr "χρόνος που πέρασε: %d"
 
-#: web/admin/action_realmcheck.php:261 web/admin/action_realmcheck.php:269
+#: web/admin/action_realmcheck.php:270 web/admin/action_realmcheck.php:278
 #, php-format
 msgid "Connected to: %s"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:322
+#: web/admin/action_realmcheck.php:331
 #, php-format
 msgid "Realm testing for: %s"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:330 web/admin/action_realmcheck.php:342
+#: web/admin/action_realmcheck.php:339 web/admin/action_realmcheck.php:351
 msgid "DNS checks"
 msgstr "Έλεγχοι DNS"
 
-#: web/admin/action_realmcheck.php:331
+#: web/admin/action_realmcheck.php:340
 #, fuzzy
 msgid "Static connectivity tests"
 msgstr "Έλεγχοι ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:332
+#: web/admin/action_realmcheck.php:341
 #, fuzzy
 msgid "Dynamic connectivity tests"
 msgstr "Έλεγχοι ΔΥΝΑΜΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:333
+#: web/admin/action_realmcheck.php:342
 #, fuzzy
 msgid "Live login tests"
 msgstr "Live δοκιμή εισόδου"
 
-#: web/admin/action_realmcheck.php:347
+#: web/admin/action_realmcheck.php:356
 msgid "Checking NAPTR existence:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:350
+#: web/admin/action_realmcheck.php:359
 #, fuzzy
 msgid "This realm has no NAPTR records."
 msgstr "Η περιοχή έχει %d NAPTR καταχωρήσεις, "
 
-#: web/admin/action_realmcheck.php:353
+#: web/admin/action_realmcheck.php:362
 #, fuzzy, php-format
 msgid "This realm has NAPTR records, but none are associated with %s."
 msgstr "Η περιοχή έχει %d NAPTR καταχωρήσεις, "
 
-#: web/admin/action_realmcheck.php:356
+#: web/admin/action_realmcheck.php:365
 #, fuzzy, php-format
 msgid "This realm has %d %s NAPTR records."
 msgstr "Η περιοχή έχει %d NAPTR καταχωρήσεις, "
 
-#: web/admin/action_realmcheck.php:363
+#: web/admin/action_realmcheck.php:372
 #, fuzzy
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Έλεγχος συμβατότητας NAPTR: flag = S και regex = (empty) ..."
 
-#: web/admin/action_realmcheck.php:367
+#: web/admin/action_realmcheck.php:376
 msgid "No issues found."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:370 web/admin/action_realmcheck.php:386
+#: web/admin/action_realmcheck.php:379 web/admin/action_realmcheck.php:395
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:380
+#: web/admin/action_realmcheck.php:389
 #, fuzzy
 msgid "Checking SRVs:"
 msgstr "Έλεγχος περιοχής %s"
 
-#: web/admin/action_realmcheck.php:383 web/admin/action_realmcheck.php:399
+#: web/admin/action_realmcheck.php:392 web/admin/action_realmcheck.php:408
 #, fuzzy
 msgid "This check was skipped."
 msgstr "Αυτός ο έλεγχος δεν έχει ρυθμιστεί."
 
-#: web/admin/action_realmcheck.php:389
+#: web/admin/action_realmcheck.php:398
 #, php-format
 msgid "%d host names discovered."
 msgstr "Εντοπίστηκαν %d ονόματα υπολογιστών."
 
-#: web/admin/action_realmcheck.php:396
+#: web/admin/action_realmcheck.php:405
 msgid "Checking IP address resolution:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:402
+#: web/admin/action_realmcheck.php:411
 #, fuzzy, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr ""
 "<strong>Σφάλμα:</strong> Το όνομα υπολογιστή %s δεν μπορούσε να επιλυθεί!"
 
-#: web/admin/action_realmcheck.php:405
+#: web/admin/action_realmcheck.php:414
 #, fuzzy, php-format
 msgid "%d IP addresses resolved."
 msgstr "Εντοπίστηκαν %d διευθύνσεις IP."
 
-#: web/admin/action_realmcheck.php:412 web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:421 web/admin/action_realmcheck.php:424
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Η περιοχή είναι <strong>%s</strong> "
 
-#: web/admin/action_realmcheck.php:412
+#: web/admin/action_realmcheck.php:421
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "δεν αντιμετωπίστηκα σφάλματα DNS. Συγχαρητήρια!"
 
-#: web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:424
 msgid "but there were DNS errors! Check them!"
 msgstr "αλλά υπήρχαν σφάλματα DNS! Ελέγξτε τα!"
 
-#: web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:424
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:446
+#: web/admin/action_realmcheck.php:455
 #, fuzzy
 msgid "Repeat static connectivity tests"
 msgstr "Έλεγχοι ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:449
+#: web/admin/action_realmcheck.php:458
 msgid "STATIC connectivity tests"
 msgstr "Έλεγχοι ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:451
+#: web/admin/action_realmcheck.php:460
 #, php-format
 msgid ""
 "This check sends a request for the realm through various entry points of the "
@@ -303,39 +303,39 @@ msgid ""
 "Reject after having gone through an EAP conversation."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:456 web/admin/action_realmcheck.php:572
+#: web/admin/action_realmcheck.php:465 web/admin/action_realmcheck.php:580
 #, fuzzy, php-format
 msgid "Testing from: %s"
 msgstr "Έλεγχος περιοχής %s"
 
-#: web/admin/action_realmcheck.php:461 web/admin/action_realmcheck.php:499
-#: web/admin/action_realmcheck.php:517 web/admin/action_realmcheck.php:577
+#: web/admin/action_realmcheck.php:470 web/admin/action_realmcheck.php:508
+#: web/admin/action_realmcheck.php:526 web/admin/action_realmcheck.php:585
 msgid "testing..."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:477
+#: web/admin/action_realmcheck.php:486
 #, fuzzy
 msgid "Repeat dynamic connectivity tests"
 msgstr "Έλεγχοι ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:481
+#: web/admin/action_realmcheck.php:490
 msgid "DYNAMIC connectivity tests"
 msgstr "Έλεγχοι ΔΥΝΑΜΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:494
 msgid "Some errors were found during the tests, see below"
 msgstr ""
 "Παρουσιάστηκαν κάποια σφάλματα κατά τη διάρκεια των δοκιμών, δείτε παρακάτω"
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:494
 msgid "All tests passed, congratulations!"
 msgstr "Επιτυχία σε όλες τις δοκιμές, συγχαρητήρια!"
 
-#: web/admin/action_realmcheck.php:486
+#: web/admin/action_realmcheck.php:495
 msgid "Checking server handshake..."
 msgstr "Έλεγχος χειραψίας εξυπηρετητή..."
 
-#: web/admin/action_realmcheck.php:489 web/admin/action_realmcheck.php:509
+#: web/admin/action_realmcheck.php:498 web/admin/action_realmcheck.php:518
 msgid ""
 "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
 "this time."
@@ -343,11 +343,11 @@ msgstr ""
 "Λόγω τω περιορισμών του OpenSSL, δεν είναι δυνατός ο έλεγχος διευθύνσεων "
 "IPv6 αυτή τη στιγμή."
 
-#: web/admin/action_realmcheck.php:525
+#: web/admin/action_realmcheck.php:534
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Έλεγχος αν είναι δεκτά τα πιστοποιητικά από CA..."
 
-#: web/admin/action_realmcheck.php:525
+#: web/admin/action_realmcheck.php:534
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -355,11 +355,11 @@ msgstr ""
 "Θα δοκιμαστούν μερικά πιστοποιητικά πελάτη για να ελεγχθεί αν οι "
 "εξυπηρετητές έχουν ανοχές σε προβλήματα πιστοποιητικών."
 
-#: web/admin/action_realmcheck.php:539
+#: web/admin/action_realmcheck.php:548
 msgid "Live login test"
 msgstr "Live δοκιμή εισόδου"
 
-#: web/admin/action_realmcheck.php:543
+#: web/admin/action_realmcheck.php:552
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -367,7 +367,7 @@ msgstr ""
 "Αν εισάγετε ενεργά διαπιστευτήρια εισόδου εδώ, μπορείτε να ελέγξετε την "
 "πιστοποίηση από διάφορα σημεία ελέγχου σε όλο τον κόσμο."
 
-#: web/admin/action_realmcheck.php:544
+#: web/admin/action_realmcheck.php:553
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -380,7 +380,7 @@ msgstr ""
 "και τον τύπο EAP που δόθηκε δούλεψε πραγματικά. Αν έχετε ορίσει ανώνυμο "
 "εξωτερικό ID, ο έλεγχος θα χρησιμοποιήσει αυτό."
 
-#: web/admin/action_realmcheck.php:545
+#: web/admin/action_realmcheck.php:554
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -393,45 +393,46 @@ msgstr ""
 "δοκιμαστικούς λογαριασμούς</strong> εδώ. Οι μόνιμοι έγκυροι δοκιμαστικοί "
 "λογαριασμοί που κυκλοφορούν ελεύθεροι θεωρούνται επικίνδυνοι!"
 
-#: web/admin/action_realmcheck.php:551
-msgid "For all EAP types"
-msgstr "Για όλους τους τύπους EAP"
-
-#: web/admin/action_realmcheck.php:552
-msgid "Username:"
-msgstr "Όνομα χρήστη:"
-
-#: web/admin/action_realmcheck.php:560
+#: web/admin/action_realmcheck.php:565
 msgid "Password-based EAP types"
 msgstr "Τύποι EAP με κωδικό"
 
-#: web/admin/action_realmcheck.php:561
+#: web/admin/action_realmcheck.php:566
+msgid "Real (inner) username:"
+msgstr ""
+
+#: web/admin/action_realmcheck.php:567
+#, fuzzy
+msgid "Anonymous outer ID (optional):"
+msgstr "Ενεργοποίηση ανώνυμης εξωτερικής ταυτότητας:"
+
+#: web/admin/action_realmcheck.php:568
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: web/admin/action_realmcheck.php:564
+#: web/admin/action_realmcheck.php:572
 msgid "Certificate-based EAP types"
 msgstr "Τύποι EAP με πιστοποιητικό"
 
-#: web/admin/action_realmcheck.php:565
+#: web/admin/action_realmcheck.php:573
 #, fuzzy
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Αρχείο πιστοποιητικού:"
 
-#: web/admin/action_realmcheck.php:566
+#: web/admin/action_realmcheck.php:574
 #, fuzzy
 msgid "Certificate password, if any:"
 msgstr "Πολιτικές πιστοποιητικών"
 
-#: web/admin/action_realmcheck.php:567
-msgid "Login username, if different from Usename above:"
+#: web/admin/action_realmcheck.php:575
+msgid "Username, if different from certificate Subject:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:568
+#: web/admin/action_realmcheck.php:576
 msgid "Submit credentials"
 msgstr "Υποβολή διαπιστευτηρίων"
 
-#: web/admin/action_realmcheck.php:595 web/admin/overview_installers.php:154
+#: web/admin/action_realmcheck.php:603 web/admin/overview_installers.php:154
 msgid "Return to dashboard"
 msgstr "Επιστροφή στον πίνακα ελέγχου"
 
@@ -1443,12 +1444,12 @@ msgstr ""
 "Λάβατε ένα token πρόσκλησης για να διαχειριστείτε ένα ίδρυμα; Παρακαλούμε "
 "κάντε το επικόλληση εδώ:"
 
-#: web/admin/radius_tests.php:77
+#: web/admin/radius_tests.php:76
 #, fuzzy
 msgid "<strong>Test succesful.</strong>"
 msgstr "Περιοχή: <strong>%s</strong>"
 
-#: web/admin/radius_tests.php:80
+#: web/admin/radius_tests.php:79
 #, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
@@ -1458,11 +1459,11 @@ msgstr ""
 "συνομιλία EAP! Είτε ο υπεύθυνος εξυπηρετητής είναι πεσμένος, είτε η "
 "δρομολόγηση είναι χαλασμένη!"
 
-#: web/admin/radius_tests.php:85
+#: web/admin/radius_tests.php:84
 msgid "This method cannot be tested"
 msgstr ""
 
-#: web/admin/radius_tests.php:88
+#: web/admin/radius_tests.php:87
 #, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
@@ -1473,7 +1474,7 @@ msgstr ""
 "συνομιλία EAP! Είτε ο υπεύθυνος εξυπηρετητής είναι πεσμένος, είτε η "
 "δρομολόγηση είναι χαλασμένη!"
 
-#: web/admin/radius_tests.php:90 web/admin/radius_tests.php:147
+#: web/admin/radius_tests.php:89 web/admin/radius_tests.php:146
 #, fuzzy, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1483,19 +1484,19 @@ msgstr ""
 "συνομιλία EAP! Είτε ο υπεύθυνος εξυπηρετητής είναι πεσμένος, είτε η "
 "δρομολόγηση είναι χαλασμένη!"
 
-#: web/admin/radius_tests.php:94 web/admin/radius_tests.php:151
+#: web/admin/radius_tests.php:93 web/admin/radius_tests.php:150
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
 
-#: web/admin/radius_tests.php:99
+#: web/admin/radius_tests.php:98
 #, fuzzy
 msgid "<strong>Test FAILED</strong>"
 msgstr "Περιοχή: <strong>%s</strong>"
 
-#: web/admin/radius_tests.php:121
+#: web/admin/radius_tests.php:120
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1503,14 +1504,14 @@ msgid ""
 "optimal; the list is below."
 msgstr ""
 
-#: web/admin/radius_tests.php:138
+#: web/admin/radius_tests.php:137
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
 "planned."
 msgstr ""
 
-#: web/admin/radius_tests.php:143
+#: web/admin/radius_tests.php:142
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1519,11 +1520,11 @@ msgid ""
 "it is unreachable."
 msgstr ""
 
-#: web/admin/radius_tests.php:155
+#: web/admin/radius_tests.php:154
 msgid "unhandled error"
 msgstr ""
 
-#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:218
+#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:217
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1531,16 +1532,16 @@ msgstr ""
 "<strong>ΣΦΑΛΜΑ</strong>: ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από μία "
 "άγνωστη αρχή!"
 
-#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:172
+#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:171
 #, php-format
 msgid "elapsed time: %d"
 msgstr "χρόνος που πέρασε: %d"
 
-#: web/admin/radius_tests.php:223
+#: web/admin/radius_tests.php:222
 msgid "Completed."
 msgstr "Ολοκληρώθηκε."
 
-#: web/admin/radius_tests.php:242
+#: web/admin/radius_tests.php:241
 msgid "crlDistributionPoints"
 msgstr ""
 
@@ -2383,6 +2384,12 @@ msgstr "Τύπος EAP <strong>%s</strong>"
 #: web/admin/inc/toggleRedirect.inc.php:89
 msgid "Fine-tuning options for "
 msgstr "Επιλογές τελειοποίησης για"
+
+#~ msgid "For all EAP types"
+#~ msgstr "Για όλους τους τύπους EAP"
+
+#~ msgid "Username:"
+#~ msgstr "Όνομα χρήστη:"
 
 #~ msgid "eduPKI"
 #~ msgstr "eduPKI"

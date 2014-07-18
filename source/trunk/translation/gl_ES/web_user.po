@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 16:01+0200\n"
+"POT-Creation-Date: 2014-07-18 10:53+0200\n"
 "PO-Revision-Date: 2013-02-07 23:20+0000\n"
 "Last-Translator: Meixome <meixome@certima.net>\n"
 "Language-Team: Galician (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -372,7 +372,7 @@ msgstr ""
 "cos recursos localizados nunha páxina local. Ao premer <b>Continuar</b> esa "
 "páxina abrirase nunha nova xanela/lapela."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:249
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:250
 msgid "Continue"
 msgstr "Continuar"
 
@@ -517,7 +517,7 @@ msgstr ""
 "Este dispositivo non pode ser configurado cos axustes fornecidos pola súa "
 "institución"
 
-#: web/basic.php:200 web/index.php:297
+#: web/basic.php:200 web/index.php:298
 msgid "Choose an installer to download"
 msgstr "Escoller un instalador para descargar"
 
@@ -567,12 +567,12 @@ msgstr "Ver esta páxina en"
 msgid "Terms of use"
 msgstr "Condicións de uso"
 
-#: web/basic.php:447 web/index.php:338 web/tou.php:56
+#: web/basic.php:447 web/index.php:339 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Edición %s"
 
-#: web/basic.php:449 web/index.php:340 web/tou.php:58
+#: web/basic.php:449 web/index.php:341 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Versión SVN non publicada"
 
@@ -649,7 +649,7 @@ msgstr ""
 #. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
 #: web/index.php:227
 msgid ""
-"Your download will start shortly, in case of problems with automatic "
+"Your download will start shortly, in case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 
@@ -658,7 +658,7 @@ msgstr ""
 msgid "Dear user from %s,"
 msgstr ""
 
-#: web/index.php:232
+#: web/index.php:233
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -666,7 +666,7 @@ msgid ""
 "globe. All of this completely free of charge!"
 msgstr ""
 
-#: web/index.php:235
+#: web/index.php:236
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -674,7 +674,7 @@ msgid ""
 "certificate') - and be online!"
 msgstr ""
 
-#: web/index.php:237
+#: web/index.php:238
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -682,11 +682,11 @@ msgid ""
 "reach them via the means shown above."
 msgstr ""
 
-#: web/index.php:241
+#: web/index.php:242
 msgid "Back to downloads"
 msgstr ""
 
-#: web/index.php:245
+#: web/index.php:246
 #, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
@@ -699,7 +699,7 @@ msgstr ""
 "                            Ao premer sobre <b>Continuar</b> esta páxina de "
 "asistencia abrirase nunha nova xanela/lapela."
 
-#: web/index.php:291
+#: web/index.php:292
 msgid "All platforms"
 msgstr ""
 

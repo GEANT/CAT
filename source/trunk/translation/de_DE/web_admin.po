@@ -1,25 +1,25 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
 #   <stefan.winter@gmail.com>, 2012.
 #   <stefan.winter@restena.lu>, 2011-2012.
-# Stefan Winter <stefan.winter@restena.lu>, 2011-2012.
+# Stefan Winter <stefan.winter@restena.lu>, 2011-2012, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
-"PO-Revision-Date: 2013-02-06 13:20+0000\n"
+"POT-Creation-Date: 2014-07-18 11:09+0200\n"
+"PO-Revision-Date: 2014-07-18 11:10+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/cat/language/"
-"de/)\n"
+"Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"de/)\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: web/admin/action_enrollment.php:34 web/admin/action_enrollment.php:35
 msgid "Error creating new IdP binding!"
@@ -87,9 +87,8 @@ msgid "fail"
 msgstr "fehlgeschlagen"
 
 #: web/admin/action_realmcheck.php:80
-#, fuzzy
 msgid "Client certificate:"
-msgstr "Clientzertifikat von "
+msgstr "Clientzertifikat:"
 
 #: web/admin/action_realmcheck.php:81
 msgid "expected result: "
@@ -120,48 +119,46 @@ msgid "You should update your list of accredited CAs"
 msgstr "Sie sollten Ihre Liste der akkreditierten CAs aktualisieren"
 
 #: web/admin/action_realmcheck.php:88
-#, fuzzy
 msgid "Get it from here."
-msgstr "von hier"
+msgstr "Hier herunterladen."
 
 #: web/admin/action_realmcheck.php:90
 msgid "more"
 msgstr "mehr"
 
-#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:486
+#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:495
 msgid "Show detailed information for all tests"
 msgstr "Detaillierte Informationen zu allen Tests anzeigen"
 
 #: web/admin/action_realmcheck.php:95
 msgid "Connection refused"
-msgstr ""
+msgstr "Verbindungsaufbau abgelehnt"
 
-#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:228
+#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:227
 msgid "Server certificate"
 msgstr "Serverzertifikat"
 
-#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:230
+#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:229
 msgid "Subject"
 msgstr "Name (Subject)"
 
-#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:231
+#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:230
 msgid "Issuer"
 msgstr "Aussteller"
 
-#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:233
+#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:232
 msgid "SubjectAltName"
 msgstr "Alternative Namen (subjectAltNames)"
 
-#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:237
+#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:236
 msgid "Certificate policies"
 msgstr "Zertifikat Policies"
 
 #: web/admin/action_realmcheck.php:103
-#, fuzzy
 msgid "crlDistributionPoint"
 msgstr "CRL Verteilerpunkte"
 
-#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:245
+#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:244
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
@@ -169,138 +166,133 @@ msgstr "authorityInfoAccess"
 msgid "Hide detailed information for all tests"
 msgstr "Detaillierte Informationen zu allen Tests ausblenden"
 
-#: web/admin/action_realmcheck.php:149
-msgid "missing username and/or password"
-msgstr ""
+#: web/admin/action_realmcheck.php:156
+msgid "Some required input is missing!"
+msgstr "Einige benötigte Eingaben fehlen!"
 
-#: web/admin/action_realmcheck.php:195 web/admin/action_realmcheck.php:261
-#: web/admin/action_realmcheck.php:272
-#, fuzzy, php-format
+#: web/admin/action_realmcheck.php:204 web/admin/action_realmcheck.php:270
+#: web/admin/action_realmcheck.php:281
+#, php-format
 msgid "elapsed time: %sms."
-msgstr "Laufzeit: %d"
+msgstr "Laufzeit: %sms."
 
-#: web/admin/action_realmcheck.php:261 web/admin/action_realmcheck.php:269
+#: web/admin/action_realmcheck.php:270 web/admin/action_realmcheck.php:278
 #, php-format
 msgid "Connected to: %s"
-msgstr ""
+msgstr "Verbunden mit: %s"
 
-#: web/admin/action_realmcheck.php:322
+#: web/admin/action_realmcheck.php:331
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "Realm Überprüfung für: %s"
 
-#: web/admin/action_realmcheck.php:330 web/admin/action_realmcheck.php:342
+#: web/admin/action_realmcheck.php:339 web/admin/action_realmcheck.php:351
 msgid "DNS checks"
 msgstr "DNS Überprüfung"
 
-#: web/admin/action_realmcheck.php:331
-#, fuzzy
+#: web/admin/action_realmcheck.php:340
 msgid "Static connectivity tests"
-msgstr "Konnektivitätsüberprüfung: STATISCH"
+msgstr "Konnektivitätsüberprüfung (statisch)"
 
-#: web/admin/action_realmcheck.php:332
-#, fuzzy
+#: web/admin/action_realmcheck.php:341
 msgid "Dynamic connectivity tests"
-msgstr "Konnektivitätsüberprüfung: DYNAMISCH"
+msgstr "Konnektivitätsüberprüfung (dynamisch)"
 
-#: web/admin/action_realmcheck.php:333
-#, fuzzy
+#: web/admin/action_realmcheck.php:342
 msgid "Live login tests"
 msgstr "Test-Login mit echten Daten"
 
-#: web/admin/action_realmcheck.php:347
-msgid "Checking NAPTR existence:"
-msgstr ""
-
-#: web/admin/action_realmcheck.php:350
-#, fuzzy
-msgid "This realm has no NAPTR records."
-msgstr "Dieser realm hat %d NAPTR Einträge, "
-
-#: web/admin/action_realmcheck.php:353
-#, fuzzy, php-format
-msgid "This realm has NAPTR records, but none are associated with %s."
-msgstr "Dieser realm hat %d NAPTR Einträge, "
-
 #: web/admin/action_realmcheck.php:356
-#, fuzzy, php-format
-msgid "This realm has %d %s NAPTR records."
-msgstr "Dieser realm hat %d NAPTR Einträge, "
+msgid "Checking NAPTR existence:"
+msgstr "Abfrage von NAPTR Einträgen:"
 
-#: web/admin/action_realmcheck.php:363
-#, fuzzy
+#: web/admin/action_realmcheck.php:359
+msgid "This realm has no NAPTR records."
+msgstr "Dieser Realm hat keine NAPTR Einträge."
+
+#: web/admin/action_realmcheck.php:362
+#, php-format
+msgid "This realm has NAPTR records, but none are associated with %s."
+msgstr "Dieser Realm hat NAPTR Einträge, aber keine davon gehören zu %s."
+
+#: web/admin/action_realmcheck.php:365
+#, php-format
+msgid "This realm has %d %s NAPTR records."
+msgstr "Dieser Realm hat %d %s NAPTR Einträge."
+
+#: web/admin/action_realmcheck.php:372
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
-"Überprüfung der Konformität der NAPTR Einträge mit eduroam Richtlinien: Flag "
-"= S und Regex = (leer) ..."
+"Überprüfung der Konformität der NAPTR Einträge (Flag = S und Regex = "
+"{leer} ):"
 
-#: web/admin/action_realmcheck.php:367
+#: web/admin/action_realmcheck.php:376
 msgid "No issues found."
-msgstr ""
+msgstr "Keine Probleme gefunden."
 
-#: web/admin/action_realmcheck.php:370 web/admin/action_realmcheck.php:386
+#: web/admin/action_realmcheck.php:379 web/admin/action_realmcheck.php:395
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
-
-#: web/admin/action_realmcheck.php:380
-#, fuzzy
-msgid "Checking SRVs:"
-msgstr "Überprüfung von realm %s"
-
-#: web/admin/action_realmcheck.php:383 web/admin/action_realmcheck.php:399
-#, fuzzy
-msgid "This check was skipped."
-msgstr "Dieser Test ist nicht eingerichtet."
+msgstr "Mindestens ein NAPTR mit ungültigem Inhalt gefunden!"
 
 #: web/admin/action_realmcheck.php:389
+msgid "Checking SRVs:"
+msgstr "Überprüfung der SRVs:"
+
+#: web/admin/action_realmcheck.php:392 web/admin/action_realmcheck.php:408
+msgid "This check was skipped."
+msgstr "Dieser Test wurde übersprungen."
+
+#: web/admin/action_realmcheck.php:398
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d Rechnernamen aufgelöst."
 
-#: web/admin/action_realmcheck.php:396
-msgid "Checking IP address resolution:"
-msgstr ""
-
-#: web/admin/action_realmcheck.php:402
-#, fuzzy, php-format
-msgid "At least one hostname could not be resolved!"
-msgstr "<strong>Fehler:</strong> Rechnername %s konnte nicht aufgelöst werden!"
-
 #: web/admin/action_realmcheck.php:405
-#, fuzzy, php-format
+msgid "Checking IP address resolution:"
+msgstr "Überprüfung der Auflösbarkeit von IP-Adressen:"
+
+#: web/admin/action_realmcheck.php:411
+#, php-format
+msgid "At least one hostname could not be resolved!"
+msgstr "Mindestens ein Rechnername konnte nicht aufgelöst werden!"
+
+#: web/admin/action_realmcheck.php:414
+#, php-format
 msgid "%d IP addresses resolved."
 msgstr "%d IP Adressen aufgelöst."
 
-#: web/admin/action_realmcheck.php:412 web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:421 web/admin/action_realmcheck.php:424
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Realm ist <strong>%s</strong> "
 
-#: web/admin/action_realmcheck.php:412
+#: web/admin/action_realmcheck.php:421
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "und es wurden keine DNS Fehler gefunden. Glückwunsch!"
 
-#: web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:424
 msgid "but there were DNS errors! Check them!"
 msgstr "aber es wurden DNS Fehler festgestellt! Überprüfen Sie diese!"
 
-#: web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:424
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"Nachdem Sie diese Fehler beseitigt haben, sollten Sie die Tests noch einmal "
+"durchführen; eventuell werden dann noch weitere Fehler gefunden. Die genauen "
+"Fehlergründe sind in der folgenden Liste aufgeführt."
 
-#: web/admin/action_realmcheck.php:446
-#, fuzzy
+#: web/admin/action_realmcheck.php:455
 msgid "Repeat static connectivity tests"
-msgstr "Konnektivitätsüberprüfung: STATISCH"
+msgstr "Statsiche Konnektivitätsüberprüfung wiederholen"
 
-#: web/admin/action_realmcheck.php:449
+#: web/admin/action_realmcheck.php:458
 msgid "STATIC connectivity tests"
 msgstr "Konnektivitätsüberprüfung: STATISCH"
 
-#: web/admin/action_realmcheck.php:451
+#: web/admin/action_realmcheck.php:460
 #, php-format
 msgid ""
 "This check sends a request for the realm through various entry points of the "
@@ -318,38 +310,37 @@ msgstr ""
 "Ergebnis des Tests ist daher, dass nach Durchführung des EAP-Protokolls am "
 "Ende ein 'Access-Reject' Paket gesendet wird."
 
-#: web/admin/action_realmcheck.php:456 web/admin/action_realmcheck.php:572
-#, fuzzy, php-format
+#: web/admin/action_realmcheck.php:465 web/admin/action_realmcheck.php:580
+#, php-format
 msgid "Testing from: %s"
-msgstr "Überprüfung von realm %s"
+msgstr "Überprüfung von: %s"
 
-#: web/admin/action_realmcheck.php:461 web/admin/action_realmcheck.php:499
-#: web/admin/action_realmcheck.php:517 web/admin/action_realmcheck.php:577
+#: web/admin/action_realmcheck.php:470 web/admin/action_realmcheck.php:508
+#: web/admin/action_realmcheck.php:526 web/admin/action_realmcheck.php:585
 msgid "testing..."
-msgstr ""
+msgstr "Test läuft ..."
 
-#: web/admin/action_realmcheck.php:477
-#, fuzzy
+#: web/admin/action_realmcheck.php:486
 msgid "Repeat dynamic connectivity tests"
-msgstr "Konnektivitätsüberprüfung: STATISCH"
+msgstr "Dynamische Konnektivitätsüberprüfung wiederholen"
 
-#: web/admin/action_realmcheck.php:481
+#: web/admin/action_realmcheck.php:490
 msgid "DYNAMIC connectivity tests"
 msgstr "Konnektivitätsüberprüfung: DYNAMISCH"
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:494
 msgid "Some errors were found during the tests, see below"
 msgstr "Während der Tests wurden einige Fehler gefunden, siehe unten"
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:494
 msgid "All tests passed, congratulations!"
 msgstr "Alle Tests bestanden, Glückwunsch!"
 
-#: web/admin/action_realmcheck.php:486
+#: web/admin/action_realmcheck.php:495
 msgid "Checking server handshake..."
 msgstr "Überprüfen der Serverkommunikation..."
 
-#: web/admin/action_realmcheck.php:489 web/admin/action_realmcheck.php:509
+#: web/admin/action_realmcheck.php:498 web/admin/action_realmcheck.php:518
 msgid ""
 "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
 "this time."
@@ -357,12 +348,12 @@ msgstr ""
 "Aufgrund fehlender Funktionalität in OpenSSL können IPv6 Adressen derzeit "
 "nicht überprüft werden."
 
-#: web/admin/action_realmcheck.php:525
+#: web/admin/action_realmcheck.php:534
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr ""
 "Überprüfung, ob Zertifikate von allen akkreditierten CAs akzeptiert werden..."
 
-#: web/admin/action_realmcheck.php:525
+#: web/admin/action_realmcheck.php:534
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -370,11 +361,11 @@ msgstr ""
 "Einige Clientzertifikate werden getestet, um zu überprüfen ob die "
 "Serverseite diese Zertifikate ordentlich überprüft."
 
-#: web/admin/action_realmcheck.php:539
+#: web/admin/action_realmcheck.php:548
 msgid "Live login test"
 msgstr "Test-Login mit echten Daten"
 
-#: web/admin/action_realmcheck.php:543
+#: web/admin/action_realmcheck.php:552
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -382,7 +373,7 @@ msgstr ""
 "Wenn Sie  funktionierende Login-Daten angeben, können Sie diesenden "
 "Loginnamen von mehren Punkten weltweit testen lassen."
 
-#: web/admin/action_realmcheck.php:544
+#: web/admin/action_realmcheck.php:553
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -395,7 +386,7 @@ msgstr ""
 "Daten funktionieren. Fals Sie für ihr Profil anonyme Identität definiert "
 "haben, wird auch dies bei der Anfrage berücksichtigt."
 
-#: web/admin/action_realmcheck.php:545
+#: web/admin/action_realmcheck.php:554
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -408,45 +399,43 @@ msgstr ""
 "Permanent funktionierende Test-Logins die ausserhalb der eigenen "
 "Organisation bekannt sind, gelten als sehr gefährlich!"
 
-#: web/admin/action_realmcheck.php:551
-msgid "For all EAP types"
-msgstr "Für alle EAP Typen"
-
-#: web/admin/action_realmcheck.php:552
-msgid "Username:"
-msgstr "Benutzername:"
-
-#: web/admin/action_realmcheck.php:560
+#: web/admin/action_realmcheck.php:565
 msgid "Password-based EAP types"
 msgstr "Passwortbasierte EAP Typen"
 
-#: web/admin/action_realmcheck.php:561
+#: web/admin/action_realmcheck.php:566
+msgid "Real (inner) username:"
+msgstr "Tatsächlicher (innerer) Benutzername:"
+
+#: web/admin/action_realmcheck.php:567
+msgid "Anonymous outer ID (optional):"
+msgstr "Anonyme äußere Identität (optional):"
+
+#: web/admin/action_realmcheck.php:568
 msgid "Password:"
 msgstr "Passwort:"
 
-#: web/admin/action_realmcheck.php:564
+#: web/admin/action_realmcheck.php:572
 msgid "Certificate-based EAP types"
 msgstr "Zertifikatsbasierte EAP Typen"
 
-#: web/admin/action_realmcheck.php:565
-#, fuzzy
+#: web/admin/action_realmcheck.php:573
 msgid "Certificate file (.p12 or .pfx):"
-msgstr "Client-Zertifikat Datei:"
+msgstr "Client-Zertifikat Datei (.p12 oder .pfx):"
 
-#: web/admin/action_realmcheck.php:566
-#, fuzzy
+#: web/admin/action_realmcheck.php:574
 msgid "Certificate password, if any:"
-msgstr "Zertifikat Policies"
+msgstr "Passwort für den Zertifikatsschlüssel, falls nötig:"
 
-#: web/admin/action_realmcheck.php:567
-msgid "Login username, if different from Usename above:"
-msgstr ""
+#: web/admin/action_realmcheck.php:575
+msgid "Username, if different from certificate Subject:"
+msgstr "Benutzername, falls nicht identisch zum Namen im Zertifikat:"
 
-#: web/admin/action_realmcheck.php:568
+#: web/admin/action_realmcheck.php:576
 msgid "Submit credentials"
 msgstr "Daten übertragen"
 
-#: web/admin/action_realmcheck.php:595 web/admin/overview_installers.php:154
+#: web/admin/action_realmcheck.php:603 web/admin/overview_installers.php:154
 msgid "Return to dashboard"
 msgstr "Zurück zur IdP Übersichtsseite"
 
@@ -539,18 +528,17 @@ msgstr "Neue Option hinzufügen"
 
 #: web/admin/edit_idp.php:136 web/admin/edit_profile.php:186
 #: web/admin/overview_idp.php:67
-#, fuzzy
 msgid "Media Properties"
-msgstr "Allgemeine Angaben zum Profil"
+msgstr "Netzzugangsmedien"
 
 #: web/admin/edit_idp.php:140
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
 msgstr ""
-"Bitte geben Sie an, welche SSIDs in den Installationsprogrammen konfiguriert "
-"werden sollen."
+"In diesem Bereich geben Sie an, für welche Zugangsmedien %s auf den "
+"Nutzergeräten eingerichtet werden soll."
 
 #: web/admin/edit_idp.php:143
 msgid "Additional SSIDs:"
@@ -603,39 +591,38 @@ msgstr ""
 
 #: web/admin/edit_idp.php:160
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Zusätzliche Hotspot 2.0 / Passpoint Konsortia:"
 
 #: web/admin/edit_idp.php:160
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Hotspot 2.0 / Passpoint Konsortia:"
 
 #: web/admin/edit_idp.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
-msgstr[0] "Die folgende SSID wird immer für WPA2/AES konfiguriert: %s."
-msgstr[1] "Die folgenden SSIDs werden immer für WPA2/AES konfiguriert: %s."
+msgstr[0] "Das folgende Konsortium wird immer konfiguriert: %s."
+msgstr[1] "Die folgenden Konsortia werden immer konfiguriert: %s."
 
 #: web/admin/edit_idp.php:168
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
 msgstr ""
-"Es ist auch möglich, zusätzliche eigene SSIDs mit den Optionen '%s' und '%s' "
-"zu konfigurieren."
+"Es ist auch möglich, zusätzliche eigene Konsortia mit der Option '%s' zu "
+"konfigurieren."
 
 #: web/admin/edit_idp.php:170
-#, fuzzy
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
-"Bitte geben Sie an, welche SSIDs in den Installationsprogrammen konfiguriert "
-"werden sollen."
+"Bitte geben Sie an, welche Roaming-Konsortia in den Installationsprogrammen "
+"konfiguriert werden sollen."
 
 #: web/admin/edit_idp.php:173
 msgid "Support for wired IEEE 802.1X:"
-msgstr ""
+msgstr "Kabelgebundene Netzwerke:"
 
 #: web/admin/edit_idp.php:174
 msgid ""
@@ -645,10 +632,17 @@ msgid ""
 "administrator privileges; Apple: attempting to install a profile with wired "
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
+"Wenn IEEE 802.1X Unterstützung auch für kabelgebundene Netzwerke "
+"eingerichtet werden soll, dann setzen Sie bitte das entsprechende Häkchen. "
+"Bitte beachten Sie, dass dadurch der Installationsprozess für die Nutzer auf "
+"einigen Plattformen etwas schwieriger wird (Windows: Installation erfordert "
+"Administratorprivilegien; Apple: der Versuch, ein Profil mit "
+"Kabelunterstützuung auf einem Gerät ohne Kabelnetzwerkanschluss zu "
+"installieren, wird fehlschlagen)."
 
 #: web/admin/edit_idp.php:176
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
+msgstr "Entfernung von Hilfs-/Einrichtungs-Netzen:"
 
 #: web/admin/edit_idp.php:177
 msgid ""
@@ -656,6 +650,10 @@ msgid ""
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
 "the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
+"Wenn Sie ein ungeschütztes Captive Portal Netzwerk haben, das bei der ersten "
+"Einrichtung des Netzzugangs hilft, dann können Sie hier konfigurieren, dass "
+"dieses Netz nach erfolgreicher Einrichtung des eigentlichen Netzwerks "
+"deaktiviert oder gelöscht wird."
 
 #: web/admin/edit_idp.php:191
 msgid "Helpdesk Details for all users"
@@ -743,9 +741,9 @@ msgid "Discard changes"
 msgstr "Änderungen verwerfen"
 
 #: web/admin/edit_idp_result.php:35
-#, fuzzy, php-format
+#, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
-msgstr "Erzeugen eines neuen Identitätsproviders (Schritt 2 abgeschlossen)"
+msgstr "%s: Erzeugen eines neuen Identitätsproviders (Schritt 2 abgeschlossen)"
 
 #: web/admin/edit_idp_result.php:40
 #, php-format
@@ -754,35 +752,40 @@ msgstr "Übermittelte Attribute für Identitätsprovider '%s'"
 
 #: web/admin/edit_idp_result.php:65 web/admin/edit_idp_result.php:73
 msgid "(WPA2/AES and WPA/TKIP)"
-msgstr ""
+msgstr "(WPA2/AES und WPA/TKIP)"
 
 #: web/admin/edit_idp_result.php:65 web/admin/edit_idp_result.php:77
 msgid "(WPA2/AES)"
-msgstr ""
+msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:86
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
+"Ihre Installationsprogramme werden die folgenden SSIDs einrichten: <strong>"
+"%s</strong>"
 
 #: web/admin/edit_idp_result.php:86
 msgid "SSIDs configured"
-msgstr ""
+msgstr "SSIDs eingerichtet"
 
 #: web/admin/edit_idp_result.php:89
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr ""
+"Ihre Installationsprogramme werden kabelgebundene Netzwerke konfigurieren."
 
 #: web/admin/edit_idp_result.php:89
 msgid "Wired configured"
-msgstr ""
+msgstr "Kabelnetzwerke konfiguriert"
 
 #: web/admin/edit_idp_result.php:92
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
+"Es können keine Installationsprogramme erzeugt werden, da weder WLAN-"
+"Netzwerke noch Unterstützung für kabelgebundene Netzwerke ausgewählt wurden."
 
 #: web/admin/edit_idp_result.php:101 web/admin/edit_profile_result.php:159
 msgid "Continue to dashboard"
@@ -1139,15 +1142,16 @@ msgid "Continue to user overview page"
 msgstr "Weiter zu Ihrer Übersichtsseite"
 
 #: web/admin/logout_check.php:29
-#, fuzzy
 msgid "Incomplete Logout"
-msgstr "Konfiguration unvollständig"
+msgstr "Logout unvollständig"
 
 #: web/admin/logout_check.php:30
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
 msgstr ""
+"Sie konnten nicht vollständig abgemeldet werden. Um sicherzustellen, dass "
+"Sie vollständig ausgeloggt sind, sollten Sie Ihren Browser schließen."
 
 #: web/admin/overview_federation.php:22
 #, php-format
@@ -1197,7 +1201,7 @@ msgstr "Unbekanntes Ergebnis!"
 
 #: web/admin/overview_federation.php:80
 msgid "Deployment Status"
-msgstr ""
+msgstr "Status der Bereitstellung"
 
 #: web/admin/overview_federation.php:81 web/admin/overview_user.php:94
 #: web/admin/inc/common.inc.php:35
@@ -1353,9 +1357,9 @@ msgstr "Profil: %s"
 
 #. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
 #: web/admin/overview_idp.php:212
-#, fuzzy, php-format
+#, php-format
 msgid "Read this <a href='%s'>tip</a>."
-msgstr "Lesen Sie diesen <a href='gtc-support.html'>Tipp</a>."
+msgstr "Lesen Sie diesen <a href='%s'>Tipp</a>."
 
 #: web/admin/overview_idp.php:222
 msgid "The realm can only be checked if you configure the realm!"
@@ -1472,7 +1476,7 @@ msgstr "Klicken Sie hier, um Ihre Föderationen zu verwalten"
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
-msgstr ""
+msgstr "Klicken Sie hier um die Superadmin Seite anzuzeigen"
 
 #: web/admin/overview_user.php:72
 #, php-format
@@ -1517,47 +1521,44 @@ msgstr ""
 "Haben Sie einen Einladungsgutschein zum Administrieren eines IdP erhalten? "
 "Bitte geben Sie ihn hier ein:"
 
-#: web/admin/radius_tests.php:77
-#, fuzzy
+#: web/admin/radius_tests.php:76
 msgid "<strong>Test succesful.</strong>"
-msgstr "Realm: <strong>%s</strong> "
+msgstr "<strong>Test erfolgreich.</strong>"
 
-#: web/admin/radius_tests.php:80
-#, fuzzy
+#: web/admin/radius_tests.php:79
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
-"<strong>Test FEHLGESCHLAGEN</strong>: Die Anfrage wurde sofort abgelehnt, "
-"ohne dass eine EAP Konversation durchgeführt wurde! Entweder der Server ist "
-"nicht betriebsbereit, oder es gibt ein Routing-Problem!"
+"<strong>Test FEHLGESCHLAGEN</strong>: Die Anfrage wurde abgelehnt. Der "
+"wahrscheinlichste Grund sind fehlerhafte Eingaben für Benutzername und/oder "
+"Passwort."
 
-#: web/admin/radius_tests.php:85
+#: web/admin/radius_tests.php:84
 msgid "This method cannot be tested"
-msgstr ""
+msgstr "Diese Methode kann nicht getestet werden."
 
-#: web/admin/radius_tests.php:88
-#, fuzzy
+#: web/admin/radius_tests.php:87
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
 "<strong>Test FEHLGESCHLAGEN</strong>: Die Anfrage wurde sofort abgelehnt, "
-"ohne dass eine EAP Konversation durchgeführt wurde! Entweder der Server ist "
-"nicht betriebsbereit, oder es gibt ein Routing-Problem!"
+"ohne dass eine EAP Konversation durchgeführt wurde! Entweder Sie haben sich "
+"beim Benutzernamen vertan, oder der Server ist fehlkonfiguriert."
 
-#: web/admin/radius_tests.php:90 web/admin/radius_tests.php:147
-#, fuzzy, php-format
+#: web/admin/radius_tests.php:89 web/admin/radius_tests.php:146
+#, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
 "<strong>Test FEHLGESCHLAGEN</strong>: keine Antwort vom RADIUS server nach "
-"%s Sekunden. Entweder der Server ist nicht betriebsbereit, oder es gibt ein "
+"%d Sekunden. Entweder der Server ist nicht betriebsbereit, oder es gibt ein "
 "Routing-Problem!"
 
-#: web/admin/radius_tests.php:94 web/admin/radius_tests.php:151
+#: web/admin/radius_tests.php:93 web/admin/radius_tests.php:150
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1566,24 +1567,24 @@ msgstr ""
 "<strong>Test FEHLGESCHLAGEN</strong>: es gab zwar eine RADIUS Konversation "
 "in beide Richtungen, aber sie war nach %d Sekunden immer noch nicht beendet!"
 
-#: web/admin/radius_tests.php:99
-#, fuzzy
+#: web/admin/radius_tests.php:98
 msgid "<strong>Test FAILED</strong>"
-msgstr "Realm: <strong>%s</strong> "
+msgstr "<strong>Test FEHLGESCHLAGEN</strong>"
 
-#: web/admin/radius_tests.php:121
-#, fuzzy
+#: web/admin/radius_tests.php:120
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
-"<strong>Test erfolgreich</strong>: eine RADIUS Konversation in beide "
-"Richtungen wurde durchgeführt,und wurde am Ende wie erwartet mit einem "
-"'Access-Reject' abgeschlossen."
+"<strong>Test teilweise erfolgreich</strong>: eine RADIUS Konversation in "
+"beide Richtungen wurde durchgeführt,und wurde am Ende wie erwartet mit einem "
+"'Access-Reject' abgeschlossen. Einige Eigenschaften des "
+"Authentifizierungsversuchs waren allerdings suboptimal; die Liste der "
+"Besonderheiten ist wie folgt."
 
-#: web/admin/radius_tests.php:138
+#: web/admin/radius_tests.php:137
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -1593,7 +1594,7 @@ msgstr ""
 "Richtungen wurde durchgeführt,und wurde am Ende wie erwartet mit einem "
 "'Access-Reject' abgeschlossen."
 
-#: web/admin/radius_tests.php:143
+#: web/admin/radius_tests.php:142
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1601,12 +1602,18 @@ msgid ""
 "result is expected. In all other cases, the server appears misconfigured or "
 "it is unreachable."
 msgstr ""
+"<strong>Test FEHLGESCHLAGEN</strong>: Die Anfrage wurde sofort abgelehnt, "
+"ohne dass eine EAP Konversation durchgeführt wurde! Dies ist nicht zwingend "
+"ein Fehler: wenn der RADIUS Server erzwingt, dass auch der äußere "
+"Benutzername zu einem existierenden Benutzerkonto gehören muss, dann ist "
+"dieses Result zu erwarten. In allen anderen Fällen deutet es jedoch auf eine "
+"Fehlkonfiguration oder eine Unerreichbarkeit des Servers hin."
 
-#: web/admin/radius_tests.php:155
+#: web/admin/radius_tests.php:154
 msgid "unhandled error"
-msgstr ""
+msgstr "unbekannter Fehler"
 
-#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:218
+#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:217
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1614,16 +1621,16 @@ msgstr ""
 "<strong>FEHLER</strong>: Der Server präsentierte ein Zertifikat von einer "
 "unbekannten CA!"
 
-#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:172
+#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:171
 #, php-format
 msgid "elapsed time: %d"
 msgstr "Laufzeit: %d"
 
-#: web/admin/radius_tests.php:223
+#: web/admin/radius_tests.php:222
 msgid "Completed."
 msgstr "Abgeschlossen."
 
-#: web/admin/radius_tests.php:242
+#: web/admin/radius_tests.php:241
 msgid "crlDistributionPoints"
 msgstr "CRL Verteilerpunkte"
 
@@ -1657,12 +1664,11 @@ msgstr "Logo Datei"
 
 #: web/admin/inc/common.inc.php:39
 msgid "Configure Wired Ethernet"
-msgstr ""
+msgstr "Kabelgebundene Netze konfigurieren"
 
 #: web/admin/inc/common.inc.php:40
-#, fuzzy
 msgid "Name (CN) of Authentication Server"
-msgstr "Name des Servers"
+msgstr "Name (CN) des Servers"
 
 #: web/admin/inc/common.inc.php:41
 msgid "Enable device assessment"
@@ -1702,7 +1708,7 @@ msgstr "Zusätzlicher Hinweistext für diesen EAP-Typ"
 
 #: web/admin/inc/common.inc.php:50
 msgid "Turn on selection of EAP-TLS User-Name"
-msgstr ""
+msgstr "Eingabe eines abweichenden EAP-TLS Benutzernamens erlauben"
 
 #: web/admin/inc/common.inc.php:51
 msgid "Profile Description"
@@ -1750,7 +1756,7 @@ msgstr "EAP-pwd"
 
 #: web/admin/inc/common.inc.php:62
 msgid "Remove/Disable SSID"
-msgstr ""
+msgstr "SSID entfernen/deaktivieren"
 
 #: web/admin/inc/common.inc.php:66
 msgid "Additional SSID"
@@ -1770,11 +1776,11 @@ msgstr "SSID (mit WPA/TKIP)"
 
 #: web/admin/inc/common.inc.php:74
 msgid "Additional HS20 Consortium OI"
-msgstr ""
+msgstr "Zusätzliche HS20 Konsortium OI"
 
 #: web/admin/inc/common.inc.php:75
 msgid "HS20 Consortium OI"
-msgstr ""
+msgstr "HS20 Konsortium OI"
 
 #: web/admin/inc/common.inc.php:89
 #, php-format
@@ -1832,7 +1838,7 @@ msgstr "Fehler beim Verarbeiten des Zertifikats!"
 
 #: web/admin/inc/common.inc.php:260
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr ""
+msgstr "Es handelt sich um ein <strong>SERVER</strong> Zertifikat!"
 
 #: web/admin/inc/common.inc.php:269
 msgid "Preview of logo file"
@@ -2509,6 +2515,15 @@ msgstr "EAP-Typ <strong>%s</strong>"
 #: web/admin/inc/toggleRedirect.inc.php:89
 msgid "Fine-tuning options for "
 msgstr "Feineinstellungen für "
+
+#~ msgid "missing username and/or password"
+#~ msgstr "Fehlender Benutzername und/oder Passwort"
+
+#~ msgid "For all EAP types"
+#~ msgstr "Für alle EAP Typen"
+
+#~ msgid "Username:"
+#~ msgstr "Benutzername:"
 
 #~ msgid "eduPKI"
 #~ msgstr "eduPKI"
