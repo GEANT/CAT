@@ -224,7 +224,7 @@ include("user/js/cat_js.php");
                        <p>
                        <span id="download_info"><?php 
                        /// the empty href is dynamically exchanged with the actual path by jQuery at runtime
-                       echo _("Your download will start shortly, in case of problems with automatic download please use this direct <a href=''>link</a>.") 
+                       echo _("Your download will start shortly, in case of problems with the automatic download please use this direct <a href=''>link</a>.");
                        ?>
                        <p>
                        <?php printf(_("Dear user from %s,"),"<span class='inst_name'></span>") ?>
