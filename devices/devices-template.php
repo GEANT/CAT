@@ -164,7 +164,7 @@ public static function listDevices() {
  'apple_mav'=>array(
     'group' => "apple",
     'display'=>_("Apple OS X Mavericks"),
-    'match'=>'Mac OS X 10[._]8',
+    'match'=>'Mac OS X 10[._]9',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
