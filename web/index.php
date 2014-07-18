@@ -229,6 +229,7 @@ include("user/js/cat_js.php");
                        <p>
                        <?php printf(_("Dear user from %s,"),"<span class='inst_name'></span>") ?>
                        <br/>
+                       <br/>
                        <?php echo _("we would like to warmly welcome you among the several million users of eduroam®! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!") ?>
                        </p>
                        <p>
