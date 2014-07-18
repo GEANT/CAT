@@ -72,7 +72,7 @@ class Config {
     public static $CONSORTIUM = array(
         'name' => 'eduroam',
         'ssid' => array('eduroam'),
-        'tkipsupport' => TRUE,
+        'tkipsupport' => FALSE,
         'homepage' => 'http://www.eduroam.org',
         'signer_name' => 'TERENA',
         'selfservice_registration'   => NULL,
