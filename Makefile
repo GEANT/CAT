@@ -1,4 +1,4 @@
-VERSION = CAT-1.1alpha1
+VERSION = CAT-1.1-alpha1
 VV = $(VERSION)/
 .PHONY: translation
 
@@ -45,5 +45,8 @@ distribution: all
 	mv web/basic.php web/basic_orig.php
 	cat web/basic_orig.php | sed s/'RELEASE = "THERELEASE"'/'RELEASE = "$(VERSION)"'/ > web/basic.php
 	rm web/basic_orig.php
+	mv web/index.php web/index_orig.php
+	cat web/index_orig.php | sed s/'RELEASE = "THERELEASE"'/'RELEASE = "$(VERSION)"'/ > web/index.php
+	rm web/index_orig.php
 	rm -R -f NewFolder nbproject config/config.php devices/devices.php generic-data*
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .
