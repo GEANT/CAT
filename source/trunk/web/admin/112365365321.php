@@ -75,6 +75,11 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 else
                     echo UI_error("PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
 
+                if (function_exists('ImageCreate'))
+                    echo UI_okay("PHP extension <strong>GD</strong> is installed.");
+                else
+                    echo UI_error("PHP extension <strong>GD</strong> not found!");
+                
                 if (function_exists('geoip_record_by_name'))
                     echo UI_okay("PHP extension <strong>GeoIP</strong> is installed.");
                 else
