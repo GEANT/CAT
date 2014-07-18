@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
+"POT-Creation-Date: 2014-07-18 08:31+0200\n"
 "PO-Revision-Date: 2013-02-06 13:02+0000\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/projects/p/cat/"
@@ -473,6 +473,7 @@ msgid "I will restart later"
 msgstr "Reštartovať neskôr."
 
 #: devices/ms/Files/common.inc:787
+#, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
@@ -480,9 +481,9 @@ msgid ""
 "about which the installer can not do anything, there is a workaround.$\\r$"
 "\\nWhen you close this window the installer will exit and an explorer window "
 "will be started (it could appear underneath already opened windows). In this "
-"window you should see a script named inst_eduroam. Start it by double-"
-"clicking, It will install the profiles. You will need to login to eduroam "
-"with your username and password."
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
 msgstr ""
 
 #: devices/ms/Files/common.inc:818 devices/ms/Files/xp/common.inc:358
@@ -581,11 +582,12 @@ msgid "The installer will create network profile:"
 msgstr "Inštalačný program vytvorí nasledovné sieťové profily:"
 
 #: devices/ms/Files/xp/common.inc:261
+#, fuzzy, php-format
 msgid ""
-"You will be able to use eduroam in most institutions however due to Windows "
-"XP limitations and differences in network settings at different "
-"institutions, you may be sometimes required to repeat the connection for the "
-"system to reconfigure."
+"You will be able to use %s in most institutions however due to Windows XP "
+"limitations and differences in network settings at different institutions, "
+"you may be sometimes required to repeat the connection for the system to "
+"reconfigure."
 msgstr ""
 "eduroam môžete využívať vo väčšine organizácií. Vzhľadom k obmedzeniam v "
 "systéme Windows XP sa môže stať, že v niektorých situáciach budete musieť "
@@ -598,7 +600,8 @@ msgid ""
 msgstr ""
 
 #: devices/ms/Files/xp/common.inc:382
-msgid "Do you want to enable eduroam on wired interfaces?"
+#, php-format
+msgid "Do you want to enable %s on wired interfaces?"
 msgstr ""
 
 #: devices/ms/Files/xp/common.inc:541

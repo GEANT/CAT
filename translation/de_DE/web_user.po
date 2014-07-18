@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 16:01+0200\n"
-"PO-Revision-Date: 2014-07-17 16:07+0200\n"
+"POT-Creation-Date: 2014-07-18 10:53+0200\n"
+"PO-Revision-Date: 2014-07-18 10:53+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -395,7 +395,7 @@ msgstr ""
 "bedient werden soll. Statt dessen werden Sie nach einem Klick auf <b>Weiter</"
 "b> auf eine lokale Unterstützungsseite weitergeleitet."
 
-#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:249
+#: web/user/js/cat_js.php:206 web/user/js/cat_js.php:214 web/index.php:250
 msgid "Continue"
 msgstr "Weiter"
 
@@ -540,7 +540,7 @@ msgstr ""
 "nicht unterstützt, oder lässt sich mit den Konfigurationsangaben Ihrer "
 "Heimatorganisation nicht betreiben."
 
-#: web/basic.php:200 web/index.php:297
+#: web/basic.php:200 web/index.php:298
 msgid "Choose an installer to download"
 msgstr "Wählen Sie einen Installer zum Herunterladen"
 
@@ -591,12 +591,12 @@ msgstr "Diese Seite anzeigen in"
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: web/basic.php:447 web/index.php:338 web/tou.php:56
+#: web/basic.php:447 web/index.php:339 web/tou.php:56
 #, php-format
 msgid "Release %s"
 msgstr "Version %s"
 
-#: web/basic.php:449 web/index.php:340 web/tou.php:58
+#: web/basic.php:449 web/index.php:341 web/tou.php:58
 msgid "Unreleased SVN Revision"
 msgstr "Nicht veröffentlichte SVN Version"
 
@@ -673,7 +673,7 @@ msgstr "Willkommen in Welt von eduroam®!"
 #. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
 #: web/index.php:227
 msgid ""
-"Your download will start shortly, in case of problems with automatic "
+"Your download will start shortly, in case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 "Das Herunterladen des Installationsprogramms beginnt in wenigen Sekunden. "
@@ -685,7 +685,7 @@ msgstr ""
 msgid "Dear user from %s,"
 msgstr "Sehr geehrter %s Nutzer,"
 
-#: web/index.php:232
+#: web/index.php:233
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -697,7 +697,7 @@ msgstr ""
 "internetzugang an tausenden Universitäten, Forschungszentren, und anderen "
 "Orten überall auf der Welt nutzen. Und das völlig kostenfrei!"
 
-#: web/index.php:235
+#: web/index.php:236
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -709,7 +709,7 @@ msgstr ""
 "Ihre Zugangsdaten eingeben (also zum Beispiel Ihren Benutzernamen/Passwort "
 "oder Ihr persönliches Nutzerzertifikat) - und schon sind Sie online!"
 
-#: web/index.php:237
+#: web/index.php:238
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -721,11 +721,11 @@ msgstr ""
 "man das Problem diagnostizieren und Ihnen helfen. Wie Sie die lokale "
 "Unterstützung erreichen, können Sie weiter oben nachlesen."
 
-#: web/index.php:241
+#: web/index.php:242
 msgid "Back to downloads"
 msgstr "Zurück zum Herunterladen"
 
-#: web/index.php:245
+#: web/index.php:246
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>\n"
@@ -737,7 +737,7 @@ msgstr ""
 "Wenn Sie auf <b>Weiter</b> drücken, wird diese Seite in einem neuen Fenster "
 "oder Tab geöffnet."
 
-#: web/index.php:291
+#: web/index.php:292
 msgid "All platforms"
 msgstr "Alle Plattformen"
 

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
+"POT-Creation-Date: 2014-07-18 11:09+0200\n"
 "PO-Revision-Date: 2012-11-30 08:32+0100\n"
 "Last-Translator: Maja Górecka-Wolniewicz <mgw@umk.pl>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
@@ -122,7 +122,7 @@ msgstr "stąd"
 msgid "more"
 msgstr "więcej"
 
-#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:486
+#: web/admin/action_realmcheck.php:92 web/admin/action_realmcheck.php:495
 msgid "Show detailed information for all tests"
 msgstr "Pokaż szczegółowe wyniki wszystkich testów"
 
@@ -130,23 +130,23 @@ msgstr "Pokaż szczegółowe wyniki wszystkich testów"
 msgid "Connection refused"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:228
+#: web/admin/action_realmcheck.php:98 web/admin/radius_tests.php:227
 msgid "Server certificate"
 msgstr "Certyfikat serwera"
 
-#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:230
+#: web/admin/action_realmcheck.php:99 web/admin/radius_tests.php:229
 msgid "Subject"
 msgstr "Podmiot"
 
-#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:231
+#: web/admin/action_realmcheck.php:100 web/admin/radius_tests.php:230
 msgid "Issuer"
 msgstr "Wystawca"
 
-#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:233
+#: web/admin/action_realmcheck.php:101 web/admin/radius_tests.php:232
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:237
+#: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:236
 msgid "Certificate policies"
 msgstr "Polityki certyfikacji"
 
@@ -155,7 +155,7 @@ msgstr "Polityki certyfikacji"
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoints"
 
-#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:245
+#: web/admin/action_realmcheck.php:104 web/admin/radius_tests.php:244
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
@@ -163,137 +163,138 @@ msgstr "authorityInfoAccess"
 msgid "Hide detailed information for all tests"
 msgstr "Ukryj detale wszystkich testów"
 
-#: web/admin/action_realmcheck.php:149
-msgid "missing username and/or password"
-msgstr ""
+#: web/admin/action_realmcheck.php:156
+#, fuzzy
+msgid "Some required input is missing!"
+msgstr "Nie ma mojego kraju!"
 
-#: web/admin/action_realmcheck.php:195 web/admin/action_realmcheck.php:261
-#: web/admin/action_realmcheck.php:272
+#: web/admin/action_realmcheck.php:204 web/admin/action_realmcheck.php:270
+#: web/admin/action_realmcheck.php:281
 #, fuzzy, php-format
 msgid "elapsed time: %sms."
 msgstr "czas wykonania: %d"
 
-#: web/admin/action_realmcheck.php:261 web/admin/action_realmcheck.php:269
+#: web/admin/action_realmcheck.php:270 web/admin/action_realmcheck.php:278
 #, php-format
 msgid "Connected to: %s"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:322
+#: web/admin/action_realmcheck.php:331
 #, php-format
 msgid "Realm testing for: %s"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:330 web/admin/action_realmcheck.php:342
+#: web/admin/action_realmcheck.php:339 web/admin/action_realmcheck.php:351
 msgid "DNS checks"
 msgstr "Sprawdzanie wpisów w DNS"
 
-#: web/admin/action_realmcheck.php:331
+#: web/admin/action_realmcheck.php:340
 #, fuzzy
 msgid "Static connectivity tests"
 msgstr "Test połączenia STATYCZNEGO"
 
-#: web/admin/action_realmcheck.php:332
+#: web/admin/action_realmcheck.php:341
 #, fuzzy
 msgid "Dynamic connectivity tests"
 msgstr "Testy łączności DYNAMICZNEJ"
 
-#: web/admin/action_realmcheck.php:333
+#: web/admin/action_realmcheck.php:342
 #, fuzzy
 msgid "Live login tests"
 msgstr "Test poprawnego działania uwierzytelnienia"
 
-#: web/admin/action_realmcheck.php:347
+#: web/admin/action_realmcheck.php:356
 msgid "Checking NAPTR existence:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:350
+#: web/admin/action_realmcheck.php:359
 #, fuzzy
 msgid "This realm has no NAPTR records."
 msgstr "Ten realm ma %d rekordów NAPTR, "
 
-#: web/admin/action_realmcheck.php:353
+#: web/admin/action_realmcheck.php:362
 #, fuzzy, php-format
 msgid "This realm has NAPTR records, but none are associated with %s."
 msgstr "Ten realm ma %d rekordów NAPTR, "
 
-#: web/admin/action_realmcheck.php:356
+#: web/admin/action_realmcheck.php:365
 #, fuzzy, php-format
 msgid "This realm has %d %s NAPTR records."
 msgstr "Ten realm ma %d rekordów NAPTR, "
 
-#: web/admin/action_realmcheck.php:363
+#: web/admin/action_realmcheck.php:372
 #, fuzzy
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
 "Sprawdzenie zgodności formatu NAPTR: pole flag = S i pole regex = (puste) ..."
 
-#: web/admin/action_realmcheck.php:367
+#: web/admin/action_realmcheck.php:376
 msgid "No issues found."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:370 web/admin/action_realmcheck.php:386
+#: web/admin/action_realmcheck.php:379 web/admin/action_realmcheck.php:395
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:380
+#: web/admin/action_realmcheck.php:389
 #, fuzzy
 msgid "Checking SRVs:"
 msgstr "Sprawdzanie realmu %s"
 
-#: web/admin/action_realmcheck.php:383 web/admin/action_realmcheck.php:399
+#: web/admin/action_realmcheck.php:392 web/admin/action_realmcheck.php:408
 #, fuzzy
 msgid "This check was skipped."
 msgstr "Nie skonfigurowano tej opcji."
 
-#: web/admin/action_realmcheck.php:389
+#: web/admin/action_realmcheck.php:398
 #, php-format
 msgid "%d host names discovered."
 msgstr "Znaleziono %d nazw serwerów."
 
-#: web/admin/action_realmcheck.php:396
+#: web/admin/action_realmcheck.php:405
 msgid "Checking IP address resolution:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:402
+#: web/admin/action_realmcheck.php:411
 #, fuzzy, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "<strong>Błąd:</strong> Nazwa serwera %s nie może zostać ustalona!"
 
-#: web/admin/action_realmcheck.php:405
+#: web/admin/action_realmcheck.php:414
 #, fuzzy, php-format
 msgid "%d IP addresses resolved."
 msgstr "Znaleziono %d adresów IP."
 
-#: web/admin/action_realmcheck.php:412 web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:421 web/admin/action_realmcheck.php:424
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Realm jest <strong>%s</strong> "
 
-#: web/admin/action_realmcheck.php:412
+#: web/admin/action_realmcheck.php:421
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr ", nie znaleziono żadnych błędów DNS. Gratulacje!"
 
-#: web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:424
 msgid "but there were DNS errors! Check them!"
 msgstr ", ale wystąpiły błędy DNS! Sprawdź je!"
 
-#: web/admin/action_realmcheck.php:415
+#: web/admin/action_realmcheck.php:424
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:446
+#: web/admin/action_realmcheck.php:455
 #, fuzzy
 msgid "Repeat static connectivity tests"
 msgstr "Test połączenia STATYCZNEGO"
 
-#: web/admin/action_realmcheck.php:449
+#: web/admin/action_realmcheck.php:458
 msgid "STATIC connectivity tests"
 msgstr "Test połączenia STATYCZNEGO"
 
-#: web/admin/action_realmcheck.php:451
+#: web/admin/action_realmcheck.php:460
 #, php-format
 msgid ""
 "This check sends a request for the realm through various entry points of the "
@@ -310,38 +311,38 @@ msgstr ""
 "kontem w Twoim realmie, nie możemy sprawdzić poprawności uwierzytelnienia. "
 "Oczekiwanym wynikiem jest Access-Reject będący wynikiem konwersacji EAP."
 
-#: web/admin/action_realmcheck.php:456 web/admin/action_realmcheck.php:572
+#: web/admin/action_realmcheck.php:465 web/admin/action_realmcheck.php:580
 #, fuzzy, php-format
 msgid "Testing from: %s"
 msgstr "Sprawdzanie realmu %s"
 
-#: web/admin/action_realmcheck.php:461 web/admin/action_realmcheck.php:499
-#: web/admin/action_realmcheck.php:517 web/admin/action_realmcheck.php:577
+#: web/admin/action_realmcheck.php:470 web/admin/action_realmcheck.php:508
+#: web/admin/action_realmcheck.php:526 web/admin/action_realmcheck.php:585
 msgid "testing..."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:477
+#: web/admin/action_realmcheck.php:486
 #, fuzzy
 msgid "Repeat dynamic connectivity tests"
 msgstr "Test połączenia STATYCZNEGO"
 
-#: web/admin/action_realmcheck.php:481
+#: web/admin/action_realmcheck.php:490
 msgid "DYNAMIC connectivity tests"
 msgstr "Testy łączności DYNAMICZNEJ"
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:494
 msgid "Some errors were found during the tests, see below"
 msgstr "W czasie testów wykryto błędy, patrz poniżej "
 
-#: web/admin/action_realmcheck.php:485
+#: web/admin/action_realmcheck.php:494
 msgid "All tests passed, congratulations!"
 msgstr "Wszystkie testy udały się, gratulujemy!"
 
-#: web/admin/action_realmcheck.php:486
+#: web/admin/action_realmcheck.php:495
 msgid "Checking server handshake..."
 msgstr "Sprawdzenie wymiany potwierdzeń..."
 
-#: web/admin/action_realmcheck.php:489 web/admin/action_realmcheck.php:509
+#: web/admin/action_realmcheck.php:498 web/admin/action_realmcheck.php:518
 msgid ""
 "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "
 "this time."
@@ -349,11 +350,11 @@ msgstr ""
 "Z powodu ograniczeń OpenSSL nie jest obecnie możliwe sprawdzenie adresów "
 "IPv6."
 
-#: web/admin/action_realmcheck.php:525
+#: web/admin/action_realmcheck.php:534
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Sprawdzenie, czy certyfikaty od różnych urzędów CA są akceptowane..."
 
-#: web/admin/action_realmcheck.php:525
+#: web/admin/action_realmcheck.php:534
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -361,11 +362,11 @@ msgstr ""
 "Przetestujemy kilka klienckich certyfikatów, by sprawdzić, czy serwery są "
 "odporne na pewne problemy z certyfikatami."
 
-#: web/admin/action_realmcheck.php:539
+#: web/admin/action_realmcheck.php:548
 msgid "Live login test"
 msgstr "Test poprawnego działania uwierzytelnienia"
 
-#: web/admin/action_realmcheck.php:543
+#: web/admin/action_realmcheck.php:552
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -374,7 +375,7 @@ msgstr ""
 "przetestować działanie uwierzytelniania w różnych miejscach testowych na "
 "świecie."
 
-#: web/admin/action_realmcheck.php:544
+#: web/admin/action_realmcheck.php:553
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -387,7 +388,7 @@ msgstr ""
 "podanych danych uwierzytelniania oraz wskazanego typu EAP. Jeśli został "
 "ustalony zewnętrzny identyfikator tożsamości, to test zastosuje go. "
 
-#: web/admin/action_realmcheck.php:545
+#: web/admin/action_realmcheck.php:554
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -399,45 +400,46 @@ msgstr ""
 "wyłącznie <strong>tymczasowych kont testowych</strong>; konta testowe, które "
 "pozostają aktywne stanowią zagrożenie!"
 
-#: web/admin/action_realmcheck.php:551
-msgid "For all EAP types"
-msgstr "Dla wszystkich typów EAP"
-
-#: web/admin/action_realmcheck.php:552
-msgid "Username:"
-msgstr "Nazwa użytkownika:"
-
-#: web/admin/action_realmcheck.php:560
+#: web/admin/action_realmcheck.php:565
 msgid "Password-based EAP types"
 msgstr "Typy EAP korzystające z hasła"
 
-#: web/admin/action_realmcheck.php:561
+#: web/admin/action_realmcheck.php:566
+msgid "Real (inner) username:"
+msgstr ""
+
+#: web/admin/action_realmcheck.php:567
+#, fuzzy
+msgid "Anonymous outer ID (optional):"
+msgstr "Włącz anonimową tożsamość zewnętrzną:"
+
+#: web/admin/action_realmcheck.php:568
 msgid "Password:"
 msgstr "Hasło:"
 
-#: web/admin/action_realmcheck.php:564
+#: web/admin/action_realmcheck.php:572
 msgid "Certificate-based EAP types"
 msgstr "Typy EAP korzystające z certyfikatu"
 
-#: web/admin/action_realmcheck.php:565
+#: web/admin/action_realmcheck.php:573
 #, fuzzy
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Plik certyfikatu urzędu certyfikacji:"
 
-#: web/admin/action_realmcheck.php:566
+#: web/admin/action_realmcheck.php:574
 #, fuzzy
 msgid "Certificate password, if any:"
 msgstr "Polityki certyfikacji"
 
-#: web/admin/action_realmcheck.php:567
-msgid "Login username, if different from Usename above:"
+#: web/admin/action_realmcheck.php:575
+msgid "Username, if different from certificate Subject:"
 msgstr ""
 
-#: web/admin/action_realmcheck.php:568
+#: web/admin/action_realmcheck.php:576
 msgid "Submit credentials"
 msgstr "Prześlij dane uwierzytelniania:"
 
-#: web/admin/action_realmcheck.php:595 web/admin/overview_installers.php:154
+#: web/admin/action_realmcheck.php:603 web/admin/overview_installers.php:154
 msgid "Return to dashboard"
 msgstr "Powrót do głównego panelu"
 
@@ -1486,12 +1488,12 @@ msgstr ""
 "Czy otrzymałeś zaproszenie do zarządzania tą instytucją? Jeżeli tak, to "
 "wklej przesłany token tutaj:"
 
-#: web/admin/radius_tests.php:77
+#: web/admin/radius_tests.php:76
 #, fuzzy
 msgid "<strong>Test succesful.</strong>"
 msgstr "Realm jest <strong>%s</strong> "
 
-#: web/admin/radius_tests.php:80
+#: web/admin/radius_tests.php:79
 #, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
@@ -1501,11 +1503,11 @@ msgstr ""
 "odrzucone, przed rozpoczęciem konwersacji EAP! Serwer nie działa, albo brak "
 "połączenia z serwerem!"
 
-#: web/admin/radius_tests.php:85
+#: web/admin/radius_tests.php:84
 msgid "This method cannot be tested"
 msgstr ""
 
-#: web/admin/radius_tests.php:88
+#: web/admin/radius_tests.php:87
 #, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
@@ -1516,7 +1518,7 @@ msgstr ""
 "odrzucone, przed rozpoczęciem konwersacji EAP! Serwer nie działa, albo brak "
 "połączenia z serwerem!"
 
-#: web/admin/radius_tests.php:90 web/admin/radius_tests.php:147
+#: web/admin/radius_tests.php:89 web/admin/radius_tests.php:146
 #, fuzzy, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1525,7 +1527,7 @@ msgstr ""
 "<strong>Test nie powiódł się</strong>: brak odpowiedzi z serwera RADIUS w "
 "ciągu % sekund. Serwer nie działa, albo brak połączenia z serwerem!"
 
-#: web/admin/radius_tests.php:94 web/admin/radius_tests.php:151
+#: web/admin/radius_tests.php:93 web/admin/radius_tests.php:150
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1534,12 +1536,12 @@ msgstr ""
 "<strong>Test nie powiódł się</strong>: miała miejsce dwustronna konwersacja "
 "RADIUS, ale nie została zakończona w ciągu %d sekund!"
 
-#: web/admin/radius_tests.php:99
+#: web/admin/radius_tests.php:98
 #, fuzzy
 msgid "<strong>Test FAILED</strong>"
 msgstr "Realm jest <strong>%s</strong> "
 
-#: web/admin/radius_tests.php:121
+#: web/admin/radius_tests.php:120
 #, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
@@ -1551,7 +1553,7 @@ msgstr ""
 "między serwerami RADIUS polegającej na wielokrotnym przekazywaniu pakietów "
 "uzyskano, tak jak planowano, Access-Reject."
 
-#: web/admin/radius_tests.php:138
+#: web/admin/radius_tests.php:137
 msgid ""
 "<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
 "multiple round-trips was carried out, and ended in an Access-Reject as "
@@ -1561,7 +1563,7 @@ msgstr ""
 "między serwerami RADIUS polegającej na wielokrotnym przekazywaniu pakietów "
 "uzyskano, tak jak planowano, Access-Reject."
 
-#: web/admin/radius_tests.php:143
+#: web/admin/radius_tests.php:142
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1570,11 +1572,11 @@ msgid ""
 "it is unreachable."
 msgstr ""
 
-#: web/admin/radius_tests.php:155
+#: web/admin/radius_tests.php:154
 msgid "unhandled error"
 msgstr ""
 
-#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:218
+#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:217
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1582,16 +1584,16 @@ msgstr ""
 "<strong>Błąd</strong>: serwer przedstawia się certyfikatem wystawionym przez "
 "nieznany urząd!"
 
-#: web/admin/radius_tests.php:166 web/admin/radius_tests.php:172
+#: web/admin/radius_tests.php:165 web/admin/radius_tests.php:171
 #, php-format
 msgid "elapsed time: %d"
 msgstr "czas wykonania: %d"
 
-#: web/admin/radius_tests.php:223
+#: web/admin/radius_tests.php:222
 msgid "Completed."
 msgstr "Niekompletne"
 
-#: web/admin/radius_tests.php:242
+#: web/admin/radius_tests.php:241
 msgid "crlDistributionPoints"
 msgstr "crlDistributionPoints"
 
@@ -2459,6 +2461,12 @@ msgstr "EAP-Type <strong>%s</strong> "
 msgid "Fine-tuning options for "
 msgstr "Ustalanie opcji dla"
 
+#~ msgid "For all EAP types"
+#~ msgstr "Dla wszystkich typów EAP"
+
+#~ msgid "Username:"
+#~ msgstr "Nazwa użytkownika:"
+
 #~ msgid "eduPKI"
 #~ msgstr "eduPKI"
 
@@ -2912,9 +2920,6 @@ msgstr "Ustalanie opcji dla"
 #~ "krajów na ich kody ISO. Jeśli Twojego kraju nie ma na liście, skontaktuj "
 #~ "się z OT eduroam. Mamy nadzieję, że w przyszłości ten proces będzie "
 #~ "realizowany w sposób automatyczny."
-
-#~ msgid "My country is missing!"
-#~ msgstr "Nie ma mojego kraju!"
 
 #~ msgid "Please select from list..."
 #~ msgstr "Wybierz z listy..."

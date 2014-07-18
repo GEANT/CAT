@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-17 16:01+0200\n"
-"PO-Revision-Date: 2014-07-17 15:29+0200\n"
+"PO-Revision-Date: 2014-07-18 08:56+0200\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -230,55 +230,55 @@ msgstr "Weißrussland"
 
 #: core/Federation.php:123
 msgid "Ecuador"
-msgstr ""
+msgstr "Ecuador"
 
 #: core/Federation.php:124
 msgid "Hong Kong"
-msgstr ""
+msgstr "Hong Kong"
 
 #: core/Federation.php:125
 msgid "Kenya"
-msgstr ""
+msgstr "Kenia"
 
 #: core/Federation.php:126
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kirgisistan"
 
 #: core/Federation.php:127
 msgid "Korea"
-msgstr ""
+msgstr "Südkorea"
 
 #: core/Federation.php:128
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kasachstan"
 
 #: core/Federation.php:129
 msgid "Morocco"
-msgstr ""
+msgstr "Marokko"
 
 #: core/Federation.php:130
 msgid "Moldova"
-msgstr ""
+msgstr "Moldawien"
 
 #: core/Federation.php:131
 msgid "Montenegro"
-msgstr ""
+msgstr "Montenegro"
 
 #: core/Federation.php:132
 msgid "Macau"
-msgstr ""
+msgstr "Macau"
 
 #: core/Federation.php:133
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: core/Federation.php:134
 msgid "Russia"
-msgstr ""
+msgstr "Russland"
 
 #: core/Federation.php:135
 msgid "Singapore"
-msgstr ""
+msgstr "Singapur"
 
 #: core/Federation.php:136
 msgid "Thailand"
@@ -286,11 +286,11 @@ msgstr "Thailand"
 
 #: core/Federation.php:137
 msgid "Taiwan"
-msgstr ""
+msgstr "Taiwan"
 
 #: core/Federation.php:138
 msgid "South Africa"
-msgstr ""
+msgstr "Südafrika"
 
 #: core/Federation.php:338
 msgid "Could not create a new Institution!"
@@ -534,6 +534,8 @@ msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
+"Das Serverzertifikat passt nicht zum CA Wurzelzertifikat im zugehörigen "
+"Profil!"
 
 #: core/RADIUSTests.php:512
 msgid ""
@@ -542,12 +544,23 @@ msgid ""
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
 msgstr ""
+"Die Zertifikatskette die über EAP übertragen wurde war nicht ausreichend, um "
+"das "
+"Serverzertifikat bis zum CA Wurzelzertifikat zu überprüfen. Es konnte "
+"allerdings unter "
+"Hinzunahme der im Profil angegebenen Zwischenzertifizierungsstellen "
+"erfolgreich "
+"überprüft werden. Sie sollten in Erwägung ziehen, die "
+"Zwischenzertifizierungsstellen "
+"während der EAP Konversation mitzuübertragen."
 
 #: core/RADIUSTests.php:518
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
 msgstr ""
+"Der empfangene Servername passt nicht zu den im zugehörigen Profil "
+"angegebenen Namen!"
 
 #: core/RADIUSTests.php:525
 msgid ""
@@ -555,6 +568,11 @@ msgid ""
 "of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
+"Der empfangene Servername passt nur mit einem der beiden: CN oder "
+"subjectAltName:DNS "
+"zu dem im zugehörigen Profil angegebenen Servernamen; empfohlen ist, dass der "
+"Name in "
+"BEIDEN Zertifikatsattributen eingetragen ist."
 
 #: core/RADIUSTests.php:532
 msgid ""
@@ -563,42 +581,50 @@ msgid ""
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
 msgstr ""
+"Mindestens ein Zertifikat enthielt nicht die Zertifikatserweiterung "
+"\"BasicConstraints\"; "
+"dadurch ist unklar, ob es sich bei dem Zertifikat um ein Serverzertifikat "
+"oder eine CA "
+"handelt. Zumindest Mac OS X 10.8 (Mountain Lion) wird dieses Zertifikat für "
+"EAP "
+"nicht akzeptieren!"
 
 #: core/RADIUSTests.php:539
 msgid "The server presented a certificate from an unknown authority."
 msgstr ""
+"Der Server sendete ein Zertifikat von einer unbekannten Zertifizierungsstelle."
 
 #: core/RADIUSTests.php:546
 msgid "The server accepted the INVALID client certificate."
-msgstr ""
+msgstr "Der Server akzeptierte ein UNGÜLTIGES Zertifikat."
 
 #: core/RADIUSTests.php:553
 msgid "The server rejected the client certificate, even though it was valid."
-msgstr ""
+msgstr "Der Server lehnte das angebotene Zertifikat ab, obwohl es gültig war."
 
 #: core/RADIUSTests.php:560
 msgid "The server rejected the client certificate."
-msgstr ""
+msgstr "Der Server lehnte das angebotene Zertifikat ab."
 
 #: core/RADIUSTests.php:1221
 msgid "certificate expired"
-msgstr ""
+msgstr "Zertifikat abgelaufen"
 
 #: core/RADIUSTests.php:1223
 msgid "certificate was revoked"
-msgstr ""
+msgstr "Zertifikat gesperrt"
 
 #: core/RADIUSTests.php:1225
 msgid "bad policy"
-msgstr ""
+msgstr "abweichende Policy"
 
 #: core/RADIUSTests.php:1227
 msgid "unknown authority"
-msgstr ""
+msgstr "unbekannte Zertifizierungsstelle"
 
 #: core/RADIUSTests.php:1230
 msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
+msgstr "Unbekannte Zertifizierungsstelle, keine Policy oder anderes Problem"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
@@ -633,3 +659,4 @@ msgstr ""
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"
 msgstr "IdP in Ihrer Föderation wurde erstellt"
+
