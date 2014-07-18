@@ -1,3 +1,5 @@
+ALTER TABLE `profile` ADD `sufficient_config` tinyint(1) NULL DEFAULT NULL;
+DROP TABLE `eap_method`;
 INSERT INTO `profile_option_dict` VALUES 
 ('media:SSID','additional SSID to configure, WPA2/AES only','string',NULL),
 ('media:SSID_with_legacy','additional SSID to configure, WPA2/AES and WPA/TKIP','string',NULL),
