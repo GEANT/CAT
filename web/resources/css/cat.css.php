@@ -1045,3 +1045,7 @@ td.icon_td {
 td.icon_td img {
    width: 24px;
 }
+
+input.missing_input {
+   background: #ffccff;
+}
