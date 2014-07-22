@@ -78,8 +78,8 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 if (function_exists('ImageCreate'))
                     echo UI_okay("PHP extension <strong>GD</strong> is installed.");
                 else
-                    echo UI_error("PHP extension <strong>GD</strong> not found!");
-                
+                    echo UI_error("PHP extension <strong>GD</strong> not found!</a>.");
+
                 if (function_exists('geoip_record_by_name'))
                     echo UI_okay("PHP extension <strong>GeoIP</strong> is installed.");
                 else
@@ -129,6 +129,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                       $exe= '/tt.exe';
                       $NSIS_Module_status = array();
                       foreach ($NSIS_Modules as $module) {
+                         unset($out);
                          exec("makensis -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
                          if($retval > 0) {
                             $o = preg_grep('/include.*'.$module.'/',$out);
@@ -158,10 +159,17 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 else
                     echo UI_error("'<strong>zip</strong>' not found in your \$PATH!");
 
-                if (exec("which " . Config::$PATHS['eapol_test']) != "")
-                    echo UI_okay("'<strong>eapol_test</strong>' script found.");
+                 unset($out);
+                 exec(Config::$PATHS['eapol_test'], $out, $retval);
+                 if($retval == 255 ) {
+                    $o = preg_grep('/-o<server cert/',$out);
+                    if(count($o) > 0)
+                       echo UI_okay("'<strong>eapol_test</strong>' script found.");
+                    else
+                       echo UI_error("'<strong>eapol_test</strong>' found, but is too old!");
+                }
                 else
-                    echo UI_error("'<strong>eapol_test</strong>' not found in your \$PATH!");
+                    echo UI_error("'<strong>eapol_test</strong>' not found!");
 
                 if (fopen(Config::$PATHS['logdir'] . "/debug.log", "a") == FALSE)
                     echo UI_warning("Log files in <strong>" . Config::$PATHS['logdir'] . "</strong> are not writable!");
