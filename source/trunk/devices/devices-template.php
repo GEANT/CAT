@@ -236,16 +236,7 @@ public static function listDevices() {
        'redirect'=>1,
       ),
    ),
- 'welcomeletter'=>array(
-    'group' => "other",
-    'display'=>_("Welcome Letter"),
-    'directory'=>'welcomeletter',
-    'module'=>'welcomeletter',
-    'options'=>array(
-       'device_id'=>'welcome',
-      ),
-   ),
-    
+/*    
  'test'=>array(
     'group' => "other",
     'display'=>_("Test"),
@@ -313,6 +304,7 @@ public static function listDevices() {
        'mime'=>'application/eap-config',
       ),
    ),
+*/
 );
 }
 }
