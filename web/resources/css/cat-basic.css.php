@@ -1,3 +1,10 @@
+<?php
+include(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+$colour1 = Config::$APPEARANCE['colour1'];
+$colour2 = Config::$APPEARANCE['colour2'];
+header('Content-type: text/css; charset=utf-8');
+?>
+
 body {
    font-size:25px;
    font-size:5vw;
