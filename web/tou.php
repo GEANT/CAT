@@ -27,7 +27,7 @@ debug(4,"\n----------------------------------TOU.PHP------------------------\n")
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo "$Gui->lang_index"?>">
     <head lang="<?php echo "$Gui->lang_index"?>"> 
         <title><?php echo Config::$APPEARANCE['productname_long'];?></title>
-<link media="only screen and (max-device-width: 480px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/') ?>/resources/css/cat-basic.css" type= "text/css" rel="stylesheet" />
+<link media="only screen and (max-device-width: 480px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
 <link media="only screen and (min-device-width: 481px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic-large.css" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
 <script type="text/javascript">

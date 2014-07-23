@@ -21,7 +21,7 @@ select {
    font-size:25px;
    font-size:5vw;
    width: 100%;
-   background:#0a698e;
+   background: <?php echo $colour2;?>;
    color: #ffffff;
 }
 
@@ -48,7 +48,7 @@ button, #devices {
    font-size:25px;
    font-size:5vw;
    width: 100%;
-   background:#0a698e;
+   background: <?php echo $colour2;?>;
    color: #ffffff;
    border-radius:10px ; 
    border-radius:2vw ; 
