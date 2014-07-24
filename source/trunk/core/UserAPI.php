@@ -251,6 +251,25 @@ private function GetRootURL() {
      echo json_encode($return_array);
   }
 
+
+
+/**
+ * Return the list of IdPs in a given country ordered with respect to the user location
+ *
+ * @param int $idp_id the IdP identifier
+ * @return string JSON encoded data
+ */
+
+
+  public function JSON_orderIdentityProviders($country) {
+     $idps = $this->orderIdentityProviders($country);
+     $return_array = array();
+     foreach ($idps as $idp) {
+        $return_array[] = array('id'=>$idp['id'],'display'=>$idp['title']);
+     }
+     echo $this->return_json($return_array);
+  }
+
 /**
  * Produce a list of profiles available for a given IdP
  *
