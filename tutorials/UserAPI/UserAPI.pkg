@@ -20,7 +20,7 @@ data is restricted by Terms of Use. The linkt to ToU is always sent within CAT r
 Please respect the rules.
 </para>
 <para>
-Data access is provided by user/API.php HTTP calls. You may use both GET and POST.
+Data access is provided by HTTP calls to the script <em>user/API.php</em>. You may use both GET and POST.
 The main mandatory argument is <emphasis>action</emphasis> which tells CAT what you require.
 Since most data is language-specific, you should normally specify
 the <emphasis>lang</emphasis> argument as well.
