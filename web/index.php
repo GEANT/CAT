@@ -299,7 +299,7 @@ include("user/js/cat_js.php");
                                 <table id="device_list" style="padding:0px;">
                                     <?php
                                     $Gui->set_locale("devices");
-                                    foreach ($Gui->listDevices() as $group => $G) {
+                                    foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $G) {
                                         $ct = count($G);
                                         $i = 0;
                                         print '<tbody><tr><td class="vendor" rowspan="' . $ct . '"><img src="resources/images/vendorlogo/' . $group . '.png" alt="'.$group.' Device"></td>';

@@ -97,12 +97,14 @@ class UserAPI extends CAT {
  /**
   * interface to Devices::listDevices() 
   */
- public function listDevices() {
+ public function listDevices($show_hidden = 0) {
     $Dev = Devices::listDevices();
     $R = array();
     $ct = 0;
+    if($show_hidden !== 0 && $show_hidden != 1)
+      return;
     foreach ($Dev as $device => $D) {
-      if(isset($D['options']['hidden']) && $D['options']['hidden'])
+      if(isset($D['options']['hidden']) && $D['options']['hidden'] && $show_hidden == 0)
          continue;
       $ct ++;
       $D['id'] = $device;
