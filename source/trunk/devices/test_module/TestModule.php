@@ -82,7 +82,7 @@ class Device_TestModule extends DeviceConfig {
     * @final not to be redefined
     */
     final public function __construct() {
-      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
+      $this->supportedEapMethods  = EAP::listKnownEAPTypes();
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
     }

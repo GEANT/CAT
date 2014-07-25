@@ -73,6 +73,7 @@ Changes in trunk
                 with the names and mails from eduroam DB
 - [FEATURE #33] Smartphone interface has been completely redesigned
 - [FEATURE #34] EAP-TLS support for Mac OS X enabled; remains disabled for iOS
+- [FEATURE #35] Support mode (showing hidden devices) enabled in the GUI
 
 - [STRUCTURE #1] web/user/GUI.php renamed to core/UserAPI.php
 - [STRUCTURE #2] web/user/cat_back.php renamed to web/user/API.php
