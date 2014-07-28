@@ -18,14 +18,6 @@ require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 
-
-/* these are already defined in RADIUSTests.php, which we include
-define("L_OK",0);
-define("L_WARN",1);
-define("L_ERROR",2);
-*/
-
-
 $cat = defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
 $error_message ='';
 $my_inst = valid_IdP($_REQUEST['inst_id'], $_SESSION['user']);

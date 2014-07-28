@@ -121,6 +121,10 @@ define("CERTPROB_NO_CDP_HTTP", -207);
  */
 define("CERTPROB_NO_CRL_AT_CDP_URL", -208);
 /**
+ * certificate is not currently valid (expired/not yet valid)
+ */
+define("CERTPROB_OUTSIDE_VALIDITY_PERIOD", -221);
+/**
  * The received certificate chain did not end in any of the trust roots configured in the profile properties.
  */
 define("CERTPROB_TRUST_ROOT_NOT_REACHED", -209);
@@ -502,6 +506,13 @@ class RADIUSTests {
         $this->return_codes[$code]["severity"] = L_OK;
 
         /**
+         * cert is not yet, or not any more, valid
+         */
+        $code = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
+        $this->return_codes[$code]["message"] = _("At least one certificate is outside its validity period (note yet valid, or already expired)!");
+        $this->return_codes[$code]["severity"] = L_ERROR;
+        
+        /**
          * The received certificate chain did not end in any of the trust roots configured in the profile properties.
          */
         $code = CERTPROB_TRUST_ROOT_NOT_REACHED;
@@ -711,12 +722,17 @@ class RADIUSTests {
         if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
         }
-        // debug(4, "CA CERT IS: " . print_r($intermediate_ca, TRUE));
+        debug(4, "CA CERT IS: " . print_r($intermediate_ca, TRUE));
         if ($intermediate_ca['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
         }
         if ($intermediate_ca['full_details']['public_key_length'] < 1024)
             $returnarray[] = CERTPROB_LOW_KEY_LENGTH;
+        $from = $intermediate_ca['full_details']['validFrom_time_t'];
+        $now = time();
+        $to = $intermediate_ca['full_details']['validTo_time_t'];
+        if ($from > $now || $to < $now)
+            $returnarray[] = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         return $returnarray;
     }
 
@@ -1068,6 +1084,17 @@ network={
 
             // TODO: dump the details in a class variable in case someone cares
         }
+        // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
+        if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD,$testresults['cert_oddities'])) {
+            debug(4, "Deleting trust chain problem report, if present.");
+            if(($key = array_search(CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
+                unset($testresults['cert_oddities'][$key]);
+            }
+            if(($key = array_search(CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES, $testresults['cert_oddities'])) !== false) {
+                unset($testresults['cert_oddities'][$key]);
+            }
+        }
+        
         $this->UDP_reachability_result[$probeindex] = $testresults;
         // if neither an Accept or Reject were generated, there is definitely a problem
         if ($accepts + $rejects == 0) { // no final response. hm.
