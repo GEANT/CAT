@@ -89,7 +89,7 @@ public function processCertificate ($cadata) {
     $md5 = openssl_digest($ca_der,'MD5');
     $sha1 = openssl_digest($ca_der,'SHA1');
     $out = array ("uuid" => uuid(), "pem" => $ca_pem, "der" => $ca_der, "md5"=>$md5, "sha1"=>$sha1, "name"=>$mydetails['name']);
-    $diff_a = array_diff($mydetails['subject'], $mydetails['issuer']);
+    $diff_a = array_diff($mydetails['issuer'], $mydetails['subject']);
     if(count($diff_a) == 0 ) {
      $out['root'] = 1;
      $mydetails['type'] = 'root';
