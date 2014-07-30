@@ -127,7 +127,6 @@ define("CERTPROB_SERVER_CERT_REVOKED", -222);
 /**
  * The received server certificate is revoked.
  */
-
 define("CERTPROB_OUTSIDE_VALIDITY_PERIOD", -221);
 /**
  * The received certificate chain did not end in any of the trust roots configured in the profile properties.
@@ -496,7 +495,7 @@ class RADIUSTests {
         $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
-       /**
+        /**
          * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
          */
         $code = CERTPROB_SERVER_CERT_REVOKED;
@@ -777,7 +776,13 @@ class RADIUSTests {
      * @return int returncode
      */
     public function UDP_reachability($probeindex, $opname_check = TRUE, $frag = TRUE) {
-        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "ihavenopassword", $opname_check, $frag);
+        // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
+        // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
+        $clientcerthandle = fopen(dirname(__FILE__) . "/clientcert.p12", "r");
+        debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
+        $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
+        fclose($clientcerthandle);
+        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", $opname_check, $frag, $clientcert);
     }
 
     private function filter_packettype($inputarray) {
@@ -852,6 +857,19 @@ network={
             $log_config .= '  phase2="auth=' . $eap_text['INNER'] . "\"\n";
             $config .= "  password=\"$password\"\n";
             $log_config .= "  password=\"not logged for security reasons\"\n";
+            if ($eaptype == EAP::$EAP_ANY) { // add a junk client cert
+                if ($clientcertdata !== NULL) {
+                    $clientcertfile = fopen($tmp_dir . "/client.p12", "w");
+                    fwrite($clientcertfile, $clientcertdata);
+                    fclose($clientcertfile);
+                    $config .= "  private_key=\"./client.p12\"\n";
+                    $config .= "  private_key_passwd=\"$password\"\n";
+                    $log_config .= "  private_key_passwd=\"not logged for security reasons\"\n";
+                } else {
+                    $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
+                    return RETVAL_NOT_CONFIGURED;
+                }
+            }
         } else if ($eaptype == EAP::$PWD) { // PWD has a password, but no phase2
             $config .= "  password=\"$password\"\n";
             $log_config .= "  password=\"not logged for security reasons\"\n";
