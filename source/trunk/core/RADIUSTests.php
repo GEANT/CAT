@@ -788,6 +788,23 @@ class RADIUSTests {
         return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", $opname_check, $frag, $clientcert);
     }
 
+    private function redact($string_to_redact, $inputarray) {
+        $temparray = preg_replace("/^.*$string_to_redact.*$/","LINE CONTAINING PASSWORD REDACTED",$inputarray);
+        $hex = bin2hex($string_to_redact);
+        debug(5,$hex[2]);
+        $spaced = "";
+        for ($i = 1; $i <= strlen($hex); $i++) {
+               if ($i % 2 == 1 && $i != strlen($hex)) {
+                   $spaced .= $hex[$i]." ";
+               }
+               else {
+                   $spaced .= $hex[$i];
+               };
+        }
+        debug(5, $hex." HEX ".$spaced);
+        return preg_replace("/$spaced/"," HEX ENCODED PASSWORD REDACTED ",$temparray);
+    }
+    
     private function filter_packettype($inputarray) {
         $retarray = array();
         foreach ($inputarray as $line) {
@@ -930,7 +947,7 @@ network={
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
         $time_stop = microtime(true);
-        debug(5, print_r(preg_replace("/$password/","PASSWORD REDACTED",$packetflow_orig), TRUE));
+        debug(5, print_r($this->redact($password,$packetflow_orig), TRUE));
         $packetflow = $this->filter_packettype($packetflow_orig);
         if ($packetflow[count($packetflow)] = 11 && $this->check_mschap_691_r($packetflow_orig))
             $packetflow[count($packetflow)] = 3;
