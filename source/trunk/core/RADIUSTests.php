@@ -474,21 +474,21 @@ class RADIUSTests {
          * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
          */
         $code = CERTPROB_NO_CDP;
-        $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compatibility problems with Windows Phone 8");
+        $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compatibility problems with Windows Phone 8.");
         $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
          */
         $code = CERTPROB_NO_CDP_HTTP;
-        $this->return_codes[$code]["message"] = _("The server certificate's 'CRL Distribution Point' extension does not point to an HTTP/HTTPS URL. Some Operating Systems (currently only Windows Phone 8) will fail to validate this certificate.");
+        $this->return_codes[$code]["message"] = _("The server certificate's 'CRL Distribution Point' extension does not point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this certificate. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
          */
         $code = CERTPROB_NO_CRL_AT_CDP_URL;
-        $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice.");
+        $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
@@ -511,7 +511,7 @@ class RADIUSTests {
         $code = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         $this->return_codes[$code]["message"] = _("At least one certificate is outside its validity period (not yet valid, or already expired)!");
         $this->return_codes[$code]["severity"] = L_ERROR;
-        
+
         /**
          * The received certificate chain did not end in any of the trust roots configured in the profile properties.
          */
@@ -670,26 +670,13 @@ class RADIUSTests {
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
         $returnarray = array_merge($this->property_check_intermediate($servercert));
-        
+
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
             $returnarray[] = CERTPROB_NO_CDP_HTTP;
         } else {
             if (!isset($servercert['full_details']['extensions']['extendedKeyUsage']) || !preg_match("/TLS Web Server Authentication/", $servercert['full_details']['extensions']['extendedKeyUsage'])) {
                 $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
-            }
-            $crl_url = array();
-            if (!isset($servercert['full_details']['extensions']['crlDistributionPoints'])) {
-                $returnarray[] = CERTPROB_NO_CDP;
-            } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(array("\r", "\n"), ' ', $servercert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
-                $returnarray[] = CERTPROB_NO_CDP_HTTP;
-            } else { // first and second sub-match is the full URL... check it
-                $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
-                if ($crlcontent === FALSE)
-                    $returnarray[] = CERTPROB_NO_CRL_AT_CDP_URL;
-                $crl = openssl_x509_parse($crlcontent);
-                debug(4, "Raw CRL (unable to parse at this stage!): ");
-                debug(4, $crlcontent);
             }
         }
         // check for wildcards
@@ -707,10 +694,26 @@ class RADIUSTests {
 
         // check for real hostname
         foreach ($allnames as $onename) {
-            if (filter_var("foo@".idn_to_ascii($onename),FILTER_VALIDATE_EMAIL) === FALSE)
+            if (filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE)
                 $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
         }
 
+        // CDP
+        $crl_url = array();
+        if (!isset($servercert['full_details']['extensions']['crlDistributionPoints'])) {
+                $returnarray[] = CERTPROB_NO_CDP;
+        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(array("\r", "\n"), ' ', $servercert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
+            $returnarray[] = CERTPROB_NO_CDP_HTTP;
+        } else { // first and second sub-match is the full URL... check it
+            $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
+            if ($crlcontent === FALSE)
+                $returnarray[] = CERTPROB_NO_CRL_AT_CDP_URL;
+            $crl = openssl_x509_parse($crlcontent);
+            debug(4, "Raw CRL (unable to parse at this stage, storing in cert array for chain checks!): ");
+            debug(4, $crlcontent);
+            $servercert['CRL'][] = $crlcontent;
+        }
+        
         return $returnarray;
     }
 
@@ -718,6 +721,7 @@ class RADIUSTests {
      * This function parses a X.509 intermediate CA cert and checks if it finds client device incompatibilities
      * 
      * @param array $intermediate_ca the properties of the certificate as returned by processCertificate()
+     * @param boolean complain_about_cdp_existence: for intermediates, not having a CDP is less of an issue than for servers. Set the REMARK (..._INTERMEDIATE) flag if not complaining; and _SERVER if so
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_intermediate($intermediate_ca) {
@@ -736,6 +740,7 @@ class RADIUSTests {
         $to = $intermediate_ca['full_details']['validTo_time_t'];
         if ($from > $now || $to < $now)
             $returnarray[] = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
+
         return $returnarray;
     }
 
@@ -936,6 +941,7 @@ network={
 
 
         $processed = array(); // eapol_test seems a bit buggy; dumps the same
+        $CRLs = array(); // if one is missing, set to FALSE
         // cert multiple times into the file. We fill this array only once.
         // at the same time, write the root CAs into a trusted root CA dir
         // and intermediate and first server cert into a PEM file
@@ -958,6 +964,10 @@ network={
                     $number_server++;
                     $servercert = $cert;
                     if ($number_server == 1) {
+                        if (isset($cert['CRL']) && isset($cert['CRL'][0]) && $CRLs !== FALSE)
+                            $CRLs[] = $cert['CRL'];
+                        else
+                            $CRLs = FALSE;
                         fwrite($server_and_intermediate_file, $cert_pem);
                     }
                 } else
@@ -1009,14 +1019,25 @@ network={
                 }
             }
             fclose($certbag);
+            // do we have a CRL for the server cert? Add it to the configured trust base.
+            $checkstring = "";
+            if ($CRLs !== FALSE) {
+                debug(4, "got a CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                $checkstring = "-crl_check";
+                foreach ($CRLs as $crlindex => $onecrl) {
+                    $CRL_file = fopen($tmp_dir . "/root-ca/crl$crlindex.r0", "w"); // this is where the root CAs go
+                    fwrite($CRL_file, $onecrl);
+                    fclose($CRL_file);
+                }
+            }
             // now c_rehash the root CA directory ...
             system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca/ > /dev/null");
             // ... and run *two* verification tests: one with only the EAP-received intermediates
             $verify_result_eaponly = Array();
-            exec(Config::$PATHS['openssl'] . " verify -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
+            exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
             // ... and one which includes the configured intermediates
             $verify_result_allcerts = Array();
-            exec(Config::$PATHS['openssl'] . " verify -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
+            exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
             debug(4, "Chain verify pass 1: " . print_r($verify_result_eaponly, TRUE) . "\n");
             debug(4, "Chain verify pass 2: " . print_r($verify_result_allcerts, TRUE) . "\n");
             // rrmdir($tmp_dir);
@@ -1088,16 +1109,16 @@ network={
             // TODO: dump the details in a class variable in case someone cares
         }
         // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
-        if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD,$testresults['cert_oddities'])) {
+        if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
             debug(4, "Deleting trust chain problem report, if present.");
-            if(($key = array_search(CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
+            if (($key = array_search(CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
                 unset($testresults['cert_oddities'][$key]);
             }
-            if(($key = array_search(CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES, $testresults['cert_oddities'])) !== false) {
+            if (($key = array_search(CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES, $testresults['cert_oddities'])) !== false) {
                 unset($testresults['cert_oddities'][$key]);
             }
         }
-        
+
         $this->UDP_reachability_result[$probeindex] = $testresults;
         // if neither an Accept or Reject were generated, there is definitely a problem
         if ($accepts + $rejects == 0) { // no final response. hm.
