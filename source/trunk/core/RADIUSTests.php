@@ -23,9 +23,9 @@ require_once("X509.php");
 require_once("Helper.php");
 
 define("L_OK", 0);
-define("L_WARN", 1);
-define("L_ERROR", 2);
-define("L_REMARK", 3);
+define("L_REMARK", 4);
+define("L_WARN", 32);
+define("L_ERROR", 256);
 
 
 // generic return codes
@@ -433,7 +433,7 @@ class RADIUSTests {
          */
         $code = CERTPROB_ROOT_INCLUDED;
         $this->return_codes[$code]["message"] = _("The certificate chain includes the root CA certificate. This does not serve any useful purpose but inflates the packet exchange, possibly leading to more round-trips and thus slower authentication.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * There was more than one server certificate in the EAP server's chain.
@@ -475,7 +475,7 @@ class RADIUSTests {
          */
         $code = CERTPROB_NO_CDP;
         $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
@@ -541,7 +541,7 @@ class RADIUSTests {
          */
         $code = CERTPROB_NO_BASICCONSTRAINTS;
         $this->return_codes[$code]["message"] = _("At least one certificate did not contain any BasicConstraints extension; which makes it unclear if it's a CA certificate or end-entity certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate for EAP purposes!");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * The server presented a certificate which is from an unknown authority
