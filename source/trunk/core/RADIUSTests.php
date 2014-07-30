@@ -930,7 +930,7 @@ network={
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
         $time_stop = microtime(true);
-        debug(5, print_r($packetflow_orig, TRUE));
+        debug(5, print_r(preg_replace("/$password/","PASSWORD REDACTED",$packetflow_orig), TRUE));
         $packetflow = $this->filter_packettype($packetflow_orig);
         if ($packetflow[count($packetflow)] = 11 && $this->check_mschap_691_r($packetflow_orig))
             $packetflow[count($packetflow)] = 3;
