@@ -1,5 +1,13 @@
-Changes in trunk
-================
+Changes in 1.1-beta1
+====================
+- [FEATURE #1] added two more certificate checks:
+               CERTPROB_OUTSIDE_VALIDITY_PERIOD
+               CERTPROB_SERVER_CERT_REVOKED
+               the latter can only be checked if a valid CDP is in the server
+               certificate; and only for own realms, not others
+
+Changes in 1.1-alpha1
+=====================
 - [BUGFIX #1]  fix one profile tag for W8 TTLS-MSCHAPv2
 - [BUGFIX #2]  certificates did not get installed for W8 TTLS
 - [BUGFIX #3]  temporary directory cleanup did not work
