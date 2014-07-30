@@ -61,9 +61,16 @@ switch ($test_type) {
          }
          $time_millisec = sprintf("%d",$testsuite->UDP_reachability_result[$host]['time_millisec'] );
          $CAs = $testsuite->UDP_reachability_result[$host]['certdata'];
-           foreach ($CAs as $ca ) 
-             if( $ca['type'] == 'server')
-                $server = $ca['subject']['CN'];
+           foreach ($CAs as $ca ) {
+             if( $ca['type'] == 'server') {
+                if (isset($ca['subject']['CN'])) 
+                    $server = $ca['subject']['CN'];
+            else {
+                    preg_match('/dns:(.*)/i',$ca['extensions']['subjectAltName'],$m);
+                    $server = $m[1];
+            }
+             }
+         }
          switch ($testresult) {
            case RETVAL_OK :
               $level = L_OK;
@@ -109,8 +116,10 @@ switch ($test_type) {
          if( $ca['type'] == 'server') {
             if (isset($ca['subject']['CN'])) 
                     $returnarray['server'] = $ca['subject']['CN'];
-            else
-                    $returnarray['server'] = $ca['extensions']['subjectaltname'][0];
+            else {
+                    preg_match('/dns:(.*)/i',$ca['extensions']['subjectAltName'],$m);
+                    $returnarray['server'] = $m[1];
+            }
          }
       switch ($testresult) {
          case RETVAL_CONVERSATION_REJECT:
@@ -123,18 +132,6 @@ switch ($test_type) {
                   $o['code'] = $oddity;
                   $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
                   $o['level'] = $testsuite->return_codes[$oddity]["severity"];
-                  // why is this always REMARK? There is at least one significant error to show, and it transpires as an error for the overall check:
-/*
-                  if ($testsuite->return_codes[$oddity]["severity"] == L_ERROR) {
-                      $o['level'] = L_ERROR;
-                      $returnarray['level'] = L_ERROR;
-                  } else {
-                      $o['level'] = L_REMARK;
-                      $o['level'] = $testsuite->return_codes[$oddity]["severity"];
-                      if($o['level'] > L_OK)
-                        $returnarray['level'] = L_WARN;
-                  }
-*/
                   $returnarray['level'] = max($returnarray['level'],$testsuite->return_codes[$oddity]["severity"]);
                   $returnarray['cert_oddities'][] = $o;
                }
