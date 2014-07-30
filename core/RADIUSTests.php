@@ -418,7 +418,7 @@ class RADIUSTests {
          */
         $code = RETVAL_CONNECTION_REFUSED;
         $this->return_codes[$code]["message"] = _("Connection refused");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
          * not enough data provided to perform an authentication
@@ -440,70 +440,70 @@ class RADIUSTests {
          */
         $code = CERTPROB_TOO_MANY_SERVER_CERTS;
         $this->return_codes[$code]["message"] = _("There is more than one server certificate in the chain.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * There was no server certificate in the EAP server's chain.
          */
         $code = CERTPROB_NO_SERVER_CERT;
         $this->return_codes[$code]["message"] = _("There is no server certificate in the chain.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * A certificate was signed with an MD5 signature.
          */
         $code = CERTPROB_MD5_SIGNATURE;
         $this->return_codes[$code]["message"] = _("At least one certificate in the chain is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * Low public key length (<1024)
          */
         $code = CERTPROB_LOW_KEY_LENGTH;
         $this->return_codes[$code]["message"] = _("At least one certificate in the chain had a public key of less than 1024 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
          */
         $code = CERTPROB_NO_TLS_WEBSERVER_OID;
         $this->return_codes[$code]["message"] = _("The server certificate does not have the extension 'extendedKeyUsage: TLS Web Server Authentication'. Most Microsoft Operating Systems will fail to validate this certificate.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
          */
         $code = CERTPROB_NO_CDP;
         $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8");
-        $this->return_codes[$code]["severity"] = L_WARN;
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
          */
         $code = CERTPROB_NO_CDP_HTTP;
-        $this->return_codes[$code]["message"] = _("The server certificate does not have the extension 'CRL Distribution Point' pointing to an HTTP/HTTPS URL. Some Operating Systems (currently only Windows Phone 8) will fail to validate this certificate.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["message"] = _("The server certificate's 'CRL Distribution Point' extension does not point to an HTTP/HTTPS URL. Some Operating Systems (currently only Windows Phone 8) will fail to validate this certificate.");
+        $this->return_codes[$code]["severity"] = L_WARN;
 
         /**
          * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
          */
         $code = CERTPROB_NO_CRL_AT_CDP_URL;
         $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
          * The server certificate's names contained at least which was not a hostname.
          */
         $code = CERTPROB_NOT_A_HOSTNAME;
         $this->return_codes[$code]["message"] = _("The certificate contained a CN or subjectAltName:DNS which does not parse as a hostname. This can be problematic on some supplicants. If the certificate also contains names which are a proper hostname, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * The server certificate's names contained at least one wildcard name.
          */
         $code = CERTPROB_WILDCARD_IN_NAME;
         $this->return_codes[$code]["message"] = _("The certificate contained a CN or subjectAltName:DNS which contains a wildcard ('*'). This can be problematic on some supplicants. If the certificate also contains names which are wildcardless, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * cert is not yet, or not any more, valid
@@ -521,7 +521,7 @@ class RADIUSTests {
 
         $code = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
         $this->return_codes[$code]["message"] = _("The certificate chain as received in EAP was not sufficient to verify the certificate to the root CA in your profile. It was verified using the intermediate CAs in your profile though. You should consider sending the required intermediate CAs inside the EAP conversation.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_REMARK;
         /**
          * The received server certificate's name did not match the configured name in the profile properties.
          */
@@ -534,7 +534,7 @@ class RADIUSTests {
          */
         $code = CERTPROB_SERVER_NAME_PARTIAL_MATCH;
         $this->return_codes[$code]["message"] = _("The configured EAP server name matches either the CN or a subjectAltName:DNS of the incoming certificate; best current practice is that the certificate should contain the name in BOTH places.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
@@ -548,27 +548,27 @@ class RADIUSTests {
          */
         $code = CERTPROB_UNKNOWN_CA;
         $this->return_codes[$code]["message"] = _("The server presented a certificate from an unknown authority.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
          * The server accepted this client certificate, but should not have
          */
         $code = CERTPROB_WRONGLY_ACCEPT;
         $this->return_codes[$code]["message"] = _("The server accepted the INVALID client certificate.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
          * The server does not accept this client certificate, but should have
          */
         $code = CERTPROB_WRONGLY_NOT_ACCEPTED;
         $this->return_codes[$code]["message"] = _("The server rejected the client certificate, even though it was valid.");
-        $this->return_codes[$code]["severity"] = L_OK;
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
-         * The server does accept this client certificate
+         * The server does not accept this client certificate
          */
         $code = CERTPROB_NOT_ACCEPTED;
-        $this->return_codes[$code]["message"] = _("The server rejected the client certificate.");
+        $this->return_codes[$code]["message"] = _("The server rejected the client certificate as expected.");
         $this->return_codes[$code]["severity"] = L_OK;
 
         CAT::set_locale($oldlocale);
@@ -670,7 +670,7 @@ class RADIUSTests {
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
         $returnarray = array_merge($this->property_check_intermediate($servercert));
-
+        
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
             $returnarray[] = CERTPROB_NO_CDP_HTTP;
@@ -687,6 +687,9 @@ class RADIUSTests {
                 $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
                 if ($crlcontent === FALSE)
                     $returnarray[] = CERTPROB_NO_CRL_AT_CDP_URL;
+                $crl = openssl_x509_parse($crlcontent);
+                debug(4, "Raw CRL (unable to parse at this stage!): ");
+                debug(4, $crlcontent);
             }
         }
         // check for wildcards
