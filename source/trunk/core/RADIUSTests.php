@@ -474,7 +474,7 @@ class RADIUSTests {
          * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
          */
         $code = CERTPROB_NO_CDP;
-        $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8");
+        $this->return_codes[$code]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compatibility problems with Windows Phone 8");
         $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
@@ -509,7 +509,7 @@ class RADIUSTests {
          * cert is not yet, or not any more, valid
          */
         $code = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
-        $this->return_codes[$code]["message"] = _("At least one certificate is outside its validity period (note yet valid, or already expired)!");
+        $this->return_codes[$code]["message"] = _("At least one certificate is outside its validity period (not yet valid, or already expired)!");
         $this->return_codes[$code]["severity"] = L_ERROR;
         
         /**
