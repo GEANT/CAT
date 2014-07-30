@@ -692,7 +692,10 @@ class RADIUSTests {
         }
         // check for wildcards
 
-        $CN = array($servercert['full_details']['subject']['CN']);
+        if (isset($servercert['full_details']['subject']['CN']))
+            $CN = array($servercert['full_details']['subject']['CN']);
+        else
+            $CN = array("");
         $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
         $sAN_DNS = array();
         foreach ($sAN_list as $san_name)
@@ -705,7 +708,7 @@ class RADIUSTests {
 
         // check for real hostname
         foreach ($allnames as $onename) {
-            if (filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE)
+            if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE)
                 $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
         }
 
