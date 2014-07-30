@@ -10,12 +10,6 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("RADIUSTests.php");
 require_once("inc/common.inc.php");
 
-/* these are already defined in RADIUSTests.php, which we include
-define("L_OK",0);
-define("L_REMARK",1);
-define("L_WARN",2);
-define("L_ERROR",3);*/
-
 ini_set('display_errors', '0');
 
 function disp_name($eap) {
@@ -118,19 +112,26 @@ switch ($test_type) {
          case RETVAL_CONVERSATION_REJECT:
             if (isset($testsuite->UDP_reachability_result[$host]['cert_oddities']) && count($testsuite->UDP_reachability_result[$host]['cert_oddities']) > 0) {
                $returnarray['message'] = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned. Some properties of the connection attempt were sub-optimal; the list is below.");
-               $returnarray['level'] = L_WARN;
+               $returnarray['level'] = L_OK;
                $returnarray['cert_oddities'] = array();
                foreach ($testsuite->UDP_reachability_result[$host]['cert_oddities'] as $oddity) {
                   $o = array();
                   $o['code'] = $oddity;
                   $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
+                  $o['level'] = $testsuite->return_codes[$oddity]["severity"];
                   // why is this always REMARK? There is at least one significant error to show, and it transpires as an error for the overall check:
+/*
                   if ($testsuite->return_codes[$oddity]["severity"] == L_ERROR) {
                       $o['level'] = L_ERROR;
                       $returnarray['level'] = L_ERROR;
                   } else {
                       $o['level'] = L_REMARK;
+                      $o['level'] = $testsuite->return_codes[$oddity]["severity"];
+                      if($o['level'] > L_OK)
+                        $returnarray['level'] = L_WARN;
                   }
+*/
+                  $returnarray['level'] = max($returnarray['level'],$testsuite->return_codes[$oddity]["severity"]);
                   $returnarray['cert_oddities'][] = $o;
                }
             } else {
