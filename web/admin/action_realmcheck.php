@@ -54,18 +54,18 @@ $errorstate = array();
 <script type="text/javascript" src="../external/jquery/jquery.js"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
 <script type="text/javascript">
+   var L_OK = <?php echo L_OK ?>;
+   var L_WARN = <?php echo L_WARN ?>;
+   var L_ERROR = <?php echo L_ERROR ?>;
+   var L_REMARK = <?php echo L_REMARK ?>;
    var icons = new Array();
-   icons[0] = '../resources/images/icons/Checkmark-lg-icon.png';
-   icons[1] = '../resources/images/icons/Exclamation-yellow-icon.png';
-   icons[2] = '../resources/images/icons/Exclamation-orange-icon.png';
-   icons[3] = '../resources/images/icons/Star-blue.png';
+   icons[L_OK] = '../resources/images/icons/Checkmark-lg-icon.png';
+   icons[L_WARN] = '../resources/images/icons/Exclamation-yellow-icon.png';
+   icons[L_ERROR] = '../resources/images/icons/Exclamation-orange-icon.png';
+   icons[L_REMARK] = '../resources/images/icons/Star-blue.png';
    var icon_loading ='../resources/images/icons/loading51.gif';
    var tmp_content;
    var lang = '<?php echo $cat->lang_index; ?>'
-   var L_OK = 0;
-   var L_WARN = 1;
-   var L_ERROR = 2;
-   var L_REMARK = 3;
    var states = new Array();
    states['PASS'] = '<?php echo _("pass") ?>';
    states['FAIL'] = '<?php echo _("fail") ?>';
