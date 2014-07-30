@@ -123,6 +123,11 @@ define("CERTPROB_NO_CRL_AT_CDP_URL", -208);
 /**
  * certificate is not currently valid (expired/not yet valid)
  */
+define("CERTPROB_SERVER_CERT_REVOKED", -222);
+/**
+ * The received server certificate is revoked.
+ */
+
 define("CERTPROB_OUTSIDE_VALIDITY_PERIOD", -221);
 /**
  * The received certificate chain did not end in any of the trust roots configured in the profile properties.
@@ -491,6 +496,13 @@ class RADIUSTests {
         $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
+       /**
+         * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
+         */
+        $code = CERTPROB_SERVER_CERT_REVOKED;
+        $this->return_codes[$code]["message"] = _("The server certificate was revoked by the CA!");
+        $this->return_codes[$code]["severity"] = L_ERROR;
+
         /**
          * The server certificate's names contained at least which was not a hostname.
          */
@@ -664,7 +676,7 @@ class RADIUSTests {
      * @param array $servercert the properties of the certificate as returned by processCertificate()
      * @return array of oddities; the array is empty if everything is fine
      */
-    public function property_check_servercert($servercert) {
+    public function property_check_servercert(&$servercert) {
         // debug(4, "SERVER CERT IS: " . print_r($servercert, TRUE));
         $returnarray = Array();
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
@@ -701,7 +713,7 @@ class RADIUSTests {
         // CDP
         $crl_url = array();
         if (!isset($servercert['full_details']['extensions']['crlDistributionPoints'])) {
-                $returnarray[] = CERTPROB_NO_CDP;
+            $returnarray[] = CERTPROB_NO_CDP;
         } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(array("\r", "\n"), ' ', $servercert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
             $returnarray[] = CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
@@ -713,7 +725,7 @@ class RADIUSTests {
             debug(4, $crlcontent);
             $servercert['CRL'][] = $crlcontent;
         }
-        
+
         return $returnarray;
     }
 
@@ -729,7 +741,7 @@ class RADIUSTests {
         if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
         }
-        debug(4, "CA CERT IS: " . print_r($intermediate_ca, TRUE));
+        debug(4, "CERT IS: " . print_r($intermediate_ca, TRUE));
         if ($intermediate_ca['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
         }
@@ -964,10 +976,6 @@ network={
                     $number_server++;
                     $servercert = $cert;
                     if ($number_server == 1) {
-                        if (isset($cert['CRL']) && isset($cert['CRL'][0]) && $CRLs !== FALSE)
-                            $CRLs[] = $cert['CRL'];
-                        else
-                            $CRLs = FALSE;
                         fwrite($server_and_intermediate_file, $cert_pem);
                     }
                 } else
@@ -1019,17 +1027,15 @@ network={
                 }
             }
             fclose($certbag);
-            // do we have a CRL for the server cert? Add it to the configured trust base.
-            $checkstring = "";
-            if ($CRLs !== FALSE) {
+            debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
+            if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
                 debug(4, "got a CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                 $checkstring = "-crl_check";
-                foreach ($CRLs as $crlindex => $onecrl) {
-                    $CRL_file = fopen($tmp_dir . "/root-ca/crl$crlindex.r0", "w"); // this is where the root CAs go
-                    fwrite($CRL_file, $onecrl);
-                    fclose($CRL_file);
-                }
+                $CRL_file = fopen($tmp_dir . "/root-ca/crl$crlindex.pem", "w"); // this is where the root CAs go
+                fwrite($CRL_file, $servercert['CRL'][0]);
+                fclose($CRL_file);
             }
+
             // now c_rehash the root CA directory ...
             system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca/ > /dev/null");
             // ... and run *two* verification tests: one with only the EAP-received intermediates
@@ -1049,9 +1055,17 @@ network={
             // so if pass 2 failed, no way to reach the root!
 
             if (!preg_match("/OK$/", $verify_result_allcerts[0])) {
-                $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+                if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
+                    $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                } else {
+                    $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+                }
             } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) {
-                $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+                if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
+                    $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                } else {
+                    $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+                }
             }
 
             // check the incoming hostname (both Subject:CN and subjectAltName:DNS
