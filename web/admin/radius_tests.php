@@ -106,8 +106,12 @@ switch ($test_type) {
       $returnarray['time_millisec'] = sprintf("%d",$testsuite->UDP_reachability_result[$host]['time_millisec'] );
       $CAs = $testsuite->UDP_reachability_result[$host]['certdata'];
       foreach ($CAs as $ca ) 
-         if( $ca['type'] == 'server')
-            $returnarray['server'] = $ca['subject']['CN'];
+         if( $ca['type'] == 'server') {
+            if (isset($ca['subject']['CN'])) 
+                    $returnarray['server'] = $ca['subject']['CN'];
+            else
+                    $returnarray['server'] = $ca['extensions']['subjectaltname'][0];
+         }
       switch ($testresult) {
          case RETVAL_CONVERSATION_REJECT:
             if (isset($testsuite->UDP_reachability_result[$host]['cert_oddities']) && count($testsuite->UDP_reachability_result[$host]['cert_oddities']) > 0) {
