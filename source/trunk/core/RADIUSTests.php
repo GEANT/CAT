@@ -1113,13 +1113,20 @@ network={
             // WARN if the configured name is only in either CN or sAN:DNS
 
             debug(4, "Evaluating names of server cert; the cert is: \n" . print_r($servercert, TRUE) . "\n");
-            $CN = array($servercert['full_details']['subject']['CN']);
+            if (isset($servercert['full_details']['subject']['CN'])) {
+                $CN = array($servercert['full_details']['subject']['CN']);
+            }
+            else {
+                $CN = array();
+            }
             $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
             $sAN_DNS = array();
             foreach ($sAN_list as $san_name)
                 if (preg_match("/^DNS:/", $san_name))
                     $sAN_DNS[] = substr($san_name, 4);
 
+            $testresults['incoming_server_names'] = array_unique(array_merge($CN,$sAN_DNS));
+                
             $confnames = $my_profile->getAttributes("eap:server_name");
             $expected_names = array();
             foreach ($confnames as $tuple)
