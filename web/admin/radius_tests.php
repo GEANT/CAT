@@ -113,6 +113,7 @@ switch ($test_type) {
         $returnarray['hostindex'] = $hostindex;
         $returnarray['result'] = $testresult;
         $returnarray['time_millisec'] = sprintf("%d", $testsuite->UDP_reachability_result[$host]['time_millisec']);
+        // a failed check may not have gotten any certificate, be prepared for that
         if (isset($testsuite->UDP_reachability_result[$host]['certdata']))
             $CAs = $testsuite->UDP_reachability_result[$host]['certdata'];
         else
@@ -167,32 +168,36 @@ switch ($test_type) {
         $testresult = $testsuite->CApath_check($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
-        $returnarray['time_millisec'] = sprintf("%d", $testsuite->TLS_CA_checks_result[$host]['time_millisec']);
-        if (isset($testsuite->TLS_CA_checks_result[$host]['cert_oddity']) && ($testsuite->TLS_CA_checks_result[$host]['cert_oddity'] == CERTPROB_UNKNOWN_CA)) {
-            $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-            $returnarray['level'] = L_ERROR;
-        } else {
-            $returnarray['message'] = $testsuite->return_codes[$testsuite->TLS_CA_checks_result[$host]['status']]["message"];
-            $returnarray['level'] = L_OK;
-            if ($testsuite->TLS_CA_checks_result[$host]['status'] != RETVAL_CONNECTION_REFUSED)
-                $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-            else
+        // the host member of the array may not be set if RETVAL_SKIPPED was
+        // returned (e.g. IPv6 host), be prepared for that
+        if (isset($testsuite->TLS_CA_checks_result[$host])) {
+            $returnarray['time_millisec'] = sprintf("%d", $testsuite->TLS_CA_checks_result[$host]['time_millisec']);
+            if (isset($testsuite->TLS_CA_checks_result[$host]['cert_oddity']) && ($testsuite->TLS_CA_checks_result[$host]['cert_oddity'] == CERTPROB_UNKNOWN_CA)) {
+                $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = L_ERROR;
-            if ($testsuite->TLS_CA_checks_result[$host]['status'] == RETVAL_OK) {
-                $returnarray['certdata'] = array();
-                $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
-                $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];
-                $returnarray['certdata']['extensions'] = array();
-                if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname']))
-                    $returnarray['certdata']['extensions']['subjectaltname'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
-                if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']))
-                    $returnarray['certdata']['extensions']['policies'] = join(' ', $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
-                if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint']))
-                    $returnarray['certdata']['extensions']['crldistributionpoints'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
-                if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess']))
-                    $returnarray['certdata']['extensions']['authorityinfoaccess'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
+            } else {
+                $returnarray['message'] = $testsuite->return_codes[$testsuite->TLS_CA_checks_result[$host]['status']]["message"];
+                $returnarray['level'] = L_OK;
+                if ($testsuite->TLS_CA_checks_result[$host]['status'] != RETVAL_CONNECTION_REFUSED)
+                    $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+                else
+                    $returnarray['level'] = L_ERROR;
+                if ($testsuite->TLS_CA_checks_result[$host]['status'] == RETVAL_OK) {
+                    $returnarray['certdata'] = array();
+                    $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
+                    $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];
+                    $returnarray['certdata']['extensions'] = array();
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname']))
+                        $returnarray['certdata']['extensions']['subjectaltname'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']))
+                        $returnarray['certdata']['extensions']['policies'] = join(' ', $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint']))
+                        $returnarray['certdata']['extensions']['crldistributionpoints'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess']))
+                        $returnarray['certdata']['extensions']['authorityinfoaccess'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
+                }
+                $returnarray['cert_oddities'] = array();
             }
-            $returnarray['cert_oddities'] = array();
         }
         $returnarray['result'] = $testresult;
         break;
@@ -201,12 +206,15 @@ switch ($test_type) {
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         $k = 0;
-        foreach ($testsuite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
-            foreach ($cli as $key => $val) {
-                $returnarray['ca'][$k][$key] = $val;
+        // the host member of the array may not exist if RETVAL_SKIPPED came out
+        // (e.g. no client cert to test with). Be prepared for that
+        if (isset($testsuite->TLS_clients_checks_result[$host]))
+            foreach ($testsuite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
+                foreach ($cli as $key => $val) {
+                    $returnarray['ca'][$k][$key] = $val;
+                }
+                $k++;
             }
-            $k++;
-        }
         $returnarray['result'] = $testresult;
         break;
     case 'tls':
