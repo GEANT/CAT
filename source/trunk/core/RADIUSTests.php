@@ -696,7 +696,11 @@ class RADIUSTests {
             $CN = array($servercert['full_details']['subject']['CN']);
         else
             $CN = array("");
-        $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+        if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName']))
+            $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+        else
+            $sAN_list = array();
+
         $sAN_DNS = array();
         foreach ($sAN_list as $san_name)
             if (preg_match("/^DNS:/", $san_name))
@@ -789,22 +793,21 @@ class RADIUSTests {
     }
 
     private function redact($string_to_redact, $inputarray) {
-        $temparray = preg_replace("/^.*$string_to_redact.*$/","LINE CONTAINING PASSWORD REDACTED",$inputarray);
+        $temparray = preg_replace("/^.*$string_to_redact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($string_to_redact);
-        debug(5,$hex[2]);
+        debug(5, $hex[2]);
         $spaced = "";
-        for ($i = 1; $i <= strlen($hex); $i++) {
-               if ($i % 2 == 1 && $i != strlen($hex)) {
-                   $spaced .= $hex[$i]." ";
-               }
-               else {
-                   $spaced .= $hex[$i];
-               };
+        for ($i = 1; $i < strlen($hex); $i++) {
+            if ($i % 2 == 1 && $i != strlen($hex)) {
+                $spaced .= $hex[$i] . " ";
+            } else {
+                $spaced .= $hex[$i];
+            };
         }
-        debug(5, $hex." HEX ".$spaced);
-        return preg_replace("/$spaced/"," HEX ENCODED PASSWORD REDACTED ",$temparray);
+        debug(5, $hex . " HEX " . $spaced);
+        return preg_replace("/$spaced/", " HEX ENCODED PASSWORD REDACTED ", $temparray);
     }
-    
+
     private function filter_packettype($inputarray) {
         $retarray = array();
         foreach ($inputarray as $line) {
@@ -947,11 +950,11 @@ network={
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
         $time_stop = microtime(true);
-        debug(5, print_r($this->redact($password,$packetflow_orig), TRUE));
+        debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
         $packetflow = $this->filter_packettype($packetflow_orig);
-        if ($packetflow[count($packetflow)] = 11 && $this->check_mschap_691_r($packetflow_orig))
-            $packetflow[count($packetflow)] = 3;
-        debug(5, print_r($packetflow, TRUE));
+        if ($packetflow[count($packetflow) - 1] == 11 && $this->check_mschap_691_r($packetflow_orig))
+            $packetflow[count($packetflow) - 1] = 3;
+        debug(5, "Packetflow: " . print_r($packetflow, TRUE));
         $testresults['time_millisec'] = ($time_stop - $time_start) * 1000;
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
@@ -1049,7 +1052,7 @@ network={
             $ca_store = $my_profile->getAttributes("eap:ca_file");
             // make a copy of the EAP-received chain and add the configured intermediates, if any
             copy($tmp_dir . "/incomingchain.pem", $tmp_dir . "/allnonrootcerts.pem");
-            $certbag = fopen($tmp_dir . "/allnonrootcerts.pem", a);
+            $certbag = fopen($tmp_dir . "/allnonrootcerts.pem", "a");
             foreach ($ca_store as $one_ca) {
                 $x509 = new X509();
                 $decoded = $x509->processCertificate($one_ca['value']);
@@ -1065,7 +1068,9 @@ network={
                 }
             }
             fclose($certbag);
-            debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
+            if ($number_server > 0)
+                debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
+            $checkstring = "";
             if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
                 debug(4, "got a CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                 $checkstring = "-crl_check";
@@ -1078,33 +1083,41 @@ network={
             system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca/ > /dev/null");
             // ... and run *two* verification tests: one with only the EAP-received intermediates
             $verify_result_eaponly = Array();
-            exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
+            // the error log will complain if we run this test against an empty file of certs
+            // so test if there's something PEMy in the file at all
+            if (filesize("$tmp_dir/incomingchain.pem") > 10)
+                exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
             // ... and one which includes the configured intermediates
             $verify_result_allcerts = Array();
-            exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
+            if (filesize("$tmp_dir/allnonrootcerts.pem") > 10)
+                exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
             debug(4, "Chain verify pass 1: " . print_r($verify_result_eaponly, TRUE) . "\n");
             debug(4, "Chain verify pass 2: " . print_r($verify_result_allcerts, TRUE) . "\n");
-            // rrmdir($tmp_dir);
+
             // for both passes, openssl should havd returned exactly one line of
             // output, and it should have ended with the string "OK", everything
             //  else is fishy
             // the test with "allnonrootcerts" (pass 2) has a higher likelihood
             // of success, it has at least the certs of pass 1, and possibly more
             // so if pass 2 failed, no way to reach the root!
+            // The result can also be an empty array - this means there were no
+            // certificates to check. Don't complain about chain validation errors
+            // in that case.
 
-            if (!preg_match("/OK$/", $verify_result_allcerts[0])) {
-                if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
-                    $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
-                } else {
-                    $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+            if (count($verify_result_allcerts) > 0)
+                if (!preg_match("/OK$/", $verify_result_allcerts[0])) {
+                    if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
+                        $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                    } else {
+                        $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+                    }
+                } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) {
+                    if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
+                        $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                    } else {
+                        $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+                    }
                 }
-            } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) {
-                if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
-                    $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
-                } else {
-                    $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
-                }
-            }
 
             // check the incoming hostname (both Subject:CN and subjectAltName:DNS
             // against what is configured in the profile; it's a significant error
@@ -1112,21 +1125,26 @@ network={
             // FAIL if none of the configured names show up in the server cert
             // WARN if the configured name is only in either CN or sAN:DNS
 
-            debug(4, "Evaluating names of server cert; the cert is: \n" . print_r($servercert, TRUE) . "\n");
+            if ($number_server > 0)
+                debug(4, "Evaluating names of server cert; the cert is: \n" . print_r($servercert, TRUE) . "\n");
             if (isset($servercert['full_details']['subject']['CN'])) {
                 $CN = array($servercert['full_details']['subject']['CN']);
-            }
-            else {
+            } else {
                 $CN = array();
             }
-            $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+
+            if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName']))
+                $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+            else
+                $sAN_list = array();
+
             $sAN_DNS = array();
             foreach ($sAN_list as $san_name)
                 if (preg_match("/^DNS:/", $san_name))
                     $sAN_DNS[] = substr($san_name, 4);
 
-            $testresults['incoming_server_names'] = array_unique(array_merge($CN,$sAN_DNS));
-                
+            $testresults['incoming_server_names'] = array_unique(array_merge($CN, $sAN_DNS));
+
             $confnames = $my_profile->getAttributes("eap:server_name");
             $expected_names = array();
             foreach ($confnames as $tuple)
@@ -1141,7 +1159,6 @@ network={
             $happiness = "UNHAPPY";
             foreach ($expected_names as $expected_name) {
                 debug(4, "Managing expectations for $expected_name: " . print_r($CN, TRUE) . print_r($sAN_DNS, TRUE));
-                debug(4, "*" . $sAN_DNS[0] . "* *" . $sAN_DNS[1] . "*");
                 if (array_search($expected_name, $CN) !== FALSE && array_search($expected_name, $sAN_DNS) !== FALSE) {
                     debug(4, "Totally happy!");
                     $happiness = "TOTALLY";

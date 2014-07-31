@@ -142,6 +142,11 @@ public function processCertificate ($cadata) {
 
 public function splitCertificate($cadata) {
   $returnarray = array();
+  // maybe we got no real cert data at all? The code is hardened, but will
+  // produce ugly WARNING level output in the logfiles, so let's avoid at least
+  // the trivial case: if the file is empty, there's no cert in it
+  if ($cadata == "")
+      return $returnarray;
   $start_c = strpos($cadata,"-----BEGIN CERTIFICATE-----" );
   if( $start_c !== FALSE) {
         $cadata = substr($cadata,$start_c);
@@ -155,6 +160,8 @@ public function splitCertificate($cadata) {
         }
         $returnarray[] = substr($cadata,0,$end_c);
     } else {
+        // TODO: before we blindly hand it over to der2pem - is this valid DER
+        // data at all?
       $returnarray[] = X509::der2pem($cadata);
     }
     // print_r($returnarray);
