@@ -136,7 +136,7 @@ class EAP {
         $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_MSCHAP2)] = array("OUTER" => 'TTLS', "INNER" => 'MSCHAPV2');
         $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_GTC)] = array("OUTER" => 'TTLS', "INNER" => 'GTC');
         $EAP_DISPLAY_NAME[serialize(EAP::$FAST_GTC)] = array("OUTER" => 'FAST', "INNER" => 'GTC');
-        $EAP_DISPLAY_NAME[serialize(EAP::$PWD)] = array("OUTER" => 'EAP-pwd', "INNER" => '');
+        $EAP_DISPLAY_NAME[serialize(EAP::$PWD)] = array("OUTER" => 'PWD', "INNER" => '');
         $EAP_DISPLAY_NAME[serialize(EAP::$EAP_NONE)] = array("OUTER" => '', "INNER" => '');
         $EAP_DISPLAY_NAME[serialize(EAP::$EAP_ANY)] = array("OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC');
         return($EAP_DISPLAY_NAME[serialize($eap)]);
