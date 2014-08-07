@@ -1036,7 +1036,7 @@ network={
             $testresults['cert_oddities'][] = CERTPROB_ROOT_INCLUDED;
         if ($number_server > 1)
             $testresults['cert_oddities'][] = CERTPROB_TOO_MANY_SERVER_CERTS;
-        if ($number_server == 0)
+        if ($number_server == 0 && $eaptype != EAP::$PWD)
             $testresults['cert_oddities'][] = CERTPROB_NO_SERVER_CERT;
         // check server cert properties
         if ($number_server > 0)
