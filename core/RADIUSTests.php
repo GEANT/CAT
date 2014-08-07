@@ -969,7 +969,30 @@ network={
         else
             $testresults['packetflow_sane'] = TRUE;
 
+        // calculate the main return values that this test yielded
+        
+        $finalretval = RETVAL_INVALID;
+        if ($accepts + $rejects == 0) { // no final response. hm.
+            if ($challenges > 0) { // but there was an Access-Challenge
+                $finalretval = RETVAL_SERVER_UNFINISHED_COMM;
+            } else {
+                $finalretval = RETVAL_NO_RESPONSE;
+            }
+        } else // either an accept or a reject
+        // rejection without EAP is fishy
+        if ($rejects > 0) {
+            if ($challenges == 0) {
+                $finalretval = RETVAL_IMMEDIATE_REJECT; 
+            } else { // i.e. if rejected with challenges
+                $finalretval = RETVAL_CONVERSATION_REJECT;
+            }
+        } else if ($accepts > 0) {
+            $finalretval = RETVAL_OK;
+        }
+        
         // now let's look at the server cert+chain
+        // if we got a cert at all
+        
         // ALWAYS check: 
         // 1) it is unnecessary to include the root CA itself (adding it has
         //    detrimental effects on performance)
@@ -1196,29 +1219,9 @@ network={
         }
 
         $this->UDP_reachability_result[$probeindex] = $testresults;
-        // if neither an Accept or Reject were generated, there is definitely a problem
-        if ($accepts + $rejects == 0) { // no final response. hm.
-            if ($challenges > 0) { // but there was an Access-Challenge
-                $this->UDP_reachability_executed = RETVAL_SERVER_UNFINISHED_COMM;
-                return RETVAL_SERVER_UNFINISHED_COMM;
-            } else {
-                $this->UDP_reachability_executed = RETVAL_NO_RESPONSE;
-                return RETVAL_NO_RESPONSE;
-            }
-        } else // either an accept or a reject
-        // rejection without EAP is fishy
-        if ($rejects > 0) {
-            if ($challenges == 0) {
-                $this->UDP_reachability_executed = RETVAL_IMMEDIATE_REJECT;
-                return RETVAL_IMMEDIATE_REJECT;
-            } else { // i.e. if rejected with challenges
-                $this->UDP_reachability_executed = RETVAL_CONVERSATION_REJECT;
-                return RETVAL_CONVERSATION_REJECT;
-            }
-        } else if ($accepts > 0) {
-            $this->UDP_reachability_executed = RETVAL_OK;
-            return RETVAL_OK;
-        }
+        $this->UDP_reachability_executed = $finalretval;
+        return $finalretval;
+        
     }
 
     /**
