@@ -58,7 +58,7 @@ function display_name($input) {
         _("TTLS-MSCHAPv2") => EAP::$TTLS_MSCHAP2,
         _("TTLS-GTC") => EAP::$TTLS_GTC,
         _("FAST-GTC") => EAP::$FAST_GTC,
-        _("PWD") => EAP::$PWD,
+        _("EAP-pwd") => EAP::$PWD,
         _("Remove/Disable SSID") => "media:remove_SSID",
     );
 
