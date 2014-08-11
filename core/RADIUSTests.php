@@ -1043,7 +1043,7 @@ network={
                         $number_server++;
                         $servercert = $cert;
                         if ($number_server == 1) {
-                            fwrite($server_and_intermediate_file, $cert_pem."\n");
+                            fwrite($server_and_intermediate_file, $cert_pem);
                         }
                     } else
                     if ($cert['root'] == 1) {
@@ -1053,7 +1053,7 @@ network={
                         // IdP/profile, not against an EAP-discovered CA
                     } else {
                         $intermediate_cas[] = $cert;
-                        fwrite($server_and_intermediate_file, $cert_pem."\n");
+                        fwrite($server_and_intermediate_file, $cert_pem);
                     }
                     $testresults['certdata'][] = $cert['full_details'];
                 }
@@ -1111,12 +1111,16 @@ network={
                 $verify_result_eaponly = Array();
                 // the error log will complain if we run this test against an empty file of certs
                 // so test if there's something PEMy in the file at all
-                if (filesize("$tmp_dir/incomingchain.pem") > 10)
+                if (filesize("$tmp_dir/incomingchain.pem") > 10) {
                     exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
+                    debug(4,Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem\n");
+                }
                 // ... and one which includes the configured intermediates
                 $verify_result_allcerts = Array();
-                if (filesize("$tmp_dir/allnonrootcerts.pem") > 10)
+                if (filesize("$tmp_dir/allnonrootcerts.pem") > 10) {
                     exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
+                    debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem\n");
+                }
                 debug(4, "Chain verify pass 1: " . print_r($verify_result_eaponly, TRUE) . "\n");
                 debug(4, "Chain verify pass 2: " . print_r($verify_result_allcerts, TRUE) . "\n");
 
