@@ -110,6 +110,7 @@ public function processCertificate ($cadata) {
      $mydetails['type'] = 'interm_ca';
     if( $out['ca'] == 0 && $out['root'] == 0 )
      $mydetails['type'] = 'server';
+    $mydetails['sha1'] = $sha1;
     $out['full_details'] = $mydetails;
     
     // we are also interested in the signature algorithm and length of public key,
