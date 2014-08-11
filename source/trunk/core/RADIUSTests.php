@@ -173,6 +173,11 @@ define("CERTPROB_WRONGLY_NOT_ACCEPTED", -214);
  * The server does accept this client certificate
  */
 define("CERTPROB_NOT_ACCEPTED", -215);
+/**
+  * the CRL of a certificate could not be found
+  */
+define("CERTPROB_UNABLE_TO_GET_CRL",223);
+
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
@@ -582,6 +587,14 @@ class RADIUSTests {
         $code = CERTPROB_NOT_ACCEPTED;
         $this->return_codes[$code]["message"] = _("The server rejected the client certificate as expected.");
         $this->return_codes[$code]["severity"] = L_OK;
+
+        /**
+         * the CRL of a certificate could not be found
+         */
+        $code = CERTPROB_UNABLE_TO_GET_CRL;
+        $this->return_codes[$code]["message"] = _("The CRL of a certificate could not be found.");
+        $this->return_codes[$code]["severity"] = L_ERROR;
+
 
         CAT::set_locale($oldlocale);
     }
@@ -1043,7 +1056,7 @@ network={
                         $number_server++;
                         $servercert = $cert;
                         if ($number_server == 1) {
-                            fwrite($server_and_intermediate_file, $cert_pem);
+                            fwrite($server_and_intermediate_file, $cert_pem."\n");
                         }
                     } else
                     if ($cert['root'] == 1) {
@@ -1053,7 +1066,7 @@ network={
                         // IdP/profile, not against an EAP-discovered CA
                     } else {
                         $intermediate_cas[] = $cert;
-                        fwrite($server_and_intermediate_file, $cert_pem);
+                        fwrite($server_and_intermediate_file, $cert_pem."\n");
                     }
                     $testresults['certdata'][] = $cert['full_details'];
                 }
@@ -1099,7 +1112,7 @@ network={
                 $checkstring = "";
                 if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
                     debug(4, "got a CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                    $checkstring = "-crl_check";
+//                    $checkstring = "-crl_check";
                     $CRL_file = fopen($tmp_dir . "/root-ca/crl$crlindex.pem", "w"); // this is where the root CAs go
                     fwrite($CRL_file, $servercert['CRL'][0]);
                     fclose($CRL_file);
@@ -1138,14 +1151,18 @@ network={
                     if (!preg_match("/OK$/", $verify_result_allcerts[0])) {
                         if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
                             $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                        } elseif(preg_match("/unable to get certificate CRL/", $verify_result_allcerts[1])) {
+                            $testresults['cert_oddities'][] = CERTPROB_UNABLE_TO_GET_CRL;
                         } else {
                             $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
                         }
                     } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) {
                         if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
                             $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                        } elseif(preg_match("/unable to get certificate CRL/", $verify_result_allcerts[1])) {
+                            $testresults['cert_oddities'][] = CERTPROB_UNABLE_TO_GET_CRL;
                         } else {
-                            $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+                            $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
                         }
                     }
 
