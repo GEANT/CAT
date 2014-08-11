@@ -38,6 +38,7 @@ define("RETVAL_OK", 0);
  * Test could not be run because CAT software isn't configured for it
  */
 define("RETVAL_NOTCONFIGURED", -100);
+define("RETVAL_NOT_CONFIGURED", -100);
 /**
  * Test skipped because there was nothing to be done
  */
@@ -1042,7 +1043,7 @@ network={
                         $number_server++;
                         $servercert = $cert;
                         if ($number_server == 1) {
-                            fwrite($server_and_intermediate_file, $cert_pem);
+                            fwrite($server_and_intermediate_file, $cert_pem."\n");
                         }
                     } else
                     if ($cert['root'] == 1) {
@@ -1052,7 +1053,7 @@ network={
                         // IdP/profile, not against an EAP-discovered CA
                     } else {
                         $intermediate_cas[] = $cert;
-                        fwrite($server_and_intermediate_file, $cert_pem);
+                        fwrite($server_and_intermediate_file, $cert_pem."\n");
                     }
                     $testresults['certdata'][] = $cert['full_details'];
                 }
