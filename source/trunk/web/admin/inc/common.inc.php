@@ -99,6 +99,43 @@ function tooltip($input) {
 
 }
 
+function UI_message($level,$text = 0, $caption = 0, $omittabletags = FALSE) {
+
+    $UI_messages = array (
+         L_OK =>       array('icon'=>'../resources/images/icons/Quetto/check-icon.png','text'=>_("OK")),
+         L_REMARK  =>  array('icon'=>'../resources/images/icons/Quetto/info-icon.png','text'=>_("Remark")),
+         L_WARN =>     array('icon'=>'../resources/images/icons/Quetto/danger-icon.png','text'=>_("Warning!")),
+         L_ERROR =>    array('icon'=>'../resources/images/icons/Quetto/no-icon.png','text'=>_("Error!")),
+    );
+
+    $retval = "";
+    if (!$omittabletags)
+        $retval .= "<tr><td>";
+    $retval .= "<img class='icon' src='".$UI_messages[$level]['icon']."' alt='" . ($caption !== 0 ? $caption : $UI_messages[$level]['text'] . "' title='" . ($caption !== 0 ? $caption : $UI_messages[$level]['text'])) . "'/>";
+    if (!$omittabletags)
+        $retval .= "</td><td>";
+    if ($text !== 0) $retval .= $text;
+    if (!$omittabletags)
+        $retval .= "</td></tr>";
+    return $retval;
+}
+
+function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
+    return UI_message(L_OK,$text,$caption,$omittabletags);
+}
+function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
+    return UI_message(L_REMARK,$text,$caption,$omittabletags);
+}
+function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
+    return UI_message(L_WARN,$text,$caption,$omittabletags);
+}
+function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
+    return UI_message(L_ERROR,$text,$caption,$omittabletags);
+}
+
+
+
+/*
 function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
     $retval = "";
     if (!$omittabletags)
@@ -150,7 +187,7 @@ function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
         $retval .= "</td></tr>";
     return $retval;
 }
-
+*/
 function check_upload_sanity($optiontype, $filename) {
 //echo "check_upload_sanity:$optiontype:$filename<br>\n";
 // we check logo_file with ImageMagick
