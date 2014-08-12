@@ -22,11 +22,6 @@ require_once("EAP.php");
 require_once("X509.php");
 require_once("Helper.php");
 
-define("L_OK", 0);
-define("L_REMARK", 4);
-define("L_WARN", 32);
-define("L_ERROR", 256);
-
 
 // generic return codes
 
