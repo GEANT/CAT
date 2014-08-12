@@ -19,6 +19,12 @@
  */
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 
+define("L_OK", 0);
+define("L_REMARK", 4);
+define("L_WARN", 32);
+define("L_ERROR", 256);
+
+
 function error($t) {
     print ("$t\n");
 }
