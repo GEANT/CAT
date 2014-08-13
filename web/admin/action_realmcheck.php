@@ -48,7 +48,7 @@ $translate = _("STATIC");
 $translate = _("DYNAMIC");
 $errorstate = array();
 ?>
-<link rel="stylesheet" type="text/css" href="../external/jquery/css/redmond/jquery-ui-1.10.3.custom.css" />
+<link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
 
 <!-- JQuery -->
 <script type="text/javascript" src="../external/jquery/jquery.js"></script>
@@ -59,16 +59,22 @@ $errorstate = array();
    var L_ERROR = <?php echo L_ERROR ?>;
    var L_REMARK = <?php echo L_REMARK ?>;
    var icons = new Array();
+/*
    icons[L_OK] = '../resources/images/icons/Checkmark-lg-icon.png';
    icons[L_WARN] = '../resources/images/icons/Exclamation-yellow-icon.png';
    icons[L_ERROR] = '../resources/images/icons/Exclamation-orange-icon.png';
    icons[L_REMARK] = '../resources/images/icons/Star-blue.png';
+*/
+   icons[L_OK] = '../resources/images/icons/Quetto/check-icon.png';
+   icons[L_WARN] = '../resources/images/icons/Quetto/danger-icon.png';
+   icons[L_ERROR] = '../resources/images/icons/Quetto/no-icon.png';
+   icons[L_REMARK] = '../resources/images/icons/Quetto/info-icon.png';
    var icon_loading ='../resources/images/icons/loading51.gif';
    var tmp_content;
    var lang = '<?php echo $cat->lang_index; ?>'
    var states = new Array();
-   states['PASS'] = '<?php echo _("pass") ?>';
-   states['FAIL'] = '<?php echo _("fail") ?>';
+   states['PASS'] = '<?php echo _("PASS") ?>';
+   states['FAIL'] = '<?php echo _("FAIL") ?>';
    var clientcert = '<?php echo _("Client certificate:") ?>';
    var expectedres = '<?php echo _("expected result: ") ?>';
    var accepted = '<?php echo _("Server accepted this client certificate") ?>';
@@ -97,13 +103,16 @@ $errorstate = array();
    var lessalltext = '<?php echo _("Hide detailed information for all tests") ?>';
    var addresses = new Array();
    $(document).ready(function() {
-      $('.caresult').on('click', '.morelink', function() {
+      $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function() {
           if ($(this).hasClass('less')) {
              $(this).removeClass('less');
-             $(this).html(moretext);
+//             $(this).html(moretext);
+             $(this).html($(this).attr('moretext'));
+//             $(this).html(moretext) = moretext;
              $('.moreall').removeClass('less');
              $('.moreall').html(morealltext);
           } else {
+             $(this).attr('moretext',$(this).html());
              $(this).addClass('less');
              $(this).html(lesstext);
           }
@@ -155,6 +164,7 @@ $errorstate = array();
 });
 
 function clients(data,status){
+//show_debug(data);
 cliinfo = '<ol>';
 for (var key in data.ca) {
    srefused = 0;
@@ -172,7 +182,7 @@ for (var key in data.ca) {
        cliinfo = cliinfo + '<ul style=\"list-style-type: none;\">';
        level = data.ca[key].certificate[c].returncode;
        if (level < 0) {
-           level = 2;
+           level = L_ERROR;
            arefailed = 1;
        }
     add = '';
@@ -188,7 +198,7 @@ for (var key in data.ca) {
      if (data.ca[key].certificate[c].connected==1) 
          state = falseaccepted;
      else {
-         level = 0;
+         level = L_OK;
          state = notaccepted + ': ' + data.ca[key].certificate[c].resultcomment;
      }
  }
@@ -222,6 +232,7 @@ $("#clientresults"+data.hostindex).html('<p>'+cliinfo+'</p>');
 }
 
 function capath(data,status){
+//show_debug(data);
    var newhtml = '<p>'+data.message+'</p>';
    var more = '';
    addresses[data.ip] = data.result;
@@ -258,30 +269,90 @@ function capath(data,status){
    }
 }
 
+var server_cert = new Object();
+server_cert.subject =  "<?php echo _("Subject:")?>";
+server_cert.issuer =  "<?php echo _("Issuer:")?>";
+server_cert.validFrom =  "<?php echo _("Valid from:")?>";
+server_cert.validTo =  "<?php echo _("Valid to:")?>";
+server_cert.serialNumber =  "<?php echo _("Serial number:")?>";
+server_cert.sha1 =  "<?php echo _("SHA1 fingerprint:")?>";
+
+
 function udp(data,status) {
-   $("#src"+data.hostindex).html('<?php printf(_("Connected to: %s"), "<strong>'+data.server+'</strong>")?><br/><?php printf(_("elapsed time: %sms."),"'+data.time_millisec+'&nbsp;") ?><p>'+data.message+'</p>');
-   $("#src"+data.hostindex+"_img").attr('src',icons[data.level]);
-   $.each(data.cert_oddities,function(i,v) {
-      $("#results"+data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="'+icons[v.level]+'"></td><td>'+v.message+'</td></tr>');
-   });
+//show_debug(JSON.stringify(data));
+   var v = data.result[0];
+   $("#src"+data.hostindex).html('<strong>'+v.server+'</strong><br/><?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?><p>'+v.message+'</p>');
+   $("#src"+data.hostindex+"_img").attr('src',icons[v.level]);
+   if(v.server != 0 ) {
+      var cert_data = "<tr class='server_cert'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list'>";
+      $.each(server_cert, function(l,s) {
+         cert_data = cert_data + "<dt>" + s + "</dt><dd>"+ v.server_cert[l] + "</dd>";
+      });
+     
+      var ext = '';
+      $.each(v.server_cert.extensions, function(l,s) {
+        if(ext != '')
+          ext = ext + '<br>';
+        ext = ext + '<strong>'+l+': </strong>'+s;
+      });
+      
+      cert_data = cert_data + "<dt><?php echo _("Extensions") ?></dt><dd>"+ ext + "</dd></dl>";
+      cert_data = cert_data + "<a href='' class='morelink'><?php echo _("show server certificate details")?>&raquo;</a></div></tr>";
+
+      if(v.level > L_OK && v.cert_oddities != undefined ) {
+         $.each(v.cert_oddities,function(j,w) {
+            $("#src"+data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="'+icons[w.level]+'"></td><td>'+w.message+'</td></tr>');
+         });
+      }
+      $("#src"+data.hostindex).append(cert_data);
+   }
+      $(".server_cert").show();
 }
 
 function udp_login(data, status) {
-   $("#live_src"+data.hostindex).html('<?php printf(_("Connected to: %s"), "<strong>'+data.server+'</strong>")?><p>');
-   $("#live_src"+data.hostindex+"_img").attr('src',icons[data.level]);
+//show_debug(data);
+
+   $("#live_src"+data.hostindex+"_img").hide();
    $.each(data.result,function(i,v) {
-      $("#live_results"+data.hostindex).append('<tr class="live_results_tr"><td>&nbsp;</td><td class="icon_td"><img src="'+icons[v.level]+'"></td><td>'+v.eap+' &ndash; <?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?> '+v.message+'</td></tr>');
+      var o = '<table><tr><td colspan=2>';
+      var cert_data = '';
+      if(v.server != '0') {
+         o = o + '<strong>'+v.server+'</strong><p>';
+      cert_data = "<tr><td>&nbsp;</td><td><p><strong><?php echo _("Server certificate details:") ?></strong><dl class='udp_login'>";
+      $.each(server_cert, function(l,s) {
+         cert_data = cert_data + "<dt>" + s + "</dt><dd>"+ v.server_cert[l] + "</dd>";
+      });
+     
+      var ext = '';
+      $.each(v.server_cert.extensions, function(l,s) {
+        if(ext != '')
+          ext = ext + '<br>';
+        ext = ext + '<strong>'+l+': </strong>'+s;
+      });
+      
+      cert_data = cert_data + "<dt><?php echo _("Extensions") ?></dt><dd>"+ ext + "</dd></dl></td></tr>";
+
+      }
+      o = o + v.message+'</td></tr>';
+      if(v.level > L_OK && v.cert_oddities != undefined ) {
+         $.each(v.cert_oddities,function(j,w) {
+            o = o + '<tr><td class="icon_td"><img src="'+icons[w.level]+'"></td><td>' + w.message +'</td></tr>';
+         });
+      }
+      o = o +  cert_data+'</table>';
+      $("#eap_test"+data.hostindex).append('<strong><img style="position: relative; top: 2px;" src="'+icons[v.level]+'"><span style="position: relative; top: -5px; left: 1em">'+v.eap+' &ndash; <?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?></span></strong><div class="more" style="padding-left: 40px"><div class="morecontent"><div style="display:none; background: #eee;">'+o+'</div><a href="" class="morelink">' + moretext + '</a></div></div>');
    });
 }
 
 function run_login () {
-   $(".live_results_tr").remove();
+   $("#debug_out").html('');
+   $(".eap_test_results").empty();
    var formData = new FormData($('#live_form')[0]);
 <?php
 foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
    print "
 $(\"#live_src".$hostindex."_img\").attr('src',icon_loading);
-$(\"#live_src$hostindex\").html('');
+$(\"#live_src".$hostindex."_img\").show();
     $.ajax({
         url: 'radius_tests.php?src=$hostindex&hostindex=$hostindex&realm='+realm,
         type: 'POST',
@@ -299,8 +370,10 @@ $(\"#live_src$hostindex\").html('');
 }
 
 function run_udp () {
+   $("#debug_out").html('');
    $("#static_tests").show();
    $(".results_tr").remove();
+   $(".server_cert").hide();
 <?php
 foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
     if ($check_thorough)
@@ -317,6 +390,12 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 }
 ?>
 }
+
+function show_debug(text) {
+   var t = $("#debug_out").html();
+   $("#debug_out").html(t+"<p>"+JSON.stringify(text));
+   $("#debug_out").show();
+}
 </script>
    <?php
     productheader("ADMIN", $cat->lang_index);
@@ -326,6 +405,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
         return;
     }
 ?>
+<div id="debug_out" style="display: none"></div>
 <div id="tabs" style="min-width: 600px; max-width:800px">
   <ul>
     <li><a href="#tabs-1"><?php echo _("DNS checks") ?></a></li>
@@ -410,10 +490,10 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
 
             echo "</table><table>";
               if (count($testsuite->listerrors()) == 0) {
-                echo UI_okay(sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
+                echo UI_message(L_OK,sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
                 echo "</table>";
               } else {
-                echo UI_error(sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
+                echo UI_message(L_ERROR,sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
                 echo "</table><div class='notacceptable'><table>";
                 foreach ($testsuite->listerrors() as $details)
                    echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
@@ -455,14 +535,15 @@ print "<p>";
 foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
   print "<hr>";
 printf(_("Testing from: %s"), "<strong>".Config::$RADIUSTESTS['UDP-hosts'][$hostindex]['display_name']."</strong>");
-print "<table id='results$hostindex'  style='width:100%'>
+print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
 <tr>
 <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='src".$hostindex."_img'></td>
 <td id='src$hostindex' colspan=2>
 "._("testing...")."
 </td>
-</tr>
-</table>
+</tr>" .
+//server_cert('udp-'.$hostindex) .
+"</table>
 ";
 }
 ?>
@@ -483,7 +564,7 @@ print "<table id='results$hostindex'  style='width:100%'>
 
                   $resultstoprint = array();
                   if (count($testsuite->NAPTR_hostname_records)>0) {
-                      $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' .  UI_error(_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_okay(_("All tests passed, congratulations!")) . '</table>';
+                      $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' .  UI_message(L_ERROR,_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(L_OK,_("All tests passed, congratulations!")) . '</table>';
                       $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                       foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
                           if ($addr['family'] == "IPv6") {
@@ -552,6 +633,9 @@ print "<table id='results$hostindex'  style='width:100%'>
 // if any password based EAP methods are available enable this section
               if (in_array(EAP::$PEAP_MSCHAP2, $prof_compl) ||
                               in_array(EAP::$TTLS_MSCHAP2, $prof_compl) ||
+                              in_array(EAP::$TTLS_GTC, $prof_compl) ||
+                              in_array(EAP::$FAST_GTC, $prof_compl) ||
+                              in_array(EAP::$PWD, $prof_compl) ||
                               in_array(EAP::$TTLS_PAP, $prof_compl)
                       ) { 
                           echo  "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
@@ -570,15 +654,8 @@ print "<table id='results$hostindex'  style='width:100%'>
                       foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
                         print "<hr>";
                       printf(_("Testing from: %s"), "<strong>".Config::$RADIUSTESTS['UDP-hosts'][$hostindex]['display_name']."</strong>");
-                      print "<table id='live_results$hostindex'  style='width:100%'>
-                      <tr>
-                      <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='live_src".$hostindex."_img'></td>
-                      <td id='live_src$hostindex' colspan=2>
-                      "._("testing...")."
-                      </td>
-                      </tr>
-                      </table>
-";
+                      print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src".$hostindex."_img' style='width:24px; position: absolute; left: 20px; bottom: 0px; '></span>";
+print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
 }
                       echo "</div>";
 
@@ -595,6 +672,8 @@ echo "
         <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to dashboard"); ?></button>
     </form>
     <script>
+
+
     var realm = '<?php echo $check_realm; ?>';
     run_udp();
 <?php
