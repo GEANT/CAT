@@ -987,6 +987,8 @@ a:active {
 a.morelink {
     text-decoration:none;
     outline: none;
+    font-weight: bold;
+    font-style: italic;
 }
 
 a.moreall {
@@ -1048,4 +1050,28 @@ td.icon_td img {
 
 input.missing_input {
    background: #ffccff;
+}
+
+.server_cert,.server_cert_list {
+   display: none;
+}
+
+.server_cert_list {
+    background: #eee;
+    padding: 5px;
+}
+
+
+.server_cert_list {
+    background: #eee;
+    padding: 0px;
+}
+
+.server_cert dl dt {
+   font-weight: bold;
+}
+
+.server_cert dl dd {
+    font-style: italic;
+    font-family: Arial;
 }
