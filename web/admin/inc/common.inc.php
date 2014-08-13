@@ -111,7 +111,8 @@ function UI_message($level,$text = 0, $caption = 0, $omittabletags = FALSE) {
     $retval = "";
     if (!$omittabletags)
         $retval .= "<tr><td>";
-    $retval .= "<img class='icon' src='".$UI_messages[$level]['icon']."' alt='" . ($caption !== 0 ? $caption : $UI_messages[$level]['text'] . "' title='" . ($caption !== 0 ? $caption : $UI_messages[$level]['text'])) . "'/>";
+    $caption = $caption !== 0 ? $caption : $UI_messages[$level]['text'];
+    $retval .= "<img class='icon' src='".$UI_messages[$level]['icon']."' alt='" . $caption . "' title='" . $caption . "'/>";
     if (!$omittabletags)
         $retval .= "</td><td>";
     if ($text !== 0) $retval .= $text;
