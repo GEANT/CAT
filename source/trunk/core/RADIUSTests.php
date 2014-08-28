@@ -172,6 +172,10 @@ define("CERTPROB_NOT_ACCEPTED", -215);
   * the CRL of a certificate could not be found
   */
 define("CERTPROB_UNABLE_TO_GET_CRL",223);
+/**
+ * no EAP method could be agreed on, certs could not be extraced
+ */
+define("CERTPROB_NO_COMMON_EAP_METHOD", -224);
 
 
 /**
@@ -590,6 +594,12 @@ class RADIUSTests {
         $this->return_codes[$code]["message"] = _("The CRL of a certificate could not be found.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
+        /**
+         * the CRL of a certificate could not be found
+         */
+        $code = CERTPROB_NO_COMMON_EAP_METHOD;
+        $this->return_codes[$code]["message"] = _("EAP method negotiation failed!");
+        $this->return_codes[$code]["severity"] = L_ERROR;
 
         CAT::set_locale($oldlocale);
     }
@@ -839,6 +849,18 @@ class RADIUSTests {
         return FALSE;
     }
 
+    // this function assumes that there was an EAP conversation; calling it on other packet flows gets undefined results
+    // it checks if the flow contained at least one method proposition which was not NAKed
+    // returns TRUE if method was ACKed; false if only NAKs in the flow
+    private function check_conversation_eap_method_ack($inputarray) {        
+        foreach ($inputarray as $lineid => $line) {
+            if (preg_match("/CTRL-EVENT-EAP-PROPOSED-METHOD/", $line) && ! preg_match("/NAK$/", $line)) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+    
     public function UDP_login($probeindex, $eaptype, $user, $password, $opname_check = TRUE, $frag = TRUE, $clientcertdata = NULL) {
         if (!isset(Config::$RADIUSTESTS['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
@@ -999,10 +1021,21 @@ network={
             $finalretval = RETVAL_OK;
         }
 
+        if ($finalretval == RETVAL_CONVERSATION_REJECT) {
+            $ackedmethod = $this->check_conversation_eap_method_ack($packetflow_orig);            
+            if (!$ackedmethod)
+                $testresults['cert_oddities'][] = CERTPROB_NO_COMMON_EAP_METHOD;
+        };
+
+            
         // now let's look at the server cert+chain
         // if we got a cert at all
-
-        if ($eaptype != EAP::$PWD && ($finalretval == RETVAL_CONVERSATION_REJECT || $finalretval == RETVAL_OK)) {
+        // TODO: also only do this if EAP types all mismatched; we won't have a
+        // cert in that case
+        if (
+           $eaptype != EAP::$PWD && 
+           (($finalretval == RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RETVAL_OK)
+           ) {
 
             // ALWAYS check: 
             // 1) it is unnecessary to include the root CA itself (adding it has
