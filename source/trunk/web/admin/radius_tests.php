@@ -113,6 +113,7 @@ switch ($test_type) {
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
         $user_name = isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "";
+        $outer_user_name = isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : "";
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : "";
         $returnarray['result'] = array();
         foreach ($eaps as $eap) {
@@ -121,12 +122,12 @@ switch ($test_type) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : "";
                     $tls_username = isset($_REQUEST['tls_username']) && $_REQUEST['tls_username'] ? $_REQUEST['tls_username'] : $user_name;
-                    $testresult = $testsuite->UDP_login($host, $eap, $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
+                    $testresult = $testsuite->UDP_login($host, $eap, $tls_username, $privkey_pass,'', TRUE, TRUE, $clientcertdata);
                 } else {
                     $testresult = RETVAL_INCOMPLETE_DATA;
                 }
             } else {
-                $testresult = $testsuite->UDP_login($host, $eap, $user_name, $user_password);
+                $testresult = $testsuite->UDP_login($host, $eap, $user_name, $user_password,$outer_user_name);
             }
         $returnarray['result'][$i] = process_result($testsuite,$host);
         $returnarray['result'][$i]['eap'] = display_name($eap);
