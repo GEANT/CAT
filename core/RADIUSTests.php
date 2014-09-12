@@ -808,7 +808,7 @@ class RADIUSTests {
         debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
-        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", $opname_check, $frag, $clientcert);
+        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '',  $opname_check, $frag, $clientcert);
     }
 
     private function redact($string_to_redact, $inputarray) {
@@ -861,20 +861,22 @@ class RADIUSTests {
         return FALSE;
     }
     
-    public function UDP_login($probeindex, $eaptype, $user, $password, $opname_check = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+    public function UDP_login($probeindex, $eaptype, $user, $password, $outer_user = '',  $opname_check = TRUE, $frag = TRUE, $clientcertdata = NULL) {
         if (!isset(Config::$RADIUSTESTS['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
 
-        $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
-        if ($this->profile instanceof Profile) { // take profile's anon ID if known
-            $foo = $this->profile;
-            if ($foo->use_anon_outer == TRUE && $foo->realm = $this->realm) {
-                $the_id = $foo->getAttributes("internal:anon_local_value");
-                $anon_id = $the_id[0]['value'];
+        if($outer_user == "") {
+            $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
+            if ($this->profile instanceof Profile) { // take profile's anon ID if known
+                $foo = $this->profile;
+                if ($foo->use_anon_outer == TRUE && $foo->realm = $this->realm) {
+                    $the_id = $foo->getAttributes("internal:anon_local_value");
+                    $anon_id = $the_id[0]['value'];
+                }
             }
-        }
+        } 
 
         // we will need a config blob for wpa_supplicant, in a temporary directory
         // code is copy&paste from DeviceConfig.php
@@ -949,6 +951,12 @@ network={
         } else {
             $config .= $anon_id . "@" . $user . "\"\n";
             $log_config .= $anon_id . "@" . $user . "\"\n";
+        }
+        if( ($outer_user != "" && preg_match("/@/", $outer_user))) {
+            $config .= '  anonymous_identity="';
+            $log_config .= '  anonymous_identity="';
+            $config .= $outer_user . "\"\n";
+            $log_config .= $outer_user . "\"\n";
         }
         // done
         $config .= "}";
@@ -1140,7 +1148,7 @@ network={
                 $checkstring = "";
                 if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
                     debug(4, "got a CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-//                    $checkstring = "-crl_check";
+                    $checkstring = "-crl_check";
                     $CRL_file = fopen($tmp_dir . "/root-ca/crl$crlindex.pem", "w"); // this is where the root CAs go
                     fwrite($CRL_file, $servercert['CRL'][0]);
                     fclose($CRL_file);
