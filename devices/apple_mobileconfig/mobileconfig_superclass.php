@@ -127,7 +127,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . uuid() . "</string>
+         <string>" . uuid('',mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . $this->massaged_consortium . $this->massaged_country . $this->massaged_inst . $this->attributes['profile:name'][0]) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         if (isset($this->attributes['support:info_file']))
