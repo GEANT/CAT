@@ -132,8 +132,11 @@ function downloadFile($url) {
  * @param string $prefix an extra prefix to set before the UUID
  * @return UUID (possibly prefixed)
  */
-function uuid($prefix = '') {
-    $chars = md5(uniqid(mt_rand(), true));
+function uuid($prefix = '', $deterministic_source = NULL) {
+    if ($deterministic_source === NULL) 
+        $chars = md5(uniqid(mt_rand(), true));
+    else
+        $chars = md5($deterministic_source);
     $uuid = substr($chars, 0, 8) . '-';
     $uuid .= substr($chars, 8, 4) . '-';
     $uuid .= substr($chars, 12, 4) . '-';
