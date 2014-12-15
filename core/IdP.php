@@ -245,13 +245,6 @@ class IdP {
     }
 
     /**
-     * deletes all attributes of this IdP from the database
-     */
-    public function flushAttributes() {
-        commitFlushAttributes(beginFlushAttributes());
-    }
-
-    /**
      * deletes all attributes in this profile except the _file ones, these are reported as array
      *
      * @return array list of row id's of file-based attributes which weren't deleted
@@ -276,6 +269,13 @@ class IdP {
             DBConnection::exec(IdP::$DB_TYPE, "DELETE FROM institution_option WHERE institution_id = $this->identifier AND row = $row");
             $this->updateFreshness();
         }
+    }
+
+    /**
+     * deletes all attributes of this IdP from the database
+     */
+    public function flushAttributes() {
+        $this->commitFlushAttributes($this->beginFlushAttributes());
     }
 
     /**

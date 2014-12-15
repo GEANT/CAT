@@ -32,6 +32,22 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     header("Location:overview_user.php");
 }
 
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
+    authenticate();
+    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+    $inst_id = $my_inst->identifier;
+    //
+    $profiles = $my_inst->listProfiles();
+    foreach ($profiles as $profile) {
+        $profile->destroy();
+    }
+    // flush all IdP attributes and send user to creation wizard
+    $my_inst->flushAttributes();
+    CAT::writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $inst_id);
+    header("Location:edit_idp.php?inst_id=$inst_id&wizard=true");
+}
+
+
 pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), Config::$APPEARANCE['productname']), "ADMIN-IDP");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
