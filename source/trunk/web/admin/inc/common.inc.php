@@ -24,6 +24,7 @@ define ("BUTTON_SAVE", 3);
 define ("BUTTON_EDIT", 4);
 define ("BUTTON_TAKECONTROL", 5);
 define ("BUTTON_PURGECACHE", 6);
+define ("BUTTON_FLUSH_AND_RESTART", 7);
 
 $global_location_count = 0;
 

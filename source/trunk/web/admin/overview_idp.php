@@ -108,7 +108,13 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( Config::$CONSORTIUM['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!")." " : "" ).sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                </form>
+
+            </td>
+            <td>
+                <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your IdP and start over the configuration from scratch. Do you really want to reset all settings of your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Reset all IdP settings"); ?></button>
                 </form>
 
             </td>
