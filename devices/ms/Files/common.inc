@@ -209,14 +209,16 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
       !insertmacro debug_cat 2 "Found AUTHROOT"
       Goto no_install_${ca_file}
    ${EndIf}
-   !insertmacro debug_cat 2 "Testing machine store ca"
-   !insertmacro debug_cat 3 "Execute: certutil -store ca ${ca_fingerprint}"
-   nsExec::Exec '"certutil" -store ca ${ca_fingerprint}'
-   Pop $0
-   !insertmacro debug_cat 3 "certutil returned $0"
-   ${If} $0 == 0
-      !insertmacro debug_cat 2 "Found CA"
-      Goto no_install_${ca_file}
+   ${If} ${level} == "ca"
+      !insertmacro debug_cat 2 "Testing machine store ca"
+      !insertmacro debug_cat 3 "Execute: certutil -store ca ${ca_fingerprint}"
+      nsExec::Exec '"certutil" -store ca ${ca_fingerprint}'
+      Pop $0
+      !insertmacro debug_cat 3 "certutil returned $0"
+      ${If} $0 == 0
+         !insertmacro debug_cat 2 "Found CA"
+         Goto no_install_${ca_file}
+      ${EndIf}
    ${EndIf}
    !insertmacro debug_cat 2 "Testing user store root"
    !insertmacro debug_cat 3 "Execute: certutil -store -user root ${ca_fingerprint}"
@@ -236,14 +238,16 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
       !insertmacro debug_cat 2 "Found USER AUTHROOT"
       Goto no_install_${ca_file}
    ${EndIf}
-   !insertmacro debug_cat 2 "Testing user store ca"
-   !insertmacro debug_cat 3 "Execute: certutil -store -user ca ${ca_fingerprint}"
-   nsExec::Exec '"certutil" -store -user ca ${ca_fingerprint}'
-   Pop $0
-  !insertmacro debug_cat 3 "certutil returned $0"
-   ${If} $0 == 0
-      !insertmacro debug_cat 2 "Found USER CA"
-      Goto no_install_${ca_file}
+   ${If} ${level} == "ca"
+      !insertmacro debug_cat 2 "Testing user store ca"
+      !insertmacro debug_cat 3 "Execute: certutil -store -user ca ${ca_fingerprint}"
+      nsExec::Exec '"certutil" -store -user ca ${ca_fingerprint}'
+      Pop $0
+     !insertmacro debug_cat 3 "certutil returned $0"
+      ${If} $0 == 0
+         !insertmacro debug_cat 2 "Found USER CA"
+         Goto no_install_${ca_file}
+      ${EndIf}
    ${EndIf}
    !insertmacro debug_cat 2 "installing certificate $TEMP\${ca_file}"
    !insertmacro debug_cat 3 "Execute: certutil -addstore -user ${level} $TEMP\${ca_file}"
