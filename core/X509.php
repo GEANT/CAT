@@ -167,7 +167,7 @@ public function splitCertificate($cadata) {
     }
     // print_r($returnarray);
     
-    return $returnarray;
+    return array_unique($returnarray);
 }
 
 }
