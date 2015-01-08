@@ -47,6 +47,7 @@ function process_result($testsuite,$host) {
     $ret = array();
     $server_info = array();
     $udp_result = $testsuite->UDP_reachability_result[$host];
+
     foreach ($udp_result['certdata'] as $certdata) {
        if($certdata['type'] != 'server' )
           continue;

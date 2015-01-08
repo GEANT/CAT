@@ -125,7 +125,11 @@ define("CERTPROB_SERVER_CERT_REVOKED", -222);
  */
 define("CERTPROB_OUTSIDE_VALIDITY_PERIOD", -221);
 /**
- * The received certificate chain did not end in any of the trust roots configured in the profile properties.
+ * At least one certificate is outside its validity period (not yet valid, or already expired)!
+ */
+define("CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN", -225);
+/**
+ * At least one certificate is outside its validity period, but this certificate does not take part in servder validation 
  */
 define("CERTPROB_TRUST_ROOT_NOT_REACHED", -209);
 /**
@@ -501,7 +505,7 @@ class RADIUSTests {
         $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
-         * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
+         * The server certificate has been revoked by its CA.
          */
         $code = CERTPROB_SERVER_CERT_REVOKED;
         $this->return_codes[$code]["message"] = _("The server certificate was revoked by the CA!");
@@ -527,6 +531,13 @@ class RADIUSTests {
         $code = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         $this->return_codes[$code]["message"] = _("At least one certificate is outside its validity period (not yet valid, or already expired)!");
         $this->return_codes[$code]["severity"] = L_ERROR;
+
+        /**
+         * cert is not yet, or not any more, valid but is not taking part in server validation
+         */
+        $code = CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
+        $this->return_codes[$code]["message"] = _("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your CAT configuration.");
+        $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
          * The received certificate chain did not end in any of the trust roots configured in the profile properties.
@@ -691,15 +702,16 @@ class RADIUSTests {
     /**
      * This function parses a X.509 server cert and checks if it finds client device incompatibilities
      * 
-     * @param array $servercert the properties of the certificate as returned by processCertificate()
+     * @param array $servercert the properties of the certificate as returned by processCertificate(), 
+     *    $servercert is modified, if CRL is defied, it is downloaded and added to the array
+     *    incoming_server_names, sAN_DNS and CN array values are also defined
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_servercert(&$servercert) {
         // debug(4, "SERVER CERT IS: " . print_r($servercert, TRUE));
-        $returnarray = Array();
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
-        $returnarray = array_merge($this->property_check_intermediate($servercert));
+        $returnarray = $this->property_check_intermediate($servercert, TRUE);
 
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
@@ -725,7 +737,7 @@ class RADIUSTests {
             if (preg_match("/^DNS:/", $san_name))
                 $sAN_DNS[] = substr($san_name, 4);
 
-        $allnames = array_merge($CN, $sAN_DNS);
+        $allnames = array_unique(array_merge($CN, $sAN_DNS));
         if (preg_match("/\*/", implode($allnames)))
             $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
 
@@ -734,23 +746,9 @@ class RADIUSTests {
             if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE)
                 $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
         }
-
-        // CDP
-        $crl_url = array();
-        if (!isset($servercert['full_details']['extensions']['crlDistributionPoints'])) {
-            $returnarray[] = CERTPROB_NO_CDP;
-        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(array("\r", "\n"), ' ', $servercert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
-            $returnarray[] = CERTPROB_NO_CDP_HTTP;
-        } else { // first and second sub-match is the full URL... check it
-            $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
-            if ($crlcontent === FALSE)
-                $returnarray[] = CERTPROB_NO_CRL_AT_CDP_URL;
-            $crl = openssl_x509_parse($crlcontent);
-            debug(4, "Raw CRL (unable to parse at this stage, storing in cert array for chain checks!): ");
-            debug(4, $crlcontent);
-            $servercert['CRL'][] = $crlcontent;
-        }
-
+        $servercert['incoming_server_names'] = $allnames;
+        $servercert['sAN_DNS'] = $sAN_DNS;
+        $servercert['CN'] = $CN;
         return $returnarray;
     }
 
@@ -761,7 +759,7 @@ class RADIUSTests {
      * @param boolean complain_about_cdp_existence: for intermediates, not having a CDP is less of an issue than for servers. Set the REMARK (..._INTERMEDIATE) flag if not complaining; and _SERVER if so
      * @return array of oddities; the array is empty if everything is fine
      */
-    public function property_check_intermediate($intermediate_ca) {
+    public function property_check_intermediate(&$intermediate_ca,$server_cert=FALSE) {
         $returnarray = Array();
         if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
@@ -777,6 +775,9 @@ class RADIUSTests {
         $to = $intermediate_ca['full_details']['validTo_time_t'];
         if ($from > $now || $to < $now)
             $returnarray[] = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
+        $add_cert_crl_result = $this->add_cert_crl($intermediate_ca);
+        if( $add_cert_crl_result !== 0  && $server_cert)
+            $returnarray[] = $add_cert_crl_result;
 
         return $returnarray;
     }
@@ -809,6 +810,28 @@ class RADIUSTests {
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
         return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '',  $opname_check, $frag, $clientcert);
+    }
+
+    private function add_cert_crl(&$cert) {
+        $crl_url = array();
+        $returnresult = 0;
+        if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
+            $returnresult = CERTPROB_NO_CDP;
+        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(array("\r", "\n"), ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
+            $returnresult = CERTPROB_NO_CDP_HTTP;
+        } else { // first and second sub-match is the full URL... check it
+            $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
+            if ($crlcontent === FALSE)
+                $returnresult = CERTPROB_NO_CRL_AT_CDP_URL;
+            $begin_crl = strpos($crlcontent,"-----BEGIN X509 CRL-----");
+            if($begin_crl === FALSE) {
+                $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
+                $crlcontent = "-----BEGIN X509 CRL-----\n".$pem."-----END X509 CRL-----\n";
+            }
+            $cert['CRL'] = array();
+            $cert['CRL'][] = $crlcontent;
+        }
+        return $returnresult;
     }
 
     private function redact($string_to_redact, $inputarray) {
@@ -1060,53 +1083,74 @@ network={
             // TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
             // then check the presented names
             $x509 = new X509();
-            $certarray = $x509->splitCertificate(fread(fopen($tmp_dir . "/serverchain.pem", "r"), "1000000"));
+            // $eap_certarray holds all certs received in EAP conversation
+            $eap_certarray = $x509->splitCertificate(fread(fopen($tmp_dir . "/serverchain.pem", "r"), "1000000"));
             // we want no root cert, and exactly one server cert
             $number_root = 0;
             $number_server = 0;
+            $eap_number_intermediate = 0;
+            $cat_number_intermediate = 0;
             $servercert;
-            $intermediate_cas = array();
 
 
-            $processed = array(); // eapol_test seems a bit buggy; dumps the same
-            $CRLs = array(); // if one is missing, set to FALSE
-            // cert multiple times into the file. We fill this array only once.
-            // at the same time, write the root CAs into a trusted root CA dir
+            // Write the root CAs into a trusted root CA dir
             // and intermediate and first server cert into a PEM file
             // for later chain validation
+            $CRLs = array(); // if one is missing, set to FALSE
 
-            $server_and_intermediate_file = fopen($tmp_dir . "/incomingchain.pem", "w");
+            $server_file = fopen($tmp_dir . "/incomingserver.pem", "w");
 
-            if (!mkdir($tmp_dir . "/root-ca/", 0700, true)) {
-                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca/\n");
+            if (!mkdir($tmp_dir . "/root-ca-allcerts/", 0700, true)) {
+                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-allcerts/\n");
                 exit;
             }
 
-            foreach ($certarray as $cert_pem)
-                if (!in_array($cert_pem, $processed)) {
-                    $processed[] = $cert_pem;
-                    $cert = $x509->processCertificate($cert_pem);
-                    if ($cert == FALSE)
-                        continue;
-                    if ($cert['ca'] == 0 && $cert['root'] != 1) {
-                        $number_server++;
-                        $servercert = $cert;
-                        if ($number_server == 1) {
-                            fwrite($server_and_intermediate_file, $cert_pem."\n");
-                        }
-                    } else
-                    if ($cert['root'] == 1) {
-                        $number_root++;
-                        // do not save the root CA, it serves no purpose
-                        // chain checks need to be against the UPLOADED CA of the
-                        // IdP/profile, not against an EAP-discovered CA
-                    } else {
-                        $intermediate_cas[] = $cert;
-                        fwrite($server_and_intermediate_file, $cert_pem."\n");
+            if (!mkdir($tmp_dir . "/root-ca-eaponly/", 0700, true)) {
+                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-eaponly/\n");
+                exit;
+            }
+
+            $eap_intermediate_oddities = array();
+            foreach ($eap_certarray as $cert_pem) {
+                $cert = $x509->processCertificate($cert_pem);
+                if ($cert == FALSE)
+                    continue;
+                if ($cert['ca'] == 0 && $cert['root'] != 1) {
+                    $number_server++;
+                    $servercert = $cert;
+                    if ($number_server == 1) {
+                        fwrite($server_file, $cert_pem."\n");
                     }
-                    $testresults['certdata'][] = $cert['full_details'];
+                } else
+                if ($cert['root'] == 1) {
+                    $number_root++;
+                    // do not save the root CA, it serves no purpose
+                    // chain checks need to be against the UPLOADED CA of the
+                    // IdP/profile, not against an EAP-discovered CA
+                } else {
+                    $eap_intermediate_oddities = array_merge($eap_intermediate_oddities, $this->property_check_intermediate($cert));
+                    $intermediate_file = fopen($tmp_dir . "/root-ca-eaponly/incomingintermediate$eap_number_intermediate.pem", "w");
+                    fwrite($intermediate_file, $cert_pem."\n");
+                    fclose($intermediate_file);
+                    $intermediate_file = fopen($tmp_dir . "/root-ca-allcerts/incomingintermediate$eap_number_intermediate.pem", "w");
+                    fwrite($intermediate_file, $cert_pem."\n");
+                    fclose($intermediate_file);
+
+
+                    if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
+                        debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                        $CRL_file = fopen($tmp_dir . "/root-ca-eaponly/crl$eap_number_intermediate.pem", "w"); // this is where the root CAs go
+                        fwrite($CRL_file, $cert['CRL'][0]);
+                        fclose($CRL_file);
+                        $CRL_file = fopen($tmp_dir . "/root-ca-allcerts/crl$eap_number_intermediate.pem", "w"); // this is where the root CAs go
+                        fwrite($CRL_file, $cert['CRL'][0]);
+                        fclose($CRL_file);
+                    }
+                    $eap_number_intermediate++;
                 }
-            fclose($server_and_intermediate_file);
+                $testresults['certdata'][] = $cert['full_details'];
+            }
+            fclose($server_file);
             if ($number_root > 0)
                 $testresults['cert_oddities'][] = CERTPROB_ROOT_INCLUDED;
             if ($number_server > 1)
@@ -1114,77 +1158,106 @@ network={
             if ($number_server == 0)
                 $testresults['cert_oddities'][] = CERTPROB_NO_SERVER_CERT;
             // check server cert properties
-            if ($number_server > 0)
+            if ($number_server > 0) {
                 $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->property_check_servercert($servercert));
+                $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
+            }
+
             // check intermediate ca cert properties
-            foreach ($intermediate_cas as $intermediate_ca)
-                $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->property_check_intermediate($intermediate_ca));
             // check trust chain for completeness
             // works only for thorough checks, not shallow, so:
+            $cat_intermediate_oddities = array();
+            $verify_result = 0;
             if ($this->profile) {
                 $number_configured_roots = 0;
                 $my_profile = $this->profile;
+                // $ca_store contains certificates configured in the CAT profile
                 $ca_store = $my_profile->getAttributes("eap:ca_file");
                 // make a copy of the EAP-received chain and add the configured intermediates, if any
-                copy($tmp_dir . "/incomingchain.pem", $tmp_dir . "/allnonrootcerts.pem");
-                $certbag = fopen($tmp_dir . "/allnonrootcerts.pem", "a");
                 foreach ($ca_store as $one_ca) {
                     $x509 = new X509();
                     $decoded = $x509->processCertificate($one_ca['value']);
                     if ($decoded['ca'] == 1) {
-                        if ($decoded['root'] == 1) {
-                            $root_CA = fopen($tmp_dir . "/root-ca/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
+                        if ($decoded['root'] == 1) { // save CAT roots to the root directory
+                            $root_CA = fopen($tmp_dir . "/root-ca-eaponly/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
+                            fwrite($root_CA, $one_ca['value']);
+                            fclose($root_CA);
+                            $root_CA = fopen($tmp_dir . "/root-ca-allcerts/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
                             fwrite($root_CA, $one_ca['value']);
                             fclose($root_CA);
                             $number_configured_roots = $number_configured_roots + 1;
-                        } else { // add to the bag
-                            fwrite($certbag, $one_ca['value']);
+                        } else { // save the intermadiates to allcerts directory
+                            $intermediate_file = fopen($tmp_dir . "/root-ca-allcerts/cat-intermediate$cat_number_intermediate.pem", "w");
+                            fwrite($intermediate_file, $one_ca['value']);
+                            fclose($intermediate_file);
+
+                            $cat_intermediate_oddities = array_merge($cat_intermediate_oddities, $this->property_check_intermediate($decoded));
+                            if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
+                                debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                                $CRL_file = fopen($tmp_dir . "/root-ca-allcerts/crl_cat$cat_number_intermediate.pem", "w"); // this is where the root CAs go
+                                fwrite($CRL_file, $decoded['CRL'][0]);
+                                fclose($CRL_file);
+                            }
+                            $cat_number_intermediate++;
                         }
                     }
                 }
-                fclose($certbag);
                 if ($number_server > 0)
                     debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
                 $checkstring = "";
                 if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
-                    debug(4, "got a CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                    $checkstring = "-crl_check";
-                    $CRL_file = fopen($tmp_dir . "/root-ca/crl$crlindex.pem", "w"); // this is where the root CAs go
+                    debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                    $checkstring = "-crl_check_all";
+                    $CRL_file = fopen($tmp_dir . "/root-ca-eaponly/crl$crlindex.pem", "w"); // this is where the root CAs go
+                    fwrite($CRL_file, $servercert['CRL'][0]);
+                    fclose($CRL_file);
+                    $CRL_file = fopen($tmp_dir . "/root-ca-allcerts/crl$crlindex.pem", "w"); // this is where the root CAs go
                     fwrite($CRL_file, $servercert['CRL'][0]);
                     fclose($CRL_file);
                 }
 
+                // save all intermediate certificate CRLs to separate files in root-ca directory
+
                 // now c_rehash the root CA directory ...
-                system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca/ > /dev/null");
-                // ... and run *two* verification tests: one with only the EAP-received intermediates
+                system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca-eaponly/ > /dev/null");
+                system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca-allcerts/ > /dev/null");
+
+                // ... and run the verification test
                 $verify_result_eaponly = Array();
                 // the error log will complain if we run this test against an empty file of certs
                 // so test if there's something PEMy in the file at all
-                if (filesize("$tmp_dir/incomingchain.pem") > 10) {
-                    exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem", $verify_result_eaponly);
-                    debug(4,Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/incomingchain.pem\n");
-                }
-                // ... and one which includes the configured intermediates
-                $verify_result_allcerts = Array();
-                if (filesize("$tmp_dir/allnonrootcerts.pem") > 10) {
-                    exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem", $verify_result_allcerts);
-                    debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca/ -purpose any $tmp_dir/allnonrootcerts.pem\n");
-                }
+                if (filesize("$tmp_dir/incomingserver.pem") > 10) {
+                    exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca-eaponly/ -purpose any $tmp_dir/incomingserver.pem", $verify_result_eaponly);
+                    debug(4,Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca-eaponly/ -purpose any $tmp_dir/incomingserver.pem\n");
                 debug(4, "Chain verify pass 1: " . print_r($verify_result_eaponly, TRUE) . "\n");
+                    exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca-allcerts/ -purpose any $tmp_dir/incomingserver.pem", $verify_result_allcerts);
+                    debug(4,Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmp_dir/root-ca-allcerts/ -purpose any $tmp_dir/incomingserver.pem\n");
                 debug(4, "Chain verify pass 2: " . print_r($verify_result_allcerts, TRUE) . "\n");
+                }
 
-                // for both passes, openssl should havd returned exactly one line of
-                // output, and it should have ended with the string "OK", everything
-                //  else is fishy
-                // the test with "allnonrootcerts" (pass 2) has a higher likelihood
-                // of success, it has at least the certs of pass 1, and possibly more
-                // so if pass 2 failed, no way to reach the root!
+
+                // now we do certificate verification against the collected parents
+                // this is done first for the server and then for each of the intermediate CAs
+                // any oddities observed will 
+
+
+                // openssl should havd returned exactly one line of output,
+                // and it should have ended with the string "OK", anything else is fishy
                 // The result can also be an empty array - this means there were no
                 // certificates to check. Don't complain about chain validation errors
                 // in that case.
 
-                if (count($verify_result_allcerts) > 0)
-                    if (!preg_match("/OK$/", $verify_result_allcerts[0])) {
+
+
+                // we have the following test result possibilities:
+                // 1. test against allcerts failed
+                // 2. test against allcerts succeded, but against eaponly failed - warn admin
+                // 3. test against eaponly succeded, in this case critical errors about expired certs
+                //    need to be changed to notices, since these certs obviously do tot participate
+                //    in server certificate validation.
+                if (count($verify_result_allcerts) > 0) {
+                    if (!preg_match("/OK$/", $verify_result_allcerts[0])) { // case 1
+                        $verify_result = 1;
                         if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
                             $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
                         } elseif(preg_match("/unable to get certificate CRL/", $verify_result_allcerts[1])) {
@@ -1192,42 +1265,25 @@ network={
                         } else {
                             $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
                         }
-                    } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) {
-                        if (preg_match("/certificate revoked$/", $verify_result_allcerts[1])) {
+                    } else if (!preg_match("/OK$/", $verify_result_eaponly[0])) { // case 2
+                        $verify_result = 2;
+                        if (preg_match("/certificate revoked$/", $verify_result_eaponly[1])) {
                             $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
-                        } elseif(preg_match("/unable to get certificate CRL/", $verify_result_allcerts[1])) {
+                        } elseif(preg_match("/unable to get certificate CRL/", $verify_result_eaponly[1])) {
                             $testresults['cert_oddities'][] = CERTPROB_UNABLE_TO_GET_CRL;
                         } else {
-                            $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+                            $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
                         }
+                    } else { // case 3
+                        $verify_result = 3;
                     }
+                }
 
                 // check the incoming hostname (both Subject:CN and subjectAltName:DNS
                 // against what is configured in the profile; it's a significant error
                 // if there is no match!
                 // FAIL if none of the configured names show up in the server cert
                 // WARN if the configured name is only in either CN or sAN:DNS
-
-                if ($number_server > 0)
-                    debug(4, "Evaluating names of server cert; the cert is: \n" . print_r($servercert, TRUE) . "\n");
-                if (isset($servercert['full_details']['subject']['CN'])) {
-                    $CN = array($servercert['full_details']['subject']['CN']);
-                } else {
-                    $CN = array();
-                }
-
-                if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName']))
-                    $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
-                else
-                    $sAN_list = array();
-
-                $sAN_DNS = array();
-                foreach ($sAN_list as $san_name)
-                    if (preg_match("/^DNS:/", $san_name))
-                        $sAN_DNS[] = substr($san_name, 4);
-
-                $testresults['incoming_server_names'] = array_unique(array_merge($CN, $sAN_DNS));
-
                 $confnames = $my_profile->getAttributes("eap:server_name");
                 $expected_names = array();
                 foreach ($confnames as $tuple)
@@ -1241,19 +1297,18 @@ network={
                 // we are UNHAPPY if no names match!
                 $happiness = "UNHAPPY";
                 foreach ($expected_names as $expected_name) {
-                    debug(4, "Managing expectations for $expected_name: " . print_r($CN, TRUE) . print_r($sAN_DNS, TRUE));
-                    if (array_search($expected_name, $CN) !== FALSE && array_search($expected_name, $sAN_DNS) !== FALSE) {
+                    debug(4, "Managing expectations for $expected_name: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
+                    if (array_search($expected_name, $servercert['CN']) !== FALSE && array_search($expected_name, $servercert['sAN_DNS']) !== FALSE) {
                         debug(4, "Totally happy!");
                         $happiness = "TOTALLY";
                         break;
                     } else {
-                        if (array_search($expected_name, $CN) !== FALSE || array_search($expected_name, $sAN_DNS) !== FALSE) {
+                        if (array_search($expected_name, $servercert['CN']) !== FALSE || array_search($expected_name, $servercert['sAN_DNS']) !== FALSE) {
                             $happiness = "PARTIALLY";
                             // keep trying with other expected names! We could be happier!
                         }
                     }
                 }
-
                 switch ($happiness) {
                     case "UNHAPPY":
                         $testresults['cert_oddities'][] = CERTPROB_SERVER_NAME_MISMATCH;
@@ -1267,6 +1322,14 @@ network={
 
                 // TODO: dump the details in a class variable in case someone cares
             }
+            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'],$eap_intermediate_oddities); 
+            if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $cat_intermediate_oddities) && $verify_result == 3) {
+                 $key = array_search(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $cat_intermediate_oddities);
+                 $cat_intermediate_oddities[$key] = CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
+            }
+
+            $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'],$cat_intermediate_oddities); 
+
             // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
             if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
                 debug(4, "Deleting trust chain problem report, if present.");
@@ -1278,6 +1341,9 @@ network={
                 }
             }
         }
+debug(4,"UDP_LOGIN\n");
+debug(4,$testresults);
+debug(4,"\nEND\n");
         $this->UDP_reachability_result[$probeindex] = $testresults;
         $this->UDP_reachability_executed = $finalretval;
         return $finalretval;
