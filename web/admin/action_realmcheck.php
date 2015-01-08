@@ -279,11 +279,12 @@ server_cert.sha1 =  "<?php echo _("SHA1 fingerprint:")?>";
 
 
 function udp(data,status) {
+//alert(data);
 //show_debug(JSON.stringify(data));
    var v = data.result[0];
-   $("#src"+data.hostindex).html('<strong>'+v.server+'</strong><br/><?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?><p>'+v.message+'</p>');
    $("#src"+data.hostindex+"_img").attr('src',icons[v.level]);
    if(v.server != 0 ) {
+      $("#src"+data.hostindex).html('<strong>'+v.server+'</strong><br/><?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?><p>'+v.message+'</p>');
       var cert_data = "<tr class='server_cert'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list'>";
       $.each(server_cert, function(l,s) {
          cert_data = cert_data + "<dt>" + s + "</dt><dd>"+ v.server_cert[l] + "</dd>";
@@ -305,6 +306,8 @@ function udp(data,status) {
          });
       }
       $("#src"+data.hostindex).append(cert_data);
+   } else {
+       $("#src"+data.hostindex).html('<br/><?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?><p>'+v.message+'</p>');
    }
       $(".server_cert").show();
 }
@@ -384,8 +387,8 @@ foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
    print "
 $(\"#src".$hostindex."_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
-
 $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '".$cat->lang_index."', hostindex: '$hostindex'  }, udp, 'json');
+
 ";
 }
 ?>
