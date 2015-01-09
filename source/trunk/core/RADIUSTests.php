@@ -79,6 +79,12 @@ define("RETVAL_CONNECTION_REFUSED", -110);
  */
 define("RETVAL_INCOMPLETE_DATA", -111);
 
+/**
+  * PKCS12 password does not match the certificate file
+  */
+
+define("RETVAL_WRONG_PKCS12_PASSWORD", -112);
+
 // certificate property errors
 /**
  * The root CA certificate was sent by the EAP server.
@@ -438,6 +444,14 @@ class RADIUSTests {
          */
         $code = RETVAL_INCOMPLETE_DATA;
         $this->return_codes[$code]["message"] = _("Not enough data provided to perform an authentication");
+        $this->return_codes[$code]["severity"] = L_ERROR;
+
+        /**
+          * PKCS12 password does not match the certificate file
+          */
+
+        $code = RETVAL_WRONG_PKCS12_PASSWORD;
+        $this->return_codes[$code]["message"] = _("The certificate password you provided does not match the certificate file.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
 // certificate property errors
