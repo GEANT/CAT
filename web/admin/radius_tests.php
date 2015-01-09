@@ -119,14 +119,35 @@ switch ($test_type) {
         $returnarray['result'] = array();
         foreach ($eaps as $eap) {
             if ($eap == EAP::$TLS) {
+                $run_test = TRUE;
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : "";
-                    $tls_username = isset($_REQUEST['tls_username']) && $_REQUEST['tls_username'] ? $_REQUEST['tls_username'] : $user_name;
-                    $testresult = $testsuite->UDP_login($host, $eap, $tls_username, $privkey_pass,'', TRUE, TRUE, $clientcertdata);
+                    if(isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
+                        $tls_username = $_REQUEST['tls_username'];
+                    } else {
+                        if(openssl_pkcs12_read($clientcertdata,$certs,$privkey_pass)) {
+                            $mydetails = openssl_x509_parse($certs['cert']);
+                            if(isset($mydetails['subject']['CN']) && $mydetails['subject']['CN']) {
+                                $tls_username=$mydetails['subject']['CN'];
+                                debug(4,"PKCS12-CN=$tls_username\n");
+                            } else {
+                                $testresult = RETVAL_INCOMPLETE_DATA;
+                                $run_test = FALSE;
+                            }
+                        } else {
+                            $testresult = RETVAL_WRONG_PKCS12_PASSWORD;
+                            $run_test = FALSE;
+                        }
+                    }
                 } else {
                     $testresult = RETVAL_INCOMPLETE_DATA;
+                    $run_test = FALSE;
                 }
+                    if($run_test) {
+                        debug(4,"TLS-USERNAME=$tls_username\n");
+                        $testresult = $testsuite->UDP_login($host, $eap, $tls_username, $privkey_pass,'', TRUE, TRUE, $clientcertdata);
+                    }
             } else {
                 $testresult = $testsuite->UDP_login($host, $eap, $user_name, $user_password,$outer_user_name);
             }
