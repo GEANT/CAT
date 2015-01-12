@@ -8,6 +8,10 @@ Changes in 1.1-beta1
 - [FEATURE #2] use PHPMailer to send emails, in order to land in less spam traps
                requires new config section Config::$MAILSETTINGS (see below)
                always sends via Submission (TCP/587)
+- [FEATURE #3] Invitation mails can be sent to multiple mail addresses, but
+               - only the first consumer of the token gets access
+               - need to specify only raw mail addresses, no real names nor
+                 <mail.addr> brace notation
 
 Configuration parameter changes
 -------------------------------
