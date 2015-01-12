@@ -17,6 +17,7 @@ require_once("UserManagement.php");
 require_once("auth.inc.php");
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
+require_once("core/PHPMailer/PHPMailerAutoload.php");
 
 authenticate();
 
@@ -65,7 +66,7 @@ else if (isset($_POST['creation'])) {
     if ($_POST['creation'] == "new" && isset($_POST['name']) && isset($_POST['country'])) {
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = valid_string_db($_POST['name']);
-        $newcountry  = valid_string_db($_POST['country']);
+        $newcountry = valid_string_db($_POST['country']);
         // a new IdP was requested and all the required parameters are there
         $is_authorized = FALSE;
         foreach ($fed_privs as $onefed) {
@@ -93,28 +94,28 @@ else if (isset($_POST['creation'])) {
         foreach ($extinfo['names'] as $lang => $name)
             if ($lang == $ourlang)
                 $prettyprintname = $name;
-        if ($prettyprintname=="" && isset($extinfo['names']['en']))
+        if ($prettyprintname == "" && isset($extinfo['names']['en']))
             $prettyprintname = $extinfo['names']['en'];
         if ($prettyprintname == "")
-            foreach($extinfo['names'] as $name)
+            foreach ($extinfo['names'] as $name)
                 $prettyprintname = $name;
         // fill the rest of the text
-        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), Config::$CONSORTIUM['name'], $prettyprintname)." ". sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."),strftime("%x %X",time()+86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), Config::$CONSORTIUM['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
         // TODO finish
         $newtoken = $mgmt->createToken("FED", $newmailaddress, $prettyprintname, $newexternalid);
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
-        }
-    } else {
-        echo "<pre>";
-        print_r($_POST);
-        echo "</pre>";
-        exit(1);
     }
+} else {
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+    exit(1);
+}
 
 // then, send out the mail
-    $message = _("Hello,") . "
+$message = _("Hello,") . "
     
 " . wordwrap($introtext . " " . _("To enlist as an administrator for that IdP, please click on the following link:"), 72) . "
     
@@ -125,7 +126,7 @@ http://" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) .
 http://" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/ 
     
 " .
-            _("and enter the invitation token") . "
+        _("and enter the invitation token") . "
     $newtoken
 " . wordwrap(_("manually. Please do not reply to this email, it is a send-only address."), 72) . "
         
@@ -135,19 +136,37 @@ http://" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) .
 
 Your friendly folks from %s Operations"), Config::$CONSORTIUM['name']);
 
-    $header = "From: \"" . Config::$APPEARANCE['productname'] . " Invitation System\" <" . Config::$APPEARANCE['from-mail'] . ">
-Reply-To: " . Config::$APPEARANCE['admin-mail'] . "
-Content-Type: text/plain; charset=utf8
-";
-    if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
-        $header .= "Bcc: " . Config::$APPEARANCE['invitation-bcc-mail'] ."
-";
+// use PHPMailer to send the mail
+$mail = new PHPMailer();
+$mail->isSMTP();
+$mail->SMTPAuth = true;
+$mail->SMTPSecure = 'tls';
+$mail->Host = Config::$MAILSETTINGS['host'];
+$mail->Username = Config::$MAILSETTINGS['user'];
+$mail->Password = Config::$MAILSETTINGS['pass'];
+// formatting nitty-gritty
+$mail->WordWrap = 72;
+$mail->isHTML(FALSE);
+$mail->CharSet = 'UTF-8';
+// who to whom?
+$mail->From = Config::$APPEARANCE['from-mail'];
+$mail->FromName = Config::$APPEARANCE['productname'] . " Invitation System";
+$mail->addReplyTo(Config::$APPEARANCE['admin-mail'], Config::$APPEARANCE['productname'] . " " . _("Feedback"));
 
-$subject = '=?UTF-8?B?'.base64_encode(sprintf(_("%s: you have been invited to manage an IdP"), Config::$APPEARANCE['productname']))."?=\n";
-    $sent = mail($newmailaddress, $subject , $message, $header);
-    // invalidate the token immediately if the mail could not be sent!
-    if (!$sent)
-        $mgmt->invalidateToken ($newtoken);
-    $status = ($sent ? "SUCCESS" : "FAILURE");
-    header("Location: $redirect_destination" . "invitation=$status");
+if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
+    $mail->addBCC(Config::$APPEARANCE['invitation-bcc-mail']);
+
+$mail->addAddress($newmailaddress);
+
+// what do we want to say?
+$mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), Config::$APPEARANCE['productname']);
+$mail->Body = $message;
+
+$sent = $mail->send();
+
+// invalidate the token immediately if the mail could not be sent!
+if (!$sent)
+    $mgmt->invalidateToken($newtoken);
+$status = ($sent ? "SUCCESS" : "FAILURE");
+header("Location: $redirect_destination" . "invitation=$status");
 ?>
