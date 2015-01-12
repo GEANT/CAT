@@ -117,6 +117,12 @@ class Config {
         'ssp-attrib-name' => 'cn',
     );
 
+    public static $MAILSETTINGS = array( // we always use Submission
+        'host' => 'submission.capable.mta',
+        'user'=> 'mailuser',
+        'pass' => 'mailpass',
+    );
+    
     /**
      * List of all supported languages in CAT. Comment some if you want to disable them
      * @var array
