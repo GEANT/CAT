@@ -157,7 +157,14 @@ $mail->addReplyTo(Config::$APPEARANCE['admin-mail'], Config::$APPEARANCE['produc
 if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
     $mail->addBCC(Config::$APPEARANCE['invitation-bcc-mail']);
 
-$mail->addAddress($newmailaddress);
+// all addresses are wrapped in a string, but PHPMailer needs a structured list of addressees
+// sigh... so convert as needed
+// first split multiple into one if needed
+$recipients = explode(", ", $newmailaddress);
+
+// fill the destinations in PHPMailer API
+foreach ($recipients as $recipient)
+    $mail->addAddress($recipient);
 
 // what do we want to say?
 $mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), Config::$APPEARANCE['productname']);
