@@ -22,6 +22,7 @@
 require_once('DBConnection.php');
 require_once("Federation.php");
 require_once("IdP.php");
+require_once("core/PHPMailer/PHPMailerAutoload.php");
 
 /**
  * This class represents a known CAT User (i.e. an institution and/or federation adiministrator).
@@ -223,20 +224,40 @@ class User {
     }
 
     public function sendMailToUser($subject, $content) {
+        // use PHPMailer to send the mail
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = 'tls';
+        $mail->Host = Config::$MAILSETTINGS['host'];
+        $mail->Username = Config::$MAILSETTINGS['user'];
+        $mail->Password = Config::$MAILSETTINGS['pass'];
+        // formatting nitty-gritty
+        $mail->WordWrap = 72;
+        $mail->isHTML(FALSE);
+        $mail->CharSet = 'UTF-8';
+        // who to whom?
+        $mail->From = Config::$APPEARANCE['from-mail'];
+        $mail->FromName = Config::$APPEARANCE['productname'] . " Notification System";
+        $mail->addReplyTo(Config::$APPEARANCE['admin-mail'], Config::$APPEARANCE['productname'] . " " ._("Feedback"));
+        
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) // we don't know his mail address
             return FALSE;
+        
+        $mail->addAddress($mailaddr);
+        
         /* echo "<pre>";
         print_r($mailaddr);
         echo "</pre>";*/
 
-        $enc_subject = '=?UTF-8?B?'.base64_encode($subject)."?=\n";
-        $header = "From: \"" . Config::$APPEARANCE['productname'] . " Notification System\" <" . Config::$APPEARANCE['from-mail'] . ">
-Reply-To: " . Config::$APPEARANCE['admin-mail'] . "
-Content-Type: text/plain; charset=utf8
-";
-// echo "<pre>$from</pre>";
-        $sent = mail($mailaddr[0]['value'], Config::$APPEARANCE['productname'] . ": $enc_subject", $content, $header);
+        // what do we want to say?
+        $mail->Subject = $subject;
+        $mail->Body = $content;
+        
+
+        $sent = $mail->send();
+        
         return $sent;
     }
 
