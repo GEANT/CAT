@@ -139,6 +139,7 @@ Your friendly folks from %s Operations"), Config::$CONSORTIUM['name']);
 // use PHPMailer to send the mail
 $mail = new PHPMailer();
 $mail->isSMTP();
+$mail->Port = 587;
 $mail->SMTPAuth = true;
 $mail->SMTPSecure = 'tls';
 $mail->Host = Config::$MAILSETTINGS['host'];
