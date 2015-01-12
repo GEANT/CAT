@@ -5,6 +5,16 @@ Changes in 1.1-beta1
                CERTPROB_SERVER_CERT_REVOKED
                the latter can only be checked if a valid CDP is in the server
                certificate; and only for own realms, not others
+- [FEATURE #2] use PHPMailer to send emails, in order to land in less spam traps
+               requires new config section Config::$MAILSETTINGS (see below)
+               always sends via Submission (TCP/587)
+
+Configuration parameter changes
+-------------------------------
+[NEW]           Config::$MAILSETTINGS['host']
+[NEW]           Config::$MAILSETTINGS['user']
+[NEW]           Config::$MAILSETTINGS['pass']
+
 
 Changes in 1.1-alpha1
 =====================

@@ -117,6 +117,14 @@ class Config {
         'ssp-attrib-name' => 'cn',
     );
 
+    /**
+     * Configures the host to use to send emails to the outside world. We assume
+     * the host is able to listen on the new Submission port (TCP/587). 
+     * host: Submission host
+     * user: username for the login to the host
+     * pass: password for the username
+     * @var array
+     */
     public static $MAILSETTINGS = array( // we always use Submission
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
