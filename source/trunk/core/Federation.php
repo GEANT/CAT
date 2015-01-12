@@ -434,7 +434,12 @@ class Federation {
                         if ($matches[2] != "") {
                             if ($mailnames != "")
                                 $mailnames .= ", ";
-                            $mailnames .= '"'.$matches[1].'" <'.$matches[2].'>';
+                            // extracting real names is nice, but the <> notation
+                            // really gets screwed up on POSTs and HTML safety
+                            // so better not do this; use only mail addresses
+                            // keeping the old codeline in case we revive this
+                            // $mailnames .= '"'.$matches[1].'" <'.$matches[2].'>';
+                            $mailnames .= $matches[2];
                         }
                     }
                     $returnarray[] = array("ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1], "contactlist" => $mailnames);
