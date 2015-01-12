@@ -228,6 +228,7 @@ class User {
         $mail = new PHPMailer();
         $mail->isSMTP();
         $mail->SMTPAuth = true;
+        $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
         $mail->Host = Config::$MAILSETTINGS['host'];
         $mail->Username = Config::$MAILSETTINGS['user'];
