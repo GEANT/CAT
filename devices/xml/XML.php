@@ -216,9 +216,9 @@ private function getProvideLocation() {
          }
          else {
                $providerlocation = new ProviderLocation();
-               $b = unserialize($at);
-               $providerlocation->Longitude = $b['lon'];
-               $providerlocation->Latitude = $b['lat'];
+               $b = unserialize($at[0]);
+               $providerlocation->setProperty('Longitude',$b['lon']);
+               $providerlocation->setProperty('Latitude',$b['lat']);
                $at1 = $providerlocation;
          }
          return$at1;
