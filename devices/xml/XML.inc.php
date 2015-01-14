@@ -44,9 +44,9 @@ class XMLElement {
      ),
      'client' => array(
        TLS => array('UserName','Password','ClientCertificate'), 
-       MSCHAP2 => array('UserName','Password','AnonymousIdentity'), 
+       MSCHAP2 => array('UserName','Password','OuterIdentity'), 
        GTC => array('UserName','OneTimeToken'), 
-       NE_PAP => array('UserName','Password','AnonymousIdentity'), 
+       NE_PAP => array('UserName','Password','OuterIdentity'), 
      )
   );
 
