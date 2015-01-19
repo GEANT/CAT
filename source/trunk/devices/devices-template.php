@@ -29,7 +29,11 @@ class Devices{
  * each device definition
  *
  * - 'sign' - if set to nonzero will cause installer signing if the module
- *         supports this
+ *         supports this. The default settings for Microsoft and Apple systems
+ *         is 1, since without signing, installation makes liitle sense. Be aware
+ *         that you need to set up signers and have proper certificates, if
+ *         you do not want to do that and you are just testing CAT, then you can
+ *         switch sign to 0, of course.
  * - 'no_cache' if defined and equal to 1 will block installer caching - useful
  *         for device development, should not be used in production
  * - 'hidden' if defined and equal to 1 will hide the device form listing - 
@@ -92,6 +96,20 @@ public static $Options=array(
 
 public static function listDevices() {
     return array(
+ 'w10'=>array(
+   'group' => "microsoft",
+   'display'=>_("MS Windows 10"),
+   'match'=>'Windows NT 6[._][4]',
+   'directory'=>'ms',
+   'module'=>'W8',
+   'signer'=>'ms_windows_sign',
+    'options'=>array(
+       'sign'=>1,
+       'device_id'=>'W10',
+       'mime'=>'application/x-dosexec',
+      ),
+   ),
+	
  'w8'=>array(
    'group' => "microsoft",
    'display'=>_("MS Windows 8, 8.1"),
@@ -100,7 +118,7 @@ public static function listDevices() {
    'module'=>'W8',
    'signer'=>'ms_windows_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'W8',
        'mime'=>'application/x-dosexec',
       ),
@@ -114,7 +132,7 @@ public static function listDevices() {
    'module'=>'Vista7',
    'signer'=>'ms_windows_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'W7',
        'mime'=>'application/x-dosexec',
       ),
@@ -128,7 +146,7 @@ public static function listDevices() {
    'module'=>'Vista7',
    'signer'=>'ms_windows_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'Vista',
        'mime'=>'application/x-dosexec',
       ),
@@ -142,7 +160,7 @@ public static function listDevices() {
    'module'=>'XP',
    'signer'=>'ms_windows_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'XP',
        'message' => _("MS Windows XP is no longer supported by Microsoft, therefore it can be unsecure and should not really be used."),
        'mime'=>'application/x-dosexec',
@@ -160,6 +178,21 @@ public static function listDevices() {
       ),
    ),
     
+
+ 'apple_yos'=>array(
+    'group' => "apple",
+    'display'=>_("Apple OS X Yosemite"),
+    'match'=>'Mac OS X 10[._]10',
+    'directory'=>'apple_mobileconfig',
+    'module'=>'mobileconfig_os_x',
+    'signer'=>'mobileconfig_sign',
+    'options'=>array(
+       'sign'=>1,
+       'device_id'=>'OS_X',
+       'mime'=>'application/x-apple-aspen-config',
+      ),
+    ),
+
 	
  'apple_mav'=>array(
     'group' => "apple",
@@ -169,7 +202,7 @@ public static function listDevices() {
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
       ),
@@ -184,7 +217,7 @@ public static function listDevices() {
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
       ),
@@ -198,7 +231,7 @@ public static function listDevices() {
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
       ),
@@ -211,7 +244,7 @@ public static function listDevices() {
     'module'=>'mobileconfig_ios',
     'signer'=>'mobileconfig_sign',
     'options'=>array(
-       'sign'=>0,
+       'sign'=>1,
        'device_id'=>'iOS',
        'mime'=>'application/x-apple-aspen-config',
       ),
@@ -226,7 +259,33 @@ public static function listDevices() {
        'mime'=>'application/x-sh',
       ),
    ),
- 'android'=>array(
+
+
+ 'android_lollipop'=>array(
+    'group' => "android",
+    'display'=>_("Android 5.0 Lollipop"),
+     'match'=>'Android 4\.[4-9]',
+    'directory'=>'xml',
+    'module'=>'XML_ALL',
+    'options'=>array(
+       'mime'=>'application/eap-config',
+       'message'=>_("Before you proceed with installation on Android systems, please make sure that you have installed the eduroam&nbsp;CAT application. This application is available from Google Play and will use the configuration file downloaded from CAT to create all necessary settings."),
+      ),
+   ),
+
+ 'android_kitkat'=>array(
+    'group' => "android",
+    'display'=>_("Android 4.4 KitKat"),
+     'match'=>'Android 4\.[4-9]',
+    'directory'=>'xml',
+    'module'=>'XML_ALL',
+    'options'=>array(
+       'mime'=>'application/eap-config',
+       'message'=>_("Before you proceed with installation on Android systems, please make sure that you have installed the eduroam&nbsp;CAT application. This application is available from Google Play and will use the configuration file downloaded from CAT to create all necessary settings."),
+      ),
+   ),
+
+ 'android_legacy'=>array(
      'group' => "android",
      'display'=>_("Android"),
      'match'=>'Android',
