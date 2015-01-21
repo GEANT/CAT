@@ -515,7 +515,7 @@ class RADIUSTests {
          * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
          */
         $code = CERTPROB_NO_CRL_AT_CDP_URL;
-        $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certifice. Checking server certificate validity against a CRL will not be possible.");
+        $this->return_codes[$code]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certificate. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
         /**
