@@ -195,8 +195,10 @@ for (var key in data.ca) {
          state = notacceptedwithreason + ': ' + data.ca[key].certificate[c].resultcomment;
      }
     } else {
-     if (data.ca[key].certificate[c].connected==1) 
+     if (data.ca[key].certificate[c].connected==1) {
+         level = L_WARN;
          state = falseaccepted;
+      }
      else {
          level = L_OK;
          state = notaccepted + ': ' + data.ca[key].certificate[c].resultcomment;
