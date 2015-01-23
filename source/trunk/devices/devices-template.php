@@ -264,7 +264,7 @@ public static function listDevices() {
  'android_lollipop'=>array(
     'group' => "android",
     'display'=>_("Android 5.0 Lollipop"),
-     'match'=>'Android 4\.[4-9]',
+     'match'=>'Android 5\.[0]',
     'directory'=>'xml',
     'module'=>'XML_ALL',
     'options'=>array(
