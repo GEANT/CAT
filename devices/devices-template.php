@@ -295,15 +295,18 @@ public static function listDevices() {
        'redirect'=>1,
       ),
    ),
-/*    
  'test'=>array(
     'group' => "other",
     'display'=>_("Test"),
     'directory'=>'test_module',
     'module'=>'TestModule',
     'options'=>array(
+       'hidden'=>1,
       ),
    ),
+
+
+/*    
     
  'xml-ttls-pap'=>array(
     'group' => "generic",
