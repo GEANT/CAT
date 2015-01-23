@@ -58,14 +58,18 @@ class UserAPI extends CAT {
     $profile = new Profile($prof_id);
     $a = array();
     $a['profile'] = $prof_id;
+    $a['device'] = $device;
     if( (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache'] ) || ( isset($Config['options']['no_cache']) && $Config['options']['no_cache'] ))
       $i_path = FALSE;
-    else
-      $i_path = $profile->testCache($device);
+    else {
+      $cache = $profile->testCache($device);
+      $i_path = $cache['cache'];
+    }
     if($i_path && is_file($this->root.'/web/'.$i_path)) { 
       $installer_file = $i_path;
       debug(4,"Using cached installer for: $device\n");
       $a['link'] = $i_path;
+      $a['mime'] = $cache['mime'];
     } else {
       $factory = new DeviceFactory($device);
       $dev = $factory->device;
@@ -73,14 +77,13 @@ class UserAPI extends CAT {
          $dev->setup($profile);
          $installer_file = $dev->FPATH.'/'.$dev->writeInstaller();
          if($installer_file && is_file($this->root.'/web/'.$installer_file)) {
-         $profile->updateCache($device,$installer_file);
-         $a['device'] = $device;
          if(isset($dev->options['mime']))
                $a['mime'] = $dev->options['mime'];
          else {
            $info = new finfo();
            $a['mime'] = $info->file($this->root.'/web/'.$installer_file, FILEINFO_MIME_TYPE);
          }
+         $profile->updateCache($device,$installer_file,$a['mime']);
          debug(4,"Generated installer :".$this->root.'/web/'.$installer_file.": for: $device\n");
          $a['link'] = $installer_file;
          } else {

@@ -299,13 +299,13 @@ class Profile {
      */
     public function testCache($device) {
         $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
-        $result = DBConnection::exec(Profile::$DB_TYPE, "SELECT download_path, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$device' AND lang = '$this->lang_index'");
+        $result = DBConnection::exec(Profile::$DB_TYPE, "SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$device' AND lang = '$this->lang_index'");
         if ($result && $cache = mysqli_fetch_object($result)) {
             $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lc = mysqli_fetch_object($exec_update)->last_change) {
                 if ($lc < $cache->tm) {
                     debug(4, "Installer cached:$cache->download_path\n");
-                    return($cache->download_path);
+                    return(array('cache'=>$cache->download_path,'mime'=>$cache->mime));
                 }
                 else
                     return NULL;
@@ -323,12 +323,12 @@ class Profile {
      * @param string device the device identifier string
      * @param string path the path where the new installer can be found
      */
-    public function updateCache($device, $path) {
+    public function updateCache($device, $path,$mime) {
         $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
         $path   = DBConnection::escape_value(Profile::$DB_TYPE, $path);
-        DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id,device_id,download_path,lang,installer_time) 
-                                        VALUES ($this->identifier, '$device', '$path', '$this->lang_index', CURRENT_TIMESTAMP ) 
-                                        ON DUPLICATE KEY UPDATE download_path = '$path', installer_time = CURRENT_TIMESTAMP");
+        DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
+                                        VALUES ($this->identifier, '$device', '$path', '$mime', '$this->lang_index', CURRENT_TIMESTAMP ) 
+                                        ON DUPLICATE KEY UPDATE download_path = '$path', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
     }
 
     /**
