@@ -1,3 +1,6 @@
+- [BUGFIX #1]  installer cache problem has been fixed by adding a mime field to the downloads 
+               table in the database, hence a schema change
+
 Changes in 1.1-beta1
 ====================
 - [FEATURE #1] added two more certificate checks:
