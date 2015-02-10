@@ -1,5 +1,12 @@
 - [BUGFIX #1]  installer cache problem has been fixed by adding a mime field to the downloads 
                table in the database, hence a schema change
+- [BUGFIX #2]  Linux installer - passwords containing single quote broke
+               fix suggested by Brian Epstein <bepstein@ias.edu>
+- [BUGFIX #3]  Linux installer - added tkip in group protocol
+               to support wpa/wpa2 mixed mode
+- [BUGFIX #4]  Linux installer - the name of local installation directory
+               changed from .eduroam to .cat_installer
+
 
 Changes in 1.1-beta1
 ====================
