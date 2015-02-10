@@ -1,4 +1,4 @@
-<?php
+u?php
 /* *********************************************************************************
  * (c) 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia
  * License: see the LICENSE file in the root directory
@@ -33,8 +33,8 @@ class Device_Linux extends DeviceConfig {
       final public function __construct() {
 //      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
       $this->supportedEapMethods  = array(EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS);
-      $this->local_dir = '.eduroam';
-      $this->conf_file = '$HOME/'.$this->local_dir.'/eduroam.conf';
+      $this->local_dir = '.cat_installer';
+      $this->conf_file = '$HOME/'.$this->local_dir.'/cat_installer.conf';
       debug(4,"LINUX: This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
     }
@@ -93,9 +93,9 @@ class Device_Linux extends DeviceConfig {
     }
     $out .= "<p>";
     }
-   $out .= _("The installer will create .eduroam sub-directory in your home directory and will copy your server certificates there.");
+   $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
 if($this->eap == EAP::$TLS)
-   $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .eduroam directory.");
+   $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
 else {
    $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
    $out .= "<p>";
@@ -391,6 +391,8 @@ cat << EOFW >> '.$this->conf_file."\n";
 network={
   ssid="'.$ssid.'"
   key_mgmt=WPA-EAP
+  pairwise=CCMP
+  group=CCMP TKIP
   eap='.$e['OUTER'].'
   ca_cert="${HOME}/'.$this->local_dir.'/ca.pem"
   identity="${USER_NAME}"';
@@ -508,6 +510,7 @@ private function glueServerNames($server_list) {
 private function printNMScript($SSIDs) {
    $e = EAP::eapDisplayName($this->selected_eap);
 $out = 'function run_python_script {
+PASSWORD=$( echo "$PASSWORD" | sed "s/\'/\\\\\\\'/g" )
 python << EOF > /dev/null 2>&1
 #-*- coding: utf-8 -*-
 import dbus
@@ -607,7 +610,7 @@ class EduroamNMConfigTool:
             \'key-mgmt\': \'wpa-eap\',
             \'proto\': [\'rsn\',],
             \'pairwise\': [\'ccmp\',],
-            \'group\': [\'ccmp\',]
+            \'group\': [\'ccmp\', \'tkip\']
         })
         s_8021x = dbus.Dictionary({
             \'eap\': [\''.strtolower($e['OUTER']).'\'],
