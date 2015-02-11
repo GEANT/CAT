@@ -8,6 +8,7 @@
                changed from .eduroam to .cat_installer
 - [BUGFIX #5]  Cleared a potential vulnarability in cat_info (item 9 from the audit)
 - [BUGFIX #6]  Cleared a potential vulnarability in radius_tests.php (item 11 from the audit)
+- [BUGFIX #6]  Cleared a potential vulnarability in cat_js.php (item 13 from the audit)
 
 
 Changes in 1.1-beta1
