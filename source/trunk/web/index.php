@@ -60,7 +60,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
 
         <script type="text/javascript">
             if(screen.width <= 480) {
-                window.location.href = "<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/basic.php?<?php echo $_SERVER['QUERY_STRING'] ?>";
+                window.location.href = "<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/basic.php?<?php echo htmlspecialchars($_SERVER['QUERY_STRING']) ?>";
             }
         </script>
         <script type="text/javascript">ie_version=0;</script>
