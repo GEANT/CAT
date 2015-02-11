@@ -268,7 +268,12 @@ function resetDevices() {
   }
 
   function infoCAT(k,title) {
-      $.post('user/cat_info.php', {page: k, title:title, lang: lang}, function(data) {
+      $.post('user/cat_info.php', {page: k, lang: lang}, function(data) {
+    if(data.substring(0,8) == 'no_title') {
+       data = data.substring(8,data.length);
+    } else {
+       data = "<h1>"+title+"</h1>"+data;
+    }
     Program.stop_program = 1;
     $("#slides").css('visibility','hidden');
     $("#signin").hide();

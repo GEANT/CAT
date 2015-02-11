@@ -11,7 +11,9 @@
  * @package UserGUI
  *
  * This handles the popups from the main menu. The page argument is saved in the $page variable and used
- * to select the proper handler. The title argument is saced as $title and dipplayes as <h1> on the popup
+ * to select the proper handler. If the contents is read form a file which supplies its own title
+ * then you need to preappend the returned data with the 'no_title' sting, this will cause
+ * the receiving end to strip this marker and not add the title by itself.
  *
  */
 include(dirname(dirname(dirname(__FILE__)))."/config/_config.php");
@@ -20,7 +22,6 @@ $API = new UserAPI();
 $API->set_locale("web_user");
 
 $page = $_REQUEST['page'];
-$title = $_REQUEST['title'];
 
 switch($page) {
   case 'consortium':
@@ -36,7 +37,7 @@ switch($page) {
     $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one institution will not work for users of another one, therefore if your institution is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your institution configuration to <span class='edu_cat'>%s</span>."),Config::$APPEARANCE['productname'],Config::$CONSORTIUM['name'],Config::$CONSORTIUM['name'],Config::$APPEARANCE['productname'],Config::$APPEARANCE['productname']);
     break;
   case 'tou':
-//     $out = sprintf(_("Currently this is a placeholder for ToU"));
+     print ('no_title');
      include('tou.php');
      return;
   case 'develop':
@@ -46,6 +47,7 @@ switch($page) {
      $out = sprintf(_("Please send a problem report to <a href='mailto:%s'>%s</a>. Some screen dumps are very welcome."),Config::$APPEARANCE['admin-mail'],Config::$APPEARANCE['admin-mail']);
      break;
    case 'faq':
+     print ('no_title');
      include('faq.php');
      return;
    case 'admin' :
@@ -66,9 +68,6 @@ switch($page) {
   default:
     break;
  }
-if($title != "") {
-  print "<h1>".urldecode($title)."</h1>\n";
-}
 print $out;
 
 ?>
