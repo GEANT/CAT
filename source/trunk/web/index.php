@@ -37,9 +37,9 @@ public function __construct($menu_array) {
 
 private function printMenuLine($index,$title="",$style="") {
 if ($style !== "")
-   print  "<tr><td style='$style'><a href='javascript:infoCAT(\"$index\",\"".urlencode($title)."\")'>$title</a></td></tr>\n";
+   print  "<tr><td style='$style'><a href='javascript:infoCAT(\"$index\",\"".rawurlencode($title)."\")'>$title</a></td></tr>\n";
 else
-   print  "<tr><td><a href='javascript:infoCAT(\"$index\",\"".urlencode($title)."\")'>$title</a></td></tr>\n";
+   print  "<tr><td><a href='javascript:infoCAT(\"$index\",\"".rawurlencode($title)."\")'>$title</a></td></tr>\n";
 }
 
 public function printMenu() {
