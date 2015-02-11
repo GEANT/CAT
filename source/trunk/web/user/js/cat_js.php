@@ -433,7 +433,11 @@ $(document).ready(function(){
   resetDevices();
  <?php 
 if(isset($_REQUEST['idp']) && $_REQUEST['idp']) { 
+    if(! is_numeric($_REQUEST['idp']))
+        exit;
     $p_id = (isset($_REQUEST['profile']) && $_REQUEST['profile']) ? $_REQUEST['profile'] : 0; 
+    if(! is_numeric($p_id))
+        exit;
    print 'listProfiles('.$_REQUEST['idp'].','.$p_id.');';
 }
  ?>
