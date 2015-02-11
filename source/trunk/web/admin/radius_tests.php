@@ -11,6 +11,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("RADIUSTests.php");
 require_once("inc/common.inc.php");
+require_once("inc/input_validation.inc.php");
+
 
 ini_set('display_errors', '0');
 
@@ -91,40 +93,45 @@ if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type'])
 
 $Cat = new CAT();
 $Cat->set_locale("web_admin");
-$test_type = $_REQUEST['test_type'];
-$check_realm = valid_Realm($_REQUEST['realm']);
+$test_type = $_REQUEST['test_type']; 
+$check_realm = valid_Realm($_REQUEST['realm']); 
 if (isset($_REQUEST['profile_id'])) {
-    $my_profile = valid_Profile($_REQUEST['profile_id']);
-    $check_realm = valid_Realm($_REQUEST['realm'], $_REQUEST['profile_id']);
+    $my_profile = valid_Profile($_REQUEST['profile_id']); 
+    $check_realm = valid_Realm($_REQUEST['realm'], $_REQUEST['profile_id']); 
     $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
 } else {
     $my_profile = NULL;
-    $check_realm = valid_Realm($_REQUEST['realm']);
+    $check_realm = valid_Realm($_REQUEST['realm']); 
     $testsuite = new RADIUSTests($check_realm);
 }
 $host = $_REQUEST['src'];
-$hostindex = $_REQUEST['hostindex'];
+if(!preg_match('/^[0-9\.:]*$/',$host))
+   exit;
+
+$hostindex = $_REQUEST['hostindex']; 
+if(!is_numeric($hostindex))
+  exit;
 
 
 $returnarray = array();
-$timeout = Config::$RADIUSTESTS['UDP-hosts'][$host]['timeout'];
+$timeout = Config::$RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
 switch ($test_type) {
     case 'udp_login' :
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
-        $user_name = isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "";
-        $outer_user_name = isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : "";
-        $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : "";
+        $user_name = valid_user(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
+        $outer_user_name = valid_user(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : "");
+        $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = array();
         foreach ($eaps as $eap) {
             if ($eap == EAP::$TLS) {
                 $run_test = TRUE;
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
-                    $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : "";
+                    $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
                     if(isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
-                        $tls_username = $_REQUEST['tls_username'];
+                        $tls_username = valid_user($_REQUEST['tls_username']);
                     } else {
                         if(openssl_pkcs12_read($clientcertdata,$certs,$privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);
@@ -146,12 +153,12 @@ switch ($test_type) {
                 }
                     if($run_test) {
                         debug(4,"TLS-USERNAME=$tls_username\n");
-                        $testresult = $testsuite->UDP_login($host, $eap, $tls_username, $privkey_pass,'', TRUE, TRUE, $clientcertdata);
+                        $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass,'', TRUE, TRUE, $clientcertdata);
                     }
             } else {
-                $testresult = $testsuite->UDP_login($host, $eap, $user_name, $user_password,$outer_user_name);
+                $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password,$outer_user_name);
             }
-        $returnarray['result'][$i] = process_result($testsuite,$host);
+        $returnarray['result'][$i] = process_result($testsuite,$hostindex);
         $returnarray['result'][$i]['eap'] = display_name($eap);
         $returnarray['returncode'][$i] = $testresult;
 
@@ -209,8 +216,8 @@ switch ($test_type) {
     case 'udp' :
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
-        $testresult = $testsuite->UDP_reachability($host);
-        $returnarray['result'][$i] = process_result($testsuite,$host);
+        $testresult = $testsuite->UDP_reachability($hostindex);
+        $returnarray['result'][$i] = process_result($testsuite,$hostindex);
         $returnarray['result'][$i]['eap'] = 'ALL';
         $returnarray['returncode'][$i] = $testresult;
         // a failed check may not have gotten any certificate, be prepared for that
@@ -340,6 +347,8 @@ switch ($test_type) {
             $printedres .= '</ul></div></tr></td>';
         }
         break;
+    default:
+      exit;
 }
 
 echo(json_encode($returnarray));

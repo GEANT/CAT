@@ -281,7 +281,6 @@ server_cert.sha1 =  "<?php echo _("SHA1 fingerprint:")?>";
 
 
 function udp(data,status) {
-//alert(data);
 //show_debug(JSON.stringify(data));
    var v = data.result[0];
    $("#src"+data.hostindex+"_img").attr('src',icons[v.level]);
@@ -359,9 +358,10 @@ foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
 $(\"#live_src".$hostindex."_img\").attr('src',icon_loading);
 $(\"#live_src".$hostindex."_img\").show();
     $.ajax({
-        url: 'radius_tests.php?src=$hostindex&hostindex=$hostindex&realm='+realm,
+        url: 'radius_tests.php?src=0&hostindex=$hostindex&realm='+realm,
         type: 'POST',
         success: udp_login,
+        error: udp_login,
         data: formData,
         cache: false,
         contentType: false,
