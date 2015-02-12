@@ -16,7 +16,8 @@
                audit)
 - [BUGFIX #9]  Added server hardening best practices in the Configuration
                tutorial (closing items D2 and D4 of the audit)
-
+- [BUGFIX #10] Input sanitisation in productheader() improved (closes item 7
+               from the source code audit)
 
 Changes in 1.1-beta1
 ====================

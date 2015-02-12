@@ -128,7 +128,7 @@ function productheader($area, $language) {
     echo "</select>";
     foreach ($_GET as $var => $value) {
         if ($var != "lang" && $value != "")
-            echo "<input type='hidden' name='$var' value='$value'>";
+            echo "<input type='hidden' name='".htmlspecialchars($var)."' value='".htmlspecialchars($value)."'>";
     }
     echo "</form>";
     echo "</div><!--langselection-->";
