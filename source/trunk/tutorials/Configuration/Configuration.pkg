@@ -58,7 +58,6 @@ Here are some extra configuration hints for these packages:
 <itemizedlist>
 <listitem><emphasis>Operating System</emphasis>
 	<itemizedlist>
-		<listitem>make sure the base system can send emails to the outside world via PHP's mail() function</listitem>
 		<listitem>language display needs the corresponding locales to be installed (check config/config-template.php for the exact list of locales that CAT can support right now)</listitem>
 	</itemizedlist>
 </listitem>
@@ -67,7 +66,13 @@ Here are some extra configuration hints for these packages:
 		<listitem>the Directory for installer downloads (configurable, defaults to web/downloads/ ) needs to have "AllowOverrides FileInfo" set</listitem>
 		<listitem>the directories under web/ need to be accessible from DocumentRoot</listitem>
 		<listitem>the CAT log dir (configurable, defaults to /var/log/CAT/ ) needs to be accessible for writing</listitem>
+                <listitem>for general server hardening, the following vhost configuration tokens should be set: "ServerSignature Off" and "ServerTokens ProductOnly"</listitem>
 		<listitem>if you want to use client certificates for administrative user authentication, be sure set a sufficiently large SSL Renegotiation Buffer size (e.g. SSLRenegBufferSize 10486000 for 10 MB max. upload size)</listitem>
+	</itemizedlist>
+</listitem>
+<listitem><emphasis>PHP</emphasis>
+        <itemizedlist>
+                <listitem>for general server hardening, the following option should be set in php.ini: "expose_php 0"</listitem>
 	</itemizedlist>
 </listitem>
 <listitem><emphasis>simpleSAMLphp</emphasis>
@@ -79,12 +84,6 @@ Here are some extra configuration hints for these packages:
 	<itemizedlist>
                 <listitem>needs to have the plug-ins "NSISArray", "GetVersion", "ZipDLL" available</listitem>
 		<listitem>"makensis" needs to be in your $PATH and executable</listitem>
-	</itemizedlist>
-</listitem>
-<listitem><emphasis>rad_eap_test</emphasis>
-        <itemizedlist>
-                <listitem>needs to be in your $PATH and executable.</listitem>
-		<listitem>The >1500 Bytes packet inflation currently needs a slight patch, which is available on request.</listitem>
 	</itemizedlist>
 </listitem>
 <listitem><emphasis>GeoIP</emphasis>
