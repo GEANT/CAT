@@ -107,7 +107,7 @@ class UserManagement {
                              WHERE invite_token = '$token' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         if ($a = mysqli_fetch_object($instinfo)) {
             if ($a->cat_institution_id !== NULL) { // add new admin to existing inst
-                DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$owner', $a->cat_institution_id, '$a->invite_issuer_level', '$a->invite_dest_mail') ");
+                DBConnection::exec(UserManagement::$DB_TYPE, "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$owner', $a->cat_institution_id, '$a->invite_issuer_level', '$a->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$a->invite_issuer_level', orig_mail='$a->invite_dest_mail' ");                
                 CAT::writeAudit($owner, "OWN", "IdP " . $a->cat_institution_id . " - added user as owner");
                 return new IdP($a->cat_institution_id);
             } else { // create new IdP
