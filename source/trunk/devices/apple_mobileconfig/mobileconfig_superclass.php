@@ -273,11 +273,12 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                <key>PayloadOrganization</key>
                   <string>" . $this->massaged_consortium . ".1x-config.org</string>
                <key>PayloadType</key>
-                  <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>";
+                  <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>
+               <key>ProxyType</key>
+                  <string>Auto</string>
+                ";
         if ($wired)
             $retval .= "
-               <key>ProxyType</key>
-                  <string>None</string>
                <key>SetupModes</key>
                   <array>
                      <string>System</string>
