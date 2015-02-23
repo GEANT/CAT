@@ -102,6 +102,7 @@ $errorstate = array();
    servercert['authorityInfoAccess'] = '<?php echo _("authorityInfoAccess") ?>';
    var lessalltext = '<?php echo _("Hide detailed information for all tests") ?>';
    var addresses = new Array();
+   var clients_level = L_OK;
    $(document).ready(function() {
       $('.caresult, .eap_test_results, .udp_results').on('click', '.morelink', function() {
           if ($(this).hasClass('less')) {
@@ -212,6 +213,7 @@ for (var key in data.ca) {
  }
 }
 } 
+clients_level = clients_level | level;
 cliinfo = cliinfo + '</ul>';
 }
 cliinfo = cliinfo + '</ol>';
@@ -224,6 +226,7 @@ if (srefused>0) {
 } else {
 if (arefailed) {
     $("#dynamic_result_pass").hide();
+$("#dynamic_result_fail img").attr('src',icons[clients_level]);
     $("#dynamic_result_fail").show();
 }  else {
     $("#dynamic_result_pass").show();
