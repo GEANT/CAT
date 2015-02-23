@@ -169,7 +169,7 @@ define("CERTPROB_UNKNOWN_CA", -212);
 /**
  * The server accepted this client certificate, but should not have
  */
-define("CERTPROB_WRONGLY_ACCEPT", -213);
+define("CERTPROB_WRONGLY_ACCEPTED", -213);
 /**
  * The server does not accept this client certificate, but should have
  */
@@ -594,7 +594,7 @@ class RADIUSTests {
         /**
          * The server accepted this client certificate, but should not have
          */
-        $code = CERTPROB_WRONGLY_ACCEPT;
+        $code = CERTPROB_WRONGLY_ACCEPTED;
         $this->return_codes[$code]["message"] = _("The server accepted the INVALID client certificate.");
         $this->return_codes[$code]["severity"] = L_ERROR;
 
