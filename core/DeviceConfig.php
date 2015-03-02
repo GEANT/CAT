@@ -316,8 +316,10 @@ debug(4,$this->attributes['support:info_file']);
       }   
       $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
       if($this->attributes['internal:profile_count'][0] > 1) {
-         $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
-         return $c_name. '-'. $this->getDeviceId() . $inst .'-'. $prof;
+         if(!empty($this->attributes['profile:name']) && ! empty($this->attributes['profile:name'][0])) {
+             $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
+             return $c_name. '-'. $this->getDeviceId() . $inst .'-'. $prof;
+         }
       }
       return $c_name. '-'. $this->getDeviceId() . $inst;
   }

@@ -65,7 +65,7 @@ class UserAPI extends CAT {
       $cache = $profile->testCache($device);
       $i_path = $cache['cache'];
     }
-    if($i_path && is_file($this->root.'/web/'.$i_path)) { 
+    if($i_path && is_file(CAT::$root.'/web/'.$i_path)) { 
       $installer_file = $i_path;
       debug(4,"Using cached installer for: $device\n");
       $a['link'] = $i_path;
@@ -76,15 +76,15 @@ class UserAPI extends CAT {
       if(isset($dev)) {
          $dev->setup($profile);
          $installer_file = $dev->FPATH.'/'.$dev->writeInstaller();
-         if($installer_file && is_file($this->root.'/web/'.$installer_file)) {
+         if($installer_file && is_file(CAT::$root.'/web/'.$installer_file)) {
          if(isset($dev->options['mime']))
                $a['mime'] = $dev->options['mime'];
          else {
            $info = new finfo();
-           $a['mime'] = $info->file($this->root.'/web/'.$installer_file, FILEINFO_MIME_TYPE);
+           $a['mime'] = $info->file(CAT::$root.'/web/'.$installer_file, FILEINFO_MIME_TYPE);
          }
          $profile->updateCache($device,$installer_file,$a['mime']);
-         debug(4,"Generated installer :".$this->root.'/web/'.$installer_file.": for: $device\n");
+         debug(4,"Generated installer :".CAT::$root.'/web/'.$installer_file.": for: $device\n");
          $a['link'] = $installer_file;
          } else {
          debug(2,"Installer generation failed for: $prof_id:$device\n");
@@ -366,7 +366,7 @@ private function GetRootURL() {
        header("HTTP/1.0 404 Not Found");
        return;
     }
-    $file = $this->root.'/web/'.$o['link'];
+    $file = CAT::$root.'/web/'.$o['link'];
     $filetype = $o['mime'];
     debug(4,"installer MIME type:$filetype\n");
     header("Content-type: ".$filetype);
@@ -388,9 +388,9 @@ private function GetRootURL() {
 
  public function sendLogo($idp_id, $disco=FALSE) {
    $ExpStr = '';
-   if($disco && is_file($this->root.'/web/downloads/logos/'.$idp_id.'.png')) {
+   if($disco && is_file(CAT::$root.'/web/downloads/logos/'.$idp_id.'.png')) {
       debug(4,"Using cached logo for: $idp_id\n");
-      $blob = file_get_contents($this->root.'/web/downloads/logos/'.$idp_id.'.png');
+      $blob = file_get_contents(CAT::$root.'/web/downloads/logos/'.$idp_id.'.png');
       $filetype = 'image/png';
    }
    else {
@@ -409,7 +409,7 @@ private function GetRootURL() {
            $image->thumbnailImage(120,40,1);
            $blob = $image->getImageBlob();
            debug(4,"Writing cached logo for: $idp_id\n");
-           file_put_contents($this->root.'/web/downloads/logos/'.$idp_id.'.png',$blob);
+           file_put_contents(CAT::$root.'/web/downloads/logos/'.$idp_id.'.png',$blob);
          }
          else
            $blob = "XXXXXX";
@@ -519,7 +519,7 @@ public function orderIdentityProviders($country) {
 
 public function detectOS() {
    $Dev = Devices::listDevices();
-   if( isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
+   if( isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
       $dev_id = $_REQUEST['device'];
       $device = $Dev[$dev_id];
       return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));

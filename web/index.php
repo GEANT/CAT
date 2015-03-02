@@ -11,6 +11,7 @@
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  * @package UserGUI
  */
+error_reporting(E_ALL | E_STRICT);
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("UserAPI.php");
 require_once("resources/inc/header.php");
@@ -110,7 +111,7 @@ include("user/js/cat_js.php");
         <!-- DiscoJuice -->
         <script type="text/javascript" src="external/discojuice/discojuice.js"></script>
         <script type="text/javascript">
-            var lang = "<?php echo($Gui->lang_index) ?>";
+            var lang = "<?php echo(CAT::$lang_index) ?>";
         </script>
         <link rel="stylesheet" type="text/css" href="external/discojuice/css/discojuice.css" />
     </head>
@@ -128,7 +129,7 @@ include("user/js/cat_js.php");
             foreach (Config::$LANGUAGES as $lang => $value) {
                 echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
             }
-            echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $Gui->lang_index . '">' . _("Start page") . '</a></td></tr></table>';
+            echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::$lang_index . '">' . _("Start page") . '</a></td></tr></table>';
             ?>
         </div> <!-- id="heading" -->
         <div id="loading_ico">
@@ -161,7 +162,7 @@ include("user/js/cat_js.php");
                         </td>
                         <td style="vertical-align: top; height:280px; background: #fff; padding-left: 20px; padding-right: 20px">
                             <div id="main_menu_info" style="display:none">
-                                    <img id="main_menu_close" src="resources/images/icons/button_cancel.png"  style="float:right"/>
+                                    <img id="main_menu_close" src="resources/images/icons/button_cancel.png" ALT="Close"  style="float:right"/>
                                 <div id="main_menu_content"></div>
                             </div>
                             <table style="background: #fff; width:100%; padding-top: 5px">
@@ -188,7 +189,7 @@ include("user/js/cat_js.php");
                     </tr>
                     <tr>
                         <td id="user_button_td">
-<?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><div id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name']) . '</div></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
+<?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
 
                         </td>
                     </tr>
@@ -225,7 +226,7 @@ include("user/js/cat_js.php");
                        <span id="download_info"><?php 
                        /// the empty href is dynamically exchanged with the actual path by jQuery at runtime
                        echo _("Your download will start shortly, in case of problems with the automatic download please use this direct <a href=''>link</a>.");
-                       ?>
+                       ?></span>
                        <p>
                        <?php printf(_("Dear user from %s,"),"<span class='inst_name'></span>") ?>
                        <br/>

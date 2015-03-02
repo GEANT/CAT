@@ -25,7 +25,7 @@ require_once("CAT.php");
 function pageheader($pagetitle, $area, $auth_required = TRUE) {
     $cat = defaultPagePrelude($pagetitle, $auth_required);
     echo "</head></body>";
-    productheader($area, $cat->lang_index);
+    productheader($area, CAT::$lang_index);
     return $cat;
 }
 
@@ -36,7 +36,7 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
     }
     $Cat = new CAT();
     $Cat->set_locale("web_admin");
-    $ourlocale = $Cat->lang_index;
+    $ourlocale = CAT::$lang_index;
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
