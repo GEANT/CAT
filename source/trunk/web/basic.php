@@ -16,6 +16,7 @@
  */
 
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once("CAT.php");
 require_once("UserAPI.php");
 
 debug(4,"basic.php\n");
@@ -37,7 +38,7 @@ public function __construct() {
   $this->Args = array();
   $this->page =  0;
   $this->set_locale('core');
-  $this->Args['lang'] = $this->lang_index;
+  $this->Args['lang'] = CAT::$lang_index;
 //print "<pre>"; print_r($_REQUEST); print "</pre>";
 
 /*
@@ -197,7 +198,7 @@ public function listDevices() {
    $message = '';
    if(! $os)
      $message = $unsupported_message;
-   $out .= _("Choose an installer to download").'<br>';
+   $out = _("Choose an installer to download").'<br>';
    $out .= '<select name="device" onchange="set_device(this)">';
    $i= 0;
    foreach ($thedevices as $D) {
@@ -299,7 +300,7 @@ public function displayDeviceDownload() {
       $extra_text .= '<p>';
       print $extra_text;
 
-      $download_link = 'user/API.php?action=downloadInstaller&generatedfor=user&lang='.$this->lang_index.'&id='.$o['device'].'&profile='.$o['profile'];
+      $download_link = 'user/API.php?action=downloadInstaller&generatedfor=user&lang='.CAT::$lang_index.'&id='.$o['device'].'&profile='.$o['profile'];
 
       print '<p><button id="download_button" onclick="window.location.href=\'' . rtrim(dirname($_SERVER['SCRIPT_NAME']),'/'). '/' . $download_link . '\'; return(false)"><div>' . _("Download installer for") . '<br><span style="color:yellow; font-weight: bold">' . $D['display']. '</span></div></button>';
 
@@ -317,7 +318,7 @@ public function langSelection() {
    $out .= '<select onchange="submit_form(this)" name="lang">';
    foreach (Config::$LANGUAGES as $lng => $value) {
        $out .= '<option value="'.$lng.'"';
-       if ($lng === $this->lang_index)
+       if ($lng === CAT::$lang_index)
           $out .= ' selected';
        $out .= '>'. $value['display'] . '</option>';
    }
@@ -370,8 +371,8 @@ $Gui = new SimpleGUI();
 debug(4,"\n----------------------------------SIMPLE.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo "$Gui->lang_index"?>">
-    <head lang="<?php echo "$Gui->lang_index"?>"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::$lang_index?>">
+    <head lang="<?php echo CAT::$lang_index?>"> 
         <title><?php echo Config::$APPEARANCE['productname_long'];?></title>
 <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
@@ -413,7 +414,7 @@ if($Gui->page == 0) {
        $Gui->page = 2;
 }
 */
-        print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . $Gui->lang_index . '">' . Config::$APPEARANCE['productname'] . '</a></h1>';
+        print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . CAT::$lang_index . '">' . Config::$APPEARANCE['productname'] . '</a></h1>';
         print $Gui->langSelection();
         if(! isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {
         print "<p>\n";

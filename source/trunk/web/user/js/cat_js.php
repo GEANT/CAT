@@ -21,12 +21,20 @@ var target_element;
 var profile_list_size = <?php echo $profile_list_size ?>;
 var generation_error = "<?php echo _("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.") ?>";
 
+   $.fn.redraw = function(){
+  $(this).each(function(){
+    var redraw = this.offsetHeight;
+  });
+};
+
    function other_installers() {
      $("#guess_os").hide();
      $("#other_installers").show();
      target_element = 'user_page';
      set_front_page();
+     $("#devices").redraw();
    }
+
    function listProfiles(inst_id,selected_profile){
     var j ;
     target_element = 'user_page';

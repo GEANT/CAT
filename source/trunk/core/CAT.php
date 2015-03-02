@@ -45,14 +45,12 @@ class CAT {
      */
     public function __construct() {
         $A = $this->set_lang();
-        $this->lang_index = $A[0];
-        CAT::$lang_index = $A[0];
-        $this->locale = $A[1];
+        self::$lang_index = $A[0];
+        self::$locale = $A[1];
         $a = __DIR__;
-        $this->root = dirname($a);
-        CAT::$root = dirname($a);
+        self::$root = dirname($a);
 
-        debug(4, "CAT:" . $this->lang_index);
+        debug(4, "CAT:" . self::$lang_index);
     }
 
     /** 
@@ -89,7 +87,7 @@ class CAT {
      * @param string $domain
      * @return string previous seting so that you can restore it later
      */
-    public function set_locale($domain) {
+    public static function set_locale($domain) {
         $olddomain = textdomain(NULL);
         debug(4, "set_locale($domain)\n");
         debug(4, CAT::$root . "\n");
