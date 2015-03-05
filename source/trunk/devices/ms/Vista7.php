@@ -622,6 +622,7 @@ debug(4,"code_page=".$this->code_page."\n");
    $this->translateFile('common.inc','common.nsh',$this->code_page);
    if($eap["OUTER"] == TTLS)  {
      $this->translateFile('ttls.inc','cat.NSI',$this->code_page);
+     $result = $this->copyFile('sw2_license.txt');
      $result = $result && $this->copyFile('SecureW2_EAP_Suite_113.zip');
     } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);

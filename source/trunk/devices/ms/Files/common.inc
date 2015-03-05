@@ -581,13 +581,15 @@ FunctionEnd
 
 ; If a wireless problem has been found, decide what to do
 Function NoWirelessConfirm
-  File "check_wired.cmd"
-  nsExec::Exec "$TEMP\check_wired.cmd"
-  Pop $0
-  Delete "$TEMP\check_wired.cmd"
+  ${If} $wired == 1 
+     File "check_wired.cmd"
+     nsExec::Exec "$TEMP\check_wired.cmd"
+     Pop $0
+     Delete "$TEMP\check_wired.cmd"
   ${If} $0 > 0
     Push 0
     Pop $wired
+  ${EndIf}
   ${EndIf}
   ${If} $wired == 0
     ${If} $wireless_result == 1
@@ -627,7 +629,7 @@ Function WiredConfirm
     wired:
     ${If} $wired == 1
       !insertmacro debug_cat 2 "Setting up dot3svc"
-      nsExec::Exec  '"sc" start dot3svc'
+;      nsExec::Exec  '"sc" start dot3svc'
       nsExec::Exec  '"sc" config dot3svc start= auto'
     ${EndIf}
     ${EndIf}
@@ -788,7 +790,7 @@ Call ShowAllButtons
     ${If} $Symantec_installed  != 0
      !insertmacro debug_cat 3 "Symantec problem"
      IfSilent +2
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php sprintf(sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),Config::$CONSORTIUM['name']) ?>"
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),Config::$CONSORTIUM['name']) ?>"
     Exec '"explorer" /select,"$EXEDIR\inst_cat.cmd"'
     Quit
 
@@ -991,7 +993,7 @@ FunctionEnd
 !ifdef TLS
 Function PFXCertificateSelect
 ;TRANSLATION
-!insertmacro MUI_HEADER_TEXT "<?php sprintf(sprint_nsi(_("%s installer for")),Config::$CONSORTIUM['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
+!insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),Config::$CONSORTIUM['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
   ${If} $PFX_install == 0
     Return
   ${EndIf}
@@ -1147,6 +1149,14 @@ FunctionEnd
 
 Page custom nsDialogsWelcome
 Page custom confirmUserGroup
+!ifdef SW2
+ PageEx license
+   LicenseText " "
+   LicenseData sw2_license.txt
+   LicenseForceSelection off
+ PageExEnd
+!endif
+;============================
 Page custom WiredConfirm
 ;============================
 !ifdef LICENSE_FILE
@@ -1157,7 +1167,7 @@ Page custom WiredConfirm
 PageEx components
 PageCallbacks showComponents "" ""
 ;TRANSLATION
-ComponentText "<?php sprintf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),Config::$CONSORTIUM['name'])?>" "" \
+ComponentText "<?php printf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),Config::$CONSORTIUM['name'])?>" "" \
       "<?php echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
 PageExEnd
 ;=============================
