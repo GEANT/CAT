@@ -86,8 +86,8 @@ function valid_consortium_oi($input) {
     $shallow = valid_string_db($input);
     if (strlen($shallow) != 6 && strlen($shallow) != 10)
         return FALSE;
-    if (!preg_match("/^[a-fA-F0-9]+$/",$shallow))
-            return FALSE;
+    if (!preg_match("/^[a-fA-F0-9]+$/", $shallow))
+        return FALSE;
     return $shallow;
 }
 
@@ -173,6 +173,24 @@ function valid_boolean($input) {
         exit(1);
     } else
         return $input;
+}
+
+function valid_DB_reference($input) {
+    $table = "";
+    $rowindex = "";
+    $rowindexmatch = array();
+
+    if (preg_match("/IdP/", $input)) {
+        $table = "institution_option";
+    } elseif (preg_match("/Profile/", $input)) {
+        $table = "profile_option";
+    } else
+        return FALSE;
+    if (preg_match("/.*-([0-9]*)/", $input, $rowindexmatch)) {
+        $rowindex = $rowindexmatch[1];
+    } else
+        return FALSE;
+    return array("table" => $table, "rowindex", $rowindex);
 }
 
 ?>
