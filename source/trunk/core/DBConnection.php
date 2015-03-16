@@ -17,6 +17,8 @@
  */
 
 require_once('Helper.php');
+require_once('Profile.php');
+require_once('IdP.php');
 
 /**
  * This class is a singleton for establishing a connection to the database
@@ -129,6 +131,44 @@ class DBConnection {
     return $blob;
 }
 
+    /**
+     * Checks if a raw data pointer is public data (return value FALSE) or if 
+     * yes who the authorised admins to view it are (return array of user IDs)
+     */
+    public static function isDataRestricted($table, $row) {
+            if ($table != "institution_option" && $table != "profile_option")
+            return array(); // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+            select ($table) {
+            case "profile_option":            
+                $blob_query = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
+                while ($a = mysqli_fetch_object($blob_query)) // only one row
+                    $blobprofile = $a->profile_id;
+                // is the profile in question public?
+                $profile = new Profile($blobprofile);
+                if ($profile->getShowtime() == TRUE) { // public data
+                    return FALSE;
+                } else {
+                    $inst = new IdP($profile->institution);
+                    return $inst->owner();
+                }
+                break;
+            case "institution_option":
+                $blob_query = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
+                while ($a = mysqli_fetch_object($blob_query)) // only one row
+                    $blobinst = $a->institution_id;
+                $inst = new IdP($blobinst);
+                // if at least one of the profiles belonging to the inst is public, the data is public
+                if ($inst->isOneProfileShowtime()) { // public data
+                    return FALSE;
+                } else {
+                    return $inst->owner();
+                }
+                break;
+            default:
+            return array(); // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+            }
+            
+    }
 
     /**
      * Retrieves the last auto-id of an INSERT. Needs to be called immediately after the corresponding exec() call

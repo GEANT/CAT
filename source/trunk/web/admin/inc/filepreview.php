@@ -12,12 +12,14 @@ require_once("Helper.php");
 require_once("CAT.php");
 
 require_once("common.inc.php");
+require_once("input_validation.inc.php");
 
 function getImageFromDB($id) {
 
     $blob = FALSE;
 
-    $blob = getBlobFromDB($id);
+    // check if data is public for this blob call
+    $blob = getBlobFromDB($id, TRUE);
 
     // suppress E_NOTICE on the following... we are testing *if*
     // we have a serialized value - so not having one is fine and
@@ -51,10 +53,7 @@ function getImageFromDB($id) {
     echo $blob;
 }
 
-// FIXME: if this is called directly, anyone can iterate over all images, even those that
-// don't belong to him... fix that!
-
-if (isset($_GET["id"])) {
+if (isset($_GET["id"]) && valid_DB_reference($_GET["id"])) {
     getImageFromDB($_GET["id"]);
 } else {
     echo "No valid ID";

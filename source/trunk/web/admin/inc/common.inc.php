@@ -16,6 +16,7 @@ require_once("EAP.php");
 require_once("DBConnection.php");
 
 require_once("input_validation.inc.php");
+require_once("auth.inc.php"); // no authentication here, but we need to check if authenticated
 
 define ("BUTTON_CLOSE", 0);
 define ("BUTTON_CONTINUE", 1);
@@ -252,22 +253,30 @@ function check_upload_sanity($optiontype, $filename) {
     return FALSE;
 }
 
-function getBlobFromDB($ref) {
+function getBlobFromDB($ref, $checkpublic) {
 
-    $table = "";
-    $rowindex = "";
+    $reference = valid_DB_reference($ref);
 
-    if (preg_match("/IdP/", $ref))
-        $table = "institution_option";
-    if (preg_match("/Profile/", $ref))
-        $table = "profile_option";
-    preg_match("/.*-([0-9]*)/", $ref, $rowindexmatch);
-    $rowindex = $rowindexmatch[1];
-
-    if ($table == "" || $rowindex == "")
+    if ($reference == FALSE)
         return;
 
-    $blob = DBConnection::fetchRawDataByIndex($table, $rowindex);
+    // the data is either public (just give it away) or not; in this case, only
+    // release if the data belongs to admin himself
+    if ($checkpublic) {
+        $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
+        if ($owners !== FALSE) { // see if we're authenticated and owners of the data
+            if (!isAuthenticated()) {
+                return FALSE; // admin-only, but we are not an admin
+            } elseif (array_search($_SESSION['user'], $owners) === FALSE)  {
+                return FALSE; // wrong guy
+            } else {
+                // carry on and get the data
+            }
+                
+        }
+    }
+    
+    $blob = DBConnection::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
     if (!$blob)
         return FALSE;
     return $blob;
@@ -286,7 +295,7 @@ function previewCAinHTML($ca_reference) {
     if (!$found)
         return "<div>" . _("Error, ROWID expected.") . "</div>";
 
-    $ca_blob = base64_decode(getBlobFromDB($ca_reference));
+    $ca_blob = base64_decode(getBlobFromDB($ca_reference), FALSE);
 
     $func = new X509;
     $details = $func->processCertificate($ca_blob);
@@ -313,7 +322,7 @@ function previewInfoFileinHTML($file_reference) {
     if (!$found)
         return _("<div>Error, ROWID expected, got $file_reference.</div>");
 
-    $file_blob = unserialize(getBlobFromDB($file_reference));
+    $file_blob = unserialize(getBlobFromDB($file_reference), FALSE);
     $file_blob = base64_decode($file_blob['content']);
     $fileinfo = new finfo();
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($file_blob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($file_blob)) . ")<br/><a href='inc/filepreview.php?id=$file_reference'>" . _("Preview") . "</a></div>";

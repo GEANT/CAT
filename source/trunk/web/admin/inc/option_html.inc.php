@@ -150,7 +150,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 }
                 $content = $taggedarray["content"];
             } else {
-                $taggedarray = unserialize(getBlobFromDB($prefill));
+                $taggedarray = unserialize(getBlobFromDB($prefill), FALSE);
                 $content = $prefill;
             }
             $language;
