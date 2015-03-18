@@ -6,6 +6,8 @@
  * ********************************************************************************* */
 ?>
 <?php
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once("../../admin/inc/input_validation.inc.php");
 
 function footer() {
     echo "</div><!-- trick -->
@@ -28,7 +30,9 @@ function footer() {
     echo "</td>
           <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
     if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-        $logo_base = $_SERVER['HTTP_HOST'];
+        $logo_base = valid_host($_SERVER['HTTP_HOST']);
+        if ($logo_base === FALSE)
+            exit(1);
         if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE)
             $logo_base .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/images";
         else

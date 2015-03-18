@@ -193,4 +193,15 @@ function valid_DB_reference($input) {
     return array("table" => $table, "rowindex", $rowindex);
 }
 
+function valid_host($input) {
+    // is it a valid IP address (IPv4 or IPv6)?
+    if (filter_var($input,FILTER_VALIDATE_IP))
+            return $input;
+    // if not, it must be a host name. Use email validation by prefixing with a local part
+    if (filter_var("stefan@".$input, FILTER_VALIDATE_EMAIL ))
+            return $input;
+    // if we get here, it's bogus
+    return FALSE;
+}
+
 ?>

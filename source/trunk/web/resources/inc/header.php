@@ -11,6 +11,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("Helper.php");
 require_once("CAT.php");
+require_once("../../admin/inc/input_validation.inc.php");
 
 /**
  * This starts HTML in a default way. Most pages would call this.
@@ -42,7 +43,9 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-    $css_url = $_SERVER['HTTP_HOST'];
+    $css_url = valid_host($_SERVER['HTTP_HOST']);
+    if ($css_url === FALSE)
+        exit(1);
     // we need to construct the right path to the consortium logo; we are either
     // in the admin area or on the main index.php ...
     if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE)
@@ -132,7 +135,9 @@ function productheader($area, $language) {
     }
     echo "</form>";
     echo "</div><!--langselection-->";
-    $logo_url = $_SERVER['HTTP_HOST'];
+    $logo_url = valid_host($_SERVER['HTTP_HOST']);
+    if ($logo_url === FALSE)
+        exit(1);
     // we need to construct the right path to the consortium logo; we are either
     // in the admin area or on the main index.php ...
     if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE)
