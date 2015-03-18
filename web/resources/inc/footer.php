@@ -7,7 +7,7 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("../../admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
 function footer() {
     echo "</div><!-- trick -->
