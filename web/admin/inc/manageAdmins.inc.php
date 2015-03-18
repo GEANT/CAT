@@ -25,10 +25,14 @@ header("Content-Type:text/html;charset=utf-8");
 
 // where did the user come from? Save this...
 
-if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != ""))
-    $dest = $_SERVER['HTTP_REFERER'];
-else
+// the user can come only from overview_user or overview_federation
+// to prevent HTTP response slitting attacks, pick and rewrite the destination URL
+
+if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_match("/overview_federation/", $_SERVER['HTTP_REFERER'])) {
+    $dest = "../overview_federation.php";
+} else { // not from fed adin page? destination is overview_user
     $dest = "../overview_user.php";
+}
 
 $my_inst = valid_IdP($_GET['inst_id']);
 $user = new User($_SESSION['user']);
