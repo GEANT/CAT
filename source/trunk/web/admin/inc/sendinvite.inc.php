@@ -108,9 +108,10 @@ else if (isset($_POST['creation'])) {
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     }
 } else {
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+    $wrongcontent = print_r($_POST, TRUE);
+    echo "<pre>Wrong parameters in POST:
+".htmlspecialchars($wrongcontent)."
+</pre>";
     exit(1);
 }
 
