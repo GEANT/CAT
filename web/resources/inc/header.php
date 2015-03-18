@@ -57,7 +57,7 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
     else
         $css_url = "http://" . $css_url;
     echo "<link rel='stylesheet' type='text/css' href='$css_url' />";
-    echo "<title>$pagetitle</title>";
+    echo "<title>".htmlspecialchars($pagetitle)."</title>";
 
     return $Cat;
 }
