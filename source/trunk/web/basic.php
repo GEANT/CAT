@@ -7,7 +7,7 @@
 <?php
 // error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 /**
- * This file contains the implementation of the simple CAT user interdace
+ * This file contains the implementation of the simple CAT user interface
  * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  * 
@@ -23,7 +23,7 @@ debug(4,"basic.php\n");
 debug(4,$_POST);
 
 /**
-  * SimpleGUI defines extesions of the GUI class used only in the simpem interface
+  * SimpleGUI defines extensions of the GUI class used only in the simple interface
   * this class does not define its own constructor.
   */
 class SimpleGUI extends UserAPI {
