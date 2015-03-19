@@ -170,7 +170,9 @@ class Config {
      * TLS-acceptableOIDs: defines which policy OID is expected from RADIUS/TLS servers and clients
      * TLS-clientcerts: for full two-way auth, the TLS handshake must have access to client certificates.
      * You can specify known-good certificates (expected=pass) and known-bad ones (expected=fail)
-     * For each accredited CA you should 
+     * For each accredited CA you should provide four server certificates: valid, expired, revoked, wrong policy
+     * so that all corner cases can be tested. Be sure to set "expected" to match
+     * your expectations regarding the outcome of the connection attempt.
      * 
      * @var array
      */
