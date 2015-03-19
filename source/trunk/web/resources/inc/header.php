@@ -67,16 +67,18 @@ function productheader($area, $language) {
 // echo "You are here: ".$_SERVER['REQUEST_URI'];
     $place = parse_url($_SERVER['REQUEST_URI']);
 
-    if (isset($place['query'])) {
-        preg_match('/(.*)&lang=.*/', '&' . $place['query'], $result);
-
-        if (array_key_exists(1, $result))
-            $short = substr($result[1], 1);
-        else
-            $short = $place['query'];
-    } else {
-        $short = "";
-    }
+// this code does not do anything?!
+// 
+//    if (isset($place['query'])) {
+//        preg_match('/(.*)&lang=.*/', '&' . $place['query'], $result);
+//
+//        if (array_key_exists(1, $result))
+//            $short = substr($result[1], 1);
+//        else
+//            $short = $place['query'];
+//    } else {
+//        $short = "";
+//    }
 
     echo "<div class='header'>";
     $cap1 = "";
