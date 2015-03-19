@@ -68,6 +68,7 @@ Here are some extra configuration hints for these packages:
 		<listitem>the CAT log dir (configurable, defaults to /var/log/CAT/ ) needs to be accessible for writing</listitem>
                 <listitem>for general server hardening, the following vhost configuration tokens should be set: "ServerSignature Off" and "ServerTokens ProductOnly"</listitem>
 		<listitem>if you want to use client certificates for administrative user authentication, be sure set a sufficiently large SSL Renegotiation Buffer size (e.g. SSLRenegBufferSize 10486000 for 10 MB max. upload size)</listitem>
+                <listitem>There are custom error pages for 404 etc. in web/404.php etc. If you want to use them, set ErrorDocument 404 /.../404.php etc. in your Apache virtual host config.</listitem>
 	</itemizedlist>
 </listitem>
 <listitem><emphasis>PHP</emphasis>
