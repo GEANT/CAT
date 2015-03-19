@@ -9,10 +9,11 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
-function footer() {
-    echo "</div><!-- trick -->
-          </div><!-- pagecontent -->
-          <div class='footer'>
+function footer($core_only = FALSE) {
+    if ($core_only === FALSE) 
+        echo "</div><!-- trick -->
+          </div><!-- pagecontent -->";
+    echo "<div class='footer' style='display:block; border-top:none;'>
           <hr />
           <table style='width:100%'>
             <tr>
@@ -26,7 +27,7 @@ function footer() {
         echo _("Unreleased SVN Revision");
     }
 
-    echo "&copy; 2011-14 DANTE Ltd. on behalf of the GN3 and GN3plus consortia";
+    echo "&nbsp;&copy; 2011-14 DANTE Ltd. on behalf of the GN3 and GN3plus consortia";
     echo "</td>
           <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
     if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -52,9 +53,10 @@ function footer() {
     echo "</td>
          </tr>
         </table>";
-    echo "</div><!-- footer -->
-          </div><!-- maincontent -->
-    </body>
+    echo "</div><!-- footer -->";
+ if ($core_only === FALSE) 
+     echo "</div><!-- maincontent -->";
+    echo "</body>
 </html>";
 }
 ?>
