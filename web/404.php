@@ -1,0 +1,54 @@
+<?php
+/* * *********************************************************************************
+ * (c) 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia
+ * License: see the LICENSE file in the root directory
+ * ********************************************************************************* */
+?>
+<?php
+/**
+ * 404 error handler
+ *
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ * @package UserGUI
+ */
+error_reporting(E_ALL | E_STRICT);
+include(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once("UserAPI.php");
+require_once("resources/inc/header.php");
+require_once("resources/inc/footer.php");
+$Gui = new UserAPI();
+$Gui->set_locale("web_user");
+
+defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
+?>
+<link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat-user.css" />
+</head>
+<body>
+    <div id="heading">
+        <?php
+        print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<div id="motd">' . ( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ) . '</div>';
+        print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']) . '</h1>
+<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . Config::$APPEARANCE['productname_long'] . '</h2>';
+        echo '<table id="lang_select"><tr><td>';
+        echo _("View this page in");
+        ?>
+        <?php
+        foreach (Config::$LANGUAGES as $lang => $value) {
+            echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
+        }
+        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::$lang_index . '">' . _("Start page") . '</a></td></tr></table>';
+        ?>
+    </div> <!-- id="heading" -->
+    <div id="main_body" style='padding:20px;'>
+        <h1>This is not the CAT you are looking for.</h1>
+        <p>Whatever you expected to see at this URL - it's not here. The only thing here is the number</p>
+        <h2>404</h2>
+        <p>staring at you. Your error? Our error? Who knows!</p>
+    </div> <!-- id="main_body" -->
+<!--    <div class='footer' id='footer'>-->
+        <?php footer(TRUE); ?>
+
+<!--    </div>
+</body>
+</html>-->
