@@ -41,10 +41,10 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         ?>
     </div> <!-- id="heading" -->
     <div id="main_body" style='padding:20px;'>
-        <h1>This is not the CAT you are looking for.</h1>
-        <p>Whatever you expected to see at this URL - it's not here. The only thing here is the number</p>
+        <h1><?php echo _("This is not the CAT you are looking for.");?></h1>
+        <p><?php echo _("Whatever you expected to see at this URL - it's not here. The only thing here is the number");?></p>
         <h2>404</h2>
-        <p>staring at you. Your error? Our error? Who knows!</p>
+        <p><?php echo _("staring at you. Your error? Our error? Who knows!");?></p>
     </div> <!-- id="main_body" -->
 <!--    <div class='footer' id='footer'>-->
         <?php footer(TRUE); ?>
