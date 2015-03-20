@@ -21,12 +21,12 @@ $Gui->set_locale("web_user");
 
 defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
 ?>
-<link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat-user.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo dirname($_SERVER['SCRIPT_NAME'])?>/resources/css/cat-user.css"/>
 </head>
 <body>
     <div id="heading">
         <?php
-        print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<img src="'. dirname($_SERVER['SCRIPT_NAME']) .'/resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
         print '<div id="motd">' . ( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ) . '</div>';
         print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . Config::$APPEARANCE['productname_long'] . '</h2>';
@@ -44,7 +44,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         <h1><?php echo _("Maybe this is the CAT you are looking for...");?></h1>
         <p><?php echo _("but we don't want ot show it to you. You need to be authenticated and authorised to see this content. Since you are not, you got this error page usually known as");?></p>
         <h2>401/403</h2>
-        <p><?php echo _("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='index.php'>start page</a>.");?></p>
+        <p><?php echo sprintf(_("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::$lang_index)?></p>
     </div> <!-- id="main_body" -->
 <!--    <div class='footer' id='footer'>-->
         <?php footer(TRUE); ?>
