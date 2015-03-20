@@ -74,6 +74,7 @@ Here are some extra configuration hints for these packages:
 <listitem><emphasis>PHP</emphasis>
         <itemizedlist>
                 <listitem>for general server hardening, the following option should be set in php.ini: "expose_php 0"</listitem>
+                <listitem>for cookie security, the following options should be set in php.ini: "session.cookie_httponly 1" and "session.cookie_secure 1"</listitem>
 	</itemizedlist>
 </listitem>
 <listitem><emphasis>simpleSAMLphp</emphasis>
