@@ -9,11 +9,10 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
-function footer($core_only = FALSE) {
-    if ($core_only === FALSE) 
-        echo "</div><!-- trick -->
+function footer() {
+    echo "</div><!-- trick -->
           </div><!-- pagecontent -->";
-    echo "<div class='footer' style='display:block; border-top:none;'>
+    echo "<div class='footer'>
           <hr />
           <table style='width:100%'>
             <tr>
@@ -54,8 +53,7 @@ function footer($core_only = FALSE) {
          </tr>
         </table>";
     echo "</div><!-- footer -->";
- if ($core_only === FALSE) 
-     echo "</div><!-- maincontent -->";
+    echo "</div><!-- maincontent -->";
     echo "</body>
 </html>";
 }
