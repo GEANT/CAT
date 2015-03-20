@@ -41,10 +41,10 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         ?>
     </div> <!-- id="heading" -->
     <div id="main_body" style='padding:20px;'>
-        <h1><?php echo _("This is not the CAT you are looking for.");?></h1>
-        <p><?php echo _("Whatever you expected to see at this URL - it's not here. The only thing here is the number");?></p>
-        <h2>404</h2>
-        <p><?php echo _("staring at you. Your mistake? Our error? Who knows! Maybe you should go back to the <a href='index.php'>start page</a>.");?></p>
+        <h1><?php echo _("Maybe this is the CAT you are looking for...");?></h1>
+        <p><?php echo _("but we don't want ot show it to you. You need to be authenticated and authorised to see this content. Since you are not, you got this error page usually known as");?></p>
+        <h2>401/403</h2>
+        <p><?php echo _("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='index.php'>start page</a>.");?></p>
     </div> <!-- id="main_body" -->
 <!--    <div class='footer' id='footer'>-->
         <?php footer(TRUE); ?>
