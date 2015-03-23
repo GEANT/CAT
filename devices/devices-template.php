@@ -266,7 +266,7 @@ public static function listDevices() {
     'display'=>_("Android 5.0 Lollipop"),
      'match'=>'Android 5\.[0]',
     'directory'=>'xml',
-    'module'=>'XML_ALL',
+    'module'=>'Lollipop',
     'options'=>array(
        'mime'=>'application/eap-config',
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroam&nbsp;CAT","<a target='_blank' href='https://play.google.com/store/'>Google Play</a>"),
@@ -278,7 +278,7 @@ public static function listDevices() {
     'display'=>_("Android 4.4 KitKat"),
      'match'=>'Android 4\.[4-9]',
     'directory'=>'xml',
-    'module'=>'XML_ALL',
+    'module'=>'KitKat',
     'options'=>array(
        'mime'=>'application/eap-config',
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroam&nbsp;CAT","<a target='_blank' href='https://play.google.com/store/'>Google Play</a>"),

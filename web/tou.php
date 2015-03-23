@@ -18,9 +18,6 @@
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("UserAPI.php");
 
-debug(4,"tou.php\n");
-debug(4,$_POST);
-
 debug(4,"\n----------------------------------TOU.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
