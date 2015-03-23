@@ -27,7 +27,7 @@ require_once('XML.inc.php');
   * supported EAP methods.
   * Instead of specifying supported EAPS an extension can set $all_eaps to true
   * this will cause the installer to configure all EAP methods supported by 
-  * the current profile.
+  * the current profile and declared by the given device.
   */
 abstract class Device_XML extends DeviceConfig {
 
@@ -61,9 +61,13 @@ public function writeInstaller() {
 //ID attribute
 //lang attribute
     $authmethods = array();
-    if($this->all_eaps)
-      $EAPs = $attr['all_eaps'];
-    else
+    if($this->all_eaps) {
+      $EAPs = array();
+      foreach ($attr['all_eaps'] as $eap) {
+         if(in_array($eap, $this->supportedEapMethods))
+            $EAPs[] = $eap;
+      }
+    } else
       $EAPs = array( $this->selected_eap);
 
     foreach ($EAPs as $eap) {
@@ -72,8 +76,13 @@ public function writeInstaller() {
     $authenticationmethods = new AuthenticationMethods();
     $authenticationmethods->setProperty('AuthenticationMethods',$authmethods);
     $eap_idp->setProperty('AuthenticationMethods',$authenticationmethods);
-    $eap_idp->setAttribute('ID','XXX');
-    $eap_idp->setAttribute('namespace',$NAMESPACE);
+    if(empty($attr['internal:realm'][0])) {
+       $eap_idp->setAttribute('ID','undefined');
+       $eap_idp->setAttribute('namespace','urn:undefined');
+    } else {
+       $eap_idp->setAttribute('ID',$attr['internal:realm'][0]);
+       $eap_idp->setAttribute('namespace',$NAMESPACE);
+    }
     if($this->lang_scope === 'single')
        $eap_idp->setAttribute('lang',$this->lang_index);
     $eap_idp->setAttribute('version','1');
