@@ -269,7 +269,7 @@ public static function listDevices() {
     'module'=>'Lollipop',
     'options'=>array(
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroam&nbsp;CAT","<a target='_blank' href='https://play.google.com/store/'>Google Play</a>"),
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/'>Google Play</a>"),
       ),
    ),
 
@@ -281,7 +281,7 @@ public static function listDevices() {
     'module'=>'KitKat',
     'options'=>array(
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroam&nbsp;CAT","<a target='_blank' href='https://play.google.com/store/'>Google Play</a>"),
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/'>Google Play</a>"),
       ),
    ),
 
@@ -295,6 +295,18 @@ public static function listDevices() {
        'redirect'=>1,
       ),
    ),
+
+ 'eap-config'=>array(
+    'group' => "eap-config",
+    'display'=>_("EAP config"),
+    'directory'=>'xml',
+    'module'=>'XML_ALL',
+    'options'=>array(
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("This provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),
+      ),
+    ),
+
  'test'=>array(
     'group' => "other",
     'display'=>_("Test"),
