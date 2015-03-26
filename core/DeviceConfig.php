@@ -95,8 +95,6 @@ abstract class DeviceConfig {
           exit;
        }
        $this->attributes = $this->getProfileAttributes($profile);
-debug(4,"INFO_FILE:\n");
-debug(4,$this->attributes);
        if(! $this->selected_eap) {
           error("No EAP type specified.");
           exit;
@@ -112,8 +110,6 @@ debug(4,$this->attributes);
           $this->attributes['internal:CAs'][0]=$CAs;
        }
        if(isset($this->attributes['support:info_file'])) {
-debug(4,"INFO_FILE:\n");
-debug(4,$this->attributes['support:info_file']);
           $this->attributes['internal:info_file'][0] = 
              $this->saveInfoFile($this->attributes['support:info_file'][0]);
        }
