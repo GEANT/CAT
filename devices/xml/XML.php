@@ -43,7 +43,7 @@ public $VendorSpecific;
 public function writeDeviceInfo() {
     $ssid_ct=count($this->attributes['internal:SSID']);
     $out = "<p>";
-    $out .= _("This is a generic installer producing the CAT xml profile.");
+    $out .= _("This download produces an EAP config XML profile which can be consumed by dedicated applications like eduroamCAT available for Android and Linux platforms.");
     return $out;
     }
 
