@@ -150,8 +150,6 @@ class UserAPI extends CAT {
       $profile = new Profile($prof_id);
       $attr = $profile->getCollapsedAttributes();
       $a = array();
-debug(4,"profileAttributes\n");
-debug(4,$attr);
       if(isset($attr['support:email']))
          $a['local_email'] = $attr['support:email'][0];
       if(isset($attr['support:phone']))
