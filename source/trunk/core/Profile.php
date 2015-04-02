@@ -142,6 +142,7 @@ class Profile {
                     "device" => $a->device_id,
                     "eapmethod" => EAP::EAPMethodArrayFromId($a->method));
             }
+
             /*
               "name" => $a->option_name,
               "row" => $a->row,
@@ -151,7 +152,6 @@ class Profile {
 
              */
         }
-
         // add internal attributes
 
         $temparray[] = array("name" => "internal:profile_count",
@@ -510,11 +510,9 @@ class Profile {
 
         $outarray = array();
         $temparray = array();
-        $serialized_name = serialize($eapmethod);
-
         if ($eapmethod) {
-            foreach ($this->priv_attributes as $the_attr)
-                if ($the_attr["eapmethod"] == $serialized_name)
+            foreach ($this->priv_attributes as $the_attr) 
+                if ($the_attr["eapmethod"] == $eapmethod)
                     $temparray[] = $the_attr;
         } else
         if ($device) {
