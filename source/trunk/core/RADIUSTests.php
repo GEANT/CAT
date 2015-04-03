@@ -550,7 +550,7 @@ class RADIUSTests {
          * cert is not yet, or not any more, valid but is not taking part in server validation
          */
         $code = CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
-        $this->return_codes[$code]["message"] = _("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your CAT configuration.");
+        $this->return_codes[$code]["message"] = sprintf(_("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your %s configuration."), Config::$APPEARANCE['productname']);
         $this->return_codes[$code]["severity"] = L_REMARK;
 
         /**
