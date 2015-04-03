@@ -4,14 +4,14 @@
 # Translators:
 # Stefan Winter, 2011.
 #   <stefan.winter@gmail.com>, 2012.
-#   <stefan.winter@restena.lu>, 2011, 2014.
+#   <stefan.winter@restena.lu>, 2011, 2014, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-18 08:31+0200\n"
-"PO-Revision-Date: 2014-07-18 08:33+0200\n"
-"Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
+"POT-Creation-Date: 2015-04-03 10:57+0200\n"
+"PO-Revision-Date: 2015-04-03 10:58+0200\n"
+"Last-Translator:  <stefan.winter@restena.lu>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -21,23 +21,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: devices/devices-template.php:97
+#: devices/devices-template.php:101
+msgid "MS Windows 10"
+msgstr "MS Windows 10"
+
+#: devices/devices-template.php:115
 msgid "MS Windows 8, 8.1"
 msgstr "MS Windows 8, 8.1"
 
-#: devices/devices-template.php:111
+#: devices/devices-template.php:129
 msgid "MS Windows 7"
 msgstr "MS Windows 7"
 
-#: devices/devices-template.php:125
+#: devices/devices-template.php:143
 msgid "MS Windows Vista"
 msgstr "MS Windows Vista"
 
-#: devices/devices-template.php:139
+#: devices/devices-template.php:157
 msgid "MS Windows XP SP3"
 msgstr "MS Windows XP SP3"
 
-#: devices/devices-template.php:147
+#: devices/devices-template.php:165
 msgid ""
 "MS Windows XP is no longer supported by Microsoft, therefore it can be "
 "unsecure and should not really be used."
@@ -45,65 +49,62 @@ msgstr ""
 "MS Windows XP wird von Microsoft nicht mehr unterstützt. Es ist unsicher und "
 "von der Nutzung dieses Betriebssystems wird dringend abgeraten."
 
-#: devices/devices-template.php:154
+#: devices/devices-template.php:172
 msgid "Windows RT"
 msgstr "Windows RT"
 
-#: devices/devices-template.php:166
+#: devices/devices-template.php:184
+msgid "Apple OS X Yosemite"
+msgstr "Apple OS X Yosemite"
+
+#: devices/devices-template.php:199
 msgid "Apple OS X Mavericks"
 msgstr "Apple OS X Mavericks"
 
-#: devices/devices-template.php:181
+#: devices/devices-template.php:214
 msgid "Apple OS X Mountain Lion"
 msgstr "Apple OS X Mountain Lion"
 
-#: devices/devices-template.php:195
+#: devices/devices-template.php:228
 msgid "Apple OS X Lion"
 msgstr "Apple OS X Lion"
 
-#: devices/devices-template.php:208
+#: devices/devices-template.php:241
 msgid "Apple iOS mobile devices"
 msgstr "Apple iOS Mobilgeräte"
 
-#: devices/devices-template.php:221
+#: devices/devices-template.php:254
 msgid "Linux"
 msgstr "Linux"
 
-#: devices/devices-template.php:231
+#: devices/devices-template.php:266
+msgid "Android 5.0 Lollipop"
+msgstr "Android 5.0 Lollipop"
+
+#: devices/devices-template.php:272 devices/devices-template.php:284
+#, php-format
+msgid ""
+"Before you proceed with installation on Android systems, please make sure "
+"that you have installed the %s application. This application is available "
+"from %s and will use the configuration file downloaded from CAT to create "
+"all necessary settings."
+msgstr ""
+"Bevor Sie die Konfiguration auf Ihrem Android System installieren können, "
+"müssen Sie die %s App installieren. Diese App kann man bei %s herunterladen. "
+"Die App benutzt dann die hier von CAT zur Verfügung gestellte "
+"Konfigurationsdatei um Ihr Gerät zu konfigurieren."
+
+#: devices/devices-template.php:278
+msgid "Android 4.4 KitKat"
+msgstr "Android 4.4 KitKat"
+
+#: devices/devices-template.php:290
 msgid "Android"
 msgstr "Android"
 
-#: devices/devices-template.php:241
-msgid "Welcome Letter"
-msgstr "Willkommensbrief"
-
-#: devices/devices-template.php:251
+#: devices/devices-template.php:300
 msgid "Test"
 msgstr "Test"
-
-#: devices/devices-template.php:260
-msgid "Generic profile TTLS-PAP"
-msgstr "Allgemeines Profil TTLS-PAP"
-
-#: devices/devices-template.php:270
-msgid "Generic profile TTLS-MSCHAPv2"
-msgstr "Allgemeines Profil TTLS-MSCHAPv2"
-
-#: devices/devices-template.php:280
-msgid "Generic profile PEAP"
-msgstr "Allgemeines Profil PEAP"
-
-#: devices/devices-template.php:290
-msgid "Generic profile TLS"
-msgstr "Allgemeines Profil TLS"
-
-#: devices/devices-template.php:300
-msgid "Generic profile PWD"
-msgstr "Allgemeines Profil PWD"
-
-#: devices/devices-template.php:309
-msgid "Generic profile ALL EAPs"
-msgstr "Allgemeines Profil - alle EAP Typen"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:120
 #, php-format
@@ -170,22 +171,22 @@ msgstr "Hotspot 2.0 Konfiguration"
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:333
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:334
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 "Dieses Netzwerk sollte nicht weiter genutzt werden, nachdem die Einrichtung "
 "von %s abgeschlossen ist"
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:335
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:336
 msgid "Disabled WiFi network"
 msgstr "Deaktiviertes WLAN Netzwerk"
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:392
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:393
 msgid "Your Identity Providers Certification Authority"
 msgstr "CA Zertifikat Ihres Identitätsproviders"
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:394
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:395
 msgid "Identity Provider's CA"
 msgstr "CA des IdP"
 
@@ -324,7 +325,7 @@ msgstr "Ihr System ist bereit."
 msgid "Network installation had errors."
 msgstr "Bei der Installation der Netzwerke ist ein Fehler aufgetreten."
 
-#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:889
+#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:895
 msgid "Please contact ${SUPPORT}."
 msgstr "Bitte kontaktieren Sie ${SUPPORT}."
 
@@ -348,54 +349,54 @@ msgstr "Fertigstellen"
 msgid "searching for certificate"
 msgstr "Suche nach Zertifikat"
 
-#: devices/ms/Files/common.inc:250 devices/ms/Files/xp/common.inc:145
+#: devices/ms/Files/common.inc:254 devices/ms/Files/xp/common.inc:145
 msgid "installing certificate"
 msgstr "Installieren der Zertifikate"
 
-#: devices/ms/Files/common.inc:256
+#: devices/ms/Files/common.inc:260
 msgid "could not install certificate"
 msgstr "Installieren der Zertifikate fehlgeschlagen"
 
-#: devices/ms/Files/common.inc:438
+#: devices/ms/Files/common.inc:442
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
 "Die Profile mit moderner Verschlüsselung (nicht-TIKIP) sind sicherer. "
 "Verwenden Sie diese, wann immer Sie die Wahl haben."
 
-#: devices/ms/Files/common.inc:440
+#: devices/ms/Files/common.inc:444
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
 "Das Profil mit moderner Verschlüsselung (nicht-TIKIP) ist sicherer. "
 "Verwenden Sie es, wann immer Sie die Wahl haben."
 
-#: devices/ms/Files/common.inc:446 devices/ms/Files/common.inc:454
-#: devices/linux/Linux.php:137
+#: devices/ms/Files/common.inc:450 devices/ms/Files/common.inc:458
+#: devices/ms/Files/xp/common.inc:258 devices/linux/Linux.php:137
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr "Dieses Installationsprogramm wurde für ${ORGANISATION} hergestellt."
 
-#: devices/ms/Files/common.inc:447
+#: devices/ms/Files/common.inc:451
 msgid "The installer will create the following wireless profiles:"
 msgstr ""
 "Dieses Installationsprogramm wird die folgenden WLAN Profile einrichten:"
 
-#: devices/ms/Files/common.inc:450 devices/ms/Files/common.inc:457
+#: devices/ms/Files/common.inc:454 devices/ms/Files/common.inc:461
 #: devices/ms/Files/xp/common.inc:262 devices/linux/Linux.php:137
 msgid "More information and comments:"
 msgstr "Mehr Informationen und Kommentare:"
 
-#: devices/ms/Files/common.inc:455
+#: devices/ms/Files/common.inc:459
 msgid "The installer will create the wireless profile:"
 msgstr ""
 "Dieses Installationsprogramm wird die folgenden WLAN Profile einrichten:"
 
-#: devices/ms/Files/common.inc:483 devices/ms/Files/xp/common.inc:288
+#: devices/ms/Files/common.inc:487 devices/ms/Files/xp/common.inc:288
 #: devices/linux/Linux.php:138
 msgid "Installer created with software from the GEANT project."
 msgstr ""
 "Das Installationsprogramm wurde mit Software vom GEANT Projekt erstellt."
 
-#: devices/ms/Files/common.inc:511
+#: devices/ms/Files/common.inc:515
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8. Please download the correct installer and try again."
@@ -404,7 +405,7 @@ msgstr ""
 "speziell fürWindows 8. Bitte laden Sie das richtige Installationsprogramm "
 "herunter und versuchen Sie es noch einmal."
 
-#: devices/ms/Files/common.inc:521 devices/ms/Files/common.inc:554
+#: devices/ms/Files/common.inc:525 devices/ms/Files/common.inc:558
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
@@ -413,7 +414,7 @@ msgstr ""
 "speziell fürWindows Vista und 7. Bitte laden Sie das richtige "
 "Installationsprogramm herunter und versuchen Sie es noch einmal."
 
-#: devices/ms/Files/common.inc:592 devices/ms/Files/xp/common.inc:370
+#: devices/ms/Files/common.inc:598 devices/ms/Files/xp/common.inc:370
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
@@ -421,13 +422,13 @@ msgstr ""
 "Der Windows WLAN Konfigurationsdienst ist nicht eingeschaltet. Die "
 "Installation wird abgebrochen."
 
-#: devices/ms/Files/common.inc:597 devices/ms/Files/xp/common.inc:374
+#: devices/ms/Files/common.inc:603 devices/ms/Files/xp/common.inc:374
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr ""
 "Auf Ihrem System wurden keine WLAN Schnittstellen gefunden. Die Installation "
 "wird abgebrochen."
 
-#: devices/ms/Files/common.inc:603
+#: devices/ms/Files/common.inc:609
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
@@ -436,23 +437,23 @@ msgstr ""
 "konfiguriert. Möchten Sie trotzdem weitermachen und den kabelgebundenen "
 "Zugang einrichten?"
 
-#: devices/ms/Files/common.inc:619
+#: devices/ms/Files/common.inc:625
 msgid "Do you want to enable access on wired interfaces?"
 msgstr "Möchten Sie den Zugang für kabelgebundene Netzwerke einrichten?"
 
-#: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:397
+#: devices/ms/Files/common.inc:660 devices/ms/Files/xp/common.inc:397
 msgid "Profiles installation"
 msgstr "Installation der Profile"
 
-#: devices/ms/Files/common.inc:677
+#: devices/ms/Files/common.inc:683
 msgid "Checking for profile $R8"
 msgstr "Suche nach Profil $R8"
 
-#: devices/ms/Files/common.inc:685
+#: devices/ms/Files/common.inc:691
 msgid "found profile $R8"
 msgstr "Profil $R8 gefunden"
 
-#: devices/ms/Files/common.inc:711 devices/ms/Files/xp/common.inc:423
+#: devices/ms/Files/common.inc:717 devices/ms/Files/xp/common.inc:423
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -460,12 +461,12 @@ msgstr ""
 "Dieses Installationsprogramm funktioniert nur für Anwender von "
 "${ORGANISATION} in der Benutzergruppe: ${USER_GROUP}."
 
-#: devices/ms/Files/common.inc:711 devices/ms/Files/common.inc:714
+#: devices/ms/Files/common.inc:717 devices/ms/Files/common.inc:720
 #: devices/ms/Files/xp/common.inc:423 devices/ms/Files/xp/common.inc:425
 msgid "Click OK to continue with installation."
 msgstr "Drücken Sie OK um mit der Installation fortzufahren."
 
-#: devices/ms/Files/common.inc:714 devices/ms/Files/xp/common.inc:425
+#: devices/ms/Files/common.inc:720 devices/ms/Files/xp/common.inc:425
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
@@ -473,7 +474,7 @@ msgstr ""
 "Dieses Installationsprogramm funktioniert nur für Anwender von "
 "${ORGANISATION}."
 
-#: devices/ms/Files/common.inc:722 devices/ms/Files/xp/common.inc:433
+#: devices/ms/Files/common.inc:728 devices/ms/Files/xp/common.inc:433
 msgid ""
 "Please read the additional information from your home institution which will "
 "be displayed in a moment."
@@ -481,15 +482,15 @@ msgstr ""
 "Bitte lesen Sie diese zusätzliche Information Ihrer Heimatorganisation, die "
 "hier gleich angezeigt wird."
 
-#: devices/ms/Files/common.inc:774 devices/ms/Files/xp/common.inc:458
+#: devices/ms/Files/common.inc:780 devices/ms/Files/xp/common.inc:458
 msgid "Restart system now"
 msgstr "System jetzt neustarten"
 
-#: devices/ms/Files/common.inc:776 devices/ms/Files/xp/common.inc:460
+#: devices/ms/Files/common.inc:782 devices/ms/Files/xp/common.inc:460
 msgid "I will restart later"
 msgstr "Ich werde später neustarten"
 
-#: devices/ms/Files/common.inc:787
+#: devices/ms/Files/common.inc:793
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -511,28 +512,27 @@ msgstr ""
 "wird danach ein Ordner mit dem Explorer geöffnet (er könnte versteckt "
 "geöffnet werden, unterhalb von anderen Fenstern). In diesem Ordner finden "
 "Sie ein ausführbares Skript namens inst_cat. Nach einem Doppelklick auf "
-"dieses Skript wird die Installation fertig gestellt. Danach ist das Einloggen "
-"in %s "
-"mit Ihrem Benutzernamen und Passwort möglich."
+"dieses Skript wird die Installation fertig gestellt. Danach ist das "
+"Einloggen in %s mit Ihrem Benutzernamen und Passwort möglich."
 
-#: devices/ms/Files/common.inc:818 devices/ms/Files/xp/common.inc:358
+#: devices/ms/Files/common.inc:824 devices/ms/Files/xp/common.inc:358
 msgid "installing wired profile"
 msgstr "Installieren des Profils für kabelgebundene Netzwerke"
 
-#: devices/ms/Files/common.inc:870 devices/ms/Files/common.inc:918
+#: devices/ms/Files/common.inc:876 devices/ms/Files/common.inc:924
 #: devices/ms/Files/xp/common.inc:520
 msgid "deleting profile $R1"
 msgstr "Löschen des Profils $R1"
 
-#: devices/ms/Files/common.inc:879 devices/ms/Files/xp/common.inc:524
+#: devices/ms/Files/common.inc:885 devices/ms/Files/xp/common.inc:524
 msgid "installing profile $R1"
 msgstr "Installieren des Profils $R1"
 
-#: devices/ms/Files/common.inc:889 devices/ms/Files/xp/common.inc:529
+#: devices/ms/Files/common.inc:895 devices/ms/Files/xp/common.inc:529
 msgid "Profile installation error for $R1."
 msgstr "Fehler bei der Installation des Profils $R1."
 
-#: devices/ms/Files/common.inc:935
+#: devices/ms/Files/common.inc:941
 msgid "installing credentials for wired"
 msgstr "Installieren der Benutzerdaten für kabelgebundene Netzwerke"
 
@@ -597,10 +597,6 @@ msgstr ""
 msgid "Please contact \\${SUPPORT}."
 msgstr "Bitte kontaktieren Sie \\${SUPPORT}."
 
-#: devices/ms/Files/xp/common.inc:258
-msgid "This installer has been prepared for \\${ORGANISATION}"
-msgstr "Dieses Installationsprogramm wurde für \\${ORGANISATION} hergestellt."
-
 #: devices/ms/Files/xp/common.inc:259
 msgid "The installer will create network profile:"
 msgstr ""
@@ -614,10 +610,10 @@ msgid ""
 "you may be sometimes required to repeat the connection for the system to "
 "reconfigure."
 msgstr ""
-"Mit diesen Einstellungen können Sie %s bei den meisten Hotspots "
-"verwenden. Durch einige Einschränkungen in Windows XP kann es allerdings "
-"sein, dass Sie in einigen Situationen den Login zwei mal versuchen müssen "
-"bevor er funktioniert."
+"Mit diesen Einstellungen können Sie %s bei den meisten Hotspots verwenden. "
+"Durch einige Einschränkungen in Windows XP kann es allerdings sein, dass Sie "
+"in einigen Situationen den Login zwei mal versuchen müssen bevor er "
+"funktioniert."
 
 #: devices/ms/Files/xp/common.inc:350
 msgid ""
@@ -632,6 +628,14 @@ msgstr ""
 #, php-format
 msgid "Do you want to enable %s on wired interfaces?"
 msgstr "Möchten Sie den %s Zugang für kabelgebundene Netzwerke einrichten?"
+
+#: devices/ms/Files/xp/common.inc:402
+msgid "Checking for profile $R1"
+msgstr "Suche nach Profil $R1"
+
+#: devices/ms/Files/xp/common.inc:406
+msgid "found profile $R1"
+msgstr "Profil $R1 gefunden"
 
 #: devices/ms/Files/xp/common.inc:541
 #, php-format
@@ -674,7 +678,7 @@ msgstr "Keine Zertifikatsdatei ausgewählt"
 msgid "Incorrect certificate password$\\r$\\nenter again"
 msgstr "Falsches Passwort für das Zertifikat$\\r$\\nNeuer Versuch"
 
-#: devices/ms/Files/xp/common.inc:602
+#: devices/ms/Files/xp/common.inc:611
 #, php-format
 msgid ""
 "In order to install/update %s access all selected steps need to be "
@@ -683,7 +687,7 @@ msgstr ""
 "Um den %s Zugang zu installieren oder aktualisieren müssen alle angewählten "
 "Schritte durchgeführt werden. Drücken Sie auf Weiter zum Fortfahren"
 
-#: devices/ms/Files/xp/common.inc:603
+#: devices/ms/Files/xp/common.inc:612
 msgid ""
 "If an option is not selected by default, then it is either not available or "
 "optional."
@@ -706,11 +710,11 @@ msgstr ""
 
 #: devices/linux/Linux.php:96
 msgid ""
-"The installer will create .eduroam sub-directory in your home directory and "
-"will copy your server certificates there."
+"The installer will create .cat_installer sub-directory in your home "
+"directory and will copy your server certificates there."
 msgstr ""
-"Das Installationsprogramm erstellt ein .eduroam Unterverzeichnis in ihrem "
-"persönlichen Ordner und kopiert die Serverzertifikate dort hin."
+"Das Installationsprogramm erstellt ein .cat_installer Unterverzeichnis in "
+"ihrem persönlichen Ordner und kopiert die Serverzertifikate dort hin."
 
 #: devices/linux/Linux.php:98
 msgid ""
@@ -719,7 +723,7 @@ msgid ""
 "institution. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
-"Your p12 file will also be copied to the .eduroam directory."
+"Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 "Um sich mit dem Netzwerk verbinden zu können, brauchen Sie ein persönliches "
 "Zertifikat in Form einer p12 Datei. Besorgen Sie sich dieses Zertifikat von "
@@ -727,7 +731,7 @@ msgstr ""
 "erfahren, wie Sie an das Zertifikat kommen. Persönliche Zertifikatsdateien "
 "sind passwortgeschützt. Sie sollten sowohl die Datei selbst als auch das "
 "zugehörige Passwort während des Installationsprozesses zur Hand haben. Die "
-"p12 Datei wird ebenfalls in das .eduroam Unterverzeichnis kopiert."
+"p12 Datei wird ebenfalls in das .cat_installer Unterverzeichnis kopiert."
 
 #: devices/linux/Linux.php:102
 msgid ""
@@ -813,16 +817,16 @@ msgstr "Wiederholen Sie das Passwort"
 msgid "passwords do not match"
 msgstr "Die Passwörter stimmen nicht überein"
 
-#: devices/linux/Linux.php:434 devices/linux/Linux.php:438
-#: devices/linux/Linux.php:450
+#: devices/linux/Linux.php:436 devices/linux/Linux.php:440
+#: devices/linux/Linux.php:452
 msgid "personal certificate file (p12 or pfx)"
 msgstr "Persönliche Zertifikatsdatei (p12 oder pfx)"
 
-#: devices/linux/Linux.php:459
+#: devices/linux/Linux.php:461
 msgid "file not found"
 msgstr "Datei nicht gefunden"
 
-#: devices/linux/Linux.php:469 devices/linux/Linux.php:472
+#: devices/linux/Linux.php:471 devices/linux/Linux.php:474
 msgid "enter the password for the certificate file"
 msgstr "Geben Sie das Passwort für die persönliche Zertifikatsdatei ein"
 
@@ -836,6 +840,49 @@ msgstr ""
 "Zertifikate, die Informationsdateien, das Logo (sofern diese vom "
 "Administrator angegeben wurden) und sämtliche konfigurierten Attribute "
 "enthält."
+
+#: devices/redirect_dev/RedirectDev.php:22
+msgid ""
+"This device is not yet supported by CAT, but your local administrator "
+"created a redirect to local installation instructions."
+msgstr ""
+"Dieses Gerät wird noch nicht von CAT unterstützt, aber Ihr lokaler "
+"Administrator hat Informationen zu dem Gerät auf einer Unterstützungsseite "
+"hinterlegt."
+
+#: devices/xml/XML.php:46
+#, php-format
+msgid ""
+"This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
+"-00</a> XML format."
+msgstr ""
+"Dies ist eine generische Konfigurationsdatei im IETF <a href='%s'>EAP "
+"Metadata -00</a> XML Format."
+
+#~ msgid "Welcome Letter"
+#~ msgstr "Willkommensbrief"
+
+#~ msgid "Generic profile TTLS-PAP"
+#~ msgstr "Allgemeines Profil TTLS-PAP"
+
+#~ msgid "Generic profile TTLS-MSCHAPv2"
+#~ msgstr "Allgemeines Profil TTLS-MSCHAPv2"
+
+#~ msgid "Generic profile PEAP"
+#~ msgstr "Allgemeines Profil PEAP"
+
+#~ msgid "Generic profile TLS"
+#~ msgstr "Allgemeines Profil TLS"
+
+#~ msgid "Generic profile PWD"
+#~ msgstr "Allgemeines Profil PWD"
+
+#~ msgid "Generic profile ALL EAPs"
+#~ msgstr "Allgemeines Profil - alle EAP Typen"
+
+#~ msgid "This installer has been prepared for \\${ORGANISATION}"
+#~ msgstr ""
+#~ "Dieses Installationsprogramm wurde für \\${ORGANISATION} hergestellt."
 
 #~ msgid "eduroam® - supporting academic mobility since 2003"
 #~ msgstr "eduroam® - Unterstützer akademischer Mobilität seit 2003"
