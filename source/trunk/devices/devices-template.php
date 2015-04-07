@@ -152,21 +152,6 @@ public static function listDevices() {
       ),
    ),
 	
- 'xp'=>array(
-   'group' => "microsoft",
-   'display'=>_("MS Windows XP SP3"),
-   'match'=>'Windows NT 5[._]1',
-   'directory'=>'ms',
-   'module'=>'XP',
-   'signer'=>'ms_windows_sign',
-    'options'=>array(
-       'sign'=>1,
-       'device_id'=>'XP',
-       'message' => _("MS Windows XP is no longer supported by Microsoft, therefore it can be unsecure and should not really be used."),
-       'mime'=>'application/x-dosexec',
-      ),
-   ),
-    
  'win-rt'=>array(
     'group' => "microsoft",
     'display'=>_("Windows RT"),

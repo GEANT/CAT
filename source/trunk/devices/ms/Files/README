@@ -8,9 +8,7 @@ cat_150.bmp - CAT header
 cat32.ico - EXE icon
 peap_tls.inc - PEAP/TLS code for Vista/W7 installers
 pwd.inc - EAP-PWD code (calling Aruba installer)
-SecureW2_EAP_Suite_113.zip - GPL version of SecureW2 used for TTLS up to W7
 setEAPCred.exe - user credentials installer supplied by Gareth Ayres 
-ttls.inc - TTLS support via SW2 for versions up to W7
 wlan_test.exe - utility for checking wireless status of Windows
 xp/ -  contains XP specific version of common.inc
 

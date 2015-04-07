@@ -28,9 +28,6 @@ SetCompressor bzip2
    !endif
       !define EXECLEVEL "admin"
 !endif
-!ifdef SW2
-      !include "ZipDLL.nsh"
-!endif
 
 XPStyle on
 
@@ -105,13 +102,6 @@ Var force_wired
   Var PASS_B64
   Var PASS2_F
   Var PASS2
-!endif
-!ifdef SW2
-  Var Radio1
-  Var Radio2
-  Var Radioi
-  Var Reboot
-  Var SkipReboot
 !endif
 
 !include "base64.nsh"
@@ -658,9 +648,6 @@ FunctionEnd
 
 Function ShowInstfiles
   !insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Profiles installation"))?>" " "
-!ifndef SW2
-  call HideAllButtons
-!endif
 FunctionEnd
 ;================================
 ;  Check if a wireless profile exist and put it on delete list
@@ -776,15 +763,6 @@ Call ShowAllButtons
   Pop $HEADLINE
 
   SendMessage $HEADLINE ${WM_SETFONT} $HEADLINE_FONT 0
-!ifdef SW2
-  ${NSD_CreateRadioButton} 150u 80u 50% 12u "<?php echo_nsi(_("Restart system now"))?>"
-  Pop $Radio1
-  ${NSD_CreateRadioButton} 150u 120u 50% 12u "<?php echo_nsi(_("I will restart later"))?>"
-  Pop $Radio2
-  ${NSD_SetState} $Radio1 ${BST_CHECKED}
-  SetCtlColors $Radio1 "" 0xffffff
-  SetCtlColors $Radio2 "" 0xffffff
-!else
   ${If} $profile_fail == 1
     !insertmacro debug_cat 1 "Profile installation failed"
     ${If} $Symantec_installed  != 0
@@ -801,7 +779,6 @@ Call ShowAllButtons
   ${EndIf}
      Pop $TEXT
      SetCtlColors $TEXT "" 0xffffff
-!endif
   SetCtlColors $DIALOG "" 0xffffff
   SetCtlColors $HEADLINE "" 0xffffff
 
@@ -846,18 +823,6 @@ Function CreateLanProfile
 FunctionEnd
 ;=============================
 
-!ifdef SW2
-Function FinishLeave
-   ${NSD_GetState} $Radio1 $Reboot
-   ${NSD_GetState} $Radio2 $SkipReboot
-   ${If} $Reboot == ${BST_CHECKED}
-      Reboot
-   ${EndIf}
-FunctionEnd
-!else
-
-;=========================
-
 ;==========================
 ; Install all required wireless profiles
 Function CreateWirelessProfiles
@@ -874,7 +839,6 @@ Function InstallProfile
   ${Profile_states->Read} $R2 $R0
   ${If} $R2 == ${PROFILE_STATE_DELETE}
     DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
-    !insertmacro debug_cat 1 'deleting profile "$R1"'
     !insertmacro debug_cat 3 'Execute: netsh wlan delete profile "$R1"'
     ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
     nsExec::Exec '"netsh" wlan delete profile "$R1"'
@@ -989,7 +953,6 @@ Function InstallWirelessCred
   ${EndIf}
 FunctionEnd
 ;=============================
-!endif
 !ifdef TLS
 Function PFXCertificateSelect
 ;TRANSLATION
@@ -1149,13 +1112,6 @@ FunctionEnd
 
 Page custom nsDialogsWelcome
 Page custom confirmUserGroup
-!ifdef SW2
- PageEx license
-   LicenseText " "
-   LicenseData sw2_license.txt
-   LicenseForceSelection off
- PageExEnd
-!endif
 ;============================
 Page custom WiredConfirm
 ;============================
@@ -1181,14 +1137,7 @@ Page custom UserCredentials SaveCredentials
 ;=============================
 Page instfiles ShowInstfiles
 ;=============================
-!ifdef SW2
-PageEx custom
-;=============================
-PageCallbacks Finish FinishLeave
-PageExEnd
-!else
 Page custom Finish Cleanup
-!endif
 
 ;----------------------------- Installer Sections ------------------------
 Section "-start"
@@ -1196,11 +1145,7 @@ SectionIn RO
 
 !insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Installation"))?>" "<?php echo_nsi( _("Checking for existing wireless profiles"))?>"
 !ifndef PWD
-!ifdef SW2
-File cert-*.crt
-!else
 !include "certs.nsh"
-!endif
 !endif
 SectionEnd
 

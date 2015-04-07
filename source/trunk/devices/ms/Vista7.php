@@ -7,7 +7,7 @@
 <?php
 /**
  * This file creates MS Windows Vista and MS Windows 7 installers
- * It supports EAP-TLS, TTLS, PEAP and EAP-pwd
+ * It supports EAP-TLS, PEAP and EAP-pwd (with external software)
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @package ModuleWriting
@@ -26,7 +26,7 @@ require_once('WindowsCommon.php');
  */
 class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
-      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
+      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD);
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
@@ -66,12 +66,6 @@ class Device_Vista7 extends WindowsCommon {
        if($set_wired) {
          $this->writeLANprofile($eap_config);
        }
-     } elseif($this->selected_eap == EAP::$TTLS_PAP) {
-       if($set_wired) {
-         $eap_config = $this->prepareEapConfig($this->attributes);
-         $this->writeLANprofile($eap_config);
-       }
-       $WindowsProfile = $this->writeSW2profile($this->attributes,$CA_files);
      } else {
        error("  this EAP type is not handled yet");
        return;
@@ -116,10 +110,6 @@ class Device_Vista7 extends WindowsCommon {
         $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
     else {
     $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
-    if($this->eap == EAP::$TTLS_PAP) {
-        $out .= "<p>";
-        $out .= _("The installer will also install additional software - SecureW2 EAP Suite (GNU General Public License).<p>You will be requested to enter your account credentials into a pop box during the installation. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
-    }
 
     if($this->eap == EAP::$PEAP_MSCHAP2) {
         $out .= "<p>";
@@ -146,9 +136,9 @@ private function prepareEapConfig($attr) {
     $vista_ext = '';
     $w7_ext = '';
     $eap = $this->selected_eap;
-    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
-      debug(2,"this method only allows TLS, PEAP, EAP-TTLS-PAP or EAP-pwd");
-      error("this method only allows TLS, PEAP, EAP-TTLS-PAP, or EAP-pwd");
+    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD) {
+      debug(2,"this method only allows TLS, PEAP or EAP-pwd");
+      error("this method only allows TLS, PEAP, or EAP-pwd");
      return;
     }
    $use_anon = $attr['internal:use_anon_outer'] [0];
@@ -157,7 +147,7 @@ private function prepareEapConfig($attr) {
    }
    $servers = implode(';',$attr['eap:server_name']);
    $ca_array = $attr['internal:CAs'][0];
-   $author_id = $eap == EAP::$TTLS_PAP ? "29114" : "0";
+   $author_id = "0";
 
   $profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
@@ -168,15 +158,7 @@ private function prepareEapConfig($attr) {
 <AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$author_id.'</AuthorId>
 </EapMethod>
 ';
-if ( $eap == EAP::$TTLS_PAP) {
-   $profile_file_contents .= '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
-<eap-ttls xmlns="http://schemas.securew2.com/eapconfig/eap-ttls/v0">
-<Profile>DEFAULT</Profile>
-</eap-ttls>
-</Config>
-';
-}
-elseif( $eap == EAP::$TLS) {
+if( $eap == EAP::$TLS) {
   $profile_file_contents .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
@@ -399,132 +381,6 @@ private function glueServerNames($server_list) {
   return(implode('.',array_reverse($B)));
 }
 
-/**
- * produce SecureW2 configuration for Vista and windows 7
- */
-
-  private function writeSW2profile($attr,$ca_array) {
-debug(4,"SW2-HERE1\n");
-// global section
-   $sw2_server = $this->glueServerNames($attr['eap:server_name']);
-   $SSIDs = $attr['internal:SSID'];
-   $use_anon = $attr['internal:use_anon_outer'] [0];
-   if ($use_anon)
-     $outer_id = $attr['internal:anon_local_value'][0].'@'.$attr['internal:realm'][0];
-
-$P = array();
-
-$profile_file_contents = '[Version]
-Signature = "$Windows NT$"
-Provider = "SecureW2"
-Config = 7
-
-[WZCSVC]
-Enable = AUTO
-Restart = TRUE
-
-[DOT3SVC]
-Enable = AUTO
-Restart = TRUE
-
-[Certificates]
-';
-$i = 1;
-if($ca_array)
-foreach ($ca_array as $CA) {
-  $profile_file_contents .= "Certificate.$i = ".$CA['file']."\n";
-     $i++;
-}
-// profiles section
-$j = 1;
-foreach ($SSIDs as $ssid => $cipher) {
-debug(4,"SW2:$ssid:$cipher\n");
-if($cipher == 'TKIP') {
-$profile_file_contents .= '
-[SSID.'.$j.']
-Name = "'.$ssid.' (TKIP)"
-SSID = "'.$ssid.'"
-Profile = "DEFAULT"
-AuthenticationMode = "WPA"
-EncryptionType = "TKIP"
-';
-$j++;
-$P[] = '"'.$ssid.' (TKIP)" "TKIP"';
-}
-$profile_file_contents .= '
-[SSID.'.$j.']
-Name = "'.$ssid.'"
-SSID = "'.$ssid.'"
-Profile = "DEFAULT"
-AuthenticationMode = "WPA2"
-EncryptionType = "AES"
-';
-$j++;
-$P[] = '"'.$ssid.'" "AES"';
-}
-
-// user section
-$profile_file_contents .= '
-[Profile.1]
-Name = "DEFAULT"
-Description = "'._("Login credentials").':"';
-
-$profile_file_contents0 = $profile_file_contents;
-$profile_file_contents = '';
-
-$user_interaction1 = '
-UserName = PROMPTUSER
-PromptUserForCredentials = FALSE';
-
-$user_interaction2 = '
-PromptUserForCredentials = TRUE';
-
-$profile_file_contents = '
-UseAnonymousOuterIdentity = FALSE
-UseEmptyOuterIdentity = FALSE
-';
-if($use_anon) {
-$profile_file_contents .= 'UseAlternateOuterIdentity = TRUE
-UseAlternateOuterIdentity = TRUE
-AlternateOuterIdentity = '.$outer_id.'
-';
-} else {
-$profile_file_contents .= 'UseAlternateOuterIdentity = FALSE
-UseAlternateOuterIdentity = FALSE
-';
-}
-
-$profile_file_contents .= 'VerifyServerName = TRUE
-ServerName = "'.$sw2_server.'"
-VerifyServerCertificate = TRUE
-';
-$i = 0;
-if($ca_array){
-foreach ($ca_array as $CA) {
-    if($CA['root']) {
-     $profile_file_contents .= "TrustedRootCA.$i = ".$CA['sha1']."\n";
-     $i++;
-  }
-}
-}
-
-$p = $profile_file_contents0 . $user_interaction1 . $profile_file_contents;
-$f_name = "SecureW2.INF";
-$sw2_f = fopen($f_name,'w');
-fwrite($sw2_f,$p);
-fclose($sw2_f);
-
-$p = $profile_file_contents0 . $user_interaction2 . $profile_file_contents;
-$f_name = "SecureW2S.INF";
-$sw2_f = fopen($f_name,'w');
-fwrite($sw2_f,$p);
-fclose($sw2_f);
-
-
-debug(2,"Installer has been written into directory $this->FPATH\n");
-return($P);
-}
-
 
 private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
@@ -533,7 +389,6 @@ debug(4,"MYLANG=".$this->lang."\n");
 $EAP_OPTS = array(
 PEAP=>array('str'=>'PEAP','exec'=>'user'),
 TLS=>array('str'=>'TLS','exec'=>'user'),
-TTLS=>array('str'=>'SW2','exec'=>'admin'),
 PWD=>array('str'=>'PWD','exec'=>'admin'),
 );
 $fcontents = '';
@@ -620,11 +475,7 @@ debug(4,"code_page=".$this->code_page."\n");
    $result = $result && $this->copyFile('cat32.ico');
    $result = $result && $this->copyFile('cat_150.bmp');
    $this->translateFile('common.inc','common.nsh',$this->code_page);
-   if($eap["OUTER"] == TTLS)  {
-     $this->translateFile('ttls.inc','cat.NSI',$this->code_page);
-     $result = $this->copyFile('sw2_license.txt');
-     $result = $result && $this->copyFile('SecureW2_EAP_Suite_113.zip');
-    } elseif($eap["OUTER"] == PWD) {
+   if($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
      $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
     } else {
