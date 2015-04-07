@@ -502,7 +502,7 @@ Function wVersionCheck
 !ifdef W8
   ${If} $R5 == 2
     IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8. Please download the correct installer and try again."))?>"
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
 !ifndef ALLOW_LOW_VERSION
     Call Cleanup
 !endif
