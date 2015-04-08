@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-17 15:08+0200\n"
+"POT-Creation-Date: 2015-04-08 11:47+0200\n"
 "PO-Revision-Date: 2013-01-28 14:29+0000\n"
 "Last-Translator: tomisalmi <tomi.salmi@csc.fi>\n"
 "Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
@@ -20,17 +20,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:126
 #, php-format
 msgid "your local %s support"
 msgstr "paikallinen %s tuki"
 
-#: core/DeviceConfig.php:131
+#: core/DeviceConfig.php:127
 #, php-format
 msgid "your local %s support page"
 msgstr "paikallinen %s tukisivu"
 
-#: core/DeviceConfig.php:163
+#: core/DeviceConfig.php:159
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Anteeksi, tämän ei pitäisi tapahtua - lisätietoa ei ole saatavissa"
 
@@ -314,157 +314,168 @@ msgstr ""
 msgid "IdP in your federation was deleted"
 msgstr "Federaatiosi IdP poistettiin"
 
-#: core/RADIUSTests.php:232
+#: core/RADIUSTests.php:255
 msgid "eduPKI"
 msgstr ""
 
-#: core/RADIUSTests.php:233
+#: core/RADIUSTests.php:256
 msgid "Nicolaus Copernicus University"
 msgstr ""
 
-#: core/RADIUSTests.php:234
+#: core/RADIUSTests.php:257
 msgid "accredited"
 msgstr ""
 
-#: core/RADIUSTests.php:235
+#: core/RADIUSTests.php:258
 msgid "non-accredited"
 msgstr ""
 
-#: core/RADIUSTests.php:236
+#: core/RADIUSTests.php:259
 msgid "correct certificate"
 msgstr ""
 
-#: core/RADIUSTests.php:237
+#: core/RADIUSTests.php:260
 msgid "certificate with wrong policy OID"
 msgstr ""
 
-#: core/RADIUSTests.php:238
+#: core/RADIUSTests.php:261
 msgid "expired certificate"
 msgstr ""
 
-#: core/RADIUSTests.php:239
+#: core/RADIUSTests.php:262
 msgid "revoked certificate"
 msgstr ""
 
-#: core/RADIUSTests.php:240
+#: core/RADIUSTests.php:263
 msgid "pass"
 msgstr ""
 
-#: core/RADIUSTests.php:241
+#: core/RADIUSTests.php:264
 msgid "fail"
 msgstr ""
 
-#: core/RADIUSTests.php:242
+#: core/RADIUSTests.php:265
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr ""
 
-#: core/RADIUSTests.php:346
+#: core/RADIUSTests.php:369
 msgid "Completed"
 msgstr ""
 
-#: core/RADIUSTests.php:358
+#: core/RADIUSTests.php:381
 msgid "This check was skipped."
 msgstr ""
 
-#: core/RADIUSTests.php:365
+#: core/RADIUSTests.php:388
 msgid "There were errors during the test."
 msgstr ""
 
-#: core/RADIUSTests.php:373
+#: core/RADIUSTests.php:396
 msgid "This realm has no NAPTR records."
 msgstr ""
 
-#: core/RADIUSTests.php:380
+#: core/RADIUSTests.php:403
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
 
-#: core/RADIUSTests.php:388
+#: core/RADIUSTests.php:411
 msgid "There was no reply at all from the RADIUS server."
 msgstr ""
 
-#: core/RADIUSTests.php:395
+#: core/RADIUSTests.php:418
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
 msgstr ""
 
-#: core/RADIUSTests.php:402
+#: core/RADIUSTests.php:425
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
 msgstr ""
 
-#: core/RADIUSTests.php:409
+#: core/RADIUSTests.php:432
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
 msgstr ""
 
-#: core/RADIUSTests.php:416
+#: core/RADIUSTests.php:439
 msgid "Connection refused"
 msgstr ""
 
-#: core/RADIUSTests.php:423
+#: core/RADIUSTests.php:446
 msgid "Not enough data provided to perform an authentication"
 msgstr ""
 
-#: core/RADIUSTests.php:431
+#: core/RADIUSTests.php:454
+msgid ""
+"The certificate password you provided does not match the certificate file."
+msgstr ""
+
+#: core/RADIUSTests.php:462
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
 msgstr ""
 
-#: core/RADIUSTests.php:438
+#: core/RADIUSTests.php:469
 msgid "There is more than one server certificate in the chain."
 msgstr ""
 
-#: core/RADIUSTests.php:445
+#: core/RADIUSTests.php:476
 msgid "There is no server certificate in the chain."
 msgstr ""
 
-#: core/RADIUSTests.php:452
+#: core/RADIUSTests.php:483
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
 msgstr ""
 
-#: core/RADIUSTests.php:459
+#: core/RADIUSTests.php:490
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
 "to validate the server certificate."
 msgstr ""
 
-#: core/RADIUSTests.php:466
+#: core/RADIUSTests.php:497
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
 msgstr ""
 
-#: core/RADIUSTests.php:473
+#: core/RADIUSTests.php:504
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
-"compat problems with Windows Phone 8"
+"compatibility problems with Windows Phone 8."
 msgstr ""
 
-#: core/RADIUSTests.php:480
+#: core/RADIUSTests.php:511
 msgid ""
-"The server certificate does not have the extension 'CRL Distribution Point' "
-"pointing to an HTTP/HTTPS URL. Some Operating Systems (currently only "
-"Windows Phone 8) will fail to validate this certificate."
+"The server certificate's 'CRL Distribution Point' extension does not point "
+"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
 msgstr ""
 
-#: core/RADIUSTests.php:487
+#: core/RADIUSTests.php:518
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "non-existing location. Some Operating Systems check certificate validity by "
-"consulting the CRL and will fail to validate the certifice."
+"consulting the CRL and will fail to validate the certificate. Checking "
+"server certificate validity against a CRL will not be possible."
 msgstr ""
 
-#: core/RADIUSTests.php:494
+#: core/RADIUSTests.php:525
+msgid "The server certificate was revoked by the CA!"
+msgstr ""
+
+#: core/RADIUSTests.php:532
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -472,7 +483,7 @@ msgid ""
 "your supplicant configuration, then you can safely ignore this notice."
 msgstr ""
 
-#: core/RADIUSTests.php:501
+#: core/RADIUSTests.php:539
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -481,13 +492,28 @@ msgid ""
 "notice."
 msgstr ""
 
-#: core/RADIUSTests.php:508
+#: core/RADIUSTests.php:546
+msgid ""
+"At least one certificate is outside its validity period (not yet valid, or "
+"already expired)!"
+msgstr ""
+
+#: core/RADIUSTests.php:553
+#, php-format
+msgid ""
+"At least one intermediate certificate in your CAT profile is outside its "
+"validity period (not yet valid, or already expired), but this certificate "
+"was not used for server validation. Consider removing it from your %s "
+"configuration."
+msgstr ""
+
+#: core/RADIUSTests.php:560
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
 msgstr ""
 
-#: core/RADIUSTests.php:512
+#: core/RADIUSTests.php:564
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -495,20 +521,20 @@ msgid ""
 "required intermediate CAs inside the EAP conversation."
 msgstr ""
 
-#: core/RADIUSTests.php:518
+#: core/RADIUSTests.php:570
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
 msgstr ""
 
-#: core/RADIUSTests.php:525
+#: core/RADIUSTests.php:577
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
 msgstr ""
 
-#: core/RADIUSTests.php:532
+#: core/RADIUSTests.php:584
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -516,39 +542,47 @@ msgid ""
 "for EAP purposes!"
 msgstr ""
 
-#: core/RADIUSTests.php:539
+#: core/RADIUSTests.php:591
 msgid "The server presented a certificate from an unknown authority."
 msgstr ""
 
-#: core/RADIUSTests.php:546
+#: core/RADIUSTests.php:598
 msgid "The server accepted the INVALID client certificate."
 msgstr ""
 
-#: core/RADIUSTests.php:553
+#: core/RADIUSTests.php:605
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr ""
 
-#: core/RADIUSTests.php:560
-msgid "The server rejected the client certificate."
+#: core/RADIUSTests.php:612
+msgid "The server rejected the client certificate as expected."
 msgstr ""
 
-#: core/RADIUSTests.php:1221
+#: core/RADIUSTests.php:619
+msgid "The CRL of a certificate could not be found."
+msgstr ""
+
+#: core/RADIUSTests.php:626
+msgid "EAP method negotiation failed!"
+msgstr ""
+
+#: core/RADIUSTests.php:1490
 msgid "certificate expired"
 msgstr ""
 
-#: core/RADIUSTests.php:1223
+#: core/RADIUSTests.php:1492
 msgid "certificate was revoked"
 msgstr ""
 
-#: core/RADIUSTests.php:1225
+#: core/RADIUSTests.php:1494
 msgid "bad policy"
 msgstr ""
 
-#: core/RADIUSTests.php:1227
+#: core/RADIUSTests.php:1496
 msgid "unknown authority"
 msgstr ""
 
-#: core/RADIUSTests.php:1230
+#: core/RADIUSTests.php:1499
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 
@@ -577,4 +611,8 @@ msgstr ""
 
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"
+msgstr ""
+
+#: core/User.php:243
+msgid "Feedback"
 msgstr ""

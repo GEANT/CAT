@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-18 08:31+0200\n"
+"POT-Creation-Date: 2015-04-08 11:50+0200\n"
 "PO-Revision-Date: 2013-02-06 13:02+0000\n"
 "Last-Translator: Stefan Winter <stefan.winter@restena.lu>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -19,89 +19,85 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: devices/devices-template.php:97
+#: devices/devices-template.php:101
+msgid "MS Windows 10"
+msgstr ""
+
+#: devices/devices-template.php:115
 msgid "MS Windows 8, 8.1"
 msgstr ""
 
-#: devices/devices-template.php:111
+#: devices/devices-template.php:129
 msgid "MS Windows 7"
 msgstr ""
 
-#: devices/devices-template.php:125
+#: devices/devices-template.php:143
 msgid "MS Windows Vista"
 msgstr ""
 
-#: devices/devices-template.php:139
-msgid "MS Windows XP SP3"
-msgstr ""
-
-#: devices/devices-template.php:147
-msgid ""
-"MS Windows XP is no longer supported by Microsoft, therefore it can be "
-"unsecure and should not really be used."
-msgstr ""
-
-#: devices/devices-template.php:154
+#: devices/devices-template.php:157
 msgid "Windows RT"
 msgstr ""
 
-#: devices/devices-template.php:166
+#: devices/devices-template.php:169
+msgid "Apple OS X Yosemite"
+msgstr ""
+
+#: devices/devices-template.php:184
 msgid "Apple OS X Mavericks"
 msgstr ""
 
-#: devices/devices-template.php:181
+#: devices/devices-template.php:199
 msgid "Apple OS X Mountain Lion"
 msgstr ""
 
-#: devices/devices-template.php:195
+#: devices/devices-template.php:213
 msgid "Apple OS X Lion"
 msgstr ""
 
-#: devices/devices-template.php:208
+#: devices/devices-template.php:226
 msgid "Apple iOS mobile devices"
 msgstr ""
 
-#: devices/devices-template.php:221
+#: devices/devices-template.php:239
 msgid "Linux"
 msgstr ""
 
-#: devices/devices-template.php:231
+#: devices/devices-template.php:251
+msgid "Android 5.0 Lollipop"
+msgstr ""
+
+#: devices/devices-template.php:257 devices/devices-template.php:269
+#, php-format
+msgid ""
+"Before you proceed with installation on Android systems, please make sure "
+"that you have installed the %s application. This application is available "
+"from %s and will use the configuration file downloaded from CAT to create "
+"all necessary settings."
+msgstr ""
+
+#: devices/devices-template.php:263
+msgid "Android 4.4 KitKat"
+msgstr ""
+
+#: devices/devices-template.php:275
 msgid "Android"
 msgstr ""
 
-#: devices/devices-template.php:241
-msgid "Welcome Letter"
-msgstr "Carta de Benvinguda"
+#: devices/devices-template.php:286
+msgid "EAP config"
+msgstr ""
 
-#: devices/devices-template.php:251
+#: devices/devices-template.php:291
+#, php-format
+msgid ""
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+
+#: devices/devices-template.php:297
 msgid "Test"
-msgstr ""
-
-#: devices/devices-template.php:260
-msgid "Generic profile TTLS-PAP"
-msgstr ""
-
-#: devices/devices-template.php:270
-msgid "Generic profile TTLS-MSCHAPv2"
-msgstr ""
-
-#: devices/devices-template.php:280
-#, fuzzy
-msgid "Generic profile PEAP"
-msgstr "perfil d'usuari"
-
-#: devices/devices-template.php:290
-#, fuzzy
-msgid "Generic profile TLS"
-msgstr "perfil d'usuari"
-
-#: devices/devices-template.php:300
-#, fuzzy
-msgid "Generic profile PWD"
-msgstr "perfil d'usuari"
-
-#: devices/devices-template.php:309
-msgid "Generic profile ALL EAPs"
 msgstr ""
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:120
@@ -167,20 +163,20 @@ msgstr ""
 msgid "SSID %s"
 msgstr "SSID %s"
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:333
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:334
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:335
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:336
 msgid "Disabled WiFi network"
 msgstr ""
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:392
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:393
 msgid "Your Identity Providers Certification Authority"
 msgstr "Autoritat de certificació del vostre proveidor d'identitat"
 
-#: devices/apple_mobileconfig/mobileconfig_superclass.php:394
+#: devices/apple_mobileconfig/mobileconfig_superclass.php:395
 msgid "Identity Provider's CA"
 msgstr "CA del proveidor d'identitat"
 
@@ -192,7 +188,7 @@ msgstr ""
 "Les identitats anònimes no utilitzen el domini especificat en el perfil. En "
 "el seu lloc s'infereix del sufixe proporcionat pels usuaris."
 
-#: devices/ms/Vista7.php:97 devices/ms/W8.php:95 devices/ms/XP.php:80
+#: devices/ms/Vista7.php:91 devices/ms/W8.php:95
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
@@ -205,8 +201,7 @@ msgstr ""
 "botó de descàrrega, l'instal.lador es desarà en local. Copieu-lo a la "
 "màquina que vulgueu configurar i executeu-lo."
 
-#: devices/ms/Vista7.php:101 devices/ms/W8.php:99 devices/ms/XP.php:84
-#: devices/linux/Linux.php:82
+#: devices/ms/Vista7.php:95 devices/ms/W8.php:99 devices/linux/Linux.php:82
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
@@ -215,15 +210,14 @@ msgstr ""
 "A més de <strong>%s</strong>, l'instal.lador configurarà l'accés a les "
 "següents xarxes:"
 
-#: devices/ms/Vista7.php:103 devices/ms/W8.php:101 devices/ms/XP.php:86
-#: devices/linux/Linux.php:84
+#: devices/ms/Vista7.php:97 devices/ms/W8.php:101 devices/linux/Linux.php:84
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
 msgstr "A més de <strong>%s</strong>, l'instal.lador configurarà l'accés a:"
 
-#: devices/ms/Vista7.php:116 devices/ms/W8.php:115
+#: devices/ms/Vista7.php:110 devices/ms/W8.php:115
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
 "in the form of a p12 file. You should obtain this certificate from your home "
@@ -237,8 +231,7 @@ msgstr ""
 "certificats estan protegits amb contrasenya. Haureu de tenir disponible el "
 "fitxer de certificat i la contrasenya durant el procés d'instal.lació."
 
-#: devices/ms/Vista7.php:118 devices/ms/W8.php:117 devices/ms/XP.php:99
-#: devices/linux/Linux.php:100
+#: devices/ms/Vista7.php:112 devices/ms/W8.php:117 devices/linux/Linux.php:100
 msgid ""
 "In order to connect to the network you will need an account from your home "
 "institution. You should consult the support page to find out how this "
@@ -249,21 +242,7 @@ msgstr ""
 "institució d'origen. Consulteu la pàgina de suport per saber com es pot "
 "obtenir aquest compte. És molt probable que el compte ja estigui activat."
 
-#: devices/ms/Vista7.php:121 devices/ms/XP.php:101
-msgid ""
-"The installer will also install additional software - SecureW2 EAP Suite "
-"(GNU General Public License).<p>You will be requested to enter your account "
-"credentials into a pop box during the installation. This information will be "
-"saved so that you will reconnect to the network automatically each time you "
-"are in the range."
-msgstr ""
-"L'instal.lador instal.larà el programari addicional SecureW2 EAP Suite (GNU "
-"General Public License).<p>Durant la instal.lació se us demanarà d'introduir "
-"les credencials del compte en una finestra emergent. Aquesta informació es "
-"desarà per tal que pugueu reconnectar a la xarxa automàticament cada cop que "
-"us hi acosteu."
-
-#: devices/ms/Vista7.php:126 devices/ms/W8.php:119
+#: devices/ms/Vista7.php:116 devices/ms/W8.php:119
 msgid ""
 "When you are connecting to the network for the first time, Windows will pop "
 "up a login box, where you should enter your user name and password. This "
@@ -275,7 +254,7 @@ msgstr ""
 "informació es desarà de manera que us reconnecteu automàticament a la xarxa "
 "cada cop que us hi acosteu."
 
-#: devices/ms/Vista7.php:129 devices/ms/W8.php:122
+#: devices/ms/Vista7.php:119 devices/ms/W8.php:122
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
@@ -283,46 +262,42 @@ msgstr ""
 "Haureu d'introduir les mateixes credencials per cada una de les següents "
 "xarxes configurades:"
 
-#: devices/ms/Vista7.php:470 devices/ms/XP.php:227
-msgid "Login credentials"
-msgstr "Credencials d'entrada"
-
-#: devices/ms/Vista7.php:555 devices/ms/Vista7.php:556 devices/ms/W8.php:411
-#: devices/ms/W8.php:412 devices/ms/XP.php:300 devices/ms/XP.php:301
+#: devices/ms/Vista7.php:410 devices/ms/Vista7.php:411 devices/ms/W8.php:411
+#: devices/ms/W8.php:412
 #, php-format
 msgid "%s installer for %s"
 msgstr "Instal.lador %s per a %s"
 
-#: devices/ms/Files/common.inc:142 devices/ms/Files/xp/common.inc:111
+#: devices/ms/Files/common.inc:132
 #, php-format
 msgid "Welcome to the %s installer"
 msgstr "Benvingut/da a l'instal.lador %s"
 
-#: devices/ms/Files/common.inc:143 devices/ms/Files/xp/common.inc:112
+#: devices/ms/Files/common.inc:133
 msgid "Installation complete"
 msgstr "Instal.lació complerta"
 
-#: devices/ms/Files/common.inc:144 devices/ms/Files/xp/common.inc:113
+#: devices/ms/Files/common.inc:134
 msgid "Network profiles have been installed."
 msgstr "S'han instal.lat els perfils de xarxa"
 
-#: devices/ms/Files/common.inc:144 devices/ms/Files/xp/common.inc:113
+#: devices/ms/Files/common.inc:134
 msgid "Your system is ready."
 msgstr "El vostre sistema està preparat."
 
-#: devices/ms/Files/common.inc:145 devices/ms/Files/xp/common.inc:114
+#: devices/ms/Files/common.inc:135
 msgid "Network installation had errors."
 msgstr "La instal.lació de xarda ha donat errors."
 
-#: devices/ms/Files/common.inc:145 devices/ms/Files/common.inc:889
+#: devices/ms/Files/common.inc:135 devices/ms/Files/common.inc:859
 msgid "Please contact ${SUPPORT}."
 msgstr "Sisplau contacteu a ${SUPPORT}."
 
-#: devices/ms/Files/common.inc:153 devices/ms/Files/xp/common.inc:123
+#: devices/ms/Files/common.inc:143
 msgid "Accept"
 msgstr "Acceptar"
 
-#: devices/ms/Files/common.inc:154 devices/ms/Files/xp/common.inc:124
+#: devices/ms/Files/common.inc:144
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
@@ -330,71 +305,70 @@ msgstr ""
 "Si accepteu les condicions seleccioneu Acceptar i després cliqueu Instal.la "
 "per continuar"
 
-#: devices/ms/Files/common.inc:160 devices/ms/Files/xp/common.inc:130
+#: devices/ms/Files/common.inc:150
 msgid "Finish"
 msgstr "Fi"
 
-#: devices/ms/Files/common.inc:192
+#: devices/ms/Files/common.inc:182
 msgid "searching for certificate"
 msgstr "cercant un certificat"
 
-#: devices/ms/Files/common.inc:250 devices/ms/Files/xp/common.inc:145
+#: devices/ms/Files/common.inc:244
 msgid "installing certificate"
 msgstr "instal.lant certificat"
 
-#: devices/ms/Files/common.inc:256
+#: devices/ms/Files/common.inc:250
 msgid "could not install certificate"
 msgstr "no s'ha pogut instal.lar el certificat"
 
-#: devices/ms/Files/common.inc:438
+#: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
 msgstr ""
 "Es prefereixen els perfils sense TKIP. Utilitzeu-los sempre que sigui "
 "possible."
 
-#: devices/ms/Files/common.inc:440
+#: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
 msgstr ""
 "Es prefereix el perfil sense TKIP. Utilitzeu-lo sempre que sigui possible."
 
-#: devices/ms/Files/common.inc:446 devices/ms/Files/common.inc:454
+#: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 #: devices/linux/Linux.php:137
 msgid "This installer has been prepared for ${ORGANISATION}"
 msgstr "Aquest instal.lador ha estat preparat per a ${ORGANISATION}"
 
-#: devices/ms/Files/common.inc:447
+#: devices/ms/Files/common.inc:441
 msgid "The installer will create the following wireless profiles:"
 msgstr "L'instal.lador crearà els següents perfils de xarxa:"
 
-#: devices/ms/Files/common.inc:450 devices/ms/Files/common.inc:457
-#: devices/ms/Files/xp/common.inc:262 devices/linux/Linux.php:137
+#: devices/ms/Files/common.inc:444 devices/ms/Files/common.inc:451
+#: devices/linux/Linux.php:137
 msgid "More information and comments:"
 msgstr "Més informació i comentaris:"
 
-#: devices/ms/Files/common.inc:455
+#: devices/ms/Files/common.inc:449
 #, fuzzy
 msgid "The installer will create the wireless profile:"
 msgstr "L'instal.lador crearà els següents perfils de xarxa:"
 
-#: devices/ms/Files/common.inc:483 devices/ms/Files/xp/common.inc:288
-#: devices/linux/Linux.php:138
+#: devices/ms/Files/common.inc:477 devices/linux/Linux.php:138
 msgid "Installer created with software from the GEANT project."
 msgstr "Instal.lador creat amb programari del projecte GEANT"
 
-#: devices/ms/Files/common.inc:511
+#: devices/ms/Files/common.inc:505
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
-"8. Please download the correct installer and try again."
+"8 and newer. Please download the correct installer and try again."
 msgstr ""
 
-#: devices/ms/Files/common.inc:521 devices/ms/Files/common.inc:554
+#: devices/ms/Files/common.inc:515 devices/ms/Files/common.inc:548
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
 msgstr ""
 
-#: devices/ms/Files/common.inc:592 devices/ms/Files/xp/common.inc:370
+#: devices/ms/Files/common.inc:588
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
@@ -402,35 +376,35 @@ msgstr ""
 "El servei de configuració wifi de Windows no està habilitat. L'instal.lador "
 "no pot continuar."
 
-#: devices/ms/Files/common.inc:597 devices/ms/Files/xp/common.inc:374
+#: devices/ms/Files/common.inc:593
 msgid "No wireless interfaces found. The installer cannot continue."
 msgstr "No s'ha trobat interfícies wifi. L'instal.lador no pot continuar. "
 
-#: devices/ms/Files/common.inc:603
+#: devices/ms/Files/common.inc:599
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
 msgstr ""
 
-#: devices/ms/Files/common.inc:619
+#: devices/ms/Files/common.inc:615
 msgid "Do you want to enable access on wired interfaces?"
 msgstr ""
 
-#: devices/ms/Files/common.inc:654 devices/ms/Files/xp/common.inc:397
+#: devices/ms/Files/common.inc:650
 msgid "Profiles installation"
 msgstr "Perfils d'instal.lació"
 
-#: devices/ms/Files/common.inc:677
+#: devices/ms/Files/common.inc:670
 #, fuzzy
 msgid "Checking for profile $R8"
 msgstr "Comprovació del perfil $R1"
 
-#: devices/ms/Files/common.inc:685
+#: devices/ms/Files/common.inc:678
 #, fuzzy
 msgid "found profile $R8"
 msgstr "s'ha trobat el perfil $R1"
 
-#: devices/ms/Files/common.inc:711 devices/ms/Files/xp/common.inc:423
+#: devices/ms/Files/common.inc:704
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
@@ -438,12 +412,11 @@ msgstr ""
 "Aquest instal.lador només funcionarà correctament si sou membre de "
 "${ORGANISATION} i del grup d'usuaris: ${USER_GROUP}."
 
-#: devices/ms/Files/common.inc:711 devices/ms/Files/common.inc:714
-#: devices/ms/Files/xp/common.inc:423 devices/ms/Files/xp/common.inc:425
+#: devices/ms/Files/common.inc:704 devices/ms/Files/common.inc:707
 msgid "Click OK to continue with installation."
 msgstr "Premeu OK per a continuar amb la instal.lació."
 
-#: devices/ms/Files/common.inc:714 devices/ms/Files/xp/common.inc:425
+#: devices/ms/Files/common.inc:707
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
@@ -451,7 +424,7 @@ msgstr ""
 "Aquest instal.lador només funcionarà correctament si sou membre de "
 "${ORGANISATION}."
 
-#: devices/ms/Files/common.inc:722 devices/ms/Files/xp/common.inc:433
+#: devices/ms/Files/common.inc:715
 msgid ""
 "Please read the additional information from your home institution which will "
 "be displayed in a moment."
@@ -459,15 +432,7 @@ msgstr ""
 "Sisplau llegiu la informació adicional de la vostra institució que se us "
 "mostrarà de seguida."
 
-#: devices/ms/Files/common.inc:774 devices/ms/Files/xp/common.inc:458
-msgid "Restart system now"
-msgstr "Ara cal que reinicieu el sistema"
-
-#: devices/ms/Files/common.inc:776 devices/ms/Files/xp/common.inc:460
-msgid "I will restart later"
-msgstr "Reiniciar més tard"
-
-#: devices/ms/Files/common.inc:787
+#: devices/ms/Files/common.inc:771
 #, php-format
 msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
@@ -481,25 +446,24 @@ msgid ""
 "username and password."
 msgstr ""
 
-#: devices/ms/Files/common.inc:818 devices/ms/Files/xp/common.inc:358
+#: devices/ms/Files/common.inc:801
 #, fuzzy
 msgid "installing wired profile"
 msgstr "instal.lant el perfil $R1"
 
-#: devices/ms/Files/common.inc:870 devices/ms/Files/common.inc:918
-#: devices/ms/Files/xp/common.inc:520
+#: devices/ms/Files/common.inc:841 devices/ms/Files/common.inc:888
 msgid "deleting profile $R1"
 msgstr "esborrant el perfil $R1"
 
-#: devices/ms/Files/common.inc:879 devices/ms/Files/xp/common.inc:524
+#: devices/ms/Files/common.inc:849
 msgid "installing profile $R1"
 msgstr "instal.lant el perfil $R1"
 
-#: devices/ms/Files/common.inc:889 devices/ms/Files/xp/common.inc:529
+#: devices/ms/Files/common.inc:859
 msgid "Profile installation error for $R1."
 msgstr "Error d'instal.lació de perfil per a $R1."
 
-#: devices/ms/Files/common.inc:935
+#: devices/ms/Files/common.inc:905
 #, fuzzy
 msgid "installing credentials for wired"
 msgstr "instal.lant credencials per al perfil $R1"
@@ -517,23 +481,22 @@ msgid "Personal certificate"
 msgstr "Certificat personal"
 
 #: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
-#: devices/ms/Files/pwd.inc:31 devices/ms/Files/ttls.inc:5
+#: devices/ms/Files/pwd.inc:31
 msgid "Installation of network profiles"
 msgstr "Instal.lació dels perfils de xarxa"
 
 #: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
-#: devices/ms/Files/pwd.inc:31 devices/ms/Files/ttls.inc:5
+#: devices/ms/Files/pwd.inc:31
 msgid "profiles"
 msgstr "perfils"
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
 #: devices/ms/Files/pwd.inc:11 devices/ms/Files/pwd.inc:33
-#: devices/ms/Files/ttls.inc:7
 msgid "Installation"
 msgstr "Instal.lació"
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
-#: devices/ms/Files/pwd.inc:33 devices/ms/Files/ttls.inc:7
+#: devices/ms/Files/pwd.inc:33
 msgid "Network profiles update"
 msgstr "Actualització dels perfils de xarxa"
 
@@ -541,11 +504,11 @@ msgstr "Actualització dels perfils de xarxa"
 msgid "Information about components"
 msgstr "Informació sobre els components"
 
-#: devices/ms/Files/pwd.inc:5 devices/ms/Files/ttls.inc:16
+#: devices/ms/Files/pwd.inc:5
 msgid "user profile"
 msgstr "perfil d'usuari"
 
-#: devices/ms/Files/pwd.inc:9 devices/ms/Files/ttls.inc:21
+#: devices/ms/Files/pwd.inc:9
 msgid "install program"
 msgstr "programa d'instal.lació"
 
@@ -554,108 +517,6 @@ msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
 msgstr ""
 "Error d'instal.lació  a EAP-pwd. Sisplau proveu-ho de nou o contacteu a "
 "${SUPPORT}."
-
-#: devices/ms/Files/ttls.inc:49
-msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
-msgstr ""
-"Error en l'instal.lació de SecureW2. Sisplau proveu-ho de nou o contacteu a "
-"${SUPPORT}."
-
-#: devices/ms/Files/xp/common.inc:114 devices/ms/Files/xp/common.inc:529
-#, fuzzy
-msgid "Please contact \\${SUPPORT}."
-msgstr "Sisplau contacteu a ${SUPPORT}."
-
-#: devices/ms/Files/xp/common.inc:258
-#, fuzzy
-msgid "This installer has been prepared for \\${ORGANISATION}"
-msgstr "Aquest instal.lador ha estat preparat per a ${ORGANISATION}"
-
-#: devices/ms/Files/xp/common.inc:259
-msgid "The installer will create network profile:"
-msgstr "L'instal·lador crearà el perfil de xarxa:"
-
-#: devices/ms/Files/xp/common.inc:261
-#, fuzzy, php-format
-msgid ""
-"You will be able to use %s in most institutions however due to Windows XP "
-"limitations and differences in network settings at different institutions, "
-"you may be sometimes required to repeat the connection for the system to "
-"reconfigure."
-msgstr ""
-"Això assegura que podreu fer servir eduroam a la majoria d'institucions "
-"malgrat, degut a limitacions de Windows XP i diferències en els paràmetres "
-"de xarxa a diferents institucions, algun cop caldrà repetir el procés de "
-"connexió per a reconfigurar el sistema."
-
-#: devices/ms/Files/xp/common.inc:350
-msgid ""
-"You are running Windows $WindowsName but this installer is only for Windows "
-"XP. Please download the correct installer and try again."
-msgstr ""
-
-#: devices/ms/Files/xp/common.inc:382
-#, php-format
-msgid "Do you want to enable %s on wired interfaces?"
-msgstr ""
-
-#: devices/ms/Files/xp/common.inc:541
-#, php-format
-msgid "%s installer for"
-msgstr "Instal.lador %s per a "
-
-#: devices/ms/Files/xp/common.inc:541
-msgid "Install personal certificate"
-msgstr "Instal.leu un certificat personal"
-
-#: devices/ms/Files/xp/common.inc:546
-msgid "Preparing to install personal certificate."
-msgstr "Preparant-se per a instal.lar un certificat personal."
-
-#: devices/ms/Files/xp/common.inc:546
-msgid "Click OK to continue"
-msgstr "Cliqueu OK per a continuar"
-
-#: devices/ms/Files/xp/common.inc:552
-msgid "Certificate files (*.p12)"
-msgstr "Arxius de certificat (*.p12)"
-
-#: devices/ms/Files/xp/common.inc:552
-msgid "Certificate files (*pfx)"
-msgstr "Arxius de certificat (*.pfx)"
-
-#: devices/ms/Files/xp/common.inc:555
-msgid "Selected file: $Cert_file"
-msgstr "Arxiu selecciona: $Cert_file"
-
-#: devices/ms/Files/xp/common.inc:557
-msgid "certificate password:"
-msgstr "contrasenya del certificat:"
-
-#: devices/ms/Files/xp/common.inc:569
-msgid "No certificate file selected"
-msgstr "No s'ha seleccionat cap arxiu de certificat"
-
-#: devices/ms/Files/xp/common.inc:581
-msgid "Incorrect certificate password$\\r$\\nenter again"
-msgstr "Contrasenya del certificat incorrecte$\\r$\\nentreu-la de nou"
-
-#: devices/ms/Files/xp/common.inc:602
-#, php-format
-msgid ""
-"In order to install/update %s access all selected steps need to be "
-"performed. Click Continue to proceed"
-msgstr ""
-"Per tal d'instal.lar/actualitzar l'accés %s cal fer tots els passos "
-"seleccionats. Cliqueu a Continua per a començar"
-
-#: devices/ms/Files/xp/common.inc:603
-msgid ""
-"If an option is not selected by default, then it is either not available or "
-"optional."
-msgstr ""
-"Si una opció no està seleccionada per defecte, o és opcional o no està "
-"disponible."
 
 #: devices/linux/Linux.php:78
 msgid ""
@@ -670,21 +531,23 @@ msgstr ""
 "configuració per a wpa_supplicant."
 
 #: devices/linux/Linux.php:96
+#, fuzzy
 msgid ""
-"The installer will create .eduroam sub-directory in your home directory and "
-"will copy your server certificates there."
+"The installer will create .cat_installer sub-directory in your home "
+"directory and will copy your server certificates there."
 msgstr ""
 "L'instal.lador crearà un subditrectori .eduroam en el vostre directori arrel "
 "i hi copiarà els vostres certificats de servidor."
 
 #: devices/linux/Linux.php:98
+#, fuzzy
 msgid ""
-"In order to connect to the network you will need an a personal certificate "
-"in the form of a p12 file. You should obtain this certificate from your home "
+"In order to connect to the network you will need a personal certificate in "
+"the form of a p12 file. You should obtain this certificate from your home "
 "institution. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
-"Your p12 file will also be copied to the .eduroam directory."
+"Your p12 file will also be copied to the .cat_installer directory."
 msgstr ""
 "Per poder connectar a la xarxa necessitareu un certificat personal en format "
 "d'arxiu p12. Podeu obtenir aquest certificat de la vostra institució. "
@@ -776,16 +639,16 @@ msgstr "repetiu la contrasenya"
 msgid "passwords do not match"
 msgstr "les contrasenyes no coincideixen"
 
-#: devices/linux/Linux.php:434 devices/linux/Linux.php:438
-#: devices/linux/Linux.php:450
+#: devices/linux/Linux.php:436 devices/linux/Linux.php:440
+#: devices/linux/Linux.php:452
 msgid "personal certificate file (p12 or pfx)"
 msgstr "arxiu del certificat personal (p12 o pfx)"
 
-#: devices/linux/Linux.php:459
+#: devices/linux/Linux.php:461
 msgid "file not found"
 msgstr "arxiu no trobat"
 
-#: devices/linux/Linux.php:469 devices/linux/Linux.php:472
+#: devices/linux/Linux.php:471 devices/linux/Linux.php:474
 msgid "enter the password for the certificate file"
 msgstr "entreu la contrasenya per a l'arxiu del certificat"
 
@@ -798,6 +661,136 @@ msgstr ""
 "L'instal.lador és només un exemple. Produeix un arxiu comprimit  que conté "
 "els certificats de l'IdP, arxius d'informació i logo (si l'administrador ho "
 "ha definit) i un bolcat dels atributs disponibles."
+
+#: devices/redirect_dev/RedirectDev.php:22
+msgid ""
+"This device is not yet supported by CAT, but your local administrator "
+"created a redirect to local installation instructions."
+msgstr ""
+
+#: devices/xml/XML.php:46
+#, php-format
+msgid ""
+"This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
+"-00</a> XML format."
+msgstr ""
+
+#~ msgid ""
+#~ "The installer will also install additional software - SecureW2 EAP Suite "
+#~ "(GNU General Public License).<p>You will be requested to enter your "
+#~ "account credentials into a pop box during the installation. This "
+#~ "information will be saved so that you will reconnect to the network "
+#~ "automatically each time you are in the range."
+#~ msgstr ""
+#~ "L'instal.lador instal.larà el programari addicional SecureW2 EAP Suite "
+#~ "(GNU General Public License).<p>Durant la instal.lació se us demanarà "
+#~ "d'introduir les credencials del compte en una finestra emergent. Aquesta "
+#~ "informació es desarà per tal que pugueu reconnectar a la xarxa "
+#~ "automàticament cada cop que us hi acosteu."
+
+#~ msgid "Login credentials"
+#~ msgstr "Credencials d'entrada"
+
+#~ msgid "Restart system now"
+#~ msgstr "Ara cal que reinicieu el sistema"
+
+#~ msgid "I will restart later"
+#~ msgstr "Reiniciar més tard"
+
+#~ msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
+#~ msgstr ""
+#~ "Error en l'instal.lació de SecureW2. Sisplau proveu-ho de nou o contacteu "
+#~ "a ${SUPPORT}."
+
+#, fuzzy
+#~ msgid "Please contact \\${SUPPORT}."
+#~ msgstr "Sisplau contacteu a ${SUPPORT}."
+
+#~ msgid "The installer will create network profile:"
+#~ msgstr "L'instal·lador crearà el perfil de xarxa:"
+
+#, fuzzy
+#~ msgid ""
+#~ "You will be able to use %s in most institutions however due to Windows XP "
+#~ "limitations and differences in network settings at different "
+#~ "institutions, you may be sometimes required to repeat the connection for "
+#~ "the system to reconfigure."
+#~ msgstr ""
+#~ "Això assegura que podreu fer servir eduroam a la majoria d'institucions "
+#~ "malgrat, degut a limitacions de Windows XP i diferències en els "
+#~ "paràmetres de xarxa a diferents institucions, algun cop caldrà repetir el "
+#~ "procés de connexió per a reconfigurar el sistema."
+
+#, fuzzy
+#~ msgid "Checking for profile $R1"
+#~ msgstr "Comprovació del perfil $R1"
+
+#, fuzzy
+#~ msgid "found profile $R1"
+#~ msgstr "s'ha trobat el perfil $R1"
+
+#~ msgid "%s installer for"
+#~ msgstr "Instal.lador %s per a "
+
+#~ msgid "Install personal certificate"
+#~ msgstr "Instal.leu un certificat personal"
+
+#~ msgid "Preparing to install personal certificate."
+#~ msgstr "Preparant-se per a instal.lar un certificat personal."
+
+#~ msgid "Click OK to continue"
+#~ msgstr "Cliqueu OK per a continuar"
+
+#~ msgid "Certificate files (*.p12)"
+#~ msgstr "Arxius de certificat (*.p12)"
+
+#~ msgid "Certificate files (*pfx)"
+#~ msgstr "Arxius de certificat (*.pfx)"
+
+#~ msgid "Selected file: $Cert_file"
+#~ msgstr "Arxiu selecciona: $Cert_file"
+
+#~ msgid "certificate password:"
+#~ msgstr "contrasenya del certificat:"
+
+#~ msgid "No certificate file selected"
+#~ msgstr "No s'ha seleccionat cap arxiu de certificat"
+
+#~ msgid "Incorrect certificate password$\\r$\\nenter again"
+#~ msgstr "Contrasenya del certificat incorrecte$\\r$\\nentreu-la de nou"
+
+#~ msgid ""
+#~ "In order to install/update %s access all selected steps need to be "
+#~ "performed. Click Continue to proceed"
+#~ msgstr ""
+#~ "Per tal d'instal.lar/actualitzar l'accés %s cal fer tots els passos "
+#~ "seleccionats. Cliqueu a Continua per a començar"
+
+#~ msgid ""
+#~ "If an option is not selected by default, then it is either not available "
+#~ "or optional."
+#~ msgstr ""
+#~ "Si una opció no està seleccionada per defecte, o és opcional o no està "
+#~ "disponible."
+
+#~ msgid "Welcome Letter"
+#~ msgstr "Carta de Benvinguda"
+
+#, fuzzy
+#~ msgid "Generic profile PEAP"
+#~ msgstr "perfil d'usuari"
+
+#, fuzzy
+#~ msgid "Generic profile TLS"
+#~ msgstr "perfil d'usuari"
+
+#, fuzzy
+#~ msgid "Generic profile PWD"
+#~ msgstr "perfil d'usuari"
+
+#, fuzzy
+#~ msgid "This installer has been prepared for \\${ORGANISATION}"
+#~ msgstr "Aquest instal.lador ha estat preparat per a ${ORGANISATION}"
 
 #~ msgid "eduroam® - supporting academic mobility since 2003"
 #~ msgstr "eduroam® - donant suport a la mobilitat acadèmica des de 2003"
