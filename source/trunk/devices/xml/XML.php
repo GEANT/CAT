@@ -43,7 +43,7 @@ public $VendorSpecific;
 public function writeDeviceInfo() {
     $ssid_ct=count($this->attributes['internal:SSID']);
     $out = "<p>";
-    $out .= _("This download produces an EAP config XML profile which can be consumed by dedicated applications like eduroamCAT available for Android and Linux platforms.");
+    $out .= sprintf(_("This is a generic configuration file in the IETF <a href='%s'>EAP Metadata -00</a> XML format."),"https://tools.ietf.org/html/draft-winter-opsawg-eap-metadata-00");
     return $out;
     }
 
