@@ -288,7 +288,7 @@ public static function listDevices() {
     'module'=>'XML_ALL',
     'options'=>array(
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("This provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),
+       'message'=>sprintf(_("This option provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),
       ),
     ),
 
