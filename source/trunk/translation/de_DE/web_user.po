@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 10:38+0200\n"
+"POT-Creation-Date: 2015-04-08 11:47+0200\n"
 "PO-Revision-Date: 2015-04-03 11:02+0200\n"
 "Last-Translator:  <stefan.winter@restena.lu>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -545,10 +545,8 @@ msgid ""
 "usually known as"
 msgstr ""
 "... aber wir wollen sie Ihnen nicht zeigen. Um den Inhalt zu sehen, müssen "
-"sie "
-"angemeldet und autorisiert sein. Da Sie das nicht sind, zeigen wir Ihnen "
-"statt "
-"dessen diese Fehlermeldung, besser bekannt als"
+"sie angemeldet und autorisiert sein. Da Sie das nicht sind, zeigen wir Ihnen "
+"statt dessen diese Fehlermeldung, besser bekannt als"
 
 #: web/4013.php:47
 #, php-format
@@ -556,8 +554,8 @@ msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
 msgstr ""
-"Ihr Fehler? Unser Bug? Wer weiß! Vielleicht gehen Sie am besten zurück zur <a "
-"href='%s'>Startseite</a>."
+"Ihr Fehler? Unser Bug? Wer weiß! Vielleicht gehen Sie am besten zurück zur "
+"<a href='%s'>Startseite</a>."
 
 #: web/404.php:44
 msgid "This is not the CAT you are looking for."
@@ -648,12 +646,12 @@ msgstr "Neu beginnen"
 msgid "Terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: web/basic.php:448 web/index.php:340 web/tou.php:56
+#: web/basic.php:448 web/index.php:340 web/tou.php:53
 #, php-format
 msgid "Release %s"
 msgstr "Version %s"
 
-#: web/basic.php:450 web/index.php:342 web/tou.php:58
+#: web/basic.php:450 web/index.php:342 web/tou.php:55
 msgid "Unreleased SVN Revision"
 msgstr "Nicht veröffentlichte SVN Version"
 

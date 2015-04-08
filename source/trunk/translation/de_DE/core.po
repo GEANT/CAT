@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 10:46+0200\n"
+"POT-Creation-Date: 2015-04-08 11:47+0200\n"
 "PO-Revision-Date: 2015-04-03 10:48+0200\n"
 "Last-Translator:  <stefan.winter@restena.lu>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -20,17 +20,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:126
 #, php-format
 msgid "your local %s support"
 msgstr "ihre lokale %s Unterstützung"
 
-#: core/DeviceConfig.php:131
+#: core/DeviceConfig.php:127
 #, php-format
 msgid "your local %s support page"
 msgstr "ihre lokale %s Informations-Webseite"
 
-#: core/DeviceConfig.php:163
+#: core/DeviceConfig.php:159
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Entschuldigung, das sollte nicht passieren - es ist keine weitere "
@@ -698,4 +698,3 @@ msgstr "IdP in Ihrer Föderation wurde erstellt"
 #: core/User.php:243
 msgid "Feedback"
 msgstr "Rückmeldung"
-
