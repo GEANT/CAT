@@ -1,70 +1,72 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Panos Bouklis <panos@echidna-band.com>, 2012.
+# HELPDESK <npapalouka@admin.grnet.gr>, 2015
+# Panos Bouklis <panos@echidna-band.com>, 2012
+# Zenon Mousmoulas <zenon@mousmoulas.gr>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 11:50+0200\n"
-"PO-Revision-Date: 2012-11-10 13:26+0000\n"
-"Last-Translator: Panos Bouklis <panos@echidna-band.com>\n"
+"POT-Creation-Date: 2015-04-08 11:52+0200\n"
+"PO-Revision-Date: 2015-04-08 23:22+0000\n"
+"Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
-"Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: el\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/devices-template.php:101
 msgid "MS Windows 10"
-msgstr ""
+msgstr "MS Windows 10"
 
 #: devices/devices-template.php:115
 msgid "MS Windows 8, 8.1"
-msgstr ""
+msgstr "MS Windows 8, 8.1"
 
 #: devices/devices-template.php:129
 msgid "MS Windows 7"
-msgstr ""
+msgstr "MS Windows 7"
 
 #: devices/devices-template.php:143
 msgid "MS Windows Vista"
-msgstr ""
+msgstr "MS Windows Vista"
 
 #: devices/devices-template.php:157
 msgid "Windows RT"
-msgstr ""
+msgstr "Windows RT"
 
 #: devices/devices-template.php:169
 msgid "Apple OS X Yosemite"
-msgstr ""
+msgstr "Apple OS X Yosemite"
 
 #: devices/devices-template.php:184
 msgid "Apple OS X Mavericks"
-msgstr ""
+msgstr "Apple OS X Mavericks"
 
 #: devices/devices-template.php:199
 msgid "Apple OS X Mountain Lion"
-msgstr ""
+msgstr "Apple OS X Mountain Lion"
 
 #: devices/devices-template.php:213
 msgid "Apple OS X Lion"
-msgstr ""
+msgstr "Apple OS X Lion"
 
 #: devices/devices-template.php:226
 msgid "Apple iOS mobile devices"
-msgstr ""
+msgstr "Apple iOS κινητές συσκευές"
 
 #: devices/devices-template.php:239
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: devices/devices-template.php:251
 msgid "Android 5.0 Lollipop"
-msgstr ""
+msgstr "Android 5.0 Lollipop"
 
 #: devices/devices-template.php:257 devices/devices-template.php:269
 #, php-format
@@ -73,95 +75,89 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s and will use the configuration file downloaded from CAT to create "
 "all necessary settings."
-msgstr ""
+msgstr "Προτού προχωρήσετε με την εγκατάσταση σε συστήματα Android, παρακαλώ επιβεβαιώστε ότι έχετε εγκαταστήσει την εφαρμογή %s. Αυτή η εφαρμογή είναι διαθέσιμη από το %s και θα χρησιμοποιήσει το αρχείο διαμόρφωσης που λήφθηκε από το CAT για να δημιουργήσει όλες τις απαραίτητες ρυθμίσεις."
 
 #: devices/devices-template.php:263
 msgid "Android 4.4 KitKat"
-msgstr ""
+msgstr "Android 4.4 KitKat"
 
 #: devices/devices-template.php:275
 msgid "Android"
-msgstr ""
+msgstr "Android"
 
 #: devices/devices-template.php:286
 msgid "EAP config"
-msgstr ""
+msgstr "ρυθμίσεις EAP"
 
 #: devices/devices-template.php:291
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by "
-"dedicated applications like eduroamCAT for Android and Linux platforms. This "
-"is still an experimental feature."
-msgstr ""
+"This option provides a generic EAP config XML file, which can be consumed by"
+" dedicated applications like eduroamCAT for Android and Linux platforms. "
+"This is still an experimental feature."
+msgstr "Αυτή η επιλογή παρέχει ένα γενικής χρήσης αρχείο XML για ρυθμίσεις EAP, το οποίο μπορεί να χρησιμοποιηθεί από ειδικές εφαρμογές, όπως το eduroamCAT για πλατφόρμες Android και Linux. Αυτή η δυνατότητα βρίσκεται ακόμα σε πειραματικό στάδιο."
 
 #: devices/devices-template.php:297
 msgid "Test"
-msgstr ""
+msgstr "Δοκιμή"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
-msgstr "Προφίλ ρύθμισης δικτύου '%s' από '%s' - παρέχεται από το eduroam.org"
+msgstr "Προφίλ ρύθμισης δικτύου '%s' από '%s' - παρέχεται από %s"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:165
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr ""
-"Το προφίλ θα εγκατασταθεί μόνο του αφού κάνετε κλικ (ή ταπ) στο κουμπί. Θα "
-"ερωτηθείτε για επιβεβαίωση/εισαγωγή σε διάφορα σημεία:"
+msgstr "Το προφίλ θα εγκατασταθεί μόνο του αφού κάνετε κλικ (ή ταπ) στο κουμπί. Θα ερωτηθείτε για επιβεβαίωση/εισαγωγή σε διάφορα σημεία:"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:167
 msgid "to install the profile"
 msgstr "για εγκατάσταση προφίλ"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:168
-#, fuzzy
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
-msgstr[0] "Η αρχή πιστοποίησης του παροχέα ταυτότητάς σας"
-msgstr[1] "Η αρχή πιστοποίησης του παροχέα ταυτότητάς σας"
+msgstr[0] "να αποδεχτούν την αρχή πιστοποίησης του εξυπηρετητή"
+msgstr[1] "να αποδεχτούν τις αρχές πιστοποίησης του εξυπηρετητή"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:170
 #, php-format
 msgid "(%d times)"
-msgstr ""
+msgstr "(%d φορές)"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:172
-#, fuzzy
 msgid "to enter the username and password of your institution"
-msgstr ""
-"για να εισάγετε το όνομα χρήστη και κωδικό πρόσβασης του ιδρύματός σας "
-"(πολλαπλές φορές αν το eduroam εγκαθίσταται σε πολλαπλά SSID)"
+msgstr "να εισάγετε το όνομα χρήστη και τον κωδικό πρόσβασης του ιδρύματός σας"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:174
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
-msgstr ""
+msgstr "(%d φορές το καθένα, επειδή το %s έχει εγκατασταθεί για %d SSIDs)"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:249
-#, fuzzy, php-format
+#, php-format
 msgid "%s configuration for wired network"
-msgstr "ρύθμιση %s για το όνομα δικτύου %s"
+msgstr "%s διαμόρφωση για ενσύρματο δίκτυο"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:251
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
-msgstr ""
+msgstr "%s Hotspot 2.0 διαμόρφωση"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:253
 #, php-format
 msgid "%s configuration for network name %s"
-msgstr "ρύθμιση %s για το όνομα δικτύου %s"
+msgstr "διαμόρφωση %s για το όνομα δικτύου %s"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:258
 msgid "Wired Network"
-msgstr ""
+msgstr "Ενσύρματο Δίκτυο"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:260
 msgid "Hotspot 2.0 Settings"
-msgstr ""
+msgstr "Hotspot 2.0 Ρυθμίσεις"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:262
 #, php-format
@@ -171,74 +167,57 @@ msgstr "SSID %s"
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:334
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
-msgstr ""
+msgstr "Αυτό το SSID δεν πρέπει να χρησιμοποιηθεί μετά από το bootstrapping του %s"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:336
 msgid "Disabled WiFi network"
-msgstr ""
+msgstr "Απενεργοποιημένο δίκτυο WiFi"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:393
 msgid "Your Identity Providers Certification Authority"
-msgstr "Η αρχή πιστοποίησης του παροχέα ταυτότητάς σας"
+msgstr "Η Αρχή Πιστοποίησης του Παρόχου Ταυτότητάς σας"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:395
 msgid "Identity Provider's CA"
-msgstr "CA του παροχέα ταυτότητας"
+msgstr "CA του Παρόχου Ταυτότητας"
 
 #: devices/ms/Vista7.php:32 devices/ms/W8.php:33
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr ""
-"Οι ανώνυμες ταυτότητες δε χρησιμοποιούν την περιοχή όπως καθορίζεται στο "
-"προφίλ - αντ'αυτού, αυτή προέρχεται από την κατάληξη του ονόματος χρήστη."
+msgstr "Οι ανώνυμες ταυτότητες δε χρησιμοποιούν τον τομέα όπως καθορίζεται στο προφίλ - αντ' αυτού, αυτός αντλείται από την κατάληξη του ονόματος χρήστη."
 
 #: devices/ms/Vista7.php:91 devices/ms/W8.php:95
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the "
-"machine you want to configure and execute."
-msgstr ""
-"το πακέτο εγκατάστασης του eduroam θα έχει τη μορφή ενός αρχείου EXE. Θα "
-"ρυθμίσει το eduroam στη συσκευή σας, με τη δημιουργία ασύρματων προφίλ."
-"<p>Μόλις κάνετε κλίκ στο κουμπί λήψης, το πακέτο εγκατάστασης θα αποθηκευτεί "
-"από τον περιηγητή σας. Αντιγράψτε το στον υπολογιστή τον οποίο θέλετε να "
-"ρυθμίσετε και εκτελέστε το."
+"download button, the installer will be saved by your browser. Copy it to the"
+" machine you want to configure and execute."
+msgstr "το πακέτο εγκατάστασης %s θα έχει τη μορφή ενός αρχείου EXE. Θα ρυθμίσει το %s στη συσκευή σας, με τη δημιουργία ασύρματων προφίλ.<p>Μόλις κάνετε κλίκ στο κουμπί λήψης, το πακέτο εγκατάστασης θα αποθηκευτεί από τον περιηγητή σας. Αντιγράψτε το στον υπολογιστή τον οποίο θέλετε να ρυθμίσετε και εκτελέστε το."
 
 #: devices/ms/Vista7.php:95 devices/ms/W8.php:99 devices/linux/Linux.php:82
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr ""
-"Επιπλέον του <strong>eduroam</strong>, το πακέτο εγκατάστασης θα ρυθμίσει "
-"επίσης την πρόσβαση στα ακόλουθα δίκτυα:"
+msgstr "Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης την πρόσβαση στα ακόλουθα δίκτυα:"
 
 #: devices/ms/Vista7.php:97 devices/ms/W8.php:101 devices/linux/Linux.php:84
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr ""
-"Επιπλέον του <strong>eduroam</strong>, το πακέτο εγκατάστασης θα ρυθμίσει "
-"επίσης την πρόσβαση σε:"
+msgstr "Εκτός από το <strong>%s</strong>, το πακέτο εγκατάστασης θα ρυθμίσει επίσης την πρόσβαση σε:"
 
 #: devices/ms/Vista7.php:110 devices/ms/W8.php:115
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
-"in the form of a p12 file. You should obtain this certificate from your home "
-"institution. Consult the support page to find out how this certificate can "
+"in the form of a p12 file. You should obtain this certificate from your home"
+" institution. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr ""
-"Για να συνδεθείτε με το δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό "
-"στη μορφή ενός αρχείου p12. Αυτό το πιστοποιητικό πρέπει να το αποκτήσετε "
-"από το ίδρυμά σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πως "
-"μπορεί να αποκτηθεί αυτό το πιστοποιητικό. Αυτού του είδους τα αρχεία "
-"πιστοποιητικών είναι προστατευμένα με κωδικό. Πρέπει να έχετε διαθέσιμα και "
-"το αρχείο και τον κωδικό κατά τη διαδικασία εγκατάστασης."
+msgstr "Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό στη μορφή ενός αρχείου p12. Αυτό το πιστοποιητικό θα πρέπει να το αποκτήσετε από το οικείο σας ίδρυμά. Συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πως μπορεί να αποκτηθεί αυτό το πιστοποιητικό. Αυτού του είδους τα αρχεία πιστοποιητικών είναι προστατευμένα με κωδικό. Πρέπει να έχετε διαθέσιμο και το αρχείο και τον κωδικό κατά τη διαδικασία εγκατάστασης."
 
 #: devices/ms/Vista7.php:112 devices/ms/W8.php:117 devices/linux/Linux.php:100
 msgid ""
@@ -246,11 +225,7 @@ msgid ""
 "institution. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr ""
-"Για να συνδεθείτε στο δίκτυο χρειάζεστε ένα λογαριασμό από το ίδρυμά σας. "
-"Πρέπει να συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πως θα "
-"αποκτήσετε αυτό το λογαριασμό. Είναι πολύ πιθανό ο λογαριασμός σας να είναι "
-"ήδη ενεργοποιημένος."
+msgstr "Για να συνδεθείτε στο δίκτυο χρειάζεστε ένα λογαριασμό από το οικείο σας ίδρυμά. Πρέπει να συμβουλευτείτε τη σελίδα υποστήριξης για να μάθετε πως θα αποκτήσετε αυτό το λογαριασμό. Είναι πολύ πιθανό ο λογαριασμός σας να είναι ήδη ενεργοποιημένος."
 
 #: devices/ms/Vista7.php:116 devices/ms/W8.php:119
 msgid ""
@@ -258,30 +233,24 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr ""
-"Όταν συνδέεστε με το δίκτυο για πρώτη φορά, τα Windows θα εμφανίσουν ένα "
-"κουτί εισόδου, όπου πρέπει να βάλετε το όνομα χρήστη και τον κωδικό σας. "
-"Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε αυτόματα στο "
-"δίκτυο κάθε φορά που βρίσκεται εντός εμβέλειας."
+msgstr "Όταν συνδέεστε στο δίκτυο για πρώτη φορά, τα Windows θα εμφανίσουν ένα πλαίσιο σύνδεσης, όπου πρέπει να συμπληρώσετε το όνομα χρήστη και τον κωδικό σας. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε αυτόματα στο δίκτυο κάθε φορά που βρίσκεται εντός εμβέλειας."
 
 #: devices/ms/Vista7.php:119 devices/ms/W8.php:122
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr ""
-"Θα σας ζητηθεί να εισάγετε τα ίδια διαπιστευτήρια για κάθε ένα από τα "
-"ρυθμισμένα δίκτυα."
+msgstr "Θα σας ζητηθεί να εισάγετε τα ίδια διαπιστευτήρια για κάθε ένα από τα ρυθμισμένα δίκτυα."
 
 #: devices/ms/Vista7.php:410 devices/ms/Vista7.php:411 devices/ms/W8.php:411
 #: devices/ms/W8.php:412
-#, fuzzy, php-format
+#, php-format
 msgid "%s installer for %s"
-msgstr "Πακέτο εγκατάστασης eduroam για"
+msgstr "%s πακέτο εγκατάστασης για %s"
 
 #: devices/ms/Files/common.inc:132
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to the %s installer"
-msgstr "Καλως ήρθατε στην εγκατάσταση του eduroam"
+msgstr "Καλωσήρθατε στο %s πακέτο εγκατάστασης"
 
 #: devices/ms/Files/common.inc:133
 msgid "Installation complete"
@@ -289,7 +258,7 @@ msgstr "Η εγκατάσταση ολοκληρώθηκε"
 
 #: devices/ms/Files/common.inc:134
 msgid "Network profiles have been installed."
-msgstr "Εγκαταστάθηκαν τα προφίλ δικτύου"
+msgstr "Εγκαταστάθηκαν τα προφίλ δικτύου."
 
 #: devices/ms/Files/common.inc:134
 msgid "Your system is ready."
@@ -311,9 +280,7 @@ msgstr "Αποδοχή"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr ""
-"Αν αποδέχεστε τους όρους επιλέξτε Αποδοχή και κάντε κλικ στο Εγκατάσταση για "
-"να συνεχίσετε"
+msgstr "Αν αποδέχεστε τους όρους επιλέξτε Αποδοχή και κάντε κλικ στο Εγκατάσταση για να συνεχίσετε."
 
 #: devices/ms/Files/common.inc:150
 msgid "Finish"
@@ -329,20 +296,16 @@ msgstr "εγκατάσταση πιστοποιητικού"
 
 #: devices/ms/Files/common.inc:250
 msgid "could not install certificate"
-msgstr "Αδυναμία εγκατάστασης πιστοποιητικού"
+msgstr "αδυναμία εγκατάστασης πιστοποιητικού"
 
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr ""
-"Προτιμώνται τα μη TKIP προφίλ. Να τα χρησιμοποιείτε πάντα όταν έχετε την "
-"επιλογή."
+msgstr "Προτιμώνται τα προφίλ μη TKIP. Να τα χρησιμοποιείτε πάντα όταν έχετε την επιλογή."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr ""
-"Προτιμάται το μη TKIP προφίλ. Να το χρησιμοποιείτε πάντα όταν έχετε την "
-"επιλογή."
+msgstr "Προτιμάται το προφίλ μη TKIP. Να το χρησιμοποιείτε πάντα όταν έχετε την επιλογή."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 #: devices/linux/Linux.php:137
@@ -359,90 +322,78 @@ msgid "More information and comments:"
 msgstr "Περισσότερες πληροφορίες και σχόλια:"
 
 #: devices/ms/Files/common.inc:449
-#, fuzzy
 msgid "The installer will create the wireless profile:"
-msgstr "Η εγκατάσταση θα δημιουργήσει τα ακόλουθα ασύρματα προφίλ:"
+msgstr "Το πακέτο εγκατάστασης θα δημιουργήσει το ασύρματο προφίλ:"
 
 #: devices/ms/Files/common.inc:477 devices/linux/Linux.php:138
-#, fuzzy
 msgid "Installer created with software from the GEANT project."
-msgstr "Το πακέτο εγκατάστασης δημιουργήθηκε από το GN3 project."
+msgstr "Το πακέτο εγκατάστασης δημιουργήθηκε με λογισμικό από το GEANT project."
 
 #: devices/ms/Files/common.inc:505
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and newer. Please download the correct installer and try again."
-msgstr ""
+msgstr "Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης προορίζεται μόνο για Windows 8 ή νεώτερη έκδοση. Κατεβάστε το σωστό πακέτο εγκατάστασης και προσπαθήστε ξανά."
 
 #: devices/ms/Files/common.inc:515 devices/ms/Files/common.inc:548
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr ""
+msgstr "Εκτελείτε Windows $WindowsName αλλά αυτό το πακέτο εγκατάστασης είναι μόνο για Windows Vista και Windows 7. Παρακαλώ κατεβάστε το σωστό πακέτο εγκατάστασης και δοκιμάστε ξανά."
 
 #: devices/ms/Files/common.inc:588
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr ""
-"Η υπηρεσία ασύρματης ρύθμισης των Windows δεν είναι ενεργοποιημένη. Η "
-"εγκατάσταση δεν μπορεί να συνεχιστεί."
+msgstr "Η υπηρεσία ασύρματης ρύθμισης των Windows δεν είναι ενεργοποιημένη. Η εγκατάσταση δεν μπορεί να συνεχιστεί."
 
 #: devices/ms/Files/common.inc:593
 msgid "No wireless interfaces found. The installer cannot continue."
-msgstr "Δε βρέθηκαν ασύρματες συσκευές. Η εγκατάσταση δε θα συνεχιστεί."
+msgstr "Δεν βρέθηκαν ασύρματες διεπαφές. Η εγκατάσταση δε θα συνεχιστεί."
 
 #: devices/ms/Files/common.inc:599
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr ""
+msgstr "Δεν βρέθηκαν ασύρματες διεπαφές. Η ασύρματη πρόσβαση δεν θα ρυθμιστεί. Επιθυμείτε να συνεχίσετε και να ρυθμίσετε την πρόσβαση στην ενσύρματη διεπαφή;"
 
 #: devices/ms/Files/common.inc:615
 msgid "Do you want to enable access on wired interfaces?"
-msgstr ""
+msgstr "Επιθυμείτε να ενεργοποιήσετε την πρόσβαση στις ενσύρματες διεπαφές;"
 
 #: devices/ms/Files/common.inc:650
 msgid "Profiles installation"
 msgstr "Εγκατάσταση προφίλ"
 
 #: devices/ms/Files/common.inc:670
-#, fuzzy
 msgid "Checking for profile $R8"
-msgstr "Έλεγχος για προφίλ $R1"
+msgstr "Έλεγχος για προφίλ $R8"
 
 #: devices/ms/Files/common.inc:678
-#, fuzzy
 msgid "found profile $R8"
-msgstr "Διαγραφή προφίλ $R1"
+msgstr "βρέθηκε προφίλ $R8"
 
 #: devices/ms/Files/common.inc:704
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr ""
-"Το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του "
-"${ORGANISATION} και την ομάδα χρηστών: ${USER_GROUP}."
+msgstr "Το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του ${ORGANISATION} και της ομάδας χρηστών: ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:704 devices/ms/Files/common.inc:707
 msgid "Click OK to continue with installation."
-msgstr "Πατήστε ΟΚ για να συνεχίσετε την εγκατάσταση"
+msgstr "Πατήστε ΟΚ για να συνεχίσετε την εγκατάσταση."
 
 #: devices/ms/Files/common.inc:707
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr ""
-"Αυτό το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του "
-"${ORGANISATION}."
+msgstr "Αυτό το πακέτο εγκατάστασης θα λειτουργήσει μόνο αν είστε μέλος του ${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:715
 msgid ""
-"Please read the additional information from your home institution which will "
-"be displayed in a moment."
-msgstr ""
-"Παρακαλούμε διαβάστε τις επιπρόσθετες πληροφορίες από το ίδρυμά σας, οι "
-"οποίες θα εμφανιστούν σε ένα λεπτό."
+"Please read the additional information from your home institution which will"
+" be displayed in a moment."
+msgstr "Παρακαλούμε διαβάστε τις επιπρόσθετες πληροφορίες από το οικείο σας ίδρυμα, οι οποίες θα εμφανιστούν άμεσα."
 
 #: devices/ms/Files/common.inc:771
 #, php-format
@@ -450,18 +401,17 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a workaround.$\\r$"
-"\\nWhen you close this window the installer will exit and an explorer window "
-"will be started (it could appear underneath already opened windows). In this "
-"window you should see a script named inst_cat. Start it by double-clicking, "
-"It will install the profiles. You will need to login to %s with your "
-"username and password."
-msgstr ""
+"about which the installer can not do anything, there is a "
+"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
+" explorer window will be started (it could appear underneath already opened "
+"windows). In this window you should see a script named inst_cat. Start it by"
+" double-clicking, It will install the profiles. You will need to login to %s"
+" with your username and password."
+msgstr "Παρακαλούμε ΔΙΑΒΑΣΤΕ αυτό το μήνυμα, είναι ΣΗΜΑΝΤΙΚΟ.$\\r$\\nΠροβλήματα στην εγκατάσταση μπορεί να οφείλονται στο γεγονός ότι το Symantec Endpoint Protection είναι εγκατεστημένο στο μηχάνημά σας.$\\r$\\nΑν και αυτό είναι ένα αρκετά γνωστό πρόβλημα του προϊόντος της Symantec, στο οποίο το πακέτο εγκατάστασης δεν μπορεί να κάνει απολύτως τίποτα, υπάρχει προσωρινή λύση.$\\r$\\nΌταν κλείσετε αυτό το παράθυρο, το πακέτο εγκατάστασης θα κλείσει και ένα παράθυρο εξερεύνησης θα ανοίξει (μπορεί να εμφανιστεί κάτω απ'το ήδη ανοιχτό παράθυρο). Σε αυτό το παράθυρο θα μπορείτε να δείτε ένα script με το όνομα inst_cat. Εκτελέστε το κάνοντας διπλό κλικ σε αυτό. Θα εγκαταστήσει τα προφίλ. Θα χρειαστεί να συνδεθείτε στο %s με το όνομα χρήστη και τον κωδικό πρόσβασής σας."
 
 #: devices/ms/Files/common.inc:801
-#, fuzzy
 msgid "installing wired profile"
-msgstr "Εγκατάσταση προφίλ $R1"
+msgstr "εγκατάσταση ενσύρματου προφίλ"
 
 #: devices/ms/Files/common.inc:841 devices/ms/Files/common.inc:888
 msgid "deleting profile $R1"
@@ -476,9 +426,8 @@ msgid "Profile installation error for $R1."
 msgstr "Σφάλμα εγκατάστασης προφίλ για το $R1."
 
 #: devices/ms/Files/common.inc:905
-#, fuzzy
 msgid "installing credentials for wired"
-msgstr "εγκατάσταση διαπιστευτηρίων για το προφίλ $R1"
+msgstr "εγκατάσταση διαπιστευτηρίων για το ενσύρματο"
 
 #: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
 msgid "Installation of the personal certificate"
@@ -526,33 +475,23 @@ msgstr "εγκατάσταση προγράμματος"
 
 #: devices/ms/Files/pwd.inc:24
 msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
-msgstr ""
-"Σφάλμα εγκατάστασης EAP-pwd. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε με "
-"${SUPPORT}."
+msgstr "Σφάλμα εγκατάστασης EAP-pwd. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε με ${SUPPORT}."
 
 #: devices/linux/Linux.php:78
 msgid ""
 "The installer is in the form of a bash script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your "
-"system or your version of Network Manager is too old, a wpa_supplicant "
+"eduroam under Network Manager and if this is either not appropriate for your"
+" system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr ""
-"Το πακέτο εγκατάστασης είναι στη μορφή ενός σεναρίου bash. Θα προσπαθήσει να "
-"ρυθμίσει το eduroam στο Διαχειριστή Δικτύου και, αν δεν είναι το κατάλληλο "
-"για το σύστημά σας, ή αν η έκδοση του Διαχειριστή Δικτύου είναι πολύ παλιά, "
-"θα δημιουργηθεί αντ'αυτού ένα αρχείο ρυθμίσεων του wpa_supplicant."
+msgstr "Το πακέτο εγκατάστασης είναι στη μορφή ενός bash script. Θα προσπαθήσει να ρυθμίσει το eduroam στον Διαχειριστή Δικτύου και, αν δεν είναι το κατάλληλο για το σύστημά σας, ή αν η έκδοση του Διαχειριστή Δικτύου είναι πολύ παλιά, θα δημιουργηθεί αντ'αυτού ένα αρχείο ρυθμίσεων του wpa_supplicant."
 
 #: devices/linux/Linux.php:96
-#, fuzzy
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr ""
-"Το πακέτο εγκατάστασης θα δημιουργήσει έναν υποκατάλογο .eduroam στον αρχικό "
-"σας κατάλογο και θα αντιγράψει τα πιστοποιητικά εξυπηρετητή σας εκεί."
+msgstr "Το πακέτο εγκατάστασης θα δημιουργήσει έναν υποφάκελο .cat_installer στο home directory και θα αντιγράψει εκεί τα πιστοποιητικά εξυπηρετητή."
 
 #: devices/linux/Linux.php:98
-#, fuzzy
 msgid ""
 "In order to connect to the network you will need a personal certificate in "
 "the form of a p12 file. You should obtain this certificate from your home "
@@ -560,30 +499,19 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr ""
-"Για να συνδεθείτε με το δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό "
-"στη μορφή ενός αρχείου p12. Αυτό το πιστοποιητικό πρέπει να το προμηθευτείτε "
-"από το ίδρυμά σας. Συμβουλευτείτε τη σελίδα υποστήριξης για να βρείτε πως "
-"μπορεί να αποκτηθεί αυτό το πιστοποιητικό. Αυτού του είδους τα πιστοποιητικά "
-"είναι προστατευμένα με κωδικό. Πρέπει να έχετε διαθέσιμα το αρχείο και τον "
-"κωδικό κατά τη διάρκεια της εγκατάστασης. Το αρχείο p12 σας θα αντιγραφή "
-"επίσης και στον κατάλογο .eduroam."
+msgstr "Για να συνδεθείτε στο δίκτυο θα χρειαστείτε ένα προσωπικό πιστοποιητικό σε μορφή αρχείου p12. Μπορείτε να αποκτήσετε αυτό το πιστοποιητικό από το οικείο σας φορέα. Συμβουλευτείτε τη σελίδα υποστήριξης για να ενημερωθείτε πως μπορείτε να αποκτήσετε το πιστοποιητικό αυτό. Τέτοιου είδους πιστοποιητικά προστατεύονται με κωδικό. Κατά την εγκατάσταση θα πρέπει να έχετε διαθέσιμο το αρχείο και τον κωδικό πρόσβασης, Το αρχείο p12 θα αντιγραφεί επίσης στον φάκελο .cat_installer."
 
 #: devices/linux/Linux.php:102
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr ""
-"Θα σας ζητηθεί να εισάγετε τα διαπιστευτήρια του λογαριασμού σας κατά την "
-"εγκατάσταση. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε "
-"αυτόματα στο δίκτυο κάθε φορά που βρίσκεται εντός εμβέλειας."
+msgstr "Θα σας ζητηθεί να εισάγετε τα διαπιστευτήρια του λογαριασμού σας κατά την εγκατάσταση. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε αυτόματα στο δίκτυο κάθε φορά που βρίσκεστε εντός εμβέλειας."
 
 #: devices/linux/Linux.php:111
 #, php-format
 msgid "Directory %s exists; some of its files may be overwritten."
-msgstr ""
-"Ο κατάλογος %s υπάρχει ήδη. Μερικά αρχεία του μπορεί να αντικατασταθούν."
+msgstr "Ο κατάλογος %s υπάρχει ήδη. Μερικά αρχεία του μπορεί να αντικατασταθούν."
 
 #: devices/linux/Linux.php:111 devices/linux/Linux.php:125
 #: devices/linux/Linux.php:149 devices/linux/Linux.php:165
@@ -596,13 +524,12 @@ msgstr "Επιτυχής εγκατάσταση"
 
 #: devices/linux/Linux.php:123
 msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
-msgstr ""
-"Η ρύθμιση του Διαχειριστή Δικτύου απέτυχε, δημιουργία wpa_supplicant.conf"
+msgstr "Η ρύθμιση του Διαχειριστή Δικτύου απέτυχε, δημιουργία wpa_supplicant.conf"
 
 #: devices/linux/Linux.php:125
 #, php-format
 msgid "File %s exists; it will be overwritten."
-msgstr "Το αρχείο %s υπάρχει ήδη. Θα αντικατασταθεί."
+msgstr "Το αρχείο %s υπάρχει ήδη; θα αντικατασταθεί."
 
 #: devices/linux/Linux.php:129
 #, php-format
@@ -614,15 +541,12 @@ msgstr "Έξοδος εγγραφής έγινε σε %s"
 msgid ""
 "This installer will only work properly if you are a member of %s and the "
 "user group: %s."
-msgstr ""
-"Αυτό το πακέτο εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του %s "
-"και της ομάδας χρηστών: %s."
+msgstr "Αυτό το πακέτο εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του %s και της ομάδας χρηστών: %s."
 
 #: devices/linux/Linux.php:148
 #, php-format
 msgid "This installer will only work properly if you are a member of %s."
-msgstr ""
-"Αυτό το πακέτο εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του %s."
+msgstr "Αυτό το πακέτο εγκατάστασης θα λειτουργήσει σωστά μόνο αν είστε μέλος του %s."
 
 #: devices/linux/Linux.php:246
 msgid "Y"
@@ -634,7 +558,7 @@ msgstr "Ο"
 
 #: devices/linux/Linux.php:304 devices/linux/Linux.php:309
 msgid "Really quit?"
-msgstr ""
+msgstr "Θέλετε αλήθεια να πραγματοποιήσετε έξοδο;"
 
 #: devices/linux/Linux.php:362
 msgid "enter your userid"
@@ -670,226 +594,17 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr ""
-"Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο "
-"zip το οποίο περιέχει τα πιστοποιητικά IdP, αρχεία πληροφοριών και λογοτύπων "
-"(αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση όλων των "
-"διαθεσίμων ορισμάτων."
+msgstr "Αυτό το πακέτο εγκατάστασης είναι μόνο ένα παράδειγμα. Παράγει ένα αρχείο zip το οποίο περιέχει τα πιστοποιητικά του IdP, αρχεία πληροφοριών και λογοτύπων (αν έχουν οριστεί από τον διαχειριστή του IdP) και μία αποτύπωση όλων των διαθεσίμων ορισμάτων."
 
 #: devices/redirect_dev/RedirectDev.php:22
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr ""
+msgstr "Αυτή η συσκευή δεν υποστηρίζεται ακόμη από το CAT αλλά ο τοπικός σας διαχειριστής έχει δημιουργήσει μια ανακατεύθυνση στις τοπικές οδηγίες εγκατάστασης."
 
 #: devices/xml/XML.php:46
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr ""
-
-#~ msgid ""
-#~ "The installer will also install additional software - SecureW2 EAP Suite "
-#~ "(GNU General Public License).<p>You will be requested to enter your "
-#~ "account credentials into a pop box during the installation. This "
-#~ "information will be saved so that you will reconnect to the network "
-#~ "automatically each time you are in the range."
-#~ msgstr ""
-#~ "Το πακέτο εγκατάστασης θα εγκαταστήσει επιπρόσθετο λογισμικό - Σουίτα "
-#~ "SecureW2 EAP (GNU General Public License).<p>Θα σας ζητηθεί να εισάγετε "
-#~ "τα διαπιστευτήρια του λογαριασμού σας σε ένα αναδυόμενο κουτί κατά την "
-#~ "εγκατάσταση. Αυτές οι πληροφορίες θα αποθηκευτούν έτσι ώστε να συνδέεστε "
-#~ "αυτόματα στο δίκτυο κάθε φορά που βρίσκεται εντός εμβέλειας."
-
-#~ msgid "Login credentials"
-#~ msgstr "Διαπιστευτήρια εισόδου"
-
-#~ msgid "Restart system now"
-#~ msgstr "Επανεκκίνηση συστήματος τώρα"
-
-#~ msgid "I will restart later"
-#~ msgstr "Θα κάνω επανεκκίνηση αργότερα"
-
-#~ msgid "SecureW2 installation error. Please try again or contact ${SUPPORT}."
-#~ msgstr ""
-#~ "Σφάλμα εγκατάστασης SecureW2. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε "
-#~ "με ${SUPPORT}."
-
-#, fuzzy
-#~ msgid "Please contact \\${SUPPORT}."
-#~ msgstr "Παρακαλούμε επικοινωνήστε με ${SUPPORT}."
-
-#~ msgid "The installer will create network profile:"
-#~ msgstr "Η εγκατάσταση θα δημιουργίσει προφίλ δικτύου:"
-
-#, fuzzy
-#~ msgid ""
-#~ "You will be able to use %s in most institutions however due to Windows XP "
-#~ "limitations and differences in network settings at different "
-#~ "institutions, you may be sometimes required to repeat the connection for "
-#~ "the system to reconfigure."
-#~ msgstr ""
-#~ "Θα μπορείτε να χρησιμοποιείτε το eduroam στα περισσότερα ιδρύματα, όμως "
-#~ "λόγω των περιορισμών των Windows XP και των διαφορών στις ρυθμίσεις "
-#~ "δικτύου σε διαφορετικά ιδρύματα, κάποιες φορές μπορεί να απαιτείται η "
-#~ "επανάληψη της σύνδεσης για να επαναρυθμιστεί το σύστημα."
-
-#, fuzzy
-#~ msgid "Checking for profile $R1"
-#~ msgstr "Έλεγχος για προφίλ $R1"
-
-#, fuzzy
-#~ msgid "found profile $R1"
-#~ msgstr "Διαγραφή προφίλ $R1"
-
-#, fuzzy
-#~ msgid "%s installer for"
-#~ msgstr "Πακέτο εγκατάστασης eduroam για"
-
-#~ msgid "Install personal certificate"
-#~ msgstr "Εγκατάσταση προσωπικού πιστοποιητικού"
-
-#~ msgid "Preparing to install personal certificate."
-#~ msgstr "Προετοιμασία για εγκατάσταση προσωπικού πιστοποιητικού."
-
-#~ msgid "Click OK to continue"
-#~ msgstr "Πατήστε ΟΚ για να συνεχίσετε"
-
-#~ msgid "Certificate files (*.p12)"
-#~ msgstr "Αρχεία πιστοποιητικού (*.p12)"
-
-#~ msgid "Certificate files (*pfx)"
-#~ msgstr "Αρχεία πιστοποιητικού (*pfx)"
-
-#~ msgid "Selected file: $Cert_file"
-#~ msgstr "Επιλεγμένο αρχείο: $Cert_file"
-
-#~ msgid "certificate password:"
-#~ msgstr "κωδικός πιστοποιητικού:"
-
-#~ msgid "No certificate file selected"
-#~ msgstr "Δεν επιλέχθηκε αρχείο πιστοποιητικού"
-
-#~ msgid "Incorrect certificate password$\\r$\\nenter again"
-#~ msgstr "Λανθασμένος κωδικός πιστοποιητικού$\\r$\\nεισάγετε ξανά"
-
-#, fuzzy
-#~ msgid ""
-#~ "In order to install/update %s access all selected steps need to be "
-#~ "performed. Click Continue to proceed"
-#~ msgstr ""
-#~ "Όλα τα επιλεγμένα βήματα πρέπει να εφαρμοστούν για να εγκαταστήσετε/"
-#~ "ενημερώσετε την πρόσβαση eduroam. Πατήστε Συνέχεια για να συνεχίσετε"
-
-#~ msgid ""
-#~ "If an option is not selected by default, then it is either not available "
-#~ "or optional."
-#~ msgstr ""
-#~ "Αν η επιλογή δεν είναι επιλεγμένη προκαθορισμένα, τότε δεν είναι "
-#~ "διαθέσιμη ή είναι προαιρετική"
-
-#~ msgid "Welcome Letter"
-#~ msgstr "Γράμμα καλωσορίσματος"
-
-#, fuzzy
-#~ msgid "Generic profile PEAP"
-#~ msgstr "προφίλ χρήστη"
-
-#, fuzzy
-#~ msgid "Generic profile TLS"
-#~ msgstr "προφίλ χρήστη"
-
-#, fuzzy
-#~ msgid "Generic profile PWD"
-#~ msgstr "προφίλ χρήστη"
-
-#, fuzzy
-#~ msgid "This installer has been prepared for \\${ORGANISATION}"
-#~ msgstr "Το πακέτο εγκατάστασης έχει προετοιμαστεί για ${ORGANISATION}"
-
-#~ msgid "Welcome aboard the eduroam® user community!"
-#~ msgstr "Καλώς ήρθατε στην κοινότητα χρηστών eduroam®!"
-
-#~ msgid "Dear user from %s,"
-#~ msgstr "Αγαπητέ χρήστη από %s,"
-
-#~ msgid "E-Mail:"
-#~ msgstr "E-Mail:"
-
-#~ msgid "Phone:"
-#~ msgstr "Τηλέφωνο:"
-
-#~ msgid "Web:"
-#~ msgstr "Web:"
-
-#~ msgid "Server Name:"
-#~ msgstr "Όνομα εξυπηρετητή:"
-
-#~ msgid "This installer works with Windows 8 only"
-#~ msgstr "Το πακέτο εγκατάστασης λειτουργεί μόνο με Windows 8"
-
-#~ msgid "This installer works with Windows Vista and Windows 7 only"
-#~ msgstr ""
-#~ "Το πακέτο εγκατάστασης λειτουργεί μόνο με Windows Vista και Windows 7"
-
-#~ msgid "Credentials installation problem"
-#~ msgstr "Πρόβλημα κατά την εγκατάσταση των διαπιστευτηρίων"
-
-#~ msgid "User credentials"
-#~ msgstr "Διαπιστευτήρια χρήστη"
-
-#~ msgid "Username:"
-#~ msgstr "Όνομα χρήστη:"
-
-#~ msgid "Password:"
-#~ msgstr "Κωδικός:"
-
-#~ msgid "Repeat password:"
-#~ msgstr "Επανάληψη κωδικού:"
-
-#~ msgid "Missing username"
-#~ msgstr "Λείπει το όνομα χρήστη"
-
-#~ msgid "Missing password"
-#~ msgstr "Λείπει ο κωδικός"
-
-#~ msgid "Password missmatch"
-#~ msgstr "Οι κωδικοί δεν ταιριάζουν"
-
-#~ msgid "Welcome to the eduroam installer"
-#~ msgstr "Καλως ήρθατε στην εγκατάσταση του eduroam"
-
-#~ msgid "This installer works with Windows XP SP3 only"
-#~ msgstr "Το πακέτο εγκατάστασης λειτουργεί μόνο με Windows XP SP3"
-
-#~ msgid "eduroam installer for"
-#~ msgstr "Πακέτο εγκατάστασης eduroam για"
-
-#~ msgid ""
-#~ "In order to install/update eduroam access all selected steps need to be "
-#~ "performed. Click Continue to proceed"
-#~ msgstr ""
-#~ "Όλα τα επιλεγμένα βήματα πρέπει να εφαρμοστούν για να εγκαταστήσετε/"
-#~ "ενημερώσετε την πρόσβαση eduroam. Πατήστε Συνέχεια για να συνεχίσετε"
-
-#~ msgid ""
-#~ "In addition to <strong>eduroam</strong> the installer will also configure "
-#~ "access to the following networks:"
-#~ msgstr ""
-#~ "Επιπλέον του <strong>eduroam</strong>, το πακέτο εγκατάστασης θα ρυθμίσει "
-#~ "επίσης την πρόσβαση στα ακόλουθα δίκτυα:"
-
-#~ msgid ""
-#~ "In addition to <strong>eduroam</strong> the installer will also configure "
-#~ "access to:"
-#~ msgstr ""
-#~ "Επιπλέον του <strong>eduroam</strong>, το πακέτο εγκατάστασης θα ρυθμίσει "
-#~ "επίσης την πρόσβαση σε:"
-
-#~ msgid ""
-#~ "to accept the server certificate authorities (multiple times if the "
-#~ "profile contains more than one certificate)"
-#~ msgstr ""
-#~ "για να αποδεχτείτε τις αρχές πιστοποίησης του εξυπηρετητή (πολλαπλές "
-#~ "φορές αν το προφίλ περιέχει περισσότερα από ένα πιστοποιητικά)"
+msgstr "Αυτό είναι ένα αρχείο ρυθμίσεων γενικής χρήσης που ακολουθεί το πρότυπο IETF <a href='%s'>EAP Metadata -00</a> XML."
