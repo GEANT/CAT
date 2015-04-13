@@ -448,6 +448,6 @@ if ($RELEASE != "THERELEASE")
     echo sprintf(_("Release %s"), $RELEASE);
 else
     echo _("Unreleased SVN Revision");
-echo " &copy; 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia</div>";?>
+echo " &copy; 2011-15 G&Eacute;ANT Ltd. on behalf of the GN3 and GN3plus consortia and others <a href='copyright.php'>Full Copyright and Licenses</a></div>";?>
 </body>
 </html>

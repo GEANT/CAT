@@ -340,7 +340,7 @@ include("user/js/cat_js.php");
                         echo sprintf(_("Release %s"), $RELEASE);
                     else
                         echo _("Unreleased SVN Revision");
-                    echo " &copy; 2011-14 DANTE Ltd. on behalf of the GN3 and GN3plus consortia";
+                    echo " &copy; 2011-15 G&Eacute;ANT Ltd. on behalf of the GN3 and GN3plus consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
                 ?>
                  </td>
                  <td style="padding-left:80px; text-align:right;">
