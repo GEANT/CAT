@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015
 # Janos Mohacsi <mohacsi@niif.hu>, 2012
@@ -9,29 +9,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-07 14:08+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
+"hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:126
 #, php-format
 msgid "your local %s support"
 msgstr "helyi támogató: %s"
 
-#: core/DeviceConfig.php:131
+#: core/DeviceConfig.php:127
 #, php-format
 msgid "your local %s support page"
 msgstr "helyi támogató honlap: %s"
 
-#: core/DeviceConfig.php:163
+#: core/DeviceConfig.php:159
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
+msgstr ""
+"Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
 
 #: core/Federation.php:74
 msgid "Andorra"
@@ -305,7 +307,16 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Üdvözlet!\n\nA %s Identity Provider a %s %s föderációból %s törlésre került.\n\nÚgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n\nÜdvözlettel,\n\n%s"
+msgstr ""
+"Üdvözlet!\n"
+"\n"
+"A %s Identity Provider a %s %s föderációból %s törlésre került.\n"
+"\n"
+"Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+"\n"
+"Üdvözlettel,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:345
 msgid "IdP in your federation was deleted"
@@ -381,21 +392,25 @@ msgstr "Nem érkezett válasz a RADIUS szervertől."
 
 #: core/RADIUSTests.php:418
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
-msgstr "Két irányú kommunikáció elindult a RADIUS szerverrel, de nem fejeződött be."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"Két irányú kommunikáció elindult a RADIUS szerverrel, de nem fejeződött be."
 
 #: core/RADIUSTests.php:425
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
-msgstr "A RADIUS szerver rögtön visszautasította az azonosítási kérést az első válaszban."
+msgstr ""
+"A RADIUS szerver rögtön visszautasította az azonosítási kérést az első "
+"válaszban."
 
 #: core/RADIUSTests.php:432
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
-msgstr "RADIUS visszautasította az azonosítási kérést az EAP csomagváltás után."
+msgstr ""
+"RADIUS visszautasította az azonosítási kérést az EAP csomagváltás után."
 
 #: core/RADIUSTests.php:439
 msgid "Connection refused"
@@ -408,14 +423,17 @@ msgstr "Nem adtál meg elég adatot az azonosítás elvégzéséhez."
 #: core/RADIUSTests.php:454
 msgid ""
 "The certificate password you provided does not match the certificate file."
-msgstr "A megadott tanusítvány jelszó nem tanusítvány fájlban lévőhöz tartozik. "
+msgstr ""
+"A megadott tanusítvány jelszó nem tanusítvány fájlban lévőhöz tartozik. "
 
 #: core/RADIUSTests.php:462
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
-msgstr "A tanusítvány lány tartalmazza a gyökér CA tanusítványt. Ez szükségtelen, növelheti a csomagváltások számát ezáltal lassítva az azonosítást."
+msgstr ""
+"A tanusítvány lány tartalmazza a gyökér CA tanusítványt. Ez szükségtelen, "
+"növelheti a csomagváltások számát ezáltal lassítva az azonosítást."
 
 #: core/RADIUSTests.php:469
 msgid "There is more than one server certificate in the chain."
@@ -430,27 +448,38 @@ msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
-msgstr "Legalább 1 szerver tanusítvány a tanusítványláncban MD5-el van aláírva. Sok operációs rendszer, sok operációs rendszer (pl. Apple iOS, Windows 8.x) nem fogja elfogadni a tanusítványláncot. "
+msgstr ""
+"Legalább 1 szerver tanusítvány a tanusítványláncban MD5-el van aláírva. Sok "
+"operációs rendszer, sok operációs rendszer (pl. Apple iOS, Windows 8.x) nem "
+"fogja elfogadni a tanusítványláncot. "
 
 #: core/RADIUSTests.php:490
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
-msgstr "A tanusítványlánc legalább 1 tanusítványának publikus kulcsa kisebb mint 1024 bit. Sok újabb operációs rendszer ezt nem tartja elfogadhatónak és a szerver tanusítványt nem fogadja el. "
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"A tanusítványlánc legalább 1 tanusítványának publikus kulcsa kisebb mint "
+"1024 bit. Sok újabb operációs rendszer ezt nem tartja elfogadhatónak és a "
+"szerver tanusítványt nem fogadja el. "
 
 #: core/RADIUSTests.php:497
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
-msgstr "A szerver tanusítvány nem tartmazza 'extendedKeyUsage: TLS Web Server Authentication' kiegészítést. A legtőbb Microsoft operációs rendszer nem fogadja el ezt a tanusítványt."
+msgstr ""
+"A szerver tanusítvány nem tartmazza 'extendedKeyUsage: TLS Web Server "
+"Authentication' kiegészítést. A legtőbb Microsoft operációs rendszer nem "
+"fogadja el ezt a tanusítványt."
 
 #: core/RADIUSTests.php:504
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
-msgstr "A szerver tanusítvány nem tartalmaz CRL Distribution Point attributumot. Ez kompatbilitási problémát jelent a Windows Phone 8 esetén."
+msgstr ""
+"A szerver tanusítvány nem tartalmaz CRL Distribution Point attributumot. Ez "
+"kompatbilitási problémát jelent a Windows Phone 8 esetén."
 
 #: core/RADIUSTests.php:511
 msgid ""
@@ -458,15 +487,23 @@ msgid ""
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
-msgstr "A szerver tanusítvány 'CRL Distribution Point' kiegészítése nem egy HTTP/HTTPS URL. Néhány operációs rendszer lehetséges, hogy nem fogja tudni ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján nem lesz lehetséges. "
+msgstr ""
+"A szerver tanusítvány 'CRL Distribution Point' kiegészítése nem egy HTTP/"
+"HTTPS URL. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
+"ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
+"nem lesz lehetséges. "
 
 #: core/RADIUSTests.php:518
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" non-existing location. Some Operating Systems check certificate validity by"
-" consulting the CRL and will fail to validate the certificate. Checking "
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certificate. Checking "
 "server certificate validity against a CRL will not be possible."
-msgstr "A szerver tanusítvány 'CRL Distribution Point' kiegészítése egy nem helyre mutat. Néhány operációs rendszer lehetséges, hogy nem fogja tudni ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján nem lesz lehetséges. "
+msgstr ""
+"A szerver tanusítvány 'CRL Distribution Point' kiegészítése egy nem helyre "
+"mutat. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
+"ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
+"nem lesz lehetséges. "
 
 #: core/RADIUSTests.php:525
 msgid "The server certificate was revoked by the CA!"
@@ -474,11 +511,16 @@ msgstr "A szerver tanusítványt visszavonta a tanusítványhatóság!"
 
 #: core/RADIUSTests.php:532
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
-msgstr "A tanusítvány CN vagy subjectAltName:DNS nem tartalmaz szervernevet. Ez néhány supplicant számára problémát jelent. Ha tanusítvány tartalmazza a nevet, amely egy megfelelő szervernév és ez a tanusítvány csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést figyelmen kívül hagyhatod."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"A tanusítvány CN vagy subjectAltName:DNS nem tartalmaz szervernevet. Ez "
+"néhány supplicant számára problémát jelent. Ha tanusítvány tartalmazza a "
+"nevet, amely egy megfelelő szervernév és ez a tanusítvány csak a supplicant "
+"konfigurációhoz van használva, akkor ezt a megjegyzést figyelmen kívül "
+"hagyhatod."
 
 #: core/RADIUSTests.php:539
 msgid ""
@@ -487,13 +529,20 @@ msgid ""
 "certificate also contains names which are wildcardless, and you only use "
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
-msgstr "A tanusítvány CN vagy subjectAltName:DNS mezeje wildcard (\"*\")-or tartalmaz . Ez néhány supplicant számára problémát jelent. Ha tanusítvány tartalmazza olyan nevet, amely nem tartalmaz wildcard-ot és ez a tanusítvány csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést figyelmen kívül hagyhatod."
+msgstr ""
+"A tanusítvány CN vagy subjectAltName:DNS mezeje wildcard (\"*\")-or "
+"tartalmaz . Ez néhány supplicant számára problémát jelent. Ha tanusítvány "
+"tartalmazza olyan nevet, amely nem tartalmaz wildcard-ot és ez a tanusítvány "
+"csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést "
+"figyelmen kívül hagyhatod."
 
 #: core/RADIUSTests.php:546
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
-msgstr "Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy már nem érvényes)."
+msgstr ""
+"Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy "
+"már nem érvényes)."
 
 #: core/RADIUSTests.php:553
 #, php-format
@@ -502,13 +551,18 @@ msgid ""
 "validity period (not yet valid, or already expired), but this certificate "
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
-msgstr "Legalább 1 köztes tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a szerver azonosításához. Érdemes volna kivenni a %s konfigurációból."
+msgstr ""
+"Legalább 1 köztes tanusítvány az érvényességi idején kivüli (még nem "
+"érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a szerver "
+"azonosításához. Érdemes volna kivenni a %s konfigurációból."
 
 #: core/RADIUSTests.php:560
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
-msgstr "A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a profile-hoz konfigurálva lett."
+msgstr ""
+"A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a profile-"
+"hoz konfigurálva lett."
 
 #: core/RADIUSTests.php:564
 msgid ""
@@ -516,20 +570,29 @@ msgid ""
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
-msgstr "Az EAP során érkezett  tanusítvány lánc nem ellenőrizhető azzal a root CA-val, amely a profile-hoz konfigurálva lett. A profile köztes CA-jával azonban ellenőrizheő volt. Javasolt a szükséges köztes CA-k küldése az EAP üzenetváltásban.   "
+msgstr ""
+"Az EAP során érkezett  tanusítvány lánc nem ellenőrizhető azzal a root CA-"
+"val, amely a profile-hoz konfigurálva lett. A profile köztes CA-jával "
+"azonban ellenőrizheő volt. Javasolt a szükséges köztes CA-k küldése az EAP "
+"üzenetváltásban.   "
 
 #: core/RADIUSTests.php:570
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
-msgstr "Az EAP szerver neve nem illeszkedik a profile-ban semmilyen konfigurált névvel. "
+msgstr ""
+"Az EAP szerver neve nem illeszkedik a profile-ban semmilyen konfigurált "
+"névvel. "
 
 #: core/RADIUSTests.php:577
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
-msgstr "A konfigurált EAP szerver neve nem illeszkedik a beérkező tanusítvány CN vagy subjectAltName:DNS mezejével . A legjobb megoldás az, ha tanusítvány MINDKÉT helyen tartalmazza ezt a nevet."
+msgstr ""
+"A konfigurált EAP szerver neve nem illeszkedik a beérkező tanusítvány CN "
+"vagy subjectAltName:DNS mezejével . A legjobb megoldás az, ha tanusítvány "
+"MINDKÉT helyen tartalmazza ezt a nevet."
 
 #: core/RADIUSTests.php:584
 msgid ""
@@ -537,11 +600,17 @@ msgid ""
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
-msgstr "Legalább 1 tanusítvány nem tartalmaz semmilyen BasicConstraints kiegeszítést. Ez alapján nem világos, hogy a tanusítvány CA tanusítvány, vagy végponti tanusítvány. Legalább a Mac OS X 10.8 (Mountain Lion) nem fogadja el ezt a tanusítványt EAP célokra. "
+msgstr ""
+"Legalább 1 tanusítvány nem tartalmaz semmilyen BasicConstraints "
+"kiegeszítést. Ez alapján nem világos, hogy a tanusítvány CA tanusítvány, "
+"vagy végponti tanusítvány. Legalább a Mac OS X 10.8 (Mountain Lion) nem "
+"fogadja el ezt a tanusítványt EAP célokra. "
 
 #: core/RADIUSTests.php:591
 msgid "The server presented a certificate from an unknown authority."
-msgstr "A szerver egy ismeretlen tanusítvány hatóság által aláírt tanusítványt mutatott be. "
+msgstr ""
+"A szerver egy ismeretlen tanusítvány hatóság által aláírt tanusítványt "
+"mutatott be. "
 
 #: core/RADIUSTests.php:598
 msgid "The server accepted the INVALID client certificate."
@@ -549,7 +618,8 @@ msgstr "A szerver egy érvénytelen kliens tanusítványt fogadott el."
 
 #: core/RADIUSTests.php:605
 msgid "The server rejected the client certificate, even though it was valid."
-msgstr "A szerver visszautasított egy kliens tanusítványt, habár az érvényes volt."
+msgstr ""
+"A szerver visszautasított egy kliens tanusítványt, habár az érvényes volt."
 
 #: core/RADIUSTests.php:612
 msgid "The server rejected the client certificate as expected."
@@ -587,21 +657,31 @@ msgstr "ismeretlen hatóság vagy nincsen tanusítvány policy vagy egyéb probl
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:150
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Szép napot!\n\nAz %s Identity Providernek szóló meghívó a %s  %s föderációban felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n\nÚgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n\nÜdvözlettel,\n\n%s"
+msgstr ""
+"Szép napot!\n"
+"\n"
+"Az %s Identity Providernek szóló meghívó a %s  %s föderációban "
+"felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n"
+"\n"
+"Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+"\n"
+"Üdvözlettel,\n"
+"\n"
+"%s"
 
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"

@@ -1,21 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Tom Ivar Myren <tom.myren@uninett.no>, 2013,2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 11:52+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-08 16:14+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/"
+"language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/devices-template.php:101
@@ -73,7 +74,11 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s and will use the configuration file downloaded from CAT to create "
 "all necessary settings."
-msgstr "Før du fortsetter med installasjon på Andriod, vennligst påse at du har installert %s applikasjonen. Denne applikasjonen er tilgjengelig på %s og vil bruke konfigurasjonsfilen fra CAT til å gjøre alle nødvendige innstillinger. "
+msgstr ""
+"Før du fortsetter med installasjon på Andriod, vennligst påse at du har "
+"installert %s applikasjonen. Denne applikasjonen er tilgjengelig på %s og "
+"vil bruke konfigurasjonsfilen fra CAT til å gjøre alle nødvendige "
+"innstillinger. "
 
 #: devices/devices-template.php:263
 msgid "Android 4.4 KitKat"
@@ -90,10 +95,13 @@ msgstr "EAP konfigurasjon"
 #: devices/devices-template.php:291
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by"
-" dedicated applications like eduroamCAT for Android and Linux platforms. "
-"This is still an experimental feature."
-msgstr "Denne opsjoner lager en generisk EAP konfigurasjon XML fil, som kan brukes av dedikerte applikasjoner som eduroamCAT for Android og Linux plattformer. Dette er fremdeles en eksperimentell funksjon."
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Denne opsjoner lager en generisk EAP konfigurasjon XML fil, som kan brukes "
+"av dedikerte applikasjoner som eduroamCAT for Android og Linux plattformer. "
+"Dette er fremdeles en eksperimentell funksjon."
 
 #: devices/devices-template.php:297
 msgid "Test"
@@ -108,7 +116,9 @@ msgstr "Nettverkskonfigurasjon profil '%s' for '%s' - levert av %s"
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "Profilen blir installert etter at du trykker på kanppen. du vil bli spurt om bekreftelse / input flere ganger:"
+msgstr ""
+"Profilen blir installert etter at du trykker på kanppen. du vil bli spurt om "
+"bekreftelse / input flere ganger:"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:167
 msgid "to install the profile"
@@ -183,39 +193,54 @@ msgstr "Identitetstilbyder's CA"
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Anonyme identiteter bruker ikke realm som er spesifisert i profilen - det hentes fra suffix'et brukeren har oppgitt i brukernavnet i stedet."
+msgstr ""
+"Anonyme identiteter bruker ikke realm som er spesifisert i profilen - det "
+"hentes fra suffix'et brukeren har oppgitt i brukernavnet i stedet."
 
 #: devices/ms/Vista7.php:91 devices/ms/W8.php:95
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the"
-" machine you want to configure and execute."
-msgstr "%s installasjonsprogram kommer i form av en EXE fil. Den konfigurerer %s å din enhet, ved å lage trådløs profiler. <p>Når du klikker nedlastningsknappen blir installasjonsprogrammet lagret av nettleseren. Kopier det til maskinen du ønsker å konfigurere og kjør det der. "
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"%s installasjonsprogram kommer i form av en EXE fil. Den konfigurerer %s å "
+"din enhet, ved å lage trådløs profiler. <p>Når du klikker "
+"nedlastningsknappen blir installasjonsprogrammet lagret av nettleseren. "
+"Kopier det til maskinen du ønsker å konfigurere og kjør det der. "
 
 #: devices/ms/Vista7.php:95 devices/ms/W8.php:99 devices/linux/Linux.php:82
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "I tillegg til <strong>%s</strong> vil installasjonsprogrammet også konfigurere aksess til følgende nettverk:"
+msgstr ""
+"I tillegg til <strong>%s</strong> vil installasjonsprogrammet også "
+"konfigurere aksess til følgende nettverk:"
 
 #: devices/ms/Vista7.php:97 devices/ms/W8.php:101 devices/linux/Linux.php:84
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr "I tillegg til <strong>%s</strong> vil installasjonsprogrammet også konfigurere aksess til:"
+msgstr ""
+"I tillegg til <strong>%s</strong> vil installasjonsprogrammet også "
+"konfigurere aksess til:"
 
 #: devices/ms/Vista7.php:110 devices/ms/W8.php:115
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
-"in the form of a p12 file. You should obtain this certificate from your home"
-" institution. Consult the support page to find out how this certificate can "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr "For å koble til nettverket trenger du et personlig sertifikat i form av en p12 fil. Du må få dette fra din egen institusjon. Sjekk support siden for å finne ut hvordan du kan få tak i sertifikatet. Slike sertifikat filer er passord beskyttet. Du må ha både filen og passordet tilgjengelig under installasjonen."
+msgstr ""
+"For å koble til nettverket trenger du et personlig sertifikat i form av en "
+"p12 fil. Du må få dette fra din egen institusjon. Sjekk support siden for å "
+"finne ut hvordan du kan få tak i sertifikatet. Slike sertifikat filer er "
+"passord beskyttet. Du må ha både filen og passordet tilgjengelig under "
+"installasjonen."
 
 #: devices/ms/Vista7.php:112 devices/ms/W8.php:117 devices/linux/Linux.php:100
 msgid ""
@@ -223,7 +248,10 @@ msgid ""
 "institution. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr "For å koble til nettverket trenger du en konto fra din egen institusjon. Sjekk support siden for å finne ut hvordan en slik konto kan opprettes. Mest sannsynlig er en slik konto allerede opprettet og aktivert."
+msgstr ""
+"For å koble til nettverket trenger du en konto fra din egen institusjon. "
+"Sjekk support siden for å finne ut hvordan en slik konto kan opprettes. Mest "
+"sannsynlig er en slik konto allerede opprettet og aktivert."
 
 #: devices/ms/Vista7.php:116 devices/ms/W8.php:119
 msgid ""
@@ -231,13 +259,18 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Når du kobler til nettverket for første gang, vil Windows vise en login boks, der du oppgir brukernavn og passord. Denne informasjonen blir lagret slik at du automatisk blir pålogget igjen hver gang du er innenfor dekning."
+msgstr ""
+"Når du kobler til nettverket for første gang, vil Windows vise en login "
+"boks, der du oppgir brukernavn og passord. Denne informasjonen blir lagret "
+"slik at du automatisk blir pålogget igjen hver gang du er innenfor dekning."
 
 #: devices/ms/Vista7.php:119 devices/ms/W8.php:122
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "Du må oppgi de samme brukeropplysninger for hvert av de konfigurerte nettverkene:"
+msgstr ""
+"Du må oppgi de samme brukeropplysninger for hvert av de konfigurerte "
+"nettverkene:"
 
 #: devices/ms/Vista7.php:410 devices/ms/Vista7.php:411 devices/ms/W8.php:411
 #: devices/ms/W8.php:412
@@ -278,7 +311,9 @@ msgstr "Godta"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Hvis du godtar betingelsene, velg Godta og klikk deretter Installer for å fortsette."
+msgstr ""
+"Hvis du godtar betingelsene, velg Godta og klikk deretter Installer for å "
+"fortsette."
 
 #: devices/ms/Files/common.inc:150
 msgid "Finish"
@@ -331,19 +366,27 @@ msgstr "Installasjonsprogram er laget med software fra GEANT prosjektet."
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and newer. Please download the correct installer and try again."
-msgstr "Du kjører Windows $WindowsName, men dette installasjonsprogrammet er kun for Windows 8 eller nyere. Vennligst last ned korrekt installasjonsprogram og prøv igjen."
+msgstr ""
+"Du kjører Windows $WindowsName, men dette installasjonsprogrammet er kun for "
+"Windows 8 eller nyere. Vennligst last ned korrekt installasjonsprogram og "
+"prøv igjen."
 
 #: devices/ms/Files/common.inc:515 devices/ms/Files/common.inc:548
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Du kjører Windows $WindowsName, dette installasjonsprogrammet er kun for Windows Vista og Windows 7. Vennligst last ned korrekt installasjonsprogram og prøv igjen."
+msgstr ""
+"Du kjører Windows $WindowsName, dette installasjonsprogrammet er kun for "
+"Windows Vista og Windows 7. Vennligst last ned korrekt installasjonsprogram "
+"og prøv igjen."
 
 #: devices/ms/Files/common.inc:588
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "Windows trådløs konfigurasjonstjeneste er ikke aktivert. Installasjonen kan ikke fortsette."
+msgstr ""
+"Windows trådløs konfigurasjonstjeneste er ikke aktivert. Installasjonen kan "
+"ikke fortsette."
 
 #: devices/ms/Files/common.inc:593
 msgid "No wireless interfaces found. The installer cannot continue."
@@ -353,7 +396,9 @@ msgstr "Ingen trådløse grensesnitt funnet. Installasjonen kan ikke fortsette."
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "Fant ingen trådløse grensesnitt. Trådløs aksess blir ikke konfigurert. Vil du fortsette for å konfigurere et kablet grensesnitt? "
+msgstr ""
+"Fant ingen trådløse grensesnitt. Trådløs aksess blir ikke konfigurert. Vil "
+"du fortsette for å konfigurere et kablet grensesnitt? "
 
 #: devices/ms/Files/common.inc:615
 msgid "Do you want to enable access on wired interfaces?"
@@ -375,7 +420,9 @@ msgstr "Fant profil $R8"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "Dette installasjonsprogrammet vil kun fungere om du tilhører ${ORGANISATION} og brukergruppen: ${USER_GROUP}."
+msgstr ""
+"Dette installasjonsprogrammet vil kun fungere om du tilhører ${ORGANISATION} "
+"og brukergruppen: ${USER_GROUP}."
 
 #: devices/ms/Files/common.inc:704 devices/ms/Files/common.inc:707
 msgid "Click OK to continue with installation."
@@ -385,13 +432,16 @@ msgstr "Klikk OK for å fortsette installasjonen."
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr "Dette installasjonsprogrammet vil kun fungere om du tilhører ${ORGANISATION}."
+msgstr ""
+"Dette installasjonsprogrammet vil kun fungere om du tilhører ${ORGANISATION}."
 
 #: devices/ms/Files/common.inc:715
 msgid ""
-"Please read the additional information from your home institution which will"
-" be displayed in a moment."
-msgstr "Vennligst les tilleggsinformasjonen fra din hjemme institusjon som straks vil vises."
+"Please read the additional information from your home institution which will "
+"be displayed in a moment."
+msgstr ""
+"Vennligst les tilleggsinformasjonen fra din hjemme institusjon som straks "
+"vil vises."
 
 #: devices/ms/Files/common.inc:771
 #, php-format
@@ -399,13 +449,21 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a "
-"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
-" explorer window will be started (it could appear underneath already opened "
-"windows). In this window you should see a script named inst_cat. Start it by"
-" double-clicking, It will install the profiles. You will need to login to %s"
-" with your username and password."
-msgstr "Vennligst LES denne VIKTIGE meldingen. $\\r$\\nProblemer med installasjon kan skyldes at Symantec Endpoint Protection er installert på din maskin.$\\r$\\nDette er en kjent bug i Symantec produktet, som installer ikke kan rette, men det finnes en vei rundt.\\r$\\nNår du stenger dette vinduet avsluttes installer og et explorer vindu åpnes (det kan være under andre åpne vindu). I dette vinduet skal du se et script \"inst_cat\". Dobbelklikk for å starte det, dette vil installere profiler. Du må logge på %s med ditt brukernavn@realm og passord. "
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Vennligst LES denne VIKTIGE meldingen. $\\r$\\nProblemer med installasjon "
+"kan skyldes at Symantec Endpoint Protection er installert på din maskin.$\\r$"
+"\\nDette er en kjent bug i Symantec produktet, som installer ikke kan rette, "
+"men det finnes en vei rundt.\\r$\\nNår du stenger dette vinduet avsluttes "
+"installer og et explorer vindu åpnes (det kan være under andre åpne vindu). "
+"I dette vinduet skal du se et script \"inst_cat\". Dobbelklikk for å starte "
+"det, dette vil installere profiler. Du må logge på %s med ditt "
+"brukernavn@realm og passord. "
 
 #: devices/ms/Files/common.inc:801
 msgid "installing wired profile"
@@ -473,21 +531,28 @@ msgstr "installer program"
 
 #: devices/ms/Files/pwd.inc:24
 msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
-msgstr "EAP-pwd installasjonsfeil. Vennligst forsøk igjen eller kontakt ${SUPPORT}."
+msgstr ""
+"EAP-pwd installasjonsfeil. Vennligst forsøk igjen eller kontakt ${SUPPORT}."
 
 #: devices/linux/Linux.php:78
 msgid ""
 "The installer is in the form of a bash script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your"
-" system or your version of Network Manager is too old, a wpa_supplicant "
+"eduroam under Network Manager and if this is either not appropriate for your "
+"system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr "Installasjonsprogrammet er et bash script. Det vil forsøke å konfigurere eduroam under Network Manager, om dette ikke passer for din maskin eller din versjon av Network Manager er for gammel, blir det opprettet en wpa_supplicant konfig fil i stedet."
+msgstr ""
+"Installasjonsprogrammet er et bash script. Det vil forsøke å konfigurere "
+"eduroam under Network Manager, om dette ikke passer for din maskin eller din "
+"versjon av Network Manager er for gammel, blir det opprettet en "
+"wpa_supplicant konfig fil i stedet."
 
 #: devices/linux/Linux.php:96
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "Installasjonsprogrammet oppretter katalogen .cat_installer i din hjemme katalog og kopierer dine tjener sertifikater dit. "
+msgstr ""
+"Installasjonsprogrammet oppretter katalogen .cat_installer i din hjemme "
+"katalog og kopierer dine tjener sertifikater dit. "
 
 #: devices/linux/Linux.php:98
 msgid ""
@@ -497,14 +562,23 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr "For å koble til nettverket trenger du et personlig sertifikat i form av en p12 fil. Du må få dette sertifikatet fra din egen institusjon. Sjekk support sider hos egen institusjon for tildeling av et slikt sertifikat. En slik sertifikat fil er passord beskyttet. Du må ha både filen og passordet tilgjengelig før installasjon. Din p12 fil vil også bli kopiert til .cat_installer katalogen. "
+msgstr ""
+"For å koble til nettverket trenger du et personlig sertifikat i form av en "
+"p12 fil. Du må få dette sertifikatet fra din egen institusjon. Sjekk support "
+"sider hos egen institusjon for tildeling av et slikt sertifikat. En slik "
+"sertifikat fil er passord beskyttet. Du må ha både filen og passordet "
+"tilgjengelig før installasjon. Din p12 fil vil også bli kopiert til ."
+"cat_installer katalogen. "
 
 #: devices/linux/Linux.php:102
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "Du blir spurt om å oppgi brukerdetaljer under installasjonen. Denne informasjonen blir lagret slik at du automatisk blir pålogget igjen hver gang du er innenfor dekning."
+msgstr ""
+"Du blir spurt om å oppgi brukerdetaljer under installasjonen. Denne "
+"informasjonen blir lagret slik at du automatisk blir pålogget igjen hver "
+"gang du er innenfor dekning."
 
 #: devices/linux/Linux.php:111
 #, php-format
@@ -539,12 +613,15 @@ msgstr "Output skrevet til %s"
 msgid ""
 "This installer will only work properly if you are a member of %s and the "
 "user group: %s."
-msgstr "Dette installasjonsprogrammet vil kun fungere om du er et medlem av %s og brukergruppen: %s."
+msgstr ""
+"Dette installasjonsprogrammet vil kun fungere om du er et medlem av %s og "
+"brukergruppen: %s."
 
 #: devices/linux/Linux.php:148
 #, php-format
 msgid "This installer will only work properly if you are a member of %s."
-msgstr "Dette installasjonsprogrammet vil kun fungere om du er et medlem av %s."
+msgstr ""
+"Dette installasjonsprogrammet vil kun fungere om du er et medlem av %s."
 
 #: devices/linux/Linux.php:246
 msgid "Y"
@@ -592,17 +669,24 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Dette installasjonsprogrammet er kun et eksempel. Det lager en zip fil inneholdende IdP sertifikatene, info og logo filer (om de er definert av IdP admin) og en dump av alle tilgjengelige attributter."
+msgstr ""
+"Dette installasjonsprogrammet er kun et eksempel. Det lager en zip fil "
+"inneholdende IdP sertifikatene, info og logo filer (om de er definert av IdP "
+"admin) og en dump av alle tilgjengelige attributter."
 
 #: devices/redirect_dev/RedirectDev.php:22
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "Denne enheten er ikke støttet i CAT, men din lokale administrator har laget en omdirigering til egen installasjonsinstruks."
+msgstr ""
+"Denne enheten er ikke støttet i CAT, men din lokale administrator har laget "
+"en omdirigering til egen installasjonsinstruks."
 
 #: devices/xml/XML.php:46
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Dette er en generisk konfigurasjonsfil i IETF <a href='%s'>EAP Metadata -00</a> XML format."
+msgstr ""
+"Dette er en generisk konfigurasjonsfil i IETF <a href='%s'>EAP Metadata -00</"
+"a> XML format."

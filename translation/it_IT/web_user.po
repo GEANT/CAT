@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Daniele Albrizio <daniele@albrizio.it>, 2012-2013,2015
 # Daniele Albrizio <daniele@albrizio.it>, 2012
@@ -12,38 +12,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-08 16:40+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
-"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/language/it_IT/)\n"
+"Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/"
+"language/it_IT/)\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: it_IT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/user/cat_info.php:32 web/user/faq.php:32
 #, php-format
 msgid ""
-"eduroam is a global WiFi roaming consortium which gives members of education"
-" and research access to the internet <i>for free</i> on all eduroam hotspots"
-" on the planet. There are several million eduroam users already, enjoying "
-"free internet access on more than 6.000 hotspots! Visit <a "
-"href='http://www.eduroam.org'>the eduroam homepage</a> for more details."
-msgstr "eduroam è un consorzio globale per il roaming WiFi che assicura agli utenti del mondo education l'accesso <i> gratis </i> ad internet attraverso gli hotspot sparsi per il mondo. Ci sono già milioni di utenti che utilizzano più di 6.000 hotspot! Visita  <a href='http://www.eduroam.org'>la homepage di  eduroam </a> per maggiori informazioni."
+"eduroam is a global WiFi roaming consortium which gives members of education "
+"and research access to the internet <i>for free</i> on all eduroam hotspots "
+"on the planet. There are several million eduroam users already, enjoying "
+"free internet access on more than 6.000 hotspots! Visit <a href='http://www."
+"eduroam.org'>the eduroam homepage</a> for more details."
+msgstr ""
+"eduroam è un consorzio globale per il roaming WiFi che assicura agli utenti "
+"del mondo education l'accesso <i> gratis </i> ad internet attraverso gli "
+"hotspot sparsi per il mondo. Ci sono già milioni di utenti che utilizzano "
+"più di 6.000 hotspot! Visita  <a href='http://www.eduroam.org'>la homepage "
+"di  eduroam </a> per maggiori informazioni."
 
 #: web/user/cat_info.php:37
 #, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
 "%s administrators enter their %s configuration details and based on them, "
-"<span class='edu_cat'>%s</span> builds customised installers for a number of"
-" popular platforms. An installer prepared for one institution will not work "
+"<span class='edu_cat'>%s</span> builds customised installers for a number of "
+"popular platforms. An installer prepared for one institution will not work "
 "for users of another one, therefore if your institution is not on the list, "
-"you cannot use this system. Please contact your local administrators and try"
-" to influence them to add your institution configuration to <span "
+"you cannot use this system. Please contact your local administrators and try "
+"to influence them to add your institution configuration to <span "
 "class='edu_cat'>%s</span>."
-msgstr "<span class='edu_cat'>%s</span> è fornito come piattaforma di cooperazione.<p> Gli amministratori locali di %s inseriscono i parametri di configurazione relativi ad %s in base ai quali, <span class='edu_cat'>%s</span> crea i programmi di installazione per un certo numero di sistemi operativi diffusi. Un programma di installazione creato per una specifica organizzazione non funziona per gli utenti di un'altra, quindi se la tua organizzazione non è nella lista non potrai usare questo strumento. Contatta i tuoi amministratori invitandoli a fornire le informazioni della tua organizzazione ad <span class='edu_cat'>%s</span>."
+msgstr ""
+"<span class='edu_cat'>%s</span> è fornito come piattaforma di cooperazione."
+"<p> Gli amministratori locali di %s inseriscono i parametri di "
+"configurazione relativi ad %s in base ai quali, <span class='edu_cat'>%s</"
+"span> crea i programmi di installazione per un certo numero di sistemi "
+"operativi diffusi. Un programma di installazione creato per una specifica "
+"organizzazione non funziona per gli utenti di un'altra, quindi se la tua "
+"organizzazione non è nella lista non potrai usare questo strumento. Contatta "
+"i tuoi amministratori invitandoli a fornire le informazioni della tua "
+"organizzazione ad <span class='edu_cat'>%s</span>."
 
 #: web/user/cat_info.php:44
 #, php-format
@@ -51,17 +66,24 @@ msgid ""
 "The most important need is adding new installer modules, which will "
 "configure particular devices.  CAT is making this easy for you. If you know "
 "how to create an automatic installer then fitting it into CAT should be a "
-"piece of cake. You should start by contacting us at <a "
-"href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT "
-"documentation</a>."
-msgstr "Il bisogno più pressante è quello di aggiungere nuovi moduli di installazione per configurare dispositivi particolari. CAT sta rendendo questo facile per te. Se sai come creare un programma di installazione automatico, allora l'ingresso in CAT dovrebbe essere liscio come l'olio. Potresti iniziare contattandoci all'indirizzo <a href='mailto:%s'>%s</a>, ma per favore dai una occhiata alla <a href='%s'>Documentazione CAT</a>."
+"piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
+"a>, but please also take a look at <a href='%s'>CAT documentation</a>."
+msgstr ""
+"Il bisogno più pressante è quello di aggiungere nuovi moduli di "
+"installazione per configurare dispositivi particolari. CAT sta rendendo "
+"questo facile per te. Se sai come creare un programma di installazione "
+"automatico, allora l'ingresso in CAT dovrebbe essere liscio come l'olio. "
+"Potresti iniziare contattandoci all'indirizzo <a href='mailto:%s'>%s</a>, ma "
+"per favore dai una occhiata alla <a href='%s'>Documentazione CAT</a>."
 
 #: web/user/cat_info.php:47
 #, php-format
 msgid ""
 "Please send a problem report to <a href='mailto:%s'>%s</a>. Some screen "
 "dumps are very welcome."
-msgstr "Si prega di inviare un report del problema a <a href='mailto:%s'>%s</a>. Possibilmente inserire alcune schermate."
+msgstr ""
+"Si prega di inviare un report del problema a <a href='mailto:%s'>%s</a>. "
+"Possibilmente inserire alcune schermate."
 
 #: web/user/cat_info.php:62
 #, php-format
@@ -69,7 +91,9 @@ msgid ""
 "You must have received an invitation from your national %s operator before "
 "being able to manage your institution. If that is the case, please continue "
 "and log in."
-msgstr "Per gestire la tua organizzazione, bisogna aver ricevuto un invito dal gestore nazionale di %s. Se hai ricevuto l'invito, procedi con il login."
+msgstr ""
+"Per gestire la tua organizzazione, bisogna aver ricevuto un invito dal "
+"gestore nazionale di %s. Se hai ricevuto l'invito, procedi con il login."
 
 #: web/user/cat_info.php:64
 msgid "Please authenticate yourself and login"
@@ -88,11 +112,14 @@ msgstr "La mia organizzazione non è presente. Posso usarne un'altra?"
 #, php-format
 msgid ""
 "No! The installers contain security settings which are specific to the "
-"institution. If you are not from that institution, your computer will detect"
-" that you are about to send your username and credential to an unauthorised "
+"institution. If you are not from that institution, your computer will detect "
+"that you are about to send your username and credential to an unauthorised "
 "server and will abort the login. Using a different institution installer is "
 "<i>guaranteed to not work</i>!"
-msgstr "No! Il programma di installazione contiene delle informazioni specifiche dell'organizzazione. Il PC rileva che le credenziali utente stanno per essere inviate ad un server non autorizzato e interrompe l'autenticazione. "
+msgstr ""
+"No! Il programma di installazione contiene delle informazioni specifiche "
+"dell'organizzazione. Il PC rileva che le credenziali utente stanno per "
+"essere inviate ad un server non autorizzato e interrompe l'autenticazione. "
 
 #: web/user/faq.php:12
 #, php-format
@@ -104,7 +131,10 @@ msgstr "Cosa posso fare per avere la mia organizzazione nella lista?"
 msgid ""
 "Contact %s administrators at your home institution and complain. It will "
 "take at most one hour of their time to get things done."
-msgstr "Insisti con gli amministratori di %s  della tua organizzazione di appartenenza. Basta solo un ora del loro tempo per inserire tutti i dati necessari."
+msgstr ""
+"Insisti con gli amministratori di %s  della tua organizzazione di "
+"appartenenza. Basta solo un ora del loro tempo per inserire tutti i dati "
+"necessari."
 
 #: web/user/faq.php:18
 #, php-format
@@ -118,23 +148,33 @@ msgid ""
 "automatically configured in some way. Many other devices can still be used "
 "with %s, but must be configured manually. Please contact your %s Identity "
 "Provider to get help in setting up such a device."
-msgstr "No. Il tool CAT supporta solo sistemi operativi che possono essere configurati in automatico. Molti dispositivi possono usare %s ma devono essere configurati manualmente. Contatta il tuo Identity Provider %s per ottenere aiuto nella configurazione di tali dispositivi."
+msgstr ""
+"No. Il tool CAT supporta solo sistemi operativi che possono essere "
+"configurati in automatico. Molti dispositivi possono usare %s ma devono "
+"essere configurati manualmente. Contatta il tuo Identity Provider %s per "
+"ottenere aiuto nella configurazione di tali dispositivi."
 
 #: web/user/faq.php:24
 #, php-format
 msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
-msgstr "Riesco a connettermi ad %s semplicemnte usando username e password. Perché devo usare un programma di installazione?"
+msgstr ""
+"Riesco a connettermi ad %s semplicemnte usando username e password. Perché "
+"devo usare un programma di installazione?"
 
 #: web/user/faq.php:25
 #, php-format
 msgid ""
 "When you are connecting from an unconfigured device your security is at "
-"risk. The very point of preconfiguration is to set up security, when this is"
-" done, your device will first confirm that it talks to the correct "
+"risk. The very point of preconfiguration is to set up security, when this is "
+"done, your device will first confirm that it talks to the correct "
 "authentication server and will never send your password to an untrusted one."
-msgstr "Connettendosi con un dispositivo non correttamente configurato, ci sono grossi rischi di sicurezza. Il programma preconfigura la connessione con tutti i parametri di sicurezza necessari, in questo modo si evita di rilasciare le credenziali a server non autorizzati."
+msgstr ""
+"Connettendosi con un dispositivo non correttamente configurato, ci sono "
+"grossi rischi di sicurezza. Il programma preconfigura la connessione con "
+"tutti i parametri di sicurezza necessari, in questo modo si evita di "
+"rilasciare le credenziali a server non autorizzati."
 
 #: web/user/faq.php:31
 #, php-format
@@ -151,41 +191,53 @@ msgstr "I programmi di installazione di %s sono sicuri?"
 msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
-msgstr "I programmi di installazione %s configurano le impostazioni di sicurezza sul tuo dispositivo, quindi dovresti assicurarti di usare quelli originali."
+msgstr ""
+"I programmi di installazione %s configurano le impostazioni di sicurezza sul "
+"tuo dispositivo, quindi dovresti assicurarti di usare quelli originali."
 
 #: web/user/faq.php:39
 #, php-format
 msgid ""
-"This is why %s installers are digitally signed by %s. Watch out for a system"
-" message confirming this."
-msgstr "Per questo i programmi di installazione %s sono firmati digitalmente da %s. Controlla che venga visualizzato un messaggio di sistema che lo confermi."
+"This is why %s installers are digitally signed by %s. Watch out for a system "
+"message confirming this."
+msgstr ""
+"Per questo i programmi di installazione %s sono firmati digitalmente da %s. "
+"Controlla che venga visualizzato un messaggio di sistema che lo confermi."
 
 #: web/user/faq.php:45
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
-msgstr "Windows 'SmartScreen' o'Internet Explorer'  indica che il file non è scaricabile e possibilmente pericoloso. Dovrei essere preoccupato? "
+msgstr ""
+"Windows 'SmartScreen' o'Internet Explorer'  indica che il file non è "
+"scaricabile e possibilmente pericoloso. Dovrei essere preoccupato? "
 
 #: web/user/faq.php:46
 msgid ""
-"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart."
-" The warning merely means that the file has not yet been downloaded by "
-"enough users to make Microsoft consider it popular (which would strangely "
-"enough make it be considered 'safe'). This message alone is not a security "
-"problem."
-msgstr "Contrariamente al nome, 'SmartScreen' non è molto intelligente. Il warning significa solo che il file non è stato scaricato abbastanza volte da farlo ritenere 'popolare' da Microsoft ( stano modo per considerarlo 'sicuro'). La presenza di questo messaggio non indica un problema"
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+"Contrariamente al nome, 'SmartScreen' non è molto intelligente. Il warning "
+"significa solo che il file non è stato scaricato abbastanza volte da farlo "
+"ritenere 'popolare' da Microsoft ( stano modo per considerarlo 'sicuro'). La "
+"presenza di questo messaggio non indica un problema"
 
 #: web/user/faq.php:46
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
-msgstr "Fino a quando il file contiene una firma valida da parte di %s, il download è sicuro."
+msgstr ""
+"Fino a quando il file contiene una firma valida da parte di %s, il download "
+"è sicuro."
 
 #: web/user/faq.php:46
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
-msgstr "Si prega di  consultare le FAQ di Microsoft SmartScreen all'indirizzo %s."
+msgstr ""
+"Si prega di  consultare le FAQ di Microsoft SmartScreen all'indirizzo %s."
 
 #: web/user/faq.php:52
 #, php-format
@@ -199,7 +251,11 @@ msgid ""
 "to be able to 'feed' security settings from a configuration file which you "
 "can download. Many Operating Systems like Apple and Microsoft have that "
 "functionality, but for Android no such mechanism exists."
-msgstr "%s usa le tecnologie messe a disposizione dal sistema operativo. Abbiamo bisogno di impostare i parametri di sicurezza da un file di configurazione che si possa scaricare. I sistemi Apple e Microsoft hanno tale funzionalità, Android non offre tali meccanismi. "
+msgstr ""
+"%s usa le tecnologie messe a disposizione dal sistema operativo. Abbiamo "
+"bisogno di impostare i parametri di sicurezza da un file di configurazione "
+"che si possa scaricare. I sistemi Apple e Microsoft hanno tale funzionalità, "
+"Android non offre tali meccanismi. "
 
 #: web/user/faq.php:55
 #, php-format
@@ -207,27 +263,38 @@ msgid ""
 "That is - <i>to our knowledge</i>. If you are a developer with some good "
 "knowledge about Android's APIs, and you know how to do it - please let us "
 "know; we would be delighted!"
-msgstr "Questo è quanto <i> sappiamo fare</i>. Se sei uno sviluppatore Android che sa come risolvere il problema, informaci, ne saremo lieti. "
+msgstr ""
+"Questo è quanto <i> sappiamo fare</i>. Se sei uno sviluppatore Android che "
+"sa come risolvere il problema, informaci, ne saremo lieti. "
 
 #: web/user/faq.php:61
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
-msgstr "Ricevo la rete %s, il mio dispositivo è configurato ma non si connette, quale è la causa?"
+msgstr ""
+"Ricevo la rete %s, il mio dispositivo è configurato ma non si connette, "
+"quale è la causa?"
 
 #: web/user/faq.php:62
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a"
-" genuine %s one and your device silently drops the connection attempt; there"
-" may be something wrong with the configuration of the network; your account "
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; there "
+"may be something wrong with the configuration of the network; your account "
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
 "contact your home institution and report the problem, the administrators "
 "should be able to trace your connections."
-msgstr "Possono esserci varie ragioni. La rete %s che ricevi non è autentica e quindi il dispositivo rifiuta la connessione; ci sono degli errori nella configurazione della rete; il tuo account è scaduto; ci sono problemi di connessione con il server delle tua organizzazione di appartenenza; hai violato le regole di connessione e ti è stata interdetta la connessione. Contatta la tua organizzazione di appartenenza e riporta il problema, gli amministratori dovrebbero essere in grado di individuare il problema."
+msgstr ""
+"Possono esserci varie ragioni. La rete %s che ricevi non è autentica e "
+"quindi il dispositivo rifiuta la connessione; ci sono degli errori nella "
+"configurazione della rete; il tuo account è scaduto; ci sono problemi di "
+"connessione con il server delle tua organizzazione di appartenenza; hai "
+"violato le regole di connessione e ti è stata interdetta la connessione. "
+"Contatta la tua organizzazione di appartenenza e riporta il problema, gli "
+"amministratori dovrebbero essere in grado di individuare il problema."
 
 #: web/user/faq.php:68
 #, php-format
@@ -252,7 +319,10 @@ msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
-msgstr "La generazione del programma di installazione si è interrotta. Gli amministratori ne sono stati informati. Il problema sarà risolto al più presto."
+msgstr ""
+"La generazione del programma di installazione si è interrotta. Gli "
+"amministratori ne sono stati informati. Il problema sarà risolto al più "
+"presto."
 
 #: web/user/js/cat_js.php:57
 msgid "no matching data found"
@@ -282,24 +352,34 @@ msgstr "tel:"
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from you "
 "home organisation at:"
-msgstr "Nel caso si incontrassero problemi, è possibile ottenere assistenza diretta dall'organizzazione di appartenenza via:"
+msgstr ""
+"Nel caso si incontrassero problemi, è possibile ottenere assistenza diretta "
+"dall'organizzazione di appartenenza via:"
 
 #: web/user/js/cat_js.php:189 web/basic.php:262
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
-msgstr "Nel caso si incontrassero problemi, si dovrà richiedere assistenza direttamente alla propria organizzazione."
+msgstr ""
+"Nel caso si incontrassero problemi, si dovrà richiedere assistenza "
+"direttamente alla propria organizzazione."
 
 #: web/user/js/cat_js.php:202 web/user/js/cat_js.php:227
 msgid ""
 "This device cannot be configured with settings provided by your institution"
-msgstr "Questo dispositivo non può essere configurato in base alle impostazioni fornite dalla propria organizzazione"
+msgstr ""
+"Questo dispositivo non può essere configurato in base alle impostazioni "
+"fornite dalla propria organizzazione"
 
 #: web/user/js/cat_js.php:214
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
-msgstr "L'amministratore locale ha specificato che questo dispositivo deve essere configurato usando risorse situate su una pagina locale. Quando cliccherai su <b>Continua</b> la pagina relativa verrà aperta in una nuova finestra/scheda."
+msgstr ""
+"L'amministratore locale ha specificato che questo dispositivo deve essere "
+"configurato usando risorse situate su una pagina locale. Quando cliccherai "
+"su <b>Continua</b> la pagina relativa verrà aperta in una nuova finestra/"
+"scheda."
 
 #: web/user/js/cat_js.php:214 web/user/js/cat_js.php:222 web/index.php:251
 msgid "Continue"
@@ -325,9 +405,13 @@ msgstr "Aiuto, la mia organizzazione non è nella lista"
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
-"your institution is not on the list, then nag them to add information to the"
-" %s database."
-msgstr "Questo sistema si basa sulle informazioni fornite dagli amministratori delle organizzazioni appartenenti a %s. Se il proprio ente non è nella lista, allora contattalo affinché le informazioni necessarie siano aggiunte nel database %s."
+"your institution is not on the list, then nag them to add information to the "
+"%s database."
+msgstr ""
+"Questo sistema si basa sulle informazioni fornite dagli amministratori delle "
+"organizzazioni appartenenti a %s. Se il proprio ente non è nella lista, "
+"allora contattalo affinché le informazioni necessarie siano aggiunte nel "
+"database %s."
 
 #: web/user/js/cat_js.php:478
 msgid "Locate me more accurately using HTML5 Geo-Location"
@@ -390,6 +474,7 @@ msgid "Nearby providers shown on top."
 msgstr "Enti elencati per vicinanza"
 
 #. /devices.php
+#.
 #: web/user/js/roll.php:122
 msgid "MS Windows"
 msgstr "MS Windows"
@@ -444,14 +529,19 @@ msgid ""
 "but we don't want ot show it to you. You need to be authenticated and "
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
-msgstr "ma non vogliamo fartelo vedere. Devi essere autenticato e autorizzato per vedere questo contenuto. Dal momento che non lo sei, hai ottenuto questa pagina solitamente nota come"
+msgstr ""
+"ma non vogliamo fartelo vedere. Devi essere autenticato e autorizzato per "
+"vedere questo contenuto. Dal momento che non lo sei, hai ottenuto questa "
+"pagina solitamente nota come"
 
 #: web/4013.php:47
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
-msgstr "Sbaglio tuo? Errore nostro? Chi lo sa! Forse potresti tornare indietro alla <a href='%s'>Pagina iniziale</a>."
+msgstr ""
+"Sbaglio tuo? Errore nostro? Chi lo sa! Forse potresti tornare indietro alla "
+"<a href='%s'>Pagina iniziale</a>."
 
 #: web/404.php:44
 msgid "This is not the CAT you are looking for."
@@ -461,14 +551,18 @@ msgstr "Questo non è il CAT che stai cercando."
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
-msgstr "Qualsiasi cosa ti spettavi di trovare a questa URL - non è qui. L'unica cosa che c'è qui è il numero"
+msgstr ""
+"Qualsiasi cosa ti spettavi di trovare a questa URL - non è qui. L'unica cosa "
+"che c'è qui è il numero"
 
 #: web/404.php:47
 #, php-format
 msgid ""
-"staring at you. Your mistake? Our error? Who knows! Maybe you should go back"
-" to the <a href='%s'>Start Page</a>."
-msgstr "ti fissa. Sbaglio tuo? Errore nostro? Chi lo sa! Forse potresti tornare indietro alla <a href='%s'>Pagina iniziale</a>."
+"staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
+"to the <a href='%s'>Start Page</a>."
+msgstr ""
+"ti fissa. Sbaglio tuo? Errore nostro? Chi lo sa! Forse potresti tornare "
+"indietro alla <a href='%s'>Pagina iniziale</a>."
 
 #: web/basic.php:129
 msgid "Select your country"
@@ -486,7 +580,10 @@ msgstr "Selezionare il gruppo di utenti"
 msgid ""
 "Your operating system was not properly detected, is not supported yet or "
 "cannot be configured with settings provided by your institution"
-msgstr "Il tuo sistema operativo non è stato rilevato correttamente, non è ancora supportato o non può essere configurato con le impostazioni fornite dalla tua Organizzazione."
+msgstr ""
+"Il tuo sistema operativo non è stato rilevato correttamente, non è ancora "
+"supportato o non può essere configurato con le impostazioni fornite dalla "
+"tua Organizzazione."
 
 #: web/basic.php:201 web/index.php:299
 msgid "Choose an installer to download"
@@ -495,11 +592,14 @@ msgstr "Scegliere un programma di installazione da scaricare"
 #: web/basic.php:234 web/basic.php:272
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
-msgstr "Il tuo amministratore locale ha specificato un puntatore a una pagina di supporto locxale."
+msgstr ""
+"Il tuo amministratore locale ha specificato un puntatore a una pagina di "
+"supporto locxale."
 
 #: web/basic.php:234
 msgid "When you click <b>CONTINUE</b> this support page will be opened."
-msgstr "Quando cliccherai su <b>CONTINUA</b> questa pagina di supporto si aprirà."
+msgstr ""
+"Quando cliccherai su <b>CONTINUA</b> questa pagina di supporto si aprirà."
 
 #: web/basic.php:236
 msgid "CONTINUE to local support page"
@@ -512,7 +612,9 @@ msgstr "Hai un account in questo ente?"
 #: web/basic.php:240
 msgid ""
 "If so and if the other settings above are OK then click here to download..."
-msgstr "Se così e se le altre impostazioni sono OK, allora clicca qui per scaricare..."
+msgstr ""
+"Se così e se le altre impostazioni sono OK, allora clicca qui per "
+"scaricare..."
 
 #: web/basic.php:272
 msgid "Click on the link below to continue."
@@ -531,12 +633,12 @@ msgstr "Start over"
 msgid "Terms of use"
 msgstr "Termini di utilizzo"
 
-#: web/basic.php:448 web/index.php:340 web/tou.php:56
+#: web/basic.php:448 web/index.php:340 web/tou.php:53
 #, php-format
 msgid "Release %s"
 msgstr "Versione %s"
 
-#: web/basic.php:450 web/index.php:342 web/tou.php:58
+#: web/basic.php:450 web/index.php:342 web/tou.php:55
 msgid "Unreleased SVN Revision"
 msgstr "Versione SVN non rilasciata"
 
@@ -601,13 +703,14 @@ msgstr "scegline un altro"
 msgid "Welcome aboard the eduroam® user community!"
 msgstr "Benvenuto a bordo della comunità utenti di eduroam®!"
 
-#. / the empty href is dynamically exchanged with the actual path by jQuery at
-#. runtime
+#. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
 #: web/index.php:228
 msgid ""
 "Your download will start shortly, in case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
-msgstr "Il download partirà fra poco. In caso di problemi con il download automatico, usa questo <a href=''>link</a> diretto."
+msgstr ""
+"Il download partirà fra poco. In caso di problemi con il download "
+"automatico, usa questo <a href=''>link</a> diretto."
 
 #: web/index.php:231
 #, php-format
@@ -620,15 +723,22 @@ msgid ""
 "eduroam®! From now on, you will be able to use internet access resources on "
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
-msgstr "Benvenuto tra i diversi milioni di utenti di eduroam®! D'ora in poi, sarai in grado di utilizzare le risorse di accesso a Internet su migliaia di università, centri di ricerca e in altri luoghi in tutto il mondo. Tutto questo completamente gratis!"
+msgstr ""
+"Benvenuto tra i diversi milioni di utenti di eduroam®! D'ora in poi, sarai "
+"in grado di utilizzare le risorse di accesso a Internet su migliaia di "
+"università, centri di ricerca e in altri luoghi in tutto il mondo. Tutto "
+"questo completamente gratis!"
 
 #: web/index.php:237
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal"
-" certificate') - and be online!"
-msgstr "Installazione e configurazione effettuata. Cerca un hotspot eduroam® ed inserisci le tue credenziali ( 'username e password' o 'certificato personale') - e sarai online!"
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Installazione e configurazione effettuata. Cerca un hotspot eduroam® ed "
+"inserisci le tue credenziali ( 'username e password' o 'certificato "
+"personale') - e sarai online!"
 
 #: web/index.php:239
 #, php-format
@@ -636,7 +746,10 @@ msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
-msgstr "In caso di problemi nell'uso di questo servizio, contatta sempre l'helpdesk di %s. Loro diagnosticheranno il problema e ti aiuteranno nella risoluzione. Puoi raggiungerli tramite i mezzi descritti sopra."
+msgstr ""
+"In caso di problemi nell'uso di questo servizio, contatta sempre l'helpdesk "
+"di %s. Loro diagnosticheranno il problema e ti aiuteranno nella risoluzione. "
+"Puoi raggiungerli tramite i mezzi descritti sopra."
 
 #: web/index.php:243
 msgid "Back to downloads"
@@ -644,9 +757,15 @@ msgstr "Torna ai download"
 
 #: web/index.php:247
 msgid ""
-"Your local administrator has specified a redirect to a local support page.<br>\n"
-"                            When you click <b>Continue</b> this support page will be opened in a new window/tab."
-msgstr "Il tuo amministratore locale ha specificato un puntatore ad una pagina di supporto locale.<br>\n                            Quando cliccherai su <b>Continua</b> questa pagina di supporto si aprirà in una nuova finestra/scheda."
+"Your local administrator has specified a redirect to a local support page."
+"<br>\n"
+"                            When you click <b>Continue</b> this support page "
+"will be opened in a new window/tab."
+msgstr ""
+"Il tuo amministratore locale ha specificato un puntatore ad una pagina di "
+"supporto locale.<br>\n"
+"                            Quando cliccherai su <b>Continua</b> questa "
+"pagina di supporto si aprirà in una nuova finestra/scheda."
 
 #: web/index.php:293
 msgid "All platforms"

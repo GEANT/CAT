@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # alexm <alexm@arnes.si>, 2012
 # blazdivjak <blaz.divjak@gmail.com>, 2012
@@ -13,29 +13,32 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-12 02:05+0000\n"
 "Last-Translator: rokpapez <rok.papez@arnes.si>\n"
-"Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/language/sl_SI/)\n"
+"Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/"
+"language/sl_SI/)\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl_SI\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:126
 #, php-format
 msgid "your local %s support"
 msgstr "vaša lokalna podpora %s"
 
-#: core/DeviceConfig.php:131
+#: core/DeviceConfig.php:127
 #, php-format
 msgid "your local %s support page"
 msgstr "stran vaše lokalne podpore %s"
 
-#: core/DeviceConfig.php:163
+#: core/DeviceConfig.php:159
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Oprostite, to se ne bi smelo zgoditi - dodatne informacije niso na voljo"
+msgstr ""
+"Oprostite, to se ne bi smelo zgoditi - dodatne informacije niso na voljo"
 
 #: core/Federation.php:74
 msgid "Andorra"
@@ -309,7 +312,16 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Živjo,\n\nponudnik identitete %s v vaši %s federaciji %s je bil odstranjen iz/z %s.\n\nZdelo se nam je, da bi vas to znalo zanimati.\n\nZ lepimi pozdravi,\n\n%s"
+msgstr ""
+"Živjo,\n"
+"\n"
+"ponudnik identitete %s v vaši %s federaciji %s je bil odstranjen iz/z %s.\n"
+"\n"
+"Zdelo se nam je, da bi vas to znalo zanimati.\n"
+"\n"
+"Z lepimi pozdravi,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:345
 msgid "IdP in your federation was deleted"
@@ -385,15 +397,19 @@ msgstr "Strežnik RADIUS ni niti odgovoril."
 
 #: core/RADIUSTests.php:418
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
-msgstr "Kmunikacija med strežnikoma RADIUS je bila vzpostavljena v obeh smereh, a se je prekinila na sredini."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"Kmunikacija med strežnikoma RADIUS je bila vzpostavljena v obeh smereh, a se "
+"je prekinila na sredini."
 
 #: core/RADIUSTests.php:425
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
-msgstr "Strežnik RADIUS je takoj zavrnil avtentikacijski zahtevek s svojim prvim odgovorom."
+msgstr ""
+"Strežnik RADIUS je takoj zavrnil avtentikacijski zahtevek s svojim prvim "
+"odgovorom."
 
 #: core/RADIUSTests.php:432
 msgid ""
@@ -419,7 +435,10 @@ msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
-msgstr "Certifikatna veriga vključuje korenski certitikat CA. To ničesar ne doprinese, napihne pa izmenjavo paketov, zahteva več izmenjav paketov in s tem počasnejše prijavljanje."
+msgstr ""
+"Certifikatna veriga vključuje korenski certitikat CA. To ničesar ne "
+"doprinese, napihne pa izmenjavo paketov, zahteva več izmenjav paketov in s "
+"tem počasnejše prijavljanje."
 
 #: core/RADIUSTests.php:469
 msgid "There is more than one server certificate in the chain."
@@ -434,27 +453,38 @@ msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
-msgstr "Vsaj en certifikat v vreigi je podpisan z algoritmom MD5. Veliko operacijskih sistemov, vključno z Applovim iOS ne bodo sprejeli ta certifikat."
+msgstr ""
+"Vsaj en certifikat v vreigi je podpisan z algoritmom MD5. Veliko "
+"operacijskih sistemov, vključno z Applovim iOS ne bodo sprejeli ta "
+"certifikat."
 
 #: core/RADIUSTests.php:490
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
-msgstr "Vsaj en certifikat v verigi ima javni ključ manjši od 1024 bitov. Za veliko sodobnih operacijskih sistemov je to nesprejemljivo in ne bodo sprejeli certifikata."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"Vsaj en certifikat v verigi ima javni ključ manjši od 1024 bitov. Za veliko "
+"sodobnih operacijskih sistemov je to nesprejemljivo in ne bodo sprejeli "
+"certifikata."
 
 #: core/RADIUSTests.php:497
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
-msgstr "Strežniški certifikat nima razširitve 'extendedKeyUsage: TLS Web Server Authentication'. Večina Microsoftovih operacijskih sistemov ne bo sprejela ta certifikat."
+msgstr ""
+"Strežniški certifikat nima razširitve 'extendedKeyUsage: TLS Web Server "
+"Authentication'. Večina Microsoftovih operacijskih sistemov ne bo sprejela "
+"ta certifikat."
 
 #: core/RADIUSTests.php:504
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
-msgstr "Certifikat strežnika ne vključuje lokacije CRL in ni zdužljiv s telefonskim operacijskih sistemom Windows Phone 8."
+msgstr ""
+"Certifikat strežnika ne vključuje lokacije CRL in ni zdužljiv s telefonskim "
+"operacijskih sistemom Windows Phone 8."
 
 #: core/RADIUSTests.php:511
 msgid ""
@@ -462,15 +492,22 @@ msgid ""
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
-msgstr "Razširitev 'CRL Distribution Point' certifikata strežnika ne kaže na URL HTTP/HTTPS. Nekateri operacijski sistemi ne bodo sprejeli certifikata. Preverjanje veljavnosti certifikata v skladu s CRL ni možno."
+msgstr ""
+"Razširitev 'CRL Distribution Point' certifikata strežnika ne kaže na URL "
+"HTTP/HTTPS. Nekateri operacijski sistemi ne bodo sprejeli certifikata. "
+"Preverjanje veljavnosti certifikata v skladu s CRL ni možno."
 
 #: core/RADIUSTests.php:518
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" non-existing location. Some Operating Systems check certificate validity by"
-" consulting the CRL and will fail to validate the certificate. Checking "
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certificate. Checking "
 "server certificate validity against a CRL will not be possible."
-msgstr "Razširitev 'CRL Distribution Point' v certifikatu strežnika kaže na neobstoječo lokacijo. Nekateri operacijski sistemi preverjajo veljavnost certifikata z uporabo CRL in ga ne bodo mogli preveriti. Preverjanje veljavnosti certifikata napram CRL ni možno."
+msgstr ""
+"Razširitev 'CRL Distribution Point' v certifikatu strežnika kaže na "
+"neobstoječo lokacijo. Nekateri operacijski sistemi preverjajo veljavnost "
+"certifikata z uporabo CRL in ga ne bodo mogli preveriti. Preverjanje "
+"veljavnosti certifikata napram CRL ni možno."
 
 #: core/RADIUSTests.php:525
 msgid "The server certificate was revoked by the CA!"
@@ -478,11 +515,15 @@ msgstr "CA je preklical certifikat strežnika!"
 
 #: core/RADIUSTests.php:532
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
-msgstr "Certifikat vsebuje CN ali ubjectAltName:DNS, ki se ne preveri kot ime strežnika. To lahko povzroči težave na nekterih odjemalcih. Če certifikat vsebuje tudi pravilna imena strežnikov in samo ta uporabljate za nastavitve odjemalca, lahko to opozorilo varno zanemarite."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"Certifikat vsebuje CN ali ubjectAltName:DNS, ki se ne preveri kot ime "
+"strežnika. To lahko povzroči težave na nekterih odjemalcih. Če certifikat "
+"vsebuje tudi pravilna imena strežnikov in samo ta uporabljate za nastavitve "
+"odjemalca, lahko to opozorilo varno zanemarite."
 
 #: core/RADIUSTests.php:539
 msgid ""
@@ -491,13 +532,19 @@ msgid ""
 "certificate also contains names which are wildcardless, and you only use "
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
-msgstr "Certifikat vsebuje CN ali subjectAltName:DNS, ki vsebuje ('*'). S tem imajo lahko nekateri odjemalci težave. Če certifikat vsebuje tudi imena brez ('*') in uporabljate te v nastavitvah odjemalca, lahko to opozorilo varno zanemarite."
+msgstr ""
+"Certifikat vsebuje CN ali subjectAltName:DNS, ki vsebuje ('*'). S tem imajo "
+"lahko nekateri odjemalci težave. Če certifikat vsebuje tudi imena brez ('*') "
+"in uporabljate te v nastavitvah odjemalca, lahko to opozorilo varno "
+"zanemarite."
 
 #: core/RADIUSTests.php:546
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
-msgstr "Vsaj en certifikat je zunaj veljavnega obdobja (ni še veljaven ali že pretečen)!"
+msgstr ""
+"Vsaj en certifikat je zunaj veljavnega obdobja (ni še veljaven ali že "
+"pretečen)!"
 
 #: core/RADIUSTests.php:553
 #, php-format
@@ -506,13 +553,18 @@ msgid ""
 "validity period (not yet valid, or already expired), but this certificate "
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
-msgstr "Vsaj en vmesni certifikat v vašem profilu CAT je zunaj veljavnega obdobja (ni še veljaven ali že pretečen), vendar ta certifikat ni bil uporabljen za preverjanje strežnika. Razmisilte ali bi ga odstranili iz vaše nastavitve %s."
+msgstr ""
+"Vsaj en vmesni certifikat v vašem profilu CAT je zunaj veljavnega obdobja "
+"(ni še veljaven ali že pretečen), vendar ta certifikat ni bil uporabljen za "
+"preverjanje strežnika. Razmisilte ali bi ga odstranili iz vaše nastavitve %s."
 
 #: core/RADIUSTests.php:560
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
-msgstr "Certifikat strežnika ne ustreza korenskemu certifikatu CA, ki je nastavljan v vašem profilu!"
+msgstr ""
+"Certifikat strežnika ne ustreza korenskemu certifikatu CA, ki je nastavljan "
+"v vašem profilu!"
 
 #: core/RADIUSTests.php:564
 msgid ""
@@ -520,20 +572,27 @@ msgid ""
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
-msgstr "Certifikatna veriga prejeta iz EAP ni bila zadostna za preverjanje s korenskim CA v vašem profilu. Veriga je bila preverjena z vmesnim CAjem iz vašega profila. Premislite ali ne bi vmesnih CA poslali znotraj izmenjave EAP."
+msgstr ""
+"Certifikatna veriga prejeta iz EAP ni bila zadostna za preverjanje s "
+"korenskim CA v vašem profilu. Veriga je bila preverjena z vmesnim CAjem iz "
+"vašega profila. Premislite ali ne bi vmesnih CA poslali znotraj izmenjave "
+"EAP."
 
 #: core/RADIUSTests.php:570
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
-msgstr "Ime strežnika EAP se ne ujema z nobenim od nastavljenih imen v vašem profilu!"
+msgstr ""
+"Ime strežnika EAP se ne ujema z nobenim od nastavljenih imen v vašem profilu!"
 
 #: core/RADIUSTests.php:577
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
-msgstr "Nastavljeno ime strežnika EAP se ujema ali z CN ali s subjectAltName:DNS prejetega certifikata; trenutno se svetuje, da se nastavi ime na OBEH koncih."
+msgstr ""
+"Nastavljeno ime strežnika EAP se ujema ali z CN ali s subjectAltName:DNS "
+"prejetega certifikata; trenutno se svetuje, da se nastavi ime na OBEH koncih."
 
 #: core/RADIUSTests.php:584
 msgid ""
@@ -541,7 +600,10 @@ msgid ""
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
-msgstr "Vsaj eden izmed certifikatov ni vseboval kakršnihkoli razširitev BasicConstraints; nejasno je ali gre za CA ali končni certifikat. Vsaj Mac OS X 10.8 (Mountain Lion) ne bo sprejel tega certifikata za EAP!"
+msgstr ""
+"Vsaj eden izmed certifikatov ni vseboval kakršnihkoli razširitev "
+"BasicConstraints; nejasno je ali gre za CA ali končni certifikat. Vsaj Mac "
+"OS X 10.8 (Mountain Lion) ne bo sprejel tega certifikata za EAP!"
 
 #: core/RADIUSTests.php:591
 msgid "The server presented a certificate from an unknown authority."
@@ -591,21 +653,29 @@ msgstr "nepoznana avtoriteta ali ni politike certifikata ali druga težava"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:150
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Živjo,\n\npovabilo za novega ponudnika identitete %s v vaši %s federaciji %s je bilo uporabljeno in IdP je bil ustvarjen v %s.\n\nZ lepimi pozdravi,\n\n%s"
+msgstr ""
+"Živjo,\n"
+"\n"
+"povabilo za novega ponudnika identitete %s v vaši %s federaciji %s je bilo "
+"uporabljeno in IdP je bil ustvarjen v %s.\n"
+"\n"
+"Z lepimi pozdravi,\n"
+"\n"
+"%s"
 
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"

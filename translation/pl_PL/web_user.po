@@ -1,21 +1,26 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011, 2012.
+# Translators:
+# Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
+# tw2529 <tw2529@gmail.com>, 2013,2015
+# tw2529 <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 11:47+0200\n"
-"PO-Revision-Date: 2012-12-11 14:04+0100\n"
-"Last-Translator: \n"
-"Language-Team: American English <kde-i18n-doc@kde.org>\n"
-"Language: en_US\n"
+"POT-Creation-Date: 2015-04-13 10:09+0200\n"
+"PO-Revision-Date: 2015-04-08 12:20+0000\n"
+"Last-Translator: tw2529 <tw2529@gmail.com>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/cat/"
+"language/pl_PL/)\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 
 #: web/user/cat_info.php:32 web/user/faq.php:32
 #, php-format
@@ -55,7 +60,7 @@ msgstr ""
 "aby dodali dane do bazy <span class='edu_cat'>%s</span>."
 
 #: web/user/cat_info.php:44
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The most important need is adding new installer modules, which will "
 "configure particular devices.  CAT is making this easy for you. If you know "
@@ -63,12 +68,12 @@ msgid ""
 "piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
 "a>, but please also take a look at <a href='%s'>CAT documentation</a>."
 msgstr ""
-"Najbardziej palącą potrzebą jest dodanie kolejnych modułów instalatora, "
-"konfigurujących kolejne urządzenia. Dodanie modułów do systemu CAT jest "
-"bardzo proste i jeżeli potrafisz stworzyć sam konfigurator, to dołączenie go "
-"do CAT powinno być łatwe i przyjemne. Skontaktuj się z nami pod <a "
-"href='mailto:%s'>%s</a>, ale wstępnie przyjrzyj się <a "
-"href='%s'>dokumentacji CAT</a>."
+"Najważniejszą potrzebą jest dodanie kolejnych modułów, które konfigurują "
+"urządzenia. Architektura CAT bardzo to ułatwia. Jeżeli potrafisz stworzyć "
+"automatyczny instalator dla urządzenia, to wbudowanie go w CAT powinno być "
+"bardzo proste. Aby zacząć powinieneś się skontaktować z nami poprzez <a "
+"href='mailto:%s'>%s</a>, ale spojrzyj też na <a href='%s'>dokumentację CAT</"
+"a>."
 
 #: web/user/cat_info.php:47
 #, php-format
@@ -87,16 +92,15 @@ msgid ""
 "and log in."
 msgstr ""
 "Żeby zarządzać swoja instytucją musisz mieć zaproszenie od krajowego "
-"administratora %s. Jeżeli je otrzymałeś, to zaloguj się <strong><a "
-"href='javascript:goAdmin();return(false)'>tutaj</a></strong>."
+"administratora %s. Jeżeli je otrzymałeś, to zaloguj się."
 
 #: web/user/cat_info.php:64
 msgid "Please authenticate yourself and login"
-msgstr ""
+msgstr "Zaloguj się"
 
 #: web/user/cat_info.php:65
 msgid "Login"
-msgstr ""
+msgstr "Zaloguj się"
 
 #: web/user/faq.php:6
 #, php-format
@@ -191,23 +195,26 @@ msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
 msgstr ""
+"Instalatory %s konfigurują ustawienia bezpieczeństwa na Twoim urządzeniu, "
+"więc uważaj, aby korzystać z oryginałów."
 
 #: web/user/faq.php:39
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is why %s installers are digitally signed by %s. Watch out for a system "
 "message confirming this."
 msgstr ""
-"Instalatory %s ustawiają parametry bezpieczeństwa, dlatego powinieneś mieć "
-"pewność, ze korzystasz z autentycznych. Instalatory %s sa podpisanie przez "
-"organizację TERENA, Twój system operacyjny powinien to potwierdzić w "
-"momencie uruchamiania instalatora."
+"Dlatego instalatory %s sa podpisanie przez %s, Twój system operacyjny "
+"powinien to potwierdzić w momencie uruchamiania instalatora."
 
 #: web/user/faq.php:45
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
 msgstr ""
+"Filtr 'SmartScreen' albo 'Internet Explorer' wyświetlają komunikat, że plik "
+"jest rzadko pobierany i potencjalnie może być szkodliwy. Czy powinienem się "
+"czuć zagrożony?"
 
 #: web/user/faq.php:46
 msgid ""
@@ -216,18 +223,23 @@ msgid ""
 "users to make Microsoft consider it popular (which would strangely enough "
 "make it be considered 'safe'). This message alone is not a security problem."
 msgstr ""
+"Wbrew swojej nazwie 'SmartScreen' nie jest zbyt bystry. Wyświetlone "
+"ostrzeżenie oznacza jedynie, że dany plik nie jest wystarczająco popularny "
+"(co o dziwo jest przyjmowane za gwarancję bezpieczeństwa).  Tego komunikatu "
+"nie należy uważać za ważny sygnał o zagrożeniu."
 
 #: web/user/faq.php:46
 #, php-format
 msgid ""
 "So long as the file is carrying a valid signature from %s, the download is "
 "safe."
-msgstr ""
+msgstr "Jeżeli plik jest zaopatrzony w poprawny podpis %s, to jest bezpieczny."
 
 #: web/user/faq.php:46
 #, php-format
 msgid "Please see also Microsoft's FAQ regarding SmartScreen at %s."
 msgstr ""
+"Sprawdź też strony pomocy technicznej Microsoft %s na temat SmartScreen. "
 
 #: web/user/faq.php:52
 #, php-format
@@ -283,7 +295,7 @@ msgstr ""
 "siecią %s i Twoje urządzenie przerywa próbę połączenia; sama sieć może mieć "
 "jakieś problemy, może być źle skonfigurowana; być może wygasło Twoje konto; "
 "może być jakiś problem w połączeniu do serwera Twojej instytucji "
-"macierzystej; byc może naruszyłeś postanowienia lokalnego regulaminu sieci i "
+"macierzystej; być może naruszyłeś postanowienia lokalnego regulaminu sieci i "
 "w konsekwencji zablokowano Cie dostęp. Skontaktuj się ze swoją instytucją "
 "macierzysta, administratorzy powinni być w stanie sprawdzić Twoje połączenia."
 
@@ -302,7 +314,6 @@ msgid "Frequently Asked Questions"
 msgstr "Często Zadawane Pytania"
 
 #: web/user/tou.php:3
-#, fuzzy
 msgid "Terms of Use"
 msgstr "Warunki korzystania"
 
@@ -415,7 +426,7 @@ msgstr "wszystkie kraje"
 
 #: web/user/js/cat_js.php:481
 msgid "or search for an institution, in example Univerity of Oslo"
-msgstr "albo wyszukaj przez nazwę np. "
+msgstr "albo wyszukaj przez nazwę np. Uniwersytet Warszawski"
 
 #: web/user/js/cat_js.php:482
 msgid "show all countries"
@@ -510,7 +521,7 @@ msgstr "Strona startowa"
 
 #: web/4013.php:44
 msgid "Maybe this is the CAT you are looking for..."
-msgstr ""
+msgstr "Być może to, czego szukasz to właśnie CAT..."
 
 #: web/4013.php:45
 msgid ""
@@ -518,6 +529,9 @@ msgid ""
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
 msgstr ""
+"ale nie chcemy Ci go pokazać. Musisz być zalogowany i mieć odpowiednie "
+"uprawnienia. Ponieważ tych warunków nie spełniasz, to otrzymałeś stronę "
+"błędu zazwyczaj znaną jako"
 
 #: web/4013.php:47
 #, php-format
@@ -525,16 +539,20 @@ msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
 msgstr ""
+"Pomyłka, po Twojej stronie? A być może nasz błąd; trudno powiedzieć! Być "
+"może powinieneś przejść na <a href='%s'>stronę startową</a>."
 
 #: web/404.php:44
 msgid "This is not the CAT you are looking for."
-msgstr ""
+msgstr "To raczej nie jest to czego szukasz."
 
 #: web/404.php:45
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
 msgstr ""
+"Czegokolwiek oczekiwałeś pod tym adresem nie istnieje. Jedyna rzecz, która "
+"jest to numer"
 
 #: web/404.php:47
 #, php-format
@@ -542,6 +560,8 @@ msgid ""
 "staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
+"Pomyłka, po Twojej stronie? A być może nasz błąd; trudno powiedzieć! Być "
+"może powinieneś przejść na <a href='%s'>stronę startową</a>."
 
 #: web/basic.php:129
 msgid "Select your country"
@@ -556,54 +576,55 @@ msgid "Select the user group"
 msgstr "Wybierz grupę użytkowników"
 
 #: web/basic.php:194
-#, fuzzy
 msgid ""
 "Your operating system was not properly detected, is not supported yet or "
 "cannot be configured with settings provided by your institution"
 msgstr ""
-"To urządzenie nie może zostać skonfigurowane na podstawie ustawień "
-"dostarczonych przez Twoją instytucję"
+"Twój system operacyjny nie został poprawnie rozpoznany, albo nie jest "
+"jeszcze wspierany, lub nie może być skonfigurowany przy parametrach "
+"ustawionych przez Twoją instytucję."
 
 #: web/basic.php:201 web/index.php:299
 msgid "Choose an installer to download"
 msgstr "Wybierz instalator, który chcesz pobrać"
 
 #: web/basic.php:234 web/basic.php:272
-#, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
-msgstr "zostaniesz przekierowany do lokalnej strony wsparcia"
+msgstr ""
+"Administrator Twojej instytucji ustalił, że należy Cię przekierować do "
+"lokalnej strony wsparcia."
 
 #: web/basic.php:234
 msgid "When you click <b>CONTINUE</b> this support page will be opened."
-msgstr ""
+msgstr "Po kliknięciu <b>Kontytnuuj</b> ta strona zostanie otwarta."
 
 #: web/basic.php:236
 msgid "CONTINUE to local support page"
-msgstr ""
+msgstr "Kontynuuj do lokalnej strony"
 
 #: web/basic.php:240
-#, fuzzy
 msgid "Do you have an account at this institution?"
-msgstr "Nie ma takiego profilu we wskazanej instytucji"
+msgstr "Czy masz konto w tej instytucji?"
 
 #: web/basic.php:240
 msgid ""
 "If so and if the other settings above are OK then click here to download..."
 msgstr ""
+"Jeżeli tak i i inne ustawienia powyżej są poprawne, to kliknij tutaj, aby "
+"pobrać..."
 
 #: web/basic.php:272
 msgid "Click on the link below to continue."
-msgstr ""
+msgstr "Kliknij poniższy link, aby kontynuować."
 
 #: web/basic.php:305
 msgid "Download installer for"
 msgstr "Pobierz instalator dla"
 
 #: web/basic.php:307
-#, fuzzy
 msgid "Start over"
-msgstr "Strona startowa"
+msgstr "Zacznij od początku"
 
 #: web/basic.php:443 web/index.php:153
 #, php-format
@@ -620,9 +641,9 @@ msgid "Unreleased SVN Revision"
 msgstr "Nieopublikowana wersja SVN"
 
 #: web/index.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "Download your %s installer"
-msgstr "użytkownik %s:<br>pobierz instalator %s"
+msgstr "Pobierz instalator %s"
 
 #: web/index.php:136
 msgid "Authenticating"
@@ -663,9 +684,9 @@ msgid "Custom built for your home institution"
 msgstr "Przygotowane specjalnie dla Twojej instytucji"
 
 #: web/index.php:179
-#, fuzzy, php-format
+#, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
-msgstr "Podpisane cyfrowo przez instytucję zarządzającą eduroam: TERENA"
+msgstr "Podpisane cyfrowo przez instytucję zarządzającą %s: %s"
 
 #: web/index.php:192
 #, php-format
@@ -678,7 +699,7 @@ msgstr "wybierz inną"
 
 #: web/index.php:224
 msgid "Welcome aboard the eduroam® user community!"
-msgstr ""
+msgstr "Witamy w społeczności eduroam"
 
 #. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
 #: web/index.php:228
@@ -686,11 +707,13 @@ msgid ""
 "Your download will start shortly, in case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
+"Pobieranie za chwilę się rozpocznie, gdyby tak się nie stało użyj tego "
+"bezpośredniego  <a href=''>linku</a>."
 
 #: web/index.php:231
 #, php-format
 msgid "Dear user from %s,"
-msgstr ""
+msgstr "Drogi użytkowniku z instytucji %s,"
 
 #: web/index.php:234
 msgid ""
@@ -699,6 +722,10 @@ msgid ""
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
 msgstr ""
+"Gorąco witamy wśród kilkumilionowej rzeszy użytkowników usługi eduroam®! Od "
+"teraz będziesz mógł korzystać z dostępu internetowego na tysiącach "
+"uniwersytetów, centrów badawczych i innych miejsc na świecie. A wszystko to "
+"uzyskujesz bez żadnych opłat!"
 
 #: web/index.php:237
 msgid ""
@@ -707,6 +734,10 @@ msgid ""
 "credentials (this is our fancy name for 'username and password' or 'personal "
 "certificate') - and be online!"
 msgstr ""
+"Po tym jak już ściągnąłeś konfigurator kliencki, musisz tylko odnaleźć w "
+"pobliżu hotspot eduroam® oraz wprowadzić swoje dane uwierzytelniania (tak "
+"nazywamy parę 'identyfikator użytkownika i hasło' lub 'osobisty certyfikat') "
+"i będziesz podłączony!"
 
 #: web/index.php:239
 #, php-format
@@ -715,165 +746,26 @@ msgid ""
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
 msgstr ""
+"Jeżeli masz jakieś problemy z korzystaniem z tego serwisu, skontaktuj się z "
+"helpdeskiem %s. Tam problem zostanie zdiagnozowany i postarają się Ci pomóc. "
+"Możesz się skontaktować ze swoim helpdeskiem za pomocą wskazanych powyżej "
+"metod."
 
 #: web/index.php:243
 msgid "Back to downloads"
-msgstr ""
+msgstr "Powrót do listy urządzeń"
 
 #: web/index.php:247
-#, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>\n"
 "                            When you click <b>Continue</b> this support page "
 "will be opened in a new window/tab."
 msgstr ""
-"Administrator Twojej instytucji ustalił, że ta grupa użytkowników powinna "
-"być<br> konfigurowana w oparciu o wskazówki na lokalnej stronie wsparcia.\n"
-"<br>Po kliknięciu <b>Dalej</b> ta strona zostanie otwarta w nowym oknie/"
-"zakładce."
+"Administrator Twojej instytucji ustalił, że należy Cię przekierować do "
+"lokalnej strony wsparcia.<br>\n"
+"Kiedy klikniesz <b>Dalej</b> ta strona otworzy się w nowym oknie/karcie."
 
 #: web/index.php:293
 msgid "All platforms"
-msgstr ""
-
-#, fuzzy
-#~ msgid "no maching data found"
-#~ msgstr "nie znaleziono danych"
-
-#~ msgid "not available with settings provided by your institution"
-#~ msgstr "niedostępne dla ustawień wprowadzonych przez Twoja instytucję"
-
-#~ msgid "Your choice"
-#~ msgstr "Twój wybór"
-
-#~ msgid "Change country"
-#~ msgstr "Zmień kraj"
-
-#~ msgid "This is a service under preparation, do not expect it to work."
-#~ msgstr ""
-#~ "To jest usługa w fazie testów. Nie oczekuj, że będzie poprawnie działać."
-
-#~ msgid "Currently this is a placeholder for ToU"
-#~ msgstr "W tej chwili to jest zarezerwowane miejsce dla Warunków Użytkowania"
-
-#~ msgid ""
-#~ "Please authenticate yourself and login <strong><a href='javascript:"
-#~ "goAdmin();'>here</a></strong>."
-#~ msgstr ""
-#~ "Zaloguj się <strong><a href='javascript:goAdmin();'>tutaj</a></strong>."
-
-#~ msgid "Main %s site"
-#~ msgstr "Główna strona %s"
-
-#~ msgid "This is a service under preparation, do not expect it to work"
-#~ msgstr ""
-#~ "To jest usługa w fazie testów. Nie oczekuj, że będzie poprawnie działać."
-
-#~ msgid "%s admin:<br>manage your installers"
-#~ msgstr "administrator %s:<br>zarządzaj instalatorami"
-
-#~ msgid ""
-#~ "Your local administrator has specified that this user group should be "
-#~ "supported locally.<br>\n"
-#~ "When you click <b>Continue</b> this support page will be opened in a new "
-#~ "window/tab."
-#~ msgstr ""
-#~ "Administrator Twojej instytucji ustalił, że ta grupa użytkowników powinna "
-#~ "być<br> konfigurowana w oparciu o wskazówki na lokalnej stronie wsparcia."
-#~ "<br>Po kliknięciu <b>Dalej</b> ta strona zostanie otwarta w nowym oknie/"
-#~ "zakładce."
-
-#~ msgid "My device is not listed! Does that mean I can't do eduroam?"
-#~ msgstr ""
-#~ "Mojego urządzenia nie ma na liście! Czy to oznacza, że nie mogę korzystać "
-#~ "z eduroam?"
-
-#~ msgid ""
-#~ "No. The CAT tool can only support Operating Systems which can be "
-#~ "automatically configured in some way. Many other devices can still be "
-#~ "used with eduroam, but must be configured manually. Please contact your "
-#~ "eduroam Identity Provider to get help in setting up such a device."
-#~ msgstr ""
-#~ "Nie. CAT wspiera tylko te systemy operacyjne, które dają się w jakiś "
-#~ "sposób automatycznie skonfigurować. Z eduroam można też korzystać na "
-#~ "wielu innych urządzeniach, ale trzeba je skonfigurować ręcznie. "
-#~ "Skontaktuj się ze swoją instytucją macierzystą, aby uzyskać pomoc w "
-#~ "sprawie konfiguracji."
-
-#~ msgid ""
-#~ "eduroam is a global WiFi roaming consortium which gives members of "
-#~ "education and research access to the internet <i>for free</i> on all "
-#~ "hotspots on the planet. There are several million eduroam users already, "
-#~ "enjoying free internet access on more than 6.000 hotspots! Visit <a "
-#~ "href='http://www.eduroam.org'>the eduroam homepage</a> for more details."
-#~ msgstr ""
-#~ "eduroam to ogólnoświatowe porozumienie, dzięki któremu osoby związane z "
-#~ "instytucjami akademickimi i naukowymi mogą korzystać ze wszystkich "
-#~ "hotspotów eduroam na świecie <i>za darmo</i>. Obecnie eduroam ma kilka "
-#~ "milionów użytkowników korzystających z ponad 6000 hotspotów! Zajrzyj na "
-#~ "<a href='http:/www.eduroam.org'>stronę eduroam</a>, żeby dowiedzieć się "
-#~ "więcej."
-
-#~ msgid ""
-#~ "But Android works just fine! I've got the 'eduroam fixer' app! What's "
-#~ "wrong with that?"
-#~ msgstr ""
-#~ "Ale przecież Android działa bardzo dobrze!  Jest aplikacja 'eduroam "
-#~ "fixer', czy coś jest z nią nie tak?"
-
-#~ msgid ""
-#~ "The 'eduroam fixer' app disables all server-side security settings. Using "
-#~ "it means that you will merrily send your login credentials to any "
-#~ "unauthorised party asking for them. In particular, someone could setup a "
-#~ "rogue hotspot which mimicks as an eduroam hotspot. He could wait for you "
-#~ "to log in and you would deliver your credentials on a silver platter to "
-#~ "him. In your own interest, please <strong>DO NOT USE</strong> the "
-#~ "'eduroam fixer' app!"
-#~ msgstr ""
-#~ "Aplikacja 'eduroam fixer' wyłącza wszelkie zabezpieczenia logowania. "
-#~ "Jeżeli skonfigurujesz eduroam przy jej pomocy, to w konsekwencji będziesz "
-#~ "wysyłał swoje hasło każdemu, kto o nie poprosi. Ktoś może uruchomić "
-#~ "fałszywy hotspot eduroam i zbierać loginy i hasła od wszystkich "
-#~ "niezabezpieczonych użytkowników. <strong>NIE UŻYWAJ</strong> aplikacji "
-#~ "'eduroam fixer'."
-
-#~ msgid ""
-#~ "But Android works just fine! I've got the 'eduroam fixer' app which works "
-#~ "great on many IEEE 802.1X networks! What's wrong with that?"
-#~ msgstr ""
-#~ "Ale przecież Android działa bardzo dobrze!  Jest aplikacja 'eduroam "
-#~ "fixer', czy coś jest z nią nie tak?"
-
-#~ msgid ""
-#~ "The 'eduroam fixer' app disables all server-side security settings. Using "
-#~ "it means that you will merrily send your login credentials to any "
-#~ "unauthorised party asking for them. In particular, someone could setup a "
-#~ "rogue hotspot which mimicks as %s hotspot. He could wait for you to log "
-#~ "in and you would deliver your credentials on a silver platter to him. The "
-#~ "app also hard-wires one specific EAP type, which may or may not be a "
-#~ "correct guess in your network setup. In your own interest, please "
-#~ "<strong>DO NOT USE</strong> the 'eduroam fixer' app!"
-#~ msgstr ""
-#~ "Aplikacja 'eduroam fixer' wyłącza wszelkie zabezpieczenia logowania. "
-#~ "Jeżeli skonfigurujesz sieć przy jej pomocy, to w konsekwencji będziesz "
-#~ "wysyłał swoje hasło każdemu, kto o nie poprosi. Ktoś może uruchomić "
-#~ "fałszywy hotspot %s i zbierać loginy i hasła od wszystkich "
-#~ "niezabezpieczonych użytkowników. <strong>NIE UŻYWAJ</strong> aplikacji "
-#~ "'eduroam fixer'."
-
-#, fuzzy
-#~ msgid "Manage your institution settings"
-#~ msgstr "Wybierz swoją instytucję"
-
-#~ msgid "no configurator avalable for these input data"
-#~ msgstr "Nie można przygotować instalatora dla tych danych wejściowych."
-
-#~ msgid "the %s"
-#~ msgstr "%s"
-
-#~ msgid "About eduroam CAT"
-#~ msgstr "Więcej o eduroam CAT"
-
-#~ msgid "the eduroam Configuration Assistant Tool"
-#~ msgstr "Asystent konfiguracji eduroam - CAT (Configutation Assistant Tool)"
+msgstr "Wszystkie urządzenia"
