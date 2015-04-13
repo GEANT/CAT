@@ -18,8 +18,10 @@
                tutorial (closing items D2 and D4 of the audit)
 - [BUGFIX #10] Input sanitisation in productheader() improved (closes item 7
                from the source code audit)
-- [NEW #1]     Added a new eap-config device and two instances of Android devices
+- [BUGFIX #11] all other source code audit issues fixed
+- [FEATURE #1] Added a new eap-config device and two instances of Android devices
                all based on the generic XML device
+- [FEATURE #2] added verbose copyright and licensing information, see footer
 
 Changes in 1.1-beta1
 ====================
