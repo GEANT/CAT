@@ -19,6 +19,9 @@
 - [BUGFIX #10] Input sanitisation in productheader() improved (closes item 7
                from the source code audit)
 - [BUGFIX #11] all other source code audit issues fixed
+- [BUGFIX #12] removed XP support and Win Vista and 7 support for TTLS due to
+               open licensing questions on a particular third-party helper
+               program
 - [FEATURE #1] Added a new eap-config device and two instances of Android devices
                all based on the generic XML device
 - [FEATURE #2] added verbose copyright and licensing information, see footer
