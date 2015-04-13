@@ -1,38 +1,39 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-#   <Jari.Miettinen@csc.fi>, 2012.
-# Tomi Salmi <tomi.salmi@csc.fi>, 2013.
+# Jari Miettinen <Jari.Miettinen@csc.fi>, 2012
+# Jari Miettinen <Jari.Miettinen@csc.fi>, 2013
+# Tomi Salmi <tomi.salmi@csc.fi>, 2013,2015
+# tuukka, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 11:47+0200\n"
-"PO-Revision-Date: 2013-01-28 14:29+0000\n"
-"Last-Translator: tomisalmi <tomi.salmi@csc.fi>\n"
-"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/"
-"language/fi_FI/)\n"
-"Language: fi_FI\n"
+"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"PO-Revision-Date: 2015-04-07 09:41+0000\n"
+"Last-Translator: Tomi Salmi <tomi.salmi@csc.fi>\n"
+"Language-Team: Finnish (Finland) (http://www.transifex.com/projects/p/cat/language/fi_FI/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:126
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support"
-msgstr "paikallinen %s tuki"
+msgstr "paikallinen %s-tuki"
 
-#: core/DeviceConfig.php:127
+#: core/DeviceConfig.php:131
 #, php-format
 msgid "your local %s support page"
-msgstr "paikallinen %s tukisivu"
+msgstr "paikallinen %s-tukisivu"
 
-#: core/DeviceConfig.php:159
+#: core/DeviceConfig.php:163
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Anteeksi, tämän ei pitäisi tapahtua - lisätietoa ei ole saatavissa"
+msgstr "Pahoittelut, tämän ei pitäisi tapahtua – lisätietoja ei ole saatavissa"
 
 #: core/Federation.php:74
 msgid "Andorra"
@@ -52,7 +53,7 @@ msgstr "Bulgaria"
 
 #: core/Federation.php:78
 msgid "Cyprus"
-msgstr ""
+msgstr "Kypros"
 
 #: core/Federation.php:79
 msgid "Czech Republic"
@@ -111,7 +112,6 @@ msgid "Latvia"
 msgstr "Latvia"
 
 #: core/Federation.php:93
-#, fuzzy
 msgid "Lithuania"
 msgstr "Liettua"
 
@@ -213,84 +213,83 @@ msgstr "Venezuela"
 
 #: core/Federation.php:119
 msgid "Default"
-msgstr ""
+msgstr "Oletus"
 
 #: core/Federation.php:120
 msgid "Armenia"
-msgstr ""
+msgstr "Armenia"
 
 #: core/Federation.php:121
 msgid "Azerbaijan"
-msgstr ""
+msgstr "Azerbaidžan"
 
 #: core/Federation.php:122
 msgid "Belarus"
-msgstr ""
+msgstr "Valko-Venäjä"
 
 #: core/Federation.php:123
 msgid "Ecuador"
-msgstr ""
+msgstr "Ecuador"
 
 #: core/Federation.php:124
 msgid "Hong Kong"
-msgstr ""
+msgstr "Hong Kong"
 
 #: core/Federation.php:125
 msgid "Kenya"
-msgstr ""
+msgstr "Kenia"
 
 #: core/Federation.php:126
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kirgisia"
 
 #: core/Federation.php:127
 msgid "Korea"
-msgstr ""
+msgstr "Korea"
 
 #: core/Federation.php:128
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kazakstan"
 
 #: core/Federation.php:129
 msgid "Morocco"
-msgstr ""
+msgstr "Marokko"
 
 #: core/Federation.php:130
 msgid "Moldova"
-msgstr ""
+msgstr "Moldova"
 
 #: core/Federation.php:131
 msgid "Montenegro"
-msgstr ""
+msgstr "Montenegro"
 
 #: core/Federation.php:132
 msgid "Macau"
-msgstr ""
+msgstr "Macao"
 
 #: core/Federation.php:133
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: core/Federation.php:134
 msgid "Russia"
-msgstr ""
+msgstr "Venäjä"
 
 #: core/Federation.php:135
 msgid "Singapore"
-msgstr ""
+msgstr "Singapore"
 
 #: core/Federation.php:136
-#, fuzzy
 msgid "Thailand"
-msgstr "Suomi"
+msgstr "Thaimaa"
 
 #: core/Federation.php:137
 msgid "Taiwan"
-msgstr ""
+msgstr "Taiwan"
 
 #: core/Federation.php:138
 msgid "South Africa"
-msgstr ""
+msgstr "Etelä-Afrikka"
 
 #: core/Federation.php:338
 msgid "Could not create a new Institution!"
@@ -308,7 +307,7 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "Hei,⏎ ⏎ Identity Provider %s %s federaatiostasi %s on poistettu ryhmästä %s.⏎ ⏎ Arvelimme, että haluaisit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
 
 #: core/IdP.php:345
 msgid "IdP in your federation was deleted"
@@ -316,144 +315,144 @@ msgstr "Federaatiosi IdP poistettiin"
 
 #: core/RADIUSTests.php:255
 msgid "eduPKI"
-msgstr ""
+msgstr "eduPKI"
 
 #: core/RADIUSTests.php:256
 msgid "Nicolaus Copernicus University"
-msgstr ""
+msgstr "Nicolaus Copernicus Yliopisto"
 
 #: core/RADIUSTests.php:257
 msgid "accredited"
-msgstr ""
+msgstr "hyväksytty"
 
 #: core/RADIUSTests.php:258
 msgid "non-accredited"
-msgstr ""
+msgstr "ei hyväksytty"
 
 #: core/RADIUSTests.php:259
 msgid "correct certificate"
-msgstr ""
+msgstr "oikea varmenne"
 
 #: core/RADIUSTests.php:260
 msgid "certificate with wrong policy OID"
-msgstr ""
+msgstr "varmenne, jonka OID on väärä"
 
 #: core/RADIUSTests.php:261
 msgid "expired certificate"
-msgstr ""
+msgstr "vanhentunut varmenne"
 
 #: core/RADIUSTests.php:262
 msgid "revoked certificate"
-msgstr ""
+msgstr "peruutettu varmenne"
 
 #: core/RADIUSTests.php:263
 msgid "pass"
-msgstr ""
+msgstr "onnistua"
 
 #: core/RADIUSTests.php:264
 msgid "fail"
-msgstr ""
+msgstr "epäonnistua"
 
 #: core/RADIUSTests.php:265
 msgid "eduroam-accredited CA (now only for tests)"
-msgstr ""
+msgstr "eduroamiin hyväksytty CA (testejä varten)"
 
 #: core/RADIUSTests.php:369
 msgid "Completed"
-msgstr ""
+msgstr "Valmis"
 
 #: core/RADIUSTests.php:381
 msgid "This check was skipped."
-msgstr ""
+msgstr "Ohitettu."
 
 #: core/RADIUSTests.php:388
 msgid "There were errors during the test."
-msgstr ""
+msgstr "Testissä havaittiin virheitä."
 
 #: core/RADIUSTests.php:396
 msgid "This realm has no NAPTR records."
-msgstr ""
+msgstr "Tällä realmilla ei ole NAPTR-tietueita."
 
 #: core/RADIUSTests.php:403
 msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr ""
+msgstr "NAPTR-tietueita löytyi, mutta niiden viittaukset eivät ole kunnossa."
 
 #: core/RADIUSTests.php:411
 msgid "There was no reply at all from the RADIUS server."
-msgstr ""
+msgstr "RADIUS-palvelin ei vastannut."
 
 #: core/RADIUSTests.php:418
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
-msgstr ""
+"There was a bidirectional communication with the RADIUS server, but it ended"
+" halfway through."
+msgstr "RADIUS-palvelimen kanssa oli kaksisuuntaista neuvottelua, mutta se keskeytyi."
 
 #: core/RADIUSTests.php:425
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
-msgstr ""
+msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen."
 
 #: core/RADIUSTests.php:432
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
-msgstr ""
+msgstr "RADIUS-palvelin hylkäsi autentikointiyrityksen EAP-vaiheessa."
 
 #: core/RADIUSTests.php:439
 msgid "Connection refused"
-msgstr ""
+msgstr "Yhteydenotto hylättiin"
 
 #: core/RADIUSTests.php:446
 msgid "Not enough data provided to perform an authentication"
-msgstr ""
+msgstr "Ei riittävästi tietoa autentikoinnin suorittamiseksi."
 
 #: core/RADIUSTests.php:454
 msgid ""
 "The certificate password you provided does not match the certificate file."
-msgstr ""
+msgstr "Antamasi varmennesalasana ei täsmää varmennetiedoston kanssa."
 
 #: core/RADIUSTests.php:462
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
-msgstr ""
+msgstr "Varmenneketju sisältää juurivarmenteen – siitä ei ole mitään varsinaista hyötyä, mutta se voi hidastaa autentikointia lisääntyneen tiedonsiirron johdosta."
 
 #: core/RADIUSTests.php:469
 msgid "There is more than one server certificate in the chain."
-msgstr ""
+msgstr "Varmenneketjussa on useampia kuin yksi palvelinvarmenne."
 
 #: core/RADIUSTests.php:476
 msgid "There is no server certificate in the chain."
-msgstr ""
+msgstr "Varmenneketjussa ei ole palvelinvarmennetta."
 
 #: core/RADIUSTests.php:483
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
-msgstr ""
+msgstr "Vähintään yksi varmenneketjun varmenteista on allekirjoitettu MD5-tiivistefunktiolla. Monet käyttöjärjestelmät, kuten Apple iOS, eivät salli MD5:n käyttöä."
 
 #: core/RADIUSTests.php:490
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
-msgstr ""
+"bits. Many recent operating systems consider this unacceptable and will fail"
+" to validate the server certificate."
+msgstr "Ainakin yksi varmenneketjun varmenteista on alle 1024-bittinen. Monet käyttöjärjestelmät eivät enää kelpuuta heikkoja varmenteita tietoturvasyistä."
 
 #: core/RADIUSTests.php:497
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
-msgstr ""
+msgstr "Palvelinvarmenne ei sisällä 'extendedKeyUsage: TLS Web Server Authentication' -laajennusta. Useimmat Microsoftin käyttöjärjestelmät eivät kelpuuta tätä varmennetta."
 
 #: core/RADIUSTests.php:504
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
-msgstr ""
+msgstr "Palvelinvarmenne ei sisällä sulkulistan jakelupistettä 'CRL Distribution Point', josta voi aiheutua yhteensopivuusongelmia Windows Phone 8:n kanssa."
 
 #: core/RADIUSTests.php:511
 msgid ""
@@ -461,27 +460,27 @@ msgid ""
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
-msgstr ""
+msgstr "Palvelinvarmenteen sulkulistan jakelupistelaajennos 'CRL Distribution Point' ei sisällä HTTP/HTTPS-osoitetta. Jotkin käyttöjärjestelmät eivät välttämättä kykene tarkistamaan varmennetta, koska ne eivät tue muita vaihtoehtoja."
 
 #: core/RADIUSTests.php:518
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"non-existing location. Some Operating Systems check certificate validity by "
-"consulting the CRL and will fail to validate the certificate. Checking "
+"The extension 'CRL Distribution Point' in the server certificate points to a"
+" non-existing location. Some Operating Systems check certificate validity by"
+" consulting the CRL and will fail to validate the certificate. Checking "
 "server certificate validity against a CRL will not be possible."
-msgstr ""
+msgstr "Palvelinvarmenteen 'CRL Distribution Point' osoittaa olemattomaan kohteeseen. Jotkut käyttöjärjestelmät tarkistavat sulkulistatiedoston olemassaolon ja autentikointi voi epäonnistua mikäli tiedostoa ei löydy."
 
 #: core/RADIUSTests.php:525
 msgid "The server certificate was revoked by the CA!"
-msgstr ""
+msgstr "Palvelinvarmenne on sen myöntäneen tahon peruuttama!"
 
 #: core/RADIUSTests.php:532
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
-msgstr ""
+"The certificate contained a CN or subjectAltName:DNS which does not parse as"
+" a hostname. This can be problematic on some supplicants. If the certificate"
+" also contains names which are a proper hostname, and you only use those for"
+" your supplicant configuration, then you can safely ignore this notice."
+msgstr "Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue ei jäsenny palvelimen nimeksi. Siitä voi seurata ongelmia joissakin päätelaitteissa. Voit jättää tämän varoituksen huomiotta mikäli varmenne sisältää myös kelpoja nimiä ja käytät vain niitä päätelaitteiden asetuksissa."
 
 #: core/RADIUSTests.php:539
 msgid ""
@@ -490,13 +489,13 @@ msgid ""
 "certificate also contains names which are wildcardless, and you only use "
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
-msgstr ""
+msgstr "Palvelinvarmenteen CN- tai subjectAltName:DNS-tietue sisältää jokerimerkin ('*'). Siitä voi seurata ongelmia joidenkin päätelaitteiden kanssa. Voit jättää tämän varoituksen huomiotta mikäli varmenne sisältää myös jokerittomia nimiä ja käytät vain niitä päätelaitteiden asetuksissa."
 
 #: core/RADIUSTests.php:546
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
-msgstr ""
+msgstr "Ainakaan yksi varmenteista ei ole voimassa (ei ole tullut vielä voimaan tai on jo vanhentunut)!"
 
 #: core/RADIUSTests.php:553
 #, php-format
@@ -505,13 +504,13 @@ msgid ""
 "validity period (not yet valid, or already expired), but this certificate "
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
-msgstr ""
+msgstr "Vähintään yksi profiiliin määritellyn varmenneketjun varmenteista on vanhentunut (tai ei ole vielä voimassa), mutta tätä varmennetta ei käytetty palvelimen autentikoinnissa. Harkitse varmenteen poistamista profiilista %s."
 
 #: core/RADIUSTests.php:560
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
-msgstr ""
+msgstr "Palvelinvarmenteen tarkistaminen profiiliin määriteltyä juurivarmennetta vasten ei onnistunut!"
 
 #: core/RADIUSTests.php:564
 msgid ""
@@ -519,20 +518,20 @@ msgid ""
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
-msgstr ""
+msgstr "Palvelimen EAP-neuvottelussa lähettämä varmenneketju ei ollut riittävä palvelinvarmenteen tarkistamiseksi profiiliin määriteltyä juurivarmennetta vasten. Sen tarkistaminen onnistui kuitenkin profiiliin määriteltyjä välivarmenteita vastaan. Harkitse tarvittavien välivarmenteiden lisäämistä palvelimen lähettämään varmenneketjuun."
 
 #: core/RADIUSTests.php:570
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
-msgstr ""
+msgstr "EAP-palvelimen nimi ei täsmää minkään profiilin määritellyn nimen kanssa!"
 
 #: core/RADIUSTests.php:577
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS"
+" of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
-msgstr ""
+msgstr "Saadusta varmenteesta löytyy määritellyn EAP-palvelimen nimi joko CN- tai subjectAltName:DNS-tietueesta – parhaan nykyisen käytännön mukaan nimen pitäisi löytyä varmenteessa molemmista tietueista."
 
 #: core/RADIUSTests.php:584
 msgid ""
@@ -540,79 +539,76 @@ msgid ""
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
-msgstr ""
+msgstr "Ainakaan yksi varmenteista ei sisällä BasicConstraints-laajennosta, jonka myötä on epäselvää onko varmenne juurivarmenne vai palvelin- tai asiakasvarmenne. Ainakaan OS X 10.8 (Mountain Lion) ei kelpuuta varmennetta EAP-käyttöön!"
 
 #: core/RADIUSTests.php:591
 msgid "The server presented a certificate from an unknown authority."
-msgstr ""
+msgstr "Palvelin tarjosi tuntemattoman varmentajan myöntämän varmenteen."
 
 #: core/RADIUSTests.php:598
 msgid "The server accepted the INVALID client certificate."
-msgstr ""
+msgstr "Palvelin kelpuutti EPÄKELVON asiakasvarmenteen."
 
 #: core/RADIUSTests.php:605
 msgid "The server rejected the client certificate, even though it was valid."
-msgstr ""
+msgstr "Palvelin hylkäsi asiakasvarmenteen kelvollisuudesta huolimatta."
 
 #: core/RADIUSTests.php:612
 msgid "The server rejected the client certificate as expected."
-msgstr ""
+msgstr "Palvelin hylkäsi asiakasvarmenteen odotetusti."
 
 #: core/RADIUSTests.php:619
 msgid "The CRL of a certificate could not be found."
-msgstr ""
+msgstr "Varmenteen sulkulistaa ei löytynyt."
 
 #: core/RADIUSTests.php:626
 msgid "EAP method negotiation failed!"
-msgstr ""
+msgstr "Käytettävän EAP-mekanismin neuvottelu epäonnistui!"
 
 #: core/RADIUSTests.php:1490
 msgid "certificate expired"
-msgstr ""
+msgstr "varmenne vanhentunut"
 
 #: core/RADIUSTests.php:1492
 msgid "certificate was revoked"
-msgstr ""
+msgstr "varmenne peruutettiin"
 
 #: core/RADIUSTests.php:1494
 msgid "bad policy"
-msgstr ""
+msgstr "huono käytäntö"
 
 #: core/RADIUSTests.php:1496
 msgid "unknown authority"
-msgstr ""
+msgstr "tuntematon varmentaja"
 
 #: core/RADIUSTests.php:1499
 msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
+msgstr "tuntematon varmentaja, ei varmennekäytäntöjä tai muu virhe"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant
+#. Tool)
 #: core/UserManagement.php:150
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has "
-"been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr ""
-"Hei,⏎ ⏎ uuden käyttäjäorganisaation kutsu organisaatiolle %s, Identity "
-"Provider %s federaatiossasi %s on käytetty ja IdP luotiin ryhmässä %s.⏎ ⏎ "
-"Arvelimme, että halusit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
+msgstr "Hei,⏎ ⏎ uuden käyttäjäorganisaation kutsu organisaatiolle %s, Identity Provider %s federaatiossasi %s on käytetty ja IdP luotiin ryhmässä %s.⏎ ⏎ Arvelimme, että halusit tietää asiasta.⏎ ⏎ Parhain terveisin,⏎ ⏎ %s"
 
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"
-msgstr ""
+msgstr "Federaatioosi lisättiin IdP"
 
 #: core/User.php:243
 msgid "Feedback"
-msgstr ""
+msgstr "Palaute"
