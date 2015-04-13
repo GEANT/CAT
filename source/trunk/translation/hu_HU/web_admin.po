@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-08 16:11+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
+"hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/admin/action_enrollment.php:34 web/admin/action_enrollment.php:35
@@ -31,14 +32,18 @@ msgstr "Ezt a tokent sajnos már felhasználta valaki előtted."
 msgid ""
 "Sorry... this token has expired. Invitation tokens are valid for 24 hours. "
 "Please ask your federation administrator for a new one."
-msgstr "A meghívó tokenek csak 24 óráig érvényesek, és ez sajnos már lejárt. Kérj másikat a föderáció adminisztrátorától!"
+msgstr ""
+"A meghívó tokenek csak 24 óráig érvényesek, és ez sajnos már lejárt. Kérj "
+"másikat a föderáció adminisztrátorától!"
 
 #: web/admin/action_enrollment.php:41
 msgid ""
-"Sorry... you have come to the enrollment page without a valid token. Are you"
-" a nasty person? If not, you should go to <a href='overview_user.php'>your "
+"Sorry... you have come to the enrollment page without a valid token. Are you "
+"a nasty person? If not, you should go to <a href='overview_user.php'>your "
 "profile page</a> instead."
-msgstr "Elnézést, de érvényes token nélkül próbáltál feliratkozni. Ha nem valami imposztor vagy, folytasd a <a href='overview_user.php'>profilodnál</a>!"
+msgstr ""
+"Elnézést, de érvényes token nélkül próbáltál feliratkozni. Ha nem valami "
+"imposztor vagy, folytasd a <a href='overview_user.php'>profilodnál</a>!"
 
 #: web/admin/action_realmcheck.php:21
 msgid "Sanity check for dynamic discovery of realms"
@@ -304,11 +309,11 @@ msgstr ""
 #: web/admin/action_realmcheck.php:540
 #, php-format
 msgid ""
-"This check sends a request for the realm through various entry points of the"
-" %s infrastructure. The request will contain the 'Operator-Name' attribute, "
+"This check sends a request for the realm through various entry points of the "
+"%s infrastructure. The request will contain the 'Operator-Name' attribute, "
 "and will be larger than 1500 Bytes to catch two common configuration "
-"problems.<br/>Since we don't have actual credentials for the realm, we can't"
-" authenticate successfully - so the expected outcome is to get an Access-"
+"problems.<br/>Since we don't have actual credentials for the realm, we can't "
+"authenticate successfully - so the expected outcome is to get an Access-"
 "Reject after having gone through an EAP conversation."
 msgstr ""
 
@@ -371,9 +376,9 @@ msgstr ""
 #: web/admin/action_realmcheck.php:634
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
-"check whether the right CAs and server names are used, and of course whether"
-" the login with these credentials and the given EAP type actually worked. If"
-" you have set anonymous outer ID, the test will use that."
+"check whether the right CAs and server names are used, and of course whether "
+"the login with these credentials and the given EAP type actually worked. If "
+"you have set anonymous outer ID, the test will use that."
 msgstr ""
 
 #: web/admin/action_realmcheck.php:635
@@ -454,10 +459,10 @@ msgstr "Ország:"
 #: web/admin/edit_idp.php:103
 msgid ""
 "Hello, newcomer. Your institution is new to us. This wizard will ask you "
-"several questions about your IdP, so that we can generate beautiful profiles"
-" for you in the end. All of the information below is optional, but it is "
-"important to fill out as many fields as possible for the benefit of your end"
-" users."
+"several questions about your IdP, so that we can generate beautiful profiles "
+"for you in the end. All of the information below is optional, but it is "
+"important to fill out as many fields as possible for the benefit of your end "
+"users."
 msgstr ""
 
 #: web/admin/edit_idp.php:106
@@ -568,8 +573,7 @@ msgstr ""
 
 #: web/admin/edit_idp.php:170
 msgid ""
-"Please configure which Consortium OIs should be configured in the "
-"installers."
+"Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
 
 #: web/admin/edit_idp.php:173
@@ -579,10 +583,10 @@ msgstr ""
 #: web/admin/edit_idp.php:174
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
-"wired ethernet, please check the corresponding box. Note that this makes the"
-" installation process a bit more difficult on some platforms (Windows: needs"
-" administrator privileges; Apple: attempting to install a profile with wired"
-" support on a device without an active wired ethernet card will fail)."
+"wired ethernet, please check the corresponding box. Note that this makes the "
+"installation process a bit more difficult on some platforms (Windows: needs "
+"administrator privileges; Apple: attempting to install a profile with wired "
+"support on a device without an active wired ethernet card will fail)."
 msgstr ""
 
 #: web/admin/edit_idp.php:176
@@ -592,8 +596,8 @@ msgstr ""
 #: web/admin/edit_idp.php:177
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
-"unconfigure/disable that SSID after the bootstrap process. With this option,"
-" the SSID will either be removed, or be defined as 'Only connect manually'."
+"unconfigure/disable that SSID after the bootstrap process. With this option, "
+"the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
 
 #: web/admin/edit_idp.php:191
@@ -602,9 +606,9 @@ msgstr ""
 
 #: web/admin/edit_idp.php:195
 msgid ""
-"If your IdP provides a helpdesk for its users, it would be nice if you would"
-" tell us the pointers to this helpdesk. Some site installers might be able "
-"to signal this information to the user if he gets stuck."
+"If your IdP provides a helpdesk for its users, it would be nice if you would "
+"tell us the pointers to this helpdesk. Some site installers might be able to "
+"signal this information to the user if he gets stuck."
 msgstr ""
 
 #: web/admin/edit_idp.php:197
@@ -612,8 +616,8 @@ msgid ""
 "If you enter a value here, it will be added to the site installers for all "
 "your users, and will be displayed on the download page. If you operate "
 "separate helpdesks for different user groups (we call this 'profiles'), or "
-"operate no help desk at all (shame on you!), you can also leave any of these"
-" fields empty and optionally specify per-profile helpdesk information later "
+"operate no help desk at all (shame on you!), you can also leave any of these "
+"fields empty and optionally specify per-profile helpdesk information later "
 "in this wizard."
 msgstr ""
 
@@ -624,8 +628,8 @@ msgstr ""
 #: web/admin/edit_idp.php:210
 msgid ""
 "Most EAP methods need server-side authentication details, like the CA "
-"certificate and/or server name(s) of your authentication servers. If all the"
-" EAP methods you support work with the same CA and or Common Names of "
+"certificate and/or server name(s) of your authentication servers. If all the "
+"EAP methods you support work with the same CA and or Common Names of "
 "servers, you can enter them here and they will be added as trust anchors in "
 "all profiles. If the details differ per profile or per EAP-type, you can "
 "also enter them in the individual profiles later."
@@ -642,8 +646,8 @@ msgstr ""
 #: web/admin/edit_idp.php:222
 #, php-format
 msgid ""
-"When you are sure that everything is correct, please click on %sContinue "
-"...%s"
+"When you are sure that everything is correct, please click on %sContinue ..."
+"%s"
 msgstr ""
 
 #: web/admin/edit_idp.php:224 web/admin/edit_profile.php:476
@@ -676,8 +680,7 @@ msgstr ""
 
 #: web/admin/edit_idp_result.php:102
 #, php-format
-msgid ""
-"Your installers will configure the following SSIDs: <strong>%s</strong>"
+msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 
 #: web/admin/edit_idp_result.php:102
@@ -741,8 +744,8 @@ msgstr ""
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
-"page. After we are done, the wizard is finished and you will be taken to the"
-" main IdP administration page."
+"page. After we are done, the wizard is finished and you will be taken to the "
+"main IdP administration page."
 msgstr ""
 
 #: web/admin/edit_profile.php:209
@@ -758,8 +761,8 @@ msgstr ""
 
 #: web/admin/edit_profile.php:213
 msgid ""
-"Optionally, you can provide a longer descriptive text about who this profile"
-" is for. If you specify it, it will be displayed on the download page after "
+"Optionally, you can provide a longer descriptive text about who this profile "
+"is for. If you specify it, it will be displayed on the download page after "
 "the user has selected the profile name in the list."
 msgstr ""
 
@@ -770,8 +773,8 @@ msgstr "Megadhatod a RADIUS tartományodat is."
 #: web/admin/edit_profile.php:216
 #, php-format
 msgid ""
-"This is useful if you want to use the sanity check module later, which tests"
-" reachability of your realm in the %s infrastructure. "
+"This is useful if you want to use the sanity check module later, which tests "
+"reachability of your realm in the %s infrastructure. "
 msgstr ""
 
 #: web/admin/edit_profile.php:217
@@ -819,8 +822,8 @@ msgid ""
 "learn about the support pointers you entered earlier. The CAT can also "
 "immediately offer the installers for the profile for download. If you don't "
 "want that, you can instead enter a web site location where you want your "
-"users to be redirected to. You, as the administrator, can still download the"
-" profiles to place them on that page (see the 'Compatibility Matrix' button "
+"users to be redirected to. You, as the administrator, can still download the "
+"profiles to place them on that page (see the 'Compatibility Matrix' button "
 "on the dashboard)."
 msgstr ""
 
@@ -837,8 +840,8 @@ msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
 "tool will always generate an automatic installer for the EAP type with the "
-"highest priority; only if the user's device can't use that EAP type, we will"
-" use an EAP type further down in the list."
+"highest priority; only if the user's device can't use that EAP type, we will "
+"use an EAP type further down in the list."
 msgstr ""
 
 #: web/admin/edit_profile.php:330
@@ -877,8 +880,8 @@ msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
 "level, this setting will override the IdP-wide one."
 msgid_plural ""
-"The options %s are already defined IdP-wide. If you set them here on profile"
-" level, these settings will override the IdP-wide ones."
+"The options %s are already defined IdP-wide. If you set them here on profile "
+"level, these settings will override the IdP-wide ones."
 msgstr[0] ""
 msgstr[1] ""
 
@@ -935,8 +938,7 @@ msgid "OFF"
 msgstr "KI"
 
 #: web/admin/edit_profile_result.php:119
-msgid ""
-"Redirection can't be activated - you did not specify a target location!"
+msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
 
 #: web/admin/edit_profile_result.php:125
@@ -1143,8 +1145,8 @@ msgstr "Az IdP törlése"
 #, php-format
 msgid ""
 "This action will delete all properties of your IdP and start over the "
-"configuration from scratch. Do you really want to reset all settings of your"
-" IdP %s?"
+"configuration from scratch. Do you really want to reset all settings of your "
+"IdP %s?"
 msgstr ""
 
 #: web/admin/overview_idp.php:117
@@ -1217,9 +1219,7 @@ msgstr ""
 msgid "Profile: %s"
 msgstr ""
 
-#. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on
-#. MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the
-#. admin...
+#. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
 #: web/admin/overview_idp.php:218
 #, php-format
 msgid "Read this <a href='%s'>tip</a>."
@@ -1343,8 +1343,7 @@ msgstr ""
 #: web/admin/overview_user.php:72
 #, php-format
 msgid "You are managing the following institution:"
-msgid_plural ""
-"You are managing the following <strong>%d</strong> institutions:"
+msgid_plural "You are managing the following <strong>%d</strong> institutions:"
 msgstr[0] "Az alábbi intézmény adminisztrátora vagy:"
 msgstr[1] "Az alábbi  <strong>%d</strong> intézmény adminisztrátora vagy:"
 
@@ -1371,13 +1370,17 @@ msgstr "Nem vagy adminisztrátor egyetlen intézményben sem."
 msgid ""
 "Please ask your federation administrator to invite you to become an "
 "institution administrator."
-msgstr "Kérd meg a szövetséged adminisztrátorát, hogy nevezzen ki intézményi adminisztrátornak!"
+msgstr ""
+"Kérd meg a szövetséged adminisztrátorát, hogy nevezzen ki intézményi "
+"adminisztrátornak!"
 
 #: web/admin/overview_user.php:144
 msgid ""
 "Did you receive an invitation token to manage an institution? Please paste "
 "it here:"
-msgstr "Kaptál felkérést az intézmény adminisztrálására? Másold ide a tokent a meghívólevélből:"
+msgstr ""
+"Kaptál felkérést az intézmény adminisztrálására? Másold ide a tokent a "
+"meghívólevélből:"
 
 #: web/admin/radius_tests.php:21 web/admin/radius_tests.php:22
 msgid ""
@@ -1398,8 +1401,8 @@ msgstr ""
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
-"Access-Reject as planned. Some properties of the connection attempt were "
-"sub-optimal; the list is below."
+"Access-Reject as planned. Some properties of the connection attempt were sub-"
+"optimal; the list is below."
 msgstr ""
 
 #: web/admin/radius_tests.php:86 web/admin/radius_tests.php:230
@@ -1448,9 +1451,11 @@ msgstr ""
 #: web/admin/radius_tests.php:202 web/admin/radius_tests.php:242
 #, php-format
 msgid ""
-"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation,"
-" but it did not finish after %d seconds!"
-msgstr "<strong>Sikertelen teszt</strong>: a  RADIUS kommunikáció oda-vissza zajlott, de nem fejeződött be %d másodpercen belül!"
+"<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
+"but it did not finish after %d seconds!"
+msgstr ""
+"<strong>Sikertelen teszt</strong>: a  RADIUS kommunikáció oda-vissza "
+"zajlott, de nem fejeződött be %d másodpercen belül!"
 
 #: web/admin/radius_tests.php:207
 msgid "<strong>Test FAILED</strong>"
@@ -1467,10 +1472,10 @@ msgstr ""
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
-"enforces that outer identities correspond to an existing username, then this"
-" result is expected (Note: you could configure a valid outer identity in "
-"your profile settings to get past this hurdle). In all other cases, the "
-"server appears misconfigured or it is unreachable."
+"enforces that outer identities correspond to an existing username, then this "
+"result is expected (Note: you could configure a valid outer identity in your "
+"profile settings to get past this hurdle). In all other cases, the server "
+"appears misconfigured or it is unreachable."
 msgstr ""
 
 #: web/admin/radius_tests.php:246
@@ -1750,8 +1755,8 @@ msgstr "Hiányzó jelszó"
 #: web/admin/inc/credentialcheck.php:81 web/admin/inc/credentialcheck.php:112
 #, php-format
 msgid ""
-"Sorry, we don't know how to handle the inner EAP method in "
-"<strong>%s</strong> from <strong>%s</strong>!"
+"Sorry, we don't know how to handle the inner EAP method in <strong>%s</"
+"strong> from <strong>%s</strong>!"
 msgstr ""
 
 #: web/admin/inc/credentialcheck.php:112
@@ -1770,8 +1775,8 @@ msgstr ""
 #: web/admin/inc/credentialcheck.php:146
 msgid ""
 "Your profile does not contain a valid realm name. We can only check the "
-"validity of a realm if you let us know the realm name. Please consider going"
-" to your profile properties and enter the realm name."
+"validity of a realm if you let us know the realm name. Please consider going "
+"to your profile properties and enter the realm name."
 msgstr ""
 
 #: web/admin/inc/geo_widget.php:99
@@ -1801,8 +1806,7 @@ msgid ""
 msgstr ""
 
 #: web/admin/inc/geo_widget.php:293
-msgid ""
-"We will use the coordinates as indicated by the marker for geolocation."
+msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr ""
 
 #: web/admin/inc/geo_widget.php:296
@@ -2080,14 +2084,18 @@ msgid ""
 "On this page, you can add new institutions to your federation. Please fill "
 "out the form below to send out an email invitation to the new institution's "
 "administrator."
-msgstr "Ezen az oldalon új intézményt adhatsz a föderációhoz. Töltsd ki az űrlapot és küldj egy meghívólevelet az intézmény adminisztrátorának!"
+msgstr ""
+"Ezen az oldalon új intézményt adhatsz a föderációhoz. Töltsd ki az űrlapot "
+"és küldj egy meghívólevelet az intézmény adminisztrátorának!"
 
 #: web/admin/inc/manageNewInst.inc.php:53
 #, php-format
 msgid ""
 "You can either register a known IdP (as defined in the %s database) or "
 "create a totally new IdP."
-msgstr "Vagy regisztrálsz egy már létező IdP-t (a %s adatbázisból) vagy létrehozhatsz egy újat."
+msgstr ""
+"Vagy regisztrálsz egy már létező IdP-t (a %s adatbázisból) vagy "
+"létrehozhatsz egy újat."
 
 #: web/admin/inc/manageNewInst.inc.php:54
 #, php-format
@@ -2160,8 +2168,8 @@ msgstr "%dx %s"
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
-"display this string for installers which are <strong>exactly</strong> in the"
-" language you configured. For the sake of all other languages, you may want "
+"display this string for installers which are <strong>exactly</strong> in the "
+"language you configured. For the sake of all other languages, you may want "
 "to edit the profile again and populate the 'default/other' language field."
 msgstr ""
 
@@ -2233,8 +2241,7 @@ msgid "and enter the invitation token"
 msgstr ""
 
 #: web/admin/inc/sendinvite.inc.php:132
-msgid ""
-"manually. Please do not reply to this email, it is a send-only address."
+msgid "manually. Please do not reply to this email, it is a send-only address."
 msgstr ""
 
 #: web/admin/inc/sendinvite.inc.php:134

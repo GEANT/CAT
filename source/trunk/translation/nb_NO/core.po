@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Tom Ivar Myren <tom.myren@uninett.no>, 2013,2015
 # Tom Ivar Myren <tom.myren@uninett.no>, 2012-2013
@@ -9,27 +9,28 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-08 08:37+0000\n"
 "Last-Translator: Tom Ivar Myren <tom.myren@uninett.no>\n"
-"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/language/nb/)\n"
+"Language-Team: Norwegian Bokmål (http://www.transifex.com/projects/p/cat/"
+"language/nb/)\n"
+"Language: nb\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: nb\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:126
 #, php-format
 msgid "your local %s support"
 msgstr "din lokale %s brukerstøtte"
 
-#: core/DeviceConfig.php:131
+#: core/DeviceConfig.php:127
 #, php-format
 msgid "your local %s support page"
 msgstr "din lokale %s brukerstøtte side"
 
-#: core/DeviceConfig.php:163
+#: core/DeviceConfig.php:159
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Beklager, dette skal ikke skje - mer informasjon er ikke tilgjengelig"
 
@@ -305,7 +306,9 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Hei, ⏎ ⏎ IdP %s i din %s føderasjon %s er slettet fra %s. ⏎ ⏎ Dette til informasjon. ⏎ ⏎ Vennlig hilsen, ⏎ ⏎ %s"
+msgstr ""
+"Hei, ⏎ ⏎ IdP %s i din %s føderasjon %s er slettet fra %s. ⏎ ⏎ Dette til "
+"informasjon. ⏎ ⏎ Vennlig hilsen, ⏎ ⏎ %s"
 
 #: core/IdP.php:345
 msgid "IdP in your federation was deleted"
@@ -373,7 +376,8 @@ msgstr "Dette realm har ingen NAPTR records."
 
 #: core/RADIUSTests.php:403
 msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr "Det ble funnet NAPTR records, men de refererer til ikke relaterte tjenester."
+msgstr ""
+"Det ble funnet NAPTR records, men de refererer til ikke relaterte tjenester."
 
 #: core/RADIUSTests.php:411
 msgid "There was no reply at all from the RADIUS server."
@@ -381,9 +385,11 @@ msgstr "RADIUS tjeneren svarer ikke."
 
 #: core/RADIUSTests.php:418
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
-msgstr "Det var kommunikasjon begge veier med RADIUS tjeneren, men den ble ikke fullført."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"Det var kommunikasjon begge veier med RADIUS tjeneren, men den ble ikke "
+"fullført."
 
 #: core/RADIUSTests.php:425
 msgid ""
@@ -415,7 +421,10 @@ msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
-msgstr "Sertifikat kjeden inkluderer root CA sertifikatet. Dette tjener ikke formålet da det medfører mer pakkeutveksling, og kan føre til flere \"round-trips\" og dermed tregere autentisering."
+msgstr ""
+"Sertifikat kjeden inkluderer root CA sertifikatet. Dette tjener ikke "
+"formålet da det medfører mer pakkeutveksling, og kan føre til flere \"round-"
+"trips\" og dermed tregere autentisering."
 
 #: core/RADIUSTests.php:469
 msgid "There is more than one server certificate in the chain."
@@ -430,27 +439,37 @@ msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
-msgstr "Minst et sertifikat i kjeden er signert med MD5 signatur algoritme. Mange operativ system, inkludert Apple iOS, vil ikke validere dette sertifikatet."
+msgstr ""
+"Minst et sertifikat i kjeden er signert med MD5 signatur algoritme. Mange "
+"operativ system, inkludert Apple iOS, vil ikke validere dette sertifikatet."
 
 #: core/RADIUSTests.php:490
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
-msgstr "Minst et sertifikat i kjeden har en offentlig nøkkel som er mindre enn 1024 bit. Mange oppdaterte operativ system aksepterer ikke dette og vil ikke validere tjener sertifikatet."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"Minst et sertifikat i kjeden har en offentlig nøkkel som er mindre enn 1024 "
+"bit. Mange oppdaterte operativ system aksepterer ikke dette og vil ikke "
+"validere tjener sertifikatet."
 
 #: core/RADIUSTests.php:497
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
-msgstr "Tjenersertifikatet har ikke tillegget 'extendedKeyUsage: TLS Web Server Authentication'. De fleste Microsoft operativ system vil ikke validere dette sertifikatet."
+msgstr ""
+"Tjenersertifikatet har ikke tillegget 'extendedKeyUsage: TLS Web Server "
+"Authentication'. De fleste Microsoft operativ system vil ikke validere dette "
+"sertifikatet."
 
 #: core/RADIUSTests.php:504
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
-msgstr "Tjenersertifikatet inkluderte ikke et CRL Distribusjonspunkt, det gir kompatibilitetsproblemer med Windows Phone 8."
+msgstr ""
+"Tjenersertifikatet inkluderte ikke et CRL Distribusjonspunkt, det gir "
+"kompatibilitetsproblemer med Windows Phone 8."
 
 #: core/RADIUSTests.php:511
 msgid ""
@@ -458,15 +477,22 @@ msgid ""
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
-msgstr "Tjenersertifikatet's 'CRL Distribusjonspunkt' tillegg peker ikke til en HTTP/HTTPS URL. Noen operativ system vil kanskje ikke validere sertifikatet. En gyldighetsssjekk av tjenersertifikat mot en CRL vil ikke være mulig."
+msgstr ""
+"Tjenersertifikatet's 'CRL Distribusjonspunkt' tillegg peker ikke til en HTTP/"
+"HTTPS URL. Noen operativ system vil kanskje ikke validere sertifikatet. En "
+"gyldighetsssjekk av tjenersertifikat mot en CRL vil ikke være mulig."
 
 #: core/RADIUSTests.php:518
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" non-existing location. Some Operating Systems check certificate validity by"
-" consulting the CRL and will fail to validate the certificate. Checking "
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certificate. Checking "
 "server certificate validity against a CRL will not be possible."
-msgstr "Tillegget 'CRL Distribution Point' i tjenersertifikatet peker til ikke-eksisterende lokasjon. Noen operartiv systemer sjekker sertifikat gyldighet via CRL'en og vil ikke validere dette sertifikatet. En sjekk av sertifikat gyldighet via CRL vil ikke være mulig. "
+msgstr ""
+"Tillegget 'CRL Distribution Point' i tjenersertifikatet peker til ikke-"
+"eksisterende lokasjon. Noen operartiv systemer sjekker sertifikat gyldighet "
+"via CRL'en og vil ikke validere dette sertifikatet. En sjekk av sertifikat "
+"gyldighet via CRL vil ikke være mulig. "
 
 #: core/RADIUSTests.php:525
 msgid "The server certificate was revoked by the CA!"
@@ -474,11 +500,16 @@ msgstr "Tjenersertifikatet er tilbakekalt av CA!"
 
 #: core/RADIUSTests.php:532
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
-msgstr "Sertifikatet inneholder et CN eller subjectAltName:DNS som ikke lar seg oversette til et hostname. Det kan gi problemer for noen supplikanter. Hvis sertifikatet også inneholder navn som lar seg oversette til et hostname og du kun bruker disse i din supplikant konfigurasjon, kan du trygt overse denne advarselen. "
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"Sertifikatet inneholder et CN eller subjectAltName:DNS som ikke lar seg "
+"oversette til et hostname. Det kan gi problemer for noen supplikanter. Hvis "
+"sertifikatet også inneholder navn som lar seg oversette til et hostname og "
+"du kun bruker disse i din supplikant konfigurasjon, kan du trygt overse "
+"denne advarselen. "
 
 #: core/RADIUSTests.php:539
 msgid ""
@@ -487,13 +518,19 @@ msgid ""
 "certificate also contains names which are wildcardless, and you only use "
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
-msgstr "Sertifikatet inneholdt et CN eller subjectAltName:DNS som inneholder et wildcard ('*'). Det kan gi problemer for noen supplikanter. Hvis sertifikatet også inneholder navn uten wildcards og du kun bruker disse i din supplikant konfigurasjon, kan du trygt overse denne advarselen."
+msgstr ""
+"Sertifikatet inneholdt et CN eller subjectAltName:DNS som inneholder et "
+"wildcard ('*'). Det kan gi problemer for noen supplikanter. Hvis "
+"sertifikatet også inneholder navn uten wildcards og du kun bruker disse i "
+"din supplikant konfigurasjon, kan du trygt overse denne advarselen."
 
 #: core/RADIUSTests.php:546
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
-msgstr "Minst ett sertifikat er utenfor lovlig gyldighetsperiode (ennå ikke gyldig, eller allerede utløpt)!"
+msgstr ""
+"Minst ett sertifikat er utenfor lovlig gyldighetsperiode (ennå ikke gyldig, "
+"eller allerede utløpt)!"
 
 #: core/RADIUSTests.php:553
 #, php-format
@@ -502,13 +539,19 @@ msgid ""
 "validity period (not yet valid, or already expired), but this certificate "
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
-msgstr "Minst ett mellom-sertifikat i din CAT profil er utenfor sin gyldighetsperiode (ennå ikke blitt gyldig ellere allerede utløpt), men dette sertifikatet ble ikke brukt til tjener validering. Du bør vurdere å fjerne det fra din %s konfigurasjon."
+msgstr ""
+"Minst ett mellom-sertifikat i din CAT profil er utenfor sin "
+"gyldighetsperiode (ennå ikke blitt gyldig ellere allerede utløpt), men dette "
+"sertifikatet ble ikke brukt til tjener validering. Du bør vurdere å fjerne "
+"det fra din %s konfigurasjon."
 
 #: core/RADIUSTests.php:560
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
-msgstr "Tjenersertifikatet kunne ikke bli validert med den root CA som er konfigurert i din profil! "
+msgstr ""
+"Tjenersertifikatet kunne ikke bli validert med den root CA som er "
+"konfigurert i din profil! "
 
 #: core/RADIUSTests.php:564
 msgid ""
@@ -516,20 +559,28 @@ msgid ""
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
-msgstr "Sertifikat kjeden som ble mottatt via EAP var ikke tilstrekkelig til å verifisere sertifikatet med root CA i din profil. Det ble derimot verifisert ved bruk av mellom CAs i din profil. Du burde sende de nødvendige mellom CAs under EAP dialogen.  "
+msgstr ""
+"Sertifikat kjeden som ble mottatt via EAP var ikke tilstrekkelig til å "
+"verifisere sertifikatet med root CA i din profil. Det ble derimot verifisert "
+"ved bruk av mellom CAs i din profil. Du burde sende de nødvendige mellom CAs "
+"under EAP dialogen.  "
 
 #: core/RADIUSTests.php:570
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
-msgstr "EAP tjenernavnet matcher ingen av de navn som er konfigurert i din profil!"
+msgstr ""
+"EAP tjenernavnet matcher ingen av de navn som er konfigurert i din profil!"
 
 #: core/RADIUSTests.php:577
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
-msgstr "EAP tjenernavnet som er konfigurert matcher enten CN eller et subjectAltName:DNS i det innkommende sertifikatet; beste praksis er sertifikatet inneholder navnet i BEGGE felt."
+msgstr ""
+"EAP tjenernavnet som er konfigurert matcher enten CN eller et subjectAltName:"
+"DNS i det innkommende sertifikatet; beste praksis er sertifikatet inneholder "
+"navnet i BEGGE felt."
 
 #: core/RADIUSTests.php:584
 msgid ""
@@ -537,7 +588,11 @@ msgid ""
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
-msgstr "Minst ett sertifikat inneholdt ikke et BasicConstraints tillegg; det gjør det uklart om det er et CA sertifikat eller et enhets sertifikat. Minimun Mac OSX 10.8 (Mountain Lion) vil ikke validere dette sertifikatet for EAP bruk!"
+msgstr ""
+"Minst ett sertifikat inneholdt ikke et BasicConstraints tillegg; det gjør "
+"det uklart om det er et CA sertifikat eller et enhets sertifikat. Minimun "
+"Mac OSX 10.8 (Mountain Lion) vil ikke validere dette sertifikatet for EAP "
+"bruk!"
 
 #: core/RADIUSTests.php:591
 msgid "The server presented a certificate from an unknown authority."
@@ -587,21 +642,24 @@ msgstr "ukjent autoritet eller ingen sertifikat policy eller et annet problem"
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:150
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Hei, ⏎ ⏎ Invitasjonen til den nye IdP %s i din %s føderasjon %s har blitt brukt og IdP ble opprettet i %s. ⏎ ⏎ Dette til informasjon. ⏎ ⏎ Vennlig hilsen, ⏎ ⏎ %s"
+msgstr ""
+"Hei, ⏎ ⏎ Invitasjonen til den nye IdP %s i din %s føderasjon %s har blitt "
+"brukt og IdP ble opprettet i %s. ⏎ ⏎ Dette til informasjon. ⏎ ⏎ Vennlig "
+"hilsen, ⏎ ⏎ %s"
 
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"

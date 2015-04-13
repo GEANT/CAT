@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # bajnokk <bajnokk@niif.hu>, 2014
 # bajnokk <bajnokk@niif.hu>, 2014
@@ -11,14 +11,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-08 11:52+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-08 17:27+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
+"hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/devices-template.php:101
@@ -76,7 +77,10 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s and will use the configuration file downloaded from CAT to create "
 "all necessary settings."
-msgstr "Mielőtt az Android rendszeren telepítenél, ellenőrizd, hogy a %s alkalmazás telepítve van-e. Ez az alkalmazás elérhető %s címről és az CAT-ről letöltött konfigurációs fájlt fogja használni a beállítások elvégzéséhez."
+msgstr ""
+"Mielőtt az Android rendszeren telepítenél, ellenőrizd, hogy a %s alkalmazás "
+"telepítve van-e. Ez az alkalmazás elérhető %s címről és az CAT-ről letöltött "
+"konfigurációs fájlt fogja használni a beállítások elvégzéséhez."
 
 #: devices/devices-template.php:263
 msgid "Android 4.4 KitKat"
@@ -93,10 +97,14 @@ msgstr "EAP konfiguráció"
 #: devices/devices-template.php:291
 #, php-format
 msgid ""
-"This option provides a generic EAP config XML file, which can be consumed by"
-" dedicated applications like eduroamCAT for Android and Linux platforms. "
-"This is still an experimental feature."
-msgstr "Ez az opció egy XML fájlt generál, amely generikus EAP konfigurációt tartalmaz. Ezt a fájlt  eduroamCAT for Android és Linux környezetben lehet alkalmazni, hogy be lehessen állítani a hozzáférést. Ez egyenlőre kísérleti jellegű lehetőség."
+"This option provides a generic EAP config XML file, which can be consumed by "
+"dedicated applications like eduroamCAT for Android and Linux platforms. This "
+"is still an experimental feature."
+msgstr ""
+"Ez az opció egy XML fájlt generál, amely generikus EAP konfigurációt "
+"tartalmaz. Ezt a fájlt  eduroamCAT for Android és Linux környezetben lehet "
+"alkalmazni, hogy be lehessen állítani a hozzáférést. Ez egyenlőre kísérleti "
+"jellegű lehetőség."
 
 #: devices/devices-template.php:297
 msgid "Test"
@@ -111,7 +119,9 @@ msgstr "'%s'  '%s' hálózati konfigurációs profil – %s hozta létre"
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "A profil telepítése a gombra való kattintással kezdhető meg. A folyamat több pontján kell megerősítést vagy választ adnod:"
+msgstr ""
+"A profil telepítése a gombra való kattintással kezdhető meg. A folyamat több "
+"pontján kell megerősítést vagy választ adnod:"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:167
 msgid "to install the profile"
@@ -186,39 +196,53 @@ msgstr "Az IdP által használt CA"
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Az külső azonosító nem azt a tartományt használja, mint ami a beállításoknál meg van adva, hanem ami a felhasználónév végződéséből származik."
+msgstr ""
+"Az külső azonosító nem azt a tartományt használja, mint ami a beállításoknál "
+"meg van adva, hanem ami a felhasználónév végződéséből származik."
 
 #: devices/ms/Vista7.php:91 devices/ms/W8.php:95
 #, php-format
 msgid ""
 "%s installer will be in the form of an EXE file. It will configure %s on "
 "your device, by creating wireless network profiles.<p>When you click the "
-"download button, the installer will be saved by your browser. Copy it to the"
-" machine you want to configure and execute."
-msgstr "Az %s installáló egy EXE fájl. Az %s úgy lesz felkonfigurálva gépeden, hogy a program létrehoz egy WiFi hálózati profilt.<p>A letöltés gombra kattintva a böngésződ lementi az installálót. Másold a megfelelő gépre és indítsd el!"
+"download button, the installer will be saved by your browser. Copy it to the "
+"machine you want to configure and execute."
+msgstr ""
+"Az %s installáló egy EXE fájl. Az %s úgy lesz felkonfigurálva gépeden, hogy "
+"a program létrehoz egy WiFi hálózati profilt.<p>A letöltés gombra kattintva "
+"a böngésződ lementi az installálót. Másold a megfelelő gépre és indítsd el!"
 
 #: devices/ms/Vista7.php:95 devices/ms/W8.php:99 devices/linux/Linux.php:82
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "A(z) <strong>%s</strong> mellett az installáló az alábbi hálózatokhoz is bekonfigurálja a hozzáférést:"
+msgstr ""
+"A(z) <strong>%s</strong> mellett az installáló az alábbi hálózatokhoz is "
+"bekonfigurálja a hozzáférést:"
 
 #: devices/ms/Vista7.php:97 devices/ms/W8.php:101 devices/linux/Linux.php:84
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr "A(z) <strong>%s</strong> mellett az installáló ezekhez is bekonfigurálja a hozzáférést:"
+msgstr ""
+"A(z) <strong>%s</strong> mellett az installáló ezekhez is bekonfigurálja a "
+"hozzáférést:"
 
 #: devices/ms/Vista7.php:110 devices/ms/W8.php:115
 msgid ""
 "In order to connect to the network you will need an a personal certificate "
-"in the form of a p12 file. You should obtain this certificate from your home"
-" institution. Consult the support page to find out how this certificate can "
+"in the form of a p12 file. You should obtain this certificate from your home "
+"institution. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr "A hálózatra való csatlakozáshoz szükséged lesz egy p12 formátumú személyes tanúsítványra, melyet az anyaintézményed állít ki számodra. Ha ilyened még nincs, kérünk olvasd el a tájékoztató oldalt, hogy megtudd, miként tudsz tanúsítványt igényelni! Ezeket a tanúsítványokat jelszó védi. Az installálás során a tanúsítványt tartalmazó fájlra és a jelszóra egyaránt szükséged lesz."
+msgstr ""
+"A hálózatra való csatlakozáshoz szükséged lesz egy p12 formátumú személyes "
+"tanúsítványra, melyet az anyaintézményed állít ki számodra. Ha ilyened még "
+"nincs, kérünk olvasd el a tájékoztató oldalt, hogy megtudd, miként tudsz "
+"tanúsítványt igényelni! Ezeket a tanúsítványokat jelszó védi. Az installálás "
+"során a tanúsítványt tartalmazó fájlra és a jelszóra egyaránt szükséged lesz."
 
 #: devices/ms/Vista7.php:112 devices/ms/W8.php:117 devices/linux/Linux.php:100
 msgid ""
@@ -226,7 +250,11 @@ msgid ""
 "institution. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr "A hálózathoz való csatlakozáshoz szükséged lesz egy accountra az anyaintézményedben. Tanulmányozd az otthoni megfelelő weboldalt, hogy megtudd, miként lehet ilyen accounthoz jutni. Egyébként jó esély van rá, hogy már van ilyened."
+msgstr ""
+"A hálózathoz való csatlakozáshoz szükséged lesz egy accountra az "
+"anyaintézményedben. Tanulmányozd az otthoni megfelelő weboldalt, hogy "
+"megtudd, miként lehet ilyen accounthoz jutni. Egyébként jó esély van rá, "
+"hogy már van ilyened."
 
 #: devices/ms/Vista7.php:116 devices/ms/W8.php:119
 msgid ""
@@ -234,13 +262,18 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Amikor első alkalommal csatlakozol a hálózatra, a Windows feldob egy bejelentkező ablakot, amiben meg kell adnod a felhasználói azonosítód és jelszavad. Ezeket aztán a program elmenti, és minden további alkalommal automatikusan fogsz kapcsolódni."
+msgstr ""
+"Amikor első alkalommal csatlakozol a hálózatra, a Windows feldob egy "
+"bejelentkező ablakot, amiben meg kell adnod a felhasználói azonosítód és "
+"jelszavad. Ezeket aztán a program elmenti, és minden további alkalommal "
+"automatikusan fogsz kapcsolódni."
 
 #: devices/ms/Vista7.php:119 devices/ms/W8.php:122
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "Ugyanazt azt az azonosítót kell meg adni minden konfigurált hálózat esetén: "
+msgstr ""
+"Ugyanazt azt az azonosítót kell meg adni minden konfigurált hálózat esetén: "
 
 #: devices/ms/Vista7.php:410 devices/ms/Vista7.php:411 devices/ms/W8.php:411
 #: devices/ms/W8.php:412
@@ -281,7 +314,9 @@ msgstr "Elfogadom"
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Ha elfogadod a feltételeket, akkor válaszd a Elfogadom gombot és kattints a a Telepít gombra a folytatáshoz."
+msgstr ""
+"Ha elfogadod a feltételeket, akkor válaszd a Elfogadom gombot és kattints a "
+"a Telepít gombra a folytatáshoz."
 
 #: devices/ms/Files/common.inc:150
 msgid "Finish"
@@ -302,11 +337,15 @@ msgstr "a tanúsítvány telepítése nem sikerült"
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr "A nem TKIP-t használó profilok preferáltak. Mindig azokat használd, ha van lehetőséged."
+msgstr ""
+"A nem TKIP-t használó profilok preferáltak. Mindig azokat használd, ha van "
+"lehetőséged."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr "A nem TKIP-t használó profil preferált. Mindig azt használd, ha van lehetőséged."
+msgstr ""
+"A nem TKIP-t használó profil preferált. Mindig azt használd, ha van "
+"lehetőséged."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 #: devices/linux/Linux.php:137
@@ -334,19 +373,27 @@ msgstr "A telepítő a GEANT projektből származó szoftverrel készült."
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and newer. Please download the correct installer and try again."
-msgstr "Te egy Windows $WindowsName -t futtatsz, de ez a telepítő csak Windows 8-on vagy újabb rendszeren működik. Légy szíves a megfelelő telepítőt letölteni és azt futtatni."
+msgstr ""
+"Te egy Windows $WindowsName -t futtatsz, de ez a telepítő csak Windows 8-on "
+"vagy újabb rendszeren működik. Légy szíves a megfelelő telepítőt letölteni "
+"és azt futtatni."
 
 #: devices/ms/Files/common.inc:515 devices/ms/Files/common.inc:548
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Te egy Windows $WindowsName -t futtatsz, de ez a telepítő csak Windows Vistán és Windows 7-en működik. Légy szíves a megfelelő telepítőt letölteni és azt futtatni."
+msgstr ""
+"Te egy Windows $WindowsName -t futtatsz, de ez a telepítő csak Windows "
+"Vistán és Windows 7-en működik. Légy szíves a megfelelő telepítőt letölteni "
+"és azt futtatni."
 
 #: devices/ms/Files/common.inc:588
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "A Windows WiFi konfigurációs szolgáltatása le van tiltva. Az installáló nem tud továbblépni."
+msgstr ""
+"A Windows WiFi konfigurációs szolgáltatása le van tiltva. Az installáló nem "
+"tud továbblépni."
 
 #: devices/ms/Files/common.inc:593
 msgid "No wireless interfaces found. The installer cannot continue."
@@ -356,7 +403,9 @@ msgstr "Nincs WiFi interfész. A telepítő nem tud továbbmenni."
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "Nem találtunk vezetéknélküli interfészt. A vezetéknélküli hozzáférést nem konfigurálunk. Folytatód és a vezetékes hálózatot konfigurálod? "
+msgstr ""
+"Nem találtunk vezetéknélküli interfészt. A vezetéknélküli hozzáférést nem "
+"konfigurálunk. Folytatód és a vezetékes hálózatot konfigurálod? "
 
 #: devices/ms/Files/common.inc:615
 msgid "Do you want to enable access on wired interfaces?"
@@ -378,7 +427,9 @@ msgstr " $R8 profile-t találtunk"
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "Ez a telepítő csak akkor működik helyesen, ha ${ORGANISATION} tagja vagy és a(z) ${USER_GROUP} felhasználói csoportba tartozol."
+msgstr ""
+"Ez a telepítő csak akkor működik helyesen, ha ${ORGANISATION} tagja vagy és "
+"a(z) ${USER_GROUP} felhasználói csoportba tartozol."
 
 #: devices/ms/Files/common.inc:704 devices/ms/Files/common.inc:707
 msgid "Click OK to continue with installation."
@@ -388,13 +439,16 @@ msgstr "Kattints a Rendben gombra a telepítés folytatásához."
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr "Ez a telepítő csak akkor működik helyesen, ha ${ORGANISATION} tagja vagy."
+msgstr ""
+"Ez a telepítő csak akkor működik helyesen, ha ${ORGANISATION} tagja vagy."
 
 #: devices/ms/Files/common.inc:715
 msgid ""
-"Please read the additional information from your home institution which will"
-" be displayed in a moment."
-msgstr "Légy szíves olvasd el az anyaintézményedre vonatkozó további információkat, amelyet rövidesen megjelenítünk."
+"Please read the additional information from your home institution which will "
+"be displayed in a moment."
+msgstr ""
+"Légy szíves olvasd el az anyaintézményedre vonatkozó további információkat, "
+"amelyet rövidesen megjelenítünk."
 
 #: devices/ms/Files/common.inc:771
 #, php-format
@@ -402,13 +456,21 @@ msgid ""
 "Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may "
 "be due to the fact that Symantec Endpoint Protection is installed on your "
 "machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, "
-"about which the installer can not do anything, there is a "
-"workaround.$\\r$\\nWhen you close this window the installer will exit and an"
-" explorer window will be started (it could appear underneath already opened "
-"windows). In this window you should see a script named inst_cat. Start it by"
-" double-clicking, It will install the profiles. You will need to login to %s"
-" with your username and password."
-msgstr "Olvasd el, mert ez egy fontos figyelmeztetés.$\\r$\\n A telepítési probléma oka az lehet, hogy  Symantec Endpoint Protection telepítve van a gépedem.$\\r$\\nEza Symantec termék ismert hibája, amivel nem sokat lehet tenni. Kerülő megoldást kell alkalmazni$\\r$\\nAmikor becsukod ezt az ablakot a telepítő kilép, de elindít egy explorer ablakot  (Ez a már megynyitott ablakok mögött is lehet). Ebben az ablakban egy scriptet látsz: inst_cat. Indítsd el duplakattintással scriptet, amely a profile-t telepítit, majd be kell lépned a  %s-ba azonosítoddal és jelszavaddal."
+"about which the installer can not do anything, there is a workaround.$\\r$"
+"\\nWhen you close this window the installer will exit and an explorer window "
+"will be started (it could appear underneath already opened windows). In this "
+"window you should see a script named inst_cat. Start it by double-clicking, "
+"It will install the profiles. You will need to login to %s with your "
+"username and password."
+msgstr ""
+"Olvasd el, mert ez egy fontos figyelmeztetés.$\\r$\\n A telepítési probléma "
+"oka az lehet, hogy  Symantec Endpoint Protection telepítve van a gépedem.$\\r"
+"$\\nEza Symantec termék ismert hibája, amivel nem sokat lehet tenni. Kerülő "
+"megoldást kell alkalmazni$\\r$\\nAmikor becsukod ezt az ablakot a telepítő "
+"kilép, de elindít egy explorer ablakot  (Ez a már megynyitott ablakok mögött "
+"is lehet). Ebben az ablakban egy scriptet látsz: inst_cat. Indítsd el "
+"duplakattintással scriptet, amely a profile-t telepítit, majd be kell lépned "
+"a  %s-ba azonosítoddal és jelszavaddal."
 
 #: devices/ms/Files/common.inc:801
 msgid "installing wired profile"
@@ -476,21 +538,27 @@ msgstr "Program telepítése"
 
 #: devices/ms/Files/pwd.inc:24
 msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
-msgstr "EAP-pwd telepítési hiba. Próbáld újra vagy lépj kapcsolatba a  ${SUPPORT}-al."
+msgstr ""
+"EAP-pwd telepítési hiba. Próbáld újra vagy lépj kapcsolatba a  ${SUPPORT}-al."
 
 #: devices/linux/Linux.php:78
 msgid ""
 "The installer is in the form of a bash script. It will try to configure "
-"eduroam under Network Manager and if this is either not appropriate for your"
-" system or your version of Network Manager is too old, a wpa_supplicant "
+"eduroam under Network Manager and if this is either not appropriate for your "
+"system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr "Az installáló egy bash szkript. Megpróbálja az eduroamot bekonfigurálni a Network Managerbe, de ha ez nem lehetséges (mert például a Network Managered túl régi), akkor egy wpa_supplicant konfigurációs fájlt fog létrehozni."
+msgstr ""
+"Az installáló egy bash szkript. Megpróbálja az eduroamot bekonfigurálni a "
+"Network Managerbe, de ha ez nem lehetséges (mert például a Network Managered "
+"túl régi), akkor egy wpa_supplicant konfigurációs fájlt fog létrehozni."
 
 #: devices/linux/Linux.php:96
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "A telepítő létrehoz .cat_installer alkönyvtárat a saját home könyvtáradban és oda fogja bemásolni a szerver tanúsítványát."
+msgstr ""
+"A telepítő létrehoz .cat_installer alkönyvtárat a saját home könyvtáradban "
+"és oda fogja bemásolni a szerver tanúsítványát."
 
 #: devices/linux/Linux.php:98
 msgid ""
@@ -500,14 +568,23 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr "A hálózatra való csatlakozáshoz szükséged lesz egy p12 formátumú személyes tanúsítványra, melyet az anyaintézményed állít ki számodra. Ha ilyened még nincs, kérünk olvasd el a tájékoztató oldalt, hogy megtudd, miként tudsz tanúsítványt igényelni! Ezeket a tanúsítványokat jelszó védi. Az installálás során a tanúsítványt tartalmazó fájlra és a jelszóra egyaránt szükséged lesz. A p12 fájlod szintén a .cat_installer alkönyvtárba kerül."
+msgstr ""
+"A hálózatra való csatlakozáshoz szükséged lesz egy p12 formátumú személyes "
+"tanúsítványra, melyet az anyaintézményed állít ki számodra. Ha ilyened még "
+"nincs, kérünk olvasd el a tájékoztató oldalt, hogy megtudd, miként tudsz "
+"tanúsítványt igényelni! Ezeket a tanúsítványokat jelszó védi. Az installálás "
+"során a tanúsítványt tartalmazó fájlra és a jelszóra egyaránt szükséged "
+"lesz. A p12 fájlod szintén a .cat_installer alkönyvtárba kerül."
 
 #: devices/linux/Linux.php:102
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "Az installálás során meg kell adnod bizonyos hitelesítő adatokat. Ezeket a program eltárolja, így ettől kezdve a hálózathoz való csatlakozás automatikusan megtörténik, ha arra jársz."
+msgstr ""
+"Az installálás során meg kell adnod bizonyos hitelesítő adatokat. Ezeket a "
+"program eltárolja, így ettől kezdve a hálózathoz való csatlakozás "
+"automatikusan megtörténik, ha arra jársz."
 
 #: devices/linux/Linux.php:111
 #, php-format
@@ -525,7 +602,9 @@ msgstr "Sikeres telepítés"
 
 #: devices/linux/Linux.php:123
 msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
-msgstr "Nem sikerült a Network Managert konfigurálni. Ehelyett egy wpa_supplicant.conf fájl készül."
+msgstr ""
+"Nem sikerült a Network Managert konfigurálni. Ehelyett egy wpa_supplicant."
+"conf fájl készül."
 
 #: devices/linux/Linux.php:125
 #, php-format
@@ -542,7 +621,9 @@ msgstr "A kimenet a %s fájlba került"
 msgid ""
 "This installer will only work properly if you are a member of %s and the "
 "user group: %s."
-msgstr "Ez az installáló csak akkor működik helyesen, ha a(z) %s tagja vagy, és benne vagy a(z) %s csoportban."
+msgstr ""
+"Ez az installáló csak akkor működik helyesen, ha a(z) %s tagja vagy, és "
+"benne vagy a(z) %s csoportban."
 
 #: devices/linux/Linux.php:148
 #, php-format
@@ -595,17 +676,24 @@ msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Ez a telepítő csak egy példa. Ez ez egy  zip fájl, amely tartalmazza IdP tanúsítványát, informácókat és logót (ha az  IdP adminisztrátor definiálta) és az összes definiált attributumot."
+msgstr ""
+"Ez a telepítő csak egy példa. Ez ez egy  zip fájl, amely tartalmazza IdP "
+"tanúsítványát, informácókat és logót (ha az  IdP adminisztrátor definiálta) "
+"és az összes definiált attributumot."
 
 #: devices/redirect_dev/RedirectDev.php:22
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "Ez az eszköz jelenleg nem támogatott a CAT által, de a rendszergazda beállított egy redirectet a helyi beállítások leírásával."
+msgstr ""
+"Ez az eszköz jelenleg nem támogatott a CAT által, de a rendszergazda "
+"beállított egy redirectet a helyi beállítások leírásával."
 
 #: devices/xml/XML.php:46
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Ez egy  generikus konfigurációs fájl melynek formátuma megfelel az IETF <a href='%s'>EAP Metadata -00</a> XML formátumnak."
+msgstr ""
+"Ez egy  generikus konfigurációs fájl melynek formátuma megfelel az IETF <a "
+"href='%s'>EAP Metadata -00</a> XML formátumnak."

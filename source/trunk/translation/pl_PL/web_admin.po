@@ -1,20 +1,24 @@
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011, 2012.
+# Translators:
+# Maja Górecka-Wolniewicz <mgw@umk.pl>, 2011-2013
+# tw2529 <tw2529@gmail.com>, 2015
+# tw2529 <tw2529@gmail.com>, 2012
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:13+0200\n"
-"PO-Revision-Date: 2012-11-30 08:32+0100\n"
-"Last-Translator: Maja Górecka-Wolniewicz <mgw@umk.pl>\n"
-"Language-Team: Polish <kde-i18n-doc@kde.org>\n"
-"Language: pl\n"
+"POT-Creation-Date: 2015-04-13 10:09+0200\n"
+"PO-Revision-Date: 2015-04-08 13:32+0000\n"
+"Last-Translator: tw2529 <tw2529@gmail.com>\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/projects/p/cat/"
+"language/pl_PL/)\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.4\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
@@ -46,7 +50,7 @@ msgid ""
 "profile page</a> instead."
 msgstr ""
 "Przepraszamy... korzystasz z tej strony bez ważnego tokena. Przejdź do "
-"strony swojego <a href='usermanagement.php'>profilu</a>."
+"strony swojego <a href='overview_user.php'>profilu</a>."
 
 #: web/admin/action_realmcheck.php:21
 msgid "Sanity check for dynamic discovery of realms"
@@ -74,16 +78,15 @@ msgstr "DYNAMICZNY"
 
 #: web/admin/action_realmcheck.php:76
 msgid "PASS"
-msgstr ""
+msgstr "SUKCES"
 
 #: web/admin/action_realmcheck.php:77
 msgid "FAIL"
-msgstr ""
+msgstr "BŁĄD"
 
 #: web/admin/action_realmcheck.php:78
-#, fuzzy
 msgid "Client certificate:"
-msgstr "Certyfikat klienta"
+msgstr "Certyfikat klienta:"
 
 #: web/admin/action_realmcheck.php:79
 msgid "expected result: "
@@ -114,9 +117,8 @@ msgid "You should update your list of accredited CAs"
 msgstr "Powinna zostać zaktualizowana lista akredytowanych urzędów CA."
 
 #: web/admin/action_realmcheck.php:86
-#, fuzzy
 msgid "Get it from here."
-msgstr "stąd"
+msgstr "Pobierz stąd."
 
 #: web/admin/action_realmcheck.php:88
 msgid "more"
@@ -128,7 +130,7 @@ msgstr "Pokaż szczegółowe wyniki wszystkich testów"
 
 #: web/admin/action_realmcheck.php:93
 msgid "Connection refused"
-msgstr ""
+msgstr "Połączenie odrzucone"
 
 #: web/admin/action_realmcheck.php:96 web/admin/radius_tests.php:328
 msgid "Server certificate"
@@ -151,9 +153,8 @@ msgid "Certificate policies"
 msgstr "Polityki certyfikacji"
 
 #: web/admin/action_realmcheck.php:101
-#, fuzzy
 msgid "crlDistributionPoint"
-msgstr "crlDistributionPoints"
+msgstr "punkt dystrybucji CRL"
 
 #: web/admin/action_realmcheck.php:102 web/admin/radius_tests.php:345
 msgid "authorityInfoAccess"
@@ -164,123 +165,111 @@ msgid "Hide detailed information for all tests"
 msgstr "Ukryj detale wszystkich testów"
 
 #: web/admin/action_realmcheck.php:158
-#, fuzzy
 msgid "Some required input is missing!"
-msgstr "Nie ma mojego kraju!"
+msgstr "Nie podano wszystkich wymaganych danych!"
 
 #: web/admin/action_realmcheck.php:209 web/admin/action_realmcheck.php:291
 #: web/admin/action_realmcheck.php:314 web/admin/action_realmcheck.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "elapsed time: %sms."
-msgstr "czas wykonania: %d"
+msgstr "upłynęło: %sms"
 
 #: web/admin/action_realmcheck.php:278
-#, fuzzy
 msgid "Subject:"
-msgstr "Podmiot"
+msgstr "Podmiot:"
 
 #: web/admin/action_realmcheck.php:279
-#, fuzzy
 msgid "Issuer:"
-msgstr "Wystawca"
+msgstr "Wystawca:"
 
 #: web/admin/action_realmcheck.php:280
 msgid "Valid from:"
-msgstr ""
+msgstr "Ważny od:"
 
 #: web/admin/action_realmcheck.php:281
 msgid "Valid to:"
-msgstr ""
+msgstr "Ważny do:"
 
 #: web/admin/action_realmcheck.php:282
 msgid "Serial number:"
-msgstr ""
+msgstr "Numer seryjny:"
 
 #: web/admin/action_realmcheck.php:283
 msgid "SHA1 fingerprint:"
-msgstr ""
+msgstr "Odcisk SHA1:"
 
 #: web/admin/action_realmcheck.php:304 web/admin/action_realmcheck.php:340
 msgid "Extensions"
-msgstr ""
+msgstr "Rozszerzenia"
 
 #: web/admin/action_realmcheck.php:305
-#, fuzzy
 msgid "show server certificate details"
-msgstr "Certyfikat serwera"
+msgstr "pokaż szczegóły certyfikatu serwera"
 
 #: web/admin/action_realmcheck.php:328
-#, fuzzy
 msgid "Server certificate details:"
-msgstr "Certyfikat serwera"
+msgstr "Szczegóły certyfikatu serwera:"
 
 #: web/admin/action_realmcheck.php:410
 #, php-format
 msgid "Realm testing for: %s"
-msgstr ""
+msgstr "Testowanie realmu dla: %s"
 
 #: web/admin/action_realmcheck.php:419 web/admin/action_realmcheck.php:431
 msgid "DNS checks"
 msgstr "Sprawdzanie wpisów w DNS"
 
 #: web/admin/action_realmcheck.php:420
-#, fuzzy
 msgid "Static connectivity tests"
-msgstr "Test połączenia STATYCZNEGO"
+msgstr "Testy połączenia statycznego"
 
 #: web/admin/action_realmcheck.php:421
-#, fuzzy
 msgid "Dynamic connectivity tests"
-msgstr "Testy łączności DYNAMICZNEJ"
+msgstr "Testy połączenia dynamicznego"
 
 #: web/admin/action_realmcheck.php:422
-#, fuzzy
 msgid "Live login tests"
-msgstr "Test poprawnego działania uwierzytelnienia"
+msgstr "Testy bezpośrednie"
 
 #: web/admin/action_realmcheck.php:436
 msgid "Checking NAPTR existence:"
-msgstr ""
+msgstr "Sprawdzam istnienie NAPTR:"
 
 #: web/admin/action_realmcheck.php:439
-#, fuzzy
 msgid "This realm has no NAPTR records."
-msgstr "Ten realm ma %d rekordów NAPTR, "
+msgstr "Realm nie ma rekordów NAPTR."
 
 #: web/admin/action_realmcheck.php:442
-#, fuzzy, php-format
+#, php-format
 msgid "This realm has NAPTR records, but none are associated with %s."
-msgstr "Ten realm ma %d rekordów NAPTR, "
+msgstr "Ten realm ma rekordy NAPTR, ale żadne z nich nie są powiązane z %s."
 
 #: web/admin/action_realmcheck.php:445
-#, fuzzy, php-format
+#, php-format
 msgid "This realm has %d %s NAPTR records."
-msgstr "Ten realm ma %d rekordów NAPTR, "
+msgstr "Realm ma %d rekordów NAPTR dla %s."
 
 #: web/admin/action_realmcheck.php:452
-#, fuzzy
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr ""
-"Sprawdzenie zgodności formatu NAPTR: pole flag = S i pole regex = (puste) ..."
+"Sprawdzenie zgodności formatu NAPTR (pole flag = S i pole regex = {puste}):"
 
 #: web/admin/action_realmcheck.php:456
 msgid "No issues found."
-msgstr ""
+msgstr "Nie znaleziono problemów."
 
 #: web/admin/action_realmcheck.php:459 web/admin/action_realmcheck.php:475
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
-msgstr ""
+msgstr "Znaleziono przynajmniej jeden rekord NAPTR z błędną zawartością!"
 
 #: web/admin/action_realmcheck.php:469
-#, fuzzy
 msgid "Checking SRVs:"
-msgstr "Sprawdzanie realmu %s"
+msgstr "Sprawdzam SRV:"
 
 #: web/admin/action_realmcheck.php:472 web/admin/action_realmcheck.php:488
-#, fuzzy
 msgid "This check was skipped."
-msgstr "Nie skonfigurowano tej opcji."
+msgstr "Test został pominięty."
 
 #: web/admin/action_realmcheck.php:478
 #, php-format
@@ -289,17 +278,17 @@ msgstr "Znaleziono %d nazw serwerów."
 
 #: web/admin/action_realmcheck.php:485
 msgid "Checking IP address resolution:"
-msgstr ""
+msgstr "Sprawdzenie adresów IP:"
 
 #: web/admin/action_realmcheck.php:491
-#, fuzzy, php-format
+#, php-format
 msgid "At least one hostname could not be resolved!"
-msgstr "<strong>Błąd:</strong> Nazwa serwera %s nie może zostać ustalona!"
+msgstr "Nie dało się odnaleźć adresu IP dla przynajmniej jednej nazwy hosta!"
 
 #: web/admin/action_realmcheck.php:494
-#, fuzzy, php-format
+#, php-format
 msgid "%d IP addresses resolved."
-msgstr "Znaleziono %d adresów IP."
+msgstr "Sprawdzono %d adresów IP."
 
 #: web/admin/action_realmcheck.php:501 web/admin/action_realmcheck.php:504
 #, php-format
@@ -319,11 +308,12 @@ msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
 msgstr ""
+"Po poprawieniu błędów powinieneś ponowić testy, bo wtedy mogą się ujawnić "
+"kolejne błędy. Opisy błędów są poniżej."
 
 #: web/admin/action_realmcheck.php:535
-#, fuzzy
 msgid "Repeat static connectivity tests"
-msgstr "Test połączenia STATYCZNEGO"
+msgstr "Powtórz testy statyczne"
 
 #: web/admin/action_realmcheck.php:538
 msgid "STATIC connectivity tests"
@@ -347,19 +337,18 @@ msgstr ""
 "Oczekiwanym wynikiem jest Access-Reject będący wynikiem konwersacji EAP."
 
 #: web/admin/action_realmcheck.php:545 web/admin/action_realmcheck.php:664
-#, fuzzy, php-format
+#, php-format
 msgid "Testing from: %s"
-msgstr "Sprawdzanie realmu %s"
+msgstr "Test z: %s"
 
 #: web/admin/action_realmcheck.php:550 web/admin/action_realmcheck.php:589
 #: web/admin/action_realmcheck.php:607
 msgid "testing..."
-msgstr ""
+msgstr "testuję..."
 
 #: web/admin/action_realmcheck.php:567
-#, fuzzy
 msgid "Repeat dynamic connectivity tests"
-msgstr "Test połączenia STATYCZNEGO"
+msgstr "Powtórz testy dynamiczne"
 
 #: web/admin/action_realmcheck.php:571
 msgid "DYNAMIC connectivity tests"
@@ -441,12 +430,11 @@ msgstr "Typy EAP korzystające z hasła"
 
 #: web/admin/action_realmcheck.php:650
 msgid "Real (inner) username:"
-msgstr ""
+msgstr "Rzeczywista (wewnętrzna) tożsamość:"
 
 #: web/admin/action_realmcheck.php:651
-#, fuzzy
 msgid "Anonymous outer ID (optional):"
-msgstr "Włącz anonimową tożsamość zewnętrzną:"
+msgstr "Anonimowa tożsamość (opcjonalna):"
 
 #: web/admin/action_realmcheck.php:652
 msgid "Password:"
@@ -457,18 +445,16 @@ msgid "Certificate-based EAP types"
 msgstr "Typy EAP korzystające z certyfikatu"
 
 #: web/admin/action_realmcheck.php:657
-#, fuzzy
 msgid "Certificate file (.p12 or .pfx):"
-msgstr "Plik certyfikatu urzędu certyfikacji:"
+msgstr "Plik certyfikatu (.p12 lub .pfx):"
 
 #: web/admin/action_realmcheck.php:658
-#, fuzzy
 msgid "Certificate password, if any:"
-msgstr "Polityki certyfikacji"
+msgstr "Hasło certyfikatu (jeżeli potrzebne):"
 
 #: web/admin/action_realmcheck.php:659
 msgid "Username, if different from certificate Subject:"
-msgstr ""
+msgstr "Identyfikator użytkownika, jeżeli inny niż w Subject certyfikatu:"
 
 #: web/admin/action_realmcheck.php:660
 msgid "Submit credentials"
@@ -566,16 +552,17 @@ msgstr "Dodaj nową opcję"
 
 #: web/admin/edit_idp.php:136 web/admin/edit_profile.php:186
 #: web/admin/overview_idp.php:67
-#, fuzzy
 msgid "Media Properties"
-msgstr "Ogólne własności profilu"
+msgstr "Dane łącza"
 
 #: web/admin/edit_idp.php:140
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
 "devices."
-msgstr "Wskaż jakie SSID mają być skonfigurowane przez instalatory."
+msgstr ""
+"W tej sekcji określasz parametry łącza dla konfiguracji %s na urządzeniach "
+"użytkowników."
 
 #: web/admin/edit_idp.php:143
 msgid "Additional SSIDs:"
@@ -625,37 +612,38 @@ msgstr ""
 
 #: web/admin/edit_idp.php:160
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Dodatkowe konsorcja Hotspot 2.0 / Passpoint:"
 
 #: web/admin/edit_idp.php:160
 msgid "Hotspot 2.0 / Passpoint Consortia:"
-msgstr ""
+msgstr "Konsorcja Hotspot 2.0 / Passpoint:"
 
 #: web/admin/edit_idp.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
-msgstr[0] "To SSID zostanie zawsze skonfigurowane dla WPA2/AES: %s."
-msgstr[1] "Te SSID zostaną zawsze skonfigurowane dla WPA2/AES: %s."
-msgstr[2] "Te SSID zostaną zawsze skonfigurowane dla WPA2/AES: %s."
+msgstr[0] "Ten Consortium OI zostanie zawsze skonfigurowany: %s."
+msgstr[1] "Te Consortium OI zostaną zawsze skonfigurowane: %s."
+msgstr[2] "Te Consortium OI zostaną zawsze skonfigurowane: %s."
 
 #: web/admin/edit_idp.php:168
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
 "below."
 msgstr ""
-"Można skonfigurować dodatkowe SSID przy pomocy poniższych opcji '%s' i '%s'."
+"Możliwe jest również skonfigurowanie dodatkowych OI przy pomocy opcji '%s' "
+"poniżej."
 
 #: web/admin/edit_idp.php:170
-#, fuzzy
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
-msgstr "Wskaż jakie SSID mają być skonfigurowane przez instalatory."
+msgstr ""
+"Proszę ustaw jakie Consortium OI powinny być skonfigurowane w instalatorach"
 
 #: web/admin/edit_idp.php:173
 msgid "Support for wired IEEE 802.1X:"
-msgstr ""
+msgstr "Wsparcie dla przewodowego 802.1X:"
 
 #: web/admin/edit_idp.php:174
 msgid ""
@@ -665,10 +653,16 @@ msgid ""
 "administrator privileges; Apple: attempting to install a profile with wired "
 "support on a device without an active wired ethernet card will fail)."
 msgstr ""
+"Jeżeli chcesz, aby urządzenia użytkowników zostały skonfigurowane ze "
+"wsparciem 802.1X dla Ethernetu przewodowego, to zaznacz odpowiednią opcję. "
+"Pamiętaj, że ta opcja niekiedy powoduje pewne utrudnienia (dla Windows "
+"potrzebne są uprawnienia administratora, dla Apple próba instalacji profilu "
+"przewodowego na urządzeniu bez aktywnego interfejsu przewodowego nie "
+"powiedzie się)."
 
 #: web/admin/edit_idp.php:176
 msgid "Removal of bootstrap/onboarding SSIDs:"
-msgstr ""
+msgstr "Usuwanie rozruchowych SSID:"
 
 #: web/admin/edit_idp.php:177
 msgid ""
@@ -676,6 +670,10 @@ msgid ""
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
 "the SSID will either be removed, or be defined as 'Only connect manually'."
 msgstr ""
+"Jeżeli do dystrybuowania konfiguratorów używasz sieci rozruchowej, to po "
+"zakończeniu instalacji możesz odłączyć lub zablokować tę sieć rozruchową w "
+"urządzeniu użytkownika. Po zaznaczeniu tej opcji rozruchowe SSID będzie albo "
+"usunięte, albo będzie miało wyłączone łączenie automatyczne."
 
 #: web/admin/edit_idp.php:191
 msgid "Helpdesk Details for all users"
@@ -763,9 +761,9 @@ msgid "Discard changes"
 msgstr "Wycofaj zmiany"
 
 #: web/admin/edit_idp_result.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
-msgstr "eduroam CAT: kreator rejestracji IdP (krok 2)"
+msgstr "%s: kreator rejestracji IdP (krok 2 zakończony)"
 
 #: web/admin/edit_idp_result.php:56
 #, php-format
@@ -774,37 +772,37 @@ msgstr "Przesłane atrybuty dotyczące dostawcy tożsamości (IdP) '%s'"
 
 #: web/admin/edit_idp_result.php:81 web/admin/edit_idp_result.php:89
 msgid "(WPA2/AES and WPA/TKIP)"
-msgstr ""
+msgstr "(WPA2/AES i WPA/TKIP)"
 
 #: web/admin/edit_idp_result.php:81 web/admin/edit_idp_result.php:93
 msgid "(WPA2/AES)"
-msgstr ""
+msgstr "(WPA2/AES)"
 
 #: web/admin/edit_idp_result.php:102
-#, fuzzy, php-format
+#, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
-msgstr "Zarządzasz następującymi <strong>%d</strong> instytucjami: "
+msgstr "Zarządzasz następującymi <strong>%s</strong> instytucjami: "
 
 #: web/admin/edit_idp_result.php:102
-#, fuzzy
 msgid "SSIDs configured"
 msgstr "Skonfigurowane"
 
 #: web/admin/edit_idp_result.php:105
 #, php-format
 msgid "Your installers will configure wired interfaces."
-msgstr ""
+msgstr "Twoje instalatory będą konfigurowały interfejsy przewodowe."
 
 #: web/admin/edit_idp_result.php:105
-#, fuzzy
 msgid "Wired configured"
-msgstr "Skonfigurowane"
+msgstr "Przewodowy skonfigurowany"
 
 #: web/admin/edit_idp_result.php:108
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
 msgstr ""
+"Nie możemy wygenerować instalatorów, ponieważ ani przewodowe interfejsy ani "
+"żadne bezprzewodowe SSID nie zostały włączone!"
 
 #: web/admin/edit_idp_result.php:117 web/admin/edit_profile_result.php:159
 msgid "Continue to dashboard"
@@ -1042,7 +1040,7 @@ msgid ""
 "and you will be taken to your IdP Dashboard page."
 msgstr ""
 "Jeżeli jesteś pewny, że wszystkie podane dane są poprawne, to naciśnij "
-"<button type='submit' name='submitbutton' value='continue'>Dalej...</button>"
+"przycisk 'Dalej'."
 
 #: web/admin/edit_profile_result.php:34
 #, php-format
@@ -1148,15 +1146,16 @@ msgid "Continue to user overview page"
 msgstr "Przejdź do strony własności użytkownika"
 
 #: web/admin/logout_check.php:29
-#, fuzzy
 msgid "Incomplete Logout"
-msgstr "niekompletna konfiguracja"
+msgstr "Niekompletne wylogowanie"
 
 #: web/admin/logout_check.php:30
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
 msgstr ""
+"Nie byliśmy w stanie wylogować Cię ze wszystkich sesji. Aby być pewnym, że "
+"zostałeś wylogowany zamknij przeglądarkę."
 
 #: web/admin/overview_federation.php:22
 #, php-format
@@ -1206,7 +1205,7 @@ msgstr "Nieprawidłowy wynik!"
 
 #: web/admin/overview_federation.php:80
 msgid "Deployment Status"
-msgstr ""
+msgstr "Status wdrożenia"
 
 #: web/admin/overview_federation.php:81 web/admin/overview_user.php:94
 #: web/admin/inc/common.inc.php:37
@@ -1285,6 +1284,8 @@ msgid ""
 "After deleting the IdP, you can not recreate it yourself - you need a new "
 "invitation token from the federation administrator!"
 msgstr ""
+"Po usunięciu IdP nie będziesz mógł go ponownie samodzielnie utworzyć - "
+"niezbędny będzie token aktywacyjny od administratora Twojej federacji!"
 
 #: web/admin/overview_idp.php:111
 #, php-format
@@ -1302,11 +1303,12 @@ msgid ""
 "configuration from scratch. Do you really want to reset all settings of your "
 "IdP %s?"
 msgstr ""
+"To działanie skasuje wszystkie ustawienia Twojego IdP i uruchomi "
+"konfiguracją od początku. Czy faktyczne chcesz zresetować Twoje IdP %s?"
 
 #: web/admin/overview_idp.php:117
-#, fuzzy
 msgid "Reset all IdP settings"
-msgstr "Edytuj ustawienia związane z IdP"
+msgstr "Skasuj wszystkie ustawienia IdP"
 
 #: web/admin/overview_idp.php:124
 msgid "Available Support actions"
@@ -1379,9 +1381,9 @@ msgstr "Profil: %s"
 
 #. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
 #: web/admin/overview_idp.php:218
-#, fuzzy, php-format
+#, php-format
 msgid "Read this <a href='%s'>tip</a>."
-msgstr "Przeczytaj tę <a href='gtc-support.html'>wskazówkę</a>."
+msgstr "Przeczytaj tę <a href='%s'>wskazówkę</a>."
 
 #: web/admin/overview_idp.php:228
 msgid "The realm can only be checked if you configure the realm!"
@@ -1496,7 +1498,7 @@ msgstr "Kliknij, aby zarządzać swoimi federacjami"
 
 #: web/admin/overview_user.php:63
 msgid "Click here to access the superadmin page"
-msgstr ""
+msgstr "Storna superadmina"
 
 #: web/admin/overview_user.php:72
 #, php-format
@@ -1547,28 +1549,29 @@ msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
 msgstr ""
+"Niektóre z właściwości połączenia nie były optymalne; więcej informacji "
+"poniżej."
 
 #: web/admin/radius_tests.php:23
-#, fuzzy
 msgid "Some configuration errors were observed; the list is below."
-msgstr "W czasie testów wykryto błędy, patrz poniżej "
+msgstr "Jest kilka błędów konfiguracji; więcej informacji poniżej."
 
 #: web/admin/radius_tests.php:67
 #, php-format
 msgid "Connected to %s."
-msgstr ""
+msgstr "Połączony z %s."
 
 #: web/admin/radius_tests.php:75
-#, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned. Some properties of the connection attempt were sub-"
 "optimal; the list is below."
 msgstr ""
-"<strong>Test zakończył się powodzeniem</strong>: po dwustronnej konwersacji "
-"między serwerami RADIUS polegającej na wielokrotnym przekazywaniu pakietów "
-"uzyskano, tak jak planowano, Access-Reject."
+"<strong>Test częściowo udany</strong>: po dwustronnej konwersacji między "
+"serwerami RADIUS polegającej na wielokrotnym przekazywaniu pakietów "
+"uzyskano, tak jak planowano, Access-Reject. Niektóre z właściwości "
+"połączenia nie były optymalne; więcej informacji poniżej."
 
 #: web/admin/radius_tests.php:86 web/admin/radius_tests.php:230
 msgid ""
@@ -1581,53 +1584,47 @@ msgstr ""
 "uzyskano, tak jak planowano, Access-Reject."
 
 #: web/admin/radius_tests.php:170
-#, fuzzy
 msgid "<strong>Test successful.</strong>"
-msgstr "Realm jest <strong>%s</strong> "
+msgstr "<strong>Test udany.</strong>"
 
 #: web/admin/radius_tests.php:174
-#, fuzzy
 msgid "<strong>Test partially successful</strong>: authentication succeded."
-msgstr "Realm jest <strong>%s</strong> "
+msgstr "<strong>Test częściowo udany</strong>: uwierzytelnienie poprawne."
 
 #: web/admin/radius_tests.php:177
-#, fuzzy
 msgid "<strong>Test FAILED</strong>: authentication succeded."
-msgstr "Realm jest <strong>%s</strong> "
+msgstr "<strong>Test NIEUDANY</strong>: uwierzytelnienie poprawne."
 
 #: web/admin/radius_tests.php:182
-#, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
 msgstr ""
-"<strong>Test nie powiódł się</strong>: zlecenie zostało natychmiast "
-"odrzucone, przed rozpoczęciem konwersacji EAP! Serwer nie działa, albo brak "
-"połączenia z serwerem!"
+"<strong>Test NIEUDANY</strong>: zlecenie odrzucone. Najbardziej "
+"prawdopodobnym powodem jest błąd w identyfikatorze i/lub haśle użytkownika."
 
 #: web/admin/radius_tests.php:187
 msgid "This method cannot be tested"
-msgstr ""
+msgstr "Tej metody nie można było przetestować"
 
 #: web/admin/radius_tests.php:191
-#, fuzzy
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
 "something seriously wrong with your server."
 msgstr ""
-"<strong>Test nie powiódł się</strong>: zlecenie zostało natychmiast "
-"odrzucone, przed rozpoczęciem konwersacji EAP! Serwer nie działa, albo brak "
-"połączenia z serwerem!"
+"<strong>Test NIEUDANY</strong>: zlecenie zostało natychmiast odrzucone, "
+"przed rozpoczęciem konwersacji EAP! Być może zrobiłeś pomyłkę w "
+"identyfikatorze użytkownika, albo serwer jest niedostępny."
 
 #: web/admin/radius_tests.php:197 web/admin/radius_tests.php:238
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
 "seconds. Either the responsible server is down, or routing is broken!"
 msgstr ""
-"<strong>Test nie powiódł się</strong>: brak odpowiedzi z serwera RADIUS w "
-"ciągu % sekund. Serwer nie działa, albo brak połączenia z serwerem!"
+"<strong>Test NIEUDANY</strong>: brak odpowiedzi z serwera RADIUS w ciągu %d "
+"sekund. Serwer nie działa, albo brak połączenia z serwerem!"
 
 #: web/admin/radius_tests.php:202 web/admin/radius_tests.php:242
 #, php-format
@@ -1635,23 +1632,21 @@ msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
 "but it did not finish after %d seconds!"
 msgstr ""
-"<strong>Test nie powiódł się</strong>: miała miejsce dwustronna konwersacja "
-"RADIUS, ale nie została zakończona w ciągu %d sekund!"
+"<strong>Test NIEUDANY</strong>: miała miejsce dwustronna konwersacja RADIUS, "
+"ale nie została zakończona w ciągu %d sekund!"
 
 #: web/admin/radius_tests.php:207
-#, fuzzy
 msgid "<strong>Test FAILED</strong>"
-msgstr "Realm jest <strong>%s</strong> "
+msgstr "<strong>Test NIEUDANY</strong>"
 
 #: web/admin/radius_tests.php:228
-#, fuzzy
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
 "Access-Reject as planned."
 msgstr ""
-"<strong>Test zakończył się powodzeniem</strong>: po dwustronnej konwersacji "
-"między serwerami RADIUS polegającej na wielokrotnym przekazywaniu pakietów "
+"<strong>Test częściowo udany</strong>: po dwustronnej konwersacji między "
+"serwerami RADIUS polegającej na wielokrotnym przekazywaniu pakietów "
 "uzyskano, tak jak planowano, Access-Reject."
 
 #: web/admin/radius_tests.php:233
@@ -1663,10 +1658,17 @@ msgid ""
 "profile settings to get past this hurdle). In all other cases, the server "
 "appears misconfigured or it is unreachable."
 msgstr ""
+"<strong>Test NIEUDANY</strong>: zlecenie zostało natychmiast odrzucone przed "
+"fazą EAP. To niekoniecznie jest błąd; serwer RADIUS może wymagać, aby "
+"tożsamość zewnętrzna odpowiadała istniejącemu identyfikatorowi użytkownika i "
+"wtedy taki rezultat testu jest zgodny z oczekiwaniem. (Uwaga, jeżeli "
+"skonfigurujesz poprawną tożsamość zewnętrzną w ustawieniach profilu, to ten "
+"problem nie pojawi się.) W innych przypadkach można wnioskować, że serwer "
+"jest źle skonfigurowany, albo niedostępny."
 
 #: web/admin/radius_tests.php:246
 msgid "unhandled error"
-msgstr ""
+msgstr "nieobsługiwany błąd"
 
 #: web/admin/radius_tests.php:262 web/admin/radius_tests.php:318
 msgid ""
@@ -1719,12 +1721,11 @@ msgstr "Obrazek logo"
 
 #: web/admin/inc/common.inc.php:41
 msgid "Configure Wired Ethernet"
-msgstr ""
+msgstr "Skonfiguruj Ethernet przewodowy"
 
 #: web/admin/inc/common.inc.php:42
-#, fuzzy
 msgid "Name (CN) of Authentication Server"
-msgstr "Nazwa serwera uwierzytelniającego"
+msgstr "Nazwa (CN) serwera uwierzytelniającego"
 
 #: web/admin/inc/common.inc.php:43
 msgid "Enable device assessment"
@@ -1765,7 +1766,7 @@ msgstr ""
 
 #: web/admin/inc/common.inc.php:52
 msgid "Turn on selection of EAP-TLS User-Name"
-msgstr ""
+msgstr "Włącz wybór User-Name dla EAP-TLS"
 
 #: web/admin/inc/common.inc.php:53
 msgid "Profile Description"
@@ -1813,7 +1814,7 @@ msgstr "EAP-pwd"
 
 #: web/admin/inc/common.inc.php:64
 msgid "Remove/Disable SSID"
-msgstr ""
+msgstr "Usuń/Zablokuj SSID"
 
 #: web/admin/inc/common.inc.php:68
 msgid "Additional SSID"
@@ -1833,11 +1834,11 @@ msgstr "SSID (z WPA/TKIP)"
 
 #: web/admin/inc/common.inc.php:76
 msgid "Additional HS20 Consortium OI"
-msgstr ""
+msgstr "Dodatkowy HS20 Consortium OI"
 
 #: web/admin/inc/common.inc.php:77
 msgid "HS20 Consortium OI"
-msgstr ""
+msgstr "HS20 Consortium OI"
 
 #: web/admin/inc/common.inc.php:91
 #, php-format
@@ -1890,7 +1891,7 @@ msgstr "Wystąpił błąd podczas przetwarzania certyfikatu!"
 
 #: web/admin/inc/common.inc.php:308
 msgid "This is a <strong>SERVER</strong> certificate!"
-msgstr ""
+msgstr "To jest certyfikat <strong>SERWERA</strong>!"
 
 #: web/admin/inc/common.inc.php:317
 msgid "Preview of logo file"
@@ -2445,8 +2446,8 @@ msgid ""
 "an administrator of the %s Identity Provider \"%s\" has invited you to "
 "manage the IdP together with him."
 msgstr ""
-"administrator dostawcy tożsamości %s w usłudze eduroam \"%s\" zaprosił Cię "
-"do wspólnego zarządzania IdP."
+"administrator usługi %s u dostawcy tożsamości \"%s\" zaprosił Cię do "
+"wspólnego zarządzania IdP."
 
 #: web/admin/inc/sendinvite.inc.php:77
 msgid ""
@@ -2516,7 +2517,7 @@ msgstr ""
 
 #: web/admin/inc/sendinvite.inc.php:156
 msgid "Feedback"
-msgstr ""
+msgstr "Kontakt"
 
 #: web/admin/inc/sendinvite.inc.php:171
 #, php-format
@@ -2552,624 +2553,3 @@ msgstr "EAP-Type <strong>%s</strong> "
 #: web/admin/inc/toggleRedirect.inc.php:100
 msgid "Fine-tuning options for "
 msgstr "Ustalanie opcji dla"
-
-#~ msgid "pass"
-#~ msgstr "sukces"
-
-#~ msgid "fail"
-#~ msgstr "niepowodzenie"
-
-#~ msgid "OK!"
-#~ msgstr "Sukces!"
-
-#~ msgid "For all EAP types"
-#~ msgstr "Dla wszystkich typów EAP"
-
-#~ msgid "Username:"
-#~ msgstr "Nazwa użytkownika:"
-
-#~ msgid "eduPKI"
-#~ msgstr "eduPKI"
-
-#~ msgid "non eduPKI, but accredited"
-#~ msgstr "nie eduPKI, ale urząd akredytowany"
-
-#~ msgid "Nicolaus Copernicus University"
-#~ msgstr "Uniwersytet Mikołaja Kopernika"
-
-#~ msgid "accredited"
-#~ msgstr "akredytowany"
-
-#~ msgid "non-accredited"
-#~ msgstr "nie akredytowany"
-
-#~ msgid "correct certificate"
-#~ msgstr "poprawny certyfikat"
-
-#~ msgid "certificate with wrong policy OID"
-#~ msgstr "certyfikat ze złym identyfikatorem polityki (policy OID)"
-
-#~ msgid "expired certificate"
-#~ msgstr "certyfikat przedawniony"
-
-#~ msgid "revoked certificate"
-#~ msgstr "certyfikat odwołany"
-
-#~ msgid "eduroam-accredited CA (now only for tests)"
-#~ msgstr "urząd CA akredytowany w eduroam (obecnie tylko dla testów)"
-
-#~ msgid "out of which %d are %s NAPTR records."
-#~ msgstr "z tego %d rekordów NAPTR dotyczących %s."
-
-#~ msgid "but none are %s NAPTR records."
-#~ msgstr "ale żaden ne jest rekordem NAPTR dotyczącym %s."
-
-#~ msgid "There are no NAPTR records for this realm."
-#~ msgstr "Nie ma rekordów NAPTR dla tego realmu."
-
-#~ msgid ""
-#~ "<strong>Error:</strong> eduroam discovery profile only supports 'S' type "
-#~ "NAPTRs."
-#~ msgstr ""
-#~ "<strong>Błąd:</strong> profil wyszukiwania serwerów eduroam akceptuje "
-#~ "wyłącznie typ 'S' w rekordach NAPTR."
-
-#~ msgid ""
-#~ "<strong>Error:</strong> eduroam discovery profile only supports NAPTRs "
-#~ "with empty regex."
-#~ msgstr ""
-#~ "<strong>Błąd:</strong> profil wyszukiwania serwerów eduroam akceptuje "
-#~ "wyłącznie rekordy NAPTR z pustym polem regex."
-
-#~ msgid "Trying to resolve the SRVs into host names ... "
-#~ msgstr "Próbuję ustalić nazwy serwerów na podstawie rekordów SRV..."
-
-#~ msgid "<strong>Error:</strong> SRV entry %s could not be resolved!"
-#~ msgstr ""
-#~ "<strong>Błąd:</strong> nie można ustalić nazwy na podstawie wpisu SRV %s!"
-
-#~ msgid "Skipping further discovery checks because of previous errors!"
-#~ msgstr "Pozostałe sprawdzenia pominięto z powodu poprzednich błędów!"
-
-#~ msgid "Checking from <strong>%s</strong>: "
-#~ msgstr "Sprawdzenie z lokalizacji <strong>%s</strong>: "
-
-#~ msgid ""
-#~ "<strong>Strange</strong>: there is a packet count mismatch. Maybe bad "
-#~ "connectivity and retransmits? I had %d Access-Requests, %d Access-"
-#~ "Challenges and %d Access-Rejects."
-#~ msgstr ""
-#~ "<strong>Wystąpiła nietypowa sytuacja</strong>: niezgodna liczba pakietów. "
-#~ "Przyczyną może być problem łączności i konieczność retransmisji. "
-#~ "Naliczono %d pakietów Access-Request, %d pakietów Access-Challenge i %d "
-#~ "pakietów Access-Reject."
-
-#~ msgid "Tests skipped because of previous errors."
-#~ msgstr "Sprawdzenia pominięto z powodu poprzednich błędów."
-
-#~ msgid "Client certificate from"
-#~ msgstr "Certyfikat klienta"
-
-#~ msgid "certificate expired"
-#~ msgstr "przedawniony certyfikat"
-
-#~ msgid "certificate was revoked"
-#~ msgstr "certyfikat został unieważniony"
-
-#~ msgid "bad policy"
-#~ msgstr "błędna polityka"
-
-#~ msgid "unknown authority"
-#~ msgstr "nieznany urząd"
-
-#~ msgid "unknown authority or no certificate policy or another problem"
-#~ msgstr "nieznany urząd, lub brak polityki, lub inny problem"
-
-#~ msgid "Private key, if any:"
-#~ msgstr "Klucz prywatny, jeśli istnieje:"
-
-#~ msgid "Release %s"
-#~ msgstr "Wersja %s"
-
-#~ msgid "Unreleased SVN Revision"
-#~ msgstr "Nieopublikowana wersja SVN"
-
-#~ msgid "%s<br />IdP Configuration Interface"
-#~ msgstr "%s<br />Interfejs konfiguracji IdP"
-
-#~ msgid "View this page in"
-#~ msgstr "Wyświetl w języku"
-
-#~ msgid "You are:"
-#~ msgstr "Twój identyfikator:"
-
-#~ msgid "Go to your Profile page"
-#~ msgstr "Przejdź do głównej strony zarządzania"
-
-#~ msgid "Start page"
-#~ msgstr "Strona startowa"
-
-#~ msgid ""
-#~ "Pre-production warning: This is beta-quality software. We are reasonably "
-#~ "sure most things work okay, but please don't bet significant amounts of "
-#~ "money on that."
-#~ msgstr ""
-#~ "Ostrzeżenie: To jest oprogramowanie w wersji beta, uruchamiane "
-#~ "nieprodukcyjnie. Liczymy, że działa poprawnie, ale nie należy być tego "
-#~ "całkowicie pewnym."
-
-#~ msgid ""
-#~ "<p>The user download interface (see <a href='%s'>here</a>), uses "
-#~ "geolocation to suggest possibly\n"
-#~ "            matching IdPs to the user. The more precise you define the "
-#~ "location here, the easier your users will find you.</p>\n"
-#~ "            <ul><li>Drag the marker in the map to your place, or</li>\n"
-#~ "                <li>enter your street address in the field below for "
-#~ "lookup, or</li>\n"
-#~ "                <li>use the 'Locate Me!' button</li></ul><strong>We will "
-#~ "use the coordinates as indicated by the marker for geolocation.</strong>"
-#~ msgstr ""
-#~ "<p>Interfejs użytkownika do pobierania profili (patrz  <a "
-#~ "href='%s'>tutaj</a>), korzysta z lokalizacji geograficznej do "
-#~ "podpowiedzenia użytkownikowi, z jakich dostawców tożsamości może "
-#~ "korzystać. Im lepiej określisz tutaj swoją lokalizację, tym łatwiej Twój "
-#~ "użytkownik znajdzie swojego IdP.</p>\n"
-#~ "\t<ul><li>Przeciągnij wskaźnik na mapie we właściwe miejsce, albo</li>\n"
-#~ "\t<li>wprowadź swój adres w poniższym polu wyszukiwania, albo</li>\n"
-#~ "\t<li>użyj przycisku 'Zlokalizuj mnie!'</li></ul><strong>Będziemy używać "
-#~ "współrzędnych odpowiadających znacznikowi lokalizacji.</strong>"
-
-#~ msgid ""
-#~ "The option(s) %s are already defined IdP-wide. If you set them here on "
-#~ "profile level, these settings will override the IdP-wide ones."
-#~ msgstr ""
-#~ "Opcje %s są już zdefiniowane na poziomie IdP. Jeżeli ustawisz je na "
-#~ "poziomie profilu, to zastąpią one ustawienia poziomu IdP."
-
-#~ msgid "<div>Error, ROWID expected.</div>"
-#~ msgstr "<div>Error, ROWID expected.</div>"
-
-#~ msgid "%d x "
-#~ msgstr "%d x "
-
-#~ msgid ""
-#~ "You did not set a 'default language' value for %s. That is fine, but be "
-#~ "aware that this attribute is invisible to all users which select a "
-#~ "language you did not configure explicitly."
-#~ msgstr ""
-#~ "Nie ustawiłeś wartości %s dla domyślnego języka. Nie musisz, ale to "
-#~ "oznacza, że ten atrybut będzie widoczny wyłącznie w językach, które "
-#~ "ustawiłeś explicite."
-
-#~ msgid ""
-#~ "<strong>ERROR</strong>: the server presented a cerificate which is from "
-#~ "an unknown authority!"
-#~ msgstr ""
-#~ "<strong>Błąd</strong>: serwer przedstawia się certyfikatem wystawionym "
-#~ "przez nieznany urząd!"
-
-#~ msgid "Server did not accept this client cerificate - reason"
-#~ msgstr "Serwer nie zaakceptował tego certyfikatu - powód"
-
-#~ msgid "Server accepted this client cerificate, but should not have"
-#~ msgstr "Serwer zaakceptował certyfikat klienta, a nie powinien"
-
-#~ msgid "Server did not accept this client cerificate"
-#~ msgstr "Serwer nie zaakceptował tego certyfikatu"
-
-#~ msgid "Some errors were found during the tests, see bellow"
-#~ msgstr "W czasie testów wykryto błędy, patrz poniżej "
-
-#~ msgid "Your federation(s) contain the following institutions: "
-#~ msgstr "Twoja federacja zawiera następujące instytucje:"
-
-#~ msgid "Invite an admin?"
-#~ msgstr "Zaprosić administratora?"
-
-#~ msgid "Invite!"
-#~ msgstr "Zaproś!"
-
-#~ msgid "Invite another admin?"
-#~ msgstr "Zaproś kolejnego administratora"
-
-#~ msgid "You are authorised to create a new institution!"
-#~ msgstr "Masz uprawnienia, aby utworzyć nową instytucję"
-
-#~ msgid "To create one, please type name and country here:"
-#~ msgstr "Aby utworzyć, wprowadź nazwę instytucji oraz nazwę kraju:"
-
-#~ msgid "IdP Name:"
-#~ msgstr "Nazwa instytucji:"
-
-#~ msgid "You should update your list of accredited CAs."
-#~ msgstr "Powinna zostać zaktualizowana lista akredytowanych urzędów CA."
-
-#~ msgid "Checking if certificates from all accredited CAs are accepted..."
-#~ msgstr ""
-#~ "Sprawdzenie, czy są akceptowane certyfikaty ze wszystkich akredytowanych "
-#~ "urzędów CA..."
-
-#~ msgid "Tests skiped because of previous errors."
-#~ msgstr "Sprawdzenia pominięto z powodu poprzednich błędów!"
-
-#~ msgid "unknown authority or no certificate policy or other problem"
-#~ msgstr "nieznany urząd, lub brak polityki, lub inny problem"
-
-#, fuzzy
-#~ msgid "certificate revoked specified"
-#~ msgstr "certyfikat został unieważniony"
-
-#, fuzzy
-#~ msgid "certificate expired specified"
-#~ msgstr "przedawniony certyfikat"
-
-#~ msgid "out of which %d are eduroam NAPTR records."
-#~ msgstr "z tego %d rekordów NAPTR dotyczących eduroam."
-
-#~ msgid "but none are eduroam NAPTR records."
-#~ msgstr "ale żaden ne jest rekordem NAPTR dotyczącym eduroam."
-
-#~ msgid ""
-#~ "This check sends a request for the realm through various entry points of "
-#~ "the eduroam infrastructure. The request will contain the 'Operator-Name' "
-#~ "attribute, and will be larger than 1500 Bytes to catch two common "
-#~ "configuration problems.<br/>Since we don't have actual credentials for "
-#~ "the realm, we can't authenticate successfully - so the expected outcome "
-#~ "is to get an Access-Reject after having gone through an EAP conversation."
-#~ msgstr ""
-#~ "Sprawdzenie polega na przesłaniu zlecenia dotyczącego Twojego realmu "
-#~ "przez różne punkty infrastruktury eduroam. Zlecenie będzie zawierać "
-#~ "atrybut 'Operator-Name' i będzie większe niż 1500 bajtów, aby umożliwić "
-#~ "wychwycenie dwóch najczęstszych problemów konfiguracyjnych.<br/>Ponieważ "
-#~ "nie dysponujemy kontem w Twoim realmie, nie możemy sprawdzić poprawności "
-#~ "uwierzytelnienia. Oczekiwanym wynikiem jest Access-Reject będący wynikiem "
-#~ "konwersacji EAP."
-
-#~ msgid "Server handshake completed."
-#~ msgstr "Zakończona faza uzgodnienia."
-
-#~ msgid "You have not configured any supported EAP types!"
-#~ msgstr "Nie skonfigurowałeś żadnego typu EAP!"
-
-#~ msgid "Device Compatiblity Matrix"
-#~ msgstr "Tabela kompatybilności urządzeń"
-
-#~ msgid "Profile generated successfully!"
-#~ msgstr "Generacja profilu zakończyła się sukcesem!"
-
-#~ msgid "New administrator"
-#~ msgstr "Nowy administrator"
-
-#~ msgid ""
-#~ "<strong>Additional SSIDs</strong>: We will always configure the SSID "
-#~ "'eduroam' for WPA2/AES (and WPA/TKIP if the device supports multiple "
-#~ "profiles). If you want to have more SSIDs included, you can specify them "
-#~ "here. By using the '(with WPA/TKIP)' option you can specify that we "
-#~ "should include legacy support for WPA/TKIP where possible."
-#~ msgstr ""
-#~ "<strong>Dodatkowe identyfikatory SSID</strong>: Zawsze jest konfigurowany "
-#~ "SSID 'eduroam' dla WPA2/AES (i WPA/TKIP jeżeli urządzenie wspiera wiele "
-#~ "profili). Jeśli chcesz włączyć więcej identyfikatorów SSID, to możesz je "
-#~ "wskazać tutaj. Używając opcji '(with legacy)' można zażądać włączenia "
-#~ "wsparcia legacy dla WPA/TKIP, gdy jest to możliwe"
-
-#~ msgid ""
-#~ "<strong>SSIDs</strong>: Please tell us which SSIDs we should configure in "
-#~ "the installers. By default, we will only configure the SSIDs with WPA2/"
-#~ "AES encryption. By using the '(with WPA/TKIP)' option you can specify "
-#~ "that we should include legacy support for WPA/TKIP where possible."
-#~ msgstr ""
-#~ "<strong>Dodatkowe identyfikatory SSID</strong>: Zawsze jest konfigurowany "
-#~ "SSID 'eduroam' dla WPA2/AES (i WPA/TKIP jeżeli urządzenie wspiera wiele "
-#~ "profili). Jeśli chcesz włączyć więcej identyfikatorów SSID, to możesz je "
-#~ "wskazać tutaj. Używając opcji '(with legacy)' można zażądać włączenia "
-#~ "wsparcia legacy dla WPA/TKIP, gdy jest to możliwe"
-
-#~ msgid ""
-#~ "When you are sure that everything is correct, please click on <button "
-#~ "type='submit' name='submitbutton' value='continue'>Continue ...</button>"
-#~ msgstr ""
-#~ "Jeżeli jesteś pewny, że wszystkie podane dane są poprawne, to naciśnij "
-#~ "<button type='submit' name='submitbutton' value='continue'>Dalej...</"
-#~ "button>"
-
-#~ msgid "Redirection set to <strong>%s</strong>"
-#~ msgstr "Ustawiono przekierowanie na realm <strong>%s</strong> "
-
-#~ msgid ""
-#~ "If you specify an option here, it will override the global option(s) with "
-#~ "the same name, if any."
-#~ msgstr ""
-#~ "Jeżeli podasz tu jakąś opcję, to zastąpi ona globalną opcję o tej samej "
-#~ "nazwie."
-
-#~ msgid ""
-#~ "Pre-production warning: This is alpha software. Be happy if it doesn't "
-#~ "eat your PC. Actually working stuff is a bonus."
-#~ msgstr ""
-#~ "Uwaga eksploatacyjna: To jest oprogramowanie 'alpha'. Jeżeli Twój "
-#~ "komputer przeżyje korzystanie z niego - jesteś szczęściarzem.  Jeżeli coś "
-#~ "działa, traktuj to jako bonus."
-
-#~ msgid ""
-#~ "<td style='vertical-align: top'><strong>Success:</strong></td><td "
-#~ "style='vertical-align: top'><strong>%s</strong> from <strong>%s</strong>"
-#~ msgstr ""
-#~ "<td style='vertical-align: top'><strong>Sukces:</strong></td><td "
-#~ "style='vertical-align: top'><strong>%s</strong> z <strong>%s</strong>"
-
-#~ msgid ""
-#~ "<td style='vertical-align: top'><strong>Failure:</strong></td><td "
-#~ "style='vertical-align: top'>Login with <strong>%s</strong> from <strong>"
-#~ "%s</strong> failed!"
-#~ msgstr ""
-#~ "<td style='vertical-align: top'><strong>Niepowodzenie:</strong></td><td "
-#~ "style='vertical-align: top'>Nie udało się logowanie jako <strong>%s</"
-#~ "strong> z <strong>%s</strong>!"
-
-#~ msgid "all languages"
-#~ msgstr "wszystkie języki"
-
-#~ msgid "(all lang)"
-#~ msgstr "(wszystkie języki)"
-
-#, fuzzy
-#~ msgid ""
-#~ "<strong>ERROR</strong>: the server does not accept this client cerificate "
-#~ "(an unknown authority or no certificate policy"
-#~ msgstr ""
-#~ "<strong>Błąd</strong>: serwer przedstawia się certyfikatem wystawionym "
-#~ "przez nieznany urząd!"
-
-#~ msgid "Welcome, <strong>%s</strong>!"
-#~ msgstr "Witaj <strong>%s</strong> "
-
-#~ msgid "&copy; 2011"
-#~ msgstr "&copy; 2011"
-
-#~ msgid "You are not allowed to view or modify this IdP!"
-#~ msgstr "Nie masz uprawnień do modyfikowania danych tej instytucji!"
-
-#~ msgid "The requested Profile identifier does not exist!"
-#~ msgstr "Nie istnieje taki identyfikator profilu!"
-
-#~ msgid "Profile and IdP do not match!"
-#~ msgstr "Profil nie zgadza się z podanym IdP!"
-
-#~ msgid "Token is not a string with hex characters!"
-#~ msgstr "Niepoprawny token!"
-
-#, fuzzy
-#~ msgid "A boolean option has bogus state (%s)!"
-#~ msgstr "Opcja logiczna ma niepoprawny stan (%s)  w atrybucie %s!"
-
-#~ msgid "The option with the name %s is not known in the system!"
-#~ msgstr "Opcja %s nie jest wspierana przez system!"
-
-#~ msgid ""
-#~ "Validation facility encountered bogus multi-language string (not an "
-#~ "array)!"
-#~ msgstr ""
-#~ "Narzędzia sprawdzające poprawność natrafiły na niepoprawny napis "
-#~ "wielojęzykowy (brak tablicy)! "
-
-#~ msgid ""
-#~ "Validation facility encountered bogus multi-language string (no lang/"
-#~ "content pair))!"
-#~ msgstr ""
-#~ "Narzędzia sprawdzające poprawność natrafiły na niepoprawny napis "
-#~ "wielojęzykowy (brak pary język/zawartość)!"
-
-#~ msgid "Validation facility encountered bogus coordinates (not an array)!"
-#~ msgstr ""
-#~ "Narzędzia sprawdzające wykryły niepoprawne współrzędne (brak tablicy)!"
-
-#~ msgid ""
-#~ "Validation facility encountered bogus coordinates (no longitude/latitude)!"
-#~ msgstr ""
-#~ "Narzędzia sprawdzające wykryły niepoprawne współrzędne (brak długości/"
-#~ "szerokości geograficznej)!"
-
-#~ msgid "Validation facility called with unknown attribute type!"
-#~ msgstr "assessment"
-
-#~ msgid "Input is not a printable string!"
-#~ msgstr "Wprowadzony tekst ma nieporawny format!"
-
-#~ msgid "%s: Edit Profile '%s' ..."
-#~ msgstr "Edycja profilu '%s'..."
-
-#~ msgid ""
-#~ "<p>We know nothing about the country you have selected. Adding a country "
-#~ "is a manual action.</p>\n"
-#~ "                <p>Please contact the %s operators to have this country "
-#~ "added to the list.</p>"
-#~ msgstr ""
-#~ "<p>Nie mamy informacji o kraju, który wybrałeś. Dodanie tego kraju to "
-#~ "czynność ręczna.</p>\n"
-#~ "\t\t<p>Skontaktuj się z OT eduroam, aby dodać ten kraj do listy.</p>"
-
-#~ msgid "%s: IdP enrollment wizard (step 1)"
-#~ msgstr "eduroam CAT: kreator rejestracji IdP (krok 1)"
-
-#~ msgid "Step 1: Defining your Institution"
-#~ msgstr "Krok 1: Określenie Twojej instytucji"
-
-#~ msgid ""
-#~ "Welcome to the %s. This wizard will help you to enter all data about your "
-#~ "IdP.\n"
-#~ "                          When the process is finished, you and your "
-#~ "users will be able to download custom-made\n"
-#~ "                          installers for various platforms."
-#~ msgstr ""
-#~ "Witamy w usłudze CAT. Kreator pomoże Ci wprowadzić wszystkie dane o Twoim "
-#~ "dostawcy tożsamości (IdP).\n"
-#~ "\t\t\tGdy proces zakończy się, Twoi użytkownicy będą mogli ściągnąć z "
-#~ "naszej strony przygootowane dla Twojej instytucji\n"
-#~ "\t\t\tinstalatory na różne platformy."
-
-#~ msgid "My institution resides in the following country:"
-#~ msgstr "Moja instytucja mieści się w następującym kraju:"
-
-#~ msgid ""
-#~ "The list of countries is manually administered, because we need to map "
-#~ "pretty-print names of countries to their ISO codes. If your country is "
-#~ "missing, please contact OT. I am almost sure we figure out a more "
-#~ "automatic way of doing this later."
-#~ msgstr ""
-#~ "Lista krajów jest zarządzana ręcznie, ponieważ musimy odwzorować nazwy "
-#~ "krajów na ich kody ISO. Jeśli Twojego kraju nie ma na liście, skontaktuj "
-#~ "się z OT eduroam. Mamy nadzieję, że w przyszłości ten proces będzie "
-#~ "realizowany w sposób automatyczny."
-
-#~ msgid "Please select from list..."
-#~ msgstr "Wybierz z listy..."
-
-#~ msgid ""
-#~ "Please review your selection thoroughly. Your institution will from now "
-#~ "on be identified with these inputs."
-#~ msgstr ""
-#~ "Prosimy o dokładne sprawdzenie formularza wyboru. Twoja instytucja będzie "
-#~ "od tego czasu identyfikowana za pomocą wprowadzonych danych."
-
-#~ msgid ""
-#~ "<td>When you are sure that everything is correct, please click on </"
-#~ "td><td><button type='submit' name='submitbutton' "
-#~ "value='create'>Continue...</button></td>"
-#~ msgstr ""
-#~ "<td>Jeżeli jesteś pewny, że wprowadzone dane są poprawne, naciśnij  </"
-#~ "td><td><button type='submit' name='submitbutton' value='create'>Dalej...</"
-#~ "button></td>"
-
-#~ msgid "R"
-#~ msgstr "R"
-
-#~ msgid "The name of my Institution is:"
-#~ msgstr "Nazwa mojej instytucji to:"
-
-#, fuzzy
-#~ msgid "Default Profile"
-#~ msgstr "Domyślnie"
-
-#~ msgid ""
-#~ "This combination of device/EAP type currently gets redirected to <a "
-#~ "href='%s'>%s</a> ."
-#~ msgstr ""
-#~ "Kombinacja tego urządzenia i tego typu EAP jest obecnie przekierowywana "
-#~ "do  <a href='%s'>%s</a> ."
-
-#~ msgid "Cancel redirect"
-#~ msgstr "Skasuj przekierowanie"
-
-#~ msgid ""
-#~ "This combination of device/EAP type currently gets displayed on CAT's "
-#~ "download page."
-#~ msgstr ""
-#~ "Ta kombinacja urządzenie / typ EAP jest obecnie wyświetlana na stronie "
-#~ "CAT do pobierania instalatora."
-
-#~ msgid "Enable redirect"
-#~ msgstr "Uaktywnij przekierowanie"
-
-#~ msgid ""
-#~ "When you are sure that everything is correct, please click on\n"
-#~ "                 <button type='submit' name='submitbutton' "
-#~ "value='submitted-dashboard'>Continue to dashboard</button>"
-#~ msgstr ""
-#~ "Jeżeli jesteś pewny, że podane dane są poprawne, to naciśnij\n"
-#~ "\t\t<button type='submit' name='submitbutton' value='submitted-"
-#~ "dashboard'>Przejdź do panelu głównego</button>"
-
-#~ msgid ""
-#~ "If you want to set up another profile after this one, please click on\n"
-#~ "                 <button type='submit' name='submitbutton' "
-#~ "value='submitted-more'>Add another profile</button>"
-#~ msgstr ""
-#~ "Jeżeli chcesz zdefiniować kolejny profil, to naciśnij\n"
-#~ "\t<button type='submit' name='submitbutton' value='submitted-more'>Dodaj "
-#~ "kolejny profil</button>"
-
-#~ msgid ""
-#~ "The page was called with a non-existing IdP identifier. This is not "
-#~ "supposed to happen!"
-#~ msgstr ""
-#~ "Stronę wywołano z nieistniejącym identyfikatorem IdP. To nie powinno się "
-#~ "zdarzyć!"
-
-#~ msgid ""
-#~ "The page was called with a Profile identifier, but there was no such "
-#~ "profile in this institution!"
-#~ msgstr "Przekazany identyfikator profilu nie istnieje dla tej instytucji!"
-
-#~ msgid "Redirect device for all EAP types"
-#~ msgstr "Przekaż obsługę urządzenia dla wszystkich metod EAP"
-
-#~ msgid "Redirect EAP type for all devices"
-#~ msgstr "Przekaż obsługę  metodu EAP dla wszystkich urządzeń"
-
-#~ msgid "eduroam CAT: IdP Enrollment Wizard (Step 3)"
-#~ msgstr "eduroam CAT: kreator rejestracji IdP (krok 3)"
-
-#~ msgid "eduroam CAT: Edit Profile '%s' ..."
-#~ msgstr "eduroam CAT: Edycja profilu '%s' ..."
-
-#~ msgid ""
-#~ "First of all we need a name for the profile. This will be displayed to "
-#~ "end users, so you may want to choose a descriptive name like "
-#~ "'Professors', 'Students of the Faculty of Bioscience', etc.</p>"
-#~ msgstr ""
-#~ "Podaj nazwę profilu. Nazwa ta będzie prezentowana użytkownikom, dlatego "
-#~ "warto wybrać nazwę opisową, np. 'Profesorowie', 'Studenci Wydziału Nauk "
-#~ "Biologicznych', itp.</p>"
-
-#~ msgid ""
-#~ "You can tell us your RADIUS realm. This is useful if you want to use the "
-#~ "sanity check module later, which tests reachability of your realm in the "
-#~ "eduroam infrastructure. It is required to enter the realm name if you "
-#~ "want to support anonymous outer identities (see below)."
-#~ msgstr ""
-#~ "Możesz podać swój realm RADIUS. Będzie to przydatne do późniejszego "
-#~ "sprawdzania dostępności realmu w infrastrukturze eduroam. Jeżeli chcesz "
-#~ "używać tożsamości anonimowej (patrz poniżej), to MUSISZ podać nazwę "
-#~ "realmu."
-
-#~ msgid "selected EAP"
-#~ msgstr "aktywne metody EAP"
-
-#~ msgid "drag and drop to make EAP selected and to change priority"
-#~ msgstr ""
-#~ "przeciagnij i upuść, aby uaktywnić typ EAP i nadać odpowiedni priorytet"
-
-#~ msgid "available EAP<br>(not selected)"
-#~ msgstr "dostępne metody EAP<br>(nieaktywne)"
-
-#~ msgid ""
-#~ "The page was called with a non-existing profile identifier. This is not "
-#~ "supposed to happen!"
-#~ msgstr ""
-#~ "Stronę wywołano z nieistniejącym identyfikatorem profilu. To nie powinno "
-#~ "się zdarzyć!"
-
-#, fuzzy
-#~ msgid "Inactive EAP types"
-#~ msgstr "Akceptowane typy EAP"
-
-#~ msgid ""
-#~ "means that the EAP type is properly configured, supported by the device, "
-#~ "but will not be made available because a more preferable type is also "
-#~ "available"
-#~ msgstr ""
-#~ "oznacza, że ta metoda EAP jest poprawnie skonfigurowana, obsługiwana "
-#~ "przez urządzenieale nie zostanie włączona, ponieważ są dostępne metody o "
-#~ "wyższym priorytecie"
-
-#~ msgid ""
-#~ "means that the EAP type is not properly configured, so generation of "
-#~ "profiles is not possible even though the device could handle that EAP type"
-#~ msgstr ""
-#~ "oznacza, że ta metoda EAP nie jest poprawnie skonfigurowana, więc "
-#~ "generowanieinstalatorów nie jest możliwe, pomimo że urządzenie obsługuje "
-#~ "daną metodę EAP"
-
-#~ msgid "Do something!"
-#~ msgstr "Zrób coś!"

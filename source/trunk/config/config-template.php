@@ -140,26 +140,31 @@ class Config {
       'de' => array('display' => 'Deutsch',     'locale' => 'de_DE.utf8'),
       'en' => array('display' => 'English(GB)', 'locale' => 'en_GB.utf8'),
       'es' => array('display' => 'Español',     'locale' => 'es_ES.utf8'),
-      'fr' => array('display' => 'Français',    'locale' => 'fr_FR.utf8'),
       'gl' => array('display' => 'Galego',      'locale' => 'gl_ES.utf8'),
       'hr' => array('display' => 'Hrvatski',    'locale' => 'hr_HR.utf8'),
       'it' => array('display' => 'Italiano',    'locale' => 'it_IT.utf8'),
       'nb' => array('display' => 'Norsk',       'locale' => 'nb_NO.utf8'),
       'pl' => array('display' => 'Polski',      'locale' => 'pl_PL.utf8'),
-      'pt' => array('display' => 'Português',   'locale' => 'pt_PT.utf8'),
-      'sk' => array('display' => 'Slovenčina',  'locale' => 'sk_SK.utf8'),
       'sl' => array('display' => 'Slovenščina', 'locale' => 'sl_SI.utf8'),
       'sr' => array('display' => 'Srpski',      'locale' => 'sr_RS@latin'),
       'fi' => array('display' => 'Suomi',       'locale' => 'fi_FI.utf8'),
+      'el' => array('display' => 'Ελληνικά',    'locale' => 'el_GR.utf8'),
+      'hu' => array('display' => 'Magyar',      'locale' => 'hu_HU.utf8'),
+
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. Their Transifex content is not
 // necessarily ported to SVN yet. Contact the authors if you want the current
 // state of translation of these languages.
 //
-//      'el' => array('display' => 'Ελληνικά', 'locale' => 'el_GR.utf8'),
+// these three were in for 1.0 but didn't make 1.1
+//     'pt' => array('display' => 'Português',   'locale' => 'pt_PT.utf8'),
+//     'sk' => array('display' => 'Slovenčina',  'locale' => 'sk_SK.utf8'),
+//     'fr' => array('display' => 'Français',    'locale' => 'fr_FR.utf8'),
+//
+// and these were never complete
+//
 //      'nl' => array('display' => 'Nederlands', 'locale' => 'nl_NL.utf8'),
 //      'sv' => array('display' => 'Svenska', 'locale' => 'sv_SE.utf8'),
-//      'hu' => array('display' => 'Magyar', 'locale' => 'hu_HU.utf8'),
 //      'cy' => array('display' => 'Cymraeg', 'locale' => 'cy_GB.utf8'),
     );
 

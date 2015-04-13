@@ -1,45 +1,61 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Janos Mohacsi <mohacsi@niif.hu>, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-13 09:59+0200\n"
 "PO-Revision-Date: 2015-04-07 14:08+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
-"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/hu/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
+"hu/)\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: web/user/cat_info.php:32 web/user/faq.php:32
 #, php-format
 msgid ""
-"eduroam is a global WiFi roaming consortium which gives members of education"
-" and research access to the internet <i>for free</i> on all eduroam hotspots"
-" on the planet. There are several million eduroam users already, enjoying "
-"free internet access on more than 6.000 hotspots! Visit <a "
-"href='http://www.eduroam.org'>the eduroam homepage</a> for more details."
-msgstr "Az eduroam egy globális konzorcium a WiFi barangolás megvalósítására, mely oktatási és kutatóintézetek dolgozói számára <i>ingyenes</i> hozzáférést biztosít a világ összes eduroam csatlakozási pontján. Már több millió eduroam felhasználó élvezi az ingyenes internet hozzáférés előnyeit több mint 6000 helyen. További részleteket a <a href='http://www.eduroam.org'>weboldalon</a> találhat."
+"eduroam is a global WiFi roaming consortium which gives members of education "
+"and research access to the internet <i>for free</i> on all eduroam hotspots "
+"on the planet. There are several million eduroam users already, enjoying "
+"free internet access on more than 6.000 hotspots! Visit <a href='http://www."
+"eduroam.org'>the eduroam homepage</a> for more details."
+msgstr ""
+"Az eduroam egy globális konzorcium a WiFi barangolás megvalósítására, mely "
+"oktatási és kutatóintézetek dolgozói számára <i>ingyenes</i> hozzáférést "
+"biztosít a világ összes eduroam csatlakozási pontján. Már több millió "
+"eduroam felhasználó élvezi az ingyenes internet hozzáférés előnyeit több "
+"mint 6000 helyen. További részleteket a <a href='http://www.eduroam."
+"org'>weboldalon</a> találhat."
 
 #: web/user/cat_info.php:37
 #, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
 "%s administrators enter their %s configuration details and based on them, "
-"<span class='edu_cat'>%s</span> builds customised installers for a number of"
-" popular platforms. An installer prepared for one institution will not work "
+"<span class='edu_cat'>%s</span> builds customised installers for a number of "
+"popular platforms. An installer prepared for one institution will not work "
 "for users of another one, therefore if your institution is not on the list, "
-"you cannot use this system. Please contact your local administrators and try"
-" to influence them to add your institution configuration to <span "
+"you cannot use this system. Please contact your local administrators and try "
+"to influence them to add your institution configuration to <span "
 "class='edu_cat'>%s</span>."
-msgstr "<span class='edu_cat'>%s</span> egy együttműködési platfomnak készült.<p>Helyi %s adminisztrátor tölti ki a saját %s konfigurációs adatokat és ezek alapján, <span class='edu_cat'>%s</span>  elkészíti az előre konfigurált telepítő készletek több különböző közkedvelt platformra. Egy telepítő, melyet egy adott intézményhez készített a rendszer nem fog működni egy másik intézményben. Ha a te intézményed nem szerepel a listában, akkor sajnot nem tudod ezt a rendszert használni. Lépj kapcsolatba az anyaintézményi rendszergazdával és beszéld rá, hogy töltse fel szükséges konfigurációkat  <span class='edu_cat'>%s</span>."
+msgstr ""
+"<span class='edu_cat'>%s</span> egy együttműködési platfomnak készült."
+"<p>Helyi %s adminisztrátor tölti ki a saját %s konfigurációs adatokat és "
+"ezek alapján, <span class='edu_cat'>%s</span>  elkészíti az előre "
+"konfigurált telepítő készletek több különböző közkedvelt platformra. Egy "
+"telepítő, melyet egy adott intézményhez készített a rendszer nem fog működni "
+"egy másik intézményben. Ha a te intézményed nem szerepel a listában, akkor "
+"sajnot nem tudod ezt a rendszert használni. Lépj kapcsolatba az "
+"anyaintézményi rendszergazdával és beszéld rá, hogy töltse fel szükséges "
+"konfigurációkat  <span class='edu_cat'>%s</span>."
 
 #: web/user/cat_info.php:44
 #, php-format
@@ -47,17 +63,22 @@ msgid ""
 "The most important need is adding new installer modules, which will "
 "configure particular devices.  CAT is making this easy for you. If you know "
 "how to create an automatic installer then fitting it into CAT should be a "
-"piece of cake. You should start by contacting us at <a "
-"href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT "
-"documentation</a>."
-msgstr "A legfontosabb az, hogy újabb telepítő modulok készüljenek egy-egy eszközhöz. CAT segít ebben. Ha tudod, hogy hogyan készíts CAT-hez ilyen modult akkor az nagyszerű. Vedd fel velünk a kapcsoltatot  <a href='mailto:%s'>%s</a>, illetve olvasd el a  <a href='%s'>CAT dokumentációját</a>"
+"piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</"
+"a>, but please also take a look at <a href='%s'>CAT documentation</a>."
+msgstr ""
+"A legfontosabb az, hogy újabb telepítő modulok készüljenek egy-egy "
+"eszközhöz. CAT segít ebben. Ha tudod, hogy hogyan készíts CAT-hez ilyen "
+"modult akkor az nagyszerű. Vedd fel velünk a kapcsoltatot  <a href='mailto:"
+"%s'>%s</a>, illetve olvasd el a  <a href='%s'>CAT dokumentációját</a>"
 
 #: web/user/cat_info.php:47
 #, php-format
 msgid ""
 "Please send a problem report to <a href='mailto:%s'>%s</a>. Some screen "
 "dumps are very welcome."
-msgstr "Légy szíves a hibabejelentést küldd ide:<a href='mailto:%s'>%s</a>. Képernyő képek a hibáról nagyon hasznosak."
+msgstr ""
+"Légy szíves a hibabejelentést küldd ide:<a href='mailto:%s'>%s</a>. Képernyő "
+"képek a hibáról nagyon hasznosak."
 
 #: web/user/cat_info.php:62
 #, php-format
@@ -65,7 +86,10 @@ msgid ""
 "You must have received an invitation from your national %s operator before "
 "being able to manage your institution. If that is the case, please continue "
 "and log in."
-msgstr "A saját intézményed menedzseléséhez az kell, hogy előbb kapj egy meghívólevelet az országos %s operátortól. Ha ez már megvolt, kattints a Belépés gombra!"
+msgstr ""
+"A saját intézményed menedzseléséhez az kell, hogy előbb kapj egy "
+"meghívólevelet az országos %s operátortól. Ha ez már megvolt, kattints a "
+"Belépés gombra!"
 
 #: web/user/cat_info.php:64
 msgid "Please authenticate yourself and login"
@@ -78,17 +102,23 @@ msgstr "Belépés"
 #: web/user/faq.php:6
 #, php-format
 msgid "My institution is not listed. Can't I just use any of the other ones?"
-msgstr "Az intézményem nincs felsorolva. Nem választhatnék egy másikat a listáról?"
+msgstr ""
+"Az intézményem nincs felsorolva. Nem választhatnék egy másikat a listáról?"
 
 #: web/user/faq.php:7
 #, php-format
 msgid ""
 "No! The installers contain security settings which are specific to the "
-"institution. If you are not from that institution, your computer will detect"
-" that you are about to send your username and credential to an unauthorised "
+"institution. If you are not from that institution, your computer will detect "
+"that you are about to send your username and credential to an unauthorised "
 "server and will abort the login. Using a different institution installer is "
 "<i>guaranteed to not work</i>!"
-msgstr "Nem! Az installálóprogram az adott intézményhez köthető biztonsági beállításokat tartalmaz. Ha nem a sajátodat használod, a géped nem a megfelelő szervernek küldi majd el az azonosítódat és a hitelesítési információkat, és így a belépés sikertelen lesz. Idegen intézmény installálójának használata <i>garantáltan hibához vezet</i>!"
+msgstr ""
+"Nem! Az installálóprogram az adott intézményhez köthető biztonsági "
+"beállításokat tartalmaz. Ha nem a sajátodat használod, a géped nem a "
+"megfelelő szervernek küldi majd el az azonosítódat és a hitelesítési "
+"információkat, és így a belépés sikertelen lesz. Idegen intézmény "
+"installálójának használata <i>garantáltan hibához vezet</i>!"
 
 #: web/user/faq.php:12
 #, php-format
@@ -100,12 +130,16 @@ msgstr "Hogy vetethetem fel az intézményem a listára?"
 msgid ""
 "Contact %s administrators at your home institution and complain. It will "
 "take at most one hour of their time to get things done."
-msgstr "Lépj kapcsolatba az intézményed %s adminisztrátorával és nála reklamálj! Legfeljebb egy óra alatt orvosolható a probléma."
+msgstr ""
+"Lépj kapcsolatba az intézményed %s adminisztrátorával és nála reklamálj! "
+"Legfeljebb egy óra alatt orvosolható a probléma."
 
 #: web/user/faq.php:18
 #, php-format
 msgid "My device is not listed! Does that mean I can't do %s?"
-msgstr "Az  eszközöm nem szerepel a listán. Ez azt jelenti, hogy nem használhatom az %sot?"
+msgstr ""
+"Az  eszközöm nem szerepel a listán. Ez azt jelenti, hogy nem használhatom az "
+"%sot?"
 
 #: web/user/faq.php:19
 #, php-format
@@ -114,23 +148,34 @@ msgid ""
 "automatically configured in some way. Many other devices can still be used "
 "with %s, but must be configured manually. Please contact your %s Identity "
 "Provider to get help in setting up such a device."
-msgstr "Nem. Noha a CAT (Configuration Assistant Tool) csak bizonyos operációs rendszereken használható, melyeket automatikusan is lehet konfigurálni, más eszközökön is használható az %s, csak éppen kézzel kell beállítani. Lépj kapcsolatba az %s Identity Providereddel és kérj segítséget a berendezésed bekonfigurálásához!"
+msgstr ""
+"Nem. Noha a CAT (Configuration Assistant Tool) csak bizonyos operációs "
+"rendszereken használható, melyeket automatikusan is lehet konfigurálni, más "
+"eszközökön is használható az %s, csak éppen kézzel kell beállítani. Lépj "
+"kapcsolatba az %s Identity Providereddel és kérj segítséget a berendezésed "
+"bekonfigurálásához!"
 
 #: web/user/faq.php:24
 #, php-format
 msgid ""
 "I can connect to %s simply by providing username and password, what is the "
 "point of using an installer?"
-msgstr "Rá tudok csatlakozni az %sra felhasználónév és jelszó megadásával. Mi szükségem lehet az installálóra?"
+msgstr ""
+"Rá tudok csatlakozni az %sra felhasználónév és jelszó megadásával. Mi "
+"szükségem lehet az installálóra?"
 
 #: web/user/faq.php:25
 #, php-format
 msgid ""
 "When you are connecting from an unconfigured device your security is at "
-"risk. The very point of preconfiguration is to set up security, when this is"
-" done, your device will first confirm that it talks to the correct "
+"risk. The very point of preconfiguration is to set up security, when this is "
+"done, your device will first confirm that it talks to the correct "
 "authentication server and will never send your password to an untrusted one."
-msgstr "Mikor egy nem konfigurált eszközről csatlakozol, biztonsági kockázatot vállalsz. Az előzetes konfigurálás haszna a biztonság. Így az eszköz azzal kezdi, hogy ellenőrzi a hitelesítő szervert és nem fogja elküldeni a jelszavad egy megbízhatatlannak."
+msgstr ""
+"Mikor egy nem konfigurált eszközről csatlakozol, biztonsági kockázatot "
+"vállalsz. Az előzetes konfigurálás haszna a biztonság. Így az eszköz azzal "
+"kezdi, hogy ellenőrzi a hitelesítő szervert és nem fogja elküldeni a "
+"jelszavad egy megbízhatatlannak."
 
 #: web/user/faq.php:31
 #, php-format
@@ -147,29 +192,38 @@ msgstr "Az %s installáló biztonságos?"
 msgid ""
 "%s installers configure security settings on your device, therefore you "
 "should be sure that you are using genuine ones."
-msgstr "Az %s installáló biztonsági beállásokat végez az eszközödön, ezért biztosnak kell lenned benne, hogy eredeti programot használsz."
+msgstr ""
+"Az %s installáló biztonsági beállásokat végez az eszközödön, ezért biztosnak "
+"kell lenned benne, hogy eredeti programot használsz."
 
 #: web/user/faq.php:39
 #, php-format
 msgid ""
-"This is why %s installers are digitally signed by %s. Watch out for a system"
-" message confirming this."
-msgstr "Ezért vannak az %s installálók digitálisan aláírva a %s tanúsítványával. Ellenőrizd az aláírást futtatás előtt!"
+"This is why %s installers are digitally signed by %s. Watch out for a system "
+"message confirming this."
+msgstr ""
+"Ezért vannak az %s installálók digitálisan aláírva a %s tanúsítványával. "
+"Ellenőrizd az aláírást futtatás előtt!"
 
 #: web/user/faq.php:45
 msgid ""
 "Windows 'SmartScreen' or 'Internet Explorer' tell me that the file is not "
 "commonly downloaded and possibly harmful. Should I be concerned?"
-msgstr "A Windows 'SmartScreen' vagy az 'Internet Explorer' arra figyelmeztet, hogy ez nem egy szokásos fá"
+msgstr ""
+"A Windows 'SmartScreen' vagy az 'Internet Explorer' arra figyelmeztet, hogy "
+"ez nem egy szokásos fá"
 
 #: web/user/faq.php:46
 msgid ""
-"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart."
-" The warning merely means that the file has not yet been downloaded by "
-"enough users to make Microsoft consider it popular (which would strangely "
-"enough make it be considered 'safe'). This message alone is not a security "
-"problem."
-msgstr "Nevével ellentétben a 'SmartScreen' nem valami okos. A figyelmeztetés pusztán azt jelenti, hogy a fájlt még nem töltötte le annyi felhasználó, hogy a Microsoft népszerűnek tekintse – ami nálunk egyben biztonságosat is jelent. Ez az üzenet önmagában nem utal biztonsági problémára."
+"Contrary to what the name suggests, 'SmartScreen' isn't actually very smart. "
+"The warning merely means that the file has not yet been downloaded by enough "
+"users to make Microsoft consider it popular (which would strangely enough "
+"make it be considered 'safe'). This message alone is not a security problem."
+msgstr ""
+"Nevével ellentétben a 'SmartScreen' nem valami okos. A figyelmeztetés "
+"pusztán azt jelenti, hogy a fájlt még nem töltötte le annyi felhasználó, "
+"hogy a Microsoft népszerűnek tekintse – ami nálunk egyben biztonságosat is "
+"jelent. Ez az üzenet önmagában nem utal biztonsági problémára."
 
 #: web/user/faq.php:46
 #, php-format
@@ -195,7 +249,11 @@ msgid ""
 "to be able to 'feed' security settings from a configuration file which you "
 "can download. Many Operating Systems like Apple and Microsoft have that "
 "functionality, but for Android no such mechanism exists."
-msgstr "Az %s függ az adott platformon elérhető technológiáktól. Képesnek kell lennie biztonsági beállítások módosítására általad letöltött konfigurációs fájlok alapján. Számos operációs rendszer –  mint az Apple vagy a Microsoft termékei – képes erre, de az Androidon nincs ilyen mechanizmus."
+msgstr ""
+"Az %s függ az adott platformon elérhető technológiáktól. Képesnek kell "
+"lennie biztonsági beállítások módosítására általad letöltött konfigurációs "
+"fájlok alapján. Számos operációs rendszer –  mint az Apple vagy a Microsoft "
+"termékei – képes erre, de az Androidon nincs ilyen mechanizmus."
 
 #: web/user/faq.php:55
 #, php-format
@@ -203,27 +261,38 @@ msgid ""
 "That is - <i>to our knowledge</i>. If you are a developer with some good "
 "knowledge about Android's APIs, and you know how to do it - please let us "
 "know; we would be delighted!"
-msgstr "Mármint <i>legjobb tudomásunk szerint</i>.  De ha jól ismered az Android API-ját és meg tudod mondani nekünk, hogyan kell megcsinálni, nagyon hálásak leszünk érte."
+msgstr ""
+"Mármint <i>legjobb tudomásunk szerint</i>.  De ha jól ismered az Android API-"
+"ját és meg tudod mondani nekünk, hogyan kell megcsinálni, nagyon hálásak "
+"leszünk érte."
 
 #: web/user/faq.php:61
 #, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
-msgstr "Látom az %s hálózatot és az eszközöm fel is van konfigurálva, mégsem tudok csatlakozni. Mi lehet a baj?"
+msgstr ""
+"Látom az %s hálózatot és az eszközöm fel is van konfigurálva, mégsem tudok "
+"csatlakozni. Mi lehet a baj?"
 
 #: web/user/faq.php:62
 #, php-format
 msgid ""
-"There can be a number of different reasons. The network you see may not be a"
-" genuine %s one and your device silently drops the connection attempt; there"
-" may be something wrong with the configuration of the network; your account "
+"There can be a number of different reasons. The network you see may not be a "
+"genuine %s one and your device silently drops the connection attempt; there "
+"may be something wrong with the configuration of the network; your account "
 "may have expired; there may be a connection problem with your home "
 "authentication server; you may have broken the regulations of the network "
 "you are using and have been refused access as a consequence. You should "
 "contact your home institution and report the problem, the administrators "
 "should be able to trace your connections."
-msgstr "Ennek számtalan oka lehet. Például a hálózat amit látsz, nem valódi %s és az eszközöd visszautasítja a csatlakozási kérelmed. Vagy esetleg valami félre van konfigurálva a hálózatban. Lejárt az accountod. Nem lehet elérni az otthoni hitelesítő szerveredet. Netán megsértetted a használat szabályait és kitiltottak. Lépj kapcsolatba az anyaintézményeddel, és kérd meg az otthoni rendszergazdát, hogy nyomozza ki mi a gond!"
+msgstr ""
+"Ennek számtalan oka lehet. Például a hálózat amit látsz, nem valódi %s és az "
+"eszközöd visszautasítja a csatlakozási kérelmed. Vagy esetleg valami félre "
+"van konfigurálva a hálózatban. Lejárt az accountod. Nem lehet elérni az "
+"otthoni hitelesítő szerveredet. Netán megsértetted a használat szabályait és "
+"kitiltottak. Lépj kapcsolatba az anyaintézményeddel, és kérd meg az otthoni "
+"rendszergazdát, hogy nyomozza ki mi a gond!"
 
 #: web/user/faq.php:68
 #, php-format
@@ -248,7 +317,10 @@ msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
-msgstr "Probléma lépett fel. A telepítő csomagot nem lehetett elkészíteni. A rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban igyekszünk elhárítani. "
+msgstr ""
+"Probléma lépett fel. A telepítő csomagot nem lehetett elkészíteni. A "
+"rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban "
+"igyekszünk elhárítani. "
 
 #: web/user/js/cat_js.php:57
 msgid "no matching data found"
@@ -288,14 +360,19 @@ msgstr "Ha elakadnál, legjobb ha segítséget kérsz az anyaintézményedtől"
 #: web/user/js/cat_js.php:202 web/user/js/cat_js.php:227
 msgid ""
 "This device cannot be configured with settings provided by your institution"
-msgstr "Ez az eszköz nem konfigurálható azokkal a beállításokkal, amelyek jelenleg az intézménynél be vannak állítva."
+msgstr ""
+"Ez az eszköz nem konfigurálható azokkal a beállításokkal, amelyek jelenleg "
+"az intézménynél be vannak állítva."
 
 #: web/user/js/cat_js.php:214
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
 "page will be opened in a new window/tab."
-msgstr "Az anyaintézmény rendszergazdája úgy rendelkezett, hogy az eszközök konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
+msgstr ""
+"Az anyaintézmény rendszergazdája úgy rendelkezett, hogy az eszközök "
+"konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> "
+"gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
 
 #: web/user/js/cat_js.php:214 web/user/js/cat_js.php:222 web/index.php:251
 msgid "Continue"
@@ -321,13 +398,17 @@ msgstr "Segítséget kérek! Az intézményem nincs a felsorolásban."
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
-"your institution is not on the list, then nag them to add information to the"
-" %s database."
-msgstr "Ez a rendszer azokon az adatokon alapul, melyet a helyi %s adminisztrátorok szolgáltatnak. Ha az intézményed nincs a listán, kérd meg őket, hogy táplálják be a szükséges információkat az %s adatbázisba!"
+"your institution is not on the list, then nag them to add information to the "
+"%s database."
+msgstr ""
+"Ez a rendszer azokon az adatokon alapul, melyet a helyi %s adminisztrátorok "
+"szolgáltatnak. Ha az intézményed nincs a listán, kérd meg őket, hogy "
+"táplálják be a szükséges információkat az %s adatbázisba!"
 
 #: web/user/js/cat_js.php:478
 msgid "Locate me more accurately using HTML5 Geo-Location"
-msgstr "Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
+msgstr ""
+"Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
 
 #: web/user/js/cat_js.php:479
 msgid "Show institutions in"
@@ -386,6 +467,7 @@ msgid "Nearby providers shown on top."
 msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 
 #. /devices.php
+#.
 #: web/user/js/roll.php:122
 msgid "MS Windows"
 msgstr "MS Windows"
@@ -440,14 +522,18 @@ msgid ""
 "but we don't want ot show it to you. You need to be authenticated and "
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
-msgstr "de nem akarjuk megmutatni neked. Lépj be a megfelelő jogosultsággal, hogy lásd a tartalmat. Mivel ez nem történt meg, ezért ez a hibajelezést kapod"
+msgstr ""
+"de nem akarjuk megmutatni neked. Lépj be a megfelelő jogosultsággal, hogy "
+"lásd a tartalmat. Mivel ez nem történt meg, ezért ez a hibajelezést kapod"
 
 #: web/4013.php:47
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
 "href='%s'>Start Page</a>."
-msgstr "Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves lépj vissza a <a href='%s'>Kezdő oldalra</a>."
+msgstr ""
+"Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves lépj "
+"vissza a <a href='%s'>Kezdő oldalra</a>."
 
 #: web/404.php:44
 msgid "This is not the CAT you are looking for."
@@ -457,14 +543,18 @@ msgstr "Ez nem az a CAT amit kerestél."
 msgid ""
 "Whatever you expected to see at this URL - it's not here. The only thing "
 "here is the number"
-msgstr "Bármit is szerettél volna látni ezen a URL-en, az nincsen ott. Amit itt van az csak egy szám. "
+msgstr ""
+"Bármit is szerettél volna látni ezen a URL-en, az nincsen ott. Amit itt van "
+"az csak egy szám. "
 
 #: web/404.php:47
 #, php-format
 msgid ""
-"staring at you. Your mistake? Our error? Who knows! Maybe you should go back"
-" to the <a href='%s'>Start Page</a>."
-msgstr "Bámulatos! Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves lépj vissza a <a href='%s'>Kezdő oldalra</a>."
+"staring at you. Your mistake? Our error? Who knows! Maybe you should go back "
+"to the <a href='%s'>Start Page</a>."
+msgstr ""
+"Bámulatos! Te hibáztál, vagy mi? Sajnos nem tudjuk megállapítani. Légyszíves "
+"lépj vissza a <a href='%s'>Kezdő oldalra</a>."
 
 #: web/basic.php:129
 msgid "Select your country"
@@ -482,7 +572,10 @@ msgstr "Válaszd ki a felhasználói csoportot"
 msgid ""
 "Your operating system was not properly detected, is not supported yet or "
 "cannot be configured with settings provided by your institution"
-msgstr "Az operációs rendszeredet nem tudtuk megállapítani, vagy nem támogatott, vagy nem lehetséges konfigurálni azokkal a beállításokkal amelyek az intézményedhez tartoznak."
+msgstr ""
+"Az operációs rendszeredet nem tudtuk megállapítani, vagy nem támogatott, "
+"vagy nem lehetséges konfigurálni azokkal a beállításokkal amelyek az "
+"intézményedhez tartoznak."
 
 #: web/basic.php:201 web/index.php:299
 msgid "Choose an installer to download"
@@ -491,7 +584,8 @@ msgstr "Válaszd ki a letöltendő installálót"
 #: web/basic.php:234 web/basic.php:272
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
-msgstr "A helyi adminisztrátor redirected állított be a helyi beállítások lapra."
+msgstr ""
+"A helyi adminisztrátor redirected állított be a helyi beállítások lapra."
 
 #: web/basic.php:234
 msgid "When you click <b>CONTINUE</b> this support page will be opened."
@@ -508,7 +602,9 @@ msgstr "Rendelkezel hozzáféréssel az adott intézménynél?"
 #: web/basic.php:240
 msgid ""
 "If so and if the other settings above are OK then click here to download..."
-msgstr "Ha igen, és a fenti beállítások megfelelőek, akkor kattints ide a letöltéshez."
+msgstr ""
+"Ha igen, és a fenti beállítások megfelelőek, akkor kattints ide a "
+"letöltéshez."
 
 #: web/basic.php:272
 msgid "Click on the link below to continue."
@@ -527,12 +623,12 @@ msgstr "Előlről kezd"
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
-#: web/basic.php:448 web/index.php:340 web/tou.php:56
+#: web/basic.php:448 web/index.php:340 web/tou.php:53
 #, php-format
 msgid "Release %s"
 msgstr "Release %s"
 
-#: web/basic.php:450 web/index.php:342 web/tou.php:58
+#: web/basic.php:450 web/index.php:342 web/tou.php:55
 msgid "Unreleased SVN Revision"
 msgstr "Kibocsátattlan SVN revizió"
 
@@ -597,13 +693,14 @@ msgstr "válassz másikat"
 msgid "Welcome aboard the eduroam® user community!"
 msgstr "Üdvözlünk az eduroam® felhasználói közösségben!"
 
-#. / the empty href is dynamically exchanged with the actual path by jQuery at
-#. runtime
+#. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
 #: web/index.php:228
 msgid ""
 "Your download will start shortly, in case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
-msgstr "A letöltés hamarosan elindul. Ha probléma merülne fel az automatikus letöltéssel, akkor használd a direct linket: <a href=''>link</a>."
+msgstr ""
+"A letöltés hamarosan elindul. Ha probléma merülne fel az automatikus "
+"letöltéssel, akkor használd a direct linket: <a href=''>link</a>."
 
 #: web/index.php:231
 #, php-format
@@ -616,15 +713,22 @@ msgid ""
 "eduroam®! From now on, you will be able to use internet access resources on "
 "thousands of universities, research centres and other places all over the "
 "globe. All of this completely free of charge!"
-msgstr "Szívélyesen üdvözlünk a több milliónyi  eduroam® felhasználó között! Mostantól kezdve  ezernyi egyetemen, kutatóintézetben és a világ más helyein fogsz tudni teljesen ingyenesen internetezni. "
+msgstr ""
+"Szívélyesen üdvözlünk a több milliónyi  eduroam® felhasználó között! "
+"Mostantól kezdve  ezernyi egyetemen, kutatóintézetben és a világ más helyein "
+"fogsz tudni teljesen ingyenesen internetezni. "
 
 #: web/index.php:237
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
-"credentials (this is our fancy name for 'username and password' or 'personal"
-" certificate') - and be online!"
-msgstr "Most, hogy letöltötted és telepítetted az eduroam kliens konfigurátort már csak egy eduroam® hotspotot kell keresned a közeledben és  begépelned a felhasználói azonosítódat ( 'felhasználói név és jelszó' vagy 'személyes tanúsítvány') - és máris online lehetsz!"
+"credentials (this is our fancy name for 'username and password' or 'personal "
+"certificate') - and be online!"
+msgstr ""
+"Most, hogy letöltötted és telepítetted az eduroam kliens konfigurátort már "
+"csak egy eduroam® hotspotot kell keresned a közeledben és  begépelned a "
+"felhasználói azonosítódat ( 'felhasználói név és jelszó' vagy 'személyes "
+"tanúsítvány') - és máris online lehetsz!"
 
 #: web/index.php:239
 #, php-format
@@ -632,7 +736,10 @@ msgid ""
 "Should you have any problems using this service, please always contact the "
 "helpdesk of %s. They will diagnose the problem and help you out. You can "
 "reach them via the means shown above."
-msgstr "A szolgáltatás használatában bármilyen probléma merülne fel vedd fel a kapcsolatot a %s hibabejelentővel. Ők fogják diagnosztizálni a problémát és segítenek elhárítani azt. Elérhetőségük fentebb látható."
+msgstr ""
+"A szolgáltatás használatában bármilyen probléma merülne fel vedd fel a "
+"kapcsolatot a %s hibabejelentővel. Ők fogják diagnosztizálni a problémát és "
+"segítenek elhárítani azt. Elérhetőségük fentebb látható."
 
 #: web/index.php:243
 msgid "Back to downloads"
@@ -640,9 +747,15 @@ msgstr "Vissza a letöltéshez"
 
 #: web/index.php:247
 msgid ""
-"Your local administrator has specified a redirect to a local support page.<br>\n"
-"                            When you click <b>Continue</b> this support page will be opened in a new window/tab."
-msgstr "A helyi adminisztrátor egy átirányítást definiált a helyi támogató oldalra. <br>\nHa <b>Folytatás gombra</b> kattintasz ez a támogató oldal nyílik meg új ablakban/fülben."
+"Your local administrator has specified a redirect to a local support page."
+"<br>\n"
+"                            When you click <b>Continue</b> this support page "
+"will be opened in a new window/tab."
+msgstr ""
+"A helyi adminisztrátor egy átirányítást definiált a helyi támogató oldalra. "
+"<br>\n"
+"Ha <b>Folytatás gombra</b> kattintasz ez a támogató oldal nyílik meg új "
+"ablakban/fülben."
 
 #: web/index.php:293
 msgid "All platforms"
