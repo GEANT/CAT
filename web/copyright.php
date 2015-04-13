@@ -10,12 +10,13 @@
  * @package UserGUI
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("user/GUI.php");
+require_once("UserAPI.php");
+$Gui = new UserAPI();
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head lang="en"> 
-        <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat.css" />
+        <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat.css.php" />
         <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat-user.css" />
     </head>
     <body>
@@ -26,7 +27,7 @@ require_once("user/GUI.php");
             print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("%s Copyright and Licensing"), Config::$APPEARANCE['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . Config::$APPEARANCE['productname_long'] . '</h2>';
             echo '<table id="lang_select"><tr><td>';
-            echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $Gui->lang_index . '">' . _("Start page") . '</a></td></tr></table>';
+            echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '">' . _("Start page") . '</a></td></tr></table>';
             ?>
         </div>
         <div id="main_body">
