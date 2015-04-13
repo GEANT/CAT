@@ -3,26 +3,23 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# alexm <alexm@arnes.si>, 2012
-# blazdivjak <blaz.divjak@gmail.com>, 2012
-# Blaž Divjak <blaz.divjak@guest.arnes.si>, 2012
-# blazdivjak <blaz.divjak@gmail.com>, 2013
-# rokpapez <rok.papez@arnes.si>, 2015
-# rokpapez <rok.papez@arnes.si>, 2012
-# teja <teja.cetinski@gmail.com>, 2013
+# bajnokk <bajnokk@niif.hu>, 2014
+# bajnokk <bajnokk@niif.hu>, 2014
+# Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015
+# Janos Mohacsi <mohacsi@niif.hu>, 2012
 msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-04-08 11:52+0200\n"
-"PO-Revision-Date: 2015-04-11 01:15+0000\n"
-"Last-Translator: rokpapez <rok.papez@arnes.si>\n"
-"Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/language/sl_SI/)\n"
+"PO-Revision-Date: 2015-04-08 17:27+0000\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sl_SI\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Language: hu\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: devices/devices-template.php:101
 msgid "MS Windows 10"
@@ -62,7 +59,7 @@ msgstr "Apple OS X Lion"
 
 #: devices/devices-template.php:226
 msgid "Apple iOS mobile devices"
-msgstr "Mobilne naprave Apple iOS"
+msgstr "Apple iOS mobileszközök"
 
 #: devices/devices-template.php:239
 msgid "Linux"
@@ -79,7 +76,7 @@ msgid ""
 "that you have installed the %s application. This application is available "
 "from %s and will use the configuration file downloaded from CAT to create "
 "all necessary settings."
-msgstr "Predno nadaljujete z namestivijo na sistemu Android, namestite aplikacijo %s. Aplikacija je dosegljiva z %s in bo s pomočjo nastavitvene datoteke prenešene iz CAT uredila vse potrebne nastavitve."
+msgstr "Mielőtt az Android rendszeren telepítenél, ellenőrizd, hogy a %s alkalmazás telepítve van-e. Ez az alkalmazás elérhető %s címről és az CAT-ről letöltött konfigurációs fájlt fogja használni a beállítások elvégzéséhez."
 
 #: devices/devices-template.php:263
 msgid "Android 4.4 KitKat"
@@ -91,7 +88,7 @@ msgstr "Android"
 
 #: devices/devices-template.php:286
 msgid "EAP config"
-msgstr "nastavitev EAP"
+msgstr "EAP konfiguráció"
 
 #: devices/devices-template.php:291
 #, php-format
@@ -99,71 +96,69 @@ msgid ""
 "This option provides a generic EAP config XML file, which can be consumed by"
 " dedicated applications like eduroamCAT for Android and Linux platforms. "
 "This is still an experimental feature."
-msgstr "Ta možnost priskrbi generično nastavitveno EAP datoteko XML, ki jo berejo namenske aplikacije kot je eduroamCAT za Androida in Linux. Ta možnost je še vedno preizkusna."
+msgstr "Ez az opció egy XML fájlt generál, amely generikus EAP konfigurációt tartalmaz. Ezt a fájlt  eduroamCAT for Android és Linux környezetben lehet alkalmazni, hogy be lehessen állítani a hozzáférést. Ez egyenlőre kísérleti jellegű lehetőség."
 
 #: devices/devices-template.php:297
 msgid "Test"
-msgstr "Test"
+msgstr "Teszt"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:120
 #, php-format
 msgid "Network configuration profile '%s' of '%s' - provided by %s"
-msgstr "Profil nastavitev omrežja '%s' od '%s' - priskrbel ga je %s"
+msgstr "'%s'  '%s' hálózati konfigurációs profil – %s hozta létre"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:165
 msgid ""
 "The profile will install itself after you click (or tap) the button. You "
 "will be asked for confirmation/input at several points:"
-msgstr "Namestitev profila potrdite s klikom na gumb. Med nameščanjem bo na več mestih zahtevana vaša potrditev:"
+msgstr "A profil telepítése a gombra való kattintással kezdhető meg. A folyamat több pontján kell megerősítést vagy választ adnod:"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:167
 msgid "to install the profile"
-msgstr "da bi namestili profil"
+msgstr "a profil telepítésekor"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:168
 msgid "to accept the server certificate authority"
 msgid_plural "to accept the server certificate authorities"
-msgstr[0] "da bi sprejeli strežniški certifikat"
-msgstr[1] "da bi sprejeli strežniška certifikata"
-msgstr[2] "da bi sprejeli strežniške certifikate"
-msgstr[3] "da bi sprejeli overitelje strežniških potrdil"
+msgstr[0] "a szerver tanúsítványkiadójának (CA) elfogadásakor"
+msgstr[1] "a szerver tanúsítványkiadóinak (CA) elfogadásakor"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:170
 #, php-format
 msgid "(%d times)"
-msgstr "(%d-krat)"
+msgstr "(%d alkalommal)"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:172
 msgid "to enter the username and password of your institution"
-msgstr "da vpišete uporabniško ime in geslo za vašo organizacijo"
+msgstr "az intézményed azonosítójának és jelszavának megadásakor"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:174
 #, php-format
 msgid "(%d times each, because %s is installed for %d SSIDs)"
-msgstr "(%d-krat, saj bo %s nameščen za %d SSID-jev)"
+msgstr "(%d alkalommal, mivel %s telepítésre került %d SSID számára)"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:249
 #, php-format
 msgid "%s configuration for wired network"
-msgstr "nastavitev %s za ožičeno omrežje"
+msgstr "%s konfiguráció vezetékes hálózathoz"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:251
 #, php-format
 msgid "%s Hotspot 2.0 configuration"
-msgstr "Hotspot 2.0 nastavitev %s"
+msgstr "%s Hotspot 2.0 konfiguráció"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:253
 #, php-format
 msgid "%s configuration for network name %s"
-msgstr "Nastavitev %s za omrežje z nazivom %s"
+msgstr "%s konfiguráció az %s hálózat számára"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:258
 msgid "Wired Network"
-msgstr "Ožičeno omrežje"
+msgstr "Vezetékes Hálózat"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:260
 msgid "Hotspot 2.0 Settings"
-msgstr "Nastavitve Hotspot 2.0"
+msgstr "Hotspot 2.0 beállítások"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:262
 #, php-format
@@ -173,25 +168,25 @@ msgstr "SSID %s"
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:334
 #, php-format
 msgid "This SSID should not be used after bootstrapping %s"
-msgstr "Ta SSID naj ne bo uporabljen po vzpostavitvi %s"
+msgstr "Ezt az SSID-t nem szabad használni a %s bootstrap-ja után."
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:336
 msgid "Disabled WiFi network"
-msgstr "Onemogočeno omrežje WiFi"
+msgstr "Letiltott WiFi hálózat"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:393
 msgid "Your Identity Providers Certification Authority"
-msgstr "Overitelj digitalnih potrdil vašega ponudnika identitete"
+msgstr "Az azonosító intézmény által használt tanúsítványkiadó (CA)"
 
 #: devices/apple_mobileconfig/mobileconfig_superclass.php:395
 msgid "Identity Provider's CA"
-msgstr "CA ponudnika identitete"
+msgstr "Az IdP által használt CA"
 
 #: devices/ms/Vista7.php:32 devices/ms/W8.php:33
 msgid ""
 "Anonymous identities do not use the realm as specified in the profile - it "
 "is derived from the suffix of the user's username input instead."
-msgstr "Anonimna identiteta ne uporablja domene, ki je navedena v profilu - izlušči se iz zadnjega dela vpisanega uporabniškega imena."
+msgstr "Az külső azonosító nem azt a tartományt használja, mint ami a beállításoknál meg van adva, hanem ami a felhasználónév végződéséből származik."
 
 #: devices/ms/Vista7.php:91 devices/ms/W8.php:95
 #, php-format
@@ -200,21 +195,21 @@ msgid ""
 "your device, by creating wireless network profiles.<p>When you click the "
 "download button, the installer will be saved by your browser. Copy it to the"
 " machine you want to configure and execute."
-msgstr "Nameščevalnik %s bo v obliki datoteke EXE. Nastavil bo %s na napravi, tako da bo ustvaril profil za brezžično omrežje.<p>Po kliku na gumb za prenos bo brskalnik shranil datoteko. Prenesite jo na napravo, na kateri želite nastaviti eduroam, in jo zaženite."
+msgstr "Az %s installáló egy EXE fájl. Az %s úgy lesz felkonfigurálva gépeden, hogy a program létrehoz egy WiFi hálózati profilt.<p>A letöltés gombra kattintva a böngésződ lementi az installálót. Másold a megfelelő gépre és indítsd el!"
 
 #: devices/ms/Vista7.php:95 devices/ms/W8.php:99 devices/linux/Linux.php:82
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to the following networks:"
-msgstr "Hkrati z nastavitvijo omrežja <strong>%s</strong> bo nastavljen dostop tudi do naslednjih omrežij:"
+msgstr "A(z) <strong>%s</strong> mellett az installáló az alábbi hálózatokhoz is bekonfigurálja a hozzáférést:"
 
 #: devices/ms/Vista7.php:97 devices/ms/W8.php:101 devices/linux/Linux.php:84
 #, php-format
 msgid ""
 "In addition to <strong>%s</strong> the installer will also configure access "
 "to:"
-msgstr "Hkrati z nastavitvijo omrežja <strong>%s</strong> bo nastavljen dostop tudi do:"
+msgstr "A(z) <strong>%s</strong> mellett az installáló ezekhez is bekonfigurálja a hozzáférést:"
 
 #: devices/ms/Vista7.php:110 devices/ms/W8.php:115
 msgid ""
@@ -223,7 +218,7 @@ msgid ""
 " institution. Consult the support page to find out how this certificate can "
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process."
-msgstr "Za povezavo v omrežje potrebujete tudi osebni certifikat v obliki zapisa p12. Certifikat pridobite na domači organizaciji. Postopek pridobitve si oglejte na straneh za pomoč. Tovrstne  datoteke so zaščitene z geslom. Med namestitvijo boste potrebovali tako datoteko p12 kot tudi njeno geslo."
+msgstr "A hálózatra való csatlakozáshoz szükséged lesz egy p12 formátumú személyes tanúsítványra, melyet az anyaintézményed állít ki számodra. Ha ilyened még nincs, kérünk olvasd el a tájékoztató oldalt, hogy megtudd, miként tudsz tanúsítványt igényelni! Ezeket a tanúsítványokat jelszó védi. Az installálás során a tanúsítványt tartalmazó fájlra és a jelszóra egyaránt szükséged lesz."
 
 #: devices/ms/Vista7.php:112 devices/ms/W8.php:117 devices/linux/Linux.php:100
 msgid ""
@@ -231,7 +226,7 @@ msgid ""
 "institution. You should consult the support page to find out how this "
 "account can be obtained. It is very likely that your account is already "
 "activated."
-msgstr "Za povezavo v omrežje boste potrebovali račun z vaše domače organizacije. Postopek pridobitve računa si oglejte na straneh za pomoč. Zelo verjetno imate račun že pripravljen."
+msgstr "A hálózathoz való csatlakozáshoz szükséged lesz egy accountra az anyaintézményedben. Tanulmányozd az otthoni megfelelő weboldalt, hogy megtudd, miként lehet ilyen accounthoz jutni. Egyébként jó esély van rá, hogy már van ilyened."
 
 #: devices/ms/Vista7.php:116 devices/ms/W8.php:119
 msgid ""
@@ -239,167 +234,167 @@ msgid ""
 "up a login box, where you should enter your user name and password. This "
 "information will be saved so that you will reconnect to the network "
 "automatically each time you are in the range."
-msgstr "Ob prvi povezavi v omrežje vas bo Windows pozval, da vnesete uporabniško ime in geslo. Podatki bodo shranjeni in bodo uporabljeni za povezavo vedno, ko boste v dosegu omrežja."
+msgstr "Amikor első alkalommal csatlakozol a hálózatra, a Windows feldob egy bejelentkező ablakot, amiben meg kell adnod a felhasználói azonosítód és jelszavad. Ezeket aztán a program elmenti, és minden további alkalommal automatikusan fogsz kapcsolódni."
 
 #: devices/ms/Vista7.php:119 devices/ms/W8.php:122
 msgid ""
 "You will be required to enter the same credentials for each of the "
 "configured notworks:"
-msgstr "Za vsako izmed spodaj naštetih omrežij boste morali vnesti enake prijavne podatke:"
+msgstr "Ugyanazt azt az azonosítót kell meg adni minden konfigurált hálózat esetén: "
 
 #: devices/ms/Vista7.php:410 devices/ms/Vista7.php:411 devices/ms/W8.php:411
 #: devices/ms/W8.php:412
 #, php-format
 msgid "%s installer for %s"
-msgstr "%s nameščevalnik za %s"
+msgstr "%s telepítő %s-hez"
 
 #: devices/ms/Files/common.inc:132
 #, php-format
 msgid "Welcome to the %s installer"
-msgstr "Pozdravljeni v nameščevalniku %s"
+msgstr "Üdvözli az %s telepítő"
 
 #: devices/ms/Files/common.inc:133
 msgid "Installation complete"
-msgstr "Namestitev končana"
+msgstr "A telepítés befejeződött"
 
 #: devices/ms/Files/common.inc:134
 msgid "Network profiles have been installed."
-msgstr "Omrežni profili so bili nameščeni."
+msgstr "A hálózati beállításokat telepítettük."
 
 #: devices/ms/Files/common.inc:134
 msgid "Your system is ready."
-msgstr "Vaš sistem je pripravljen."
+msgstr "A rendszer kész."
 
 #: devices/ms/Files/common.inc:135
 msgid "Network installation had errors."
-msgstr "Pri nameščanju omrežij je prišlo do napak."
+msgstr "A hálózati telepítés hibával leállt."
 
 #: devices/ms/Files/common.inc:135 devices/ms/Files/common.inc:859
 msgid "Please contact ${SUPPORT}."
-msgstr "Stopite v stik s ${SUPPORT}."
+msgstr "Lépj kapcsolatba ${SUPPORT}-val."
 
 #: devices/ms/Files/common.inc:143
 msgid "Accept"
-msgstr "Sprejmi"
+msgstr "Elfogadom"
 
 #: devices/ms/Files/common.inc:144
 msgid ""
 "If you accept the conditions then select Accept and then click Install to "
 "continue."
-msgstr "Če se strinjate s pogoji, izberite Sprejmi in nato za nadaljevanje kliknite gumb Namesti."
+msgstr "Ha elfogadod a feltételeket, akkor válaszd a Elfogadom gombot és kattints a a Telepít gombra a folytatáshoz."
 
 #: devices/ms/Files/common.inc:150
 msgid "Finish"
-msgstr "Dokončaj"
+msgstr "Befejez"
 
 #: devices/ms/Files/common.inc:182
 msgid "searching for certificate"
-msgstr "iščem certifikat"
+msgstr "a tanúsítvány keresése"
 
 #: devices/ms/Files/common.inc:244
 msgid "installing certificate"
-msgstr "nameščam certifikat"
+msgstr "a tanúsítvány telepítése"
 
 #: devices/ms/Files/common.inc:250
 msgid "could not install certificate"
-msgstr "certifikata ni bilo mogoče namestiti"
+msgstr "a tanúsítvány telepítése nem sikerült"
 
 #: devices/ms/Files/common.inc:432
 msgid ""
 "The non TKIP profiles are preferred. Always use them if you have a choice."
-msgstr "Zaželeni so profili brez TKIP. Uporabite jih, kadar se le da."
+msgstr "A nem TKIP-t használó profilok preferáltak. Mindig azokat használd, ha van lehetőséged."
 
 #: devices/ms/Files/common.inc:434
 msgid "The non TKIP profile is preferred. Always use it if you have a choice."
-msgstr "Zaželen je profil brez TKIP. Uporabite ga, kadar se le da."
+msgstr "A nem TKIP-t használó profil preferált. Mindig azt használd, ha van lehetőséged."
 
 #: devices/ms/Files/common.inc:440 devices/ms/Files/common.inc:448
 #: devices/linux/Linux.php:137
 msgid "This installer has been prepared for ${ORGANISATION}"
-msgstr "Nameščevalnik je bil pripravljen za ${ORGANISATION}"
+msgstr "Ez a(z) ${ORGANISATION} számára készített telepítő."
 
 #: devices/ms/Files/common.inc:441
 msgid "The installer will create the following wireless profiles:"
-msgstr "Nameščevalnik bo ustvaril naslednje brezžične profile:"
+msgstr "A telepítő a következő vezeték nélküli profilokat hozza létre:"
 
 #: devices/ms/Files/common.inc:444 devices/ms/Files/common.inc:451
 #: devices/linux/Linux.php:137
 msgid "More information and comments:"
-msgstr "Več informacij in komentarji:"
+msgstr "További információk és hozzászólások:"
 
 #: devices/ms/Files/common.inc:449
 msgid "The installer will create the wireless profile:"
-msgstr "Nameščevalnik bo ustvaril brezžični profil:"
+msgstr "A telepítő a következő vezeték-nélküli profilet fogja létrehozni:"
 
 #: devices/ms/Files/common.inc:477 devices/linux/Linux.php:138
 msgid "Installer created with software from the GEANT project."
-msgstr "Nameščevalnik ustvarjen s programsko opremo iz projekta GEANT."
+msgstr "A telepítő a GEANT projektből származó szoftverrel készült."
 
 #: devices/ms/Files/common.inc:505
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "8 and newer. Please download the correct installer and try again."
-msgstr "Uporabljate Windows $WindowsName, toda ta nameščevalnik je le za Windows 8 ali novejše. Prenesite pravi nameščevalnik in poskusite znova."
+msgstr "Te egy Windows $WindowsName -t futtatsz, de ez a telepítő csak Windows 8-on vagy újabb rendszeren működik. Légy szíves a megfelelő telepítőt letölteni és azt futtatni."
 
 #: devices/ms/Files/common.inc:515 devices/ms/Files/common.inc:548
 msgid ""
 "You are running Windows $WindowsName but this installer is only for Windows "
 "Vista and Windows 7. Please download the correct installer and try again."
-msgstr "Uporabljate Windows $WindowsName, toda ta nameščevalnik je le za Windows Vista in Windows 7. Prenesite pravi nameščevalnik in poskusite znova."
+msgstr "Te egy Windows $WindowsName -t futtatsz, de ez a telepítő csak Windows Vistán és Windows 7-en működik. Légy szíves a megfelelő telepítőt letölteni és azt futtatni."
 
 #: devices/ms/Files/common.inc:588
 msgid ""
 "Windows wireless configuration service is not enabled. The installer cannot "
 "continue."
-msgstr "Storitev Windows za nastavljanje brezžičnega omrežja ni vključena. Nameščevalnik ne more nadaljevati."
+msgstr "A Windows WiFi konfigurációs szolgáltatása le van tiltva. Az installáló nem tud továbblépni."
 
 #: devices/ms/Files/common.inc:593
 msgid "No wireless interfaces found. The installer cannot continue."
-msgstr "Ni bilo mogoče najti brezžičnih vmesnikov. Nameščevalnik ne more nadaljevati."
+msgstr "Nincs WiFi interfész. A telepítő nem tud továbbmenni."
 
 #: devices/ms/Files/common.inc:599
 msgid ""
 "No wireless interfaces found. Wireless access will not be configured. Would "
 "you like to continue and configure access on the wired interface?"
-msgstr "Ni bilo najdenih brezžičnih vmesnikov. Brezžični dostop ne bo nastavljen. Želite nadaljevati in nastaviti dostop na ožičenem vmesniku?"
+msgstr "Nem találtunk vezetéknélküli interfészt. A vezetéknélküli hozzáférést nem konfigurálunk. Folytatód és a vezetékes hálózatot konfigurálod? "
 
 #: devices/ms/Files/common.inc:615
 msgid "Do you want to enable access on wired interfaces?"
-msgstr "Ali želite omogočiti dostop na ožičenem vmesniku?"
+msgstr "Akarod engedélyezni a hozzáférést a vezetékes interfészen?"
 
 #: devices/ms/Files/common.inc:650
 msgid "Profiles installation"
-msgstr "Namestitev profilov"
+msgstr "Profilok telepítése"
 
 #: devices/ms/Files/common.inc:670
 msgid "Checking for profile $R8"
-msgstr "Preverjam za profil $R8"
+msgstr "A profile $R8 ellenőrzése"
 
 #: devices/ms/Files/common.inc:678
 msgid "found profile $R8"
-msgstr "najden profil $R8"
+msgstr " $R8 profile-t találtunk"
 
 #: devices/ms/Files/common.inc:704
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION} and the user group: ${USER_GROUP}."
-msgstr "Nameščevalnik bo pravilno deloval le, če ste član ${ORGANISATION} in uporabniške skupine ${USER_GROUP}."
+msgstr "Ez a telepítő csak akkor működik helyesen, ha ${ORGANISATION} tagja vagy és a(z) ${USER_GROUP} felhasználói csoportba tartozol."
 
 #: devices/ms/Files/common.inc:704 devices/ms/Files/common.inc:707
 msgid "Click OK to continue with installation."
-msgstr "Za nadaljevanje namestitve kliknite na gumb Nadaljuj."
+msgstr "Kattints a Rendben gombra a telepítés folytatásához."
 
 #: devices/ms/Files/common.inc:707
 msgid ""
 "This installer will only work properly if you are a member of "
 "${ORGANISATION}."
-msgstr "Nameščevalnik bo pravilno deloval le, če ste član ${ORGANISATION}."
+msgstr "Ez a telepítő csak akkor működik helyesen, ha ${ORGANISATION} tagja vagy."
 
 #: devices/ms/Files/common.inc:715
 msgid ""
 "Please read the additional information from your home institution which will"
 " be displayed in a moment."
-msgstr "Preberite dodatne informacije s svoje domače organizacije, ki bodo prikazane v kratkem."
+msgstr "Légy szíves olvasd el az anyaintézményedre vonatkozó további információkat, amelyet rövidesen megjelenítünk."
 
 #: devices/ms/Files/common.inc:771
 #, php-format
@@ -413,75 +408,75 @@ msgid ""
 "windows). In this window you should see a script named inst_cat. Start it by"
 " double-clicking, It will install the profiles. You will need to login to %s"
 " with your username and password."
-msgstr "Prosim PREBERITE to sporočilo, ker je POMEMBNO.$\\r$\\nTežave z namestitvijo so lahko zaradi nameščenega Symantec Endpoint Protection.$\\r$\\nGre za dobro poznan hrošč izdelka Symantec, kjer nameščevalnik ne more nič, vendar obstaja druga pot.$\\r$\\nKo zaprete okno se bo nameščevalnik zaprl in pojavilo se bo okno Raziskovalca (lahko se pojavi pod drugimi okni). V tem oknu boste videli skripto imenovano inst_cat. Zaženite jo z dvojnim klikom, namestila bo profile. Prijaviti se boste morali v %s s svojim uporabniškim imenom in geslom."
+msgstr "Olvasd el, mert ez egy fontos figyelmeztetés.$\\r$\\n A telepítési probléma oka az lehet, hogy  Symantec Endpoint Protection telepítve van a gépedem.$\\r$\\nEza Symantec termék ismert hibája, amivel nem sokat lehet tenni. Kerülő megoldást kell alkalmazni$\\r$\\nAmikor becsukod ezt az ablakot a telepítő kilép, de elindít egy explorer ablakot  (Ez a már megynyitott ablakok mögött is lehet). Ebben az ablakban egy scriptet látsz: inst_cat. Indítsd el duplakattintással scriptet, amely a profile-t telepítit, majd be kell lépned a  %s-ba azonosítoddal és jelszavaddal."
 
 #: devices/ms/Files/common.inc:801
 msgid "installing wired profile"
-msgstr "nameščam žični profil"
+msgstr "Vezetékes profile telepítve"
 
 #: devices/ms/Files/common.inc:841 devices/ms/Files/common.inc:888
 msgid "deleting profile $R1"
-msgstr "brisanje profila $R1"
+msgstr "$R1 profil törlése"
 
 #: devices/ms/Files/common.inc:849
 msgid "installing profile $R1"
-msgstr "nameščanje profila $R1"
+msgstr "$R1 profil telepítése"
 
 #: devices/ms/Files/common.inc:859
 msgid "Profile installation error for $R1."
-msgstr "Napaka pri nameščanju profila $R1."
+msgstr "$R1 profile telepítése során hiba keletkezett"
 
 #: devices/ms/Files/common.inc:905
 msgid "installing credentials for wired"
-msgstr "nameščam poverilnice za žični vmesnik"
+msgstr "Vezetékes hozzáférési adatok telepítve"
 
 #: devices/ms/Files/eap_w8.inc:4 devices/ms/Files/peap_tls.inc:5
 msgid "Installation of the personal certificate"
-msgstr "Namestitev osebnega certifikata"
+msgstr "Személyes tanúsítvány telepítése"
 
 #: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
 msgid "Components installation"
-msgstr "Namestitev komponent"
+msgstr "Komponensek telepítése"
 
 #: devices/ms/Files/eap_w8.inc:5 devices/ms/Files/peap_tls.inc:6
 msgid "Personal certificate"
-msgstr "Osebni certifikat"
+msgstr "Személyes tanúsítvány"
 
 #: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
 #: devices/ms/Files/pwd.inc:31
 msgid "Installation of network profiles"
-msgstr "Namestitev omrežnih profilov"
+msgstr "Hálózati profil telepítése"
 
 #: devices/ms/Files/eap_w8.inc:9 devices/ms/Files/peap_tls.inc:10
 #: devices/ms/Files/pwd.inc:31
 msgid "profiles"
-msgstr "profili"
+msgstr "Profilok"
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
 #: devices/ms/Files/pwd.inc:11 devices/ms/Files/pwd.inc:33
 msgid "Installation"
-msgstr "Namestitev"
+msgstr "Telepítés"
 
 #: devices/ms/Files/eap_w8.inc:11 devices/ms/Files/peap_tls.inc:12
 #: devices/ms/Files/pwd.inc:33
 msgid "Network profiles update"
-msgstr "Posodobitev omrežnih profilov"
+msgstr "Hálózati profil frissítése"
 
 #: devices/ms/Files/eap_w8.inc:66 devices/ms/Files/peap_tls.inc:73
 msgid "Information about components"
-msgstr "Informacije o komponentah"
+msgstr "Információk a komponensekről"
 
 #: devices/ms/Files/pwd.inc:5
 msgid "user profile"
-msgstr "profil uporabnika"
+msgstr "felhasználói profil"
 
 #: devices/ms/Files/pwd.inc:9
 msgid "install program"
-msgstr "namesti program"
+msgstr "Program telepítése"
 
 #: devices/ms/Files/pwd.inc:24
 msgid "EAP-pwd installation error. Please try again or contact ${SUPPORT}."
-msgstr "Napaka pri nameščanju EAP-pwd. Poskusite znova ali se obrnite na ${SUPPORT}."
+msgstr "EAP-pwd telepítési hiba. Próbáld újra vagy lépj kapcsolatba a  ${SUPPORT}-al."
 
 #: devices/linux/Linux.php:78
 msgid ""
@@ -489,13 +484,13 @@ msgid ""
 "eduroam under Network Manager and if this is either not appropriate for your"
 " system or your version of Network Manager is too old, a wpa_supplicant "
 "config file will be created instead."
-msgstr "Nameščevalnik je v obliki skripte bash. Poskušal bo nastaviti eduroam v programu \"Network Manager\". Če imate prestaro različico Network Managerja ali pa vaš sistem ne podpira takšnih nastavitev, bo narejena nastavitvena datoteka za wpa_supplicant."
+msgstr "Az installáló egy bash szkript. Megpróbálja az eduroamot bekonfigurálni a Network Managerbe, de ha ez nem lehetséges (mert például a Network Managered túl régi), akkor egy wpa_supplicant konfigurációs fájlt fog létrehozni."
 
 #: devices/linux/Linux.php:96
 msgid ""
 "The installer will create .cat_installer sub-directory in your home "
 "directory and will copy your server certificates there."
-msgstr "Nameščevalnik bo ustvaril podimenik .cat_installer v domačem imeniku in vanj prekopiral strežniške certifikate."
+msgstr "A telepítő létrehoz .cat_installer alkönyvtárat a saját home könyvtáradban és oda fogja bemásolni a szerver tanúsítványát."
 
 #: devices/linux/Linux.php:98
 msgid ""
@@ -505,112 +500,112 @@ msgid ""
 "be obtained. Such certificate files are password protected. You should have "
 "both the file and the password available during the installation process. "
 "Your p12 file will also be copied to the .cat_installer directory."
-msgstr "Za povezavo v omrežje potrebujete osebni certifikat v obliki datoteke p12. Certifikat dobite v domači organizaciji. Posvetujte se z podporno stranjo o podrobnostih pridobitve certifikata. Tovrstni certifikati so zaščiteni z geslom. Med namestitvijo boste potrebovali tako datoteko kot geslo. Vaša datoteka p12 bo kopirana v imenik .cat_installer."
+msgstr "A hálózatra való csatlakozáshoz szükséged lesz egy p12 formátumú személyes tanúsítványra, melyet az anyaintézményed állít ki számodra. Ha ilyened még nincs, kérünk olvasd el a tájékoztató oldalt, hogy megtudd, miként tudsz tanúsítványt igényelni! Ezeket a tanúsítványokat jelszó védi. Az installálás során a tanúsítványt tartalmazó fájlra és a jelszóra egyaránt szükséged lesz. A p12 fájlod szintén a .cat_installer alkönyvtárba kerül."
 
 #: devices/linux/Linux.php:102
 msgid ""
 "You will be requested to enter your account credentials during the "
 "installation. This information will be saved so that you will reconnect to "
 "the network automatically each time you are in the range."
-msgstr "Med nameščanjem boste morali vnesti prijavne podatke vašega računa. Podatki bodo shranjeni in bodo uporabljeni za povezavo vedno, ko boste v dosegu omrežja."
+msgstr "Az installálás során meg kell adnod bizonyos hitelesítő adatokat. Ezeket a program eltárolja, így ettől kezdve a hálózathoz való csatlakozás automatikusan megtörténik, ha arra jársz."
 
 #: devices/linux/Linux.php:111
 #, php-format
 msgid "Directory %s exists; some of its files may be overwritten."
-msgstr "Imenik %s že obstaja; nekatere datoteke bodo morda prepisane."
+msgstr "Már létezik %s nevű alkönyvtár; a tartalma részben felülíródhat."
 
 #: devices/linux/Linux.php:111 devices/linux/Linux.php:125
 #: devices/linux/Linux.php:149 devices/linux/Linux.php:165
 msgid "Continue"
-msgstr "Nadaljuj"
+msgstr "Folytatás"
 
 #: devices/linux/Linux.php:121
 msgid "Installation successful"
-msgstr "Namestitev je uspela"
+msgstr "Sikeres telepítés"
 
 #: devices/linux/Linux.php:123
 msgid "Network Manager configuration failed, generating wpa_supplicant.conf"
-msgstr "Nastavitev \"Network Manager\" je bila neuspešna, izdelan bo wpa_supplicant.conf"
+msgstr "Nem sikerült a Network Managert konfigurálni. Ehelyett egy wpa_supplicant.conf fájl készül."
 
 #: devices/linux/Linux.php:125
 #, php-format
 msgid "File %s exists; it will be overwritten."
-msgstr "Datoteka %s obstaja; prepisana bo."
+msgstr "A(z) %s fájl már létezik; most felül fogjuk írni."
 
 #: devices/linux/Linux.php:129
 #, php-format
 msgid "Output written to %s"
-msgstr "Vsebina vpisana v %s"
+msgstr "A kimenet a %s fájlba került"
 
 #: devices/linux/Linux.php:146
 #, php-format
 msgid ""
 "This installer will only work properly if you are a member of %s and the "
 "user group: %s."
-msgstr "Nameščevalnik bo pravilno deloval le, če ste član %s in uporabniške skupine: %s."
+msgstr "Ez az installáló csak akkor működik helyesen, ha a(z) %s tagja vagy, és benne vagy a(z) %s csoportban."
 
 #: devices/linux/Linux.php:148
 #, php-format
 msgid "This installer will only work properly if you are a member of %s."
-msgstr "Nameščevalnik bo pravilno deloval le, če ste član %s."
+msgstr "Ez az installáló csak akkor működik helyesen, ha a(z) %s tagja vagy. "
 
 #: devices/linux/Linux.php:246
 msgid "Y"
-msgstr "L"
+msgstr "I"
 
 #: devices/linux/Linux.php:247
 msgid "N"
-msgstr "N "
+msgstr "N"
 
 #: devices/linux/Linux.php:304 devices/linux/Linux.php:309
 msgid "Really quit?"
-msgstr "Zares želite zaključiti?"
+msgstr "Tényleg kilépsz?"
 
 #: devices/linux/Linux.php:362
 msgid "enter your userid"
-msgstr "Vnesite svoje uporabniško ime"
+msgstr "add meg a felhasználóneved"
 
 #: devices/linux/Linux.php:368
 msgid "enter your password"
-msgstr "vnesite geslo"
+msgstr "add meg a jelszavad"
 
 #: devices/linux/Linux.php:371
 msgid "repeat your password"
-msgstr "ponovite geslo"
+msgstr "ismételd meg a jelszavad"
 
 #: devices/linux/Linux.php:375
 msgid "passwords do not match"
-msgstr "gesli se ne ujemata"
+msgstr "a két jelszó nem egyezik"
 
 #: devices/linux/Linux.php:436 devices/linux/Linux.php:440
 #: devices/linux/Linux.php:452
 msgid "personal certificate file (p12 or pfx)"
-msgstr "osebni certifikat (p12 ali pfx)"
+msgstr "a személyes tanúsítványt tartalmazó (p12 vagy pfx) fájl"
 
 #: devices/linux/Linux.php:461
 msgid "file not found"
-msgstr "datoteke ni bilo mogoče najti"
+msgstr "nincs ilyen fájl"
 
 #: devices/linux/Linux.php:471 devices/linux/Linux.php:474
 msgid "enter the password for the certificate file"
-msgstr "vnesite geslo za datoteko s certifikatom"
+msgstr "add meg a tanúsítványt védő jelszót"
 
 #: devices/test_module/TestModule.php:121
 msgid ""
 "This installer is an example only. It produces a zip file containig the IdP "
 "certificates, info and logo files (if such have been defined by the IdP "
 "administrator) and a dump of all available attributes."
-msgstr "Primer nameščevalnika vsebuje datoteko zip s certifikati IdP, datoteko z informacijami in logotip (če jih je administrator IdP nastavil). Vsebuje tudi izpis vseh obstoječih atributov."
+msgstr "Ez a telepítő csak egy példa. Ez ez egy  zip fájl, amely tartalmazza IdP tanúsítványát, informácókat és logót (ha az  IdP adminisztrátor definiálta) és az összes definiált attributumot."
 
 #: devices/redirect_dev/RedirectDev.php:22
 msgid ""
 "This device is not yet supported by CAT, but your local administrator "
 "created a redirect to local installation instructions."
-msgstr "CAT še ne podpira te naprave, toda vaš lokalni administrator je uredil preusmeritev na lokalna navodila za namestitev."
+msgstr "Ez az eszköz jelenleg nem támogatott a CAT által, de a rendszergazda beállított egy redirectet a helyi beállítások leírásával."
 
 #: devices/xml/XML.php:46
 #, php-format
 msgid ""
 "This is a generic configuration file in the IETF <a href='%s'>EAP Metadata "
 "-00</a> XML format."
-msgstr "Generična nastavitvena datoteka v obliki XML, IETF <a href='%s'>EAP Metadata -00</a>."
+msgstr "Ez egy  generikus konfigurációs fájl melynek formátuma megfelel az IETF <a href='%s'>EAP Metadata -00</a> XML formátumnak."
