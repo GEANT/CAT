@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-13 10:09+0200\n"
+"POT-Creation-Date: 2015-04-14 10:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -425,7 +425,7 @@ msgstr ""
 msgid "View this page in"
 msgstr ""
 
-#: web/4013.php:40 web/404.php:40 web/index.php:132
+#: web/4013.php:40 web/404.php:40 web/copyright.php:30 web/index.php:132
 msgid "Start page"
 msgstr ""
 
@@ -525,13 +525,18 @@ msgstr ""
 msgid "Terms of use"
 msgstr ""
 
-#: web/basic.php:448 web/index.php:340 web/tou.php:53
+#: web/basic.php:448 web/copyright.php:210 web/index.php:340 web/tou.php:53
 #, php-format
 msgid "Release %s"
 msgstr ""
 
-#: web/basic.php:450 web/index.php:342 web/tou.php:55
+#: web/basic.php:450 web/copyright.php:212 web/index.php:342 web/tou.php:55
 msgid "Unreleased SVN Revision"
+msgstr ""
+
+#: web/copyright.php:27
+#, php-format
+msgid "%s Copyright and Licensing"
 msgstr ""
 
 #: web/index.php:97
