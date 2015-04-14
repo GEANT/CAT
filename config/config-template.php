@@ -150,14 +150,14 @@ class Config {
       'fi' => array('display' => 'Suomi',       'locale' => 'fi_FI.utf8'),
       'el' => array('display' => 'Ελληνικά',    'locale' => 'el_GR.utf8'),
       'hu' => array('display' => 'Magyar',      'locale' => 'hu_HU.utf8'),
+      'pt' => array('display' => 'Português',   'locale' => 'pt_PT.utf8'),
 
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. Their Transifex content is not
 // necessarily ported to SVN yet. Contact the authors if you want the current
 // state of translation of these languages.
 //
-// these three were in for 1.0 but didn't make 1.1
-//     'pt' => array('display' => 'Português',   'locale' => 'pt_PT.utf8'),
+// these two were in for 1.0 but didn't make 1.1
 //     'sk' => array('display' => 'Slovenčina',  'locale' => 'sk_SK.utf8'),
 //     'fr' => array('display' => 'Français',    'locale' => 'fr_FR.utf8'),
 //
