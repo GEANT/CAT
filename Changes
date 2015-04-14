@@ -1,3 +1,5 @@
+Changes in 1.1
+==============
 - [BUGFIX #1]  installer cache problem has been fixed by adding a mime field to the downloads 
                table in the database, hence a schema change
 - [BUGFIX #2]  Linux installer - passwords containing single quote broke
