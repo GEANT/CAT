@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-13 09:59+0200\n"
+"POT-Creation-Date: 2015-04-14 10:21+0200\n"
 "PO-Revision-Date: 2015-04-08 16:40+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/"
@@ -516,7 +516,7 @@ msgstr "Benvenuti nel %s"
 msgid "View this page in"
 msgstr "Visualizza questa pagina in"
 
-#: web/4013.php:40 web/404.php:40 web/index.php:132
+#: web/4013.php:40 web/404.php:40 web/copyright.php:30 web/index.php:132
 msgid "Start page"
 msgstr "Pagina Iniziale"
 
@@ -633,14 +633,19 @@ msgstr "Start over"
 msgid "Terms of use"
 msgstr "Termini di utilizzo"
 
-#: web/basic.php:448 web/index.php:340 web/tou.php:53
+#: web/basic.php:448 web/copyright.php:210 web/index.php:340 web/tou.php:53
 #, php-format
 msgid "Release %s"
 msgstr "Versione %s"
 
-#: web/basic.php:450 web/index.php:342 web/tou.php:55
+#: web/basic.php:450 web/copyright.php:212 web/index.php:342 web/tou.php:55
 msgid "Unreleased SVN Revision"
 msgstr "Versione SVN non rilasciata"
+
+#: web/copyright.php:27
+#, php-format
+msgid "%s Copyright and Licensing"
+msgstr ""
 
 #: web/index.php:97
 #, php-format

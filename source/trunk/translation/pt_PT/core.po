@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # esmeralda <epires@fccn.pt>, 2015
 # esmeralda <epires@fccn.pt>, 2012
@@ -11,29 +11,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-03 11:15+0200\n"
+"POT-Creation-Date: 2015-04-14 10:21+0200\n"
 "PO-Revision-Date: 2015-04-13 15:14+0000\n"
 "Last-Translator: esmeralda <epires@fccn.pt>\n"
-"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/cat/language/pt_PT/)\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"cat/language/pt_PT/)\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_PT\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:126
 #, php-format
 msgid "your local %s support"
 msgstr "o seu suporte local %s"
 
-#: core/DeviceConfig.php:131
+#: core/DeviceConfig.php:127
 #, php-format
 msgid "your local %s support page"
 msgstr "a página do seu suporte local %s"
 
-#: core/DeviceConfig.php:163
+#: core/DeviceConfig.php:159
 msgid "Sorry, this should not happen - no additional information is available"
-msgstr "Lamentamos, não era suposto isto acontecer - não há informação adicional"
+msgstr ""
+"Lamentamos, não era suposto isto acontecer - não há informação adicional"
 
 #: core/Federation.php:74
 msgid "Andorra"
@@ -307,7 +309,16 @@ msgid ""
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Bom dia,\n\no fornecedor de identidade %s na %s federação %s foi apagado da %s.\n\nJulgamos ser útil fazer-lhe chegar esta informação.\n\nCumprimentos,\n\n%s"
+msgstr ""
+"Bom dia,\n"
+"\n"
+"o fornecedor de identidade %s na %s federação %s foi apagado da %s.\n"
+"\n"
+"Julgamos ser útil fazer-lhe chegar esta informação.\n"
+"\n"
+"Cumprimentos,\n"
+"\n"
+"%s"
 
 #: core/IdP.php:345
 msgid "IdP in your federation was deleted"
@@ -375,7 +386,9 @@ msgstr "Este realm não tem registos NAPTR."
 
 #: core/RADIUSTests.php:403
 msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr "Foram encontrados registos NAPTR, mas são referentes a serviços não relacionados."
+msgstr ""
+"Foram encontrados registos NAPTR, mas são referentes a serviços não "
+"relacionados."
 
 #: core/RADIUSTests.php:411
 msgid "There was no reply at all from the RADIUS server."
@@ -383,21 +396,27 @@ msgstr "Não houve qualquer resposta do servidor RADIUS."
 
 #: core/RADIUSTests.php:418
 msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended"
-" halfway through."
-msgstr "Houve uma comunicação bidirecional com o servidor RADIUS , mas terminou a meio."
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"Houve uma comunicação bidirecional com o servidor RADIUS , mas terminou a "
+"meio."
 
 #: core/RADIUSTests.php:425
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
-msgstr "O servidor RADIUS rejeitou imediatamente o pedido de autenticação na primeira resposta."
+msgstr ""
+"O servidor RADIUS rejeitou imediatamente o pedido de autenticação na "
+"primeira resposta."
 
 #: core/RADIUSTests.php:432
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
-msgstr "O servidor RADIUS rejeitou o pedido de autenticação depois de uma comunicação EAP."
+msgstr ""
+"O servidor RADIUS rejeitou o pedido de autenticação depois de uma "
+"comunicação EAP."
 
 #: core/RADIUSTests.php:439
 msgid "Connection refused"
@@ -417,7 +436,10 @@ msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
 "more round-trips and thus slower authentication."
-msgstr "A cadeia de certificação inclui o certificado de raiz da CA. Este não serve nenhum propósito útil, mas aumenta a troca de pacotes, que pode aumentar a latência e torna a autenticação mais lenta."
+msgstr ""
+"A cadeia de certificação inclui o certificado de raiz da CA. Este não serve "
+"nenhum propósito útil, mas aumenta a troca de pacotes, que pode aumentar a "
+"latência e torna a autenticação mais lenta."
 
 #: core/RADIUSTests.php:469
 msgid "There is more than one server certificate in the chain."
@@ -432,27 +454,38 @@ msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
 "validate this certificate."
-msgstr "Pelo menos um certificado na cadeia está assinado com o algoritmo MD5. Muitos sistemas operativos, incluindo o iOS da Apple, falham na validação deste certificado."
+msgstr ""
+"Pelo menos um certificado na cadeia está assinado com o algoritmo MD5. "
+"Muitos sistemas operativos, incluindo o iOS da Apple, falham na validação "
+"deste certificado."
 
 #: core/RADIUSTests.php:490
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail"
-" to validate the server certificate."
-msgstr "Pelo menos um certificado da cadeia tem uma chave pública inferior a 1024 bits. Muitos sistemas operativos recentes não aceitam esta chave e falham na validação do certificado do servidor."
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"Pelo menos um certificado da cadeia tem uma chave pública inferior a 1024 "
+"bits. Muitos sistemas operativos recentes não aceitam esta chave e falham na "
+"validação do certificado do servidor."
 
 #: core/RADIUSTests.php:497
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
 "validate this certificate."
-msgstr "O certificado do servidor não tem a extensão 'extendedKeyUsage: TLS Web Server Authentication'. A maioria dos Sistemas Operativos da Microsoft vão falhar na validação este certificado."
+msgstr ""
+"O certificado do servidor não tem a extensão 'extendedKeyUsage: TLS Web "
+"Server Authentication'. A maioria dos Sistemas Operativos da Microsoft vão "
+"falhar na validação este certificado."
 
 #: core/RADIUSTests.php:504
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
-msgstr "O certificado de servidor não inclui um CRL Distribution Point e cria problemas de compatibilidade com o Windows Phone 8."
+msgstr ""
+"O certificado de servidor não inclui um CRL Distribution Point e cria "
+"problemas de compatibilidade com o Windows Phone 8."
 
 #: core/RADIUSTests.php:511
 msgid ""
@@ -460,15 +493,24 @@ msgid ""
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
 "certificate. Checking server certificate validity against a CRL will not be "
 "possible."
-msgstr "A extensão 'CRL Distribution Point' do certificado do servidor não aponta para um URL HTTP/HTTPS. Alguns Sistemas Operativos podem falhar na verificação deste certificado. Não será possível validar o certificado de servidor utilizando a CRL (Lista de Revogação de Certificados)."
+msgstr ""
+"A extensão 'CRL Distribution Point' do certificado do servidor não aponta "
+"para um URL HTTP/HTTPS. Alguns Sistemas Operativos podem falhar na "
+"verificação deste certificado. Não será possível validar o certificado de "
+"servidor utilizando a CRL (Lista de Revogação de Certificados)."
 
 #: core/RADIUSTests.php:518
 msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a"
-" non-existing location. Some Operating Systems check certificate validity by"
-" consulting the CRL and will fail to validate the certificate. Checking "
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certificate. Checking "
 "server certificate validity against a CRL will not be possible."
-msgstr "A extensão 'CRL Distribution Point' no certificado do servidor aponta para uma localização não existente. Alguns Sistemas Operativos validam a validade do certificado consultando o CRL e vão falhar na validação do certificado. Não será possível validar a validade do certificado certificado de servidor utilizando a CRL (Lista de Revogação de Certificados)."
+msgstr ""
+"A extensão 'CRL Distribution Point' no certificado do servidor aponta para "
+"uma localização não existente. Alguns Sistemas Operativos validam a validade "
+"do certificado consultando o CRL e vão falhar na validação do certificado. "
+"Não será possível validar a validade do certificado certificado de servidor "
+"utilizando a CRL (Lista de Revogação de Certificados)."
 
 #: core/RADIUSTests.php:525
 msgid "The server certificate was revoked by the CA!"
@@ -476,11 +518,16 @@ msgstr "O certificado de servidor foi revogado pela CA!"
 
 #: core/RADIUSTests.php:532
 msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as"
-" a hostname. This can be problematic on some supplicants. If the certificate"
-" also contains names which are a proper hostname, and you only use those for"
-" your supplicant configuration, then you can safely ignore this notice."
-msgstr "O certificado continha um CN ou um subjectAltName:DNS que não pode ser interpretado como um nome de servidor. Isto pode ser problemático para alguns suplicantes. Se o certificado contêm também nomes que são nomes de servidor correctos, e apenas usa estes para a configuração dos seus clientes, então pode ignorar este alerta."
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"O certificado continha um CN ou um subjectAltName:DNS que não pode ser "
+"interpretado como um nome de servidor. Isto pode ser problemático para "
+"alguns suplicantes. Se o certificado contêm também nomes que são nomes de "
+"servidor correctos, e apenas usa estes para a configuração dos seus "
+"clientes, então pode ignorar este alerta."
 
 #: core/RADIUSTests.php:539
 msgid ""
@@ -489,13 +536,19 @@ msgid ""
 "certificate also contains names which are wildcardless, and you only use "
 "those for your supplicant configuration, then you can safely ignore this "
 "notice."
-msgstr "O certificado continha um CN ou um subjectAltName:DNS que contem um wildcard ('*'). Isto pode ser problemático para alguns suplicantes. Se o certificado contêm também nomes que não são wildcard, e apenas usa estes para a configuração dos seus clientes, então pode ignorar este alerta."
+msgstr ""
+"O certificado continha um CN ou um subjectAltName:DNS que contem um wildcard "
+"('*'). Isto pode ser problemático para alguns suplicantes. Se o certificado "
+"contêm também nomes que não são wildcard, e apenas usa estes para a "
+"configuração dos seus clientes, então pode ignorar este alerta."
 
 #: core/RADIUSTests.php:546
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
-msgstr "Pelo menos um certificado está fora do seu período de validade (ainda não é válido ou já expirou)"
+msgstr ""
+"Pelo menos um certificado está fora do seu período de validade (ainda não é "
+"válido ou já expirou)"
 
 #: core/RADIUSTests.php:553
 #, php-format
@@ -504,13 +557,19 @@ msgid ""
 "validity period (not yet valid, or already expired), but this certificate "
 "was not used for server validation. Consider removing it from your %s "
 "configuration."
-msgstr "Pelo menos um certificado intermédio do seu perfil CAT está fora do período de validade (ainda não está válido ou já expirou), mas este certificado não foi usado para validar o servidor. Considere removê-lo da sua configuração %s."
+msgstr ""
+"Pelo menos um certificado intermédio do seu perfil CAT está fora do período "
+"de validade (ainda não está válido ou já expirou), mas este certificado não "
+"foi usado para validar o servidor. Considere removê-lo da sua configuração "
+"%s."
 
 #: core/RADIUSTests.php:560
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
-msgstr "O seu certificado de servidor não pôde ser verificado para a root CA que configurou no seu perfil!"
+msgstr ""
+"O seu certificado de servidor não pôde ser verificado para a root CA que "
+"configurou no seu perfil!"
 
 #: core/RADIUSTests.php:564
 msgid ""
@@ -518,20 +577,29 @@ msgid ""
 "certificate to the root CA in your profile. It was verified using the "
 "intermediate CAs in your profile though. You should consider sending the "
 "required intermediate CAs inside the EAP conversation."
-msgstr "A cadeia do certificado, recebida no EAP, não foi suficiente para verificar o certificado na root CA do seu perfil. Foi no entanto verificado utilizando as CAs intermédias do seu perfil. Deve considerar o envio das CAs intermédias requerias dentro da conversação EAP."
+msgstr ""
+"A cadeia do certificado, recebida no EAP, não foi suficiente para verificar "
+"o certificado na root CA do seu perfil. Foi no entanto verificado utilizando "
+"as CAs intermédias do seu perfil. Deve considerar o envio das CAs "
+"intermédias requerias dentro da conversação EAP."
 
 #: core/RADIUSTests.php:570
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
-msgstr "O nome do servidor EAP não corresponde a nenhum dos configurados no seu perfil!"
+msgstr ""
+"O nome do servidor EAP não corresponde a nenhum dos configurados no seu "
+"perfil!"
 
 #: core/RADIUSTests.php:577
 msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS"
-" of the incoming certificate; best current practice is that the certificate "
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
 "should contain the name in BOTH places."
-msgstr "O nome do servidor EAP configurado é igual ao CN ou ao subjectAltName:DNS do certificado recebido; nas boas práticas actuais o certificado deve conter o nome em AMBOS os locais."
+msgstr ""
+"O nome do servidor EAP configurado é igual ao CN ou ao subjectAltName:DNS do "
+"certificado recebido; nas boas práticas actuais o certificado deve conter o "
+"nome em AMBOS os locais."
 
 #: core/RADIUSTests.php:584
 msgid ""
@@ -539,7 +607,11 @@ msgid ""
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
 "At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
 "for EAP purposes!"
-msgstr "Pelo menos um certificado não continha qualquer extensão BasicConstraints; o que não esclarece se é um certificado CA ou um certificado final da entidade. Pelo menos o Mac OS X 10.8 (Mountain Lion) não irá validar este certificado para efeitos EAP."
+msgstr ""
+"Pelo menos um certificado não continha qualquer extensão BasicConstraints; o "
+"que não esclarece se é um certificado CA ou um certificado final da "
+"entidade. Pelo menos o Mac OS X 10.8 (Mountain Lion) não irá validar este "
+"certificado para efeitos EAP."
 
 #: core/RADIUSTests.php:591
 msgid "The server presented a certificate from an unknown authority."
@@ -551,7 +623,8 @@ msgstr "O servidor aceitou o certificado de cliente INVÁLIDO."
 
 #: core/RADIUSTests.php:605
 msgid "The server rejected the client certificate, even though it was valid."
-msgstr "O servidor rejeitou o certificado de cliente, mesmo que este esteja válido."
+msgstr ""
+"O servidor rejeitou o certificado de cliente, mesmo que este esteja válido."
 
 #: core/RADIUSTests.php:612
 msgid "The server rejected the client certificate as expected."
@@ -583,27 +656,31 @@ msgstr "entidade de certificação desconhecida"
 
 #: core/RADIUSTests.php:1499
 msgid "unknown authority or no certificate policy or another problem"
-msgstr "autoridade desconhecida ou nenhuma política de certificado ou outro problema"
+msgstr ""
+"autoridade desconhecida ou nenhuma política de certificado ou outro problema"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
-#. /                5. product long name (e.g. eduroam Configuration Assistant
-#. Tool)
+#. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
 #: core/UserManagement.php:150
 #, php-format
 msgid ""
 "Hi,\n"
 "\n"
-"the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.\n"
+"the invitation for the new Identity Provider %s in your %s federation %s has "
+"been used and the IdP was created in %s.\n"
 "\n"
 "We thought you might want to know.\n"
 "\n"
 "Best regards,\n"
 "\n"
 "%s"
-msgstr "Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s %s foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
+msgstr ""
+"Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s %s "
+"foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos ser "
+"útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
 
 #: core/UserManagement.php:159
 msgid "IdP in your federation was created"
