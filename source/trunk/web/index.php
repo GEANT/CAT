@@ -220,7 +220,6 @@ include("user/js/cat_js.php");
                     </div>
                     <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                     <div id="user_welcome" style="display:none"> <!-- this information is shown just pefore the download -->
-                       <?php $olddomain = CAT::set_locale("devices"); ?>
                        <strong><?php echo _("Welcome aboard the eduroam® user community!")?></strong>
                        <p>
                        <span id="download_info"><?php 
@@ -238,7 +237,6 @@ include("user/js/cat_js.php");
                        <p>
                        <?php printf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."),"<span class='inst_name'></span>") ?>
                        </p>
-                       <?php CAT::set_locale($olddomain); ?>
                        <p>
                        <a href="javascript:back_to_downloads()"><strong><?php echo _("Back to downloads") ?></strong></a>
                        </p>

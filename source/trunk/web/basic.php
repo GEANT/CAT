@@ -60,8 +60,8 @@ public function __construct() {
        if( $L['status'] == 'ok' ) {
          $c = strtoupper($L['country']);
        } else {
-         print "No coutry provided and unable to locate the address";
-         exit;
+         debug(2, "No coutry provided and unable to locate the address\n");
+         $c=0;
        }
     }
     $this->Country = new Federation($c);
