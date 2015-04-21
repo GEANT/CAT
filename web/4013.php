@@ -42,7 +42,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
     </div> <!-- id="heading" -->
     <div id="main_body" style='padding:20px;'>
         <h1><?php echo _("Maybe this is the CAT you are looking for...");?></h1>
-        <p><?php echo _("but we don't want ot show it to you. You need to be authenticated and authorised to see this content. Since you are not, you got this error page usually known as");?></p>
+        <p><?php echo _("but we don't want to show it to you. You need to be authenticated and authorised to see this content. Since you are not, you got this error page usually known as");?></p>
         <h2>401/403</h2>
         <p><?php echo sprintf(_("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::$lang_index)?></p>
     </div> <!-- id="main_body" -->
