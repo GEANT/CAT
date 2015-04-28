@@ -90,7 +90,7 @@ class Config {
      * logdir: directory where all logs will be written to (debug and audit logs)
      * installerdir: generated installers will be saved under this base directory. Path is relative to the web/ subdirectory.
      * openssl: absolute path to the openssl executable. If you just fill in "openssl" the one from the system $PATH will be taken.
-     * rad_eap_test: absolute path to the rad_eap_test executable. If you just fill in "rad_eap_test" the one from the system $PATH will be taken.
+     * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
      * @var array
      */
     public static $PATHS = array(
