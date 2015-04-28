@@ -46,7 +46,7 @@ correctly. The prerequisites are:
 <listitem>simpleSAMLphp</listitem>
 <listitem>NSIS 2.46 or higher - either as a native Linux binary or on Wine</listitem>
 <listitem>zip</listitem>
-<listitem>wpa_supplicant (eapol_test utility)</listitem>
+<listitem>wpa_supplicant (eapol_test utility), version 2.0 or higher (avoid 2.1, it is known-buggy in cert validation)</listitem>
 <listitem>OpenSSL</listitem>
 </itemizedlist>
 </refsect1>
