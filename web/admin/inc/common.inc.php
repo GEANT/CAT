@@ -259,7 +259,7 @@ function getBlobFromDB($ref, $checkpublic) {
 
     if ($reference == FALSE)
         return;
-
+    
     // the data is either public (just give it away) or not; in this case, only
     // release if the data belongs to admin himself
     if ($checkpublic) {
@@ -295,12 +295,13 @@ function previewCAinHTML($ca_reference) {
     if (!$found)
         return "<div>" . _("Error, ROWID expected.") . "</div>";
 
-    $ca_blob = base64_decode(getBlobFromDB($ca_reference), FALSE);
+    $ca_blob = base64_decode(getBlobFromDB($ca_reference, FALSE));
 
     $func = new X509;
     $details = $func->processCertificate($ca_blob);
     if ($details === FALSE)
         return _("There was an error processing the certificate!");
+
     $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
     $details['name'] = preg_replace('/\//', "", $details['name']);
     $certstatus = ( $details['root'] == 1 ? "R" : "I");
@@ -322,7 +323,7 @@ function previewInfoFileinHTML($file_reference) {
     if (!$found)
         return _("<div>Error, ROWID expected, got $file_reference.</div>");
 
-    $file_blob = unserialize(getBlobFromDB($file_reference), FALSE);
+    $file_blob = unserialize(getBlobFromDB($file_reference, FALSE));
     $file_blob = base64_decode($file_blob['content']);
     $fileinfo = new finfo();
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($file_blob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($file_blob)) . ")<br/><a href='inc/filepreview.php?id=$file_reference'>" . _("Preview") . "</a></div>";
