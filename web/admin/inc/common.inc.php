@@ -263,11 +263,20 @@ function getBlobFromDB($ref, $checkpublic) {
     // the data is either public (just give it away) or not; in this case, only
     // release if the data belongs to admin himself
     if ($checkpublic) {
+        // we might be called without session context (filepreview) so get the
+        // context if needed
+        if (session_status() != PHP_SESSION_ACTIVE) 
+            session_start ();
         $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
+        
+        $owners_condensed = array();
+        foreach ($owners as $oneowner)
+            $owners_condensed[] = $oneowner['ID'];
+        
         if ($owners !== FALSE) { // see if we're authenticated and owners of the data
             if (!isAuthenticated()) {
                 return FALSE; // admin-only, but we are not an admin
-            } elseif (array_search($_SESSION['user'], $owners) === FALSE)  {
+            } elseif (array_search($_SESSION['user'], $owners_condensed) === FALSE)  {
                 return FALSE; // wrong guy
             } else {
                 // carry on and get the data
