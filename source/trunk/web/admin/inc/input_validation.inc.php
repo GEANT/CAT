@@ -190,7 +190,7 @@ function valid_DB_reference($input) {
         $rowindex = $rowindexmatch[1];
     } else
         return FALSE;
-    return array("table" => $table, "rowindex", $rowindex);
+    return array("table" => $table, "rowindex" => $rowindex);
 }
 
 function valid_host($input) {
