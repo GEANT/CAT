@@ -114,17 +114,21 @@ else if (isset($_POST['creation'])) {
 </pre>";
     exit(1);
 }
+// are we on https?
+$proto = "http://";
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
+    $proto = "https://";
 
 // then, send out the mail
 $message = _("Hello,") . "
     
 " . wordwrap($introtext . " " . _("To enlist as an administrator for that IdP, please click on the following link:"), 72) . "
     
-http://" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/action_enrollment.php?token=$newtoken
+$proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/action_enrollment.php?token=$newtoken
     
 " . wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), Config::$APPEARANCE['productname']), 72) . "
     
-http://" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/ 
+$proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/ 
     
 " .
         _("and enter the invitation token") . "
