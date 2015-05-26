@@ -92,7 +92,6 @@ class UserAPI extends CAT {
          }
       } 
     }
-    $profile->incrementDownloadStats($device, $generated_for);
     $this->set_locale("web_user");
     return($a);
  }
@@ -355,8 +354,8 @@ private function GetRootURL() {
  * @return binary installerFile
  */
 
- public function downloadInstaller($device,$prof_id,$generatedfor='user') {
-    debug(4,"downloadInstaller arguments: $device,$prof_id,$generatedfor\n");
+ public function downloadInstaller($device,$prof_id,$generated_for='user') {
+    debug(4,"downloadInstaller arguments: $device,$prof_id,$generated_for\n");
     $o = $this->generateInstaller($device,$prof_id);
     debug(4,"output from GUI::generateInstaller:");
     debug(4,$o);
@@ -364,6 +363,8 @@ private function GetRootURL() {
        header("HTTP/1.0 404 Not Found");
        return;
     }
+    $profile = new Profile($prof_id);
+    $profile->incrementDownloadStats($device, $generated_for);
     $file = CAT::$root.'/web/'.$o['link'];
     $filetype = $o['mime'];
     debug(4,"installer MIME type:$filetype\n");
