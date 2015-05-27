@@ -137,7 +137,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             echo "<tr>
                         <td>" . _("Check server status of European federations") . "</td>
                         <td>
-                           <form action='http://monitor.eduroam.org' accept-charset='UTF-8'>
+                           <form action='https://monitor.eduroam.org' accept-charset='UTF-8'>
                               <button type='submit'>" . _("Go!") . "</button>
                            </form>
                         </td>
