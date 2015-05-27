@@ -208,8 +208,8 @@ function resetDevices() {
             $("#info_b_"+v.id+",#g_info_b_"+v.id).show();
         }
         if(v.redirect != '0') {
-          $("#"+v.id).addClass('additionalInfo');
-          $("#"+v.id).click(function(event){
+          $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
+          $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
             t = "<?php echo _("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab.")?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php echo _("Continue");?></a></span>";
             i_div.html(t);

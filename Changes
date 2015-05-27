@@ -1,3 +1,6 @@
+Changes in 1.1.1
+- [BUGFIX #1]  device-level redirect not working on a selected device
+
 Changes in 1.1
 ==============
 - [BUGFIX #1]  installer cache problem has been fixed by adding a mime field to the downloads 
