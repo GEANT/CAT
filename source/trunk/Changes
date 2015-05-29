@@ -1,5 +1,8 @@
 Changes in 1.1.1
 - [BUGFIX #1]  device-level redirect not working on a selected device
+- [BUGFIX #2]  mobileconfig proxy setting corrected
+- [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
+- [UPDATE #2]  speed up IdP listing
 
 Changes in 1.1
 ==============
