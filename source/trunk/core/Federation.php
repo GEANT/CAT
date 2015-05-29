@@ -482,7 +482,7 @@ class Federation {
      */
     public static function listAllIdentityProviders($active_only = 0, $country = 0) {
        $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
-                     group_concat(concat_ws('===',institution_option.option_name,institution_option.option_value) separator '---') AS options
+                     group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,100)) separator '---') AS options
                      FROM institution ";
        if($active_only == 1)
           $query .=  "JOIN profile ON institution.inst_id = profile.inst_id ";
