@@ -238,6 +238,7 @@ $("#clientresults"+data.hostindex).html('<p>'+cliinfo+'</p>');
 
 function capath(data,status){
 //show_debug(data);
+   $("#srcca"+data.hostindex).html('');
    var newhtml = '<p>'+data.message+'</p>';
    var more = '';
    addresses[data.ip] = data.result;
