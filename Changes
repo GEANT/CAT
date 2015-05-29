@@ -1,6 +1,8 @@
 Changes in 1.1.1
 - [BUGFIX #1]  device-level redirect not working on a selected device
 - [BUGFIX #2]  mobileconfig proxy setting corrected
+- [BUGFIX #3]  in RADIUS tests the contents of results box needs to be cleared
+               the moment that a rerun of tests is called
 - [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
 - [UPDATE #2]  speed up IdP listing
 
