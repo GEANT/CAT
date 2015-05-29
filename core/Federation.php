@@ -481,40 +481,57 @@ class Federation {
      *
      */
     public static function listAllIdentityProviders($active_only = 0, $country = 0) {
-        $query = "SELECT distinct institution.inst_id AS inst_id FROM institution JOIN profile 
-                          ON institution.inst_id = profile.inst_id" .
-                ($active_only ? " WHERE profile.showtime = 1" : "");
+       $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
+                     group_concat(concat_ws('===',institution_option.option_name,institution_option.option_value) separator '---') AS options
+                     FROM institution ";
+       if($active_only == 1)
+          $query .=  "JOIN profile ON institution.inst_id = profile.inst_id ";
+       $query .=     "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
+       $query .=     "WHERE (institution_option.option_name = 'general:instname' 
+                          OR institution_option.option_name = 'general:geo_coordinates'
+                          OR institution_option.option_name = 'general:logo_file') ";
+       if($active_only == 1)
+          $query .=  "AND profile.showtime = 1 ";
+
         if ($country) {
             // escape the parameter
             $country = DBConnection::escape_value(Federation::$DB_TYPE, $country);
-            $query .= ($active_only ? " AND" : " WHERE");
-            $query .= " institution.country = '$country'";
+            $query .= "AND institution.country = '$country' ";
         }
-        $query .= " ORDER BY inst_id";
-        $allIDPs = DBConnection::exec(Federation::$DB_TYPE, $query);
-        $returnarray = array();
-        while ($a = mysqli_fetch_object($allIDPs)) {
-            $idp = new IdP($a->inst_id);
-            $name = $idp->name;
-            if (!$name)
-                continue;
-            $A = array('entityID' => $idp->identifier,
-                'title' => $name, 'country' => strtoupper($idp->federation));
-            $at = $idp->getAttributes('general:geo_coordinates');
-            if ($at) {
-                if (count($at) > 1) {
-                    $at1 = array();
-                    foreach ($at as $a)
-                        $at1[] = unserialize($a['value']);
-                }
-                else
-                    $at1 = unserialize($at[0]['value']);
-                $A['geo'] = $at1;
-            }
-            $at = $idp->getAttributes('general:logo_file');
-            if ($at) {
-                $A['icon'] = $idp->identifier;
-            }
+       $query .=     "GROUP BY institution.inst_id ORDER BY inst_id";
+       $allIDPs = DBConnection::exec(Federation::$DB_TYPE, $query);
+       $returnarray = array();
+       while ($a = mysqli_fetch_object($allIDPs)) {
+           $O = explode('---',$a->options);
+           $A = array();
+           if(isset($geo))
+              unset($geo);
+           if(isset($names))
+              unset($names);
+           $A['entityID'] = $a->inst_id;
+           $A['country'] = strtoupper($a->country);
+           foreach ($O as $o) {
+             $opt = explode('===',$o);
+             if($opt[0] == 'general:logo_file')
+                $A['icon'] = $a->inst_id;
+             if($opt[0] == 'general:geo_coordinates') {
+                 $at1 = unserialize($opt[1]);
+                 if(!isset($geo))
+                     $geo = array();
+                 $geo[] = $at1;
+             }
+             if($opt[0] == 'general:instname') {
+                 if(!isset($names))
+                     $names = array();
+                 $names[] = array('value'=>$opt[1]);
+             }
+           }
+           $name = getLocalisedValue($names, CAT::$lang_index);
+           if(! $name)
+              continue;
+           $A['title'] = $name;
+           if(isset($geo))
+             $A['geo'] = $geo;
             $returnarray[] = $A;
         }
         return $returnarray;

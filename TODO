@@ -1,15 +1,33 @@
-1.1.1
-! basic.php - hidden devices are being shown
-+ UserAPI.php - incrementDownloadStats called twice 
-! IdP listing needs to be redone
-! download page formatting problem (footer obscuring part of the text)
-
 Label Definition
 ===========
 + done
 - in progress/done partially
 ! to be done
 ? not sure if we want to do this
+
+1.1.1
+========
+Admin Interface
+----------------------
+! language selection does not work in RADIUS tests
+
+User interface
+--------------------
+! basic.php - hidden devices are being shown
+! download page formatting problem (footer obscuring part of the text)
++ profile redirect not working for auto-detected device
+! delays in installer generation must be taen into account in the user download interface
+
+Device modules
+-----------------------
+! NSIS UTF-8 support
+
+Core
+--------------------
++ UserAPI.php - incrementDownloadStats called twice 
++ IdP listing needs to be redone to speed up
+! point to makensis in config.php
+! change geolocation support to support IPv6 properly
 
 1.1
 =======
