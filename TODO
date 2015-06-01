@@ -9,7 +9,8 @@ Label Definition
 ========
 Admin Interface
 ----------------------
-! language selection does not work in RADIUS tests
+! language selection needs to be carefull checked on eery page, in moset cases the selection
+  does not stick, in some cases a lang change causes errors (RADIUS Tests are an example)
 
 User interface
 --------------------
