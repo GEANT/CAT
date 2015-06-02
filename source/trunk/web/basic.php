@@ -61,7 +61,7 @@ public function __construct() {
          $c = strtoupper($L['country']);
        } else {
          debug(2, "No coutry provided and unable to locate the address\n");
-         $c=0;
+         $c= array_shift(array_keys($this->printCountryList(1)));
        }
     }
     $this->Country = new Federation($c);
