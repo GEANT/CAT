@@ -87,7 +87,7 @@ protected function signInstaller($attr) {
 }
 
 protected function compileNSIS() {
-  $o = system('makensis -V0 cat.NSI');
+  $o = system(Config::$PATHS['makensis'].' -V4 cat.NSI > nsis.log');
   debug(4,"compileNSIS:$o\n");
 }
 
