@@ -4,8 +4,10 @@ Changes in 1.1.1
 - [BUGFIX #3]  in RADIUS tests the contents of results box needs to be cleared
                the moment that a rerun of tests is called
 - [BUGFIX #4]  in basic.php fix a problem resulting from geolocation failure
+- [BUGFIX #5]  in roll.php - set the translation domain to het translations in
 - [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
 - [UPDATE #2]  speed up IdP listing
+- [UPDATE #3]  update of system names in roll.php
 
 Changes in 1.1
 ==============
