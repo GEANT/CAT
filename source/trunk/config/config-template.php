@@ -91,6 +91,8 @@ class Config {
      * installerdir: generated installers will be saved under this base directory. Path is relative to the web/ subdirectory.
      * openssl: absolute path to the openssl executable. If you just fill in "openssl" the one from the system $PATH will be taken.
      * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
+     * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
+     *           add additional flags if required, especially "-INPUTCHARSET UTF8" for UTF8 support in NSIS v3 (see also $NSIS_UTF8 further down)
      * @var array
      */
     public static $PATHS = array(
@@ -98,6 +100,8 @@ class Config {
         'openssl' => 'openssl',
         'c_rehash' => 'c_rehash',
         'eapol_test' => 'eapol_test',
+        'makensis' => 'makensis',
+//        'makensis' => 'makensis -INPUTCHARSET UTF8',
     );
 
     /**
@@ -300,6 +304,12 @@ class Config {
      *
      */
     public static $DEBUG_LEVEL = 5;
+
+    /**
+     * UTF8 support in makensis (requires makensis based on NSIS v3 and a proper setting of encoding flag)
+     * see also $PATHS['makensis']
+     */
+    public static $NSIS_UTF8 = 0;
 
     public static $SUPERADMINS = array (
         'eptid:someuser',

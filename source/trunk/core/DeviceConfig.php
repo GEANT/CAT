@@ -196,8 +196,12 @@ abstract class DeviceConfig {
 
 
   /**
-    *  Copy a file from the module location to the temporary directory aplying translation.
+    *  Copy a file from the module location to the temporary directory aplying transcoding.
     *
+    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS
+    * Trancoding is noly applied if the third optional parameter is set and nonzero
+    * If Config::$NSIS_UTF8 -s set to 1, no transcoding will be applied regardless of the 
+    * third parameter value
     * If the second argument is provided and is not equal to 0, then the file will be
     * saved under the name taken form this argument.
     * If only one parameter is given or the second is equal to 0, source and destination
@@ -216,6 +220,8 @@ abstract class DeviceConfig {
     */
 
    final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
+      if(Config::$NSIS_UTF8 === 1)
+        $encoding = 0;
       if  ( $output_name === 0)
         $output_name = $source_name;
 
@@ -240,13 +246,36 @@ abstract class DeviceConfig {
       debug(4,"translateFile($source, $output_name, $encoding) end\n");
    }
 
-   final protected function translateString($source_string,$encoding) {
+
+  /**
+    * Transcode a string adding double quotes escaping
+    *
+    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS
+    * Trancoding is noly applied if the third optional parameter is set and nonzero
+    * If Config::$NSIS_UTF8 -s set to 1, no transcoding will be applied regardless of the 
+    * second parameter value
+    * The second optional parameter, if nonzero, should be the character set understood by iconv
+    * This is required by the Windows installer and is
+    * expected to go away in the future.
+    *
+    * @param string $source_name The source file name
+    * @param int $use_win_cp Set Windows charset if non-zero
+    *
+    * @final not to be redefined
+    */
+
+   final protected function translateString($source_string,$encoding = 0) {
+      if(Config::$NSIS_UTF8 === 1)
+        $encoding = 0;
+      if($encoding)
         $output_c = iconv('UTF-8',$encoding.'//TRANSLIT',$source_string);
-        if($output_c) 
-           $source_string  = str_replace('"','$\\"',$output_c);
-        else
-           debug(2,"Failed to convert string $source_string\n");
-        return $source_string;
+      else
+        $$output_c = $source_string;
+      if($output_c) 
+         $source_string  = str_replace('"','$\\"',$output_c);
+      else
+         debug(2,"Failed to convert string $source_string\n");
+      return $source_string;
    }
 
 
