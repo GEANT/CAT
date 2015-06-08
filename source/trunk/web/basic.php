@@ -53,6 +53,7 @@ public function __construct() {
 
 /* Start with checking if we have the country code if not then use geolocation..
 */
+    $F = array_keys($this->printCountryList(1));
     if(isset($_REQUEST['country']) && $_REQUEST['country']) {
        $c = strtoupper($_REQUEST['country']);
     } else {
@@ -61,9 +62,11 @@ public function __construct() {
          $c = strtoupper($L['country']);
        } else {
          debug(2, "No coutry provided and unable to locate the address\n");
-         $c= array_shift(array_keys($this->printCountryList(1)));
+         $c='NONE';
        }
     }
+    if(!in_array($c,$F))
+      $c= array_shift($F);
     $this->Country = new Federation($c);
     $this->Args['country'] = $this->Country->identifier;
     $this->page =  1;

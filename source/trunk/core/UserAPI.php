@@ -426,6 +426,9 @@ private function GetRootURL() {
    if($record) {
      $result = array('status' => 'ok');
      $result['country'] = $record['country_code'];
+//  the two lines below are a dirty hack to take of the error in naming the UK federation
+     if($result['country'] == 'GB')
+         $result['country'] = 'UK';
      $result['region'] = $record['region'];
      $result['geo'] = array('lat' => (float)$record['latitude'] , 'lon' => (float)$record['longitude']);
    } else {
