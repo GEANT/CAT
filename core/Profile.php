@@ -630,7 +630,7 @@ class Profile {
                    }
                }
             }
-            $returnarray[] = array('id' => $d, 'display' => $D['display'], 'status' => $dev_status, 'redirect' => $redirect_url, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext, 'message' => $message);
+            $returnarray[] = array('id' => $d, 'display' => $D['display'], 'status' => $dev_status, 'redirect' => $redirect_url, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext, 'message' => $message, 'options'=>$D['options']);
         }
         return $returnarray;
     }
