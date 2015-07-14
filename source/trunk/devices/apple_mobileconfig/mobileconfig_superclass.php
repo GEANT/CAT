@@ -68,17 +68,22 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
         // also escape htmlspecialchars
 
-        $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['general:instname'][0]))), ENT_XML1, 'UTF-8');
-        $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['profile:name'][0]))), ENT_XML1, 'UTF-8');
+        // not all names and profiles have a name, so be prepared
+        if (empty($this->attributes['general:instname'][0]))
+            $inst_name = "Unnamed Institution";
+        else
+            $inst_name = $this->attributes['general:instname'][0];
+        
+        if (empty($this->attributes['profile:name'][0]))
+            $profile_name = "Unnamed Profile";
+        else
+            $profile_name = $this->attributes['profile:name'][0];
+        
+        $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $inst_name))), ENT_XML1, 'UTF-8');
+        $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $profile_name))), ENT_XML1, 'UTF-8');
         $this->massaged_country = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
         $this->massaged_consortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
-
-        // inst and profile MUST NOT be empty (needed to construct apple OID strings)
-        if ($this->massaged_inst == "")
-            $this->massaged_inst = "unnamed-inst";
-        if ($this->massaged_profile == "")
-            $this->massaged_profile = "unnamed-profile";
 
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
 
@@ -117,17 +122,17 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         $output_xml .= "
          </array>
       <key>PayloadDescription</key>
-         <string>" . sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->attributes['profile:name'][0], ENT_XML1, 'UTF-8'), htmlspecialchars($this->attributes['general:instname'][0], ENT_XML1, 'UTF-8'), Config::$CONSORTIUM['name']) . "</string>
+         <string>" . sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profile_name, ENT_XML1, 'UTF-8'), htmlspecialchars($inst_name, ENT_XML1, 'UTF-8'), Config::$CONSORTIUM['name']) . "</string>
       <key>PayloadDisplayName</key>
          <string>" . Config::$CONSORTIUM['name'] . "</string>
       <key>PayloadIdentifier</key>
          <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang</string>
       <key>PayloadOrganization</key>
-         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['general:instname'][0]),ENT_NOQUOTES, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['profile:name'][0]), ENT_NOQUOTES, 'UTF-8') . ")" : "") . "</string>
+         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['general:instname'][0]),ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . uuid('',mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . $this->massaged_consortium . $this->massaged_country . $this->massaged_inst . $this->attributes['profile:name'][0]) . "</string>
+         <string>" . uuid('',mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . $this->massaged_consortium . $this->massaged_country . $this->massaged_inst . $this->massaged_profile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         if (isset($this->attributes['support:info_file']))
