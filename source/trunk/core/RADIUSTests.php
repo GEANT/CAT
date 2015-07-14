@@ -1125,6 +1125,8 @@ network={
             }
 
             $eap_intermediate_oddities = array();
+            $testresults['certdata']=array();
+            
             foreach ($eap_certarray as $cert_pem) {
                 $cert = $x509->processCertificate($cert_pem);
                 if ($cert == FALSE)
