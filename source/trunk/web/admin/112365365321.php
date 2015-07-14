@@ -253,7 +253,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                         $i = 0;
 
                         $Cache = array();
-                        $result = DBConnection::exec("INST", "SELECT download_path FROM downloads");
+                        $result = DBConnection::exec("INST", "SELECT download_path FROM downloads WHERE donwload_path IS NOT NULL");
                         while ($r = mysqli_fetch_row($result)) {
                             $e = explode('/', $r[0]);
                             $Cache[$e[1]] = 1;
