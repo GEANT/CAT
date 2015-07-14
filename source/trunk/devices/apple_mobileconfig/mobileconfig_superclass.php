@@ -123,7 +123,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
       <key>PayloadIdentifier</key>
          <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang</string>
       <key>PayloadOrganization</key>
-         <string>" . $this->attributes['general:instname'][0] . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . $this->attributes['profile:name'][0] . ")" : "") . "</string>
+         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['general:instname'][0]),ENT_NOQUOTES, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['profile:name'][0]), ENT_NOQUOTES, 'UTF-8') . ")" : "") . "</string>
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
