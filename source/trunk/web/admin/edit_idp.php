@@ -70,7 +70,7 @@ geo_widget_head($my_inst->federation, $inst_name)
 </head>
 <body onload='load(1)'>
 
-<?php productheader("ADMIN-IDP", $cat->lang_index); ?>
+<?php productheader("ADMIN-IDP", CAT::$lang_index); ?>
 
     <h1>
 <?php

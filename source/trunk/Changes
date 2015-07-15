@@ -6,6 +6,7 @@ Changes in 1.1.1
 - [BUGFIX #4]  in basic.php fix a problem resulting from geolocation failure
 - [BUGFIX #5]  in roll.php - set the translation domain to het translations in
 - [BUGFIX #6]  hide hidden devices in basic.php
+- [BUGFIX #7]  fix language selection problem in admin pages
 - [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
 - [UPDATE #2]  speed up IdP listing
 - [UPDATE #3]  update of system names in roll.php

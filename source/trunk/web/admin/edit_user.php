@@ -23,7 +23,7 @@ $user = new User($_SESSION['user']);
 <script src="js/option_expand.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php productheader("USERMGMT",$cat->lang_index); ?>
+    <?php productheader("USERMGMT",CAT::$lang_index); ?>
     <h1>
         <?php _("Editing User Attributes"); ?>
     </h1>
