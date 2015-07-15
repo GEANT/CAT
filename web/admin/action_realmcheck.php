@@ -71,7 +71,7 @@ $errorstate = array();
    icons[L_REMARK] = '../resources/images/icons/Quetto/info-icon.png';
    var icon_loading ='../resources/images/icons/loading51.gif';
    var tmp_content;
-   var lang = '<?php echo $cat->lang_index; ?>'
+   var lang = '<?php echo CAT::$lang_index; ?>'
    var states = new Array();
    states['PASS'] = '<?php echo _("PASS") ?>';
    states['FAIL'] = '<?php echo _("FAIL") ?>';
@@ -393,7 +393,7 @@ foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
    print "
 $(\"#src".$hostindex."_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
-$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '".$cat->lang_index."', hostindex: '$hostindex'  }, udp, 'json');
+$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '".CAT::$lang_index."', hostindex: '$hostindex'  }, udp, 'json');
 
 ";
 }
@@ -407,7 +407,7 @@ function show_debug(text) {
 }
 </script>
    <?php
-    productheader("ADMIN", $cat->lang_index);
+    productheader("ADMIN", CAT::$lang_index);
     print "<h1>".sprintf(_("Realm testing for: %s"),$check_realm)."</h1>\n";
     if($error_message) {
         print "<p>$error_message</p>";
@@ -520,8 +520,8 @@ function show_debug(text) {
                       if ($addr['family'] == "IPv6") $host .= ']';
                       $host .= ':' . $addr['port'];
                       print "
-                            $.get('radius_tests.php', {test_type: 'capath', realm: realm, src: '$host', lang: '".$cat->lang_index."', hostindex: '$hostindex' },  capath, 'json'); 
-                            $.get('radius_tests.php', {test_type: 'clients', realm: realm, src: '$host', lang: '".$cat->lang_index."', hostindex: '$hostindex' },  clients , 'json'); 
+                            $.get('radius_tests.php', {test_type: 'capath', realm: realm, src: '$host', lang: '".CAT::$lang_index."', hostindex: '$hostindex' },  capath, 'json'); 
+                            $.get('radius_tests.php', {test_type: 'clients', realm: realm, src: '$host', lang: '".CAT::$lang_index."', hostindex: '$hostindex' },  clients , 'json'); 
                        ";
                    }
               echo "}
@@ -636,7 +636,7 @@ print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
                     <form enctype='multipart/form-data' id='live_form' accept-charset='UTF-8'>
                     <input type='hidden' name='test_type' value='udp_login'>
-                    <input type='hidden' name='lang' value='".$cat->lang_index."'>
+                    <input type='hidden' name='lang' value='".CAT::$lang_index."'>
                     <input type='hidden' name='profile_id' value='".$my_profile->identifier."'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section

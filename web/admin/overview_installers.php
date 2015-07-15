@@ -27,7 +27,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP", $cat->lang_index);
+    productheader("ADMIN-IDP", CAT::$lang_index);
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     $inst_name = $my_inst->name;
