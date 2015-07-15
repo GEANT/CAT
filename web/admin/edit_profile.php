@@ -1,6 +1,6 @@
 <?php
 /* * *********************************************************************************
- * (c) 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia
+ * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
  * ********************************************************************************* */
 ?>
