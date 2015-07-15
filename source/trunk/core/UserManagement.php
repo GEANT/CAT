@@ -268,6 +268,25 @@ Best regards,
         };
         return $retval;
     }
+    
+    /** Retrieves all invitations which have expired in the last hour.
+     * 
+     * @return array of expired invitations
+     */
+    public function listRecentlyExpiredInvitations() {
+        $retval = array();
+        $invitations = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
+                                        FROM invitations 
+                                        WHERE invite_created >= TIMESTAMPADD(HOUR, -25, NOW()) AND invite_created < TIMESTAMPADD(HOUR, -24, NOW()) AND used = 0");
+        while ($a = mysqli_fetch_object($invitations)) {
+                debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
+                if ($a->cat_institution_id == NULL)
+                    $retval[] = array("country" => $a->country, "level" => $a->invite_issuer_level, "name" => $a->name, "mail" => $a->invite_dest_mail);
+                else
+                    $retval[] = array("country" => $a->country, "level" => $a->invite_issuer_level, "name" => "Existing IdP", "mail" => $a->invite_dest_mail);
+            }
+        return $retval;
+    }
 
     /**
      * For a given persistent user identifier, returns an array of institution identifiers (not the actual objects!) for which this
