@@ -43,6 +43,11 @@ class Config {
         // # signs before the colour code
         'colour1' => '#BCD7E8',
         'colour2' => '#0A698E',
+        // the web server certificate may be checked by browsers against a CRL or OCSP Responder
+        // to tell captive portal admins which hosts to allow, list the URLs here (they show up
+        // in "About CAT" then)
+        'webcert_CRLDP' => array('list', 'of', 'CRL', 'pointers'),
+        'webcert_OCSP' => array('list', 'of', 'OCSP', 'pointers'),
     );
 
     /**
