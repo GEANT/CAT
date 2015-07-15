@@ -227,6 +227,7 @@ abstract class DeviceConfig {
 
       debug(4,"translateFile($source_name, $output_name, $encoding)\n");
       ob_start();
+      debug(4,$this->module_path.'/Files/'.$this->device_id.'/'.$source_name."\n");
       if(is_file($this->module_path.'/Files/'.$this->device_id.'/'.$source_name))
          $source = $this->module_path.'/Files/'.$this->device_id.'/'.$source_name;
       elseif(is_file($this->module_path.'/Files/'.$source_name))
