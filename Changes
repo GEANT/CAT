@@ -9,6 +9,14 @@ Changes in 1.1.1
 - [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
 - [UPDATE #2]  speed up IdP listing
 - [UPDATE #3]  update of system names in roll.php
+- [FEATURE #1] in "About", show the hostnames which need to be whitelisted in
+               captive portals for CAT to work. This required two new config
+               parameters, see below.
+
+Configuration parameter changes
+-------------------------------
+[NEW]           Config::$APPEARANCE['webcert_CRLDP']
+[NEW]           Config::$APPEARANCE['webcert_OCSP']
 
 Changes in 1.1
 ==============
