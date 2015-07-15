@@ -246,7 +246,7 @@ class User {
         if (count($mailaddr) == 0) // we don't know his mail address
             return FALSE;
         
-        $mail->addAddress($mailaddr);
+        $mail->addAddress($mailaddr[0]["value"]);
         
         /* echo "<pre>";
         print_r($mailaddr);
