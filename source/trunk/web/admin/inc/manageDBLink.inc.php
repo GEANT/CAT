@@ -116,7 +116,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE && is
         echo "<table><tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
         foreach ($candidates as $candidate) {
             $info = Federation::getExternalDBEntityDetails($candidate);
-            echo "<tr><td><input type='radio' name='inst_link' value='$candidate'>$candidate</input></td><td>";
+            echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
             foreach ($info['names'] as $lang => $name)
                 echo "[$lang] $name<br/>";
             echo "</td><td>";
@@ -160,11 +160,14 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE && is
 
         if ($buffer != "") {
             echo "<tr><td><input type='radio' name='inst_link' id='radio-inst-other' value='other'>Other:</input></td>";
-            echo "<td><select id='inst_link_other' name='inst_link_other' onchange='document.getElementById(\"radio-inst-other\").checked=true'>";
+            echo "<td><select id='inst_link_other' name='inst_link_other' onchange='document.getElementById(\"radio-inst-other\").checked=true; document.getElementById(\"submit\").disabled = false;'>";
             echo $buffer;
             echo "</select></td></tr>";
         }
-        echo "</table><button type='submit' name='submitbutton' value='".BUTTON_SAVE."'>" . _("Create Link") . "</button></form>";
+        // issue a big red warning if there are no link candidates at all in the federation
+        if (empty($buffer) && empty($candidates))
+            echo "<tr><td style='color:#ff0000' colspan='2'>There are no unmapped institutions in the external database for this federation!</td></tr>";
+        echo "</table><button type='submit' name='submitbutton' id='submit' value='" . BUTTON_SAVE . "' disabled >" . _("Create Link") . "</button></form>";
     }
     ?>
 </p>
