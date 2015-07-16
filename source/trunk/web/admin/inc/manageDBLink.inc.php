@@ -46,7 +46,12 @@ if (!$is_fed_admin) {
 // okay... we are indeed entitled to "do stuff"
 // make a link if the admin has submitted the required info
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE && isset($_POST['inst_link'])) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
+    // someone clever pushed the button without selecting an inst?
+    if (!isset($_POST['inst_link']))
+        header("Location: ../overview_federation.php");
+    // okay, he did sumbit an inst. It's either a (string) handle from a promising 
+    // candidate, or "other" as selected from the drop-down list
     if ($_POST['inst_link'] != "other") {
         $my_inst->setExternalDBId(valid_string_db($_POST['inst_link']));
     } else if (isset($_POST['inst_link_other'])) {
