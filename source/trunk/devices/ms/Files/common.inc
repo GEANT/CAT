@@ -1,4 +1,8 @@
-; Used by Vista/W7/W8 modules
+; *********************************************************************************
+; * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
+; * License: see the LICENSE file in the root directory
+; ***********************************************************************************
+; Used by Vista/W7/W8 module
 ;---------------------------------------
 
 !define DEBUG_CAT 5
@@ -21,6 +25,7 @@ Var HEADLINE_FONT
 	!include "main.nsh"
         !include "WordFunc.nsh"
         !include "FileFunc.nsh"
+        !include "x64.nsh"
 SetCompressor bzip2
 !ifdef WIRED
    !ifdef EXECLEVEL
@@ -85,6 +90,7 @@ Var Symantec_installed
 Var wireless_result
 Var wired
 Var force_wired
+Var Platform
 !ifdef TLS
   Var Cert_file
   Var PFX_install
@@ -319,6 +325,15 @@ Function .onInit
   Push 0
   Pop $profile_fail
 
+
+  ${If} ${RunningX64}
+    StrCpy "$INSTDIR" "$PROGRAMFILES64\ArnesLink"
+    StrCpy $Platform "64"
+    ${Else}
+    StrCpy "$INSTDIR" "$PROGRAMFILES\ArnesLink"
+    StrCpy $Platform "32"
+  ${EndIf}
+  !insertmacro debug_cat 3 "Platfrom:$Platform"
 
   Call wVersionCheck
   Call Wireless_Check
@@ -797,7 +812,7 @@ FunctionEnd
 
 ;=============================
 Function CreateLanProfile
- !insertmacro debug_cat 2 "nstalling wired profile"
+ !insertmacro debug_cat 2 "installing wired profile"
  DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
   !insertmacro debug_cat 3 "execute: netsh lan add profile $TEMP\lan_prof.xml"
   ${Commands->Shift} "netsh lan add profile $TEMP\lan_prof.xml"
@@ -830,51 +845,6 @@ Function CreateWirelessProfiles
     Push $R9
     Call InstallProfile
   ${Next}
-FunctionEnd
-
-; re-install a wireless profile and set the credentials flag if succeded
-Function InstallProfile
-  Pop $R0
-  ${Profile_names->Read} $R1 $R0
-  ${Profile_states->Read} $R2 $R0
-  ${If} $R2 == ${PROFILE_STATE_DELETE}
-    DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
-    !insertmacro debug_cat 3 'Execute: netsh wlan delete profile "$R1"'
-    ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
-    nsExec::Exec '"netsh" wlan delete profile "$R1"'
-    Pop $0
-    !insertmacro debug_cat 4 "netsh returned $0"
-    !insertmacro debug_cat 1 "Profile $R1 deleted"
-  ${EndIf}
-  DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
-  !insertmacro debug_cat 3 "Execute: netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
-  ${Commands->Shift} "netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
-;  ${Commands->Shift} "del $TEMP\wlan_prof-$R0.xml"
-  nsExec::Exec '"netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
-  Pop $0
-  !insertmacro debug_cat 4 "netsh returned $0"
-  ${If} $0 <> 0
-    !insertmacro debug_cat 1 'Profile installation error for "$R1"'
-    IfSilent +2
-    MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
-    ${Profile_states->Write} $R0 ${PROFILE_STATE_FAIL}
-    Push 1
-    Pop $profile_fail
-  ${Else}
-     !insertmacro debug_cat 1 "Profile $R1 created"
-;    Push 1
-;    Pop $get_credentials
-    Push 1
-    Pop $install_wireless_credentials
-  !ifndef DEBUG_CAT
-     Delete "$TEMP\wlan_prof-$R0.xml"
-  !endif
-  !ifdef DEBUG_CAT
-   ${If} $Debug_cat == 0
-     Delete "$TEMP\wlan_prof-$R0.xml"
-  ${EndIf}
-  !endif
-  ${EndIf}
   !ifdef AdditionalDeletes
      !insertmacro debug_cat 1 'Additional Deletes'
      ClearErrors
@@ -897,6 +867,62 @@ Function InstallProfile
      Done2:
      ${Additional_deletes->ReadClose} $R5
   !endif
+FunctionEnd
+
+; re-install a wireless profile and set the credentials flag if succeded
+Function InstallProfile
+  Pop $R0
+  ${Profile_names->Read} $R1 $R0
+  ${Profile_states->Read} $R2 $R0
+  ${If} $R2 == ${PROFILE_STATE_DELETE}
+    DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
+    !insertmacro debug_cat 3 'Execute: netsh wlan delete profile "$R1"'
+    ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
+    nsExec::Exec '"netsh" wlan delete profile "$R1"'
+    Pop $0
+    !insertmacro debug_cat 4 "netsh returned $0"
+    !insertmacro debug_cat 1 "Profile $R1 deleted"
+  ${EndIf}
+; profile installation
+  DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
+!ifdef ArnesLink
+  !insertmacro debug_cat 3 'Execute: "$INSTDIR\al_import.exe" "$TEMP\wlan_prof-$R0.xml"'
+  ClearErrors
+  ExecWait '"$INSTDIR\al_import.exe" "$TEMP\wlan_prof-$R0.xml"'
+;  Pop $0
+;  !insertmacro debug_cat 4 "profile import returned $0"
+  IfErrors 0 +4
+  MessageBox MB_OK "Wlan profile import failed! Continuing anyway!$\nMake sure to import wlan profile manually!"
+  !insertmacro debug_cat 4 "Wlan profile $R0 import failed!"
+
+!else
+  !insertmacro debug_cat 3 "Execute: netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
+  ${Commands->Shift} "netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
+;  ${Commands->Shift} "del $TEMP\wlan_prof-$R0.xml"
+  nsExec::Exec '"netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
+  Pop $0
+  !insertmacro debug_cat 4 "netsh returned $0"
+  ${If} $0 <> 0
+    !insertmacro debug_cat 1 'Profile installation error for "$R1"'
+    IfSilent +2
+    MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
+    ${Profile_states->Write} $R0 ${PROFILE_STATE_FAIL}
+    Push 1
+    Pop $profile_fail
+  ${Else}
+     !insertmacro debug_cat 1 "Profile $R1 created"
+    Push 1
+    Pop $install_wireless_credentials
+  !ifndef DEBUG_CAT
+     Delete "$TEMP\wlan_prof-$R0.xml"
+  !endif
+  !ifdef DEBUG_CAT
+   ${If} $Debug_cat == 0
+     Delete "$TEMP\wlan_prof-$R0.xml"
+  ${EndIf}
+  !endif
+  ${EndIf}
+!endif
 FunctionEnd
 
 ; Install credentials for wired
@@ -1118,6 +1144,11 @@ Page custom WiredConfirm
 !ifdef LICENSE_FILE
   Page license
 !endif
+!ifdef ArnesLink
+  !define MUI_LICENSEPAGE_TEXT_TOP "<?php echo_nsi(_("In order to procede we need to install ArnessLink, which is available under GPL license."))?>"
+  !define MUI_LICENSEPAGE_TEXT_BOTTOM "<?php echo_nsi(_("ArnesLink is available from ftp://ftp.arnes.si/software/eduroam/ArnesLink/."))?> <?php echo_nsi(_("Please accept the licence in order to continue."))?>"
+  !insertmacro MUI_PAGE_LICENSE "GPL3.rtf"
+!endif
 ;============================
 !ifdef TLS
 PageEx components
@@ -1145,7 +1176,9 @@ SectionIn RO
 
 !insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Installation"))?>" "<?php echo_nsi( _("Checking for existing wireless profiles"))?>"
 !ifndef PWD
+!ifndef ArnesLink
 !include "certs.nsh"
+!endif
 !endif
 SectionEnd
 

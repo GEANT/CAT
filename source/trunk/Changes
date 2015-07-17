@@ -13,6 +13,7 @@ Changes in 1.1.1
 - [FEATURE #1] in "About", show the hostnames which need to be whitelisted in
                captive portals for CAT to work. This required two new config
                parameters, see below.
+- [FEATURE #2] ArnesLink for TTLS in Windows 7 and Vista modules
 
 Configuration parameter changes
 -------------------------------
