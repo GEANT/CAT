@@ -26,7 +26,7 @@ require_once('WindowsCommon.php');
  */
 class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
-      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD);
+      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD, EAP::$TTLS_PAP);
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
@@ -51,7 +51,7 @@ class Device_Vista7 extends WindowsCommon {
           $delProfiles[] = $ssid.' (TKIP)';
      }
 
-     if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
+     if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD || $this->selected_eap == EAP::$TTLS_PAP) {
        $WindowsProfile = array();
        $eap_config = $this->prepareEapConfig($this->attributes);
        $i = 0;
@@ -136,9 +136,9 @@ private function prepareEapConfig($attr) {
     $vista_ext = '';
     $w7_ext = '';
     $eap = $this->selected_eap;
-    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD) {
-      debug(2,"this method only allows TLS, PEAP or EAP-pwd");
-      error("this method only allows TLS, PEAP, or EAP-pwd");
+    if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
+      debug(2,"this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
+      error("this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
      return;
     }
    $use_anon = $attr['internal:use_anon_outer'] [0];
@@ -148,6 +148,10 @@ private function prepareEapConfig($attr) {
    $servers = implode(';',$attr['eap:server_name']);
    $ca_array = $attr['internal:CAs'][0];
    $author_id = "0";
+   if( $eap == EAP::$TTLS_PAP) {
+      $author_id = "17236";
+      $servers = implode('</ServerName><ServerName>',$attr['eap:server_name']);
+   }
 
   $profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
@@ -158,7 +162,61 @@ private function prepareEapConfig($attr) {
 <AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$author_id.'</AuthorId>
 </EapMethod>
 ';
-if( $eap == EAP::$TLS) {
+
+
+   if( $eap == EAP::$TTLS_PAP) {
+$profile_file_contents .= '
+<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+<EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
+<EAPIdentityProvider>
+<ID>eduroam.si</ID>
+<ProviderInfo>
+<CredentialPrompt>
+<localized-text><lang>en</lang><text>'._("Please provide your user ID and password.").'</text></localized-text>
+</CredentialPrompt>
+<UserNameLabel>
+<localized-text><lang>en</lang><text>Username@domain:</text></localized-text>
+</UserNameLabel>
+<PasswordLabel>
+<localized-text><lang>en</lang><text>Password:</text></localized-text>
+</PasswordLabel>
+</ProviderInfo>
+<AuthenticationMethods>
+<AuthenticationMethod>
+<EAPMethod>21</EAPMethod>
+<ClientSideCredential>
+<AnonymousIdentity>@</AnonymousIdentity>
+</ClientSideCredential>
+<ServerSideCredential>
+';
+
+   foreach ($ca_array as $ca) {
+      
+      $profile_file_contents .= '<CA><format>PEM</format><cert-data>';
+      $profile_file_contents .= base64_encode($ca['der']);
+      $profile_file_contents .= '</cert-data></CA>
+';
+   }
+   $profile_file_contents .= "<ServerName>$servers</ServerName>\n";
+
+$profile_file_contents .= '
+</ServerSideCredential>
+<InnerAuthenticationMethod>
+<NonEAPAuthMethod>PAP</NonEAPAuthMethod>
+</InnerAuthenticationMethod>
+<VendorSpecific>
+<SessionResumption>false</SessionResumption>
+</VendorSpecific>
+</AuthenticationMethod>
+</AuthenticationMethods>
+</EAPIdentityProvider>
+</EAPIdentityProviderList>
+</Config>
+';
+
+}
+
+elseif( $eap == EAP::$TLS) {
   $profile_file_contents .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
@@ -389,6 +447,7 @@ debug(4,"MYLANG=".$this->lang."\n");
 $EAP_OPTS = array(
 PEAP=>array('str'=>'PEAP','exec'=>'user'),
 TLS=>array('str'=>'TLS','exec'=>'user'),
+TTLS=>array('str'=>'ArnesLink','exec'=>'user'),
 PWD=>array('str'=>'PWD','exec'=>'admin'),
 );
 $fcontents = '';
@@ -475,7 +534,12 @@ debug(4,"code_page=".$this->code_page."\n");
    $result = $result && $this->copyFile('cat32.ico');
    $result = $result && $this->copyFile('cat_150.bmp');
    $this->translateFile('common.inc','common.nsh',$this->code_page);
-   if($eap["OUTER"] == PWD) {
+   if( $eap["OUTER"] == TTLS)  {
+     $result = $this->copyFile('GPL3.rtf');
+     $result = $result && $this->copyFile('ArnesLinkEn32.msi');
+     $result = $result && $this->copyFile('ArnesLinkEn64.msi');
+     $this->translateFile('arnes_link.inc','cat.NSI',$this->code_page);
+   } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
      $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
     } else {

@@ -1,14 +1,17 @@
 This directory contains additional files for Windows installer modules.
 
+ArnesLinkEn32.msi - ArnesLink installer English - 32 bit
+ArnesLinkEn64.msi - ArnesLink installer English - 64 bit
+arnes_link.inc - installer code for ArnesLink TTLS
 Aruba_EAP_pwd.exe - PWD installer supplied by Aruba
 cat_bg.bmp - defualt background
 common.inc - common NSIS code for all modules but XP
 eap_w8.inc - W8 specific code
+GPL3.rtf - GPLv3 license text
 cat_150.bmp - CAT header
 cat32.ico - EXE icon
+install_wired.cmd - install wired profile
 peap_tls.inc - PEAP/TLS code for Vista/W7 installers
 pwd.inc - EAP-PWD code (calling Aruba installer)
 setEAPCred.exe - user credentials installer supplied by Gareth Ayres 
 wlan_test.exe - utility for checking wireless status of Windows
-xp/ -  contains XP specific version of common.inc
-
