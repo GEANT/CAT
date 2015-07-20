@@ -8,6 +8,7 @@
 var n;
 var profile;
 // var device_button_bg ="#0a698e";
+var generateTimer;
 var pageWidth = 0;
 var headerHeight = 0;
 var footerHeight = 0;
@@ -148,6 +149,11 @@ function resetDevices() {
         info_id = 'info_'+pressedButton.attr('id');
         $('#'+info_id).show(100);
       } else {
+         setTimeout("pressedButton.removeClass('pressed pressedDisabled')", 1000);
+        $('#download_info').hide();
+        generateTimer = $.now();
+        $("#devices").hide();
+        $("#user_welcome").show();
         $.post('user/API.php', {action: 'generateInstaller', lang: lang, id: button_id, profile: profile}, processDownload);
      }
   }
@@ -251,8 +257,14 @@ function resetDevices() {
                var dev_id = pressedButton.attr('id');
                if(dev_id.substr(0,2) == "g_")
                   dev_id = dev_id.substr(2);
-               if(v.status == 0) 
+               if(v.status == 0) {
+               $('#download_info').hide();
+               setTimeout("pressedButton.removeClass('pressed pressedDisabled')", 1000);
+               $("#devices").hide();
+               generateTimer = $.now();
+               $("#user_welcome").show();
                $.post('user/API.php', {action: 'generateInstaller', lang: lang, id: dev_id, profile: profile}, processDownload); 
+               }
             });
                
           });
@@ -334,8 +346,13 @@ function back_to_downloads() {
 
 
 function processDownload(data) {
+   generateTimer = $.now() - generateTimer;
+   if(generateTimer < 3000)
+     generateTimer = 3000 - generateTimer;
+   else
+     generateTimer = 0;
+     
   var j;
-  setTimeout("pressedButton.removeClass('pressed pressedDisabled')", 1000);
   try {
     j = $.parseJSON(data).data;
   }
@@ -346,11 +363,15 @@ function processDownload(data) {
   if( j.link == 0 )
     alert(generation_error);
   else {
-    $("#devices").hide();
     download_link = 'user/API.php?action=downloadInstaller&lang='+lang+'&id='+j.device+'&profile='+j.profile;
     $("#download_info a").attr('href',download_link);
-    $("#user_welcome").show();
-    setTimeout("document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/')?>'+'/'+download_link",3000);
+    $('#download_info').show();
+    if( generateTimer > 0 ) {
+       setTimeout("document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/')?>'+'/'+download_link",generateTimer);
+    }
+    else {
+       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/')?>'+'/'+download_link;
+    }
   }
 }
 
