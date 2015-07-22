@@ -930,7 +930,7 @@ Function InstallWiredCred
     !insertmacro debug_cat 1 "installing credentials for wired"
     DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
     FileOpen $9 "$TEMP\user_cred.xml" w
-    FileWrite $9 "<?xml version=$\"1.0$\"?>$\r$\n\
+    FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
 <eapCommon:Type>25</eapCommon:Type>$\r$\n\
@@ -942,7 +942,7 @@ Function InstallWiredCred
 <MsPeap:EapType>$\r$\n\
 <baseEap:Eap>$\r$\n\
 <baseEap:Type>26</baseEap:Type>$\r$\n\
-<MsChapV2:EapType>$\r$\n"
+<MsChapV2:EapType>$\r$\n'
 
 FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 <MsChapV2:Password>$PASS1</MsChapV2:Password>$\r$\n\
@@ -1025,7 +1025,7 @@ Function PFXCertificateSelectLeave
       !insertmacro debug_cat 3 "certutil returned $1"
 ;TRANSLATION
     ${If} $1 <> 0
-      MessageBox MB_OK  "<?php echo_nsi(_('Incorrect certificate password$\r$\nenter again'))?>"
+      MessageBox MB_OK  "<?php echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
       Abort
     ${EndIf}
    ${EndIf}
@@ -1146,7 +1146,7 @@ Page custom WiredConfirm
 !endif
 !ifdef ArnesLink
   !define MUI_LICENSEPAGE_TEXT_TOP "<?php echo_nsi(_("In order to procede we need to install ArnessLink, which is available under GPL license."))?>"
-  !define MUI_LICENSEPAGE_TEXT_BOTTOM "<?php echo_nsi(_("ArnesLink is available from ftp://ftp.arnes.si/software/eduroam/ArnesLink/."))?> <?php echo_nsi(_("Please accept the licence in order to continue."))?>"
+  !define MUI_LICENSEPAGE_TEXT_BOTTOM "<?php echo_nsi(_("ArnesLink is available from ftp://ftp.arnes.si/software/eduroam/ArnesLink/."))?> <?php echo_nsi(_("Please accept the license in order to continue."))?>"
   !insertmacro MUI_PAGE_LICENSE "GPL3.rtf"
 !endif
 ;============================
