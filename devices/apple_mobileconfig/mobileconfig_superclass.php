@@ -67,18 +67,17 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 
         // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
         // also escape htmlspecialchars
-
         // not all names and profiles have a name, so be prepared
         if (empty($this->attributes['general:instname'][0]))
             $inst_name = "Unnamed Institution";
         else
             $inst_name = $this->attributes['general:instname'][0];
-        
+
         if (empty($this->attributes['profile:name'][0]))
             $profile_name = "Unnamed Profile";
         else
             $profile_name = $this->attributes['profile:name'][0];
-        
+
         $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $inst_name))), ENT_XML1, 'UTF-8');
         $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $profile_name))), ENT_XML1, 'UTF-8');
         $this->massaged_country = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
@@ -114,7 +113,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
             $include_wired = TRUE;
         else
             $include_wired = FALSE;
-        
+
         $output_xml .= $this->all_network_blocks($ssid_list, $OI_list, $server_names, $uuid_list, $eap_type, $include_wired, $use_realm);
 
         $output_xml .= $this->all_ca($this->attributes['internal:CAs'][0]);
@@ -128,11 +127,11 @@ abstract class mobileconfig_superclass extends DeviceConfig {
       <key>PayloadIdentifier</key>
          <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang</string>
       <key>PayloadOrganization</key>
-         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['general:instname'][0]),ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE",$this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
+         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['general:instname'][0]), ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . uuid('',mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . $this->massaged_consortium . $this->massaged_country . $this->massaged_inst . $this->massaged_profile) . "</string>
+         <string>" . uuid('', mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . $this->massaged_consortium . $this->massaged_country . $this->massaged_inst . $this->massaged_profile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         if (isset($this->attributes['support:info_file']))
@@ -155,8 +154,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
             $o = system($this->sign . " installer_profile '$e' > /dev/null");
             if ($o === FALSE)
                 debug(2, "Signing the mobileconfig installer $e FAILED!\n");
-        }
-        else
+        } else
             rename("installer_profile", $e);
 
         textdomain($dom);
@@ -270,8 +268,8 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                   <string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.";
         if ($wired)
             $retval .= "firstactiveethernet";
-        else if ( count($oi) == 0 )
-            $retval .= "wifi.".$this->serial;
+        else if (count($oi) == 0)
+            $retval .= "wifi." . $this->serial;
         else
             $retval .= "hs20";
         $retval .="</string>
@@ -296,35 +294,34 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         if (!$wired && count($oi) == 0)
             $retval .= "<key>SSID_STR</key>
                   <string>$SSID</string>";
-        if (count($oi)>0) {
+        if (count($oi) > 0) {
             $retval .= "
                <key>IsHotspot</key>
                <true/>
                <key>ServiceProviderRoamingEnabled</key>
                <true/>
                <key>DisplayedOperatorName</key>
-               <string>".Config::$CONSORTIUM['name']."</string>
-               <key>DomainName</key>
+               <string>" . Config::$CONSORTIUM['name'] . "</string>";
+            // if we don't know the realm, omit the entire DomainName key
+            if (isset($this->attributes['internal:realm'])) {
+                $retval .= "<key>DomainName</key>
                <string>";
-            // what do we do if we did not get a realm? try to leave empty...
-                if (isset($this->attributes['internal:realm']))
-                    $retval .= $this->attributes['internal:realm'][0];
-            $retval .= "</string>
+                $retval .= $this->attributes['internal:realm'][0];
+                $retval .= "</string>
                 ";
-            $retval .= "
-                <key>RoamingConsortiumOIs</key>
+            }
+            $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
             foreach ($oi as $oi_value)
                 $retval .= "<string>$oi_value</string>";
             $retval .= "</array>";
-                
         }
         $retval .= "</dict>";
         $this->serial = $this->serial + 1;
         return $retval;
     }
 
-    private function removenetwork_block($SSID,$sequence) {
+    private function removenetwork_block($SSID, $sequence) {
         $retval = "
 <dict>
 	<key>AutoJoin</key>
@@ -336,15 +333,15 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 	<key>IsHotspot</key>
 	<false/>
 	<key>PayloadDescription</key>
-	<string>".sprintf(_("This SSID should not be used after bootstrapping %s"),Config::$CONSORTIUM['name'])."</string>
+	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), Config::$CONSORTIUM['name']) . "</string>
 	<key>PayloadDisplayName</key>
-	<string>"._("Disabled WiFi network")."</string>
+	<string>" . _("Disabled WiFi network") . "</string>
 	<key>PayloadIdentifier</key>
-	<string>".mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.wifi.disabled.$sequence</string>
+	<string>" . mobileconfig_superclass::$IPHONE_PAYLOAD_PREFIX . ".$this->massaged_consortium.$this->massaged_country.$this->massaged_inst.$this->massaged_profile.$this->lang.wifi.disabled.$sequence</string>
 	<key>PayloadType</key>
 	<string>com.apple.wifi.managed</string>
 	<key>PayloadUUID</key>
-	<string>".uuid()."</string>
+	<string>" . uuid() . "</string>
 	<key>PayloadVersion</key>
 	<real>1</real>
 	<key>ProxyType</key>
@@ -355,6 +352,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 ";
         return $retval;
     }
+
     private function all_network_blocks($SSID_list, $OI_list, $server_list, $CA_UUID_list, $eap_type, $include_wired, $realm = 0) {
         $retval = "";
         $this->serial = 0;
@@ -365,8 +363,8 @@ abstract class mobileconfig_superclass extends DeviceConfig {
             $retval .= $this->network_block("IRRELEVANT", NULL, $server_list, $CA_UUID_list, $eap_type, TRUE, $realm);
         if (count($OI_list) > 0)
             $retval .= $this->network_block("IRRELEVANT", $OI_list, $server_list, $CA_UUID_list, $eap_type, FALSE, $realm);
-        if (isset($this->attributes['media:remove_SSID']) )
-            foreach ($this->attributes['media:remove_SSID'] as $index => $remove_SSID) 
+        if (isset($this->attributes['media:remove_SSID']))
+            foreach ($this->attributes['media:remove_SSID'] as $index => $remove_SSID)
                 $retval .= $this->removenetwork_block($remove_SSID, $index);
         return $retval;
     }
