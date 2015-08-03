@@ -6,11 +6,13 @@ arnes_link.inc - installer code for ArnesLink TTLS
 Aruba_EAP_pwd.exe - PWD installer supplied by Aruba
 cat_bg.bmp - defualt background
 common.inc - common NSIS code for all modules but XP
+dump_arneslink_profile.cmd - dump profile file for SSID replacement
 eap_w8.inc - W8 specific code
 GPL3.rtf - GPLv3 license text
 cat_150.bmp - CAT header
 cat32.ico - EXE icon
 install_wired.cmd - install wired profile
+install_arneslink_profile.cmd - replace SSID and reinstall wireless profile
 peap_tls.inc - PEAP/TLS code for Vista/W7 installers
 pwd.inc - EAP-PWD code (calling Aruba installer)
 setEAPCred.exe - user credentials installer supplied by Gareth Ayres 

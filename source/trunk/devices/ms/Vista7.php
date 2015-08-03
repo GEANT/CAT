@@ -184,10 +184,19 @@ $profile_file_contents .= '
 <AuthenticationMethods>
 <AuthenticationMethod>
 <EAPMethod>21</EAPMethod>
-<ClientSideCredential>
-<AnonymousIdentity>@</AnonymousIdentity>
+';
+if($use_anon == 1) {
+    $profile_file_contents .= '<ClientSideCredential>
+';
+    if($outer_user == '')
+        $profile_file_contents .= '<AnonymousIdentity>@</AnonymousIdentity>';
+    else
+        $profile_file_contents .= '<AnonymousIdentity>'.$outer_user.'</AnonymousIdentity>';
+$profile_file_contents .= '
 </ClientSideCredential>
-<ServerSideCredential>
+';
+}
+$profile_file_contents .= '<ServerSideCredential>
 ';
 
    foreach ($ca_array as $ca) {
@@ -538,6 +547,8 @@ debug(4,"code_page=".$this->code_page."\n");
      $result = $this->copyFile('GPL3.rtf');
      $result = $result && $this->copyFile('ArnesLinkEn32.msi');
      $result = $result && $this->copyFile('ArnesLinkEn64.msi');
+     $result = $result && $this->copyFile('dump_arneslink_profile.cmd');
+     $result = $result && $this->copyFile('install_arneslink_profile.cmd');
      $this->translateFile('arnes_link.inc','cat.NSI',$this->code_page);
    } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
