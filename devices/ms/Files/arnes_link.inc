@@ -16,6 +16,8 @@ SectionIn RO
 File "GPL3.rtf"
 File "ArnesLinkEn32.msi"
 File "ArnesLinkEn64.msi"
+File "dump_arneslink_profile.cmd"
+File "install_arneslink_profile.cmd"
 
 
 DetailPrint "Run ArnesLink installer"

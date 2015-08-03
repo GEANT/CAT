@@ -91,6 +91,7 @@ Var wireless_result
 Var wired
 Var force_wired
 Var Platform
+Var main_ssid
 !ifdef TLS
   Var Cert_file
   Var PFX_install
@@ -886,15 +887,51 @@ Function InstallProfile
 ; profile installation
   DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
 !ifdef ArnesLink
+  ${If} $R0 == 0
+  Push $R1
+  Pop $main_ssid
   !insertmacro debug_cat 3 'Execute: "$INSTDIR\al_import.exe" "$TEMP\wlan_prof-$R0.xml"'
   ClearErrors
   ExecWait '"$INSTDIR\al_import.exe" "$TEMP\wlan_prof-$R0.xml"'
-;  Pop $0
-;  !insertmacro debug_cat 4 "profile import returned $0"
   IfErrors 0 +4
   MessageBox MB_OK "Wlan profile import failed! Continuing anyway!$\nMake sure to import wlan profile manually!"
-  !insertmacro debug_cat 4 "Wlan profile $R0 import failed!"
-
+  !insertmacro debug_cat 1 "Wlan profile $R0 import failed!"
+ 
+  
+  ${Else}
+    ${If} $R0 == 1
+       !insertmacro debug_cat 4  'mkdir "$TEMP\cat_tmp_dir"'
+       CreateDirectory "$TEMP\cat_tmp_dir"
+       !insertmacro debug_cat 4 "Deleting files"
+       Delete $TEMP\cat_tmp_dir\*
+       !insertmacro debug_cat 4 'Execute: "$TEMP\dump_arneslink_profile.cmd" "$TEMP" "$main_ssid"'
+       nsExec::Exec '"$TEMP\dump_arneslink_profile.cmd" "$TEMP" "$main_ssid"'
+       ${Delete_files->Push} "$TEMP\cat_tmp_dir\a1.xml"
+    ${EndIf}
+    ExecWait '"$TEMP\install_arneslink_profile.cmd" "$TEMP" "$main_ssid" "$R1" $R0'
+    Pop $0
+    !insertmacro debug_cat 4 "install_arneslink_profile returned $0"
+    ${If} $0 <> 0
+      !insertmacro debug_cat 1 'Profile installation error for "$R1"'
+      IfSilent +2
+      MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
+      ${Profile_states->Write} $R0 ${PROFILE_STATE_FAIL}
+      Push 1
+      Pop $profile_fail
+    ${Else}
+       !insertmacro debug_cat 1 "Profile $R1 created"
+    !ifndef DEBUG_CAT
+       Delete "$TEMP\cat_tmp_dir\b$R0.xml"
+       Delete "$TEMP\cat_tmp_dir\c$R0.xml"
+    !endif
+    !ifdef DEBUG_CAT
+     ${If} $Debug_cat == 0
+       Delete "$TEMP\cat_tmp_dir\b$R0.xml"
+       Delete "$TEMP\cat_tmp_dir\c$R0.xml"
+     ${EndIf}
+    !endif
+    ${EndIf}
+  ${EndIf}
 !else
   !insertmacro debug_cat 3 "Execute: netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   ${Commands->Shift} "netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
