@@ -49,15 +49,6 @@ array_push($FAQ,
 
 array_push($FAQ,
       array(
-        'title'=>sprintf(_("Why is there no support for Android?")),
-        'text'=>sprintf(_("%s relies on technologies being available on the target platform - we need to be able to 'feed' security settings from a configuration file which you can download. Many Operating Systems like Apple and Microsoft have that functionality, but for Android no such mechanism exists."), Config::$APPEARANCE['productname']) . 
-               '<p>' .
-               sprintf(_("That is - <i>to our knowledge</i>. If you are a developer with some good knowledge about Android's APIs, and you know how to do it - please let us know; we would be delighted!"))
-      ));
-
-
-array_push($FAQ,
-      array(
         'title'=>sprintf(_("I can see %s network and my device is configured but it does not connect, what can be the cause?"),Config::$CONSORTIUM['name']),
       'text'=>sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your home institution and report the problem, the administrators should be able to trace your connections."),Config::$CONSORTIUM[
 'name'])
