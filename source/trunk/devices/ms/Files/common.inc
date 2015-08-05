@@ -1182,7 +1182,7 @@ Page custom WiredConfirm
   Page license
 !endif
 !ifdef ArnesLink
-  !define MUI_LICENSEPAGE_TEXT_TOP "<?php echo_nsi(_("In order to procede we need to install ArnessLink, which is available under GPL license."))?>"
+  !define MUI_LICENSEPAGE_TEXT_TOP "<?php echo_nsi(_("In order to proceed we need to install ArnesLink, which is available under GPL license."))?>"
   !define MUI_LICENSEPAGE_TEXT_BOTTOM "<?php echo_nsi(_("ArnesLink is available from ftp://ftp.arnes.si/software/eduroam/ArnesLink/."))?> <?php echo_nsi(_("Please accept the license in order to continue."))?>"
   !insertmacro MUI_PAGE_LICENSE "GPL3.rtf"
 !endif
