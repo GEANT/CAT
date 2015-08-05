@@ -50,7 +50,7 @@ switch($page) {
                    . "<li><b>play.google.com</b> (Google Play access for Android App)</li>"
                    . "<li><b>ggpht.com</b> (Google Play access for Android App)</li>"
                    . "</ul>"
-                   . "<b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, Play Store will look broken to users and/or some non-vital functionality will not be available"
+                   . "<b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, Play Store will look broken to users and/or some non-vital functionality will not be available)"
                    . "<ul>"
                    . "<li><b>photos-ugc.l.google.com</b></li>"
                    . "<li><b>googleusercontent.com</b></li>"
