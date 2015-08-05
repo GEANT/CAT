@@ -281,6 +281,17 @@ public static function listDevices() {
       ),
    ),
 
+ 'chromebook'=>array(
+     'group' => "chrome",
+     'display'=>_("Chromebook"),
+     'match'=>'CrOS',
+     'directory'=>'redirect_dev',
+     'module'=>'RedirectDev',
+     'options'=>array(
+       'redirect'=>1,
+      ),
+   ),
+
  'eap-config'=>array(
     'group' => "eap-config",
     'display'=>_("EAP config"),
