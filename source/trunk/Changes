@@ -8,6 +8,7 @@ Changes in 1.1.1
 - [BUGFIX #6]  hide hidden devices in basic.php
 - [BUGFIX #7]  fix language selection problem in admin pages
 - [BUGFIX #8]  fix problem caused by installer generation delays
+- [BUGFIX #9] in some sutuations the footer was obsuring parts of the text
 - [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
 - [UPDATE #2]  speed up IdP listing
 - [UPDATE #3]  update of system names in roll.php

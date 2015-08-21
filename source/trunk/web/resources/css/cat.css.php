@@ -664,9 +664,11 @@ span.redirect_link a:active {
 }
 
 #devices {
+    z-index:90;
     padding-left: 30px;
     font-size: 11px;  
-    font-weight: normal
+    font-weight: normal;
+    position: relative;
 }
 
 #profile_list {
