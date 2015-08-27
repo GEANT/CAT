@@ -220,7 +220,7 @@ GNU General Public License Version 3 or later:
 
 </pre><br/>
 Full license text: <a href="http://opensource.org/licenses/GPL-3.0">GPL version 3</a>
-The full development packages including source code can be downloaded <a href="external/package-ar-1.1.zip">here</a>.
+The full development package including source code can be downloaded <a href="external/package-ar-1.1.zip">here</a>.
                 </li>
             </ul>
         </div>
