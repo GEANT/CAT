@@ -196,7 +196,7 @@ Andreas
                     This product includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
                 </li>
                 <li>
-                    <b>ArnesLink</b> - - &copy; Amebis d.o.o., SecureW2 B.V.<br/>
+                    <b>ArnesLink</b> - &copy; Amebis d.o.o., SecureW2 B.V.<br/>
                     License: <pre>
 GNU General Public License Version 3 or later:
 
@@ -215,7 +215,7 @@ GNU General Public License Version 3 or later:
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with ArnesLink. If not, see <http://www.gnu.org/licenses/>.
+    along with ArnesLink. If not, see http://www.gnu.org/licenses/.
 */
 
 </pre><br/>
