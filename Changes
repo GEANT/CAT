@@ -1,4 +1,14 @@
+Changes in 1.1.2
+================
+- [FEATURE #1] allow configuration of an abuse mail contact. See below.
+
+Configuration parameter changes
+-------------------------------
+[NEW]           Config::$APPEARANCE['abuse-mail']
+
+
 Changes in 1.1.1
+================
 - [BUGFIX #1]  device-level redirect not working on a selected device
 - [BUGFIX #2]  mobileconfig proxy setting corrected
 - [BUGFIX #3]  in RADIUS tests the contents of results box needs to be cleared

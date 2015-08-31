@@ -75,6 +75,9 @@ switch($page) {
     break;
    case 'report':
      $out = sprintf(_("Please send a problem report to <a href='mailto:%s'>%s</a>. Some screen dumps are very welcome."),Config::$APPEARANCE['admin-mail'],Config::$APPEARANCE['admin-mail']);
+     if (!empty(Config::$APPEARANCE['abuse-mail'])) {
+       $out .= sprintf(_("<br/><br/>If you are a copyright holder and believe that content on this website infringes on your copyright, or find any other inappropriate content, please notify us at <a href='mailto:%s'>%s</a>."),Config::$APPEARANCE['abuse-mail'],Config::$APPEARANCE['abuse-mail']);
+     }
      break;
    case 'faq':
      print ('no_title');
