@@ -1,11 +1,8 @@
 Changes in 1.1.2
 ================
-- [FEATURE #1] allow configuration of an abuse mail contact. See below.
 
 Configuration parameter changes
 -------------------------------
-[NEW]           Config::$APPEARANCE['abuse-mail']
-
 
 Changes in 1.1.1
 ================
@@ -19,6 +16,7 @@ Changes in 1.1.1
 - [BUGFIX #7]  fix language selection problem in admin pages
 - [BUGFIX #8]  fix problem caused by installer generation delays
 - [BUGFIX #9] in some sutuations the footer was obsuring parts of the text
+- [BUGFIX #12] make clear that we support Mac OS X 10.7 and above, not 10.6
 - [UPDATE #1]  in devices.php added the pointer to eduroamCAT on Google play
 - [UPDATE #2]  speed up IdP listing
 - [UPDATE #3]  update of system names in roll.php
@@ -27,12 +25,14 @@ Changes in 1.1.1
                parameters, see below.
 - [FEATURE #2] ArnesLink for TTLS in Windows 7 and Vista modules
 - [FEATURE #3] added Chromebook as a redirect-only device
+- [FEATURE #6] allow configuration of an abuse mail contact. See below.
 
 
 Configuration parameter changes
 -------------------------------
 [NEW]           Config::$APPEARANCE['webcert_CRLDP']
 [NEW]           Config::$APPEARANCE['webcert_OCSP']
+[NEW]           Config::$APPEARANCE['abuse-mail']
 
 Changes in 1.1
 ==============
