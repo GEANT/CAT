@@ -142,6 +142,7 @@ private function prepareEapConfig($attr) {
      return;
     }
    $use_anon = $attr['internal:use_anon_outer'] [0];
+   $realm = $attr['internal:realm'] [0];
    if ($use_anon) {
      $outer_user = $attr['internal:anon_local_value'][0];
    }
@@ -191,7 +192,7 @@ if($use_anon == 1) {
     if($outer_user == '')
         $profile_file_contents .= '<AnonymousIdentity>@</AnonymousIdentity>';
     else
-        $profile_file_contents .= '<AnonymousIdentity>'.$outer_user.'</AnonymousIdentity>';
+        $profile_file_contents .= '<AnonymousIdentity>'.$outer_user.'@'.$realm.'</AnonymousIdentity>';
 $profile_file_contents .= '
 </ClientSideCredential>
 ';
