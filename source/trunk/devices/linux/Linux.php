@@ -301,12 +301,12 @@ function show_info {
 
 function confirm_exit {
   if [ ! -z $KDIALOG ] ; then
-     if $KDIALOG --yesno \"'._("Really quit?").'\"  ; then
+     if $KDIALOG --yesno "'._("Really quit?").'"  ; then
      exit 1
      fi
   fi
   if [ ! -z $ZENITY ] ; then
-     if $ZENITY --question --text=\"'._("Really quit?").'\" ; then
+     if $ZENITY --question --text="'._("Really quit?").'" ; then
         exit 1
      fi
   fi
