@@ -1,8 +1,9 @@
 <?php
-/***********************************************************************************
+
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 
@@ -18,14 +19,14 @@ require_once("DBConnection.php");
 require_once("input_validation.inc.php");
 require_once("auth.inc.php"); // no authentication here, but we need to check if authenticated
 
-define ("BUTTON_CLOSE", 0);
-define ("BUTTON_CONTINUE", 1);
-define ("BUTTON_DELETE", 2);
-define ("BUTTON_SAVE", 3);
-define ("BUTTON_EDIT", 4);
-define ("BUTTON_TAKECONTROL", 5);
-define ("BUTTON_PURGECACHE", 6);
-define ("BUTTON_FLUSH_AND_RESTART", 7);
+define("BUTTON_CLOSE", 0);
+define("BUTTON_CONTINUE", 1);
+define("BUTTON_DELETE", 2);
+define("BUTTON_SAVE", 3);
+define("BUTTON_EDIT", 4);
+define("BUTTON_TAKECONTROL", 5);
+define("BUTTON_PURGECACHE", 6);
+define("BUTTON_FLUSH_AND_RESTART", 7);
 
 $global_location_count = 0;
 
@@ -64,18 +65,18 @@ function display_name($input) {
         _("Remove/Disable SSID") => "media:remove_SSID",
     );
 
-    if(count(Config::$CONSORTIUM['ssid']) > 0) {
-      $DisplayNames[_("Additional SSID")] = "media:SSID";
-      $DisplayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
+    if (count(Config::$CONSORTIUM['ssid']) > 0) {
+        $DisplayNames[_("Additional SSID")] = "media:SSID";
+        $DisplayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     } else {
-      $DisplayNames[_("SSID")] = "media:SSID";
-      $DisplayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";  
+        $DisplayNames[_("SSID")] = "media:SSID";
+        $DisplayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     }
 
     if (count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0)
-    $DisplayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
+        $DisplayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
     $DisplayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
-    
+
     $find = array_search($input, $DisplayNames);
 
     if ($find === FALSE) {
@@ -86,111 +87,112 @@ function display_name($input) {
 }
 
 function tooltip($input) {
-    $descriptions = array ();
-    if (count(Config::$CONSORTIUM['ssid']) > 0) 
-        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'],  Config::$CONSORTIUM['name'])] = "media:SSID";
+    $descriptions = array();
+    if (count(Config::$CONSORTIUM['ssid']) > 0)
+        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'])] = "media:SSID";
 
-    $find = array_search($input,$descriptions);
+    $find = array_search($input, $descriptions);
 
-    if ( $find === FALSE ) {
+    if ($find === FALSE) {
         return "";
+    } else {
+        return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
-    else {
-        return "<span class='tooltip' onclick='alert(\"".$find."\")'><img src='../resources/images/icons/question-mark-icon.png"."'></span>";
-    }
-
 }
 
-function UI_message($level,$text = 0, $caption = 0, $omittabletags = FALSE) {
+function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
 
-    $UI_messages = array (
-         L_OK =>       array('icon'=>'../resources/images/icons/Quetto/check-icon.png','text'=>_("OK")),
-         L_REMARK  =>  array('icon'=>'../resources/images/icons/Quetto/info-icon.png','text'=>_("Remark")),
-         L_WARN =>     array('icon'=>'../resources/images/icons/Quetto/danger-icon.png','text'=>_("Warning!")),
-         L_ERROR =>    array('icon'=>'../resources/images/icons/Quetto/no-icon.png','text'=>_("Error!")),
+    $UI_messages = array(
+        L_OK => array('icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")),
+        L_REMARK => array('icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")),
+        L_WARN => array('icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")),
+        L_ERROR => array('icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")),
     );
 
     $retval = "";
     if (!$omittabletags)
         $retval .= "<tr><td>";
     $caption = $caption !== 0 ? $caption : $UI_messages[$level]['text'];
-    $retval .= "<img class='icon' src='".$UI_messages[$level]['icon']."' alt='" . $caption . "' title='" . $caption . "'/>";
+    $retval .= "<img class='icon' src='" . $UI_messages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
     if (!$omittabletags)
         $retval .= "</td><td>";
-    if ($text !== 0) $retval .= $text;
+    if ($text !== 0)
+        $retval .= $text;
     if (!$omittabletags)
         $retval .= "</td></tr>";
     return $retval;
 }
 
 function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_OK,$text,$caption,$omittabletags);
+    return UI_message(L_OK, $text, $caption, $omittabletags);
 }
+
 function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_REMARK,$text,$caption,$omittabletags);
+    return UI_message(L_REMARK, $text, $caption, $omittabletags);
 }
+
 function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_WARN,$text,$caption,$omittabletags);
+    return UI_message(L_WARN, $text, $caption, $omittabletags);
 }
+
 function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_ERROR,$text,$caption,$omittabletags);
+    return UI_message(L_ERROR, $text, $caption, $omittabletags);
 }
-
-
 
 /*
-function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
-    $retval = "";
-    if (!$omittabletags)
-        $retval .= "<tr><td>";
-    $retval .= "<img class='icon' src='../resources/images/icons/Checkmark-lg-icon.png' alt='" . ($caption !== 0 ? $caption : _("OK!")) . "' title='" . ($caption !== 0 ? $caption : _("OK!")) . "'/>";
-    if (!$omittabletags)
-        $retval .= "</td><td>";
-    if ($text !== 0) $retval .= $text;
-    if (!$omittabletags)
-        $retval .= "</td></tr>";
-    return $retval;
-}
+  function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
+  $retval = "";
+  if (!$omittabletags)
+  $retval .= "<tr><td>";
+  $retval .= "<img class='icon' src='../resources/images/icons/Checkmark-lg-icon.png' alt='" . ($caption !== 0 ? $caption : _("OK!")) . "' title='" . ($caption !== 0 ? $caption : _("OK!")) . "'/>";
+  if (!$omittabletags)
+  $retval .= "</td><td>";
+  if ($text !== 0) $retval .= $text;
+  if (!$omittabletags)
+  $retval .= "</td></tr>";
+  return $retval;
+  }
 
-function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
-    $retval = "";
-    if (!$omittabletags)
-        $retval .= "<tr><td>";
-    $retval .= "<img class='icon' src='../resources/images/icons/Exclamation-yellow-icon.png' alt='" . ($caption !== 0 ? $caption : _("Warning!")) . "' title='" . ($caption !== 0 ? $caption : _("Warning!")) . "'/>";
-    if (!$omittabletags)
-        $retval .= "</td><td>";
-    if ($text !== 0) $retval .= $text;
-    if (!$omittabletags)
-        $retval .= "</td></tr>";
-    return $retval;
-}
+  function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
+  $retval = "";
+  if (!$omittabletags)
+  $retval .= "<tr><td>";
+  $retval .= "<img class='icon' src='../resources/images/icons/Exclamation-yellow-icon.png' alt='" . ($caption !== 0 ? $caption : _("Warning!")) . "' title='" . ($caption !== 0 ? $caption : _("Warning!")) . "'/>";
+  if (!$omittabletags)
+  $retval .= "</td><td>";
+  if ($text !== 0) $retval .= $text;
+  if (!$omittabletags)
+  $retval .= "</td></tr>";
+  return $retval;
+  }
 
-function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
-    $retval = "";
-    if (!$omittabletags)
-        $retval .= "<tr><td>";
-    $retval .= "<img class='icon' src='../resources/images/icons/Exclamation-orange-icon.png' alt='" . ($caption !== 0 ? $caption : _("Error!")) . "' title='" . ($caption !== 0 ? $caption : _("Error!")) . "'/>";
-    if (!$omittabletags)
-        $retval .= "</td><td>";
-    if ($text !== 0) $retval .= $text;
-    if (!$omittabletags)
-        $retval .= "</td></tr>";
-    return $retval;
-}
+  function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
+  $retval = "";
+  if (!$omittabletags)
+  $retval .= "<tr><td>";
+  $retval .= "<img class='icon' src='../resources/images/icons/Exclamation-orange-icon.png' alt='" . ($caption !== 0 ? $caption : _("Error!")) . "' title='" . ($caption !== 0 ? $caption : _("Error!")) . "'/>";
+  if (!$omittabletags)
+  $retval .= "</td><td>";
+  if ($text !== 0) $retval .= $text;
+  if (!$omittabletags)
+  $retval .= "</td></tr>";
+  return $retval;
+  }
 
-function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
-    $retval = "";
-    if (!$omittabletags)
-        $retval .= "<tr><td>";
-    $retval .= "<img class='icon' src='../resources/images/icons/Star-blue.png' alt='" . ($caption !== 0 ? $caption : _("Remark")) . "' title='" . ($caption !== 0 ? $caption : _("Remark")) . "'/>";
-    if (!$omittabletags)
-        $retval .= "</td><td>";
-    if ($text !== 0) $retval .= $text;
-    if (!$omittabletags)
-        $retval .= "</td></tr>";
-    return $retval;
-}
-*/
+  function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
+  $retval = "";
+  if (!$omittabletags)
+  $retval .= "<tr><td>";
+  $retval .= "<img class='icon' src='../resources/images/icons/Star-blue.png' alt='" . ($caption !== 0 ? $caption : _("Remark")) . "' title='" . ($caption !== 0 ? $caption : _("Remark")) . "'/>";
+  if (!$omittabletags)
+  $retval .= "</td><td>";
+  if ($text !== 0) $retval .= $text;
+  if (!$omittabletags)
+  $retval .= "</td></tr>";
+  return $retval;
+  }
+ */
+
 function check_upload_sanity($optiontype, $filename) {
 //echo "check_upload_sanity:$optiontype:$filename<br>\n";
 // we check logo_file with ImageMagick
@@ -224,11 +226,11 @@ function check_upload_sanity($optiontype, $filename) {
 // we check CA files with X.509 routines
 // TODO this needs to be fixed
     if ($optiontype == "eap:ca_file") {
- // echo "Checking $optiontype with file $filename";
+        // echo "Checking $optiontype with file $filename";
         $cert = X509::processCertificate($filename);
         if ($cert)
             return TRUE;
- // echo "Error! The certificate seems broken!";
+        // echo "Error! The certificate seems broken!";
         return FALSE;
     }
 
@@ -240,10 +242,10 @@ function check_upload_sanity($optiontype, $filename) {
         $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
 
         // we only take plain text files!
-        if (    /* $filetype == "application/rtf"
-                   || $filetype == "text/rtf"
-                   ||
-                */ 
+        if (/* $filetype == "application/rtf"
+          || $filetype == "text/rtf"
+          ||
+         */
                 $filetype == "text/plain"
 // || $filetype == "application/rtf"
         )
@@ -265,26 +267,25 @@ function getBlobFromDB($ref, $checkpublic) {
     if ($checkpublic) {
         // we might be called without session context (filepreview) so get the
         // context if needed
-        if (session_status() != PHP_SESSION_ACTIVE) 
-            session_start ();
+        if (session_status() != PHP_SESSION_ACTIVE)
+            session_start();
         $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
-        
+
         $owners_condensed = array();
-        foreach ($owners as $oneowner)
-            $owners_condensed[] = $oneowner['ID'];
         
         if ($owners !== FALSE) { // see if we're authenticated and owners of the data
+            foreach ($owners as $oneowner)
+                $owners_condensed[] = $oneowner['ID'];
             if (!isAuthenticated()) {
                 return FALSE; // admin-only, but we are not an admin
-            } elseif (array_search($_SESSION['user'], $owners_condensed) === FALSE)  {
+            } elseif (array_search($_SESSION['user'], $owners_condensed) === FALSE) {
                 return FALSE; // wrong guy
             } else {
                 // carry on and get the data
             }
-                
         }
     }
-    
+
     $blob = DBConnection::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
     if (!$blob)
         return FALSE;
@@ -315,7 +316,7 @@ function previewCAinHTML($ca_reference) {
     $details['name'] = preg_replace('/\//', "", $details['name']);
     $certstatus = ( $details['root'] == 1 ? "R" : "I");
     if ($details['ca'] == 0 && $details['root'] != 1)
-        return "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!")."<br/>".$details['name'] . "</div>";
+        return "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
     else
         return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
 }
@@ -323,7 +324,7 @@ function previewCAinHTML($ca_reference) {
 function previewImageinHTML($image_reference) {
     $found = preg_match("/^ROWID-.*/", $image_reference);
     if (!$found)
-        return "<div>"._("Error, ROWID expected.")."</div>";
+        return "<div>" . _("Error, ROWID expected.") . "</div>";
     return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $image_reference . "' alt='" . _("Preview of logo file") . "'/>";
 }
 
