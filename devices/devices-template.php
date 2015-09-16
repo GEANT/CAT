@@ -99,7 +99,7 @@ public static function listDevices() {
  'w10'=>array(
    'group' => "microsoft",
    'display'=>_("MS Windows 10"),
-   'match'=>'Windows NT 6[._][4]',
+   'match'=>'Windows NT 10',
    'directory'=>'ms',
    'module'=>'W8',
    'signer'=>'ms_windows_sign',
