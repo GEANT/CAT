@@ -163,7 +163,6 @@ public static function listDevices() {
       ),
    ),
     
-
  'apple_yos'=>array(
     'group' => "apple",
     'display'=>_("Apple OS X Yosemite"),
@@ -178,7 +177,6 @@ public static function listDevices() {
       ),
     ),
 
-	
  'apple_mav'=>array(
     'group' => "apple",
     'display'=>_("Apple OS X Mavericks"),
@@ -192,8 +190,7 @@ public static function listDevices() {
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
-	
-	
+
  'apple_m_lion'=>array(
     'group' => "apple",
     'display'=>_("Apple OS X Mountain Lion"),
@@ -221,6 +218,7 @@ public static function listDevices() {
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
+        
  'mobileconfig'=>array(
     'group' => "apple",     
     'display'=>_("Apple iOS mobile devices"),
@@ -234,6 +232,7 @@ public static function listDevices() {
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
+        
  'linux'=>array(
      'group' => "linux",
      'display'=>_("Linux"),
@@ -245,7 +244,18 @@ public static function listDevices() {
       ),
    ),
 
-
+ 'chromeos'=>array(
+    'group' => "chrome",
+    'display'=>_("Chrome OS"),
+    'match'=>'CrOS',
+    'directory'=>'chromebook',
+    'module'=>'chromebook',
+    'options'=>array(
+       'mime'=>'application/x-onc',
+       'message'=>sprintf(_("This module is experimental.")),
+      ),
+   ),
+        
  'android_lollipop'=>array(
     'group' => "android",
     'display'=>_("Android 5.0 Lollipop"),
@@ -274,17 +284,6 @@ public static function listDevices() {
      'group' => "android",
      'display'=>_("Android"),
      'match'=>'Android',
-     'directory'=>'redirect_dev',
-     'module'=>'RedirectDev',
-     'options'=>array(
-       'redirect'=>1,
-      ),
-   ),
-
- 'chromebook'=>array(
-     'group' => "chrome",
-     'display'=>_("Chromebook"),
-     'match'=>'CrOS',
      'directory'=>'redirect_dev',
      'module'=>'RedirectDev',
      'options'=>array(
