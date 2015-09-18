@@ -280,6 +280,19 @@ public static function listDevices() {
       ),
    ),
 
+
+ 'android_43'=>array(
+    'group' => "android",
+    'display'=>_("Android 4.3"),
+     'match'=>'Android 4\.3',
+    'directory'=>'xml',
+    'module'=>'KitKat',
+    'options'=>array(
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
+      ),
+   ),
+
  'android_legacy'=>array(
      'group' => "android",
      'display'=>_("Android"),
