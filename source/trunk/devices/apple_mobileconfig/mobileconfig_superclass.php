@@ -109,7 +109,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
          <array>";
 
         // did the admin want wired config?
-        if (isset($this->attributes['media:wired']) && __CLASS__ == "Device_mobileconfig_os_x")
+        if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x")
             $include_wired = TRUE;
         else
             $include_wired = FALSE;
@@ -276,8 +276,10 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                <key>PayloadOrganization</key>
                   <string>" . $this->massaged_consortium . ".1x-config.org</string>
                <key>PayloadType</key>
-                  <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>
-               <key>ProxyType</key>
+                  <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>";
+        debug(2, get_class($this));
+        if ( get_class($this) != "Device_mobileconfig_ios_56" ) {
+        $retval .= "<key>ProxyType</key>
                   <string>Auto</string>
                 ";
         if ($wired)
@@ -343,10 +345,12 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 	<key>PayloadUUID</key>
 	<string>" . uuid() . "</string>
 	<key>PayloadVersion</key>
-	<real>1</real>
-	<key>ProxyType</key>
-	<string>Auto</string>
-	<key>SSID_STR</key>
+	<real>1</real>";
+        if ( get_class($this) != "Device_mobileconfig_ios_56") {
+        $retval .= "<key>ProxyType</key>
+	<string>Auto</string>";
+        }
+	$retval .= "<key>SSID_STR</key>
 	<string>$SSID</string>
 </dict>
 ";

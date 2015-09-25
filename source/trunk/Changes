@@ -24,8 +24,9 @@ Changes in 1.1.1
                captive portals for CAT to work. This required two new config
                parameters, see below.
 - [FEATURE #2] ArnesLink for TTLS in Windows 7 and Vista modules
-- [FEATURE #3] added Chromebook as a redirect-only device
+- [FEATURE #3] added ChromeOS as beta-quality device module
 - [FEATURE #6] allow configuration of an abuse mail contact. See below.
+- [FEATURE #7] add separate device module for iOS 5+6 to fix proxy regression
 
 
 Configuration parameter changes
