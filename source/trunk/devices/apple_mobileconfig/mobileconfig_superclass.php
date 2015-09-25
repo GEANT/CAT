@@ -282,6 +282,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         $retval .= "<key>ProxyType</key>
                   <string>Auto</string>
                 ";
+        }
         if ($wired)
             $retval .= "
                <key>SetupModes</key>
