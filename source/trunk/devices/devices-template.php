@@ -222,7 +222,7 @@ public static function listDevices() {
  'mobileconfig'=>array(
     'group' => "apple",     
     'display'=>_("Apple iOS mobile devices"),
-    'match'=>'iOS|iPad|iPhone|iPod',
+    'match'=>'(iPad|iPhone|iPod);.*OS [7-9]_',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_ios',
     'signer'=>'mobileconfig_sign',
@@ -232,6 +232,21 @@ public static function listDevices() {
        'mime'=>'application/x-apple-aspen-config',
       ),
     ),
+
+ 'mobileconfig-56'=>array(
+    'group' => "apple",
+    'display'=>_("Apple iOS mobile devices (iOS 5 and 6)"),
+    'match'=>'(iPad|iPhone|iPod);.*OS [56]_',
+    'directory'=>'apple_mobileconfig',
+    'module'=>'mobileconfig_ios_56',
+    'signer'=>'mobileconfig_sign',
+    'options'=>array(
+       'sign'=>1,
+       'device_id'=>'iOS',
+       'mime'=>'application/x-apple-aspen-config',
+      ),
+    ),
+
         
  'linux'=>array(
      'group' => "linux",
