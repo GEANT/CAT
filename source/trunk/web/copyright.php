@@ -195,33 +195,6 @@ Andreas
                     <b>GeoLite</b> - &copy; MaxMind, Inc.<br/>
                     This product includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
                 </li>
-                <li>
-                    <b>ArnesLink</b> - &copy; Amebis d.o.o. - The software contains components from the following third parties: &copy; SecureW2 B.V.<br/>
-                    License: <pre>
-GNU General Public License Version 3 or later:
-
-/*
-    ArnesLink, Copyright 1991-2015 Amebis
-    SecureW2, Copyright (C) SecureW2 B.V.
-
-    ArnesLink is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    ArnesLink is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with ArnesLink. If not, see http://www.gnu.org/licenses/.
-*/
-
-</pre><br/>
-Full license text: <a href="http://opensource.org/licenses/GPL-3.0">GPL version 3</a>
-The full development package including source code can be downloaded <a href="external/package-ar-1.1.zip">here</a>.
-                </li>
             </ul>
         </div>
         <div class='footer'>
