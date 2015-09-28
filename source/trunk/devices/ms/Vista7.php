@@ -26,7 +26,7 @@ require_once('WindowsCommon.php');
  */
 class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
-      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD, EAP::$TTLS_PAP);
+      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD);
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
