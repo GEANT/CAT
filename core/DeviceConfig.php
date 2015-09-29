@@ -344,6 +344,7 @@ abstract class DeviceConfig {
       if($this->attributes['internal:profile_count'][0] > 1) {
          if(!empty($this->attributes['profile:name']) && ! empty($this->attributes['profile:name'][0])) {
              $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
+             $prof = preg_replace('/_+$/','',$prof);
              return $c_name. '-'. $this->getDeviceId() . $inst .'-'. $prof;
          }
       }
