@@ -69,11 +69,11 @@ class CAT {
                     $profile = new Profile($a->profile_id);
                     $profile->prepShowtime();
                 }
-                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.sufficient_config = 1");
+                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.sufficient_config = 1");
                 $dbresult = mysqli_fetch_object($idpcount);
                 return $dbresult->instcount;
             case "PUBLICPROFILE":
-                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.showtime = 1");
+                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.showtime = 1");
                 $dbresult = mysqli_fetch_object($idpcount);
                 return $dbresult->instcount;
             default:
