@@ -69,7 +69,7 @@ class IdP {
      * @param integer $i_id the database row identifier
      */
     public function __construct($i_id) {
-        debug(2, "--- BEGIN Constructing new IdP object ... ---\n");
+        debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
         
         $idp = DBConnection::exec(IdP::$DB_TYPE, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $i_id");
         if (!$a = mysqli_fetch_object($idp)) {
@@ -123,7 +123,7 @@ class IdP {
                                          "flag" => NULL);
 
         $this->name = getLocalisedValue($this->getAttributes('general:instname', 0, 0), CAT::$lang_index);
-        debug(2, "--- END Constructing new IdP object ... ---\n");
+        debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
     /**
