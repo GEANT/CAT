@@ -241,7 +241,7 @@ function check_upload_sanity($optiontype, $filename) {
         $info = new finfo();
         $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
 
-        // we only take plain text files!
+        // we only take plain text files in UTF-8!
         if ( $filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE)
             return TRUE;
     }
