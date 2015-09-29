@@ -236,7 +236,7 @@ function ask {
   fi
   if [ ! -z $ZENITY ] ; then
      text=`echo "${1}" | fmt -w60`
-     if $ZENITY --no-wrap --question --text="${text}\n${2}?" --title="$T" ; then
+     if $ZENITY --no-wrap --question --text="${text}\n${2}?" --title="$T" 2>/dev/null ; then
        return 0
      else
        return 1
@@ -280,7 +280,7 @@ function alert {
      return
   fi
   if [ ! -z $ZENITY ] ; then
-     $ZENITY --warning --text="$1"
+     $ZENITY --warning --text="$1" 2>/dev/null
      return
   fi
   echo "$1"
@@ -293,7 +293,7 @@ function show_info {
      return
   fi
   if [ ! -z $ZENITY ] ; then
-     $ZENITY --info --width=500 --text="$1"
+     $ZENITY --info --width=500 --text="$1" 2>/dev/null
      return
   fi
   echo "$1"
@@ -306,7 +306,7 @@ function confirm_exit {
      fi
   fi
   if [ ! -z $ZENITY ] ; then
-     if $ZENITY --question --text="'._("Really quit?").'" ; then
+     if $ZENITY --question --text="'._("Really quit?").'" 2>/dev/null ; then
         exit 1
      fi
   fi
@@ -335,7 +335,7 @@ function prompt_nonempty_string {
   out_s="";
   if [ ! -z $ZENITY ] ; then
     while [ ! "$out_s" ] ; do
-      out_s=`$ZENITY --entry --width=300 $H $D --text "$prompt"`
+      out_s=`$ZENITY --entry --width=300 $H $D --text "$prompt" 2>/dev/null`
       if [ $? -ne 0 ] ; then
         confirm_exit
       fi
@@ -433,7 +433,7 @@ chmod 600 '.$this->conf_file.'
   private function printP12Dialog() {
   $out ='function p12dialog {
   if [ ! -z $ZENITY ] ; then
-    if ! cert=`$ZENITY --file-selection --file-filter="'._("personal certificate file (p12 or pfx)").' | *.p12 *.P12 *.pfx *.PFX" --file-filter="All files | *" --title="'._("personal certificate file (p12 or pfx)").'"` ; then
+    if ! cert=`$ZENITY --file-selection --file-filter="'._("personal certificate file (p12 or pfx)").' | *.p12 *.P12 *.pfx *.PFX" --file-filter="All files | *" --title="'._("personal certificate file (p12 or pfx)").'" 2>/dev/null` ; then
        exit
     fi
   elif [ ! -z $KDIALOG ] ; then
@@ -532,7 +532,7 @@ class EduroamNMConfigTool:
         self.system_service_name = "org.freedesktop.NetworkManager"
         #check NM version
         nm_version = self.check_nm_version()
-        if nm_version == "0.9":
+        if nm_version == "0.9" or nm_version == "1.0":
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = "org.freedesktop.NetworkManager.Settings.Connection"
             #settings proxy
@@ -565,6 +565,8 @@ class EduroamNMConfigTool:
             version = props.Get("org.freedesktop.NetworkManager", "Version")
         except dbus.exceptions.DBusException:
             version = "0.8"
+        if re.match(r\'^1\.0\', version):
+            return "1.0"
         if re.match(r\'^0\.9\', version):
             return "0.9"
         if re.match(r\'^0\.8\', version):
