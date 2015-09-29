@@ -242,13 +242,7 @@ function check_upload_sanity($optiontype, $filename) {
         $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
 
         // we only take plain text files!
-        if (/* $filetype == "application/rtf"
-          || $filetype == "text/rtf"
-          ||
-         */
-                $filetype == "text/plain"
-// || $filetype == "application/rtf"
-        )
+        if ( $filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE)
             return TRUE;
     }
 
