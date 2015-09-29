@@ -75,7 +75,7 @@ class Profile {
      * @param IdP $idp_object optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
     public function __construct($p_id, $idp_object = 0) {
-        debug(2, "--- BEGIN Constructing new Profile object ... ---\n");
+        debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
         $profile = DBConnection::exec(Profile::$DB_TYPE, "SELECT inst_id, realm, use_anon_outer FROM profile WHERE profile_id = $p_id");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
@@ -266,7 +266,7 @@ class Profile {
         debug(4, $returnarray);
         $this->priv_eaptypes = $returnarray;
 
-        debug(2, "--- END Constructing new Profile object ... ---\n");
+        debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
     /**

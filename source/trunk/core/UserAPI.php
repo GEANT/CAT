@@ -87,7 +87,7 @@ class UserAPI extends CAT {
          debug(4,"Generated installer :".CAT::$root.'/web/'.$installer_file.": for: $device\n");
          $a['link'] = $installer_file;
          } else {
-         debug(2,"Installer generation failed for: $prof_id:$device\n");
+         debug(2,"Installer generation failed for: $prof_id:$device:".CAT::$lang_index."\n");
          $a['link'] = 0;
          }
       } 
