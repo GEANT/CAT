@@ -55,7 +55,7 @@ class Federation {
      * 
      * @var array of all known federations
      */
-    public static $FederationList = array();
+    public static $FederationList = [];
 
     /**
      *
@@ -70,7 +70,7 @@ class Federation {
         $oldlocale = CAT::set_locale('core');
         $this->identifier = $fedname;
 
-        Federation::$FederationList = array(
+        Federation::$FederationList = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
             'BE' => _("Belgium"),
@@ -318,7 +318,7 @@ class Federation {
             'YE' => 'Yemen',
             'ZM' => 'Zambia',
             'ZW' => 'Zimbabwe',
-        );
+        ];
 
         CAT::set_locale($oldlocale);
     }
@@ -376,21 +376,21 @@ class Federation {
                WHERE country = '$this->identifier' ORDER BY inst_id");
         }
 
-        $returnarray = array();
+        $returnarray = [];
         while ($a = mysqli_fetch_object($allIDPs)) {
             $idp = new IdP($a->inst_id);
             $name = $idp->name;
-            $A = array('entityID' => $idp->identifier,
+            $A = ['entityID' => $idp->identifier,
                 'title' => $name,
                 'country' => strtoupper($idp->federation),
-                'instance' => $idp);
+                'instance' => $idp];
             $returnarray[$idp->identifier] = $A;
         }
         return $returnarray;
     }
 
     public function listFederationAdmins() {
-        $returnarray = Array();
+        $returnarray = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") // SW: APPROVED
             $admins = DBConnection::exec("USER", "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->identifier) . "'");
         else
@@ -402,9 +402,9 @@ class Federation {
     }
 
     public function listUnmappedExternalEntities() {
-        $returnarray = array();
+        $returnarray = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $usedarray = array();
+            $usedarray = [];
             $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, name AS collapsed_name, contact AS collapsed_contact 
                                                                                 FROM view_active_idp_institution 
                                                                                 WHERE country = '" . strtolower($this->identifier) . "'");
@@ -429,7 +429,7 @@ class Federation {
                     $perlang = explode(': ', $name, 2);
                     $mailnames = "";
                     foreach ($contacts as $contact) {
-                        $matches = array();
+                        $matches = [];
                         preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
                         if ($matches[2] != "") {
                             if ($mailnames != "")
@@ -442,7 +442,7 @@ class Federation {
                             $mailnames .= $matches[2];
                         }
                     }
-                    $returnarray[] = array("ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1], "contactlist" => $mailnames);
+                    $returnarray[] = ["ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1], "contactlist" => $mailnames];
                 }
                 
             }
@@ -451,7 +451,7 @@ class Federation {
     }
 
     public static function getExternalDBEntityDetails($external_id) {
-        $list = array();
+        $list = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $info_list = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $external_id");
             // split names and contacts into proper pairs
@@ -465,7 +465,7 @@ class Federation {
                 foreach ($contacts as $contact) {
                     $email_1 = explode('e: ', $contact);
                     $email_2 = explode(',', $email_1[1]);
-                    $list['admins'][] = array("email" => $email_2[0]);
+                    $list['admins'][] = ["email" => $email_2[0]];
                 }
                 $list['country'] = $a->country;
             }
@@ -501,10 +501,10 @@ class Federation {
         }
        $query .=     "GROUP BY institution.inst_id ORDER BY inst_id";
        $allIDPs = DBConnection::exec(Federation::$DB_TYPE, $query);
-       $returnarray = array();
+       $returnarray = [];
        while ($a = mysqli_fetch_object($allIDPs)) {
            $O = explode('---',$a->options);
-           $A = array();
+           $A = [];
            if(isset($geo))
               unset($geo);
            if(isset($names))
@@ -518,13 +518,13 @@ class Federation {
              if($opt[0] == 'general:geo_coordinates') {
                  $at1 = unserialize($opt[1]);
                  if(!isset($geo))
-                     $geo = array();
+                     $geo = [];
                  $geo[] = $at1;
              }
              if($opt[0] == 'general:instname') {
                  if(!isset($names))
-                     $names = array();
-                 $names[] = array('value'=>$opt[1]);
+                     $names = [];
+                 $names[] = ['value'=>$opt[1]];
              }
            }
            $name = getLocalisedValue($names, CAT::$lang_index);

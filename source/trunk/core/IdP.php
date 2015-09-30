@@ -89,7 +89,7 @@ class IdP {
         $IdPAttributes = DBConnection::exec(IdP::$DB_TYPE, "SELECT DISTINCT option_name,option_value, row FROM institution_option
               WHERE institution_id = $this->identifier  ORDER BY option_name");
 
-        $this->priv_attributes = array();
+        $this->priv_attributes = [];
 
         while ($a = mysqli_fetch_object($IdPAttributes)) {
             $lang = "";
@@ -98,7 +98,7 @@ class IdP {
             $flag = $optinfo['flag'];
 
             if ($optinfo['type'] != "file") {
-                $this->priv_attributes[] = array("name" => $a->option_name, "value" => $a->option_value, "level" => "IdP", "row" => $a->row, "flag" => $flag);
+                $this->priv_attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "IdP", "row" => $a->row, "flag" => $flag];
             } else {
                 // suppress E_NOTICE on the following... we are testing *if*
                 // we have a serialized value - so not having one is fine and
@@ -113,14 +113,14 @@ class IdP {
 
                 $content = base64_decode($content);
 
-                $this->priv_attributes[] = array("name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "IdP", "row" => $a->row, "flag" => $flag);
+                $this->priv_attributes[] = ["name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])), "level" => "IdP", "row" => $a->row, "flag" => $flag];
             }
         }
-        $this->priv_attributes[] = array("name" => "internal:country", 
+        $this->priv_attributes[] = ["name" => "internal:country", 
                                          "value" => $this->federation, 
                                          "level" => "IdP", 
                                          "row" => 0, 
-                                         "flag" => NULL);
+                                         "flag" => NULL];
 
         $this->name = getLocalisedValue($this->getAttributes('general:instname', 0, 0), CAT::$lang_index);
         debug(3, "--- END Constructing new IdP object ... ---\n");
@@ -138,7 +138,7 @@ class IdP {
         if ($active_only)
             $query .= " AND showtime = 1";
         $allProfiles = DBConnection::exec(IdP::$DB_TYPE, $query);
-        $returnarray = array();
+        $returnarray = [];
         while ($a = mysqli_fetch_object($allProfiles)) {
             $k = new Profile($a->profile_id, $this);
             $k->institution = $this->identifier;
@@ -178,10 +178,10 @@ class IdP {
      * @return array owners of the institution; numbered array with members ID, MAIL and LEVEL
      */
     public function owner() {
-        $returnarray = array();
+        $returnarray = [];
         $admins = DBConnection::exec(IdP::$DB_TYPE, "SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
         while ($a = mysqli_fetch_object($admins))
-            $returnarray[] = array('ID' => $a->user_id, 'MAIL' => $a->orig_mail, 'LEVEL' => $a->blesslevel);
+            $returnarray[] = ['ID' => $a->user_id, 'MAIL' => $a->orig_mail, 'LEVEL' => $a->blesslevel];
         return $returnarray;
     }
 
@@ -233,7 +233,7 @@ class IdP {
      */
     public function getAttributes($option_name = 0) {
         if ($option_name) {
-            $returnarray = Array();
+            $returnarray = [];
             foreach ($this->priv_attributes as $the_attr)
                 if ($the_attr['name'] == $option_name)
                     $returnarray[] = $the_attr;
@@ -253,7 +253,7 @@ class IdP {
         DBConnection::exec(IdP::$DB_TYPE, "DELETE FROM institution_option WHERE institution_id = $this->identifier AND option_name NOT LIKE '%_file'");
         $this->updateFreshness();
         $exec_q = DBConnection::exec(IdP::$DB_TYPE, "SELECT row FROM institution_option WHERE institution_id = $this->identifier");
-        $return_array = array();
+        $return_array = [];
         while ($a = mysqli_fetch_object($exec_q))
             $return_array[$a->row] = "KILLME";
         return $return_array;
@@ -355,8 +355,8 @@ Best regards,
      */
     public function getExternalDBSyncCandidates() {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $list = array();
-            $usedarray = array();
+            $list = [];
+            $usedarray = [];
             // extract all institutions from the country
             $candidate_list = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = '" . strtolower($this->federation) . "'");
 
@@ -371,12 +371,12 @@ Best regards,
                 $names = explode('#', $a->collapsed_name);
                 foreach ($names as $name) {
                     $perlang = explode(': ', $name, 2);
-                    $list[] = array("ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1]);
+                    $list[] = ["ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1]];
                 }
             }
             // now see if any of the languages in CAT match any of those in the external DB
             $mynames = $this->getAttributes("general:instname");
-            $matching_candidates = array();
+            $matching_candidates = [];
             foreach ($mynames as $onename)
                 foreach ($list as $listentry) {
                     $unserialised = unserialize($onename['value']);
@@ -425,7 +425,7 @@ Best regards,
         if ($external_id !== FALSE)
             return Federation::getExternalDBEntityDetails($external_id);
         else
-            return array();
+            return [];
     }
 
     public function setExternalDBId($identifier) {

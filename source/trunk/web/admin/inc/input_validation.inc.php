@@ -71,7 +71,7 @@ function valid_string_db($input, $allow_whitspace = 0) {
     // always chop out invalid characters, and surrounding whitespace
     $retval = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
     // if some funny person wants to inject markup tags, remove them
-    $retval = filter_var($retval, FILTER_SANITIZE_STRING, array("flags" => FILTER_FLAG_NO_ENCODE_QUOTES));
+    $retval = filter_var($retval, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
     if ($allow_whitspace === 0)
@@ -178,7 +178,7 @@ function valid_boolean($input) {
 function valid_DB_reference($input) {
     $table = "";
     $rowindex = "";
-    $rowindexmatch = array();
+    $rowindexmatch = [];
 
     if (preg_match("/IdP/", $input)) {
         $table = "institution_option";
@@ -190,7 +190,7 @@ function valid_DB_reference($input) {
         $rowindex = $rowindexmatch[1];
     } else
         return FALSE;
-    return array("table" => $table, "rowindex" => $rowindex);
+    return ["table" => $table, "rowindex" => $rowindex];
 }
 
 function valid_host($input) {

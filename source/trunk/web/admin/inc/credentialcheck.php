@@ -86,7 +86,7 @@ if ($my_profile->realm != "") { // doing the checks
 
                 $cmdline = Config::$PATHS['rad_eap_test']." -c -H ".$host['ip']." -P 1812 -S ".$host['secret']." -M 22:44:66:CA:20:01 $anon_id -u ".escapeshellarg($_POST['username'])." -p ".escapeshellarg($_POST['password'])." -e PEAP -m WPA-EAP $certopts -t ".$host['timeout']." | grep 'RADIUS message:' | cut -d ' ' -f 3 | cut -d '=' -f 2";
                 // debug(4,"Thorough reachability check: $cmdline.\n");
-                $packetflow = array();
+                $packetflow = [];
                 exec($cmdline,$packetflow);
 
                 echo evalResult($packetflow,$eap,$host);
@@ -116,7 +116,7 @@ if ($my_profile->realm != "") { // doing the checks
                 $certopts = prepareCheck($my_profile);
 
                 $cmdline = Config::$PATHS['rad_eap_test']." -c -H ".$host['ip']." -P 1812 -S ".$host['secret']." -M 22:44:66:CA:20:01 $anon_id -u ".escapeshellarg($_POST['username'])." -p ".escapeshellarg($_POST['password'])." -e TTLS -2 $inner_eap -m WPA-EAP $certopts -t ".$host['timeout']." | grep 'RADIUS message:' | cut -d ' ' -f 3 | cut -d '=' -f 2";
-                $packetflow = array();
+                $packetflow = [];
                 exec($cmdline,$packetflow);
 
                 echo evalResult($packetflow,$eap,$host);

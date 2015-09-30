@@ -35,7 +35,7 @@ class SimpleGUI extends UserAPI {
   */
 public function __construct() {
   parent::__construct();
-  $this->Args = array();
+  $this->Args = [];
   $this->page =  0;
   $this->set_locale('core');
   $this->Args['lang'] = CAT::$lang_index;

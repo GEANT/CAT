@@ -109,7 +109,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         // end of right-hand side
         echo "</td></tr></table>";
     } else if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
-        $temparray = array();
+        $temparray = [];
         printf(_("This institution is not yet linked to the %s database."), Config::$CONSORTIUM['name']) . " ";
         echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
         printf(_("You can link it to the %s database below."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name']);
@@ -135,7 +135,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $unmappedentities = $fed->listUnmappedExternalEntities();
         // only display the "other" options if there is at least one
         $buffer = "";
-        $idparray = array();
+        $idparray = [];
 
         // preferred lang first
         foreach ($unmappedentities as $entity)

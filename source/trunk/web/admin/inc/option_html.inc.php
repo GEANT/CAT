@@ -24,7 +24,7 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 debug(5, "About to execute optiontext with PREFILL!\n");
-                echo optiontext($a, array($option['name']), ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
+                echo optiontext($a, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
             }
     } else { // new: add empty list
         $list = $optioninfo->availableOptions($class);

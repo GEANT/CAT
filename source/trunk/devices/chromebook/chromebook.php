@@ -84,7 +84,7 @@ class Device_Chromebook extends DeviceConfig {
      * @final not to be redefined
      */
     final public function __construct() {
-        $this->supportedEapMethods = array(EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS);
+        $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
         debug(4, "This device supports the following EAP methods: ");
         debug(4, $this->supportedEapMethods);
     }
@@ -98,7 +98,7 @@ class Device_Chromebook extends DeviceConfig {
     public function writeInstaller() {
         debug(4, "Chromebook Installer start\n");
         // we don't do per-user encrypted containers
-        $json_array = array();
+        $json_array = [];
 
         $json_array["Type"] = "UnencryptedConfiguration";
 
@@ -126,45 +126,45 @@ class Device_Chromebook extends DeviceConfig {
             if ($eap_prettyprint["OUTER"] == "TLS")
                 $eap_prettyprint["OUTER"] = "EAP-TLS";
             // define EAP properties
-            $eaparray = array(
+            $eaparray = [
                         "Outer" => $eap_prettyprint["OUTER"],
                         "SaveCredentials" => true,
                         "ServerCARefs" => $ca_refs, // maybe takes just one CA?
                         "UseSystemCAs" => false,
-                    );
+                    ];
 // according to the ONC spec, we should be allowed to set this, but it makes the import fail :-(
 //            if ($eap_prettyprint["OUTER"] != "EAP-TLS")
 //                $eaparray["Inner"] = $eap_prettyprint["INNER"];
             if ($outer_id)
                 $eaparray["AnonymousIdentity"] = "$outer_id";
             
-            $json_array["NetworkConfigurations"][] = array(
+            $json_array["NetworkConfigurations"][] = [
                 "GUID" => $network_uuid,
                 "Name" => "$ssid",
                 "Type" => "WiFi",
-                "WiFi" => array(
+                "WiFi" => [
                     "AutoConnect" => true,
                     "EAP" => $eaparray,
                     "HiddenSSID" => false,
                     "SSID" => $ssid,
                     "Security" => "WPA-EAP",
-                ),
-                "ProxySettings" => array("Type" => "WPAD"),
-            );
+                ],
+                "ProxySettings" => ["Type" => "WPAD"],
+            ];
         };
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
             $network_uuid = "{" . uuid($prefix, "wired-dot1x-ethernet") . "}";
-            $json_array["NetworkConfigurations"][] = array(
+            $json_array["NetworkConfigurations"][] = [
                 "GUID" => $network_uuid,
                 "Name" => "eduroam configuration (wired network)",
                 "Type" => "Ethernet",
-                "Ethernet" => array(
+                "Ethernet" => [
                     "Authentication" => "8021X",
                     "EAP" => $eaparray,
-                ),
-                "ProxySettings" => array("Type" => "WPAD"),
-            );
+                ],
+                "ProxySettings" => ["Type" => "WPAD"],
+            ];
         };
 
         // define CA certificates
@@ -173,7 +173,7 @@ class Device_Chromebook extends DeviceConfig {
             $ca_sanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25);
             // remove \n
             $ca_sanitized = str_replace("\n", "", $ca_sanitized);
-            $json_array["Certificates"][] = array("GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $ca_sanitized);
+            $json_array["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $ca_sanitized];
         }
                 
         $output_json = json_encode($json_array, JSON_PRETTY_PRINT);

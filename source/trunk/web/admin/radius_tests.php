@@ -16,13 +16,13 @@ require_once("inc/input_validation.inc.php");
 
 ini_set('display_errors', '0');
 
-$additional_message = array (
+$additional_message =  [
    L_OK => '',
    L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
    L_WARN => _("Some properties of the connection attempt were sub-optimal; the list is below."),
    L_ERROR => _("Some configuration errors were observed; the list is below."),
  
-);
+];
 
 function disp_name($eap) {
     $D = EAP::eapDisplayName($eap);
@@ -46,14 +46,14 @@ function printTm($tm) {
 
 
 function process_result($testsuite,$host) {
-    $ret = array();
-    $server_info = array();
+    $ret = [];
+    $server_info = [];
     $udp_result = $testsuite->UDP_reachability_result[$host];
 
     foreach ($udp_result['certdata'] as $certdata) {
        if($certdata['type'] != 'server' )
           continue;
-       $server_cert = array (
+       $server_cert =  [
           'subject' => printDN($certdata['subject']),
           'issuer' => printDN($certdata['issuer']),
           'validFrom' => printTm($certdata['validFrom_time_t']),
@@ -61,7 +61,7 @@ function process_result($testsuite,$host) {
           'serialNumber' => $certdata['serialNumber'].sprintf(" (0x%X)",$certdata['serialNumber']),
           'sha1' => $certdata['sha1'],
           'extensions' => $certdata['extensions']
-       );
+       ];
     }
     if(isset($udp_result['incoming_server_names'][0]) ) {
         $ret['server'] = sprintf(_("Connected to %s."), $udp_result['incoming_server_names'][0]);
@@ -73,9 +73,9 @@ function process_result($testsuite,$host) {
     $ret['time_millisec'] = sprintf("%d", $udp_result['time_millisec']);
     if (isset($udp_result['cert_oddities']) && count($udp_result['cert_oddities']) > 0) {
         $ret['message'] = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned. Some properties of the connection attempt were sub-optimal; the list is below.");
-        $ret['cert_oddities'] = array();
+        $ret['cert_oddities'] = [];
         foreach ($udp_result['cert_oddities'] as $oddity) {
-            $o = array();
+            $o = [];
             $o['code'] = $oddity;
             $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
             $o['level'] = $testsuite->return_codes[$oddity]["severity"];
@@ -113,7 +113,7 @@ if(!is_numeric($hostindex))
   exit;
 
 
-$returnarray = array();
+$returnarray = [];
 $timeout = Config::$RADIUSTESTS['UDP-hosts'][$hostindex]['timeout'];
 switch ($test_type) {
     case 'udp_login' :
@@ -123,7 +123,7 @@ switch ($test_type) {
         $user_name = valid_user(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
         $outer_user_name = valid_user(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : "");
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
-        $returnarray['result'] = array();
+        $returnarray['result'] = [];
         foreach ($eaps as $eap) {
             if ($eap == EAP::$TLS) {
                 $run_test = TRUE;
@@ -269,10 +269,10 @@ switch ($test_type) {
                 else
                     $returnarray['level'] = L_ERROR;
                 if ($testsuite->TLS_CA_checks_result[$host]['status'] == RETVAL_OK) {
-                    $returnarray['certdata'] = array();
+                    $returnarray['certdata'] = [];
                     $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
                     $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];
-                    $returnarray['certdata']['extensions'] = array();
+                    $returnarray['certdata']['extensions'] = [];
                     if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname']))
                         $returnarray['certdata']['extensions']['subjectaltname'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
                     if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']))
@@ -282,7 +282,7 @@ switch ($test_type) {
                     if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess']))
                         $returnarray['certdata']['extensions']['authorityinfoaccess'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
                 }
-                $returnarray['cert_oddities'] = array();
+                $returnarray['cert_oddities'] = [];
             }
         }
         $returnarray['result'] = $testresult;
@@ -305,7 +305,7 @@ switch ($test_type) {
         break;
     case 'tls':
         $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
-        $opensslbabble = array();
+        $opensslbabble = [];
         debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1\n");
         $time_start = microtime(true);
         exec(Config::$PATHS['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1", $opensslbabble);

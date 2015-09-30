@@ -70,9 +70,9 @@ $user = new User($_SESSION['user']);
         // we need to run the Federation constructor
         $unused = new Federation("LU");
         echo "<h2>" . sprintf(ngettext("You are managing the following institution:", "You are managing the following <strong>%d</strong> institutions:", sizeof($has_inst)), sizeof($has_inst)) . "</h2>";
-        $instlist = array();
-        $my_idps = array();
-        $my_feds = array();
+        $instlist = [];
+        $my_idps = [];
+        $my_feds = [];
         $fed_count = 0;
         echo "<table class='user_overview'>";
 
@@ -82,7 +82,7 @@ $user = new User($_SESSION['user']);
             $fed_id = strtoupper($my_inst->federation);
             $my_idps[$fed_id][$inst_id] = strtolower($inst_name);
             $my_feds[$fed_id] = $unused::$FederationList[$fed_id];
-            $instlist[$inst_id] = array("country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst);
+            $instlist[$inst_id] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
         }
 
         asort($my_feds);

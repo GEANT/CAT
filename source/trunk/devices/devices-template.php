@@ -54,12 +54,12 @@ class Devices{
  *         The default is unset, so it is not listed in the Options array.
  */
 
-public static $Options=array(
+public static $Options=[
   'sign'=>0,
   'no_cache'=>0,
   'hidden'=>0,
   'redirect'=>0,
-);
+];
 
 /**
  * Each device is defined as a sub-array within this array
@@ -95,250 +95,250 @@ public static $Options=array(
 
 
 public static function listDevices() {
-    return array(
- 'w10'=>array(
+    return [
+ 'w10'=>[
    'group' => "microsoft",
    'display'=>_("MS Windows 10"),
    'match'=>'Windows NT 10',
    'directory'=>'ms',
    'module'=>'W8',
    'signer'=>'ms_windows_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'W10',
        'mime'=>'application/x-dosexec',
-      ),
-   ),
+      ],
+   ],
 	
- 'w8'=>array(
+ 'w8'=>[
    'group' => "microsoft",
    'display'=>_("MS Windows 8, 8.1"),
    'match'=>'Windows NT 6[._][23]',
    'directory'=>'ms',
    'module'=>'W8',
    'signer'=>'ms_windows_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'W8',
        'mime'=>'application/x-dosexec',
-      ),
-   ),
+      ],
+   ],
 	
- 'w7'=>array(
+ 'w7'=>[
    'group' => "microsoft",
    'display'=>_("MS Windows 7"),
    'match'=>'Windows NT 6[._]1',
    'directory'=>'ms',
    'module'=>'Vista7',
    'signer'=>'ms_windows_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'W7',
        'mime'=>'application/x-dosexec',
-      ),
-   ),
+      ],
+   ],
 	
- 'vista'=>array(
+ 'vista'=>[
    'group' => "microsoft",
    'display'=>_("MS Windows Vista"),
    'match'=>'Windows NT 6[._]0',
    'directory'=>'ms',
    'module'=>'Vista7',
    'signer'=>'ms_windows_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'Vista',
        'mime'=>'application/x-dosexec',
-      ),
-   ),
+      ],
+   ],
 	
- 'win-rt'=>array(
+ 'win-rt'=>[
     'group' => "microsoft",
     'display'=>_("Windows RT"),
     'directory'=>'redirect_dev',
     'module'=>'RedirectDev',
-    'options'=>array(
+    'options'=>[
       'hidden'=>0,
       'redirect'=>1,
-      ),
-   ),
+      ],
+   ],
     
- 'apple_yos'=>array(
+ 'apple_yos'=>[
     'group' => "apple",
     'display'=>_("Apple OS X Yosemite"),
     'match'=>'Mac OS X 10[._]10',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-      ),
-    ),
+      ],
+    ],
 
- 'apple_mav'=>array(
+ 'apple_mav'=>[
     'group' => "apple",
     'display'=>_("Apple OS X Mavericks"),
     'match'=>'Mac OS X 10[._]9',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-      ),
-    ),
+      ],
+    ],
 
- 'apple_m_lion'=>array(
+ 'apple_m_lion'=>[
     'group' => "apple",
     'display'=>_("Apple OS X Mountain Lion"),
     'match'=>'Mac OS X 10[._]8',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-      ),
-    ),
+      ],
+    ],
 	
- 'apple_lion'=>array(
+ 'apple_lion'=>[
     'group' => "apple",
     'display'=>_("Apple OS X Lion"),
     'match'=>'Mac OS X 10[._]7',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_os_x',
     'signer'=>'mobileconfig_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'OS_X',
        'mime'=>'application/x-apple-aspen-config',
-      ),
-    ),
+      ],
+    ],
         
- 'mobileconfig'=>array(
+ 'mobileconfig'=>[
     'group' => "apple",     
     'display'=>_("Apple iOS mobile devices"),
     'match'=>'(iPad|iPhone|iPod);.*OS [7-9]_',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_ios',
     'signer'=>'mobileconfig_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'iOS',
        'mime'=>'application/x-apple-aspen-config',
-      ),
-    ),
+      ],
+    ],
 
- 'mobileconfig-56'=>array(
+ 'mobileconfig-56'=>[
     'group' => "apple",
     'display'=>_("Apple iOS mobile devices (iOS 5 and 6)"),
     'match'=>'(iPad|iPhone|iPod);.*OS [56]_',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_ios_56',
     'signer'=>'mobileconfig_sign',
-    'options'=>array(
+    'options'=>[
        'sign'=>1,
        'device_id'=>'iOS',
        'mime'=>'application/x-apple-aspen-config',
-      ),
-    ),
+      ],
+    ],
 
         
- 'linux'=>array(
+ 'linux'=>[
      'group' => "linux",
      'display'=>_("Linux"),
      'match'=>'Linux(?!.*Android)',
      'directory'=>'linux',
      'module' => 'Linux',
-     'options'=>array(
+     'options'=>[
        'mime'=>'application/x-sh',
-      ),
-   ),
+      ],
+   ],
 
- 'chromeos'=>array(
+ 'chromeos'=>[
     'group' => "chrome",
     'display'=>_("Chrome OS"),
     'match'=>'CrOS',
     'directory'=>'chromebook',
     'module'=>'chromebook',
-    'options'=>array(
+    'options'=>[
        'mime'=>'application/x-onc',
        'message'=>sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
-      ),
-   ),
+      ],
+   ],
         
- 'android_lollipop'=>array(
+ 'android_lollipop'=>[
     'group' => "android",
     'display'=>_("Android 5.0 Lollipop"),
      'match'=>'Android 5\.[0-9]',
     'directory'=>'xml',
     'module'=>'Lollipop',
-    'options'=>array(
+    'options'=>[
        'mime'=>'application/eap-config',
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
-      ),
-   ),
+      ],
+   ],
 
- 'android_kitkat'=>array(
+ 'android_kitkat'=>[
     'group' => "android",
     'display'=>_("Android 4.4 KitKat"),
      'match'=>'Android 4\.[4-9]',
     'directory'=>'xml',
     'module'=>'KitKat',
-    'options'=>array(
+    'options'=>[
        'mime'=>'application/eap-config',
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
-      ),
-   ),
+      ],
+   ],
 
 
- 'android_43'=>array(
+ 'android_43'=>[
     'group' => "android",
     'display'=>_("Android 4.3"),
      'match'=>'Android 4\.3',
     'directory'=>'xml',
     'module'=>'KitKat',
-    'options'=>array(
+    'options'=>[
        'mime'=>'application/eap-config',
        'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
-      ),
-   ),
+      ],
+   ],
 
- 'android_legacy'=>array(
+ 'android_legacy'=>[
      'group' => "android",
      'display'=>_("Android"),
      'match'=>'Android',
      'directory'=>'redirect_dev',
      'module'=>'RedirectDev',
-     'options'=>array(
+     'options'=>[
        'redirect'=>1,
-      ),
-   ),
+      ],
+   ],
 
- 'eap-config'=>array(
+ 'eap-config'=>[
     'group' => "eap-config",
     'display'=>_("EAP config"),
     'directory'=>'xml',
     'module'=>'XML_ALL',
-    'options'=>array(
+    'options'=>[
        'mime'=>'application/eap-config',
        'message'=>sprintf(_("This option provides a generic EAP config XML file, which can be consumed by dedicated applications like eduroamCAT for Android and Linux platforms. This is still an experimental feature.")),
-      ),
-    ),
+      ],
+    ],
 
- 'test'=>array(
+ 'test'=>[
     'group' => "other",
     'display'=>_("Test"),
     'directory'=>'test_module',
     'module'=>'TestModule',
-    'options'=>array(
+    'options'=>[
        'hidden'=>1,
-      ),
-   ),
+      ],
+   ],
 
 
 /*    
@@ -402,7 +402,7 @@ public static function listDevices() {
       ),
    ),
 */
-);
+];
 }
 }
 ?>

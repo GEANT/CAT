@@ -147,15 +147,15 @@ include("user/js/cat_js.php");
                         <td rowspan=2 id="menu_column">
                             <table id="left_menu">
 <?php
-                                $menu = new Menu( array(
-                                   "about_consortium"=>array(sprintf(_("About %s"), Config::$CONSORTIUM['name']),'padding-bottom:20px;font-weight: bold; '),
+                                $menu = new Menu( [
+                                   "about_consortium"=>[sprintf(_("About %s"), Config::$CONSORTIUM['name']),'padding-bottom:20px;font-weight: bold; '],
                                    "about"=>sprintf(_("About %s"), Config::$APPEARANCE['productname']),
                                    "tou"=>sprintf(_("Terms of use")),
                                    "faq"=>sprintf(_("FAQ")),
                                    "report"=>sprintf(_("Report a problem")),
                                    "develop"=>sprintf(_("Become a CAT developer")),
-                                   "admin"=>array(sprintf(_("%s admin:<br>manage your IdP"), Config::$CONSORTIUM['name']),'padding-top:30px;'),
-                                ));
+                                   "admin"=>[sprintf(_("%s admin:<br>manage your IdP"), Config::$CONSORTIUM['name']),'padding-top:30px;'],
+                                ]);
 
                                 $menu->printMenu(); ?>
                             </table>

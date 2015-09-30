@@ -33,7 +33,7 @@ class Config {
      * defaultlocale: language to use if user has no preferences in his browser, nor explicitly selects a language
      * @var array 
      */
-    public static $APPEARANCE = array(
+    public static $APPEARANCE = [
         'productname' => 'eduroam CAT',
         'productname_long' => 'eduroam Configuration Assistant Tool',
         'from-mail' => 'cat-invite@your-cat-installation.example',
@@ -48,9 +48,9 @@ class Config {
         // the web server certificate may be checked by browsers against a CRL or OCSP Responder
         // to tell captive portal admins which hosts to allow, list the URLs here (they show up
         // in "About CAT" then)
-        'webcert_CRLDP' => array('list', 'of', 'CRL', 'pointers'),
-        'webcert_OCSP' => array('list', 'of', 'OCSP', 'pointers'),
-    );
+        'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
+        'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
+    ];
 
     /**
      * Defines various general parameters of the roaming consortium.
@@ -76,21 +76,21 @@ class Config {
      * 
      * @var array
      */
-    public static $CONSORTIUM = array(
+    public static $CONSORTIUM = [
         'name' => 'eduroam',
-        'ssid' => array('eduroam'),
+        'ssid' => ['eduroam'],
         'tkipsupport' => FALSE,
         'homepage' => 'http://www.eduroam.org',
         'signer_name' => 'TERENA',
         'selfservice_registration'   => NULL,
 #        'deployment-voodoo'         => "Operations Team",
-        'ssid'                       => array('eduroam'),
-        'interworking-consortium-oi' => array('001bc50460'),
-        'registration_API_keys'      => array (
+        'ssid'                       => ['eduroam'],
+        'interworking-consortium-oi' => ['001bc50460'],
+        'registration_API_keys'      =>  [
             // 'secretvalue' => 'UK',
             // 'othervalue' => 'DE',
-        ),
-    );
+        ],
+    ];
 
     /**
      * Various paths.
@@ -102,14 +102,14 @@ class Config {
      *           add additional flags if required, especially "-INPUTCHARSET UTF8" for UTF8 support in NSIS v3 (see also $NSIS_UTF8 further down)
      * @var array
      */
-    public static $PATHS = array(
+    public static $PATHS = [
         'logdir' => '/var/log/CAT/',
         'openssl' => 'openssl',
         'c_rehash' => 'c_rehash',
         'eapol_test' => 'eapol_test',
         'makensis' => 'makensis',
 //        'makensis' => 'makensis -INPUTCHARSET UTF8',
-    );
+    ];
 
     /**
      * Configuration for the simpleSAMLphp instance which authenticates CAT administrative users.
@@ -120,13 +120,13 @@ class Config {
      * attribute in which authsource transmits user's real name. Receiving this attribute is optional.
      * @var array
      */
-    public static $AUTHENTICATION = array(
+    public static $AUTHENTICATION = [
         'ssp-path-to-autoloader' => '/srv/www/simplesamlphp/lib/_autoload.php',
         'ssp-authsource' => 'default-sp',
         'ssp-attrib-identifier' => 'eptid',
         'ssp-attrib-email' => 'mail',
         'ssp-attrib-name' => 'cn',
-    );
+    ];
 
     /**
      * Configures the host to use to send emails to the outside world. We assume
@@ -136,32 +136,32 @@ class Config {
      * pass: password for the username
      * @var array
      */
-    public static $MAILSETTINGS = array( // we always use Submission
+    public static $MAILSETTINGS = [ // we always use Submission
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
-    );
+    ];
     
     /**
      * List of all supported languages in CAT. Comment some if you want to disable them
      * @var array
      */
-    public static $LANGUAGES = array(
-      'ca' => array('display' => 'Català',      'locale' => 'ca_ES.utf8'),
-      'de' => array('display' => 'Deutsch',     'locale' => 'de_DE.utf8'),
-      'en' => array('display' => 'English(GB)', 'locale' => 'en_GB.utf8'),
-      'es' => array('display' => 'Español',     'locale' => 'es_ES.utf8'),
-      'gl' => array('display' => 'Galego',      'locale' => 'gl_ES.utf8'),
-      'hr' => array('display' => 'Hrvatski',    'locale' => 'hr_HR.utf8'),
-      'it' => array('display' => 'Italiano',    'locale' => 'it_IT.utf8'),
-      'nb' => array('display' => 'Norsk',       'locale' => 'nb_NO.utf8'),
-      'pl' => array('display' => 'Polski',      'locale' => 'pl_PL.utf8'),
-      'sl' => array('display' => 'Slovenščina', 'locale' => 'sl_SI.utf8'),
-      'sr' => array('display' => 'Srpski',      'locale' => 'sr_RS@latin'),
-      'fi' => array('display' => 'Suomi',       'locale' => 'fi_FI.utf8'),
-      'el' => array('display' => 'Ελληνικά',    'locale' => 'el_GR.utf8'),
-      'hu' => array('display' => 'Magyar',      'locale' => 'hu_HU.utf8'),
-      'pt' => array('display' => 'Português',   'locale' => 'pt_PT.utf8'),
+    public static $LANGUAGES = [
+      'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8'],
+      'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8'],
+      'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8'],
+      'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8'],
+      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8'],
+      'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8'],
+      'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8'],
+      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8'],
+      'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8'],
+      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8'],
+      'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin'],
+      'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8'],
+      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8'],
+      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8'],
+      'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8'],
 
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. Their Transifex content is not
@@ -177,7 +177,7 @@ class Config {
 //      'nl' => array('display' => 'Nederlands', 'locale' => 'nl_NL.utf8'),
 //      'sv' => array('display' => 'Svenska', 'locale' => 'sv_SE.utf8'),
 //      'cy' => array('display' => 'Cymraeg', 'locale' => 'cy_GB.utf8'),
-    );
+    ];
 
     /**
      * Configures the reachability tests, both for plain RADIUS/UDP and RADIUS/TLS.
@@ -192,64 +192,64 @@ class Config {
      * 
      * @var array
      */
-    public static $RADIUSTESTS = array(
-        'UDP-hosts' => array(
-            array('display_name' => 'Recon Viper 1',
+    public static $RADIUSTESTS = [
+        'UDP-hosts' => [
+            ['display_name' => 'Recon Viper 1',
                 'ip' => '192.0.2.1',
                 'secret' => 'somesecret',
-                'timeout' => 5),
-            array('display_name' => 'Recon Viper 2',
+                'timeout' => 5],
+            ['display_name' => 'Recon Viper 2',
                 'ip' => '198.51.100.17',
                 'secret' => 'whatever',
-                'timeout' => 5),
-        ),
+                'timeout' => 5],
+        ],
         'TLS-discoverytag' => 'aaa+auth:radius.tls',
-        'TLS-acceptableOIDs' => array(
+        'TLS-acceptableOIDs' => [
             'client' => '1.3.6.1.4.1.25178.3.1.1',
             'server' => '1.3.6.1.4.1.25178.3.1.2',
-        ),
+        ],
 
-        'TLS-clientcerts' => array(
-          'CA1' => array(
+        'TLS-clientcerts' => [
+          'CA1' => [
             'status' => 'ACCREDITED',
             'issuerCA' => '/DC=org/DC=pki1/CN=PKI 1',
-            'certificates' => array(
-              array(
+            'certificates' => [
+              [
                 'status' => 'CORRECT',
                 'public' => 'ca1-client-cert.pem',
                 'private' => 'ca1-client-key.pem',
-                'expected' => 'PASS'),
-              array(
+                'expected' => 'PASS'],
+              [
                 'status' => 'WRONGPOLICY',
                 'public' => 'ca1-nopolicy-cert.pem',
                 'private' => 'ca1-nopolicy-key.key',
-                'expected' => 'FAIL'),
-              array(
+                'expected' => 'FAIL'],
+              [
                 'status' => 'EXPIRED',
                 'public' => 'ca1-exp.pem',
                 'private' => 'ca1-exp.key',
-                'expected' => 'FAIL'),
-              array(
+                'expected' => 'FAIL'],
+              [
                 'status' => 'REVOKED',
                 'public' => 'ca1-revoked.pem',
                 'private' => 'ca1-revoked.key',
-                'expected' => 'FAIL'),
-            )
-          ),
-          'CA-N' => array(
+                'expected' => 'FAIL'],
+            ]
+          ],
+          'CA-N' => [
             'status' => 'NONACCREDITED',
             'issuerCA' => '/DC=org/DC=pkiN/CN=PKI N',
-            'certificates' => array(
-               array(
+            'certificates' => [
+               [
                 'status' => 'CORRECT',
                 'public' => 'caN-client-cert.pem',
                 'private' => 'caN-client-cert.key',
-                'expected' => 'FAIL'),
-               )
-          )
-      ),
+                'expected' => 'FAIL'],
+               ]
+          ]
+      ],
       'accreditedCAsURL' => '',
-    );
+    ];
 
     /**
      * Set of database connection details. The third entry is only needed if you set $ENFORCE_EXTERNAL_DB_SYNC to TRUE.
@@ -257,17 +257,17 @@ class Config {
      * 
      * @var array
      */
-    public static $DB = array(
-        'INST' => array(
+    public static $DB = [
+        'INST' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
-            'pass' => 'somepass'),
-        'USER' => array(
+            'pass' => 'somepass'],
+        'USER' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
-            'pass' => 'somepass'),
+            'pass' => 'somepass'],
         /*   If you use this tool in conjunction with an external customer management database, you can configure that every 
          * institution entry in CAT MUST correspond to a customer entry in an external database. If you want this, set this
          * config variable to TRUE.
@@ -281,17 +281,17 @@ class Config {
          * IdP::setExternalDBId($identifier);
          * 
          * The code for the consortium "eduroam" is already written and may serve as template. See the functions in question. */
-        'EXTERNAL' => array(
+        'EXTERNAL' => [
             'host' => 'customerdb.otherhost.example',
             'db' => 'customer_db',
             'user' => 'customerservice',
-            'pass' => '2lame4u'),
+            'pass' => '2lame4u'],
          'enforce-external-sync' => TRUE,
          /* if you feed your user database from a third-party source and do not want CAT to update it on its own, you can 
           * make it read-only
           */
          'userdb-readonly' => FALSE,
-    );
+    ];
 
     /**
      * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
@@ -318,11 +318,11 @@ class Config {
      */
     public static $NSIS_UTF8 = 0;
 
-    public static $SUPERADMINS = array (
+    public static $SUPERADMINS =  [
         'eptid:someuser',
         'http://sommeopenid.example/anotheruser',
         'I do not care about security!',
-    );
+    ];
 }
 
 ?>

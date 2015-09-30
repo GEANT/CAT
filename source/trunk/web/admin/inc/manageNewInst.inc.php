@@ -70,9 +70,9 @@ if (Config::$DB['enforce-external-sync']) {
 
             foreach ($feds as $fed_value) {
                 $thefed = new Federation(strtoupper($fed_value['value']));
-                $temparray = array();
-                $idparray = array();
-                $contacts = array();
+                $temparray = [];
+                $idparray = [];
+                $contacts = [];
                 $entities = $thefed->listUnmappedExternalEntities();
                 // lets see if we have inst names in the current language
                 foreach ($entities as $entity)

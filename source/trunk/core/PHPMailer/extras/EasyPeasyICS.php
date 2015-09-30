@@ -17,7 +17,7 @@
 class EasyPeasyICS {
 
 	protected $calendarName;
-	protected $events = array();
+	protected $events = [];
 	
 
 	/**
@@ -34,13 +34,13 @@ class EasyPeasyICS {
 	 * @param string $calendarName
 	 */	
 	public function addEvent($start, $end, $summary="", $description="", $url=""){
-		$this->events[] = array(
+		$this->events[] = [
 			"start" => $start,
 			"end"   => $end,
 			"summary" => $summary,
 			"description" => $description,
 			"url" => $url
-		);
+		];
 	}//function
 	
 	

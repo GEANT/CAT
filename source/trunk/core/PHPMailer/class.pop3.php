@@ -120,7 +120,7 @@ class POP3
      * @type array
      * @access private
      */
-    private $errors = array();
+    private $errors = [];
 
     /**
      * Line break constant
@@ -181,7 +181,7 @@ class POP3
         $this->username = $username;
         $this->password = $password;
         //  Reset the error log
-        $this->errors = array();
+        $this->errors = [];
         //  connect
         $result = $this->connect($this->host, $this->port, $this->tval);
         if ($result) {
@@ -213,7 +213,7 @@ class POP3
 
         //On Windows this will raise a PHP Warning error if the hostname doesn't exist.
         //Rather than suppress it with @fsockopen, capture it cleanly instead
-        set_error_handler(array($this, 'catchWarning'));
+        set_error_handler([$this, 'catchWarning']);
 
         if ($port === false) {
             $port = $this->POP3_PORT;
@@ -233,11 +233,11 @@ class POP3
         //  Did we connect?
         if ($this->pop_conn === false) {
             //  It would appear not...
-            $this->setError(array(
+            $this->setError([
                 'error' => "Failed to connect to server $host on port $port",
                 'errno' => $errno,
                 'errstr' => $errstr
-            ));
+            ]);
             return false;
         }
 
@@ -348,11 +348,11 @@ class POP3
     private function checkResponse($string)
     {
         if (substr($string, 0, 3) !== '+OK') {
-            $this->setError(array(
+            $this->setError([
                 'error' => "Server reported an error: $string",
                 'errno' => 0,
                 'errstr' => ''
-            ));
+            ]);
             return false;
         } else {
             return true;
@@ -386,12 +386,12 @@ class POP3
      */
     private function catchWarning($errno, $errstr, $errfile, $errline)
     {
-        $this->setError(array(
+        $this->setError([
             'error' => "Connecting to the POP3 server raised a PHP warning: ",
             'errno' => $errno,
             'errstr' => $errstr,
             'errfile' => $errfile,
             'errline' => $errline
-        ));
+        ]);
     }
 }

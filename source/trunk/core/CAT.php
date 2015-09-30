@@ -107,7 +107,7 @@ class CAT {
      * will allow to forst lang setting if this was ever required
      */
     private function set_lang($hardsetlang = 0) {
-        $lang_converted = array();
+        $lang_converted = [];
         if ($hardsetlang !== 0) {
             $hardsetlocale = $hardsetlang;
             $lang_converted[] = $hardsetlocale;
@@ -153,7 +153,7 @@ class CAT {
         putenv("LC_ALL=" . $thelang);
         debug(4, "selected lang:$lang_index:$thelang\n");
         debug(4, $lang_converted);
-        return(array($lang_index, $thelang));
+        return([$lang_index, $thelang]);
     }
 
     /**

@@ -23,8 +23,8 @@ $dummy_fed = new Federation("LU");
 
 foreach (Federation::$FederationList as $federation => $federation_name) {
     // construct list of invitations in this federation
-    $thisfedlist = array();
-    $listofinstnames = array();
+    $thisfedlist = [];
+    $listofinstnames = [];
     $numberofexistingidps = 0;
     foreach ($invitation_list as $invitation) {
         if (strtoupper($invitation["country"]) == strtoupper($federation)) {

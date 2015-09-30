@@ -74,7 +74,7 @@ if (isset($_POST['submitbutton'])) {
 
         // check if we have any SSID at all.
 
-        $ssids = array();
+        $ssids = [];
 
         if (isset(Config::$CONSORTIUM['ssid']) && count(Config::$CONSORTIUM['ssid']) > 0)
             foreach (Config::$CONSORTIUM['ssid'] as $ssidname)

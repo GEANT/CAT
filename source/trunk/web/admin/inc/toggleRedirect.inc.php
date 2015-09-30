@@ -104,7 +104,7 @@ if ($device) {
     <table id='expandable_<?php echo $keyword; ?>_options'>
         <?php
 // see if we already have any attributes; if so, display these
-        $interesting_attribs = array();
+        $interesting_attribs = [];
 
         foreach ($attribs as $attrib) {
             if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))

@@ -85,10 +85,10 @@ function calculateCommonHostSuffix(array $hosts) {
     else {
         // look for the last dot from the end; if the corresponding substring is
         // different, no common match!
-        $explodednames = array();
+        $explodednames = [];
         foreach ($hosts as $host)
             $explodednames[] = explode('.', $host);
-        $commonsuffix = array();
+        $commonsuffix = [];
         while (count($explodednames[0]) > 0) {
             $match = TRUE;
             $testname = array_pop($explodednames[0]);
@@ -154,7 +154,7 @@ function uuid($prefix = '', $deterministic_source = NULL) {
  */
 function getLocalisedValue($val_arr, $locale) {
     if (count($val_arr) > 0) {
-        $r_val = array();
+        $r_val = [];
         foreach ($val_arr as $val) {
             $try = unserialize($val['value']);
             $r_val[$try['lang']] = $try['content'];
@@ -178,8 +178,8 @@ function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $margins
     debug(4,"Consortium logo is at: ".CAT::$root."/web/resources/images/consortium_logo_large.png");
     $logogd = imagecreatefrompng(CAT::$root."/web/resources/images/consortium_logo_large.png");
     
-    $sizeinput = array(imagesx($inputgd),imagesy($inputgd));
-    $sizelogo = array(imagesx($logogd),imagesy($logogd));
+    $sizeinput = [imagesx($inputgd),imagesy($inputgd)];
+    $sizelogo = [imagesx($logogd),imagesy($logogd)];
     // Q level QR-codes can sustain 25% "damage"
     // make our logo cover approx 15% of area to be sure; mind that there's a $symbolsize * $marginsymbols pixel white border around each edge
     $totalpixels = ($sizeinput[0] - $symbolsize*$marginsymbols) * ($sizeinput[1] - $symbolsize*$marginsymbols);

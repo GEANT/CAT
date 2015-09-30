@@ -118,20 +118,20 @@ class UserManagement {
                     $idp->setExternalDBId($a->external_db_uniquehandle);
                     $externalinfo = Federation::getExternalDBEntityDetails($a->external_db_uniquehandle);
                     foreach ($externalinfo['names'] as $instlang => $instname) {
-                        $idp->addAttribute("general:instname", serialize(array('lang' => $instlang, 'content' => $instname)));
+                        $idp->addAttribute("general:instname", serialize(['lang' => $instlang, 'content' => $instname]));
                     }
                     // see if we had a C language, and if not, pick a good candidate
                     if (!array_key_exists('C', $externalinfo['names'])) {
                         if (array_key_exists('en', $externalinfo['names'])) { // English is a good candidate
-                            $idp->addAttribute("general:instname", serialize(array('lang' => 'C', 'content' => $externalinfo['names']['en'])));
+                            $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $externalinfo['names']['en']]));
                             $bestnameguess = $externalinfo['names']['en'];
                         } else { // no idea, let's take the first language we found
-                            $idp->addAttribute("general:instname", serialize(array('lang' => 'C', 'content' => reset($externalinfo['names']))));
+                            $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => reset($externalinfo['names'])]));
                             $bestnameguess = reset($externalinfo['names']);
                         }
                     }
                 } else {
-                    $idp->addAttribute("general:instname", serialize(array('lang' => 'C', 'content' => $a->name)));
+                    $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $a->name]));
                     $bestnameguess = $a->name;
                 }
                 CAT::writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
@@ -249,7 +249,7 @@ Best regards,
      * @return if idp_identifier is set: an array of strings (mail addresses); otherwise an array of tuples (country;name;mail)
      */
     public function listPendingInvitations($idp_identifier = 0) {
-        $retval = array();
+        $retval = [];
         $invitations = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idp_identifier != 0 ? "= $idp_identifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
@@ -263,7 +263,7 @@ Best regards,
             while ($a = mysqli_fetch_object($invitations)) {
                 debug(4, "Retrieving pending invitations for NEW institutions.\n");
                 if ($a->cat_institution_id == NULL)
-                    $retval[] = array("country" => $a->country, "name" => $a->name, "mail" => $a->invite_dest_mail, "token" => $a->invite_token);
+                    $retval[] = ["country" => $a->country, "name" => $a->name, "mail" => $a->invite_dest_mail, "token" => $a->invite_token];
             }
         };
         return $retval;
@@ -274,16 +274,16 @@ Best regards,
      * @return array of expired invitations
      */
     public function listRecentlyExpiredInvitations() {
-        $retval = array();
+        $retval = [];
         $invitations = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE invite_created >= TIMESTAMPADD(HOUR, -25, NOW()) AND invite_created < TIMESTAMPADD(HOUR, -24, NOW()) AND used = 0");
         while ($a = mysqli_fetch_object($invitations)) {
                 debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
                 if ($a->cat_institution_id == NULL)
-                    $retval[] = array("country" => $a->country, "level" => $a->invite_issuer_level, "name" => $a->name, "mail" => $a->invite_dest_mail);
+                    $retval[] = ["country" => $a->country, "level" => $a->invite_issuer_level, "name" => $a->name, "mail" => $a->invite_dest_mail];
                 else
-                    $retval[] = array("country" => $a->country, "level" => $a->invite_issuer_level, "name" => "Existing IdP", "mail" => $a->invite_dest_mail);
+                    $retval[] = ["country" => $a->country, "level" => $a->invite_issuer_level, "name" => "Existing IdP", "mail" => $a->invite_dest_mail];
             }
         return $retval;
     }
@@ -296,7 +296,7 @@ Best regards,
      * @return array array of institution IDs
      */
     public function listInstitutionsByAdmin($userid) {
-        $returnarray = array();
+        $returnarray = [];
         $userid = DBConnection::escape_value(UserManagement::$DB_TYPE, $userid);
         $institutions = DBConnection::exec(UserManagement::$DB_TYPE, "SELECT institution_id FROM ownership WHERE user_id = '$userid' ORDER BY institution_id");
         while ($a = mysqli_fetch_object($institutions))

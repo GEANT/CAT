@@ -14,7 +14,7 @@ class Device_RedirectDev extends DeviceConfig {
     * @final not to be redefined
     */
     final public function __construct() {
-      $this->supportedEapMethods  = array(EAP::$EAP_NONE);
+      $this->supportedEapMethods  = [EAP::$EAP_NONE];
       debug(4,"RedirectEx called");
     }
     public function writeDeviceInfo() {

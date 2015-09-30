@@ -26,7 +26,7 @@ require_once('WindowsCommon.php');
  */
 class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
-      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD);
+      $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD];
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
@@ -43,7 +43,7 @@ class Device_Vista7 extends WindowsCommon {
      $this->prepareInstallerLang();
      $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
-     $delProfiles = array();
+     $delProfiles = [];
      foreach ($delSSIDs as $ssid => $cipher) {
          if($cipher == 'DEL') 
           $delProfiles[] = $ssid;
@@ -52,7 +52,7 @@ class Device_Vista7 extends WindowsCommon {
      }
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD || $this->selected_eap == EAP::$TTLS_PAP) {
-       $WindowsProfile = array();
+       $WindowsProfile = [];
        $eap_config = $this->prepareEapConfig($this->attributes);
        $i = 0;
        foreach ($SSIDs as $ssid => $cipher) {
@@ -335,7 +335,7 @@ $w7_ext .='</EapType>
 
 $profile_file_contents_end = '</EapHostConfig></EAPConfig>
 ';
-$return_array = array();
+$return_array = [];
 $return_array['vista']= $profile_file_contents.$vista_ext.$profile_file_contents_end;
 $return_array['w7']= $profile_file_contents.$w7_ext.$profile_file_contents_end;
 return $return_array;
@@ -454,12 +454,12 @@ private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
 debug(4,"MYLANG=".$this->lang."\n");
 
-$EAP_OPTS = array(
-PEAP=>array('str'=>'PEAP','exec'=>'user'),
-TLS=>array('str'=>'TLS','exec'=>'user'),
-TTLS=>array('str'=>'ArnesLink','exec'=>'user'),
-PWD=>array('str'=>'PWD','exec'=>'admin'),
-);
+$EAP_OPTS = [
+PEAP=>['str'=>'PEAP','exec'=>'user'],
+TLS=>['str'=>'TLS','exec'=>'user'],
+TTLS=>['str'=>'ArnesLink','exec'=>'user'],
+PWD=>['str'=>'PWD','exec'=>'admin'],
+];
 $fcontents = '';
  
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)
