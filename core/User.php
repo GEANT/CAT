@@ -65,7 +65,7 @@ class User {
         $user_id = DBConnection::escape_value(User::$DB_TYPE, $user_id);
         $optioninstance = Options::instance();
         $this->identifier = $user_id;
-        $this->priv_attributes = array();
+        $this->priv_attributes = [];
 
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             // e d u r o a m DB doesn't follow the usual approach
@@ -77,16 +77,16 @@ class User {
                 if (!$visited) {
                     $optinfo = $optioninstance->optionType("user:email");
                     $flag = $optinfo['flag'];
-                    $this->priv_attributes[] = array("name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $flag);
+                    $this->priv_attributes[] = ["name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $flag];
                     $optinfo = $optioninstance->optionType("user:realname");
                     $flag = $optinfo['flag'];
-                    $this->priv_attributes[] = array("name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $flag);
+                    $this->priv_attributes[] = ["name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $flag];
                     $visited = TRUE;
                 }
                 if ($a->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
                     $flag = $optinfo['flag'];
-                    $this->priv_attributes[] = array("name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $flag);
+                    $this->priv_attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $flag];
                 }
             }
 
@@ -99,7 +99,7 @@ class User {
                 $flag = $optinfo['flag'];
 
                 if ($optinfo['type'] != "file") {
-                    $this->priv_attributes[] = array("name" => $a->option_name, "value" => $a->option_value, "level" => "User", "row" => $a->row, "flag" => $flag);
+                    $this->priv_attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "User", "row" => $a->row, "flag" => $flag];
                 } else {
                     if (unserialize($a->option_value) != FALSE) { // multi-lang
                         $content = unserialize($a->option_value);
@@ -111,7 +111,7 @@ class User {
 
                     $content = base64_decode($content);
 
-                    $this->priv_attributes[] = array("name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "User", "row" => $a->row, "flag" => $flag);
+                    $this->priv_attributes[] = ["name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])), "level" => "User", "row" => $a->row, "flag" => $flag];
                 }
             }
             // print_r($this->priv_attributes);
@@ -129,7 +129,7 @@ class User {
      */
     public function getAttributes($option_name = 0) {
         if ($option_name) {
-            $returnarray = Array();
+            $returnarray = [];
             foreach ($this->priv_attributes as $the_attr)
                 if ($the_attr['name'] == $option_name)
                     $returnarray[] = $the_attr;
@@ -170,7 +170,7 @@ class User {
     public function beginFlushAttributes() {
         DBConnection::exec(User::$DB_TYPE, "DELETE FROM user_options WHERE user_id = '$this->identifier' AND option_name NOT LIKE '%_file' AND option_name NOT LIKE 'user:fedadmin'");
         $exec_q = DBConnection::exec(User::$DB_TYPE, "SELECT id FROM user_options WHERE user_id = '$this->identifier' AND option_name NOT LIKE 'user:fedadmin'");
-        $return_array = array();
+        $return_array = [];
         while ($a = mysqli_fetch_object($exec_q))
             $return_array[$a->row] = "KILLME";
         return $return_array;

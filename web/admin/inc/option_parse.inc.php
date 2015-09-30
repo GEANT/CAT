@@ -17,13 +17,13 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 
 // construct new array with all non-empty options for later feeding into DB
 
-    $options = array();
-    $good = array();
-    $bad = array();
+    $options = [];
+    $good = [];
+    $bad = [];
 
     $killlist = $pendingattributes;
 
-    $a = array();
+    $a = [];
 
     $optioninfo_object = Options::instance();
 // Step 1a: parse the arrays for text-based input
@@ -51,7 +51,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
     // is "invisible" in certain languages
     // attrib_name -> boolean
 
-    $multilang_attribs_with_C = array();
+    $multilang_attribs_with_C = [];
 
     foreach ($a as $obj_id => $obj_value_raw) {
 // pick those without dash - they indicate a new value        
@@ -138,9 +138,9 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             }
             if ($lang != "" && preg_match("/^ROWID-.*-([0-9]+)/", $content) == 0) { // new value, encode as language array
                 // add the new option with lang 
-                $options[] = Array("$obj_value" => serialize(Array("lang" => $lang, "content" => $content)));
+                $options[] = ["$obj_value" => serialize(["lang" => $lang, "content" => $content])];
             } else // just store it (could be a literal value or a ROWID reference)
-                $options[] = Array("$obj_value" => $content);
+                $options[] = ["$obj_value" => $content];
         }
     }
 
@@ -165,7 +165,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 unset($options[$k]);
                 if (check_upload_sanity("eap:ca_file", $content)) {
                     $content = base64_encode($content);
-                    $options[] = array("eap:ca_file" => $content);
+                    $options[] = ["eap:ca_file" => $content];
                     $good[] = "eap:ca_url";
                 } else {
                     $bad[] = $name;
@@ -181,7 +181,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 unset($options[$k]);
                 $ca_files = X509::splitCertificate($content);
                 foreach ($ca_files as $ca_file) {
-                    $options[] = array("eap:ca_file" => base64_encode($ca_file));
+                    $options[] = ["eap:ca_file" => base64_encode($ca_file)];
                 }
             }
         }
@@ -195,7 +195,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 if (check_upload_sanity("general:logo_file", $bindata)) {
                     $good[] = "general:logo_url";
 
-                    $options[] = array("general:logo_file" => base64_encode($bindata));
+                    $options[] = ["general:logo_file" => base64_encode($bindata)];
                 } else
                     $bad[] = "general:logo_url";
             }
@@ -208,7 +208,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         $lat = valid_coordinate($_POST['geo_lat']);
         $lon = valid_coordinate($_POST['geo_long']);
 
-        $options[] = array("general:geo_coordinates" => serialize(array("lon" => $lon, "lat" => $lat)));
+        $options[] = ["general:geo_coordinates" => serialize(["lon" => $lon, "lat" => $lat])];
         $good[] = ("general:geo_coordinates");
     }
     /*

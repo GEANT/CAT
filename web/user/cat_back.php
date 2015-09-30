@@ -71,7 +71,7 @@ switch ($action) {
         $API->JSON_locateUser();
         break;
     case 'ssss':
-        $API->orderIdentityProviders(array());
+        $API->orderIdentityProviders([]);
         break;
 }
 

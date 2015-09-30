@@ -44,7 +44,7 @@ function tln_tagprint($tagname, $attary, $tagtype)
     } else {
         $fulltag = '<' . $tagname;
         if (is_array($attary) && sizeof($attary)) {
-            $atts = array();
+            $atts = [];
             while (list($attname, $attvalue) = each($attary)) {
                 array_push($atts, "$attname=$attvalue");
             }
@@ -125,8 +125,8 @@ function tln_findnxstr($body, $offset, $needle)
  */
 function tln_findnxreg($body, $offset, $reg)
 {
-    $matches = array();
-    $retarr = array();
+    $matches = [];
+    $retarr = [];
     $preg_rule = '%^(.*?)(' . $reg . ')%s';
     preg_match($preg_rule, substr($body, $offset), $matches);
     if (!isset($matches[0])) {
@@ -169,7 +169,7 @@ function tln_getnxtag($body, $offset)
      */
     $pos = tln_skipspace($body, $lt + 1);
     if ($pos >= strlen($body)) {
-        return array(false, false, false, $lt, strlen($body));
+        return [false, false, false, $lt, strlen($body)];
     }
     /**
      * There are 3 kinds of tags:
@@ -196,10 +196,10 @@ function tln_getnxtag($body, $offset)
                 } else {
                     $gt += 2;
                 }
-                return array(false, false, false, $lt, $gt);
+                return [false, false, false, $lt, $gt];
             } else {
                 $gt = tln_findnxstr($body, $pos, '>');
-                return array(false, false, false, $lt, $gt);
+                return [false, false, false, $lt, $gt];
             }
             break;
         default:
@@ -216,7 +216,7 @@ function tln_getnxtag($body, $offset)
      */
     $regary = tln_findnxreg($body, $pos, '[^\w\-_]');
     if ($regary == false) {
-        return array(false, false, false, $lt, strlen($body));
+        return [false, false, false, $lt, strlen($body)];
     }
     list($pos, $tagname, $match) = $regary;
     $tagname = strtolower($tagname);
@@ -241,12 +241,12 @@ function tln_getnxtag($body, $offset)
                 $tagtype = 3;
             } else {
                 $gt = tln_findnxstr($body, $pos, '>');
-                $retary = array(false, false, false, $lt, $gt);
+                $retary = [false, false, false, $lt, $gt];
                 return $retary;
             }
             //intentional fall-through
         case '>':
-            return array($tagname, false, $tagtype, $lt, $pos);
+            return [$tagname, false, $tagtype, $lt, $pos];
             break;
         default:
             /**
@@ -258,7 +258,7 @@ function tln_getnxtag($body, $offset)
                  * This is an invalid tag! Look for the next closing ">".
                  */
                 $gt = tln_findnxstr($body, $lt, '>');
-                return array(false, false, false, $lt, $gt);
+                return [false, false, false, $lt, $gt];
             }
     }
 
@@ -269,7 +269,7 @@ function tln_getnxtag($body, $offset)
      *
      * At this point we loop in order to find all attributes.
      */
-    $attary = array();
+    $attary = [];
 
     while ($pos <= strlen($body)) {
         $pos = tln_skipspace($body, $pos);
@@ -277,13 +277,13 @@ function tln_getnxtag($body, $offset)
             /**
              * Non-closed tag.
              */
-            return array(false, false, false, $lt, $pos);
+            return [false, false, false, $lt, $pos];
         }
         /**
          * See if we arrived at a ">" or "/>", which means that we reached
          * the end of the tag.
          */
-        $matches = array();
+        $matches = [];
         preg_match('%^(\s*)(>|/>)%s', substr($body, $pos), $matches);
         if (isset($matches[0]) && $matches[0]) {
             /**
@@ -294,7 +294,7 @@ function tln_getnxtag($body, $offset)
                 $tagtype = 3;
                 $pos++;
             }
-            return array($tagname, $attary, $tagtype, $lt, $pos);
+            return [$tagname, $attary, $tagtype, $lt, $pos];
         }
 
         /**
@@ -319,7 +319,7 @@ function tln_getnxtag($body, $offset)
             /**
              * Looks like body ended before the end of tag.
              */
-            return array(false, false, false, $lt, strlen($body));
+            return [false, false, false, $lt, strlen($body)];
         }
         list($pos, $attname, $match) = $regary;
         $attname = strtolower($attname);
@@ -343,13 +343,13 @@ function tln_getnxtag($body, $offset)
                     $tagtype = 3;
                 } else {
                     $gt = tln_findnxstr($body, $pos, '>');
-                    $retary = array(false, false, false, $lt, $gt);
+                    $retary = [false, false, false, $lt, $gt];
                     return $retary;
                 }
                 //intentional fall-through
             case '>':
                 $attary{$attname} = '"yes"';
-                return array($tagname, $attary, $tagtype, $lt, $pos);
+                return [$tagname, $attary, $tagtype, $lt, $pos];
                 break;
             default:
                 /**
@@ -378,7 +378,7 @@ function tln_getnxtag($body, $offset)
                     if ($quot == '\'') {
                         $regary = tln_findnxreg($body, $pos + 1, '\'');
                         if ($regary == false) {
-                            return array(false, false, false, $lt, strlen($body));
+                            return [false, false, false, $lt, strlen($body)];
                         }
                         list($pos, $attval, $match) = $regary;
                         $pos++;
@@ -387,7 +387,7 @@ function tln_getnxtag($body, $offset)
                         if ($quot == '"') {
                             $regary = tln_findnxreg($body, $pos + 1, '\"');
                             if ($regary == false) {
-                                return array(false, false, false, $lt, strlen($body));
+                                return [false, false, false, $lt, strlen($body)];
                             }
                             list($pos, $attval, $match) = $regary;
                             $pos++;
@@ -398,7 +398,7 @@ function tln_getnxtag($body, $offset)
                              */
                             $regary = tln_findnxreg($body, $pos, '[\s>]');
                             if ($regary == false) {
-                                return array(false, false, false, $lt, strlen($body));
+                                return [false, false, false, $lt, strlen($body)];
                             }
                             list($pos, $attval, $match) = $regary;
                             /**
@@ -419,7 +419,7 @@ function tln_getnxtag($body, $offset)
                          * An illegal character. Find next '>' and return.
                          */
                         $gt = tln_findnxstr($body, $pos, '>');
-                        return array(false, false, false, $lt, $gt);
+                        return [false, false, false, $lt, $gt];
                     }
                 }
         }
@@ -428,7 +428,7 @@ function tln_getnxtag($body, $offset)
      * The fact that we got here indicates that the tag end was never
      * found. Return invalid tag indication so it gets stripped.
      */
-    return array(false, false, false, $lt, strlen($body));
+    return [false, false, false, $lt, strlen($body)];
 }
 
 /**
@@ -443,7 +443,7 @@ function tln_deent(&$attvalue, $regex, $hex = false)
 {
     preg_match_all($regex, $attvalue, $matches);
     if (is_array($matches) && sizeof($matches[0]) > 0) {
-        $repl = array();
+        $repl = [];
         for ($i = 0; $i < sizeof($matches[0]); $i++) {
             $numval = $matches[1][$i];
             if ($hex) {
@@ -497,8 +497,8 @@ function tln_unspace(&$attvalue)
 {
     if (strcspn($attvalue, "\t\r\n\0 ") != strlen($attvalue)) {
         $attvalue = str_replace(
-            array("\t", "\r", "\n", "\0", " "),
-            array('', '', '', '', ''),
+            ["\t", "\r", "\n", "\0", " "],
+            ['', '', '', '', ''],
             $attvalue
         );
     }
@@ -612,7 +612,7 @@ function tln_sanitize(
      * true      means allow these tags
      */
     $curpos = 0;
-    $open_tags = array();
+    $open_tags = [];
     $trusted = "<!-- begin tln_sanitized html -->\n";
     $skip_content = false;
     /**
@@ -730,7 +730,7 @@ function tln_sanitize(
 function HTMLFilter($body, $trans_image_path, $block_external_images = false)
 {
 
-    $tag_list = array(
+    $tag_list = [
         false,
         "object",
         "meta",
@@ -742,9 +742,9 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
         "iframe",
         "plaintext",
         "marquee"
-    );
+    ];
 
-    $rm_tags_with_content = array(
+    $rm_tags_with_content = [
         "script",
         "applet",
         "embed",
@@ -752,63 +752,63 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
         "frameset",
         "xmp",
         "xml"
-    );
+    ];
 
-    $self_closing_tags = array(
+    $self_closing_tags = [
         "img",
         "br",
         "hr",
         "input",
         "outbind"
-    );
+    ];
 
     $force_tag_closing = true;
 
-    $rm_attnames = array(
+    $rm_attnames = [
         "/.*/" =>
-            array(
+            [
                 // "/target/i",
                 "/^on.*/i",
                 "/^dynsrc/i",
                 "/^data.*/i",
                 "/^lowsrc.*/i"
-            )
-    );
+            ]
+    ];
 
-    $bad_attvals = array(
+    $bad_attvals = [
         "/.*/" =>
-            array(
+            [
                 "/^src|background/i" =>
-                    array(
-                        array(
+                    [
+                        [
                             '/^([\'"])\s*\S+script\s*:.*([\'"])/si',
                             '/^([\'"])\s*mocha\s*:*.*([\'"])/si',
                             '/^([\'"])\s*about\s*:.*([\'"])/si'
-                        ),
-                        array(
+                        ],
+                        [
                             "\\1$trans_image_path\\2",
                             "\\1$trans_image_path\\2",
                             "\\1$trans_image_path\\2",
                             "\\1$trans_image_path\\2"
-                        )
-                    ),
+                        ]
+                    ],
                 "/^href|action/i" =>
-                    array(
-                        array(
+                    [
+                        [
                             '/^([\'"])\s*\S+script\s*:.*([\'"])/si',
                             '/^([\'"])\s*mocha\s*:*.*([\'"])/si',
                             '/^([\'"])\s*about\s*:.*([\'"])/si'
-                        ),
-                        array(
+                        ],
+                        [
                             "\\1#\\1",
                             "\\1#\\1",
                             "\\1#\\1",
                             "\\1#\\1"
-                        )
-                    ),
+                        ]
+                    ],
                 "/^style/i" =>
-                    array(
-                        array(
+                    [
+                        [
                             "/expression/i",
                             "/binding/i",
                             "/behaviou*r/i",
@@ -818,8 +818,8 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
                             '/url\s*\(\s*([\'"])\s*mocha\s*:.*([\'"])\s*\)/si',
                             '/url\s*\(\s*([\'"])\s*about\s*:.*([\'"])\s*\)/si',
                             '/(.*)\s*:\s*url\s*\(\s*([\'"]*)\s*\S+script\s*:.*([\'"]*)\s*\)/si'
-                        ),
-                        array(
+                        ],
+                        [
                             "idiocy",
                             "idiocy",
                             "idiocy",
@@ -831,10 +831,10 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
                             "url(\\1#\\1)",
                             "url(\\1#\\1)",
                             "\\1:url(\\2#\\3)"
-                        )
-                    )
-            )
-    );
+                        ]
+                    ]
+            ]
+    ];
 
     if ($block_external_images) {
         array_push(
@@ -855,10 +855,10 @@ function HTMLFilter($body, $trans_image_path, $block_external_images = false)
         );
     }
 
-    $add_attr_to_tag = array(
+    $add_attr_to_tag = [
         "/^a$/i" =>
-            array('target' => '"_blank"')
-    );
+            ['target' => '"_blank"']
+    ];
 
     $trusted = tln_sanitize(
         $body,

@@ -91,7 +91,7 @@ class Profile {
             $idp = $idp_object;
             $this->institution = $idp->identifier;
         }
-        $temparray = array();
+        $temparray = [];
         $optioninstance = Options::instance();
         $this->identifier = $p_id;
 
@@ -111,14 +111,14 @@ class Profile {
             $optinfo = $optioninstance->optionType($a->option_name);
             $lang = "";
             if ($optinfo['type'] != "file") {
-                $temparray[] = array(
+                $temparray[] = [
                     "name" => $a->option_name,
                     "value" => $a->option_value,
                     "level" => ($a->device_id == NULL && $a->method == 0 ? "Profile" : "Method" ),
                     "row" => $a->row,
                     "device" => $a->device_id,
                     "flag" => $optinfo['flag'],
-                    "eapmethod" => EAP::EAPMethodArrayFromId($a->method));
+                    "eapmethod" => EAP::EAPMethodArrayFromId($a->method)];
             } else {
                 // suppress E_NOTICE on the following... we are testing *if*
                 // we have a serialized value - so not having one is fine and
@@ -133,14 +133,14 @@ class Profile {
 
                 $content = base64_decode($content);
 
-                $temparray[] = array(
+                $temparray[] = [
                     "name" => $a->option_name,
-                    "value" => ( $lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))),
+                    "value" => ( $lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])),
                     "level" => ($a->device_id == NULL && $a->method == 0 ? "Profile" : "Method" ),
                     "row" => $a->row,
                     "flag" => $optinfo['flag'],
                     "device" => $a->device_id,
-                    "eapmethod" => EAP::EAPMethodArrayFromId($a->method));
+                    "eapmethod" => EAP::EAPMethodArrayFromId($a->method)];
             }
 
             /*
@@ -154,47 +154,47 @@ class Profile {
         }
         // add internal attributes
 
-        $temparray[] = array("name" => "internal:profile_count",
+        $temparray[] = ["name" => "internal:profile_count",
             "value" => $idp->profileCount(),
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
             "device" => NULL,
-            "eapmethod" => NULL);
+            "eapmethod" => NULL];
         // strip local@ off of the realm value
         $strippedrealm = preg_replace('/^.*@/', '', $this->realm);
-        $temparray[] = array("name" => "internal:realm",
+        $temparray[] = ["name" => "internal:realm",
             "value" => $strippedrealm,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
             "device" => NULL,
-            "eapmethod" => NULL);
+            "eapmethod" => NULL];
         // FALSE or TRUE
-        $temparray[] = array("name" => "internal:use_anon_outer",
+        $temparray[] = ["name" => "internal:use_anon_outer",
             "value" => $this->use_anon_outer,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
             "device" => NULL,
-            "eapmethod" => NULL);
+            "eapmethod" => NULL];
         // the local part, if set (otherwise use default value)
         if (preg_match('/@/', $this->realm)) {
-            $temparray[] = array("name" => "internal:anon_local_value",
+            $temparray[] = ["name" => "internal:anon_local_value",
                 "value" => substr($this->realm, 0, strpos($this->realm, '@')),
                 "level" => "Profile",
                 "row" => 0,
                 "flag" => NULL,
                 "device" => NULL,
-                "eapmethod" => NULL);
+                "eapmethod" => NULL];
         } else {
-            $temparray[] = array("name" => "internal:anon_local_value",
+            $temparray[] = ["name" => "internal:anon_local_value",
                 "value" => "anonymous",
                 "level" => "Profile",
                 "row" => 0,
                 "flag" => NULL,
                 "device" => NULL,
-                "eapmethod" => NULL);
+                "eapmethod" => NULL];
         }
 
         // now, fetch IdP-wide attributes
@@ -202,7 +202,7 @@ class Profile {
         $idpoptions = $idp->getAttributes();
 
         foreach ($idpoptions as $the_attr)
-            $temparray[] = array(
+            $temparray[] = [
                 "name" => $the_attr["name"],
                 "value" => $the_attr["value"],
                 "level" => $the_attr["level"],
@@ -210,9 +210,9 @@ class Profile {
                 "flag" => $the_attr["flag"],
                 "device" => NULL,
                 "eapmethod" => NULL,
-            );
+            ];
 
-        $this->priv_attributes = array();
+        $this->priv_attributes = [];
 
         // check sanity (device and eapmethod are mutually exclusive) and first batch of adding (method level)
 
@@ -257,7 +257,7 @@ class Profile {
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
-        $returnarray = array();
+        $returnarray = [];
         while ($eap = (mysqli_fetch_object($eap_m))) {
             $eaptype = EAP::EAPMethodArrayFromId($eap->eap_method_id);
             $returnarray[] = $eaptype;
@@ -305,7 +305,7 @@ class Profile {
             if ($lc = mysqli_fetch_object($exec_update)->last_change) {
                 if ($lc < $cache->tm) {
                     debug(4, "Installer cached:$cache->download_path\n");
-                    return(array('cache'=>$cache->download_path,'mime'=>$cache->mime));
+                    return(['cache'=>$cache->download_path,'mime'=>$cache->mime]);
                 }
                 else
                     return NULL;
@@ -353,7 +353,7 @@ class Profile {
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
     public function getUserDownloadStats($device = 0) {
-        $returnarray = array();
+        $returnarray = [];
         $numbers_q = DBConnection::exec(Profile::$DB_TYPE, "SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
         while ($a = mysqli_fetch_object($numbers_q))
             $returnarray[$a->device_id] = $a->downloads_user;
@@ -364,7 +364,7 @@ class Profile {
                 return 0;
         }
         // we should pretty-print the device names
-        $finalarray = array();
+        $finalarray = [];
         $devlist = Devices::listDevices();
         foreach ($returnarray as $dev_id => $count)
             if (isset($devlist[$dev_id]))
@@ -390,7 +390,7 @@ class Profile {
         DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM profile_option WHERE profile_id = $this->identifier $devicetext AND eap_method_id = $eap_type_id AND option_name NOT LIKE '%_file'");
         $this->updateFreshness();
         $exec_q = DBConnection::exec(Profile::$DB_TYPE, "SELECT row FROM profile_option WHERE profile_id = $this->identifier $devicetext AND eap_method_id = $eap_type_id");
-        $return_array = array();
+        $return_array = [];
         while ($a = mysqli_fetch_object($exec_q))
             $return_array[$a->row] = "KILLME";
         return $return_array;
@@ -487,7 +487,7 @@ class Profile {
      * @return array list of EAP methods, (in "array" OUTER/INNER representation)
      */
     public function getEapMethodsinOrderOfPreference($complete_only = 0) {
-        $temparray = array();
+        $temparray = [];
 
         if ($complete_only == 0) {
             return $this->priv_eaptypes;
@@ -508,8 +508,8 @@ class Profile {
      */
     public function getAttributes($option_name = 0, $eapmethod = 0, $device = 0) {
 
-        $outarray = array();
-        $temparray = array();
+        $outarray = [];
+        $temparray = [];
         if ($eapmethod) {
             foreach ($this->priv_attributes as $the_attr) 
                 if ($the_attr["eapmethod"] == $eapmethod)
@@ -546,7 +546,7 @@ class Profile {
      * @return mixed TRUE if the EAP type is complete; an array of missing attribues if it's incomplete; FALSE if it's incomplete for other reasons
      */
     public function isEapTypeDefinitionComplete($eaptype) {
-        $missing = array();
+        $missing = [];
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         if ($eaptype["OUTER"] == PEAP || $eaptype["OUTER"] == TLS || $eaptype["OUTER"] == TTLS || $eaptype["OUTER"] == FAST) {
 
@@ -594,14 +594,14 @@ class Profile {
             $locale = $this->lang_index;
         $redirect_url = 0;
         $message = 0;
-        $returnarray = array();
+        $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect", 0, 0);
         if ($redirect) {
             $v = unserialize($redirect[0]['value']);
-            return array(array('id' => '0', 'redirect' => $v['content']));
+            return [['id' => '0', 'redirect' => $v['content']]];
         }
         $preferred_eap = $this->getEapMethodsinOrderOfPreference(1);
-        $EAP_options = array();
+        $EAP_options = [];
         foreach (Devices::listDevices() as $d => $D) {
             $factory = new DeviceFactory($d);
             $dev = $factory->device;
@@ -630,7 +630,7 @@ class Profile {
                    }
                }
             }
-            $returnarray[] = array('id' => $d, 'display' => $D['display'], 'status' => $dev_status, 'redirect' => $redirect_url, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext, 'message' => $message, 'options'=>$D['options']);
+            $returnarray[] = ['id' => $d, 'display' => $D['display'], 'status' => $dev_status, 'redirect' => $redirect_url, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext, 'message' => $message, 'options'=>$D['options']];
         }
         return $returnarray;
     }
@@ -646,7 +646,7 @@ class Profile {
      */
     public function getCollapsedAttributes($eap = 0) {
         $attr = $this->getAttributes(0, $eap);
-        $temp1 = array();
+        $temp1 = [];
         foreach ($attr as $b) {
             $name = $b['name'];
             $temp1[] = $name;
@@ -654,17 +654,17 @@ class Profile {
 //            $S[$l] = $z[$l];
             $value = $b['value'];
             if (!isset($temp[$name][$level]))
-                $temp[$name][$level] = array();
+                $temp[$name][$level] = [];
             if ($b['flag'] == 'ML') {
                 $v = unserialize($value);
-                $value = array($v['lang'] => $v['content']);
+                $value = [$v['lang'] => $v['content']];
             }
             $temp[$name][$level][] = $value;
             $flags[$name] = $b['flag'];
         }
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
-                $S = array();
+                $S = [];
                 if (isset($temp[$name]['Profile'])) {
                     foreach ($temp[$name]['Profile'] as $z)
                         foreach ($z as $l => $w)

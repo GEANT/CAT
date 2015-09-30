@@ -66,61 +66,61 @@ class EAP {
      *
      * @var array of EAP type IDs that describe PEAP-MSCHAPv2
      */
-    public static $PEAP_MSCHAP2 = array("OUTER" => PEAP, "INNER" => MSCHAP2);
+    public static $PEAP_MSCHAP2 = ["OUTER" => PEAP, "INNER" => MSCHAP2];
 
     /**
      * EAP-TLS: Outer EAP Type = 13, no inner EAP
      *
      * @var array of EAP type IDs that describe EAP-TLS
      */
-    public static $TLS = array("OUTER" => TLS, "INNER" => NONE);
+    public static $TLS = ["OUTER" => TLS, "INNER" => NONE];
 
     /**
      * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
      * 
      * @var array of EAP type IDs that describe TTLS-PAP
      */
-    public static $TTLS_PAP = array("OUTER" => TTLS, "INNER" => NONE);
+    public static $TTLS_PAP = ["OUTER" => TTLS, "INNER" => NONE];
 
     /**
      * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
      * 
      * @var array of EAP type IDs that describe TTLS-MSCHAPv2
      */
-    public static $TTLS_MSCHAP2 = array("OUTER" => TTLS, "INNER" => MSCHAP2);
+    public static $TTLS_MSCHAP2 = ["OUTER" => TTLS, "INNER" => MSCHAP2];
 
     /**
      * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
      * 
      * @var array of EAP type IDs that describe TTLS-GTC
      */
-    public static $TTLS_GTC = array("OUTER" => TTLS, "INNER" => GTC);
+    public static $TTLS_GTC = ["OUTER" => TTLS, "INNER" => GTC];
 
     /**
      * EAP-FAST (GTC): Outer EAP type = 43, Inner EAP Type = 6
      * 
      * @var array of EAP type IDs that describe EAP-FAST (GTC)
      */
-    public static $FAST_GTC = array("OUTER" => FAST, "INNER" => GTC);
+    public static $FAST_GTC = ["OUTER" => FAST, "INNER" => GTC];
 
     /**
      * PWD: Outer EAP type = 52, no inner EAP
      * 
      * @var array of EAP type IDs that describe EAP-PWD
      */
-    public static $PWD = array("OUTER" => PWD, "INNER" => NONE);
+    public static $PWD = ["OUTER" => PWD, "INNER" => NONE];
 
     /**
      * NULL: no outer EAP, no inner EAP
      * 
      * @var array of EAP type IDs that describes the NULL EAP Method
      */
-    public static $EAP_NONE = array("OUTER" => NONE, "INNER" => NONE);
+    public static $EAP_NONE = ["OUTER" => NONE, "INNER" => NONE];
 
     /**
      *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
      */
-    public static $EAP_ANY = array("OUTER" => 255, "INNER" => 255);
+    public static $EAP_ANY = ["OUTER" => 255, "INNER" => 255];
     
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
@@ -129,21 +129,21 @@ class EAP {
      * @return array EAP method in array representation (OUTER as string/INNER as string)
      */
     public static function eapDisplayName($eap) {
-        $EAP_DISPLAY_NAME = array();
-        $EAP_DISPLAY_NAME[serialize(EAP::$PEAP_MSCHAP2)] = array("OUTER" => 'PEAP', "INNER" => 'MSCHAPV2');
-        $EAP_DISPLAY_NAME[serialize(EAP::$TLS)] = array("OUTER" => 'TLS', "INNER" => '');
-        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_PAP)] = array("OUTER" => 'TTLS', "INNER" => 'PAP');
-        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_MSCHAP2)] = array("OUTER" => 'TTLS', "INNER" => 'MSCHAPV2');
-        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_GTC)] = array("OUTER" => 'TTLS', "INNER" => 'GTC');
-        $EAP_DISPLAY_NAME[serialize(EAP::$FAST_GTC)] = array("OUTER" => 'FAST', "INNER" => 'GTC');
-        $EAP_DISPLAY_NAME[serialize(EAP::$PWD)] = array("OUTER" => 'PWD', "INNER" => '');
-        $EAP_DISPLAY_NAME[serialize(EAP::$EAP_NONE)] = array("OUTER" => '', "INNER" => '');
-        $EAP_DISPLAY_NAME[serialize(EAP::$EAP_ANY)] = array("OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC');
+        $EAP_DISPLAY_NAME = [];
+        $EAP_DISPLAY_NAME[serialize(EAP::$PEAP_MSCHAP2)] = ["OUTER" => 'PEAP', "INNER" => 'MSCHAPV2'];
+        $EAP_DISPLAY_NAME[serialize(EAP::$TLS)] = ["OUTER" => 'TLS', "INNER" => ''];
+        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_PAP)] = ["OUTER" => 'TTLS', "INNER" => 'PAP'];
+        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_MSCHAP2)] = ["OUTER" => 'TTLS', "INNER" => 'MSCHAPV2'];
+        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_GTC)] = ["OUTER" => 'TTLS', "INNER" => 'GTC'];
+        $EAP_DISPLAY_NAME[serialize(EAP::$FAST_GTC)] = ["OUTER" => 'FAST', "INNER" => 'GTC'];
+        $EAP_DISPLAY_NAME[serialize(EAP::$PWD)] = ["OUTER" => 'PWD', "INNER" => ''];
+        $EAP_DISPLAY_NAME[serialize(EAP::$EAP_NONE)] = ["OUTER" => '', "INNER" => ''];
+        $EAP_DISPLAY_NAME[serialize(EAP::$EAP_ANY)] = ["OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC'];
         return($EAP_DISPLAY_NAME[serialize($eap)]);
     }
 
     public static function innerAuth($eap) {
-        $out = array();
+        $out = [];
         if ($eap["INNER"]) {
             $out['EAP'] = 1;
             $out['METHOD'] = $eap["INNER"];
@@ -163,7 +163,7 @@ class EAP {
      * @return array of all EAP types the CAT knows about
      */
     public static function listKnownEAPTypes() {
-        $returnarray = array();
+        $returnarray = [];
         $returnarray[] = EAP::$FAST_GTC;
         $returnarray[] = EAP::$PEAP_MSCHAP2;
         $returnarray[] = EAP::$PWD;

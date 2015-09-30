@@ -76,14 +76,14 @@ class Options {
      *  Option class constructor; retrieves information about the known options from the database.
      */
     private function __construct() {
-        $this->type_db = array();
+        $this->type_db = [];
         debug(3,"--- BEGIN constructing Options instance ---\n");
         $options = DBConnection::exec(Options::$DB_TYPE, "SELECT name,type,flag from profile_option_dict ORDER BY name");
         while($a = mysqli_fetch_object($options))
-            $this->type_db[$a->name]       = array ("type" => $a->type, "flag" => $a->flag);
-        $this->type_db["general:logo_url"] = array ("type" => "string", "flag" => NULL);
-        $this->type_db["eap:ca_url"]       = array ("type" => "string", "flag" => NULL);
-        $this->type_db["internal:country"] = array ("type" => "string", "flag" => NULL);
+            $this->type_db[$a->name]       =  ["type" => $a->type, "flag" => $a->flag];
+        $this->type_db["general:logo_url"] =  ["type" => "string", "flag" => NULL];
+        $this->type_db["eap:ca_url"]       =  ["type" => "string", "flag" => NULL];
+        $this->type_db["internal:country"] =  ["type" => "string", "flag" => NULL];
 
         debug(3,"--- END constructing Options instance ---\n");
     }
@@ -98,7 +98,7 @@ class Options {
      * @return array of options
      */
     public function availableOptions($class_name = 0) {
-        $temporary_array = array();
+        $temporary_array = [];
         debug(3,"CLASSNAME IS $class_name\n");
         
         foreach (array_keys($this->type_db) as $name) {

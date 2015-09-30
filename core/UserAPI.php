@@ -56,7 +56,7 @@ class UserAPI extends CAT {
     $Config = $Dev[$device];
     debug(4,"installer:$device:$prof_id\n");
     $profile = new Profile($prof_id);
-    $a = array();
+    $a = [];
     $a['profile'] = $prof_id;
     $a['device'] = $device;
     if( (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache'] ) || ( isset($Config['options']['no_cache']) && $Config['options']['no_cache'] ))
@@ -101,7 +101,7 @@ class UserAPI extends CAT {
   */
  public function listDevices($show_hidden = 0) {
     $Dev = Devices::listDevices();
-    $R = array();
+    $R = [];
     $ct = 0;
     if($show_hidden !== 0 && $show_hidden != 1)
       return;
@@ -112,7 +112,7 @@ class UserAPI extends CAT {
       $D['id'] = $device;
       $group = isset($D['group']) ? $D['group'] : 'other';
       if (! isset($R[$group]))
-         $R[$group] = array();
+         $R[$group] = [];
       $R[$group][$device] = $D;
     }
    return $R;
@@ -148,7 +148,7 @@ class UserAPI extends CAT {
     $this->set_locale("devices");
       $profile = new Profile($prof_id);
       $attr = $profile->getCollapsedAttributes();
-      $a = array();
+      $a = [];
       if(isset($attr['support:email']))
          $a['local_email'] = $attr['support:email'][0];
       if(isset($attr['support:phone']))
@@ -187,7 +187,7 @@ private function GetRootURL() {
 /* JSON functions */
 
   public function return_json($data,$status=1) {
-     $return_array = array();
+     $return_array = [];
      $return_array['status'] = $status;
      $return_array['data'] = $data;
      $return_array['tou'] =  "Please consult Terms of Use at: ".$this->GetRootURL()."/tou.php";
@@ -200,9 +200,9 @@ private function GetRootURL() {
   * 
   */
   public function JSON_listLanguages() {
-     $return_array = array();
+     $return_array = [];
      foreach(Config::$LANGUAGES as $id => $val)
-       $return_array[] = array('id'=>$id,'display'=>$val['display'],'locale'=>$val['locale']);
+       $return_array[] = ['id'=>$id,'display'=>$val['display'],'locale'=>$val['locale']];
      echo $this->return_json($return_array);
   }
 
@@ -214,9 +214,9 @@ private function GetRootURL() {
 
   public function JSON_listCountries() {
      $FED = $this->printCountryList(1);
-     $return_array = array();
+     $return_array = [];
      foreach ($FED as $id => $val)
-       $return_array[] = array('id'=>$id,'display'=>$val);
+       $return_array[] = ['id'=>$id,'display'=>$val];
      echo $this->return_json($return_array);
   }
 
@@ -229,9 +229,9 @@ private function GetRootURL() {
 
   public function JSON_listIdentityProviders($country) {
      $idps = Federation::listAllIdentityProviders(1,$country);
-     $return_array = array();
+     $return_array = [];
      foreach ($idps as $idp) {
-        $return_array[] = array('id'=>$idp['entityID'],'display'=>$idp['title']);
+        $return_array[] = ['id'=>$idp['entityID'],'display'=>$idp['title']];
      }
      echo $this->return_json($return_array);
   }
@@ -245,7 +245,7 @@ private function GetRootURL() {
 
   public function JSON_listIdentityProvidersForDisco() {
      $idps = Federation::listAllIdentityProviders(1);
-     $return_array = array();
+     $return_array = [];
      foreach ($idps as $idp) {
         $idp['id'] = $idp['entityID'];
         $return_array[] = $idp;
@@ -265,9 +265,9 @@ private function GetRootURL() {
 
   public function JSON_orderIdentityProviders($country) {
      $idps = $this->orderIdentityProviders($country);
-     $return_array = array();
+     $return_array = [];
      foreach ($idps as $idp) {
-        $return_array[] = array('id'=>$idp['id'],'display'=>$idp['title']);
+        $return_array[] = ['id'=>$idp['id'],'display'=>$idp['title']];
      }
      echo $this->return_json($return_array);
   }
@@ -280,7 +280,7 @@ private function GetRootURL() {
  */
   public function JSON_listProfiles($idp_id,$sort = 0) {
      $this->set_locale("web_user");
-     $return_array = array();
+     $return_array = [];
      try {     
          $idp = new IdP($idp_id);
      }
@@ -296,7 +296,7 @@ private function GetRootURL() {
      if($sort == 1)
         usort($profiles,"profile_sort");
      foreach ($profiles as $P) {
-       $return_array[] = array('id'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l); 
+       $return_array[] = ['id'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l]; 
      }
      echo $this->return_json($return_array);
   }
@@ -309,7 +309,7 @@ private function GetRootURL() {
  */
   public function JSON_listDevices($profile_id) {
      $this->set_locale("web_user");
-     $return_array = array();
+     $return_array = [];
      $a = $this->profileAttributes($profile_id);
      $thedevices = $a['devices'];
      if(!isset($profile_redirect) || ! $profile_redirect) {
@@ -322,7 +322,7 @@ private function GetRootURL() {
                   $profile_redirect = 1;
                   $disp = $c;
               }
-             $return_array[] = array('id'=>$D['id'], 'display'=>$disp, 'status'=>$D['status'], 'redirect'=>$D['redirect']);
+             $return_array[] = ['id'=>$D['id'], 'display'=>$disp, 'status'=>$D['status'], 'redirect'=>$D['redirect']];
          }
 
   }
@@ -424,15 +424,15 @@ private function GetRootURL() {
    $host = $_SERVER['REMOTE_ADDR'];
    $record = geoip_record_by_name($host);
    if($record) {
-     $result = array('status' => 'ok');
+     $result = ['status' => 'ok'];
      $result['country'] = $record['country_code'];
 //  the two lines below are a dirty hack to take of the error in naming the UK federation
      if($result['country'] == 'GB')
          $result['country'] = 'UK';
      $result['region'] = $record['region'];
-     $result['geo'] = array('lat' => (float)$record['latitude'] , 'lon' => (float)$record['longitude']);
+     $result['geo'] = ['lat' => (float)$record['latitude'] , 'lon' => (float)$record['longitude']];
    } else {
-     $result = array('status' => 'error', 'error' =>'Problem listing countries'); 
+     $result = ['status' => 'error', 'error' =>'Problem listing countries']; 
    }
    return($result);
  }
@@ -479,10 +479,10 @@ public function orderIdentityProviders($country) {
   if($U['status'] == 'ok') {
   $L = $U['geo'];
   } else {
-    $L = array('lat'=>"90",'lon'=>"0");
+    $L = ['lat'=>"90",'lon'=>"0"];
   }
-  $T=array();
-  $R=array();
+  $T=[];
+  $R=[];
      foreach ($idps as $idp) {
         $T[$idp['entityID']] = $idp['title'];
         $dist = 10000;
@@ -507,7 +507,7 @@ public function orderIdentityProviders($country) {
      }
      asort($R);
      foreach (array_keys($R) as $r)
-      $outarray[] = array('id'=>$r, 'title'=>$T[$r]);
+      $outarray[] = ['id'=>$r, 'title'=>$T[$r]];
      return($outarray);
 }
 
@@ -524,7 +524,7 @@ public function detectOS() {
    if( isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
       $dev_id = $_REQUEST['device'];
       $device = $Dev[$dev_id];
-      return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));
+      return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
    }
    $browser = $_SERVER['HTTP_USER_AGENT'];
    debug(4,"HTTP_USER_AGENT=$browser\n");
@@ -534,7 +534,7 @@ public function detectOS() {
      if(preg_match('/'.$device['match'].'/',$browser)) {
        if(!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
           debug(4,"Browser_id: $dev_id\n");
-          return(array('id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']));
+          return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
        }
        else {
          debug(2, "Unrecognised system: ".$_SERVER['HTTP_USER_AGENT']."\n");

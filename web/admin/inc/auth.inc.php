@@ -64,11 +64,11 @@ function deauthenticate() {
     else
         $url = "http://" . $url;
 
-    $as->logout(array(
+    $as->logout([
         'ReturnTo' => $url,
         'ReturnStateParam' => 'LogoutState',
         'ReturnStateStage' => 'MyLogoutState',
-    ));
+    ]);
 }
 
 ?>

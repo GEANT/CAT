@@ -60,15 +60,15 @@ public function writeInstaller() {
 // TODO
 //ID attribute
 //lang attribute
-    $authmethods = array();
+    $authmethods = [];
     if($this->all_eaps) {
-      $EAPs = array();
+      $EAPs = [];
       foreach ($attr['all_eaps'] as $eap) {
          if(in_array($eap, $this->supportedEapMethods))
             $EAPs[] = $eap;
       }
     } else
-      $EAPs = array( $this->selected_eap);
+      $EAPs = [ $this->selected_eap];
 
     foreach ($EAPs as $eap) {
        $authmethods[] = $this->getAuthMethod($eap);
@@ -104,14 +104,14 @@ public function writeInstaller() {
     return($this->installerBasename.'.eap-config');
 }
 
-private $AttributeNames = array (
+private $AttributeNames =  [
    'support:email' => 'EmailAddress',
    'support:url'   => 'WebAddress',
    'support:phone' => 'Phone',
    'profile:description' => 'Description',
    'support:info_file' => 'TermsOfUse',
    'general:logo_file' => 'ProviderLogo',
-);
+];
 
 private function getSimpleAttribute($attr_name) {
    if(isset($this->attributes[$attr_name][0]) && $this->attributes[$attr_name][0]) {
@@ -137,13 +137,13 @@ private function getSimpleMLAttribute($attr_name) {
          return;
       }
       $class_name = $this->AttributeNames[$attr_name];
-      $objs = array();
+      $objs = [];
       if($this->lang_scope === 'global') {
          foreach( $a['langs'] as $l => $v ) {
             $l = ( $l === 'C' ? 'any' : $l );
             $obj = new $class_name();
             $obj->setValue($v);
-            $obj->setAttributes(array('lang' => $l));
+            $obj->setAttributes(['lang' => $l]);
             $objs[] = $obj;
          }
        } else {
@@ -159,7 +159,7 @@ private function getSimpleMLAttribute($attr_name) {
 
 private function getDisplayName() {
    $attr = $this->attributes;
-   $objs = array();
+   $objs = [];
    if($this->lang_scope === 'global') {
       $I = $attr['general:instname']['langs'];
       if($attr['internal:profile_count'][0] > 1)
@@ -172,7 +172,7 @@ private function getDisplayName() {
           $v .= ' - '. $p;
         }
         $displayname->setValue($v);
-        $displayname->setAttributes(array('lang' => $l));
+        $displayname->setAttributes(['lang' => $l]);
         $objs[] = $displayname;
       }
    } else {
@@ -192,7 +192,7 @@ private function getProviderLogo() {
       $logo_string = base64_encode($attr['general:logo_file'][0]);
       $logo_mime = 'image/'.$attr['internal:logo_file'][0]['mime'];
       $providerlogo = new ProviderLogo();
-      $providerlogo->setAttributes(array('mime'=>$logo_mime, 'encoding'=>'base64'));
+      $providerlogo->setAttributes(['mime'=>$logo_mime, 'encoding'=>'base64']);
       $providerlogo->setValue($logo_string);
       return $providerlogo;
   }
@@ -214,7 +214,7 @@ private function getProvideLocation() {
    if(isset($attr['general:geo_coordinates'])){
       $at = $attr['general:geo_coordinates'];
       if (count($at) > 1) {
-          $at1 = array();
+          $at1 = [];
           foreach ($at as $a) {
                $providerlocation = new ProviderLocation();
                $b = unserialize($a);
@@ -245,7 +245,7 @@ private function getHelpdesk() {
 private function getCompatibleUses() {
    $SSIDs = $this->attributes['internal:SSID'];
    $compatibleuses = new CompatibleUses();
-   $ieee80211s = array();
+   $ieee80211s = [];
    foreach ($SSIDs as $ssid => $ciph) {
       $ieee80211 = new IEEE80211();
       $ieee80211->setProperty('SSID',$ssid);
@@ -269,9 +269,9 @@ private function getAuthenticationMethodParams($eap) {
       $eaptype->setValue($inner['METHOD']); 
       $eapmethod->setProperty('Type',$eaptype);
       $innerauthmethod->setProperty($class_name,$eapmethod);
-      return array('inner_method'=>$innerauthmethod,'methodID'=> $outer_id, 'inner_methodID'=>$inner['METHOD']);
+      return ['inner_method'=>$innerauthmethod,'methodID'=> $outer_id, 'inner_methodID'=>$inner['METHOD']];
    } else
-   return array('inner_method'=>0,'methodID'=>$outer_id, 'inner_methodID'=>0);
+   return ['inner_method'=>0,'methodID'=>$outer_id, 'inner_methodID'=>0];
 }
 
 private function getAuthMethod($eap) {
@@ -283,12 +283,12 @@ private function getAuthMethod($eap) {
    $eaptype->setValue($eapParams['methodID']);
    $eapmethod->setProperty('Type',$eaptype);
    if(isset($this->VendorSpecific)) {
-     $vendorspecifics = array();
+     $vendorspecifics = [];
      foreach($this->VendorSpecific as $vs) {
         $vendorspecific = new VendorSpecific();
         $vs['value']->addAttribute('xsi:noNamespaceSchemaLocation',"xxx.xsd");
         $vendorspecific->setValue($vs['value']);
-        $vendorspecific->setAttributes(array('vendor'=>$vs['vendor']));
+        $vendorspecific->setAttributes(['vendor'=>$vs['vendor']]);
         $vendorspecifics[] = $vendorspecific;
      }
      $eapmethod->setProperty('VendorSpecific',$vendorspecifics);
@@ -300,16 +300,16 @@ private function getAuthMethod($eap) {
 
 // Certificates and server names
 
-   $CAs = array();
+   $CAs = [];
    $cas = $attr['internal:CAs'][0];
    foreach ($cas as $ca) {
       $CA = new CA();
       $CA->setValue(base64_encode($ca['der']));
-      $CA->setAttributes(array('format'=>'X.509', 'encoding'=>'base64'));
+      $CA->setAttributes(['format'=>'X.509', 'encoding'=>'base64']);
       $CAs[] = $CA;
    }
 
-   $serverids = array();
+   $serverids = [];
    $servers = $attr['eap:server_name'];
    foreach ($servers as $server) {
       $serverid = new ServerID();

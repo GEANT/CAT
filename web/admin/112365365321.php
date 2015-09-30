@@ -121,13 +121,13 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                         error("unable to create temporary directory (eap test): $tmp_dir\n");
                     } else {
                       chdir($tmp_dir);
-                      $NSIS_Modules = array(
+                      $NSIS_Modules = [
                          "NSISArray.nsh",
                          "FileFunc.nsh",
                          "ZipDLL.nsh",
-                      );
+                      ];
                       $exe= '/tt.exe';
-                      $NSIS_Module_status = array();
+                      $NSIS_Module_status = [];
                       foreach ($NSIS_Modules as $module) {
                          unset($out);
                          exec("makensis -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
@@ -214,7 +214,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                     $defaultvalues .="DB/INST ";
                 if (Config::$DB['INST']['user'] == "db.host.example")
                     $defaultvalues .="DB/USER ";
-                $files = array();
+                $files = [];
                 foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $cadata) {
                     foreach ($cadata['certificates'] as $cert_files) {
                         $files[] = $cert_files['public'];
@@ -252,7 +252,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                         $tm = time();
                         $i = 0;
 
-                        $Cache = array();
+                        $Cache = [];
                         $result = DBConnection::exec("INST", "SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
                         while ($r = mysqli_fetch_row($result)) {
                             $e = explode('/', $r[0]);

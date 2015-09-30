@@ -78,10 +78,10 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         else
             $profile_name = $this->attributes['profile:name'][0];
 
-        $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $inst_name))), ENT_XML1, 'UTF-8');
-        $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $profile_name))), ENT_XML1, 'UTF-8');
-        $this->massaged_country = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
-        $this->massaged_consortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(array('/ /', '/\//'), '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
+        $this->massaged_inst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $inst_name))), ENT_XML1, 'UTF-8');
+        $this->massaged_profile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $profile_name))), ENT_XML1, 'UTF-8');
+        $this->massaged_country = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
+        $this->massaged_consortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
 
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
@@ -184,7 +184,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
     static private $IPHONE_PAYLOAD_PREFIX = "org.1x-config";
 
     private function list_ca_uuids($ca_array) {
-        $retval = array();
+        $retval = [];
         foreach ($ca_array as $ca)
             $retval[] = $ca['uuid'];
         return $retval;

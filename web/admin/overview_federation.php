@@ -104,7 +104,7 @@ $user = new User($_SESSION['user']);
 
             $idps = $thefed->listIdentityProviders();
 
-            $my_idps = array();
+            $my_idps = [];
             foreach ($idps as $index => $idp) {
                 $my_idps[$idp['entityID']] = strtolower($idp['title']);
             }

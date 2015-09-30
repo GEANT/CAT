@@ -88,7 +88,7 @@ switch($sanitised_action) {
             if (!preg_match("/^general:/",$optname) && !preg_match("/^support:/",$optname) && !preg_match("/^eap:/",$optname))
                 unset($_POST['option'][$optindex]);
         // now process all inst-wide options    
-        processSubmittedFields($idp, Array(),0,0,TRUE);
+        processSubmittedFields($idp, [],0,0,TRUE);
         $_POST = $original_post;
         // same thing for profile options
         foreach ($_POST['option'] as $optindex => $optname)
@@ -97,7 +97,7 @@ switch($sanitised_action) {
         // if we do have profile-level options - create a profile and fill in the values!
         if (count($_POST['option']) > 0) {
             $newprofile = $idp->newProfile();
-            processSubmittedFields($newprofile, Array(), 0, 0, TRUE);
+            processSubmittedFields($newprofile, [], 0, 0, TRUE);
             $_POST = $original_post;
             // sift through the options to find API ones (these are not caught by pSF() )
             $therealm = "";

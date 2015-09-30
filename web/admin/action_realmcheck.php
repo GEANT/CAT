@@ -46,7 +46,7 @@ if ($my_profile != NULL) {
 
 $translate = _("STATIC");
 $translate = _("DYNAMIC");
-$errorstate = array();
+$errorstate = [];
 ?>
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
 
@@ -571,7 +571,7 @@ print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
                   echo "<div id='dynamic_tests'><fieldset class='option_container'>
                 <legend><strong>" . _("DYNAMIC connectivity tests") . "</strong></legend>";
 
-                  $resultstoprint = array();
+                  $resultstoprint = [];
                   if (count($testsuite->NAPTR_hostname_records)>0) {
                       $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' .  UI_message(L_ERROR,_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(L_OK,_("All tests passed, congratulations!")) . '</table>';
                       $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
@@ -593,7 +593,7 @@ print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
 </table>";
                           $resultstoprint[] = '</li></ul>';
                      }    
-                     $clientstest = array();
+                     $clientstest = [];
                      foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
                           //$clientsres = $testsuite->TLS_client_side_tests();
                           if ($addr['family'] == 'IPv6') {

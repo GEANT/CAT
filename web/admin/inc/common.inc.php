@@ -31,7 +31,7 @@ define("BUTTON_FLUSH_AND_RESTART", 7);
 $global_location_count = 0;
 
 function display_name($input) {
-    $DisplayNames = array(_("Support: Web") => "support:url",
+    $DisplayNames = [_("Support: Web") => "support:url",
         _("Support: EAP Types") => "support:eap_types",
         _("Support: Phone") => "support:phone",
         _("Support: E-Mail") => "support:email",
@@ -63,7 +63,7 @@ function display_name($input) {
         _("FAST-GTC") => EAP::$FAST_GTC,
         _("EAP-pwd") => EAP::$PWD,
         _("Remove/Disable SSID") => "media:remove_SSID",
-    );
+    ];
 
     if (count(Config::$CONSORTIUM['ssid']) > 0) {
         $DisplayNames[_("Additional SSID")] = "media:SSID";
@@ -87,7 +87,7 @@ function display_name($input) {
 }
 
 function tooltip($input) {
-    $descriptions = array();
+    $descriptions = [];
     if (count(Config::$CONSORTIUM['ssid']) > 0)
         $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'])] = "media:SSID";
 
@@ -102,12 +102,12 @@ function tooltip($input) {
 
 function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
 
-    $UI_messages = array(
-        L_OK => array('icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")),
-        L_REMARK => array('icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")),
-        L_WARN => array('icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")),
-        L_ERROR => array('icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")),
-    );
+    $UI_messages = [
+        L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
+        L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
+        L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
+        L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
+    ];
 
     $retval = "";
     if (!$omittabletags)
@@ -265,7 +265,7 @@ function getBlobFromDB($ref, $checkpublic) {
             session_start();
         $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
 
-        $owners_condensed = array();
+        $owners_condensed = [];
         
         if ($owners !== FALSE) { // see if we're authenticated and owners of the data
             foreach ($owners as $oneowner)
@@ -335,7 +335,7 @@ function previewInfoFileinHTML($file_reference) {
 
 function infoblock($optionlist, $class, $level) {
 // echo "<pre>".print_r($optionlist)."</pre>";
-    $google_markers = array();
+    $google_markers = [];
     $retval = "";
     $optioninfo = Options::instance();
 

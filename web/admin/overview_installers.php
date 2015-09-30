@@ -59,7 +59,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
         // rows are known devices
 
         $devices = Devices::listDevices();
-        $footnotes = array();
+        $footnotes = [];
         $num_footnotes = 0;
 
         foreach ($devices as $index => $description) {

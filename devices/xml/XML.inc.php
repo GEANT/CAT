@@ -34,25 +34,25 @@ class XMLElement {
  *  @var array of XLM element names which are allowed
  *  EAP method names are defined in core/EAP.php
  */
-  public static $AuthMethodElements = array (
-     'server' => array(
-        TLS => array('CA', 'ServerID'),
-        FAST => array('CA','ServerID'),
-        PEAP => array('CA','ServerID'),
-        TTLS => array('CA','ServerID'),
-        PWD => array(),
-     ),
-     'client' => array(
-       TLS => array('UserName','Password','ClientCertificate'), 
-       MSCHAP2 => array('UserName','Password','OuterIdentity'), 
-       GTC => array('UserName','OneTimeToken'), 
-       NE_PAP => array('UserName','Password','OuterIdentity'), 
-     )
-  );
+  public static $AuthMethodElements =  [
+     'server' => [
+        TLS => ['CA', 'ServerID'],
+        FAST => ['CA','ServerID'],
+        PEAP => ['CA','ServerID'],
+        TTLS => ['CA','ServerID'],
+        PWD => [],
+     ],
+     'client' => [
+       TLS => ['UserName','Password','ClientCertificate'], 
+       MSCHAP2 => ['UserName','Password','OuterIdentity'], 
+       GTC => ['UserName','OneTimeToken'], 
+       NE_PAP => ['UserName','Password','OuterIdentity'], 
+     ]
+  ];
 
   public function __construct() {
-    $this->attributes = array();
-    $this->value = array();
+    $this->attributes = [];
+    $this->value = [];
   }
   public function setAttributes($attributes) {
     $this->attributes = $attributes;
@@ -71,7 +71,7 @@ class XMLElement {
   }
   public function setAttribute($attribute,$value) {
     if( ! isset($this->attributes))
-       $this->attributes = array();
+       $this->attributes = [];
     $this->attributes[$attribute] = $value;
   }
   public function setProperty($property,$value) {
@@ -79,7 +79,7 @@ class XMLElement {
   }
   public function getAll() {
     $elems = get_object_vars($this);
-    $objvars = array();
+    $objvars = [];
     foreach ($elems as $key=>$val) 
       if ( ($key!='attributes') && ($key!='value') ) 
         $objvars[$key] = $val;
@@ -132,7 +132,7 @@ class ServerSideCredential extends XMLElement {
     if(isset(XMLElement::$AuthMethodElements['server'][$this->EAPType]) && XMLElement::$AuthMethodElements['server'][$this->EAPType]) {
     $E = XMLElement::$AuthMethodElements['server'][$this->EAPType];
     $out = get_object_vars($this);
-    $OUT = array();
+    $OUT = [];
     foreach ($out as $o => $v) {
        if(in_array($o, $E)) 
          $OUT[$o] = $v;
@@ -157,7 +157,7 @@ class ClientSideCredential extends XMLElement {
     if(isset(XMLElement::$AuthMethodElements['client'][$this->EAPType]) && XMLElement::$AuthMethodElements['client'][$this->EAPType]) {
     $E = XMLElement::$AuthMethodElements['client'][$this->EAPType];
     $out = get_object_vars($this);
-    $OUT = array();
+    $OUT = [];
 debug(4,"EEE:".$this->EAPType.":\n");
 debug(4,$E);
     foreach ($out as $o => $v) {

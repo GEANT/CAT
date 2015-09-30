@@ -37,7 +37,7 @@ class Device_mobileconfig_ios extends mobileconfig_superclass {
      */
     // public static $my_eap_methods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$FAST_GTC);
     final public function __construct() {
-        $this->supportedEapMethods = array(EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2);
+        $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2];
         debug(4, "This device supports the following EAP methods: ");
         debug(4, $this->supportedEapMethods);
     }

@@ -143,8 +143,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $use_anon = FALSE;
     $realm = "";
     $prefill_name = "";
-    $prefill_methods = array();
-    $profile_options = array();
+    $prefill_methods = [];
+    $profile_options = [];
     $blacklisted = FALSE;
 }
 
@@ -220,7 +220,7 @@ $idpoptions = $my_inst->getAttributes();
 
         <table id="expandable_profile_options">
             <?php
-            $prepopulate = array();
+            $prepopulate = [];
             if ($edit_mode) {
                 $existing_attribs = $my_profile->getAttributes();
 
@@ -318,7 +318,7 @@ $idpoptions = $my_inst->getAttributes();
         function inherited_options($idpwideoptions, $eap_type, $is_visible) {
             echo "<td><div style='" . (!$is_visible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eap_type-inherited-global'>";
 
-            $eapoptions = array();
+            $eapoptions = [];
 
             foreach ($idpwideoptions as $option)
                 if ($option['level'] == "IdP" && preg_match('/^eap/', $option['name']))
@@ -364,7 +364,7 @@ $idpoptions = $my_inst->getAttributes();
                     <td id="supported_eap">
                         <ol id="sortable1" class="eapmethods">
                             <?php
-                            $D = array();
+                            $D = [];
                             foreach ($prefill_methods as $prio => $value) {
                                 print '<li>' . display_name($value) . "</li>\n";
                                 $D[display_name($value)] = $prio;
@@ -412,7 +412,7 @@ $idpoptions = $my_inst->getAttributes();
         <p>
             <?php
             $idp_options = $my_inst->getAttributes();
-            $has_support_options = array();
+            $has_support_options = [];
             foreach ($idp_options as $idp_option)
                 if (preg_match("/^support:/", $idp_option['name']))
                     $has_support_options[$idp_option['name']] = "SET";
@@ -427,7 +427,7 @@ $idpoptions = $my_inst->getAttributes();
         </p>
         <table id="expandable_support_options">
             <?php
-            $prepopulate = array();
+            $prepopulate = [];
             if ($edit_mode) {
                 $existing_attribs = $my_profile->getAttributes();
                 foreach ($existing_attribs as $existing_attribute)
@@ -443,7 +443,7 @@ $idpoptions = $my_inst->getAttributes();
         <legend><strong><?php echo _("EAP Details for this profile"); ?></strong></legend>
         <p>
             <?php
-            $has_eap_options = array();
+            $has_eap_options = [];
             foreach ($idp_options as $idp_option)
                 if (preg_match("/^eap:/", $idp_option['name']))
                     $has_eap_options[$idp_option['name']] = "SET";
@@ -458,7 +458,7 @@ $idpoptions = $my_inst->getAttributes();
         </p>
         <table id="expandable_eapserver_options">
             <?php
-            $prepopulate = array();
+            $prepopulate = [];
             if ($edit_mode) {
                 $existing_attribs = $my_profile->getAttributes();
                 foreach ($existing_attribs as $existing_attribute)

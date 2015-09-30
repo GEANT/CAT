@@ -137,7 +137,7 @@ class DBConnection {
      */
     public static function isDataRestricted($table, $row) {
             if ($table != "institution_option" && $table != "profile_option")
-            return array(); // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+            return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
             switch ($table) {
             case "profile_option":            
                 $blob_query = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
@@ -165,7 +165,7 @@ class DBConnection {
                 }
                 break;
             default:
-            return array(); // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+            return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
             }
             
     }

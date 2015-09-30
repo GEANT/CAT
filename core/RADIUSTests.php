@@ -235,7 +235,7 @@ class RADIUSTests {
 
     /**
      */
-    public $TLS_certkeys = array();
+    public $TLS_certkeys = [];
 
     /**
      * Constructor for the EAPTests class. The single mandatory parameter is the
@@ -246,17 +246,17 @@ class RADIUSTests {
      */
     public function __construct($realm, $profile_id = 0) {
         $this->realm = $realm;
-        $this->UDP_reachability_result = array();
-        $this->TLS_CA_checks_result = array();
-        $this->TLS_clients_checks_result = array();
+        $this->UDP_reachability_result = [];
+        $this->TLS_CA_checks_result = [];
+        $this->TLS_clients_checks_result = [];
         $this->NAPTR_executed = FALSE;
         $this->NAPTR_compliance_executed = FALSE;
         $this->NAPTR_SRV_executed = FALSE;
         $this->NAPTR_hostname_executed = FALSE;
-        $this->NAPTR_records = array();
-        $this->NAPTR_SRV_records = array();
-        $this->NAPTR_hostname_records = array();
-        $this->TLS_certkeys = array(
+        $this->NAPTR_records = [];
+        $this->NAPTR_SRV_records = [];
+        $this->NAPTR_hostname_records = [];
+        $this->TLS_certkeys = [
             'eduPKI' => _('eduPKI'),
             'NCU' => _('Nicolaus Copernicus University'),
             'ACCREDITED' => _('accredited'),
@@ -268,8 +268,8 @@ class RADIUSTests {
             'PASS' => _('pass'),
             'FAIL' => _('fail'),
             'non-eduPKI-accredited' => _("eduroam-accredited CA (now only for tests)"),
-        );
-        $this->errorlist = array();
+        ];
+        $this->errorlist = [];
         $this->initialise_errors();
         if ($profile_id !== 0)
             $this->profile = new Profile($profile_id);
@@ -296,7 +296,7 @@ class RADIUSTests {
 
         $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
         if ($NAPTRs !== FALSE && count($NAPTRs) > 0) {
-            $NAPTRs_consortium = array();
+            $NAPTRs_consortium = [];
             foreach ($NAPTRs as $naptr) {
                 if ($naptr["services"] == Config::$RADIUSTESTS['TLS-discoverytag'])
                     $NAPTRs_consortium[] = $naptr;
@@ -340,17 +340,17 @@ class RADIUSTests {
             $this->NAPTR_compliance_executed = RETVAL_OK;
             return RETVAL_OK;
         }
-        $format_errors = array();
+        $format_errors = [];
         // format of NAPTRs is consortium specific. eduroam below; others need
         // their own code
         if (Config::$CONSORTIUM['name'] == "eduroam") { // SW: APPROVED
             foreach ($this->NAPTR_records as $edupointer) {
                 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S")
-                    $format_errors[] = array("TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']);
+                    $format_errors[] = ["TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']];
                 // no regex
                 if ($edupointer["regex"] != "")
-                    $format_errors[] = array("TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']);
+                    $format_errors[] = ["TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']];
             }
         }
         if (count($format_errors) > 0) {
@@ -366,7 +366,7 @@ class RADIUSTests {
 // generic return codes
     function initialise_errors() {
         $oldlocale = CAT::set_locale('core');
-        $this->return_codes = array();
+        $this->return_codes = [];
         /**
          * Test was executed and the result was as expected.
          */
@@ -663,16 +663,16 @@ class RADIUSTests {
             return RETVAL_SKIPPED;
         }
 
-        $SRV_errors = array();
-        $SRV_targets = array();
+        $SRV_errors = [];
+        $SRV_targets = [];
 
         foreach ($this->NAPTR_records as $edupointer) {
             $temp_result = dns_get_record($edupointer["replacement"], DNS_SRV);
             if ($temp_result === FALSE || count($temp_result) == 0) {
-                $SRV_errors[] = array("TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']);
+                $SRV_errors[] = ["TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']];
             } else
                 foreach ($temp_result as $res)
-                    $SRV_targets[] = array("hostname" => $res["target"], "port" => $res["port"]);
+                    $SRV_targets[] = ["hostname" => $res["target"], "port" => $res["port"]];
         }
         $this->NAPTR_SRV_records = $SRV_targets;
         if (count($SRV_errors) > 0) {
@@ -698,21 +698,21 @@ class RADIUSTests {
         // a working subset of hosts anyway. We should continue checking all 
         // dicovered names.
 
-        $ip_addresses = array();
-        $resolution_errors = array();
+        $ip_addresses = [];
+        $resolution_errors = [];
 
         foreach ($this->NAPTR_SRV_records as $server) {
             $host_resolution_6 = dns_get_record($server["hostname"], DNS_AAAA);
             $host_resolution_4 = dns_get_record($server["hostname"], DNS_A);
             $host_resolution = array_merge($host_resolution_6, $host_resolution_4);
             if ($host_resolution === FALSE || count($host_resolution) == 0) {
-                $resolution_errors[] = array("TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']);
+                $resolution_errors[] = ["TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']];
             } else
                 foreach ($host_resolution as $address)
                     if (isset($address["ip"]))
-                        $ip_addresses[] = array("family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => "");
+                        $ip_addresses[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
                     else
-                        $ip_addresses[] = array("family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => "");
+                        $ip_addresses[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
         }
 
         $this->NAPTR_hostname_records = $ip_addresses;
@@ -751,15 +751,15 @@ class RADIUSTests {
         // check for wildcards
 
         if (isset($servercert['full_details']['subject']['CN']))
-            $CN = array($servercert['full_details']['subject']['CN']);
+            $CN = [$servercert['full_details']['subject']['CN']];
         else
-            $CN = array("");
+            $CN = [""];
         if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName']))
             $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
         else
-            $sAN_list = array();
+            $sAN_list = [];
 
-        $sAN_DNS = array();
+        $sAN_DNS = [];
         foreach ($sAN_list as $san_name)
             if (preg_match("/^DNS:/", $san_name))
                 $sAN_DNS[] = substr($san_name, 4);
@@ -787,7 +787,7 @@ class RADIUSTests {
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_intermediate(&$intermediate_ca,$server_cert=FALSE) {
-        $returnarray = Array();
+        $returnarray = [];
         if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
         }
@@ -840,11 +840,11 @@ class RADIUSTests {
     }
 
     private function add_cert_crl(&$cert) {
-        $crl_url = array();
+        $crl_url = [];
         $returnresult = 0;
         if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
             $returnresult = CERTPROB_NO_CDP;
-        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(array("\r", "\n"), ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
+        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crl_url)) {
             $returnresult = CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
             $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
@@ -855,7 +855,7 @@ class RADIUSTests {
                 $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
                 $crlcontent = "-----BEGIN X509 CRL-----\n".$pem."-----END X509 CRL-----\n";
             }
-            $cert['CRL'] = array();
+            $cert['CRL'] = [];
             $cert['CRL'][] = $crlcontent;
         }
         return $returnresult;
@@ -878,7 +878,7 @@ class RADIUSTests {
     }
 
     private function filter_packettype($inputarray) {
-        $retarray = array();
+        $retarray = [];
         foreach ($inputarray as $line) {
             if (preg_match("/RADIUS message:/", $line)) {
                 $linecomponents = explode(" ", $line);
@@ -1017,10 +1017,10 @@ network={
         fwrite($wpa_supplicant_config, $config);
         fclose($wpa_supplicant_config);
 
-        $testresults = array();
-        $testresults['cert_oddities'] = array();
-        $packetflow_orig = array();
-        $packetflow = array();
+        $testresults = [];
+        $testresults['cert_oddities'] = [];
+        $packetflow_orig = [];
+        $packetflow = [];
         $cmdline = Config::$PATHS['eapol_test'] .
                 " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
@@ -1123,7 +1123,7 @@ network={
             // Write the root CAs into a trusted root CA dir
             // and intermediate and first server cert into a PEM file
             // for later chain validation
-            $CRLs = array(); // if one is missing, set to FALSE
+            $CRLs = []; // if one is missing, set to FALSE
 
             $server_file = fopen($tmp_dir . "/incomingserver.pem", "w");
 
@@ -1137,8 +1137,8 @@ network={
                 exit;
             }
 
-            $eap_intermediate_oddities = array();
-            $testresults['certdata']=array();
+            $eap_intermediate_oddities = [];
+            $testresults['certdata']=[];
             
             foreach ($eap_certarray as $cert_pem) {
                 $cert = $x509->processCertificate($cert_pem);
@@ -1195,7 +1195,7 @@ network={
             // check intermediate ca cert properties
             // check trust chain for completeness
             // works only for thorough checks, not shallow, so:
-            $cat_intermediate_oddities = array();
+            $cat_intermediate_oddities = [];
             $verify_result = 0;
             if ($this->profile) {
                 $number_configured_roots = 0;
@@ -1252,7 +1252,7 @@ network={
                 system(Config::$PATHS['c_rehash'] . " $tmp_dir/root-ca-allcerts/ > /dev/null");
 
                 // ... and run the verification test
-                $verify_result_eaponly = Array();
+                $verify_result_eaponly = [];
                 // the error log will complain if we run this test against an empty file of certs
                 // so test if there's something PEMy in the file at all
                 if (filesize("$tmp_dir/incomingserver.pem") > 10) {
@@ -1314,7 +1314,7 @@ network={
                 // FAIL if none of the configured names show up in the server cert
                 // WARN if the configured name is only in either CN or sAN:DNS
                 $confnames = $my_profile->getAttributes("eap:server_name");
-                $expected_names = array();
+                $expected_names = [];
                 foreach ($confnames as $tuple)
                     $expected_names[] = $tuple['value'];
 
@@ -1385,7 +1385,7 @@ debug(4,"\nEND\n");
      * @return array of OIDs
      */
     function property_check_policy($cert) {
-        $oids = array();
+        $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
             foreach (Config::$RADIUSTESTS['TLS-acceptableOIDs'] as $key => $oid)
                 if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies']))
@@ -1530,7 +1530,7 @@ debug(4,"\nEND\n");
         if (preg_match("/\[/", $host))
             return RETVAL_INVALID;
         if (!isset($this->TLS_CA_checks_result[$host]))
-            $this->TLS_CA_checks_result[$host] = array();
+            $this->TLS_CA_checks_result[$host] = [];
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
         fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
         $res = $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
@@ -1559,7 +1559,7 @@ debug(4,"\nEND\n");
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
                     $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
                     if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]))
-                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = array();
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                     $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
                     $res = $this->openssl_result($host, 'clients', $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
                     if ($cert['expected'] == 'PASS') {

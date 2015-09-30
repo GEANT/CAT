@@ -26,7 +26,7 @@ require_once('WindowsCommon.php');
  */
 class Device_W8 extends WindowsCommon {
     final public function __construct() {
-      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$PWD);
+      $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$PWD];
 #      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
@@ -44,7 +44,7 @@ class Device_W8 extends WindowsCommon {
      $this->prepareInstallerLang();
      $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
-     $delProfiles = array();
+     $delProfiles = [];
      foreach ($delSSIDs as $ssid => $cipher) {
          if($cipher == 'DEL')
           $delProfiles[] = $ssid;
@@ -54,7 +54,7 @@ class Device_W8 extends WindowsCommon {
 
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap ==  EAP::$TTLS_PAP || $this->selected_eap == EAP::$TTLS_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
-       $WindowsProfile = array();
+       $WindowsProfile = [];
        $eap_config = $this->prepareEapConfig($this->attributes);
        $i = 0;
        foreach ($SSIDs as $ssid => $cipher) {
@@ -294,7 +294,7 @@ $profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisionin
 }
 
 $profile_file_contents_end = '</EapHostConfig></EAPConfig>';
-$return_array = array();
+$return_array = [];
 $return_array['w8'] = $profile_file_contents.$w8_ext.$profile_file_contents_end;
 return $return_array;
 }
@@ -388,12 +388,12 @@ private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
 $fcontents = "!define W8\n";
 
-$EAP_OPTS = array(
-PEAP=>array('str'=>'PEAP','exec'=>'user'),
-TLS=>array('str'=>'TLS','exec'=>'user'),
-TTLS=>array('str'=>'TTLS','exec'=>'user'),
-PWD=>array('str'=>'PWD','exec'=>'admin'),
-);
+$EAP_OPTS = [
+PEAP=>['str'=>'PEAP','exec'=>'user'],
+TLS=>['str'=>'TLS','exec'=>'user'],
+TTLS=>['str'=>'TTLS','exec'=>'user'],
+PWD=>['str'=>'PWD','exec'=>'admin'],
+];
  
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)
 // $fcontents .= "!define ALLOW_XP\n";

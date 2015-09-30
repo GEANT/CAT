@@ -63,7 +63,7 @@ abstract class DeviceConfig {
      */
 
       public function __construct() {
-      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
+      $this->supportedEapMethods  = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP];
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
     }
@@ -101,7 +101,7 @@ abstract class DeviceConfig {
        }
        // create temporary directory, its path will be saved in $this->FPATH;
        $this->createTemporaryDirectory();
-          $CAs = array();
+          $CAs = [];
        if(isset($this->attributes['eap:ca_file'])) {
        foreach ($this->attributes['eap:ca_file'] as $ca) {
           if($c = X509::processCertificate($ca))
@@ -294,7 +294,7 @@ abstract class DeviceConfig {
    final protected function saveCertificateFiles($format) {
      if($format == 'der' || $format == 'pam') {
        $i = 0;
-       $CA_files = array();
+       $CA_files = [];
        $ca_array = $this->attributes['internal:CAs'][0];
        if(! $ca_array)
          return(FALSE);
@@ -306,7 +306,7 @@ abstract class DeviceConfig {
          else
             fwrite($f,$CA['der']);
          fclose($f);
-         $C = array();
+         $C = [];
          $C['file'] = "cert-$i.crt";
          $C['sha1'] = $CA['sha1'];
          $C['md5'] = $CA['md5'];
@@ -362,8 +362,8 @@ abstract class DeviceConfig {
 
 
   private function getSSIDs() {
-    $S['add']=array();
-    $S['del']=array();
+    $S['add']=[];
+    $S['del']=[];
     if (isset(Config::$CONSORTIUM['ssid'])) {
        foreach (Config::$CONSORTIUM['ssid'] as $ssid) {
         if(isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] == TRUE)
@@ -394,7 +394,7 @@ abstract class DeviceConfig {
   }
 
   private function getConsortia() {
-      $OIs = array();
+      $OIs = [];
       $OIs = array_merge($OIs, Config::$CONSORTIUM['interworking-consortium-oi']);
       if (isset($this->attributes['media:consortium_OI']))
           foreach ($this->attributes['media:consortium_OI'] as $new_oi)
@@ -406,15 +406,15 @@ abstract class DeviceConfig {
    * An array with shorthand definitions for MIME types
    * @var array
    */
-  private $mime_extensions = array(
+  private $mime_extensions = [
      'text/plain' => 'txt',
      'text/rtf' => 'rtf',
      'application/pdf' =>'pdf',
-  );
+  ];
 
   private function saveLogoFile($Logos) {
     $i=0;
-    $returnarray= array();
+    $returnarray= [];
     foreach ($Logos as $blob) {
       $finfo = new finfo(FILEINFO_MIME_TYPE);
       $mime = $finfo->buffer($blob);
@@ -431,7 +431,7 @@ abstract class DeviceConfig {
       }
       fwrite($f,$blob);
       fclose($f);
-      $returnarray[]= array('name'=>$f_name,'mime'=>$ext);
+      $returnarray[]= ['name'=>$f_name,'mime'=>$ext];
       $i++;
     }
     return($returnarray);
@@ -447,7 +447,7 @@ abstract class DeviceConfig {
     if(! $f) die("problem opening the file\n");
     fwrite($f,$blob);
     fclose($f);
-    return(array('name'=>'local-info.'.$ext,'mime'=>$ext));
+    return(['name'=>'local-info.'.$ext,'mime'=>$ext]);
   }
 
   private function getProfileAttributes(Profile $profile) {
