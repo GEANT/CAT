@@ -267,7 +267,7 @@ public static function listDevices() {
     'module'=>'chromebook',
     'options'=>array(
        'mime'=>'application/x-onc',
-       'message'=>sprintf(_("This module is experimental.")),
+       'message'=>sprintf(_("After downloading the file, open the Chrome browser and browse to this URL: <a href='chrome://net-internals/#chromeos'>chrome://net-internals/#chromeos</a>. Then, use the 'Import ONC file' button. The import is silent; the new network definitions will be added to the preferred networks.")),
       ),
    ),
         
