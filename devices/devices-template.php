@@ -163,6 +163,21 @@ public static function listDevices() {
       ],
    ],
     
+
+ 'apple_el_cap'=>[
+    'group' => "apple",
+    'display'=>_("Apple OS X El Capitan"),
+    'match'=>'Mac OS X 10[._]11',
+    'directory'=>'apple_mobileconfig',
+    'module'=>'mobileconfig_os_x',
+    'signer'=>'mobileconfig_sign',
+    'options'=>array(
+       'sign'=>1,
+       'device_id'=>'OS_X',
+       'mime'=>'application/x-apple-aspen-config',
+      ),
+    ],
+
  'apple_yos'=>[
     'group' => "apple",
     'display'=>_("Apple OS X Yosemite"),
