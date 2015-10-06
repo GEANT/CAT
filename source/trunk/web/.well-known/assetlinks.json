@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "andoid_app",
+    "package_name": "uk.ac.swansea.eduroamcat",
+    "sha256_cert_fingerprints":
+    ["95:4C:F7:FA:F0:7E:5E:3A:AD:B9:5C:B9:79:10:32:96:DA:2A:A4:AB:3B:2B:5D:C3:CA:78:0B:53:66:54:65:EA"]
+  }
+}]
+
