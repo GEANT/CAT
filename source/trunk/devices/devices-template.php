@@ -286,6 +286,18 @@ public static function listDevices() {
       ],
    ],
         
+ 'android_marshmallow'=>[
+    'group' => "android",
+    'display'=>_("Android 6.0 Marshmallow"),
+     'match'=>'Android 6\.[0-9]',
+    'directory'=>'xml',
+    'module'=>'Lollipop',
+    'options'=>[
+       'mime'=>'application/eap-config',
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
+      ],
+   ],
+
  'android_lollipop'=>[
     'group' => "android",
     'display'=>_("Android 5.0 Lollipop"),
