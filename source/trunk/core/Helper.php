@@ -171,6 +171,20 @@ function getLocalisedValue($val_arr, $locale) {
     debug(4, "getLocalisedValue:$locale:$out\n");
     return $out;
 }
+/**
+ * create a temporary directory and return the location
+ * @return - the tupple full directory path, directory name
+ */
+function createTemporaryDirectory() {
+        $name = 'downloads'.'/'.md5(time().rand());
+        $tmp_dir = dirname(dirname(__FILE__)).'/web/'.$name;
+        debug(4,"temp dir: $tmp_dir\n");
+        if(! mkdir($tmp_dir,0700, true)) {
+          error("unable to create temporary directory: $tmp_dir\n");
+          exit;
+       }
+     return [dir=>$tmp_dir,'name'=>$name];
+}
 
 function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $inputgd = imagecreatefromstring($inputpngstring);
