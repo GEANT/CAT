@@ -255,7 +255,9 @@ class User {
         // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
-        
+        if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']))
+            $mail->sign(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']);
+
 
         $sent = $mail->send();
         

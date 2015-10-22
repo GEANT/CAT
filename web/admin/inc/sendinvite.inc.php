@@ -175,6 +175,9 @@ foreach ($recipients as $recipient)
 $mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), Config::$APPEARANCE['productname']);
 $mail->Body = $message;
 
+if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']))
+    $mail->sign(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']);
+
 $sent = $mail->send();
 
 // invalidate the token immediately if the mail could not be sent!
