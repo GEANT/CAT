@@ -74,6 +74,10 @@ class Config {
      *        - devices/ms/Files/eduroam_150.bmp
      *        - devices/ms/Files/eduroam32.ico
      * 
+     * certfilename, keyfilename, keypass: if you want to send S/MIME signed mails, just configure the signing cert
+     *                                     with these parameters. All must be non-NULL for signing to happen. If you
+     *                                     don't need a keypass, make it an empty string instead.
+     * 
      * @var array
      */
     public static $CONSORTIUM = [
@@ -90,6 +94,9 @@ class Config {
             // 'secretvalue' => 'UK',
             // 'othervalue' => 'DE',
         ],
+        'certfilename' => NULL,
+        'keyfilename' => NULL,
+        'keypass' => NULL,
     ];
 
     /**
@@ -274,7 +281,7 @@ class Config {
          * ### BEWARE: You need to write custom code for the mapping of CAT IDs to the external DB YOURSELF. ###
          * ### The functions where you need to add custom code are:
          * 
-         * Federation::listUnmappedExternalEntities();
+         * Federation::listExternalEntities();
          * Federation::getExternalDBEntityDetails($external_id);
          * IdP::getExternalDBSyncCandidates();
          * IdP::getExternalDBSyncState();
