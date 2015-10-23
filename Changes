@@ -1,5 +1,7 @@
 Changes in 1.1.2
 ================
+- [BUGFIX #1]  in radiust_tests translation of sme messages was not activated 
+               and they appeared in English
 
 Configuration parameter changes
 -------------------------------
