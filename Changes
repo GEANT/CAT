@@ -5,6 +5,7 @@ Changes in 1.1.2
 
 Configuration parameter changes
 -------------------------------
+[NEW]           Config::$APPEARANCE['admin-mail-text']
 
 Changes in 1.1.1
 ================
