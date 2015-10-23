@@ -15,6 +15,8 @@ require_once("inc/input_validation.inc.php");
 
 
 ini_set('display_errors', '0');
+$Cat = new CAT();
+$Cat->set_locale("web_admin");
 
 $additional_message =  [
    L_OK => '',
@@ -91,8 +93,6 @@ function process_result($testsuite,$host) {
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type'])
     exit;
 
-$Cat = new CAT();
-$Cat->set_locale("web_admin");
 $test_type = $_REQUEST['test_type']; 
 $check_realm = valid_Realm($_REQUEST['realm']); 
 if (isset($_REQUEST['profile_id'])) {
