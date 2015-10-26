@@ -19,6 +19,7 @@ require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 
 $cat = defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
+$check_thorough = FALSE;
 $error_message ='';
 $my_inst = valid_IdP($_REQUEST['inst_id'], $_SESSION['user']);
 
