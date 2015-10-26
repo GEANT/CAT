@@ -2,6 +2,8 @@ Changes in 1.1.2
 ================
 - [BUGFIX #1]  in radiust_tests translation of sme messages was not activated 
                and they appeared in English
+- [BUGFIX #2]  in Windows installers the profile name was not sent trough code page
+               conversion (reported by Daniele Albrizio)
 
 Configuration parameter changes
 -------------------------------
