@@ -4,12 +4,11 @@ Core
 ----
 ? Windows modules - NEA
   (nobody seems to demand support for this)
-? easy re-branding for deployment (colours, logo)
-  (low priority: only relevant for non-eduroam uses of CAT)
-! redo the downloads approach: move the downloads form the web server documents tree;
-      implement an approach where only the final installer is left on the file system and
-      all temporary files are deleted; provide an interface for crontab for cleanup
-      wchich would consist of deleting obsolete directories and directories not used for a long time
+! redo the downloads approach: move the downloads from the web server documents 
+  tree; implement an approach where only the final installer is left on the file
+  system and all temporary files are deleted; provide an interface for crontab
+  for cleanup which would consist of deleting obsolete directories and 
+  directories not used for a long time
 
 Admin Interface
 ---------------
@@ -17,6 +16,7 @@ Admin Interface
   * custom texts in invitations etc.
   * "default CA" as template for new insts?
   * federation logo to embed in installers?
+! Media section should be overridable on profile level (esp. for wired support)
 
 User Interface
 --------------
