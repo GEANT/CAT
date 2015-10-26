@@ -474,7 +474,7 @@ debug(4,$eap);
 $fcontents .= '!define '.$eap_str;
 $fcontents .= "\n".'!define EXECLEVEL "'.$exec_level.'"';
 if($attr['internal:profile_count'][0] > 1)
-$fcontents .= "\n".'!define USER_GROUP "'.str_replace('"','$\\"',$attr['profile:name'][0]).'"';
+$fcontents .= "\n".'!define USER_GROUP "'.$this->translateString(str_replace('"','$\\"',$attr['profile:name'][0]), $this->code_page).'"';
 $fcontents .= '
 Caption "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),Config::$CONSORTIUM['name'],$attr['general:instname'][0]), $this->code_page).'"
 !define APPLICATION "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),Config::$CONSORTIUM['name'],$attr['general:instname'][0]), $this->code_page).'"
