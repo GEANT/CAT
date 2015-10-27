@@ -183,7 +183,7 @@ function createTemporaryDirectory() {
           error("unable to create temporary directory: $tmp_dir\n");
           exit;
        }
-     return [dir=>$tmp_dir,'name'=>$name];
+     return ['dir'=>$tmp_dir,'name'=>$name];
 }
 
 function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
