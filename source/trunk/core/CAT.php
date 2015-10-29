@@ -32,6 +32,22 @@ require_once("Federation.php");
  */
 class CAT {
 
+    /** 
+     * which version is this?
+     */
+    // please keep the newline. sed finds this string and replaces it during
+    // "make distribution"
+    
+    public static $VERSION = 
+"UNRELEASED";
+    /**
+     * even if we are unreleased, keep track of internal version-to-be
+     * developers need to set this in code. The user-displayed string
+     * is handled by Makefile, above.
+     */
+    private static $VERSION_MAJOR = 1;
+    private static $VERSION_MINOR = 2;
+    private static $VERSION_PATCH = 0;
    /**
      * database which this class queries by default
      * 
@@ -51,6 +67,7 @@ class CAT {
         self::$root = dirname($a);
 
         debug(4, "CAT:" . self::$lang_index);
+
     }
 
     /** 
