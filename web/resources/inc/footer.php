@@ -8,6 +8,7 @@
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
+require_once("CAT.php");
 
 function footer() {
     echo "</div><!-- trick -->
@@ -17,11 +18,10 @@ function footer() {
           <table style='width:100%'>
             <tr>
                 <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>";
-// this variable gets set during "make distribution" only
-    $RELEASE = "THERELEASE";
+
     echo Config::$APPEARANCE['productname'] . " - ";
-    if ($RELEASE != "THERELEASE")
-        echo sprintf(_("Release %s"), $RELEASE);
+    if (CAT::$VERSION != "UNRELEASED")
+        echo sprintf(_("Release %s"), CAT::$VERSION);
     else {
         echo _("Unreleased SVN Revision");
     }

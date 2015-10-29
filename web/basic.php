@@ -444,11 +444,9 @@ if($Gui->page == 0) {
         <div class='footer'><hr />
 <?php
 print('<a href="tou.php">'._("Terms of use")."</a><p>");
-// this variable gets set during "make distribution" only
-$RELEASE = "THERELEASE";
 echo "".Config::$APPEARANCE['productname']." - ";
-if ($RELEASE != "THERELEASE") 
-    echo sprintf(_("Release %s"), $RELEASE);
+if (CAT::$VERSION != "UNRELEASED") 
+    echo sprintf(_("Release %s"), CAT::$VERSION);
 else
     echo _("Unreleased SVN Revision");
 echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a></div>";?>
