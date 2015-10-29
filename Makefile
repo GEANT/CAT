@@ -39,8 +39,5 @@ translation:
 
 distribution: all
 	find . -name \*.po~ -exec rm {} \;
-	mv  core/CAT.php core/CAT_orig.php
-	cat core/CAT_orig.php | sed s/'"UNRELEASED"'/'"$(VERSION)"'/ > core/CAT.php
-	rm  core/CAT_orig.php
 	rm -R -f NewFolder nbproject config/config.php devices/devices.php generic-data*
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .

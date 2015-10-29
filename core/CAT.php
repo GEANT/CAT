@@ -34,20 +34,23 @@ class CAT {
 
     /** 
      * which version is this?
-     */
-    // please keep the newline. sed finds this string and replaces it during
-    // "make distribution"
-    
-    public static $VERSION = 
-"UNRELEASED";
-    /**
      * even if we are unreleased, keep track of internal version-to-be
      * developers need to set this in code. The user-displayed string
-     * is handled by Makefile, above.
+     * is generated into $VERSION below
      */
-    private static $VERSION_MAJOR = 1;
-    private static $VERSION_MINOR = 2;
-    private static $VERSION_PATCH = 0;
+    public static $VERSION_MAJOR = 1;
+    public static $VERSION_MINOR = 2;
+    public static $VERSION_PATCH = 0;
+    public static $VERSION_EXTRA = "";
+    public static $RELEASE_VERSION = FALSE;
+    
+    /*
+     * This is the user-displayed string; controlled by the four options above
+     * It is generated in the constructor.
+     */
+    
+    public static $VERSION;
+    /**
    /**
      * database which this class queries by default
      * 
@@ -68,6 +71,10 @@ class CAT {
 
         debug(4, "CAT:" . self::$lang_index);
 
+        if ($this->RELEASE_VERSION)
+            $this->VERSION = sprintf(_("Release %s"), " CAT-".$this->VERSION_MAJOR.".".$this->VERSION_MINOR.".".$this->VERSION_PATCH."-".$this->VERSION_EXTRA);
+        else
+            $this->VERSION = _("Unreleased SVN Revision");
     }
 
     /** 
