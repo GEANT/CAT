@@ -180,7 +180,7 @@ private function GetRootURL() {
     if ($out == '/')
       $out = '';
     $s = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'https' : 'http';
-    $s .= '//:'.$_SERVER['HTTP_HOST'] . $out;
+    $s .= '://'.$_SERVER['HTTP_HOST'] . $out;
     return $s;
 }
 
