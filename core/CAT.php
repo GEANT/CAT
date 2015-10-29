@@ -71,8 +71,14 @@ class CAT {
 
         debug(4, "CAT:" . self::$lang_index);
 
-        if ($this->RELEASE_VERSION)
-            $this->VERSION = sprintf(_("Release %s"), " CAT-".$this->VERSION_MAJOR.".".$this->VERSION_MINOR.".".$this->VERSION_PATCH."-".$this->VERSION_EXTRA);
+        if ($this->RELEASE_VERSION) {
+            $temp_version = "CAT-".$this->VERSION_MAJOR.".".$this->VERSION_MINOR;
+            if ($this->VERSION_PATCH != 0)
+                    $temp_version .= ".".$this->VERSION_PATCH;
+            if ($this->VERSION_EXTRA != "")
+                $temp_version .= "-".$this->VERSION_EXTRA;
+            $this->VERSION = sprintf(_("Release %s"), $temp_version );
+        }
         else
             $this->VERSION = _("Unreleased SVN Revision");
     }
