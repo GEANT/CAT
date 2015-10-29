@@ -62,6 +62,20 @@ button.delete {
     background: maroon;
 }
 
+.problemdescription {
+    padding-left:40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: lightyellow;
+}
+
+.problemsolution {
+    padding-left:40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: lightgreen;
+}
+
 .use_borders button.alertButton {
     color: maroon; 
     background: #bbb; 

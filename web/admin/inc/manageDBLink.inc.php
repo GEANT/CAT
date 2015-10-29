@@ -25,8 +25,8 @@ header("Content-Type:text/html;charset=utf-8");
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || Config::$DB['enforce-external-sync'] == FALSE )
-        header("Location: ../overview_federation.php");
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || Config::$DB['enforce-external-sync'] == FALSE)
+    header("Location: ../overview_federation.php");
 
 // if not, must operate on a proper IdP
 $my_inst = valid_IdP($_GET['inst_id']);
@@ -132,36 +132,13 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         }
         // we might have been wrong in our guess...
         $fed = new Federation(strtoupper($my_inst->federation));
-        $unmappedentities = $fed->listUnmappedExternalEntities();
+        $unmappedentities = $fed->listExternalEntities(TRUE);
         // only display the "other" options if there is at least one
         $buffer = "";
-        $idparray = [];
 
-        // preferred lang first
-        foreach ($unmappedentities as $entity)
-            if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang']) && $entity['lang'] == CAT::$lang_index) {
-                $idparray[$entity['ID']] = $entity['name'];
-                $temparray[] = $entity['ID'];
-            }
-        // English second
-        foreach ($unmappedentities as $entity)
-            if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang']) && $entity['lang'] == "en") {
-                  $idparray[$entity['ID']] = $entity['name'];
-                $temparray[] = $entity['ID'];
-            }
-        // any other language last
-        foreach ($unmappedentities as $entity)
-            if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang'])) {
-                $idparray[$entity['ID']] = $entity['name'];
-                $temparray[] = $entity['ID'];
-            }
-            $current_locale = setlocale(LC_ALL,0);
-            setlocale(LC_ALL,Config::$LANGUAGES[CAT::$lang_index]['locale']);
-            asort($idparray,SORT_LOCALE_STRING);
-            setlocale(LC_ALL,$current_locale);
-            foreach ($idparray as $id => $v) {
-               $buffer .= "<option value='" . $id . "'>[ID " . $id . "] " . $v . "</option>";
-            }
+        foreach ($unmappedentities as $v) {
+            $buffer .= "<option value='" . $v['ID'] . "'>[ID " . $v['ID'] . "] " . $v['name'] . "</option>";
+        }
 
         if ($buffer != "") {
             echo "<tr><td><input type='radio' name='inst_link' id='radio-inst-other' value='other'>Other:</input></td>";
@@ -191,5 +168,6 @@ if (count($pending_invites) > 0) {
 <br/>
 <hr/>
 <form action='inc/manageDBLink.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>' onclick='removeMsgbox(); return false'><?php echo _("Close"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>' onclick='removeMsgbox();
+            return false'><?php echo _("Close"); ?></button>
 </form>

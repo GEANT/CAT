@@ -71,36 +71,11 @@ if (Config::$DB['enforce-external-sync']) {
             foreach ($feds as $fed_value) {
                 $thefed = new Federation(strtoupper($fed_value['value']));
                 $temparray = [];
-                $idparray = [];
                 $contacts = [];
-                $entities = $thefed->listUnmappedExternalEntities();
-                // lets see if we have inst names in the current language
-                foreach ($entities as $entity)
-                    if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang']) && $entity['lang'] == CAT::$lang_index) {
-                        $idparray[$entity['ID']] = $entity['name'];
-                        $contacts[$entity['ID']] = $entity['contactlist'];
-                        $temparray[] = $entity['ID'];
-                    }
-                // now add the remaining in English language
-                foreach ($entities as $entity)
-                    if (array_search($entity['ID'], $temparray) === FALSE && isset($entity['lang']) && $entity['lang'] == "en") {
-                        $idparray[$entity['ID']] = $entity['name'];
-                        $contacts[$entity['ID']] = $entity['contactlist'];
-                        $temparray[] = $entity['ID'];
-                    }
-                // if there are still entries remaining, pick any language we find
-                foreach ($entities as $entity)
-                    if (array_search($entity['ID'], $temparray) === FALSE) {
-                        $idparray[$entity['ID']] = $entity['name'];
-                        $contacts[$entity['ID']] = $entity['contactlist'];
-                        $temparray[] = $entity['ID'];
-                    }
-            $current_locale = setlocale(LC_ALL,0);
-            setlocale(LC_ALL,Config::$LANGUAGES[CAT::$lang_index]['locale']);
-            asort($idparray,SORT_LOCALE_STRING);
-            setlocale(LC_ALL,$current_locale);
-            foreach ($idparray as $id => $v) {
-                echo "<option id='".$contacts[$id]."' value='" . $id . "'>[" . $fed_value['value'] . "] " . $v . "</option>";
+                $entities = $thefed->listExternalEntities(TRUE);
+
+                foreach ($entities as $v) {
+                echo "<option id='".$v['contactlist']."' value='" . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
             }
             }
 
