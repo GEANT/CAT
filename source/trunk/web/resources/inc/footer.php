@@ -19,12 +19,7 @@ function footer() {
             <tr>
                 <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>";
 
-    echo Config::$APPEARANCE['productname'] . " - ";
-    if (CAT::$VERSION != "UNRELEASED")
-        echo sprintf(_("Release %s"), CAT::$VERSION);
-    else {
-        echo _("Unreleased SVN Revision");
-    }
+    echo Config::$APPEARANCE['productname'] . " - " . CAT::$VERSION;
 
     echo "&nbsp;&copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
     echo "</td>
