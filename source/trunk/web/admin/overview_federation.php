@@ -56,6 +56,24 @@ $user = new User($_SESSION['user']);
         exit(0);
     }
 
+    $feds = $user->getAttributes("user:fedadmin");
+    foreach ($feds as $onefed) {
+        $thefed = new Federation(strtoupper($onefed['value']));
+
+        echo "<div class='infobox'><h2>";
+        echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->identifier));
+        echo "</h2>";
+        echo "<table>";
+        // idp stats
+        echo "<tr><th style='text-align:left;'>" . _("IdPs Total") . "</th><th colspan='2'>" . _("Public Download") . "</th></tr>";
+        echo "<tr><td>" . count($thefed->listIdentityProviders(0)) . "</td><td colspan='2'>" . count($thefed->listIdentityProviders(1)) . "</td></tr>";
+        // download stats
+        echo "<tr><th style='text-align:left;'>" . _("Downloads") . "</th><th style='text-align:left;'>" . _("Admin") . "</th><th style='text-align:left;'>" . _("User") . "</th></tr>";
+        echo Federation::downloadStats($thefed->identifier, TRUE);
+        echo "</table>";
+        echo "</div>";
+    }
+
     if (isset($_POST['submitbutton']) &&
             $_POST['submitbutton'] == BUTTON_DELETE &&
             isset($_POST['invitation_id'])) {
@@ -182,7 +200,7 @@ $user = new User($_SESSION['user']);
     <hr/>
     <br/>
     <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-                            return false;' accept-charset='UTF-8'>
+            return false;' accept-charset='UTF-8'>
         <button type='submit' class='download'>
             <?php echo _("Register New Institution!"); ?>
         </button>

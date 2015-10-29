@@ -57,6 +57,51 @@ class Federation {
      */
     public static $FederationList = [];
 
+        public static function downloadStats($federationid = NULL, $astablerows = FALSE) {
+        $gross_admin = 0;
+        $gross_user = 0;
+
+        $timestamp = date("Y-m-d") . "T" . date("H:i:s");
+        
+        $retstring = "";
+        if (!$astablerows)
+            $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='$timestamp'>\n";
+
+        foreach (Devices::listDevices() as $index => $device_array) {
+            $query = "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads, profile, institution WHERE device_id = '$index' AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id ";
+            if ($federationid != NULL) {
+                $query .= "AND institution.country = '" . $federationid . "'";
+            }
+            $retstring .= ($astablerows ? "<tr>" : "  <device name='" . $device_array['display'] . "'>\n");
+            $admin_query = DBConnection::exec("INST", $query);
+            while ($a = mysqli_fetch_object($admin_query)) {
+                if ($astablerows)
+                    $retstring .= "<td>" . $device_array['display'] . "</td>";
+                $retstring .= ($astablerows ? "<td>" : "    <downloads group='admin'>");
+                $retstring .= ( $a->admin === NULL ? "0" : $a->admin);
+                $retstring .= ($astablerows ? "</td><td>" : "</downloads>\n    <downloads group='user'>");
+                $retstring .= ( $a->user === NULL ? "0" : $a->user);
+                $retstring .= ($astablerows ? "</td>" : "</downloads>\n");
+                $gross_admin = $gross_admin + $a->admin;
+                $gross_user = $gross_user + $a->user;
+            }
+            $retstring .= ($astablerows ? "</tr>" : "  </device>\n");
+        }
+        $retstring .= ($astablerows ? "<tr>" : "  <total>\n");
+        if ($astablerows)
+            $retstring .= "<td><strong>TOTAL</ts>";
+        $retstring .= ($astablerows ? "<td><strong>" : "    <downloads group='admin'>");
+        $retstring .= $gross_admin;
+        $retstring .= ($astablerows ? "</strong></td><td><strong>" : "</downloads>\n    <downloads group='user'>");
+        $retstring .= $gross_user;
+        $retstring .= ($astablerows ? "</strong></td>" : "</downloads>\n");
+        $retstring .= ($astablerows ? "</tr>" : "  </total>\n");
+        if (!$astablerows)
+            $retstring .= "</federation>\n";
+
+        return $retstring;
+    }
+
     /**
      *
      * Constructs a Federation object.
