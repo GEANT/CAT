@@ -1,4 +1,4 @@
-VERSION = CAT-1.1
+VERSION = CAT-1.2
 VV = $(VERSION)/
 .PHONY: translation
 
@@ -39,14 +39,8 @@ translation:
 
 distribution: all
 	find . -name \*.po~ -exec rm {} \;
-	mv web/resources/inc/footer.php web/resources/inc/footer_orig.php
-	cat web/resources/inc/footer_orig.php | sed s/'RELEASE = "THERELEASE"'/'RELEASE = "$(VERSION)"'/ > web/resources/inc/footer.php
-	rm web/resources/inc/footer_orig.php
-	mv web/basic.php web/basic_orig.php
-	cat web/basic_orig.php | sed s/'RELEASE = "THERELEASE"'/'RELEASE = "$(VERSION)"'/ > web/basic.php
-	rm web/basic_orig.php
-	mv web/index.php web/index_orig.php
-	cat web/index_orig.php | sed s/'RELEASE = "THERELEASE"'/'RELEASE = "$(VERSION)"'/ > web/index.php
-	rm web/index_orig.php
+	mv  core/CAT.php core/CAT_orig.php
+	cat core/CAT_orig.php | sed s/'"UNRELEASED"'/'"$(VERSION)"'/ > core/CAT.php
+	rm  core/CAT_orig.php
 	rm -R -f NewFolder nbproject config/config.php devices/devices.php generic-data*
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .

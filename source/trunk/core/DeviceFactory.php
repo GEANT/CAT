@@ -19,6 +19,7 @@
  * required includes
  */
 include_once("devices/devices.php");
+include_once("CAT.php");
 
 /**
  * This factory instantiates a device module and makes it available in its member $device.

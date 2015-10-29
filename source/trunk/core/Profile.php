@@ -270,6 +270,17 @@ class Profile {
     }
 
     /**
+     * find a profile, given its realm
+     */
+    public static function profileFromRealm($realm) {
+        $exec_query = DBConnection::exec(Profile::$DB_TYPE, "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
+        if ($a = mysqli_fetch_object($exec_query)) {
+            return $a->profile_id;
+        } else
+            return FALSE;
+    }
+    
+    /**
      * update the last_changed timestamp for this profile
      */
     public function updateFreshness() {

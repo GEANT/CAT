@@ -64,12 +64,12 @@ class Federation {
      * @param string $fedname - textual representation of the Federation object
      *        Example: "lu" (for Luxembourg)
      */
-    public function __construct($fedname = 0) {
+    public function __construct($fedname = "") {
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = CAT::set_locale('core');
         $this->identifier = $fedname;
-
+        
         Federation::$FederationList = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
@@ -342,7 +342,7 @@ class Federation {
         $owner_id = DBConnection::escape_value(Federation::$DB_TYPE, $owner_id);
         $level = DBConnection::escape_value(Federation::$DB_TYPE, $level);
         $mail = DBConnection::escape_value(Federation::$DB_TYPE, $mail);
-        
+
         if ($owner_id != "PENDING")
             DBConnection::exec(Federation::$DB_TYPE, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$owner_id', $identifier, '$level', '$mail')");
         return $identifier;
@@ -401,13 +401,19 @@ class Federation {
         return $returnarray;
     }
 
-    public function listUnmappedExternalEntities() {
+    public function listExternalEntities($unmapped_only) {
         $returnarray = [];
+        $countrysuffix = "";
+        
+        if ($this->identifier != "")
+            $countrysuffix = " WHERE country = '" . strtolower($this->identifier) . "'";
+        else
+            $countrysuffix = "";
+        
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
-            $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, name AS collapsed_name, contact AS collapsed_contact 
-                                                                                FROM view_active_idp_institution 
-                                                                                WHERE country = '" . strtolower($this->identifier) . "'");
+            $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
+                                                                                FROM view_active_idp_institution $countrysuffix");
             $already_used = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
                                                                                                      AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
@@ -421,39 +427,57 @@ class Federation {
                 if (!in_array($a->external_db_uniquehandle, $usedarray))
                     $usedarray[] = $a->external_db_uniquehandle;
             while ($a = mysqli_fetch_object($externals)) {
-                if (in_array($a->id, $usedarray))
-                    continue;
-                $names = explode('#', $a->collapsed_name);
-                $contacts = explode('#', $a->collapsed_contact);
-                foreach ($names as $name) {
-                    $perlang = explode(': ', $name, 2);
-                    $mailnames = "";
-                    foreach ($contacts as $contact) {
-                        $matches = [];
-                        preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
-                        if ($matches[2] != "") {
-                            if ($mailnames != "")
-                                $mailnames .= ", ";
-                            // extracting real names is nice, but the <> notation
-                            // really gets screwed up on POSTs and HTML safety
-                            // so better not do this; use only mail addresses
-                            // keeping the old codeline in case we revive this
-                            // $mailnames .= '"'.$matches[1].'" <'.$matches[2].'>';
-                            $mailnames .= $matches[2];
-                        }
-                    }
-                    $returnarray[] = ["ID" => $a->id, "lang" => $perlang[0], "name" => $perlang[1], "contactlist" => $mailnames];
+                if ($unmapped_only === TRUE) {
+                    if (in_array($a->id, $usedarray))
+                        continue;
                 }
-                
+                $names = explode('#', $a->collapsed_name);
+                // trim name list to current best language match
+                $available_languages = [];
+                foreach ($names as $name) {
+                    $thislang = explode(': ', $name, 2);
+                    $available_languages[$thislang[0]] = $thislang[1];
+                }
+                if (array_key_exists(CAT::$lang_index, $available_languages)) {
+                    $thelangauge = $available_languages[CAT::$lang_index];
+                } else if (array_key_exists("en", $available_languages)) {
+                    $thelangauge = $available_languages["en"];
+                } else { // whatever. Pick one out of the list
+                    $thelangauge = array_pop($available_languages);
+                }
+                $contacts = explode('#', $a->collapsed_contact);
+
+
+                $mailnames = "";
+                foreach ($contacts as $contact) {
+                    $matches = [];
+                    preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
+                    if ($matches[2] != "") {
+                        if ($mailnames != "")
+                            $mailnames .= ", ";
+                        // extracting real names is nice, but the <> notation
+                        // really gets screwed up on POSTs and HTML safety
+                        // so better not do this; use only mail addresses
+                        // keeping the old codeline in case we revive this
+                        // $mailnames .= '"'.$matches[1].'" <'.$matches[2].'>';
+                        $mailnames .= $matches[2];
+                    }
+                }
+                $returnarray[] = ["ID" => $a->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $a->country, "realmlist" => $a->realmlist];
             }
         }
+
         return $returnarray;
     }
 
-    public static function getExternalDBEntityDetails($external_id) {
+    public static function getExternalDBEntityDetails($external_id, $realm = NULL) {
         $list = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $info_list = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $external_id");
+            if ($realm !== NULL)
+                $scanforrealm = "OR inst_realm LIKE '%$realm%'";
+            else
+                $scanforrealm = "";
+            $info_list = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $external_id $scanforrealm");
             // split names and contacts into proper pairs
             while ($a = mysqli_fetch_object($info_list)) {
                 $names = explode('#', $a->collapsed_name);
@@ -468,6 +492,7 @@ class Federation {
                     $list['admins'][] = ["email" => $email_2[0]];
                 }
                 $list['country'] = $a->country;
+                $list['realmlist'] = $a->realmlist;
             }
         }
         return $list;
@@ -481,58 +506,58 @@ class Federation {
      *
      */
     public static function listAllIdentityProviders($active_only = 0, $country = 0) {
-       DBConnection::exec(Federation::$DB_TYPE, "SET SESSION group_concat_max_len=10000");
-       $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
+        DBConnection::exec(Federation::$DB_TYPE, "SET SESSION group_concat_max_len=10000");
+        $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
                      group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
                      FROM institution ";
-       if($active_only == 1)
-          $query .=  "JOIN profile ON institution.inst_id = profile.inst_id ";
-       $query .=     "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
-       $query .=     "WHERE (institution_option.option_name = 'general:instname' 
+        if ($active_only == 1)
+            $query .= "JOIN profile ON institution.inst_id = profile.inst_id ";
+        $query .= "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
+        $query .= "WHERE (institution_option.option_name = 'general:instname' 
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
-       if($active_only == 1)
-          $query .=  "AND profile.showtime = 1 ";
+        if ($active_only == 1)
+            $query .= "AND profile.showtime = 1 ";
 
         if ($country) {
             // escape the parameter
             $country = DBConnection::escape_value(Federation::$DB_TYPE, $country);
             $query .= "AND institution.country = '$country' ";
         }
-       $query .=     "GROUP BY institution.inst_id ORDER BY inst_id";
-       $allIDPs = DBConnection::exec(Federation::$DB_TYPE, $query);
-       $returnarray = [];
-       while ($a = mysqli_fetch_object($allIDPs)) {
-           $O = explode('---',$a->options);
-           $A = [];
-           if(isset($geo))
-              unset($geo);
-           if(isset($names))
-              unset($names);
-           $A['entityID'] = $a->inst_id;
-           $A['country'] = strtoupper($a->country);
-           foreach ($O as $o) {
-             $opt = explode('===',$o);
-             if($opt[0] == 'general:logo_file')
-                $A['icon'] = $a->inst_id;
-             if($opt[0] == 'general:geo_coordinates') {
-                 $at1 = unserialize($opt[1]);
-                 if(!isset($geo))
-                     $geo = [];
-                 $geo[] = $at1;
-             }
-             if($opt[0] == 'general:instname') {
-                 if(!isset($names))
-                     $names = [];
-                 $names[] = ['value'=>$opt[1]];
-             }
-           }
-           $name = getLocalisedValue($names, CAT::$lang_index);
-           if(! $name)
-              continue;
-           $A['title'] = $name;
-           if(isset($geo))
-             $A['geo'] = $geo;
+        $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
+        $allIDPs = DBConnection::exec(Federation::$DB_TYPE, $query);
+        $returnarray = [];
+        while ($a = mysqli_fetch_object($allIDPs)) {
+            $O = explode('---', $a->options);
+            $A = [];
+            if (isset($geo))
+                unset($geo);
+            if (isset($names))
+                unset($names);
+            $A['entityID'] = $a->inst_id;
+            $A['country'] = strtoupper($a->country);
+            foreach ($O as $o) {
+                $opt = explode('===', $o);
+                if ($opt[0] == 'general:logo_file')
+                    $A['icon'] = $a->inst_id;
+                if ($opt[0] == 'general:geo_coordinates') {
+                    $at1 = unserialize($opt[1]);
+                    if (!isset($geo))
+                        $geo = [];
+                    $geo[] = $at1;
+                }
+                if ($opt[0] == 'general:instname') {
+                    if (!isset($names))
+                        $names = [];
+                    $names[] = ['value' => $opt[1]];
+                }
+            }
+            $name = getLocalisedValue($names, CAT::$lang_index);
+            if (!$name)
+                continue;
+            $A['title'] = $name;
+            if (isset($geo))
+                $A['geo'] = $geo;
             $returnarray[] = $A;
         }
         return $returnarray;
