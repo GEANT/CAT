@@ -51,7 +51,8 @@ var generation_error = "<?php echo _("This is embarrassing. Generation of your i
     $("#devices").hide();
     $("#profile_redirect").hide();
     i_s = selected_profile;
-      $.post('user/API.php', {action: 'listProfiles', lang: lang, id: inst_id}, function(data) {
+      $.post('user/API.php', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
+//alert(data);
     j = $.parseJSON(data);
     result = j.status;
     if(! result) {
@@ -74,7 +75,7 @@ var generation_error = "<?php echo _("This is embarrassing. Generation of your i
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
     if(logo) {
-    $("#idp_logo").attr("src","user/API.php?action=sendLogo&id="+inst_id);
+    $("#idp_logo").attr("src","user/API.php?action=sendLogo&api_version=2&idp="+inst_id);
     $("#idp_logo").show();
     }
     if (n > 1) {
@@ -95,11 +96,11 @@ var generation_error = "<?php echo _("This is embarrassing. Generation of your i
 function printP(i,v) {
   if(n == 1 ) {
      $("#profiles").hide();
-     $("#profile_list").append('<option value="'+v.id+'" selected>'+v.display+'</option>');
-     showProfile(v.id);
+     $("#profile_list").append('<option value="'+v.profile+'" selected>'+v.display+'</option>');
+     showProfile(v.profile);
      $("#devices").show();
   } else {
-     $("#profile_list").append('<option value="'+v.id+'">'+v.display+'</option>');
+     $("#profile_list").append('<option value="'+v.profile+'">'+v.display+'</option>');
   }
 }
 function resetDevices() {
@@ -126,7 +127,7 @@ function resetDevices() {
   if(button_id.substr(0,7) == "info_b_") {
     var device_id = button_id.substr(7);
     $("#info_window").html("<h2>"+$('#'+device_id).text()+"</h2>");
-  $.post('user/API.php', {action: 'deviceInfo', lang: lang, id: device_id, profile: profile}, function(data) {
+  $.post('user/API.php', {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
     var h = $("#info_window").html();
     $("#info_window").html(h+data);
     $("#main_body").fadeTo("fast", 0.2,function() {
@@ -154,7 +155,7 @@ function resetDevices() {
         generateTimer = $.now();
         $("#devices").hide();
         $("#user_welcome").show();
-        $.post('user/API.php', {action: 'generateInstaller', lang: lang, id: button_id, profile: profile}, processDownload);
+        $.post('user/API.php', {action: 'generateInstaller', api_version: 2, lang: lang, device: button_id, profile: profile}, processDownload);
      }
   }
 }); 
@@ -174,7 +175,7 @@ function resetDevices() {
      profile = prof;
      $("#profile_id").val(prof);
      txt = '';
-     $.post('user/API.php', {action: 'profileAttributes', lang: lang, id: profile}, function(data) {
+     $.post('user/API.php', {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
        j = $.parseJSON(data).data;
        if(j.description !== undefined && j.description) {
          $("#profile_desc").text(j.description);
@@ -263,7 +264,7 @@ function resetDevices() {
                $("#devices").hide();
                generateTimer = $.now();
                $("#user_welcome").show();
-               $.post('user/API.php', {action: 'generateInstaller', lang: lang, id: dev_id, profile: profile}, processDownload); 
+               $.post('user/API.php', {action: 'generateInstaller', api_version: 2, lang: lang, device: dev_id, profile: profile}, processDownload); 
                }
             });
                
@@ -353,6 +354,7 @@ function processDownload(data) {
      generateTimer = 0;
      
   var j;
+//alert(data);
   try {
     j = $.parseJSON(data).data;
   }
@@ -363,7 +365,7 @@ function processDownload(data) {
   if( j.link == 0 )
     alert(generation_error);
   else {
-    download_link = 'user/API.php?action=downloadInstaller&lang='+lang+'&id='+j.device+'&profile='+j.profile;
+    download_link = 'user/API.php?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
     $("#download_info a").attr('href',download_link);
     $('#download_info').show();
     if( generateTimer > 0 ) {
@@ -489,7 +491,7 @@ catWelcome = $("#main_menu_content").html();
   
 $(".signin").DiscoJuice({
    "discoPath":"external/discojuice/",
-   "iconPath":"user/API.php?action=sendLogo&disco=1&lang=en&id=",
+   "iconPath":"user/API.php?action=sendLogo&api_version=2&disco=1&lang=en&idp=",
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
    "title":"<?php echo _("Home institution") ?>",
@@ -511,8 +513,8 @@ $(".signin").DiscoJuice({
    "geoLoc_here" : "<?php echo _("You are here:")?>",
    "geoLoc_getting" : "<?php echo _("Getting your location...")?>",
    "geoLoc_nearby" : "<?php echo _("Nearby providers shown on top.")?>",
-   "countryAPI":"user/API.php?action=locateUser",
-   "metadata":"user/API.php?action=listAllIdentityProviders&lang="+lang,
+   "countryAPI":"user/API.php?action=locateUser&api_version=2",
+   "metadata":"user/API.php?action=listAllIdentityProviders&api_version=2&lang="+lang,
    "callback": function(e) {
      $("#institution_name").hide();
      $("#front_page").hide();
@@ -525,7 +527,7 @@ $(".signin").DiscoJuice({
      $("#profile_redirect").hide();
      $("#profiles").hide();
      $("#institutions").hide();
-     listProfiles(e.id,0);
+     listProfiles(e.idp,0);
             }
         });
 DiscoJuice.Constants.Countries = {

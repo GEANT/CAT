@@ -94,7 +94,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
 $OS = $Gui->detectOS();
 debug(4,$OS);
 if($OS)
-   print "recognised_os = '".$OS['id']."';\n";
+   print "recognised_os = '".$OS['device']."';\n";
 $download_message = sprintf(_("Download your %s installer"),Config::$CONSORTIUM['name']);
 print 'download_message = "'.$download_message.'";';
 //TODO modify this based on OS detection
@@ -262,19 +262,19 @@ include("user/js/cat_js.php");
                                               position:relative; 
                                               background-image:url("resources/images/vendorlogo/<?php echo $OS['group']?>.png");
                                               background-repeat:no-repeat;
-                                              background-position: 10px 10px;' id='g_<?php echo $OS['id']?>'>
-                                             <img id='cross_icon_<?php echo $OS['id']?>' src='resources/images/icons/delete_32.png' 
+                                              background-position: 10px 10px;' id='g_<?php echo $OS['device']?>'>
+                                             <img id='cross_icon_<?php echo $OS['device']?>' src='resources/images/icons/delete_32.png' 
                                                   style='position:absolute; left:16px; top:25px; opacity:0.9; display:none; '>
                                               <div class='download_button_text' 
                                                    style='font-size:12px; top:5px; height: 30px'
-                                                   id='download_button_header_<?php echo $OS['id']?>'>
+                                                   id='download_button_header_<?php echo $OS['device']?>'>
                                                    <?php print $download_message ?>
                                              </div>
                                              <div class='download_button_text' style='font-size:20px; bottom: 5px; '>
                                                 <?php echo $OS['display']?>
                                              </div>
                                          </button>
-                                         <div class='device_info' id='info_g_<?php echo $OS['id']?>'></div>
+                                         <div class='device_info' id='info_g_<?php echo $OS['device']?>'></div>
                                      </td>
                                      <td style='vertical-align:top'>
                                          <button class='more_info_b' 
@@ -283,7 +283,7 @@ include("user/js/cat_js.php");
                                                 background-image:url("resources/images/icons/info_b.png");
                                                 background-repeat:no-repeat;
                                                 background-position: 2px 7px;' 
-                                              id='g_info_b_<?php echo $OS['id']?>'>
+                                              id='g_info_b_<?php echo $OS['device']?>'>
                                          </button>
                                      </td>
                                   </tr>
