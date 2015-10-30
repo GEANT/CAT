@@ -20,13 +20,21 @@ if(!isset($_REQUEST['action']))
 
 $action  = $_REQUEST['action'];
 $id      = ( isset($_REQUEST['id'])      ? $_REQUEST['id']      : FALSE );
+$device  = ( isset($_REQUEST['device'])  ? $_REQUEST['device']  : FALSE );
 $lang    = ( isset($_REQUEST['lang'])    ? $_REQUEST['lang']    : FALSE );
+$idp     = ( isset($_REQUEST['idp'])     ? $_REQUEST['idp']     : FALSE );
 $profile = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
+$federation = ( isset($_REQUEST['federation']) ? $_REQUEST['federation'] : FALSE );
 $disco   = ( isset($_REQUEST['disco'])   ? $_REQUEST['disco']   : FALSE );
 $sort    = ( isset($_REQUEST['sort'])    ? $_REQUEST['sort']    : 0 );
-$generatedfor      = ( isset($_REQUEST['generatedfor'])      ? $_REQUEST['generatedfor']      : 'user' );
+$api_version = ( isset($_REQUEST['api_version']) ? $_REQUEST['api_version'] : 1 );
+$generatedfor = ( isset($_REQUEST['generatedfor']) ? $_REQUEST['generatedfor'] : 'user' );
+
+/* in order to provide bacwards compatibility, both $id and new named arguments are supported.
+   Support for $id will be removed in the futute
+ */
     
-debug(4,"UserAPI action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
+$API->version = $api_version;
 
 switch ($action) {
     case 'listLanguages':
@@ -36,43 +44,65 @@ switch ($action) {
         $API->JSON_listCountries();
         break;
     case 'listIdentityProviders':
-        $API->JSON_listIdentityProviders($id);
+        if(! $federation)
+           $federation = $id;
+        $API->JSON_listIdentityProviders($federation);
         break;
     case 'listAllIdentityProviders':
         $API->JSON_listIdentityProvidersForDisco();
         break;
-    case 'listProfiles': // needs $id set - abort if not
-        if ($id === FALSE) exit;
-        $API->JSON_listProfiles($id,$sort);
+    case 'listProfiles': // needs $idp set - abort if not
+        if(! $idp) 
+           $idp = $id;
+        if ($idp === FALSE) exit;
+        $API->JSON_listProfiles($idp,$sort);
         break;
     case 'listDevices':
-        $API->JSON_listDevices($id);
+        if(! $profile)
+           $profile = $id;
+        $API->JSON_listDevices($profile);
         break;
     case 'generateInstaller': // needs $id and $profile set
-        if ($id === FALSE || $profile === FALSE) exit;
-        $API->JSON_generateInstaller($id, $profile);
+        if(! $device)
+            $device = $id;
+        if ($device === FALSE || $profile === FALSE) exit;
+        $API->JSON_generateInstaller($device, $profile);
         break;
     case 'downloadInstaller': // needs $id and $profile set optional $generatedfor
-        if ($id === FALSE || $profile === FALSE) exit;
-        $API->downloadInstaller($id, $profile,$generatedfor);
+        if(! $device)
+            $device = $id;
+        if ($device === FALSE || $profile === FALSE) exit;
+        $API->downloadInstaller($device, $profile,$generatedfor);
         break;
     case 'profileAttributes': // needs $id set
-        if ($id === FALSE) exit;
-        $API->JSON_profileAttributes($id);
+        if(! $profile)
+           $profile = $id;
+        if ($profile === FALSE) exit;
+        $API->JSON_profileAttributes($profile);
         break;
     case 'sendLogo': // needs $id and $disco set
-        if ($id === FALSE) exit;
-        $API->sendLogo($id, $disco);
+        if(! $idp)
+           $idp = $id;
+        if ($idp === FALSE) exit;
+        $API->sendLogo($idp, $disco);
     case 'deviceInfo': // needs $id and profile set
+        if(! $device)
+            $device = $id;
         if ($id === FALSE || $profile === FALSE) exit;
-        $API->deviceInfo($id, $profile);
+        $API->deviceInfo($device, $profile);
         break;
     case 'locateUser':
         $API->JSON_locateUser();
         break;
+    case 'detectOS':
+        $API->JSON_detectOS();
+        break;
     case 'orderIdentityProviders':
-        $API->JSON_orderIdentityProviders($id);
+        if(! $federation)
+           $federation = $id;
+        $API->JSON_orderIdentityProviders($federation);
         break;
 }
+debug(4,"UserAPI action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
 
 ?>

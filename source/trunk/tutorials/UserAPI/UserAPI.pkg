@@ -26,7 +26,16 @@ Since most data is language-specific, you should normally specify
 the <emphasis>lang</emphasis> argument as well.
 The list of available languages and their identifiers is available via
 the <emphasis>listLanguages</emphasis> call.
-Most calls require an <emphasis>id</emphasis> argumant as well, where you need to provide
+In previous versions of CAT, most actions used and <emphasis>id</emphasis> argument with its meaning
+depending on the context. This turned out to be impractical, therefore starting from version 1.2
+the <emphasis>id</emphasis> argument has been replaced by varius arguments which names are self-explanatory.
+The old behaviour is still supported for backwards compatibility, but may be removed in the future.
+Also for backwards compatibility, by default API rund in version 1 mode, you van specify version 2 behaviour
+by setting api_version to value 2,
+
+This documentation is for varsion 2 of the API.
+
+Most calls require an additional argument as well, where you need to provide
 an internal CAT identifier of the object that you require. The values of these identifiers
 are available via the CAT list calls.
 </para>
@@ -94,7 +103,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     </para>
     <para><emphasis>data</emphasis></para>
     <para>
-      Array of triples: {"id", "display", "locale"}.
+      Array of triples: {"lang", "display", "locale"}.
     </para>
 
   </refsect2>
@@ -111,7 +120,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     </para>
     <para><emphasis>data</emphasis></para>
     <para>
-      Array of tuples: {"id", "display"}.
+      Array of tuples: {"federation", "display"}.
     </para>
     
   </refsect2>
@@ -130,8 +139,8 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <para>
       The main purpose of this action is to provide listing for DiscoJusce, therefore
       the structure of the result is talored to DJ needs.
-      The result is an array of tupples {"entityID","title","country","geo","icon","id"}.
-      <emphasis>geo</emphasis> and <emphasis>icon</emphasis> are optional. <emphasis>id</emphasis>
+      The result is an array of tupples {"entityID","title","country","geo","icon","idp"}.
+      <emphasis>geo</emphasis> and <emphasis>icon</emphasis> are optional. <emphasis>idp</emphasis>
       is provided for conformance reasons, but is just a copy of <emphasis>entityID</emphasis>.
       <emphasis>geo</emphasis> can be either a {"lon", "lat"} touple or an array of such tupples.
     </para>
@@ -142,7 +151,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>listIdentityProviders</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - the identifier of a country to be listed.
+      federation - the identifier of a country to be listed.
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>
@@ -150,7 +159,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     </para>
     <para><emphasis>data</emphasis></para>
     <para>
-      Array of tuples: {"id", "display"}.
+      Array of tuples: {"idp", "display"}.
     </para>
 
   </refsect2>
@@ -159,7 +168,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>listProfiles</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - the identifier of an IdP
+      idp - the identifier of an IdP
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>
@@ -169,7 +178,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
       sort - if equal to 1 sort profiles by name (case-ignore)
     </para>
     <para>
-      Array of tuples: {"id", "display", "idp_name", "logo"}.
+      Array of tuples: {"profile", "display", "idp_name", "logo"}.
       <emphasis>logo</emphasis> can be <emphasis>0</emphasis> or <emphasis>1</emphasis> and
       shows if logo is available.
     </para>
@@ -180,7 +189,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>profileAttributes</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - the identifier of the profile to be shown
+      profile - the identifier of the profile to be shown
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>
@@ -201,7 +210,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>listDevices</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - the identifier of the profile for which the devices will be listed
+      profile - the identifier of the profile for which the devices will be listed
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>
@@ -209,7 +218,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     </para>
     <para><emphasis>data</emphasis></para>
     <para>
-    array of touples {"id","display","status","redirect", "eap_customtext","device_customtext"}.
+    array of touples {"device","display","status","redirect", "eap_customtext","device_customtext"}.
     </para>
   </refsect2>
 
@@ -217,7 +226,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>generateInstaller</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - identifier of the device; profile - identifier of the profile
+      device - identifier of the device; profile - identifier of the profile
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>
@@ -233,7 +242,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>downloadInstaller</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - identifier of the device; profile - identifier of the profile
+      device - identifier of the device; profile - identifier of the profile
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>
@@ -249,7 +258,7 @@ In most cases <emphasis>data</emphasis> is an array listing requested objects li
     <title>sendLogo</title>
     <para><emphasis>mandatory arguments</emphasis></para>
     <para>
-      id - the identifier of the identity provider
+      idp - the identifier of the identity provider
     </para>
     <para><emphasis>optional arguments</emphasis></para>
     <para>

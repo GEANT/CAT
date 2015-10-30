@@ -38,6 +38,7 @@ public function __construct() {
   $this->Args = [];
   $this->page =  0;
   $this->set_locale('core');
+  $this->version = 2;
   $this->Args['lang'] = CAT::$lang_index;
 //print "<pre>"; print_r($_REQUEST); print "</pre>";
 
@@ -144,14 +145,14 @@ public function listCountries() {
 public function listIdPs() {
    $Inst = $this->orderIdentityProviders($this->Country->identifier);
    if(! isset($this->Idp))
-     $this->Idp = new Idp ($Inst[0]['id']);
+     $this->Idp = new Idp ($Inst[0]['idp']);
    $i_id = $this->Idp->identifier;
    $out = '';
    $out .= _("Select your institution");
    $out .= '<select name="idp" onchange="submit_form(this)">';
    foreach ($Inst as $I) {
-      $out .= '<option value="'.$I['id'].'"';
-      if($I['id'] == $i_id)
+      $out .= '<option value="'.$I['idp'].'"';
+      if($I['idp'] == $i_id)
          $out .= ' selected';
       $out .= '>'.$I['title'].'</option>';
    }
@@ -188,7 +189,7 @@ public function listDevices() {
    if(! isset($this->Profile))
       return '';
    $OS = $this->detectOS();
-   $os = $OS['id'];
+   $os = $OS['device'];
    $this->Args['device'] = $os;
    $profile_redirect = 0;
    $redirect_target = '';
@@ -303,7 +304,7 @@ public function displayDeviceDownload() {
       $extra_text .= '<p>';
       print $extra_text;
 
-      $download_link = 'user/API.php?action=downloadInstaller&generatedfor=user&lang='.CAT::$lang_index.'&id='.$o['device'].'&profile='.$o['profile'];
+      $download_link = 'user/API.php?action=downloadInstaller&api_version=2&generatedfor=user&lang='.CAT::$lang_index.'&device='.$o['device'].'&profile='.$o['profile'];
 
       print '<p><button id="download_button" onclick="window.location.href=\'' . rtrim(dirname($_SERVER['SCRIPT_NAME']),'/'). '/' . $download_link . '\'; return(false)"><div>' . _("Download installer for") . '<br><span style="color:yellow; font-weight: bold">' . $D['display']. '</span></div></button>';
 

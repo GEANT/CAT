@@ -109,7 +109,10 @@ class UserAPI extends CAT {
       if(isset($D['options']['hidden']) && $D['options']['hidden'] && $show_hidden == 0)
          continue;
       $ct ++;
-      $D['id'] = $device;
+      if($this->version == 1)
+         $D['device'] = $device;
+      else
+         $D['device'] = $device;
       $group = isset($D['group']) ? $D['group'] : 'other';
       if (! isset($R[$group]))
          $R[$group] = [];
@@ -201,8 +204,12 @@ private function GetRootURL() {
   */
   public function JSON_listLanguages() {
      $return_array = [];
-     foreach(Config::$LANGUAGES as $id => $val)
-       $return_array[] = ['id'=>$id,'display'=>$val['display'],'locale'=>$val['locale']];
+     foreach(Config::$LANGUAGES as $id => $val){
+       if($this->version == 1)
+          $return_array[] = ['id'=>$id,'display'=>$val['display'],'locale'=>$val['locale']];
+       else
+          $return_array[] = ['lang'=>$id,'display'=>$val['display'],'locale'=>$val['locale']];
+     }
      echo $this->return_json($return_array);
   }
 
@@ -215,8 +222,12 @@ private function GetRootURL() {
   public function JSON_listCountries() {
      $FED = $this->printCountryList(1);
      $return_array = [];
-     foreach ($FED as $id => $val)
-       $return_array[] = ['id'=>$id,'display'=>$val];
+     foreach ($FED as $id => $val) {
+       if($this->version == 1)
+          $return_array[] = ['id'=>$id,'display'=>$val];
+       else
+          $return_array[] = ['federation'=>$id,'display'=>$val];
+     }
      echo $this->return_json($return_array);
   }
 
@@ -231,7 +242,10 @@ private function GetRootURL() {
      $idps = Federation::listAllIdentityProviders(1,$country);
      $return_array = [];
      foreach ($idps as $idp) {
-        $return_array[] = ['id'=>$idp['entityID'],'display'=>$idp['title']];
+        if($this->version == 1)
+           $return_array[] = ['id'=>$idp['entityID'],'display'=>$idp['title']];
+        else
+           $return_array[] = ['idp'=>$idp['entityID'],'display'=>$idp['title']];
      }
      echo $this->return_json($return_array);
   }
@@ -247,7 +261,10 @@ private function GetRootURL() {
      $idps = Federation::listAllIdentityProviders(1);
      $return_array = [];
      foreach ($idps as $idp) {
-        $idp['id'] = $idp['entityID'];
+        if($this->version == 1)
+           $idp['id'] = $idp['entityID'];
+         else
+           $idp['idp'] = $idp['entityID'];
         $return_array[] = $idp;
       }
      echo json_encode($return_array);
@@ -267,7 +284,10 @@ private function GetRootURL() {
      $idps = $this->orderIdentityProviders($country);
      $return_array = [];
      foreach ($idps as $idp) {
-        $return_array[] = ['id'=>$idp['id'],'display'=>$idp['title']];
+        if($this->version == 1)
+           $return_array[] = ['id'=>$idp['id'],'display'=>$idp['title']];
+        else
+           $return_array[] = ['idp'=>$idp['id'],'display'=>$idp['title']];
      }
      echo $this->return_json($return_array);
   }
@@ -296,7 +316,10 @@ private function GetRootURL() {
      if($sort == 1)
         usort($profiles,"profile_sort");
      foreach ($profiles as $P) {
-       $return_array[] = ['id'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l]; 
+       if($this->version == 1)
+          $return_array[] = ['id'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l]; 
+       else
+          $return_array[] = ['profile'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l]; 
      }
      echo $this->return_json($return_array);
   }
@@ -318,11 +341,19 @@ private function GetRootURL() {
               if(isset($D['options']) && isset($D['options']['hidden']) &&  $D['options']['hidden'])
                    continue;
               $disp = $D['display'];
-              if($D['id'] === '0') {
-                  $profile_redirect = 1;
-                  $disp = $c;
-              }
-             $return_array[] = ['id'=>$D['id'], 'display'=>$disp, 'status'=>$D['status'], 'redirect'=>$D['redirect']];
+              if($this->version == 1) {
+                 if($D['id'] === '0') {
+                     $profile_redirect = 1;
+                     $disp = $c;
+                 }
+                $return_array[] = ['id'=>$D['id'], 'display'=>$disp, 'status'=>$D['status'], 'redirect'=>$D['redirect']];
+             } else {
+                 if($D['device'] === '0') {
+                     $profile_redirect = 1;
+                     $disp = $c;
+                 }
+                $return_array[] = ['device'=>$D['id'], 'display'=>$disp, 'status'=>$D['status'], 'redirect'=>$D['redirect']];
+             }
          }
 
   }
@@ -506,8 +537,12 @@ public function orderIdentityProviders($country) {
       $R[$idp['entityID']] = $d." ".$idp['title'];
      }
      asort($R);
-     foreach (array_keys($R) as $r)
-      $outarray[] = ['id'=>$r, 'title'=>$T[$r]];
+     foreach (array_keys($R) as $r) {
+      if($this->version == 1)
+         $outarray[] = ['id'=>$r, 'title'=>$T[$r]];
+      else
+         $outarray[] = ['idp'=>$r, 'title'=>$T[$r]];
+      }
      return($outarray);
 }
 
@@ -524,7 +559,10 @@ public function detectOS() {
    if( isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
       $dev_id = $_REQUEST['device'];
       $device = $Dev[$dev_id];
-      return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
+      if($this->version == 1)
+         return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
+      else
+         return(['device'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
    }
    $browser = $_SERVER['HTTP_USER_AGENT'];
    debug(4,"HTTP_USER_AGENT=$browser\n");
@@ -534,7 +572,10 @@ public function detectOS() {
      if(preg_match('/'.$device['match'].'/',$browser)) {
        if(!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
           debug(4,"Browser_id: $dev_id\n");
-          return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
+          if($this->version == 1)
+             return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
+          else
+             return(['device'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
        }
        else {
          debug(2, "Unrecognised system: ".$_SERVER['HTTP_USER_AGENT']."\n");
@@ -546,8 +587,18 @@ public function detectOS() {
    return(false);
 }
 
+public function JSON_detectOS() {
+     $return_array=$this->detectOS();
+     if($return_array)
+        $status = 1;
+     else
+        $status = 0;
+     echo $this->return_json($return_array,$status);
+}
+
 
 public $device;
+public $version;
   
 }
 function profile_sort($P1,$P2) {
