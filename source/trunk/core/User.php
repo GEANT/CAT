@@ -240,7 +240,7 @@ class User {
         // who to whom?
         $mail->From = Config::$APPEARANCE['from-mail'];
         $mail->FromName = Config::$APPEARANCE['productname'] . " Notification System";
-        $mail->addReplyTo(Config::$APPEARANCE['admin-mail'], Config::$APPEARANCE['productname'] . " " ._("Feedback"));
+        $mail->addReplyTo(Config::$APPEARANCE['support-contact']['mail'], Config::$APPEARANCE['productname'] . " " ._("Feedback"));
         
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) // we don't know his mail address
