@@ -3,6 +3,9 @@ Changes in 1.2
 - [FEATURE #1] UserAPI redone. Instead of the "id" as a common argument e now use
                meaningful names, like idp, profile, device etc.
                To get the new behaviour you need to set api_version argument to 2.
+Configuration parameter changes
+-------------------------------
+[NEW]           Config::$APPEARANCE['support-mail'] replaces Config::$APPEARANCE['admin-mail']
 
 Changes in 1.1.2
 ================
@@ -11,9 +14,6 @@ Changes in 1.1.2
 - [BUGFIX #2]  in Windows installers the profile name was not sent trough code page
                conversion (reported by Daniele Albrizio)
 
-Configuration parameter changes
--------------------------------
-[NEW]           Config::$APPEARANCE['admin-mail-text']
 
 Changes in 1.1.1
 ================

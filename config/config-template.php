@@ -28,8 +28,7 @@ class Config {
      * productname: short display name of the tool
      * productname_long: long display name of the tool
      * from-mail: the "From" in email addresses sent by the tool. Typically an unattended mailbox only for sending.
-     * admin-mail: email address where users can complain and comment to. Should be read by a human.
- This value will go inside an href therfore may contain additional arguments likke body.
+     * admin-mail: email address where users can complain and comment to. Should be read by a human. This value will go inside an href therfore may contain additional arguments likke body.
      * admin-mail-text: the displayed part of the contact link.
      * abuse-mail: email address where copyright holders can complain. Should be read by a human.
      * defaultlocale: language to use if user has no preferences in his browser, nor explicitly selects a language
@@ -39,8 +38,10 @@ class Config {
         'productname' => 'eduroam CAT',
         'productname_long' => 'eduroam Configuration Assistant Tool',
         'from-mail' => 'cat-invite@your-cat-installation.example',
-        'admin-mail' => 'admin@your-cat-installation.example?body=Only%20English%20language%20please!',
-        'admin-mail-text' => 'admin@your-cat-installation.example',
+        'support-contact' => [
+            'mail' => 'admin@eduroam.pl?body=Only%20English%20language%20please!',
+            'display' => 'This mail please'
+        ],
         'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
         'invitation-bcc-mail' => NULL,
         'defaultlocale' => 'en',

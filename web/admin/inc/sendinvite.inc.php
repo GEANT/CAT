@@ -157,7 +157,7 @@ $mail->CharSet = 'UTF-8';
 // who to whom?
 $mail->From = Config::$APPEARANCE['from-mail'];
 $mail->FromName = Config::$APPEARANCE['productname'] . " Invitation System";
-$mail->addReplyTo(Config::$APPEARANCE['admin-mail'], Config::$APPEARANCE['productname'] . " " . _("Feedback"));
+$mail->addReplyTo(Config::$APPEARANCE['support-contact']['mail'], Config::$APPEARANCE['productname'] . " " . _("Feedback"));
 
 if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
     $mail->addBCC(Config::$APPEARANCE['invitation-bcc-mail']);
