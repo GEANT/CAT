@@ -100,8 +100,11 @@ abstract class DeviceConfig {
           exit;
        }
        // create temporary directory, its path will be saved in $this->FPATH;
-       $this->createTemporaryDirectory();
-          $CAs = [];
+       $T = createTemporaryDirectory();
+debug(4,$T);
+       $this->FPATH = $T['name'];
+       chdir($T['dir']);
+       $CAs = [];
        if(isset($this->attributes['eap:ca_file'])) {
        foreach ($this->attributes['eap:ca_file'] as $ca) {
           if($c = X509::processCertificate($ca))
@@ -486,19 +489,6 @@ abstract class DeviceConfig {
      return("download path");
   }
 
-// this creates the temporary directory so that new files can be written into it
-// and changes the working directory to it.
-   private function createTemporaryDirectory() {
-        $name = 'downloads'.'/'.md5(time().rand());
-        $tmp_dir = dirname(dirname(__FILE__)).'/web/'.$name;
-        debug(4,"temp dir: $tmp_dir\n");
-        if(! mkdir($tmp_dir,0700, true)) {
-          error("unable to create temporary directory: $tmp_dir\n");
-          exit;
-       }
-     chdir($tmp_dir);
-     $this->FPATH = $name;
-   }
 /**
  * Array passing all options to the device module.
  *

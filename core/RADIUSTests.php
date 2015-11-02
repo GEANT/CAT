@@ -931,14 +931,10 @@ class RADIUSTests {
         // we will need a config blob for wpa_supplicant, in a temporary directory
         // code is copy&paste from DeviceConfig.php
 
-        $pathname = 'downloads' . '/' . md5(time() . rand());
-        $tmp_dir = dirname(dirname(__FILE__)) . '/web/' . $pathname;
-        debug(4, "temp dir: $tmp_dir\n");
-        if (!mkdir($tmp_dir, 0700, true)) {
-            error("unable to create temporary directory (eap test): $tmp_dir\n");
-            exit;
-        }
+        $T = createTemporaryDirectory();
+        $tmp_dir = $T['dir'];
         chdir($tmp_dir);
+        debug(4, "temp dir: $tmp_dir\n");
         $wpa_supplicant_config = fopen($tmp_dir . "/udp_login_test.conf", "w");
         $eap_text = EAP::eapDisplayName($eaptype);
         $config = '
