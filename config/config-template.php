@@ -28,8 +28,8 @@ class Config {
      * productname: short display name of the tool
      * productname_long: long display name of the tool
      * from-mail: the "From" in email addresses sent by the tool. Typically an unattended mailbox only for sending.
-     * admin-mail: email address where users can complain and comment to. Should be read by a human. This value will go inside an href therfore may contain additional arguments likke body.
-     * admin-mail-text: the displayed part of the contact link.
+     * support-contact/email: email address where users can complain and comment to. Should be read by a human. This value will go inside an href therfore may contain additional arguments likke body.
+     * support-contact/display: the displayed part of the support contact link.
      * abuse-mail: email address where copyright holders can complain. Should be read by a human.
      * defaultlocale: language to use if user has no preferences in his browser, nor explicitly selects a language
      * @var array 
