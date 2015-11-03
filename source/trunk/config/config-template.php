@@ -39,8 +39,9 @@ class Config {
         'productname_long' => 'eduroam Configuration Assistant Tool',
         'from-mail' => 'cat-invite@your-cat-installation.example',
         'support-contact' => [
-            'mail' => 'admin@eduroam.pl?body=Only%20English%20language%20please!',
-            'display' => 'This mail please'
+            'url' => 'cat-support@our-cat-installation.example.pl?body=Only%20English%20language%20please!',
+            'mail' => 'cat-support@our-cat-installation.example.pl',
+            'display' => 'this mail address'
         ],
         'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
         'invitation-bcc-mail' => NULL,
