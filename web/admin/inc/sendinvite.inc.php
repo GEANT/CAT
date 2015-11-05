@@ -31,12 +31,14 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr']))
     exit(1);
 
 $newmailaddress = valid_string_db($_POST['mailaddr']);
+$newcountry = "";
 
 // fed admin stuff
 // we are either inviting to co-manage an existing inst ...
 
 $user_object = new User($_SESSION['user']);
 $fed_privs = $user_object->getAttributes("user:fedadmin");
+$new_idp_authorized_fedadmin = FALSE;
 
 if (isset($_GET['inst_id'])) {
     $idp = valid_IdP($_GET['inst_id']);
@@ -68,12 +70,11 @@ else if (isset($_POST['creation'])) {
         $newinstname = valid_string_db($_POST['name']);
         $newcountry = valid_string_db($_POST['country']);
         // a new IdP was requested and all the required parameters are there
-        $is_authorized = FALSE;
         foreach ($fed_privs as $onefed) {
             if ($onefed['value'] == $newcountry)
-                $is_authorized = TRUE;
+                $new_idp_authorized_fedadmin = TRUE;
         }
-        if (!$is_authorized) {
+        if (!$new_idp_authorized_fedadmin) {
             echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
             exit(1);
         }
@@ -110,7 +111,7 @@ else if (isset($_POST['creation'])) {
 } else {
     $wrongcontent = print_r($_POST, TRUE);
     echo "<pre>Wrong parameters in POST:
-".htmlspecialchars($wrongcontent)."
+" . htmlspecialchars($wrongcontent) . "
 </pre>";
     exit(1);
 }
@@ -133,9 +134,13 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 " .
         _("and enter the invitation token") . "
     $newtoken
-" . wordwrap(_("manually. Please do not reply to this email, it is a send-only address."), 72) . "
-        
-" . wordwrap(sprintf(_("We wish you a lot of fun with the %s."), Config::$APPEARANCE['productname'])) . "
+" . ( $new_idp_authorized_fedadmin ?
+                wordwrap(_("manually. If you reply to this mail, you will reach the federation administrators of your federation."), 72) :
+                wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
+
+" . wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "
+
+" . wordwrap(sprintf(_("We wish you a lot of fun with the %s."), Config::$APPEARANCE['productname']), 72) . "
         
 " . sprintf(_("Sincerely,
 
@@ -157,7 +162,13 @@ $mail->CharSet = 'UTF-8';
 // who to whom?
 $mail->From = Config::$APPEARANCE['from-mail'];
 $mail->FromName = Config::$APPEARANCE['productname'] . " Invitation System";
-
+if ($new_idp_authorized_fedadmin) {
+    $fed = new Federation($newcountry);
+    foreach ($fed->listFederationAdmins() as $fedadmin_id) {
+        $fedadmin = new User($fedadmin_id);       
+        $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
+    }
+}
 if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
     $mail->addBCC(Config::$APPEARANCE['invitation-bcc-mail']);
 
