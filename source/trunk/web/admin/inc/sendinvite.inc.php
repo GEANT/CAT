@@ -60,7 +60,7 @@ if (isset($_GET['inst_id'])) {
     $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname', 0, 0), CAT::$lang_index);
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
-    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), Config::$CONSORTIUM['name'], $prettyprintname);
+    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), Config::$CONSORTIUM['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
     // editing IdPs is done from within the popup. Send the user back to the popup, append the result of the operation later
     $redirect_destination = "manageAdmins.inc.php?inst_id=" . $_GET['inst_id'] . "&";
 } // or invite to manage a new inst, only for fedAdmins
@@ -79,7 +79,7 @@ else if (isset($_POST['creation'])) {
             exit(1);
         }
         $prettyprintname = $newinstname;
-        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), Config::$CONSORTIUM['name'], $prettyprintname, $newcountry);
+        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), Config::$CONSORTIUM['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
