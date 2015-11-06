@@ -166,7 +166,7 @@ if ($new_idp_authorized_fedadmin) {
     $fed = new Federation($newcountry);
     foreach ($fed->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new User($fedadmin_id);       
-        $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
+        // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }
 }
 if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
