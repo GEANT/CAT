@@ -134,7 +134,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 " .
         _("and enter the invitation token") . "
     $newtoken
-" . ( $new_idp_authorized_fedadmin ?
+" . ( /* $new_idp_authorized_fedadmin */ FALSE ?
                 wordwrap(_("manually. If you reply to this mail, you will reach the federation administrators of your federation."), 72) :
                 wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
 
