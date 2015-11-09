@@ -88,7 +88,7 @@ class SanityTest extends CAT {
      * defines a conditional execution of the "subtest" if the "test" was run earier
      * and returned a success.
      */
-    public function run_all($Tests) {
+    public function run_tests($Tests) {
        foreach ($Tests as $t) {
          if(preg_match('/(.+)=>(.+)/',$t,$m)) {
             $tst = $m[1];
@@ -99,6 +99,17 @@ class SanityTest extends CAT {
          else
             $this->test($t);
        }
+    }
+
+    public function get_test_names() {
+       $T = get_class_methods($this);
+       $out = [];
+       foreach($T as $t) {
+         if(preg_match('/^(.*)_test$/',$t,$m)) {
+            $out[] = $m[1];
+         } 
+       }
+       return $out;
     }
 
     /**

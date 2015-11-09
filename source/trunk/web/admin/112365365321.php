@@ -83,7 +83,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
             <table>
 <?php
 $test = new SanityTest();
-$test->run_all($Tests);
+$test->run_tests($Tests);
 print_test_results($test);
 ?>
 </table>
