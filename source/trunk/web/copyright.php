@@ -74,18 +74,8 @@ $Gui = new UserAPI();
                 <li>
                     Attribution Rights
                     <ol>
-                        <li>You must retain, in the Source Code of any Derivative Works that
-      You create, all copyright, patent or trade mark notices from the Source
-      Code of the Original Work, as well as any notices of licensing and any
-      descriptive text identified therein as an “Attribution Notice”,
-      including the following notice:<br>
-        On behalf of the G&Eacute;ANT project, DANTE is the sole owner of the copyright in all material which was
-        developed by a member of the G&Eacute;ANT project. DANTE is Delivery of Advanced Network Technology to
-        Europe Limited (also known as DANTE), a not-for-profit limited liability company registered in England
-        and Wales (company number 02806796) and with its registered company address at 9400 Garsington
-        Road, Oxford Business Park, Oxford, OX42HN. The research leading to these results has received
-        funding from the European Community’s Seventh Framework Programme (FP7/2007-2013) under
-        grant agreement nº 238875 (GÉANT).
+                        <li>You must retain, in the Source Code of any Derivative Works that You create, all copyright, patent or trade mark notices from the Source Code of the Original Work, as well as any notices of licensing and any descriptive text identified therein as an “Attribution Notice”, including the following notice:<br/>
+On behalf of the GÉANT project, GÉANT is the sole owner of the copyright in all material which was developed by a member of the GÉANT project. GÉANT (the collective trading names of: GÉANT Ltd, a not-for-profit limited liability company registered in England and Wales (company number 02806796) with its registered company address at 126-130 Hills Road Cambridge CB2 1PQ; and GÉANT Association, a not-for-profit registered with the Chamber of Commerce in Amsterdam (registration number 40535155). The research leading to these results has received funding from the European Union’s Horizon 2020 research and innovation programme under Grant Agreement No. 691567 (GN4-1).
                         </li>
                         <li>You must cause the Source Code for any Derivative Works that You create to carry a prominent Attribution Notice reasonably calculated to inform recipients that You have modified the Original Work.</li>
                     </ol>
