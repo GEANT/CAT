@@ -16,6 +16,7 @@ Changes in 1.1.2
                and they appeared in English
 - [BUGFIX #2]  in Windows installers the profile name was not sent trough code page
                conversion (reported by Daniele Albrizio)
+- [BUGFIX #3]  In UserAPI generateInstaller returned a link to the actual file location and not the proper API call
 
 
 Changes in 1.1.1
