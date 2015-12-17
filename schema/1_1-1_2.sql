@@ -14,3 +14,19 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:logo_file','logo of the NRO/federation','file', NULL),
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL);
+
+CREATE TABLE `federation` (
+  `federation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`federation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `federation_option` (
+  `federation_id` int(11) NOT NULL DEFAULT '0',
+  `option_name` varchar(32) DEFAULT NULL,
+  `option_value` longblob,
+  `row` int(11) NOT NULL AUTO_INCREMENT,
+  KEY `option_name` (`option_name`),
+  KEY `rowindex` (`row`),
+  CONSTRAINT `profile_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
