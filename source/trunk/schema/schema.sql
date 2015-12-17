@@ -8,9 +8,9 @@ DROP TABLE IF EXISTS `institution`;
 DROP TABLE IF EXISTS `downloads`;
 DROP TABLE IF EXISTS `user_options`;
 DROP TABLE IF EXISTS `supported_eap`;
-DROP TABLE IF EXISTS `profile_option_dict`;
 DROP TABLE IF EXISTS `federation_option`;
 DROP TABLE IF EXISTS `federation`;
+DROP TABLE IF EXISTS `profile_option_dict`;
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,
