@@ -49,6 +49,15 @@ class Federation {
     private static $DB_TYPE = "INST";
 
     /**
+     * This variable gets initialised with the known federation attributes in the constructor. It never gets updated until the object
+     * is destroyed. So if attributes change in the database, and IdP attributes are to be queried afterwards, the object
+     * needs to be re-instantiated to have current values in this variable.
+     * 
+     * @var array of federation attributes
+     */
+    private $priv_attributes;
+    
+    /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
      * The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
      * possible to define static properties with function calls like _().
@@ -366,6 +375,44 @@ class Federation {
         ];
 
         CAT::set_locale($oldlocale);
+        
+        
+        $fedAttributes = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT option_name,option_value, row FROM federation_option
+              WHERE federation_id = $this->identifier  ORDER BY option_name");
+
+        $this->priv_attributes = array();
+
+        while ($a = mysqli_fetch_object($fedAttributes)) {
+            $lang = "";
+            // decode base64 for files (respecting multi-lang)
+            $optinfo = $optioninstance->optionType($a->option_name);
+            $flag = $optinfo['flag'];
+
+            if ($optinfo['type'] != "file") {
+                $this->priv_attributes[] = array("name" => $a->option_name, "value" => $a->option_value, "level" => "FED", "row" => $a->row, "flag" => $flag);
+            } else {
+                // suppress E_NOTICE on the following... we are testing *if*
+                // we have a serialized value - so not having one is fine and
+                // shouldn't throw E_NOTICE
+                if (@unserialize($a->option_value) !== FALSE) { // multi-lang
+                    $content = unserialize($a->option_value);
+                    $lang = $content['lang'];
+                    $content = $content['content'];
+                } else { // single lang, direct content
+                    $content = $a->option_value;
+                }
+
+                $content = base64_decode($content);
+
+                $this->priv_attributes[] = array("name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "FED", "row" => $a->row, "flag" => $flag);
+            }
+        }
+        $this->priv_attributes[] = array("name" => "internal:country",
+            "value" => $this->federation,
+            "level" => "FED",
+            "row" => 0,
+            "flag" => NULL);
+
     }
 
     /**
@@ -608,6 +655,25 @@ class Federation {
         return $returnarray;
     }
 
+    /**
+     * This function retrieves the federation attributes. If called with the optional parameter, only attribute values for the attribute
+     * name in $option_name are retrieved; otherwise, all attributes are retrieved.
+     *
+     * @param string $option_name optionally, the name of the attribute that is to be retrieved
+     * @return array of arrays of attributes which were set for this IdP
+     */
+    public function getAttributes($option_name = 0) {
+        if ($option_name) {
+            $returnarray = Array();
+            foreach ($this->priv_attributes as $the_attr)
+                if ($the_attr['name'] == $option_name)
+                    $returnarray[] = $the_attr;
+            return $returnarray;
+        }
+        else {
+            return $this->priv_attributes;
+        }
+    }
 }
 
 ?>

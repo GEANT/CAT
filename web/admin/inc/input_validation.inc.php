@@ -19,6 +19,21 @@ function input_validation_error($customtext) {
     return "<p>" . _("Input validation error: ") . $customtext . "</p>";
 }
 
+function valid_Fed($input, $owner) {
+    try {
+        $temp = new Federation($input);
+    } catch (Exception $fail) {
+        echo input_validation_error(_("This Federation identifier is not accessible!"));
+        exit(1);
+    }
+
+    foreach ($temp->listFederationAdmins() as $oneowner)
+        if ($oneowner['ID'] == $owner)
+            return $temp;
+    echo input_validation_error(_("This IdP identifier is not accessible!"));
+    exit(1);
+}
+
 function valid_IdP($input, $owner = 0) {
     if (!is_numeric($input)) {
         echo input_validation_error(_("Value for IdP is not an integer!"));
@@ -195,11 +210,11 @@ function valid_DB_reference($input) {
 
 function valid_host($input) {
     // is it a valid IP address (IPv4 or IPv6)?
-    if (filter_var($input,FILTER_VALIDATE_IP))
-            return $input;
+    if (filter_var($input, FILTER_VALIDATE_IP))
+        return $input;
     // if not, it must be a host name. Use email validation by prefixing with a local part
-    if (filter_var("stefan@".$input, FILTER_VALIDATE_EMAIL ))
-            return $input;
+    if (filter_var("stefan@" . $input, FILTER_VALIDATE_EMAIL))
+        return $input;
     // if we get here, it's bogus
     return FALSE;
 }
