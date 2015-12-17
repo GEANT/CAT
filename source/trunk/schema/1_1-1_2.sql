@@ -16,13 +16,13 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL);
 
 CREATE TABLE `federation` (
-  `federation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `federation_id` varchar(16) NOT NULL,
   `last_change` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`federation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `federation_option` (
-  `federation_id` int(11) NOT NULL DEFAULT '0',
+  `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
   `option_name` varchar(32) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,

@@ -66,7 +66,7 @@ echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed
         <button type='button' class='newoption' onclick='addDefaultFedOptions()'><?php echo _("Add new option"); ?></button>
     </fieldset>
 <?php
-    echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php?fed_id=$my_fed->identifier\"'>" . _("Discard changes") . "</button></div></form>";
+    echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
 footer();
 ?>
         
