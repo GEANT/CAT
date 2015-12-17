@@ -54,7 +54,20 @@ foreach ($feds as $onefed) {
         ?>
                 <div class="infobox">
             <h2><?php echo _("Global Helpdesk Details"); ?></h2>
-            <table>
+                        <table>
+                <tr>
+                    <td>
+                        <?php echo "" . _("Country") ?>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <strong><?php
+                        echo Federation::$FederationList[strtoupper($thefed->identifier)];
+                        ?></strong>
+                    </td>
+                </tr>
+
 <?php echo infoblock($thefed->getAttributes(), "fed", "FED"); ?>
             </table>
         </div>
