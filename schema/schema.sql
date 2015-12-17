@@ -18,16 +18,6 @@ CREATE TABLE `federation` (
   PRIMARY KEY (`federation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `federation_option` (
-  `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
-  `option_name` varchar(32) DEFAULT NULL,
-  `option_value` longblob,
-  `row` int(11) NOT NULL AUTO_INCREMENT,
-  KEY `option_name` (`option_name`),
-  KEY `rowindex` (`row`),
-  CONSTRAINT `profile_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE `institution` (
   `inst_id` int(11) NOT NULL AUTO_INCREMENT,
   `country` char(100) DEFAULT NULL,
@@ -44,6 +34,15 @@ CREATE TABLE `profile_option_dict` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `federation_option` (
+  `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
+  `option_name` varchar(32) DEFAULT NULL,
+  `option_value` longblob,
+  `row` int(11) NOT NULL AUTO_INCREMENT,
+  KEY `option_name` (`option_name`),
+  KEY `rowindex` (`row`),
+  CONSTRAINT `profile_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `institution_option` (
   `institution_id` int(11) NOT NULL DEFAULT '0',
