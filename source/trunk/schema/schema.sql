@@ -141,4 +141,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('support:url','URL where the user will find local instructions','string','ML'),
 ('user:email','email address of the user (from IdP)','string',NULL),
 ('user:fedadmin','contains federation names for which this user is an admin','string', NULL),
-('user:realname','a friendly display name of the user','string', NULL);
+('user:realname','a friendly display name of the user','string', NULL),
+('fed:realname','a friendly display name of the NRO/federation','string', 'ML'),
+('fed:logo_file','logo of the NRO/federation','file', NULL),
+('fed:css_file','custom CSS to be applied on any skin','file',NULL),
+('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL);
