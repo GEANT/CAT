@@ -41,7 +41,7 @@ CREATE TABLE `federation_option` (
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
   KEY `rowindex` (`row`),
-  CONSTRAINT `profile_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
+  CONSTRAINT `federation_option_ibfk_1` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `institution_option` (
