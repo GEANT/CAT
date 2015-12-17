@@ -674,6 +674,41 @@ class Federation {
             return $this->priv_attributes;
         }
     }
+    
+        /**
+     * deletes all attributes in this federation except the _file ones, these are reported as array
+     *
+     * @return array list of row id's of file-based attributes which weren't deleted
+     */
+    public function beginFlushAttributes() {
+        DBConnection::exec(IdP::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = $this->identifier AND option_name NOT LIKE '%_file'");
+        $this->updateFreshness();
+        $exec_q = DBConnection::exec(IdP::$DB_TYPE, "SELECT row FROM federation_option WHERE federation_id = $this->identifier");
+        $return_array = [];
+        while ($a = mysqli_fetch_object($exec_q))
+            $return_array[$a->row] = "KILLME";
+        return $return_array;
+    }
+
+    /**
+     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array
+     *
+     * @param array $tobedeleted array of database rows which are to be deleted
+     */
+    public function commitFlushAttributes($tobedeleted) {
+        foreach (array_keys($tobedeleted) as $row) {
+            DBConnection::exec(IdP::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = $this->identifier AND row = $row");
+            $this->updateFreshness();
+        }
+    }
+
+    /**
+     * deletes all attributes of this federation from the database
+     */
+    public function flushAttributes() {
+        $this->commitFlushAttributes($this->beginFlushAttributes());
+    }
+
 }
 
 ?>
