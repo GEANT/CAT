@@ -31,6 +31,7 @@ $user = new User($_SESSION['user']);
     <h1>
         <?php echo _("Federation Overview"); ?>
     </h1>
+    
     <div class="infobox">
         <h2><?php echo _("Your Personal Information"); ?></h2>
         <table>
@@ -47,6 +48,22 @@ $user = new User($_SESSION['user']);
             </tr>
         </table>
     </div>
+<?php        
+foreach ($feds as $onefed) {
+        $thefed = new Federation(strtoupper($onefed['value']));
+        ?>
+                <div class="infobox">
+            <h2><?php echo _("Global Helpdesk Details"); ?></h2>
+            <table>
+<?php echo infoblock($thefed->getAttributes(), "fed", "FED"); ?>
+            </table>
+        </div>
+
+<?php 
+
+}
+?>
+
     <?php
     $mgmt = new UserManagement();
 
