@@ -180,6 +180,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                         $retval .= previewCAinHTML($content);
                         break;
                     case "general:logo_file":
+                    case "fed:logo_file":
                         $retval .= previewImageinHTML($content);
                         break;
                     case "support:info_file":

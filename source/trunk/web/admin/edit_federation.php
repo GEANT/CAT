@@ -19,7 +19,7 @@ require_once("inc/option_html.inc.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
-$my_fed = valid_Fed($_GET['fed_id'], $_SESSION['user']);
+$my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
 $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APPEARANCE['productname'], $my_fed->identifier));

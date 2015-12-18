@@ -378,9 +378,11 @@ class Federation {
         
         
         $fedAttributes = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT option_name,option_value, row FROM federation_option
-              WHERE federation_id = $this->identifier  ORDER BY option_name");
+              WHERE federation_id = '$this->identifier'  ORDER BY option_name");
 
         $this->priv_attributes = array();
+
+        $optioninstance = Options::instance();
 
         while ($a = mysqli_fetch_object($fedAttributes)) {
             $lang = "";
@@ -408,7 +410,7 @@ class Federation {
             }
         }
         $this->priv_attributes[] = array("name" => "internal:country",
-            "value" => $this->federation,
+            "value" => $this->identifier,
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
@@ -681,9 +683,8 @@ class Federation {
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushAttributes() {
-        DBConnection::exec(IdP::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = $this->identifier AND option_name NOT LIKE '%_file'");
-        $this->updateFreshness();
-        $exec_q = DBConnection::exec(IdP::$DB_TYPE, "SELECT row FROM federation_option WHERE federation_id = $this->identifier");
+        DBConnection::exec(Federation::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = '$this->identifier' AND option_name NOT LIKE '%_file'");
+        $exec_q = DBConnection::exec(Federation::$DB_TYPE, "SELECT row FROM federation_option WHERE federation_id = '$this->identifier'");
         $return_array = [];
         while ($a = mysqli_fetch_object($exec_q))
             $return_array[$a->row] = "KILLME";
@@ -697,8 +698,7 @@ class Federation {
      */
     public function commitFlushAttributes($tobedeleted) {
         foreach (array_keys($tobedeleted) as $row) {
-            DBConnection::exec(IdP::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = $this->identifier AND row = $row");
-            $this->updateFreshness();
+            DBConnection::exec(Federation::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = '$this->identifier' AND row = $row");
         }
     }
 
@@ -709,6 +709,21 @@ class Federation {
         $this->commitFlushAttributes($this->beginFlushAttributes());
     }
 
+    /**
+     * Adds an attribute for the Federation instance into the database. Multiple instances of the same attribute are supported.
+     *
+     * @param string $attr_name Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
+     * @param mixed $attr_value Value of the attribute. Can be anything; will be stored in the DB as-is.
+     */
+    public function addAttribute($attr_name, $attr_value) {
+        $attr_name = DBConnection::escape_value(Federation::$DB_TYPE, $attr_name);
+        $attr_value = DBConnection::escape_value(Federation::$DB_TYPE, $attr_value);
+        DBConnection::exec(Federation::$DB_TYPE, "INSERT INTO federation_option (federation_id, option_name, option_value) VALUES('"
+                . $this->identifier . "', '"
+                . $attr_name . "', '"
+                . $attr_value
+                . "')");
+    }
 }
 
 ?>

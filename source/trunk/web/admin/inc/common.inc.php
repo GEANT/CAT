@@ -63,6 +63,10 @@ function display_name($input) {
         _("FAST-GTC") => EAP::$FAST_GTC,
         _("EAP-pwd") => EAP::$PWD,
         _("Remove/Disable SSID") => "media:remove_SSID",
+        _("Custom CSS file for User Area") => "fed:css_file",
+        _("Federation Logo") => "fed:logo_file",
+        _("Preferred Skin for User Area") => "fed:desired_skin",
+        _("Federation Operator Name") => "fed:realname",
     ];
 
     if (count(Config::$CONSORTIUM['ssid']) > 0) {
@@ -197,7 +201,7 @@ function check_upload_sanity($optiontype, $filename) {
 //echo "check_upload_sanity:$optiontype:$filename<br>\n";
 // we check logo_file with ImageMagick
 
-    if ($optiontype == "general:logo_file") {
+    if ($optiontype == "general:logo_file" || $optiontype == "fed:logo_file") {
         $image = new Imagick();
         try {
             $image->readImageBlob($filename);
@@ -370,6 +374,7 @@ function infoblock($optionlist, $class, $level) {
                     $retval .= "<tr><td>" . display_name($option['name']) . "</td><td>$language</td><td>";
                     switch ($option['name']) {
                         case "general:logo_file":
+                        case "fed:logo_file":
                             $retval .= previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                             break;
                         case "eap:ca_file":

@@ -28,7 +28,7 @@ function valid_Fed($input, $owner) {
     }
 
     foreach ($temp->listFederationAdmins() as $oneowner)
-        if ($oneowner['ID'] == $owner)
+        if ($oneowner == $owner)
             return $temp;
     echo input_validation_error(_("This IdP identifier is not accessible!"));
     exit(1);
@@ -199,6 +199,8 @@ function valid_DB_reference($input) {
         $table = "institution_option";
     } elseif (preg_match("/Profile/", $input)) {
         $table = "profile_option";
+    } elseif (preg_match("/FED/", $input)) {
+        $table = "federation_option";
     } else
         return FALSE;
     if (preg_match("/.*-([0-9]*)/", $input, $rowindexmatch)) {

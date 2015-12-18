@@ -1,6 +1,6 @@
 <?php
 
-/* *********************************************************************************
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
  * ********************************************************************************* */
@@ -15,7 +15,6 @@
  * 
  * @package Developer
  */
-
 require_once('Helper.php');
 require_once('Profile.php');
 require_once('IdP.php');
@@ -70,6 +69,7 @@ class DBConnection {
     public function __clone() {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
+
     /**
      * 
      * @param string $db The database to do escapting for
@@ -78,12 +78,12 @@ class DBConnection {
      */
     public static function escape_value($db, $value) {
         $handle = DBConnection::handle($db);
-        debug(5,"Escaping $value for DB $db to get a safe query value.\n");
+        debug(5, "Escaping $value for DB $db to get a safe query value.\n");
         $escaped = mysqli_real_escape_string($handle->connection, $value);
-        debug(5,"This is the result: $escaped .\n");
+        debug(5, "This is the result: $escaped .\n");
         return $escaped;
     }
-    
+
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
      * @param string $querystring the query to be executed
@@ -91,20 +91,20 @@ class DBConnection {
      */
     public static function exec($db, $querystring) {
         // log exact query to debug log, if log level is at 5
-        debug(5, "DB ATTEMPT: ".$querystring . "\n");
-        
+        debug(5, "DB ATTEMPT: " . $querystring . "\n");
+
         $instance = DBConnection::handle($db);
         if ($instance->connection == FALSE) {
-            debug(1,"ERROR: Cannot send query to $db database (no connection)!");
+            debug(1, "ERROR: Cannot send query to $db database (no connection)!");
             return FALSE;
         }
-        
+
         $result = mysqli_query($instance->connection, $querystring);
         if ($result == FALSE) {
-            debug(1,"ERROR: Cannot execute query in $db database - (hopefully escaped) query was '$querystring'!");
+            debug(1, "ERROR: Cannot execute query in $db database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
-        
+
         // log exact query to audit log, if it's not a SELECT
         if (preg_match("/^SELECT/i", $querystring) == 0)
             CAT::writeSQLAudit("[DB: " . strtoupper($db) . "] " . $querystring);
@@ -120,26 +120,26 @@ class DBConnection {
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!
-        if ($table != "institution_option" && $table != "profile_option")
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option")
             return FALSE;
-    $blob_query = DBConnection::exec("INST", "SELECT option_value from $table WHERE row = $row");
-    while ($a = mysqli_fetch_object($blob_query))
-        $blob = $a->option_value;
+        $blob_query = DBConnection::exec("INST", "SELECT option_value from $table WHERE row = $row");
+        while ($a = mysqli_fetch_object($blob_query))
+            $blob = $a->option_value;
 
-    if (!isset($blob))
-        return FALSE;
-    return $blob;
-}
+        if (!isset($blob))
+            return FALSE;
+        return $blob;
+    }
 
     /**
      * Checks if a raw data pointer is public data (return value FALSE) or if 
      * yes who the authorised admins to view it are (return array of user IDs)
      */
     public static function isDataRestricted($table, $row) {
-            if ($table != "institution_option" && $table != "profile_option")
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option")
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
-            switch ($table) {
-            case "profile_option":            
+        switch ($table) {
+            case "profile_option":
                 $blob_query = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
                 while ($a = mysqli_fetch_object($blob_query)) // only one row
                     $blobprofile = $a->profile_id;
@@ -164,10 +164,13 @@ class DBConnection {
                     return $inst->owner();
                 }
                 break;
+            case "federation_option":
+                // federation metadata is always public
+                return FALSE;
+                break;
             default:
-            return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
-            }
-            
+                return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+        }
     }
 
     /**
@@ -205,10 +208,11 @@ class DBConnection {
             echo "ERROR: Unable to connect to $db database! This is a fatal error, giving up.";
             exit(1);
         }
-    
-    if ($db == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team")
-        mysqli_query($this->connection, "SET NAMES 'latin1'");
+
+        if ($db == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team")
+            mysqli_query($this->connection, "SET NAMES 'latin1'");
     }
+
 }
 
 ?>
