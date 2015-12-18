@@ -43,6 +43,7 @@ if (isset($_GET["class"])) {
     case "support":
     case "profile":
     case "media":
+    case "fed":
             $list = array_values($list);
         break;
     case "device-specific":

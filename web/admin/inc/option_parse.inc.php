@@ -227,7 +227,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 unset($killlist[$retval[1]]);
                 continue;
             }
-            if ($object instanceof IdP || $object instanceof User) {
+            if ($object instanceof IdP || $object instanceof User || $object instanceof Federation) {
                 $object->addAttribute($name, $value);
             } elseif ($object instanceof Profile) {
                 if ($device === 0)

@@ -15,7 +15,8 @@ Admin Interface
 ! Federation customisation
   * custom texts in invitations etc.
   * "default CA" as template for new insts?
-  * federation logo to embed in installers?
+  * federation logo to embed in installers
+  * allow selection of skin
 ! Media section should be overridable on profile level (esp. for wired support)
 
 User Interface

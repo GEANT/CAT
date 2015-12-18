@@ -34,13 +34,13 @@ if (isset($_POST['submitbutton'])) {
         $killlist = processSubmittedFields($my_fed, $remaining_attribs);
         echo "</table>";
         // print_r($killlist);
-        $my_inst->commitFlushAttributes($killlist);
+        $my_fed->commitFlushAttributes($killlist);
 
         CAT::writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->identifier . " - attributes changed");
 
         // re-instantiate ourselves... profiles need fresh data
 
-        $my_inst = valid_Fed($_GET['fed_id'], $_SESSION['user']);
+        $my_fed = valid_Fed($_GET['fed_id'], $_SESSION['user']);
 
         echo "<br/><form method='post' action='overview_federation.php' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
     }

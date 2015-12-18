@@ -31,7 +31,7 @@ $user = new User($_SESSION['user']);
     <h1>
         <?php echo _("Federation Overview"); ?>
     </h1>
-    
+
     <div class="infobox">
         <h2><?php echo _("Your Personal Information"); ?></h2>
         <table>
@@ -48,34 +48,6 @@ $user = new User($_SESSION['user']);
             </tr>
         </table>
     </div>
-<?php        
-foreach ($feds as $onefed) {
-        $thefed = new Federation(strtoupper($onefed['value']));
-        ?>
-                <div class="infobox">
-            <h2><?php echo _("Global Helpdesk Details"); ?></h2>
-                        <table>
-                <tr>
-                    <td>
-                        <?php echo "" . _("Country") ?>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <strong><?php
-                        echo Federation::$FederationList[strtoupper($thefed->identifier)];
-                        ?></strong>
-                    </td>
-                </tr>
-
-<?php echo infoblock($thefed->getAttributes(), "fed", "FED"); ?>
-            </table>
-        </div>
-
-<?php 
-
-}
-?>
 
     <?php
     $mgmt = new UserManagement();
@@ -89,19 +61,61 @@ foreach ($feds as $onefed) {
     $feds = $user->getAttributes("user:fedadmin");
     foreach ($feds as $onefed) {
         $thefed = new Federation(strtoupper($onefed['value']));
+        ?>
 
-        echo "<div class='infobox'><h2>";
-        echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->identifier));
-        echo "</h2>";
-        echo "<table>";
-        // idp stats
-        echo "<tr><th style='text-align:left;'>" . _("IdPs Total") . "</th><th colspan='2'>" . _("Public Download") . "</th></tr>";
-        echo "<tr><td>" . count($thefed->listIdentityProviders(0)) . "</td><td colspan='2'>" . count($thefed->listIdentityProviders(1)) . "</td></tr>";
-        // download stats
-        echo "<tr><th style='text-align:left;'>" . _("Downloads") . "</th><th style='text-align:left;'>" . _("Admin") . "</th><th style='text-align:left;'>" . _("User") . "</th></tr>";
-        echo Federation::downloadStats($thefed->identifier, TRUE);
-        echo "</table>";
-        echo "</div>";
+        <div class='infobox'><h2>
+                <?php echo sprintf(_("Federation Properties: %s"), strtoupper($thefed->identifier)); ?>
+            </h2>
+            <table>
+                <!-- fed properties -->
+                <tr>
+                    <td>
+                        <?php echo "" . _("Country") ?>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <strong><?php
+                            echo Federation::$FederationList[strtoupper($thefed->identifier)];
+                            ?></strong>
+                    </td>
+                </tr>
+                <?php
+                echo infoblock($thefed->getAttributes(), "fed", "FED");
+                ?>
+                <tr>
+                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
+                </tr>
+            </table>
+        </div>
+        <div class='infobox'>
+            <h2>
+                <?php echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->identifier)); ?>
+            </h2>
+            <table>
+                <!-- idp stats -->
+                <tr>
+                    <th style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
+                    <th colspan='2'> <?php echo _("Public Download") ?></th>
+                </tr>
+                <tr>
+                    <td> <?php echo count($thefed->listIdentityProviders(0)); ?></td>
+                    <td colspan='2'> <?php echo count($thefed->listIdentityProviders(1)); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='3'><hr></td>
+                </tr>    
+                <!-- download stats -->
+                <tr>
+                    <th style='text-align:left;'> <?php echo _("Downloads"); ?></th>
+                    <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
+                    <th style='text-align:left;'> <?php echo _("User"); ?></th>
+                </tr>
+                <?php echo Federation::downloadStats($thefed->identifier, TRUE); ?>
+            </table>
+        </div>
+        <?php
     }
 
     if (isset($_POST['submitbutton']) &&
@@ -230,7 +244,7 @@ foreach ($feds as $onefed) {
     <hr/>
     <br/>
     <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-            return false;' accept-charset='UTF-8'>
+                    return false;' accept-charset='UTF-8'>
         <button type='submit' class='download'>
             <?php echo _("Register New Institution!"); ?>
         </button>
