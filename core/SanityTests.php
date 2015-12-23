@@ -54,7 +54,7 @@ class SanityTest extends CAT {
          ];
 
 /* set $profile_option_ct to the number of rows returned by "SELECT * FROM profile_option_dict" */
-    private $profile_option_ct = 25;
+    private $profile_option_ct = 29;
 /* set $view_admin_ct to the number of rows returned by "desc view_admin" */
     private $view_admin_ct = 8;
 
