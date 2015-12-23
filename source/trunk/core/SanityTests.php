@@ -480,7 +480,7 @@ class SanityTest extends CAT {
           $global_no_cache = 0;
 
        if($global_no_cache == 1)
-          $this->test_return(L_WARN,"Devices co_cache globa option is set, this is not a good idea in a production setting\n");
+          $this->test_return(L_WARN,"Devices no_cache global option is set, this is not a good idea in a production setting\n");
        $Devs = Devices::listDevices();
        $no_cache_dev = '';
        $no_cache_dev_count = 0;
