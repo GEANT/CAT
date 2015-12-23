@@ -512,7 +512,7 @@ class SanityTest extends CAT {
      * test if mailer works
      */
    private function mailer_test() {
-      if (Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
+      if (empty(Config::$APPEARANCE['abuse-mail']) || Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
          $this->test_return(L_ERROR,"Your abuse-mail has not been set, cannot continue with mailer tests.");
          return;
       }
