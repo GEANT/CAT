@@ -32,7 +32,7 @@ class Device_Linux extends DeviceConfig {
 
       final public function __construct() {
 //      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
-      $this->supportedEapMethods  = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
+      $this->supportedEapMethods  = [ EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS ];
       $this->local_dir = '.cat_installer';
       $this->conf_file = '$HOME/'.$this->local_dir.'/cat_installer.conf';
       debug(4,"LINUX: This device supports the following EAP methods: ");
@@ -40,7 +40,11 @@ class Device_Linux extends DeviceConfig {
     }
 
    public function writeInstaller() {
-      $out_string = '#!/bin/bash
+      $out_string = '#!/usr/bin/env bash
+if [ -z "$BASH" ] ; then
+   bash  $0
+   exit
+fi
 
 ';
       $out_string .= $this->printFunctions();
@@ -296,7 +300,7 @@ function show_info {
      $ZENITY --info --width=500 --text="$1" 2>/dev/null
      return
   fi
-  echo "$1"
+  split_line "$1"
 }
 
 function confirm_exit {
@@ -398,7 +402,7 @@ network={
   identity="${USER_NAME}"';
   if($this->server_name)
     $out .= '
-  subject_match="'.$this->server_name.'"';
+  domain_suffix_match="'.$this->server_name.'"';
   if($this->selected_eap == EAP::$TLS) {
     $out .= '
   private_key="${HOME}/'.$this->local_dir.'/user.p12"
