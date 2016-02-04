@@ -16,7 +16,15 @@ Changes in 1.1.2
                and they appeared in English
 - [BUGFIX #2]  in Windows installers the profile name was not sent trough code page
                conversion (reported by Daniele Albrizio)
-- [BUGFIX #3]  In UserAPI generateInstaller returned a link to the actual file location and not the proper API call
+- [BUGFIX #3]  fix regression: federation operators see their national stats
+               again
+- [BUGFIX #4]  In UserAPI generateInstaller returned a link to the actual file location and not the proper API call
+- [BUGFIX #5]  Move installer cache away from the web tree
+- [BUGFIX #6]  in Linux module fix multiline dispplay of messages in terminal mode, the installer can be run with sh, better bash location
+- [BUGFIX #7]  In Linux installer there was no support for SSID removal
+- [FEATURE #1] "About CAT" now displays a matrix of supported devices and EAP
+               type combinations
+
 
 
 Changes in 1.1.1
