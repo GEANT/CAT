@@ -46,6 +46,7 @@ if [ -z "$BASH" ] ; then
    exit
 fi
 
+
 ';
       $out_string .= $this->printFunctions();
       $out_string .= $this->printStart();
@@ -62,8 +63,9 @@ fi
       $out_string .= '"'." > \$HOME/$this->local_dir/ca.pem\n";
 
      $SSIDs = $this->attributes['internal:SSID'];
+     $delSSIDs = $this->attributes['internal:remove_SSID'];
 
-     $out_string .= $this->printNMScript($SSIDs);
+     $out_string .= $this->printNMScript($SSIDs,$delSSIDs);
      $out_string .= $this->writeWpaConf($SSIDs);
      if($this->selected_eap == EAP::$TLS) 
        $out_string .= $this->printP12Dialog();
@@ -511,7 +513,7 @@ private function glueServerNames($server_list) {
   return(implode('.',array_reverse($B)));
 }
 
-private function printNMScript($SSIDs) {
+private function printNMScript($SSIDs,$delSSIDs) {
    $e = EAP::eapDisplayName($this->selected_eap);
 $out = 'function run_python_script {
 PASSWORD=$( echo "$PASSWORD" | sed "s/\'/\\\\\\\'/g" )
@@ -661,6 +663,13 @@ class EduroamNMConfigTool:
         self.delete_existing_connections(\''.$ssid.'\')
         self.add_connection(\''.$ssid.'\')';
      }
+//   create a list of profiles to be deleted after installation
+     foreach ($delSSIDs as $ssid => $cipher) {
+         if($cipher == 'DEL')
+            $out .='
+        self.delete_existing_connections(\''.$ssid.'\')';
+     }
+
 $out .='
 
 if __name__ == "__main__":
