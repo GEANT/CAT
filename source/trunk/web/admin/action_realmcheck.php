@@ -74,34 +74,43 @@ $errorstate = [];
    var tmp_content;
    var lang = '<?php echo CAT::$lang_index; ?>'
    var states = new Array();
-   states['PASS'] = '<?php echo _("PASS") ?>';
-   states['FAIL'] = '<?php echo _("FAIL") ?>';
-   var clientcert = '<?php echo _("Client certificate:") ?>';
-   var expectedres = '<?php echo _("expected result: ") ?>';
-   var accepted = '<?php echo _("Server accepted this client certificate") ?>';
-   var falseaccepted = '<?php echo _("Server accepted this client certificate, but should not have") ?>';
-   var notaccepted = '<?php echo _("Server did not accept this client certificate") ?>';
-   var notacceptedwithreason = '<?php echo _("Server did not accept this client certificate - reason") ?>';
-   var restskipped = '<?php echo _("Rest of tests for this CA skipped") ?>';
-   var listofcas = '<?php echo _("You should update your list of accredited CAs") ?>';
-   var getitfrom = '<?php echo _("Get it from here.") ?>';
-   var listsource = '<?php echo Config::$RADIUSTESTS['accreditedCAsURL'] ?>';
-   var moretext = '<?php echo _("more") . "&raquo;" ?>';
-   var lesstext = '<?php echo "&laquo" ?>';
-   var morealltext = '<?php echo _("Show detailed information for all tests") ?>';
-   var unknownca_code =  '<?php echo CERTPROB_UNKNOWN_CA ?>';
-   var refused_code =  '<?php echo RETVAL_CONNECTION_REFUSED ?>';
-   var refused_info =  '<?php echo _("Connection refused") ?>';
+   states['PASS'] = "<?php echo _("PASS") ?>";
+   states['FAIL'] = "<?php echo _("FAIL") ?>";
+   var clientcert = "<?php echo _("Client certificate:") ?>";
+   var expectedres = "<?php echo _("expected result: ") ?>";
+   var accepted = "<?php echo _("Server accepted this client certificate") ?>";
+   var falseaccepted = "<?php echo _("Server accepted this client certificate, but should not have") ?>";
+   var notaccepted = "<?php echo _("Server did not accept this client certificate") ?>";
+   var notacceptedwithreason = "<?php echo _("Server did not accept this client certificate - reason") ?>";
+   var restskipped = "<?php echo _("Rest of tests for this CA skipped") ?>";
+   var listofcas = "<?php echo _("You should update your list of accredited CAs") ?>";
+   var getitfrom = "<?php echo _("Get it from here.") ?>";
+   var listsource = "<?php echo Config::$RADIUSTESTS['accreditedCAsURL'] ?>";
+   var moretext = "<?php echo _("more") . "&raquo;" ?>";
+   var lesstext = "<?php echo "&laquo" ?>";
+   var morealltext = "<?php echo _("Show detailed information for all tests") ?>";
+   var unknownca_code =  "<?php echo CERTPROB_UNKNOWN_CA ?>";
+   var refused_code =  "<?php echo RETVAL_CONNECTION_REFUSED ?>";
+   var refused_info =  "<?php echo _("Connection refused") ?>";
+   var global_info = new Array();
+   global_info[L_OK] = "<?php echo "All tests passed." ?>";
+   global_info[L_WARN] = "<?php echo "There were some warnings." ?>";
+   global_info[L_ERROR] = "<?php echo "There were some errors." ?>";
+   global_info[L_REMARK] = "<?php echo "There were some remarks." ?>";
    var servercert =  new Array();
    var arefailed = 0;
-   servercert['title'] = '<?php echo _("Server certificate") ?>';
-   servercert['subject'] = '<?php echo _("Subject") ?>';
-   servercert['issuer'] = '<?php echo _("Issuer") ?>';
-   servercert['subjectaltname'] = '<?php echo _("SubjectAltName") ?>';
-   servercert['policies'] = '<?php echo _("Certificate policies") ?>';
-   servercert['crlDistributionPoint'] = '<?php echo _("crlDistributionPoint") ?>';
-   servercert['authorityInfoAccess'] = '<?php echo _("authorityInfoAccess") ?>';
-   var lessalltext = '<?php echo _("Hide detailed information for all tests") ?>';
+   var running_ajax_stat = 0;
+   var running_ajax_dyn = 0;
+   var global_level_udp  = L_OK;
+   var global_level_dyn  = L_OK;
+   servercert['title'] = "<?php echo _("Server certificate") ?>";
+   servercert['subject'] = "<?php echo _("Subject") ?>";
+   servercert['issuer'] = "<?php echo _("Issuer") ?>";
+   servercert['subjectaltname'] = "<?php echo _("SubjectAltName") ?>";
+   servercert['policies'] = "<?php echo _("Certificate policies") ?>";
+   servercert['crlDistributionPoint'] = "<?php echo _("crlDistributionPoint") ?>";
+   servercert['authorityInfoAccess'] = "<?php echo _("authorityInfoAccess") ?>";
+   var lessalltext = "<?php echo _("Hide detailed information for all tests") ?>";
    var addresses = new Array();
    var clients_level = L_OK;
    $(document).ready(function() {
@@ -166,6 +175,7 @@ $errorstate = [];
 });
 
 function clients(data,status){
+   var srefused = 0;
 //show_debug(data);
 cliinfo = '<ol>';
 for (var key in data.ca) {
@@ -214,7 +224,9 @@ for (var key in data.ca) {
  }
 }
 } 
-clients_level = clients_level | level;
+clients_level = Math.max(clients_level , level);
+global_level_dyn = Math.max(global_level_dyn , level);
+
 cliinfo = cliinfo + '</ul>';
 }
 cliinfo = cliinfo + '</ol>';
@@ -235,6 +247,9 @@ $("#dynamic_result_fail img").attr('src',icons[clients_level]);
 }
 $("#clientresults"+data.hostindex).html('<p>'+cliinfo+'</p>');
 }
+    running_ajax_dyn--;
+    ajax_end();
+
 }
 
 function capath(data,status){
@@ -274,6 +289,8 @@ function capath(data,status){
    if ((addresses[data.ip] == 0 ) && $('#clientstest').is(':hidden')) {
      $('#clientstest').show();
    }
+    running_ajax_dyn--;
+    ajax_end();
 }
 
 var server_cert = new Object();
@@ -315,7 +332,23 @@ function udp(data,status) {
    } else {
        $("#src"+data.hostindex).html('<br/><?php printf(_("elapsed time: %sms."),"'+v.time_millisec+'&nbsp;") ?><p>'+v.message+'</p>');
    }
+      global_level_udp = Math.max(global_level_udp,v.level);  
       $(".server_cert").show();
+   running_ajax_stat--;
+   ajax_end();
+}
+
+function ajax_end() {
+   if(running_ajax_stat == 0) {
+       $("#main_static_ico").attr('src',icons[global_level_udp]);
+       $("#main_static_result").html(global_info[global_level_udp] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
+       $("#main_static_result").show();
+   }
+   if(running_ajax_dyn == 0) {
+       $("#main_dynamic_ico").attr('src',icons[global_level_dyn]);
+       $("#main_dynamic_result").html(global_info[global_level_dyn] + ' ' +"<?php echo _("See the appropriate tab for details.") ?>");
+       $("#main_dynamic_result").show();
+   }
 }
 
 function udp_login(data, status) {
@@ -380,6 +413,11 @@ $(\"#live_src".$hostindex."_img\").show();
 }
 
 function run_udp () {
+   running_ajax_stat = 0;
+   $("#main_static_ico").attr('src',icon_loading);
+   $("#main_static_result").html("");
+   $("#main_static_result").hide();
+   global_level_udp = L_OK;
    $("#debug_out").html('');
    $("#static_tests").show();
    $(".results_tr").remove();
@@ -394,11 +432,16 @@ foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
    print "
 $(\"#src".$hostindex."_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
+running_ajax_stat++;
 $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '".CAT::$lang_index."', hostindex: '$hostindex'  }, udp, 'json');
 
 ";
 }
 ?>
+}
+
+function eee() {
+ alert("Unexpected error");
 }
 
 function show_debug(text) {
@@ -418,22 +461,22 @@ function show_debug(text) {
 <div id="debug_out" style="display: none"></div>
 <div id="tabs" style="min-width: 600px; max-width:800px">
   <ul>
-    <li><a href="#tabs-1"><?php echo _("DNS checks") ?></a></li>
+    <li><a href="#tabs-1"><?php echo _("Overview") ?></a></li>
     <li><a href="#tabs-2"><?php echo _("Static connectivity tests") ?></a></li>
-    <li id="tabs-d-li""><a href="#tabs-3"><?php echo _("Dynamic connectivity tests") ?></a></li>
+    <li id="tabs-d-li"><a href="#tabs-3"><?php echo _("Dynamic connectivity tests") ?></a></li>
     <li id="tabs-through"><a href="#tabs-4"><?php echo _("Live login tests") ?></a></li>
   </ul>
   <div id="tabs-1">
+<fieldset class='option_container'>
+   <legend>
+   <strong><?php echo _("Overview") ?></strong>
+   </legend>
       <?php
       // NAPTR existence check
+      echo "<strong>"._("DNS chekcs")."</strong><div>";
       $naptr = $testsuite->NAPTR();
       if ($naptr != RETVAL_NOTCONFIGURED) {
-          echo "<fieldset class='option_container'>
-               <legend>
-                   <strong>" . _("DNS checks") . "</strong>
-               </legend>
-               <table>";
-
+           echo "<table>";
                   // output in friendly words
           echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
           switch ($naptr) {
@@ -509,9 +552,15 @@ function show_debug(text) {
                    echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
                 echo "</table></div>";
               }
+              echo '</div>';
 
               echo '<script type="text/javascript">
               function run_dynamic() {
+                 running_ajax_dyn = 0;
+                 $("#main_dynamic_ico").attr("src",icon_loading);
+                 $("#main_dynamic_result").html("");
+                 $("#main_dynamic_result").hide();
+                 global_level_dyn = L_OK;
                  $("#dynamic_tests").show();
               ';
                   foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
@@ -520,17 +569,34 @@ function show_debug(text) {
                       $host .= $addr['IP'];
                       if ($addr['family'] == "IPv6") $host .= ']';
                       $host .= ':' . $addr['port'];
+if($addr['family'] == "IPv6")
+   continue;
                       print "
-                            $.get('radius_tests.php', {test_type: 'capath', realm: realm, src: '$host', lang: '".CAT::$lang_index."', hostindex: '$hostindex' },  capath, 'json'); 
-                            $.get('radius_tests.php', {test_type: 'clients', realm: realm, src: '$host', lang: '".CAT::$lang_index."', hostindex: '$hostindex' },  clients , 'json'); 
+                            running_ajax_dyn++;
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '".CAT::$lang_index."', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
+                            running_ajax_dyn++;
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '".CAT::$lang_index."', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
                    }
               echo "}
-              </script>
-                    </fieldset>";
+              </script><hr>";
+       
+         } else {
+          echo "<tr><td>" . _("Dynamic discovery test is not configured") . "</td><td>";
+         }
+         echo "<strong>"._("Static connectivity tests")."</strong>
+         <table><tr>
+         <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_static_ico' class='icon'></td><td id='main_static_result' style='display:none'>&nbsp;</td>
+         </tr></table>";
+         if($naptr > 0) {
+             echo "<hr><strong>"._("Dynamic connectivity tests")."</strong>
+         <table><tr>
+         <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='main_dynamic_ico' class='icon'></td><td id='main_dynamic_result' style='display:none'>&nbsp;</td>
+         </tr></table>";
          }
 ?>
 
+</fieldset>
 
 </div>
   <div id="tabs-2">
