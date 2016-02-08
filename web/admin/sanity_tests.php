@@ -99,25 +99,34 @@ if (!in_array("I do not care about security!", Config::$SUPERADMINS)) {
 }
 $test = new SanityTest();
 $test->run_tests($Tests);
-$format =  empty($_REQUEST['format']) ? 'html' : $_REQUEST['format'];
+$format =  empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {
+    case 'include':
+        $o = print_test_results($test);
+        print "<table>$o</table>";
+        break;
     case 'html':
     header("Content-Type:text/html;charset=utf-8");
       echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
           <head lang='$ourlocale'>
-          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
+          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head>";
        
         $o = print_test_results($test);
-        print "<table>$o</table>";
+        print "<body><table>$o</table></body></html>";
         break;
     case 'json':
         header('Content-type: application/json; utf-8');
         print json_encode(['global'=>$test->test_result, 'details'=>$test->out]);
         break;
     case 'print_r':
-        print "<pre>";
+      echo "<!DOCTYPE html>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
+          <head lang='$ourlocale'>
+          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'></head>";
+        print "<body><pre>";
         print_r(['global'=>$test->test_result, 'details'=>$test->out]);
+        print "</pre><body>";
         break;
     default:
         break;
