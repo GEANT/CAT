@@ -37,30 +37,6 @@ require_once("Federation.php");
 require_once('devices/devices.php');
 require_once("DBConnection.php");
 require_once("inc/common.inc.php");
-require_once("SanityTests.php");
-
-function print_test_results($t) {
-   switch($t->test_result['global']) {
-       case L_OK:
-         $message = "Your configuration appears to be fine.";
-         break;
-       case L_WARN:
-         $message = "There were some warnings, but your configuration should work.";
-         break;
-       case L_ERROR:
-         $message = "Your configuration appears to be broken, please fix the errors.";
-         break;
-       case L_NOTICE:
-         $message = "Your configuration appears to be fine.";
-         break;
-   }
-   echo UI_message($t->test_result['global'],"<br><strong>Test Summary</strong><br>".$message."<br>See below for details<br><hr>");
-   foreach ($t->out as $test => $test_val)  {
-   foreach ($test_val as $o)  {
-       echo UI_message($o['level'],$o['message']);
-   }
-   }
-}
 
 if (!in_array("I do not care about security!", Config::$SUPERADMINS)) {
     require_once("inc/auth.inc.php");
@@ -80,13 +56,13 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
             <legend>
                 <strong>Configuration Check</strong>
             </legend>
-            <table>
 <?php
-$test = new SanityTest();
-$test->run_tests($Tests);
-print_test_results($test);
+            if (isset($_POST['admin_action'])) {
+               if($_POST['admin_action'] == BUTTON_SANITY_TESTS)
+                        include("sanity_tests.php");
+            }
 ?>
-</table>
+<button type="submit" name="admin_action" value="<?php echo BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
 </fieldset>
         <fieldset class="option_container">
             <legend>
@@ -100,7 +76,7 @@ print_test_results($test);
                     // we do NOT break here - after the DB deletion comes the normal
                     // filesystem cleanup
                     case BUTTON_DELETE:
-                        $downloads = dirname(dirname(dirname(__FILE__))) . "/var/installer_cache";
+                        $downloads = dirname(dirname(__FILE__)) . "/downloads";
                         $tm = time();
                         $i = 0;
 
