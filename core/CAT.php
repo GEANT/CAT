@@ -43,6 +43,7 @@ class CAT {
     public static $VERSION_PATCH = 0;
     public static $VERSION_EXTRA = "";
     public static $RELEASE_VERSION = FALSE;
+    public static $USER_API_VERSION = 2;
     
     /*
      * This is the user-displayed string; controlled by the four options above

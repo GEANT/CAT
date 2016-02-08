@@ -292,7 +292,7 @@ class SanityTest extends CAT {
       * test if all required NSIS modules are available
       */
     private function NSISmodules_test() {
-         $tmp_dir = createTemporaryDirectory()['dir'];
+         $tmp_dir = createTemporaryDirectory('installer')['dir'];
          if(!chdir($tmp_dir)) {
            debug(2, "Cannot chdir to $tmp_dir\n");
            exit;
@@ -317,7 +317,7 @@ class SanityTest extends CAT {
          }
     }
     private function NSIS_GetVersion_test() {
-         $tmp_dir = createTemporaryDirectory()['dir'];
+         $tmp_dir = createTemporaryDirectory('installer')['dir'];
          if(!chdir($tmp_dir)) {
            debug(2, "Cannot chdir to $tmp_dir\n");
            exit;
@@ -336,21 +336,29 @@ class SanityTest extends CAT {
       * test access to dowloads directories
       */
     private function directories_test() {
-                $name = CAT::$root.'/web/downloads'.'/'.md5(time().rand()).'.test';
-                if (fopen($name, "a") == FALSE)
-                    $this->test_return(L_ERROR,"Download directory is not writable!");
-                else {
-                    echo $this->test_return(L_OK,"Download directory is writable.");
-                    unlink($name);
-                }
-
-                $name = CAT::$root .'/web/downloads/logos'.'/'.md5(time().rand()).'.test';
-                if (fopen($name, "a") == FALSE)
-                    $this->test_return(L_ERROR,"Logos cache directory is not writable.");
-                else{
-                    $this->test_return(L_OK,"Logos cache directory is writable.");
-                    unlink($name);
-                }
+               $Dir = createTemporaryDirectory('installer',0);
+               $dir = $Dir['dir'];
+               $base = $Dir['base'];
+               if($dir) {
+                  $this->test_return(L_OK,"Installer cache directory is writable.");
+                  rrmdir($dir);
+               } else {
+                  $this->test_return(L_ERROR,"Installer cache directory $base does not exist or is not writable!");
+               }
+               $dir = createTemporaryDirectory('test',0)['dir'];
+               if($dir) {
+                  $this->test_return(L_OK,"Test directory is writable.");
+                  rrmdir($dir);
+               } else {
+                  $this->test_return(L_ERROR,"Test directory  $base does not exist or is not writable!");
+               }
+               $dir = createTemporaryDirectory('logo',0)['dir'];
+               if($dir) {
+                  $this->test_return(L_OK,"Logos cache directory is writable.");
+                  rrmdir($dir);
+               } else {
+                  $this->test_return(L_ERROR,"Logos cache directory  $base does not exist or is not writable!");
+               }
     }
 
     /**

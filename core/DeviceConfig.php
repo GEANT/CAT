@@ -99,11 +99,11 @@ abstract class DeviceConfig {
           error("No EAP type specified.");
           exit;
        }
-       // create temporary directory, its path will be saved in $this->FPATH;
-       $T = createTemporaryDirectory();
-debug(4,$T);
-       $this->FPATH = $T['name'];
-       chdir($T['dir']);
+       // create temporary directory, its full path will be saved in $this->FPATH;
+       $T = createTemporaryDirectory('installer');
+       $this->FPATH = $T['dir'];
+       mkdir($T['dir'].'/tmp');
+       chdir($T['dir'].'/tmp');
        $CAs = [];
        if(isset($this->attributes['eap:ca_file'])) {
        foreach ($this->attributes['eap:ca_file'] as $ca) {

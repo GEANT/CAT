@@ -931,7 +931,7 @@ class RADIUSTests {
         // we will need a config blob for wpa_supplicant, in a temporary directory
         // code is copy&paste from DeviceConfig.php
 
-        $T = createTemporaryDirectory();
+        $T = createTemporaryDirectory('test');
         $tmp_dir = $T['dir'];
         chdir($tmp_dir);
         debug(4, "temp dir: $tmp_dir\n");
