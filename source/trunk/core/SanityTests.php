@@ -292,7 +292,7 @@ class SanityTest extends CAT {
       * test if all required NSIS modules are available
       */
     private function NSISmodules_test() {
-         $tmp_dir = createTemporaryDirectory('installer')['dir'];
+         $tmp_dir = createTemporaryDirectory('installer',0)['dir'];
          if(!chdir($tmp_dir)) {
            debug(2, "Cannot chdir to $tmp_dir\n");
            exit;
@@ -317,7 +317,7 @@ class SanityTest extends CAT {
          }
     }
     private function NSIS_GetVersion_test() {
-         $tmp_dir = createTemporaryDirectory('installer')['dir'];
+         $tmp_dir = createTemporaryDirectory('installer',0)['dir'];
          if(!chdir($tmp_dir)) {
            debug(2, "Cannot chdir to $tmp_dir\n");
            exit;
