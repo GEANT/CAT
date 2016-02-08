@@ -41,6 +41,9 @@ require_once("inc/common.inc.php");
 if (!in_array("I do not care about security!", Config::$SUPERADMINS)) {
     require_once("inc/auth.inc.php");
     authenticate();
+    $no_security = 0;
+} else {
+   $no_security = 1;
 }
 $user = new User((!in_array("I do not care about security!", Config::$SUPERADMINS) ? $_SESSION['user'] : "UNIDENTIFIED"));
 
@@ -64,6 +67,11 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
 ?>
 <button type="submit" name="admin_action" value="<?php echo BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
 </fieldset>
+<?php if($no_security) {
+     print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config.php and login as one.</h2>";
+
+   } else {
+?>
         <fieldset class="option_container">
             <legend>
                 <strong>Administrative actions</strong>
@@ -180,6 +188,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 </tr>
             </table>
         </fieldset>
+<?php } ?>
     </form>
     <?php
     footer();
