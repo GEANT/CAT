@@ -102,6 +102,12 @@ $test->run_tests($Tests);
 $format =  empty($_REQUEST['format']) ? 'html' : $_REQUEST['format'];
 switch ($format) {
     case 'html':
+    header("Content-Type:text/html;charset=utf-8");
+      echo "<!DOCTYPE html>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>
+          <head lang='$ourlocale'>
+          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
+       
         $o = print_test_results($test);
         print "<table>$o</table>";
         break;
