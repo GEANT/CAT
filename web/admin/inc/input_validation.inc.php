@@ -30,7 +30,7 @@ function valid_Fed($input, $owner) {
     foreach ($temp->listFederationAdmins() as $oneowner)
         if ($oneowner == $owner)
             return $temp;
-    echo input_validation_error(_("This IdP identifier is not accessible!"));
+    echo input_validation_error(_("This Federation identifier is not accessible!"));
     exit(1);
 }
 
