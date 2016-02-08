@@ -154,7 +154,7 @@ $user = new User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='4'><strong>" . sprintf(_("Your federation %s contains the following institutions:"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>') . "</strong></td></tr>";
+            echo "<tr><td colspan='4'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>',"action_fedcheck.php?fed=".$thefed->identifier) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
