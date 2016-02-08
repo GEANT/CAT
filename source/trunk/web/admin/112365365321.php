@@ -100,7 +100,7 @@ print_test_results($test);
                     // we do NOT break here - after the DB deletion comes the normal
                     // filesystem cleanup
                     case BUTTON_DELETE:
-                        $downloads = dirname(dirname(__FILE__)) . "/downloads";
+                        $downloads = dirname(dirname(dirname(__FILE__))) . "/var/installer_cache";
                         $tm = time();
                         $i = 0;
 
