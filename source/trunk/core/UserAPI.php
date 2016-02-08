@@ -65,7 +65,7 @@ class UserAPI extends CAT {
       $cache = $profile->testCache($device);
       $this->i_path = $cache['cache'];
     }
-    if($this->i_path && is_file(CAT::$root.'/web/'.$this->i_path)) { 
+    if($this->i_path && is_file($this->i_path)) { 
       debug(4,"Using cached installer for: $device\n");
       $a['link'] = "API.php?api_version=$version&action=downloadInstaller&lang=".CAT::$lang_index."&profile=$prof_id&device=$device&generatedfor=$generated_for";
       $a['mime'] = $cache['mime'];
@@ -74,16 +74,20 @@ class UserAPI extends CAT {
       $dev = $factory->device;
       if(isset($dev)) {
          $dev->setup($profile);
-         $this->i_path = $dev->FPATH.'/'.$dev->writeInstaller();
-         if($this->i_path && is_file(CAT::$root.'/web/'.$this->i_path)) {
+         $installer = $dev->writeInstaller();
+         $i_path = $dev->FPATH.'/tmp/'.$installer;
+         if($i_path && is_file($i_path)) {
          if(isset($dev->options['mime']))
                $a['mime'] = $dev->options['mime'];
          else {
            $info = new finfo();
-           $a['mime'] = $info->file(CAT::$root.'/web/'.$this->i_path, FILEINFO_MIME_TYPE);
+           $a['mime'] = $info->file($i_path, FILEINFO_MIME_TYPE);
          }
+         $this->i_path = $dev->FPATH.'/'.$installer;
+         rename($i_path, $this->i_path);
          $profile->updateCache($device,$this->i_path,$a['mime']);
-         debug(4,"Generated installer :".CAT::$root.'/web/'.$this->i_path.": for: $device\n");
+         rrmdir($dev->FPATH.'/tmp');
+         debug(4,"Generated installer: ".$this->i_path.": for: $device\n");
          $a['link'] = "API.php?api_version=$version&action=downloadInstaller&lang=".CAT::$lang_index."&profile=$prof_id&device=$device&generatedfor=$generated_for";
          } else {
          debug(2,"Installer generation failed for: $prof_id:$device:".CAT::$lang_index."\n");
@@ -395,7 +399,7 @@ private function GetRootURL() {
     }
     $profile = new Profile($prof_id);
     $profile->incrementDownloadStats($device, $generated_for);
-    $file = CAT::$root.'/web/'.$this->i_path;
+    $file = $this->i_path;
     $filetype = $o['mime'];
     debug(4,"installer MIME type:$filetype\n");
     header("Content-type: ".$filetype);

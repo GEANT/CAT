@@ -173,17 +173,39 @@ function getLocalisedValue($val_arr, $locale) {
 }
 /**
  * create a temporary directory and return the location
+ * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
+ * @param $fail (default true) decides if a creation failure should cause an error
  * @return - the tupple full directory path, directory name
  */
-function createTemporaryDirectory() {
-        $name = 'downloads'.'/'.md5(time().rand());
-        $tmp_dir = dirname(dirname(__FILE__)).'/web/'.$name;
-        debug(4,"temp dir: $tmp_dir\n");
+function createTemporaryDirectory($purpose = 'installer',$fail = 1) {
+        $name = md5(time().rand());
+        switch($purpose) {
+           case 'installer':
+             $path = CAT::$root.'/var/installer_cache';
+             break;
+           case 'logo':
+             $path = CAT::$root.'/web/downloads/logos';
+             break;
+           case 'test':
+             $path = CAT::$root.'/var/tmp';
+             break;
+           default:
+             error("unable to create temporary directory for unknown purpose: $purpose\n");
+             exit;
+        }
+        $tmp_dir = $path .'/'. $name;
+        debug(4,"temp dir: $purpose : $tmp_dir\n");
         if(! mkdir($tmp_dir,0700, true)) {
-          error("unable to create temporary directory: $tmp_dir\n");
-          exit;
-       }
-     return ['dir'=>$tmp_dir,'name'=>$name];
+          if($fail) {
+             error("unable to create temporary directory: $tmp_dir\n");
+             exit;
+          } else  {
+            debug(4, "Directory creation failed for $tmp_dir\n");
+            return ['base'=>$path,'dir'=>'',$name=>''];
+          }
+       } else
+         debug(4, "Directory created: $tmp_dir\n");
+     return ['base'=>$path,'dir'=>$tmp_dir,'name'=>$name];
 }
 
 function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
