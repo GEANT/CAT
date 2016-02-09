@@ -41,7 +41,7 @@ class SanityTest extends CAT {
 /* in this section set current CAT requirements */
 
 /* $php_needversion sets the minumum required php version */
-    private $php_needversion = '5.5.4';
+    private $php_needversion = '5.5.14';
 
 /* List all required NSIS modules below */
     private $NSIS_Modules = [
@@ -62,6 +62,12 @@ class SanityTest extends CAT {
 
     public $out;
     public $name;
+
+    public function __construct() {
+       parent::__construct();
+       $this->test_result = [];
+       $this->test_result['global'] = 0;
+    }
 
     /**
      * The single test wrapper
@@ -295,7 +301,8 @@ class SanityTest extends CAT {
          $tmp_dir = createTemporaryDirectory('installer',0)['dir'];
          if(!chdir($tmp_dir)) {
            debug(2, "Cannot chdir to $tmp_dir\n");
-           exit;
+           $this->test_return(L_ERROR,"NSIS modules test - problem with temporary directory permissions, cannot continue");
+           return;
          }
          $exe= 'tt.exe';
          $NSIS_Module_status = [];
@@ -320,7 +327,8 @@ class SanityTest extends CAT {
          $tmp_dir = createTemporaryDirectory('installer',0)['dir'];
          if(!chdir($tmp_dir)) {
            debug(2, "Cannot chdir to $tmp_dir\n");
-           exit;
+           $this->test_return(L_ERROR,"NSIS module <strong>GetVersion</strong> - problem with temporary directory permissions, cannot continue");
+           return;
          }
          $exe= 'tt.exe';
          exec(Config::$PATHS['makensis']." -V1 '-XOutFile $exe' '-XSection X' '-XGetVersion::WindowsName' '-XSectionEnd'", $out, $retval);
@@ -345,14 +353,18 @@ class SanityTest extends CAT {
                } else {
                   $this->test_return(L_ERROR,"Installer cache directory $base does not exist or is not writable!");
                }
-               $dir = createTemporaryDirectory('test',0)['dir'];
+               $Dir = createTemporaryDirectory('test',0);
+               $dir = $Dir['dir'];
+               $base = $Dir['base'];
                if($dir) {
                   $this->test_return(L_OK,"Test directory is writable.");
                   rrmdir($dir);
                } else {
                   $this->test_return(L_ERROR,"Test directory  $base does not exist or is not writable!");
                }
-               $dir = createTemporaryDirectory('logo',0)['dir'];
+               $Dir = createTemporaryDirectory('logo',0);
+               $dir = $Dir['dir'];
+               $base = $Dir['base'];
                if($dir) {
                   $this->test_return(L_OK,"Logos cache directory is writable.");
                   rrmdir($dir);
