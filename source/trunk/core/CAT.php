@@ -66,12 +66,10 @@ class CAT {
      */
     public function __construct() {
         $A = $this->set_lang();
-        self::$lang_index = $A[0];
         self::$locale = $A[1];
         $a = __DIR__;
         self::$root = dirname($a);
 
-        debug(4, "CAT:" . self::$lang_index);
 
         if (CAT::$RELEASE_VERSION) {
             $temp_version = "CAT-".CAT::$VERSION_MAJOR.".".CAT::$VERSION_MINOR;
@@ -286,11 +284,6 @@ class CAT {
      * @static string $root
      */
     public static $root;
-
-    /**
-     * language code for the language set by the constructor
-     */
-    public static $lang_index;
 
     /**
      * language display name for the language set by the constructor
