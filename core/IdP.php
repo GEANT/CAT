@@ -122,7 +122,7 @@ class IdP {
                                          "row" => 0, 
                                          "flag" => NULL];
 
-        $this->name = getLocalisedValue($this->getAttributes('general:instname', 0, 0), CAT::$lang_index);
+        $this->name = getLocalisedValue($this->getAttributes('general:instname', 0, 0), CAT::get_lang());
         debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
