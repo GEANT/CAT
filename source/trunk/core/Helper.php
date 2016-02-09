@@ -203,7 +203,7 @@ function createTemporaryDirectory($purpose = 'installer',$fail = 1) {
             debug(4, "Directory creation failed for $tmp_dir\n");
             return ['base'=>$path,'dir'=>'',$name=>''];
           }
-       } else
+        } else
          debug(4, "Directory created: $tmp_dir\n");
      return ['base'=>$path,'dir'=>$tmp_dir,'name'=>$name];
 }
