@@ -26,7 +26,7 @@ $user = new User($_SESSION['user']);
 </head>
 <body>
     <?php
-    productheader("FEDERATION", CAT::$lang_index);
+    productheader("FEDERATION", CAT::get_lang());
     ?>
     <h1>
         <?php echo _("Federation Overview"); ?>

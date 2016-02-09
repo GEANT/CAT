@@ -57,7 +57,7 @@ if (isset($_GET['inst_id'])) {
         exit(1);
     }
 
-    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname', 0, 0), CAT::$lang_index);
+    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname', 0, 0), CAT::get_lang());
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), Config::$CONSORTIUM['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
@@ -90,7 +90,7 @@ else if (isset($_POST['creation'])) {
         $newexternalid = valid_string_db($_POST['externals']);
         $extinfo = Federation::getExternalDBEntityDetails($newexternalid);
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
-        $ourlang = CAT::$lang_index;
+        $ourlang = CAT::get_lang();
         $prettyprintname = "";
         foreach ($extinfo['names'] as $lang => $name)
             if ($lang == $ourlang)

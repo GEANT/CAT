@@ -31,7 +31,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 </head>
 <body  onload='load(0)'>
     <?php
-    productheader("ADMIN-IDP", CAT::$lang_index);
+    productheader("ADMIN-IDP", CAT::get_lang());
 
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();

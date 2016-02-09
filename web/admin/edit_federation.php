@@ -31,7 +31,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
 </head>
 <body>
 
-<?php productheader("FEDERATION", CAT::$lang_index); ?>
+<?php productheader("FEDERATION", CAT::get_lang()); ?>
 
     <h1>
 <?php

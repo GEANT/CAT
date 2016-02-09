@@ -112,7 +112,7 @@ include("user/js/cat_js.php");
         <!-- DiscoJuice -->
         <script type="text/javascript" src="external/discojuice/discojuice.js"></script>
         <script type="text/javascript">
-            var lang = "<?php echo(CAT::$lang_index) ?>";
+            var lang = "<?php echo(CAT::get_lang()) ?>";
         </script>
         <link rel="stylesheet" type="text/css" href="external/discojuice/css/discojuice.css" />
     </head>
@@ -130,7 +130,7 @@ include("user/js/cat_js.php");
             foreach (Config::$LANGUAGES as $lang => $value) {
                 echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
             }
-            echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::$lang_index . '">' . _("Start page") . '</a></td></tr></table>';
+            echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . _("Start page") . '</a></td></tr></table>';
             ?>
         </div> <!-- id="heading" -->
         <div id="loading_ico">

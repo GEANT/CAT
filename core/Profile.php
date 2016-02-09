@@ -97,7 +97,7 @@ class Profile {
 
         $this->realm = $a->realm;
         $this->use_anon_outer = $a->use_anon_outer;
-        $this->lang_index = CAT::$lang_index;
+        $this->lang_index = CAT::get_lang();
         $this->inst_name = $idp->name;
 
         // fetch all atributes from this profile from DB
