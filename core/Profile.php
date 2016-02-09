@@ -792,7 +792,7 @@ class Profile {
      * current language
      * @var string
      */
-    public $lang_index;
+    private $lang_index;
 
     /**
      * name of the profile in the current language
