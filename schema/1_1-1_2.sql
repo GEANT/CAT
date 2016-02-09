@@ -35,4 +35,4 @@ ALTER TABLE `profile` ADD COLUMN `status_dns` int(11) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `status_cert` int(11) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `status_reachability` int(11) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `status_TLS` int(11) DEFAULT NULL;
-ALTER TABLE `profile` ADD COLUMN `last_status_check` NULL timestamp DEFAULT NULL;
+ALTER TABLE `profile` ADD COLUMN `last_status_check` timestamp NULL DEFAULT NULL;
