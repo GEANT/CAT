@@ -21,10 +21,22 @@ require_once("../resources/inc/footer.php");
 function profilechecks(IdP $idpinfo,Profile $profile) {
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
+    
     $cr = $profile->getAttributes("internal:realm");
     $realm = $cr[0]['value'];
     if (empty($realm)) {
         $tabletext .= "<td>N/A: Realm not known</td><td></td><td></td><td></td>";
+        
+        // update database with the findings
+        
+        DBConnection::exec("INST", "UPDATE profile SET "
+                . "status_dns = ".RETVAL_SKIPPED.", "
+                . "status_cert = ".RETVAL_SKIPPED.", "
+                . "status_reachability = ". RETVAL_SKIPPED.", "
+                . "status_TLS = ".RETVAL_SKIPPED.", "
+                . "last_status_check = NOW() "
+                . "WHERE profile_id = ".$profile->identifier);
+        
         return $tabletext;
     }
     $testsuite = new RADIUSTests($realm, $profile->identifier);
@@ -74,7 +86,7 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
     } else {
         $tabletext .= UI_okay(0,0,true);
     }
-
+    
     $UDP_errors = false;
     $cert_biggest_oddity = L_OK;
     
@@ -95,13 +107,14 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
     
     $tabletext .= "</td><td>";
     $tabletext .= UI_message($cert_biggest_oddity,0,0,true);
+        
     $tabletext .= "</td><td>";
     if (!$UDP_errors) {
         $tabletext .= UI_okay(0,0,true);
     } else {
         $tabletext .= UI_error(0,0,true);
     }
-
+    
     $tabletext .= "</td><td>";
 
     $dynamic_errors = false;
@@ -120,6 +133,14 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
     }
     $tabletext .= "</td></tr>";
 
+    DBConnection::exec("INST", "UPDATE profile SET "
+                . "status_dns = ".($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
+                . "status_cert = ".($cert_biggest_oddity) . ", "
+                . "status_reachability = ".($UDP_errors ? RETVAL_INVALID : RETVAL_OK) . ", "
+                . "status_TLS = ".($dynamic_errors ? RETVAL_INVALID : RETVAL_OK) . ", "
+                . "last_status_check = NOW() "
+                . "WHERE profile_id = ".$profile->identifier);    
+        
     return $tabletext;
 }
 

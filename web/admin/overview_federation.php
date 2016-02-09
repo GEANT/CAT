@@ -11,6 +11,7 @@ require_once("Helper.php");
 require_once("CAT.php");
 require_once("UserManagement.php");
 require_once("Federation.php");
+require_once("RADIUSTests.php");
 require_once("IdP.php");
 require_once("User.php");
 
@@ -139,7 +140,7 @@ $user = new User($_SESSION['user']);
     ?>
     <table class='user_overview' style='border:0px;'>
         <tr>
-            <th><?php echo _("Deployment Status"); ?></th>
+            <th colspan="2"><?php echo _("Deployment Status"); ?></th>
             <th><?php echo _("Institution Name"); ?></th>
 
             <?php
@@ -154,7 +155,7 @@ $user = new User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='4'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>',"action_fedcheck.php?fed=".$thefed->identifier) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->identifier) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -178,7 +179,33 @@ $user = new User($_SESSION['user']);
                 echo "<tr>";
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
-                echo "<td>" . ($idp_instance->isOneProfileConfigured() ? "C" : "" ) . ($idp_instance->isOneProfileShowtime() ? "V" : "" ) . "</td>";
+                echo "<td>";
+                echo ($idp_instance->isOneProfileConfigured() ? "C" : "" ) . " " . ($idp_instance->isOneProfileShowtime() ? "V" : "" );
+                echo "</td>";
+                // get the coarse status overview
+                $status = $idp_instance->getAllProfileStatusOverview();
+                echo "<td>";
+                if ($status['dns'] == RETVAL_INVALID) {
+                    echo UI_error(0, "DNS Error", true);
+                } else {
+                    echo UI_okay(0, "DNS OK", true);
+                }
+                if ($status['cert'] != L_OK) {
+                    echo UI_message($status['cert'], 0, "Cert Error", true);
+                } else {
+                    echo UI_okay(0, "Cert OK", true);
+                }
+                if ($status['reachability'] == RETVAL_INVALID) {
+                    echo UI_error(0, "Reachability Error", true);
+                } else {
+                    echo UI_okay(0, "Reachability OK", true);
+                }
+                if ($status['TLS'] == RETVAL_INVALID) {
+                    echo UI_error(0, "RADIUS/TLS Error", true);
+                } else {
+                    echo UI_okay(0, "RADIUS/TLS OK", true);
+                }
+                echo "</td>";
                 // name
                 echo "<td>
                          <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . "
@@ -229,7 +256,7 @@ $user = new User($_SESSION['user']);
                                     <td>" .
                         $oneinvite['mail'] . "
                                     </td>
-                                    <td>";
+                                    <td colspan=2>";
                         echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
                                 <button class='delete' type='submit' name='submitbutton' value='" . BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
@@ -244,7 +271,7 @@ $user = new User($_SESSION['user']);
     <hr/>
     <br/>
     <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-                    return false;' accept-charset='UTF-8'>
+            return false;' accept-charset='UTF-8'>
         <button type='submit' class='download'>
             <?php echo _("Register New Institution!"); ?>
         </button>
