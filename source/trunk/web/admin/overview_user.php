@@ -31,7 +31,7 @@ $user = new User($_SESSION['user']);
 </head>
 <body>
     <?php
-    productheader("ADMIN", CAT::$lang_index);
+    productheader("ADMIN", CAT::get_lang());
     ?>
     <h1>
         <?php echo _("User Overview"); ?>

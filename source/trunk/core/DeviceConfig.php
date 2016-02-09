@@ -122,7 +122,7 @@ abstract class DeviceConfig {
        $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];;
        $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];;
        $this->attributes['internal:consortia'] = $this->getConsortia();
-       $this->lang_index = CAT::$lang_index;
+       $this->lang_index = CAT::get_lang();
        // phpMD says the below is not needed. Wow.
        // $idp = new IdP($profile->institution);
        $olddomain = CAT::set_locale("core");

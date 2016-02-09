@@ -532,8 +532,8 @@ class Federation {
                     $thislang = explode(': ', $name, 2);
                     $available_languages[$thislang[0]] = $thislang[1];
                 }
-                if (array_key_exists(CAT::$lang_index, $available_languages)) {
-                    $thelangauge = $available_languages[CAT::$lang_index];
+                if (array_key_exists(CAT::get_lang(), $available_languages)) {
+                    $thelangauge = $available_languages[CAT::get_lang()];
                 } else if (array_key_exists("en", $available_languages)) {
                     $thelangauge = $available_languages["en"];
                 } else { // whatever. Pick one out of the list
@@ -646,7 +646,7 @@ class Federation {
                     $names[] = ['value' => $opt[1]];
                 }
             }
-            $name = getLocalisedValue($names, CAT::$lang_index);
+            $name = getLocalisedValue($names, CAT::get_lang());
             if (!$name)
                 continue;
             $A['title'] = $name;

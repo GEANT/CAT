@@ -27,7 +27,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP", CAT::$lang_index);
+    productheader("ADMIN-IDP", CAT::get_lang());
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     $inst_name = $my_inst->name;
@@ -75,7 +75,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $display_footnote = FALSE;
-                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . CAT::$lang_index . "' method='post' accept-charset='UTF-8'>
+                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . CAT::get_lang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='id' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . _("Download") . "</button>

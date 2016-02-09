@@ -21,8 +21,8 @@ require_once("UserAPI.php");
 debug(4,"\n----------------------------------TOU.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo "$Gui->lang_index"?>">
-    <head lang="<?php echo "$Gui->lang_index"?>"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang()?>">
+    <head lang="<?php echo CAT::get_lang()?>"> 
         <title><?php echo Config::$APPEARANCE['productname_long'];?></title>
 <link media="only screen and (max-device-width: 480px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
 <link media="only screen and (min-device-width: 481px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic-large.css" type= "text/css" rel="stylesheet" />
@@ -41,7 +41,7 @@ function showTOU(){
          <?php
             print '<div id="motd">'.( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ).'</div>'; 
 
-        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::$lang_index . '">' . Config::$APPEARANCE['productname'] . '</a></h1>';
+        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . Config::$APPEARANCE['productname'] . '</a></h1>';
 print '<div id="tou">';
 include("user/tou.php");
 print '</div>';

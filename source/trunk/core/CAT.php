@@ -57,6 +57,7 @@ class CAT {
      * 
      * @var string
      */
+    private static $LANG = '';
     private static $DB_TYPE = "INST";
     /**
      *  Constructor sets the language by calling set_lang 
@@ -137,7 +138,7 @@ class CAT {
      * @param $hardsetlang - this is currently not used but
      * will allow to forst lang setting if this was ever required
      */
-    private function set_lang($hardsetlang = 0) {
+    private static function set_lang($hardsetlang = 0) {
         $lang_converted = [];
         if ($hardsetlang !== 0) {
             $hardsetlocale = $hardsetlang;
@@ -185,6 +186,15 @@ class CAT {
         debug(4, "selected lang:$lang_index:$thelang\n");
         debug(4, $lang_converted);
         return([$lang_index, $thelang]);
+    }
+
+    /**
+     * gets the language setting in CAT
+     */
+    static public function get_lang() {
+       if(self::$LANG === '')
+         list(self::$LANG, $xx) = self::set_lang();
+       return self::$LANG;
     }
 
     /**

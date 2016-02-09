@@ -26,7 +26,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.
 function pageheader($pagetitle, $area, $auth_required = TRUE) {
     $cat = defaultPagePrelude($pagetitle, $auth_required);
     echo "</head></body>";
-    productheader($area, CAT::$lang_index);
+    productheader($area, CAT::get_lang());
     return $cat;
 }
 
@@ -37,7 +37,7 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
     }
     $Cat = new CAT();
     $Cat->set_locale("web_admin");
-    $ourlocale = CAT::$lang_index;
+    $ourlocale = CAT::get_lang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='$ourlocale'>

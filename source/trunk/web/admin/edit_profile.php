@@ -153,7 +153,7 @@ $idpoptions = $my_inst->getAttributes();
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP", CAT::$lang_index);
+    productheader("ADMIN-IDP", CAT::get_lang());
     ?>
     <h1>
         <?php
