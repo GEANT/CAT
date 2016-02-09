@@ -172,6 +172,24 @@ class IdP {
         
     }
     
+    public function getAllProfileStatusOverview() {
+        $allProfiles = DBConnection::exec(IdP::$DB_TYPE, "SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
+        $returnarray = ['dns' => RETVAL_SKIPPED, 'cert' => L_OK, 'reachability' => RETVAL_SKIPPED, 'TLS' => RETVAL_SKIPPED, 'checktime' => NULL];
+        while ($a = mysqli_fetch_object($allProfiles)) {
+            if ($a->status_dns < $returnarray['dns'])
+                $returnarray['dns'] = $a->status_dns;
+            if ($a->status_reachability < $returnarray['reachability'])
+                $returnarray['reachability'] = $a->status_reachability;
+            if ($a->status_TLS < $returnarray['TLS'])
+                $returnarray['TLS'] = $a->status_TLS;
+            if ($a->status_cert < $returnarray['cert'])
+                $returnarray['cert'] = $a->status_cert;
+            if ($a->last_status_check > $returnarray['checktime'])
+                $returnarray['checktime'] = $a->last_status_check;
+        }
+        return $returnarray;
+    }
+    
     /** This function retrieves an array of authorised users which can
      * manipulate this institution.
      * 
