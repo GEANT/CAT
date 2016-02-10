@@ -29,6 +29,7 @@
  * @package Utilities
  */
 
+use GeoIp2\Database\Reader;
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("Helper.php");
 require_once("CAT.php");
@@ -249,7 +250,7 @@ class SanityTest extends CAT {
             $this->test_return(L_OK,"PHP extension <strong>MySQL</strong> is installed.");
         else
             $this->test_return(L_ERROR,"PHP extension <strong>MySQL</strong> not found!");
-
+/*
         if (function_exists('geoip_record_by_name')) {
            $host = '158.75.1.10';
            $record = geoip_record_by_name($host);
@@ -262,10 +263,74 @@ class SanityTest extends CAT {
         }
         else
             $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a>.");
+*/
     }
 
     /**
-      * text if openssl is available
+     * test if GeoIP is installed correctly
+     */
+
+    private function geoip_test() {
+       $host_4 = '145.0.2.50';
+       $host_6 = '2001:610:188:444::50';
+       switch (Config::$GEOIP['version']) {
+           case 1:
+              if (!function_exists('geoip_record_by_name')) {
+                  $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> (legacy) not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a> or better install GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+                  return;
+              }
+              $record = geoip_record_by_name($host_4);
+              if(! $record) {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              if($record['city'] != 'Utrecht') {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              $this->test_return(L_REMARK,"PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We stronly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+              break;
+           case 2:
+              if(! is_file(Config::$GEOIP['geoip2-path-to-autoloader'])) {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP2</strong> not found! Get it from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+                 return;
+              }
+              if(! is_file(Config::$GEOIP['geoip2-path-to-db'])) {
+                 $this->test_return(L_ERROR,"<strong>GeoIP2 database</strong> not found! See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              require_once Config::$GEOIP['geoip2-path-to-autoloader'];
+              $reader = new Reader(Config::$GEOIP['geoip2-path-to-db']);
+              try {
+                 $record = $reader->city($host_4);
+              } catch (Exception $e) {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              if( $record->city->name != 'Utrecht') {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              try {
+                 $record = $reader->city($host_6);
+              } catch (Exception $e) {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              if( $record->city->name != 'Utrecht') {
+                 $this->test_return(L_ERROR,"PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                 return;
+              }
+              $this->test_return(L_OK,"PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+              break;
+           default:
+              $this->test_return(L_ERROR,'Check Config::$GEOIP[\'version\'], it must be set to either 1 or 2');
+              break;
+       }
+    }
+
+    /**
+      * test if openssl is available
       */
     private function openssl_test() {
          $A = $this->get_exec_path('openssl');    

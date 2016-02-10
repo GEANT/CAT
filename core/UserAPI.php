@@ -25,6 +25,7 @@ require_once("Profile.php");
 require_once("Federation.php");
 require_once("DeviceFactory.php");
 require_once("devices/devices.php");
+use GeoIp2\Database\Reader;
 
 /**
  * The basic methoods for the user GUI
@@ -456,6 +457,7 @@ private function GetRootURL() {
 
  public function locateUser() {
    $host = $_SERVER['REMOTE_ADDR'];
+$host='158.75.1.215';
    $record = geoip_record_by_name($host);
    if($record) {
      $result = ['status' => 'ok'];
@@ -471,9 +473,35 @@ private function GetRootURL() {
    return($result);
  }
 
+
+ public function locateUser2() {
+   require_once Config::$GEOIP['geoip2-path-to-autoloader'];
+   $reader = new Reader(Config::$GEOIP['geoip2-path-to-db']);
+   $host = $_SERVER['REMOTE_ADDR'];
+$host='158.75.1.215';
+   try {
+      $record = $reader->city($host);
+   } catch (Exception $e) {
+      $result = ['status' => 'error', 'error' =>'Problem listing countries']; 
+      return($result);
+   }
+   $result = ['status' => 'ok'];
+   $result['country'] = $record->country->isoCode;
+//  the two lines below are a dirty hack to take of the error in naming the UK federation
+   if($result['country'] == 'GB')
+       $result['country'] = 'UK';
+   $result['region'] = $record->continent->name;
+
+   $result['geo'] = ['lat' => (float)$record->location->latitude , 'lon' => (float)$record->location->longitude];
+   return($result);
+ }
+
 public function JSON_locateUser() {
     header('Content-type: application/json; utf-8');
-    echo json_encode($this->locateUser());
+    if(Config::$GEOIP['version'] == 1)
+      echo json_encode($this->locateUser());
+    if(Config::$GEOIP['version'] == 2)
+      echo json_encode($this->locateUser2());
 }
 
 /**

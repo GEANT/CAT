@@ -182,8 +182,8 @@ Andreas
                     RESTENA stock image, used with permission from author
                 </li>
                 <li>
-                    <b>GeoLite</b> - &copy; MaxMind, Inc.<br/>
-                    This product includes GeoLite data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
+                    <b>GeoLite and GeoLite2</b> - &copy; MaxMind, Inc.<br/>
+                    This product includes GeoLite and GeoLite2 data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
                 </li>
             </ul>
         </div>

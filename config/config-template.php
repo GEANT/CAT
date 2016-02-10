@@ -141,6 +141,21 @@ class Config {
     ];
 
     /**
+      * Configuration for GeoIP2 - optional, if not set the legacy GeoIP can be used (but needs to be installed, of course)
+      * Beware, the legacy version does not really work with IPv6 addresses
+      * version: set to 2 if you wish to use GeoIP2 or to 1 for the legacy version
+      * geoip2-path-to-autoloader: points to the GeoIP2 autoloader 
+      * geoip2-path-to-db: points to the GeoIP2 city database
+      * @var array
+      */
+      
+    public static $GEOIP = [
+        'version' => 2,
+        'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
+        'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
+    ];
+
+    /**
      * Configures the host to use to send emails to the outside world. We assume
      * the host is able to listen on the new Submission port (TCP/587). 
      * host: Submission host
