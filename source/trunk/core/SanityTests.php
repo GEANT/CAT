@@ -250,6 +250,20 @@ class SanityTest extends CAT {
             $this->test_return(L_OK,"PHP extension <strong>MySQL</strong> is installed.");
         else
             $this->test_return(L_ERROR,"PHP extension <strong>MySQL</strong> not found!");
+/*
+        if (function_exists('geoip_record_by_name')) {
+           $host = '158.75.1.10';
+           $record = geoip_record_by_name($host);
+           if(! $record) 
+              $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+           elseif($record['city'] != 'Torun')
+              $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+           else
+              $this->test_return(L_OK,"PHP extension <strong>GeoIP</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+        }
+        else
+            $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a>.");
+*/
     }
 
     /**
@@ -260,6 +274,9 @@ class SanityTest extends CAT {
        $host_4 = '145.0.2.50';
        $host_6 = '2001:610:188:444::50';
        switch (Config::$GEOIP['version']) {
+           case 0:
+              $this->test_return(L_REMARK,"As set in the config, no geolocation service will be used");
+              break;
            case 1:
               if (!function_exists('geoip_record_by_name')) {
                   $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> (legacy) not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a> or better install GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");

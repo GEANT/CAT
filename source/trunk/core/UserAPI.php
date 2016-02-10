@@ -496,6 +496,9 @@ private function GetRootURL() {
 
 public function JSON_locateUser() {
     header('Content-type: application/json; utf-8');
+   
+    if(empty(Config::$GEOIP['version']) || Config::$GEOIP['version'] == 0)
+      echo json_encode(['status' => 'error', 'error' =>'Geolocation not supported']);
     if(Config::$GEOIP['version'] == 1)
       echo json_encode($this->locateUser());
     if(Config::$GEOIP['version'] == 2)
