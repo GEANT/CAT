@@ -13,6 +13,7 @@ $Tests = [
 'security',
 'php',
 'phpModules',
+'geoip',
 'directories',
 'openssl',
 'makensis',
