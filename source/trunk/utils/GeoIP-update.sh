@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# This script can be used to regularly update the GeoIP databases if you decide to install and use them
+# GeoIP location is *not* required by CAT service to operate but can be helpful
+
 
 # GeoIPDir is required only by the legacy version, if you use it then set this to the proper directory
 GeoIPDir=/usr/share/GeoIP
