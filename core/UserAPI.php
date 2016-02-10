@@ -457,7 +457,6 @@ private function GetRootURL() {
 
  public function locateUser() {
    $host = $_SERVER['REMOTE_ADDR'];
-$host='158.75.1.215';
    $record = geoip_record_by_name($host);
    if($record) {
      $result = ['status' => 'ok'];
@@ -478,7 +477,6 @@ $host='158.75.1.215';
    require_once Config::$GEOIP['geoip2-path-to-autoloader'];
    $reader = new Reader(Config::$GEOIP['geoip2-path-to-db']);
    $host = $_SERVER['REMOTE_ADDR'];
-$host='158.75.1.215';
    try {
       $record = $reader->city($host);
    } catch (Exception $e) {
