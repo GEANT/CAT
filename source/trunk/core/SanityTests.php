@@ -250,20 +250,6 @@ class SanityTest extends CAT {
             $this->test_return(L_OK,"PHP extension <strong>MySQL</strong> is installed.");
         else
             $this->test_return(L_ERROR,"PHP extension <strong>MySQL</strong> not found!");
-/*
-        if (function_exists('geoip_record_by_name')) {
-           $host = '158.75.1.10';
-           $record = geoip_record_by_name($host);
-           if(! $record) 
-              $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
-           elseif($record['city'] != 'Torun')
-              $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
-           else
-              $this->test_return(L_OK,"PHP extension <strong>GeoIP</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
-        }
-        else
-            $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a>.");
-*/
     }
 
     /**
