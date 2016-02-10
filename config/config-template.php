@@ -141,16 +141,16 @@ class Config {
     ];
 
     /**
-      * Configuration for GeoIP2 - optional, if not set the legacy GeoIP can be used (but needs to be installed, of course)
+      * Configuration for GeoIP2 
       * Beware, the legacy version does not really work with IPv6 addresses
-      * version: set to 2 if you wish to use GeoIP2 or to 1 for the legacy version
+      * version: set to 2 if you wish to use GeoIP2, to 1 for the legacy version or set to 0 to turn off geolocation service
       * geoip2-path-to-autoloader: points to the GeoIP2 autoloader 
       * geoip2-path-to-db: points to the GeoIP2 city database
       * @var array
       */
       
     public static $GEOIP = [
-        'version' => 2,
+        'version' => 0,
         'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
         'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
     ];
