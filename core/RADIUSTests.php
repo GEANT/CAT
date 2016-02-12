@@ -1129,6 +1129,7 @@ network={
             $eap_number_intermediate = 0;
             $cat_number_intermediate = 0;
             $servercert;
+            $totally_selfsigned = FALSE;
 
 
             // Write the root CAs into a trusted root CA dir
@@ -1161,6 +1162,9 @@ network={
                 //    the incoming cert chain
                 //    (meaning the self-signed is itself the server cert)
                 if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eap_certarray)==1)) {
+                    if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eap_certarray)==1) {
+                        $totally_selfsigned = TRUE;
+                    }
                     $number_server++;
                     $servercert = $cert;
                     if ($number_server == 1) {
@@ -1196,7 +1200,7 @@ network={
                 $testresults['certdata'][] = $cert['full_details'];
             }
             fclose($server_file);
-            if ($number_root > 0)
+            if ($number_root > 0 && !$totally_selfsigned)
                 $testresults['cert_oddities'][] = CERTPROB_ROOT_INCLUDED;
             if ($number_server > 1)
                 $testresults['cert_oddities'][] = CERTPROB_TOO_MANY_SERVER_CERTS;
