@@ -21,6 +21,7 @@ require_once('Profile.php');
 require_once("CAT.php");
 require_once("Options.php");
 require_once("DBConnection.php");
+require_once("RADIUSTests.php");
 
 define("EXTERNAL_DB_SYNCSTATE_NOT_SYNCED", 0);
 define("EXTERNAL_DB_SYNCSTATE_SYNCED", 1);
