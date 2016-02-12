@@ -183,7 +183,7 @@ Andreas
                 </li>
                 <li>
                     <b>GeoLite and GeoLite2</b> - &copy; MaxMind, Inc.<br/>
-                    This product includes GeoLite and GeoLite2 data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
+                    This deployment of the CAT product may include GeoLite and/or GeoLite2 data created by MaxMind, available from <a href="http://www.maxmind.com">http://www.maxmind.com</a>
                 </li>
             </ul>
         </div>
