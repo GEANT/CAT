@@ -1155,7 +1155,12 @@ network={
                 $cert = $x509->processCertificate($cert_pem);
                 if ($cert == FALSE)
                     continue;
-                if ($cert['ca'] == 0 && $cert['root'] != 1) {
+                // consider the certificate a server cert 
+                // a) if it is not a CA and is not a self-signed root
+                // b) if it is a CA, and self-signed, and it is the only cert in
+                //    the incoming cert chain
+                //    (meaning the self-signed is itself the server cert)
+                if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eap_certarray)==1)) {
                     $number_server++;
                     $servercert = $cert;
                     if ($number_server == 1) {
