@@ -190,6 +190,10 @@ define("CERTPROB_NO_COMMON_EAP_METHOD", -224);
  * Diffie-Hellman groups need to be 1024 bit at least, starting with OS X 10.11
  */
 define("CERTPROB_DH_GROUP_TOO_SMALL", -225);
+/**
+ * There is more than one CN in the certificate
+ */
+define("CERTPROB_MULTIPLE_CN", -226);
 
 
 
@@ -637,6 +641,13 @@ class RADIUSTests {
         $code = CERTPROB_DH_GROUP_TOO_SMALL;
         $this->return_codes[$code]["message"] = _("The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than 1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections under these circumstances!");
         $this->return_codes[$code]["severity"] = L_WARN;
+
+        /**
+         * The server certificate's names contained at least which was not a hostname.
+         */
+        $code = CERTPROB_MULTIPLE_CN;
+        $this->return_codes[$code]["message"] = _("The certificate contains more than one CommonName (CN) field. This is reportedly problematic on many supplicants.");
+        $this->return_codes[$code]["severity"] = L_WARN;
         
         CAT::set_locale($oldlocale);
         
@@ -768,6 +779,10 @@ class RADIUSTests {
         if (preg_match("/\*/", implode($allnames)))
             $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
 
+        // is there more than one CN? None or one is okay, more is asking for trouble.
+        if (count($CN) > 1)
+            $returnarray[] = CERTPROB_MULTIPLE_CN;
+        
         // check for real hostname
         foreach ($allnames as $onename) {
             if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE)
