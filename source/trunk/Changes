@@ -5,6 +5,8 @@ Changes in 1.2
                To get the new behaviour you need to set api_version argument to 2.
 - [FEATURE #2] added createTemporaryDirectory to the Helper to avoind using the came code in several places
 - [FEATURE #3] configuration tests rebuilt and extended
+- [FEATURE #4] realm checks are saved in DB and results shown on federation 
+               overview page
 
 Configuration parameter changes
 -------------------------------
