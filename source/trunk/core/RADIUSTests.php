@@ -761,10 +761,15 @@ class RADIUSTests {
         }
         // check for wildcards
 
-        if (isset($servercert['full_details']['subject']['CN']))
-            $CN = [$servercert['full_details']['subject']['CN']];
-        else
+        if (isset($servercert['full_details']['subject']['CN'])) {
+            if (is_array($servercert['full_details']['subject']['CN']))
+                $CN = $servercert['full_details']['subject']['CN'];
+            else $CN = [$servercert['full_details']['subject']['CN']];
+        }
+        else {
             $CN = [""];
+        }
+        
         if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName']))
             $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
         else
@@ -776,6 +781,11 @@ class RADIUSTests {
                 $sAN_DNS[] = substr($san_name, 4);
 
         $allnames = array_unique(array_merge($CN, $sAN_DNS));
+        
+        echo "<pre>".print_r($CN,true)."</pre>";
+        echo "<pre>".print_r($sAN_DNS,true)."</pre>";
+        echo "<pre>".print_r($allnames,true)."</pre>";
+        
         if (preg_match("/\*/", implode($allnames)))
             $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
 
