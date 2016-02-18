@@ -246,7 +246,7 @@ class SanityTest extends CAT {
         else
             $this->test_return(L_ERROR,"PHP extension <strong>GD</strong> not found!</a>.");
 
-        if (function_exists('mysql_connect'))
+        if (function_exists('mysqli_connect'))
             $this->test_return(L_OK,"PHP extension <strong>MySQL</strong> is installed.");
         else
             $this->test_return(L_ERROR,"PHP extension <strong>MySQL</strong> not found!");
