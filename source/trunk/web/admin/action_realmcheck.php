@@ -38,7 +38,16 @@ if ($my_profile != NULL) {
       $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
    }
 } else { // someone else's realm... only shallow checks
-   $check_realm = valid_Realm($_REQUEST['realm']);
+   if(!empty($_REQUEST['realm'])) {
+      if($check_realm = valid_Realm($_REQUEST['realm'])) {
+         $_SESSION['check_realm'] = $check_realm;
+      }
+   } else {
+      if(!empty($_SESSION['check_realm']))
+         $check_realm = $_SESSION['check_realm'];
+      else
+         $check_realm = FALSE;
+   }
    if($check_realm)
       $testsuite = new RADIUSTests($check_realm);
    else
