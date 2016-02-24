@@ -174,7 +174,7 @@ $errorstate = [];
          $(this).removeClass('missing_input');
     });
     if(missing) {
-      alert('<?php echo _("Some required input is missing!") ?>');
+      alert("<?php echo _("Some required input is missing!") ?>");
       return;
     }
   $("#disposable_credential_container").hide();
