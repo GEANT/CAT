@@ -464,8 +464,7 @@ function show_debug(text) {
     print "<h1>".sprintf(_("Realm testing for: %s"),$check_realm)."</h1>\n";
     if($error_message) {
         print "<p>$error_message</p>";
-        return;
-    }
+    } else {
 ?>
 <div id="debug_out" style="display: none"></div>
 <div id="tabs" style="min-width: 600px; max-width:800px">
@@ -752,6 +751,7 @@ print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
 echo "
 </div>
 ";
+}
               ?>
     <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
         <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to dashboard"); ?></button>
