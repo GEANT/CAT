@@ -26,6 +26,12 @@ $cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), Config::$APPEARANCE['p
 // let's check if the inst handle actually exists in the DB
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
+// delete stored realm
+
+if(isset($_SESSION['check_realm']))
+   unset($_SESSION['check_realm']);
+
+
 geo_widget_head($my_inst->federation, $my_inst->name);
 ?>
 </head>
