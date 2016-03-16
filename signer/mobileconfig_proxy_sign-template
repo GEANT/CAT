@@ -1,0 +1,68 @@
+#!/bin/bash
+
+# This script is a part of the eduroam CAT softwareand covered by the approapriate license
+# This is an example signer working with pkcs11proxy and accessing hardware or software tokens
+# plugged into remote machines. This script is set to use two servers but yoy can define more, if you like.
+
+# PREFIX may come handy if your software is located in one place
+PREFIX=/usr/local/share/cat-signer
+
+# LIB is the location which should be searched for libraries and modules
+LIB="$PREFIX/lib"
+
+# Set PROXY to addreses and ports on which pkcs11proxy are listening
+# For each of the proxies you must define corresponding PIN, KEY_ID, CERT and CERTS
+PROXY[1]='tcp://1.1.1.1:2345'
+PROXY[2]='tcp://1.1.1.2:2346'
+
+# Set PIN to access pins of tokens behind the proxy
+PIN[1]='secretpin1';
+PIN[2]='secretpin2';
+
+# Set KEY_ID to provate key identifiers on the tokens
+KEY_ID[1]='keyid1'
+KEY_ID[2]='kyid2'
+
+# Set CERTS to issuer certificate chains saved as PEM files
+CERTS[1]="path_to_sert_chain1.pem"
+CERTS[2]="path_to_sert_chain2.pem"
+
+# Set CERTS to issuer certificate chains saved as PEM files
+CERTS[1]="path_to_sert_chain1.pem"
+CERTS[2]="path_to_sert_chain2.pem"
+
+# Set N to the number of proxy servers set up
+N=2
+
+# Set OPENSSL to the openssl binary you want to use for signing
+OPENSSL="openssl"
+
+# Set OPENSSL_CONF to the openssl configuration file to be used - this file must contain cestions definng the pkcs11 engine
+OPENSSL_CONF="$PREFIX/etc/openssl.cnf"
+
+# Set LOG_FILE to the path to which you want to write logs
+LOG_FILE="/var/log/CAT/signer.log"
+
+# comment out the line below if not needed
+export LD_LIBRARY_PATH="$LIB"
+
+# --------------------- end of configuration do not change things below ----------
+
+rm -f $2
+
+date >> $LOG_FILE
+
+for i in ${!PROXY[*]}
+do
+ echo signing $i >> $LOG_FILE
+ if PKCS11_PROXY_SOCKET="${PROXY[$i]}" OPENSSL_CONF="$OPENSSL_CONF" $OPENSSL smime -sign -engine pkcs11 -nodetach -outform der -certfile "${CERTS[$i]}" -in "$1" -out "$2" -inkey "${KEY_ID[$i]}" -signer "${CERT[$i]}" -keyform engine -passin "pass:${PIN[$i]}" >/dev/null 2>&1
+ then
+    echo mobileconfig signing with proxy $i OK >> $LOG_FILE
+    exit 0
+  else
+    echo mobileconfig signing with proxy $i FAILED >> $LOG_FILE
+ fi
+done
+echo mobileconfig signing FAILED globally >> $LOG_FILE
+exit 256
+
