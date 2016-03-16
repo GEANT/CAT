@@ -27,6 +27,7 @@ $profile = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
 $federation = ( isset($_REQUEST['federation']) ? $_REQUEST['federation'] : FALSE );
 $disco   = ( isset($_REQUEST['disco'])   ? $_REQUEST['disco']   : FALSE );
 $sort    = ( isset($_REQUEST['sort'])    ? $_REQUEST['sort']    : 0 );
+$location    = ( isset($_REQUEST['location'])    ? $_REQUEST['location']    : 0 );
 $api_version = ( isset($_REQUEST['api_version']) ? $_REQUEST['api_version'] : 1 );
 $generatedfor = ( isset($_REQUEST['generatedfor']) ? $_REQUEST['generatedfor'] : 'user' );
 
@@ -100,7 +101,12 @@ switch ($action) {
     case 'orderIdentityProviders':
         if(! $federation)
            $federation = $id;
-        $API->JSON_orderIdentityProviders($federation);
+         if($location)  {
+            $A=explode(':',$location);
+            $L = ['lat'=>$A[0],'lon'=>$A[1]];
+         } else
+            $L = NULL;
+        $API->JSON_orderIdentityProviders($federation,$L);
         break;
 }
 debug(4,"UserAPI action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
