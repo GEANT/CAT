@@ -284,8 +284,8 @@ private function GetRootURL() {
  */
 
 
-  public function JSON_orderIdentityProviders($country) {
-     $idps = $this->orderIdentityProviders($country);
+  public function JSON_orderIdentityProviders($country,$L=NULL) {
+     $idps = $this->orderIdentityProviders($country,$L);
      $return_array = [];
      foreach ($idps as $idp) {
         if($this->version == 1)
@@ -535,14 +535,16 @@ private function geoDistance($P1,$P2) {
   * @return array $IdPs -  list of arrays ('id', 'name');
   */
 
-public function orderIdentityProviders($country) {
+public function orderIdentityProviders($country,$L=NULL) {
      $idps = Federation::listAllIdentityProviders(1,$country);
 
-  $U = $this->locateUser();
-  if($U['status'] == 'ok') {
-  $L = $U['geo'];
-  } else {
-    $L = ['lat'=>"90",'lon'=>"0"];
+  if(is_null($L)) {
+     $U = $this->locateUser();
+     if($U['status'] == 'ok') {
+     $L = $U['geo'];
+     } else {
+       $L = ['lat'=>"90",'lon'=>"0"];
+     }
   }
   $T=[];
   $R=[];
