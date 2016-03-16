@@ -78,7 +78,7 @@ function display_name($input) {
         $DisplayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     }
 
-    if (count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0)
+    if (!empty(Config::$CONSORTIUM['interworking-consortium-oi']) && count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0)
         $DisplayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
     $DisplayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
 
