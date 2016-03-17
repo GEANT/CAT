@@ -1170,6 +1170,7 @@ network={
                 if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eap_certarray)==1)) {
                     if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eap_certarray)==1) {
                         $totally_selfsigned = TRUE;
+                        $cert['full_details']['type']='totally_selfsigned';
                     }
                     $number_server++;
                     $servercert = $cert;

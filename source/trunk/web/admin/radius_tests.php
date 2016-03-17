@@ -53,7 +53,7 @@ function process_result($testsuite,$host) {
     $udp_result = $testsuite->UDP_reachability_result[$host];
 
     foreach ($udp_result['certdata'] as $certdata) {
-       if($certdata['type'] != 'server' )
+       if($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned' )
           continue;
        $server_cert =  [
           'subject' => printDN($certdata['subject']),
