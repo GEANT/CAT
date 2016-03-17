@@ -25,6 +25,7 @@ Changes in 1.1.2
 - [BUGFIX #6]  in Linux module fix multiline dispplay of messages in terminal mode, the installer can be run with sh, better bash location
 - [BUGFIX #7]  In Linux installer there was no support for SSID removal
 - [BUGFIX #8]  Fix language changing in realm checks
+- [BUGFIX #9]  Fix RADIUS tests for self-signed server certs
 - [FEATURE #1] "About CAT" now displays a matrix of supported devices and EAP
                type combinations
 - [FEATURE #2] RADIUSTests now use the first tab to display overview information from all tests
