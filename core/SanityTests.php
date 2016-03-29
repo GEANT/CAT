@@ -473,10 +473,12 @@ class SanityTest extends CAT {
                 $missingvalues = "";
                 if (Config::$APPEARANCE['from-mail'] == "cat-invite@your-cat-installation.example")
                     $defaultvalues .="APPEARANCE/from-mail ";
-                if (Config::$APPEARANCE['support-contact']['mail'] == "admin@eduroam.pl?body=Only%20English%20language%20please!")
-                    $defaultvalues .="APPEARANCE/support-contact/mail ";
-                if (Config::$APPEARANCE['support-contact']['display'] == "This mail please")
+                if (Config::$APPEARANCE['support-contact']['url'] == "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!")
+                    $defaultvalues .="APPEARANCE/support-contact/url ";
+                if (Config::$APPEARANCE['support-contact']['display'] == "cat-support@our-cat-installation.example")
                     $defaultvalues .="APPEARANCE/support-contact/display ";
+                if (Config::$APPEARANCE['support-contact']['developer-mail'] == "cat-develop@our-cat-installation.example")
+                    $defaultvalues .="APPEARANCE/support-contact/mail ";
                 if (Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example")
                     $defaultvalues .="APPEARANCE/abuse-mail ";
                 if (Config::$APPEARANCE['MOTD'] == "Release Candidate. All bugs to be shot on sight!")
