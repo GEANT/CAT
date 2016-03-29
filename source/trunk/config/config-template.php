@@ -28,8 +28,9 @@ class Config {
      * productname: short display name of the tool
      * productname_long: long display name of the tool
      * from-mail: the "From" in email addresses sent by the tool. Typically an unattended mailbox only for sending.
-     * support-contact/email: email address where users can complain and comment to. Should be read by a human. This value will go inside an href therfore may contain additional arguments likke body.
+     * support-contact/url: URL pointing to CAT support, can be an email address, possibly with some additional attrinutes like body or a help page address
      * support-contact/display: the displayed part of the support contact link.
+     * support-contact/developer-mail: email address where development questions should be addressed to
      * abuse-mail: email address where copyright holders can complain. Should be read by a human.
      * defaultlocale: language to use if user has no preferences in his browser, nor explicitly selects a language
      * @var array 
@@ -39,9 +40,9 @@ class Config {
         'productname_long' => 'eduroam Configuration Assistant Tool',
         'from-mail' => 'cat-invite@your-cat-installation.example',
         'support-contact' => [
-            'url' => 'cat-support@our-cat-installation.example.pl?body=Only%20English%20language%20please!',
-            'mail' => 'cat-support@our-cat-installation.example.pl',
-            'display' => 'this mail address'
+            'url' => 'cat-support@our-cat-installation.example?body=Only%20English%20language%20please!',
+            'display' => 'cat-support@our-cat-installation.example'
+            'developer-mail' => 'cat-develop@our-cat-installation.example',
         ],
         'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
         'invitation-bcc-mail' => NULL,
