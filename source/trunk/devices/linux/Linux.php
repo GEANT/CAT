@@ -517,7 +517,22 @@ private function printNMScript($SSIDs,$delSSIDs) {
    $e = EAP::eapDisplayName($this->selected_eap);
 $out = 'function run_python_script {
 PASSWORD=$( echo "$PASSWORD" | sed "s/\'/\\\\\\\'/g" )
-python << EOF > /dev/null 2>&1
+if python << EEE1 > /dev/null 2>&1
+import dbus
+EEE1
+then
+    PYTHON=python
+elif python3 << EEE2 > /dev/null 2>&1
+import dbus
+EEE2
+then
+    PYTHON=python3
+else
+    PYTHON=none
+    return 1
+fi
+
+$PYTHON << EOF > /dev/null 2>&1
 #-*- coding: utf-8 -*-
 import dbus
 import re
@@ -532,7 +547,7 @@ class EduroamNMConfigTool:
         try:
             self.bus = dbus.SystemBus()
         except dbus.exceptions.DBusException:
-            print "Can\'t connect to DBus"
+            print("Can\'t connect to DBus")
             sys.exit(2)
         #main service name
         self.system_service_name = "org.freedesktop.NetworkManager"
@@ -554,14 +569,14 @@ class EduroamNMConfigTool:
             #settings intrface
             self.settings = dbus.Interface(sysproxy, "org.freedesktop.NetworkManagerSettings")
         else:
-            print "This Network Manager version is not supported"
+            print("This Network Manager version is not supported")
             sys.exit(2)
 
     def check_opts(self):
         self.cacert_file = \'${HOME}/'.$this->local_dir.'/ca.pem\'
         self.pfx_file = \'${HOME}/'.$this->local_dir.'/user.p12\'
         if not os.path.isfile(self.cacert_file):
-            print "Certificate file not found, looks like a CAT error"
+            print("Certificate file not found, looks like a CAT error")
             sys.exit(2)
 
     def check_nm_version(self):
@@ -589,7 +604,7 @@ class EduroamNMConfigTool:
         try:
             conns = self.settings.ListConnections()
         except dbus.exceptions.DBusException:
-            print "DBus connection problem, a sudo might help"
+            print("DBus connection problem, a sudo might help")
             exit(3)
         for each in conns:
             con_proxy = self.bus.get_object(self.system_service_name, each)
@@ -611,7 +626,7 @@ class EduroamNMConfigTool:
             \'id\': ssid 
         })
         s_wifi = dbus.Dictionary({
-            \'ssid\': dbus.ByteArray(ssid),
+            \'ssid\': dbus.ByteArray(ssid.encode(\'utf8\')),
             \'security\': \'802-11-wireless-security\'
         })
         s_wsec = dbus.Dictionary({
@@ -623,15 +638,15 @@ class EduroamNMConfigTool:
         s_8021x = dbus.Dictionary({
             \'eap\': [\''.strtolower($e['OUTER']).'\'],
             \'identity\': \'$USER_NAME\',
-            \'ca-cert\': dbus.ByteArray("file://" + self.cacert_file + "\0"),';
+            \'ca-cert\': dbus.ByteArray("file://{0}\0".format(self.cacert_file).encode(\'utf8\')),';
     
   if($this->server_name)
     $out .= '
             \'subject-match\': \''.$this->server_name.'\',';
     if($this->selected_eap == EAP::$TLS) {
        $out .= '
-            \'client-cert\':  dbus.ByteArray("file://" + self.pfx_file + "\0"),
-            \'private-key\':  dbus.ByteArray("file://" + self.pfx_file + "\0"),
+            \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
+            \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key-password\':  \'$PASSWORD\',';
     } else {
        $out .= '
