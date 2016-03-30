@@ -34,9 +34,17 @@ function disp_name($eap) {
 function printDN($dn) {
   $out = '';
   foreach (array_reverse($dn) as $k => $v) {
-      if($out)
-        $out .= ',';
-      $out .= "$k=$v";
+      if(is_array ($v)) {
+         foreach ($v as $V) {
+            if($out) 
+               $out .= ',';
+            $out .= "$k=$V";
+         }
+      } else {
+         if($out) 
+            $out .= ',';
+         $out .= "$k=$v";
+      }
   }
   return($out);
 }
@@ -51,23 +59,24 @@ function process_result($testsuite,$host) {
     $ret = [];
     $server_info = [];
     $udp_result = $testsuite->UDP_reachability_result[$host];
-
-    foreach ($udp_result['certdata'] as $certdata) {
-       if($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned' )
-          continue;
-       $server_cert =  [
-          'subject' => printDN($certdata['subject']),
-          'issuer' => printDN($certdata['issuer']),
-          'validFrom' => printTm($certdata['validFrom_time_t']),
-          'validTo' => printTm($certdata['validTo_time_t']),
-          'serialNumber' => $certdata['serialNumber'].sprintf(" (0x%X)",$certdata['serialNumber']),
-          'sha1' => $certdata['sha1'],
-          'extensions' => $certdata['extensions']
-       ];
+    if(isset($udp_result['certdata']) && count($udp_result['certdata'])) {
+       foreach ($udp_result['certdata'] as $certdata) {
+          if($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned' )
+             continue;
+          $server_cert =  [
+             'subject' => printDN($certdata['subject']),
+             'issuer' => printDN($certdata['issuer']),
+             'validFrom' => printTm($certdata['validFrom_time_t']),
+             'validTo' => printTm($certdata['validTo_time_t']),
+             'serialNumber' => $certdata['serialNumber'].sprintf(" (0x%X)",$certdata['serialNumber']),
+             'sha1' => $certdata['sha1'],
+             'extensions' => $certdata['extensions']
+          ];
+       }
     }
+    $ret['server_cert'] = $server_cert;
     if(isset($udp_result['incoming_server_names'][0]) ) {
         $ret['server'] = sprintf(_("Connected to %s."), $udp_result['incoming_server_names'][0]);
-         $ret['server_cert'] = $server_cert;
     }
     else
         $ret['server'] = 0;
@@ -87,6 +96,7 @@ function process_result($testsuite,$host) {
     } else {
         $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
     }
+
     return $ret;
 }
 
@@ -161,6 +171,7 @@ switch ($test_type) {
         $returnarray['result'][$i] = process_result($testsuite,$hostindex);
         $returnarray['result'][$i]['eap'] = display_name($eap);
         $returnarray['returncode'][$i] = $testresult;
+
 
             switch ($testresult) {
                 case RETVAL_OK :
@@ -247,6 +258,7 @@ switch ($test_type) {
                 $level= L_ERROR;
                 break;
         }
+debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         $returnarray['result'][$i]['level'] = $level;
         $returnarray['result'][$i]['message'] = $message;
         break;
