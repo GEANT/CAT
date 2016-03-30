@@ -1043,7 +1043,7 @@ network={
                 " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
                 " -c ./udp_login_test.conf" .
-                " -M 22:44:66:CA:20:00 " .
+                " -M 22:44:66:CA:20:".sprintf("%02d",$probeindex)." " .
                 " -t " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['timeout'] . " ";
         if ($opname_check)
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
