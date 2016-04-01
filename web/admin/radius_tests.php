@@ -115,9 +115,9 @@ if (isset($_REQUEST['profile_id'])) {
     $testsuite = new RADIUSTests($check_realm);
 }
 $host = $_REQUEST['src'];
-if(!preg_match('/^[0-9\.:]*$/',$host))
+/*if(!preg_match('/^[0-9\.:]*$/',$host))
    exit;
-
+*/
 $hostindex = $_REQUEST['hostindex']; 
 if(!is_numeric($hostindex))
   exit;
