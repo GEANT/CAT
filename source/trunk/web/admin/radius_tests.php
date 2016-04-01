@@ -263,6 +263,7 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
+        echo $host;
         $testresult = $testsuite->CApath_check($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
