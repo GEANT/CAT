@@ -1554,8 +1554,8 @@ debug(4,"\nEND\n");
     public function CApath_check($host) {
 
         $res = RETVAL_OK;
-        if (preg_match("/\[/", $host))
-            return RETVAL_INVALID;
+/*        if (preg_match("/\[/", $host))
+            return RETVAL_INVALID;*/
         if (!isset($this->TLS_CA_checks_result[$host]))
             $this->TLS_CA_checks_result[$host] = [];
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
