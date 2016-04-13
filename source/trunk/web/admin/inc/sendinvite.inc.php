@@ -19,12 +19,25 @@ require_once("common.inc.php");
 require_once("input_validation.inc.php");
 require_once("core/PHPMailer/PHPMailerAutoload.php");
 
+function check_federation_privilege($country) {
+    $user_object = new User($_SESSION['user']);
+    $fed_privs = $user_object->getAttributes("user:fedadmin");
+    // a new IdP was requested and all the required parameters are there
+        foreach ($fed_privs as $onefed) {
+            if (strtolower($onefed['value']) == strtolower($country))
+                return TRUE;
+        }
+        echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
+        exit(1);
+}
+
 authenticate();
 
 $cat = new CAT();
 $cat->set_locale("web_admin");
 
 $mgmt = new UserManagement;
+$new_idp_authorized_fedadmin = FALSE;
 
 // check if the user is authenticated, and we have a valid mail address
 if (!isset($_SESSION['user']) || !isset($_POST['mailaddr']))
@@ -37,8 +50,7 @@ $newcountry = "";
 // we are either inviting to co-manage an existing inst ...
 
 $user_object = new User($_SESSION['user']);
-$fed_privs = $user_object->getAttributes("user:fedadmin");
-$new_idp_authorized_fedadmin = FALSE;
+$federation = FALSE;
 
 if (isset($_GET['inst_id'])) {
     $idp = valid_IdP($_GET['inst_id']);
@@ -69,15 +81,8 @@ else if (isset($_POST['creation'])) {
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = valid_string_db($_POST['name']);
         $newcountry = valid_string_db($_POST['country']);
-        // a new IdP was requested and all the required parameters are there
-        foreach ($fed_privs as $onefed) {
-            if ($onefed['value'] == $newcountry)
-                $new_idp_authorized_fedadmin = TRUE;
-        }
-        if (!$new_idp_authorized_fedadmin) {
-            echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
-            exit(1);
-        }
+        $new_idp_authorized_fedadmin = check_federation_privilege($newcountry);
+        $federation = new Federation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), Config::$CONSORTIUM['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
@@ -89,6 +94,8 @@ else if (isset($_POST['creation'])) {
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = valid_string_db($_POST['externals']);
         $extinfo = Federation::getExternalDBEntityDetails($newexternalid);
+        $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
+        $federation = new Federation($extinfo['country']);
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $ourlang = CAT::get_lang();
         $prettyprintname = "";
@@ -123,7 +130,23 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
 // then, send out the mail
 $message = _("Hello,") . "
     
-" . wordwrap($introtext . " " . _("To enlist as an administrator for that IdP, please click on the following link:"), 72) . "
+" . wordwrap($introtext, 72)  . "
+    
+";
+
+if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
+    $customtext = $federation->getAttributes('fed:custominvite');
+    if (count($customtext > 0))
+        $message .= wordwrap(_("Additional message from your federation administrator:"),72) . "
+---------------------------------
+"
+                  . wordwrap($customtext[0]['value'],72) . "
+---------------------------------
+
+";
+}
+
+$message .= wordwrap(_("To enlist as an administrator for that IdP, please click on the following link:"), 72) . "
     
 $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/action_enrollment.php?token=$newtoken
     

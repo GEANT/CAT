@@ -68,6 +68,7 @@ function display_name($input) {
         _("Federation Logo") => "fed:logo_file",
         _("Preferred Skin for User Area") => "fed:desired_skin",
         _("Federation Operator Name") => "fed:realname",
+        _("Custom text in IdP Invitations") => "fed:custominvite",
     ];
 
     if (count(Config::$CONSORTIUM['ssid']) > 0) {
