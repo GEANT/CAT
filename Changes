@@ -7,6 +7,8 @@ Changes in 1.2
 - [FEATURE #3] configuration tests rebuilt and extended
 - [FEATURE #4] realm checks are saved in DB and results shown on federation 
                overview page
+- [FEATURE #5] federation customisation: name, logo, custom invitation texts and
+               more
 
 Configuration parameter changes
 -------------------------------
