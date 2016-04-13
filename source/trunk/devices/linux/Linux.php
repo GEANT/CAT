@@ -55,6 +55,7 @@ fi
       $out_string .= $this->printCheckDirectory();
       $CAs = $this->attributes['internal:CAs'][0];
       $this->server_name = $this->glueServerNames($this->attributes['eap:server_name']);
+      $this->server_alt_subject_name_list = $this->mkSubjectAltNameList($this->attributes['eap:server_name']);
       $out_string .= "# save certificates\n";
       $out_string .= 'echo "';
       foreach ($CAs as $ca) {
@@ -127,6 +128,8 @@ fi
    show_info "'._("Installation successful").'"
 else
    show_info "'._("Network Manager configuration failed, generating wpa_supplicant.conf").'"
+   if ! ask "'.("Network Manager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text.").'" "'._("Write the file").'" 1 ; then exit ; fi
+
 if [ -f '.$this->conf_file.' ] ; then
   if ! ask "'.sprintf(_("File %s exists; it will be overwritten."),$this->conf_file).'" "'._("Continue").'" 1 ; then confirm_exit; fi
   rm '.$this->conf_file.'
@@ -490,7 +493,7 @@ fi
         PASSWORD=""
       fi
     done
-      if ! USERNAME=`prompt_nonempty_string 1 "enter your userid" "$USER_NAME"` ; then
+      if ! USERNAME=`prompt_nonempty_string 1 "'._("enter your userid").'" "$USER_NAME"` ; then
        exit 1
     fi
 }  
@@ -502,15 +505,27 @@ p12dialog
 
 private function glueServerNames($server_list) {
   if(! $server_list)
-    return FALSE;
- $A0 =  array_reverse(explode('.',array_shift($server_list)));
- $B = $A0;
-     foreach($server_list as $a) {
+    return '';
+  $A0 =  array_reverse(explode('.',array_shift($server_list)));
+  $B = $A0;
+  foreach($server_list as $a) {
      $A= array_reverse(explode('.',$a));
      $B = array_intersect_assoc($A0,$A);
      $A0 = $B;
    }
   return(implode('.',array_reverse($B)));
+}
+
+private function mkSubjectAltNameList($server_list) {
+  if(! $server_list)
+    return '';
+  $out = '';
+  foreach($server_list as $a) {
+     if($out)
+       $out .= ','; 
+     $out .= "'DNS:$a'";
+  }
+  return $out;
 }
 
 private function printNMScript($SSIDs,$delSSIDs) {
@@ -552,15 +567,15 @@ class EduroamNMConfigTool:
         #main service name
         self.system_service_name = "org.freedesktop.NetworkManager"
         #check NM version
-        nm_version = self.check_nm_version()
-        if nm_version == "0.9" or nm_version == "1.0":
+        self.check_nm_version()
+        if self.nm_version == "0.9" or self.nm_version == "1.0":
             self.settings_service_name = self.system_service_name
             self.connection_interface_name = "org.freedesktop.NetworkManager.Settings.Connection"
             #settings proxy
             sysproxy = self.bus.get_object(self.settings_service_name, "/org/freedesktop/NetworkManager/Settings")
             #settings intrface
             self.settings = dbus.Interface(sysproxy, "org.freedesktop.NetworkManager.Settings")
-        elif nm_version == "0.8":
+        elif self.nm_version == "0.8":
             #self.settings_service_name = "org.freedesktop.NetworkManagerUserSettings"
             self.settings_service_name = "org.freedesktop.NetworkManager"
             self.connection_interface_name = "org.freedesktop.NetworkManagerSettings.Connection"
@@ -587,13 +602,17 @@ class EduroamNMConfigTool:
         except dbus.exceptions.DBusException:
             version = "0.8"
         if re.match(r\'^1\.0\', version):
-            return "1.0"
+            self.nm_version = "1.0"
+            return
         if re.match(r\'^0\.9\', version):
-            return "0.9"
+            self.nm_version = "0.9"
+            return
         if re.match(r\'^0\.8\', version):
-            return "0.8"
+            self.nm_version = "0.8"
+            return
         else:
-            return "Unknown version"
+            self.nm_version = "Unknown version"
+            return
 
     def byte_to_string(self, barray):
         return "".join([chr(x) for x in barray])
@@ -619,6 +638,15 @@ class EduroamNMConfigTool:
                pass
 
     def add_connection(self,ssid):
+        server_alt_subject_name_list = dbus.Array({'.$this->server_alt_subject_name_list.'})
+        server_name = \''.$this->server_name.'\'
+        if self.nm_version == "0.9" or self.nm_version == "1.0":
+             match_key = \'altsubject-matches\'
+             match_value = server_alt_subject_name_list
+        else:
+             match_key = \'subject-match\'
+             match_value = server_name
+            
         s_con = dbus.Dictionary({
             \'type\': \'802-11-wireless\',
             \'uuid\': str(uuid.uuid4()),
@@ -639,10 +667,10 @@ class EduroamNMConfigTool:
             \'eap\': [\''.strtolower($e['OUTER']).'\'],
             \'identity\': \'$USER_NAME\',
             \'ca-cert\': dbus.ByteArray("file://{0}\0".format(self.cacert_file).encode(\'utf8\')),';
-    
-  if($this->server_name)
-    $out .= '
-            \'subject-match\': \''.$this->server_name.'\',';
+    if($this->server_name) {
+             $out .= '
+             match_key: match_value,';
+    }
     if($this->selected_eap == EAP::$TLS) {
        $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
@@ -700,6 +728,7 @@ return $out;
 private $local_dir;
 private $conf_file;
 private $server_name;
+private $server_alt_subject_name_list;
 }
 
 ?>
