@@ -12,7 +12,6 @@ Changes in 1.2
 
 Configuration parameter changes
 -------------------------------
-[NEW]           Config::$APPEARANCE['support-contact'] replaces Config::$APPEARANCE['admin-mail']
 
 Changes in 1.1.2
 ================
@@ -38,6 +37,9 @@ Changes in 1.1.2
 - [FEATURE #5] Linux module asks the user if in case of Network Manager installation failure
                it should save a wpa_supplicant file
 
+Configuration parameter changes
+-------------------------------
+[NEW]           Config::$APPEARANCE['support-contact'] replaces Config::$APPEARANCE['admin-mail']
 
 
 Changes in 1.1.1
