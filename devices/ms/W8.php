@@ -143,7 +143,9 @@ private function prepareEapConfig($attr) {
      $outer_user = $attr['internal:anon_local_value'][0];
      $outer_id = $outer_user.'@'.$attr['internal:realm'][0];
    }
+//   $servers = preg_quote(implode(';',$attr['eap:server_name']));
    $servers = implode(';',$attr['eap:server_name']);
+   
    $ca_array = $attr['internal:CAs'][0];
 
 
@@ -410,7 +412,7 @@ $fcontents .= "\n".'!define USER_GROUP "'.$this->translateString(str_replace('"'
 $fcontents .= '
 Caption "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),Config::$CONSORTIUM['name'],$attr['general:instname'][0]), $this->code_page).'"
 !define APPLICATION "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),Config::$CONSORTIUM['name'],$attr['general:instname'][0]), $this->code_page).'"
-!define VERSION "1.00"
+!define VERSION "'.CAT::$VERSION_MAJOR.'.'.CAT::$VERSION_MINOR.'"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "'.$this->lang.'"
 ';
