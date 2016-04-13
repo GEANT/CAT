@@ -13,6 +13,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:realname','a friendly display name of the NRO/federation','string', 'ML'),
 ('fed:logo_file','logo of the NRO/federation','file', NULL),
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
+('fed:custominvite','custom text to send with new IdP invitations','text', NULL),
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL);
 
 CREATE TABLE `federation` (
