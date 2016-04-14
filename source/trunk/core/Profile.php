@@ -76,7 +76,7 @@ class Profile {
      */
     public function __construct($p_id, $idp_object = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
-        $profile = DBConnection::exec(Profile::$DB_TYPE, "SELECT inst_id, realm, use_anon_outer FROM profile WHERE profile_id = $p_id");
+        $profile = DBConnection::exec(Profile::$DB_TYPE, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix, hint_userinput_suffix FROM profile WHERE profile_id = $p_id");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
             debug(2, "Profile $p_id not found in database!\n");
@@ -161,6 +161,39 @@ class Profile {
             "flag" => NULL,
             "device" => NULL,
             "eapmethod" => NULL];
+        
+        $temparray[] = ["name" => "internal:checkuser_outer",
+            "value" => $a->checkuser_outer,
+            "level" => "Profile",
+            "row" => 0,
+            "flag" => NULL,
+            "device" => NULL,
+            "eapmethod" => NULL];
+        
+        $temparray[] = ["name" => "internal:checkuser_value",
+            "value" => $a->checkuser_value,
+            "level" => "Profile",
+            "row" => 0,
+            "flag" => NULL,
+            "device" => NULL,
+            "eapmethod" => NULL];
+        
+        $temparray[] = ["name" => "internal:verify_userinput_suffix",
+            "value" => $a->verify_userinput_suffix,
+            "level" => "Profile",
+            "row" => 0,
+            "flag" => NULL,
+            "device" => NULL,
+            "eapmethod" => NULL];
+        
+        $temparray[] = ["name" => "internal:hint_userinput_suffix",
+            "value" => $a->hint_userinput_suffix,
+            "level" => "Profile",
+            "row" => 0,
+            "flag" => NULL,
+            "device" => NULL,
+            "eapmethod" => NULL];
+        
         // strip local@ off of the realm value
         $strippedrealm = preg_replace('/^.*@/', '', $this->realm);
         $temparray[] = ["name" => "internal:realm",

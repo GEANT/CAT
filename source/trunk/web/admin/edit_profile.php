@@ -112,19 +112,43 @@ $cat = defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), Confi
 // initialize inputs
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 $my_profile = FALSE;
+$anon_local = "anonymous";
+$use_anon = FALSE;
+$checkuser_outer = FALSE;
+$checkuser_value = "anonymous";
+$verify = FALSE;
+$hint = FALSE;
+$realm = "";
+$prefill_name = "";
+$prefill_methods = [];
+$profile_options = [];
+$blacklisted = FALSE;
+
 if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not create a new one!
-    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     $wizard_style = FALSE;
     $edit_mode = TRUE;
-    $anon_local = $my_profile->getAttributes("internal:anon_local_value");
-    $anon_local = $anon_local[0]['value'];
+    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    
     $use_anon = $my_profile->getAttributes("internal:use_anon_outer");
-    if (count($use_anon) > 0)
+    if (count($use_anon) > 0) {
         $use_anon = $use_anon[0]['value'];
-    else
-        $use_anon = FALSE;
+        $anon_local = $my_profile->getAttributes("internal:anon_local_value");
+        $anon_local = $anon_local[0]['value'];
+    }
+    
+    $checkuser_outer = $my_profile->getAttributes("internal:checkuser_outer");
+    if (count($checkuser_outer) > 0) {
+        $checkuser_outer = $checkuser_outer[0]['value'];
+        $checkuser_value = $my_profile->getAttributes("internal:checkuser_value");
+        $checkuser_value = $checkuser_value[0]['value'];
+    }
+    
+    $verify = $my_profile->getAttributes("internal:verify_userinput_suffix")[0]['value'];
+    $hint = $my_profile->getAttributes("internal:hint_userinput_suffix")[0]['value'];
+    
     $realm = $my_profile->getAttributes("internal:realm");
     $realm = $realm[0]['value'];
+    
     $prefill_name = $my_profile->name;
     $prefill_methods = $my_profile->getEapMethodsinOrderOfPreference();
     $profile_options = $my_profile->getAttributes();
@@ -139,13 +163,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 } else {
     $wizard_style = TRUE;
     $edit_mode = FALSE;
-    $anon_local = "anonymous";
-    $use_anon = FALSE;
-    $realm = "";
-    $prefill_name = "";
-    $prefill_methods = [];
-    $profile_options = [];
-    $blacklisted = FALSE;
 }
 
 $idpoptions = $my_inst->getAttributes();
@@ -259,23 +276,51 @@ $idpoptions = $my_inst->getAttributes();
             </tr>
 
         </table>
-        <h3><?php echo _("Anonymity Support"); ?></h3>
+        <h3><?php echo _("Realm Options"); ?></h3>
 
         <?php
-        if ($wizard_style)
-            echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>. Do you want us to generate installers with anonymous outer identities where available? You need to fill out the 'Realm' field above for this to work.") . _("If you enable this feature, we will by default use the anonymous id 'anonymous@realm' in the device configurations. You can optionally change that by typing in the local anonymisation part in the text field."),"https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
+        if ($wizard_style) {
+            echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."),"https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
+            echo "<p>" . _("On some platforms, the installers can suggest username endings and/or verify the user input to contain the realm suffix (sub-realms will pass this validation).") . "</p>";
+            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the inforamtion which of those (outer ID) username we can use for testing.") . "</p>";  
+        }
         ?>
         <p>
 
             <?php
-            echo "<label><span id='anon_support_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Enable Anonymous Outer Identity:") . "</span>
-                             <input type='checkbox' " . ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='anon_support' onclick='
+            // UI table to align elements
+            echo "<table><tr>";
+            // checkbox for "verify
+            echo "<td><span id='verify_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Verify user input to contain realm suffix:") . "</span></td>
+                  <td><input type='checkbox' " . ($verify != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='verify_support' onclick='
+                              if (this.form.elements[\"verify_support\"].checked != true) {
+                                this.form.elements[\"hint_support\"].setAttribute(\"disabled\", \"disabled\");
+                              } else {
+                                this.form.elements[\"hint_support\"].removeAttribute(\"disabled\");
+                              };'/>
+                              <span id='hint_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Prefill user input with realm suffix:") . "</span>
+                             <input type='checkbox' " . ($verify == FALSE ? "disabled" : "" ) . " name='hint_support' " . ( $hint != FALSE ? "checked" : "" ) . " /></td>";
+            echo "</tr><tr>";
+            // checkbox and input field for anonymity support, available only when realm is known
+            echo "<td><span id='anon_support_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Enable Anonymous Outer Identity:") . "</span></td>
+                  <td><input type='checkbox' " . ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='anon_support' onclick='
                               if (this.form.elements[\"anon_support\"].checked != true) {
                                 this.form.elements[\"anon_local\"].setAttribute(\"disabled\", \"disabled\");
                               } else {
                                 this.form.elements[\"anon_local\"].removeAttribute(\"disabled\");
-                              };'/></label>
-                             <input type='text' " . ($use_anon == FALSE ? "disabled" : "" ) . " name='anon_local' value='$anon_local'/>";
+                              };'/>
+                             <input type='text' " . ($checkuser_outer == FALSE ? "disabled" : "" ) . " name='anon_local' value='$anon_local'/></td>";
+            echo "</tr><tr>";
+            // checkbox and input field for check realm outer id, available only when realm is known
+            echo "<td><span id='checkuser_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Use special Outer Identity for realm checks:") . "</span></td>
+                  <td><input type='checkbox' " . ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='checkuser_support' onclick='
+                              if (this.form.elements[\"checkuser_support\"].checked != true) {
+                                this.form.elements[\"checkuser_local\"].setAttribute(\"disabled\", \"disabled\");
+                              } else {
+                                this.form.elements[\"checkuser_local\"].removeAttribute(\"disabled\");
+                              };'/>
+                             <input type='text' " . ($checkuser_outer == FALSE ? "disabled" : "" ) . " name='checkuser_local' value='$checkuser_value'/></td>";
+            echo "</tr></table>";
             ?>
         </p>
 
