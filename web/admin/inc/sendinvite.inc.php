@@ -136,7 +136,7 @@ $message = _("Hello,") . "
 
 if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
     $customtext = $federation->getAttributes('fed:custominvite');
-    if (count($customtext > 0))
+    if (count($customtext) > 0)
         $message .= wordwrap(_("Additional message from your federation administrator:"),72) . "
 ---------------------------------
 "
