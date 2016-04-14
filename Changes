@@ -29,6 +29,8 @@ Changes in 1.1.2
 - [BUGFIX #9]  Fix RADIUS tests for self-signed server certs
 - [BUGFIX #10] UDP tests running in parallel could fail due to the same Calling-Station-Id
 - [BUGFIX #11] Server certificate subject printing failed if multiple CNs were present
+- [BUGFIX #12] In "live login" RADIUS tests there was a mixup with passed identities
+- [BUGFIX #13] In RADIUS tests the temporary directory was not deleted
 - [FEATURE #1] "About CAT" now displays a matrix of supported devices and EAP
                type combinations
 - [FEATURE #2] RADIUSTests now use the first tab to display overview information from all tests

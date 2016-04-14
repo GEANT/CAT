@@ -1012,13 +1012,8 @@ network={
         // outer/only identity
         $config .= '  identity="';
         $log_config .= '  identity="';
-        if (preg_match("/@/", $user)) {
-            $config .= $user . "\"\n";
-            $log_config .= $user . "\"\n";
-        } else {
-            $config .= $anon_id . "@" . $user . "\"\n";
-            $log_config .= $anon_id . "@" . $user . "\"\n";
-        }
+        $config .= $user . "\"\n";
+        $log_config .= $user . "\"\n";
         if( ($outer_user != "" && preg_match("/@/", $outer_user))) {
             $config .= '  anonymous_identity="';
             $log_config .= '  anonymous_identity="';
@@ -1397,11 +1392,9 @@ network={
                 }
             }
         }
-debug(4,"UDP_LOGIN\n");
-debug(4,$testresults);
-debug(4,"\nEND\n");
         $this->UDP_reachability_result[$probeindex] = $testresults;
         $this->UDP_reachability_executed = $finalretval;
+        rrmdir($tmp_dir);
         return $finalretval;
     }
 

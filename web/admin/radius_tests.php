@@ -131,7 +131,7 @@ switch ($test_type) {
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
         $user_name = valid_user(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
-        $outer_user_name = valid_user(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : "");
+        $outer_user_name = valid_user(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
@@ -263,7 +263,6 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        echo $host;
         $testresult = $testsuite->CApath_check($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
