@@ -67,6 +67,7 @@ class Profile {
      */
     private $priv_eaptypes;
 
+    
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -76,7 +77,7 @@ class Profile {
      */
     public function __construct($p_id, $idp_object = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
-        $profile = DBConnection::exec(Profile::$DB_TYPE, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix, hint_userinput_suffix FROM profile WHERE profile_id = $p_id");
+        $profile = DBConnection::exec(Profile::$DB_TYPE, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $p_id");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
             debug(2, "Profile $p_id not found in database!\n");
@@ -100,6 +101,11 @@ class Profile {
         $this->lang_index = CAT::get_lang();
         $this->inst_name = $idp->name;
 
+        $this->checkuser_outer = $a->checkuser_outer;
+        $this->checkuser_value = $a->checkuser_value;
+        $this->verify = $a->verify;
+        $this->hint = $a->hint;
+        
         // fetch all atributes from this profile from DB
 
         $AllAttributes = DBConnection::exec(Profile::$DB_TYPE, "SELECT option_name, option_value, device_id, eap_method_id as method, row 
@@ -163,7 +169,7 @@ class Profile {
             "eapmethod" => NULL];
         
         $temparray[] = ["name" => "internal:checkuser_outer",
-            "value" => $a->checkuser_outer,
+            "value" => $this->checkuser_outer,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
@@ -171,7 +177,7 @@ class Profile {
             "eapmethod" => NULL];
         
         $temparray[] = ["name" => "internal:checkuser_value",
-            "value" => $a->checkuser_value,
+            "value" => $this->checkuser_value,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
@@ -179,7 +185,7 @@ class Profile {
             "eapmethod" => NULL];
         
         $temparray[] = ["name" => "internal:verify_userinput_suffix",
-            "value" => $a->verify_userinput_suffix,
+            "value" => $this->verify,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
@@ -187,7 +193,7 @@ class Profile {
             "eapmethod" => NULL];
         
         $temparray[] = ["name" => "internal:hint_userinput_suffix",
-            "value" => $a->hint_userinput_suffix,
+            "value" => $this->hint,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
@@ -506,13 +512,35 @@ class Profile {
     /** Toggle anonymous outer ID support.
      *
      * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
-     * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      *
      */
     public function setAnonymousIDSupport($shallwe) {
         DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET use_anon_outer = " . ($shallwe == true ? "1" : "0") . " WHERE profile_id = $this->identifier");
     }
+    
+    /** Toggle special username for realm checks
+     *
+     * @param boolean $shallwe TRUE to enable outer identities (needs valid $realm), FALSE to disable
+     * @param string $localpart the username
+     *
+     */
+    public function setRealmCheckUser($shallwe,$localpart = NULL) {
+        DBConnection::exec(Profile::$DB_TYPE, 
+                "UPDATE profile SET checkuser_outer = " . ($shallwe == true ? "1" : "0") . 
+                ( $localpart !== NULL ? ", checkuser_value = '$localpart' " : "") .
+                " WHERE profile_id = $this->identifier");
+    }
 
+    /** should username be verified or even prefilled?
+     * 
+     */
+    public function setInputVerificationPreference($verify,$hint) {
+        DBConnection::exec(Profile::$DB_TYPE, 
+                "UPDATE profile SET verify_userinput_suffix = " . ($verify == true ? "1" : "0") . 
+                ", hint_userinput_suffix = ". ($hint == true ? "1" : "0") .
+                " WHERE profile_id = $this->identifier");
+    }
+    
     /**
      * Specifies the realm of this profile.
      * 
