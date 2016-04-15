@@ -64,6 +64,25 @@ if (isset($_POST['anon_local'])) {
         $anon_local = $local[0]['value'];
 }
 
+$checkuser = FALSE;
+if (isset($_POST['checkuser_support']))
+    $checkuser = valid_boolean($_POST['checkuser_support']);
+
+$checkuser_name = "anonymous";
+if (isset($_POST['checkuser_local'])) {
+    $checkuser_name = valid_string_db($_POST['checkuser_local']);
+} else if ($my_profile !== FALSE) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
+    $checkuser_name = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
+}
+
+$verify = FALSE;
+$hint = FALSE;
+if (isset($_POST['verify_support']))
+    $verify = valid_boolean($_POST['checkuser_support']);
+if (isset($_POST['hint_support']))
+    $hint = valid_boolean($_POST['hint_support']);
+
+
 $redirect = FALSE;
 if (isset($_POST['redirect']))
     $redirect = valid_boolean($_POST['redirect']);
@@ -94,8 +113,7 @@ $profile->flushSupportedEapMethods();
     if ($realm != FALSE) {
         $profile->setRealm($anon_local . "@" . $realm);
         echo UI_okay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
-    }
-    else
+    } else
         $profile->setRealm("");
     // set anon ID, if submitted
     if ($anon != FALSE) {
@@ -109,6 +127,36 @@ $profile->flushSupportedEapMethods();
         $profile->setAnonymousIDSupport(false);
         echo UI_okay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
     };
+
+    if ($checkuser != FALSE) {
+        if ($realm == FALSE) {
+            echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
+        } else {
+            $profile->setRealmcheckUser(true,$checkuser_name);
+            echo UI_okay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name."@".$realm));
+        }
+    } else {
+        $profile->setRealmCheckUser(false);
+        echo UI_okay(_("No special username for realm checks is configured."));
+    };
+    
+    if ($verify != FALSE) {
+        if ($realm == FALSE) {
+            echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
+        } else {
+            $profile->setInputVerificationPreference($verify,$hint);
+            if ($hint) {
+                $extratext = " ".sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."),$realm);
+            } else {
+                $extratext = ".";
+            }
+            echo UI_okay(sprintf(_("Where possible, username inputs will be <strong>verified to contain an @ and end with %s</strong>%s"), $realm, $extratext));
+            
+        }
+    } else {
+        $profile->setInputVerificationPreference(false,false);
+    }
+
 
     $remaining_attribs = $profile->beginflushAttributes(0);
     $killlist = processSubmittedFields($profile, $remaining_attribs);
