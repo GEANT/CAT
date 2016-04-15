@@ -41,7 +41,7 @@ class Config {
         'from-mail' => 'cat-invite@your-cat-installation.example',
         'support-contact' => [
             'url' => 'cat-support@our-cat-installation.example?body=Only%20English%20language%20please!',
-            'display' => 'cat-support@our-cat-installation.example'
+            'display' => 'cat-support@our-cat-installation.example',
             'developer-mail' => 'cat-develop@our-cat-installation.example',
         ],
         'abuse-mail' => 'my-abuse-contact@your-cat-installation.example',
