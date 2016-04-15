@@ -294,7 +294,11 @@ public static function listDevices() {
     'module'=>'Lollipop',
     'options'=>[
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
 
@@ -306,7 +310,11 @@ public static function listDevices() {
     'module'=>'Lollipop',
     'options'=>[
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
 
@@ -318,7 +326,11 @@ public static function listDevices() {
     'module'=>'KitKat',
     'options'=>[
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
 
@@ -331,7 +343,11 @@ public static function listDevices() {
     'module'=>'KitKat',
     'options'=>[
        'mime'=>'application/eap-config',
-       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s and will use the configuration file downloaded from CAT to create all necessary settings."),"eduroamCAT","<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>"),
+       'message'=>sprintf(_("Before you proceed with installation on Android systems, please make sure that you have installed the %s application. This application is available from %s, %s and %s, and will use the configuration file downloaded from CAT to create all necessary settings."),
+                            "eduroamCAT",
+                            "<a target='_blank' href='https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat'>Google Play</a>",
+                            "<a target='_blank' href='unbeknownst'>Amazon Appstore</a>",
+                            "<a target='_blank' href='eduroamCAT-stable.apk'>"._("as local download")."</a>"),
       ],
    ],
 
