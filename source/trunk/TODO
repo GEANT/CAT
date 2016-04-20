@@ -1,10 +1,17 @@
+Label Definition
+===========
++ done
+- in progress/done partially
+! to be done
+? not sure if we want to do this
+
 1.2
 ===
 Core
 ----
 ? Windows modules - NEA
   (nobody seems to demand support for this)
-! redo the downloads approach: move the downloads from the web server documents 
++ redo the downloads approach: move the downloads from the web server documents 
   tree; implement an approach where only the final installer is left on the file
   system and all temporary files are deleted; provide an interface for crontab
   for cleanup which would consist of deleting obsolete directories and 
