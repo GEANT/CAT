@@ -49,6 +49,8 @@ switch ($page) {
         }
         $out .= "</tr>";
         foreach (Devices::listDevices() as $index => $onedevice) {
+            if (isset ($onedevice['options']) && (($onedevice['options']['hidden'] == 1) || ($onedevice['options']['redirect'] == 1)))
+                continue;
             $out .= "<tr><td><img src='resources/images/vendorlogo/" . $onedevice['group'] . ".png' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new DeviceFactory($index);
             foreach (EAP::listKnownEAPTypes() as $oneeap) {
