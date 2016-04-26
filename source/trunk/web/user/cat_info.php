@@ -54,7 +54,7 @@ switch ($page) {
             foreach (EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
                 if (in_array($oneeap, $device_instance->device->supportedEapMethods))
-                    $out .= "<img src='resources/images/icons/Quetto/check-icon.png' alt='SUPPOERTED'>";
+                    $out .= "<img src='resources/images/icons/Quetto/check-icon.png' alt='SUPPORTED'>";
                 else
                     $out .= "<img src='resources/images/icons/Quetto/no-icon.png' alt='UNSUPPOERTED'>";
                 $out .= "</td>";
@@ -63,7 +63,7 @@ switch ($page) {
         }
         $out .= "</table>";
         
-        sprintf(_("<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use behind captive portals (e.g. on a 'setup' SSID which only allows access to CAT for device configuration), the following hostnames need to be allowed for port TCP/443 in the portal:</p>"
+        $out .= sprintf(_("<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use behind captive portals (e.g. on a 'setup' SSID which only allows access to CAT for device configuration), the following hostnames need to be allowed for port TCP/443 in the portal:</p>"
                                 . "<b><u>REQUIRED</u></b>"
                                 . "<ul>"
                                 . "<li><b>%s</b> (the service itself)</li>"), Config::$APPEARANCE['productname'], valid_host($_SERVER['HTTP_HOST']));
