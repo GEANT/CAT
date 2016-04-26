@@ -556,6 +556,12 @@ td.notapplicable {
     vertical-align: middle;
 }
 
+td.vendor {
+    width: 50px;
+    text-align: center;
+    vertical-align: middle;
+}
+
 td.vendor img {
     height: 40px;
 }
