@@ -417,14 +417,31 @@ private function GetRootURL() {
  * If not then generate the file and save it in the cache
  * @param int $idp_id IdP identifier
  * @param int $disco flag turning on image generation for DiscoJuice
+ * @param int $width, $height  maximum width and height of the generated image 
+ * if one of these is 0 then it is treated as no upper bound
  *
  */
 
  public function sendLogo($idp_id, $disco=FALSE) {
    $ExpStr = '';
-   if($disco && is_file(CAT::$root.'/web/downloads/logos/'.$idp_id.'.png')) {
+   $resize = FALSE;
+   if(($width || $height) && is_numeric($width) && is_numeric($heighta)) {
+       $resize = TRUE;
+       if($height == 0)
+          $height = 10000;
+       if($width == 0)
+          $width = 10000;
+       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$widht.'_'.$height.'.png';
+   } elseif($disco === 1) {
+       $width = 120;
+       $height = 40;
+       $resize = TRUE;
+       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$widht.'_'.$height.'.png';
+   }
+
+   if($resize && is_file($file)){
       debug(4,"Using cached logo for: $idp_id\n");
-      $blob = file_get_contents(CAT::$root.'/web/downloads/logos/'.$idp_id.'.png');
+      $blob = file_get_contents($file);
       $filetype = 'image/png';
    }
    else {
@@ -440,10 +457,10 @@ private function GetRootURL() {
          $image = new Imagick();
          $image->readImageBlob($blob);
          if( $image->setImageFormat('PNG')) {
-           $image->thumbnailImage(120,40,1);
+           $image->thumbnailImage($widht,$height,1);
            $blob = $image->getImageBlob();
            debug(4,"Writing cached logo for: $idp_id\n");
-           file_put_contents(CAT::$root.'/web/downloads/logos/'.$idp_id.'.png',$blob);
+           file_put_contents($file,$blob);
          }
          else
            $blob = "XXXXXX";
