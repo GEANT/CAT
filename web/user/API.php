@@ -26,6 +26,8 @@ $idp     = ( isset($_REQUEST['idp'])     ? $_REQUEST['idp']     : FALSE );
 $profile = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
 $federation = ( isset($_REQUEST['federation']) ? $_REQUEST['federation'] : FALSE );
 $disco   = ( isset($_REQUEST['disco'])   ? $_REQUEST['disco']   : FALSE );
+$width   = ( isset($_REQUEST['width'])   ? $_REQUEST['width']   : 0 );
+$height   = ( isset($_REQUEST['height'])   ? $_REQUEST['height']   : 0 );
 $sort    = ( isset($_REQUEST['sort'])    ? $_REQUEST['sort']    : 0 );
 $location    = ( isset($_REQUEST['location'])    ? $_REQUEST['location']    : 0 );
 $api_version = ( isset($_REQUEST['api_version']) ? $_REQUEST['api_version'] : 1 );
@@ -86,6 +88,8 @@ switch ($action) {
            $idp = $id;
         if ($idp === FALSE) exit;
         $API->sendLogo($idp, $disco);
+        $API->sendLogo($id, $disco,$width,$height);
+        break;
     case 'deviceInfo': // needs $id and profile set
         if(! $device)
             $device = $id;
