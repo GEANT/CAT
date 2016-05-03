@@ -87,8 +87,7 @@ switch ($action) {
         if(! $idp)
            $idp = $id;
         if ($idp === FALSE) exit;
-        $API->sendLogo($idp, $disco);
-        $API->sendLogo($id, $disco,$width,$height);
+        $API->sendLogo($idp, $disco,$width,$height);
         break;
     case 'deviceInfo': // needs $id and profile set
         if(! $device)

@@ -422,26 +422,26 @@ private function GetRootURL() {
  *
  */
 
- public function sendLogo($idp_id, $disco=FALSE) {
+ public function sendLogo($idp_id, $disco=FALSE, $width=0, $height=0) {
    $ExpStr = '';
-   $resize = FALSE;
-   if(($width || $height) && is_numeric($width) && is_numeric($heighta)) {
-       $resize = TRUE;
+   $resize = 0;
+   if(($width || $height) && is_numeric($width) && is_numeric($height)) {
+       $resize = 1;
        if($height == 0)
           $height = 10000;
        if($width == 0)
           $width = 10000;
-       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$widht.'_'.$height.'.png';
-   } elseif($disco === 1) {
+       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
+   } elseif($disco == 1) {
        $width = 120;
        $height = 40;
-       $resize = TRUE;
-       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$widht.'_'.$height.'.png';
+       $resize = 1;
+       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
    }
 
-   if($resize && is_file($file)){
-      debug(4,"Using cached logo for: $idp_id\n");
-      $blob = file_get_contents($file);
+   if($resize && is_file($logo_file)){
+      debug(4,"Using cached logo $logo_file for: $idp_id\n");
+      $blob = file_get_contents($logo_file);
       $filetype = 'image/png';
    }
    else {
@@ -452,15 +452,15 @@ private function GetRootURL() {
       $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
       $offset = 60 * 60 * 24 * 30;
       $ExpStr = "Expires: " . gmdate( "D, d M Y H:i:s", time() + $offset ) . " GMT";
-      if($disco) {
+      if($resize) {
          $filetype = 'image/png';
          $image = new Imagick();
          $image->readImageBlob($blob);
          if( $image->setImageFormat('PNG')) {
-           $image->thumbnailImage($widht,$height,1);
+           $image->thumbnailImage($width,$height,1);
            $blob = $image->getImageBlob();
-           debug(4,"Writing cached logo for: $idp_id\n");
-           file_put_contents($file,$blob);
+           debug(4,"Writing cached logo $logo_file for: $idp_id\n");
+           file_put_contents($logo_file,$blob);
          }
          else
            $blob = "XXXXXX";
