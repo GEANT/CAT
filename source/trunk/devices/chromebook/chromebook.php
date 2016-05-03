@@ -120,21 +120,21 @@ class Device_Chromebook extends DeviceConfig {
             $eap_prettyprint = EAP::eapDisplayName($this->selected_eap);
             // ONC has its own enums, and guess what, they don't always match
             if ($eap_prettyprint["OUTER"] == "PEAP" && $eap_prettyprint["INNER"] == "MSCHAPV2")
-                $eap_prettyprint["INNER"] = "EAP-MSCHAPv2";
+                // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
+                $eap_prettyprint["INNER"] = "MSCHAPv2";
             if ($eap_prettyprint["OUTER"] == "TTLS" && $eap_prettyprint["INNER"] == "MSCHAPV2")
                 $eap_prettyprint["INNER"] = "MSCHAPv2";
             if ($eap_prettyprint["OUTER"] == "TLS")
                 $eap_prettyprint["OUTER"] = "EAP-TLS";
             // define EAP properties
-            $eaparray = [
-                        "Outer" => $eap_prettyprint["OUTER"],
-                        "SaveCredentials" => true,
-                        "ServerCARefs" => $ca_refs, // maybe takes just one CA?
-                        "UseSystemCAs" => false,
-                    ];
-// according to the ONC spec, we should be allowed to set this, but it makes the import fail :-(
-//            if ($eap_prettyprint["OUTER"] != "EAP-TLS")
-//                $eaparray["Inner"] = $eap_prettyprint["INNER"];
+
+            $eaparray = array("Outer" => $eap_prettyprint["OUTER"]);
+            if ($eap_prettyprint["INNER"] == "MSCHAPv2")
+                $eaparray["Inner"] = $eap_prettyprint["INNER"];
+            $eaparray["SaveCredentials"] = true;
+            $eaparray["ServerCARefs"] = $ca_refs; // maybe takes just one CA?
+            $eaparray["UseSystemCAs"] = false;
+                    
             if ($outer_id)
                 $eaparray["AnonymousIdentity"] = "$outer_id";
             
