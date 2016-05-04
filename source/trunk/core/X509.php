@@ -70,8 +70,8 @@ public function processCertificate ($cadata) {
         if($end_c !== FALSE) {
            $cadata = substr($cadata,$begin_pem,$end_c - $begin_pem);
         }
-        $ca_pem = $cadata;
-        $ca_der = X509::pem2der($ca_pem);
+        $ca_der = X509::pem2der($cadata);
+        $ca_pem = X509::der2pem($ca_der);
         // echo "XXXXXXXXXXXXX".$cadata."XXXXXXXXXXXXX"; exit;
     } else {
         $ca_der = $cadata;
