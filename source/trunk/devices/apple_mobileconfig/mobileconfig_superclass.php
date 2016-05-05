@@ -163,7 +163,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 
     public function writeDeviceInfo() {
         $ssid_ct = count($this->attributes['internal:SSID']);
-        $cert_ct = count($this->attributes['eap:ca_file']);
+        $cert_ct = count($this->attributes['internal:CAs'][0]);
         $out = "<p>"._("For best results, please use the built-in browser (Safari) to open the configuration file.")."</p>";
         $out .= "<p>";
         $out .= _("The profile will install itself after you click (or tap) the button. You will be asked for confirmation/input at several points:");
