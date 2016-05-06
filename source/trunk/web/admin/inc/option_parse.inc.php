@@ -181,7 +181,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 unset($options[$k]);
                 $ca_files = X509::splitCertificate($content);
                 foreach ($ca_files as $ca_file) {
-                    $options[] = ["eap:ca_file" => base64_encode($ca_file)];
+                    $options[] = ["eap:ca_file" => base64_encode(X509::pem2der($ca_file))];
                 }
             }
         }
