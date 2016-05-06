@@ -394,7 +394,7 @@ $EAP_OPTS = [
 PEAP=>['str'=>'PEAP','exec'=>'user'],
 TLS=>['str'=>'TLS','exec'=>'user'],
 TTLS=>['str'=>'TTLS','exec'=>'user'],
-PWD=>['str'=>'PWD','exec'=>'admin'],
+PWD=>['str'=>'PWD','exec'=>'user'],
 ];
  
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)
@@ -480,7 +480,8 @@ debug(4,"copyFiles start\n");
    $this->translateFile('common.inc','common.nsh',$this->code_page);
    if($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
-     $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
+     $result = $result && $this->copyFile('EAP-PWD.msi');
+//     $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
    } else {
    $this->translateFile('eap_w8.inc','cat.NSI',$this->code_page);
    $result = 1;

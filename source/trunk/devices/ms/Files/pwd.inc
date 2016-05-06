@@ -18,17 +18,24 @@ ReadRegStr $0 HKLM SYSTEM\CurrentControlSet\Services\Rasman\PPP\EAP\52 "Friendly
 IfErrors no_key
 Goto no_install
 no_key:
-File Aruba_EAP_pwd.exe
-ExecWait "$TEMP\Aruba_EAP_pwd.exe" $0
+IfSilent +2
+   MessageBox MB_OKCANCEL "We need to install additional software provided by Aruba Networks, Inc." IDOK cont
+   Call Cleanup
+cont:
+File EAP-PWD.msi
+;ExecWait "$TEMP\Aruba_EAP_pwd.exe" $0
+ExecWait "msiexec /i $TEMP\EAP-PWD.msi" $0
 StrCmp $0 0 Koniec
         ;
         ; Error Label, show error box and then quit
         ;
 
-;        MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo _('EAP-pwd installation error. Please try again or contact ${SUPPORT}.')?>"
-;        Quit
+        MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo _("EAP-pwd installation error. Please try again or contact ${SUPPORT}.")?>"
+        Delete "$TEMP\EAP-PWD.msi"
+        Call Cleanup
 Koniec:
-Delete "$TEMP\Aruba_EAP_pwd.exe"
+;Delete "$TEMP\Aruba_EAP_pwd.exe"
+Delete "$TEMP\EAP-PWD.msi"
 no_install:
 SectionEnd
 ;TRANSLATION
