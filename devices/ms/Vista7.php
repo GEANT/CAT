@@ -459,7 +459,7 @@ $EAP_OPTS = [
 PEAP=>['str'=>'PEAP','exec'=>'user'],
 TLS=>['str'=>'TLS','exec'=>'user'],
 TTLS=>['str'=>'ArnesLink','exec'=>'user'],
-PWD=>['str'=>'PWD','exec'=>'admin'],
+PWD=>['str'=>'PWD','exec'=>'user'],
 ];
 $fcontents = '';
  
@@ -554,7 +554,8 @@ debug(4,"code_page=".$this->code_page."\n");
      $this->translateFile('arnes_link.inc','cat.NSI',$this->code_page);
    } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
-     $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
+//     $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
+     $result = $result && $this->copyFile('EAP-PWD.msi');
     } else {
      $this->translateFile('peap_tls.inc','cat.NSI',$this->code_page);
      $result = 1;

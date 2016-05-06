@@ -1,9 +1,7 @@
 This directory contains additional files for Windows installer modules.
 
-ArnesLinkEn32.msi - ArnesLink installer English - 32 bit
-ArnesLinkEn64.msi - ArnesLink installer English - 64 bit
 arnes_link.inc - installer code for ArnesLink TTLS
-Aruba_EAP_pwd.exe - PWD installer supplied by Aruba
+EAP-PWD.msi - PWD installer supplied by Aruba
 cat_bg.bmp - defualt background
 common.inc - common NSIS code for all modules but XP
 dump_arneslink_profile.cmd - dump profile file for SSID replacement
