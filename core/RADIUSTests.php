@@ -1261,15 +1261,15 @@ network={
                     if ($decoded['ca'] == 1) {
                         if ($decoded['root'] == 1) { // save CAT roots to the root directory
                             $root_CA = fopen($tmp_dir . "/root-ca-eaponly/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
-                            fwrite($root_CA, $one_ca['value']);
+                            fwrite($root_CA, $decoded['pem']);
                             fclose($root_CA);
                             $root_CA = fopen($tmp_dir . "/root-ca-allcerts/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
-                            fwrite($root_CA, $one_ca['value']);
+                            fwrite($root_CA, $decoded['pem']);
                             fclose($root_CA);
                             $number_configured_roots = $number_configured_roots + 1;
                         } else { // save the intermadiates to allcerts directory
                             $intermediate_file = fopen($tmp_dir . "/root-ca-allcerts/cat-intermediate$cat_number_intermediate.pem", "w");
-                            fwrite($intermediate_file, $one_ca['value']);
+                            fwrite($intermediate_file, $decoded['pem']);
                             fclose($intermediate_file);
 
                             $cat_intermediate_oddities = array_merge($cat_intermediate_oddities, $this->property_check_intermediate($decoded));
