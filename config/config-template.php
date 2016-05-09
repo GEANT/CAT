@@ -40,7 +40,7 @@ class Config {
         'productname_long' => 'eduroam Configuration Assistant Tool',
         'from-mail' => 'cat-invite@your-cat-installation.example',
         'support-contact' => [
-            'url' => 'cat-support@our-cat-installation.example?body=Only%20English%20language%20please!',
+            'url' => 'mailto:cat-support@our-cat-installation.example?body=Only%20English%20language%20please!',
             'display' => 'cat-support@our-cat-installation.example',
             'developer-mail' => 'cat-develop@our-cat-installation.example',
         ],
