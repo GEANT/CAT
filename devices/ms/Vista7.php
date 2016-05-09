@@ -554,8 +554,8 @@ debug(4,"code_page=".$this->code_page."\n");
      $this->translateFile('arnes_link.inc','cat.NSI',$this->code_page);
    } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
-//     $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
-     $result = $result && $this->copyFile('EAP-PWD.msi');
+     $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
+     $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
     } else {
      $this->translateFile('peap_tls.inc','cat.NSI',$this->code_page);
      $result = 1;

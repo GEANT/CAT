@@ -92,6 +92,7 @@ Var wired
 Var force_wired
 Var Platform
 Var Netsh
+Var Msiexec
 Var main_ssid
 !ifdef TLS
   Var Cert_file
@@ -332,10 +333,12 @@ Function .onInit
     StrCpy "$INSTDIR" "$PROGRAMFILES64\ArnesLink"
     StrCpy $Platform "64"
     StrCpy $Netsh "$WINDIR\sysnative\netsh"
+    StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
     ${Else}
     StrCpy "$INSTDIR" "$PROGRAMFILES\ArnesLink"
     StrCpy $Platform "32"
     StrCpy $Netsh "netsh"
+    StrCpy $Msiexec "msiexec"
   ${EndIf}
   !insertmacro debug_cat 3 "Platfrom:$Platform"
 

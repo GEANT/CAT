@@ -22,20 +22,21 @@ IfSilent +2
    MessageBox MB_OKCANCEL "We need to install additional software provided by Aruba Networks, Inc." IDOK cont
    Call Cleanup
 cont:
-File EAP-PWD.msi
-;ExecWait "$TEMP\Aruba_EAP_pwd.exe" $0
-ExecWait "msiexec /i $TEMP\EAP-PWD.msi" $0
+File Aruba_Networks_EAP-pwd_x32.msi
+File Aruba_Networks_EAP-pwd_x64.msi
+ExecWait "$Msiexec /i $TEMP\Aruba_Networks_EAP-pwd_x$Platform.msi" $0
 StrCmp $0 0 Koniec
         ;
         ; Error Label, show error box and then quit
         ;
 
         MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo _("EAP-pwd installation error. Please try again or contact ${SUPPORT}.")?>"
-        Delete "$TEMP\EAP-PWD.msi"
+        Delete Aruba_Networks_EAP-pwd_x32.msi
+        Delete Aruba_Networks_EAP-pwd_x64.msi
         Call Cleanup
 Koniec:
-;Delete "$TEMP\Aruba_EAP_pwd.exe"
-Delete "$TEMP\EAP-PWD.msi"
+Delete Aruba_Networks_EAP-pwd_x32.msi
+Delete Aruba_Networks_EAP-pwd_x64.msi
 no_install:
 SectionEnd
 ;TRANSLATION
