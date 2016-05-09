@@ -480,8 +480,8 @@ debug(4,"copyFiles start\n");
    $this->translateFile('common.inc','common.nsh',$this->code_page);
    if($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
-     $result = $result && $this->copyFile('EAP-PWD.msi');
-//     $result = $result && $this->copyFile('Aruba_EAP_pwd.exe');
+     $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
+     $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
    } else {
    $this->translateFile('eap_w8.inc','cat.NSI',$this->code_page);
    $result = 1;
