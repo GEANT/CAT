@@ -39,5 +39,6 @@ translation:
 
 distribution: all
 	find . -name \*.po~ -exec rm {} \;
+	find . -name svn-commit.tmp -exec rm {} \;
 	rm -R -f NewFolder nbproject config/config.php devices/devices.php generic-data*
 	tar -cvjf ../$(VERSION).tar.bz2 --show-transformed-names --exclude-vcs --xform 's/^\.\(\/\)/$(VERSION)\1/' .
