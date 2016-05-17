@@ -87,8 +87,13 @@ protected function signInstaller($attr) {
 }
 
 protected function compileNSIS() {
-  $o = system(Config::$PATHS['makensis'].' -V4 cat.NSI > nsis.log');
-  debug(4,"compileNSIS:$o\n");
+   if(Config::$NSIS_VERSION >= 3)
+      $makensis = Config::$PATHS['makensis'] . " -INPUTCHARSET UTF8";
+   else
+      $makensis = Config::$PATHS['makensis']; 
+   $o = $makensis.' -V4 cat.NSI > nsis.log';
+   system($o);
+   debug(4,"compileNSIS:$o\n");
 }
 
 protected function msInfoFile($attr) {
@@ -100,7 +105,10 @@ if(isset($attr['support:info_file'])) {
      $out = '!define LICENSE_FILE "'. $attr['internal:info_file'][0]['name'];
   elseif( $attr['internal:info_file'][0]['mime'] == 'txt') {
      $in_txt = file_get_contents($attr['internal:info_file'][0]['name']);
-     $out_txt = iconv('UTF-8',$this->code_page.'//TRANSLIT',$in_txt);
+     if(Config::$NSIS_VERSION >= 3)
+        $out_txt = $in_txt;
+     else
+        $out_txt = iconv('UTF-8',$this->code_page.'//TRANSLIT',$in_txt);
      if($out_txt) {
         file_put_contents('info_f.txt',$out_txt);
         $out = '!define LICENSE_FILE " info_f.txt';

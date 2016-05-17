@@ -84,8 +84,8 @@ Here are some extra configuration hints for these packages:
 </listitem>
 <listitem><emphasis>NSIS</emphasis>
 	<itemizedlist>
-                <listitem>needs to have the plug-ins "NSISArray", "GetVersion", "ZipDLL" available</listitem>
-		<listitem>"makensis" needs to be in your $PATH and executable</listitem>
+                <listitem>needs to have the plug-ins "nsArray", "GetVersion", "ZipDLL" available</listitem>
+		<listitem>"makensis" needs to be in your $PATH and executable, it is strongly recommended to use vesrion 3 of the software which has UTF-8 support.</listitem>
 	</itemizedlist>
 </listitem>
 <listitem><emphasis>GeoIP</emphasis>

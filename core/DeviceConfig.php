@@ -201,9 +201,9 @@ abstract class DeviceConfig {
   /**
     *  Copy a file from the module location to the temporary directory aplying transcoding.
     *
-    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS
+    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS (NSIS version below 3)
     * Trancoding is noly applied if the third optional parameter is set and nonzero
-    * If Config::$NSIS_UTF8 -s set to 1, no transcoding will be applied regardless of the 
+    * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied regardless of the 
     * third parameter value
     * If the second argument is provided and is not equal to 0, then the file will be
     * saved under the name taken form this argument.
@@ -223,7 +223,7 @@ abstract class DeviceConfig {
     */
 
    final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
-      if(Config::$NSIS_UTF8 === 1)
+      if(Config::$NSIS_VERSION >= 3)
         $encoding = 0;
       if  ( $output_name === 0)
         $output_name = $source_name;
@@ -254,9 +254,9 @@ abstract class DeviceConfig {
   /**
     * Transcode a string adding double quotes escaping
     *
-    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS
+    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS (NSIS version below 3)
     * Trancoding is noly applied if the third optional parameter is set and nonzero
-    * If Config::$NSIS_UTF8 -s set to 1, no transcoding will be applied regardless of the 
+    * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied regardless of the 
     * second parameter value
     * The second optional parameter, if nonzero, should be the character set understood by iconv
     * This is required by the Windows installer and is
@@ -269,12 +269,12 @@ abstract class DeviceConfig {
     */
 
    final protected function translateString($source_string,$encoding = 0) {
-      if(Config::$NSIS_UTF8 === 1)
+      if(Config::$NSIS_VERSION >= 3)
         $encoding = 0;
       if($encoding)
         $output_c = iconv('UTF-8',$encoding.'//TRANSLIT',$source_string);
       else
-        $$output_c = $source_string;
+        $output_c = $source_string;
       if($output_c) 
          $source_string  = str_replace('"','$\\"',$output_c);
       else

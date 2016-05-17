@@ -21,7 +21,7 @@ Var HEADLINE_FONT
 	!include "Sections.nsh"
 	!include "nsDialogs.nsh"
 	!include "LogicLib.nsh"
-	!include "NSISArray.nsh"
+        !include "nsArray.nsh"
 	!include "main.nsh"
         !include "WordFunc.nsh"
         !include "FileFunc.nsh"
@@ -35,37 +35,6 @@ SetCompressor bzip2
 !endif
 
 XPStyle on
-
-
-${Array} "Profile_names" 5 40
-${ArrayFunc} Read
-${ArrayFunc} Write
-${ArrayFunc} Concat
-${ArrayFunc} Debug
-
-${Array} "Profile_states" 5 2
-${ArrayFunc} Read
-${ArrayFunc} Write
-
-${Array} "Delete_files" 20 30
-${ArrayFunc} ReadFirst
-${ArrayFunc} ReadNext
-${ArrayFunc} Push
-${ArrayFunc} ReadClose
-
-${Array} "Additional_deletes" 5 40
-${ArrayFunc} ReadFirst
-${ArrayFunc} ReadNext
-${ArrayFunc} Push
-${ArrayFunc} ReadClose
-
-
-${Array} "Commands" 6 80
-${ArrayFunc} ReadFirst
-${ArrayFunc} ReadNext
-${ArrayFunc} Shift
-${ArrayFunc} ReadClose
-
 
 !define PROFILE_STATE_DELETE 1
  
@@ -171,12 +140,13 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
 !macroend
 
 !macro define_delete_profile prof
-  ${Additional_deletes->Push} "${prof}" 
+  nsArray::Set Additional_deletes "${prof}"
 !macroend
 
 
 !macro define_wlan_profile prof enc
-  ${Profile_names->Write} $profile_count "${prof}"
+  nsArray::Set Profile_names /key=$profile_count "${prof}"
+  
   IntOp $profile_count $profile_count + 1
   ${If} ${enc} == "TKIP"
     IntOp $tkip_count $tkip_count + 1
@@ -190,7 +160,7 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
    !insertmacro debug_cat 2 "locating certificate  SHA=${ca_fingerprint} Level=${level}"
    DetailPrint "<?php echo_nsi( _("searching for certificate"))?> ${ca_file}"
    File "${ca_file}"
-   ${Delete_files->Push} "${ca_file}"
+   nsArray::Set Delete_files "${ca_file}"
    !insertmacro debug_cat 2 "Testing machine store root"
    !insertmacro debug_cat 3 "Execute: certutil -store root ${ca_fingerprint}"
    nsExec::Exec '"certutil" -store root ${ca_fingerprint}'
@@ -282,11 +252,6 @@ Function .onInit
   !endif
 
   CreateFont $HEADLINE_FONT "$(^Font)" "13" "700"
-  ${Profile_names->Init}
-  ${Profile_states->Init}
-  ${Delete_files->Init}
-  ${Commands->Init}
-  ${Additional_deletes->Init}
   Push 0
   Pop $profile_count
   Push 0
@@ -310,20 +275,20 @@ Function .onInit
   !include "profiles.nsh"
   IntOp $profile_count $profile_count - 1
   File "wlan_test.exe"
-  ${Delete_files->Push} "wlan_test.exe"
+  nsArray::Set Delete_files "wlan_test.exe"
   !ifdef BACKGROUND_IMG
     File /oname=cat_background.bmp "${BACKGROUND_IMG}"
   !else
     File /oname=cat_background.bmp "cat_bg.bmp"
   !endif
-  ${Delete_files->Push} "cat_background.bmp"
+  nsArray::Set Delete_files "cat_background.bmp"
   !ifdef EXTERNAL_INFO
     File "${EXTERNAL_INFO}"
-    ${Delete_files->Push} "${EXTERNAL_INFO}"
+    nsArray::Set Delete_files "${EXTERNAL_INFO}"
   !endif
   !ifdef WIRED
     File "install_wired.cmd"
-    ${Delete_files->Push} "install_wired.cmd"
+    nsArray::Set Delete_files "install_wired.cmd"
   !endif
   Push 0
   Pop $profile_fail
@@ -448,7 +413,8 @@ Function ShowControls
 FunctionEnd
 
 Function PrepareWelcomeText  
-  ${Profile_names->Concat} $R0 ", "
+  nsArray::Join Profile_names ", " /noempty
+  pop $R0
   ${If} $tkip_count > 0
     ${If} $aes_count > 1
       StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profiles are preferred. Always use them if you have a choice."))?>"
@@ -675,14 +641,13 @@ FunctionEnd
 ;  Check if a wireless profile exist and put it on delete list
 Function ProfileCheck
   Pop $R0
-  ${Profile_names->Read} $R1 $R0
-  Push $R1
+  nsArray::Get Profile_names $R0
   call FindProfile
   Pop $0
   ${If} $0 == 0
-    ${Profile_states->Write} $R0 ${PROFILE_STATE_DELETE}
+    nsArray::Set Profile_states /key=$R0 ${PROFILE_STATE_DELETE}
   ${Else}
-    ${Profile_states->Write} $R0 0
+    nsArray::Set Profile_states /key=$R0 0
   ${EndIf}
 FunctionEnd
 ;==========================
@@ -710,7 +675,7 @@ FunctionEnd
 Function CheckWirelessProfiles
   !ifdef CRED
   File setEAPCred.exe
-  ${Delete_files->Push} "setEAPCred.exe"
+  nsArray::Set Delete_files "setEAPCred.exe"
   !endif
   ${ForEach} $R9 0 $profile_count + 1
     Push $R9
@@ -756,17 +721,16 @@ Call ShowAllButtons
    !insertmacro debug_cat 2 "writing $EXEDIR\inst_cat.cmd"
    FileOpen $9 "$EXEDIR\inst_cat.cmd" w
    ClearErrors
-   ${Commands->ReadFirst} $R0 $R1
    Loop1:
+   nsArray::Iterate Commands
     IfErrors Done1
+    Pop $R0
+    Pop $R1
     FileWrite $9 "$R1$\r$\n"
-    ClearErrors
-    ${Commands->ReadNext} $R0 $R1
     Goto Loop1
     Done1:
     FileWrite $9 "@TIMEOUT 10$\r$\n"
 ;    FileWrite $9 "del $EXEDIR\inst_cat.cmd"
-   ${Commands->ReadClose} $R0
    FileClose $9
   SkipScript:
   nsDialogs::Create 1044
@@ -822,8 +786,8 @@ Function CreateLanProfile
  !insertmacro debug_cat 2 "installing wired profile"
  DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
   !insertmacro debug_cat 3 "execute: $Netsh lan add profile $TEMP\lan_prof.xml"
-  ${Commands->Shift} "netsh lan add profile $TEMP\lan_prof.xml"
-  ${Commands->Shift} "del $TEMP\lan_prof.xml"
+  nsArray::Set Commands "netsh lan add profile $TEMP\lan_prof.xml" 
+  nsArray::Set Commands "del $TEMP\lan_prof.xml"
   nsExec::Exec '"$Netsh" lan add profile $TEMP\lan_prof.xml'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
@@ -855,36 +819,34 @@ Function CreateWirelessProfiles
   !ifdef AdditionalDeletes
      !insertmacro debug_cat 1 'Additional Deletes'
      ClearErrors
-     ${Additional_deletes->ReadFirst} $R5 $R1
      Loop2:
+     nsArray::Iterate Additional_deletes
      IfErrors Done2
-     Push $R1
      call FindProfile
      Pop $0
      ${If} $0 == 0
        DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
        !insertmacro debug_cat 1 'deleting profile "$R1"'
        !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
-       ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
+       nsArray::Set Commands "netsh wlan delete profile $\"$R1$\"" 
        nsExec::Exec '"$Netsh" wlan delete profile "$R1"'
      ${EndIf}
-     ClearErrors
-     ${Additional_deletes->ReadNext} $R5 $R1
      Goto Loop2
      Done2:
-     ${Additional_deletes->ReadClose} $R5
   !endif
 FunctionEnd
 
 ; re-install a wireless profile and set the credentials flag if succeded
 Function InstallProfile
   Pop $R0
-  ${Profile_names->Read} $R1 $R0
-  ${Profile_states->Read} $R2 $R0
+  nsArray::Get Profile_names $R0
+  Pop $R1
+  nsArray::Get Profile_states $R0
+  Pop $R2
   ${If} $R2 == ${PROFILE_STATE_DELETE}
     DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
     !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
-    ${Commands->Shift} "netsh wlan delete profile $\"$R1$\""
+    nsArray::Set Commands "netsh wlan delete profile $\"$R1$\""
     nsExec::Exec '"$Netsh" wlan delete profile "$R1"'
     Pop $0
     !insertmacro debug_cat 4 "netsh returned $0"
@@ -912,7 +874,7 @@ Function InstallProfile
        Delete $TEMP\cat_tmp_dir\*
        !insertmacro debug_cat 4 'Execute: "$TEMP\dump_arneslink_profile.cmd" "$TEMP" "$main_ssid"'
        nsExec::Exec '"$TEMP\dump_arneslink_profile.cmd" "$TEMP" "$main_ssid"'
-       ${Delete_files->Push} "$TEMP\cat_tmp_dir\a1.xml"
+       nsArray::Set Delete_files "$TEMP\cat_tmp_dir\a1.xml"
     ${EndIf}
     ExecWait '"$TEMP\install_arneslink_profile.cmd" "$TEMP" "$main_ssid" "$R1" $R0'
     Pop $0
@@ -921,7 +883,7 @@ Function InstallProfile
       !insertmacro debug_cat 1 'Profile installation error for "$R1"'
       IfSilent +2
       MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
-      ${Profile_states->Write} $R0 ${PROFILE_STATE_FAIL}
+      nsArray::Set Profile_states /key="$R0" ${PROFILE_STATE_FAIL}
       Push 1
       Pop $profile_fail
     ${Else}
@@ -940,8 +902,8 @@ Function InstallProfile
   ${EndIf}
 !else
   !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
-  ${Commands->Shift} "netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
-  ${Commands->Shift} "del $TEMP\wlan_prof-$R0.xml"
+  nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
+  nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
   nsExec::Exec '"$Netsh" wlan add profile $TEMP\wlan_prof-$R0.xml'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
@@ -949,7 +911,7 @@ Function InstallProfile
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
     IfSilent +2
     MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
-    ${Profile_states->Write} $R0 ${PROFILE_STATE_FAIL}
+    nsArray::Set Profile_states /key="$R0" ${PROFILE_STATE_FAIL}
     Push 1
     Pop $profile_fail
   ${Else}
@@ -1004,8 +966,10 @@ FunctionEnd
 ; Install credentials for a wireless profile
 Function InstallWirelessCred
   Pop $R0
-  ${Profile_names->Read} $R1 $R0
-  ${Profile_states->Read} $R2 $R0
+  nsArray::Get Profile_names $R0
+  Pop $R1
+  nsArray::Get Profile_states $R0
+  Pop $R2
   ${If} $R2 <> ${PROFILE_STATE_FAIL}
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
 
@@ -1165,15 +1129,14 @@ ${If} $Debug_cat > 0
   Quit
 ${EndIf}
 ClearErrors
-${Delete_files->ReadFirst} $R0 $R1
 Loop:
+nsArray::Iterate Delete_files
 IfErrors Done
- Delete $R1
- ClearErrors
- ${Delete_files->ReadNext} $R0 $R1
+Pop $R0
+Pop $R1
+Delete $R1
 Goto Loop
 Done:
-${Delete_files->ReadClose} $R0
 Quit
 FunctionEnd
 
