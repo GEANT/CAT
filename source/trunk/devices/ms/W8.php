@@ -389,6 +389,9 @@ debug(2,"Installer has been written into directory $this->FPATH\n");
 private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
 $fcontents = "!define W8\n";
+if(Config::$NSIS_VERSION >= 3)
+    $fcontents .=  "Unicode true\n";
+
 
 $EAP_OPTS = [
 PEAP=>['str'=>'PEAP','exec'=>'user'],

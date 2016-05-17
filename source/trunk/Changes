@@ -9,6 +9,8 @@ Changes in 1.2
                overview page
 - [FEATURE #5] federation customisation: name, logo, custom invitation texts and
                more
+- [FEATURE #6] deprecated NSISArray has been replaced with nsArry
+- [FEATURE #7] Support for UTF-8 installer has been added (this requires nsis v3)
 
 Configuration parameter changes
 -------------------------------

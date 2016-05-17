@@ -46,7 +46,7 @@ class SanityTest extends CAT {
 
 /* List all required NSIS modules below */
     private $NSIS_Modules = [
-             "NSISArray.nsh",
+             "nsArray.nsh",
              "FileFunc.nsh",
              "LogicLib.nsh",
              "WordFunc.nsh",
@@ -351,6 +351,14 @@ class SanityTest extends CAT {
       * test if makensis is available
       */
     private function makensis_test() {
+         if(! is_numeric(Config::$NSIS_VERSION)) {
+            $this->test_return(L_ERROR,"NSIS_VERSION needs to be numeric!");
+            return;
+         }
+         if(Config::$NSIS_VERSION < 2) {
+            $this->test_return(L_ERROR,"NSIS_VERSION needs to be at least 2!");
+            return;
+         }
          $A = $this->get_exec_path('makensis');    
          if($A['exec'] != "") {
              $t = exec($A['exec'] . ' -VERSION');
@@ -358,6 +366,12 @@ class SanityTest extends CAT {
                 $this->test_return(L_OK,"<strong>makensis $t</strong> was found and is configured explicitly in your config.");
              else
                 $this->test_return(L_WARN,"<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
+             exec($A['exec'] . ' -HELP',$t);
+             $t1 = count(preg_grep('/INPUTCHARSET/',$t));
+             if($t1 == 1 && Config::$NSIS_VERSION == 2)
+                $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
+             if($t1 == 0 && Config::$NSIS_VERSION >= 3)
+                $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
          } else
             $this->test_return(L_ERROR,"<strong>makensis</strong> was not found on your system!");
     }
@@ -531,7 +545,7 @@ class SanityTest extends CAT {
            if($r->num_rows == $this->profile_option_ct)
               $this->test_return(L_OK,"The $DB database appears to be OK.");
            else
-              $this->test_return(L_ERROR,"The $DB is reacheable but probably not updated to this version of CAT.");
+              $this->test_return(L_ERROR,"The $DB database is reacheable but probably not updated to this version of CAT.");
         }
         $DB = 'USER';
         $db = mysqli_connect(Config::$DB[$DB]['host'], Config::$DB[$DB]['user'], Config::$DB[$DB]['pass'], Config::$DB[$DB]['db']);

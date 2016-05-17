@@ -462,6 +462,8 @@ TTLS=>['str'=>'ArnesLink','exec'=>'user'],
 PWD=>['str'=>'PWD','exec'=>'user'],
 ];
 $fcontents = '';
+if(Config::$NSIS_VERSION >= 3)
+    $fcontents .=  "Unicode true\n";
  
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)
 // $fcontents .= "!define ALLOW_XP\n";
