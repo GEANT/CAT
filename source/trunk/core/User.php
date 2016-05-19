@@ -223,6 +223,19 @@ class User {
        return in_array($this->identifier, Config::$SUPERADMINS);
     }
 
+   /**
+    *  This function tests if the current user is an ovner of a given IdP
+    *
+    * @return boolean TRUE if the user is an owner, FALSE if not 
+    */
+    public function isIdPOwner($idp) {
+       $temp = new IdP($idp);
+       foreach ($temp->owner() as $oneowner)
+            if ($oneowner['ID'] == $this->identifier)
+                return TRUE;
+       return FALSE;
+    }
+
     public function sendMailToUser($subject, $content) {
         // use PHPMailer to send the mail
         $mail = new PHPMailer();
@@ -263,6 +276,7 @@ class User {
         
         return $sent;
     }
+
 
 }
 
