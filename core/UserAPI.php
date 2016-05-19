@@ -58,6 +58,25 @@ class UserAPI extends CAT {
     $Config = $Dev[$device];
     debug(4,"installer:$device:$prof_id\n");
     $profile = new Profile($prof_id);
+    $attribs = $profile->getCollapsedAttributes();
+    // test if the profile is production-ready and if not if the authenticated user is an owner
+    if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
+       debug(4,"Attempt to download a non-production ready installer fir profile: $prof_id\n");
+       require_once(Config::$AUTHENTICATION['ssp-path-to-autoloader']);
+       $as = new SimpleSAML_Auth_Simple(Config::$AUTHENTICATION['ssp-authsource']);
+       if($as->isAuthenticated()) {
+          $user_object = new User($_SESSION['user']);
+          if($user_object->isIdPOwner($profile->institution)) {
+              debug(4, "User is the owner - allowing access\n");
+          } else {
+             debug(2, "User not an owner of a non-production profile - access forbidden\n");
+             return;
+          }
+       } else {
+          debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
+          return;
+       }
+    }
     $a = [];
     $a['profile'] = $prof_id;
     $a['device'] = $device;
@@ -400,25 +419,6 @@ private function GetRootURL() {
        return;
     }
     $profile = new Profile($prof_id);
-    $attribs = $profile->getCollapsedAttributes();
-    // test if the profile is production-ready and if not if the authenticated user is an owner
-    if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-       debug(4,"Attempt to download a non-production ready installer fir profile: $prof_id\n");
-       require_once(Config::$AUTHENTICATION['ssp-path-to-autoloader']);
-       $as = new SimpleSAML_Auth_Simple(Config::$AUTHENTICATION['ssp-authsource']);
-       if($as->isAuthenticated()) {
-          $user_object = new User($_SESSION['user']);
-          if($user_object->isIdPOwner($profile->institution)) {
-              debug(4, "User is the owner - allowing access\n");
-          } else {
-             debug(2, "User not an owner of a non-production profile - access forbidden\n");
-             return;
-          }
-       } else {
-          debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
-          return;
-       }
-    }
     $profile->incrementDownloadStats($device, $generated_for);
     $file = $this->i_path;
     $filetype = $o['mime'];
