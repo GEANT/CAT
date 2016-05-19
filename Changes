@@ -34,6 +34,7 @@ Changes in 1.1.2
 - [BUGFIX #12] In "live login" RADIUS tests there was a mixup with passed identities
 - [BUGFIX #13] In RADIUS tests the temporary directory was not deleted
 - [BUGFIX #14] EAP-PWD implementation renewed and in the same time a problem with loading profiles on 64-bit systems resolved
+- [BUGFIX #15] fix unathenticated access to installers marked as non-production
 - [FEATURE #1] "About CAT" now displays a matrix of supported devices and EAP
                type combinations
 - [FEATURE #2] RADIUSTests now use the first tab to display overview information from all tests
