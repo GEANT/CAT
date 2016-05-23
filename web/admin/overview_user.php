@@ -66,10 +66,16 @@ $user = new User($_SESSION['user']);
     <?php
     $has_inst = $inst_mgmt->listInstitutionsByAdmin($_SESSION['user']);
 
+    if (Config::$CONSORTIUM['name'] == 'eduroam')
+        $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"),"https://wiki.geant.org/x/SwB_AQ")."</h3>";
+    else
+        $helptext = "";
+
     if (sizeof($has_inst) > 0) {
         // we need to run the Federation constructor
         $unused = new Federation("LU");
         echo "<h2>" . sprintf(ngettext("You are managing the following institution:", "You are managing the following <strong>%d</strong> institutions:", sizeof($has_inst)), sizeof($has_inst)) . "</h2>";
+        echo $helptext;
         $instlist = [];
         $my_idps = [];
         $my_feds = [];
