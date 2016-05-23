@@ -137,6 +137,12 @@ $user = new User($_SESSION['user']);
 
         echo "</table></div>";
     }
+    if (Config::$CONSORTIUM['name'] == 'eduroam')
+        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>Federation Operator manual</a>"),"https://wiki.geant.org/x/KQB_AQ")."</h3>";
+    else
+        $helptext = "";
+    echo $helptext;
+
     ?>
     <table class='user_overview' style='border:0px;'>
         <tr>
