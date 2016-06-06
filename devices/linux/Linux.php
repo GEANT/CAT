@@ -601,7 +601,7 @@ class EduroamNMConfigTool:
             version = props.Get("org.freedesktop.NetworkManager", "Version")
         except dbus.exceptions.DBusException:
             version = "0.8"
-        if re.match(r\'^1\.0\', version):
+        if re.match(r\'^1\.\', version):
             self.nm_version = "1.0"
             return
         if re.match(r\'^0\.9\', version):
