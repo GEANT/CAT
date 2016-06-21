@@ -18,6 +18,7 @@
 /**
  * necessary includes
  */
+session_start();
 require_once("Helper.php");
 require_once("Federation.php");
 
