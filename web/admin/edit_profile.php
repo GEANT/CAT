@@ -87,21 +87,21 @@ $cat = defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), Confi
 
 </style>
 <script>
-    $(function() {
-        $( "#sortable1, #sortable2" ).sortable({
+    $(function () {
+        $("#sortable1, #sortable2").sortable({
             connectWith: "ol.eapmethods",
             tolerance: 'pointer',
-            out: function(event, ui) {
+            out: function (event, ui) {
                 ui.item.toggleClass("eap1");
             },
-            stop: function(event, ui) {
+            stop: function (event, ui) {
                 $(".eapm").removeAttr('value');
                 $(".eapmv").removeAttr('value');
-                $( "#sortable1" ).children().each(function(index){
+                $("#sortable1").children().each(function (index) {
                     i = index + 1;
                     v = $(this).html();
-                    $("#EAP-"+v).val(v);
-                    $("#EAP-"+v+"-priority").val(i);
+                    $("#EAP-" + v).val(v);
+                    $("#EAP-" + v + "-priority").val(i);
                 });
             }
         }).disableSelection();
@@ -157,8 +157,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     if (count($blacklisted) > 0) {
         $blacklisted = unserialize($blacklisted[0]['value']);
         $blacklisted = $blacklisted['content'];
-    }
-    else
+    } else
         $blacklisted = FALSE;
 } else {
     $wizard_style = TRUE;
@@ -190,9 +189,9 @@ $idpoptions = $my_inst->getAttributes();
                 <td>
                 </td>
                 <td>
-                    <strong><?php 
+                    <strong><?php
                     $my_fed = new Federation($my_inst->federation);
-                    echo $my_fed::$FederationList[strtoupper($my_inst->federation)]; 
+                    echo $my_fed::$FederationList[strtoupper($my_inst->federation)];
                     ?></strong>
                 </td>
             </tr>
@@ -229,7 +228,7 @@ $idpoptions = $my_inst->getAttributes();
             echo "<p>" . _("First of all we need a name for the profile. This will be displayed to end users, so you may want to choose a descriptive name like 'Professors', 'Students of the Faculty of Bioscience', etc.") . "</p>";
             echo "<p>" . _("Optionally, you can provide a longer descriptive text about who this profile is for. If you specify it, it will be displayed on the download page after the user has selected the profile name in the list.") . "</p>";
             echo "<p>" . _("You can also tell us your RADIUS realm. ");
-            if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || Config::$RADIUSTESTS['TLS-discoverytag'] != "" )
+            if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || Config::$RADIUSTESTS['TLS-discoverytag'] != "")
                 printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), CONFIG::$CONSORTIUM['name']);
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }
@@ -397,8 +396,8 @@ $idpoptions = $my_inst->getAttributes();
             if (count($eapoptions) > 0) {
                 echo "<strong>" . _("EAP options inherited from Global level:") . "</strong><br />";
                 foreach ($eapoptions as $optionname => $count)
-                    /// option count and enumeration
-                    /// Example: "(3x) Server Name"
+                /// option count and enumeration
+                /// Example: "(3x) Server Name"
                     printf(_("(%dx) %s") . "<br />", $count, display_name($optionname));
             }
 
@@ -487,9 +486,9 @@ $idpoptions = $my_inst->getAttributes();
             if (count($has_support_options) > 0) {
                 $text = "<ul>";
                 foreach ($has_support_options as $key => $value)
-                    $text .= "<li><strong>".display_name($key) ."</strong></li>";
+                    $text .= "<li><strong>" . display_name($key) . "</strong></li>";
                 $text .= "</ul>";
-                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.",count($has_support_options)), $text);
+                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
             }
             ?>
         </p>
@@ -520,7 +519,7 @@ $idpoptions = $my_inst->getAttributes();
                 foreach ($has_eap_options as $key => $value)
                     $text .= "<li><strong>" . display_name($key) . "</strong></li>";
                 $text .= "</ul>";
-                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.",count($has_eap_options)), $text);
+                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_eap_options)), $text);
             }
             ?>
         </p>
@@ -538,9 +537,40 @@ $idpoptions = $my_inst->getAttributes();
         </table>
         <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
     </fieldset>
+    <fieldset class="option_container" id='media_override'>
+        <legend><strong><?php echo _("Media Properties for this profile"); ?></strong></legend>
+        <p>
+            <?php
+            $idp_options = $my_inst->getAttributes();
+            $has_support_options = array();
+            foreach ($idp_options as $idp_option)
+                if (preg_match("/^media:/", $idp_option['name']))
+                    $has_support_options[$idp_option['name']] = "SET";
+            if (count($has_support_options) > 0) {
+                $text = "<ul>";
+                foreach ($has_support_options as $key => $value)
+                    $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+                $text .= "</ul>";
+                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
+            }
+            ?>
+        </p>
+        <table id="expandable_media_options">
+            <?php
+            $prepopulate = array();
+            if ($edit_mode) {
+                $existing_attribs = $my_profile->getAttributes();
+                foreach ($existing_attribs as $existing_attribute)
+                    if ($existing_attribute['level'] == "Profile")
+                        $prepopulate[] = $existing_attribute;
+            }
+            add_option("media", $prepopulate);
+            ?>
+        </table>
+        <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($wizard_style)
         echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
-    echo "<p><button type='submit' name='submitbutton' value='".BUTTON_SAVE."'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+    echo "<p><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
     footer();
     ?>
