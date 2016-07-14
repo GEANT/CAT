@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-13 09:59+0200\n"
+"POT-Creation-Date: 2016-07-14 13:36+0200\n"
 "PO-Revision-Date: 2015-04-07 16:41+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
@@ -21,283 +21,292 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:126
+#: core/CAT.php:81
+#, php-format
+msgid "Release %s"
+msgstr ""
+
+#: core/CAT.php:84
+msgid "Unreleased SVN Revision"
+msgstr ""
+
+#: core/DeviceConfig.php:129
 #, php-format
 msgid "your local %s support"
 msgstr "η τοπική σας υποστήριξη για %s"
 
-#: core/DeviceConfig.php:127
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support page"
 msgstr "η τοπική σας σελίδα υποστήριξης για %s"
 
-#: core/DeviceConfig.php:159
+#: core/DeviceConfig.php:162
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Λυπούμαστε, αυτό δεν έπρεπε να συμβεί - δεν είναι διαθέσιμες επιπρόσθετες "
 "πληροφορίες"
 
-#: core/Federation.php:74
+#: core/Federation.php:128
 msgid "Andorra"
 msgstr "Ανδόρα"
 
-#: core/Federation.php:75
+#: core/Federation.php:129
 msgid "Austria"
 msgstr "Αυστρία"
 
-#: core/Federation.php:76
+#: core/Federation.php:130
 msgid "Belgium"
 msgstr "Βέλγιο"
 
-#: core/Federation.php:77
+#: core/Federation.php:131
 msgid "Bulgaria"
 msgstr "Βουλγαρία"
 
-#: core/Federation.php:78
+#: core/Federation.php:132
 msgid "Cyprus"
 msgstr "Κύπρος"
 
-#: core/Federation.php:79
+#: core/Federation.php:133
 msgid "Czech Republic"
 msgstr "Τσεχία"
 
-#: core/Federation.php:80
+#: core/Federation.php:134
 msgid "Denmark"
 msgstr "Δανία"
 
-#: core/Federation.php:81
+#: core/Federation.php:135
 msgid "Estonia"
 msgstr "Εσθονία"
 
-#: core/Federation.php:82
+#: core/Federation.php:136
 msgid "Finland"
 msgstr "Φινλανδία"
 
-#: core/Federation.php:83
+#: core/Federation.php:137
 msgid "France"
 msgstr "Γαλλία"
 
-#: core/Federation.php:84
+#: core/Federation.php:138
 msgid "Germany"
 msgstr "Γερμανία"
 
-#: core/Federation.php:85
+#: core/Federation.php:139
 msgid "Greece"
 msgstr "Ελλάδα"
 
-#: core/Federation.php:86
+#: core/Federation.php:140
 msgid "Croatia"
 msgstr "Κροατία"
 
-#: core/Federation.php:87
+#: core/Federation.php:141
 msgid "Ireland"
 msgstr "Ιρλανδία"
 
-#: core/Federation.php:88
+#: core/Federation.php:142
 msgid "Iceland"
 msgstr "Ισλανδία"
 
-#: core/Federation.php:89
+#: core/Federation.php:143
 msgid "Italy"
 msgstr "Ιταλία"
 
-#: core/Federation.php:90
+#: core/Federation.php:144
 msgid "Hungary"
 msgstr "Ουγγαρία"
 
-#: core/Federation.php:91
+#: core/Federation.php:145
 msgid "Luxembourg"
 msgstr "Λουξεμβούργο"
 
-#: core/Federation.php:92
+#: core/Federation.php:146
 msgid "Latvia"
 msgstr "Λετονία"
 
-#: core/Federation.php:93
+#: core/Federation.php:147
 msgid "Lithuania"
 msgstr "Λιθουανία"
 
-#: core/Federation.php:94
+#: core/Federation.php:148
 msgid "Macedonia"
 msgstr "Πρώην Γιουγκοσλαβική Δημοκρατία της Μακεδονίας"
 
-#: core/Federation.php:95
+#: core/Federation.php:149
 msgid "Serbia"
 msgstr "Σερβία"
 
-#: core/Federation.php:96
+#: core/Federation.php:150
 msgid "Netherlands"
 msgstr "Ολλανδία"
 
-#: core/Federation.php:97
+#: core/Federation.php:151
 msgid "Norway"
 msgstr "Νορβηγία"
 
-#: core/Federation.php:98
+#: core/Federation.php:152
 msgid "Poland"
 msgstr "Πολωνία"
 
-#: core/Federation.php:99
+#: core/Federation.php:153
 msgid "Portugal"
 msgstr "Πορτογαλία"
 
-#: core/Federation.php:100
+#: core/Federation.php:154
 msgid "Romania"
 msgstr "Ρουμανία"
 
-#: core/Federation.php:101
+#: core/Federation.php:155
 msgid "Slovenia"
 msgstr "Σλοβενία"
 
-#: core/Federation.php:102
+#: core/Federation.php:156
 msgid "Spain"
 msgstr "Ισπανία"
 
-#: core/Federation.php:103
+#: core/Federation.php:157
 msgid "Sweden"
 msgstr "Σουηδία"
 
-#: core/Federation.php:104
+#: core/Federation.php:158
 msgid "Slovakia"
 msgstr "Σλοβακία"
 
-#: core/Federation.php:105
+#: core/Federation.php:159
 msgid "Switzerland"
 msgstr "Ελβετία"
 
-#: core/Federation.php:106
+#: core/Federation.php:160
 msgid "Turkey"
 msgstr "Τουρκία"
 
-#: core/Federation.php:107
+#: core/Federation.php:161
 msgid "United Kingdom"
 msgstr "Ηνωμένο Βασίλειο"
 
-#: core/Federation.php:109
+#: core/Federation.php:163
 msgid "Australia"
 msgstr "Αυστραλία"
 
-#: core/Federation.php:110
+#: core/Federation.php:164
 msgid "Canada"
 msgstr "Καναδάς"
 
-#: core/Federation.php:111
+#: core/Federation.php:165
 msgid "Israel"
 msgstr "Ισραήλ"
 
-#: core/Federation.php:112
+#: core/Federation.php:166
 msgid "Japan"
 msgstr "Ιαπωνία"
 
-#: core/Federation.php:113
+#: core/Federation.php:167
 msgid "New Zealand"
 msgstr "Νέα Ζηλανδία"
 
-#: core/Federation.php:114
+#: core/Federation.php:168
 msgid "U.S.A."
 msgstr "Η.Π.Α."
 
-#: core/Federation.php:115
+#: core/Federation.php:169
 msgid "Brazil"
 msgstr "Βραζιλία"
 
-#: core/Federation.php:116
+#: core/Federation.php:170
 msgid "Chile"
 msgstr "Χιλή"
 
-#: core/Federation.php:117
+#: core/Federation.php:171
 msgid "Peru"
 msgstr "Περού"
 
-#: core/Federation.php:118
+#: core/Federation.php:172
 msgid "Venezuela"
 msgstr "Βενεζουέλα"
 
-#: core/Federation.php:119
+#: core/Federation.php:173
 msgid "Default"
 msgstr "Προεπιλογή"
 
-#: core/Federation.php:120
+#: core/Federation.php:174
 msgid "Armenia"
 msgstr "Αρμενία"
 
-#: core/Federation.php:121
+#: core/Federation.php:175
 msgid "Azerbaijan"
 msgstr "Αζερμπαϊτζάν"
 
-#: core/Federation.php:122
+#: core/Federation.php:176
 msgid "Belarus"
 msgstr "Λευκορωσία"
 
-#: core/Federation.php:123
+#: core/Federation.php:177
 msgid "Ecuador"
 msgstr "Ισημερινός"
 
-#: core/Federation.php:124
+#: core/Federation.php:178
 msgid "Hong Kong"
 msgstr "Χονγκ Κονγκ"
 
-#: core/Federation.php:125
+#: core/Federation.php:179
 msgid "Kenya"
 msgstr "Κένυα"
 
-#: core/Federation.php:126
+#: core/Federation.php:180
 msgid "Kyrgyzstan"
 msgstr "Κιργιζία"
 
-#: core/Federation.php:127
+#: core/Federation.php:181
 msgid "Korea"
 msgstr "Κορέα"
 
-#: core/Federation.php:128
+#: core/Federation.php:182
 msgid "Kazakhstan"
 msgstr "Καζακστάν"
 
-#: core/Federation.php:129
+#: core/Federation.php:183
 msgid "Morocco"
 msgstr "Μαρόκο"
 
-#: core/Federation.php:130
+#: core/Federation.php:184
 msgid "Moldova"
 msgstr "Μολδαβία"
 
-#: core/Federation.php:131
+#: core/Federation.php:185
 msgid "Montenegro"
 msgstr "Μαυροβούνιο"
 
-#: core/Federation.php:132
+#: core/Federation.php:186
 msgid "Macau"
 msgstr "Μακάου"
 
-#: core/Federation.php:133
+#: core/Federation.php:187
 msgid "Malta"
 msgstr "Μάλτα"
 
-#: core/Federation.php:134
+#: core/Federation.php:188
 msgid "Russia"
 msgstr "Ρωσία"
 
-#: core/Federation.php:135
+#: core/Federation.php:189
 msgid "Singapore"
 msgstr "Σιγκαπούρη"
 
-#: core/Federation.php:136
+#: core/Federation.php:190
 msgid "Thailand"
 msgstr "Ταϊλάνδη"
 
-#: core/Federation.php:137
+#: core/Federation.php:191
 msgid "Taiwan"
 msgstr "Ταϊβάν"
 
-#: core/Federation.php:138
+#: core/Federation.php:192
 msgid "South Africa"
 msgstr "Νότια Αφρική"
 
-#: core/Federation.php:338
+#: core/Federation.php:432
 msgid "Could not create a new Institution!"
 msgstr "Αδυναμία δημιουργίας νέου ιδρύματος!"
 
-#: core/IdP.php:336
+#: core/IdP.php:355
 #, php-format
 msgid ""
 "Hi,\n"
@@ -320,348 +329,9 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:345
+#: core/IdP.php:364
 msgid "IdP in your federation was deleted"
 msgstr "Διαγράφηκε ένας IdP στην ομοσπονδία σας"
-
-#: core/RADIUSTests.php:255
-msgid "eduPKI"
-msgstr "eduPKI"
-
-#: core/RADIUSTests.php:256
-msgid "Nicolaus Copernicus University"
-msgstr "Πανεπιστήμιο Nicolaus Copernicus"
-
-#: core/RADIUSTests.php:257
-msgid "accredited"
-msgstr "διαπιστευμένο"
-
-#: core/RADIUSTests.php:258
-msgid "non-accredited"
-msgstr "μη διαπιστευμένο"
-
-#: core/RADIUSTests.php:259
-msgid "correct certificate"
-msgstr "σωστό πιστοποιητικό"
-
-#: core/RADIUSTests.php:260
-msgid "certificate with wrong policy OID"
-msgstr "πιστοποιητικό με λάθος πολιτική OID"
-
-#: core/RADIUSTests.php:261
-msgid "expired certificate"
-msgstr "πιστοποιητικό που έχει λήξει"
-
-#: core/RADIUSTests.php:262
-msgid "revoked certificate"
-msgstr "πιστοποιητικό που έχει ανακληθεί"
-
-#: core/RADIUSTests.php:263
-msgid "pass"
-msgstr "επιτυχία"
-
-#: core/RADIUSTests.php:264
-msgid "fail"
-msgstr "αποτυχία"
-
-#: core/RADIUSTests.php:265
-msgid "eduroam-accredited CA (now only for tests)"
-msgstr "διαπιστευμένα από το eduroam CA (προς το παρόν μόνο για δοκιμές)"
-
-#: core/RADIUSTests.php:369
-msgid "Completed"
-msgstr "Ολοκληρωμένο"
-
-#: core/RADIUSTests.php:381
-msgid "This check was skipped."
-msgstr "Αυτός ο έλεγχος παραλείφθηκε."
-
-#: core/RADIUSTests.php:388
-msgid "There were errors during the test."
-msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
-
-#: core/RADIUSTests.php:396
-msgid "This realm has no NAPTR records."
-msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
-
-#: core/RADIUSTests.php:403
-msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr ""
-"Βρέθηκαν εγγραφές NAPTR, αλλά όλες τους αναφέρονται σε μη συσχετισμένες "
-"συσκευές."
-
-#: core/RADIUSTests.php:411
-msgid "There was no reply at all from the RADIUS server."
-msgstr "Δεν υπήρξε καμία απόκριση από τον εξυπηρετητή RADIUS."
-
-#: core/RADIUSTests.php:418
-msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
-msgstr ""
-"Υπήρξε μια αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε στο "
-"ενδιάμεσο της διαδρομής. "
-
-#: core/RADIUSTests.php:425
-msgid ""
-"The RADIUS server immediately rejected the authentication request in its "
-"first reply."
-msgstr ""
-"Ο εξυπηρετητής RADIUS άμεσα απέρριψε το αίτημα πιστοποίησης στην πρώτη "
-"απάντηση του."
-
-#: core/RADIUSTests.php:432
-msgid ""
-"The RADIUS server rejected the authentication request after an EAP "
-"conversation."
-msgstr ""
-"Ο εξυπηρετητής RADIUS απέρριψε το αίτημα πιστοποίησης ύστερα από μια "
-"συνομιλία EAP."
-
-#: core/RADIUSTests.php:439
-msgid "Connection refused"
-msgstr "Άρνηση σύνδεσης"
-
-#: core/RADIUSTests.php:446
-msgid "Not enough data provided to perform an authentication"
-msgstr "Δεν υπάρχουν αρκετά δεδομένα για να πραγματοποιηθεί μια ταυτοποίηση."
-
-#: core/RADIUSTests.php:454
-msgid ""
-"The certificate password you provided does not match the certificate file."
-msgstr ""
-"Ο κωδικός του πιστοποιητικού που υποβάλλατε δεν αντιστοιχεί στο αρχείο "
-"πιστοποίησης."
-
-#: core/RADIUSTests.php:462
-msgid ""
-"The certificate chain includes the root CA certificate. This does not serve "
-"any useful purpose but inflates the packet exchange, possibly leading to "
-"more round-trips and thus slower authentication."
-msgstr ""
-"Η αλυσίδα πιστοποιήσης περιλαμβάνει το βασικό CA πιστοποιητικό. Αυτό δεν "
-"εξυπηρετεί κανένα σκοπό αλλά μεγαλώνει τον όγκο των πακέτων που "
-"ανταλλάσσονται, πιθανώς προκαλώντας περισσότερες κυκλικές διαδρομές και "
-"συνεπώς πιο αργή ταυτοποίηση."
-
-#: core/RADIUSTests.php:469
-msgid "There is more than one server certificate in the chain."
-msgstr "Υπάρχουν περισσότερα από ένα πιστοποιητικά εξυπηρετητή στην αλυσίδα."
-
-#: core/RADIUSTests.php:476
-msgid "There is no server certificate in the chain."
-msgstr "Δεν υπάρχει πιστοποιητικό εξυπηρετητή στην αλυσίδα."
-
-#: core/RADIUSTests.php:483
-msgid ""
-"At least one certificate in the chain is signed with the MD5 signature "
-"algorithm. Many Operating Systems, including Apple iOS, will fail to "
-"validate this certificate."
-msgstr ""
-"Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα είναι υπογεγραμμένο με τον "
-"αλγόριθμο υπογραφής MD5. Πολλά Λειτουργικά Συστήματα, συμπεριλαμβανομένου "
-"του Apple iOS, θα αποτύχει να επαληθεύσει αυτό το πιστοποιητικό."
-
-#: core/RADIUSTests.php:490
-msgid ""
-"At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
-msgstr ""
-"Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα περιέχει δημόσιο κλειδί με "
-"λιγότερα από 1024 bits. Πολλά πρόσφατα λειτουργικά συστήματα το θεωρούν ως "
-"μη αποδεκτό και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό διακομιστή."
-
-#: core/RADIUSTests.php:497
-msgid ""
-"The server certificate does not have the extension 'extendedKeyUsage: TLS "
-"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-"validate this certificate."
-msgstr ""
-"Το πιστοποιητικό εξυπηρετητή δεν έχει την προσθήκη 'extendedKeyUsage: TLS "
-"Web Server Authentication'. Τα περισσότερα Λειτουργικά Συστήματα της "
-"Microsoft θα αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό."
-
-#: core/RADIUSTests.php:504
-msgid ""
-"The server certificate did not include a CRL Distribution Point, creating "
-"compatibility problems with Windows Phone 8."
-msgstr ""
-"Το πιστοποιητικό εξυπηρετητή δεν περιλαμβάνει ένα CRL Distribution Point, "
-"δημιουργώντας προβλήματα συμβατότητας με τα Windows Phone 8."
-
-#: core/RADIUSTests.php:511
-msgid ""
-"The server certificate's 'CRL Distribution Point' extension does not point "
-"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
-msgstr ""
-"Η προσθήκη 'CRL Distribution Point' του πιστοποιητικού του εξυπηρετητή δεν "
-"δείχνει σε κάποιο HTTP/HTTPS URL. Μερικά Λειτουργικά Συστήματα ίσως "
-"αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό. Ο έλεγχος της εγκυρότητας "
-"του πιστοποιητικού εξυπηρετητή ενάντια σε ένα CRL δεν θα είναι εφικτός."
-
-#: core/RADIUSTests.php:518
-msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"non-existing location. Some Operating Systems check certificate validity by "
-"consulting the CRL and will fail to validate the certificate. Checking "
-"server certificate validity against a CRL will not be possible."
-msgstr ""
-"Το πεδίο 'CRL Distribution Point' στο πιστοποιητικό εξυπηρετητή δείχνει σε "
-"μια μη υπάρχουσα τοποθεσία δικτύου. Μερικά Λειτουργικά Συστήματα ελέγχουν "
-"την εγκυρότητα του πιστοποιητικού ανατρέχοντας στο CRL και θα αποτύχουν να "
-"επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας του πιστοποιητικού "
-"εξυπηρετητή με βάση ένα CRL δε θα είναι εφικτός."
-
-#: core/RADIUSTests.php:525
-msgid "The server certificate was revoked by the CA!"
-msgstr "Το πιστοποιητικό του εξυπηρετητή ανακλήθηκε από το CA!"
-
-#: core/RADIUSTests.php:532
-msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
-msgstr ""
-"Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο δεν είναι "
-"έγκυρο hostname. Αυτό μπορεί να είναι προβληματικό σε κάποια supplicants. "
-"Εάν το πιστοποιητικό περιλαμβάνει επίσης έγκυρα ονόματα εξυπηρετητή και "
-"χρησιμοποιείτε μόνο αυτά για την διαμόρφωση του supplicant, τότε μπορείτε "
-"ασφαλώς να αγνοήσετε αυτή την ειδοποίηση."
-
-#: core/RADIUSTests.php:539
-msgid ""
-"The certificate contained a CN or subjectAltName:DNS which contains a "
-"wildcard ('*'). This can be problematic on some supplicants. If the "
-"certificate also contains names which are wildcardless, and you only use "
-"those for your supplicant configuration, then you can safely ignore this "
-"notice."
-msgstr ""
-"Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο περιλαμβάνει "
-"χαρακτήρα μπαλαντέρ ('*'). Αυτό μπορεί να είναι προβληματικό σε κάποια "
-"supplicants. Εάν το πιστοποιητικό περιλαμβάνει επίσης ονόματα τα οποία δεν "
-"περιλαμβάνουν χαρακτήρες μπαλαντέρ, τότε μπορείτε ασφαλώς να αγνοήσετε αυτή "
-"την ειδοποίηση."
-
-#: core/RADIUSTests.php:546
-msgid ""
-"At least one certificate is outside its validity period (not yet valid, or "
-"already expired)!"
-msgstr ""
-"Τουλάχιστον ένα πιστοποιητικό βρίσκεται εκτός της περιόδου ισχύος (δεν είναι "
-"ακόμη έγκυρο, ή έχει ήδη λήξει)!"
-
-#: core/RADIUSTests.php:553
-#, php-format
-msgid ""
-"At least one intermediate certificate in your CAT profile is outside its "
-"validity period (not yet valid, or already expired), but this certificate "
-"was not used for server validation. Consider removing it from your %s "
-"configuration."
-msgstr ""
-"Τουλάχιστον ένα ενδιάμεσο πιστοποιητικό στο προφίλ CAT βρίσκεται εκτός της "
-"περιόδου ισχύος του (δεν είναι ακόμη έγκυρο, ή έχει ήδη λήξει), αλλά αυτό το "
-"πιστοποιητικό δεν χρησιμοποιήθηκε για επαλήθευση της ταυτότητας του "
-"εξυπηρετητή. Εξετάστε την αφαίρεσή του από την %s παραμετροποίηση."
-
-#: core/RADIUSTests.php:560
-msgid ""
-"The server certificate could not be verified to the root CA you configured "
-"in your profile!"
-msgstr ""
-"Το πιστοποιητικό εξυπηρετητή δεν ήταν δυνατό να επαληθευτεί στο βασικό CA "
-"που διαμορφώσατε στο προφίλ σας!"
-
-#: core/RADIUSTests.php:564
-msgid ""
-"The certificate chain as received in EAP was not sufficient to verify the "
-"certificate to the root CA in your profile. It was verified using the "
-"intermediate CAs in your profile though. You should consider sending the "
-"required intermediate CAs inside the EAP conversation."
-msgstr ""
-"Η αλυσίδα πιστοποίησης όπως λήφθηκε στο EAP δεν ήταν επαρκής για να "
-"επαληθευτεί το πιστοποιητικό στο βασικό CA στο προφίλ σας. Ωστόσο "
-"επαληθεύτηκε χρησιμοποιώντας τα ενδιάμεσα CAs στο προφίλ σας. Θα πρέπει να "
-"εξετάσετε το ενδεχόμενο να στέλνετε τα απαραίτητα ενδιάμεσα CAs στο πλαίσιο "
-"της συνομιλίας EAP."
-
-#: core/RADIUSTests.php:570
-msgid ""
-"The EAP server name does not match any of the configured names in your "
-"profile!"
-msgstr ""
-"Το όνομα του εξυπηρετητή EAP δεν αντιστοιχεί σε κανένα από τα διαμορφωμένα "
-"ονόματα στο προφίλ σας!"
-
-#: core/RADIUSTests.php:577
-msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
-"should contain the name in BOTH places."
-msgstr ""
-"Το διαμορφωμένο όνομα του εξυπηρετητή EAP ταιριάζει είτε με το CN ή με ένα "
-"subjectAltName:DNS του εισερχόμενου πιστοποιητικού; η καλύτερη τρέχουσα "
-"πρακτική θα ήταν αυτό το πιστοποιητικό να περιλαμβάνει το όνομα και στα ΔΥΟ "
-"σημεία."
-
-#: core/RADIUSTests.php:584
-msgid ""
-"At least one certificate did not contain any BasicConstraints extension; "
-"which makes it unclear if it's a CA certificate or end-entity certificate. "
-"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
-"for EAP purposes!"
-msgstr ""
-"Τουλάχιστον ένα πιστοποιητικό δεν περιλαμβάνει καμία προσθήκη "
-"BasicConstraints; κάτι το οποίο κάνει ασαφές εάν είναι ένα πιστοποιητικό CA "
-"ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain Lion) "
-"δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
-
-#: core/RADIUSTests.php:591
-msgid "The server presented a certificate from an unknown authority."
-msgstr "Ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από μια άγνωστη αρχή."
-
-#: core/RADIUSTests.php:598
-msgid "The server accepted the INVALID client certificate."
-msgstr "Ο εξυπηρετητής αποδέχτηκε το ΑΚΥΡΟ πιστοποιητικό πελάτη."
-
-#: core/RADIUSTests.php:605
-msgid "The server rejected the client certificate, even though it was valid."
-msgstr "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη μολονότι ήταν έγκυρο."
-
-#: core/RADIUSTests.php:612
-msgid "The server rejected the client certificate as expected."
-msgstr "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη όπως αναμενόταν."
-
-#: core/RADIUSTests.php:619
-msgid "The CRL of a certificate could not be found."
-msgstr "Το CRL ενός πιστοποιητικού δεν βρέθηκε."
-
-#: core/RADIUSTests.php:626
-msgid "EAP method negotiation failed!"
-msgstr "Η μέθοδος διαπραγμάτευσης EAP απέτυχε!"
-
-#: core/RADIUSTests.php:1490
-msgid "certificate expired"
-msgstr "το πιστοποιητικό έληξε"
-
-#: core/RADIUSTests.php:1492
-msgid "certificate was revoked"
-msgstr "το πιστοποιητικό έχει ανακληθεί"
-
-#: core/RADIUSTests.php:1494
-msgid "bad policy"
-msgstr "κακή πολιτική"
-
-#: core/RADIUSTests.php:1496
-msgid "unknown authority"
-msgstr "άγνωστη αρχή"
-
-#: core/RADIUSTests.php:1499
-msgid "unknown authority or no certificate policy or another problem"
-msgstr "άγνωστη αρχή ή χωρίς πολιτική πιστοποιητικού ή άλλο πρόβλημα"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
@@ -697,6 +367,299 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "Δημιουργήθηκε ένας IdP στην ομοσπονδία σας"
 
-#: core/User.php:243
+#: core/User.php:256
 msgid "Feedback"
 msgstr "Ανατροφοδότηση"
+
+#~ msgid "eduPKI"
+#~ msgstr "eduPKI"
+
+#~ msgid "Nicolaus Copernicus University"
+#~ msgstr "Πανεπιστήμιο Nicolaus Copernicus"
+
+#~ msgid "accredited"
+#~ msgstr "διαπιστευμένο"
+
+#~ msgid "non-accredited"
+#~ msgstr "μη διαπιστευμένο"
+
+#~ msgid "correct certificate"
+#~ msgstr "σωστό πιστοποιητικό"
+
+#~ msgid "certificate with wrong policy OID"
+#~ msgstr "πιστοποιητικό με λάθος πολιτική OID"
+
+#~ msgid "expired certificate"
+#~ msgstr "πιστοποιητικό που έχει λήξει"
+
+#~ msgid "revoked certificate"
+#~ msgstr "πιστοποιητικό που έχει ανακληθεί"
+
+#~ msgid "pass"
+#~ msgstr "επιτυχία"
+
+#~ msgid "fail"
+#~ msgstr "αποτυχία"
+
+#~ msgid "eduroam-accredited CA (now only for tests)"
+#~ msgstr "διαπιστευμένα από το eduroam CA (προς το παρόν μόνο για δοκιμές)"
+
+#~ msgid "Completed"
+#~ msgstr "Ολοκληρωμένο"
+
+#~ msgid "This check was skipped."
+#~ msgstr "Αυτός ο έλεγχος παραλείφθηκε."
+
+#~ msgid "There were errors during the test."
+#~ msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
+
+#~ msgid "This realm has no NAPTR records."
+#~ msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
+
+#~ msgid ""
+#~ "NAPTR records were found, but all of them refer to unrelated services."
+#~ msgstr ""
+#~ "Βρέθηκαν εγγραφές NAPTR, αλλά όλες τους αναφέρονται σε μη συσχετισμένες "
+#~ "συσκευές."
+
+#~ msgid "There was no reply at all from the RADIUS server."
+#~ msgstr "Δεν υπήρξε καμία απόκριση από τον εξυπηρετητή RADIUS."
+
+#~ msgid ""
+#~ "There was a bidirectional communication with the RADIUS server, but it "
+#~ "ended halfway through."
+#~ msgstr ""
+#~ "Υπήρξε μια αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε "
+#~ "στο ενδιάμεσο της διαδρομής. "
+
+#~ msgid ""
+#~ "The RADIUS server immediately rejected the authentication request in its "
+#~ "first reply."
+#~ msgstr ""
+#~ "Ο εξυπηρετητής RADIUS άμεσα απέρριψε το αίτημα πιστοποίησης στην πρώτη "
+#~ "απάντηση του."
+
+#~ msgid ""
+#~ "The RADIUS server rejected the authentication request after an EAP "
+#~ "conversation."
+#~ msgstr ""
+#~ "Ο εξυπηρετητής RADIUS απέρριψε το αίτημα πιστοποίησης ύστερα από μια "
+#~ "συνομιλία EAP."
+
+#~ msgid "Connection refused"
+#~ msgstr "Άρνηση σύνδεσης"
+
+#~ msgid "Not enough data provided to perform an authentication"
+#~ msgstr ""
+#~ "Δεν υπάρχουν αρκετά δεδομένα για να πραγματοποιηθεί μια ταυτοποίηση."
+
+#~ msgid ""
+#~ "The certificate password you provided does not match the certificate file."
+#~ msgstr ""
+#~ "Ο κωδικός του πιστοποιητικού που υποβάλλατε δεν αντιστοιχεί στο αρχείο "
+#~ "πιστοποίησης."
+
+#~ msgid ""
+#~ "The certificate chain includes the root CA certificate. This does not "
+#~ "serve any useful purpose but inflates the packet exchange, possibly "
+#~ "leading to more round-trips and thus slower authentication."
+#~ msgstr ""
+#~ "Η αλυσίδα πιστοποιήσης περιλαμβάνει το βασικό CA πιστοποιητικό. Αυτό δεν "
+#~ "εξυπηρετεί κανένα σκοπό αλλά μεγαλώνει τον όγκο των πακέτων που "
+#~ "ανταλλάσσονται, πιθανώς προκαλώντας περισσότερες κυκλικές διαδρομές και "
+#~ "συνεπώς πιο αργή ταυτοποίηση."
+
+#~ msgid "There is more than one server certificate in the chain."
+#~ msgstr ""
+#~ "Υπάρχουν περισσότερα από ένα πιστοποιητικά εξυπηρετητή στην αλυσίδα."
+
+#~ msgid "There is no server certificate in the chain."
+#~ msgstr "Δεν υπάρχει πιστοποιητικό εξυπηρετητή στην αλυσίδα."
+
+#~ msgid ""
+#~ "At least one certificate in the chain is signed with the MD5 signature "
+#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
+#~ "validate this certificate."
+#~ msgstr ""
+#~ "Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα είναι υπογεγραμμένο με τον "
+#~ "αλγόριθμο υπογραφής MD5. Πολλά Λειτουργικά Συστήματα, συμπεριλαμβανομένου "
+#~ "του Apple iOS, θα αποτύχει να επαληθεύσει αυτό το πιστοποιητικό."
+
+#~ msgid ""
+#~ "At least one certificate in the chain had a public key of less than 1024 "
+#~ "bits. Many recent operating systems consider this unacceptable and will "
+#~ "fail to validate the server certificate."
+#~ msgstr ""
+#~ "Τουλάχιστον ένα πιστοποιητικό στην αλυσίδα περιέχει δημόσιο κλειδί με "
+#~ "λιγότερα από 1024 bits. Πολλά πρόσφατα λειτουργικά συστήματα το θεωρούν "
+#~ "ως μη αποδεκτό και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό "
+#~ "διακομιστή."
+
+#~ msgid ""
+#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
+#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+#~ "validate this certificate."
+#~ msgstr ""
+#~ "Το πιστοποιητικό εξυπηρετητή δεν έχει την προσθήκη 'extendedKeyUsage: TLS "
+#~ "Web Server Authentication'. Τα περισσότερα Λειτουργικά Συστήματα της "
+#~ "Microsoft θα αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό."
+
+#~ msgid ""
+#~ "The server certificate did not include a CRL Distribution Point, creating "
+#~ "compatibility problems with Windows Phone 8."
+#~ msgstr ""
+#~ "Το πιστοποιητικό εξυπηρετητή δεν περιλαμβάνει ένα CRL Distribution Point, "
+#~ "δημιουργώντας προβλήματα συμβατότητας με τα Windows Phone 8."
+
+#~ msgid ""
+#~ "The server certificate's 'CRL Distribution Point' extension does not "
+#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
+#~ "this certificate. Checking server certificate validity against a CRL will "
+#~ "not be possible."
+#~ msgstr ""
+#~ "Η προσθήκη 'CRL Distribution Point' του πιστοποιητικού του εξυπηρετητή "
+#~ "δεν δείχνει σε κάποιο HTTP/HTTPS URL. Μερικά Λειτουργικά Συστήματα ίσως "
+#~ "αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό. Ο έλεγχος της "
+#~ "εγκυρότητας του πιστοποιητικού εξυπηρετητή ενάντια σε ένα CRL δεν θα "
+#~ "είναι εφικτός."
+
+#~ msgid ""
+#~ "The extension 'CRL Distribution Point' in the server certificate points "
+#~ "to a non-existing location. Some Operating Systems check certificate "
+#~ "validity by consulting the CRL and will fail to validate the certificate. "
+#~ "Checking server certificate validity against a CRL will not be possible."
+#~ msgstr ""
+#~ "Το πεδίο 'CRL Distribution Point' στο πιστοποιητικό εξυπηρετητή δείχνει "
+#~ "σε μια μη υπάρχουσα τοποθεσία δικτύου. Μερικά Λειτουργικά Συστήματα "
+#~ "ελέγχουν την εγκυρότητα του πιστοποιητικού ανατρέχοντας στο CRL και θα "
+#~ "αποτύχουν να επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας του "
+#~ "πιστοποιητικού εξυπηρετητή με βάση ένα CRL δε θα είναι εφικτός."
+
+#~ msgid "The server certificate was revoked by the CA!"
+#~ msgstr "Το πιστοποιητικό του εξυπηρετητή ανακλήθηκε από το CA!"
+
+#~ msgid ""
+#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
+#~ "as a hostname. This can be problematic on some supplicants. If the "
+#~ "certificate also contains names which are a proper hostname, and you only "
+#~ "use those for your supplicant configuration, then you can safely ignore "
+#~ "this notice."
+#~ msgstr ""
+#~ "Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο δεν είναι "
+#~ "έγκυρο hostname. Αυτό μπορεί να είναι προβληματικό σε κάποια supplicants. "
+#~ "Εάν το πιστοποιητικό περιλαμβάνει επίσης έγκυρα ονόματα εξυπηρετητή και "
+#~ "χρησιμοποιείτε μόνο αυτά για την διαμόρφωση του supplicant, τότε μπορείτε "
+#~ "ασφαλώς να αγνοήσετε αυτή την ειδοποίηση."
+
+#~ msgid ""
+#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
+#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
+#~ "certificate also contains names which are wildcardless, and you only use "
+#~ "those for your supplicant configuration, then you can safely ignore this "
+#~ "notice."
+#~ msgstr ""
+#~ "Το πιστοποιητικό περιελάμβανε CN ή subjectAltName:DNS το οποίο "
+#~ "περιλαμβάνει χαρακτήρα μπαλαντέρ ('*'). Αυτό μπορεί να είναι προβληματικό "
+#~ "σε κάποια supplicants. Εάν το πιστοποιητικό περιλαμβάνει επίσης ονόματα "
+#~ "τα οποία δεν περιλαμβάνουν χαρακτήρες μπαλαντέρ, τότε μπορείτε ασφαλώς να "
+#~ "αγνοήσετε αυτή την ειδοποίηση."
+
+#~ msgid ""
+#~ "At least one certificate is outside its validity period (not yet valid, "
+#~ "or already expired)!"
+#~ msgstr ""
+#~ "Τουλάχιστον ένα πιστοποιητικό βρίσκεται εκτός της περιόδου ισχύος (δεν "
+#~ "είναι ακόμη έγκυρο, ή έχει ήδη λήξει)!"
+
+#~ msgid ""
+#~ "At least one intermediate certificate in your CAT profile is outside its "
+#~ "validity period (not yet valid, or already expired), but this certificate "
+#~ "was not used for server validation. Consider removing it from your %s "
+#~ "configuration."
+#~ msgstr ""
+#~ "Τουλάχιστον ένα ενδιάμεσο πιστοποιητικό στο προφίλ CAT βρίσκεται εκτός "
+#~ "της περιόδου ισχύος του (δεν είναι ακόμη έγκυρο, ή έχει ήδη λήξει), αλλά "
+#~ "αυτό το πιστοποιητικό δεν χρησιμοποιήθηκε για επαλήθευση της ταυτότητας "
+#~ "του εξυπηρετητή. Εξετάστε την αφαίρεσή του από την %s παραμετροποίηση."
+
+#~ msgid ""
+#~ "The server certificate could not be verified to the root CA you "
+#~ "configured in your profile!"
+#~ msgstr ""
+#~ "Το πιστοποιητικό εξυπηρετητή δεν ήταν δυνατό να επαληθευτεί στο βασικό CA "
+#~ "που διαμορφώσατε στο προφίλ σας!"
+
+#~ msgid ""
+#~ "The certificate chain as received in EAP was not sufficient to verify the "
+#~ "certificate to the root CA in your profile. It was verified using the "
+#~ "intermediate CAs in your profile though. You should consider sending the "
+#~ "required intermediate CAs inside the EAP conversation."
+#~ msgstr ""
+#~ "Η αλυσίδα πιστοποίησης όπως λήφθηκε στο EAP δεν ήταν επαρκής για να "
+#~ "επαληθευτεί το πιστοποιητικό στο βασικό CA στο προφίλ σας. Ωστόσο "
+#~ "επαληθεύτηκε χρησιμοποιώντας τα ενδιάμεσα CAs στο προφίλ σας. Θα πρέπει "
+#~ "να εξετάσετε το ενδεχόμενο να στέλνετε τα απαραίτητα ενδιάμεσα CAs στο "
+#~ "πλαίσιο της συνομιλίας EAP."
+
+#~ msgid ""
+#~ "The EAP server name does not match any of the configured names in your "
+#~ "profile!"
+#~ msgstr ""
+#~ "Το όνομα του εξυπηρετητή EAP δεν αντιστοιχεί σε κανένα από τα "
+#~ "διαμορφωμένα ονόματα στο προφίλ σας!"
+
+#~ msgid ""
+#~ "The configured EAP server name matches either the CN or a subjectAltName:"
+#~ "DNS of the incoming certificate; best current practice is that the "
+#~ "certificate should contain the name in BOTH places."
+#~ msgstr ""
+#~ "Το διαμορφωμένο όνομα του εξυπηρετητή EAP ταιριάζει είτε με το CN ή με "
+#~ "ένα subjectAltName:DNS του εισερχόμενου πιστοποιητικού; η καλύτερη "
+#~ "τρέχουσα πρακτική θα ήταν αυτό το πιστοποιητικό να περιλαμβάνει το όνομα "
+#~ "και στα ΔΥΟ σημεία."
+
+#~ msgid ""
+#~ "At least one certificate did not contain any BasicConstraints extension; "
+#~ "which makes it unclear if it's a CA certificate or end-entity "
+#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
+#~ "this certificate for EAP purposes!"
+#~ msgstr ""
+#~ "Τουλάχιστον ένα πιστοποιητικό δεν περιλαμβάνει καμία προσθήκη "
+#~ "BasicConstraints; κάτι το οποίο κάνει ασαφές εάν είναι ένα πιστοποιητικό "
+#~ "CA ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain "
+#~ "Lion) δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
+
+#~ msgid "The server presented a certificate from an unknown authority."
+#~ msgstr "Ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από μια άγνωστη αρχή."
+
+#~ msgid "The server accepted the INVALID client certificate."
+#~ msgstr "Ο εξυπηρετητής αποδέχτηκε το ΑΚΥΡΟ πιστοποιητικό πελάτη."
+
+#~ msgid ""
+#~ "The server rejected the client certificate, even though it was valid."
+#~ msgstr ""
+#~ "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη μολονότι ήταν έγκυρο."
+
+#~ msgid "The server rejected the client certificate as expected."
+#~ msgstr "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη όπως αναμενόταν."
+
+#~ msgid "The CRL of a certificate could not be found."
+#~ msgstr "Το CRL ενός πιστοποιητικού δεν βρέθηκε."
+
+#~ msgid "EAP method negotiation failed!"
+#~ msgstr "Η μέθοδος διαπραγμάτευσης EAP απέτυχε!"
+
+#~ msgid "certificate expired"
+#~ msgstr "το πιστοποιητικό έληξε"
+
+#~ msgid "certificate was revoked"
+#~ msgstr "το πιστοποιητικό έχει ανακληθεί"
+
+#~ msgid "bad policy"
+#~ msgstr "κακή πολιτική"
+
+#~ msgid "unknown authority"
+#~ msgstr "άγνωστη αρχή"
+
+#~ msgid "unknown authority or no certificate policy or another problem"
+#~ msgstr "άγνωστη αρχή ή χωρίς πολιτική πιστοποιητικού ή άλλο πρόβλημα"

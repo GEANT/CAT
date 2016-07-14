@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-13 09:59+0200\n"
+"POT-Creation-Date: 2016-07-14 13:36+0200\n"
 "PO-Revision-Date: 2015-04-07 06:50+0000\n"
 "Last-Translator: eduki <ecercos@xtec.cat>\n"
 "Language-Team: Catalan (Spain) (http://www.transifex.com/projects/p/cat/"
@@ -20,282 +20,291 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/DeviceConfig.php:126
+#: core/CAT.php:81
+#, php-format
+msgid "Release %s"
+msgstr ""
+
+#: core/CAT.php:84
+msgid "Unreleased SVN Revision"
+msgstr ""
+
+#: core/DeviceConfig.php:129
 #, php-format
 msgid "your local %s support"
 msgstr "el vostre suport local %s"
 
-#: core/DeviceConfig.php:127
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support page"
 msgstr "la vostra pàgina de suport local %s"
 
-#: core/DeviceConfig.php:159
+#: core/DeviceConfig.php:162
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Disculpeu, això no hauria de passar - no hi ha més informació disponible"
 
-#: core/Federation.php:74
+#: core/Federation.php:128
 msgid "Andorra"
 msgstr "Andorra"
 
-#: core/Federation.php:75
+#: core/Federation.php:129
 msgid "Austria"
 msgstr "Austria"
 
-#: core/Federation.php:76
+#: core/Federation.php:130
 msgid "Belgium"
 msgstr "Bèlgica"
 
-#: core/Federation.php:77
+#: core/Federation.php:131
 msgid "Bulgaria"
 msgstr "Bulgaria"
 
-#: core/Federation.php:78
+#: core/Federation.php:132
 msgid "Cyprus"
 msgstr "Xipre"
 
-#: core/Federation.php:79
+#: core/Federation.php:133
 msgid "Czech Republic"
 msgstr "República Txeca"
 
-#: core/Federation.php:80
+#: core/Federation.php:134
 msgid "Denmark"
 msgstr "Dinamarca"
 
-#: core/Federation.php:81
+#: core/Federation.php:135
 msgid "Estonia"
 msgstr "Estonia"
 
-#: core/Federation.php:82
+#: core/Federation.php:136
 msgid "Finland"
 msgstr "Finlàndia"
 
-#: core/Federation.php:83
+#: core/Federation.php:137
 msgid "France"
 msgstr "França"
 
-#: core/Federation.php:84
+#: core/Federation.php:138
 msgid "Germany"
 msgstr "Alemanya"
 
-#: core/Federation.php:85
+#: core/Federation.php:139
 msgid "Greece"
 msgstr "Grècia"
 
-#: core/Federation.php:86
+#: core/Federation.php:140
 msgid "Croatia"
 msgstr "Croàcia"
 
-#: core/Federation.php:87
+#: core/Federation.php:141
 msgid "Ireland"
 msgstr "Irlanda"
 
-#: core/Federation.php:88
+#: core/Federation.php:142
 msgid "Iceland"
 msgstr "Islàndia"
 
-#: core/Federation.php:89
+#: core/Federation.php:143
 msgid "Italy"
 msgstr "Italia"
 
-#: core/Federation.php:90
+#: core/Federation.php:144
 msgid "Hungary"
 msgstr "Hungria"
 
-#: core/Federation.php:91
+#: core/Federation.php:145
 msgid "Luxembourg"
 msgstr "Luxemburg"
 
-#: core/Federation.php:92
+#: core/Federation.php:146
 msgid "Latvia"
 msgstr "Letònia"
 
-#: core/Federation.php:93
+#: core/Federation.php:147
 msgid "Lithuania"
 msgstr "Lituània"
 
-#: core/Federation.php:94
+#: core/Federation.php:148
 msgid "Macedonia"
 msgstr "Macedònia"
 
-#: core/Federation.php:95
+#: core/Federation.php:149
 msgid "Serbia"
 msgstr "Serbia"
 
-#: core/Federation.php:96
+#: core/Federation.php:150
 msgid "Netherlands"
 msgstr "Holanda"
 
-#: core/Federation.php:97
+#: core/Federation.php:151
 msgid "Norway"
 msgstr "Noruega"
 
-#: core/Federation.php:98
+#: core/Federation.php:152
 msgid "Poland"
 msgstr "Polònia"
 
-#: core/Federation.php:99
+#: core/Federation.php:153
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/Federation.php:100
+#: core/Federation.php:154
 msgid "Romania"
 msgstr "Romania"
 
-#: core/Federation.php:101
+#: core/Federation.php:155
 msgid "Slovenia"
 msgstr "Eslovènia"
 
-#: core/Federation.php:102
+#: core/Federation.php:156
 msgid "Spain"
 msgstr "Espanya"
 
-#: core/Federation.php:103
+#: core/Federation.php:157
 msgid "Sweden"
 msgstr "Suècia"
 
-#: core/Federation.php:104
+#: core/Federation.php:158
 msgid "Slovakia"
 msgstr "Eslovàquia"
 
-#: core/Federation.php:105
+#: core/Federation.php:159
 msgid "Switzerland"
 msgstr "Suissa"
 
-#: core/Federation.php:106
+#: core/Federation.php:160
 msgid "Turkey"
 msgstr "Turquia"
 
-#: core/Federation.php:107
+#: core/Federation.php:161
 msgid "United Kingdom"
 msgstr "Regne Unit"
 
-#: core/Federation.php:109
+#: core/Federation.php:163
 msgid "Australia"
 msgstr "Austràlia"
 
-#: core/Federation.php:110
+#: core/Federation.php:164
 msgid "Canada"
 msgstr "Canadà"
 
-#: core/Federation.php:111
+#: core/Federation.php:165
 msgid "Israel"
 msgstr "Israel"
 
-#: core/Federation.php:112
+#: core/Federation.php:166
 msgid "Japan"
 msgstr "Japó"
 
-#: core/Federation.php:113
+#: core/Federation.php:167
 msgid "New Zealand"
 msgstr "Nova Zelanda"
 
-#: core/Federation.php:114
+#: core/Federation.php:168
 msgid "U.S.A."
 msgstr "U.S.A."
 
-#: core/Federation.php:115
+#: core/Federation.php:169
 msgid "Brazil"
 msgstr "Brasil"
 
-#: core/Federation.php:116
+#: core/Federation.php:170
 msgid "Chile"
 msgstr "Xile"
 
-#: core/Federation.php:117
+#: core/Federation.php:171
 msgid "Peru"
 msgstr "Perú"
 
-#: core/Federation.php:118
+#: core/Federation.php:172
 msgid "Venezuela"
 msgstr "Veneçola"
 
-#: core/Federation.php:119
+#: core/Federation.php:173
 msgid "Default"
 msgstr "Per defecte"
 
-#: core/Federation.php:120
+#: core/Federation.php:174
 msgid "Armenia"
 msgstr "Armènia"
 
-#: core/Federation.php:121
+#: core/Federation.php:175
 msgid "Azerbaijan"
 msgstr "Azerbaidjan"
 
-#: core/Federation.php:122
+#: core/Federation.php:176
 msgid "Belarus"
 msgstr "Bielorússia"
 
-#: core/Federation.php:123
+#: core/Federation.php:177
 msgid "Ecuador"
 msgstr "Equador"
 
-#: core/Federation.php:124
+#: core/Federation.php:178
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/Federation.php:125
+#: core/Federation.php:179
 msgid "Kenya"
 msgstr "Kenya"
 
-#: core/Federation.php:126
+#: core/Federation.php:180
 msgid "Kyrgyzstan"
 msgstr "Kirguizistan"
 
-#: core/Federation.php:127
+#: core/Federation.php:181
 msgid "Korea"
 msgstr "Corea"
 
-#: core/Federation.php:128
+#: core/Federation.php:182
 msgid "Kazakhstan"
 msgstr "Kazakhstan"
 
-#: core/Federation.php:129
+#: core/Federation.php:183
 msgid "Morocco"
 msgstr "Marroc"
 
-#: core/Federation.php:130
+#: core/Federation.php:184
 msgid "Moldova"
 msgstr "Moldàvia"
 
-#: core/Federation.php:131
+#: core/Federation.php:185
 msgid "Montenegro"
 msgstr "Montenegro"
 
-#: core/Federation.php:132
+#: core/Federation.php:186
 msgid "Macau"
 msgstr "Macau"
 
-#: core/Federation.php:133
+#: core/Federation.php:187
 msgid "Malta"
 msgstr "Malta"
 
-#: core/Federation.php:134
+#: core/Federation.php:188
 msgid "Russia"
 msgstr "Rússia"
 
-#: core/Federation.php:135
+#: core/Federation.php:189
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/Federation.php:136
+#: core/Federation.php:190
 msgid "Thailand"
 msgstr "Tailàndia"
 
-#: core/Federation.php:137
+#: core/Federation.php:191
 msgid "Taiwan"
 msgstr "Taiwan"
 
-#: core/Federation.php:138
+#: core/Federation.php:192
 msgid "South Africa"
 msgstr "Sudàfrica"
 
-#: core/Federation.php:338
+#: core/Federation.php:432
 msgid "Could not create a new Institution!"
 msgstr "No es pot crear una nova Institució!"
 
-#: core/IdP.php:336
+#: core/IdP.php:355
 #, php-format
 msgid ""
 "Hi,\n"
@@ -319,341 +328,9 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:345
+#: core/IdP.php:364
 msgid "IdP in your federation was deleted"
 msgstr "S'ha esborrat l'IdP a la vostra federació"
-
-#: core/RADIUSTests.php:255
-msgid "eduPKI"
-msgstr "eduPKI"
-
-#: core/RADIUSTests.php:256
-msgid "Nicolaus Copernicus University"
-msgstr "Universitat Nicolau Copèrnic"
-
-#: core/RADIUSTests.php:257
-msgid "accredited"
-msgstr "acreditat"
-
-#: core/RADIUSTests.php:258
-msgid "non-accredited"
-msgstr "no acreditat"
-
-#: core/RADIUSTests.php:259
-msgid "correct certificate"
-msgstr "certificat correcte"
-
-#: core/RADIUSTests.php:260
-msgid "certificate with wrong policy OID"
-msgstr "certificat amb política OID errònia"
-
-#: core/RADIUSTests.php:261
-msgid "expired certificate"
-msgstr "certificat expirat"
-
-#: core/RADIUSTests.php:262
-msgid "revoked certificate"
-msgstr "certificat revocat"
-
-#: core/RADIUSTests.php:263
-msgid "pass"
-msgstr "correcte"
-
-#: core/RADIUSTests.php:264
-msgid "fail"
-msgstr "incorrecte"
-
-#: core/RADIUSTests.php:265
-msgid "eduroam-accredited CA (now only for tests)"
-msgstr "CA acreditada eduroam (per ara només per a proves)"
-
-#: core/RADIUSTests.php:369
-msgid "Completed"
-msgstr "Completat"
-
-#: core/RADIUSTests.php:381
-msgid "This check was skipped."
-msgstr "Aquesta comprovació s'ha omès."
-
-#: core/RADIUSTests.php:388
-msgid "There were errors during the test."
-msgstr "S'han produit errors durant la prova."
-
-#: core/RADIUSTests.php:396
-msgid "This realm has no NAPTR records."
-msgstr "Aquest domini no té registres NAPTR."
-
-#: core/RADIUSTests.php:403
-msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr ""
-"S'ha trobat registres NAPTR, però fan referència a serveis no relacionats."
-
-#: core/RADIUSTests.php:411
-msgid "There was no reply at all from the RADIUS server."
-msgstr "No s'ha rebut cap resposta del servidor RADIUS."
-
-#: core/RADIUSTests.php:418
-msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
-msgstr ""
-"Hi ha hagut comunicació bidireccional amb el servidor RADIUS, però s'ha "
-"interromput a la meitat."
-
-#: core/RADIUSTests.php:425
-msgid ""
-"The RADIUS server immediately rejected the authentication request in its "
-"first reply."
-msgstr ""
-"El servidor RADIUS ha rebutjat immediatament la petició d'autenticació en la "
-"primera resposta."
-
-#: core/RADIUSTests.php:432
-msgid ""
-"The RADIUS server rejected the authentication request after an EAP "
-"conversation."
-msgstr ""
-"El servidor RADIUS ha rebutjat la petició d'autenticació després d'una "
-"conversa EAP."
-
-#: core/RADIUSTests.php:439
-msgid "Connection refused"
-msgstr "S'ha negat la connexió"
-
-#: core/RADIUSTests.php:446
-msgid "Not enough data provided to perform an authentication"
-msgstr "No s'ha subministrat prou dades per a realitzar una autenticació"
-
-#: core/RADIUSTests.php:454
-msgid ""
-"The certificate password you provided does not match the certificate file."
-msgstr "La contrasenya subministrada no correspon a l'arxiu del certificat."
-
-#: core/RADIUSTests.php:462
-msgid ""
-"The certificate chain includes the root CA certificate. This does not serve "
-"any useful purpose but inflates the packet exchange, possibly leading to "
-"more round-trips and thus slower authentication."
-msgstr ""
-"La cadena del certificat inclou el certificat arrel de la CA. Això no suposa "
-"cap benefici excepte augmentar l'intercanvi de paquets, produint "
-"probablement un major retard en l'autenticació."
-
-#: core/RADIUSTests.php:469
-msgid "There is more than one server certificate in the chain."
-msgstr "Hi ha més d'un certificat de servidor en la cadena."
-
-#: core/RADIUSTests.php:476
-msgid "There is no server certificate in the chain."
-msgstr "No hi ha cap certificat de servidor en la cadena."
-
-#: core/RADIUSTests.php:483
-msgid ""
-"At least one certificate in the chain is signed with the MD5 signature "
-"algorithm. Many Operating Systems, including Apple iOS, will fail to "
-"validate this certificate."
-msgstr ""
-"Al menys un certificat a la cadena està signat amb el algoritme MD5. "
-"Diversos Sistemes Operatius, incloent l'Apple iOS, no podran validar aquest "
-"certificat."
-
-#: core/RADIUSTests.php:490
-msgid ""
-"At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
-msgstr ""
-"Al menys un certificat de la cadena té una clau pública de menys de 1024 "
-"bits. Alguns sistemes operatius moderns no ho accepten i no validaran el "
-"certificat del servidor."
-
-#: core/RADIUSTests.php:497
-msgid ""
-"The server certificate does not have the extension 'extendedKeyUsage: TLS "
-"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-"validate this certificate."
-msgstr ""
-"El certificat del servidor no disposa de l'extensió 'extendedKeyUsage: TLS "
-"Web Server Authentication'. La majoria del sistemes operatius Microsoft no "
-"podran validar-lo."
-
-#: core/RADIUSTests.php:504
-msgid ""
-"The server certificate did not include a CRL Distribution Point, creating "
-"compatibility problems with Windows Phone 8."
-msgstr ""
-"El certificat del servidor no inclous un punt de distribució CRL (CRL "
-"Distribution Point). Això crea problemes de compatibilitat amb "
-
-#: core/RADIUSTests.php:511
-msgid ""
-"The server certificate's 'CRL Distribution Point' extension does not point "
-"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
-msgstr ""
-"L'extensió del certificat de servidor 'CRL Distribution Point' no assenyala "
-"cap a una URL HTTP/HTTPS. Alguns sistemes operatius no podran validar aquest "
-"certificat. La comprovació de la seva validesa no serà possible."
-
-#: core/RADIUSTests.php:518
-msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"non-existing location. Some Operating Systems check certificate validity by "
-"consulting the CRL and will fail to validate the certificate. Checking "
-"server certificate validity against a CRL will not be possible."
-msgstr ""
-"L'extensió 'CRL Distribution Point' al certificat del servidor indica una "
-"localització inexistent. Alguns sistemes operatius consulten la seva "
-"validesa accedint a la CRL i no podran validar el certificat. No serà "
-"possible comprovar la validesa del certificat contra una CRL."
-
-#: core/RADIUSTests.php:525
-msgid "The server certificate was revoked by the CA!"
-msgstr "Aquest certificat de servidor va ser revocat per la CA!"
-
-#: core/RADIUSTests.php:532
-msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
-msgstr ""
-"El certificat contenia un CN o un subjectAltName:DNS que no es correspon a "
-"un nom de servidor. Això pot ser problemàtic per a determinats clients wifi. "
-"Si el certificat conté també noms apropiats per a servidors, i només feu "
-"servir aquests per a la vostra configuració de client, aleshores podeu "
-"ignorar aquest avís."
-
-#: core/RADIUSTests.php:539
-msgid ""
-"The certificate contained a CN or subjectAltName:DNS which contains a "
-"wildcard ('*'). This can be problematic on some supplicants. If the "
-"certificate also contains names which are wildcardless, and you only use "
-"those for your supplicant configuration, then you can safely ignore this "
-"notice."
-msgstr ""
-"El certificat contenia un CN o un subjectAltName:DNS amb comodins ('*'). "
-"Això pot ser problemàtic per a alguns clients wifi. SI el certificat també "
-"conté noms sense comodins, i només feu servir aquests en la vostra "
-"configuració de client, aleshores podeu ignorar aquest avís."
-
-#: core/RADIUSTests.php:546
-msgid ""
-"At least one certificate is outside its validity period (not yet valid, or "
-"already expired)!"
-msgstr ""
-"Al menys un certificat és fora del seu període de validesa (encara no és "
-"vàlid o ha expirat)!"
-
-#: core/RADIUSTests.php:553
-#, php-format
-msgid ""
-"At least one intermediate certificate in your CAT profile is outside its "
-"validity period (not yet valid, or already expired), but this certificate "
-"was not used for server validation. Consider removing it from your %s "
-"configuration."
-msgstr ""
-"Al menys un certificat intermig en el vostre perfil CAT és fora del seu "
-"període de validesa (encara no és vàlid o ha expirat), però aquest "
-"certificat no es va fer servir per a la validació del servidor. Considereu "
-"si cal esborrar-lo de la vostra configuració %s."
-
-#: core/RADIUSTests.php:560
-msgid ""
-"The server certificate could not be verified to the root CA you configured "
-"in your profile!"
-msgstr ""
-"El certificat de servidor no s'ha pogut verificar amb la CA arrel "
-"configurada en el vostre pefil!"
-
-#: core/RADIUSTests.php:564
-msgid ""
-"The certificate chain as received in EAP was not sufficient to verify the "
-"certificate to the root CA in your profile. It was verified using the "
-"intermediate CAs in your profile though. You should consider sending the "
-"required intermediate CAs inside the EAP conversation."
-msgstr ""
-"La cadena de certificació rebuda en el EAP no ha estat suficient per a "
-"verificar el certificat amb la CA arrel del vostre perfil. Ha pogut ser "
-"verificat utilitzant les CA intermitges. Considereu enviar les CA "
-"intermitges dins de la conversa EAP."
-
-#: core/RADIUSTests.php:570
-msgid ""
-"The EAP server name does not match any of the configured names in your "
-"profile!"
-msgstr ""
-"El nom del servidor EAP no es correspon amb cap dels noms configurats en el "
-"vostre perfil!"
-
-#: core/RADIUSTests.php:577
-msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
-"should contain the name in BOTH places."
-msgstr ""
-"El nom de servidor configurat a l'EAP coincideix amb el CN o amb el "
-"subjectAltName:DNS del certificat rebut; la millor pràctica actual és que el "
-"certificat contingui el nom a tots dos llocs."
-
-#: core/RADIUSTests.php:584
-msgid ""
-"At least one certificate did not contain any BasicConstraints extension; "
-"which makes it unclear if it's a CA certificate or end-entity certificate. "
-"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
-"for EAP purposes!"
-msgstr ""
-"Al menys un certificat no conté cap extensió BasicConstraints; això no "
-"permet determinar si es tracta d'un certificat de CA o un certificat "
-"d'entitat final. Al menys el Mac OS X 10.8 (Mountain Lion) no validarà "
-"aquest certificat en el protocol EAP!"
-
-#: core/RADIUSTests.php:591
-msgid "The server presented a certificate from an unknown authority."
-msgstr "El servidor utilitza un certificat d'una autoritat desconeguda."
-
-#: core/RADIUSTests.php:598
-msgid "The server accepted the INVALID client certificate."
-msgstr "El servidor ha acceptat el certificat de client NO VALID."
-
-#: core/RADIUSTests.php:605
-msgid "The server rejected the client certificate, even though it was valid."
-msgstr "El servidor ha rebutjat el certificat de client, encara que era vàlid."
-
-#: core/RADIUSTests.php:612
-msgid "The server rejected the client certificate as expected."
-msgstr "El servidor ha rebutjat el certificat de client, com era d'esperar."
-
-#: core/RADIUSTests.php:619
-msgid "The CRL of a certificate could not be found."
-msgstr "No s'ha pogut trobar la CRL d'un certificat."
-
-#: core/RADIUSTests.php:626
-msgid "EAP method negotiation failed!"
-msgstr "Ha fallat el mètode de negociació EAP!"
-
-#: core/RADIUSTests.php:1490
-msgid "certificate expired"
-msgstr "certificat caducat"
-
-#: core/RADIUSTests.php:1492
-msgid "certificate was revoked"
-msgstr "certificat revocat"
-
-#: core/RADIUSTests.php:1494
-msgid "bad policy"
-msgstr "mala política"
-
-#: core/RADIUSTests.php:1496
-msgid "unknown authority"
-msgstr "autoritat desconeguda"
-
-#: core/RADIUSTests.php:1499
-msgid "unknown authority or no certificate policy or another problem"
-msgstr ""
-"autoritat desconeguda o absència de política de certificat o un altre "
-"problema"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
@@ -689,6 +366,289 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "S'ha creat l'IdP a la vostra federació"
 
-#: core/User.php:243
+#: core/User.php:256
 msgid "Feedback"
 msgstr "Suggeriments"
+
+#~ msgid "eduPKI"
+#~ msgstr "eduPKI"
+
+#~ msgid "Nicolaus Copernicus University"
+#~ msgstr "Universitat Nicolau Copèrnic"
+
+#~ msgid "accredited"
+#~ msgstr "acreditat"
+
+#~ msgid "non-accredited"
+#~ msgstr "no acreditat"
+
+#~ msgid "correct certificate"
+#~ msgstr "certificat correcte"
+
+#~ msgid "certificate with wrong policy OID"
+#~ msgstr "certificat amb política OID errònia"
+
+#~ msgid "expired certificate"
+#~ msgstr "certificat expirat"
+
+#~ msgid "revoked certificate"
+#~ msgstr "certificat revocat"
+
+#~ msgid "pass"
+#~ msgstr "correcte"
+
+#~ msgid "fail"
+#~ msgstr "incorrecte"
+
+#~ msgid "eduroam-accredited CA (now only for tests)"
+#~ msgstr "CA acreditada eduroam (per ara només per a proves)"
+
+#~ msgid "Completed"
+#~ msgstr "Completat"
+
+#~ msgid "This check was skipped."
+#~ msgstr "Aquesta comprovació s'ha omès."
+
+#~ msgid "There were errors during the test."
+#~ msgstr "S'han produit errors durant la prova."
+
+#~ msgid "This realm has no NAPTR records."
+#~ msgstr "Aquest domini no té registres NAPTR."
+
+#~ msgid ""
+#~ "NAPTR records were found, but all of them refer to unrelated services."
+#~ msgstr ""
+#~ "S'ha trobat registres NAPTR, però fan referència a serveis no relacionats."
+
+#~ msgid "There was no reply at all from the RADIUS server."
+#~ msgstr "No s'ha rebut cap resposta del servidor RADIUS."
+
+#~ msgid ""
+#~ "There was a bidirectional communication with the RADIUS server, but it "
+#~ "ended halfway through."
+#~ msgstr ""
+#~ "Hi ha hagut comunicació bidireccional amb el servidor RADIUS, però s'ha "
+#~ "interromput a la meitat."
+
+#~ msgid ""
+#~ "The RADIUS server immediately rejected the authentication request in its "
+#~ "first reply."
+#~ msgstr ""
+#~ "El servidor RADIUS ha rebutjat immediatament la petició d'autenticació en "
+#~ "la primera resposta."
+
+#~ msgid ""
+#~ "The RADIUS server rejected the authentication request after an EAP "
+#~ "conversation."
+#~ msgstr ""
+#~ "El servidor RADIUS ha rebutjat la petició d'autenticació després d'una "
+#~ "conversa EAP."
+
+#~ msgid "Connection refused"
+#~ msgstr "S'ha negat la connexió"
+
+#~ msgid "Not enough data provided to perform an authentication"
+#~ msgstr "No s'ha subministrat prou dades per a realitzar una autenticació"
+
+#~ msgid ""
+#~ "The certificate password you provided does not match the certificate file."
+#~ msgstr "La contrasenya subministrada no correspon a l'arxiu del certificat."
+
+#~ msgid ""
+#~ "The certificate chain includes the root CA certificate. This does not "
+#~ "serve any useful purpose but inflates the packet exchange, possibly "
+#~ "leading to more round-trips and thus slower authentication."
+#~ msgstr ""
+#~ "La cadena del certificat inclou el certificat arrel de la CA. Això no "
+#~ "suposa cap benefici excepte augmentar l'intercanvi de paquets, produint "
+#~ "probablement un major retard en l'autenticació."
+
+#~ msgid "There is more than one server certificate in the chain."
+#~ msgstr "Hi ha més d'un certificat de servidor en la cadena."
+
+#~ msgid "There is no server certificate in the chain."
+#~ msgstr "No hi ha cap certificat de servidor en la cadena."
+
+#~ msgid ""
+#~ "At least one certificate in the chain is signed with the MD5 signature "
+#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
+#~ "validate this certificate."
+#~ msgstr ""
+#~ "Al menys un certificat a la cadena està signat amb el algoritme MD5. "
+#~ "Diversos Sistemes Operatius, incloent l'Apple iOS, no podran validar "
+#~ "aquest certificat."
+
+#~ msgid ""
+#~ "At least one certificate in the chain had a public key of less than 1024 "
+#~ "bits. Many recent operating systems consider this unacceptable and will "
+#~ "fail to validate the server certificate."
+#~ msgstr ""
+#~ "Al menys un certificat de la cadena té una clau pública de menys de 1024 "
+#~ "bits. Alguns sistemes operatius moderns no ho accepten i no validaran el "
+#~ "certificat del servidor."
+
+#~ msgid ""
+#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
+#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+#~ "validate this certificate."
+#~ msgstr ""
+#~ "El certificat del servidor no disposa de l'extensió 'extendedKeyUsage: "
+#~ "TLS Web Server Authentication'. La majoria del sistemes operatius "
+#~ "Microsoft no podran validar-lo."
+
+#~ msgid ""
+#~ "The server certificate did not include a CRL Distribution Point, creating "
+#~ "compatibility problems with Windows Phone 8."
+#~ msgstr ""
+#~ "El certificat del servidor no inclous un punt de distribució CRL (CRL "
+#~ "Distribution Point). Això crea problemes de compatibilitat amb "
+
+#~ msgid ""
+#~ "The server certificate's 'CRL Distribution Point' extension does not "
+#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
+#~ "this certificate. Checking server certificate validity against a CRL will "
+#~ "not be possible."
+#~ msgstr ""
+#~ "L'extensió del certificat de servidor 'CRL Distribution Point' no "
+#~ "assenyala cap a una URL HTTP/HTTPS. Alguns sistemes operatius no podran "
+#~ "validar aquest certificat. La comprovació de la seva validesa no serà "
+#~ "possible."
+
+#~ msgid ""
+#~ "The extension 'CRL Distribution Point' in the server certificate points "
+#~ "to a non-existing location. Some Operating Systems check certificate "
+#~ "validity by consulting the CRL and will fail to validate the certificate. "
+#~ "Checking server certificate validity against a CRL will not be possible."
+#~ msgstr ""
+#~ "L'extensió 'CRL Distribution Point' al certificat del servidor indica una "
+#~ "localització inexistent. Alguns sistemes operatius consulten la seva "
+#~ "validesa accedint a la CRL i no podran validar el certificat. No serà "
+#~ "possible comprovar la validesa del certificat contra una CRL."
+
+#~ msgid "The server certificate was revoked by the CA!"
+#~ msgstr "Aquest certificat de servidor va ser revocat per la CA!"
+
+#~ msgid ""
+#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
+#~ "as a hostname. This can be problematic on some supplicants. If the "
+#~ "certificate also contains names which are a proper hostname, and you only "
+#~ "use those for your supplicant configuration, then you can safely ignore "
+#~ "this notice."
+#~ msgstr ""
+#~ "El certificat contenia un CN o un subjectAltName:DNS que no es correspon "
+#~ "a un nom de servidor. Això pot ser problemàtic per a determinats clients "
+#~ "wifi. Si el certificat conté també noms apropiats per a servidors, i "
+#~ "només feu servir aquests per a la vostra configuració de client, "
+#~ "aleshores podeu ignorar aquest avís."
+
+#~ msgid ""
+#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
+#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
+#~ "certificate also contains names which are wildcardless, and you only use "
+#~ "those for your supplicant configuration, then you can safely ignore this "
+#~ "notice."
+#~ msgstr ""
+#~ "El certificat contenia un CN o un subjectAltName:DNS amb comodins ('*'). "
+#~ "Això pot ser problemàtic per a alguns clients wifi. SI el certificat "
+#~ "també conté noms sense comodins, i només feu servir aquests en la vostra "
+#~ "configuració de client, aleshores podeu ignorar aquest avís."
+
+#~ msgid ""
+#~ "At least one certificate is outside its validity period (not yet valid, "
+#~ "or already expired)!"
+#~ msgstr ""
+#~ "Al menys un certificat és fora del seu període de validesa (encara no és "
+#~ "vàlid o ha expirat)!"
+
+#~ msgid ""
+#~ "At least one intermediate certificate in your CAT profile is outside its "
+#~ "validity period (not yet valid, or already expired), but this certificate "
+#~ "was not used for server validation. Consider removing it from your %s "
+#~ "configuration."
+#~ msgstr ""
+#~ "Al menys un certificat intermig en el vostre perfil CAT és fora del seu "
+#~ "període de validesa (encara no és vàlid o ha expirat), però aquest "
+#~ "certificat no es va fer servir per a la validació del servidor. "
+#~ "Considereu si cal esborrar-lo de la vostra configuració %s."
+
+#~ msgid ""
+#~ "The server certificate could not be verified to the root CA you "
+#~ "configured in your profile!"
+#~ msgstr ""
+#~ "El certificat de servidor no s'ha pogut verificar amb la CA arrel "
+#~ "configurada en el vostre pefil!"
+
+#~ msgid ""
+#~ "The certificate chain as received in EAP was not sufficient to verify the "
+#~ "certificate to the root CA in your profile. It was verified using the "
+#~ "intermediate CAs in your profile though. You should consider sending the "
+#~ "required intermediate CAs inside the EAP conversation."
+#~ msgstr ""
+#~ "La cadena de certificació rebuda en el EAP no ha estat suficient per a "
+#~ "verificar el certificat amb la CA arrel del vostre perfil. Ha pogut ser "
+#~ "verificat utilitzant les CA intermitges. Considereu enviar les CA "
+#~ "intermitges dins de la conversa EAP."
+
+#~ msgid ""
+#~ "The EAP server name does not match any of the configured names in your "
+#~ "profile!"
+#~ msgstr ""
+#~ "El nom del servidor EAP no es correspon amb cap dels noms configurats en "
+#~ "el vostre perfil!"
+
+#~ msgid ""
+#~ "The configured EAP server name matches either the CN or a subjectAltName:"
+#~ "DNS of the incoming certificate; best current practice is that the "
+#~ "certificate should contain the name in BOTH places."
+#~ msgstr ""
+#~ "El nom de servidor configurat a l'EAP coincideix amb el CN o amb el "
+#~ "subjectAltName:DNS del certificat rebut; la millor pràctica actual és que "
+#~ "el certificat contingui el nom a tots dos llocs."
+
+#~ msgid ""
+#~ "At least one certificate did not contain any BasicConstraints extension; "
+#~ "which makes it unclear if it's a CA certificate or end-entity "
+#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
+#~ "this certificate for EAP purposes!"
+#~ msgstr ""
+#~ "Al menys un certificat no conté cap extensió BasicConstraints; això no "
+#~ "permet determinar si es tracta d'un certificat de CA o un certificat "
+#~ "d'entitat final. Al menys el Mac OS X 10.8 (Mountain Lion) no validarà "
+#~ "aquest certificat en el protocol EAP!"
+
+#~ msgid "The server presented a certificate from an unknown authority."
+#~ msgstr "El servidor utilitza un certificat d'una autoritat desconeguda."
+
+#~ msgid "The server accepted the INVALID client certificate."
+#~ msgstr "El servidor ha acceptat el certificat de client NO VALID."
+
+#~ msgid ""
+#~ "The server rejected the client certificate, even though it was valid."
+#~ msgstr ""
+#~ "El servidor ha rebutjat el certificat de client, encara que era vàlid."
+
+#~ msgid "The server rejected the client certificate as expected."
+#~ msgstr "El servidor ha rebutjat el certificat de client, com era d'esperar."
+
+#~ msgid "The CRL of a certificate could not be found."
+#~ msgstr "No s'ha pogut trobar la CRL d'un certificat."
+
+#~ msgid "EAP method negotiation failed!"
+#~ msgstr "Ha fallat el mètode de negociació EAP!"
+
+#~ msgid "certificate expired"
+#~ msgstr "certificat caducat"
+
+#~ msgid "certificate was revoked"
+#~ msgstr "certificat revocat"
+
+#~ msgid "bad policy"
+#~ msgstr "mala política"
+
+#~ msgid "unknown authority"
+#~ msgstr "autoritat desconeguda"
+
+#~ msgid "unknown authority or no certificate policy or another problem"
+#~ msgstr ""
+#~ "autoritat desconeguda o absència de política de certificat o un altre "
+#~ "problema"
