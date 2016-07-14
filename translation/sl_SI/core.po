@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-13 09:59+0200\n"
+"POT-Creation-Date: 2016-07-14 13:36+0200\n"
 "PO-Revision-Date: 2015-04-12 02:05+0000\n"
 "Last-Translator: rokpapez <rok.papez@arnes.si>\n"
 "Language-Team: Slovenian (Slovenia) (http://www.transifex.com/projects/p/cat/"
@@ -25,282 +25,291 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
 "%100==4 ? 2 : 3);\n"
 
-#: core/DeviceConfig.php:126
+#: core/CAT.php:81
+#, php-format
+msgid "Release %s"
+msgstr ""
+
+#: core/CAT.php:84
+msgid "Unreleased SVN Revision"
+msgstr ""
+
+#: core/DeviceConfig.php:129
 #, php-format
 msgid "your local %s support"
 msgstr "vaša lokalna podpora %s"
 
-#: core/DeviceConfig.php:127
+#: core/DeviceConfig.php:130
 #, php-format
 msgid "your local %s support page"
 msgstr "stran vaše lokalne podpore %s"
 
-#: core/DeviceConfig.php:159
+#: core/DeviceConfig.php:162
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr ""
 "Oprostite, to se ne bi smelo zgoditi - dodatne informacije niso na voljo"
 
-#: core/Federation.php:74
+#: core/Federation.php:128
 msgid "Andorra"
 msgstr "Andora"
 
-#: core/Federation.php:75
+#: core/Federation.php:129
 msgid "Austria"
 msgstr "Avstrija"
 
-#: core/Federation.php:76
+#: core/Federation.php:130
 msgid "Belgium"
 msgstr "Belgija"
 
-#: core/Federation.php:77
+#: core/Federation.php:131
 msgid "Bulgaria"
 msgstr "Bolgarija"
 
-#: core/Federation.php:78
+#: core/Federation.php:132
 msgid "Cyprus"
 msgstr "Ciper"
 
-#: core/Federation.php:79
+#: core/Federation.php:133
 msgid "Czech Republic"
 msgstr "Češka"
 
-#: core/Federation.php:80
+#: core/Federation.php:134
 msgid "Denmark"
 msgstr "Danska"
 
-#: core/Federation.php:81
+#: core/Federation.php:135
 msgid "Estonia"
 msgstr "Estonija"
 
-#: core/Federation.php:82
+#: core/Federation.php:136
 msgid "Finland"
 msgstr "Finska"
 
-#: core/Federation.php:83
+#: core/Federation.php:137
 msgid "France"
 msgstr "Francija"
 
-#: core/Federation.php:84
+#: core/Federation.php:138
 msgid "Germany"
 msgstr "Nemčija"
 
-#: core/Federation.php:85
+#: core/Federation.php:139
 msgid "Greece"
 msgstr "Grčija"
 
-#: core/Federation.php:86
+#: core/Federation.php:140
 msgid "Croatia"
 msgstr "Hrvaška"
 
-#: core/Federation.php:87
+#: core/Federation.php:141
 msgid "Ireland"
 msgstr "Irska"
 
-#: core/Federation.php:88
+#: core/Federation.php:142
 msgid "Iceland"
 msgstr "Islandija"
 
-#: core/Federation.php:89
+#: core/Federation.php:143
 msgid "Italy"
 msgstr "Italija"
 
-#: core/Federation.php:90
+#: core/Federation.php:144
 msgid "Hungary"
 msgstr "Madžarska"
 
-#: core/Federation.php:91
+#: core/Federation.php:145
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#: core/Federation.php:92
+#: core/Federation.php:146
 msgid "Latvia"
 msgstr "Latvija"
 
-#: core/Federation.php:93
+#: core/Federation.php:147
 msgid "Lithuania"
 msgstr "Litva"
 
-#: core/Federation.php:94
+#: core/Federation.php:148
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#: core/Federation.php:95
+#: core/Federation.php:149
 msgid "Serbia"
 msgstr "Srbija"
 
-#: core/Federation.php:96
+#: core/Federation.php:150
 msgid "Netherlands"
 msgstr "Nizozemska"
 
-#: core/Federation.php:97
+#: core/Federation.php:151
 msgid "Norway"
 msgstr "Norveška"
 
-#: core/Federation.php:98
+#: core/Federation.php:152
 msgid "Poland"
 msgstr "Poljska"
 
-#: core/Federation.php:99
+#: core/Federation.php:153
 msgid "Portugal"
 msgstr "Portugalska"
 
-#: core/Federation.php:100
+#: core/Federation.php:154
 msgid "Romania"
 msgstr "Romunija"
 
-#: core/Federation.php:101
+#: core/Federation.php:155
 msgid "Slovenia"
 msgstr "Slovenija"
 
-#: core/Federation.php:102
+#: core/Federation.php:156
 msgid "Spain"
 msgstr "Španija"
 
-#: core/Federation.php:103
+#: core/Federation.php:157
 msgid "Sweden"
 msgstr "Švedska"
 
-#: core/Federation.php:104
+#: core/Federation.php:158
 msgid "Slovakia"
 msgstr "Slovaška"
 
-#: core/Federation.php:105
+#: core/Federation.php:159
 msgid "Switzerland"
 msgstr "Švica"
 
-#: core/Federation.php:106
+#: core/Federation.php:160
 msgid "Turkey"
 msgstr "Turčija"
 
-#: core/Federation.php:107
+#: core/Federation.php:161
 msgid "United Kingdom"
 msgstr "Združeno kraljestvo"
 
-#: core/Federation.php:109
+#: core/Federation.php:163
 msgid "Australia"
 msgstr "Avstralija"
 
-#: core/Federation.php:110
+#: core/Federation.php:164
 msgid "Canada"
 msgstr "Kanada"
 
-#: core/Federation.php:111
+#: core/Federation.php:165
 msgid "Israel"
 msgstr "Izrael"
 
-#: core/Federation.php:112
+#: core/Federation.php:166
 msgid "Japan"
 msgstr "Japonska"
 
-#: core/Federation.php:113
+#: core/Federation.php:167
 msgid "New Zealand"
 msgstr "Nova Zelandija"
 
-#: core/Federation.php:114
+#: core/Federation.php:168
 msgid "U.S.A."
 msgstr "ZDA"
 
-#: core/Federation.php:115
+#: core/Federation.php:169
 msgid "Brazil"
 msgstr "Brazilija"
 
-#: core/Federation.php:116
+#: core/Federation.php:170
 msgid "Chile"
 msgstr "Čile"
 
-#: core/Federation.php:117
+#: core/Federation.php:171
 msgid "Peru"
 msgstr "Peru"
 
-#: core/Federation.php:118
+#: core/Federation.php:172
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/Federation.php:119
+#: core/Federation.php:173
 msgid "Default"
 msgstr "Privzeti"
 
-#: core/Federation.php:120
+#: core/Federation.php:174
 msgid "Armenia"
 msgstr "Armenija"
 
-#: core/Federation.php:121
+#: core/Federation.php:175
 msgid "Azerbaijan"
 msgstr "Azerbajdžan"
 
-#: core/Federation.php:122
+#: core/Federation.php:176
 msgid "Belarus"
 msgstr "Belorusija"
 
-#: core/Federation.php:123
+#: core/Federation.php:177
 msgid "Ecuador"
 msgstr "Ekvador"
 
-#: core/Federation.php:124
+#: core/Federation.php:178
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/Federation.php:125
+#: core/Federation.php:179
 msgid "Kenya"
 msgstr "Kenija"
 
-#: core/Federation.php:126
+#: core/Federation.php:180
 msgid "Kyrgyzstan"
 msgstr "Kirgizistan"
 
-#: core/Federation.php:127
+#: core/Federation.php:181
 msgid "Korea"
 msgstr "Koreja"
 
-#: core/Federation.php:128
+#: core/Federation.php:182
 msgid "Kazakhstan"
 msgstr "Kazahstan"
 
-#: core/Federation.php:129
+#: core/Federation.php:183
 msgid "Morocco"
 msgstr "Maroko"
 
-#: core/Federation.php:130
+#: core/Federation.php:184
 msgid "Moldova"
 msgstr "Moldavija"
 
-#: core/Federation.php:131
+#: core/Federation.php:185
 msgid "Montenegro"
 msgstr "Črna gora"
 
-#: core/Federation.php:132
+#: core/Federation.php:186
 msgid "Macau"
 msgstr "Macao"
 
-#: core/Federation.php:133
+#: core/Federation.php:187
 msgid "Malta"
 msgstr "Malta"
 
-#: core/Federation.php:134
+#: core/Federation.php:188
 msgid "Russia"
 msgstr "Rusija"
 
-#: core/Federation.php:135
+#: core/Federation.php:189
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/Federation.php:136
+#: core/Federation.php:190
 msgid "Thailand"
 msgstr "Tajska"
 
-#: core/Federation.php:137
+#: core/Federation.php:191
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#: core/Federation.php:138
+#: core/Federation.php:192
 msgid "South Africa"
 msgstr "Južna Afrika"
 
-#: core/Federation.php:338
+#: core/Federation.php:432
 msgid "Could not create a new Institution!"
 msgstr "Napaka pri dodajanju nove organizacije!"
 
-#: core/IdP.php:336
+#: core/IdP.php:355
 #, php-format
 msgid ""
 "Hi,\n"
@@ -323,331 +332,9 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:345
+#: core/IdP.php:364
 msgid "IdP in your federation was deleted"
 msgstr "IdP v vaši federaciji je bil odstranjen"
-
-#: core/RADIUSTests.php:255
-msgid "eduPKI"
-msgstr "eduPKI"
-
-#: core/RADIUSTests.php:256
-msgid "Nicolaus Copernicus University"
-msgstr "Univerza Nicolaus Copernicus"
-
-#: core/RADIUSTests.php:257
-msgid "accredited"
-msgstr "akreditiran"
-
-#: core/RADIUSTests.php:258
-msgid "non-accredited"
-msgstr "neakreditiran"
-
-#: core/RADIUSTests.php:259
-msgid "correct certificate"
-msgstr "pravilni certifikat"
-
-#: core/RADIUSTests.php:260
-msgid "certificate with wrong policy OID"
-msgstr "certifikata vsebuje napačno OID politiko"
-
-#: core/RADIUSTests.php:261
-msgid "expired certificate"
-msgstr "pretečeni certifikat"
-
-#: core/RADIUSTests.php:262
-msgid "revoked certificate"
-msgstr "preklican certifikat"
-
-#: core/RADIUSTests.php:263
-msgid "pass"
-msgstr "potrjeno"
-
-#: core/RADIUSTests.php:264
-msgid "fail"
-msgstr "ni potrjeno"
-
-#: core/RADIUSTests.php:265
-msgid "eduroam-accredited CA (now only for tests)"
-msgstr "akreditiran CA za eduroam (trenutno samo za test)"
-
-#: core/RADIUSTests.php:369
-msgid "Completed"
-msgstr "Dokončano"
-
-#: core/RADIUSTests.php:381
-msgid "This check was skipped."
-msgstr "Test ni bil izveden."
-
-#: core/RADIUSTests.php:388
-msgid "There were errors during the test."
-msgstr "Med testom je prišlo do napak."
-
-#: core/RADIUSTests.php:396
-msgid "This realm has no NAPTR records."
-msgstr "Domena nima zapisa NAPTR."
-
-#: core/RADIUSTests.php:403
-msgid "NAPTR records were found, but all of them refer to unrelated services."
-msgstr "Zapisi NAPTR so bili najdeni a se nanašajo na druge storitve."
-
-#: core/RADIUSTests.php:411
-msgid "There was no reply at all from the RADIUS server."
-msgstr "Strežnik RADIUS ni niti odgovoril."
-
-#: core/RADIUSTests.php:418
-msgid ""
-"There was a bidirectional communication with the RADIUS server, but it ended "
-"halfway through."
-msgstr ""
-"Kmunikacija med strežnikoma RADIUS je bila vzpostavljena v obeh smereh, a se "
-"je prekinila na sredini."
-
-#: core/RADIUSTests.php:425
-msgid ""
-"The RADIUS server immediately rejected the authentication request in its "
-"first reply."
-msgstr ""
-"Strežnik RADIUS je takoj zavrnil avtentikacijski zahtevek s svojim prvim "
-"odgovorom."
-
-#: core/RADIUSTests.php:432
-msgid ""
-"The RADIUS server rejected the authentication request after an EAP "
-"conversation."
-msgstr "Strežnik RADIUS je zavrnil avtentikacijski zahtevek po izmenjavi EAP."
-
-#: core/RADIUSTests.php:439
-msgid "Connection refused"
-msgstr "Povezava zavrnjena"
-
-#: core/RADIUSTests.php:446
-msgid "Not enough data provided to perform an authentication"
-msgstr "Premalo podatkov za avtentikacijo"
-
-#: core/RADIUSTests.php:454
-msgid ""
-"The certificate password you provided does not match the certificate file."
-msgstr "Vnešeno geslo certifikata se ne ujema s certifikatom v datoteki."
-
-#: core/RADIUSTests.php:462
-msgid ""
-"The certificate chain includes the root CA certificate. This does not serve "
-"any useful purpose but inflates the packet exchange, possibly leading to "
-"more round-trips and thus slower authentication."
-msgstr ""
-"Certifikatna veriga vključuje korenski certitikat CA. To ničesar ne "
-"doprinese, napihne pa izmenjavo paketov, zahteva več izmenjav paketov in s "
-"tem počasnejše prijavljanje."
-
-#: core/RADIUSTests.php:469
-msgid "There is more than one server certificate in the chain."
-msgstr "V verigi je več kot en strežniški certifikat."
-
-#: core/RADIUSTests.php:476
-msgid "There is no server certificate in the chain."
-msgstr "V verigi ni strežniškega certifikata."
-
-#: core/RADIUSTests.php:483
-msgid ""
-"At least one certificate in the chain is signed with the MD5 signature "
-"algorithm. Many Operating Systems, including Apple iOS, will fail to "
-"validate this certificate."
-msgstr ""
-"Vsaj en certifikat v vreigi je podpisan z algoritmom MD5. Veliko "
-"operacijskih sistemov, vključno z Applovim iOS ne bodo sprejeli ta "
-"certifikat."
-
-#: core/RADIUSTests.php:490
-msgid ""
-"At least one certificate in the chain had a public key of less than 1024 "
-"bits. Many recent operating systems consider this unacceptable and will fail "
-"to validate the server certificate."
-msgstr ""
-"Vsaj en certifikat v verigi ima javni ključ manjši od 1024 bitov. Za veliko "
-"sodobnih operacijskih sistemov je to nesprejemljivo in ne bodo sprejeli "
-"certifikata."
-
-#: core/RADIUSTests.php:497
-msgid ""
-"The server certificate does not have the extension 'extendedKeyUsage: TLS "
-"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
-"validate this certificate."
-msgstr ""
-"Strežniški certifikat nima razširitve 'extendedKeyUsage: TLS Web Server "
-"Authentication'. Večina Microsoftovih operacijskih sistemov ne bo sprejela "
-"ta certifikat."
-
-#: core/RADIUSTests.php:504
-msgid ""
-"The server certificate did not include a CRL Distribution Point, creating "
-"compatibility problems with Windows Phone 8."
-msgstr ""
-"Certifikat strežnika ne vključuje lokacije CRL in ni zdužljiv s telefonskim "
-"operacijskih sistemom Windows Phone 8."
-
-#: core/RADIUSTests.php:511
-msgid ""
-"The server certificate's 'CRL Distribution Point' extension does not point "
-"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
-"certificate. Checking server certificate validity against a CRL will not be "
-"possible."
-msgstr ""
-"Razširitev 'CRL Distribution Point' certifikata strežnika ne kaže na URL "
-"HTTP/HTTPS. Nekateri operacijski sistemi ne bodo sprejeli certifikata. "
-"Preverjanje veljavnosti certifikata v skladu s CRL ni možno."
-
-#: core/RADIUSTests.php:518
-msgid ""
-"The extension 'CRL Distribution Point' in the server certificate points to a "
-"non-existing location. Some Operating Systems check certificate validity by "
-"consulting the CRL and will fail to validate the certificate. Checking "
-"server certificate validity against a CRL will not be possible."
-msgstr ""
-"Razširitev 'CRL Distribution Point' v certifikatu strežnika kaže na "
-"neobstoječo lokacijo. Nekateri operacijski sistemi preverjajo veljavnost "
-"certifikata z uporabo CRL in ga ne bodo mogli preveriti. Preverjanje "
-"veljavnosti certifikata napram CRL ni možno."
-
-#: core/RADIUSTests.php:525
-msgid "The server certificate was revoked by the CA!"
-msgstr "CA je preklical certifikat strežnika!"
-
-#: core/RADIUSTests.php:532
-msgid ""
-"The certificate contained a CN or subjectAltName:DNS which does not parse as "
-"a hostname. This can be problematic on some supplicants. If the certificate "
-"also contains names which are a proper hostname, and you only use those for "
-"your supplicant configuration, then you can safely ignore this notice."
-msgstr ""
-"Certifikat vsebuje CN ali ubjectAltName:DNS, ki se ne preveri kot ime "
-"strežnika. To lahko povzroči težave na nekterih odjemalcih. Če certifikat "
-"vsebuje tudi pravilna imena strežnikov in samo ta uporabljate za nastavitve "
-"odjemalca, lahko to opozorilo varno zanemarite."
-
-#: core/RADIUSTests.php:539
-msgid ""
-"The certificate contained a CN or subjectAltName:DNS which contains a "
-"wildcard ('*'). This can be problematic on some supplicants. If the "
-"certificate also contains names which are wildcardless, and you only use "
-"those for your supplicant configuration, then you can safely ignore this "
-"notice."
-msgstr ""
-"Certifikat vsebuje CN ali subjectAltName:DNS, ki vsebuje ('*'). S tem imajo "
-"lahko nekateri odjemalci težave. Če certifikat vsebuje tudi imena brez ('*') "
-"in uporabljate te v nastavitvah odjemalca, lahko to opozorilo varno "
-"zanemarite."
-
-#: core/RADIUSTests.php:546
-msgid ""
-"At least one certificate is outside its validity period (not yet valid, or "
-"already expired)!"
-msgstr ""
-"Vsaj en certifikat je zunaj veljavnega obdobja (ni še veljaven ali že "
-"pretečen)!"
-
-#: core/RADIUSTests.php:553
-#, php-format
-msgid ""
-"At least one intermediate certificate in your CAT profile is outside its "
-"validity period (not yet valid, or already expired), but this certificate "
-"was not used for server validation. Consider removing it from your %s "
-"configuration."
-msgstr ""
-"Vsaj en vmesni certifikat v vašem profilu CAT je zunaj veljavnega obdobja "
-"(ni še veljaven ali že pretečen), vendar ta certifikat ni bil uporabljen za "
-"preverjanje strežnika. Razmisilte ali bi ga odstranili iz vaše nastavitve %s."
-
-#: core/RADIUSTests.php:560
-msgid ""
-"The server certificate could not be verified to the root CA you configured "
-"in your profile!"
-msgstr ""
-"Certifikat strežnika ne ustreza korenskemu certifikatu CA, ki je nastavljan "
-"v vašem profilu!"
-
-#: core/RADIUSTests.php:564
-msgid ""
-"The certificate chain as received in EAP was not sufficient to verify the "
-"certificate to the root CA in your profile. It was verified using the "
-"intermediate CAs in your profile though. You should consider sending the "
-"required intermediate CAs inside the EAP conversation."
-msgstr ""
-"Certifikatna veriga prejeta iz EAP ni bila zadostna za preverjanje s "
-"korenskim CA v vašem profilu. Veriga je bila preverjena z vmesnim CAjem iz "
-"vašega profila. Premislite ali ne bi vmesnih CA poslali znotraj izmenjave "
-"EAP."
-
-#: core/RADIUSTests.php:570
-msgid ""
-"The EAP server name does not match any of the configured names in your "
-"profile!"
-msgstr ""
-"Ime strežnika EAP se ne ujema z nobenim od nastavljenih imen v vašem profilu!"
-
-#: core/RADIUSTests.php:577
-msgid ""
-"The configured EAP server name matches either the CN or a subjectAltName:DNS "
-"of the incoming certificate; best current practice is that the certificate "
-"should contain the name in BOTH places."
-msgstr ""
-"Nastavljeno ime strežnika EAP se ujema ali z CN ali s subjectAltName:DNS "
-"prejetega certifikata; trenutno se svetuje, da se nastavi ime na OBEH koncih."
-
-#: core/RADIUSTests.php:584
-msgid ""
-"At least one certificate did not contain any BasicConstraints extension; "
-"which makes it unclear if it's a CA certificate or end-entity certificate. "
-"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
-"for EAP purposes!"
-msgstr ""
-"Vsaj eden izmed certifikatov ni vseboval kakršnihkoli razširitev "
-"BasicConstraints; nejasno je ali gre za CA ali končni certifikat. Vsaj Mac "
-"OS X 10.8 (Mountain Lion) ne bo sprejel tega certifikata za EAP!"
-
-#: core/RADIUSTests.php:591
-msgid "The server presented a certificate from an unknown authority."
-msgstr "Strežnik se je predstavil s certifikatom neznane avtoritete."
-
-#: core/RADIUSTests.php:598
-msgid "The server accepted the INVALID client certificate."
-msgstr "Strežnik je sprejel NEVELJAVEN certifikat uporabnika."
-
-#: core/RADIUSTests.php:605
-msgid "The server rejected the client certificate, even though it was valid."
-msgstr "Strežnik je zavrnil certifikat odjamelca, čeprav je veljaven."
-
-#: core/RADIUSTests.php:612
-msgid "The server rejected the client certificate as expected."
-msgstr "Strežnik je, po pričakovanju, zavrnil certifikat odjemalca."
-
-#: core/RADIUSTests.php:619
-msgid "The CRL of a certificate could not be found."
-msgstr "CRL certifikata ni bil najden."
-
-#: core/RADIUSTests.php:626
-msgid "EAP method negotiation failed!"
-msgstr "Pogajanje o metodi EAP ni uspelo!"
-
-#: core/RADIUSTests.php:1490
-msgid "certificate expired"
-msgstr "certifikat je potekel"
-
-#: core/RADIUSTests.php:1492
-msgid "certificate was revoked"
-msgstr "certifikat je bil preklican"
-
-#: core/RADIUSTests.php:1494
-msgid "bad policy"
-msgstr "slaba politika"
-
-#: core/RADIUSTests.php:1496
-msgid "unknown authority"
-msgstr "nepoznana avtoriteta"
-
-#: core/RADIUSTests.php:1499
-msgid "unknown authority or no certificate policy or another problem"
-msgstr "nepoznana avtoriteta ali ni politike certifikata ali druga težava"
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
@@ -681,6 +368,281 @@ msgstr ""
 msgid "IdP in your federation was created"
 msgstr "IdP v vaši federaciji je bil ustvarjen"
 
-#: core/User.php:243
+#: core/User.php:256
 msgid "Feedback"
 msgstr "Povratna informacija"
+
+#~ msgid "eduPKI"
+#~ msgstr "eduPKI"
+
+#~ msgid "Nicolaus Copernicus University"
+#~ msgstr "Univerza Nicolaus Copernicus"
+
+#~ msgid "accredited"
+#~ msgstr "akreditiran"
+
+#~ msgid "non-accredited"
+#~ msgstr "neakreditiran"
+
+#~ msgid "correct certificate"
+#~ msgstr "pravilni certifikat"
+
+#~ msgid "certificate with wrong policy OID"
+#~ msgstr "certifikata vsebuje napačno OID politiko"
+
+#~ msgid "expired certificate"
+#~ msgstr "pretečeni certifikat"
+
+#~ msgid "revoked certificate"
+#~ msgstr "preklican certifikat"
+
+#~ msgid "pass"
+#~ msgstr "potrjeno"
+
+#~ msgid "fail"
+#~ msgstr "ni potrjeno"
+
+#~ msgid "eduroam-accredited CA (now only for tests)"
+#~ msgstr "akreditiran CA za eduroam (trenutno samo za test)"
+
+#~ msgid "Completed"
+#~ msgstr "Dokončano"
+
+#~ msgid "This check was skipped."
+#~ msgstr "Test ni bil izveden."
+
+#~ msgid "There were errors during the test."
+#~ msgstr "Med testom je prišlo do napak."
+
+#~ msgid "This realm has no NAPTR records."
+#~ msgstr "Domena nima zapisa NAPTR."
+
+#~ msgid ""
+#~ "NAPTR records were found, but all of them refer to unrelated services."
+#~ msgstr "Zapisi NAPTR so bili najdeni a se nanašajo na druge storitve."
+
+#~ msgid "There was no reply at all from the RADIUS server."
+#~ msgstr "Strežnik RADIUS ni niti odgovoril."
+
+#~ msgid ""
+#~ "There was a bidirectional communication with the RADIUS server, but it "
+#~ "ended halfway through."
+#~ msgstr ""
+#~ "Kmunikacija med strežnikoma RADIUS je bila vzpostavljena v obeh smereh, a "
+#~ "se je prekinila na sredini."
+
+#~ msgid ""
+#~ "The RADIUS server immediately rejected the authentication request in its "
+#~ "first reply."
+#~ msgstr ""
+#~ "Strežnik RADIUS je takoj zavrnil avtentikacijski zahtevek s svojim prvim "
+#~ "odgovorom."
+
+#~ msgid ""
+#~ "The RADIUS server rejected the authentication request after an EAP "
+#~ "conversation."
+#~ msgstr ""
+#~ "Strežnik RADIUS je zavrnil avtentikacijski zahtevek po izmenjavi EAP."
+
+#~ msgid "Connection refused"
+#~ msgstr "Povezava zavrnjena"
+
+#~ msgid "Not enough data provided to perform an authentication"
+#~ msgstr "Premalo podatkov za avtentikacijo"
+
+#~ msgid ""
+#~ "The certificate password you provided does not match the certificate file."
+#~ msgstr "Vnešeno geslo certifikata se ne ujema s certifikatom v datoteki."
+
+#~ msgid ""
+#~ "The certificate chain includes the root CA certificate. This does not "
+#~ "serve any useful purpose but inflates the packet exchange, possibly "
+#~ "leading to more round-trips and thus slower authentication."
+#~ msgstr ""
+#~ "Certifikatna veriga vključuje korenski certitikat CA. To ničesar ne "
+#~ "doprinese, napihne pa izmenjavo paketov, zahteva več izmenjav paketov in "
+#~ "s tem počasnejše prijavljanje."
+
+#~ msgid "There is more than one server certificate in the chain."
+#~ msgstr "V verigi je več kot en strežniški certifikat."
+
+#~ msgid "There is no server certificate in the chain."
+#~ msgstr "V verigi ni strežniškega certifikata."
+
+#~ msgid ""
+#~ "At least one certificate in the chain is signed with the MD5 signature "
+#~ "algorithm. Many Operating Systems, including Apple iOS, will fail to "
+#~ "validate this certificate."
+#~ msgstr ""
+#~ "Vsaj en certifikat v vreigi je podpisan z algoritmom MD5. Veliko "
+#~ "operacijskih sistemov, vključno z Applovim iOS ne bodo sprejeli ta "
+#~ "certifikat."
+
+#~ msgid ""
+#~ "At least one certificate in the chain had a public key of less than 1024 "
+#~ "bits. Many recent operating systems consider this unacceptable and will "
+#~ "fail to validate the server certificate."
+#~ msgstr ""
+#~ "Vsaj en certifikat v verigi ima javni ključ manjši od 1024 bitov. Za "
+#~ "veliko sodobnih operacijskih sistemov je to nesprejemljivo in ne bodo "
+#~ "sprejeli certifikata."
+
+#~ msgid ""
+#~ "The server certificate does not have the extension 'extendedKeyUsage: TLS "
+#~ "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+#~ "validate this certificate."
+#~ msgstr ""
+#~ "Strežniški certifikat nima razširitve 'extendedKeyUsage: TLS Web Server "
+#~ "Authentication'. Večina Microsoftovih operacijskih sistemov ne bo "
+#~ "sprejela ta certifikat."
+
+#~ msgid ""
+#~ "The server certificate did not include a CRL Distribution Point, creating "
+#~ "compatibility problems with Windows Phone 8."
+#~ msgstr ""
+#~ "Certifikat strežnika ne vključuje lokacije CRL in ni zdužljiv s "
+#~ "telefonskim operacijskih sistemom Windows Phone 8."
+
+#~ msgid ""
+#~ "The server certificate's 'CRL Distribution Point' extension does not "
+#~ "point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate "
+#~ "this certificate. Checking server certificate validity against a CRL will "
+#~ "not be possible."
+#~ msgstr ""
+#~ "Razširitev 'CRL Distribution Point' certifikata strežnika ne kaže na URL "
+#~ "HTTP/HTTPS. Nekateri operacijski sistemi ne bodo sprejeli certifikata. "
+#~ "Preverjanje veljavnosti certifikata v skladu s CRL ni možno."
+
+#~ msgid ""
+#~ "The extension 'CRL Distribution Point' in the server certificate points "
+#~ "to a non-existing location. Some Operating Systems check certificate "
+#~ "validity by consulting the CRL and will fail to validate the certificate. "
+#~ "Checking server certificate validity against a CRL will not be possible."
+#~ msgstr ""
+#~ "Razširitev 'CRL Distribution Point' v certifikatu strežnika kaže na "
+#~ "neobstoječo lokacijo. Nekateri operacijski sistemi preverjajo veljavnost "
+#~ "certifikata z uporabo CRL in ga ne bodo mogli preveriti. Preverjanje "
+#~ "veljavnosti certifikata napram CRL ni možno."
+
+#~ msgid "The server certificate was revoked by the CA!"
+#~ msgstr "CA je preklical certifikat strežnika!"
+
+#~ msgid ""
+#~ "The certificate contained a CN or subjectAltName:DNS which does not parse "
+#~ "as a hostname. This can be problematic on some supplicants. If the "
+#~ "certificate also contains names which are a proper hostname, and you only "
+#~ "use those for your supplicant configuration, then you can safely ignore "
+#~ "this notice."
+#~ msgstr ""
+#~ "Certifikat vsebuje CN ali ubjectAltName:DNS, ki se ne preveri kot ime "
+#~ "strežnika. To lahko povzroči težave na nekterih odjemalcih. Če certifikat "
+#~ "vsebuje tudi pravilna imena strežnikov in samo ta uporabljate za "
+#~ "nastavitve odjemalca, lahko to opozorilo varno zanemarite."
+
+#~ msgid ""
+#~ "The certificate contained a CN or subjectAltName:DNS which contains a "
+#~ "wildcard ('*'). This can be problematic on some supplicants. If the "
+#~ "certificate also contains names which are wildcardless, and you only use "
+#~ "those for your supplicant configuration, then you can safely ignore this "
+#~ "notice."
+#~ msgstr ""
+#~ "Certifikat vsebuje CN ali subjectAltName:DNS, ki vsebuje ('*'). S tem "
+#~ "imajo lahko nekateri odjemalci težave. Če certifikat vsebuje tudi imena "
+#~ "brez ('*') in uporabljate te v nastavitvah odjemalca, lahko to opozorilo "
+#~ "varno zanemarite."
+
+#~ msgid ""
+#~ "At least one certificate is outside its validity period (not yet valid, "
+#~ "or already expired)!"
+#~ msgstr ""
+#~ "Vsaj en certifikat je zunaj veljavnega obdobja (ni še veljaven ali že "
+#~ "pretečen)!"
+
+#~ msgid ""
+#~ "At least one intermediate certificate in your CAT profile is outside its "
+#~ "validity period (not yet valid, or already expired), but this certificate "
+#~ "was not used for server validation. Consider removing it from your %s "
+#~ "configuration."
+#~ msgstr ""
+#~ "Vsaj en vmesni certifikat v vašem profilu CAT je zunaj veljavnega obdobja "
+#~ "(ni še veljaven ali že pretečen), vendar ta certifikat ni bil uporabljen "
+#~ "za preverjanje strežnika. Razmisilte ali bi ga odstranili iz vaše "
+#~ "nastavitve %s."
+
+#~ msgid ""
+#~ "The server certificate could not be verified to the root CA you "
+#~ "configured in your profile!"
+#~ msgstr ""
+#~ "Certifikat strežnika ne ustreza korenskemu certifikatu CA, ki je "
+#~ "nastavljan v vašem profilu!"
+
+#~ msgid ""
+#~ "The certificate chain as received in EAP was not sufficient to verify the "
+#~ "certificate to the root CA in your profile. It was verified using the "
+#~ "intermediate CAs in your profile though. You should consider sending the "
+#~ "required intermediate CAs inside the EAP conversation."
+#~ msgstr ""
+#~ "Certifikatna veriga prejeta iz EAP ni bila zadostna za preverjanje s "
+#~ "korenskim CA v vašem profilu. Veriga je bila preverjena z vmesnim CAjem "
+#~ "iz vašega profila. Premislite ali ne bi vmesnih CA poslali znotraj "
+#~ "izmenjave EAP."
+
+#~ msgid ""
+#~ "The EAP server name does not match any of the configured names in your "
+#~ "profile!"
+#~ msgstr ""
+#~ "Ime strežnika EAP se ne ujema z nobenim od nastavljenih imen v vašem "
+#~ "profilu!"
+
+#~ msgid ""
+#~ "The configured EAP server name matches either the CN or a subjectAltName:"
+#~ "DNS of the incoming certificate; best current practice is that the "
+#~ "certificate should contain the name in BOTH places."
+#~ msgstr ""
+#~ "Nastavljeno ime strežnika EAP se ujema ali z CN ali s subjectAltName:DNS "
+#~ "prejetega certifikata; trenutno se svetuje, da se nastavi ime na OBEH "
+#~ "koncih."
+
+#~ msgid ""
+#~ "At least one certificate did not contain any BasicConstraints extension; "
+#~ "which makes it unclear if it's a CA certificate or end-entity "
+#~ "certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate "
+#~ "this certificate for EAP purposes!"
+#~ msgstr ""
+#~ "Vsaj eden izmed certifikatov ni vseboval kakršnihkoli razširitev "
+#~ "BasicConstraints; nejasno je ali gre za CA ali končni certifikat. Vsaj "
+#~ "Mac OS X 10.8 (Mountain Lion) ne bo sprejel tega certifikata za EAP!"
+
+#~ msgid "The server presented a certificate from an unknown authority."
+#~ msgstr "Strežnik se je predstavil s certifikatom neznane avtoritete."
+
+#~ msgid "The server accepted the INVALID client certificate."
+#~ msgstr "Strežnik je sprejel NEVELJAVEN certifikat uporabnika."
+
+#~ msgid ""
+#~ "The server rejected the client certificate, even though it was valid."
+#~ msgstr "Strežnik je zavrnil certifikat odjamelca, čeprav je veljaven."
+
+#~ msgid "The server rejected the client certificate as expected."
+#~ msgstr "Strežnik je, po pričakovanju, zavrnil certifikat odjemalca."
+
+#~ msgid "The CRL of a certificate could not be found."
+#~ msgstr "CRL certifikata ni bil najden."
+
+#~ msgid "EAP method negotiation failed!"
+#~ msgstr "Pogajanje o metodi EAP ni uspelo!"
+
+#~ msgid "certificate expired"
+#~ msgstr "certifikat je potekel"
+
+#~ msgid "certificate was revoked"
+#~ msgstr "certifikat je bil preklican"
+
+#~ msgid "bad policy"
+#~ msgstr "slaba politika"
+
+#~ msgid "unknown authority"
+#~ msgstr "nepoznana avtoriteta"
+
+#~ msgid "unknown authority or no certificate policy or another problem"
+#~ msgstr "nepoznana avtoriteta ali ni politike certifikata ali druga težava"

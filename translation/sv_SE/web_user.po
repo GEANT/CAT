@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-14 10:21+0200\n"
+"POT-Creation-Date: 2016-07-14 13:36+0200\n"
 "PO-Revision-Date: 2012-08-07 13:24+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Swedish (http://www.transifex.com/projects/p/cat/language/"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: web/user/cat_info.php:32 web/user/faq.php:32
+#: web/user/cat_info.php:39 web/user/faq.php:32
 #, php-format
 msgid ""
 "eduroam is a global WiFi roaming consortium which gives members of education "
@@ -28,7 +28,7 @@ msgid ""
 "eduroam.org'>the eduroam homepage</a> for more details."
 msgstr ""
 
-#: web/user/cat_info.php:37
+#: web/user/cat_info.php:44
 #, fuzzy, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
@@ -49,7 +49,69 @@ msgstr ""
 "era administratörer på hammplan och be dem att lägga upp även er institution "
 "i <span class='edu_cat'>%s</span>."
 
-#: web/user/cat_info.php:44
+#: web/user/cat_info.php:45
+#, php-format
+msgid ""
+"<span class='edu_cat'>%s</span> currently supports the following devices and "
+"EAP type combinations:"
+msgstr ""
+
+#: web/user/cat_info.php:46
+msgid "Device Group"
+msgstr ""
+
+#: web/user/cat_info.php:46
+msgid "Device"
+msgstr ""
+
+#: web/user/cat_info.php:68
+#, php-format
+msgid ""
+"<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
+"behind captive portals (e.g. on a 'setup' SSID which only allows access to "
+"CAT for device configuration), the following hostnames need to be allowed "
+"for port TCP/443 in the portal:</p><b><u>REQUIRED</u></b><ul><li><b>%s</b> "
+"(the service itself)</li>"
+msgstr ""
+
+#: web/user/cat_info.php:73
+#, php-format
+msgid ""
+"<li><b>%s</b> (the CRL Distribution Point for the site certificate), also "
+"TCP/80</li>"
+msgid_plural ""
+"<li><b>%s</b> (the CRL Distribution Points for the site certificate), also "
+"TCP/80</li>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/user/cat_info.php:75
+#, php-format
+msgid ""
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+msgid_plural ""
+"<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: web/user/cat_info.php:76
+#, php-format
+msgid ""
+"<li><b>android.l.google.com</b> (Google Play access for Android App)</"
+"li><li><b>android.clients.google.com</b> (Google Play access for Android "
+"App)</li><li><b>play.google.com</b> (Google Play access for Android App)</"
+"li><li><b>ggpht.com</b> (Google Play access for Android App)</li></"
+"ul><b><u>RECOMMENDED</u></b> for full Google Play functionality (otherwise, "
+"Play Store will look broken to users and/or some non-vital functionality "
+"will not be available)<ul><li><b>photos-ugc.l.google.com</b></"
+"li><li><b>googleusercontent.com</b></li><li><b>ajax.googleapis.com</b></"
+"li><li><b>play.google-apis.com</b></li><li><b>googleapis.l.google.com</b></"
+"li><li><b>apis.google.com</b></li><li><b>gstatic.com</b></li><li><b>www."
+"google-analystics.com</b></li><li><b>wallet.google.com</b></li><li><b>plus."
+"google.com</b></li><li><b>checkout.google.com</b></li></ul>"
+msgstr ""
+
+#: web/user/cat_info.php:102
 #, fuzzy, php-format
 msgid ""
 "The most important need is adding new installer modules, which will "
@@ -64,16 +126,24 @@ msgstr ""
 "med att kontakta oss på <a href='mailto:%s'>%s</a>, men titta även i <a "
 "href='%s'>CAT dokumentaion</a>."
 
-#: web/user/cat_info.php:47
-#, php-format
+#: web/user/cat_info.php:105
+#, fuzzy, php-format
 msgid ""
-"Please send a problem report to <a href='mailto:%s'>%s</a>. Some screen "
-"dumps are very welcome."
+"Please send a problem report to <a href='%s'>%s</a>. Some screen dumps are "
+"very welcome."
 msgstr ""
 "Var vänlig skicka problemrapporter till <a href='mailto:%s'>%s</a>. "
 "Skärmdumpar dumpar är välkomna."
 
-#: web/user/cat_info.php:62
+#: web/user/cat_info.php:107
+#, php-format
+msgid ""
+"<br/><br/>If you are a copyright holder and believe that content on this "
+"website infringes on your copyright, or find any other inappropriate "
+"content, please notify us at <a href='mailto:%s'>%s</a>."
+msgstr ""
+
+#: web/user/cat_info.php:123
 #, php-format
 msgid ""
 "You must have received an invitation from your national %s operator before "
@@ -81,11 +151,11 @@ msgid ""
 "and log in."
 msgstr ""
 
-#: web/user/cat_info.php:64
+#: web/user/cat_info.php:125
 msgid "Please authenticate yourself and login"
 msgstr ""
 
-#: web/user/cat_info.php:65
+#: web/user/cat_info.php:126
 msgid "Login"
 msgstr ""
 
@@ -198,34 +268,12 @@ msgstr ""
 
 #: web/user/faq.php:52
 #, php-format
-msgid "Why is there no support for Android?"
-msgstr ""
-
-#: web/user/faq.php:53
-#, php-format
-msgid ""
-"%s relies on technologies being available on the target platform - we need "
-"to be able to 'feed' security settings from a configuration file which you "
-"can download. Many Operating Systems like Apple and Microsoft have that "
-"functionality, but for Android no such mechanism exists."
-msgstr ""
-
-#: web/user/faq.php:55
-#, php-format
-msgid ""
-"That is - <i>to our knowledge</i>. If you are a developer with some good "
-"knowledge about Android's APIs, and you know how to do it - please let us "
-"know; we would be delighted!"
-msgstr ""
-
-#: web/user/faq.php:61
-#, php-format
 msgid ""
 "I can see %s network and my device is configured but it does not connect, "
 "what can be the cause?"
 msgstr ""
 
-#: web/user/faq.php:62
+#: web/user/faq.php:53
 #, php-format
 msgid ""
 "There can be a number of different reasons. The network you see may not be a "
@@ -238,17 +286,17 @@ msgid ""
 "should be able to trace your connections."
 msgstr ""
 
-#: web/user/faq.php:68
+#: web/user/faq.php:59
 #, php-format
 msgid "I have a question about this web site. Whom should I contact?"
 msgstr ""
 
-#: web/user/faq.php:69
+#: web/user/faq.php:60
 #, php-format
 msgid "You should send a mail to %s."
 msgstr ""
 
-#: web/user/faq.php:92
+#: web/user/faq.php:83
 msgid "Frequently Asked Questions"
 msgstr ""
 
@@ -256,54 +304,54 @@ msgstr ""
 msgid "Terms of Use"
 msgstr ""
 
-#: web/user/js/cat_js.php:22 web/basic.php:283
+#: web/user/js/cat_js.php:23 web/basic.php:287
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
 "possible."
 msgstr ""
 
-#: web/user/js/cat_js.php:57
+#: web/user/js/cat_js.php:59
 msgid "no matching data found"
 msgstr ""
 
-#: web/user/js/cat_js.php:66
+#: web/user/js/cat_js.php:68
 msgid "Selected institution:"
 msgstr "Vald institution:"
 
-#: web/user/js/cat_js.php:71
+#: web/user/js/cat_js.php:73
 msgid "select"
 msgstr "välj"
 
-#: web/user/js/cat_js.php:181
+#: web/user/js/cat_js.php:188
 msgid "WWW:"
 msgstr ""
 
-#: web/user/js/cat_js.php:183
+#: web/user/js/cat_js.php:190
 msgid "email:"
 msgstr ""
 
-#: web/user/js/cat_js.php:185
+#: web/user/js/cat_js.php:192
 msgid "tel:"
 msgstr ""
 
-#: web/user/js/cat_js.php:187
+#: web/user/js/cat_js.php:194
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from you "
 "home organisation at:"
 msgstr "Om du får problem bör du sök direkthjälp via din egen institution på:"
 
-#: web/user/js/cat_js.php:189 web/basic.php:262
+#: web/user/js/cat_js.php:196 web/basic.php:266
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
 msgstr "Om du får problem bör du kontakta supporten på din hemmainstitution"
 
-#: web/user/js/cat_js.php:202 web/user/js/cat_js.php:227
+#: web/user/js/cat_js.php:209 web/user/js/cat_js.php:234
 msgid ""
 "This device cannot be configured with settings provided by your institution"
 msgstr "Denna enhet kan inte konfigureras med din institutions"
 
-#: web/user/js/cat_js.php:214
+#: web/user/js/cat_js.php:221
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -313,27 +361,27 @@ msgstr ""
 "resurser på lokala websidor. När du klickar <b>Fortsätt</b> kommer denna "
 "sida kommer att öppnas i ett nytt fönster/tab."
 
-#: web/user/js/cat_js.php:214 web/user/js/cat_js.php:222 web/index.php:251
+#: web/user/js/cat_js.php:221 web/user/js/cat_js.php:229 web/index.php:250
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: web/user/js/cat_js.php:228 web/index.php:140
+#: web/user/js/cat_js.php:235 web/index.php:141
 msgid "Close"
 msgstr "Stäng"
 
-#: web/user/js/cat_js.php:474
+#: web/user/js/cat_js.php:497
 msgid "Home institution"
 msgstr "Hemmainstitution"
 
-#: web/user/js/cat_js.php:475
+#: web/user/js/cat_js.php:498
 msgid "Select your <strong>institution<\\/strong>"
 msgstr "Välj din <strong>institution<\\/strong>"
 
-#: web/user/js/cat_js.php:476
+#: web/user/js/cat_js.php:499
 msgid "Help, my institution is not on the list"
 msgstr "Attans också min institution finns inte listad"
 
-#: web/user/js/cat_js.php:477
+#: web/user/js/cat_js.php:500
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -344,112 +392,116 @@ msgstr ""
 "institution ej finns på listan kan du påtala för dem att är dags att addera "
 "info till %s databasen."
 
-#: web/user/js/cat_js.php:478
+#: web/user/js/cat_js.php:501
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr "Lokalisera mig mer noggrant med hjälp av HTML5 Geo-location"
 
-#: web/user/js/cat_js.php:479
+#: web/user/js/cat_js.php:502
 msgid "Show institutions in"
 msgstr "Visa institutioner i"
 
-#: web/user/js/cat_js.php:480
+#: web/user/js/cat_js.php:503
 msgid "all countries"
 msgstr "alla länder"
 
-#: web/user/js/cat_js.php:481
+#: web/user/js/cat_js.php:504
 msgid "or search for an institution, in example Univerity of Oslo"
 msgstr "eller leta efter en institution, t.ex. Umeå universitet"
 
-#: web/user/js/cat_js.php:482
+#: web/user/js/cat_js.php:505
 msgid "show all countries"
 msgstr "visa all länder"
 
-#: web/user/js/cat_js.php:483
+#: web/user/js/cat_js.php:506
 msgid "Results limited to"
 msgstr "Resultat begränsade till"
 
-#: web/user/js/cat_js.php:484
+#: web/user/js/cat_js.php:507
 msgid "entries - show more"
 msgstr "entries - visa flera"
 
-#: web/user/js/cat_js.php:485
+#: web/user/js/cat_js.php:508
 msgid "Nearby"
 msgstr ""
 
-#: web/user/js/cat_js.php:486
+#: web/user/js/cat_js.php:509
 msgid "Location timeout"
 msgstr ""
 
-#: web/user/js/cat_js.php:487
+#: web/user/js/cat_js.php:510
 #, fuzzy
 msgid "Could not get your position"
 msgstr "Välj din institution"
 
-#: web/user/js/cat_js.php:488
+#: web/user/js/cat_js.php:511
 msgid "Your browser has denied access to your location"
 msgstr ""
 
-#: web/user/js/cat_js.php:489
+#: web/user/js/cat_js.php:512
 msgid "Unknown location error"
 msgstr ""
 
-#: web/user/js/cat_js.php:490
+#: web/user/js/cat_js.php:513
 msgid "You are here:"
 msgstr ""
 
-#: web/user/js/cat_js.php:491
+#: web/user/js/cat_js.php:514
 msgid "Getting your location..."
 msgstr ""
 
-#: web/user/js/cat_js.php:492
+#: web/user/js/cat_js.php:515
 msgid "Nearby providers shown on top."
 msgstr ""
 
 #. /devices.php
 #.
-#: web/user/js/roll.php:122
+#: web/user/js/roll.php:124
 msgid "MS Windows"
 msgstr ""
 
-#: web/user/js/roll.php:122
-msgid "8, 7, Vista, XP"
+#: web/user/js/roll.php:124
+msgid "10, 8, 7, Vista"
 msgstr ""
 
-#: web/user/js/roll.php:123
+#: web/user/js/roll.php:125
 msgid "Apple OS X"
 msgstr ""
 
-#: web/user/js/roll.php:123
-msgid "Mountain Lion, Lion"
+#: web/user/js/roll.php:126
+msgid "Android"
 msgstr ""
 
-#: web/user/js/roll.php:124
+#: web/user/js/roll.php:126
+msgid "4.3+"
+msgstr ""
+
+#: web/user/js/roll.php:127
 msgid "Apple iOS devices"
 msgstr ""
 
-#: web/user/js/roll.php:124
+#: web/user/js/roll.php:127
 msgid "iPhone, iPad, iPod touch"
 msgstr ""
 
-#: web/user/js/roll.php:125
+#: web/user/js/roll.php:128
 msgid "Linux"
 msgstr ""
 
-#: web/user/js/roll.php:125
+#: web/user/js/roll.php:128
 #, fuzzy
 msgid "all major distributions"
 msgstr "Välj din institution"
 
-#: web/4013.php:31 web/404.php:31 web/index.php:123
+#: web/4013.php:31 web/404.php:31 web/index.php:124
 #, php-format
 msgid "Welcome to %s"
 msgstr "Välkommen till %s"
 
-#: web/4013.php:34 web/404.php:34 web/basic.php:317 web/index.php:126
+#: web/4013.php:34 web/404.php:34 web/basic.php:321 web/index.php:127
 msgid "View this page in"
 msgstr "Titta på sidan i"
 
-#: web/4013.php:40 web/404.php:40 web/copyright.php:30 web/index.php:132
+#: web/4013.php:40 web/404.php:40 web/copyright.php:30 web/index.php:133
 msgid "Start page"
 msgstr "Startsida"
 
@@ -459,7 +511,7 @@ msgstr ""
 
 #: web/4013.php:45
 msgid ""
-"but we don't want ot show it to you. You need to be authenticated and "
+"but we don't want to show it to you. You need to be authenticated and "
 "authorised to see this content. Since you are not, you got this error page "
 "usually known as"
 msgstr ""
@@ -488,141 +540,141 @@ msgid ""
 "to the <a href='%s'>Start Page</a>."
 msgstr ""
 
-#: web/basic.php:129
+#: web/basic.php:133
 #, fuzzy
 msgid "Select your country"
 msgstr "Välj din institution"
 
-#: web/basic.php:147
+#: web/basic.php:151
 msgid "Select your institution"
 msgstr "Välj din institution"
 
-#: web/basic.php:167 web/index.php:212
+#: web/basic.php:171 web/index.php:213
 msgid "Select the user group"
 msgstr "Välj användargrupp"
 
-#: web/basic.php:194
+#: web/basic.php:198
 #, fuzzy
 msgid ""
 "Your operating system was not properly detected, is not supported yet or "
 "cannot be configured with settings provided by your institution"
 msgstr "Denna enhet kan inte konfigureras med din institutions"
 
-#: web/basic.php:201 web/index.php:299
+#: web/basic.php:205 web/index.php:298
 msgid "Choose an installer to download"
 msgstr "Välj vilken installerare du vill ladda ned"
 
-#: web/basic.php:234 web/basic.php:272
+#: web/basic.php:238 web/basic.php:276
 #, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 msgstr "du kommer att bli omdirigerad till en lokal supportsida"
 
-#: web/basic.php:234
+#: web/basic.php:238
 msgid "When you click <b>CONTINUE</b> this support page will be opened."
 msgstr ""
 
-#: web/basic.php:236
+#: web/basic.php:240
 msgid "CONTINUE to local support page"
 msgstr ""
 
-#: web/basic.php:240
+#: web/basic.php:244
 #, fuzzy
 msgid "Do you have an account at this institution?"
 msgstr "Profilen matchar inte institutionen"
 
-#: web/basic.php:240
+#: web/basic.php:244
 msgid ""
 "If so and if the other settings above are OK then click here to download..."
 msgstr ""
 
-#: web/basic.php:272
+#: web/basic.php:276
 msgid "Click on the link below to continue."
 msgstr ""
 
-#: web/basic.php:305
+#: web/basic.php:309
 msgid "Download installer for"
 msgstr "Ladda ned installerare för"
 
-#: web/basic.php:307
+#: web/basic.php:311
 #, fuzzy
 msgid "Start over"
 msgstr "Startsida"
 
-#: web/basic.php:443 web/index.php:153
+#: web/basic.php:447 web/index.php:154
 #, php-format
 msgid "Terms of use"
 msgstr ""
-
-#: web/basic.php:448 web/copyright.php:210 web/index.php:340 web/tou.php:53
-#, php-format
-msgid "Release %s"
-msgstr "Version %s"
-
-#: web/basic.php:450 web/copyright.php:212 web/index.php:342 web/tou.php:55
-msgid "Unreleased SVN Revision"
-msgstr "Ickeslåppt SVN Revision"
 
 #: web/copyright.php:27
 #, php-format
 msgid "%s Copyright and Licensing"
 msgstr ""
 
-#: web/index.php:97
+#: web/copyright.php:200 web/tou.php:53
+#, php-format
+msgid "Release %s"
+msgstr "Version %s"
+
+#: web/copyright.php:202 web/tou.php:55
+msgid "Unreleased SVN Revision"
+msgstr "Ickeslåppt SVN Revision"
+
+#: web/index.php:98
 #, fuzzy, php-format
 msgid "Download your %s installer"
 msgstr "Ladda ned installerare för"
 
-#: web/index.php:136
+#: web/index.php:137
 msgid "Authenticating"
 msgstr "Autentisierar"
 
-#: web/index.php:151 web/index.php:152
+#: web/index.php:152 web/index.php:153
 #, php-format
 msgid "About %s"
 msgstr ""
 
-#: web/index.php:154
+#: web/index.php:155
 #, php-format
 msgid "FAQ"
 msgstr ""
 
-#: web/index.php:155
+#: web/index.php:156
 #, php-format
 msgid "Report a problem"
 msgstr "Rapportera problem"
 
-#: web/index.php:156
+#: web/index.php:157
 #, php-format
 msgid "Become a CAT developer"
 msgstr ""
 
-#: web/index.php:157
+#: web/index.php:158
 #, fuzzy, php-format
 msgid "%s admin:<br>manage your IdP"
 msgstr "%s admin:<br>hantera dina installerare"
 
-#: web/index.php:172
+#: web/index.php:173
 #, php-format
 msgid "%s installation made easy:"
 msgstr ""
 
-#: web/index.php:175
+#: web/index.php:176
 #, fuzzy
 msgid "Custom built for your home institution"
 msgstr "Välj din institution"
 
-#: web/index.php:179
+#: web/index.php:180
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr ""
 
-#: web/index.php:192
+#: web/index.php:193
 #, php-format
 msgid "%s user:<br>download your %s installer"
 msgstr ""
 
-#: web/index.php:204
+#: web/index.php:205
 msgid "select another"
 msgstr "välj en annan"
 
@@ -633,7 +685,7 @@ msgstr ""
 #. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
 #: web/index.php:228
 msgid ""
-"Your download will start shortly, in case of problems with the automatic "
+"Your download will start shortly. In case of problems with the automatic "
 "download please use this direct <a href=''>link</a>."
 msgstr ""
 
@@ -666,11 +718,11 @@ msgid ""
 "reach them via the means shown above."
 msgstr ""
 
-#: web/index.php:243
+#: web/index.php:242
 msgid "Back to downloads"
 msgstr ""
 
-#: web/index.php:247
+#: web/index.php:246
 #, fuzzy
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
@@ -683,7 +735,7 @@ msgstr ""
 "När du klickar <b>Fortsätt</b> kommer denna supportsida att öppnas i ett "
 "nytt fönster/tab."
 
-#: web/index.php:293
+#: web/index.php:292
 msgid "All platforms"
 msgstr ""
 

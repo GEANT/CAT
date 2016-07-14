@@ -246,6 +246,8 @@ class RADIUSTests {
      * @param int $profile_id
      */
     public function __construct($realm, $profile_id = 0) {
+        $oldlocale = CAT::set_locale('diagnostics');
+
         $this->realm = $realm;
         $this->UDP_reachability_result = [];
         $this->TLS_CA_checks_result = [];
@@ -276,6 +278,8 @@ class RADIUSTests {
             $this->profile = new Profile($profile_id);
         else
             $this->profile = FALSE;
+
+        CAT::set_locale($oldlocale);
     }
 
     /**
@@ -366,7 +370,7 @@ class RADIUSTests {
 
 // generic return codes
     function initialise_errors() {
-        $oldlocale = CAT::set_locale('core');
+        $oldlocale = CAT::set_locale('diagnostics');
         $this->return_codes = [];
         /**
          * Test was executed and the result was as expected.
@@ -1502,6 +1506,8 @@ network={
      * @return int return code
      */
     function openssl_result($host, $testtype, $opensslbabble, &$testresults, $type = '', $k = 0) {
+        $oldlocale = CAT::set_locale('diagnostics');
+
         $res = RETVAL_OK;
         switch ($testtype) {
             case "capath":
@@ -1562,6 +1568,8 @@ network={
                 }
                 break;
         }
+
+        CAT::set_locale($oldlocale);
         return $res;
     }
 
