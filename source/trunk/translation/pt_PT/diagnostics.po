@@ -1,0 +1,624 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# esmeralda <epires@fccn.pt>, 2015
+# esmeralda <epires@fccn.pt>, 2012
+# Pedro Simões <psimoes@fccn.pt>, 2013,2015
+# Pedro Simões <psimoes@fccn.pt>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"PO-Revision-Date: 2015-04-13 15:14+0000\n"
+"Last-Translator: esmeralda <epires@fccn.pt>\n"
+"Language-Team: Portuguese (Portugal) (http://www.transifex.com/projects/p/"
+"cat/language/pt_PT/)\n"
+"Language: pt_PT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/RADIUSTests.php:263
+msgid "eduPKI"
+msgstr "eduPKI"
+
+#: core/RADIUSTests.php:264
+msgid "Nicolaus Copernicus University"
+msgstr "Universidade Luís de Camões"
+
+#: core/RADIUSTests.php:265
+msgid "accredited"
+msgstr "acreditado"
+
+#: core/RADIUSTests.php:266
+msgid "non-accredited"
+msgstr "não acreditada"
+
+#: core/RADIUSTests.php:267
+msgid "correct certificate"
+msgstr "certificado correto"
+
+#: core/RADIUSTests.php:268
+msgid "certificate with wrong policy OID"
+msgstr "certificado com OID de Política errado"
+
+#: core/RADIUSTests.php:269
+msgid "expired certificate"
+msgstr "certificado expirado"
+
+#: core/RADIUSTests.php:270
+msgid "revoked certificate"
+msgstr "certificado revogado"
+
+#: core/RADIUSTests.php:271
+msgid "pass"
+msgstr "passou"
+
+#: core/RADIUSTests.php:272
+msgid "fail"
+msgstr "falhou"
+
+#: core/RADIUSTests.php:273
+msgid "eduroam-accredited CA (now only for tests)"
+msgstr "CA com acreditação eduroam (agora apenas para testes)"
+
+#: core/RADIUSTests.php:379
+msgid "Completed"
+msgstr "Concluído."
+
+#: core/RADIUSTests.php:391
+msgid "This check was skipped."
+msgstr "Esta verificação foi ignorada."
+
+#: core/RADIUSTests.php:398
+msgid "There were errors during the test."
+msgstr "Ocorreram erros durante o teste."
+
+#: core/RADIUSTests.php:406
+msgid "This realm has no NAPTR records."
+msgstr "Este realm não tem registos NAPTR."
+
+#: core/RADIUSTests.php:413
+msgid "NAPTR records were found, but all of them refer to unrelated services."
+msgstr ""
+"Foram encontrados registos NAPTR, mas são referentes a serviços não "
+"relacionados."
+
+#: core/RADIUSTests.php:421
+msgid "There was no reply at all from the RADIUS server."
+msgstr "Não houve qualquer resposta do servidor RADIUS."
+
+#: core/RADIUSTests.php:428
+msgid ""
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"Houve uma comunicação bidirecional com o servidor RADIUS , mas terminou a "
+"meio."
+
+#: core/RADIUSTests.php:435
+msgid ""
+"The RADIUS server immediately rejected the authentication request in its "
+"first reply."
+msgstr ""
+"O servidor RADIUS rejeitou imediatamente o pedido de autenticação na "
+"primeira resposta."
+
+#: core/RADIUSTests.php:442
+msgid ""
+"The RADIUS server rejected the authentication request after an EAP "
+"conversation."
+msgstr ""
+"O servidor RADIUS rejeitou o pedido de autenticação depois de uma "
+"comunicação EAP."
+
+#: core/RADIUSTests.php:449
+msgid "Connection refused"
+msgstr "Ligação recusada"
+
+#: core/RADIUSTests.php:456
+msgid "Not enough data provided to perform an authentication"
+msgstr "Não foram fornecidos dados suficientes para realizar uma autenticação"
+
+#: core/RADIUSTests.php:463
+msgid ""
+"The certificate password you provided does not match the certificate file."
+msgstr " A password do certificado fornecida não corresponde ao certificado."
+
+#: core/RADIUSTests.php:471
+msgid ""
+"The certificate chain includes the root CA certificate. This does not serve "
+"any useful purpose but inflates the packet exchange, possibly leading to "
+"more round-trips and thus slower authentication."
+msgstr ""
+"A cadeia de certificação inclui o certificado de raiz da CA. Este não serve "
+"nenhum propósito útil, mas aumenta a troca de pacotes, que pode aumentar a "
+"latência e torna a autenticação mais lenta."
+
+#: core/RADIUSTests.php:478
+msgid "There is more than one server certificate in the chain."
+msgstr "Existe mais do que um certificado na cadeia de certificação."
+
+#: core/RADIUSTests.php:485
+msgid "There is no server certificate in the chain."
+msgstr "Não existe nenhum certificado de servidor na cadeia de certificação."
+
+#: core/RADIUSTests.php:492
+msgid ""
+"At least one certificate in the chain is signed with the MD5 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+"Pelo menos um certificado na cadeia está assinado com o algoritmo MD5. "
+"Muitos sistemas operativos, incluindo o iOS da Apple, falham na validação "
+"deste certificado."
+
+#: core/RADIUSTests.php:499
+msgid ""
+"At least one certificate in the chain had a public key of less than 1024 "
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"Pelo menos um certificado da cadeia tem uma chave pública inferior a 1024 "
+"bits. Muitos sistemas operativos recentes não aceitam esta chave e falham na "
+"validação do certificado do servidor."
+
+#: core/RADIUSTests.php:506
+msgid ""
+"The server certificate does not have the extension 'extendedKeyUsage: TLS "
+"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+"validate this certificate."
+msgstr ""
+"O certificado do servidor não tem a extensão 'extendedKeyUsage: TLS Web "
+"Server Authentication'. A maioria dos Sistemas Operativos da Microsoft vão "
+"falhar na validação este certificado."
+
+#: core/RADIUSTests.php:513
+msgid ""
+"The server certificate did not include a CRL Distribution Point, creating "
+"compatibility problems with Windows Phone 8."
+msgstr ""
+"O certificado de servidor não inclui um CRL Distribution Point e cria "
+"problemas de compatibilidade com o Windows Phone 8."
+
+#: core/RADIUSTests.php:520
+msgid ""
+"The server certificate's 'CRL Distribution Point' extension does not point "
+"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
+msgstr ""
+"A extensão 'CRL Distribution Point' do certificado do servidor não aponta "
+"para um URL HTTP/HTTPS. Alguns Sistemas Operativos podem falhar na "
+"verificação deste certificado. Não será possível validar o certificado de "
+"servidor utilizando a CRL (Lista de Revogação de Certificados)."
+
+#: core/RADIUSTests.php:527
+msgid ""
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certificate. Checking "
+"server certificate validity against a CRL will not be possible."
+msgstr ""
+"A extensão 'CRL Distribution Point' no certificado do servidor aponta para "
+"uma localização não existente. Alguns Sistemas Operativos validam a validade "
+"do certificado consultando o CRL e vão falhar na validação do certificado. "
+"Não será possível validar a validade do certificado certificado de servidor "
+"utilizando a CRL (Lista de Revogação de Certificados)."
+
+#: core/RADIUSTests.php:534
+msgid "The server certificate was revoked by the CA!"
+msgstr "O certificado de servidor foi revogado pela CA!"
+
+#: core/RADIUSTests.php:541
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"O certificado continha um CN ou um subjectAltName:DNS que não pode ser "
+"interpretado como um nome de servidor. Isto pode ser problemático para "
+"alguns suplicantes. Se o certificado contêm também nomes que são nomes de "
+"servidor correctos, e apenas usa estes para a configuração dos seus "
+"clientes, então pode ignorar este alerta."
+
+#: core/RADIUSTests.php:548
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which contains a "
+"wildcard ('*'). This can be problematic on some supplicants. If the "
+"certificate also contains names which are wildcardless, and you only use "
+"those for your supplicant configuration, then you can safely ignore this "
+"notice."
+msgstr ""
+"O certificado continha um CN ou um subjectAltName:DNS que contem um wildcard "
+"('*'). Isto pode ser problemático para alguns suplicantes. Se o certificado "
+"contêm também nomes que não são wildcard, e apenas usa estes para a "
+"configuração dos seus clientes, então pode ignorar este alerta."
+
+#: core/RADIUSTests.php:555
+msgid ""
+"At least one certificate is outside its validity period (not yet valid, or "
+"already expired)!"
+msgstr ""
+"Pelo menos um certificado está fora do seu período de validade (ainda não é "
+"válido ou já expirou)"
+
+#: core/RADIUSTests.php:562
+#, php-format
+msgid ""
+"At least one intermediate certificate in your CAT profile is outside its "
+"validity period (not yet valid, or already expired), but this certificate "
+"was not used for server validation. Consider removing it from your %s "
+"configuration."
+msgstr ""
+"Pelo menos um certificado intermédio do seu perfil CAT está fora do período "
+"de validade (ainda não está válido ou já expirou), mas este certificado não "
+"foi usado para validar o servidor. Considere removê-lo da sua configuração "
+"%s."
+
+#: core/RADIUSTests.php:569
+msgid ""
+"The server certificate could not be verified to the root CA you configured "
+"in your profile!"
+msgstr ""
+"O seu certificado de servidor não pôde ser verificado para a root CA que "
+"configurou no seu perfil!"
+
+#: core/RADIUSTests.php:573
+msgid ""
+"The certificate chain as received in EAP was not sufficient to verify the "
+"certificate to the root CA in your profile. It was verified using the "
+"intermediate CAs in your profile though. You should consider sending the "
+"required intermediate CAs inside the EAP conversation."
+msgstr ""
+"A cadeia do certificado, recebida no EAP, não foi suficiente para verificar "
+"o certificado na root CA do seu perfil. Foi no entanto verificado utilizando "
+"as CAs intermédias do seu perfil. Deve considerar o envio das CAs "
+"intermédias requerias dentro da conversação EAP."
+
+#: core/RADIUSTests.php:579
+msgid ""
+"The EAP server name does not match any of the configured names in your "
+"profile!"
+msgstr ""
+"O nome do servidor EAP não corresponde a nenhum dos configurados no seu "
+"perfil!"
+
+#: core/RADIUSTests.php:586
+msgid ""
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
+"should contain the name in BOTH places."
+msgstr ""
+"O nome do servidor EAP configurado é igual ao CN ou ao subjectAltName:DNS do "
+"certificado recebido; nas boas práticas actuais o certificado deve conter o "
+"nome em AMBOS os locais."
+
+#: core/RADIUSTests.php:593
+msgid ""
+"At least one certificate did not contain any BasicConstraints extension; "
+"which makes it unclear if it's a CA certificate or end-entity certificate. "
+"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
+"for EAP purposes!"
+msgstr ""
+"Pelo menos um certificado não continha qualquer extensão BasicConstraints; o "
+"que não esclarece se é um certificado CA ou um certificado final da "
+"entidade. Pelo menos o Mac OS X 10.8 (Mountain Lion) não irá validar este "
+"certificado para efeitos EAP."
+
+#: core/RADIUSTests.php:600
+msgid "The server presented a certificate from an unknown authority."
+msgstr "O servidor apresentou um certificado de uma autoridade desconhecida."
+
+#: core/RADIUSTests.php:607
+msgid "The server accepted the INVALID client certificate."
+msgstr "O servidor aceitou o certificado de cliente INVÁLIDO."
+
+#: core/RADIUSTests.php:614
+msgid "The server rejected the client certificate, even though it was valid."
+msgstr ""
+"O servidor rejeitou o certificado de cliente, mesmo que este esteja válido."
+
+#: core/RADIUSTests.php:621
+msgid "The server rejected the client certificate as expected."
+msgstr "O servidor rejeitou o certificado de cliente conforme o esperado."
+
+#: core/RADIUSTests.php:628
+msgid "The CRL of a certificate could not be found."
+msgstr "O CRL do certificado não foi encontrado."
+
+#: core/RADIUSTests.php:635
+msgid "EAP method negotiation failed!"
+msgstr "Negociação do método EAP falhou!"
+
+#: core/RADIUSTests.php:642
+msgid ""
+"The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
+"1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
+"under these circumstances!"
+msgstr ""
+
+#: core/RADIUSTests.php:649
+msgid ""
+"The certificate contains more than one CommonName (CN) field. This is "
+"reportedly problematic on many supplicants."
+msgstr ""
+
+#: core/RADIUSTests.php:1557
+msgid "certificate expired"
+msgstr "certificado expirado"
+
+#: core/RADIUSTests.php:1559
+msgid "certificate was revoked"
+msgstr "o certificado foi revogado"
+
+#: core/RADIUSTests.php:1561
+msgid "bad policy"
+msgstr "má politica"
+
+#: core/RADIUSTests.php:1563
+msgid "unknown authority"
+msgstr "entidade de certificação desconhecida"
+
+#: core/RADIUSTests.php:1566
+msgid "unknown authority or no certificate policy or another problem"
+msgstr ""
+"autoridade desconhecida ou nenhuma política de certificado ou outro problema"
+
+#~ msgid "your local %s support"
+#~ msgstr "o seu suporte local %s"
+
+#~ msgid "your local %s support page"
+#~ msgstr "a página do seu suporte local %s"
+
+#~ msgid ""
+#~ "Sorry, this should not happen - no additional information is available"
+#~ msgstr ""
+#~ "Lamentamos, não era suposto isto acontecer - não há informação adicional"
+
+#~ msgid "Andorra"
+#~ msgstr "Andorra"
+
+#~ msgid "Austria"
+#~ msgstr "Austria"
+
+#~ msgid "Belgium"
+#~ msgstr "Bélgica"
+
+#~ msgid "Bulgaria"
+#~ msgstr "Bulgária"
+
+#~ msgid "Cyprus"
+#~ msgstr "Chipre"
+
+#~ msgid "Czech Republic"
+#~ msgstr "República Checa"
+
+#~ msgid "Denmark"
+#~ msgstr "Dinamarca"
+
+#~ msgid "Estonia"
+#~ msgstr "Estónia"
+
+#~ msgid "Finland"
+#~ msgstr "Finlândia"
+
+#~ msgid "France"
+#~ msgstr "França"
+
+#~ msgid "Germany"
+#~ msgstr "Alemanha"
+
+#~ msgid "Greece"
+#~ msgstr "Grécia"
+
+#~ msgid "Croatia"
+#~ msgstr "Croácia"
+
+#~ msgid "Ireland"
+#~ msgstr "Irlanda"
+
+#~ msgid "Iceland"
+#~ msgstr "Islândia"
+
+#~ msgid "Italy"
+#~ msgstr "Itália"
+
+#~ msgid "Hungary"
+#~ msgstr "Hungria"
+
+#~ msgid "Luxembourg"
+#~ msgstr "Luxemburgo"
+
+#~ msgid "Latvia"
+#~ msgstr "Letónia"
+
+#~ msgid "Lithuania"
+#~ msgstr "Lituânia"
+
+#~ msgid "Macedonia"
+#~ msgstr "Macedónia"
+
+#~ msgid "Serbia"
+#~ msgstr "Sérvia"
+
+#~ msgid "Netherlands"
+#~ msgstr "Holanda"
+
+#~ msgid "Norway"
+#~ msgstr "Noruega"
+
+#~ msgid "Poland"
+#~ msgstr "Polónia"
+
+#~ msgid "Portugal"
+#~ msgstr "Portugal"
+
+#~ msgid "Romania"
+#~ msgstr "Roménia"
+
+#~ msgid "Slovenia"
+#~ msgstr "Eslovénia"
+
+#~ msgid "Spain"
+#~ msgstr "Espanha"
+
+#~ msgid "Sweden"
+#~ msgstr "Suécia"
+
+#~ msgid "Slovakia"
+#~ msgstr "Eslováquia"
+
+#~ msgid "Switzerland"
+#~ msgstr "Suíça"
+
+#~ msgid "Turkey"
+#~ msgstr "Turquia"
+
+#~ msgid "United Kingdom"
+#~ msgstr "Reino Unido"
+
+#~ msgid "Australia"
+#~ msgstr "Austrália"
+
+#~ msgid "Canada"
+#~ msgstr "Canadá"
+
+#~ msgid "Israel"
+#~ msgstr "Israel"
+
+#~ msgid "Japan"
+#~ msgstr "Japão"
+
+#~ msgid "New Zealand"
+#~ msgstr "Nova Zelândia"
+
+#~ msgid "U.S.A."
+#~ msgstr "E.U.A."
+
+#~ msgid "Brazil"
+#~ msgstr "Brazil"
+
+#~ msgid "Chile"
+#~ msgstr "Chile"
+
+#~ msgid "Peru"
+#~ msgstr "Perú"
+
+#~ msgid "Venezuela"
+#~ msgstr "Venezuela"
+
+#~ msgid "Default"
+#~ msgstr "Por omissão"
+
+#~ msgid "Armenia"
+#~ msgstr "Arménia"
+
+#~ msgid "Azerbaijan"
+#~ msgstr "Azerbeijão"
+
+#~ msgid "Belarus"
+#~ msgstr "Bielorrússia"
+
+#~ msgid "Ecuador"
+#~ msgstr "Equador"
+
+#~ msgid "Hong Kong"
+#~ msgstr "Hong Kong"
+
+#~ msgid "Kenya"
+#~ msgstr "Quénia"
+
+#~ msgid "Kyrgyzstan"
+#~ msgstr "Quirguistão"
+
+#~ msgid "Korea"
+#~ msgstr "Coreia"
+
+#~ msgid "Kazakhstan"
+#~ msgstr "CazaquistãoCazaquistão"
+
+#~ msgid "Morocco"
+#~ msgstr "Marrocos"
+
+#~ msgid "Moldova"
+#~ msgstr "Moldávia"
+
+#~ msgid "Montenegro"
+#~ msgstr "Montenegro"
+
+#~ msgid "Macau"
+#~ msgstr "Macau"
+
+#~ msgid "Malta"
+#~ msgstr "Malta"
+
+#~ msgid "Russia"
+#~ msgstr "Rússia"
+
+#~ msgid "Singapore"
+#~ msgstr "Singapura"
+
+#~ msgid "Thailand"
+#~ msgstr "Tailândia"
+
+#~ msgid "Taiwan"
+#~ msgstr "Formosa"
+
+#~ msgid "South Africa"
+#~ msgstr "África do Sul"
+
+#~ msgid "Could not create a new Institution!"
+#~ msgstr "Não foi possível criar uma nova <strong>Instituição</strong>!"
+
+#~ msgid ""
+#~ "Hi,\n"
+#~ "\n"
+#~ "the Identity Provider %s in your %s federation %s has been deleted from "
+#~ "%s.\n"
+#~ "\n"
+#~ "We thought you might want to know.\n"
+#~ "\n"
+#~ "Best regards,\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Bom dia,\n"
+#~ "\n"
+#~ "o fornecedor de identidade %s na %s federação %s foi apagado da %s.\n"
+#~ "\n"
+#~ "Julgamos ser útil fazer-lhe chegar esta informação.\n"
+#~ "\n"
+#~ "Cumprimentos,\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "IdP in your federation was deleted"
+#~ msgstr "IdP removido da federação"
+
+#~ msgid ""
+#~ "Hi,\n"
+#~ "\n"
+#~ "the invitation for the new Identity Provider %s in your %s federation %s "
+#~ "has been used and the IdP was created in %s.\n"
+#~ "\n"
+#~ "We thought you might want to know.\n"
+#~ "\n"
+#~ "Best regards,\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Viva,⏎⏎ o convite para o novo fornecedor de identidade %s na federação %s "
+#~ "%s foi utilizado e o fornecedor de identidade foi criado em %s.⏎⏎Julgamos "
+#~ "ser útil fazer-lhe chegar esta informação.⏎⏎Cumprimentos,⏎⏎%s"
+
+#~ msgid "IdP in your federation was created"
+#~ msgstr "IdP criado na federação."
+
+#~ msgid "Feedback"
+#~ msgstr "Comentários"

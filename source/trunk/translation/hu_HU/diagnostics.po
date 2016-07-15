@@ -1,0 +1,625 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Janos Mohacsi <mohacsi@niif.hu>, 2012,2014-2015
+# Janos Mohacsi <mohacsi@niif.hu>, 2012
+msgid ""
+msgstr ""
+"Project-Id-Version: eduroam CAT\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"PO-Revision-Date: 2015-04-07 14:08+0000\n"
+"Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
+"Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
+"hu/)\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/RADIUSTests.php:263
+msgid "eduPKI"
+msgstr "eduPKI"
+
+#: core/RADIUSTests.php:264
+msgid "Nicolaus Copernicus University"
+msgstr "Kopernikusz Egyetem"
+
+#: core/RADIUSTests.php:265
+msgid "accredited"
+msgstr "minősített"
+
+#: core/RADIUSTests.php:266
+msgid "non-accredited"
+msgstr "nem minősített"
+
+#: core/RADIUSTests.php:267
+msgid "correct certificate"
+msgstr "korrekt tanúsítvány"
+
+#: core/RADIUSTests.php:268
+msgid "certificate with wrong policy OID"
+msgstr "rossz policy OID-ű tanusítvány"
+
+#: core/RADIUSTests.php:269
+msgid "expired certificate"
+msgstr "lejárt tanúsítvány"
+
+#: core/RADIUSTests.php:270
+msgid "revoked certificate"
+msgstr "visszavont tanúsítvány"
+
+#: core/RADIUSTests.php:271
+msgid "pass"
+msgstr "sikerült"
+
+#: core/RADIUSTests.php:272
+msgid "fail"
+msgstr "nem sikerült"
+
+#: core/RADIUSTests.php:273
+msgid "eduroam-accredited CA (now only for tests)"
+msgstr "eduroam-minősített CA (most csak teszt célű)"
+
+#: core/RADIUSTests.php:379
+msgid "Completed"
+msgstr "Befejezett"
+
+#: core/RADIUSTests.php:391
+msgid "This check was skipped."
+msgstr "Ezt az ellenőrzést kihagytuk"
+
+#: core/RADIUSTests.php:398
+msgid "There were errors during the test."
+msgstr "Hiba történt az ellenőrzés során"
+
+#: core/RADIUSTests.php:406
+msgid "This realm has no NAPTR records."
+msgstr "Ennel a realm-nek nincsen NAPTR rekordja"
+
+#: core/RADIUSTests.php:413
+msgid "NAPTR records were found, but all of them refer to unrelated services."
+msgstr "NAPTR rekord létezik, de mindegyike nem releváns szolgáltatásra mutat."
+
+#: core/RADIUSTests.php:421
+msgid "There was no reply at all from the RADIUS server."
+msgstr "Nem érkezett válasz a RADIUS szervertől."
+
+#: core/RADIUSTests.php:428
+msgid ""
+"There was a bidirectional communication with the RADIUS server, but it ended "
+"halfway through."
+msgstr ""
+"Két irányú kommunikáció elindult a RADIUS szerverrel, de nem fejeződött be."
+
+#: core/RADIUSTests.php:435
+msgid ""
+"The RADIUS server immediately rejected the authentication request in its "
+"first reply."
+msgstr ""
+"A RADIUS szerver rögtön visszautasította az azonosítási kérést az első "
+"válaszban."
+
+#: core/RADIUSTests.php:442
+msgid ""
+"The RADIUS server rejected the authentication request after an EAP "
+"conversation."
+msgstr ""
+"RADIUS visszautasította az azonosítási kérést az EAP csomagváltás után."
+
+#: core/RADIUSTests.php:449
+msgid "Connection refused"
+msgstr "Kapcsolódás elutasítva"
+
+#: core/RADIUSTests.php:456
+msgid "Not enough data provided to perform an authentication"
+msgstr "Nem adtál meg elég adatot az azonosítás elvégzéséhez."
+
+#: core/RADIUSTests.php:463
+msgid ""
+"The certificate password you provided does not match the certificate file."
+msgstr ""
+"A megadott tanusítvány jelszó nem tanusítvány fájlban lévőhöz tartozik. "
+
+#: core/RADIUSTests.php:471
+msgid ""
+"The certificate chain includes the root CA certificate. This does not serve "
+"any useful purpose but inflates the packet exchange, possibly leading to "
+"more round-trips and thus slower authentication."
+msgstr ""
+"A tanusítvány lány tartalmazza a gyökér CA tanusítványt. Ez szükségtelen, "
+"növelheti a csomagváltások számát ezáltal lassítva az azonosítást."
+
+#: core/RADIUSTests.php:478
+msgid "There is more than one server certificate in the chain."
+msgstr "Több mint 1 szervertanusítvány található a tanusítvány láncban."
+
+#: core/RADIUSTests.php:485
+msgid "There is no server certificate in the chain."
+msgstr "Nincsen szerver tanusítvány a tanusítvány láncban."
+
+#: core/RADIUSTests.php:492
+msgid ""
+"At least one certificate in the chain is signed with the MD5 signature "
+"algorithm. Many Operating Systems, including Apple iOS, will fail to "
+"validate this certificate."
+msgstr ""
+"Legalább 1 szerver tanusítvány a tanusítványláncban MD5-el van aláírva. Sok "
+"operációs rendszer, sok operációs rendszer (pl. Apple iOS, Windows 8.x) nem "
+"fogja elfogadni a tanusítványláncot. "
+
+#: core/RADIUSTests.php:499
+msgid ""
+"At least one certificate in the chain had a public key of less than 1024 "
+"bits. Many recent operating systems consider this unacceptable and will fail "
+"to validate the server certificate."
+msgstr ""
+"A tanusítványlánc legalább 1 tanusítványának publikus kulcsa kisebb mint "
+"1024 bit. Sok újabb operációs rendszer ezt nem tartja elfogadhatónak és a "
+"szerver tanusítványt nem fogadja el. "
+
+#: core/RADIUSTests.php:506
+msgid ""
+"The server certificate does not have the extension 'extendedKeyUsage: TLS "
+"Web Server Authentication'. Most Microsoft Operating Systems will fail to "
+"validate this certificate."
+msgstr ""
+"A szerver tanusítvány nem tartmazza 'extendedKeyUsage: TLS Web Server "
+"Authentication' kiegészítést. A legtőbb Microsoft operációs rendszer nem "
+"fogadja el ezt a tanusítványt."
+
+#: core/RADIUSTests.php:513
+msgid ""
+"The server certificate did not include a CRL Distribution Point, creating "
+"compatibility problems with Windows Phone 8."
+msgstr ""
+"A szerver tanusítvány nem tartalmaz CRL Distribution Point attributumot. Ez "
+"kompatbilitási problémát jelent a Windows Phone 8 esetén."
+
+#: core/RADIUSTests.php:520
+msgid ""
+"The server certificate's 'CRL Distribution Point' extension does not point "
+"to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
+"certificate. Checking server certificate validity against a CRL will not be "
+"possible."
+msgstr ""
+"A szerver tanusítvány 'CRL Distribution Point' kiegészítése nem egy HTTP/"
+"HTTPS URL. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
+"ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
+"nem lesz lehetséges. "
+
+#: core/RADIUSTests.php:527
+msgid ""
+"The extension 'CRL Distribution Point' in the server certificate points to a "
+"non-existing location. Some Operating Systems check certificate validity by "
+"consulting the CRL and will fail to validate the certificate. Checking "
+"server certificate validity against a CRL will not be possible."
+msgstr ""
+"A szerver tanusítvány 'CRL Distribution Point' kiegészítése egy nem helyre "
+"mutat. Néhány operációs rendszer lehetséges, hogy nem fogja tudni "
+"ellenőrizni a tanusítványt. A szerver tanusítvány ellenőrzése a CRL alapján "
+"nem lesz lehetséges. "
+
+#: core/RADIUSTests.php:534
+msgid "The server certificate was revoked by the CA!"
+msgstr "A szerver tanusítványt visszavonta a tanusítványhatóság!"
+
+#: core/RADIUSTests.php:541
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which does not parse as "
+"a hostname. This can be problematic on some supplicants. If the certificate "
+"also contains names which are a proper hostname, and you only use those for "
+"your supplicant configuration, then you can safely ignore this notice."
+msgstr ""
+"A tanusítvány CN vagy subjectAltName:DNS nem tartalmaz szervernevet. Ez "
+"néhány supplicant számára problémát jelent. Ha tanusítvány tartalmazza a "
+"nevet, amely egy megfelelő szervernév és ez a tanusítvány csak a supplicant "
+"konfigurációhoz van használva, akkor ezt a megjegyzést figyelmen kívül "
+"hagyhatod."
+
+#: core/RADIUSTests.php:548
+msgid ""
+"The certificate contained a CN or subjectAltName:DNS which contains a "
+"wildcard ('*'). This can be problematic on some supplicants. If the "
+"certificate also contains names which are wildcardless, and you only use "
+"those for your supplicant configuration, then you can safely ignore this "
+"notice."
+msgstr ""
+"A tanusítvány CN vagy subjectAltName:DNS mezeje wildcard (\"*\")-or "
+"tartalmaz . Ez néhány supplicant számára problémát jelent. Ha tanusítvány "
+"tartalmazza olyan nevet, amely nem tartalmaz wildcard-ot és ez a tanusítvány "
+"csak a supplicant konfigurációhoz van használva, akkor ezt a megjegyzést "
+"figyelmen kívül hagyhatod."
+
+#: core/RADIUSTests.php:555
+msgid ""
+"At least one certificate is outside its validity period (not yet valid, or "
+"already expired)!"
+msgstr ""
+"Legalább 1 tanusítvány az érvényességi idején kivüli (még nem érvenyes, vagy "
+"már nem érvényes)."
+
+#: core/RADIUSTests.php:562
+#, php-format
+msgid ""
+"At least one intermediate certificate in your CAT profile is outside its "
+"validity period (not yet valid, or already expired), but this certificate "
+"was not used for server validation. Consider removing it from your %s "
+"configuration."
+msgstr ""
+"Legalább 1 köztes tanusítvány az érvényességi idején kivüli (még nem "
+"érvenyes, vagy már nem érvényes), de ez a tanusítvány nem használt a szerver "
+"azonosításához. Érdemes volna kivenni a %s konfigurációból."
+
+#: core/RADIUSTests.php:569
+msgid ""
+"The server certificate could not be verified to the root CA you configured "
+"in your profile!"
+msgstr ""
+"A szerver tanusítvány nem ellenőrizhető azzal a root CA-val, amely a profile-"
+"hoz konfigurálva lett."
+
+#: core/RADIUSTests.php:573
+msgid ""
+"The certificate chain as received in EAP was not sufficient to verify the "
+"certificate to the root CA in your profile. It was verified using the "
+"intermediate CAs in your profile though. You should consider sending the "
+"required intermediate CAs inside the EAP conversation."
+msgstr ""
+"Az EAP során érkezett  tanusítvány lánc nem ellenőrizhető azzal a root CA-"
+"val, amely a profile-hoz konfigurálva lett. A profile köztes CA-jával "
+"azonban ellenőrizheő volt. Javasolt a szükséges köztes CA-k küldése az EAP "
+"üzenetváltásban.   "
+
+#: core/RADIUSTests.php:579
+msgid ""
+"The EAP server name does not match any of the configured names in your "
+"profile!"
+msgstr ""
+"Az EAP szerver neve nem illeszkedik a profile-ban semmilyen konfigurált "
+"névvel. "
+
+#: core/RADIUSTests.php:586
+msgid ""
+"The configured EAP server name matches either the CN or a subjectAltName:DNS "
+"of the incoming certificate; best current practice is that the certificate "
+"should contain the name in BOTH places."
+msgstr ""
+"A konfigurált EAP szerver neve nem illeszkedik a beérkező tanusítvány CN "
+"vagy subjectAltName:DNS mezejével . A legjobb megoldás az, ha tanusítvány "
+"MINDKÉT helyen tartalmazza ezt a nevet."
+
+#: core/RADIUSTests.php:593
+msgid ""
+"At least one certificate did not contain any BasicConstraints extension; "
+"which makes it unclear if it's a CA certificate or end-entity certificate. "
+"At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate "
+"for EAP purposes!"
+msgstr ""
+"Legalább 1 tanusítvány nem tartalmaz semmilyen BasicConstraints "
+"kiegeszítést. Ez alapján nem világos, hogy a tanusítvány CA tanusítvány, "
+"vagy végponti tanusítvány. Legalább a Mac OS X 10.8 (Mountain Lion) nem "
+"fogadja el ezt a tanusítványt EAP célokra. "
+
+#: core/RADIUSTests.php:600
+msgid "The server presented a certificate from an unknown authority."
+msgstr ""
+"A szerver egy ismeretlen tanusítvány hatóság által aláírt tanusítványt "
+"mutatott be. "
+
+#: core/RADIUSTests.php:607
+msgid "The server accepted the INVALID client certificate."
+msgstr "A szerver egy érvénytelen kliens tanusítványt fogadott el."
+
+#: core/RADIUSTests.php:614
+msgid "The server rejected the client certificate, even though it was valid."
+msgstr ""
+"A szerver visszautasított egy kliens tanusítványt, habár az érvényes volt."
+
+#: core/RADIUSTests.php:621
+msgid "The server rejected the client certificate as expected."
+msgstr "A szerver visszautasította kliens tanusítványt, ahogy az várható volt."
+
+#: core/RADIUSTests.php:628
+msgid "The CRL of a certificate could not be found."
+msgstr "A tanusítvány CRL-je nem található."
+
+#: core/RADIUSTests.php:635
+msgid "EAP method negotiation failed!"
+msgstr "EAP metódus megbeszélése meghiúsult."
+
+#: core/RADIUSTests.php:642
+msgid ""
+"The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
+"1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
+"under these circumstances!"
+msgstr ""
+
+#: core/RADIUSTests.php:649
+msgid ""
+"The certificate contains more than one CommonName (CN) field. This is "
+"reportedly problematic on many supplicants."
+msgstr ""
+
+#: core/RADIUSTests.php:1557
+msgid "certificate expired"
+msgstr "a tanúsítvány lejárt"
+
+#: core/RADIUSTests.php:1559
+msgid "certificate was revoked"
+msgstr "a tanúsítványt visszavonták"
+
+#: core/RADIUSTests.php:1561
+msgid "bad policy"
+msgstr "rossz policy"
+
+#: core/RADIUSTests.php:1563
+msgid "unknown authority"
+msgstr "ismeretlen hatóság"
+
+#: core/RADIUSTests.php:1566
+msgid "unknown authority or no certificate policy or another problem"
+msgstr "ismeretlen hatóság vagy nincsen tanusítvány policy vagy egyéb probléma"
+
+#~ msgid "your local %s support"
+#~ msgstr "helyi támogató: %s"
+
+#~ msgid "your local %s support page"
+#~ msgstr "helyi támogató honlap: %s"
+
+#~ msgid ""
+#~ "Sorry, this should not happen - no additional information is available"
+#~ msgstr ""
+#~ "Ennek nem lett volna szabad bekövetkeznie - nincsen további információ "
+
+#~ msgid "Andorra"
+#~ msgstr "Andorra"
+
+#~ msgid "Austria"
+#~ msgstr "Ausztria"
+
+#~ msgid "Belgium"
+#~ msgstr "Belgium"
+
+#~ msgid "Bulgaria"
+#~ msgstr "Bulgária"
+
+#~ msgid "Cyprus"
+#~ msgstr "Ciprus"
+
+#~ msgid "Czech Republic"
+#~ msgstr "Cseh Köztársaság"
+
+#~ msgid "Denmark"
+#~ msgstr "Dánia"
+
+#~ msgid "Estonia"
+#~ msgstr "Észtország"
+
+#~ msgid "Finland"
+#~ msgstr "Finnország"
+
+#~ msgid "France"
+#~ msgstr "Franciaország"
+
+#~ msgid "Germany"
+#~ msgstr "Németország"
+
+#~ msgid "Greece"
+#~ msgstr "Görögország"
+
+#~ msgid "Croatia"
+#~ msgstr "Horváthország"
+
+#~ msgid "Ireland"
+#~ msgstr "Írország"
+
+#~ msgid "Iceland"
+#~ msgstr "Izland"
+
+#~ msgid "Italy"
+#~ msgstr "Olaszország"
+
+#~ msgid "Hungary"
+#~ msgstr "Magyarország"
+
+#~ msgid "Luxembourg"
+#~ msgstr "Luxemburg"
+
+#~ msgid "Latvia"
+#~ msgstr "Lettország"
+
+#~ msgid "Lithuania"
+#~ msgstr "Litvánia"
+
+#~ msgid "Macedonia"
+#~ msgstr "Macedónia"
+
+#~ msgid "Serbia"
+#~ msgstr "Szerbia"
+
+#~ msgid "Netherlands"
+#~ msgstr "Hollandia"
+
+#~ msgid "Norway"
+#~ msgstr "Norvégia"
+
+#~ msgid "Poland"
+#~ msgstr "Lengyelország"
+
+#~ msgid "Portugal"
+#~ msgstr "Portugália"
+
+#~ msgid "Romania"
+#~ msgstr "Románia"
+
+#~ msgid "Slovenia"
+#~ msgstr "Szlovénia"
+
+#~ msgid "Spain"
+#~ msgstr "Spanyolország"
+
+#~ msgid "Sweden"
+#~ msgstr "Svédország"
+
+#~ msgid "Slovakia"
+#~ msgstr "Szlovákia"
+
+#~ msgid "Switzerland"
+#~ msgstr "Svájc"
+
+#~ msgid "Turkey"
+#~ msgstr "Törökország"
+
+#~ msgid "United Kingdom"
+#~ msgstr "Egyesült Királyság"
+
+#~ msgid "Australia"
+#~ msgstr "Ausztrália"
+
+#~ msgid "Canada"
+#~ msgstr "Kanada"
+
+#~ msgid "Israel"
+#~ msgstr "Izrael"
+
+#~ msgid "Japan"
+#~ msgstr "Japán"
+
+#~ msgid "New Zealand"
+#~ msgstr "Új Zéland"
+
+#~ msgid "U.S.A."
+#~ msgstr "USA"
+
+#~ msgid "Brazil"
+#~ msgstr "Brazilia"
+
+#~ msgid "Chile"
+#~ msgstr "Chile"
+
+#~ msgid "Peru"
+#~ msgstr "Peru"
+
+#~ msgid "Venezuela"
+#~ msgstr "Venezuela"
+
+#~ msgid "Default"
+#~ msgstr "Alapértelmezett"
+
+#~ msgid "Armenia"
+#~ msgstr "Örményország"
+
+#~ msgid "Azerbaijan"
+#~ msgstr "Azerbajdzsán"
+
+#~ msgid "Belarus"
+#~ msgstr "Fehéroroszország"
+
+#~ msgid "Ecuador"
+#~ msgstr "Ekvádor"
+
+#~ msgid "Hong Kong"
+#~ msgstr "Hong Kong"
+
+#~ msgid "Kenya"
+#~ msgstr "Kenya"
+
+#~ msgid "Kyrgyzstan"
+#~ msgstr "Kirgizisztán"
+
+#~ msgid "Korea"
+#~ msgstr "Korea"
+
+#~ msgid "Kazakhstan"
+#~ msgstr "Kazahsztán"
+
+#~ msgid "Morocco"
+#~ msgstr "Marokko"
+
+#~ msgid "Moldova"
+#~ msgstr "Moldova"
+
+#~ msgid "Montenegro"
+#~ msgstr "Montenegro"
+
+#~ msgid "Macau"
+#~ msgstr "Makaó"
+
+#~ msgid "Malta"
+#~ msgstr "Málta"
+
+#~ msgid "Russia"
+#~ msgstr "Oroszország"
+
+#~ msgid "Singapore"
+#~ msgstr "Szingapúr"
+
+#~ msgid "Thailand"
+#~ msgstr "Tájföld"
+
+#~ msgid "Taiwan"
+#~ msgstr "Tajvan"
+
+#~ msgid "South Africa"
+#~ msgstr "Dél Afrika"
+
+#~ msgid "Could not create a new Institution!"
+#~ msgstr "Nem tudok új Intézményt létrehozni!"
+
+#~ msgid ""
+#~ "Hi,\n"
+#~ "\n"
+#~ "the Identity Provider %s in your %s federation %s has been deleted from "
+#~ "%s.\n"
+#~ "\n"
+#~ "We thought you might want to know.\n"
+#~ "\n"
+#~ "Best regards,\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Üdvözlet!\n"
+#~ "\n"
+#~ "A %s Identity Provider a %s %s föderációból %s törlésre került.\n"
+#~ "\n"
+#~ "Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+#~ "\n"
+#~ "Üdvözlettel,\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "IdP in your federation was deleted"
+#~ msgstr "IdP-t a szövetségből töröltük"
+
+#~ msgid ""
+#~ "Hi,\n"
+#~ "\n"
+#~ "the invitation for the new Identity Provider %s in your %s federation %s "
+#~ "has been used and the IdP was created in %s.\n"
+#~ "\n"
+#~ "We thought you might want to know.\n"
+#~ "\n"
+#~ "Best regards,\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Szép napot!\n"
+#~ "\n"
+#~ "Az %s Identity Providernek szóló meghívó a %s  %s föderációban "
+#~ "felhasználásra került. Az  IdP létrejött az  %s rendszerben.\n"
+#~ "\n"
+#~ "Úgy gondoltuk, hogy erről fontos, hogy értesítsünk.\n"
+#~ "\n"
+#~ "Üdvözlettel,\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "IdP in your federation was created"
+#~ msgstr "IdP jött létre a föderációban"
+
+#~ msgid "Feedback"
+#~ msgstr "Visszajelzés"
