@@ -122,8 +122,10 @@ class Device_Chromebook extends DeviceConfig {
             if ($eap_prettyprint["OUTER"] == "PEAP" && $eap_prettyprint["INNER"] == "MSCHAPV2")
                 // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
                 $eap_prettyprint["INNER"] = "MSCHAPv2";
-            if ($eap_prettyprint["OUTER"] == "TTLS" && $eap_prettyprint["INNER"] == "MSCHAPV2")
+            if ($eap_prettyprint["OUTER"] == "TTLS" && $eap_prettyprint["INNER"] == "MSCHAPV2") {
+                $eap_prettyprint["OUTER"] = "EAP-TTLS";
                 $eap_prettyprint["INNER"] = "MSCHAPv2";
+            }
             if ($eap_prettyprint["OUTER"] == "TLS")
                 $eap_prettyprint["OUTER"] = "EAP-TLS";
             // define EAP properties
