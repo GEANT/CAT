@@ -172,10 +172,13 @@ class Device_Chromebook extends DeviceConfig {
         // define CA certificates
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            $ca_sanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25);
+            debug(2,$ca['pem']);
+            $ca_sanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            debug(2,$ca_sanitized."\n");
             // remove \n
             $ca_sanitized = str_replace("\n", "", $ca_sanitized);
             $json_array["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $ca_sanitized];
+            debug(2,$ca_sanitized."\n");
         }
                 
         $output_json = json_encode($json_array, JSON_PRETTY_PRINT);
