@@ -203,7 +203,7 @@ add_option("support", $idpoptions);
 ?>
         </table>
         <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button></fieldset>
-    <fieldset class="option_container">
+<!--    <fieldset class="option_container">
         <legend><strong><?php echo _("EAP details for all users"); ?></strong></legend>
 <?php
 if ($wizard_style)
@@ -216,7 +216,7 @@ if ($wizard_style)
         ?>
         </table>
         <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
-    </fieldset>
+    </fieldset>-->
 <?php
 if ($wizard_style) {
     echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
