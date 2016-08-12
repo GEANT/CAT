@@ -28,8 +28,8 @@ $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 // delete stored realm
 
-if(isset($_SESSION['check_realm']))
-   unset($_SESSION['check_realm']);
+if (isset($_SESSION['check_realm']))
+    unset($_SESSION['check_realm']);
 
 
 geo_widget_head($my_inst->federation, $my_inst->name);
@@ -55,9 +55,10 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                     <td>
                     </td>
                     <td>
-                        <strong><?php $foofed = new Federation($my_inst->federation);
-                        echo Federation::$FederationList[strtoupper($my_inst->federation)];
-                        ?></strong>
+                        <strong><?php
+                            $foofed = new Federation($my_inst->federation);
+                            echo Federation::$FederationList[strtoupper($my_inst->federation)];
+                            ?></strong>
                     </td>
                 </tr>
 <?php echo infoblock($idpoptions, "general", "IdP"); ?>
@@ -85,12 +86,12 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64,".base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
+            $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
-            echo "<img width='".($size[0]/4)."' height='".($size[1]/4)."' src='$uri' alt='QR-code'/>";
+            echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
             <br>
-            <?php echo "<a href='$displayurl'>$displayurl</a>";?>
+        <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
         </div>
         <?php
         $loadmap = FALSE;
@@ -114,7 +115,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( Config::$CONSORTIUM['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!")." " : "" ).sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( Config::$CONSORTIUM['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
                 </form>
 
             </td>
@@ -221,7 +222,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         if (array_search(EAP::$TTLS_PAP, $typelist) !== FALSE && array_search(EAP::$TTLS_GTC, $typelist) === FALSE && array_search(EAP::$PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAP::$TTLS_MSCHAP2, $typelist) === FALSE)
         /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
-            $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."),"https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
+            $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
 
         $buffer_eaptypediv .= "</div>";
         echo $buffer_eaptypediv;
@@ -265,9 +266,9 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             else
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://' ) . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-            $uri = "data:image/png;base64,".base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
+            $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
-            echo "<img width='".($size[0]/4)."' height='".($size[1]/4)."' src='$uri' alt='QR-code'/>";
+            echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 
             //echo "<nobr>$displayurl</nobr></a>";
             echo "<p>$displayurl</p></a>";
@@ -279,21 +280,53 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             foreach ($stats as $dev => $count)
                 echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
             echo "</table></div>";
-            
-            
         }
         echo "</div>";
         // dummy div to keep a little distance
         echo "<div style='height:20px'></div>";
     }
-    ?>
-    <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-        <div>
-            <button type='submit' name='profile_action' value='new'>
-                <?php echo _("Add new profile ..."); ?>
-            </button>
-        </div>
-    </form>
-    <?php
+
+    // the opportunity to add a new silverbullet profile is only shown if
+    // a) there are not any profiles yet
+    // b) federation wants this to happen
+    if (count($my_inst->listProfiles()) == 0) {
+        $myfed = new Federation($my_inst->federation);
+        if (count($myfed->getAttributes("fed:silverbullet")) > 0) {
+            ?>
+            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                <div>
+                    <button type='submit' name='profile_action' value='new'>
+                        <?php echo _("Add eduroam-as-a-service profile ..."); ?>
+                    </button>
+                </div>
+            </form>
+            <?php
+        }
+    }
+
+    // adding a normal profile is only possible if silverbullet is not in use
+    // i.e. either there are no profiles or all profiles are non-silverbullet
+    // this is checked by looking whether the "special" EAP method is in the
+    // preference list
+    $found_silverbullet = FALSE;
+    foreach ($my_inst->listProfiles() as $one_profile) {
+        $methods = $one_profile->getEapMethodsinOrderOfPreference();
+        // silver bullet is an exclusive method; looking in the first entry of
+        // the array will catch it.
+        if (count($methods) > 0 && $methods[0] == EAP::$SILVERBULLET) {
+            $found_silverbullet = TRUE;
+        }
+    }
+    if ($found_silverbullet == FALSE) {
+        ?>
+        <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+            <div>
+                <button type='submit' name='profile_action' value='new'>
+                    <?php echo _("Add new RADIUS/EAP profile ..."); ?>
+                </button>
+            </div>
+        </form>
+        <?php
+    }
     footer();
     ?>

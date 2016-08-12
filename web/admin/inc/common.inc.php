@@ -69,6 +69,8 @@ function display_name($input) {
         _("Preferred Skin for User Area") => "fed:desired_skin",
         _("Federation Operator Name") => "fed:realname",
         _("Custom text in IdP Invitations") => "fed:custominvite",
+        _("Enable Silver Bullet") => "fed:silverbullet",
+        _("Silver Bullet: Do not terminate EAP") => "fed:silverbullet-noterm",
     ];
 
     if (count(Config::$CONSORTIUM['ssid']) > 0) {

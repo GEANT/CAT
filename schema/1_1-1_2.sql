@@ -15,7 +15,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:custominvite','custom text to send with new IdP invitations','text', NULL),
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
-('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL);
+('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
+('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL);
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,
