@@ -50,74 +50,86 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
 
 pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), Config::$APPEARANCE['productname']), "ADMIN-IDP");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-if (isset($_POST['submitbutton'])) {
-    if (( $_POST['submitbutton'] == BUTTON_SAVE || $_POST['submitbutton'] == BUTTON_CONTINUE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go
-        $inst_name = $my_inst->name;
-        echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
-        $remaining_attribs = $my_inst->beginflushAttributes();
 
-        echo "<table>";
-        $killlist = processSubmittedFields($my_inst, $remaining_attribs);
-        echo "</table>";
-        // print_r($killlist);
-        $my_inst->commitFlushAttributes($killlist);
-        // delete cached logo, if present
-        $logofile = dirname(dirname(__FILE__))."/downloads/logos/".$my_inst->identifier.".png";
-        if (is_file($logofile))
-                unlink($logofile);
-        
-        CAT::writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
+if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
+    // this page doesn't make sense without POST values
+    footer();
+    exit(0);
+}
 
-        // re-instantiate ourselves... profiles need fresh data
+if ($_POST['submitbutton'] != BUTTON_SAVE && $_POST['submitbutton'] != BUTTON_CONTINUE) {
+    // unexpected button value
+    footer();
+    exit(0);
+}
 
-        $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$inst_name = $my_inst->name;
+echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
+$remaining_attribs = $my_inst->beginflushAttributes();
 
-        // check if we have any SSID at all.
+echo "<table>";
+$killlist = processSubmittedFields($my_inst, $remaining_attribs);
+echo "</table>";
+// print_r($killlist);
+$my_inst->commitFlushAttributes($killlist);
+// delete cached logo, if present
+$logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identifier . ".png";
+if (is_file($logofile))
+    unlink($logofile);
 
-        $ssids = [];
+CAT::writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
 
-        if (isset(Config::$CONSORTIUM['ssid']) && count(Config::$CONSORTIUM['ssid']) > 0)
-            foreach (Config::$CONSORTIUM['ssid'] as $ssidname)
-                $ssids[] = $ssidname . " " . (isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+// re-instantiate ourselves... profiles need fresh data
 
-        $custom_ssids_wpa2 = $my_inst->getAttributes("media:SSID");
-        $custom_ssids_wpa = $my_inst->getAttributes("media:SSID_with_legacy");
-        $wired_support = $my_inst->getAttributes("media:wired");
+$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
-        if (count($custom_ssids_wpa) > 0)
-            foreach ($custom_ssids_wpa as $ssidname)
-                $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
+// check if we have any SSID at all.
 
-        if (count($custom_ssids_wpa2) > 0)
-            foreach ($custom_ssids_wpa2 as $ssidname)
-                $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
+$ssids = [];
 
-        // 1.0.1 is currently in string freeze, so the UI is not displayed.
-        // TODO remove the comment tags for 1.0.2
-        echo "<table>";
-        if (count($ssids) > 0) {
-            $printedlist = "";
-            foreach ($ssids as $names)
-                $printedlist = $printedlist . "$names ";
-            echo UI_okay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
-        };
-        if (count($wired_support) > 0) {
-            echo UI_okay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
-        }
-        if (count($ssids) == 0 && count($wired_support) == 0) {
-            echo UI_warning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
-        }
-        echo "</table>";
+if (isset(Config::$CONSORTIUM['ssid']) && count(Config::$CONSORTIUM['ssid']) > 0)
+    foreach (Config::$CONSORTIUM['ssid'] as $ssidname)
+        $ssids[] = $ssidname . " " . (isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
 
-        foreach ($my_inst->listProfiles() as $index => $profile) {
-            $profile->prepShowtime();
-        }
+$custom_ssids_wpa2 = $my_inst->getAttributes("media:SSID");
+$custom_ssids_wpa = $my_inst->getAttributes("media:SSID_with_legacy");
+$wired_support = $my_inst->getAttributes("media:wired");
 
-        if ($_POST['submitbutton'] == BUTTON_SAVE)
-            echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
-        else if ($_POST['submitbutton'] == BUTTON_CONTINUE)
-            echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to profile definition") . "</button></form>";
+if (count($custom_ssids_wpa) > 0)
+    foreach ($custom_ssids_wpa as $ssidname)
+        $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
+
+if (count($custom_ssids_wpa2) > 0)
+    foreach ($custom_ssids_wpa2 as $ssidname)
+        $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
+
+echo "<table>";
+if (count($ssids) > 0) {
+    $printedlist = "";
+    foreach ($ssids as $names)
+        $printedlist = $printedlist . "$names ";
+    echo UI_okay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+};
+if (count($wired_support) > 0) {
+    echo UI_okay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+}
+if (count($ssids) == 0 && count($wired_support) == 0) {
+    echo UI_warning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+}
+echo "</table>";
+
+foreach ($my_inst->listProfiles() as $index => $profile) {
+    $profile->prepShowtime();
+}
+if ($_POST['submitbutton'] == BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
+    echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
+} else { // does federation want us to offer Silver Bullet?
+    // if so, show both buttons; if not, just the normal EAP profile button
+    $myfed = new Federation($my_inst->federation);
+    $allow_sb = $myfed->getAttributes("fed:silverbullet");
+    if (count($allow_sb) > 0) {
+        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to eduroam-as-a-service properties") . "</button></form>";
     }
+    echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
 }
 footer();
-?>
