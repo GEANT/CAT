@@ -227,13 +227,9 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         echo $buffer_eaptypediv;
         $has_eaptypes = count($profile_list->getEapMethodsInOrderOfPreference(1));
         $has_realm = $profile_list->getAttributes("internal:realm");
-        $has_realm = $has_realm[0]['value']; ?>
-        <div class='profilemodulebuttons' style='float:right;'>
-            <?php
-            
-            $eaptypes = $profile_list->getEapMethodsinOrderOfPreference();
-            if (!in_array(EAP::$SILVERBULLET, $eaptypes)) {
-            if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || ( count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0 && Config::$RADIUSTESTS['TLS-discoverytag'] != ""))
+        $has_realm = $has_realm[0]['value'];
+        echo "<div class='profilemodulebuttons' style='float:right;'>";
+        if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || ( count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0 && Config::$RADIUSTESTS['TLS-discoverytag'] != ""))
             echo "<form action='action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
@@ -243,19 +239,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                               <button type='submit' name='profile_action' value='check' " . ($has_eaptypes ? "" : "disabled='disabled'  title='" . _("You have not fully configured any supported EAP types!") . "'") . ">
                                   " . _("Installer Fine-Tuning and Download") . "
                               </button>
-                 </form>";
-            } else {// show Silverbullet admin UI instead
-                echo "<form action='edit_userbase.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
-                              <button type='submit' name='profile_action' value='check'>
-                                  " . _("Manage User Base") . "
-                              </button>
-                 </form>";
-            }
-        ?>
-                    </div>
-                    <div class='buttongroupprofilebox' style='clear:both;'>
-                        <?php
-                          echo "<form action='edit_profile.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+                 </form>
+                   </div>";
+
+        echo "        <div class='buttongroupprofilebox' style='clear:both;'>
+                          <form action='edit_profile.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                                <hr/>
                                <button type='submit' name='profile_action' value='edit'>" . _("Edit") . "</button>
                           </form>
@@ -265,13 +253,10 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                                </button>
                            </form>
                       </div>";
-            
-                
-        ?>
-        </div>
-        <!-- dummy width to keep a little distance-->
-        <div style='width:20px;'></div>
-        <?php
+
+        echo "</div>";
+// dummy width to keep a little distance
+        echo "<div style='width:20px;'></div>";
         if ($profile_list->getShowtime()) {
             echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
             $URL = $profile_list->getCollapsedAttributes();
