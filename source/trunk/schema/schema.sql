@@ -172,4 +172,5 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:logo_file','logo of the NRO/federation','file', NULL),
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:custominvite','custom text to send with new IdP invitations','text', NULL),
-('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL);
+('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
+('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL);
