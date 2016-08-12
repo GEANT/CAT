@@ -30,7 +30,6 @@ define("PWD", 52);
 define("NE_PAP", 1);
 define("NE_MSCHAP", 2);
 define("NE_MSCHAP2", 3);
-define("NE_SILVERBULLET", 999);
 
 /**
  * Convenience functions for EAP types
@@ -49,7 +48,6 @@ define("INTEGER_FAST_GTC", 4);
 define("INTEGER_TTLS_GTC", 5);
 define("INTEGER_TTLS_MSCHAPv2", 6);
 define("INTEGER_EAP_pwd", 7);
-define("INTEGER_SILVERBULLET", 8);
 
 class EAP {
 
@@ -76,13 +74,6 @@ class EAP {
      * @var array of EAP type IDs that describe EAP-TLS
      */
     public static $TLS = ["OUTER" => TLS, "INNER" => NONE];
-
-   /**
-     * EAP-TLS: Outer EAP Type = 13, no inner EAP
-     *
-     * @var array of EAP type IDs that describe EAP-TLS
-     */
-    public static $SILVERBULLET = ["OUTER" => TLS, "INNER" => NE_SILVERBULLET];
 
     /**
      * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
@@ -147,7 +138,6 @@ class EAP {
         $EAP_DISPLAY_NAME[serialize(EAP::$FAST_GTC)] = ["OUTER" => 'FAST', "INNER" => 'GTC'];
         $EAP_DISPLAY_NAME[serialize(EAP::$PWD)] = ["OUTER" => 'PWD', "INNER" => ''];
         $EAP_DISPLAY_NAME[serialize(EAP::$EAP_NONE)] = ["OUTER" => '', "INNER" => ''];
-        $EAP_DISPLAY_NAME[serialize(EAP::$SILVERBULLET)] = ["OUTER" => 'TLS', "INNER" => 'SILVERBULLET'];
         $EAP_DISPLAY_NAME[serialize(EAP::$EAP_ANY)] = ["OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC'];
         return($EAP_DISPLAY_NAME[serialize($eap)]);
     }
@@ -181,7 +171,6 @@ class EAP {
         $returnarray[] = EAP::$TTLS_GTC;
         $returnarray[] = EAP::$TTLS_MSCHAP2;
         $returnarray[] = EAP::$TTLS_PAP;
-        $returnarray[] = EAP::$SILVERBULLET;
         return $returnarray;
     }
 
@@ -201,8 +190,6 @@ class EAP {
                 return INTEGER_TTLS_MSCHAPv2;
             case EAP::$TTLS_PAP:
                 return INTEGER_TTLS_PAP;
-            case EAP::$SILVERBULLET:
-                return INTEGER_SILVERBULLET;
         }
 
         return FALSE;
@@ -224,8 +211,6 @@ class EAP {
                 return EAP::$TTLS_MSCHAP2;
             case INTEGER_TTLS_PAP:
                 return EAP::$TTLS_PAP;
-            case INTEGER_SILVERBULLET:
-                return EAP::$SILVERBULLET;
         }
         return NULL;
     }
