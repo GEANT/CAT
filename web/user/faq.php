@@ -57,7 +57,7 @@ array_push($FAQ,
 array_push($FAQ,
       [
         'title'=>sprintf(_("I have a question about this web site. Whom should I contact?")),
-        'text'=>sprintf(_("You should send a mail to %s."),"cat-users@geant.net")
+        'text'=>sprintf(_("You should send a mail to %s."),Config::$APPEARANCE['support-contact']['display'])
       ]);
 
 
