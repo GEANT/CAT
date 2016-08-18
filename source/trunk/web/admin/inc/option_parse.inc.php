@@ -88,7 +88,14 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                                 $bad[] = $obj_value;
                                 continue 2;
                             }
-                        } else {
+                        } elseif ($obj_value == "media:remove_SSID") {
+                            $content = valid_string_db($a["$obj_id-0"]);
+                            if ($content == "eduroam") {
+                                $bad[] = $obj_value;
+                                continue 2;
+                            }
+                        }
+                            else {
                             $content = valid_string_db($a["$obj_id-0"]);
                         }
                     else {
