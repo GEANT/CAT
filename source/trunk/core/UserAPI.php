@@ -70,10 +70,12 @@ class UserAPI extends CAT {
               debug(4, "User is the owner - allowing access\n");
           } else {
              debug(2, "User not an owner of a non-production profile - access forbidden\n");
+       header("HTTP/1.0 403 Not Authorized");
              return;
           }
        } else {
           debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
+          header("HTTP/1.0 403 Not Authorized");
           return;
        }
     }
@@ -107,7 +109,7 @@ class UserAPI extends CAT {
          $this->i_path = $dev->FPATH.'/'.$installer;
          rename($i_path, $this->i_path);
          $profile->updateCache($device,$this->i_path,$a['mime']);
-         rrmdir($dev->FPATH.'/tmp');
+//         rrmdir($dev->FPATH.'/tmp');
          debug(4,"Generated installer: ".$this->i_path.": for: $device\n");
          $a['link'] = "API.php?api_version=$version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
          } else {
