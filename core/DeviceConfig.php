@@ -201,17 +201,17 @@ abstract class DeviceConfig {
   /**
     *  Copy a file from the module location to the temporary directory aplying transcoding.
     *
-    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS (NSIS version below 3)
-    * Trancoding is noly applied if the third optional parameter is set and nonzero
-    * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied regardless of the 
-    * third parameter value
+    * Transcoding is only required for Windows installers, and no Unicode support
+    * in NSIS (NSIS version below 3)
+    * Trancoding is only applied if the third optional parameter is set and nonzero
+    * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied
+    * regardless of the third parameter value.
     * If the second argument is provided and is not equal to 0, then the file will be
-    * saved under the name taken form this argument.
+    * saved under the name taken from this argument.
     * If only one parameter is given or the second is equal to 0, source and destination
     * filenames are the same.
     * The third optional parameter, if nonzero, should be the character set understood by iconv
-    * This is required by the Windows installer and is
-    * expected to go away in the future.
+    * This is required by the Windows installer and is expected to go away in the future.
     * Source file can be located either in the Files subdirectory or in the sibdirectory of Files
     * named the same as device_id. The second option takes precedence.
     *
@@ -254,13 +254,13 @@ abstract class DeviceConfig {
   /**
     * Transcode a string adding double quotes escaping
     *
-    * Transcoding is only required wor Windows installers, and no Unicode support in NSIS (NSIS version below 3)
-    * Trancoding is noly applied if the third optional parameter is set and nonzero
-    * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied regardless of the 
-    * second parameter value
+    * Transcoding is only required for Windows installers, and no Unicode support
+    * in NSIS (NSIS version below 3)
+    * Trancoding is only applied if the third optional parameter is set and nonzero
+    * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied
+    * regardless of the second parameter value.
     * The second optional parameter, if nonzero, should be the character set understood by iconv
-    * This is required by the Windows installer and is
-    * expected to go away in the future.
+    * This is required by the Windows installer and is expected to go away in the future.
     *
     * @param string $source_name The source file name
     * @param int $use_win_cp Set Windows charset if non-zero
