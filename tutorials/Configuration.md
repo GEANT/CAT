@@ -21,30 +21,50 @@ Configuring the required prerequisite packages
 Here are some extra configuration hints for these packages:
 
 * Operating System
+
 	language display needs the corresponding locales to be installed (check config/config-template.php for the exact list of locales that CAT can support right now)
 * Apache
+
 	the Directory for installer downloads (configurable, defaults to web/downloads/ ) needs to have "AllowOverrides FileInfo" set
+
 	the directories under web/ need to be accessible from DocumentRoot
+	
 	the CAT log dir (configurable, defaults to /var/log/CAT/ ) needs to be accessible for writing
+	
 	for general server hardening, the following vhost configuration tokens should be set: "ServerSignature Off" and "ServerTokens ProductOnly"
+	
 	if you want to use client certificates for administrative user authentication, be sure set a sufficiently large SSL Renegotiation Buffer size (e.g. SSLRenegBufferSize 10486000 for 10 MB max. upload size)
+	
 	There are custom error pages for 404 etc. in web/404.php etc. If you want to use them, set ErrorDocument 404 /.../404.php etc. in your Apache virtual host config.
 * PHP
+
 	for general server hardening, the following option should be set in php.ini: "expose_php 0"
+
 	for cookie security, the following options should be set in php.ini: "session.cookie_httponly 1" and "session.cookie_secure 1"
 * simpleSAMLphp
+
 	configure it as a service provider, authenticating towards an IdP of your choice. Attribute mapping is defined in config.php
 * NSIS
+
 	Version 2: needs to have the plug-ins "NSISArray", "GetVersion", "ZipDLL" available
+
 	Version 3: TBD
+	
 	"makensis" needs to be in your $PATH and executable
 * GeoIP
+
 	API Version 1:
+
 	best install as a system package or use instructions from http://dev.maxmind.com/geoip/downloadable#PHP-7 or http://php.net/manual/en/geoip.installation.php
+	
 	download GeoLiteCity and GeoLiteCityv6 databases from http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz and http://geolite.maxmind.com/download/geoip/database/GeoLiteCityv6.dat.gz
+	
 	unzip them and copy into GeoIP directory changing names to GeoCity.dat and GeoCityv6.dat (the directory is /usr/share/GeoIP or something similar, GeoIP will display an error message if the database is missing and you will be able to guess the required location).
+	
 	arrange for downloads each month (databases are udated on the first Thursday of each month)
+	
 	API Version 2:
+	
 	TBD
 
 Installing CAT
