@@ -7,25 +7,23 @@ eduroam CAT User Manuals
 ------------------------
 The flagship of CAT, the eduroam CAT (https://cat.eduroam.org), has extensive documentation (with screenshots!) of CAT. You may want to read those for an overview of the features.
 
-eduroam CAT federation administrator documentation: https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+federation+administrators
+[eduroam CAT federation administrator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+federation+administrators)
 
-eduroam CAT institution administrator documentation: https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+institution+administrators
+[eduroam CAT institution administrator documentation](https://wiki.geant.org/display/H2eduroam/A+guide+to+eduroam+CAT+for+institution+administrators)
 
 There is no documentation for end users, simply because it's so easy to use on the end-user side that no documentation is required! :-)
 
 Known deployments
 -----------------
-There are three known deployments of CAT (please let us know if you are deploying the software and want to be on this list!).
+There are three known production deployments of CAT (please let us know if you are deploying the software and want to be on this list!).
 
-*eduroam CAT* https://cat.eduroam.org (for all eduroam institutions and users world-wide, except Germany)
-
-*DFN eduroam CAT* https://cat.eduroam.de (for eduroam institutions in Germany and their users)
-
-*Enterprise Network CAT* https://802.1x-config.org (for enterprise networks unrelated to eduroam)
+* *eduroam CAT* https://cat.eduroam.org (for all eduroam institutions and users world-wide, except Germany)
+* *DFN eduroam CAT* https://cat.eduroam.de (for eduroam institutions in Germany and their users)
+* *Enterprise Network CAT* https://802.1x-config.org (for enterprise networks unrelated to eduroam)
 
 Installation and configuration of your own deployment
 -----------------------------------------------------
-With the production deployments as listed above, there are probably few use cases you would want to run your own installation. If you do want to deploy CAT yourself, the installation and configuration instructions can be found at tutorials/Configuration.md
+With the production deployments as listed above, there are probably few use cases you would want to run your own installation. If you do want to deploy CAT yourself, the installation and configuration instructions can be found at [Configuration.md](tutorials/Configuration.md)
 
 Previous Versions of CAT
 ------------------------
