@@ -46,7 +46,7 @@ Here are some extra configuration hints for these packages:
 	configure it as a service provider, authenticating towards an IdP of your choice. Attribute mapping is defined in config.php
 * NSIS
 
-	Version 2: needs to have the plug-ins "NSISArray", "GetVersion", "ZipDLL" available
+	Version 2: needs to have the plug-ins "NsArray", "GetVersion" available
 
 	Version 3: TBD
 	
