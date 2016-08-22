@@ -13,6 +13,18 @@ eduroam CAT institution administrator documentation: https://wiki.geant.org/disp
 
 There is no documentation for end users, simply because it's so easy to use on the end-user side that no documentation is required! :-)
 
+Known deployments
+-----------------
+There are three known deployments of CAT (please let us know if you are deploying the software and want to be on this list!).
+
+eduroam CAT https://cat.eduroam.org (for all eduroam institutions and users world-wide, except Germany)
+DFN eduroam CAT https://cat.eduroam.de (for eduroam institutions in Germany and their users)
+Enterprise Network CAT https://802.1x-config.org (for enterprise networks unrelated to eduroam)
+
+Installation and configuration of your own deployment
+-----------------------------------------------------
+With the production deployments as listed above, there are probably few use cases you would want to run your own installation. If you do want to deploy CAT yourself, the installation and configuration instructions can be found at tutorials/Configuration.md
+
 Previous Versions of CAT
 ------------------------
 The 1.0.x and 1.1.x versions of CAT were developed on a SVN server of the GEANT project. Please refer to https://forge.geant.net/forge/display/CAT/Home for access to the source code and release tarballs of these earlier versions.
