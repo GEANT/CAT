@@ -627,7 +627,7 @@ class Federation {
             if (isset($geo))
                 unset($geo);
             if (isset($names))
-                unset($names);
+                $names = [];
             $A['entityID'] = $a->inst_id;
             $A['country'] = strtoupper($a->country);
             foreach ($O as $o) {
@@ -646,9 +646,11 @@ class Federation {
                     $names[] = ['value' => $opt[1]];
                 }
             }
-            $name = getLocalisedValue($names, CAT::get_lang());
-            if (!$name)
-                continue;
+            
+            $name = _("Unnamed Entity");
+            if (count($names) != 0) {
+                $name = getLocalisedValue($names, CAT::get_lang());
+            }
             $A['title'] = $name;
             if (isset($geo))
                 $A['geo'] = $geo;
