@@ -75,11 +75,9 @@ class IdP {
         $idp = DBConnection::exec(IdP::$DB_TYPE, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $i_id");
         if (!$a = mysqli_fetch_object($idp)) {
             throw new Exception("IdP $i_id not found in database!");
-            return;
         }
 
         $optioninstance = Options::instance();
-        $content;
         
         $this->identifier = $i_id;
         $this->federation = $a->country;
