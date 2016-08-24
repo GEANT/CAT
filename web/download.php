@@ -49,5 +49,3 @@ if(!$p->institution || $p->institution !== $inst_id) {
 // now we generate the installer
 
 $Gui->downloadInstaller($device,$profile_id, $generated_for);
-
-?>

@@ -651,5 +651,3 @@ class SanityTest extends CAT {
 //        if(empty)
     }
 }
-
-?>

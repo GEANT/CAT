@@ -53,4 +53,3 @@ if (isset($_POST['option']))
 </form>
 <?php
 footer();
-?>

@@ -727,5 +727,3 @@ class Federation {
                 . "')");
     }
 }
-
-?>

@@ -263,5 +263,3 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
     }
     return $killlist;
 }
-
-?>

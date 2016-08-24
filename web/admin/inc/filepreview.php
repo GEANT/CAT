@@ -58,4 +58,3 @@ if (isset($_GET["id"]) && valid_DB_reference($_GET["id"])) {
 } else {
     echo "No valid ID";
 }
-?>

@@ -67,4 +67,3 @@ A humble eduroam CAT cron job
         }
     }
 }
-?>

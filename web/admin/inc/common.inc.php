@@ -412,5 +412,3 @@ function infoblock($optionlist, $class, $level) {
 
     return $retval;
 }
-
-?>

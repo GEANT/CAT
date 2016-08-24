@@ -678,4 +678,3 @@ private $i_path;
 function profile_sort($P1,$P2) {
    return strcasecmp($P1->name, $P2->name);
 } 
-?>

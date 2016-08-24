@@ -191,5 +191,4 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
     </form>
     <?php
     footer();
-    ?>
-
+    

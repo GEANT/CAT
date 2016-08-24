@@ -190,5 +190,3 @@ function productheader($area, $language) {
     echo "</p>
 </div> <!-- sidebar --></div><!--secondrow-->";
 }
-
-;

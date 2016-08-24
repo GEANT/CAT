@@ -45,10 +45,5 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         <p><?php echo _("but we don't want to show it to you. You need to be authenticated and authorised to see this content. Since you are not, you got this error page usually known as");?></p>
         <h2>401/403</h2>
         <p><?php echo sprintf(_("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang())?></p>
-    </div> <!-- id="main_body" -->
-<!--    <div class='footer' id='footer'>-->
-        <?php footer(TRUE); ?>
-
-<!--    </div>
-</body>
-</html>-->
+    </div>
+        <?php footer(TRUE);

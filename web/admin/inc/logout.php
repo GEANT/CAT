@@ -9,5 +9,3 @@
 require_once("auth.inc.php");
 
 deauthenticate();
-
-?>

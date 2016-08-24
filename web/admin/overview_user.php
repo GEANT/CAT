@@ -167,5 +167,3 @@ $user = new User($_SESSION['user']);
     ?>
     <?php
     footer();
-    ?>
-

@@ -305,5 +305,3 @@ Best regards,
     }
 
 }
-
-?>

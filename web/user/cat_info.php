@@ -130,6 +130,3 @@ switch ($page) {
         break;
 }
 print $out;
-?>
-
-

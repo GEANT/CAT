@@ -892,5 +892,3 @@ class Profile {
     public $use_anon_outer;
 
 }
-
-?>

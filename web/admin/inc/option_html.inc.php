@@ -221,5 +221,3 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     </tr>";
     return $retval;
 }
-
-?>

@@ -220,5 +220,3 @@ function valid_host($input) {
     // if we get here, it's bogus
     return FALSE;
 }
-
-?>

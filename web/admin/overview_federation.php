@@ -285,5 +285,3 @@ $user = new User($_SESSION['user']);
     <br/>
     <?php
     footer();
-    ?>
-

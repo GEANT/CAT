@@ -303,4 +303,3 @@ function geo_widget_body($wizard, $additional) {
     
 
 }
-?>

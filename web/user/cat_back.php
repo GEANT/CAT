@@ -74,5 +74,3 @@ switch ($action) {
         $API->orderIdentityProviders([]);
         break;
 }
-
-?>

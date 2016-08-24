@@ -156,4 +156,3 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
     </form>
     <?php
     footer();
-    ?>

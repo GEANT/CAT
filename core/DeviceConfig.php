@@ -593,4 +593,3 @@ abstract class DeviceConfig {
    */
   public static $installerBasename;
 }
-?>

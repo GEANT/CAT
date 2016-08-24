@@ -329,4 +329,3 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         <?php
     }
     footer();
-    ?>

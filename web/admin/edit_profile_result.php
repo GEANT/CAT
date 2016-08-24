@@ -212,4 +212,3 @@ if (count($profile->getEapMethodsinOrderOfPreference(1)) > 0)
         <button type='submit'>" . _("Continue to Installer Fine-Tuning and Download") . "</button>
     </form>";
 footer();
-?>

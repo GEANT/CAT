@@ -218,4 +218,3 @@ if (!$sent)
     $mgmt->invalidateToken($newtoken);
 $status = ($sent ? "SUCCESS" : "FAILURE");
 header("Location: $redirect_destination" . "invitation=$status");
-?>

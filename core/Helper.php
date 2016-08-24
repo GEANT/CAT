@@ -241,4 +241,3 @@ function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $margins
     imagepng($inputgd);
     return ob_get_clean();
 }
-?>

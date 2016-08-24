@@ -52,4 +52,3 @@ function footer() {
     echo "</body>
 </html>";
 }
-?>

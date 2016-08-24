@@ -351,5 +351,3 @@ class Config {
         'I do not care about security!',
     ];
 }
-
-?>

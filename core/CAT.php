@@ -292,5 +292,3 @@ class CAT {
     public static $locale;
 
 }
-
-?>

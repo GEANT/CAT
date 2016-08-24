@@ -132,4 +132,3 @@ switch ($format) {
     default:
         break;
 }
-?>

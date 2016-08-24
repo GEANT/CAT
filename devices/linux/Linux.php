@@ -730,5 +730,3 @@ private $conf_file;
 private $server_name;
 private $server_alt_subject_name_list;
 }
-
-?>

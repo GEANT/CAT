@@ -6,4 +6,3 @@
 ?>
 <?php
 header("Location: overview_user.php");
-?>

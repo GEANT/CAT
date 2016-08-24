@@ -476,5 +476,3 @@ Best regards,
     public $name;
 
 }
-
-?>
