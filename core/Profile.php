@@ -377,7 +377,7 @@ class Profile extends EntityWithDBProperties {
     public function incrementDownloadStats($device, $area) {
         $device = DBConnection::escape_value($this->databaseType, $device);
         if ($area == "admin" || $area == "user") {
-            DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$device','$this->lang_index', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            DBConnection::exec($this->databaseType, "INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$device','$this->lang_index', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
         }
         return FALSE;
