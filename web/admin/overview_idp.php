@@ -170,6 +170,8 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 <div class='profilebox' style='display: table-cell;'>
                     <h2><?php echo _("eduroam-as-a-Service");?></h2>
                     <?php printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."),200,"opaquehash@$my_inst->identifier-$profile->identifier.".strtolower($my_inst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);?>
+                    <br/>
+                    <br/>
                     <form action='edit_silverbullet.php' method='POST'>
                         <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base");?></button>
                     </form>
