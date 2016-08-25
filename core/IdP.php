@@ -70,31 +70,31 @@ class IdP extends EntityWithDBProperties {
         $this->attributes = [];
         
         $idp = DBConnection::exec($this->databaseType, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
-        if (!$a = mysqli_fetch_object($idp)) {
+        if (!$attributeQuery = mysqli_fetch_object($idp)) {
             throw new Exception("IdP $this->identifier not found in database!");
         }
         
-        $this->federation = $a->country;
+        $this->federation = $attributeQuery->country;
 
         $optioninstance = Options::instance();
         
-        $this->external_db_syncstate = $a->external_db_syncstate;
+        $this->external_db_syncstate = $attributeQuery->external_db_syncstate;
         // fetch attributes from DB and keep them in priv_attributes
 
         $IdPAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM institution_option
               WHERE institution_id = $this->identifier  ORDER BY option_name");
 
-        while ($a = mysqli_fetch_object($IdPAttributes)) {
+        while ($attributeQuery = mysqli_fetch_object($IdPAttributes)) {
             // decode base64 for files (respecting multi-lang)
-            $optinfo = $optioninstance->optionType($a->option_name);
+            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
             $flag = $optinfo['flag'];
 
             if ($optinfo['type'] != "file") {
-                $this->attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "IdP", "row" => $a->row, "flag" => $flag];
+                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
             } else {
-                $decodedAttribute = $this->decodeFileAttribute($a->optionValue);
+                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->optionValue);
                 
-                $this->attributes[] = ["name" => $a->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "IdP", "row" => $a->row, "flag" => $flag];
+                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
             }
         }
         $this->attributes[] = ["name" => "internal:country", 
@@ -115,9 +115,7 @@ class IdP extends EntityWithDBProperties {
      * cause listing of only those institutions which have some valid profiles defined.
      */
     public function listProfiles($active_only = 0) {
-        $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier";
-        if ($active_only)
-            $query .= " AND showtime = 1";
+        $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($active_only ? " AND showtime = 1" : "");
         $allProfiles = DBConnection::exec($this->databaseType, $query);
         $returnarray = [];
         while ($a = mysqli_fetch_object($allProfiles)) {

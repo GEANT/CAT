@@ -77,9 +77,9 @@ class Profile extends EntityWithDBProperties {
             throw new Exception("Profile $p_id not found in database!");
             return;
         }
-        $a = mysqli_fetch_object($profile);
+        $profileQuery = mysqli_fetch_object($profile);
         if (!($idp_object instanceof IdP)) {
-            $this->institution = $a->inst_id;
+            $this->institution = $profileQuery->inst_id;
             $idp = new IdP($this->institution);
         } else {
             $idp = $idp_object;
@@ -88,15 +88,15 @@ class Profile extends EntityWithDBProperties {
         $temparray = [];
         $optioninstance = Options::instance();
 
-        $this->realm = $a->realm;
-        $this->use_anon_outer = $a->use_anon_outer;
+        $this->realm = $profileQuery->realm;
+        $this->use_anon_outer = $profileQuery->use_anon_outer;
         $this->lang_index = CAT::get_lang();
         $this->inst_name = $idp->name;
 
-        $this->checkuser_outer = $a->checkuser_outer;
-        $this->checkuser_value = $a->checkuser_value;
-        $this->verify = $a->verify;
-        $this->hint = $a->hint;
+        $this->checkuser_outer = $profileQuery->checkuser_outer;
+        $this->checkuser_value = $profileQuery->checkuser_value;
+        $this->verify = $profileQuery->verify;
+        $this->hint = $profileQuery->hint;
         
         // fetch all atributes from this profile from DB
 
@@ -104,30 +104,30 @@ class Profile extends EntityWithDBProperties {
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = $this->identifier");
 
-        while ($a = mysqli_fetch_object($AllAttributes)) {
+        while ($attributeQuery = mysqli_fetch_object($AllAttributes)) {
 
-            $optinfo = $optioninstance->optionType($a->option_name);
+            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
             $lang = "";
             if ($optinfo['type'] != "file") {
                 $temparray[] = [
-                    "name" => $a->option_name,
-                    "value" => $a->option_value,
-                    "level" => ($a->device_id == NULL && $a->method == 0 ? "Profile" : "Method" ),
-                    "row" => $a->row,
-                    "device" => $a->device_id,
+                    "name" => $attributeQuery->option_name,
+                    "value" => $attributeQuery->option_value,
+                    "level" => ($attributeQuery->device_id == NULL && $attributeQuery->method == 0 ? "Profile" : "Method" ),
+                    "row" => $attributeQuery->row,
+                    "device" => $attributeQuery->device_id,
                     "flag" => $optinfo['flag'],
-                    "eapmethod" => EAP::EAPMethodArrayFromId($a->method)];
+                    "eapmethod" => EAP::EAPMethodArrayFromId($attributeQuery->method)];
             } else {
-                $decodedAttribute = $this->decodeFileAttribute($a->option_value);
+                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
 
                 $temparray[] = [
-                    "name" => $a->option_name,
+                    "name" => $attributeQuery->option_name,
                     "value" => ( $decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)),
-                    "level" => ($a->device_id == NULL && $a->method == 0 ? "Profile" : "Method" ),
-                    "row" => $a->row,
+                    "level" => ($attributeQuery->device_id == NULL && $attributeQuery->method == 0 ? "Profile" : "Method" ),
+                    "row" => $attributeQuery->row,
                     "flag" => $optinfo['flag'],
-                    "device" => $a->device_id,
-                    "eapmethod" => EAP::EAPMethodArrayFromId($a->method)];
+                    "device" => $attributeQuery->device_id,
+                    "eapmethod" => EAP::EAPMethodArrayFromId($attributeQuery->method)];
             }
         }
         // add internal attributes
@@ -267,8 +267,8 @@ class Profile extends EntityWithDBProperties {
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
         $returnarray = [];
-        while ($eap = (mysqli_fetch_object($eap_m))) {
-            $eaptype = EAP::EAPMethodArrayFromId($eap->eap_method_id);
+        while ($eapQuery = (mysqli_fetch_object($eap_m))) {
+            $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
             $returnarray[] = $eaptype;
         }
         debug(4, "Looks like this profile supports the following EAP types: ");
