@@ -126,7 +126,7 @@ class EntityWithDBProperties {
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushAttributes() {
-        $quotedIdentifier = (!is_int($identifier) ? "\"" : "") . $this->identifier . (!is_int($identifier) ? "\"" : "");
+        $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         DBConnection::exec($this->databaseType, "DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
         $this->updateFreshness();
         $exec_q = DBConnection::exec($this->databaseType, "SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
@@ -143,7 +143,7 @@ class EntityWithDBProperties {
      * @param array $tobedeleted array of database rows which are to be deleted
      */
     public function commitFlushAttributes($tobedeleted) {
-        $quotedIdentifier = (!is_int($identifier) ? "\"" : "") . $this->identifier . (!is_int($identifier) ? "\"" : "");
+        $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         foreach (array_keys($tobedeleted) as $row) {
             DBConnection::exec($this->databaseType, "DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
             $this->updateFreshness();
@@ -164,7 +164,7 @@ class EntityWithDBProperties {
      * @param mixed $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
      */
     public function addAttribute($attrName, $attrValue) {
-        $quotedIdentifier = (!is_int($identifier) ? "\"" : "") . $this->identifier . (!is_int($identifier) ? "\"" : "");
+        $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         $escapedAttrName = DBConnection::escape_value($this->databaseType, $attrName);
         $escapedAttrValue = DBConnection::escape_value($this->databaseType, $attrValue);
         DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value) VALUES("

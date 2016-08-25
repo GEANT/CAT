@@ -97,6 +97,14 @@ function valid_string_db($input, $allow_whitspace = 0) {
     return $retval;
 }
 
+function valid_integer($input) {
+    if (is_numeric($input)) {
+        return $input;
+    }
+    return FALSE;
+}
+
+
 function valid_consortium_oi($input) {
     $shallow = valid_string_db($input);
     if (strlen($shallow) != 6 && strlen($shallow) != 10)

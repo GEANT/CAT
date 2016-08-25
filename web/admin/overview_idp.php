@@ -152,12 +152,39 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         ?>
     </table>
     <hr/>
-    <h2><?php echo _("Profiles for this institution"); ?></h2>
     <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
-    if (count($profiles_for_this_idp) == 0) // no profiles yet.
-        echo _("There are not yet any profiles for your institution.");
+    if (count($profiles_for_this_idp) == 0) { // no profiles yet.
+        echo "<h2>"._("There are not yet any profiles for your institution.")."</h2>";
+    }
 
+    // if there is one profile and it is of type Silver Bullet, display a very
+    // simple widget with just a "Manage" button
+    
+    if (count($profiles_for_this_idp) == 1) {
+        $profile = $profiles_for_this_idp[0];
+        $methods = $profile->getEapMethodsInOrderOfPreference();
+        if (count($methods) == 1 && $methods[0][INNER] == NE_SILVERBULLET) {
+            ?>
+            <div style='display: table-row; margin-bottom: 20px;'>
+                <div class='profilebox' style='display: table-cell;'>
+                    <h2><?php echo _("eduroam-as-a-Service");?></h2>
+                    You can create up to 200 users. Usernames will be in the form of <strong>opaquehash@<?php echo $my_inst->identifier."-".$profile->identifier.".".strtolower($my_inst->federation);?>.hosted.eduroam.org.
+                    <form action='edit_silverbullet.php' method='POST'>
+                        <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base");?></button>
+                    </form>
+                </div>
+            </div>
+            <?php
+            // unset variable so that no other profiles are displayed, if any
+            // (it is an error if other profiles besides SB exist; don't show
+            // them in the UI if for some reason this happened
+            $profiles_for_this_idp = [];
+        }
+    }
+    if (count($profiles_for_this_idp) > 0) { // no profiles yet.
+        echo "<h2>"._("Profiles for this institution")."</h2>";
+    }
     foreach ($profiles_for_this_idp as $profile_list) {
         echo "<div style='display: table-row; margin-bottom: 20px;'>";
         $profile_name = $profile_list->name;

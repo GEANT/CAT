@@ -118,7 +118,7 @@ class Federation extends EntityWithDBProperties {
 
         $this->databaseType = "INST";
         $this->entityOptionTable = "federation_option";
-        $this->entityIdColumn = "country";
+        $this->entityIdColumn = "federation_id";
         $this->identifier = $fedname;
         $this->name = $fedname;
         $this->attributes = [];

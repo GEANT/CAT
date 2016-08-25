@@ -73,25 +73,35 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
                              }
                                if (/#string#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"block\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
                                }
                                   if (/#text#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"block\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";    
                                }
-
-                               if (/#boolean#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  if (/#boolean#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"block\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
+                               }
+                                  if (/#integer#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"block\";
                                }
     '";
 
@@ -123,7 +133,8 @@ function optiontext($defaultselect, $list, $prefill = 0) {
             <input type='text'     style='display:" . ($activelisttype["type"] == "string" ? "block" : "none") . "' name='value[S$rowid-0]'  id='S" . $rowid . "-input-string'>
             <textarea cols='30' rows='3'     style='display:" . ($activelisttype["type"] == "text" ? "block" : "none") . "' name='value[S$rowid-1]'  id='S" . $rowid . "-input-text'></textarea>
             <input type='file'     style='display:" . ($activelisttype["type"] == "file" ? "block" : "none") . "' name='value[S$rowid-2]'  id='S" . $rowid . "-input-file' size='10'>
-            <input type='checkbox' style='display:" . ($activelisttype["type"] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>";
+            <input type='checkbox' style='display:" . ($activelisttype["type"] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>
+            <input type='number' style='display:" . ($activelisttype["type"] == "integer" ? "block" : "none") . "' name='value[S$rowid-4]'  id='S" . $rowid . "-input-integer'>";
         $retval .= "</td>";
     }
 
@@ -192,6 +203,9 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 break;
             case "string":
                 $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"".htmlspecialchars($content)."\" style='display:block'>";
+                break;
+            case "integer":
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"".htmlspecialchars($content)."\" style='display:block'>";
                 break;
             case "text":
                 $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"".htmlspecialchars($content)."\" style='display:block'>";

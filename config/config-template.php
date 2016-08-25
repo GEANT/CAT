@@ -83,7 +83,12 @@ class Config {
      * certfilename, keyfilename, keypass: if you want to send S/MIME signed mails, just configure the signing cert
      *                                     with these parameters. All must be non-NULL for signing to happen. If you
      *                                     don't need a keypass, make it an empty string instead.
-     * 
+     * silverbullet options:
+     *         default_maxusers: an institution is not allowed to create more than that amount of users
+     *             the value can be overriden as a per-federation option in fed-operator UI
+     *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
+     *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
+     *             if left empty, realms would end in the federation name only
      * @var array
      */
     public static $CONSORTIUM = [
@@ -103,6 +108,8 @@ class Config {
         'certfilename' => NULL,
         'keyfilename' => NULL,
         'keypass' => NULL,
+        'silverbullet_default_maxusers' => 200,
+        'silverbullet_realm_suffix' => '.hosted.eduroam.org',
     ];
 
     /**

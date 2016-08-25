@@ -18,6 +18,8 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 Configuration parameter changes
 -------------------------------
 
+[ADDED] $CONSORTIUM::silverbullet_default_maxusers
+[ADDED] $CONSORTIUM::silverbullet_realm_suffix
 
 Changes in previous versions
 ============================

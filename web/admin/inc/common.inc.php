@@ -72,6 +72,7 @@ function display_name($input) {
         _("Custom text in IdP Invitations") => "fed:custominvite",
         _("Enable Silver Bullet") => "fed:silverbullet",
         _("Silver Bullet: Do not terminate EAP") => "fed:silverbullet-noterm",
+        _("Silver Bullet: max users per profile") => "fed:silverbullet-maxusers",
     ];
 
     if (count(Config::$CONSORTIUM['ssid']) > 0) {

@@ -40,7 +40,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         foreach ($_FILES['value']['tmp_name'] as $opt_id => $optfileref)
             $a[$opt_id] = $optfileref;
 
-    /*    ksort($a);
+/*      ksort($a);
       echo "<pre>This is what we got:";
       print_r($a);
       echo "</pre>"; */
@@ -139,6 +139,13 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                         continue 2;
                     }
                     break;
+                case "integer":
+                    if (isset($a["$obj_id-4"]) && $a["$obj_id-4"] != "")
+                        $content = valid_integer($a["$obj_id-4"]);
+                    else {
+                        continue 2;
+                    }
+                    break;
                 default:
                     echo "Internal Error: Unknown option type " . $obj_value . "!";
                     exit(1);
@@ -156,12 +163,10 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             if ($optname != "eap:ca_url" && $optname != "general:logo_url")
                 $good[] = $optname;
 
-    /*
-      echo "<pre>";
+/*      echo "<pre>";
       print_r($options);
       echo "</pre>";
-     */
-
+*/
 // Step 2: now we have clean input data. Some attributes need special care
 //         2a: if we got eap:ca_url, convert it to eap:ca_file
 
@@ -218,11 +223,11 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         $options[] = ["general:geo_coordinates" => serialize(["lon" => $lon, "lat" => $lat])];
         $good[] = ("general:geo_coordinates");
     }
-    /*
-      echo "<pre>";
+    
+/*      echo "<pre>";
       print_r($options);
       echo "</pre>";
-     */
+  */   
 
 // finally, some attributes are in the DB and were only called by reference
 // keep those which are still referenced, throw the rest away
