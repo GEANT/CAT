@@ -92,7 +92,7 @@ class IdP extends EntityWithDBProperties {
             if ($optinfo['type'] != "file") {
                 $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
             } else {
-                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->optionValue);
+                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
 
                 $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
             }
