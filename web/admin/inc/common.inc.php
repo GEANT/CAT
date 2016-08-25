@@ -82,31 +82,32 @@ function display_name($input) {
         $DisplayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     }
 
-    if (!empty(Config::$CONSORTIUM['interworking-consortium-oi']) && count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0)
+    if (!empty(Config::$CONSORTIUM['interworking-consortium-oi']) && count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0) {
         $DisplayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
-    $DisplayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
+    } else {
+        $DisplayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
+    }
 
     $find = array_search($input, $DisplayNames);
 
-    if ($find === FALSE) {
-        return $input;
-    } else {
-        return $find;
+    if ($find === FALSE) { // sending back the original if we didn't find a better name
+        $find = $input;
     }
+    return $find;
 }
 
 function tooltip($input) {
     $descriptions = [];
-    if (count(Config::$CONSORTIUM['ssid']) > 0)
+    if (count(Config::$CONSORTIUM['ssid']) > 0) {
         $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'])] = "media:SSID";
+    }
 
     $find = array_search($input, $descriptions);
 
     if ($find === FALSE) {
         return "";
-    } else {
-        return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
+    return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
 }
 
 function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
@@ -147,60 +148,6 @@ function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
 function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
     return UI_message(L_ERROR, $text, $caption, $omittabletags);
 }
-
-/*
-  function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
-  $retval = "";
-  if (!$omittabletags)
-  $retval .= "<tr><td>";
-  $retval .= "<img class='icon' src='../resources/images/icons/Checkmark-lg-icon.png' alt='" . ($caption !== 0 ? $caption : _("OK!")) . "' title='" . ($caption !== 0 ? $caption : _("OK!")) . "'/>";
-  if (!$omittabletags)
-  $retval .= "</td><td>";
-  if ($text !== 0) $retval .= $text;
-  if (!$omittabletags)
-  $retval .= "</td></tr>";
-  return $retval;
-  }
-
-  function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
-  $retval = "";
-  if (!$omittabletags)
-  $retval .= "<tr><td>";
-  $retval .= "<img class='icon' src='../resources/images/icons/Exclamation-yellow-icon.png' alt='" . ($caption !== 0 ? $caption : _("Warning!")) . "' title='" . ($caption !== 0 ? $caption : _("Warning!")) . "'/>";
-  if (!$omittabletags)
-  $retval .= "</td><td>";
-  if ($text !== 0) $retval .= $text;
-  if (!$omittabletags)
-  $retval .= "</td></tr>";
-  return $retval;
-  }
-
-  function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
-  $retval = "";
-  if (!$omittabletags)
-  $retval .= "<tr><td>";
-  $retval .= "<img class='icon' src='../resources/images/icons/Exclamation-orange-icon.png' alt='" . ($caption !== 0 ? $caption : _("Error!")) . "' title='" . ($caption !== 0 ? $caption : _("Error!")) . "'/>";
-  if (!$omittabletags)
-  $retval .= "</td><td>";
-  if ($text !== 0) $retval .= $text;
-  if (!$omittabletags)
-  $retval .= "</td></tr>";
-  return $retval;
-  }
-
-  function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
-  $retval = "";
-  if (!$omittabletags)
-  $retval .= "<tr><td>";
-  $retval .= "<img class='icon' src='../resources/images/icons/Star-blue.png' alt='" . ($caption !== 0 ? $caption : _("Remark")) . "' title='" . ($caption !== 0 ? $caption : _("Remark")) . "'/>";
-  if (!$omittabletags)
-  $retval .= "</td><td>";
-  if ($text !== 0) $retval .= $text;
-  if (!$omittabletags)
-  $retval .= "</td></tr>";
-  return $retval;
-  }
- */
 
 function check_upload_sanity($optiontype, $filename) {
 //echo "check_upload_sanity:$optiontype:$filename<br>\n";
@@ -251,7 +198,7 @@ function check_upload_sanity($optiontype, $filename) {
         $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
 
         // we only take plain text files in UTF-8!
-        if ( $filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE)
+        if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE)
             return TRUE;
     }
 
@@ -264,7 +211,7 @@ function getBlobFromDB($ref, $checkpublic) {
 
     if ($reference == FALSE)
         return;
-    
+
     // the data is either public (just give it away) or not; in this case, only
     // release if the data belongs to admin himself
     if ($checkpublic) {
@@ -275,7 +222,7 @@ function getBlobFromDB($ref, $checkpublic) {
         $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
 
         $owners_condensed = [];
-        
+
         if ($owners !== FALSE) { // see if we're authenticated and owners of the data
             foreach ($owners as $oneowner)
                 $owners_condensed[] = $oneowner['ID'];
@@ -318,10 +265,10 @@ function previewCAinHTML($ca_reference) {
     $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
     $details['name'] = preg_replace('/\//', "", $details['name']);
     $certstatus = ( $details['root'] == 1 ? "R" : "I");
-    if ($details['ca'] == 0 && $details['root'] != 1)
+    if ($details['ca'] == 0 && $details['root'] != 1) {
         return "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
-    else
-        return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+    }
+    return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
 }
 
 function previewImageinHTML($image_reference) {
