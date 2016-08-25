@@ -619,7 +619,7 @@ class SanityTest extends CAT {
          $this->test_return(L_ERROR,"Your abuse-mail has not been set, cannot continue with mailer tests.");
          return;
       }
-      $mail = new PHPMailer();
+      $mail = new PHPMailer\PHPMailer\PHPMailer();
       $mail->isSMTP();
       $mail->Port = 587;
       $mail->SMTPAuth = true;
