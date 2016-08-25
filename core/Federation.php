@@ -393,20 +393,10 @@ class Federation extends EntityWithDBProperties {
             if ($optinfo['type'] != "file") {
                 $this->attributes[] = array("name" => $queryResult->option_name, "value" => $queryResult->option_value, "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
             } else {
-                // suppress E_NOTICE on the following... we are testing *if*
-                // we have a serialized value - so not having one is fine and
-                // shouldn't throw E_NOTICE
-                if (@unserialize($queryResult->option_value) !== FALSE) { // multi-lang
-                    $tempContent = unserialize($queryResult->option_value);
-                    $lang = $tempContent['lang'];
-                    $content = $tempContent['content'];
-                } else { // single lang, direct content
-                    $content = $queryResult->option_value;
-                }
+                
+                $decodedAttribute = $this->decodeFileAttribute($queryResult->option_value);
 
-                $content = base64_decode($content);
-
-                $this->attributes[] = array("name" => $queryResult->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
+                $this->attributes[] = array("name" => $queryResult->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
             }
         }
         $this->attributes[] = array("name" => "internal:country",

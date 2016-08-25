@@ -118,37 +118,17 @@ class Profile extends EntityWithDBProperties {
                     "flag" => $optinfo['flag'],
                     "eapmethod" => EAP::EAPMethodArrayFromId($a->method)];
             } else {
-                // suppress E_NOTICE on the following... we are testing *if*
-                // we have a serialized value - so not having one is fine and
-                // shouldn't throw E_NOTICE
-                if (@unserialize($a->option_value) !== FALSE) { // multi-lang
-                    $content = unserialize($a->option_value);
-                    $lang = $content['lang'];
-                    $content = $content['content'];
-                } else { // single lang, direct content
-                    $content = $a->option_value;
-                }
-
-                $content = base64_decode($content);
+                $decodedAttribute = $this->decodeFileAttribute($a->option_value);
 
                 $temparray[] = [
                     "name" => $a->option_name,
-                    "value" => ( $lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])),
+                    "value" => ( $decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)),
                     "level" => ($a->device_id == NULL && $a->method == 0 ? "Profile" : "Method" ),
                     "row" => $a->row,
                     "flag" => $optinfo['flag'],
                     "device" => $a->device_id,
                     "eapmethod" => EAP::EAPMethodArrayFromId($a->method)];
             }
-
-            /*
-              "name" => $a->option_name,
-              "row" => $a->row,
-              "level" => ($a->device_id == NULL && $a->method == NULL ? "Profile" : "Method" ),
-              "device" => $a->device_id,
-              "eapmethod" => $a->method);
-
-             */
         }
         // add internal attributes
 

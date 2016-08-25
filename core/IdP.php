@@ -85,7 +85,6 @@ class IdP extends EntityWithDBProperties {
               WHERE institution_id = $this->identifier  ORDER BY option_name");
 
         while ($a = mysqli_fetch_object($IdPAttributes)) {
-            $lang = "";
             // decode base64 for files (respecting multi-lang)
             $optinfo = $optioninstance->optionType($a->option_name);
             $flag = $optinfo['flag'];
@@ -93,20 +92,9 @@ class IdP extends EntityWithDBProperties {
             if ($optinfo['type'] != "file") {
                 $this->attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "IdP", "row" => $a->row, "flag" => $flag];
             } else {
-                // suppress E_NOTICE on the following... we are testing *if*
-                // we have a serialized value - so not having one is fine and
-                // shouldn't throw E_NOTICE
-                if (@unserialize($a->option_value) !== FALSE) { // multi-lang
-                    $content = unserialize($a->option_value);
-                    $lang = $content['lang'];
-                    $content = $content['content'];
-                } else { // single lang, direct content
-                    $content = $a->option_value;
-                }
-
-                $content = base64_decode($content);
-
-                $this->attributes[] = ["name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])), "level" => "IdP", "row" => $a->row, "flag" => $flag];
+                $decodedAttribute = $this->decodeFileAttribute($a->optionValue);
+                
+                $this->attributes[] = ["name" => $a->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "IdP", "row" => $a->row, "flag" => $flag];
             }
         }
         $this->attributes[] = ["name" => "internal:country", 

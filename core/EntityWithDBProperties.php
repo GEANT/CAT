@@ -69,7 +69,7 @@ class EntityWithDBProperties {
      * @var int,string identifier of the entity instance
      */
     public $identifier;
-    
+
     /**
      * the name of the entity in the current locale
      */
@@ -173,6 +173,18 @@ class EntityWithDBProperties {
                 . $escapedAttrValue
                 . "')");
         $this->updateFreshness();
+    }
+
+    protected function decodeFileAttribute($optionContent) {
+        // suppress E_NOTICE on the following... we are testing *if*
+        // we have a serialized value - so not having one is fine and
+        // shouldn't throw E_NOTICE
+        if (@unserialize($optionContent) !== FALSE) { // multi-lang
+            $tempContent = unserialize($queryResult->option_value);
+            return ["lang" => $tempContent['lang'], "content" => base64_decode($tempContent['content'])];
+        } else { // single lang, direct content
+            return ["lang" => "", "content" => base64_decode($optionContent)];
+        }
     }
 
 }
