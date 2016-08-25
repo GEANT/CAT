@@ -91,25 +91,18 @@ class CAT {
         switch ($level) {
             case "ALL":
                 $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(inst_id) AS instcount FROM institution");
-                $dbresult = mysqli_fetch_object($idpcount);
-                return $dbresult->instcount;
+                break;
             case "VALIDPROFILE":
-                // during migration, run the calculations for sufficient_config if still needed
-                $needtreatment = DBConnection::exec(CAT::$DB_TYPE, "SELECT profile_id FROM profile WHERE sufficient_config IS NULL");
-                while ($a = mysqli_fetch_object($needtreatment)) {
-                    $profile = new Profile($a->profile_id);
-                    $profile->prepShowtime();
-                }
                 $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.sufficient_config = 1");
-                $dbresult = mysqli_fetch_object($idpcount);
-                return $dbresult->instcount;
+                break;
             case "PUBLICPROFILE":
                 $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.showtime = 1");
-                $dbresult = mysqli_fetch_object($idpcount);
-                return $dbresult->instcount;
+                break;
             default:
                 return -1;
         }
+        $dbresult = mysqli_fetch_object($idpcount);
+        return $dbresult->instcount;
     }
     
     /**

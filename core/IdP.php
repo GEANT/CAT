@@ -1,6 +1,6 @@
 <?php
 
-/* *********************************************************************************
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
  * ********************************************************************************* */
@@ -47,8 +47,8 @@ class IdP extends EntityWithDBProperties {
      * @var int synchronisation state with external database, if any
      */
     private $external_db_syncstate;
-    
-   /**
+
+    /**
      * The shortname of this IdP's federation
      * @var string 
      */
@@ -68,16 +68,16 @@ class IdP extends EntityWithDBProperties {
         $this->entityIdColumn = "inst_id";
         $this->identifier = $i_id;
         $this->attributes = [];
-        
+
         $idp = DBConnection::exec($this->databaseType, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         if (!$attributeQuery = mysqli_fetch_object($idp)) {
             throw new Exception("IdP $this->identifier not found in database!");
         }
-        
+
         $this->federation = $attributeQuery->country;
 
         $optioninstance = Options::instance();
-        
+
         $this->external_db_syncstate = $attributeQuery->external_db_syncstate;
         // fetch attributes from DB and keep them in priv_attributes
 
@@ -93,15 +93,15 @@ class IdP extends EntityWithDBProperties {
                 $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
             } else {
                 $decodedAttribute = $this->decodeFileAttribute($attributeQuery->optionValue);
-                
+
                 $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
             }
         }
-        $this->attributes[] = ["name" => "internal:country", 
-                                         "value" => $this->federation, 
-                                         "level" => "IdP", 
-                                         "row" => 0, 
-                                         "flag" => NULL];
+        $this->attributes[] = ["name" => "internal:country",
+            "value" => $this->federation,
+            "level" => "IdP",
+            "row" => 0,
+            "flag" => NULL];
 
         $this->name = getLocalisedValue($this->getAttributes('general:instname'), CAT::get_lang());
         debug(3, "--- END Constructing new IdP object ... ---\n");
@@ -125,32 +125,23 @@ class IdP extends EntityWithDBProperties {
         }
         return $returnarray;
     }
-    
+
     public function isOneProfileConfigured() {
-        // migration phase: are there NULLs in the profile list sufficient_config column?
-        // if so, run prepShowtime on all profiles
-        $needTreatment = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND sufficient_config IS NULL");
-        if (mysqli_num_rows($needTreatment) > 0)
-            foreach ($this->listProfiles() as $prof)
-                $prof->prepShowtime();
-       
-        // now, just look in the DB
         $allProfiles = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        if (mysqli_num_rows($allProfiles) > 0)
+        if (mysqli_num_rows($allProfiles) > 0) {
             return TRUE;
-        else
-            return FALSE;
+        }
+        return FALSE;
     }
 
     public function isOneProfileShowtime() {
         $allProfiles = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND showtime = 1");
-        if (mysqli_num_rows($allProfiles) > 0)
+        if (mysqli_num_rows($allProfiles) > 0) {
             return TRUE;
-        else
-            return FALSE;
-        
+        }
+        return FALSE;
     }
-    
+
     public function getAllProfileStatusOverview() {
         $allProfiles = DBConnection::exec($this->databaseType, "SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
         $returnarray = ['dns' => RETVAL_SKIPPED, 'cert' => L_OK, 'reachability' => RETVAL_SKIPPED, 'TLS' => RETVAL_SKIPPED, 'checktime' => NULL];
@@ -168,7 +159,7 @@ class IdP extends EntityWithDBProperties {
         }
         return $returnarray;
     }
-    
+
     /** This function retrieves an array of authorised users which can
      * manipulate this institution.
      * 
@@ -348,4 +339,5 @@ Best regards,
                 DBConnection::exec($this->databaseType, "UPDATE institution SET external_db_id = '$identifier', external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
         }
     }
+
 }
