@@ -65,7 +65,7 @@ $user = new User($_SESSION['user']);
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("Federation Properties: %s"), strtoupper($thefed->identifier)); ?>
+                <?php echo sprintf(_("Federation Properties: %s"), strtoupper($thefed->name)); ?>
             </h2>
             <table>
                 <!-- fed properties -->
@@ -77,7 +77,7 @@ $user = new User($_SESSION['user']);
                     </td>
                     <td>
                         <strong><?php
-                            echo Federation::$FederationList[strtoupper($thefed->identifier)];
+                            echo Federation::$FederationList[strtoupper($thefed->name)];
                             ?></strong>
                     </td>
                 </tr>
@@ -85,13 +85,13 @@ $user = new User($_SESSION['user']);
                 echo infoblock($thefed->getAttributes(), "fed", "FED");
                 ?>
                 <tr>
-                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
+                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->name); ?>'/><button type="submit">Edit</button></form></td>
                 </tr>
             </table>
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->identifier)); ?>
+                <?php echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->name)); ?>
             </h2>
             <table>
                 <!-- idp stats -->
@@ -113,7 +113,7 @@ $user = new User($_SESSION['user']);
                     <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
                     <th style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
-                <?php echo Federation::downloadStats($thefed->identifier, TRUE); ?>
+                <?php echo Federation::downloadStats($thefed->name, TRUE); ?>
             </table>
         </div>
         <?php
@@ -161,12 +161,12 @@ $user = new User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->identifier) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->name) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
             foreach ($pending_invites as $oneinvite)
-                if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
+                if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
                     // echo "PENDINGS!";
                     $display_pendings = TRUE;
                 }
@@ -220,7 +220,7 @@ $user = new User($_SESSION['user']);
                 if (Config::$DB['enforce-external-sync']) {
                     if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
                         echo "<td>";
-                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->name . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <button type='submit'>" . _("Manage DB Link") . "</button> ";
 
                         if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_SYNCED) {
@@ -254,7 +254,7 @@ $user = new User($_SESSION['user']);
                             </td>
                          </tr>";
                 foreach ($pending_invites as $oneinvite)
-                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
+                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
                         echo "<tr>
                                     <td>" .
                         $oneinvite['name'] . "

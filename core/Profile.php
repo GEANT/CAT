@@ -23,6 +23,7 @@ require_once('Helper.php');
 require_once('IdP.php');
 require_once('EAP.php');
 require_once('X509.php');
+require_once('EntityWithDBProperties.php');
 require_once('devices/devices.php');
 
 define("HIDDEN", -1);
@@ -44,21 +45,7 @@ define("NOTCONFIGURED", 3);
  *
  * @package Developer
  */
-class Profile {
-
-    /**
-     * database which this class queries by default
-     * 
-     * @var string
-     */
-    private static $DB_TYPE = "INST";
-
-    /**
-     * This array holds the attributes of the Profile in-memory. They are not synced against the DB after instantiation.
-     * 
-     * @var array
-     */
-    private $priv_attributes;
+class Profile extends EntityWithDBProperties {
 
     /**
      * This array holds the supported EAP types (in "array" OUTER/INNER representation). They are not synced against the DB after instantiation.
@@ -66,7 +53,6 @@ class Profile {
      * @var array
      */
     private $priv_eaptypes;
-
     
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
@@ -77,7 +63,14 @@ class Profile {
      */
     public function __construct($p_id, $idp_object = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
-        $profile = DBConnection::exec(Profile::$DB_TYPE, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $p_id");
+        
+        $this->databaseType = "INST";
+        $this->entityOptionTable = "profile_option";
+        $this->entityIdColumn = "profile_id";
+        $this->identifier = $p_id;
+        $this->attributes = [];
+        
+        $profile = DBConnection::exec($this->databaseType, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $p_id");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
             debug(2, "Profile $p_id not found in database!\n");
@@ -90,11 +83,10 @@ class Profile {
             $idp = new IdP($this->institution);
         } else {
             $idp = $idp_object;
-            $this->institution = $idp->identifier;
+            $this->institution = $idp->name;
         }
         $temparray = [];
         $optioninstance = Options::instance();
-        $this->identifier = $p_id;
 
         $this->realm = $a->realm;
         $this->use_anon_outer = $a->use_anon_outer;
@@ -108,9 +100,9 @@ class Profile {
         
         // fetch all atributes from this profile from DB
 
-        $AllAttributes = DBConnection::exec(Profile::$DB_TYPE, "SELECT option_name, option_value, device_id, eap_method_id as method, row 
-                FROM profile_option 
-                WHERE profile_id = $this->identifier");
+        $AllAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, device_id, eap_method_id as method, row 
+                FROM $this->entityOptionTable
+                WHERE $this->entityIdColumn = $this->identifier");
 
         while ($a = mysqli_fetch_object($AllAttributes)) {
 
@@ -251,8 +243,6 @@ class Profile {
                 "eapmethod" => NULL,
             ];
 
-        $this->priv_attributes = [];
-
         // check sanity (device and eapmethod are mutually exclusive) and first batch of adding (method level)
 
         foreach ($temparray as $attrib) {
@@ -262,18 +252,18 @@ class Profile {
 
         foreach ($temparray as $attrib) {
             if ($attrib["device"] != NULL || $attrib["eapmethod"] != NULL)
-                $this->priv_attributes[] = $attrib;
+                $this->attributes[] = $attrib;
         }
         // pick all attributes which are profile specific and place into final array if no eap/device-specific exists
 
         foreach ($temparray as $attrib) {
             if ($attrib["level"] == "Profile") {
                 $ignore = "";
-                foreach ($this->priv_attributes as $approved_attrib)
+                foreach ($this->attributes as $approved_attrib)
                     if ($attrib["name"] == $approved_attrib["name"] && $approved_attrib["level"] != "IdP" && $approved_attrib["level"] != "Profile")
                         $ignore = "YES";
                 if ($ignore != "YES")
-                    $this->priv_attributes[] = $attrib;
+                    $this->attributes[] = $attrib;
             }
         }
 
@@ -282,17 +272,17 @@ class Profile {
         foreach ($temparray as $attrib) {
             if ($attrib["level"] == "IdP") {
                 $ignore = "";
-                foreach ($this->priv_attributes as $approved_attrib)
+                foreach ($this->attributes as $approved_attrib)
                     if ($attrib["name"] == $approved_attrib["name"] && $approved_attrib["level"] != "IdP")
                         $ignore = "YES";
                 if ($ignore != "YES")
-                    $this->priv_attributes[] = $attrib;
+                    $this->attributes[] = $attrib;
             }
         }
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name', 0, 0), $this->lang_index);
 
-        $eap_m = DBConnection::exec(Profile::$DB_TYPE, "SELECT eap_method_id 
+        $eap_m = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
@@ -312,7 +302,7 @@ class Profile {
      * find a profile, given its realm
      */
     public static function profileFromRealm($realm) {
-        $exec_query = DBConnection::exec(Profile::$DB_TYPE, "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
+        $exec_query = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
         if ($a = mysqli_fetch_object($exec_query)) {
             return $a->profile_id;
         } else
@@ -323,14 +313,14 @@ class Profile {
      * update the last_changed timestamp for this profile
      */
     public function updateFreshness() {
-        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
     }
 
     /**
      * gets the last-modified timestamp (useful for caching "dirty" check)
      */
     public function getFreshness() {
-        $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT last_change FROM profile WHERE profile_id = $this->identifier");
+        $exec_update = DBConnection::exec($this->databaseType, "SELECT last_change FROM profile WHERE profile_id = $this->identifier");
         if ($a = mysqli_fetch_object($exec_update)) {
             return $a->last_change;
         }
@@ -348,23 +338,19 @@ class Profile {
      * @return mixed a string with the path to the configurator download, or NULL if it needs to be regenerated
      */
     public function testCache($device) {
-        $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
-        $result = DBConnection::exec(Profile::$DB_TYPE, "SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$device' AND lang = '$this->lang_index'");
+        $returnValue = NULL;
+        $escapedDevice = DBConnection::escape_value($this->databaseType, $device);
+        $result = DBConnection::exec($this->databaseType, "SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->lang_index'");
         if ($result && $cache = mysqli_fetch_object($result)) {
-            $exec_update = DBConnection::exec(Profile::$DB_TYPE, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
+            $exec_update = DBConnection::exec($this->databaseType, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lc = mysqli_fetch_object($exec_update)->last_change) {
                 if ($lc < $cache->tm) {
                     debug(4, "Installer cached:$cache->download_path\n");
-                    return(['cache'=>$cache->download_path,'mime'=>$cache->mime]);
+                    $returnValue = ['cache'=>$cache->download_path,'mime'=>$cache->mime];
                 }
-                else
-                    return NULL;
             }
-            else
-                return NULL;
         }
-        else
-            return NULL;
+        return $returnValue;
     }
 
     /**
@@ -374,11 +360,11 @@ class Profile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path,$mime) {
-        $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
-        $path   = DBConnection::escape_value(Profile::$DB_TYPE, $path);
-        DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
-                                        VALUES ($this->identifier, '$device', '$path', '$mime', '$this->lang_index', CURRENT_TIMESTAMP ) 
-                                        ON DUPLICATE KEY UPDATE download_path = '$path', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
+        $escapedDevice = DBConnection::escape_value($this->databaseType, $device);
+        $escapedPath   = DBConnection::escape_value($this->databaseType, $path);
+        DBConnection::exec($this->databaseType, "INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
+                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '$this->lang_index', CURRENT_TIMESTAMP ) 
+                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
     }
 
     /**
@@ -389,7 +375,7 @@ class Profile {
      * @return TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
-        $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
+        $device = DBConnection::escape_value($this->databaseType, $device);
         if ($area == "admin" || $area == "user") {
             DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$device','$this->lang_index', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
@@ -404,7 +390,7 @@ class Profile {
      */
     public function getUserDownloadStats($device = 0) {
         $returnarray = [];
-        $numbers_q = DBConnection::exec(Profile::$DB_TYPE, "SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
+        $numbers_q = DBConnection::exec($this->databaseType, "SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
         while ($a = mysqli_fetch_object($numbers_q))
             $returnarray[$a->device_id] = $a->downloads_user;
         if ($device !== 0) {
@@ -423,55 +409,20 @@ class Profile {
     }
 
     /**
-     * deletes all attributes in this profile except the _file ones, these are reported as array.
-     * either eap_type or device can be non-zero; then, only method-level attributes or device-level attributes will be deleted
-     *
-     * @param int eap_type_id the DB identifier of this EAP type; if omitted stands for "all EAP types"
-     * @param string device the device ID for which to flush attribs; if omitted stands for "all devices"
-     * @return array list of row id's of file-based attributes which weren't deleted
-     */
-    public function beginFlushAttributes($eap_type_id = 0, $device = 0) {
-        if ($device !== 0) {
-            $device = DBConnection::escape_value(Profile::$DB_TYPE, $device);
-            $devicetext = "AND device_id = '$device'";
-        }
-        else
-            $devicetext = "";
-        DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM profile_option WHERE profile_id = $this->identifier $devicetext AND eap_method_id = $eap_type_id AND option_name NOT LIKE '%_file'");
-        $this->updateFreshness();
-        $exec_q = DBConnection::exec(Profile::$DB_TYPE, "SELECT row FROM profile_option WHERE profile_id = $this->identifier $devicetext AND eap_method_id = $eap_type_id");
-        $return_array = [];
-        while ($a = mysqli_fetch_object($exec_q))
-            $return_array[$a->row] = "KILLME";
-        return $return_array;
-    }
-
-    /**
-     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array
-     *
-     * @param array $tobedeleted array of database rows which are to be deleted
-     */
-    public function commitFlushAttributes($tobedeleted) {
-        foreach (array_keys($tobedeleted) as $row) {
-            DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM profile_option WHERE profile_id = $this->identifier AND row = $row");
-            $this->updateFreshness();
-        }
-    }
-
-    /**
-     * adds an attribute to this profile
+     * adds an attribute to this profile; not the usual function from EntityWithDBProperties
+     * because this class also has per-EAP-type and per-device sub-settings
      *
      * @param string $attr_name name of the attribute to set
      * @param string $attr_value value of the attribute to set
      * @param int $eap_type identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
-    public function addAttribute($attr_name, $attr_value, $eap_type, $device = 0) {
-        $attr_name = DBConnection::escape_value(Profile::$DB_TYPE, $attr_name);
-        $attr_value = DBConnection::escape_value(Profile::$DB_TYPE, $attr_value);
+    public function addAttribute($attrName, $attrValue, $eapType, $device = 0) {
+        $escapedAttrName = DBConnection::escape_value(Profile::$DB_TYPE, $attrName);
+        $escapedAttrValue = DBConnection::escape_value(Profile::$DB_TYPE, $attrValue);
         
-        DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO profile_option (profile_id, option_name, option_value, eap_method_id" . ($device !== 0 ? ",device_id" : "") . ") 
-                          VALUES(". $this->identifier . ", '$attr_name', '$attr_value', $eap_type" . ($device !== 0 ? ",'". DBConnection::escape_value(Profile::$DB_TYPE, $device) . "'" : "" ) . ")");
+        DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id" . ($device !== 0 ? ",device_id" : "") . ") 
+                          VALUES(". $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType" . ($device !== 0 ? ",'". DBConnection::escape_value($this->databaseType, $device) . "'" : "" ) . ")");
         $this->updateFreshness();
     }
 
@@ -483,7 +434,7 @@ class Profile {
      *
      */
     public function addSupportedEapMethod($type, $preference) {
-        DBConnection::exec(Profile::$DB_TYPE, "INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
+        DBConnection::exec($this->databaseType, "INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
                 . EAP::EAPMethodIdFromArray($type) . ", "
                 . $preference . ")");
@@ -495,9 +446,9 @@ class Profile {
      *
      */
     public function destroy() {
-        DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM profile_option WHERE profile_id = $this->identifier");
-        DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
-        DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM profile WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "DELETE FROM profile_option WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "DELETE FROM profile WHERE profile_id = $this->identifier");
         unset($this);
     }
 
@@ -505,7 +456,7 @@ class Profile {
      * Removes all supported EAP methods
      */
     public function flushSupportedEapMethods() {
-        DBConnection::exec(Profile::$DB_TYPE, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
         $this->updateFreshness();
     }
 
@@ -515,7 +466,7 @@ class Profile {
      *
      */
     public function setAnonymousIDSupport($shallwe) {
-        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET use_anon_outer = " . ($shallwe == true ? "1" : "0") . " WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = " . ($shallwe == true ? "1" : "0") . " WHERE profile_id = $this->identifier");
     }
     
     /** Toggle special username for realm checks
@@ -525,7 +476,7 @@ class Profile {
      *
      */
     public function setRealmCheckUser($shallwe,$localpart = NULL) {
-        DBConnection::exec(Profile::$DB_TYPE, 
+        DBConnection::exec($this->databaseType, 
                 "UPDATE profile SET checkuser_outer = " . ($shallwe == true ? "1" : "0") . 
                 ( $localpart !== NULL ? ", checkuser_value = '$localpart' " : "") .
                 " WHERE profile_id = $this->identifier");
@@ -535,7 +486,7 @@ class Profile {
      * 
      */
     public function setInputVerificationPreference($verify,$hint) {
-        DBConnection::exec(Profile::$DB_TYPE, 
+        DBConnection::exec($this->databaseType, 
                 "UPDATE profile SET verify_userinput_suffix = " . ($verify == true ? "1" : "0") . 
                 ", hint_userinput_suffix = ". ($hint == true ? "1" : "0") .
                 " WHERE profile_id = $this->identifier");
@@ -547,9 +498,9 @@ class Profile {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
     public function setRealm($realm) {
-        $realm = DBConnection::escape_value(Profile::$DB_TYPE, $realm);
-        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET realm = '$realm' WHERE profile_id = $this->identifier");
-        $this->realm = $realm;
+        $escapedRealm = DBConnection::escape_value($this->databaseType, $realm);
+        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
+        $this->realm = $escapedRealm;
     }
 
     /**
@@ -583,17 +534,17 @@ class Profile {
         $outarray = [];
         $temparray = [];
         if ($eapmethod) {
-            foreach ($this->priv_attributes as $the_attr) 
+            foreach ($this->attributes as $the_attr) 
                 if ($the_attr["eapmethod"] == $eapmethod)
                     $temparray[] = $the_attr;
         } else
         if ($device) {
-            foreach ($this->priv_attributes as $the_attr)
+            foreach ($this->attributes as $the_attr)
                 if ($the_attr["device"] == $device)
                     $temparray[] = $the_attr;
         };
 
-        foreach ($this->priv_attributes as $the_attr)
+        foreach ($this->attributes as $the_attr)
             if ($the_attr["device"] == NULL && $the_attr["eapmethod"] == NULL)
                 $temparray[] = $the_attr;
 
@@ -641,7 +592,7 @@ class Profile {
             if (count($cn_option) == 0)
                 $missing[] = "eap:server_name";
             return $missing;
-        } elseif ($eaptype["OUTER"] == PWD) {
+        } elseif ($eaptype["OUTER"] == PWD || $eaptype["INNER"] == NE_SILVERBULLET) {
             /*
               $cn_option = $this->getAttributes("eap:server_name", $eaptype);
               if (count($cn_option) > 0) */
@@ -766,7 +717,7 @@ class Profile {
      * 
      */
     public function getSufficientConfig() {
-        $result = DBConnection::exec(Profile::$DB_TYPE, "SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
+        $result = DBConnection::exec($this->databaseType, "SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
         $r = mysqli_fetch_row($result);
         /* echo "<pre>";
           print_r($r);
@@ -817,18 +768,18 @@ class Profile {
     public function prepShowtime() {
         $proper_config = $this->readyForShowtime();
         if ($proper_config)
-            DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
+            DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
         else
-            DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET sufficient_config = FALSE WHERE profile_id = " . $this->identifier);
+            DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = FALSE WHERE profile_id = " . $this->identifier);
         $attribs = $this->getCollapsedAttributes();
         // if not enough info to go live, set FALSE
         // even if enough info is there, admin has the ultimate say: 
         //   if he doesn't want to go live, no further checks are needed, set FALSE as well
         if (!$proper_config || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-            DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
+            DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
             return;
         } else { 
-            DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+            DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
             return;
         }
     }
@@ -838,7 +789,7 @@ class Profile {
      * @return boolean TRUE if profile is shown; FALSE if not
      */
     public function getShowtime() {
-        $result = DBConnection::exec(Profile::$DB_TYPE, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
+        $result = DBConnection::exec($this->databaseType, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
         $r = mysqli_fetch_row($result);
         /* echo "<pre>";
           print_r($r);
@@ -854,18 +805,6 @@ class Profile {
      * @var string
      */
     private $lang_index;
-
-    /**
-     * name of the profile in the current language
-     * @var string
-     */
-    public $name;
-
-    /**
-     * DB identifier of the profile
-     * @var int
-     */
-    public $identifier;
 
     /**
      * DB identifier of the parent institution of this profile

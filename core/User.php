@@ -22,7 +22,9 @@
 require_once('DBConnection.php');
 require_once("Federation.php");
 require_once("IdP.php");
-require_once("core/PHPMailer/PHPMailerAutoload.php");
+require_once('EntityWithDBProperties.php');
+require_once("core/PHPMailer/src/PHPMailer.php");
+require_once("core/PHPMailer/src/SMTP.php");
 
 /**
  * This class represents a known CAT User (i.e. an institution and/or federation adiministrator).
@@ -30,31 +32,7 @@ require_once("core/PHPMailer/PHPMailerAutoload.php");
  * 
  * @package Developer
  */
-class User {
-
-    /**
-     * database which this class queries by default
-     * 
-     * @var string
-     */
-    private static $DB_TYPE = "USER";
-
-    /**
-     * This variable gets initialised with the known user attributes in the constructor. It never gets updated until the object
-     * is destroyed. So if attributes change in the database, and user attributes are to be queried afterwards, the object
-     * needs to be re-instantiated to have current values in this variable.
-     * 
-     * @var array of user attributes
-     */
-    private $priv_attributes;
-
-    /**
-     * This variable holds the user's persistent identifier. This is not a real name; it is just an opaque handle as was returned by
-     * the authentication source. It is comparable to an eduPersonTargetedId value (and may even be one).
-     * 
-     * @var string User's persistent identifier
-     */
-    public $identifier;
+class User extends EntityWithDBProperties {
 
     /**
      * Class constructor. The required argument is a user's persistent identifier as was returned by the authentication source.
@@ -62,36 +40,39 @@ class User {
      * @param string $user_id User Identifier as per authentication source
      */
     public function __construct($user_id) {
-        $user_id = DBConnection::escape_value(User::$DB_TYPE, $user_id);
+        $this->databaseType = "USER";
+        $this->attributes = [];
+        $this->entityOptionTable = "user_options";
+        $this->entityIdColumn = "user_id";
+        $this->identifier = DBConnection::escape_value($this->databaseType, $user_id);
+        
         $optioninstance = Options::instance();
-        $this->identifier = $user_id;
-        $this->priv_attributes = [];
 
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             // e d u r o a m DB doesn't follow the usual approach
             // we could get multiple rows below (if administering multiple
             // federations), so consolidate all into the usual options
-            $info = DBConnection::exec(User::$DB_TYPE, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$user_id'");
+            $info = DBConnection::exec($this->databaseType, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$user_id'");
             $visited = FALSE;
             while ($a = mysqli_fetch_object($info)) {
                 if (!$visited) {
                     $optinfo = $optioninstance->optionType("user:email");
                     $flag = $optinfo['flag'];
-                    $this->priv_attributes[] = ["name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $flag];
+                    $this->attributes[] = ["name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $flag];
                     $optinfo = $optioninstance->optionType("user:realname");
                     $flag = $optinfo['flag'];
-                    $this->priv_attributes[] = ["name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $flag];
+                    $this->attributes[] = ["name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $flag];
                     $visited = TRUE;
                 }
                 if ($a->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
                     $flag = $optinfo['flag'];
-                    $this->priv_attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $flag];
+                    $this->attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $flag];
                 }
             }
 
         } else {
-            $user_options = DBConnection::exec(User::$DB_TYPE, "SELECT option_name, option_value, id AS row FROM user_options WHERE user_id = '$user_id'");
+            $user_options = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, id AS row FROM user_options WHERE user_id = '$user_id'");
             while ($a = mysqli_fetch_object($user_options)) {
                 $lang = "";
                 // decode base64 for files (respecting multi-lang)
@@ -99,7 +80,7 @@ class User {
                 $flag = $optinfo['flag'];
 
                 if ($optinfo['type'] != "file") {
-                    $this->priv_attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "User", "row" => $a->row, "flag" => $flag];
+                    $this->attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "User", "row" => $a->row, "flag" => $flag];
                 } else {
                     if (unserialize($a->option_value) != FALSE) { // multi-lang
                         $content = unserialize($a->option_value);
@@ -111,81 +92,9 @@ class User {
 
                     $content = base64_decode($content);
 
-                    $this->priv_attributes[] = ["name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])), "level" => "User", "row" => $a->row, "flag" => $flag];
+                    $this->attributes[] = ["name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(['lang' => $lang, 'content' => $content])), "level" => "User", "row" => $a->row, "flag" => $flag];
                 }
             }
-            // print_r($this->priv_attributes);
-        }
-    }
-
-    /**
-     * This function retrieves the known attributes of the user from the private member priv_attributes. 
-     * The attributes are not taken "fresh" from the database; this is a performance optimisation.
-     * The function's single parameter $option_name is optional - if specified, it only returns the attributes of the given type.
-     * Otherwise, all known attributes are returned.
-     * 
-     * @param string $option_name name of the option whose values are to be returned
-     * @return array of attributes
-     */
-    public function getAttributes($option_name = 0) {
-        if ($option_name) {
-            $returnarray = [];
-            foreach ($this->priv_attributes as $the_attr)
-                if ($the_attr['name'] == $option_name)
-                    $returnarray[] = $the_attr;
-            return $returnarray;
-        }
-        else {
-            return $this->priv_attributes;
-        }
-    }
-
-    /**
-     * This function adds a new attribute to the user. The attribute is stored persistently in the database immediately; however
-     * the priv_attributes array is not updated. To see the new attributes via getAttributes(), re-instantiate the object.
-     * 
-     * @param type $attr_name name of the attribute to add
-     * @param type $attr_value value of the attribute to add
-     */
-    public function addAttribute($attr_name, $attr_value) {
-        $escaped_name = DBConnection::escape_value(User::$DB_TYPE, $this->identifier);
-        $attr_name = DBConnection::escape_value(User::$DB_TYPE, $attr_name);
-        $attr_value = DBConnection::escape_value(User::$DB_TYPE, $attr_value);
-        if (!Config::$DB['userdb-readonly'])
-            DBConnection::exec(User::$DB_TYPE, "INSERT INTO user_options (user_id, option_name, option_value) VALUES('"
-                    . $escaped_name . "', '"
-                    . $attr_name . "', '"
-                    . $attr_value
-                    . "')");
-    }
-
-    /**
-     * This function deletes most attributes in this profile immediately, and marks the rest (file-based attributes) for later deletion.
-     * The typical usage is to call this function, then determine which of the file-based attributes were not selected for deletion by the
-     * user, and then delete those that were by calling commitFlushAttributes. Read-only attributes, like "user:fedadmin" are left
-     * untouched.
-     * 
-     * @return array list of row id's of file-based attributes which weren't deleted (to be consumed by commitFlushAttributes)
-     */
-    public function beginFlushAttributes() {
-        DBConnection::exec(User::$DB_TYPE, "DELETE FROM user_options WHERE user_id = '$this->identifier' AND option_name NOT LIKE '%_file' AND option_name NOT LIKE 'user:fedadmin'");
-        $exec_q = DBConnection::exec(User::$DB_TYPE, "SELECT id FROM user_options WHERE user_id = '$this->identifier' AND option_name NOT LIKE 'user:fedadmin'");
-        $return_array = [];
-        while ($a = mysqli_fetch_object($exec_q))
-            $return_array[$a->row] = "KILLME";
-        return $return_array;
-    }
-
-    /**
-     * This function deletes attributes from the database by their database row ID. Its typical (only) use is to take the return
-     * of beginFlushAttribute() and delete the attributes in there. It only deletes rows which actually belong to the instantiated
-     * user.
-     *
-     * @param array $tobedeleted array of database rows which are to be deleted
-     */
-    public function commitFlushAttributes($tobedeleted) {
-        foreach (array_keys($tobedeleted) as $row) {
-            DBConnection::exec(User::$DB_TYPE, "DELETE FROM user_options WHERE user_id = $this->identifier AND id = $row");
         }
     }
 
@@ -261,10 +170,6 @@ class User {
         
         $mail->addAddress($mailaddr[0]["value"]);
         
-        /* echo "<pre>";
-        print_r($mailaddr);
-        echo "</pre>";*/
-
         // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
@@ -276,6 +181,4 @@ class User {
         
         return $sent;
     }
-
-
 }

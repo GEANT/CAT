@@ -210,7 +210,7 @@ class CAT {
             while ($a = mysqli_fetch_object($federations)) {
                 $b = $a->country;
                 $F = new Federation($b);
-                $c = strtoupper($F->identifier);
+                $c = strtoupper($F->name);
                 $C[$c] = isset(Federation::$FederationList[$c]) ? Federation::$FederationList[$c] : $c;
             }
         } else {

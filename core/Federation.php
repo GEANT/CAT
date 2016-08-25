@@ -21,6 +21,7 @@
  */
 require_once("CAT.php");
 require_once('IdP.php');
+require_once('EntityWithDBProperties.php');
 
 /**
  * This class represents an consortium federation.
@@ -39,23 +40,7 @@ require_once('IdP.php');
  *
  * @package Developer
  */
-class Federation {
-
-    /**
-     * database which this class queries by default
-     * 
-     * @var string
-     */
-    private static $DB_TYPE = "INST";
-
-    /**
-     * This variable gets initialised with the known federation attributes in the constructor. It never gets updated until the object
-     * is destroyed. So if attributes change in the database, and IdP attributes are to be queried afterwards, the object
-     * needs to be re-instantiated to have current values in this variable.
-     * 
-     * @var array of federation attributes
-     */
-    private $priv_attributes;
+class Federation extends EntityWithDBProperties {
     
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
@@ -82,7 +67,7 @@ class Federation {
                 $query .= "AND institution.country = '" . $federationid . "'";
             }
             $retstring .= ($astablerows ? "<tr>" : "  <device name='" . $device_array['display'] . "'>\n");
-            $admin_query = DBConnection::exec("INST", $query);
+            $admin_query = DBConnection::exec($this->databaseType, $query);
             while ($a = mysqli_fetch_object($admin_query)) {
                 if ($astablerows)
                     $retstring .= "<td>" . $device_array['display'] . "</td>";
@@ -119,10 +104,19 @@ class Federation {
      *        Example: "lu" (for Luxembourg)
      */
     public function __construct($fedname = "") {
+        
+        // initialise the superclass variables
+        
+        $this->databaseType = "INST";
+        $this->entityOptionTable = "federation_option";
+        $this->entityIdColumn = "country";
+        $this->identifier = $fedname;
+        $this->name = $fedname;
+        $this->attributes = [];
+        
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = CAT::set_locale('core');
-        $this->identifier = $fedname;
         
         Federation::$FederationList = [
             'AD' => _("Andorra"),
@@ -377,10 +371,10 @@ class Federation {
         CAT::set_locale($oldlocale);
         
         
-        $fedAttributes = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT option_name,option_value, row FROM federation_option
-              WHERE federation_id = '$this->identifier'  ORDER BY option_name");
+        $fedAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM federation_option
+              WHERE federation_id = '$this->name'  ORDER BY option_name");
 
-        $this->priv_attributes = array();
+        
 
         $optioninstance = Options::instance();
 
@@ -391,7 +385,7 @@ class Federation {
             $flag = $optinfo['flag'];
 
             if ($optinfo['type'] != "file") {
-                $this->priv_attributes[] = array("name" => $a->option_name, "value" => $a->option_value, "level" => "FED", "row" => $a->row, "flag" => $flag);
+                $this->attributes[] = array("name" => $a->option_name, "value" => $a->option_value, "level" => "FED", "row" => $a->row, "flag" => $flag);
             } else {
                 // suppress E_NOTICE on the following... we are testing *if*
                 // we have a serialized value - so not having one is fine and
@@ -406,11 +400,11 @@ class Federation {
 
                 $content = base64_decode($content);
 
-                $this->priv_attributes[] = array("name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "FED", "row" => $a->row, "flag" => $flag);
+                $this->attributes[] = array("name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "FED", "row" => $a->row, "flag" => $flag);
             }
         }
-        $this->priv_attributes[] = array("name" => "internal:country",
-            "value" => $this->identifier,
+        $this->attributes[] = array("name" => "internal:country",
+            "value" => $this->name,
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
@@ -426,29 +420,21 @@ class Federation {
      * @return int identifier of the new IdP
      */
     public function newIdP($owner_id, $level, $mail) {
-        DBConnection::exec(Federation::$DB_TYPE, "INSERT INTO institution (country) VALUES('$this->identifier')");
-        $identifier = DBConnection::lastID(Federation::$DB_TYPE);
+        DBConnection::exec($this->databaseType, "INSERT INTO institution (country) VALUES('$this->name')");
+        $identifier = DBConnection::lastID($this->databaseType);
         if ($identifier == 0 || !CAT::writeAudit($owner_id, "NEW", "IdP $identifier")) {
             echo "<p>" . _("Could not create a new Institution!") . "</p>";
             exit(1);
         }
         // escape all strings
-        $owner_id = DBConnection::escape_value(Federation::$DB_TYPE, $owner_id);
-        $level = DBConnection::escape_value(Federation::$DB_TYPE, $level);
-        $mail = DBConnection::escape_value(Federation::$DB_TYPE, $mail);
+        $escapedOwnerId = DBConnection::escape_value($this->databaseType, $owner_id);
+        $escapedLevel = DBConnection::escape_value($this->databaseType, $level);
+        $escapedMail = DBConnection::escape_value($this->databaseType, $mail);
 
-        if ($owner_id != "PENDING")
-            DBConnection::exec(Federation::$DB_TYPE, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$owner_id', $identifier, '$level', '$mail')");
+        if ($escapedOwnerId != "PENDING")
+            DBConnection::exec($this->databaseType, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$escapedOwnerId', $identifier, '$escapedLevel', '$escapedMail')");
         return $identifier;
     }
-
-    /**
-     * Textual short-hand representation of this Federation
-     *
-     * @var string (Example: "fr")
-     *
-     */
-    public $identifier;
 
     /**
      * Lists all Identity Providers in this federation
@@ -459,15 +445,15 @@ class Federation {
      */
     public function listIdentityProviders($active_only = 0) {
         if ($active_only) {
-            $allIDPs = DBConnection::exec(Federation::$DB_TYPE, "SELECT distinct institution.inst_id AS inst_id
+            $allIDPs = DBConnection::exec($this->databaseType, "SELECT distinct institution.inst_id AS inst_id
                FROM institution
                JOIN profile ON institution.inst_id = profile.inst_id
-               WHERE institution.country = '$this->identifier' 
+               WHERE institution.country = '$this->name' 
                AND profile.showtime = 1
                ORDER BY inst_id");
         } else {
-            $allIDPs = DBConnection::exec(Federation::$DB_TYPE, "SELECT inst_id FROM institution
-               WHERE country = '$this->identifier' ORDER BY inst_id");
+            $allIDPs = DBConnection::exec($this->databaseType, "SELECT inst_id FROM institution
+               WHERE country = '$this->name' ORDER BY inst_id");
         }
 
         $returnarray = [];
@@ -486,9 +472,9 @@ class Federation {
     public function listFederationAdmins() {
         $returnarray = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") // SW: APPROVED
-            $admins = DBConnection::exec("USER", "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->identifier) . "'");
+            $admins = DBConnection::exec("USER", "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'");
         else
-            $admins = DBConnection::exec("USER", "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = '" . strtoupper($this->identifier) . "'");
+            $admins = DBConnection::exec("USER", "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = '" . strtoupper($this->name) . "'");
 
         while ($a = mysqli_fetch_object($admins))
             $returnarray[] = $a->user_id;
@@ -499,8 +485,8 @@ class Federation {
         $returnarray = [];
         $countrysuffix = "";
         
-        if ($this->identifier != "")
-            $countrysuffix = " WHERE country = '" . strtolower($this->identifier) . "'";
+        if ($this->name != "")
+            $countrysuffix = " WHERE country = '" . strtolower($this->name) . "'";
         else
             $countrysuffix = "";
         
@@ -508,10 +494,10 @@ class Federation {
             $usedarray = [];
             $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
                                                                                 FROM view_active_idp_institution $countrysuffix");
-            $already_used = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT external_db_id FROM institution 
+            $already_used = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
                                                                                                      AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
-            $pending_invite = DBConnection::exec(Federation::$DB_TYPE, "SELECT DISTINCT external_db_uniquehandle FROM invitations 
+            $pending_invite = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_uniquehandle FROM invitations 
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 
                                                                                                       AND used = 0");
@@ -600,7 +586,7 @@ class Federation {
      *
      */
     public static function listAllIdentityProviders($active_only = 0, $country = 0) {
-        DBConnection::exec(Federation::$DB_TYPE, "SET SESSION group_concat_max_len=10000");
+        DBConnection::exec($this->databaseType, "SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
                      group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
                      FROM institution ";
@@ -615,11 +601,11 @@ class Federation {
 
         if ($country) {
             // escape the parameter
-            $country = DBConnection::escape_value(Federation::$DB_TYPE, $country);
+            $country = DBConnection::escape_value($this->databaseType, $country);
             $query .= "AND institution.country = '$country' ";
         }
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        $allIDPs = DBConnection::exec(Federation::$DB_TYPE, $query);
+        $allIDPs = DBConnection::exec($this->databaseType, $query);
         $returnarray = [];
         while ($a = mysqli_fetch_object($allIDPs)) {
             $O = explode('---', $a->options);
@@ -658,72 +644,4 @@ class Federation {
         }
         return $returnarray;
     }
-
-    /**
-     * This function retrieves the federation attributes. If called with the optional parameter, only attribute values for the attribute
-     * name in $option_name are retrieved; otherwise, all attributes are retrieved.
-     *
-     * @param string $option_name optionally, the name of the attribute that is to be retrieved
-     * @return array of arrays of attributes which were set for this IdP
-     */
-    public function getAttributes($option_name = 0) {
-        if ($option_name) {
-            $returnarray = Array();
-            foreach ($this->priv_attributes as $the_attr)
-                if ($the_attr['name'] == $option_name)
-                    $returnarray[] = $the_attr;
-            return $returnarray;
-        }
-        else {
-            return $this->priv_attributes;
-        }
     }
-    
-        /**
-     * deletes all attributes in this federation except the _file ones, these are reported as array
-     *
-     * @return array list of row id's of file-based attributes which weren't deleted
-     */
-    public function beginFlushAttributes() {
-        DBConnection::exec(Federation::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = '$this->identifier' AND option_name NOT LIKE '%_file'");
-        $exec_q = DBConnection::exec(Federation::$DB_TYPE, "SELECT row FROM federation_option WHERE federation_id = '$this->identifier'");
-        $return_array = [];
-        while ($a = mysqli_fetch_object($exec_q))
-            $return_array[$a->row] = "KILLME";
-        return $return_array;
-    }
-
-    /**
-     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array
-     *
-     * @param array $tobedeleted array of database rows which are to be deleted
-     */
-    public function commitFlushAttributes($tobedeleted) {
-        foreach (array_keys($tobedeleted) as $row) {
-            DBConnection::exec(Federation::$DB_TYPE, "DELETE FROM federation_option WHERE federation_id = '$this->identifier' AND row = $row");
-        }
-    }
-
-    /**
-     * deletes all attributes of this federation from the database
-     */
-    public function flushAttributes() {
-        $this->commitFlushAttributes($this->beginFlushAttributes());
-    }
-
-    /**
-     * Adds an attribute for the Federation instance into the database. Multiple instances of the same attribute are supported.
-     *
-     * @param string $attr_name Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
-     * @param mixed $attr_value Value of the attribute. Can be anything; will be stored in the DB as-is.
-     */
-    public function addAttribute($attr_name, $attr_value) {
-        $attr_name = DBConnection::escape_value(Federation::$DB_TYPE, $attr_name);
-        $attr_value = DBConnection::escape_value(Federation::$DB_TYPE, $attr_value);
-        DBConnection::exec(Federation::$DB_TYPE, "INSERT INTO federation_option (federation_id, option_name, option_value) VALUES('"
-                . $this->identifier . "', '"
-                . $attr_name . "', '"
-                . $attr_value
-                . "')");
-    }
-}
