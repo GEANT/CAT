@@ -619,18 +619,19 @@ class Federation extends EntityWithDBProperties {
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
         $allIDPs = DBConnection::exec($this->databaseType, $query);
         $returnarray = [];
-        while ($a = mysqli_fetch_object($allIDPs)) {
-            $O = explode('---', $a->options);
-            $A = [];
+        while ($queryResult = mysqli_fetch_object($allIDPs)) {
+            $institutionOptions = explode('---', $queryResult->options);
+            $oneInstitutionResult = [];
             $geo = [];
             $names = [];
             
-            $A['entityID'] = $a->inst_id;
-            $A['country'] = strtoupper($a->country);
-            foreach ($O as $o) {
-                $opt = explode('===', $o);
-                if ($opt[0] == 'general:logo_file')
-                    $A['icon'] = $a->inst_id;
+            $oneInstitutionResult['entityID'] = $queryResult->inst_id;
+            $oneInstitutionResult['country'] = strtoupper($queryResult->country);
+            foreach ($institutionOptions as $institutionOption) {
+                $opt = explode('===', $institutionOption);
+                if ($opt[0] == 'general:logo_file') {
+                    $oneInstitutionResult['icon'] = $queryResult->inst_id;
+                }
                 if ($opt[0] == 'general:geo_coordinates') {
                     $at1 = unserialize($opt[1]);
                     $geo[] = $at1;
@@ -644,11 +645,11 @@ class Federation extends EntityWithDBProperties {
             if (count($names) != 0) {
                 $name = getLocalisedValue($names, CAT::get_lang());
             }
-            $A['title'] = $name;
+            $oneInstitutionResult['title'] = $name;
             if (count($geo) > 0) {
-                $A['geo'] = $geo;
+                $oneInstitutionResult['geo'] = $geo;
             }
-            $returnarray[] = $A;
+            $returnarray[] = $oneInstitutionResult;
         }
         return $returnarray;
     }
