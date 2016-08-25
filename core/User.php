@@ -48,31 +48,28 @@ class User extends EntityWithDBProperties {
         $optioninstance = Options::instance();
 
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            // e d u r o a m DB doesn't follow the usual approach
-            // we could get multiple rows below (if administering multiple
-            // federations), so consolidate all into the usual options
+// e d u r o a m DB doesn't follow the usual approach
+// we could get multiple rows below (if administering multiple
+// federations), so consolidate all into the usual options
             $info = DBConnection::exec($this->databaseType, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$user_id'");
             $visited = FALSE;
             while ($a = mysqli_fetch_object($info)) {
                 if (!$visited) {
-                    $optinfo = $optioninstance->optionType("user:email");
-                    $flag = $optinfo['flag'];
-                    $this->attributes[] = ["name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $flag];
-                    $optinfo = $optioninstance->optionType("user:realname");
-                    $flag = $optinfo['flag'];
-                    $this->attributes[] = ["name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $flag];
+                    $mailOptinfo = $optioninstance->optionType("user:email");
+                    $this->attributes[] = ["name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
+                    $realnameOptinfo = $optioninstance->optionType("user:realname");
+                    $this->attributes[] = ["name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $realnameOptinfo['flag']];
                     $visited = TRUE;
                 }
                 if ($a->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
-                    $flag = $optinfo['flag'];
-                    $this->attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $flag];
+                    $this->attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $optinfo['flag']];
                 }
             }
         } else {
             $user_options = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, id AS row FROM user_options WHERE user_id = '$user_id'");
             while ($a = mysqli_fetch_object($user_options)) {
-                // decode base64 for files (respecting multi-lang)
+// decode base64 for files (respecting multi-lang)
                 $optinfo = $optioninstance->optionType($a->option_name);
                 $flag = $optinfo['flag'];
 
@@ -82,8 +79,6 @@ class User extends EntityWithDBProperties {
                     $decodedAttribute = $this->decodeFileAttribute($a->option_value);
                     $this->attributes[] = ["name" => $a->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "User", "row" => $a->row, "flag" => $flag];
                 }
-
-                
             }
         }
     }
@@ -98,18 +93,18 @@ class User extends EntityWithDBProperties {
      */
     public function isFederationAdmin($federation = 0) {
         $feds = $this->getAttributes("user:fedadmin");
-        if ($federation === 0) {
-            if (count($feds) == 0)
-                return FALSE;
-            else
-                return TRUE;
-        } else {
-            foreach ($feds as $fed) {
-                if (strtoupper($fed['value']) == strtoupper($federation))
-                    return TRUE;
-            }
+        if (count($feds) == 0) { // not a fedadmin at all
             return FALSE;
         }
+        if ($federation === 0) { // fedadmin for one; that's all we want to know
+            return TRUE;
+        }
+        foreach ($feds as $fed) { // check if authz is for requested federation
+            if (strtoupper($fed['value']) == strtoupper($federation)) {
+                return TRUE;
+            }
+        }
+        return FALSE; // no luck so far? Not the admin we are looking for.
     }
 
     /**
@@ -129,14 +124,20 @@ class User extends EntityWithDBProperties {
      */
     public function isIdPOwner($idp) {
         $temp = new IdP($idp);
-        foreach ($temp->owner() as $oneowner)
-            if ($oneowner['ID'] == $this->identifier)
+        foreach ($temp->owner() as $oneowner) {
+            if ($oneowner['ID'] == $this->identifier) {
                 return TRUE;
+            }
+        }
         return FALSE;
     }
 
     public function sendMailToUser($subject, $content) {
-        // use PHPMailer to send the mail
+        $mailaddr = $this->getAttributes("user:email");
+        if (count($mailaddr) == 0) { // we don't know user's mail address
+            return FALSE;
+        }
+// use PHPMailer to send the mail
         $mail = new PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
         $mail->SMTPAuth = true;
@@ -145,27 +146,21 @@ class User extends EntityWithDBProperties {
         $mail->Host = Config::$MAILSETTINGS['host'];
         $mail->Username = Config::$MAILSETTINGS['user'];
         $mail->Password = Config::$MAILSETTINGS['pass'];
-        // formatting nitty-gritty
+// formatting nitty-gritty
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
-        // who to whom?
+// who to whom?
         $mail->From = Config::$APPEARANCE['from-mail'];
         $mail->FromName = Config::$APPEARANCE['productname'] . " Notification System";
         $mail->addReplyTo(Config::$APPEARANCE['support-contact']['mail'], Config::$APPEARANCE['productname'] . " " . _("Feedback"));
-
-        $mailaddr = $this->getAttributes("user:email");
-        if (count($mailaddr) == 0) // we don't know his mail address
-            return FALSE;
-
         $mail->addAddress($mailaddr[0]["value"]);
-
-        // what do we want to say?
+// what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
-        if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']))
+        if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass'])) {
             $mail->sign(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']);
-
+        }
 
         $sent = $mail->send();
 
