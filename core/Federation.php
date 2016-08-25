@@ -379,37 +379,34 @@ class Federation extends EntityWithDBProperties {
 
         CAT::set_locale($oldlocale);
 
-
         $fedAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM federation_option
               WHERE federation_id = '$this->name'  ORDER BY option_name");
 
-
-
         $optioninstance = Options::instance();
 
-        while ($a = mysqli_fetch_object($fedAttributes)) {
+        while ($queryResult = mysqli_fetch_object($fedAttributes)) {
             $lang = "";
             // decode base64 for files (respecting multi-lang)
-            $optinfo = $optioninstance->optionType($a->option_name);
+            $optinfo = $optioninstance->optionType($queryResult->option_name);
             $flag = $optinfo['flag'];
 
             if ($optinfo['type'] != "file") {
-                $this->attributes[] = array("name" => $a->option_name, "value" => $a->option_value, "level" => "FED", "row" => $a->row, "flag" => $flag);
+                $this->attributes[] = array("name" => $queryResult->option_name, "value" => $queryResult->option_value, "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
             } else {
                 // suppress E_NOTICE on the following... we are testing *if*
                 // we have a serialized value - so not having one is fine and
                 // shouldn't throw E_NOTICE
-                if (@unserialize($a->option_value) !== FALSE) { // multi-lang
-                    $content = unserialize($a->option_value);
-                    $lang = $content['lang'];
-                    $content = $content['content'];
+                if (@unserialize($queryResult->option_value) !== FALSE) { // multi-lang
+                    $tempContent = unserialize($queryResult->option_value);
+                    $lang = $tempContent['lang'];
+                    $content = $tempContent['content'];
                 } else { // single lang, direct content
-                    $content = $a->option_value;
+                    $content = $queryResult->option_value;
                 }
 
                 $content = base64_decode($content);
 
-                $this->attributes[] = array("name" => $a->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "FED", "row" => $a->row, "flag" => $flag);
+                $this->attributes[] = array("name" => $queryResult->option_name, "value" => ($lang == "" ? $content : serialize(Array('lang' => $lang, 'content' => $content))), "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
             }
         }
         $this->attributes[] = array("name" => "internal:country",
@@ -439,8 +436,9 @@ class Federation extends EntityWithDBProperties {
         $escapedLevel = DBConnection::escape_value($this->databaseType, $level);
         $escapedMail = DBConnection::escape_value($this->databaseType, $mail);
 
-        if ($escapedOwnerId != "PENDING")
+        if ($escapedOwnerId != "PENDING") {
             DBConnection::exec($this->databaseType, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$escapedOwnerId', $identifier, '$escapedLevel', '$escapedMail')");
+        }
         return $identifier;
     }
 
@@ -479,13 +477,16 @@ class Federation extends EntityWithDBProperties {
 
     public function listFederationAdmins() {
         $returnarray = [];
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") // SW: APPROVED
-            $admins = DBConnection::exec("USER", "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'");
-        else
-            $admins = DBConnection::exec("USER", "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = '" . strtoupper($this->name) . "'");
-
-        while ($a = mysqli_fetch_object($admins))
+        $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = '" . strtoupper($this->name) . "'";
+        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'";
+        }
+        
+        $admins = DBConnection::exec("USER", $query);
+        
+        while ($a = mysqli_fetch_object($admins)) {
             $returnarray[] = $a->user_id;
+        }
         return $returnarray;
     }
 
@@ -493,11 +494,10 @@ class Federation extends EntityWithDBProperties {
         $returnarray = [];
         $countrysuffix = "";
 
-        if ($this->name != "")
+        if ($this->name != "") {
             $countrysuffix = " WHERE country = '" . strtolower($this->name) . "'";
-        else
-            $countrysuffix = "";
-
+        }
+        
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
             $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
@@ -509,14 +509,16 @@ class Federation extends EntityWithDBProperties {
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 
                                                                                                       AND used = 0");
-            while ($a = mysqli_fetch_object($already_used))
+            while ($a = mysqli_fetch_object($already_used)) {
                 $usedarray[] = $a->external_db_id;
-            while ($a = mysqli_fetch_object($pending_invite))
-                if (!in_array($a->external_db_uniquehandle, $usedarray))
+            }
+            while ($a = mysqli_fetch_object($pending_invite)) {
+                if (!in_array($a->external_db_uniquehandle, $usedarray)) {
                     $usedarray[] = $a->external_db_uniquehandle;
+                }
+            }
             while ($a = mysqli_fetch_object($externals)) {
-                if ($unmapped_only === TRUE) {
-                    if (in_array($a->id, $usedarray))
+                if (($unmapped_only === TRUE) && (in_array($a->id, $usedarray))) {
                         continue;
                 }
                 $names = explode('#', $a->collapsed_name);
@@ -541,8 +543,9 @@ class Federation extends EntityWithDBProperties {
                     $matches = [];
                     preg_match("/^n: (.*), e: (.*), p: .*$/", $contact, $matches);
                     if ($matches[2] != "") {
-                        if ($mailnames != "")
+                        if ($mailnames != "") {
                             $mailnames .= ", ";
+                        }
                         // extracting real names is nice, but the <> notation
                         // really gets screwed up on POSTs and HTML safety
                         // so better not do this; use only mail addresses
@@ -561,10 +564,10 @@ class Federation extends EntityWithDBProperties {
     public static function getExternalDBEntityDetails($external_id, $realm = NULL) {
         $list = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            if ($realm !== NULL)
+            $scanforrealm = "";
+            if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
-            else
-                $scanforrealm = "";
+            }
             $info_list = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $external_id $scanforrealm");
             // split names and contacts into proper pairs
             while ($a = mysqli_fetch_object($info_list)) {
@@ -598,15 +601,16 @@ class Federation extends EntityWithDBProperties {
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
                      group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
                      FROM institution ";
-        if ($active_only == 1)
+        if ($active_only == 1) {
             $query .= "JOIN profile ON institution.inst_id = profile.inst_id ";
+        }
         $query .= "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
         $query .= "WHERE (institution_option.option_name = 'general:instname' 
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
-        if ($active_only == 1)
+        if ($active_only == 1) {
             $query .= "AND profile.showtime = 1 ";
-
+        }
         if ($country) {
             // escape the parameter
             $country = DBConnection::escape_value($this->databaseType, $country);
@@ -618,10 +622,9 @@ class Federation extends EntityWithDBProperties {
         while ($a = mysqli_fetch_object($allIDPs)) {
             $O = explode('---', $a->options);
             $A = [];
-            if (isset($geo))
-                unset($geo);
-            if (isset($names))
-                $names = [];
+            $geo = [];
+            $names = [];
+            
             $A['entityID'] = $a->inst_id;
             $A['country'] = strtoupper($a->country);
             foreach ($O as $o) {
@@ -630,13 +633,9 @@ class Federation extends EntityWithDBProperties {
                     $A['icon'] = $a->inst_id;
                 if ($opt[0] == 'general:geo_coordinates') {
                     $at1 = unserialize($opt[1]);
-                    if (!isset($geo))
-                        $geo = [];
                     $geo[] = $at1;
                 }
                 if ($opt[0] == 'general:instname') {
-                    if (!isset($names))
-                        $names = [];
                     $names[] = ['value' => $opt[1]];
                 }
             }
@@ -646,8 +645,9 @@ class Federation extends EntityWithDBProperties {
                 $name = getLocalisedValue($names, CAT::get_lang());
             }
             $A['title'] = $name;
-            if (isset($geo))
+            if (count($geo) > 0) {
                 $A['geo'] = $geo;
+            }
             $returnarray[] = $A;
         }
         return $returnarray;
