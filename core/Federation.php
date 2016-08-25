@@ -41,7 +41,7 @@ require_once('EntityWithDBProperties.php');
  * @package Developer
  */
 class Federation extends EntityWithDBProperties {
-    
+
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
      * The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
@@ -51,47 +51,63 @@ class Federation extends EntityWithDBProperties {
      */
     public static $FederationList = [];
 
-        public static function downloadStats($federationid = NULL, $astablerows = FALSE) {
-        $gross_admin = 0;
-        $gross_user = 0;
+    private static function downloadStatsCore($federationid = NULL) {
+        $grossAdmin = 0;
+        $grossUser = 0;
 
-        $timestamp = date("Y-m-d") . "T" . date("H:i:s");
-        
-        $retstring = "";
-        if (!$astablerows)
-            $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='$timestamp'>\n";
+        $dataArray = [];
 
         foreach (Devices::listDevices() as $index => $device_array) {
             $query = "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads, profile, institution WHERE device_id = '$index' AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id ";
             if ($federationid != NULL) {
                 $query .= "AND institution.country = '" . $federationid . "'";
             }
-            $retstring .= ($astablerows ? "<tr>" : "  <device name='" . $device_array['display'] . "'>\n");
-            $admin_query = DBConnection::exec($this->databaseType, $query);
-            while ($a = mysqli_fetch_object($admin_query)) {
-                if ($astablerows)
-                    $retstring .= "<td>" . $device_array['display'] . "</td>";
-                $retstring .= ($astablerows ? "<td>" : "    <downloads group='admin'>");
-                $retstring .= ( $a->admin === NULL ? "0" : $a->admin);
-                $retstring .= ($astablerows ? "</td><td>" : "</downloads>\n    <downloads group='user'>");
-                $retstring .= ( $a->user === NULL ? "0" : $a->user);
-                $retstring .= ($astablerows ? "</td>" : "</downloads>\n");
-                $gross_admin = $gross_admin + $a->admin;
-                $gross_user = $gross_user + $a->user;
+            $number_query = DBConnection::exec("INST", $query);
+            while ($queryResult = mysqli_fetch_object($number_query)) {
+                $dataArray[$device_array['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
+                $grossAdmin = $grossAdmin + $queryResult->admin;
+                $grossUser = $grossUser + $queryResult->user;
             }
-            $retstring .= ($astablerows ? "</tr>" : "  </device>\n");
         }
-        $retstring .= ($astablerows ? "<tr>" : "  <total>\n");
-        if ($astablerows)
-            $retstring .= "<td><strong>TOTAL</ts>";
-        $retstring .= ($astablerows ? "<td><strong>" : "    <downloads group='admin'>");
-        $retstring .= $gross_admin;
-        $retstring .= ($astablerows ? "</strong></td><td><strong>" : "</downloads>\n    <downloads group='user'>");
-        $retstring .= $gross_user;
-        $retstring .= ($astablerows ? "</strong></td>" : "</downloads>\n");
-        $retstring .= ($astablerows ? "</tr>" : "  </total>\n");
-        if (!$astablerows)
-            $retstring .= "</federation>\n";
+        $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "USER" => $grossUser];
+        return $dataArray;
+    }
+
+    public static function downloadStats($format, $federationid = NULL) {
+        $data = Federation::downloadStatsCore($federationid);
+        $retstring = "";
+        
+        switch ($format) {
+            case "table":
+                foreach ($data as $device => $numbers) {
+                    if ($device == "TOTAL") {
+                        continue;
+                    }
+                    $retstring .= "<tr><td>$device</td><td>".$numbers['ADMIN']."</td><td>".$numbers['USER']."</td></tr>";
+                }
+                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>".$data['TOTAL']['ADMIN']."</strong></td><td><strong>".$data['TOTAL']['USER']."</strong></td></tr>";
+                break;
+            case "XML":
+                $timestamp = date("Y-m-d") . "T" . date("H:i:s");
+                $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='$timestamp'>\n";
+                foreach ($data as $device => $numbers) {
+                    if ($device == "TOTAL") {
+                        continue;
+                    }
+                    $retstring .= "  <device name='" . $device . "'>\n";
+                    $retstring .= "    <downloads group='admin'>".$numbers['ADMIN']."</downloads>\n";
+                    $retstring .= "    <downloads group='user'>".$numbers['USER']."</downloads>\n";
+                    $retstring .= "  </device>";
+                }
+                $retstring .= "<total>";
+                $retstring .= "  <downloads group='admin'>".$data['TOTAL']['ADMIN']."</downloads>\n";
+                $retstring .= "  <downloads group='user'>".$data['TOTAL']['USER']."</downloads>\n";
+                $retstring .= "</total>\n";
+                $retstring .= "</federation>";
+                break;
+            default:
+               return false;
+        }
 
         return $retstring;
     }
@@ -104,20 +120,20 @@ class Federation extends EntityWithDBProperties {
      *        Example: "lu" (for Luxembourg)
      */
     public function __construct($fedname = "") {
-        
+
         // initialise the superclass variables
-        
+
         $this->databaseType = "INST";
         $this->entityOptionTable = "federation_option";
         $this->entityIdColumn = "country";
         $this->identifier = $fedname;
         $this->name = $fedname;
         $this->attributes = [];
-        
+
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = CAT::set_locale('core');
-        
+
         Federation::$FederationList = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
@@ -369,12 +385,12 @@ class Federation extends EntityWithDBProperties {
         ];
 
         CAT::set_locale($oldlocale);
-        
-        
+
+
         $fedAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM federation_option
               WHERE federation_id = '$this->name'  ORDER BY option_name");
 
-        
+
 
         $optioninstance = Options::instance();
 
@@ -408,7 +424,6 @@ class Federation extends EntityWithDBProperties {
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
-
     }
 
     /**
@@ -484,12 +499,12 @@ class Federation extends EntityWithDBProperties {
     public function listExternalEntities($unmapped_only) {
         $returnarray = [];
         $countrysuffix = "";
-        
+
         if ($this->name != "")
             $countrysuffix = " WHERE country = '" . strtolower($this->name) . "'";
         else
             $countrysuffix = "";
-        
+
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
             $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
@@ -632,7 +647,7 @@ class Federation extends EntityWithDBProperties {
                     $names[] = ['value' => $opt[1]];
                 }
             }
-            
+
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
                 $name = getLocalisedValue($names, CAT::get_lang());
@@ -644,4 +659,5 @@ class Federation extends EntityWithDBProperties {
         }
         return $returnarray;
     }
-    }
+
+}
