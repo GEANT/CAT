@@ -169,7 +169,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <div style='display: table-row; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell;'>
                     <h2><?php echo _("eduroam-as-a-Service");?></h2>
-                    You can create up to 200 users. Usernames will be in the form of <strong>opaquehash@<?php echo $my_inst->identifier."-".$profile->identifier.".".strtolower($my_inst->federation);?>.hosted.eduroam.org.
+                    <?php printf(_("You can create up to %d users. Usernames will be in the form of <strong>%s</strong>."),200,"opaquehash@$my_inst->identifier-$profile->identifier".strtolower($my_inst->federation)."hosted.eduroam.org");?>
                     <form action='edit_silverbullet.php' method='POST'>
                         <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base");?></button>
                     </form>
