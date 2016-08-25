@@ -88,21 +88,14 @@ class Federation extends EntityWithDBProperties {
                 $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>".$data['TOTAL']['ADMIN']."</strong></td><td><strong>".$data['TOTAL']['USER']."</strong></td></tr>";
                 break;
             case "XML":
-                $timestamp = date("Y-m-d") . "T" . date("H:i:s");
-                $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='$timestamp'>\n";
+                $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='".date("Y-m-d") . "T" . date("H:i:s")."'>\n";
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "  <device name='" . $device . "'>\n";
-                    $retstring .= "    <downloads group='admin'>".$numbers['ADMIN']."</downloads>\n";
-                    $retstring .= "    <downloads group='user'>".$numbers['USER']."</downloads>\n";
-                    $retstring .= "  </device>";
+                    $retstring .= "  <device name='" . $device . "'>\n    <downloads group='admin'>".$numbers['ADMIN']."</downloads>\n    <downloads group='user'>".$numbers['USER']."</downloads>\n  </device>";
                 }
-                $retstring .= "<total>";
-                $retstring .= "  <downloads group='admin'>".$data['TOTAL']['ADMIN']."</downloads>\n";
-                $retstring .= "  <downloads group='user'>".$data['TOTAL']['USER']."</downloads>\n";
-                $retstring .= "</total>\n";
+                $retstring .= "<total>\n  <downloads group='admin'>".$data['TOTAL']['ADMIN']."</downloads>\n  <downloads group='user'>".$data['TOTAL']['USER']."</downloads>\n</total>\n";
                 $retstring .= "</federation>";
                 break;
             default:
