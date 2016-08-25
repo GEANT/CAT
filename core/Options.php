@@ -1,8 +1,9 @@
 <?php
-/* *********************************************************************************
+
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 
@@ -13,7 +14,6 @@
  *
  * @package Developer
  */
-
 /**
  * necessary includes
  */
@@ -28,66 +28,65 @@ require_once('Helper.php');
  * @package Developer
  */
 class Options {
-    
-   /**
+
+    /**
      * database which this class queries by default
      * 
      * @var string
      */
-    private static $DB_TYPE = "INST";
-    
+    private static $databaseType = "INST";
+
     /**
      * The (only) instance of this class
      * 
      * @var Options
      */
     private static $instance;
-    
+
     /**
      * This private variable contains the list of all known options and their properties (i.e. flags).
      * 
      * @var array all known options
      */
-    private $type_db;
-    
+    private $typeDb;
+
     /**
      * Returns the handle to the (only) instance of this class.
      * 
      * @return Options
      */
-    public static function instance()
-    {
+    public static function instance() {
         if (!isset(self::$instance)) {
             $className = __CLASS__;
             self::$instance = new $className;
         }
         return self::$instance;
     }
-    
+
     /**
      * Prevent cloning - this is a singleton.
      */
-    public function __clone()
-    {
+    public function __clone() {
         trigger_error('Cloning not allowed for singleton classes.', E_USER_ERROR);
     }
-    
+
     /**
      *  Option class constructor; retrieves information about the known options from the database.
      */
     private function __construct() {
-        $this->type_db = [];
-        debug(3,"--- BEGIN constructing Options instance ---\n");
-        $options = DBConnection::exec(Options::$DB_TYPE, "SELECT name,type,flag from profile_option_dict ORDER BY name");
-        while($a = mysqli_fetch_object($options))
-            $this->type_db[$a->name]       =  ["type" => $a->type, "flag" => $a->flag];
-        $this->type_db["general:logo_url"] =  ["type" => "string", "flag" => NULL];
-        $this->type_db["eap:ca_url"]       =  ["type" => "string", "flag" => NULL];
-        $this->type_db["internal:country"] =  ["type" => "string", "flag" => NULL];
+        $this->typeDb = [];
+        debug(3, "--- BEGIN constructing Options instance ---\n");
+        $options = DBConnection::exec(Options::$databaseType, "SELECT name,type,flag from profile_option_dict ORDER BY name");
+        while ($a = mysqli_fetch_object($options)) {
+            $this->typeDb[$a->name] = ["type" => $a->type, "flag" => $a->flag];
+        }
+        $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:country"] = ["type" => "string", "flag" => NULL];
 
-        debug(3,"--- END constructing Options instance ---\n");
+        debug(3, "--- END constructing Options instance ---\n");
     }
-    
+
     /**
      * This function lists all known options. If called with the optional parameter $class_name, only options of that class are
      * returned, otherwise the full set of all known attributes.
@@ -98,20 +97,20 @@ class Options {
      * @return array of options
      */
     public function availableOptions($class_name = 0) {
-        $temporary_array = [];
-        debug(3,"CLASSNAME IS $class_name\n");
-        
-        foreach (array_keys($this->type_db) as $name) {
+        $returnArray = [];
+        debug(3, "CLASSNAME IS $class_name\n");
+
+        foreach (array_keys($this->typeDb) as $name) {
             if ($class_name === 0) {
-                $temporary_array[] = $name;
-            } else {
-                if ( preg_match('/^'.$class_name.':/', $name) > 0 ) {
-                        $temporary_array[] = $name;
-                }
+                $returnArray[] = $name;
+                return $returnArray;
+            }
+            if (preg_match('/^' . $class_name . ':/', $name) > 0) {
+                $returnArray[] = $name;
             }
         }
 
-        return $temporary_array;
+        return $returnArray;
     }
 
     /** This function returns the properties of a given attribute name. This currently means it returns its type and its flag field ("ML").
@@ -122,8 +121,8 @@ class Options {
      * @param string $optionname Name of the option whose properties are to be retrieved.
      * @return array properties of the attribute
      */
-    public function optionType($optionname) {        
-        return $this->type_db[$optionname];
+    public function optionType($optionname) {
+        return $this->typeDb[$optionname];
     }
 
 }
