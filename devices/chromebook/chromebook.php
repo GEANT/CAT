@@ -97,51 +97,49 @@ class Device_Chromebook extends DeviceConfig {
      */
     public function writeInstaller() {
         debug(4, "Chromebook Installer start\n");
+        $caRefs = [];
         // we don't do per-user encrypted containers
-        $json_array = [];
-
-        $json_array["Type"] = "UnencryptedConfiguration";
+        $jsonArray = ["Type" => "UnencryptedConfiguration"];
 
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
-            $ca_refs[] = "{" . $ca['uuid'] . "}";
+            $caRefs[] = "{" . $ca['uuid'] . "}";
         }
         // construct outer id, if anonymity is desired
+        $outerId = 0;
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
-            $outer_id = "@" . $this->attributes['internal:realm'][0];
+            $outerId = "@" . $this->attributes['internal:realm'][0];
             if (isset($this->attributes['internal:anon_local_value']))
-                $outer_id = $this->attributes['internal:anon_local_value'][0] . $outer_id;
+                $outerId = $this->attributes['internal:anon_local_value'][0] . $outerId;
         }
-        else {
-            $outer_id = 0;
-        }
+        
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
-            $network_uuid = uuid($prefix, $ssid);
-            $eap_prettyprint = EAP::eapDisplayName($this->selected_eap);
+            $networkUuid = uuid($prefix, $ssid);
+            $eapPrettyprint = EAP::eapDisplayName($this->selected_eap);
             // ONC has its own enums, and guess what, they don't always match
-            if ($eap_prettyprint["OUTER"] == "PEAP" && $eap_prettyprint["INNER"] == "MSCHAPV2")
+            if ($eapPrettyprint["OUTER"] == "PEAP" && $eapPrettyprint["INNER"] == "MSCHAPV2")
                 // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
-                $eap_prettyprint["INNER"] = "MSCHAPv2";
-            if ($eap_prettyprint["OUTER"] == "TTLS" && $eap_prettyprint["INNER"] == "MSCHAPV2") {
-                $eap_prettyprint["OUTER"] = "EAP-TTLS";
-                $eap_prettyprint["INNER"] = "MSCHAPv2";
+                $eapPrettyprint["INNER"] = "MSCHAPv2";
+            if ($eapPrettyprint["OUTER"] == "TTLS" && $eapPrettyprint["INNER"] == "MSCHAPV2") {
+                $eapPrettyprint["OUTER"] = "EAP-TTLS";
+                $eapPrettyprint["INNER"] = "MSCHAPv2";
             }
-            if ($eap_prettyprint["OUTER"] == "TLS")
-                $eap_prettyprint["OUTER"] = "EAP-TLS";
+            if ($eapPrettyprint["OUTER"] == "TLS")
+                $eapPrettyprint["OUTER"] = "EAP-TLS";
             // define EAP properties
 
-            $eaparray = array("Outer" => $eap_prettyprint["OUTER"]);
-            if ($eap_prettyprint["INNER"] == "MSCHAPv2")
-                $eaparray["Inner"] = $eap_prettyprint["INNER"];
+            $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
+            if ($eapPrettyprint["INNER"] == "MSCHAPv2")
+                $eaparray["Inner"] = $eapPrettyprint["INNER"];
             $eaparray["SaveCredentials"] = true;
-            $eaparray["ServerCARefs"] = $ca_refs; // maybe takes just one CA?
+            $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
             $eaparray["UseSystemCAs"] = false;
                     
-            if ($outer_id)
-                $eaparray["AnonymousIdentity"] = "$outer_id";
+            if ($outerId)
+                $eaparray["AnonymousIdentity"] = "$outerId";
             
-            $json_array["NetworkConfigurations"][] = [
-                "GUID" => $network_uuid,
+            $jsonArray["NetworkConfigurations"][] = [
+                "GUID" => $networkUuid,
                 "Name" => "$ssid",
                 "Type" => "WiFi",
                 "WiFi" => [
@@ -156,9 +154,9 @@ class Device_Chromebook extends DeviceConfig {
         };
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
-            $network_uuid = "{" . uuid($prefix, "wired-dot1x-ethernet") . "}";
-            $json_array["NetworkConfigurations"][] = [
-                "GUID" => $network_uuid,
+            $networkUuid = "{" . uuid($prefix, "wired-dot1x-ethernet") . "}";
+            $jsonArray["NetworkConfigurations"][] = [
+                "GUID" => $networkUuid,
                 "Name" => "eduroam configuration (wired network)",
                 "Type" => "Ethernet",
                 "Ethernet" => [
@@ -173,29 +171,27 @@ class Device_Chromebook extends DeviceConfig {
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
             debug(2,$ca['pem']);
-            $ca_sanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            debug(2,$ca_sanitized."\n");
+            $caSanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            debug(2,$caSanitized."\n");
             // remove \n
-            $ca_sanitized = str_replace("\n", "", $ca_sanitized);
-            $json_array["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $ca_sanitized];
-            debug(2,$ca_sanitized."\n");
+            $caSanitized = str_replace("\n", "", $caSanitized);
+            $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
+            debug(2,$caSanitized."\n");
         }
                 
-        $output_json = json_encode($json_array, JSON_PRETTY_PRINT);
-        $xml_f = fopen('installer_profile', 'w');
-        fwrite($xml_f, $output_json);
-        fclose($xml_f);
+        $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
+        $outputFile = fopen('installer_profile', 'w');
+        fwrite($outputFile, $outputJson);
+        fclose($outputFile);
 
-        $e = $this->installerBasename . '.onc';
+        $fileName = $this->installerBasename . '.onc';
 //        if ($this->sign) {
 //            $o = system($this->sign . " installer_profile '$e' > /dev/null");
 //           if ($o === FALSE)
 //                debug(2, "Signing the mobileconfig installer $e FAILED!\n");
 //        } else
-        rename("installer_profile", $e);
-
-        textdomain($dom);
-        return $e;
+        rename("installer_profile", $fileName);
+        return $fileName;
     }
 
     /**
@@ -204,22 +200,8 @@ class Device_Chromebook extends DeviceConfig {
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {
-        $ssid_ct = count($this->attributes['internal:SSID']);
         $out = "<p>";
         $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes.");
         return $out;
     }
-
-    /**
-     * zip files and return the archive name
-     *
-     * inline{@source}
-     * return string
-     */
-    private function zipInstaller($attr) {
-        $e = $this->installerBasename . '.zip';
-        $o = system('zip -q ' . $e . ' *');
-        return $e;
-    }
-
 }
