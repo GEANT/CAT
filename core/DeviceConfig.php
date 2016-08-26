@@ -334,8 +334,9 @@ abstract class DeviceConfig {
     */
    private function getInstallerBasename() {
       $replace_pattern = '/[ ()\/\'"]+/';
-      debug(4,"getInstallerBasename1:".$this->attributes['general:instname'][0]."\n");
-      $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][0]));
+      $lang_pointer = Config::$LANGUAGES[$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
+      debug(4,"getInstallerBasename1:".$this->attributes['general:instname'][$lang_pointer]."\n");
+      $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
       debug(4,"getInstallerBasename2:$inst\n");
       $Inst_a = explode('_',$inst);
       if(count($Inst_a) > 2) {
@@ -345,8 +346,8 @@ abstract class DeviceConfig {
       }   
       $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
       if($this->attributes['internal:profile_count'][0] > 1) {
-         if(!empty($this->attributes['profile:name']) && ! empty($this->attributes['profile:name'][0])) {
-             $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
+         if(!empty($this->attributes['profile:name']) && ! empty($this->attributes['profile:name'][$lang_pointer])) {
+             $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
              $prof = preg_replace('/_+$/','',$prof);
              return $c_name. '-'. $this->getDeviceId() . $inst .'-'. $prof;
          }
