@@ -43,21 +43,18 @@ class DBConnection {
                     self::$instance_inst = new $c($db);
                 }
                 return self::$instance_inst;
-                break;
             case "USER":
                 if (!isset(self::$instance_user)) {
                     $c = __CLASS__;
                     self::$instance_user = new $c($db);
                 }
                 return self::$instance_user;
-                break;
             case "EXTERNAL":
                 if (!isset(self::$instance_external)) {
                     $c = __CLASS__;
                     self::$instance_external = new $c($db);
                 }
                 return self::$instance_external;
-                break;
             default:
                 return FALSE;
         }
@@ -106,8 +103,9 @@ class DBConnection {
         }
 
         // log exact query to audit log, if it's not a SELECT
-        if (preg_match("/^SELECT/i", $querystring) == 0)
+        if (preg_match("/^SELECT/i", $querystring) == 0) {
             CAT::writeSQLAudit("[DB: " . strtoupper($db) . "] " . $querystring);
+        }
         return $result;
     }
 
@@ -120,14 +118,16 @@ class DBConnection {
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option")
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
             return FALSE;
+        }
         $blob_query = DBConnection::exec("INST", "SELECT option_value from $table WHERE row = $row");
-        while ($a = mysqli_fetch_object($blob_query))
+        while ($a = mysqli_fetch_object($blob_query)) {
             $blob = $a->option_value;
-
-        if (!isset($blob))
+        }
+        if (!isset($blob)) {
             return FALSE;
+        }
         return $blob;
     }
 
@@ -136,13 +136,15 @@ class DBConnection {
      * yes who the authorised admins to view it are (return array of user IDs)
      */
     public static function isDataRestricted($table, $row) {
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option")
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+        }
         switch ($table) {
             case "profile_option":
                 $blob_query = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
-                while ($a = mysqli_fetch_object($blob_query)) // only one row
-                    $blobprofile = $a->profile_id;
+                while ($profileIdQuery = mysqli_fetch_object($blob_query)) { // only one row
+                    $blobprofile = $profileIdQuery->profile_id;
+                }
                 // is the profile in question public?
                 $profile = new Profile($blobprofile);
                 if ($profile->getShowtime() == TRUE) { // public data
@@ -154,8 +156,9 @@ class DBConnection {
                 break;
             case "institution_option":
                 $blob_query = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
-                while ($a = mysqli_fetch_object($blob_query)) // only one row
-                    $blobinst = $a->institution_id;
+                while ($instIdQuery = mysqli_fetch_object($blob_query)) { // only one row
+                    $blobinst = $instIdQuery->institution_id;
+                }
                 $inst = new IdP($blobinst);
                 // if at least one of the profiles belonging to the inst is public, the data is public
                 if ($inst->isOneProfileShowtime()) { // public data
@@ -167,7 +170,6 @@ class DBConnection {
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;
-                break;
             default:
                 return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
         }
