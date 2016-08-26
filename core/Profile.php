@@ -398,8 +398,8 @@ class Profile extends EntityWithDBProperties {
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
     public function addAttribute($attrName, $attrValue, $eapType, $device = 0) {
-        $escapedAttrName = DBConnection::escape_value(Profile::$DB_TYPE, $attrName);
-        $escapedAttrValue = DBConnection::escape_value(Profile::$DB_TYPE, $attrValue);
+        $escapedAttrName = DBConnection::escape_value($this->databaseType, $attrName);
+        $escapedAttrValue = DBConnection::escape_value($this->databaseType, $attrValue);
 
         DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id" . ($device !== 0 ? ",device_id" : "") . ") 
                           VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType" . ($device !== 0 ? ",'" . DBConnection::escape_value($this->databaseType, $device) . "'" : "" ) . ")");
@@ -477,7 +477,7 @@ class Profile extends EntityWithDBProperties {
      */
     public function setRealm($realm) {
         $escapedRealm = DBConnection::escape_value($this->databaseType, $realm);
-        DBConnection::exec(Profile::$DB_TYPE, "UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
         $this->realm = $escapedRealm;
     }
 
