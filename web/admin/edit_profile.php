@@ -321,13 +321,14 @@ $idpoptions = $my_inst->getAttributes();
                 </td>
                 <td>
                     <input type='checkbox' <?php echo ($verify != FALSE ? "checked" : "" );
-                        echo ($realm == "" ? "disabled" : "" ); ?> name='verify_support' onclick='
-                            if (this.form.elements["verify_support"].checked != true) {
-                                this.form.elements["hint_support"].setAttribute("disabled", "disabled");
-                            } else {
-                                this.form.elements["hint_support"].removeAttribute("disabled");
-                            }
-                            ;'/>
+                        echo ($realm == "" ? "disabled" : "" );
+                        ?> name='verify_support' onclick='
+                                if (this.form.elements["verify_support"].checked != true) {
+                                    this.form.elements["hint_support"].setAttribute("disabled", "disabled");
+                                } else {
+                                    this.form.elements["hint_support"].removeAttribute("disabled");
+                                }
+                                ;'/>
                     <span id='hint_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
 <?php echo _("Prefill user input with realm suffix:"); ?>
                     </span>
@@ -335,33 +336,43 @@ $idpoptions = $my_inst->getAttributes();
                 </td>
             </tr>
             <tr>
-                <?php
-                // checkbox and input field for anonymity support, available only when realm is known
-                echo "<td><span id='anon_support_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Enable Anonymous Outer Identity:") . "</span></td>
-                <td><input type='checkbox' " . ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='anon_support' onclick='
-                           if (this.form.elements[\"anon_support\"].checked != true) {
-                           this.form.elements[\"anon_local\"].setAttribute(\"disabled\", \"disabled\");
-                           } else {
-                           this.form.elements[\"anon_local\"].removeAttribute(\"disabled\");
-                           };'/>
-                           <input type='text' " . ($checkuser_outer == FALSE ? "disabled" : "" ) . " name='anon_local' value='$anon_local'/></td>";
-                ?>
-                </tr>
-                <tr>
-                    <?php
-                // checkbox and input field for check realm outer id, available only when realm is known
-                echo "<td><span id='checkuser_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Use special Outer Identity for realm checks:") . "</span></td>
-                <td><input type='checkbox' " . ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='checkuser_support' onclick='
-                           if (this.form.elements[\"checkuser_support\"].checked != true) {
-                           this.form.elements[\"checkuser_local\"].setAttribute(\"disabled\", \"disabled\");
-                           } else {
-                           this.form.elements[\"checkuser_local\"].removeAttribute(\"disabled\");
-                           };'/>
-                           <input type='text' " . ($checkuser_outer == FALSE ? "disabled" : "" ) . " name='checkuser_local' value='$checkuser_value'/></td>";
-                ?>
-                </tr>
-        </table>
 
+                <!-- checkbox and input field for anonymity support, available only when realm is known-->
+                <td>
+                    <span id='anon_support_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+<?php echo _("Enable Anonymous Outer Identity:"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='checkbox' <?php echo ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='anon_support' onclick='
+                        if (this.form.elements["anon_support"].checked != true) {
+                            this.form.elements["anon_local"].setAttribute("disabled", "disabled");
+                        } else {
+                            this.form.elements["anon_local"].removeAttribute("disabled");
+                        }
+                        ;'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='anon_local' value='$anon_local'/>
+                </td>    
+            </tr>
+            <tr>
+                
+                <!-- checkbox and input field for check realm outer id, available only when realm is known-->
+                <td>
+                    <span id='checkuser_label' style='<?php echo ($realm == "" ? "color:#999999" : "" );?>'>
+                        <?php echo _("Use special Outer Identity for realm checks:");?>
+                    </span>
+                </td>
+                <td>
+                    <input type='checkbox' <?php echo ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" );?> name='checkuser_support' onclick='
+                           if (this.form.elements["checkuser_support"].checked != true) {
+                           this.form.elements["checkuser_local"].setAttribute("disabled", "disabled");
+                           } else {
+                           this.form.elements["checkuser_local"].removeAttribute("disabled");
+                           };'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" );?> name='checkuser_local' value='$checkuser_value'/>
+                </td>
+            </tr>
+        </table>
     </p>
 
     <h3><?php echo _("Installer Download Location"); ?></h3>
