@@ -67,19 +67,9 @@ class User extends EntityWithDBProperties {
                 }
             }
         } else {
-            $userOptions = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, id AS row FROM $this->entityOptionTable WHERE $this->entityIdColumn = '$userId'");
-            while ($userOptionQuery = mysqli_fetch_object($userOptions)) {
-// decode base64 for files (respecting multi-lang)
-                $optinfo = $optioninstance->optionType($userOptionQuery->option_name);
-                $flag = $optinfo['flag'];
-
-                if ($optinfo['type'] != "file") {
-                    $this->attributes[] = ["name" => $userOptionQuery->option_name, "value" => $userOptionQuery->option_value, "level" => "User", "row" => $userOptionQuery->row, "flag" => $flag];
-                } else {
-                    $decodedAttribute = $this->decodeFileAttribute($userOptionQuery->option_value);
-                    $this->attributes[] = ["name" => $userOptionQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "User", "row" => $userOptionQuery->row, "flag" => $flag];
-                }
-            }
+            $this->retrieveOptionsFromDatabase("SELECT option_name, option_value, id AS row
+                                                FROM $this->entityOptionTable
+                                                WHERE $this->entityIdColumn = '$userId'", "User");
         }
     }
 

@@ -67,36 +67,21 @@ class IdP extends EntityWithDBProperties {
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "inst_id";
         $this->identifier = $instId;
-        $this->attributes = [];
 
         $idp = DBConnection::exec($this->databaseType, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
-        if (!$attributeQuery = mysqli_fetch_object($idp)) {
+        if (!$instQuery = mysqli_fetch_object($idp)) {
             throw new Exception("IdP $this->identifier not found in database!");
         }
 
-        $this->federation = $attributeQuery->country;
-
-        $optioninstance = Options::instance();
-
-        $this->externalDbSyncstate = $attributeQuery->externalDbSyncstate;
-        // fetch attributes from DB and keep them in priv_attributes
-
-        $idPAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM institution_option
-              WHERE institution_id = $this->identifier  ORDER BY option_name");
-
-        while ($attributeQuery = mysqli_fetch_object($idPAttributes)) {
-            // decode base64 for files (respecting multi-lang)
-            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
-            $flag = $optinfo['flag'];
-
-            if ($optinfo['type'] != "file") {
-                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
-            } else {
-                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
-
-                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "IdP", "row" => $attributeQuery->row, "flag" => $flag];
-            }
-        }
+        $this->federation = $instQuery->country;
+        $this->externalDbSyncstate = $instQuery->external_db_syncstate;
+        
+        // fetch attributes from DB; populates $this->attributes array
+        $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = $this->identifier  "
+                . "                         ORDER BY option_name", "IdP");
+        
         $this->attributes[] = ["name" => "internal:country",
             "value" => $this->federation,
             "level" => "IdP",

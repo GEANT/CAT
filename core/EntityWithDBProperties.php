@@ -187,4 +187,23 @@ class EntityWithDBProperties {
         }
     }
 
+    protected function retrieveOptionsFromDatabase($query, $level) {
+        $optioninstance = Options::instance();
+        $this->attributes = [];
+        $attributeDbExec = DBConnection::exec($this->databaseType, $query);
+
+        while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
+            // decode base64 for files (respecting multi-lang)
+            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
+            $flag = $optinfo['flag'];
+
+            if ($optinfo['type'] != "file") {
+                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+            } else {
+                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
+                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+            }
+        }
+    }
+
 }

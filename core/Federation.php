@@ -121,7 +121,6 @@ class Federation extends EntityWithDBProperties {
         $this->entityIdColumn = "federation_id";
         $this->identifier = $fedname;
         $this->name = $fedname;
-        $this->attributes = [];
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
@@ -379,25 +378,13 @@ class Federation extends EntityWithDBProperties {
 
         CAT::set_locale($oldlocale);
 
-        $fedAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM federation_option
-              WHERE federation_id = '$this->name'  ORDER BY option_name");
-
-        $optioninstance = Options::instance();
-
-        while ($queryResult = mysqli_fetch_object($fedAttributes)) {
-            // decode base64 for files (respecting multi-lang)
-            $optinfo = $optioninstance->optionType($queryResult->option_name);
-            $flag = $optinfo['flag'];
-
-            if ($optinfo['type'] != "file") {
-                $this->attributes[] = array("name" => $queryResult->option_name, "value" => $queryResult->option_value, "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
-            } else {
-                
-                $decodedAttribute = $this->decodeFileAttribute($queryResult->option_value);
-
-                $this->attributes[] = array("name" => $queryResult->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
-            }
-        }
+        // fetch attributes from DB; populates $this->attributes array
+        $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = '$this->name' 
+                                            ORDER BY option_name", "FED");
+        
+        
         $this->attributes[] = array("name" => "internal:country",
             "value" => $this->name,
             "level" => "FED",
@@ -418,7 +405,7 @@ class Federation extends EntityWithDBProperties {
         $identifier = DBConnection::lastID($this->databaseType);
         if ($identifier == 0 || !CAT::writeAudit($ownerId, "NEW", "IdP $identifier")) {
             echo "<p>" . _("Could not create a new Institution!") . "</p>";
-            exit(1);
+            throw new Exception("Could not create a new Institution!");
         }
         // escape all strings
         $escapedOwnerId = DBConnection::escape_value($this->databaseType, $ownerId);
@@ -439,6 +426,10 @@ class Federation extends EntityWithDBProperties {
      *
      */
     public function listIdentityProviders($activeOnly = 0) {
+        // default query is:
+        $allIDPs = DBConnection::exec($this->databaseType, "SELECT inst_id FROM institution
+               WHERE country = '$this->name' ORDER BY inst_id");
+        // the one for activeOnly is much more complex:
         if ($activeOnly) {
             $allIDPs = DBConnection::exec($this->databaseType, "SELECT distinct institution.inst_id AS inst_id
                FROM institution
@@ -446,9 +437,6 @@ class Federation extends EntityWithDBProperties {
                WHERE institution.country = '$this->name' 
                AND profile.showtime = 1
                ORDER BY inst_id");
-        } else {
-            $allIDPs = DBConnection::exec($this->databaseType, "SELECT inst_id FROM institution
-               WHERE country = '$this->name' ORDER BY inst_id");
         }
 
         $returnarray = [];
