@@ -77,8 +77,8 @@ class Options {
         $this->typeDb = [];
         debug(3, "--- BEGIN constructing Options instance ---\n");
         $options = DBConnection::exec(Options::$databaseType, "SELECT name,type,flag from profile_option_dict ORDER BY name");
-        while ($a = mysqli_fetch_object($options)) {
-            $this->typeDb[$a->name] = ["type" => $a->type, "flag" => $a->flag];
+        while ($optionDataQuery = mysqli_fetch_object($options)) {
+            $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
         }
         $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
@@ -88,24 +88,24 @@ class Options {
     }
 
     /**
-     * This function lists all known options. If called with the optional parameter $class_name, only options of that class are
+     * This function lists all known options. If called with the optional parameter $className, only options of that class are
      * returned, otherwise the full set of all known attributes.
      * 
      * @assert ("user") == Array("user:email","user:fedadmin","user:realname")
      * 
-     * @param string $class_name optionally specifies the class of options to be listed (class is the part of the option name before the : sign)
+     * @param string $className optionally specifies the class of options to be listed (class is the part of the option name before the : sign)
      * @return array of options
      */
-    public function availableOptions($class_name = 0) {
+    public function availableOptions($className = 0) {
         $returnArray = [];
-        debug(3, "CLASSNAME IS $class_name\n");
+        debug(3, "CLASSNAME IS $className\n");
 
         foreach (array_keys($this->typeDb) as $name) {
-            if ($class_name === 0) {
+            if ($className === 0) {
                 $returnArray[] = $name;
                 return $returnArray;
             }
-            if (preg_match('/^' . $class_name . ':/', $name) > 0) {
+            if (preg_match('/^' . $className . ':/', $name) > 0) {
                 $returnArray[] = $name;
             }
         }
