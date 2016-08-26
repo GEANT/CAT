@@ -52,36 +52,36 @@ class Profile extends EntityWithDBProperties {
      * 
      * @var array
      */
-    private $priv_eaptypes;
+    private $privEaptypes;
 
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
      * 
-     * @param int $p_id identifier of the profile in the DB
-     * @param IdP $idp_object optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     * @param int $profileId identifier of the profile in the DB
+     * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($p_id, $idp_object = 0) {
+    public function __construct($profileId, $idpObject = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->databaseType = "INST";
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
-        $this->identifier = $p_id;
+        $this->identifier = $profileId;
         $this->attributes = [];
 
-        $profile = DBConnection::exec($this->databaseType, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $p_id");
+        $profile = DBConnection::exec($this->databaseType, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
-            debug(2, "Profile $p_id not found in database!\n");
-            throw new Exception("Profile $p_id not found in database!");
+            debug(2, "Profile $profileId not found in database!\n");
+            throw new Exception("Profile $profileId not found in database!");
         }
         $profileQuery = mysqli_fetch_object($profile);
-        if (!($idp_object instanceof IdP)) {
+        if (!($idpObject instanceof IdP)) {
             $this->institution = $profileQuery->inst_id;
             $idp = new IdP($this->institution);
         } else {
-            $idp = $idp_object;
+            $idp = $idpObject;
             $this->institution = $idp->name;
         }
         $temparray = [];
@@ -99,11 +99,11 @@ class Profile extends EntityWithDBProperties {
 
         // fetch all atributes from this profile from DB
 
-        $AllAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, device_id, eap_method_id as method, row 
+        $allAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, device_id, eap_method_id as method, row 
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = $this->identifier");
 
-        while ($attributeQuery = mysqli_fetch_object($AllAttributes)) {
+        while ($attributeQuery = mysqli_fetch_object($allAttributes)) {
 
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
             if ($optinfo['type'] != "file") {
@@ -129,94 +129,42 @@ class Profile extends EntityWithDBProperties {
             }
         }
         // add internal attributes
+        // they share many attribute properties, so condense the generation
+        
+        $localValueIfAny = (preg_match('/@/', $this->realm) ? substr($this->realm, 0, strpos($this->realm, '@')) : "anonymous" );
+        
+        $internalAttributes = [
+          "internal:profile_count" => $idp->profileCount(),
+          "internal:checkuser_outer" => $this->checkuser_outer,
+          "internal:checkuser_value" => $this->checkuser_value,
+          "internal:verify_userinput_suffix" => $this->verify,
+          "internal:hint_userinput_suffix" => $this->hint,
+          "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
+          "internal:use_anon_outer" => $this->use_anon_outer,
+          "internal:anon_local_value" => $localValueIfAny,
+        ];
 
-        $temparray[] = ["name" => "internal:profile_count",
-            "value" => $idp->profileCount(),
+        foreach ($internalAttributes as $attName => $attValue) {
+            $temparray[] = ["name" => $attName,
+            "value" => $attValue,
             "level" => "Profile",
             "row" => 0,
             "flag" => NULL,
             "device" => NULL,
             "eapmethod" => NULL];
-
-        $temparray[] = ["name" => "internal:checkuser_outer",
-            "value" => $this->checkuser_outer,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
-
-        $temparray[] = ["name" => "internal:checkuser_value",
-            "value" => $this->checkuser_value,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
-
-        $temparray[] = ["name" => "internal:verify_userinput_suffix",
-            "value" => $this->verify,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
-
-        $temparray[] = ["name" => "internal:hint_userinput_suffix",
-            "value" => $this->hint,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
-
-        // strip local@ off of the realm value
-        $strippedrealm = preg_replace('/^.*@/', '', $this->realm);
-        $temparray[] = ["name" => "internal:realm",
-            "value" => $strippedrealm,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
-        // FALSE or TRUE
-        $temparray[] = ["name" => "internal:use_anon_outer",
-            "value" => $this->use_anon_outer,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
-        // the local part, if set (otherwise use default value)
-        if (preg_match('/@/', $this->realm)) {
-            $temparray[] = ["name" => "internal:anon_local_value",
-                "value" => substr($this->realm, 0, strpos($this->realm, '@')),
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => NULL];
-        } else {
-            $temparray[] = ["name" => "internal:anon_local_value",
-                "value" => "anonymous",
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => NULL];
         }
-
+        
         // now, fetch IdP-wide attributes
 
         $idpoptions = $idp->getAttributes();
 
-        foreach ($idpoptions as $the_attr) {
+        foreach ($idpoptions as $theAttr) {
             $temparray[] = [
-                "name" => $the_attr["name"],
-                "value" => $the_attr["value"],
-                "level" => $the_attr["level"],
-                "row" => $the_attr["row"],
-                "flag" => $the_attr["flag"],
+                "name" => $theAttr["name"],
+                "value" => $theAttr["value"],
+                "level" => $theAttr["level"],
+                "row" => $theAttr["row"],
+                "flag" => $theAttr["flag"],
                 "device" => NULL,
                 "eapmethod" => NULL,
             ];
@@ -240,8 +188,8 @@ class Profile extends EntityWithDBProperties {
         foreach ($temparray as $attrib) {
             if ($attrib["level"] == "Profile") {
                 $ignore = "";
-                foreach ($this->attributes as $approved_attrib) {
-                    if ($attrib["name"] == $approved_attrib["name"] && $approved_attrib["level"] != "IdP" && $approved_attrib["level"] != "Profile") {
+                foreach ($this->attributes as $approvedAttrib) {
+                    if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "IdP" && $approvedAttrib["level"] != "Profile") {
                         $ignore = "YES";
                     }
                 }
@@ -256,8 +204,8 @@ class Profile extends EntityWithDBProperties {
         foreach ($temparray as $attrib) {
             if ($attrib["level"] == "IdP") {
                 $ignore = "";
-                foreach ($this->attributes as $approved_attrib) {
-                    if ($attrib["name"] == $approved_attrib["name"] && $approved_attrib["level"] != "IdP") {
+                foreach ($this->attributes as $approvedAttrib) {
+                    if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "IdP") {
                         $ignore = "YES";
                     }
                 }
@@ -269,18 +217,18 @@ class Profile extends EntityWithDBProperties {
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name', 0, 0), $this->langIndex);
 
-        $eap_m = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
+        $eapMethod = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
         $returnarray = [];
-        while ($eapQuery = (mysqli_fetch_object($eap_m))) {
+        while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
             $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
             $returnarray[] = $eaptype;
         }
         debug(4, "Looks like this profile supports the following EAP types: ");
         debug(4, $returnarray);
-        $this->priv_eaptypes = $returnarray;
+        $this->privEaptypes = $returnarray;
 
         debug(3, "--- END Constructing new Profile object ... ---\n");
     }
@@ -289,8 +237,8 @@ class Profile extends EntityWithDBProperties {
      * find a profile, given its realm
      */
     public static function profileFromRealm($realm) {
-        $exec_query = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
-        if ($profileIdQuery = mysqli_fetch_object($exec_query)) {
+        $execQuery = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
+        if ($profileIdQuery = mysqli_fetch_object($execQuery)) {
             return $profileIdQuery->profile_id;
         }
         return FALSE;
@@ -307,8 +255,8 @@ class Profile extends EntityWithDBProperties {
      * gets the last-modified timestamp (useful for caching "dirty" check)
      */
     public function getFreshness() {
-        $exec_update = DBConnection::exec($this->databaseType, "SELECT last_change FROM profile WHERE profile_id = $this->identifier");
-        if ($freshnessQuery = mysqli_fetch_object($exec_update)) {
+        $execUpdate = DBConnection::exec($this->databaseType, "SELECT last_change FROM profile WHERE profile_id = $this->identifier");
+        if ($freshnessQuery = mysqli_fetch_object($execUpdate)) {
             return $freshnessQuery->last_change;
         }
     }
@@ -377,9 +325,9 @@ class Profile extends EntityWithDBProperties {
      */
     public function getUserDownloadStats($device = 0) {
         $returnarray = [];
-        $numbers_q = DBConnection::exec($this->databaseType, "SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
-        while ($a = mysqli_fetch_object($numbers_q)) {
-            $returnarray[$a->device_id] = $a->downloads_user;
+        $numbers = DBConnection::exec($this->databaseType, "SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
+        while ($statsQuery = mysqli_fetch_object($numbers)) {
+            $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
         if ($device !== 0) {
             if (isset($returnarray[$device])) {
@@ -494,16 +442,16 @@ class Profile extends EntityWithDBProperties {
     /**
      * Produces an array of EAP methods supported by this profile, ordered by preference
      * 
-     * @param int $complete_only if set and non-zero limits the output to methods with complete information
+     * @param int $completeOnly if set and non-zero limits the output to methods with complete information
      * @return array list of EAP methods, (in "array" OUTER/INNER representation)
      */
-    public function getEapMethodsinOrderOfPreference($complete_only = 0) {
+    public function getEapMethodsinOrderOfPreference($completeOnly = 0) {
         $temparray = [];
 
-        if ($complete_only == 0) {
-            return $this->priv_eaptypes;
+        if ($completeOnly == 0) {
+            return $this->privEaptypes;
         } else {
-            foreach ($this->priv_eaptypes as $type) {
+            foreach ($this->privEaptypes as $type) {
                 if ($this->isEapTypeDefinitionComplete($type) === true) {
                     $temparray[] = $type;
                 }
@@ -576,10 +524,10 @@ class Profile extends EntityWithDBProperties {
               print_r($options);
               echo "</pre>"; */
             if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
-                foreach ($caOption as $one_ca) {
+                foreach ($caOption as $oneCa) {
                     $x509 = new X509();
-                    $ca_parsed = $x509->processCertificate($one_ca['value']);
-                    if ($ca_parsed['root'] == 1) {
+                    $caParsed = $x509->processCertificate($oneCa['value']);
+                    if ($caParsed['root'] == 1) {
                         return true;
                     }
                 }
@@ -620,41 +568,41 @@ class Profile extends EntityWithDBProperties {
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect", 0, 0);
         if ($redirect) {
-            $v = unserialize($redirect[0]['value']);
-            return [['id' => '0', 'redirect' => $v['content']]];
+            $unserialised = unserialize($redirect[0]['value']);
+            return [['id' => '0', 'redirect' => $unserialised['content']]];
         }
-        $preferred_eap = $this->getEapMethodsinOrderOfPreference(1);
+        $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];
-        foreach (Devices::listDevices() as $d => $D) {
-            $factory = new DeviceFactory($d);
+        foreach (Devices::listDevices() as $devideIndex => $deviceProperties) {
+            $factory = new DeviceFactory($devideIndex);
             $dev = $factory->device;
-            $redirectUrl = getLocalisedValue($this->getAttributes("device-specific:redirect", 0, $d), $locale);
+            $redirectUrl = getLocalisedValue($this->getAttributes("device-specific:redirect", 0, $devideIndex), $locale);
             $devStatus = AVAILABLE;
             $message = 0;
-            if (isset($D['options']) && isset($D['options']['message']) && $D['options']['message']) {
-                $message = $D['options']['message'];
+            if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
+                $message = $deviceProperties['options']['message'];
             }
 
             if ($redirectUrl === 0) {
-                if (isset($D['options']) && isset($D['options']['redirect']) && $D['options']['redirect']) {
+                if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
                 } else {
-                    $eap = $dev->getPreferredEapType($preferred_eap);
+                    $eap = $dev->getPreferredEapType($preferredEap);
                     if ($eap) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
-                            $eap_customtext = $eAPOptions["eap-specific:customtext"][serialize($eap)];
+                            $eapCustomtext = $eAPOptions["eap-specific:customtext"][serialize($eap)];
                         }
                         else {
-                            $eap_customtext = getLocalisedValue($this->getAttributes("eap-specific:customtext", $eap, 0), $locale);
-                            $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eap_customtext;
+                            $eapCustomtext = getLocalisedValue($this->getAttributes("eap-specific:customtext", $eap, 0), $locale);
+                            $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
-                        $device_customtext = getLocalisedValue($this->getAttributes("device-specific:customtext", 0, $d), $locale);
+                        $deviceCustomtext = getLocalisedValue($this->getAttributes("device-specific:customtext", 0, $devideIndex), $locale);
                     } else {
                         $devStatus = UNAVAILABLE;
                     }
                 }
             }
-            $returnarray[] = ['id' => $d, 'display' => $D['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eap_customtext, 'device_customtext' => $device_customtext, 'message' => $message, 'options' => $D['options']];
+            $returnarray[] = ['id' => $devideIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options']];
         }
         return $returnarray;
     }
@@ -795,11 +743,8 @@ class Profile extends EntityWithDBProperties {
      */
     public function getShowtime() {
         $result = DBConnection::exec($this->databaseType, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
-        $r = mysqli_fetch_row($result);
-        /* echo "<pre>";
-          print_r($r);
-          echo "</pre>"; */
-        if ($r[0] == "0") {
+        $resultRow = mysqli_fetch_row($result);
+        if ($resultRow[0] == "0") {
             return FALSE;
         }
         return TRUE;
