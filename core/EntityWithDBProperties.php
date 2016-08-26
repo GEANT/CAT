@@ -180,7 +180,7 @@ class EntityWithDBProperties {
         // we have a serialized value - so not having one is fine and
         // shouldn't throw E_NOTICE
         if (@unserialize($optionContent) !== FALSE) { // multi-lang
-            $tempContent = unserialize($queryResult->option_value);
+            $tempContent = unserialize($optionContent);
             return ["lang" => $tempContent['lang'], "content" => base64_decode($tempContent['content'])];
         } else { // single lang, direct content
             return ["lang" => "", "content" => base64_decode($optionContent)];
