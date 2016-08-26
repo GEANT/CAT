@@ -211,8 +211,9 @@ class DBConnection {
             exit(1);
         }
 
-        if ($databaseCapitalised == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team")
+        if ($databaseCapitalised == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             mysqli_query($this->connection, "SET NAMES 'latin1'");
+        }
     }
 
 }
