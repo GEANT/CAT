@@ -84,13 +84,23 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 }
 
 if ($device) {
-    $attribs = $my_profile->getAttributes(0, 0, $device_key);
+    $attribs = [];
+    foreach ($my_profile->getAttributes() as $attrib) {
+        if ($attrib['device'] == $device_key) {
+            $attribs[] = $attrib;
+        }
+    }
     $captiontext = sprintf(_("device <strong>%s</strong>"), $device['display']);
     $keyword = "device-specific";
     $param_name = "Device";
     $extrainput = "<input type='hidden' name='device' value='" . $device_key . "'/>";
 } else {
-    $attribs = $my_profile->getAttributes(0, $eaptype, 0);
+    $attribs = [];
+    foreach ($my_profile->getAttributes() as $attrib) {
+        if ($attrib['eapmethod'] == $eaptype) {
+            $attribs[] = $attrib;
+        }
+    }
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
     $param_name = "EapSpecific";

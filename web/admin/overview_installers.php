@@ -82,9 +82,14 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                                      ";
                 // first of all: if redirected, indicate by color
 
-                $redirect_attribs = $my_profile->getAttributes("device-specific:redirect", 0, $index);
+                $redirectAttribs = [];
+                foreach ($my_profile->getAttributes("device-specific:redirect") as $oneRedirect) {
+                    if ($oneRedirect['device'] == $index) {
+                        $redirectAttribs[] = $oneRedirect;
+                    }
+                }
 
-                if (count($redirect_attribs) > 0) {
+                if (count($redirectAttribs) > 0) {
                     echo "<td class='compat_redirected'>";
                     if (in_array($method, $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method === $preflist[0] || $defaultisset == FALSE)) {
                         echo "$downloadform</form>";

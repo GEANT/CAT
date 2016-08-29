@@ -151,82 +151,66 @@ function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
 }
 
 function check_upload_sanity($optiontype, $filename) {
-//echo "check_upload_sanity:$optiontype:$filename<br>\n";
-// we check logo_file with ImageMagick
-
-    if ($optiontype == "general:logo_file" || $optiontype == "fed:logo_file") {
-        $image = new Imagick();
-        try {
-            $image->readImageBlob($filename);
-        } catch (ImagickException $e) {
-            echo "Error" . $e->getMessage();
-            return FALSE;
-        }
-// echo "Image survived the sanity check.";
-        return TRUE;
-    };
-
-// imported logos from URL are present as binary string, not filename
-
-    if ($optiontype == "internal:logo_from_url") {
-        $image = new Imagick();
-        try {
-            $image->readImageBlob($filename);
-        } catch (ImagickException $e) {
-            echo "Error" . $e->getMessage();
-            return FALSE;
-        }
-// echo "Image survived the sanity check.";
-        return TRUE;
-    };
-
-// we check CA files with X.509 routines
-// TODO this needs to be fixed
-    if ($optiontype == "eap:ca_file") {
-        // echo "Checking $optiontype with file $filename";
-        $cert = X509::processCertificate($filename);
-        if ($cert)
+    switch ($optiontype) {
+        case "general:logo_file":
+        case "fed:logo_file":
+        case "internal:logo_from_url":
+            // we check logo_file with ImageMagick
+            $image = new Imagick();
+            try {
+                $image->readImageBlob($filename);
+            } catch (ImagickException $exception) {
+                echo "Error" . $exception->getMessage();
+                return FALSE;
+            }
+            // image survived the sanity check
             return TRUE;
-        // echo "Error! The certificate seems broken!";
-        return FALSE;
+        case "eap:ca_file":
+            // echo "Checking $optiontype with file $filename";
+            $cert = X509::processCertificate($filename);
+            if ($cert) {
+                return TRUE;
+            }
+            // echo "Error! The certificate seems broken!";
+            return FALSE;
+        case "support:info_file":
+            $info = new finfo();
+            $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
+
+            // we only take plain text files in UTF-8!
+            if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE) {
+                return TRUE;
+            }
+            return FALSE;
+        default:
+            return FALSE;
     }
-
-// ToU files are checked by guessing the mime type of the file content
-// some mime types are white-listed, the rest is rejected
-
-    if ($optiontype == "support:info_file") {
-        $info = new finfo();
-        $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
-
-        // we only take plain text files in UTF-8!
-        if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE)
-            return TRUE;
-    }
-
-    return FALSE;
 }
 
 function getBlobFromDB($ref, $checkpublic) {
 
     $reference = valid_DB_reference($ref);
 
-    if ($reference == FALSE)
+    if ($reference == FALSE) {
         return;
+    }
 
     // the data is either public (just give it away) or not; in this case, only
     // release if the data belongs to admin himself
     if ($checkpublic) {
         // we might be called without session context (filepreview) so get the
         // context if needed
-        if (session_status() != PHP_SESSION_ACTIVE)
+        if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
+        }
         $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
 
         $owners_condensed = [];
 
         if ($owners !== FALSE) { // see if we're authenticated and owners of the data
-            foreach ($owners as $oneowner)
+            foreach ($owners as $oneowner) {
                 $owners_condensed[] = $oneowner['ID'];
+            }
             if (!isAuthenticated()) {
                 return FALSE; // admin-only, but we are not an admin
             } elseif (array_search($_SESSION['user'], $owners_condensed) === FALSE) {
@@ -238,30 +222,35 @@ function getBlobFromDB($ref, $checkpublic) {
     }
 
     $blob = DBConnection::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
-    if (!$blob)
+    if (!$blob) {
         return FALSE;
+    }
     return $blob;
 }
 
 function display_size($number) {
-    if ($number > 1024 * 1024)
+    if ($number > 1024 * 1024) {
         return round($number / 1024 / 1024, 2) . " MiB";
-    if ($number > 1024)
+    }
+    if ($number > 1024) {
         return round($number / 1024, 2) . " KiB";
+    }
     return $number . " B";
 }
 
 function previewCAinHTML($ca_reference) {
     $found = preg_match("/^ROWID-.*/", $ca_reference);
-    if (!$found)
+    if (!$found) {
         return "<div>" . _("Error, ROWID expected.") . "</div>";
+    }
 
     $ca_blob = base64_decode(getBlobFromDB($ca_reference, FALSE));
 
     $func = new X509;
     $details = $func->processCertificate($ca_blob);
-    if ($details === FALSE)
+    if ($details === FALSE) {
         return _("There was an error processing the certificate!");
+    }
 
     $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
     $details['name'] = preg_replace('/\//', "", $details['name']);
@@ -274,20 +263,22 @@ function previewCAinHTML($ca_reference) {
 
 function previewImageinHTML($image_reference) {
     $found = preg_match("/^ROWID-.*/", $image_reference);
-    if (!$found)
+    if (!$found) {
         return "<div>" . _("Error, ROWID expected.") . "</div>";
+    }
     return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $image_reference . "' alt='" . _("Preview of logo file") . "'/>";
 }
 
-function previewInfoFileinHTML($file_reference) {
-    $found = preg_match("/^ROWID-.*/", $file_reference);
-    if (!$found)
-        return _("<div>Error, ROWID expected, got $file_reference.</div>");
+function previewInfoFileinHTML($fileReference) {
+    $found = preg_match("/^ROWID-.*/", $fileReference);
+    if (!$found) {
+        return _("<div>Error, ROWID expected, got $fileReference.</div>");
+    }
 
-    $file_blob = unserialize(getBlobFromDB($file_reference, FALSE));
-    $file_blob = base64_decode($file_blob['content']);
+    $fileBlob = unserialize(getBlobFromDB($fileReference, FALSE));
+    $decodedFileBlob = base64_decode($fileBlob['content']);
     $fileinfo = new finfo();
-    return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($file_blob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($file_blob)) . ")<br/><a href='inc/filepreview.php?id=$file_reference'>" . _("Preview") . "</a></div>";
+    return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
 }
 
 function infoblock($optionlist, $class, $level) {
@@ -300,24 +291,20 @@ function infoblock($optionlist, $class, $level) {
         $type = $optioninfo->optionType($option['name']);
 // echo "CLASS $class, OPTIONNAME ".$option['name']." LEVEL $level, TYPE ".$type['type']." FLAG ".$type['flag']."\n";
         if (preg_match('/^' . $class . '/', $option['name']) && $option['level'] == "$level") {
-            $language;
-// display multilang tags if needed
-
+            // all non-multilang attribs get this assignment ...
+            $language = "";
+            $content = $option['value'];
+            // ... override them with multilang tags if needed
             if ($type["flag"] == "ML") {
                 // echo "processing multi-lang ".$option['name']. "with value ".$option['value'];
                 $taggedarray = unserialize($option['value']);
-                /* echo "<pre>";
-                  print_r($taggedarray);
-                  echo "</pre>"; */
-                if ($taggedarray['lang'] == 'C')
-                    $language = _("default/other languages");
-                else
+                $language = _("default/other languages");
+                if ($taggedarray['lang'] != 'C') {
                     $language = Config::$LANGUAGES[$taggedarray['lang']]['display'];
+                }
                 $content = $taggedarray["content"];
-            } else {
-                $language = "";
-                $content = $option['value'];
-            };
+            }
+            
             switch ($type["type"]) {
                 case "coordinates":
                     $coords = unserialize($option['value']);

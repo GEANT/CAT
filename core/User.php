@@ -36,14 +36,14 @@ class User extends EntityWithDBProperties {
     /**
      * Class constructor. The required argument is a user's persistent identifier as was returned by the authentication source.
      * 
-     * @param string $user_id User Identifier as per authentication source
+     * @param string $userId User Identifier as per authentication source
      */
-    public function __construct($user_id) {
+    public function __construct($userId) {
         $this->databaseType = "USER";
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = DBConnection::escape_value($this->databaseType, $user_id);
+        $this->identifier = DBConnection::escape_value($this->databaseType, $userId);
 
         $optioninstance = Options::instance();
 
@@ -51,35 +51,25 @@ class User extends EntityWithDBProperties {
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = DBConnection::exec($this->databaseType, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$user_id'");
+            $info = DBConnection::exec($this->databaseType, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
             $visited = FALSE;
-            while ($a = mysqli_fetch_object($info)) {
+            while ($userDetailQuery = mysqli_fetch_object($info)) {
                 if (!$visited) {
                     $mailOptinfo = $optioninstance->optionType("user:email");
-                    $this->attributes[] = ["name" => "user:email", "value" => $a->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:email", "value" => $userDetailQuery->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
                     $realnameOptinfo = $optioninstance->optionType("user:realname");
-                    $this->attributes[] = ["name" => "user:realname", "value" => $a->common_name, "level" => "User", "row" => 0, "flag" => $realnameOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:realname", "value" => $userDetailQuery->common_name, "level" => "User", "row" => 0, "flag" => $realnameOptinfo['flag']];
                     $visited = TRUE;
                 }
-                if ($a->role == "fedadmin") {
+                if ($userDetailQuery->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
-                    $this->attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($a->realm), "level" => "User", "row" => 0, "flag" => $optinfo['flag']];
+                    $this->attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($userDetailQuery->realm), "level" => "User", "row" => 0, "flag" => $optinfo['flag']];
                 }
             }
         } else {
-            $user_options = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, id AS row FROM user_options WHERE user_id = '$user_id'");
-            while ($a = mysqli_fetch_object($user_options)) {
-// decode base64 for files (respecting multi-lang)
-                $optinfo = $optioninstance->optionType($a->option_name);
-                $flag = $optinfo['flag'];
-
-                if ($optinfo['type'] != "file") {
-                    $this->attributes[] = ["name" => $a->option_name, "value" => $a->option_value, "level" => "User", "row" => $a->row, "flag" => $flag];
-                } else {
-                    $decodedAttribute = $this->decodeFileAttribute($a->option_value);
-                    $this->attributes[] = ["name" => $a->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "User", "row" => $a->row, "flag" => $flag];
-                }
-            }
+            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT option_name, option_value, id AS row
+                                                FROM $this->entityOptionTable
+                                                WHERE $this->entityIdColumn = '$userId'", "User");
         }
     }
 

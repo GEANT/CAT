@@ -101,17 +101,17 @@ class EntityWithDBProperties {
 
     /**
      * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
-     * name in $option_name are retrieved; otherwise, all attributes are retrieved.
+     * name in $optionName are retrieved; otherwise, all attributes are retrieved.
      *
-     * @param string $option_name optionally, the name of the attribute that is to be retrieved
+     * @param string $optionName optionally, the name of the attribute that is to be retrieved
      * @return array of arrays of attributes which were set for this IdP
      */
-    public function getAttributes($option_name = 0) {
-        if ($option_name) {
+    public function getAttributes($optionName = 0) {
+        if ($optionName) {
             $returnarray = [];
-            foreach ($this->attributes as $the_attr) {
-                if ($the_attr['name'] == $option_name) {
-                    $returnarray[] = $the_attr;
+            foreach ($this->attributes as $theAttr) {
+                if ($theAttr['name'] == $optionName) {
+                    $returnarray[] = $theAttr;
                 }
             }
             return $returnarray;
@@ -129,12 +129,12 @@ class EntityWithDBProperties {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         DBConnection::exec($this->databaseType, "DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
         $this->updateFreshness();
-        $exec_q = DBConnection::exec($this->databaseType, "SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
-        $return_array = [];
-        while ($a = mysqli_fetch_object($exec_q)) {
-            $return_array[$a->row] = "KILLME";
+        $execFlush = DBConnection::exec($this->databaseType, "SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
+        $returnArray = [];
+        while ($queryResult = mysqli_fetch_object($execFlush)) {
+            $returnArray[$queryResult->row] = "KILLME";
         }
-        return $return_array;
+        return $returnArray;
     }
 
     /**
@@ -180,11 +180,31 @@ class EntityWithDBProperties {
         // we have a serialized value - so not having one is fine and
         // shouldn't throw E_NOTICE
         if (@unserialize($optionContent) !== FALSE) { // multi-lang
-            $tempContent = unserialize($queryResult->option_value);
+            $tempContent = unserialize($optionContent);
             return ["lang" => $tempContent['lang'], "content" => base64_decode($tempContent['content'])];
         } else { // single lang, direct content
             return ["lang" => "", "content" => base64_decode($optionContent)];
         }
+    }
+
+    protected function retrieveOptionsFromDatabase($query, $level) {
+        $optioninstance = Options::instance();
+        $tempAttributes = [];
+        $attributeDbExec = DBConnection::exec($this->databaseType, $query);
+
+        while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
+            // decode base64 for files (respecting multi-lang)
+            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
+            $flag = $optinfo['flag'];
+
+            if ($optinfo['type'] != "file") {
+                $tempAttributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+            } else {
+                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
+                $tempAttributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+            }
+        }
+        return $tempAttributes;
     }
 
 }

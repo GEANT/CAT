@@ -128,37 +128,39 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $wizard_style = FALSE;
     $edit_mode = TRUE;
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
-    
+
     $use_anon = $my_profile->getAttributes("internal:use_anon_outer");
     if (count($use_anon) > 0) {
         $use_anon = $use_anon[0]['value'];
         $anon_local = $my_profile->getAttributes("internal:anon_local_value");
         $anon_local = $anon_local[0]['value'];
     }
-    
+
     $checkuser_outer = $my_profile->getAttributes("internal:checkuser_outer");
     if (count($checkuser_outer) > 0) {
         $checkuser_outer = $checkuser_outer[0]['value'];
         $checkuser_value = $my_profile->getAttributes("internal:checkuser_value");
         $checkuser_value = $checkuser_value[0]['value'];
     }
-    
+
     $verify = $my_profile->getAttributes("internal:verify_userinput_suffix")[0]['value'];
     $hint = $my_profile->getAttributes("internal:hint_userinput_suffix")[0]['value'];
-    
+
     $realm = $my_profile->getAttributes("internal:realm");
     $realm = $realm[0]['value'];
-    
+
     $prefill_name = $my_profile->name;
     $prefill_methods = $my_profile->getEapMethodsinOrderOfPreference();
     $profile_options = $my_profile->getAttributes();
-    $blacklisted = $my_profile->getAttributes("device-specific:redirect", 0, 0); // blacklist for all devices?
-    // print_r($blacklisted);
-    if (count($blacklisted) > 0) {
-        $blacklisted = unserialize($blacklisted[0]['value']);
-        $blacklisted = $blacklisted['content'];
-    } else
-        $blacklisted = FALSE;
+    // is there a general redirect? it is one which have device = 0
+    $blacklistedDevices = $my_profile->getAttributes("device-specific:redirect");
+    $blacklisted = FALSE;
+    foreach ($blacklistedDevices as $oneDevice) {
+        if ($oneDevice['device'] == NULL) {
+            $blacklistedArray = unserialize($oneDevice['value']);
+            $blacklisted = $blacklistedArray['content'];
+        }
+    }
 } else {
     $wizard_style = TRUE;
     $edit_mode = FALSE;
@@ -302,60 +304,91 @@ $idpoptions = $my_inst->getAttributes();
 
         <?php
         if ($wizard_style) {
-            echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."),"https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
+            echo "<p>" . sprintf(_("Some installers support a feature called 'Anonymous outer identity'. If you don't know what this is, please read <a href='%s'>this article</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types") . "</p>";
             echo "<p>" . _("On some platforms, the installers can suggest username endings and/or verify the user input to contain the realm suffix (sub-realms will pass this validation).") . "</p>";
-            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the inforamtion which of those (outer ID) username we can use for testing.") . "</p>";  
+            echo "<p>" . _("The realm check feature needs to know an outer ID which actually gets a chance to authenticate. If your RADIUS server lets only select usernames pass, it is useful to supply the inforamtion which of those (outer ID) username we can use for testing.") . "</p>";
         }
         ?>
         <p>
 
-            <?php
-            // UI table to align elements
-            echo "<table><tr>";
-            // checkbox for "verify
-            echo "<td><span id='verify_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Verify user input to contain realm suffix:") . "</span></td>
-                  <td><input type='checkbox' " . ($verify != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='verify_support' onclick='
-                              if (this.form.elements[\"verify_support\"].checked != true) {
-                                this.form.elements[\"hint_support\"].setAttribute(\"disabled\", \"disabled\");
-                              } else {
-                                this.form.elements[\"hint_support\"].removeAttribute(\"disabled\");
-                              };'/>
-                              <span id='hint_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Prefill user input with realm suffix:") . "</span>
-                             <input type='checkbox' " . ($verify == FALSE ? "disabled" : "" ) . " name='hint_support' " . ( $hint != FALSE ? "checked" : "" ) . " /></td>";
-            echo "</tr><tr>";
-            // checkbox and input field for anonymity support, available only when realm is known
-            echo "<td><span id='anon_support_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Enable Anonymous Outer Identity:") . "</span></td>
-                  <td><input type='checkbox' " . ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='anon_support' onclick='
-                              if (this.form.elements[\"anon_support\"].checked != true) {
-                                this.form.elements[\"anon_local\"].setAttribute(\"disabled\", \"disabled\");
-                              } else {
-                                this.form.elements[\"anon_local\"].removeAttribute(\"disabled\");
-                              };'/>
-                             <input type='text' " . ($checkuser_outer == FALSE ? "disabled" : "" ) . " name='anon_local' value='$anon_local'/></td>";
-            echo "</tr><tr>";
-            // checkbox and input field for check realm outer id, available only when realm is known
-            echo "<td><span id='checkuser_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'>" . _("Use special Outer Identity for realm checks:") . "</span></td>
-                  <td><input type='checkbox' " . ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? "disabled" : "" ) . " name='checkuser_support' onclick='
-                              if (this.form.elements[\"checkuser_support\"].checked != true) {
-                                this.form.elements[\"checkuser_local\"].setAttribute(\"disabled\", \"disabled\");
-                              } else {
-                                this.form.elements[\"checkuser_local\"].removeAttribute(\"disabled\");
-                              };'/>
-                             <input type='text' " . ($checkuser_outer == FALSE ? "disabled" : "" ) . " name='checkuser_local' value='$checkuser_value'/></td>";
-            echo "</tr></table>";
-            ?>
-        </p>
 
-        <h3><?php echo _("Installer Download Location"); ?></h3>
+            <!-- UI table to align elements-->
+        <table>
+            <tr>
+                <!-- checkbox for "verify-->
+                <td>
+                    <span id='verify_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Verify user input to contain realm suffix:"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='checkbox' <?php
+                        echo ($verify != FALSE ? "checked" : "" );
+                        echo ($realm == "" ? "disabled" : "" );
+                        ?> name='verify_support' onclick='
+                                if (this.form.elements["verify_support"].checked != true) {
+                                    this.form.elements["hint_support"].setAttribute("disabled", "disabled");
+                                } else {
+                                    this.form.elements["hint_support"].removeAttribute("disabled");
+                                }
+                                ;'/>
+                    <span id='hint_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Prefill user input with realm suffix:"); ?>
+                    </span>
+                    <input type='checkbox' <?php echo ($verify == FALSE ? "disabled" : "" ); ?> name='hint_support' <?php echo ( $hint != FALSE ? "checked" : "" ); ?> />
+                </td>
+            </tr>
+            <tr>
+
+                <!-- checkbox and input field for anonymity support, available only when realm is known-->
+                <td>
+                    <span id='anon_support_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Enable Anonymous Outer Identity:"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='checkbox' <?php echo ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='anon_support' onclick='
+                            if (this.form.elements["anon_support"].checked != true) {
+                                this.form.elements["anon_local"].setAttribute("disabled", "disabled");
+                            } else {
+                                this.form.elements["anon_local"].removeAttribute("disabled");
+                            }
+                            ;'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='anon_local' value='$anon_local'/>
+                </td>    
+            </tr>
+            <tr>
+
+                <!-- checkbox and input field for check realm outer id, available only when realm is known-->
+                <td>
+                    <span id='checkuser_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Use special Outer Identity for realm checks:"); ?>
+                    </span>
+                </td>
+                <td>
+                    <input type='checkbox' <?php echo ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='checkuser_support' onclick='
+                            if (this.form.elements["checkuser_support"].checked != true) {
+                                this.form.elements["checkuser_local"].setAttribute("disabled", "disabled");
+                            } else {
+                                this.form.elements["checkuser_local"].removeAttribute("disabled");
+                            }
+                            ;'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='$checkuser_value'/>
+                </td>
+            </tr>
+        </table>
+    </p>
+
+    <h3><?php echo _("Installer Download Location"); ?></h3>
+
+    <?php
+    if ($wizard_style)
+        echo "<p>" . _("The CAT has a download area for end users. There, they will, for example, learn about the support pointers you entered earlier. The CAT can also immediately offer the installers for the profile for download. If you don't want that, you can instead enter a web site location where you want your users to be redirected to. You, as the administrator, can still download the profiles to place them on that page (see the 'Compatibility Matrix' button on the dashboard).") . "</p>";
+    ?>
+    <p>
 
         <?php
-        if ($wizard_style)
-            echo "<p>" . _("The CAT has a download area for end users. There, they will, for example, learn about the support pointers you entered earlier. The CAT can also immediately offer the installers for the profile for download. If you don't want that, you can instead enter a web site location where you want your users to be redirected to. You, as the administrator, can still download the profiles to place them on that page (see the 'Compatibility Matrix' button on the dashboard).") . "</p>";
-        ?>
-        <p>
-
-            <?php
-            echo "<span id='redirect_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'><label for='redirect'>" . _("Redirect end users to own web page:") . "</label></span>
+        echo "<span id='redirect_label' style='" . ($realm == "" ? "color:#999999" : "" ) . "'><label for='redirect'>" . _("Redirect end users to own web page:") . "</label></span>
                           <input type='checkbox'  name='redirect' id='redirect' " . ($blacklisted === FALSE ? "" : "checked " ) . "onclick='
                               if (this.form.elements[\"redirect\"].checked != true) {
                                 this.form.elements[\"redirect_target\"].setAttribute(\"disabled\", \"disabled\");
@@ -363,213 +396,213 @@ $idpoptions = $my_inst->getAttributes();
                                 this.form.elements[\"redirect_target\"].removeAttribute(\"disabled\");
                               };'/>
                           <input type='text' name='redirect_target' " . ($blacklisted !== FALSE ? "value='$blacklisted'" : "disabled" ) . "/>";
-            ?>
-        </p>
-
-    </fieldset>
-    <fieldset class="option_container">
-        <legend><strong><?php echo _("Supported EAP types"); ?></strong></legend>
-        <?php
-        if ($wizard_style)
-            echo "<p>" . _("Now, we need to know which EAP types your IdP supports. If you support multiple EAP types, you can assign every type a priority (1=highest). This tool will always generate an automatic installer for the EAP type with the highest priority; only if the user's device can't use that EAP type, we will use an EAP type further down in the list.") . "</p>";
         ?>
-        <?php
+    </p>
 
-        function priority($eap_type, $isenabled, $priority) {
-            echo "<td><select id='$eap_type-priority' name='$eap_type-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
-            for ($a = 1; $a < 7; $a = $a + 1)
-                echo "<option id='$eap_type-$a' value='$a' " . ( $isenabled && $a == $priority ? "selected" : "" ) . ">$a</option>";
-            echo "</select></td>";
-        }
-
-        function inherited_options($idpwideoptions, $eap_type, $is_visible) {
-            echo "<td><div style='" . (!$is_visible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eap_type-inherited-global'>";
-
-            $eapoptions = [];
-
-            foreach ($idpwideoptions as $option)
-                if ($option['level'] == "IdP" && preg_match('/^eap/', $option['name']))
-                    $eapoptions[] = $option['name'];
-
-            $eapoptions = array_count_values($eapoptions);
-
-            if (count($eapoptions) > 0) {
-                echo "<strong>" . _("EAP options inherited from Global level:") . "</strong><br />";
-                foreach ($eapoptions as $optionname => $count)
-                /// option count and enumeration
-                /// Example: "(3x) Server Name"
-                    printf(_("(%dx) %s") . "<br />", $count, display_name($optionname));
-            }
-
-            echo "</div></td>";
-        }
-
-        $methods = EAP::listKnownEAPTypes();
-        ?>
-
-        <?php
-// new EAP sorting code  
-
-        foreach ($methods as $a) {
-            $display = display_name($a);
-            $enabled = FALSE;
-            if ($edit_mode)
-                foreach ($prefill_methods as $prio => $value) {
-                    if (display_name($a) == display_name($value)) {
-                        $enabled = TRUE;
-                        $countactive = $prio + 1;
-                    }
-                }
-        }
-        ?>
-        <div>
-            <table style="border:none">
-                <tr>
-                    <th style="vertical-align:top; padding:1em">
-                        <?php echo _('Supported EAP types for this profile'); ?>
-                    </th>
-                    <td id="supported_eap">
-                        <ol id="sortable1" class="eapmethods">
-                            <?php
-                            $D = [];
-                            foreach ($prefill_methods as $prio => $value) {
-                                print '<li>' . display_name($value) . "</li>\n";
-                                $D[display_name($value)] = $prio;
-                            }
-                            ?>
-                        </ol>
-                    </td>
-                    <td rowspan=3 style="text-align:center; width:12em; padding:1em">
-                        <?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
-                    </td>
-                </tr>
-                <tr id="eap_bottom_row">
-                    <td colspan="2"> </td>
-                </tr>
-                <tr>
-                    <th style="vertical-align:top; padding:1em">
-                        <?php echo _('Unsupported EAP types'); ?>
-                    </th>
-                    <td style="vertical-align:top" id="unsupported_eap">
-                        <ol id="sortable2" class="eapmethods">
-                            <?php
-                            foreach ($methods as $a) {
-                                $display = display_name($a);
-                                if (!isset($D[display_name($a)]))
-                                    print '<li class="eap1">' . display_name($a) . "</li>\n";
-                            }
-                            ?>
-                        </ol>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <?php
-        foreach ($methods as $a) {
-            $display = display_name($a);
-            $v = isset($D[$display]) ? $D[$display] : '';
-            print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
-            print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
-        }
-        ?>
-        <br style="clear:both;" />
-    </fieldset>
-    <fieldset class="option_container" id="helpdesk_override">
-        <legend><strong><?php echo _("Helpdesk Details for this profile"); ?></strong></legend>
-        <p>
-            <?php
-            $idp_options = $my_inst->getAttributes();
-            $has_support_options = [];
-            foreach ($idp_options as $idp_option)
-                if (preg_match("/^support:/", $idp_option['name']))
-                    $has_support_options[$idp_option['name']] = "SET";
-            if (count($has_support_options) > 0) {
-                $text = "<ul>";
-                foreach ($has_support_options as $key => $value)
-                    $text .= "<li><strong>" . display_name($key) . "</strong></li>";
-                $text .= "</ul>";
-                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
-            }
-            ?>
-        </p>
-        <table id="expandable_support_options">
-            <?php
-            $prepopulate = [];
-            if ($edit_mode) {
-                $existing_attribs = $my_profile->getAttributes();
-                foreach ($existing_attribs as $existing_attribute)
-                    if ($existing_attribute['level'] == "Profile")
-                        $prepopulate[] = $existing_attribute;
-            }
-            add_option("support", $prepopulate);
-            ?>
-        </table>
-        <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button>
-    </fieldset>
-    <fieldset class="option_container" id="eap_override">
-        <legend><strong><?php echo _("EAP Details for this profile"); ?></strong></legend>
-        <p>
-            <?php
-            $has_eap_options = [];
-            foreach ($idp_options as $idp_option)
-                if (preg_match("/^eap:/", $idp_option['name']))
-                    $has_eap_options[$idp_option['name']] = "SET";
-            if (count($has_eap_options) > 0) {
-                $text = "<ul>";
-                foreach ($has_eap_options as $key => $value)
-                    $text .= "<li><strong>" . display_name($key) . "</strong></li>";
-                $text .= "</ul>";
-                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_eap_options)), $text);
-            }
-            ?>
-        </p>
-        <table id="expandable_eapserver_options">
-            <?php
-            $prepopulate = [];
-            if ($edit_mode) {
-                $existing_attribs = $my_profile->getAttributes();
-                foreach ($existing_attribs as $existing_attribute)
-                    if ($existing_attribute['level'] == "Profile")
-                        $prepopulate[] = $existing_attribute;
-            }
-            add_option("eap", $prepopulate);
-            ?>
-        </table>
-        <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
-    </fieldset>
-    <fieldset class="option_container" id='media_override'>
-        <legend><strong><?php echo _("Media Properties for this profile"); ?></strong></legend>
-        <p>
-            <?php
-            $idp_options = $my_inst->getAttributes();
-            $has_support_options = array();
-            foreach ($idp_options as $idp_option)
-                if (preg_match("/^media:/", $idp_option['name']))
-                    $has_support_options[$idp_option['name']] = "SET";
-            if (count($has_support_options) > 0) {
-                $text = "<ul>";
-                foreach ($has_support_options as $key => $value)
-                    $text .= "<li><strong>" . display_name($key) . "</strong></li>";
-                $text .= "</ul>";
-                printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
-            }
-            ?>
-        </p>
-        <table id="expandable_media_options">
-            <?php
-            $prepopulate = array();
-            if ($edit_mode) {
-                $existing_attribs = $my_profile->getAttributes();
-                foreach ($existing_attribs as $existing_attribute)
-                    if ($existing_attribute['level'] == "Profile")
-                        $prepopulate[] = $existing_attribute;
-            }
-            add_option("media", $prepopulate);
-            ?>
-        </table>
-        <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
+</fieldset>
+<fieldset class="option_container">
+    <legend><strong><?php echo _("Supported EAP types"); ?></strong></legend>
     <?php
     if ($wizard_style)
-        echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
-    echo "<p><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
-    footer();
+        echo "<p>" . _("Now, we need to know which EAP types your IdP supports. If you support multiple EAP types, you can assign every type a priority (1=highest). This tool will always generate an automatic installer for the EAP type with the highest priority; only if the user's device can't use that EAP type, we will use an EAP type further down in the list.") . "</p>";
+    ?>
+    <?php
+
+    function priority($eapType, $isenabled, $priority) {
+        echo "<td><select id='$eapType-priority' name='$eapType-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
+        for ($a = 1; $a < 7; $a = $a + 1)
+            echo "<option id='$eapType-$a' value='$a' " . ( $isenabled && $a == $priority ? "selected" : "" ) . ">$a</option>";
+        echo "</select></td>";
+    }
+
+    function inherited_options($idpwideoptions, $eapType, $isVisible) {
+        echo "<td><div style='" . (!$isVisible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eapType-inherited-global'>";
+
+        $eapoptions = [];
+
+        foreach ($idpwideoptions as $option)
+            if ($option['level'] == "IdP" && preg_match('/^eap/', $option['name']))
+                $eapoptions[] = $option['name'];
+
+        $eapoptions = array_count_values($eapoptions);
+
+        if (count($eapoptions) > 0) {
+            echo "<strong>" . _("EAP options inherited from Global level:") . "</strong><br />";
+            foreach ($eapoptions as $optionname => $count)
+            /// option count and enumeration
+            /// Example: "(3x) Server Name"
+                printf(_("(%dx) %s") . "<br />", $count, display_name($optionname));
+        }
+
+        echo "</div></td>";
+    }
+
+    $methods = EAP::listKnownEAPTypes();
+    ?>
+
+    <?php
+// new EAP sorting code  
+
+    foreach ($methods as $a) {
+        $display = display_name($a);
+        $enabled = FALSE;
+        if ($edit_mode)
+            foreach ($prefill_methods as $prio => $value) {
+                if (display_name($a) == display_name($value)) {
+                    $enabled = TRUE;
+                    $countactive = $prio + 1;
+                }
+            }
+    }
+    ?>
+    <div>
+        <table style="border:none">
+            <tr>
+                <th style="vertical-align:top; padding:1em">
+<?php echo _('Supported EAP types for this profile'); ?>
+                </th>
+                <td id="supported_eap">
+                    <ol id="sortable1" class="eapmethods">
+                        <?php
+                        $D = [];
+                        foreach ($prefill_methods as $prio => $value) {
+                            print '<li>' . display_name($value) . "</li>\n";
+                            $D[display_name($value)] = $prio;
+                        }
+                        ?>
+                    </ol>
+                </td>
+                <td rowspan=3 style="text-align:center; width:12em; padding:1em">
+<?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
+                </td>
+            </tr>
+            <tr id="eap_bottom_row">
+                <td colspan="2"> </td>
+            </tr>
+            <tr>
+                <th style="vertical-align:top; padding:1em">
+<?php echo _('Unsupported EAP types'); ?>
+                </th>
+                <td style="vertical-align:top" id="unsupported_eap">
+                    <ol id="sortable2" class="eapmethods">
+                        <?php
+                        foreach ($methods as $a) {
+                            $display = display_name($a);
+                            if (!isset($D[display_name($a)]))
+                                print '<li class="eap1">' . display_name($a) . "</li>\n";
+                        }
+                        ?>
+                    </ol>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <?php
+    foreach ($methods as $a) {
+        $display = display_name($a);
+        $v = isset($D[$display]) ? $D[$display] : '';
+        print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
+        print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
+    }
+    ?>
+    <br style="clear:both;" />
+</fieldset>
+<fieldset class="option_container" id="helpdesk_override">
+    <legend><strong><?php echo _("Helpdesk Details for this profile"); ?></strong></legend>
+    <p>
+        <?php
+        $idp_options = $my_inst->getAttributes();
+        $has_support_options = [];
+        foreach ($idp_options as $idp_option)
+            if (preg_match("/^support:/", $idp_option['name']))
+                $has_support_options[$idp_option['name']] = "SET";
+        if (count($has_support_options) > 0) {
+            $text = "<ul>";
+            foreach ($has_support_options as $key => $value)
+                $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+            $text .= "</ul>";
+            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
+        }
+        ?>
+    </p>
+    <table id="expandable_support_options">
+        <?php
+        $prepopulate = [];
+        if ($edit_mode) {
+            $existing_attribs = $my_profile->getAttributes();
+            foreach ($existing_attribs as $existing_attribute)
+                if ($existing_attribute['level'] == "Profile")
+                    $prepopulate[] = $existing_attribute;
+        }
+        add_option("support", $prepopulate);
+        ?>
+    </table>
+    <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button>
+</fieldset>
+<fieldset class="option_container" id="eap_override">
+    <legend><strong><?php echo _("EAP Details for this profile"); ?></strong></legend>
+    <p>
+        <?php
+        $has_eap_options = [];
+        foreach ($idp_options as $idp_option)
+            if (preg_match("/^eap:/", $idp_option['name']))
+                $has_eap_options[$idp_option['name']] = "SET";
+        if (count($has_eap_options) > 0) {
+            $text = "<ul>";
+            foreach ($has_eap_options as $key => $value)
+                $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+            $text .= "</ul>";
+            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_eap_options)), $text);
+        }
+        ?>
+    </p>
+    <table id="expandable_eapserver_options">
+        <?php
+        $prepopulate = [];
+        if ($edit_mode) {
+            $existing_attribs = $my_profile->getAttributes();
+            foreach ($existing_attribs as $existing_attribute)
+                if ($existing_attribute['level'] == "Profile")
+                    $prepopulate[] = $existing_attribute;
+        }
+        add_option("eap", $prepopulate);
+        ?>
+    </table>
+    <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
+</fieldset>
+<fieldset class="option_container" id='media_override'>
+    <legend><strong><?php echo _("Media Properties for this profile"); ?></strong></legend>
+    <p>
+        <?php
+        $idp_options = $my_inst->getAttributes();
+        $has_support_options = array();
+        foreach ($idp_options as $idp_option)
+            if (preg_match("/^media:/", $idp_option['name']))
+                $has_support_options[$idp_option['name']] = "SET";
+        if (count($has_support_options) > 0) {
+            $text = "<ul>";
+            foreach ($has_support_options as $key => $value)
+                $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+            $text .= "</ul>";
+            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
+        }
+        ?>
+    </p>
+    <table id="expandable_media_options">
+        <?php
+        $prepopulate = array();
+        if ($edit_mode) {
+            $existing_attribs = $my_profile->getAttributes();
+            foreach ($existing_attribs as $existing_attribute)
+                if ($existing_attribute['level'] == "Profile")
+                    $prepopulate[] = $existing_attribute;
+        }
+        add_option("media", $prepopulate);
+        ?>
+    </table>
+    <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
+<?php
+if ($wizard_style)
+    echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
+echo "<p><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+footer();

@@ -57,14 +57,14 @@ class Federation extends EntityWithDBProperties {
 
         $dataArray = [];
 
-        foreach (Devices::listDevices() as $index => $device_array) {
+        foreach (Devices::listDevices() as $index => $deviceArray) {
             $query = "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads, profile, institution WHERE device_id = '$index' AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id ";
             if ($federationid != NULL) {
                 $query .= "AND institution.country = '" . $federationid . "'";
             }
-            $number_query = DBConnection::exec("INST", $query);
-            while ($queryResult = mysqli_fetch_object($number_query)) {
-                $dataArray[$device_array['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
+            $numberQuery = DBConnection::exec("INST", $query);
+            while ($queryResult = mysqli_fetch_object($numberQuery)) {
+                $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
                 $grossAdmin = $grossAdmin + $queryResult->admin;
                 $grossUser = $grossUser + $queryResult->user;
             }
@@ -121,7 +121,6 @@ class Federation extends EntityWithDBProperties {
         $this->entityIdColumn = "federation_id";
         $this->identifier = $fedname;
         $this->name = $fedname;
-        $this->attributes = [];
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
@@ -379,26 +378,13 @@ class Federation extends EntityWithDBProperties {
 
         CAT::set_locale($oldlocale);
 
-        $fedAttributes = DBConnection::exec($this->databaseType, "SELECT DISTINCT option_name,option_value, row FROM federation_option
-              WHERE federation_id = '$this->name'  ORDER BY option_name");
-
-        $optioninstance = Options::instance();
-
-        while ($queryResult = mysqli_fetch_object($fedAttributes)) {
-            $lang = "";
-            // decode base64 for files (respecting multi-lang)
-            $optinfo = $optioninstance->optionType($queryResult->option_name);
-            $flag = $optinfo['flag'];
-
-            if ($optinfo['type'] != "file") {
-                $this->attributes[] = array("name" => $queryResult->option_name, "value" => $queryResult->option_value, "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
-            } else {
-                
-                $decodedAttribute = $this->decodeFileAttribute($queryResult->option_value);
-
-                $this->attributes[] = array("name" => $queryResult->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => "FED", "row" => $queryResult->row, "flag" => $flag);
-            }
-        }
+        // fetch attributes from DB; populates $this->attributes array
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = '$this->name' 
+                                            ORDER BY option_name", "FED");
+        
+        
         $this->attributes[] = array("name" => "internal:country",
             "value" => $this->name,
             "level" => "FED",
@@ -409,20 +395,20 @@ class Federation extends EntityWithDBProperties {
     /**
      * Creates a new IdP inside the federation.
      * 
-     * @param string $owner_id Persistent identifier of the user for whom this IdP is created (first administrator)
+     * @param string $ownerId Persistent identifier of the user for whom this IdP is created (first administrator)
      * @param string $level Privilege level of the first administrator (was he blessed by a federation admin or a peer?)
      * @param string $mail e-mail address with which the user was invited to administer (useful for later user identification if the user chooses a "funny" real name)
      * @return int identifier of the new IdP
      */
-    public function newIdP($owner_id, $level, $mail) {
+    public function newIdP($ownerId, $level, $mail) {
         DBConnection::exec($this->databaseType, "INSERT INTO institution (country) VALUES('$this->name')");
         $identifier = DBConnection::lastID($this->databaseType);
-        if ($identifier == 0 || !CAT::writeAudit($owner_id, "NEW", "IdP $identifier")) {
+        if ($identifier == 0 || !CAT::writeAudit($ownerId, "NEW", "IdP $identifier")) {
             echo "<p>" . _("Could not create a new Institution!") . "</p>";
-            exit(1);
+            throw new Exception("Could not create a new Institution!");
         }
         // escape all strings
-        $escapedOwnerId = DBConnection::escape_value($this->databaseType, $owner_id);
+        $escapedOwnerId = DBConnection::escape_value($this->databaseType, $ownerId);
         $escapedLevel = DBConnection::escape_value($this->databaseType, $level);
         $escapedMail = DBConnection::escape_value($this->databaseType, $mail);
 
@@ -435,32 +421,33 @@ class Federation extends EntityWithDBProperties {
     /**
      * Lists all Identity Providers in this federation
      *
-     * @param int $active_only if set to non-zero will list only those institutions which have some valid profiles defined.
+     * @param int $activeOnly if set to non-zero will list only those institutions which have some valid profiles defined.
      * @return array (Array of IdP instances)
      *
      */
-    public function listIdentityProviders($active_only = 0) {
-        if ($active_only) {
+    public function listIdentityProviders($activeOnly = 0) {
+        // default query is:
+        $allIDPs = DBConnection::exec($this->databaseType, "SELECT inst_id FROM institution
+               WHERE country = '$this->name' ORDER BY inst_id");
+        // the one for activeOnly is much more complex:
+        if ($activeOnly) {
             $allIDPs = DBConnection::exec($this->databaseType, "SELECT distinct institution.inst_id AS inst_id
                FROM institution
                JOIN profile ON institution.inst_id = profile.inst_id
                WHERE institution.country = '$this->name' 
                AND profile.showtime = 1
                ORDER BY inst_id");
-        } else {
-            $allIDPs = DBConnection::exec($this->databaseType, "SELECT inst_id FROM institution
-               WHERE country = '$this->name' ORDER BY inst_id");
         }
 
         $returnarray = [];
-        while ($a = mysqli_fetch_object($allIDPs)) {
-            $idp = new IdP($a->inst_id);
+        while ($idpQuery = mysqli_fetch_object($allIDPs)) {
+            $idp = new IdP($idpQuery->inst_id);
             $name = $idp->name;
-            $A = ['entityID' => $idp->identifier,
+            $idpInfo = ['entityID' => $idp->identifier,
                 'title' => $name,
                 'country' => strtoupper($idp->federation),
                 'instance' => $idp];
-            $returnarray[$idp->identifier] = $A;
+            $returnarray[$idp->identifier] = $idpInfo;
         }
         return $returnarray;
     }
@@ -474,13 +461,13 @@ class Federation extends EntityWithDBProperties {
         
         $admins = DBConnection::exec("USER", $query);
         
-        while ($a = mysqli_fetch_object($admins)) {
-            $returnarray[] = $a->user_id;
+        while ($fedAdminQuery = mysqli_fetch_object($admins)) {
+            $returnarray[] = $fedAdminQuery->user_id;
         }
         return $returnarray;
     }
 
-    public function listExternalEntities($unmapped_only) {
+    public function listExternalEntities($unmappedOnly) {
         $returnarray = [];
         $countrysuffix = "";
 
@@ -492,40 +479,40 @@ class Federation extends EntityWithDBProperties {
             $usedarray = [];
             $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
                                                                                 FROM view_active_idp_institution $countrysuffix");
-            $already_used = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution 
+            $alreadyUsed = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
                                                                                                      AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
-            $pending_invite = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_uniquehandle FROM invitations 
+            $pendingInvite = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_uniquehandle FROM invitations 
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 
                                                                                                       AND used = 0");
-            while ($a = mysqli_fetch_object($already_used)) {
-                $usedarray[] = $a->external_db_id;
+            while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
+                $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
-            while ($a = mysqli_fetch_object($pending_invite)) {
-                if (!in_array($a->external_db_uniquehandle, $usedarray)) {
-                    $usedarray[] = $a->external_db_uniquehandle;
+            while ($pendingInviteQuery = mysqli_fetch_object($pendingInvite)) {
+                if (!in_array($pendingInviteQuery->external_db_uniquehandle, $usedarray)) {
+                    $usedarray[] = $pendingInviteQuery->external_db_uniquehandle;
                 }
             }
-            while ($a = mysqli_fetch_object($externals)) {
-                if (($unmapped_only === TRUE) && (in_array($a->id, $usedarray))) {
+            while ($externalQuery = mysqli_fetch_object($externals)) {
+                if (($unmappedOnly === TRUE) && (in_array($externalQuery->id, $usedarray))) {
                         continue;
                 }
-                $names = explode('#', $a->collapsed_name);
+                $names = explode('#', $externalQuery->collapsed_name);
                 // trim name list to current best language match
-                $available_languages = [];
+                $availableLanguages = [];
                 foreach ($names as $name) {
                     $thislang = explode(': ', $name, 2);
-                    $available_languages[$thislang[0]] = $thislang[1];
+                    $availableLanguages[$thislang[0]] = $thislang[1];
                 }
-                if (array_key_exists(CAT::get_lang(), $available_languages)) {
-                    $thelangauge = $available_languages[CAT::get_lang()];
-                } else if (array_key_exists("en", $available_languages)) {
-                    $thelangauge = $available_languages["en"];
+                if (array_key_exists(CAT::get_lang(), $availableLanguages)) {
+                    $thelangauge = $availableLanguages[CAT::get_lang()];
+                } else if (array_key_exists("en", $availableLanguages)) {
+                    $thelangauge = $availableLanguages["en"];
                 } else { // whatever. Pick one out of the list
-                    $thelangauge = array_pop($available_languages);
+                    $thelangauge = array_pop($availableLanguages);
                 }
-                $contacts = explode('#', $a->collapsed_contact);
+                $contacts = explode('#', $externalQuery->collapsed_contact);
 
 
                 $mailnames = "";
@@ -544,36 +531,36 @@ class Federation extends EntityWithDBProperties {
                         $mailnames .= $matches[2];
                     }
                 }
-                $returnarray[] = ["ID" => $a->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $a->country, "realmlist" => $a->realmlist];
+                $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
             }
         }
 
         return $returnarray;
     }
 
-    public static function getExternalDBEntityDetails($external_id, $realm = NULL) {
+    public static function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
-            $info_list = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $external_id $scanforrealm");
+            $infoList = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
             // split names and contacts into proper pairs
-            while ($a = mysqli_fetch_object($info_list)) {
-                $names = explode('#', $a->collapsed_name);
+            while ($externalEntityQuery = mysqli_fetch_object($infoList)) {
+                $names = explode('#', $externalEntityQuery->collapsed_name);
                 foreach ($names as $name) {
                     $perlang = explode(': ', $name, 2);
                     $list['names'][$perlang[0]] = $perlang[1];
                 }
-                $contacts = explode('#', $a->collapsed_contact);
+                $contacts = explode('#', $externalEntityQuery->collapsed_contact);
                 foreach ($contacts as $contact) {
-                    $email_1 = explode('e: ', $contact);
-                    $email_2 = explode(',', $email_1[1]);
-                    $list['admins'][] = ["email" => $email_2[0]];
+                    $email1 = explode('e: ', $contact);
+                    $email2 = explode(',', $email1[1]);
+                    $list['admins'][] = ["email" => $email2[0]];
                 }
-                $list['country'] = $a->country;
-                $list['realmlist'] = $a->realmlist;
+                $list['country'] = $externalEntityQuery->country;
+                $list['realmlist'] = $externalEntityQuery->realmlist;
             }
         }
         return $list;
@@ -582,32 +569,32 @@ class Federation extends EntityWithDBProperties {
     /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
-     * @param int $active_only if and set to non-zero will
+     * @param int $activeOnly if and set to non-zero will
      * cause listing of only those institutions which have some valid profiles defined.
      *
      */
-    public static function listAllIdentityProviders($active_only = 0, $country = 0) {
-        DBConnection::exec($this->databaseType, "SET SESSION group_concat_max_len=10000");
+    public static function listAllIdentityProviders($activeOnly = 0, $country = 0) {
+        DBConnection::exec("INST", "SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
                      group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
                      FROM institution ";
-        if ($active_only == 1) {
+        if ($activeOnly == 1) {
             $query .= "JOIN profile ON institution.inst_id = profile.inst_id ";
         }
         $query .= "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
         $query .= "WHERE (institution_option.option_name = 'general:instname' 
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
-        if ($active_only == 1) {
+        if ($activeOnly == 1) {
             $query .= "AND profile.showtime = 1 ";
         }
         if ($country) {
             // escape the parameter
-            $country = DBConnection::escape_value($this->databaseType, $country);
+            $country = DBConnection::escape_value("INST", $country);
             $query .= "AND institution.country = '$country' ";
         }
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        $allIDPs = DBConnection::exec($this->databaseType, $query);
+        $allIDPs = DBConnection::exec("INST", $query);
         $returnarray = [];
         while ($queryResult = mysqli_fetch_object($allIDPs)) {
             $institutionOptions = explode('---', $queryResult->options);
