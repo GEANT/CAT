@@ -152,13 +152,15 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $prefill_name = $my_profile->name;
     $prefill_methods = $my_profile->getEapMethodsinOrderOfPreference();
     $profile_options = $my_profile->getAttributes();
-    $blacklisted = $my_profile->getAttributes("device-specific:redirect", 0, 0); // blacklist for all devices?
-    // print_r($blacklisted);
-    if (count($blacklisted) > 0) {
-        $blacklisted = unserialize($blacklisted[0]['value']);
-        $blacklisted = $blacklisted['content'];
-    } else
-        $blacklisted = FALSE;
+    // is there a general redirect? it is one which have device = 0
+    $blacklistedDevices = $my_profile->getAttributes("device-specific:redirect");
+    $blacklisted = FALSE;
+    foreach ($blacklistedDevices as $oneDevice) {
+        if ($oneDevice['device'] == NULL) {
+            $blacklistedArray = unserialize($oneDevice['value']);
+            $blacklisted = $blacklistedArray['content'];
+        }
+    }
 } else {
     $wizard_style = TRUE;
     $edit_mode = FALSE;
@@ -190,9 +192,9 @@ $idpoptions = $my_inst->getAttributes();
                 </td>
                 <td>
                     <strong><?php
-                        $my_fed = new Federation($my_inst->federation);
-                        echo $my_fed::$FederationList[strtoupper($my_inst->federation)];
-                        ?></strong>
+                    $my_fed = new Federation($my_inst->federation);
+                    echo $my_fed::$FederationList[strtoupper($my_inst->federation)];
+                    ?></strong>
                 </td>
             </tr>
             <?php echo infoblock($idpoptions, "general", "IdP"); ?>
@@ -320,7 +322,8 @@ $idpoptions = $my_inst->getAttributes();
                     </span>
                 </td>
                 <td>
-                    <input type='checkbox' <?php echo ($verify != FALSE ? "checked" : "" );
+                    <input type='checkbox' <?php
+                        echo ($verify != FALSE ? "checked" : "" );
                         echo ($realm == "" ? "disabled" : "" );
                         ?> name='verify_support' onclick='
                                 if (this.form.elements["verify_support"].checked != true) {
@@ -330,7 +333,7 @@ $idpoptions = $my_inst->getAttributes();
                                 }
                                 ;'/>
                     <span id='hint_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
-<?php echo _("Prefill user input with realm suffix:"); ?>
+                        <?php echo _("Prefill user input with realm suffix:"); ?>
                     </span>
                     <input type='checkbox' <?php echo ($verify == FALSE ? "disabled" : "" ); ?> name='hint_support' <?php echo ( $hint != FALSE ? "checked" : "" ); ?> />
                 </td>
@@ -340,36 +343,37 @@ $idpoptions = $my_inst->getAttributes();
                 <!-- checkbox and input field for anonymity support, available only when realm is known-->
                 <td>
                     <span id='anon_support_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
-<?php echo _("Enable Anonymous Outer Identity:"); ?>
+                        <?php echo _("Enable Anonymous Outer Identity:"); ?>
                     </span>
                 </td>
                 <td>
                     <input type='checkbox' <?php echo ($use_anon != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='anon_support' onclick='
-                        if (this.form.elements["anon_support"].checked != true) {
-                            this.form.elements["anon_local"].setAttribute("disabled", "disabled");
-                        } else {
-                            this.form.elements["anon_local"].removeAttribute("disabled");
-                        }
-                        ;'/>
+                            if (this.form.elements["anon_support"].checked != true) {
+                                this.form.elements["anon_local"].setAttribute("disabled", "disabled");
+                            } else {
+                                this.form.elements["anon_local"].removeAttribute("disabled");
+                            }
+                            ;'/>
                     <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='anon_local' value='$anon_local'/>
                 </td>    
             </tr>
             <tr>
-                
+
                 <!-- checkbox and input field for check realm outer id, available only when realm is known-->
                 <td>
-                    <span id='checkuser_label' style='<?php echo ($realm == "" ? "color:#999999" : "" );?>'>
-                        <?php echo _("Use special Outer Identity for realm checks:");?>
+                    <span id='checkuser_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                        <?php echo _("Use special Outer Identity for realm checks:"); ?>
                     </span>
                 </td>
                 <td>
-                    <input type='checkbox' <?php echo ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" );?> name='checkuser_support' onclick='
-                           if (this.form.elements["checkuser_support"].checked != true) {
-                           this.form.elements["checkuser_local"].setAttribute("disabled", "disabled");
-                           } else {
-                           this.form.elements["checkuser_local"].removeAttribute("disabled");
-                           };'/>
-                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" );?> name='checkuser_local' value='$checkuser_value'/>
+                    <input type='checkbox' <?php echo ($checkuser_outer != FALSE ? "checked" : "" ) . ($realm == "" ? " disabled" : "" ); ?> name='checkuser_support' onclick='
+                            if (this.form.elements["checkuser_support"].checked != true) {
+                                this.form.elements["checkuser_local"].setAttribute("disabled", "disabled");
+                            } else {
+                                this.form.elements["checkuser_local"].removeAttribute("disabled");
+                            }
+                            ;'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='$checkuser_value'/>
                 </td>
             </tr>
         </table>

@@ -379,7 +379,7 @@ class Federation extends EntityWithDBProperties {
         CAT::set_locale($oldlocale);
 
         // fetch attributes from DB; populates $this->attributes array
-        $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = '$this->name' 
                                             ORDER BY option_name", "FED");

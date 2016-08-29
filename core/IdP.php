@@ -77,10 +77,10 @@ class IdP extends EntityWithDBProperties {
         $this->externalDbSyncstate = $instQuery->external_db_syncstate;
         
         // fetch attributes from DB; populates $this->attributes array
-        $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
-                                            WHERE $this->entityIdColumn = $this->identifier  "
-                . "                         ORDER BY option_name", "IdP");
+                                            WHERE $this->entityIdColumn = $this->identifier  
+                                            ORDER BY option_name", "IdP");
         
         $this->attributes[] = ["name" => "internal:country",
             "value" => $this->federation,

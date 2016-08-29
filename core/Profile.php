@@ -55,6 +55,20 @@ class Profile extends EntityWithDBProperties {
     private $privEaptypes;
 
     /**
+     * This array holds all attributes which are defined on device level only
+     * 
+     * @var array
+     */
+    private $deviceLevelAttributes;
+
+    /**
+     * This array holds all attributes which are defined on device level only
+     * 
+     * @var array
+     */
+    private $eapLevelAttributes;
+
+    /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
      * 
@@ -84,7 +98,7 @@ class Profile extends EntityWithDBProperties {
             $idp = $idpObject;
             $this->institution = $idp->name;
         }
-        $temparray = [];
+
         $optioninstance = Options::instance();
 
         $this->realm = $profileQuery->realm;
@@ -99,61 +113,42 @@ class Profile extends EntityWithDBProperties {
 
         // fetch all atributes from this profile from DB
 
-        $allAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, device_id, eap_method_id as method, row 
-                FROM $this->entityOptionTable
-                WHERE $this->entityIdColumn = $this->identifier");
+        $this->deviceLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("DEVICES");
 
-        while ($attributeQuery = mysqli_fetch_object($allAttributes)) {
+        $this->eapLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("EAPMETHODS");
 
-            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
-            if ($optinfo['type'] != "file") {
-                $temparray[] = [
-                    "name" => $attributeQuery->option_name,
-                    "value" => $attributeQuery->option_value,
-                    "level" => ($attributeQuery->device_id == NULL && $attributeQuery->method == 0 ? "Profile" : "Method" ),
-                    "row" => $attributeQuery->row,
-                    "device" => $attributeQuery->device_id,
-                    "flag" => $optinfo['flag'],
-                    "eapmethod" => EAP::EAPMethodArrayFromId($attributeQuery->method)];
-            } else {
-                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
+        $tempArrayProfileLevelOnly = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = $this->identifier  
+                                            AND device = NULL AND eap_method_id = 0
+                                            ORDER BY option_name", "IdP");
 
-                $temparray[] = [
-                    "name" => $attributeQuery->option_name,
-                    "value" => ( $decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)),
-                    "level" => ($attributeQuery->device_id == NULL && $attributeQuery->method == 0 ? "Profile" : "Method" ),
-                    "row" => $attributeQuery->row,
-                    "flag" => $optinfo['flag'],
-                    "device" => $attributeQuery->device_id,
-                    "eapmethod" => EAP::EAPMethodArrayFromId($attributeQuery->method)];
-            }
-        }
         // add internal attributes
         // they share many attribute properties, so condense the generation
-        
+
         $localValueIfAny = (preg_match('/@/', $this->realm) ? substr($this->realm, 0, strpos($this->realm, '@')) : "anonymous" );
-        
+
         $internalAttributes = [
-          "internal:profile_count" => $idp->profileCount(),
-          "internal:checkuser_outer" => $this->checkuser_outer,
-          "internal:checkuser_value" => $this->checkuser_value,
-          "internal:verify_userinput_suffix" => $this->verify,
-          "internal:hint_userinput_suffix" => $this->hint,
-          "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
-          "internal:use_anon_outer" => $this->use_anon_outer,
-          "internal:anon_local_value" => $localValueIfAny,
+            "internal:profile_count" => $idp->profileCount(),
+            "internal:checkuser_outer" => $this->checkuser_outer,
+            "internal:checkuser_value" => $this->checkuser_value,
+            "internal:verify_userinput_suffix" => $this->verify,
+            "internal:hint_userinput_suffix" => $this->hint,
+            "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
+            "internal:use_anon_outer" => $this->use_anon_outer,
+            "internal:anon_local_value" => $localValueIfAny,
         ];
 
         foreach ($internalAttributes as $attName => $attValue) {
-            $temparray[] = ["name" => $attName,
-            "value" => $attValue,
-            "level" => "Profile",
-            "row" => 0,
-            "flag" => NULL,
-            "device" => NULL,
-            "eapmethod" => NULL];
+            $tempArrayProfileLevelOnly = ["name" => $attName,
+                "value" => $attValue,
+                "level" => "Profile",
+                "row" => 0,
+                "flag" => NULL,
+                "device" => NULL,
+                "eapmethod" => 0];
         }
-        
+
         // now, fetch IdP-wide attributes
 
         $idpoptions = $idp->getAttributes();
@@ -166,71 +161,104 @@ class Profile extends EntityWithDBProperties {
                 "row" => $theAttr["row"],
                 "flag" => $theAttr["flag"],
                 "device" => NULL,
-                "eapmethod" => NULL,
+                "eapmethod" => 0,
             ];
         }
 
-        // check sanity (device and eapmethod are mutually exclusive) and first batch of adding (method level)
+        // add all attributes which are device or eap method specific to 
+        // final attribute array (they cannot be overridden)
+        $this->attributes = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
 
-        foreach ($temparray as $attrib) {
-            if ($attrib["device"] != NULL && $attrib["eapmethod"] != NULL) {
-                debug(2, "Sanity check failed - device and eapmethod are set!\n");
+        // now add profile-level attributes if not already set on deeper level
+
+        foreach ($tempArrayProfileLevelOnly as $attrib) {
+            $ignore = "";
+            foreach ($this->attributes as $approvedAttrib) {
+                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "Profile") {
+                    $ignore = "YES";
+                }
             }
-        }
-
-        foreach ($temparray as $attrib) {
-            if ($attrib["device"] != NULL || $attrib["eapmethod"] != NULL) {
+            if ($ignore != "YES") {
                 $this->attributes[] = $attrib;
-            }
-        }
-        // pick all attributes which are profile specific and place into final array if no eap/device-specific exists
-
-        foreach ($temparray as $attrib) {
-            if ($attrib["level"] == "Profile") {
-                $ignore = "";
-                foreach ($this->attributes as $approvedAttrib) {
-                    if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "IdP" && $approvedAttrib["level"] != "Profile") {
-                        $ignore = "YES";
-                    }
-                }
-                if ($ignore != "YES") {
-                    $this->attributes[] = $attrib;
-                }
             }
         }
 
         // now, add IdP-wide attribs
 
-        foreach ($temparray as $attrib) {
-            if ($attrib["level"] == "IdP") {
-                $ignore = "";
-                foreach ($this->attributes as $approvedAttrib) {
-                    if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "IdP") {
-                        $ignore = "YES";
-                    }
+        foreach ($idpoptions as $attrib) {
+            $ignore = "";
+            foreach ($this->attributes as $approvedAttrib) {
+                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "IdP") {
+                    $ignore = "YES";
                 }
-                if ($ignore != "YES") {
-                    $this->attributes[] = $attrib;
-                }
+            }
+            if ($ignore != "YES") {
+                $this->attributes[] = $attrib;
             }
         }
 
-        $this->name = getLocalisedValue($this->getAttributes('profile:name', 0, 0), $this->langIndex);
+        $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
 
         $eapMethod = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
-        $returnarray = [];
+        $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
             $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
-            $returnarray[] = $eaptype;
+            $eapTypeArray[] = $eaptype;
         }
         debug(4, "Looks like this profile supports the following EAP types: ");
-        debug(4, $returnarray);
-        $this->privEaptypes = $returnarray;
+        debug(4, $eapTypeArray);
+        $this->privEaptypes = $eapTypeArray;
 
         debug(3, "--- END Constructing new Profile object ... ---\n");
+    }
+
+    private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods) {
+        // only one of the two is allowed to be set
+        $temparray = [];
+        switch ($devicesOrEAPMethods) {
+            case "DEVICES":
+                $queryPart = "device_id";
+                $conditionPart = "AND eap_method_id = 0";
+                break;
+            case "EAPMETHODS":
+                $queryPart = "eap_method_id";
+                $conditionPart = "AND device_id = NULL";
+                break;
+        }
+
+        $allAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, $queryPart as deviceormethod, row 
+                FROM $this->entityOptionTable
+                WHERE $this->entityIdColumn = $this->identifier $conditionPart");
+
+        while ($attributeQuery = mysqli_fetch_object($allAttributes)) {
+
+            $optinfo = $optioninstance->optionType($attributeQuery->option_name);
+            if ($optinfo['type'] != "file") {
+                $temparray[] = [
+                    "name" => $attributeQuery->option_name,
+                    "value" => $attributeQuery->option_value,
+                    "level" => "Method",
+                    "row" => $attributeQuery->row,
+                    "flag" => $optinfo['flag'],
+                    "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
+                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::EAPMethodArrayFromId($attributeQuery->deviceormethod))];
+            } else {
+                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
+
+                $temparray[] = [
+                    "name" => $attributeQuery->option_name,
+                    "value" => ( $decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)),
+                    "level" => "Method",
+                    "row" => $attributeQuery->row,
+                    "flag" => $optinfo['flag'],
+                    "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
+                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::EAPMethodArrayFromId($attributeQuery->deviceormethod))];
+            }
+        }
+        return $temparray;
     }
 
     /**
@@ -277,8 +305,8 @@ class Profile extends EntityWithDBProperties {
         $escapedDevice = DBConnection::escape_value($this->databaseType, $device);
         $result = DBConnection::exec($this->databaseType, "SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->langIndex'");
         if ($result && $cache = mysqli_fetch_object($result)) {
-            $exec_update = DBConnection::exec($this->databaseType, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
-            if ($lastChange = mysqli_fetch_object($exec_update)->last_change) {
+            $execUpdate = DBConnection::exec($this->databaseType, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
+            if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
                 if ($lastChange < $cache->tm) {
                     debug(4, "Installer cached:$cache->download_path\n");
                     $returnValue = ['cache' => $cache->download_path, 'mime' => $cache->mime];
@@ -503,7 +531,7 @@ class Profile extends EntityWithDBProperties {
         } else {
             $outarray = $temparray;
         }
-        
+
         return $outarray;
     }
 
@@ -518,11 +546,9 @@ class Profile extends EntityWithDBProperties {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         if ($eaptype["OUTER"] == PEAP || $eaptype["OUTER"] == TLS || $eaptype["OUTER"] == TTLS || $eaptype["OUTER"] == FAST) {
 
-            $cnOption = $this->getAttributes("eap:server_name", $eaptype);
-            $caOption = $this->getAttributes("eap:ca_file", $eaptype);
-            /* echo "<pre>";
-              print_r($options);
-              echo "</pre>"; */
+            $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
+            $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
+
             if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
                 foreach ($caOption as $oneCa) {
                     $x509 = new X509();
@@ -566,17 +592,31 @@ class Profile extends EntityWithDBProperties {
         }
         $redirectUrl = 0;
         $returnarray = [];
-        $redirect = $this->getAttributes("device-specific:redirect", 0, 0);
-        if ($redirect) {
-            $unserialised = unserialize($redirect[0]['value']);
+        $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
+        // if it was a general one, we are done. Find out if there is one such
+        // which has device = NULL
+        $generalRedirect = NULL;
+        foreach ($redirect as $index => $oneRedirect) {
+            if ($oneRedirect["level"] == "Profile") {
+                $generalRedirect = $index;
+            }
+        }
+        if ($generalRedirect !== NULL) { // could be index 0
+            $unserialised = unserialize($redirect[$generalRedirect]['value']);
             return [['id' => '0', 'redirect' => $unserialised['content']]];
         }
         $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];
-        foreach (Devices::listDevices() as $devideIndex => $deviceProperties) {
-            $factory = new DeviceFactory($devideIndex);
+        foreach (Devices::listDevices() as $deviceIndex => $deviceProperties) {
+            $factory = new DeviceFactory($deviceIndex);
             $dev = $factory->device;
-            $redirectUrl = getLocalisedValue($this->getAttributes("device-specific:redirect", 0, $devideIndex), $locale);
+            // find the attribute pertaining to the specific device
+            $redirectUrl = 0;
+            foreach ($redirect as $index => $oneRedirect) {
+                if ($oneRedirect["device"] == $deviceIndex) {
+                    $redirectUrl = getLocalisedValue($oneRedirect, $locale);
+                }
+            }
             $devStatus = AVAILABLE;
             $message = 0;
             if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
@@ -591,18 +631,37 @@ class Profile extends EntityWithDBProperties {
                     if ($eap) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
                             $eapCustomtext = $eAPOptions["eap-specific:customtext"][serialize($eap)];
-                        }
-                        else {
-                            $eapCustomtext = getLocalisedValue($this->getAttributes("eap-specific:customtext", $eap, 0), $locale);
+                        } else {
+                            // fetch customtexts from method-level attributes
+                            $eapCustomtext = "";
+                            $customTextAttributes = [];
+                            $attributeList = $this->getAttributes("eap-specific:redirect");
+                            foreach ($attributeList as $oneAttribute) {
+                                if ($oneAttribute["eapmethod"] == $eap) {
+                                    $customTextAttributes[] = $oneAttribute;
+                                }
+                            }
+                            if (count($customTextAttributes) > 0) {
+                                $eapCustomtext = getLocalisedValue($customTextAttributes, $locale);
+                            }
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
-                        $deviceCustomtext = getLocalisedValue($this->getAttributes("device-specific:customtext", 0, $devideIndex), $locale);
+                        // fetch customtexts for device
+                        $devicecustomtext = "";
+                        $customTextAttributes = [];
+                        $attributeList = $this->getAttributes("device-specific:redirect");
+                        foreach ($attributeList as $oneAttribute) {
+                                if ($oneAttribute["device"] == $deviceIndex) {
+                                    $customTextAttributes[] = $oneAttribute;
+                                }
+                            }
+                        $deviceCustomtext = getLocalisedValue($customTextAttributes, $locale);
                     } else {
                         $devStatus = UNAVAILABLE;
                     }
                 }
             }
-            $returnarray[] = ['id' => $devideIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options']];
+            $returnarray[] = ['id' => $deviceIndex, 'display' => $deviceProperties['display'], 'status' => $devStatus, 'redirect' => $redirectUrl, 'eap_customtext' => $eapCustomtext, 'device_customtext' => $deviceCustomtext, 'message' => $message, 'options' => $deviceProperties['options']];
         }
         return $returnarray;
     }
@@ -617,7 +676,15 @@ class Profile extends EntityWithDBProperties {
      * @return array list of attributes in collapsed style (index is the attrib name, value is an array of different values)
      */
     public function getCollapsedAttributes($eap = 0) {
-        $attr = $this->getAttributes(0, $eap);
+        $attrBefore = $this->getAttributes();
+        $attrAfter = [];
+        if ($eap != 0) { // filter out attributes pertaining only to a certain EAP type
+            foreach ($attrBefore as $index => $attrib) {
+                if ($attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
+                    $attrAfter[] = $attrib;
+                }
+            }
+        }
         $temp1 = [];
         foreach ($attr as $b) {
             $name = $b['name'];
@@ -659,11 +726,9 @@ class Profile extends EntityWithDBProperties {
             } else {
                 if (isset($temp[$name]['Method'])) {
                     $out[$name] = $temp[$name]['Method'];
-                }
-                elseif (isset($temp[$name]['Profile'])) {
+                } elseif (isset($temp[$name]['Profile'])) {
                     $out[$name] = $temp[$name]['Profile'];
-                }
-                else {
+                } else {
                     $out[$name] = $temp[$name]['IdP'];
                 }
             }
@@ -709,7 +774,7 @@ class Profile extends EntityWithDBProperties {
                 (!isset(Config::$CONSORTIUM['ssid']) || count(Config::$CONSORTIUM['ssid']) == 0) &&
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
-                }
+        }
         return $properConfig;
     }
 
@@ -720,8 +785,7 @@ class Profile extends EntityWithDBProperties {
         $properConfig = $this->readyForShowtime();
         if ($properConfig) {
             DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        }
-        else {
+        } else {
             DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = FALSE WHERE profile_id = " . $this->identifier);
         }
         $attribs = $this->getCollapsedAttributes();
@@ -731,17 +795,15 @@ class Profile extends EntityWithDBProperties {
         if (!$properConfig || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
             DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
             return;
-        } else {
-            DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
-            return;
         }
+        DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
 
     /**
      * Checks if the profile is shown (showable) to end users
      * @return boolean TRUE if profile is shown; FALSE if not
      */
-    public function getShowtime() {
+    public function isShowtime() {
         $result = DBConnection::exec($this->databaseType, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
         $resultRow = mysqli_fetch_row($result);
         if ($resultRow[0] == "0") {

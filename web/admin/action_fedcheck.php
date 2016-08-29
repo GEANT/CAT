@@ -167,7 +167,7 @@ $profiles_readyconf = [];
 
 foreach ($allIDPs as $index => $oneidp)
     foreach ($oneidp['instance']->listProfiles() as $profile)
-        if ($profile->getShowtime()) {
+        if ($profile->isShowtime()) {
             $profiles_showtime[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
         } else if ($profile->readyForShowtime()) {
             $profiles_confready[] = ['idp' => $oneidp['instance'], 'profile' => $profile];

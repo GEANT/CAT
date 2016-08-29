@@ -147,7 +147,7 @@ class DBConnection {
                 }
                 // is the profile in question public?
                 $profile = new Profile($blobprofile);
-                if ($profile->getShowtime() == TRUE) { // public data
+                if ($profile->isShowtime() == TRUE) { // public data
                     return FALSE;
                 } else {
                     $inst = new IdP($profile->institution);

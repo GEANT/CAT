@@ -67,7 +67,7 @@ class User extends EntityWithDBProperties {
                 }
             }
         } else {
-            $this->retrieveOptionsFromDatabase("SELECT option_name, option_value, id AS row
+            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT option_name, option_value, id AS row
                                                 FROM $this->entityOptionTable
                                                 WHERE $this->entityIdColumn = '$userId'", "User");
         }

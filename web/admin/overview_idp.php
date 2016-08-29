@@ -199,10 +199,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         // readiness - but want to display it before!
 
         $has_overrides = FALSE;
-        foreach ($attribs as $attrib)
-            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description)/", $attrib['name']))
+        foreach ($attribs as $attrib) {
+            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description)/", $attrib['name'])) {
                 $has_overrides = TRUE;
-
+            }
+        }
         $buffer_eaptypediv = "<div style='margin-bottom:40px; float:left;'>" . _("<strong>EAP Types</strong> (in order of preference):") . "<br/>";
         $typelist = $profile_list->getEapMethodsinOrderOfPreference();
         $allcomplete = TRUE;
@@ -224,17 +225,17 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 $buffer_eaptypediv .= "</div>";
                 $allcomplete = FALSE;
             };
-            $eapattribs = $profile_list->getAttributes(0, $eaptype);
+            $attribs = $profile_list->getAttributes();
             foreach ($attribs as $attrib)
                 if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name']))
-                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Option override on EAP Method level is in effect.") . "'>";
+                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method level are in effect.") . "'>";
             $buffer_eaptypediv .= "<br/>";
         }
         $buffer_headline = "<h2 style='overflow:auto;'>";
 
         $buffer_headline .= "<div style='float:right;'>";
         $sufficient_config = $profile_list->getSufficientConfig();
-        $showtime = $profile_list->getShowtime();
+        $showtime = $profile_list->isShowtime();
         if ($has_overrides)
             $buffer_headline .= UI_remark("", _("Option override on profile level is in effect."), TRUE);
         if (!$allcomplete)
@@ -287,7 +288,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         echo "</div>";
 // dummy width to keep a little distance
         echo "<div style='width:20px;'></div>";
-        if ($profile_list->getShowtime()) {
+        if ($profile_list->isShowtime()) {
             echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
             $URL = $profile_list->getCollapsedAttributes();
             if (isset($URL['device-specific:redirect']))

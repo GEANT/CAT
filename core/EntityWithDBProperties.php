@@ -189,7 +189,7 @@ class EntityWithDBProperties {
 
     protected function retrieveOptionsFromDatabase($query, $level) {
         $optioninstance = Options::instance();
-        $this->attributes = [];
+        $tempAttributes = [];
         $attributeDbExec = DBConnection::exec($this->databaseType, $query);
 
         while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
@@ -198,12 +198,13 @@ class EntityWithDBProperties {
             $flag = $optinfo['flag'];
 
             if ($optinfo['type'] != "file") {
-                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+                $tempAttributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
             } else {
                 $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
-                $this->attributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+                $tempAttributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
             }
         }
+        return $tempAttributes;
     }
 
 }
