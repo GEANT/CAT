@@ -40,7 +40,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         foreach ($_FILES['value']['tmp_name'] as $opt_id => $optfileref)
             $a[$opt_id] = $optfileref;
 
-/*      ksort($a);
+    /*      ksort($a);
       echo "<pre>This is what we got:";
       print_r($a);
       echo "</pre>"; */
@@ -94,11 +94,9 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                                 $bad[] = $obj_value;
                                 continue 2;
                             }
-                        }
-                            else {
+                        } else {
                             $content = valid_string_db($a["$obj_id-0"]);
-                        }
-                    else {
+                        } else {
                         continue 2;
                     }
                     break;
@@ -163,10 +161,10 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             if ($optname != "eap:ca_url" && $optname != "general:logo_url")
                 $good[] = $optname;
 
-/*      echo "<pre>";
+    /*      echo "<pre>";
       print_r($options);
       echo "</pre>";
-*/
+     */
 // Step 2: now we have clean input data. Some attributes need special care
 //         2a: if we got eap:ca_url, convert it to eap:ca_file
 
@@ -223,11 +221,11 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         $options[] = ["general:geo_coordinates" => serialize(["lon" => $lon, "lat" => $lat])];
         $good[] = ("general:geo_coordinates");
     }
-    
-/*      echo "<pre>";
+
+    /*      echo "<pre>";
       print_r($options);
       echo "</pre>";
-  */   
+     */
 
 // finally, some attributes are in the DB and were only called by reference
 // keep those which are still referenced, throw the rest away
@@ -242,10 +240,13 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             if ($object instanceof IdP || $object instanceof User || $object instanceof Federation) {
                 $object->addAttribute($name, $value);
             } elseif ($object instanceof Profile) {
-                if ($device === 0)
-                    $object->addAttribute($name, $value, $eaptype);
-                else
-                    $object->addAttribute($name, $value, $eaptype, $device);
+                if ($device !== 0) {
+                    $object->addAttributeDeviceSpecific($name, $value, $device);
+                } elseif ($eaptype != 0) {
+                    $object->addAttributeEAPSpecific($name, $value, $eaptype);
+                } else {
+                    $object->addAttribute($name, $value);
+                }
             }
         }
 

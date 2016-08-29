@@ -170,7 +170,7 @@ $profile->flushSupportedEapMethods();
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo UI_error(_("Redirection can't be activated - you did not specify a target location!"));
         } else {
-            $profile->addAttribute("device-specific:redirect", serialize(['lang' => 'C', 'content' => $_POST['redirect_target']]), 0, 0);
+            $profile->addAttribute("device-specific:redirect", serialize(['lang' => 'C', 'content' => $_POST['redirect_target']]));
             echo UI_okay(sprintf("Redirection set to <strong>%s</strong>", $_POST['redirect_target']));
         }
     } else {

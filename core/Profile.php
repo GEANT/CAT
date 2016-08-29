@@ -383,7 +383,7 @@ class Profile extends EntityWithDBProperties {
      * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
-    public function addAttribute($attrName, $attrValue, $eapType, $device = 0) {
+    private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device = 0) {
         $escapedAttrName = DBConnection::escape_value($this->databaseType, $attrName);
         $escapedAttrValue = DBConnection::escape_value($this->databaseType, $attrValue);
 
@@ -391,7 +391,19 @@ class Profile extends EntityWithDBProperties {
                           VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType" . ($device !== 0 ? ",'" . DBConnection::escape_value($this->databaseType, $device) . "'" : "" ) . ")");
         $this->updateFreshness();
     }
+    
+    public function addAttributeEAPSpecific($attrName, $attrValue, $eapType) {
+        $this->addAttributeAllLevels($attrName, $attrValue, $eapType, 0);
+    }
+    
+    public function addAttributeDeviceSpecific($attrName, $attrValue, $device) {
+        $this->addAttributeAllLevels($attrName, $attrValue, 0, $device);
+    }
 
+    public function addAttribute($attrName, $attrValue) {
+        $this->addAttributeAllLevels($attrName, $attrValue, 0, 0);
+    }
+    
     /**
      * register new supported EAP method for this profile
      *
