@@ -65,7 +65,7 @@ class IdP extends EntityWithDBProperties {
 
         $this->databaseType = "INST";
         $this->entityOptionTable = "institution_option";
-        $this->entityIdColumn = "inst_id";
+        $this->entityIdColumn = "institution_id";
         $this->identifier = $instId;
 
         $idp = DBConnection::exec($this->databaseType, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");

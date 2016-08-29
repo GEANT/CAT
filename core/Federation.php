@@ -574,7 +574,7 @@ class Federation extends EntityWithDBProperties {
      *
      */
     public static function listAllIdentityProviders($activeOnly = 0, $country = 0) {
-        DBConnection::exec($this->databaseType, "SET SESSION group_concat_max_len=10000");
+        DBConnection::exec("INST", "SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
                      group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
                      FROM institution ";
@@ -590,11 +590,11 @@ class Federation extends EntityWithDBProperties {
         }
         if ($country) {
             // escape the parameter
-            $country = DBConnection::escape_value($this->databaseType, $country);
+            $country = DBConnection::escape_value("INST", $country);
             $query .= "AND institution.country = '$country' ";
         }
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        $allIDPs = DBConnection::exec($this->databaseType, $query);
+        $allIDPs = DBConnection::exec("INST", $query);
         $returnarray = [];
         while ($queryResult = mysqli_fetch_object($allIDPs)) {
             $institutionOptions = explode('---', $queryResult->options);

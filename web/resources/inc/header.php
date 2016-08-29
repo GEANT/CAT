@@ -64,7 +64,7 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
     return $cat;
 }
 
-function headerDiv($cap1) {
+function headerDiv($cap1, $language) {
     $place = parse_url($_SERVER['REQUEST_URI']);
     ?>
     <div class='header'>
@@ -156,7 +156,7 @@ function productheader($area, $language) {
         }
 
 
-    echo headerDiv($cap1);
+    echo headerDiv($cap1, $language);
     // content from here on will SCROLL instead of being fixed at the top
     echo "<div class='pagecontent'>"; // closes in footer again
     echo "<div class='trick'>"; // closes in footer again

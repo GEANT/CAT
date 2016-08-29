@@ -120,8 +120,8 @@ class Profile extends EntityWithDBProperties {
         $tempArrayProfileLevelOnly = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
-                                            AND device = NULL AND eap_method_id = 0
-                                            ORDER BY option_name", "IdP");
+                                            AND device_id = NULL AND eap_method_id = 0
+                                            ORDER BY option_name", "Profile");
 
         // add internal attributes
         // they share many attribute properties, so condense the generation
@@ -140,7 +140,7 @@ class Profile extends EntityWithDBProperties {
         ];
 
         foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfileLevelOnly = ["name" => $attName,
+            $tempArrayProfileLevelOnly[] = ["name" => $attName,
                 "value" => $attValue,
                 "level" => "Profile",
                 "row" => 0,
@@ -218,6 +218,7 @@ class Profile extends EntityWithDBProperties {
     private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods) {
         // only one of the two is allowed to be set
         $temparray = [];
+        $optioninstance = Options::instance();
         switch ($devicesOrEAPMethods) {
             case "DEVICES":
                 $queryPart = "device_id";
@@ -500,53 +501,6 @@ class Profile extends EntityWithDBProperties {
         }
     }
 
-    /** Returns an array of the profile's attributes.
-     * 
-     * @param string option_name the name of a specific option. If set, only returns option values for this option name
-     * @param eapmethod the EAP type, in array ("OUTER/INNER") notation. If set, returns only attributes which are specific to that EAP type
-     * @param string device the device ID string. If set, returns only attributes which are specific to that device
-     * @return array attributes of the profile
-     */
-    public function getAttributes($optionName = 0, $eapmethod = 0, $device = 0) {
-
-        $outarray = [];
-        $temparray = [];
-        if ($eapmethod) {
-            foreach ($this->attributes as $theAttr) {
-                if ($theAttr["eapmethod"] == $eapmethod) {
-                    $temparray[] = $theAttr;
-                }
-            }
-        } else
-        if ($device) {
-            foreach ($this->attributes as $theAttr) {
-                if ($theAttr["device"] == $device) {
-                    $temparray[] = $theAttr;
-                }
-            }
-        }
-
-        foreach ($this->attributes as $theAttr) {
-            if ($theAttr["device"] == NULL && $theAttr["eapmethod"] == NULL) {
-                $temparray[] = $theAttr;
-            }
-        }
-
-        // return only options by one name, if asked for
-
-        if ($optionName) {
-            foreach ($temparray as $theAttr) {
-                if ($theAttr["name"] == $optionName) {
-                    $outarray[] = $theAttr;
-                }
-            }
-        } else {
-            $outarray = $temparray;
-        }
-
-        return $outarray;
-    }
-
     /**
      * Performs a sanity check for a given EAP type - did the admin submit enough information to create installers for him?
      * 
@@ -636,6 +590,8 @@ class Profile extends EntityWithDBProperties {
             }
 
             if ($redirectUrl === 0) {
+                $eapCustomtext = "";
+                $deviceCustomtext = "";
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
                 } else {
@@ -659,7 +615,7 @@ class Profile extends EntityWithDBProperties {
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
                         // fetch customtexts for device
-                        $devicecustomtext = "";
+                        $deviceCustomtext = "";
                         $customTextAttributes = [];
                         $attributeList = $this->getAttributes("device-specific:redirect");
                         foreach ($attributeList as $oneAttribute) {
@@ -689,11 +645,11 @@ class Profile extends EntityWithDBProperties {
      */
     public function getCollapsedAttributes($eap = 0) {
         $attrBefore = $this->getAttributes();
-        $attrAfter = [];
+        $attr = [];
         if ($eap != 0) { // filter out attributes pertaining only to a certain EAP type
             foreach ($attrBefore as $index => $attrib) {
                 if ($attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
-                    $attrAfter[] = $attrib;
+                    $attr[] = $attrib;
                 }
             }
         }
