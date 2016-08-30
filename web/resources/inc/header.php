@@ -38,8 +38,8 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
     $ourlocale = CAT::get_lang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
-          <html xmlns='http://www.w3.org/1999/xhtml' lang='<?php echo $ourlocale;?>'>
-          <head lang='<?php echo $ourlocale;?>'>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='". $ourlocale ."'>
+          <head lang='". $ourlocale ."'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
     $cssUrl = valid_host($_SERVER['HTTP_HOST']);
