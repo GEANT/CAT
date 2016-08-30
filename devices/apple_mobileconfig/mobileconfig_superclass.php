@@ -98,7 +98,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         $ssidList = $this->attributes['internal:SSID'];
         $consortiumOIList = $this->attributes['internal:consortia'];
         $serverNames = $this->attributes['eap:server_name'];
-        $cAUUIDs = $this->list_ca_uuids($this->attributes['internal:CAs'][0]);
+        $cAUUIDs = $this->listCAUuids($this->attributes['internal:CAs'][0]);
         $eapType = $this->selected_eap;
         $outputXml = "";
         $outputXml .= "<?xml version=\"1.0\" encoding=\"utf-8\"?>
@@ -111,14 +111,14 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 
         // did the admin want wired config?
         if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
-            $include_wired = TRUE;
+            $includeWired = TRUE;
         } else {
-            $include_wired = FALSE;
+            $includeWired = FALSE;
         }
 
-        $outputXml .= $this->all_network_blocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $include_wired, $useRealm);
+        $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $useRealm);
 
-        $outputXml .= $this->all_ca($this->attributes['internal:CAs'][0]);
+        $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
 
         $outputXml .= "
          </array>
@@ -188,7 +188,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         return $out;
     }
 
-    private function list_ca_uuids($caArray) {
+    private function listCAUuids($caArray) {
         $retval = [];
         foreach ($caArray as $ca) {
             $retval[] = $ca['uuid'];
@@ -198,7 +198,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 
     private static $serial;
 
-    private function network_block($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $realm = 0) {
+    private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $realm = 0) {
         $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
         
         $payloadIdentifier = "wifi." . $this->serial;
@@ -327,7 +327,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         return $retval;
     }
 
-    private function removenetwork_block($SSID, $sequence) {
+    private function removenetworkBlock($ssid, $sequence) {
         $retval = "
 <dict>
 	<key>AutoJoin</key>
@@ -355,43 +355,43 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 	<string>Auto</string>";
         }
         $retval .= "<key>SSID_STR</key>
-	<string>$SSID</string>
+	<string>$ssid</string>
 </dict>
 ";
         return $retval;
     }
 
-    private function all_network_blocks($SSIDList, $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, $includeWired, $realm = 0) {
+    private function allNetworkBlocks($sSIDList, $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, $includeWired, $realm = 0) {
         $retval = "";
         $this->serial = 0;
-        foreach (array_keys($SSIDList) as $SSID) {
-            $retval .= $this->network_block($SSID, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
+        foreach (array_keys($sSIDList) as $SSID) {
+            $retval .= $this->networkBlock($SSID, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
         }
         if ($includeWired) {
-            $retval .= $this->network_block("IRRELEVANT", NULL, $serverNameList, $cAUUIDList, $eapType, TRUE, $realm);
+            $retval .= $this->networkBlock("IRRELEVANT", NULL, $serverNameList, $cAUUIDList, $eapType, TRUE, $realm);
         }
         if (count($consortiumOIList) > 0) {
-            $retval .= $this->network_block("IRRELEVANT", $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
+            $retval .= $this->networkBlock("IRRELEVANT", $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
-            foreach ($this->attributes['media:remove_SSID'] as $index => $remove_SSID) {
-                $retval .= $this->removenetwork_block($remove_SSID, $index);
+            foreach ($this->attributes['media:remove_SSID'] as $index => $removeSSID) {
+                $retval .= $this->removenetworkBlock($removeSSID, $index);
             }
         }
         return $retval;
     }
 
-    private function all_ca($caArray) {
+    private function allCA($caArray) {
         $retval = "";
         $iterator = 0;
         foreach ($caArray as $ca) {
-            $retval .= $this->ca_blob($ca['uuid'], $ca['pem'], $iterator);
+            $retval .= $this->caBlob($ca['uuid'], $ca['pem'], $iterator);
             $iterator = $iterator + 1;
         }
         return $retval;
     }
 
-    private function ca_blob($uuid, $pem, $serial) {
+    private function caBlob($uuid, $pem, $serial) {
         // cut lines with CERTIFICATE
         $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $pem);
         $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
