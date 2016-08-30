@@ -204,11 +204,11 @@ class CAT {
                 $b = $a->country;
                 $F = new Federation($b);
                 $c = strtoupper($F->name);
-                $C[$c] = isset(Federation::$FederationList[$c]) ? Federation::$FederationList[$c] : $c;
+                $C[$c] = isset(Federation::$federationList[$c]) ? Federation::$federationList[$c] : $c;
             }
         } else {
             new Federation;
-            $C = Federation::$FederationList;
+            $C = Federation::$federationList;
         }
         asort($C, SORT_LOCALE_STRING);
         $this->set_locale($olddomain);
