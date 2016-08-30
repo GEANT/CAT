@@ -187,3 +187,5 @@ public $code_page;
 public $lang;
 
 }
+?>
+

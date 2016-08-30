@@ -181,21 +181,21 @@ class Config {
      * @var array
      */
     public static $LANGUAGES = [
-      'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8'],
-      'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8'],
-      'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8'],
-      'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8'],
-      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8'],
-      'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8'],
-      'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8'],
-      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8'],
-      'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8'],
-      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8'],
-      'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin'],
-      'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8'],
-      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8'],
-      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8'],
-      'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8'],
+      'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8',    'latin_based' => TRUE],
+      'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8',    'latin_based' => TRUE],
+      'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
+      'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],
+      'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
+      'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8',    'latin_based' => TRUE],
+      'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8',    'latin_based' => TRUE],
+      'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
+      'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
+      'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
+      'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',    'latin_based' => TRUE],
+      'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
+      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
+      'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
+      'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
 
 // For the following languages, partial translations exist in Transifex, but
 // they are not complete enough for display. Their Transifex content is not
@@ -203,14 +203,14 @@ class Config {
 // state of translation of these languages.
 //
 // these two were in for 1.0 but didn't make 1.1
-//     'sk' => array('display' => 'Slovenčina',  'locale' => 'sk_SK.utf8'),
-//     'fr' => array('display' => 'Français',    'locale' => 'fr_FR.utf8'),
+//     'sk' => array('display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE),
+//     'fr' => array('display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE),
 //
 // and these were never complete
 //
-//      'nl' => array('display' => 'Nederlands', 'locale' => 'nl_NL.utf8'),
-//      'sv' => array('display' => 'Svenska', 'locale' => 'sv_SE.utf8'),
-//      'cy' => array('display' => 'Cymraeg', 'locale' => 'cy_GB.utf8'),
+//      'nl' => array('display' => 'Nederlands', 'locale' => 'nl_NL.utf8',    'latin_based' => TRUE),
+//      'sv' => array('display' => 'Svenska', 'locale' => 'sv_SE.utf8',    'latin_based' => TRUE),
+//      'cy' => array('display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE),
     ];
 
     /**
