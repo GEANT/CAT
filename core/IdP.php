@@ -328,7 +328,7 @@ Best regards,
     }
 
     public function setExternalDBId($identifier) {
-        $escapedIdentifier = DBConnection::escape_value($this->databaseType, $identifier);
+        $escapedIdentifier = DBConnection::escapeValue($this->databaseType, $identifier);
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $alreadyUsed = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
 

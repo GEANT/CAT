@@ -408,9 +408,9 @@ class Federation extends EntityWithDBProperties {
             throw new Exception("Could not create a new Institution!");
         }
         // escape all strings
-        $escapedOwnerId = DBConnection::escape_value($this->databaseType, $ownerId);
-        $escapedLevel = DBConnection::escape_value($this->databaseType, $level);
-        $escapedMail = DBConnection::escape_value($this->databaseType, $mail);
+        $escapedOwnerId = DBConnection::escapeValue($this->databaseType, $ownerId);
+        $escapedLevel = DBConnection::escapeValue($this->databaseType, $level);
+        $escapedMail = DBConnection::escapeValue($this->databaseType, $mail);
 
         if ($escapedOwnerId != "PENDING") {
             DBConnection::exec($this->databaseType, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$escapedOwnerId', $identifier, '$escapedLevel', '$escapedMail')");
@@ -590,7 +590,7 @@ class Federation extends EntityWithDBProperties {
         }
         if ($country) {
             // escape the parameter
-            $country = DBConnection::escape_value("INST", $country);
+            $country = DBConnection::escapeValue("INST", $country);
             $query .= "AND institution.country = '$country' ";
         }
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";

@@ -43,7 +43,7 @@ class User extends EntityWithDBProperties {
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = DBConnection::escape_value($this->databaseType, $userId);
+        $this->identifier = DBConnection::escapeValue($this->databaseType, $userId);
 
         $optioninstance = Options::instance();
 

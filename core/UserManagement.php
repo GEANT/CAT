@@ -63,7 +63,7 @@ class UserManagement {
      * @return string
      */
     public function checkTokenValidity($token) {
-        $escapedToken = DBConnection::escape_value(UserManagement::$databaseType, $token);
+        $escapedToken = DBConnection::escapeValue(UserManagement::$databaseType, $token);
         $check = DBConnection::exec(UserManagement::$databaseType, "SELECT invite_token, cat_institution_id 
                            FROM invitations 
                            WHERE invite_token = '$escapedToken' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
@@ -96,8 +96,8 @@ class UserManagement {
      * @return IdP 
      */
     public function createIdPFromToken($token, $owner) {
-        $escapedToken = DBConnection::escape_value(UserManagement::$databaseType, $token);
-        $escapedOwner = DBConnection::escape_value(UserManagement::$databaseType, $owner);
+        $escapedToken = DBConnection::escapeValue(UserManagement::$databaseType, $token);
+        $escapedOwner = DBConnection::escapeValue(UserManagement::$databaseType, $owner);
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
         $instinfo = DBConnection::exec(UserManagement::$databaseType, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
@@ -172,7 +172,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function addAdminToIdp($idp, $user) {
-        $escapedUser = DBConnection::escape_value(UserManagement::$databaseType, $user);
+        $escapedUser = DBConnection::escapeValue(UserManagement::$databaseType, $user);
         DBConnection::exec(UserManagement::$databaseType, "INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES($idp->identifier,'$escapedUser','FED','SELF-APPOINTED')");
         return TRUE;
     }
@@ -184,7 +184,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function removeAdminFromIdP($idp, $user) {
-        $escapedUser = DBConnection::escape_value(UserManagement::$databaseType, $user);
+        $escapedUser = DBConnection::escapeValue(UserManagement::$databaseType, $user);
         DBConnection::exec(UserManagement::$databaseType, "DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = '$escapedUser'");
         return TRUE;
     }
@@ -198,7 +198,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function invalidateToken($token) {
-        $escapedToken = DBConnection::escape_value(UserManagement::$databaseType, $token);
+        $escapedToken = DBConnection::escapeValue(UserManagement::$databaseType, $token);
         DBConnection::exec(UserManagement::$databaseType, "UPDATE invitations SET used = 1 WHERE invite_token = '$escapedToken'");
         return TRUE;
     }
@@ -216,7 +216,7 @@ Best regards,
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
-        $escapedFor = DBConnection::escape_value(UserManagement::$databaseType, $for);
+        $escapedFor = DBConnection::escapeValue(UserManagement::$databaseType, $for);
         $token = sha1(base_convert(rand(10e16, 10e20), 10, 36)) . sha1(base_convert(rand(10e16, 10e20), 10, 36));
         $level = ($isByFedadmin ? "FED" : "INST");
 
@@ -225,14 +225,14 @@ Best regards,
             return $token;
         } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
             // what country are we talking about?
-            $newname = DBConnection::escape_value(UserManagement::$databaseType, valid_string_db($instIdentifier));
+            $newname = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($instIdentifier));
             $extinfo = Federation::getExternalDBEntityDetails($externalId);
-            $externalhandle = DBConnection::escape_value(UserManagement::$databaseType, valid_string_db($externalId));
+            $externalhandle = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($externalId));
             DBConnection::exec(UserManagement::$databaseType, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
             return $token;
         } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            $newname = DBConnection::escape_value(UserManagement::$databaseType, valid_string_db($instIdentifier));
-            $newcountry = DBConnection::escape_value(UserManagement::$databaseType, valid_string_db($country));
+            $newname = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($instIdentifier));
+            $newcountry = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($country));
             DBConnection::exec(UserManagement::$databaseType, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $newcountry . "')");
             return $token;
         }
@@ -287,7 +287,7 @@ Best regards,
      */
     public function listInstitutionsByAdmin($userid) {
         $returnarray = [];
-        $escapedUserid = DBConnection::escape_value(UserManagement::$databaseType, $userid);
+        $escapedUserid = DBConnection::escapeValue(UserManagement::$databaseType, $userid);
         $institutions = DBConnection::exec(UserManagement::$databaseType, "SELECT institution_id FROM ownership WHERE user_id = '$escapedUserid' ORDER BY institution_id");
         while ($instQuery = mysqli_fetch_object($institutions)) {
             $returnarray[] = $instQuery->institution_id;

@@ -69,13 +69,13 @@ class DBConnection {
 
     /**
      * 
-     * @param string $db The database to do escapting for
+     * @param string $database The database to do escapting for
      * @param string $value The value to escape
      * @return string
      */
-    public static function escape_value($db, $value) {
-        $handle = DBConnection::handle($db);
-        debug(5, "Escaping $value for DB $db to get a safe query value.\n");
+    public static function escapeValue($database, $value) {
+        $handle = DBConnection::handle($database);
+        debug(5, "Escaping $value for DB $database to get a safe query value.\n");
         $escaped = mysqli_real_escape_string($handle->connection, $value);
         debug(5, "This is the result: $escaped .\n");
         return $escaped;
@@ -86,25 +86,25 @@ class DBConnection {
      * @param string $querystring the query to be executed
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      */
-    public static function exec($db, $querystring) {
+    public static function exec($database, $querystring) {
         // log exact query to debug log, if log level is at 5
         debug(5, "DB ATTEMPT: " . $querystring . "\n");
 
-        $instance = DBConnection::handle($db);
+        $instance = DBConnection::handle($database);
         if ($instance->connection == FALSE) {
-            debug(1, "ERROR: Cannot send query to $db database (no connection)!");
+            debug(1, "ERROR: Cannot send query to $database database (no connection)!");
             return FALSE;
         }
 
         $result = mysqli_query($instance->connection, $querystring);
         if ($result == FALSE) {
-            debug(1, "ERROR: Cannot execute query in $db database - (hopefully escaped) query was '$querystring'!");
+            debug(1, "ERROR: Cannot execute query in $database database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
 
         // log exact query to audit log, if it's not a SELECT
         if (preg_match("/^SELECT/i", $querystring) == 0) {
-            CAT::writeSQLAudit("[DB: " . strtoupper($db) . "] " . $querystring);
+            CAT::writeSQLAudit("[DB: " . strtoupper($database) . "] " . $querystring);
         }
         return $result;
     }
@@ -141,8 +141,8 @@ class DBConnection {
         }
         switch ($table) {
             case "profile_option":
-                $blob_query = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
-                while ($profileIdQuery = mysqli_fetch_object($blob_query)) { // only one row
+                $blobQuery = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
+                while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
                     $blobprofile = $profileIdQuery->profile_id;
                 }
                 // is the profile in question public?
@@ -155,8 +155,8 @@ class DBConnection {
                 }
                 break;
             case "institution_option":
-                $blob_query = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
-                while ($instIdQuery = mysqli_fetch_object($blob_query)) { // only one row
+                $blobQuery = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
+                while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
                     $blobinst = $instIdQuery->institution_id;
                 }
                 $inst = new IdP($blobinst);
@@ -207,8 +207,7 @@ class DBConnection {
         $databaseCapitalised = strtoupper($database);
         $this->connection = mysqli_connect(Config::$DB[$databaseCapitalised]['host'], Config::$DB[$databaseCapitalised]['user'], Config::$DB[$databaseCapitalised]['pass'], Config::$DB[$databaseCapitalised]['db']);
         if ($this->connection == FALSE) {
-            echo "ERROR: Unable to connect to $database database! This is a fatal error, giving up.";
-            exit(1);
+            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up.");
         }
 
         if ($databaseCapitalised == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") {

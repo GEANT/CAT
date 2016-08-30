@@ -93,7 +93,7 @@ class EntityWithDBProperties {
      */
     public function isAttributeAvailable($optionName) {
         $quotedIdentifier = (!is_int($identifier) ? "\"" : "") . $this->identifier . (!is_int($identifier) ? "\"" : "");
-        $escapedOptionName = DBConnection::escape_value($this->databaseType, $optionName);
+        $escapedOptionName = DBConnection::escapeValue($this->databaseType, $optionName);
         $result = DBConnection::exec($this->databaseType, "SELECT row FROM $this->entityOptionTable 
               WHERE $this->entityIdColumn = $quotedIdentifier AND option_name = '$escapedOptionName'");
         return(mysqli_num_rows($result));
@@ -165,8 +165,8 @@ class EntityWithDBProperties {
      */
     public function addAttribute($attrName, $attrValue) {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
-        $escapedAttrName = DBConnection::escape_value($this->databaseType, $attrName);
-        $escapedAttrValue = DBConnection::escape_value($this->databaseType, $attrValue);
+        $escapedAttrName = DBConnection::escapeValue($this->databaseType, $attrName);
+        $escapedAttrValue = DBConnection::escapeValue($this->databaseType, $attrValue);
         DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value) VALUES("
                 . $quotedIdentifier . ", '"
                 . $escapedAttrName . "', '"
