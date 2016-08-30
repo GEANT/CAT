@@ -115,9 +115,8 @@ class EntityWithDBProperties {
                 }
             }
             return $returnarray;
-        } else {
-            return $this->attributes;
         }
+        return $this->attributes;
     }
 
     /**
@@ -182,9 +181,9 @@ class EntityWithDBProperties {
         if (@unserialize($optionContent) !== FALSE) { // multi-lang
             $tempContent = unserialize($optionContent);
             return ["lang" => $tempContent['lang'], "content" => base64_decode($tempContent['content'])];
-        } else { // single lang, direct content
-            return ["lang" => "", "content" => base64_decode($optionContent)];
         }
+        // single lang, direct content
+        return ["lang" => "", "content" => base64_decode($optionContent)];
     }
 
     protected function retrieveOptionsFromDatabase($query, $level) {
