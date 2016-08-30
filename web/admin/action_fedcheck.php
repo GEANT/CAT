@@ -22,8 +22,8 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
     
-    $cr = $profile->getAttributes("internal:realm");
-    $realm = $cr[0]['value'];
+    $configuredRealm = $profile->getAttributes("internal:realm");
+    $realm = $configuredRealm[0]['value'];
     if (empty($realm)) {
         $tabletext .= "<td>N/A: Realm not known</td><td></td><td></td><td></td>";
         
@@ -61,21 +61,21 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
     $NAPTR_issues = false;
 
     if ($naptr > 0) {
-        $naptr_valid = $testsuite->NAPTR_compliance();
-        if ($naptr_valid == RETVAL_INVALID)
+        $naptrValid = $testsuite->NAPTR_compliance();
+        if ($naptrValid == RETVAL_INVALID)
             $NAPTR_issues = true;
     }
 
     // SRV resolution
 
-    if ($naptr > 0 && $naptr_valid == RETVAL_OK) {
+    if ($naptr > 0 && $naptrValid == RETVAL_OK) {
         $srv = $testsuite->NAPTR_SRV();
         if ($srv == RETVAL_INVALID)
             $NAPTR_issues = true;
     }
 
     // IP addresses for the hosts
-    if ($naptr > 0 && $naptr_valid == RETVAL_OK && $srv > 0) {
+    if ($naptr > 0 && $naptrValid == RETVAL_OK && $srv > 0) {
         $hosts = $testsuite->NAPTR_hostnames();
         if ($hosts == RETVAL_INVALID)
             $NAPTR_issues = true;
@@ -87,29 +87,29 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
         $tabletext .= UI_okay(0,0,true);
     }
     
-    $UDP_errors = false;
-    $cert_biggest_oddity = L_OK;
+    $UDPErrors = false;
+    $certBiggestOddity = L_OK;
     
     foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);
         $results = $testsuite->UDP_reachability_result[$hostindex];
         //echo "<pre>".print_r($results,true)."</pre>";
         if ($results['packetflow_sane'] != TRUE)
-            $UDP_errors = true;
+            $UDPErrors = true;
         if (empty($results['packetflow'][11]))
-            $UDP_errors = true;
+            $UDPErrors = true;
         if (count($results['cert_oddities']) > 0) {
             foreach ($results['cert_oddities'] as $oddity)
-                if ($oddity['level'] > $cert_biggest_oddity)
-                    $cert_biggest_oddity = $oddity['level'];
+                if ($oddity['level'] > $certBiggestOddity)
+                    $certBiggestOddity = $oddity['level'];
         }
     }
     
     $tabletext .= "</td><td>";
-    $tabletext .= UI_message($cert_biggest_oddity,0,0,true);
+    $tabletext .= UI_message($certBiggestOddity,0,0,true);
         
     $tabletext .= "</td><td>";
-    if (!$UDP_errors) {
+    if (!$UDPErrors) {
         $tabletext .= UI_okay(0,0,true);
     } else {
         $tabletext .= UI_error(0,0,true);
@@ -117,16 +117,16 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
     
     $tabletext .= "</td><td>";
 
-    $dynamic_errors = false;
+    $dynamicErrors = false;
 
     if ($naptr > 0 && count($testsuite->NAPTR_hostname_records) > 0) {
         foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
             $retval = $testsuite->TLS_clients_side_check($addr);
             if ($retval != RETVAL_OK && $retval != RETVAL_SKIPPED)
-                $dynamic_errors = true;
+                $dynamicErrors = true;
         }
     }
-    if (!$dynamic_errors) {
+    if (!$dynamicErrors) {
         $tabletext .= UI_okay(0,0,true);
     } else {
         $tabletext .= UI_error(0,0,true);
@@ -135,9 +135,9 @@ function profilechecks(IdP $idpinfo,Profile $profile) {
 
     DBConnection::exec("INST", "UPDATE profile SET "
                 . "status_dns = ".($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
-                . "status_cert = ".($cert_biggest_oddity) . ", "
-                . "status_reachability = ".($UDP_errors ? RETVAL_INVALID : RETVAL_OK) . ", "
-                . "status_TLS = ".($dynamic_errors ? RETVAL_INVALID : RETVAL_OK) . ", "
+                . "status_cert = ".($certBiggestOddity) . ", "
+                . "status_reachability = ".($UDPErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
+                . "status_TLS = ".($dynamicErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
                 . "last_status_check = NOW() "
                 . "WHERE profile_id = ".$profile->identifier);    
         
