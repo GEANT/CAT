@@ -1,5 +1,5 @@
 # Issue type
-- Questions about the eduroamCAT or its usage should be sent to the [users mailing list]().
+- Questions about the eduroamCAT or its usage should be sent to the [users mailing list](https://lists.geant.org/sympa/info/cat-users).
 
 
 - [ ] Defect - Crash/memory corruption.
