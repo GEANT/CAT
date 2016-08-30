@@ -14,8 +14,8 @@ require_once("Options.php");
 require_once("input_validation.inc.php");
 
 function postProcessValidAttribtues($options, &$good, &$bad) {
-    foreach ($options as $index => $iterate_option) {
-        foreach ($iterate_option as $name => $value) {
+    foreach ($options as $index => $iterateOption) {
+        foreach ($iterateOption as $name => $value) {
             switch ($name) {
                 case "eap:ca_url": // eap:ca_url becomes eap:ca_file by downloading the file
                     if (empty($value)) {
@@ -40,8 +40,8 @@ function postProcessValidAttribtues($options, &$good, &$bad) {
                     }
                     $content = base64_decode($value);
                     unset($options[$index]);
-                    $ca_files = X509::splitCertificate($content);
-                    foreach ($ca_files as $ca_file) {
+                    $cAFiles = X509::splitCertificate($content);
+                    foreach ($cAFiles as $ca_file) {
                         $options[] = ["eap:ca_file" => base64_encode(X509::pem2der($ca_file))];
                     }
                     $good[] = $name;
@@ -86,8 +86,8 @@ function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
     // list all attributes that were set correctly
     $listGood = array_count_values($good);
     foreach ($listGood as $name => $count) {
-    /// number of times attribute is present, and its name
-    /// Example: "5x Support E-Mail"
+        /// number of times attribute is present, and its name
+        /// Example: "5x Support E-Mail"
         $retval .= UI_okay(sprintf(_("%dx %s"), $count, display_name($name)));
     }
     // list all atributes that had errors
@@ -96,12 +96,32 @@ function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
         $retval .= UI_error(sprintf(_("%dx %s"), $count, display_name($name)));
     }
     // list multilang without default
-    foreach ($multilangAttribsWithC as $attrib_name => $isitsetornot) {
+    foreach ($multilangAttribsWithC as $attribName => $isitsetornot) {
         if ($isitsetornot == FALSE) {
-            $retval .= UI_warning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), display_name($attrib_name)));
+            $retval .= UI_warning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), display_name($attribName)));
         }
     }
     return $retval;
+}
+
+function collatePostArrays() {
+    $iterator = [];
+    if (!empty($_POST['option'])) {
+        foreach ($_POST['option'] as $optId => $optname) {
+            $iterator[$optId] = $optname;
+        }
+        if (!empty($_POST['value'])) {
+            foreach ($_POST['value'] as $optId => $optvalue) {
+                $iterator[$optId] = $optvalue;
+            }
+        }
+    }
+    if (!empty($_FILES['value']['tmp_name'])) {
+        foreach ($_FILES['value']['tmp_name'] as $optId => $optfileref) {
+            $iterator[$optId] = $optfileref;
+        }
+    }
+    return $iterator;
 }
 
 function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $device = 0, $silent = 0) {
@@ -109,41 +129,24 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 // construct new array with all non-empty options for later feeding into DB
 
     $optionsStep1 = [];
+    $multilangAttribsWithC = [];
     $good = [];
     $bad = [];
 
     $killlist = $pendingattributes;
 
-    $iterator = [];
-
     $optioninfoObject = Options::instance();
-// Step 1a: parse the arrays for text-based input
 
-    if (isset($_POST)) {
-        if (isset($_POST['option'])) {
-            foreach ($_POST['option'] as $optId => $optname) {
-                $iterator[$optId] = $optname;
-            }
-        }
-        if (isset($_POST['value'])) {
-            foreach ($_POST['value'] as $optId => $optvalue) {
-                $iterator[$optId] = $optvalue;
-            }
-        }
-    }
-    if (isset($_FILES) && isset($_FILES['value']) && isset($_FILES['value']['tmp_name'])) {
-        foreach ($_FILES['value']['tmp_name'] as $opt_id => $optfileref) {
-            $iterator[$opt_id] = $optfileref;
-        }
-    }
+    // Step 1: collate option names, option values and uploaded files (by 
+    // filename reference) into one array for later handling
+
+    $iterator = collatePostArrays();
 
     // following is a helper array to keep track of multilang options that were set in a specific language
     // but are not accompanied by a "default" language setting
     // if the array isn't empty by the end of processing, we need to warn the admin that this attribute
     // is "invisible" in certain languages
     // attrib_name -> boolean
-
-    $multilangAttribsWithC = [];
 
     foreach ($iterator as $objId => $objValueRaw) {
 // pick those without dash - they indicate a new value        
@@ -153,6 +156,9 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             $lang = "";
             if ($optioninfo["flag"] == "ML") {
                 if (isset($iterator["$objId-lang"])) {
+                    if (!isset($multilangAttribsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
+                        $multilangAttribsWithC[$objValue] = FALSE;
+                    }
                     $lang = $iterator["$objId-lang"];
                     if ($lang == "") { // user forgot to select a language
                         $lang = "C";
@@ -164,30 +170,30 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 // did we get a C language? set corresponding value to TRUE
                 if ($lang == "C") {
                     $multilangAttribsWithC[$objValue] = TRUE;
-                } else { // did we get a C earlier - fine, don't touch the array. Otherwise, set FALSE
-                    if (!isset($multilangAttribsWithC[$objValue]) || $multilangAttribsWithC[$objValue] != TRUE) {
-                        $multilangAttribsWithC[$objValue] = FALSE;
-                    }
                 }
             }
             $content = "";
             switch ($optioninfo["type"]) {
                 case "string":
                     if (!empty($iterator["$objId-0"])) {
-                        if ($objValue == "media:consortium_OI") {
-                            $content = valid_consortium_oi($iterator["$objId-0"]);
+                        switch ($objValue) {
+                            case "media:consortium_OI":
+                                $content = valid_consortium_oi($iterator["$objId-0"]);
                             if ($content === FALSE) {
                                 $bad[] = $objValue;
-                                continue 2;
+                                continue 3;
                             }
-                        } elseif ($objValue == "media:remove_SSID") {
-                            $content = valid_string_db($iterator["$objId-0"]);
+                            break;
+                            case "media:remove_SSID":
+                                $content = valid_string_db($iterator["$objId-0"]);
                             if ($content == "eduroam") {
                                 $bad[] = $objValue;
-                                continue 2;
+                                continue 3;
                             }
-                        } else {
-                            $content = valid_string_db($iterator["$objId-0"]);
+                            break;
+                            default:
+                                $content = valid_string_db($iterator["$objId-0"]);
+                                break;
                         }
                         break;
                     }
@@ -257,26 +263,32 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 
     $options = postProcessCoordinates($optionsStep2, $good);
 
-// finally, some attributes are in the DB and were only called by reference
-// keep those which are still referenced, throw the rest away
-
-    foreach ($options as $iterate_option) {
-        foreach ($iterate_option as $name => $value) {
+    foreach ($options as $iterateOption) {
+        foreach ($iterateOption as $name => $value) {
             $optiontype = $optioninfoObject->optionType($name);
+            // some attributes are in the DB and were only called by reference
+            // keep those which are still referenced, throw the rest away
             if ($optiontype["type"] == "file" && preg_match("/^ROWID-.*-([0-9]+)/", $value, $retval)) {
                 unset($killlist[$retval[1]]);
                 continue;
             }
-            if ($object instanceof IdP || $object instanceof User || $object instanceof Federation) {
-                $object->addAttribute($name, $value);
-            } elseif ($object instanceof Profile) {
-                if ($device !== 0) {
+            switch (get_class($object)) {
+                case Profile:
+                    if ($device !== 0) {
                     $object->addAttributeDeviceSpecific($name, $value, $device);
                 } elseif ($eaptype != 0) {
                     $object->addAttributeEAPSpecific($name, $value, $eaptype);
                 } else {
                     $object->addAttribute($name, $value);
                 }
+                break;
+                case IdP:
+                case User:
+                case Federation:
+                    $object->addAttribute($name, $value);
+                    break;
+                default:
+                    throw new Exception("This type of object can't have options that are parsed by this file!");
             }
         }
     }
