@@ -74,7 +74,7 @@ function geo_widget_head($inst_country, $inst_name) {
             geocoder.geocode({'address':\"$inst_name\", 'region':\"".strtolower($inst_country)."\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
-                    locate_country(\"".Federation::$FederationList[strtoupper($inst_country)]."\");
+                    locate_country(\"".Federation::$federationList[strtoupper($inst_country)]."\");
                 } else {
                     var i;
                     for(i = 0; i < r.length; i++) {
@@ -83,7 +83,7 @@ function geo_widget_head($inst_country, $inst_name) {
                         break;
                     }
                     if(Addr.country != \"". strtoupper($inst_country)."\")
-                    locate_country(\"". Federation::$FederationList[strtoupper($inst_country)]."\");
+                    locate_country(\"". Federation::$federationList[strtoupper($inst_country)]."\");
                     else {
                         addMarker(r[i].geometry.location,15,null);
                     }
