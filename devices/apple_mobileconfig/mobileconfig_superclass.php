@@ -110,10 +110,9 @@ abstract class mobileconfig_superclass extends DeviceConfig {
          <array>";
 
         // did the admin want wired config?
+        $includeWired = FALSE;
         if (isset($this->attributes['media:wired']) && get_class($this) == "Device_mobileconfig_os_x") {
             $includeWired = TRUE;
-        } else {
-            $includeWired = FALSE;
         }
 
         $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $useRealm);
