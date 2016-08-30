@@ -48,7 +48,7 @@ $eap_id = 0;
 if (isset($_POST['eaptype'])) {
     $eaptype = unserialize(stripslashes($_POST['eaptype']));
     // is this an actual EAP type we know of?
-    $eap_id = EAP::EAPMethodIdFromArray($eaptype);
+    $eap_id = EAP::eAPMethodIdFromArray($eaptype);
     if ($eap_id === FALSE) // oh-oh, unexpected malformed input. Goodbye.
         exit(1);
 }
@@ -104,7 +104,7 @@ if ($device) {
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
     $param_name = "EapSpecific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::EAPMethodArrayFromId($eap_id))) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::eAPMethodArrayFromId($eap_id))) . "'>";
 }
 ?>
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>
