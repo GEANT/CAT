@@ -24,7 +24,7 @@ function postXML( funct, form ) {
 }
 
 function addSupportOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_support_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -33,7 +33,7 @@ function addSupportOption() {
 }
 
 function addInstOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_inst_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -42,7 +42,7 @@ function addInstOption() {
 }
 
 function addUserOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_user_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -51,7 +51,7 @@ function addUserOption() {
 }
 
 function addProfileOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_profile_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -60,7 +60,7 @@ function addProfileOption() {
 }
 
 function addEapServerOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_eapserver_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -69,7 +69,7 @@ function addEapServerOption() {
 }
 
 function addMediaOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_media_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -78,7 +78,7 @@ function addMediaOption() {
 }
 
 function addFedOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_fed_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -87,7 +87,7 @@ function addFedOption() {
 }
 
 function addDeviceOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_device-specific_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -96,7 +96,7 @@ function addDeviceOption() {
 }
 
 function addEapSpecificOption() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_eap-specific_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
@@ -105,7 +105,7 @@ function addEapSpecificOption() {
 }
 
 function processCredentials() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("disposable_credential_container");
         field.innerHTML = this.responseText;
     }
