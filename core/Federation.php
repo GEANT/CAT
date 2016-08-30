@@ -49,7 +49,7 @@ class Federation extends EntityWithDBProperties {
      * 
      * @var array of all known federations
      */
-    public static $FederationList = [];
+    public static $federationList = [];
 
     private static function downloadStatsCore($federationid = NULL) {
         $grossAdmin = 0;
@@ -76,30 +76,30 @@ class Federation extends EntityWithDBProperties {
     public static function downloadStats($format, $federationid = NULL) {
         $data = Federation::downloadStatsCore($federationid);
         $retstring = "";
-        
+
         switch ($format) {
             case "table":
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "<tr><td>$device</td><td>".$numbers['ADMIN']."</td><td>".$numbers['USER']."</td></tr>";
+                    $retstring .= "<tr><td>$device</td><td>" . $numbers['ADMIN'] . "</td><td>" . $numbers['USER'] . "</td></tr>";
                 }
-                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>".$data['TOTAL']['ADMIN']."</strong></td><td><strong>".$data['TOTAL']['USER']."</strong></td></tr>";
+                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>" . $data['TOTAL']['ADMIN'] . "</strong></td><td><strong>" . $data['TOTAL']['USER'] . "</strong></td></tr>";
                 break;
             case "XML":
-                $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='".date("Y-m-d") . "T" . date("H:i:s")."'>\n";
+                $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='" . date("Y-m-d") . "T" . date("H:i:s") . "'>\n";
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "  <device name='" . $device . "'>\n    <downloads group='admin'>".$numbers['ADMIN']."</downloads>\n    <downloads group='user'>".$numbers['USER']."</downloads>\n  </device>";
+                    $retstring .= "  <device name='" . $device . "'>\n    <downloads group='admin'>" . $numbers['ADMIN'] . "</downloads>\n    <downloads group='user'>" . $numbers['USER'] . "</downloads>\n  </device>";
                 }
-                $retstring .= "<total>\n  <downloads group='admin'>".$data['TOTAL']['ADMIN']."</downloads>\n  <downloads group='user'>".$data['TOTAL']['USER']."</downloads>\n</total>\n";
+                $retstring .= "<total>\n  <downloads group='admin'>" . $data['TOTAL']['ADMIN'] . "</downloads>\n  <downloads group='user'>" . $data['TOTAL']['USER'] . "</downloads>\n</total>\n";
                 $retstring .= "</federation>";
                 break;
             default:
-               return false;
+                return false;
         }
 
         return $retstring;
@@ -126,7 +126,7 @@ class Federation extends EntityWithDBProperties {
          */
         $oldlocale = CAT::set_locale('core');
 
-        Federation::$FederationList = [
+        Federation::$federationList = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
             'BE' => _("Belgium"),
@@ -383,8 +383,8 @@ class Federation extends EntityWithDBProperties {
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = '$this->name' 
                                             ORDER BY option_name", "FED");
-        
-        
+
+
         $this->attributes[] = array("name" => "internal:country",
             "value" => $this->name,
             "level" => "FED",
@@ -458,9 +458,9 @@ class Federation extends EntityWithDBProperties {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'";
         }
-        
+
         $admins = DBConnection::exec("USER", $query);
-        
+
         while ($fedAdminQuery = mysqli_fetch_object($admins)) {
             $returnarray[] = $fedAdminQuery->user_id;
         }
@@ -474,7 +474,7 @@ class Federation extends EntityWithDBProperties {
         if ($this->name != "") {
             $countrysuffix = " WHERE country = '" . strtolower($this->name) . "'";
         }
-        
+
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
             $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
@@ -496,7 +496,7 @@ class Federation extends EntityWithDBProperties {
             }
             while ($externalQuery = mysqli_fetch_object($externals)) {
                 if (($unmappedOnly === TRUE) && (in_array($externalQuery->id, $usedarray))) {
-                        continue;
+                    continue;
                 }
                 $names = explode('#', $externalQuery->collapsed_name);
                 // trim name list to current best language match
@@ -601,20 +601,24 @@ class Federation extends EntityWithDBProperties {
             $oneInstitutionResult = [];
             $geo = [];
             $names = [];
-            
+
             $oneInstitutionResult['entityID'] = $queryResult->inst_id;
             $oneInstitutionResult['country'] = strtoupper($queryResult->country);
             foreach ($institutionOptions as $institutionOption) {
                 $opt = explode('===', $institutionOption);
-                if ($opt[0] == 'general:logo_file') {
-                    $oneInstitutionResult['icon'] = $queryResult->inst_id;
-                }
-                if ($opt[0] == 'general:geo_coordinates') {
-                    $at1 = unserialize($opt[1]);
-                    $geo[] = $at1;
-                }
-                if ($opt[0] == 'general:instname') {
-                    $names[] = ['value' => $opt[1]];
+                switch ($opt[0]) {
+                    case 'general:logo_file':
+                        $oneInstitutionResult['icon'] = $queryResult->inst_id;
+                        break;
+                    case 'general:geo_coordinates':
+                        $at1 = unserialize($opt[1]);
+                        $geo[] = $at1;
+                        break;
+                    case 'general:instname':
+                        $names[] = ['value' => $opt[1]];
+                        break;
+                    default:
+                        break;
                 }
             }
 
