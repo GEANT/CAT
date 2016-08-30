@@ -199,7 +199,27 @@ abstract class mobileconfig_superclass extends DeviceConfig {
     private static $serial;
 
     private function network_block($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $realm = 0) {
-        $SSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
+        $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
+        
+        $payloadIdentifier = "wifi." . $this->serial;
+        $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
+        $payloadName = sprintf(_("%s configuration for network name %s"), Config::$CONSORTIUM['name'], $escapedSSID);
+        $encryptionTypeString = "WPA";
+        
+        if ($wired) { // override the above defaults for wired interfaces
+            $payloadIdentifier = "firstactiveethernet";
+            $payloadShortName = _("Wired Network");
+            $payloadName = sprintf(_("%s configuration for wired network"), Config::$CONSORTIUM['name']);
+            $encryptionTypeString = "any";
+        }
+        
+        if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
+            $payloadIdentifier = "hs20";
+            $payloadShortName = _("Hotspot 2.0 Settings");
+            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), Config::$CONSORTIUM['name']);
+            $encryptionTypeString = "WPA";
+        }
+        
         $retval = "
             <dict>
                <key>EAPClientConfiguration</key>
@@ -244,48 +264,15 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                          <string>" . ($eapType['INNER'] == NONE ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>
                <key>EncryptionType</key>
-                  <string>";
-        if ($wired) {
-            $retval .= "any";
-        } elseif (count($consortiumOi) > 0) {
-            $retval .= "WPA";
-        } else {
-            $retval .= "WPA";
-        }
-
-        $retval .= "</string>
+                  <string>$encryptionTypeString</string>
                <key>HIDDEN_NETWORK</key>
                   <true />
                <key>PayloadDescription</key>
-                  <string>";
-        if ($wired) {
-            $retval .= sprintf(_("%s configuration for wired network"), Config::$CONSORTIUM['name']);
-        } elseif (count($consortiumOi) > 0) {
-            $retval .= sprintf(_("%s Hotspot 2.0 configuration"), Config::$CONSORTIUM['name']);
-        } else {
-            $retval .= sprintf(_("%s configuration for network name %s"), Config::$CONSORTIUM['name'], $SSID);
-        }
-        $retval .= "</string>
+                  <string>$payloadName</string>
                <key>PayloadDisplayName</key>
-                  <string>";
-        if ($wired) {
-            $retval .= _("Wired Network");
-        } elseif (count($consortiumOi) > 0) {
-            $retval .= _("Hotspot 2.0 Settings");
-        } else {
-            $retval .= sprintf(_("SSID %s"), $SSID);
-        }
-        $retval .= "</string>
+                  <string>$payloadShortName</string>
                <key>PayloadIdentifier</key>
-                  <string>" . mobileconfig_superclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.";
-        if ($wired) {
-            $retval .= "firstactiveethernet";
-        } elseif (count($consortiumOi) == 0) {
-            $retval .= "wifi." . $this->serial;
-        } else {
-            $retval .= "hs20";
-        }
-        $retval .="</string>
+                  <string>" . mobileconfig_superclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.$payloadIdentifier</string>
                <key>PayloadOrganization</key>
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
@@ -310,7 +297,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                   <integer>1</integer>";
         if (!$wired && count($consortiumOi) == 0) {
             $retval .= "<key>SSID_STR</key>
-                  <string>$SSID</string>";
+                  <string>$escapedSSID</string>";
         }
         if (count($consortiumOi) > 0) {
             $retval .= "
