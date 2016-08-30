@@ -652,7 +652,10 @@ class Profile extends EntityWithDBProperties {
                     $attr[] = $attrib;
                 }
             }
+        } else {
+            $attr = $attrBefore;
         }
+        
         $temp1 = [];
         foreach ($attr as $b) {
             $name = $b['name'];
