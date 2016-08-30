@@ -691,6 +691,13 @@ class Profile extends EntityWithDBProperties {
                 if (isset($S[$this->langIndex]) || isset($S['C'])) {
                     $out[$name][0] = (isset($S[$this->langIndex])) ? $S[$this->langIndex] : $S['C'];
                 }
+                if (isset($S['en'])) {
+                   $out[$name][1] = $S['en'];
+                } elseif(isset($S['C'])) {
+                   $out[$name][1] = $S['C'];
+                } else {
+                   $out[$name][1] = $out[$name][0];
+                }
             } else {
                 if (isset($temp[$name]['Method'])) {
                     $out[$name] = $temp[$name]['Method'];
