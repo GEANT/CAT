@@ -236,8 +236,7 @@ Best regards,
             DBConnection::exec(UserManagement::$databaseType, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $newcountry . "')");
             return $token;
         }
-        echo "FAIL!";
-        return FALSE;
+        throw new Exception("Creation of a new token failed!");
     }
 
     /**
