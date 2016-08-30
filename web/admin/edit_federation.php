@@ -45,7 +45,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-        echo Federation::$FederationList[strtoupper($my_fed->name)];
+        echo Federation::$federationList[strtoupper($my_fed->name)];
 ?></strong></td>
             </tr>
                         <?php echo infoblock($fed_options, "fed", "FED"); ?>

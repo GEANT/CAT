@@ -77,7 +77,7 @@ $user = new User($_SESSION['user']);
                     </td>
                     <td>
                         <strong><?php
-                            echo Federation::$FederationList[strtoupper($thefed->name)];
+                            echo Federation::$federationList[strtoupper($thefed->name)];
                             ?></strong>
                     </td>
                 </tr>

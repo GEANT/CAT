@@ -88,7 +88,7 @@ else
                 <td></td>
                 <td><strong><?php
         new Federation("blablub");
-        echo Federation::$FederationList[strtoupper($my_inst->federation)];
+        echo Federation::$federationList[strtoupper($my_inst->federation)];
 ?></strong></td>
             </tr>
                         <?php echo infoblock($idpoptions, "general", "IdP"); ?>

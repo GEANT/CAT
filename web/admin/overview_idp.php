@@ -57,7 +57,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                     <td>
                         <strong><?php
                             $foofed = new Federation($my_inst->federation);
-                            echo Federation::$FederationList[strtoupper($my_inst->federation)];
+                            echo Federation::$federationList[strtoupper($my_inst->federation)];
                             ?></strong>
                     </td>
                 </tr>

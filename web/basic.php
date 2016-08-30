@@ -337,7 +337,7 @@ public function langSelection() {
 public function yourChoice() {
   $out = '';
    $c = strtoupper($this->Country->name);
-   $name = isset(Federation::$FederationList[$c]) ? Federation::$FederationList[$c] : $c;
+   $name = isset(Federation::$federationList[$c]) ? Federation::$federationList[$c] : $c;
    $name = preg_replace('/ +/','&nbsp;',$name);
    $out .= "$name; ";
    $name = $this->Idp->name;
