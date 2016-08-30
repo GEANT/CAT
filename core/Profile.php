@@ -658,7 +658,6 @@ class Profile extends EntityWithDBProperties {
             $name = $b['name'];
             $temp1[] = $name;
             $level = $b['level'];
-//            $S[$l] = $z[$l];
             $value = $b['value'];
             if (!isset($temp[$name][$level])) {
                 $temp[$name][$level] = [];
@@ -693,9 +692,9 @@ class Profile extends EntityWithDBProperties {
                 }
                 if (isset($S['en'])) {
                    $out[$name][1] = $S['en'];
-                } elseif(isset($S['C'])) {
+                } elseif (isset($S['C'])) {
                    $out[$name][1] = $S['C'];
-                } else {
+                } elseif (isset($out[$name][0])) {
                    $out[$name][1] = $out[$name][0];
                 }
             } else {
