@@ -251,20 +251,9 @@ Best regards,
         $invitations = DBConnection::exec(UserManagement::$databaseType, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
-        if ($idpIdentifier != 0) { // list invitations for existing institution, must match cat_institution_id
-            while ($invitationQuery = mysqli_fetch_object($invitations)) {
-                debug(4, "Retrieving pending invitations for IdP $idpIdentifier.\n");
-                if ($invitationQuery->cat_institution_id == $idpIdentifier) {
-                    $retval[] = $invitationQuery->invite_dest_mail;
-                }
-            }
-        } else { // list all invitations for *new* institutions
-            while ($invitationQuery = mysqli_fetch_object($invitations)) {
-                debug(4, "Retrieving pending invitations for NEW institutions.\n");
-                if ($invitationQuery->cat_institution_id == NULL) {
-                    $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
-                }
-            }
+        debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
+        while ($invitationQuery = mysqli_fetch_object($invitations)) {
+            $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
         }
         return $retval;
     }
@@ -305,4 +294,5 @@ Best regards,
         }
         return $returnarray;
     }
+
 }
