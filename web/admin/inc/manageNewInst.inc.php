@@ -34,10 +34,10 @@ header("Content-Type:text/html;charset=utf-8");
 // new invitations are only permitted by federation operator himself
 $user = new User($_SESSION['user']);
 $mgmt = new UserManagement();
-$is_fed_admin = $user->isFederationAdmin();
+$isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
-if (!$is_fed_admin) {
+if (!$isFedAdmin) {
     echo sprintf(_("You do not have the necessary privileges to register new IdPs."), Config::$CONSORTIUM['name']);
     exit(1);
 }

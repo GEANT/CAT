@@ -34,11 +34,11 @@ $user = new User($_SESSION['user']);
 $mgmt = new UserManagement();
 
 // DB link administrationis only permitted by federation operator himself
-$is_fed_admin = $user->isFederationAdmin($my_inst->federation);
+$isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 
 // if not, send the user away
 
-if (!$is_fed_admin) {
+if (!$isFedAdmin) {
     echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this institution."), Config::$CONSORTIUM['name']);
     exit(1);
 }
@@ -99,7 +99,13 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         // end of left-hand side
         echo "</td><td>";
         // right-hand side: external DB
-        $extinfo = $my_inst->getExternalDBEntityDetails();
+        $externalid = $my_inst->getExternalDBId();
+        if (!$externalid) { // we are in SYNCED state so this cannot happen
+            throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the institution!");
+        }
+            
+        $extinfo = Federation::getExternalDBEntityDetails($externalid);
+        
         echo "<table>";
         foreach ($extinfo['names'] as $lang => $name)
             echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $lang) . "</td><td>$name</td>";
