@@ -29,21 +29,21 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
     } else { // new: add empty list
         $list = $optioninfo->availableOptions($class);
         if ($class == "general") {
-            $blacklist_item = array_search("general:geo_coordinates", $list);
-            if ($blacklist_item !== FALSE) {
-                unset($list[$blacklist_item]);
+            $blacklistItem = array_search("general:geo_coordinates", $list);
+            if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
                 $list = array_values($list);
             }
         } else if ($class == "profile") {
-            $blacklist_item = array_search("profile:QR-user", $list);
-            if ($blacklist_item !== FALSE) {
-                unset($list[$blacklist_item]);
+            $blacklistItem = array_search("profile:QR-user", $list);
+            if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
                 $list = array_values($list);
             }
         } else if ($class == "user") {
-            $blacklist_item = array_search("user:fedadmin", $list);
-            if ($blacklist_item !== FALSE) {
-                unset($list[$blacklist_item]);
+            $blacklistItem = array_search("user:fedadmin", $list);
+            if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
                 $list = array_values($list);
             }
         }
@@ -58,8 +58,8 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
 }
 
 function optiontext($defaultselect, $list, $prefill = 0) {
-    global $global_location_count;
-    $location_index = 0;
+    global $allLocationCount;
+    $locationIndex = 0;
     $rowid = mt_rand();
     $optioninfo = Options::instance();
     $jsmagic = "onchange='
@@ -109,24 +109,24 @@ function optiontext($defaultselect, $list, $prefill = 0) {
 
     if (!$prefill) {
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
-        $a = 0;
+        $iterator = 0;
         foreach ($list as $key => $value) {
             $listtype = $optioninfo->optionType($value);
             $retval .="<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
-            if ($a == $defaultselect) {
+            if ($iterator == $defaultselect) {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
             }
             $retval .=">" . display_name($value). "</option>";
-            $a++;
+            $iterator++;
         }
         $retval .="</select></td>";
         $retval .="<td>
           <select style='display:" . ($activelisttype["flag"] == "ML" ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (Config::$LANGUAGES as $langindex => $possible_lang) {
-            $thislang = $possible_lang['display'];
+        foreach (Config::$LANGUAGES as $langindex => $possibleLang) {
+            $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
         $retval .= "</select></td><td>
@@ -179,9 +179,9 @@ function optiontext($defaultselect, $list, $prefill = 0) {
         $retval .= "<td>";
         switch ($listtype["type"]) {
             case "coordinates":
-                $global_location_count++;
-                $location_index = $global_location_count;
-                $link = "<button id='location_b_$global_location_count' class='location_button'>" . _("Click to see location") . " $global_location_count</button>";
+                $allLocationCount++;
+                $locationIndex = $allLocationCount;
+                $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
                 $retval .="<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
                 break;
             case "file":
@@ -211,26 +211,23 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"".htmlspecialchars($content)."\" style='display:block'>";
                 break;
             case "boolean":
-                if ($content == "on")
+                $display_option = _("off");
+                if ($content == "on") {
                 /// Device assessment is "on"
                     $display_option = _("on");
-                else
-                /// Device assessment is "off"
-                    $display_option = _("off");
+                }
                 $retval .= "<strong>$display_option</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$content' style='display:block'>";
                 break;
             default:
-// this should never happen!
-                echo "Internal Error: unknown attribute type $listtype!";
-                exit(1);
-                break;
+                // this should never happen!
+                throw new Exception("Internal Error: unknown attribute type $listtype!");
         };
         $retval .= "</td>";
     }
     $retval .="
 
        <td>
-          <button type='button' class='delete' onclick='deleteOption(" . $location_index . ",\"option-S" . $rowid . "\")'>-</button>
+          <button type='button' class='delete' onclick='deleteOption(" . $locationIndex . ",\"option-S" . $rowid . "\")'>-</button>
        </td>
     </tr>";
     return $retval;

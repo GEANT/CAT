@@ -29,7 +29,7 @@ define("BUTTON_PURGECACHE", 6);
 define("BUTTON_FLUSH_AND_RESTART", 7);
 define("BUTTON_SANITY_TESTS", 8);
 
-$global_location_count = 0;
+$allLocationCount = 0;
 
 function display_name($input) {
     $displayNames = [_("Support: Web") => "support:url",

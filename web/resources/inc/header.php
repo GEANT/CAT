@@ -28,8 +28,8 @@ function pageheader($pagetitle, $area, $authRequired = TRUE) {
     return $cat;
 }
 
-function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
-    if ($auth_required == TRUE) {
+function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
+    if ($authRequired == TRUE) {
         require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
         authenticate();
     }
@@ -56,7 +56,7 @@ function defaultPagePrelude($pagetitle, $auth_required = TRUE) {
         $cssUrl .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/css/cat.css.php";
     }
 
-    $cssUrl = "//" . $cssUrl; // omitting http or https means "on same protocol
+    $cssUrl = "//" . $cssUrl; // omitting http or https means "on same protocol"
     
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -123,32 +123,32 @@ function productheader($area, $language) {
             case "ADMIN-IDP":
                 $cap1 = Config::$APPEARANCE['productname_long'];
                 $cap2 = _("Administrator Interface - Identity Provider");
-                $advanced_controls = TRUE;
+                $advancedControls = TRUE;
                 break;
             case "ADMIN":
                 $cap1 = Config::$APPEARANCE['productname_long'];
                 $cap2 = _("Administrator Interface");
-                $advanced_controls = TRUE;
+                $advancedControls = TRUE;
                 break;
             case "USERMGMT":
                 $cap1 = Config::$APPEARANCE['productname_long'];
                 $cap2 = _("Management of User Details");
-                $advanced_controls = TRUE;
+                $advancedControls = TRUE;
                 break;
             case "FEDERATION":
                 $cap1 = Config::$APPEARANCE['productname_long'];
                 $cap2 = _("Administrator Interface - Federation Management");
-                $advanced_controls = TRUE;
+                $advancedControls = TRUE;
                 break;
             case "USER":
                 $cap1 = sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']);
                 $cap2 = Config::$APPEARANCE['productname_long'];
-                $advanced_controls = FALSE;
+                $advancedControls = FALSE;
                 break;
             case "SUPERADMIN":
                 $cap1 = Config::$APPEARANCE['productname_long'];
                 $cap2 = _("CIC");
-                $advanced_controls = TRUE;
+                $advancedControls = TRUE;
                 break;
             default:
                 $cap1 = Config::$APPEARANCE['productname_long'];
@@ -174,7 +174,7 @@ function productheader($area, $language) {
         ?>
         <div class='sidebar'><p>
                 <?php
-                if ($advanced_controls) {
+                if ($advancedControls) {
                     echo "<strong>" . _("You are:") . "</strong> "
                     . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
               <br/>

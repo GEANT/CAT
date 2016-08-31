@@ -13,7 +13,7 @@ require_once("Options.php");
 
 require_once("input_validation.inc.php");
 
-function postProcessValidAttribtues($options, &$good, &$bad) {
+function postProcessValidAttributes($options, &$good, &$bad) {
     foreach ($options as $index => $iterateOption) {
         foreach ($iterateOption as $name => $value) {
             switch ($name) {
@@ -41,8 +41,8 @@ function postProcessValidAttribtues($options, &$good, &$bad) {
                     $content = base64_decode($value);
                     unset($options[$index]);
                     $cAFiles = X509::splitCertificate($content);
-                    foreach ($cAFiles as $ca_file) {
-                        $options[] = ["eap:ca_file" => base64_encode(X509::pem2der($ca_file))];
+                    foreach ($cAFiles as $cAFile) {
+                        $options[] = ["eap:ca_file" => base64_encode(X509::pem2der($cAFile))];
                     }
                     $good[] = $name;
                     break;
@@ -129,7 +129,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 // construct new array with all non-empty options for later feeding into DB
 
     $optionsStep1 = [];
-    $multilangAttribsWithC = [];
+    $multilangAttrsWithC = [];
     $good = [];
     $bad = [];
 
@@ -162,8 +162,8 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             $lang = "";
             if ($optioninfo["flag"] == "ML") {
                 if (isset($iterator["$objId-lang"])) {
-                    if (!isset($multilangAttribsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
-                        $multilangAttribsWithC[$objValue] = FALSE;
+                    if (!isset($multilangAttrsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
+                        $multilangAttrsWithC[$objValue] = FALSE;
                     }
                     $lang = $iterator["$objId-lang"];
                     if ($lang == "") { // user forgot to select a language
@@ -175,7 +175,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 }
                 // did we get a C language? set corresponding value to TRUE
                 if ($lang == "C") {
-                    $multilangAttribsWithC[$objValue] = TRUE;
+                    $multilangAttrsWithC[$objValue] = TRUE;
                 }
             }
             $content = "";
@@ -300,7 +300,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
     }
 
     if ($silent == 0) {
-        echo displaySummaryInUI($good, $bad, $multilangAttribsWithC);
+        echo displaySummaryInUI($good, $bad, $multilangAttrsWithC);
     }
     return $killlist;
 }
