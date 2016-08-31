@@ -15,8 +15,10 @@ function findResourceUrl($resourcetype) {
     switch ($resourcetype) {
         case "CSS":
             $path = "/resources/css/cat.css.php";
+            break;
         case "LOGO":
             $path = "/resources/images/consortium_logo.png";
+            break;
         default:
             throw new Exception("findResourceUrl: unknown type of resource requested");
     }
