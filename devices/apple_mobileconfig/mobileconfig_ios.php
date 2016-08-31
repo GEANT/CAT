@@ -17,7 +17,7 @@
 /**
  * 
  */
-require_once('mobileconfig_superclass.php');
+require_once('mobileconfigSuperclass.php');
 
 // set_locale("devices");
 
