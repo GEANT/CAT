@@ -104,7 +104,7 @@ function headerDiv($cap1, $language) {
             $logoUrl = findResourceUrl("LOGO");
             ?>
             <div class='consortium_logo'>
-                <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
+                <img id='test_locate' src='<?php echo $logoUrl;?>' alt='Consortium Logo'>
             </div> <!-- consortium_logo -->
 
         </div><!--header_toprow-->
