@@ -24,7 +24,6 @@ define("L_REMARK", 4);
 define("L_WARN", 32);
 define("L_ERROR", 256);
 
-
 function error($t) {
     print ("$t\n");
 }
@@ -53,7 +52,6 @@ function debug($level, $t) {
 /**
  * this direcory delete function has been copied from PHP documentation
  */
-
 function rrmdir($dir) {
     foreach (glob($dir . '/*') as $file) {
         if (is_dir($file))
@@ -62,51 +60,6 @@ function rrmdir($dir) {
             unlink($file);
     }
     rmdir($dir);
-}
-
-
-/**
- * @assert (Array("server1.restena.lu", "othersrv.restena.lu")) == "restena.lu"
- * 
- * @param array $hosts list of strings (hosts)
- * @return string the common suffix
- */
-function calculateCommonHostSuffix(array $hosts) {
-    // massage names. A trailing dot can be omitted
-    foreach ($hosts as $index => $host)
-        if (substr($host, -1) == '.') {
-            $hosts[$index] = substr($host, 0, -1);
-            echo "Changed host to " . $hosts[$index] . "\n";
-        }
-    // easy :-)
-    if (count($hosts) == 1)
-        return $hosts[0];
-    // not so easy :-(
-    else {
-        // look for the last dot from the end; if the corresponding substring is
-        // different, no common match!
-        $explodednames = [];
-        foreach ($hosts as $host)
-            $explodednames[] = explode('.', $host);
-        $commonsuffix = [];
-        while (count($explodednames[0]) > 0) {
-            $match = TRUE;
-            $testname = array_pop($explodednames[0]);
-            for ($i = 1; $i < count($explodednames); $i = $i + 1) {
-                if (count($explodednames[$i]) == 0)
-                    $match = FALSE;
-                $bla = array_pop($explodednames[$i]);
-                if ($bla != $testname)
-                    $match = FALSE;
-            }
-            if ($match == TRUE)
-                $commonsuffix[] = $testname;
-            else
-                break;
-        }
-        $finalsuffix = array_reverse($commonsuffix);
-        return implode('.', $finalsuffix);
-    }
 }
 
 function downloadFile($url) {
@@ -122,7 +75,6 @@ function downloadFile($url) {
     }
     debug(3, "The specified string does not seem to be a URL!");
     return FALSE;
-    
 }
 
 /**
@@ -132,7 +84,7 @@ function downloadFile($url) {
  * @return UUID (possibly prefixed)
  */
 function uuid($prefix = '', $deterministic_source = NULL) {
-    if ($deterministic_source === NULL) 
+    if ($deterministic_source === NULL)
         $chars = md5(uniqid(mt_rand(), true));
     else
         $chars = md5($deterministic_source);
@@ -170,72 +122,73 @@ function getLocalisedValue($val_arr, $locale) {
     debug(4, "getLocalisedValue:$locale:$out\n");
     return $out;
 }
+
 /**
  * create a temporary directory and return the location
  * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
  * @param $fail (default true) decides if a creation failure should cause an error
  * @return - the tupple full directory path, directory name
  */
-function createTemporaryDirectory($purpose = 'installer',$fail = 1) {
-        $name = md5(time().rand());
-        switch($purpose) {
-           case 'installer':
-             $path = CAT::$root.'/var/installer_cache';
-             break;
-           case 'logo':
-             $path = CAT::$root.'/web/downloads/logos';
-             break;
-           case 'test':
-             $path = CAT::$root.'/var/tmp';
-             break;
-           default:
-             error("unable to create temporary directory for unknown purpose: $purpose\n");
-             exit;
-        }
-        $tmp_dir = $path .'/'. $name;
-        debug(4,"temp dir: $purpose : $tmp_dir\n");
-        if(! mkdir($tmp_dir,0700, true)) {
-          if($fail) {
-             error("unable to create temporary directory: $tmp_dir\n");
-             exit;
-          } else  {
+function createTemporaryDirectory($purpose = 'installer', $fail = 1) {
+    $name = md5(time() . rand());
+    switch ($purpose) {
+        case 'installer':
+            $path = CAT::$root . '/var/installer_cache';
+            break;
+        case 'logo':
+            $path = CAT::$root . '/web/downloads/logos';
+            break;
+        case 'test':
+            $path = CAT::$root . '/var/tmp';
+            break;
+        default:
+            error("unable to create temporary directory for unknown purpose: $purpose\n");
+            exit;
+    }
+    $tmp_dir = $path . '/' . $name;
+    debug(4, "temp dir: $purpose : $tmp_dir\n");
+    if (!mkdir($tmp_dir, 0700, true)) {
+        if ($fail) {
+            error("unable to create temporary directory: $tmp_dir\n");
+            exit;
+        } else {
             debug(4, "Directory creation failed for $tmp_dir\n");
-            return ['base'=>$path,'dir'=>'',$name=>''];
-          }
-        } else
-         debug(4, "Directory created: $tmp_dir\n");
-     return ['base'=>$path,'dir'=>$tmp_dir,'name'=>$name];
+            return ['base' => $path, 'dir' => '', $name => ''];
+        }
+    } else
+        debug(4, "Directory created: $tmp_dir\n");
+    return ['base' => $path, 'dir' => $tmp_dir, 'name' => $name];
 }
 
-function png_inject_consortium_logo ($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
+function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $inputgd = imagecreatefromstring($inputpngstring);
-    
-    debug(4,"Consortium logo is at: ".CAT::$root."/web/resources/images/consortium_logo_large.png");
-    $logogd = imagecreatefrompng(CAT::$root."/web/resources/images/consortium_logo_large.png");
-    
-    $sizeinput = [imagesx($inputgd),imagesy($inputgd)];
-    $sizelogo = [imagesx($logogd),imagesy($logogd)];
+
+    debug(4, "Consortium logo is at: " . CAT::$root . "/web/resources/images/consortium_logo_large.png");
+    $logogd = imagecreatefrompng(CAT::$root . "/web/resources/images/consortium_logo_large.png");
+
+    $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
+    $sizelogo = [imagesx($logogd), imagesy($logogd)];
     // Q level QR-codes can sustain 25% "damage"
     // make our logo cover approx 15% of area to be sure; mind that there's a $symbolsize * $marginsymbols pixel white border around each edge
-    $totalpixels = ($sizeinput[0] - $symbolsize*$marginsymbols) * ($sizeinput[1] - $symbolsize*$marginsymbols);
+    $totalpixels = ($sizeinput[0] - $symbolsize * $marginsymbols) * ($sizeinput[1] - $symbolsize * $marginsymbols);
     $totallogopixels = ($sizelogo[0]) * ($sizelogo[1]);
     $maxoccupy = $totalpixels * 0.04;
     // find out how much we have to scale down logo to reach 10% QR estate
     $scale = sqrt($maxoccupy / $totallogopixels);
-    debug(4,"Scaling info: $scale, $maxoccupy, $totallogopixels\n");
+    debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
     // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
     $targetwidth = $symbolsize * round($sizelogo[0] * $scale / $symbolsize);
     $targetheight = $symbolsize * round($sizelogo[1] * $scale / $symbolsize);
     // paint white below the logo, in case it has transparencies (looks bad)
     // have one symbol in each direction extra white space
-    $whiteimage = imagecreate($targetwidth+2*$symbolsize, $targetheight+2*$symbolsize);
-    imagecolorallocate($whiteimage, 255,255,255);
+    $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+    imagecolorallocate($whiteimage, 255, 255, 255);
     // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
-    $targetplacementx = $symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2)/$symbolsize);
-    $targetplacementy = $symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2)/$symbolsize);
-    imagecopyresized($inputgd, $whiteimage, $targetplacementx-$symbolsize, $targetplacementy-$symbolsize, 0, 0, $targetwidth+2*$symbolsize, $targetheight+2*$symbolsize, $targetwidth+2*$symbolsize, $targetheight+2*$symbolsize);
-    imagecopyresized($inputgd, $logogd,     $targetplacementx, $targetplacementy, 0, 0, $targetwidth   , $targetheight   , $sizelogo[0]   , $sizelogo[1]);
- // imagecopyresized($dst_image, $src_image, $dst_x,                               $dst_y,                                $src_x, $src_y, $dst_w,       $dst_h,        $src_w,       $src_h);
+    $targetplacementx = $symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
+    $targetplacementy = $symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
+    imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+    imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
+    // imagecopyresized($dst_image, $src_image, $dst_x,                               $dst_y,                                $src_x, $src_y, $dst_w,       $dst_h,        $src_w,       $src_h);
     ob_start();
     imagepng($inputgd);
     return ob_get_clean();
