@@ -56,7 +56,7 @@ class DBConnection {
                 }
                 return self::$instanceExternal;
             default:
-                return FALSE;
+                throw new Exception("This type of database (".$strtoupper($database).") is not known!");
         }
     }
 
@@ -146,27 +146,32 @@ class DBConnection {
                     $blobprofile = $profileIdQuery->profile_id;
                 }
                 // is the profile in question public?
+                if (!isset($blobprofile)) {
+                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
+                }
                 $profile = new Profile($blobprofile);
                 if ($profile->isShowtime() == TRUE) { // public data
                     return FALSE;
-                } else {
-                    $inst = new IdP($profile->institution);
-                    return $inst->owner();
                 }
-                break;
+                // okay, so it's NOT public. return the owner
+                $inst = new IdP($profile->institution);
+                return $inst->owner();
+                
             case "institution_option":
                 $blobQuery = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
                 while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
                     $blobinst = $instIdQuery->institution_id;
                 }
+                if (!isset($blobinst)) {
+                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
+                }
                 $inst = new IdP($blobinst);
                 // if at least one of the profiles belonging to the inst is public, the data is public
                 if ($inst->isOneProfileShowtime()) { // public data
                     return FALSE;
-                } else {
-                    return $inst->owner();
                 }
-                break;
+                // okay, so it's NOT public. return the owner
+                return $inst->owner();
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;
