@@ -75,6 +75,22 @@ class Profile extends EntityWithDBProperties {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
+    
+    private function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
+        foreach ($new as $attrib) {
+            $ignore = "";
+            foreach ($existing as $approvedAttrib) {
+                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != $newlevel) {
+                    $ignore = "YES";
+                }
+            }
+            if ($ignore != "YES") {
+                $existing[] = $attrib;
+            }
+        }
+        return $existing;
+    }
+    
     public function __construct($profileId, $idpObject = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
@@ -115,13 +131,19 @@ class Profile extends EntityWithDBProperties {
 
         $this->eapLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("EAPMETHODS");
 
-        $tempArrayProfileLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        // merge all attributes which are device or eap method specific
+        
+        $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
+        
+        // now fetch and add profile-level attributes if not already set on deeper level
+        
+        $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
                                             AND device_id = NULL AND eap_method_id = 0
                                             ORDER BY option_name", "Profile");
 
-        // add internal attributes
+        // plus internal attributes
         // they share many attribute properties, so condense the generation
 
         $localValueIfAny = (preg_match('/@/', $this->realm) ? substr($this->realm, 0, strpos($this->realm, '@')) : "anonymous" );
@@ -138,7 +160,7 @@ class Profile extends EntityWithDBProperties {
         ];
 
         foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfileLevel[] = ["name" => $attName,
+            $tempArrayProfLevel[] = ["name" => $attName,
                 "value" => $attValue,
                 "level" => "Profile",
                 "row" => 0,
@@ -147,7 +169,9 @@ class Profile extends EntityWithDBProperties {
                 "eapmethod" => 0];
         }
 
-        // now, fetch IdP-wide attributes
+        $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
+        
+        // now, fetch and add IdP-wide attributes
 
         $tempIdPAttributes = $idp->getAttributes();
         $idpoptions = [];
@@ -165,37 +189,7 @@ class Profile extends EntityWithDBProperties {
             ];
         }
 
-        // add all attributes which are device or eap method specific to 
-        // final attribute array (they cannot be overridden)
-        $this->attributes = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
-
-        // now add profile-level attributes if not already set on deeper level
-
-        foreach ($tempArrayProfileLevel as $attrib) {
-            $ignore = "";
-            foreach ($this->attributes as $approvedAttrib) {
-                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "Profile") {
-                    $ignore = "YES";
-                }
-            }
-            if ($ignore != "YES") {
-                $this->attributes[] = $attrib;
-            }
-        }
-
-        // now, add IdP-wide attribs
-
-        foreach ($idpoptions as $attrib) {
-            $ignore = "";
-            foreach ($this->attributes as $approvedAttrib) {
-                if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "IdP") {
-                    $ignore = "YES";
-                }
-            }
-            if ($ignore != "YES") {
-                $this->attributes[] = $attrib;
-            }
-        }
+        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $idpoptions, "IdP");
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
 
