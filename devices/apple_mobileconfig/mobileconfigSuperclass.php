@@ -86,14 +86,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $this->massagedConsortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
 
-        $useRealm = 0;
-        if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
-
-            $useRealm = "@" . $this->attributes['internal:realm'][0];
-            if (isset($this->attributes['internal:anon_local_value'])) {
-                $useRealm = $this->attributes['internal:anon_local_value'][0] . $useRealm;
-            }
-        }
+        $outerId = $this->determineOuterIdString();
 
         $ssidList = $this->attributes['internal:SSID'];
         $consortiumOIList = $this->attributes['internal:consortia'];
@@ -115,7 +108,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
             $includeWired = TRUE;
         }
 
-        $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $useRealm);
+        $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $outerId);
 
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
 
