@@ -743,7 +743,9 @@ class Profile extends EntityWithDBProperties {
             if (isset($attribs['device-specific:redirect'])) {
                 $properConfig = TRUE;
             }
-            // TODO: or maybe just a per-device redirect? would be good enough...
+            // just a per-device redirect? would be good enough... but this is not actually possible:
+            // per-device redirects can only be set on the "fine-tuning" page, which is only accessible
+            // if at least one EAP type is fully configured - which is caught above and makes readyForShowtime TRUE already
         }
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
         if (!isset($attribs['media:SSID']) &&
