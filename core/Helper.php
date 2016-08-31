@@ -33,20 +33,21 @@ function error($t) {
  *
  */
 function debug($level, $t) {
-    if (Config::$DEBUG_LEVEL >= $level) {
-        ob_start();
-        printf("%-015s", microtime(TRUE));
-        print " ($level) ";
-        print_r($t);
-        $output = ob_get_clean();
-        if (Config::$PATHS['logdir']) {
-            $f = fopen(Config::$PATHS['logdir'] . "/debug.log", "a");
-            fwrite($f, $output);
-            fclose($f);
-        } else {
-            print $output;
-        }
+    if (Config::$DEBUG_LEVEL < $level) {
+        return;
     }
+    ob_start();
+    printf("%-015s", microtime(TRUE));
+    print " ($level) ";
+    print_r($t);
+    $output = ob_get_clean();
+    if (Config::$PATHS['logdir']) {
+        $file = fopen(Config::$PATHS['logdir'] . "/debug.log", "a");
+        fwrite($file, $output);
+        fclose($file);
+        return;
+    }
+    print $output;
 }
 
 /**
@@ -83,11 +84,11 @@ function downloadFile($url) {
  * @param string $prefix an extra prefix to set before the UUID
  * @return UUID (possibly prefixed)
  */
-function uuid($prefix = '', $deterministic_source = NULL) {
-    if ($deterministic_source === NULL)
+function uuid($prefix = '', $deterministicSource = NULL) {
+    if ($deterministicSource === NULL)
         $chars = md5(uniqid(mt_rand(), true));
     else
-        $chars = md5($deterministic_source);
+        $chars = md5($deterministicSource);
     $uuid = substr($chars, 0, 8) . '-';
     $uuid .= substr($chars, 8, 4) . '-';
     $uuid .= substr($chars, 12, 4) . '-';
@@ -98,26 +99,25 @@ function uuid($prefix = '', $deterministic_source = NULL) {
 
 /**
  * pick a proper value for a given language
- * @param array $val_arr an array of (locale,content) records
+ * @param array $valueArray an array of (locale,content) records
  * @param string locale language code
  * @return string localised value corresponding to the chosen
  * locale or to the defalut locale C if a better mach was not available
  */
-function getLocalisedValue($val_arr, $locale) {
-    if (count($val_arr) > 0) {
-        $r_val = [];
-        foreach ($val_arr as $val) {
+function getLocalisedValue($valueArray, $locale) {
+    $out = 0;
+    if (count($valueArray) > 0) {
+        $returnValue = [];
+        foreach ($valueArray as $val) {
             $try = unserialize($val['value']);
-            $r_val[$try['lang']] = $try['content'];
+            $returnValue[$try['lang']] = $try['content'];
         }
-        if (isset($r_val[$locale]))
-            $out = $r_val[$locale];
-        elseif (isset($r_val['C']))
-            $out = $r_val['C'];
-        else
-            $out = 0;
-    } else {
-        $out = 0;
+        if (isset($returnValue[$locale])) {
+            $out = $returnValue[$locale];
+        }
+        elseif (isset($returnValue['C'])) {
+            $out = $returnValue['C'];
+        }
     }
     debug(4, "getLocalisedValue:$locale:$out\n");
     return $out;
@@ -126,10 +126,10 @@ function getLocalisedValue($val_arr, $locale) {
 /**
  * create a temporary directory and return the location
  * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
- * @param $fail (default true) decides if a creation failure should cause an error
+ * @param $failIsFatal (default true) decides if a creation failure should cause an error
  * @return - the tupple full directory path, directory name
  */
-function createTemporaryDirectory($purpose = 'installer', $fail = 1) {
+function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
     $name = md5(time() . rand());
     switch ($purpose) {
         case 'installer':
@@ -142,22 +142,19 @@ function createTemporaryDirectory($purpose = 'installer', $fail = 1) {
             $path = CAT::$root . '/var/tmp';
             break;
         default:
-            error("unable to create temporary directory for unknown purpose: $purpose\n");
-            exit;
+            throw new Exception("unable to create temporary directory due to unknown purpose: $purpose\n");
     }
-    $tmp_dir = $path . '/' . $name;
-    debug(4, "temp dir: $purpose : $tmp_dir\n");
-    if (!mkdir($tmp_dir, 0700, true)) {
-        if ($fail) {
-            error("unable to create temporary directory: $tmp_dir\n");
-            exit;
-        } else {
-            debug(4, "Directory creation failed for $tmp_dir\n");
-            return ['base' => $path, 'dir' => '', $name => ''];
+    $tmpDir = $path . '/' . $name;
+    debug(4, "temp dir: $purpose : $tmpDir\n");
+    if (!mkdir($tmpDir, 0700, true)) {
+        if ($failIsFatal) {
+            throw new Exception("unable to create temporary directory: $tmpDir\n");
         }
-    } else
-        debug(4, "Directory created: $tmp_dir\n");
-    return ['base' => $path, 'dir' => $tmp_dir, 'name' => $name];
+        debug(4, "Directory creation failed for $tmpDir\n");
+        return ['base' => $path, 'dir' => '', $name => ''];
+    }
+    debug(4, "Directory created: $tmpDir\n");
+    return ['base' => $path, 'dir' => $tmpDir, 'name' => $name];
 }
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
