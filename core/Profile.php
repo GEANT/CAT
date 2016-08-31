@@ -68,13 +68,6 @@ class Profile extends EntityWithDBProperties {
      */
     private $eapLevelAttributes;
 
-    /**
-     * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
-     * supported EAP types from the DB and stores them in the priv_ arrays.
-     * 
-     * @param int $profileId identifier of the profile in the DB
-     * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
-     */
     private function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
         foreach ($new as $attrib) {
             $ignore = "";
@@ -104,6 +97,14 @@ class Profile extends EntityWithDBProperties {
         debug(4, $eapTypeArray);
         return $eapTypeArray;
     }
+
+    /**
+     * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
+     * supported EAP types from the DB and stores them in the priv_ arrays.
+     * 
+     * @param int $profileId identifier of the profile in the DB
+     * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
+     */
     public function __construct($profileId, $idpObject = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
@@ -113,7 +114,7 @@ class Profile extends EntityWithDBProperties {
         $this->identifier = $profileId;
         $this->attributes = [];
         $this->langIndex = CAT::get_lang();
-        
+
         $profile = DBConnection::exec($this->databaseType, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
@@ -130,11 +131,11 @@ class Profile extends EntityWithDBProperties {
         }
 
         $this->realm = $profileQuery->realm;
-        
+
         $this->instName = $idp->name;
 
         $localValueIfAny = (preg_match('/@/', $this->realm) ? substr($this->realm, 0, strpos($this->realm, '@')) : "anonymous" );
-        
+
         $internalAttributes = [
             "internal:profile_count" => $idp->profileCount(),
             "internal:checkuser_outer" => $profileQuery->checkuser_outer,
@@ -147,7 +148,7 @@ class Profile extends EntityWithDBProperties {
         ];
 
         // internal attributes share many attribute properties, so condense the generation
-        
+
         foreach ($internalAttributes as $attName => $attValue) {
             $tempArrayProfLevel[] = ["name" => $attName,
                 "value" => $attValue,
@@ -157,7 +158,7 @@ class Profile extends EntityWithDBProperties {
                 "device" => NULL,
                 "eapmethod" => 0];
         }
-        
+
         // fetch the EAP type and device-specific attributes in this profile from DB
 
         $this->deviceLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("DEVICES");
@@ -217,6 +218,8 @@ class Profile extends EntityWithDBProperties {
                 $queryPart = "eap_method_id";
                 $conditionPart = "AND device_id = NULL";
                 break;
+            default:
+                throw new Exception("fetchDeviceOrEAPLevelAttributes: unexpected keyword $devicesOrEAPMethods");
         }
 
         $allAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, $queryPart as deviceormethod, row 
@@ -255,7 +258,7 @@ class Profile extends EntityWithDBProperties {
      * find a profile, given its realm
      */
     public static function profileFromRealm($realm) {
-        $execQuery = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
+        $execQuery = DBConnection::exec("INST", "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
         if ($profileIdQuery = mysqli_fetch_object($execQuery)) {
             return $profileIdQuery->profile_id;
         }
@@ -578,10 +581,9 @@ class Profile extends EntityWithDBProperties {
             if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
                 $message = $deviceProperties['options']['message'];
             }
-
+            $eapCustomtext = "";
+            $deviceCustomtext = "";
             if ($redirectUrl === 0) {
-                $eapCustomtext = "";
-                $deviceCustomtext = "";
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
                 } else {
