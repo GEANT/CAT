@@ -1262,6 +1262,9 @@ network={
                 foreach ($ca_store as $one_ca) {
                     $x509 = new X509();
                     $decoded = $x509->processCertificate($one_ca['value']);
+                    if ($decoded === FALSE) {
+                        throw new Exception("Unable to parse a certificate that came right from our database and has previously passed all input validation. How can that be!");
+                    }
                     if ($decoded['ca'] == 1) {
                         if ($decoded['root'] == 1) { // save CAT roots to the root directory
                             $root_CA = fopen($tmp_dir . "/root-ca-eaponly/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
