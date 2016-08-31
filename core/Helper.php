@@ -110,7 +110,6 @@ function calculateCommonHostSuffix(array $hosts) {
 }
 
 function downloadFile($url) {
-    $data;
     if (preg_match("/:\/\//", $url)) {
         # we got a URL, download it
         $download = fopen($url, "rb");
@@ -120,10 +119,10 @@ function downloadFile($url) {
             return FALSE;
         }
         return $data;
-    } else {
-        debug(3, "The specified string does not seem to be a URL!");
-        return FALSE;
     }
+    debug(3, "The specified string does not seem to be a URL!");
+    return FALSE;
+    
 }
 
 /**
