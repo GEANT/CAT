@@ -246,7 +246,7 @@ class CAT {
 
                 return TRUE;
             default:
-                exit(1);
+                throw new Exception("Unable to write to AUDIT file (requested data was $user, $category, $message!");
         }
     }
 
