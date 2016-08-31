@@ -139,8 +139,14 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 
     // Step 1: collate option names, option values and uploaded files (by 
     // filename reference) into one array for later handling
-
+    
     $iterator = collatePostArrays();
+    
+    // TODO brave new PHP7 world would do instead:
+    // $optionarray = $_POST['option'] ?? [];
+    // $valuearray = $_POST['value'] ?? [];
+    // $filesarray = $_FILES['value']['tmp_name] ?? [];
+    // $iterator = array_merge($optionarray, $valuearray, $filesarray);
 
     // following is a helper array to keep track of multilang options that were set in a specific language
     // but are not accompanied by a "default" language setting
