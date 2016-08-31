@@ -292,7 +292,7 @@ class Profile extends EntityWithDBProperties {
      */
     public function testCache($device) {
         $returnValue = NULL;
-        $escapedDevice = DBConnection::escape_value($this->databaseType, $device);
+        $escapedDevice = DBConnection::escapeValue($this->databaseType, $device);
         $result = DBConnection::exec($this->databaseType, "SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->langIndex'");
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = DBConnection::exec($this->databaseType, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
@@ -313,8 +313,8 @@ class Profile extends EntityWithDBProperties {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path, $mime) {
-        $escapedDevice = DBConnection::escape_value($this->databaseType, $device);
-        $escapedPath = DBConnection::escape_value($this->databaseType, $path);
+        $escapedDevice = DBConnection::escapeValue($this->databaseType, $device);
+        $escapedPath = DBConnection::escapeValue($this->databaseType, $path);
         DBConnection::exec($this->databaseType, "INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
                                         VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '$this->langIndex', CURRENT_TIMESTAMP ) 
                                         ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
@@ -328,7 +328,7 @@ class Profile extends EntityWithDBProperties {
      * @return TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
-        $escapedDevice = DBConnection::escape_value($this->databaseType, $device);
+        $escapedDevice = DBConnection::escapeValue($this->databaseType, $device);
         if ($area == "admin" || $area == "user") {
             DBConnection::exec($this->databaseType, "INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','$this->langIndex', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
@@ -374,11 +374,11 @@ class Profile extends EntityWithDBProperties {
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
     private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device = 0) {
-        $escapedAttrName = DBConnection::escape_value($this->databaseType, $attrName);
-        $escapedAttrValue = DBConnection::escape_value($this->databaseType, $attrValue);
+        $escapedAttrName = DBConnection::escapeValue($this->databaseType, $attrName);
+        $escapedAttrValue = DBConnection::escapeValue($this->databaseType, $attrValue);
 
         DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id" . ($device !== 0 ? ",device_id" : "") . ") 
-                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType" . ($device !== 0 ? ",'" . DBConnection::escape_value($this->databaseType, $device) . "'" : "" ) . ")");
+                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType" . ($device !== 0 ? ",'" . DBConnection::escapeValue($this->databaseType, $device) . "'" : "" ) . ")");
         $this->updateFreshness();
     }
 
@@ -466,7 +466,7 @@ class Profile extends EntityWithDBProperties {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
     public function setRealm($realm) {
-        $escapedRealm = DBConnection::escape_value($this->databaseType, $realm);
+        $escapedRealm = DBConnection::escapeValue($this->databaseType, $realm);
         DBConnection::exec($this->databaseType, "UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
         $this->realm = $escapedRealm;
     }
