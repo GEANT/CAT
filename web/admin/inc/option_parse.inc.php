@@ -279,7 +279,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 continue;
             }
             switch (get_class($object)) {
-                case Profile:
+                case 'Profile':
                     if ($device !== 0) {
                     $object->addAttributeDeviceSpecific($name, $value, $device);
                 } elseif ($eaptype != 0) {
@@ -288,9 +288,9 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                     $object->addAttribute($name, $value);
                 }
                 break;
-                case IdP:
-                case User:
-                case Federation:
+                case 'IdP':
+                case 'User':
+                case 'Federation':
                     $object->addAttribute($name, $value);
                     break;
                 default:

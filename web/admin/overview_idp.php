@@ -164,7 +164,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     if (count($profiles_for_this_idp) == 1) {
         $profile = $profiles_for_this_idp[0];
         $methods = $profile->getEapMethodsInOrderOfPreference();
-        if (count($methods) == 1 && $methods[0][INNER] == NE_SILVERBULLET) {
+        if (count($methods) == 1 && $methods[0]['INNER'] == NE_SILVERBULLET) {
             ?>
             <div style='display: table-row; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell;'>

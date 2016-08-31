@@ -193,7 +193,7 @@ $idpoptions = $my_inst->getAttributes();
                 <td>
                     <strong><?php
                     $my_fed = new Federation($my_inst->federation);
-                    echo $my_fed::$FederationList[strtoupper($my_inst->federation)];
+                    echo $my_fed::$federationList[strtoupper($my_inst->federation)];
                     ?></strong>
                 </td>
             </tr>

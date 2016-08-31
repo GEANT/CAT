@@ -217,7 +217,7 @@ Best regards,
      */
     public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
         $escapedFor = DBConnection::escapeValue(UserManagement::$databaseType, $for);
-        $token = sha1(base_convert(rand(10e16, 10e20), 10, 36)) . sha1(base_convert(rand(10e16, 10e20), 10, 36));
+        $token = sha1(base_convert(rand(0, 10e16), 10, 36)) . sha1(base_convert(rand(0, 10e16), 10, 36));
         $level = ($isByFedadmin ? "FED" : "INST");
 
         if ($instIdentifier instanceof IdP) {

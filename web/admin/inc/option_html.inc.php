@@ -1,10 +1,12 @@
 <?php
-/***********************************************************************************
+
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once("Options.php");
@@ -18,7 +20,7 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
     // print_r($prepopulate);
     $optioninfo = Options::instance();
     // print_r($prepopulate);
-    if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific") ) { // editing... fill with values
+    if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
         $a = 0;
         foreach ($prepopulate as $option)
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
@@ -48,8 +50,8 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
             }
         }
         /* echo "<pre>";
-        print_r($list);
-        echo "</pre>"; */
+          print_r($list);
+          echo "</pre>"; */
         // add as many options as there are different option types
 
         foreach (array_keys($list) as $key)
@@ -117,8 +119,11 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
             }
-            $retval .=">" . display_name($value). "</option>";
+            $retval .=">" . display_name($value) . "</option>";
             $iterator++;
+        }
+        if (!isset($activelisttype)) {
+            throw new Exception("We should have found the active list type by now!");
         }
         $retval .="</select></td>";
         $retval .="<td>
@@ -148,27 +153,24 @@ function optiontext($defaultselect, $list, $prefill = 0) {
             $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
         }
 
-// language tag if any
-        $content;
+        // language tag if any
         $retval .= "<td>";
         if ($listtype["flag"] == "ML") {
 
             if (preg_match('/^ROWID/', $prefill) == 0) { // this is direct content, not referral from DB
                 $taggedarray = unserialize($prefill);
                 if ($taggedarray === FALSE) {
-                    echo "INTERNAL ERROR: unable to unserialize multilang attribute!<p>$prefill";
-                    // exit(1);
+                    throw new Exception("INTERNAL ERROR: unable to unserialize multilang attribute!<p>$prefill");
                 }
                 $content = $taggedarray["content"];
             } else {
                 $taggedarray = unserialize(getBlobFromDB($prefill, FALSE));
                 $content = $prefill;
             }
-            $language;
-            if ($taggedarray['lang'] == 'C')
+            $language = "(" . strtoupper($taggedarray['lang']) . ")";
+            if ($taggedarray['lang'] == 'C') {
                 $language = _("(default/other languages)");
-            else
-                $language = "(" . strtoupper($taggedarray['lang']) . ")";
+            }
             $retval .= $language;
             $retval .= "<input type='hidden' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect' value='" . $taggedarray["lang"] . "' style='display:block'>";
         } else {
@@ -202,18 +204,18 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 };
                 break;
             case "string":
-                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"".htmlspecialchars($content)."\" style='display:block'>";
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
                 break;
             case "integer":
-                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"".htmlspecialchars($content)."\" style='display:block'>";
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
                 break;
             case "text":
-                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"".htmlspecialchars($content)."\" style='display:block'>";
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
                 break;
             case "boolean":
                 $display_option = _("off");
                 if ($content == "on") {
-                /// Device assessment is "on"
+                    /// Device assessment is "on"
                     $display_option = _("on");
                 }
                 $retval .= "<strong>$display_option</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$content' style='display:block'>";

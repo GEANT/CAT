@@ -147,18 +147,6 @@ class Profile extends EntityWithDBProperties {
             "internal:anon_local_value" => $localValueIfAny,
         ];
 
-        // internal attributes share many attribute properties, so condense the generation
-
-        foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfLevel[] = ["name" => $attName,
-                "value" => $attValue,
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => 0];
-        }
-
         // fetch the EAP type and device-specific attributes in this profile from DB
 
         $this->deviceLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("DEVICES");
@@ -175,6 +163,18 @@ class Profile extends EntityWithDBProperties {
                                             WHERE $this->entityIdColumn = $this->identifier  
                                             AND device_id = NULL AND eap_method_id = 0
                                             ORDER BY option_name", "Profile");
+
+        // internal attributes share many attribute properties, so condense the generation
+
+        foreach ($internalAttributes as $attName => $attValue) {
+            $tempArrayProfLevel[] = ["name" => $attName,
+                "value" => $attValue,
+                "level" => "Profile",
+                "row" => 0,
+                "flag" => NULL,
+                "device" => NULL,
+                "eapmethod" => 0];
+        }
 
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 

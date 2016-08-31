@@ -188,7 +188,7 @@ function productheader($area, $language) {
     <div id='secondrow' style='border-bottom:5px solid <?php echo Config::$APPEARANCE['colour1']; ?>; min-height:100px;'>
         <div id='secondarycaptions' style='display:inline-block; float:left'>
             <h2><?php echo $cap2; ?></h2>
-        </div><!--secondarycaptions-->";
+        </div><!--secondarycaptions-->
         <?php
         if (isset(Config::$APPEARANCE['MOTD']) && Config::$APPEARANCE['MOTD'] != "") {
             echo "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>

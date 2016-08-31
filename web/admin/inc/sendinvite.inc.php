@@ -17,7 +17,8 @@ require_once("UserManagement.php");
 require_once("auth.inc.php");
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
-require_once("core/PHPMailer/PHPMailerAutoload.php");
+require_once("core/PHPMailer/src/PHPMailer.php");
+require_once("core/PHPMailer/src/SMTP.php");
 
 function check_federation_privilege($country) {
     $user_object = new User($_SESSION['user']);
@@ -170,7 +171,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 Your friendly folks from %s Operations"), Config::$CONSORTIUM['name']);
 
 // use PHPMailer to send the mail
-$mail = new PHPMailer();
+$mail = new PHPMailer\PHPMailer\PHPMailer();
 $mail->isSMTP();
 $mail->Port = 587;
 $mail->SMTPAuth = true;

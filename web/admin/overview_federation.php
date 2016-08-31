@@ -161,7 +161,7 @@ $user = new User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$FederationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->name) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$federationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->name) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -220,7 +220,7 @@ $user = new User($_SESSION['user']);
                 if (Config::$DB['enforce-external-sync']) {
                     if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
                         echo "<td>";
-                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->name . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <button type='submit'>" . _("Manage DB Link") . "</button> ";
 
                         if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_SYNCED) {

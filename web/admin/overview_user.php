@@ -87,7 +87,7 @@ $user = new User($_SESSION['user']);
             $inst_name = $my_inst->name;
             $fed_id = strtoupper($my_inst->federation);
             $my_idps[$fed_id][$inst_id] = strtolower($inst_name);
-            $my_feds[$fed_id] = $unused::$FederationList[$fed_id];
+            $my_feds[$fed_id] = $unused::$federationList[$fed_id];
             $instlist[$inst_id] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
         }
 
