@@ -126,8 +126,8 @@ abstract class DeviceConfig {
        // phpMD says the below is not needed. Wow.
        // $idp = new IdP($profile->institution);
        $olddomain = CAT::set_locale("core");
-       $this->support_email_substitute = sprintf(_("your local %s support"),Config::$CONSORTIUM['name']);
-       $this->support_url_substitute = sprintf(_("your local %s support page"),Config::$CONSORTIUM['name']);
+       DeviceConfig::$support_email_substitute = sprintf(_("your local %s support"),Config::$CONSORTIUM['name']);
+       DeviceConfig::$support_url_substitute = sprintf(_("your local %s support page"),Config::$CONSORTIUM['name']);
        CAT::set_locale($olddomain);
 
        if($this->signer && $this->options['sign'])
