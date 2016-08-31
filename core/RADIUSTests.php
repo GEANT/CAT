@@ -937,6 +937,7 @@ class RADIUSTests {
         $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
         if ($this->profile instanceof Profile) { // take profile's anon ID (special one for realm checks or generic one) if known
             $foo = $this->profile;
+            $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
             debug(3, "calculating local part with explicit Profile\n");
             // did the admin specify a special outer ID for realm checks?
             // take this with precedence
@@ -945,7 +946,7 @@ class RADIUSTests {
                 $anon_id = $foo->getAttributes('internal:checkuser_value')[0]['value'];
             }
             // if none, take the configured anon outer ID
-            elseif ($foo->use_anon_outer == TRUE && $foo->realm == $this->realm) {
+            elseif ($useAnonOuter == TRUE && $foo->realm == $this->realm) {
                 $anon_id = $foo->getAttributes("internal:anon_local_value")[0]['value'];
             }
         } elseif (preg_match("/(.*)@.*/", $inner_user, $matches)) {

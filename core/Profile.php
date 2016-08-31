@@ -102,7 +102,7 @@ class Profile extends EntityWithDBProperties {
         $optioninstance = Options::instance();
 
         $this->realm = $profileQuery->realm;
-        $this->use_anon_outer = $profileQuery->use_anon_outer;
+        $this->useAnonOuter = $profileQuery->use_anon_outer;
         $this->langIndex = CAT::get_lang();
         $this->inst_name = $idp->name;
 
@@ -135,7 +135,7 @@ class Profile extends EntityWithDBProperties {
             "internal:verify_userinput_suffix" => $this->verify,
             "internal:hint_userinput_suffix" => $this->hint,
             "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
-            "internal:use_anon_outer" => $this->use_anon_outer,
+            "internal:use_anon_outer" => $this->useAnonOuter,
             "internal:anon_local_value" => $localValueIfAny,
         ];
 
@@ -794,7 +794,13 @@ class Profile extends EntityWithDBProperties {
      * @var string
      */
     private $langIndex;
-
+    
+    /**
+     * boolean value: should anonymous outer IDs be used or not?
+     * @var boolean
+     */
+    private $useAnonOuter;
+    
     /**
      * DB identifier of the parent institution of this profile
      * @var int
@@ -812,11 +818,4 @@ class Profile extends EntityWithDBProperties {
      * @var string
      */
     public $realm;
-
-    /**
-     * boolean value: should anonymous outer IDs be used or not?
-     * @var boolean
-     */
-    public $use_anon_outer;
-
 }
