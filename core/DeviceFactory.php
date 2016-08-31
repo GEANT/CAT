@@ -72,4 +72,3 @@ class DeviceFactory {
        $this->device->options = $options;
     }
 }
-?>

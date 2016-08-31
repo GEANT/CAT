@@ -161,15 +161,11 @@ public function splitCertificate($cadata) {
         }
         $returnarray[] = substr($cadata,0,$end_c);
     } else {
-        // TODO: before we blindly hand it over to der2pem - is this valid DER
-        // data at all?
+        // we hand it over to der2pem (no user content coming in from any caller
+        // so we know we work with valid cert data in the first place
       $returnarray[] = X509::der2pem($cadata);
     }
-    // print_r($returnarray);
-    
     return array_unique($returnarray);
 }
 
 }
-
-?>

@@ -21,7 +21,7 @@ $invitation_list = $mgmt_object->listRecentlyExpiredInvitations();
 //need to instantiate Federation once before the country list is populated
 $dummy_fed = new Federation("LU");
 
-foreach (Federation::$FederationList as $federation => $federation_name) {
+foreach (Federation::$federationList as $federation => $federation_name) {
     // construct list of invitations in this federation
     $thisfedlist = [];
     $listofinstnames = [];
@@ -67,4 +67,3 @@ A humble eduroam CAT cron job
         }
     }
 }
-?>

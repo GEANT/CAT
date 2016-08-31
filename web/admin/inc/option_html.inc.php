@@ -1,10 +1,12 @@
 <?php
-/***********************************************************************************
+
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once("Options.php");
@@ -18,7 +20,7 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
     // print_r($prepopulate);
     $optioninfo = Options::instance();
     // print_r($prepopulate);
-    if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific") ) { // editing... fill with values
+    if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
         $a = 0;
         foreach ($prepopulate as $option)
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
@@ -29,27 +31,27 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
     } else { // new: add empty list
         $list = $optioninfo->availableOptions($class);
         if ($class == "general") {
-            $blacklist_item = array_search("general:geo_coordinates", $list);
-            if ($blacklist_item !== FALSE) {
-                unset($list[$blacklist_item]);
+            $blacklistItem = array_search("general:geo_coordinates", $list);
+            if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
                 $list = array_values($list);
             }
         } else if ($class == "profile") {
-            $blacklist_item = array_search("profile:QR-user", $list);
-            if ($blacklist_item !== FALSE) {
-                unset($list[$blacklist_item]);
+            $blacklistItem = array_search("profile:QR-user", $list);
+            if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
                 $list = array_values($list);
             }
         } else if ($class == "user") {
-            $blacklist_item = array_search("user:fedadmin", $list);
-            if ($blacklist_item !== FALSE) {
-                unset($list[$blacklist_item]);
+            $blacklistItem = array_search("user:fedadmin", $list);
+            if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
                 $list = array_values($list);
             }
         }
         /* echo "<pre>";
-        print_r($list);
-        echo "</pre>"; */
+          print_r($list);
+          echo "</pre>"; */
         // add as many options as there are different option types
 
         foreach (array_keys($list) as $key)
@@ -58,8 +60,8 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
 }
 
 function optiontext($defaultselect, $list, $prefill = 0) {
-    global $global_location_count;
-    $location_index = 0;
+    global $allLocationCount;
+    $locationIndex = 0;
     $rowid = mt_rand();
     $optioninfo = Options::instance();
     $jsmagic = "onchange='
@@ -73,25 +75,35 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
                              }
                                if (/#string#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"block\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
                                }
                                   if (/#text#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"block\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";    
                                }
-
-                               if (/#boolean#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  if (/#boolean#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                   document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
                                   document.getElementById(\"S$rowid-input-boolean\").style.display = \"block\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
+                               }
+                                  if (/#integer#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"block\";
                                }
     '";
 
@@ -99,31 +111,35 @@ function optiontext($defaultselect, $list, $prefill = 0) {
 
     if (!$prefill) {
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
-        $a = 0;
+        $iterator = 0;
         foreach ($list as $key => $value) {
             $listtype = $optioninfo->optionType($value);
             $retval .="<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
-            if ($a == $defaultselect) {
+            if ($iterator == $defaultselect) {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
             }
-            $retval .=">" . display_name($value). "</option>";
-            $a++;
+            $retval .=">" . display_name($value) . "</option>";
+            $iterator++;
+        }
+        if (!isset($activelisttype)) {
+            throw new Exception("We should have found the active list type by now!");
         }
         $retval .="</select></td>";
         $retval .="<td>
           <select style='display:" . ($activelisttype["flag"] == "ML" ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (Config::$LANGUAGES as $langindex => $possible_lang) {
-            $thislang = $possible_lang['display'];
+        foreach (Config::$LANGUAGES as $langindex => $possibleLang) {
+            $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
         $retval .= "</select></td><td>
             <input type='text'     style='display:" . ($activelisttype["type"] == "string" ? "block" : "none") . "' name='value[S$rowid-0]'  id='S" . $rowid . "-input-string'>
             <textarea cols='30' rows='3'     style='display:" . ($activelisttype["type"] == "text" ? "block" : "none") . "' name='value[S$rowid-1]'  id='S" . $rowid . "-input-text'></textarea>
             <input type='file'     style='display:" . ($activelisttype["type"] == "file" ? "block" : "none") . "' name='value[S$rowid-2]'  id='S" . $rowid . "-input-file' size='10'>
-            <input type='checkbox' style='display:" . ($activelisttype["type"] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>";
+            <input type='checkbox' style='display:" . ($activelisttype["type"] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>
+            <input type='number' style='display:" . ($activelisttype["type"] == "integer" ? "block" : "none") . "' name='value[S$rowid-4]'  id='S" . $rowid . "-input-integer'>";
         $retval .= "</td>";
     }
 
@@ -137,27 +153,24 @@ function optiontext($defaultselect, $list, $prefill = 0) {
             $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
         }
 
-// language tag if any
-        $content;
+        // language tag if any
         $retval .= "<td>";
         if ($listtype["flag"] == "ML") {
 
             if (preg_match('/^ROWID/', $prefill) == 0) { // this is direct content, not referral from DB
                 $taggedarray = unserialize($prefill);
                 if ($taggedarray === FALSE) {
-                    echo "INTERNAL ERROR: unable to unserialize multilang attribute!<p>$prefill";
-                    // exit(1);
+                    throw new Exception("INTERNAL ERROR: unable to unserialize multilang attribute!<p>$prefill");
                 }
                 $content = $taggedarray["content"];
             } else {
                 $taggedarray = unserialize(getBlobFromDB($prefill, FALSE));
                 $content = $prefill;
             }
-            $language;
-            if ($taggedarray['lang'] == 'C')
+            $language = "(" . strtoupper($taggedarray['lang']) . ")";
+            if ($taggedarray['lang'] == 'C') {
                 $language = _("(default/other languages)");
-            else
-                $language = "(" . strtoupper($taggedarray['lang']) . ")";
+            }
             $retval .= $language;
             $retval .= "<input type='hidden' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect' value='" . $taggedarray["lang"] . "' style='display:block'>";
         } else {
@@ -168,9 +181,9 @@ function optiontext($defaultselect, $list, $prefill = 0) {
         $retval .= "<td>";
         switch ($listtype["type"]) {
             case "coordinates":
-                $global_location_count++;
-                $location_index = $global_location_count;
-                $link = "<button id='location_b_$global_location_count' class='location_button'>" . _("Click to see location") . " $global_location_count</button>";
+                $allLocationCount++;
+                $locationIndex = $allLocationCount;
+                $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
                 $retval .="<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
                 break;
             case "file":
@@ -191,35 +204,33 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 };
                 break;
             case "string":
-                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"".htmlspecialchars($content)."\" style='display:block'>";
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
+                break;
+            case "integer":
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
                 break;
             case "text":
-                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"".htmlspecialchars($content)."\" style='display:block'>";
+                $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
                 break;
             case "boolean":
-                if ($content == "on")
-                /// Device assessment is "on"
+                $display_option = _("off");
+                if ($content == "on") {
+                    /// Device assessment is "on"
                     $display_option = _("on");
-                else
-                /// Device assessment is "off"
-                    $display_option = _("off");
+                }
                 $retval .= "<strong>$display_option</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$content' style='display:block'>";
                 break;
             default:
-// this should never happen!
-                echo "Internal Error: unknown attribute type $listtype!";
-                exit(1);
-                break;
+                // this should never happen!
+                throw new Exception("Internal Error: unknown attribute type $listtype!");
         };
         $retval .= "</td>";
     }
     $retval .="
 
        <td>
-          <button type='button' class='delete' onclick='deleteOption(" . $location_index . ",\"option-S" . $rowid . "\")'>-</button>
+          <button type='button' class='delete' onclick='deleteOption(" . $locationIndex . ",\"option-S" . $rowid . "\")'>-</button>
        </td>
     </tr>";
     return $retval;
 }
-
-?>

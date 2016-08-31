@@ -448,4 +448,3 @@ public static function listDevices() {
 ];
 }
 }
-?>

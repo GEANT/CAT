@@ -53,13 +53,6 @@ define("INTEGER_SILVERBULLET", 8);
 
 class EAP {
 
-    /**
-     * database which this class queries by default
-     * 
-     * @var string
-     */
-    private static $DB_TYPE = "INST";
-
     /* constants only work for simple types. So these arrays need to be variables. :-(
       Don't ever change them though. */
 
@@ -185,8 +178,8 @@ class EAP {
         return $returnarray;
     }
 
-    public static function EAPMethodIdFromArray($method_array) {
-        switch ($method_array) {
+    public static function eAPMethodIdFromArray($methodArray) {
+        switch ($methodArray) {
             case EAP::$FAST_GTC:
                 return INTEGER_FAST_GTC;
             case EAP::$PEAP_MSCHAP2:
@@ -208,8 +201,8 @@ class EAP {
         return FALSE;
     }
 
-    public static function EAPMethodArrayFromId($id) {
-        switch ($id) {
+    public static function eAPMethodArrayFromId($identifier) {
+        switch ($identifier) {
             case INTEGER_EAP_pwd:
                 return EAP::$PWD;
             case INTEGER_FAST_GTC:
@@ -230,5 +223,3 @@ class EAP {
         return NULL;
     }
 }
-
-?>

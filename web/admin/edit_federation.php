@@ -22,7 +22,7 @@ authenticate();
 $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
-$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APPEARANCE['productname'], $my_fed->identifier));
+$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APPEARANCE['productname'], $my_fed->name));
 
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -35,7 +35,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
 
     <h1>
 <?php
-    printf(_("Editing Federation information for '%s'"), $my_fed->identifier);
+    printf(_("Editing Federation information for '%s'"), $my_fed->name);
 ?>
     </h1>
     <div class='infobox'>
@@ -45,14 +45,14 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-        echo Federation::$FederationList[strtoupper($my_fed->identifier)];
+        echo Federation::$federationList[strtoupper($my_fed->name)];
 ?></strong></td>
             </tr>
                         <?php echo infoblock($fed_options, "fed", "FED"); ?>
         </table>
     </div>
 <?php
-echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->identifier" . "' method='post' accept-charset='UTF-8'>
+echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->name" . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
 
 ?>
@@ -68,5 +68,3 @@ echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed
 <?php
     echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
 footer();
-?>
-        

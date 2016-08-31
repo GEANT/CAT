@@ -34,9 +34,8 @@ require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("Helper.php");
 require_once("CAT.php");
 require_once("devices/devices.php");
-require_once("core/PHPMailer/PHPMailerAutoload.php");
-
-
+require_once("core/PHPMailer/src/PHPMailer.php");
+require_once("core/PHPMailer/src/SMTP.php");
 
 class SanityTest extends CAT {
 /* in this section set current CAT requirements */
@@ -620,7 +619,7 @@ class SanityTest extends CAT {
          $this->test_return(L_ERROR,"Your abuse-mail has not been set, cannot continue with mailer tests.");
          return;
       }
-      $mail = new PHPMailer();
+      $mail = new PHPMailer\PHPMailer\PHPMailer();
       $mail->isSMTP();
       $mail->Port = 587;
       $mail->SMTPAuth = true;
@@ -651,5 +650,3 @@ class SanityTest extends CAT {
 //        if(empty)
     }
 }
-
-?>

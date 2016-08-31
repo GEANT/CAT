@@ -88,7 +88,7 @@ else
                 <td></td>
                 <td><strong><?php
         new Federation("blablub");
-        echo Federation::$FederationList[strtoupper($my_inst->federation)];
+        echo Federation::$federationList[strtoupper($my_inst->federation)];
 ?></strong></td>
             </tr>
                         <?php echo infoblock($idpoptions, "general", "IdP"); ?>
@@ -224,5 +224,3 @@ if ($wizard_style) {
     echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
 }
 footer();
-?>
-        

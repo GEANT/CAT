@@ -57,4 +57,3 @@ if (isset($_GET["class"])) {
 
     echo optiontext(0, $list);
 }
-?>

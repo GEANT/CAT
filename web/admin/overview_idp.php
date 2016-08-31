@@ -57,7 +57,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                     <td>
                         <strong><?php
                             $foofed = new Federation($my_inst->federation);
-                            echo Federation::$FederationList[strtoupper($my_inst->federation)];
+                            echo Federation::$federationList[strtoupper($my_inst->federation)];
                             ?></strong>
                     </td>
                 </tr>
@@ -152,12 +152,41 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         ?>
     </table>
     <hr/>
-    <h2><?php echo _("Profiles for this institution"); ?></h2>
     <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
-    if (count($profiles_for_this_idp) == 0) // no profiles yet.
-        echo _("There are not yet any profiles for your institution.");
+    if (count($profiles_for_this_idp) == 0) { // no profiles yet.
+        echo "<h2>"._("There are not yet any profiles for your institution.")."</h2>";
+    }
 
+    // if there is one profile and it is of type Silver Bullet, display a very
+    // simple widget with just a "Manage" button
+    
+    if (count($profiles_for_this_idp) == 1) {
+        $profile = $profiles_for_this_idp[0];
+        $methods = $profile->getEapMethodsInOrderOfPreference();
+        if (count($methods) == 1 && $methods[0]['INNER'] == NE_SILVERBULLET) {
+            ?>
+            <div style='display: table-row; margin-bottom: 20px;'>
+                <div class='profilebox' style='display: table-cell;'>
+                    <h2><?php echo _("eduroam-as-a-Service");?></h2>
+                    <?php printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."),200,"opaquehash@$my_inst->identifier-$profile->identifier.".strtolower($my_inst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);?>
+                    <br/>
+                    <br/>
+                    <form action='edit_silverbullet.php' method='POST'>
+                        <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base");?></button>
+                    </form>
+                </div>
+            </div>
+            <?php
+            // unset variable so that no other profiles are displayed, if any
+            // (it is an error if other profiles besides SB exist; don't show
+            // them in the UI if for some reason this happened
+            $profiles_for_this_idp = [];
+        }
+    }
+    if (count($profiles_for_this_idp) > 0) { // no profiles yet.
+        echo "<h2>"._("Profiles for this institution")."</h2>";
+    }
     foreach ($profiles_for_this_idp as $profile_list) {
         echo "<div style='display: table-row; margin-bottom: 20px;'>";
         $profile_name = $profile_list->name;
@@ -170,10 +199,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         // readiness - but want to display it before!
 
         $has_overrides = FALSE;
-        foreach ($attribs as $attrib)
-            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description)/", $attrib['name']))
+        foreach ($attribs as $attrib) {
+            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description)/", $attrib['name'])) {
                 $has_overrides = TRUE;
-
+            }
+        }
         $buffer_eaptypediv = "<div style='margin-bottom:40px; float:left;'>" . _("<strong>EAP Types</strong> (in order of preference):") . "<br/>";
         $typelist = $profile_list->getEapMethodsinOrderOfPreference();
         $allcomplete = TRUE;
@@ -195,17 +225,17 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 $buffer_eaptypediv .= "</div>";
                 $allcomplete = FALSE;
             };
-            $eapattribs = $profile_list->getAttributes(0, $eaptype);
+            $attribs = $profile_list->getAttributes();
             foreach ($attribs as $attrib)
                 if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name']))
-                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Option override on EAP Method level is in effect.") . "'>";
+                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method level are in effect.") . "'>";
             $buffer_eaptypediv .= "<br/>";
         }
         $buffer_headline = "<h2 style='overflow:auto;'>";
 
         $buffer_headline .= "<div style='float:right;'>";
         $sufficient_config = $profile_list->getSufficientConfig();
-        $showtime = $profile_list->getShowtime();
+        $showtime = $profile_list->isShowtime();
         if ($has_overrides)
             $buffer_headline .= UI_remark("", _("Option override on profile level is in effect."), TRUE);
         if (!$allcomplete)
@@ -258,7 +288,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         echo "</div>";
 // dummy width to keep a little distance
         echo "<div style='width:20px;'></div>";
-        if ($profile_list->getShowtime()) {
+        if ($profile_list->isShowtime()) {
             echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
             $URL = $profile_list->getCollapsedAttributes();
             if (isset($URL['device-specific:redirect']))
@@ -329,4 +359,3 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         <?php
     }
     footer();
-    ?>

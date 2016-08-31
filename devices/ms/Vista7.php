@@ -567,5 +567,3 @@ debug(4,"copyFiles end\n");
 }
 
 }
-
-?>

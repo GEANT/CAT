@@ -352,6 +352,3 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     echo $warning_html;
 }
 footer();
-?>
-
-</body>

@@ -26,7 +26,7 @@ pageheader(sprintf(_("%s: Federation Customisation (submission completed)"), Con
 $my_fed = valid_Fed($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
     if (( $_POST['submitbutton'] == BUTTON_SAVE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go
-        $fed_name = $my_fed->identifier;
+        $fed_name = $my_fed->name;
         echo "<h1>" . sprintf(_("Submitted attributes for federation '%s'"), $fed_name) . "</h1>";
         $remaining_attribs = $my_fed->beginflushAttributes();
 
@@ -36,7 +36,7 @@ if (isset($_POST['submitbutton'])) {
         // print_r($killlist);
         $my_fed->commitFlushAttributes($killlist);
 
-        CAT::writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->identifier . " - attributes changed");
+        CAT::writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->name . " - attributes changed");
 
         // re-instantiate ourselves... profiles need fresh data
 
@@ -46,4 +46,3 @@ if (isset($_POST['submitbutton'])) {
     }
 }
 footer();
-?>

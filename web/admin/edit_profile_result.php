@@ -77,15 +77,16 @@ if (isset($_POST['checkuser_local'])) {
 
 $verify = FALSE;
 $hint = FALSE;
-if (isset($_POST['verify_support']))
-    $verify = valid_boolean($_POST['checkuser_support']);
-if (isset($_POST['hint_support']))
-    $hint = valid_boolean($_POST['hint_support']);
-
-
 $redirect = FALSE;
-if (isset($_POST['redirect']))
+if (isset($_POST['verify_support'])) {
+    $verify = valid_boolean($_POST['checkuser_support']);
+}
+if (isset($_POST['hint_support'])) {
+    $hint = valid_boolean($_POST['hint_support']);
+}
+if (isset($_POST['redirect'])) {
     $redirect = valid_boolean($_POST['redirect']);
+}
 
 // did the user submit info? If so, submit to DB and go on to the 'dashboard' or 'next profile' page.
 // if not, what is he doing on this page anyway!
@@ -100,21 +101,23 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
     }
 }
+
 if (!$profile instanceof Profile) {
     echo _("Darn! Could not get a proper profile handle!");
     exit(1);
-};
-$profile->flushSupportedEapMethods();
+}
+
 ?>
-<h1><?php _("Submitted attributes for this profile"); ?></h1>
+<h1><?php echo _("Submitted attributes for this profile"); ?></h1>
 <table>
     <?php
     // set realm info, if submitted
     if ($realm != FALSE) {
         $profile->setRealm($anon_local . "@" . $realm);
         echo UI_okay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
-    } else
+    } else {
         $profile->setRealm("");
+    }
     // set anon ID, if submitted
     if ($anon != FALSE) {
         if ($realm == FALSE) {
@@ -126,7 +129,7 @@ $profile->flushSupportedEapMethods();
     } else {
         $profile->setAnonymousIDSupport(false);
         echo UI_okay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
-    };
+    }
 
     if ($checkuser != FALSE) {
         if ($realm == FALSE) {
@@ -138,7 +141,7 @@ $profile->flushSupportedEapMethods();
     } else {
         $profile->setRealmCheckUser(false);
         echo UI_okay(_("No special username for realm checks is configured."));
-    };
+    }
     
     if ($verify != FALSE) {
         if ($realm == FALSE) {
@@ -157,8 +160,7 @@ $profile->flushSupportedEapMethods();
         $profile->setInputVerificationPreference(false,false);
     }
 
-
-    $remaining_attribs = $profile->beginflushAttributes(0);
+    $remaining_attribs = $profile->beginflushAttributes();
     $killlist = processSubmittedFields($profile, $remaining_attribs);
     $profile->commitFlushAttributes($killlist);
 
@@ -166,7 +168,7 @@ $profile->flushSupportedEapMethods();
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo UI_error(_("Redirection can't be activated - you did not specify a target location!"));
         } else {
-            $profile->addAttribute("device-specific:redirect", serialize(['lang' => 'C', 'content' => $_POST['redirect_target']]), 0, 0);
+            $profile->addAttribute("device-specific:redirect", serialize(['lang' => 'C', 'content' => $_POST['redirect_target']]));
             echo UI_okay(sprintf("Redirection set to <strong>%s</strong>", $_POST['redirect_target']));
         }
     } else {
@@ -190,16 +192,18 @@ $profile->flushSupportedEapMethods();
                 echo UI_okay(_("Supported EAP Type: ") . "<strong>" . display_name($a) . "</strong>");
             } else {
                 $warntext = "";
-                if (is_array($eapcompleteness))
-                    foreach ($eapcompleteness as $item)
+                if (is_array($eapcompleteness)) {
+                    foreach ($eapcompleteness as $item) {
                         $warntext .= "<strong>" . display_name($item) . "</strong> ";
+                    }
+                }
                 echo UI_warning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), display_name($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
             }
         }
     }
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-    $profile = new Profile($profile->identifier);
-    $profile->prepShowtime();
+    $reloadedProfile = new Profile($profile->identifier);
+    $reloadedProfile->prepShowtime();
     ?>
 </table>
 <br/>
@@ -207,9 +211,9 @@ $profile->flushSupportedEapMethods();
     <button type='submit'><?php echo _("Continue to dashboard"); ?></button>
 </form>
 <?php
-if (count($profile->getEapMethodsinOrderOfPreference(1)) > 0)
-    echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$profile->identifier' accept-charset='UTF-8'>
+if (count($reloadedProfile->getEapMethodsinOrderOfPreference(1)) > 0) {
+    echo "<form method='post' action='overview_installers.php?inst_id=$my_inst->identifier&profile_id=$reloadedProfile->identifier' accept-charset='UTF-8'>
         <button type='submit'>" . _("Continue to Installer Fine-Tuning and Download") . "</button>
     </form>";
+}
 footer();
-?>

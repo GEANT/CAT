@@ -69,7 +69,7 @@ public function __construct() {
     if(!in_array($c,$F))
       $c= array_shift($F);
     $this->Country = new Federation($c);
-    $this->Args['country'] = $this->Country->identifier;
+    $this->Args['country'] = $this->Country->name;
     $this->page =  1;
 
 // If we have IdP identifier then match country to this identifier
@@ -89,7 +89,7 @@ public function __construct() {
          return;
        }
        $country_tmp = new Federation($this->Idp->federation);
-       if(strtoupper($this->Country->identifier) !== strtoupper($country_tmp->identifier)) {
+       if(strtoupper($this->Country->name) !== strtoupper($country_tmp->name)) {
          unset($this->Idp);
          $this->page = 1;
          $this->set_locale("web_user");
@@ -134,7 +134,7 @@ public function listCountries() {
    $out .= '<select name="country" onchange="submit_form(this)">'."\n";
    foreach ($FED as $f => $F) {
      $out .= '<option value="'.$f.'"';
-     if($f === $this->Country->identifier)
+     if($f === $this->Country->name)
          $out .= ' selected';
      $out .= '>'.$F.'</option>'."\n";
    }
@@ -143,7 +143,7 @@ public function listCountries() {
 }
 
 public function listIdPs() {
-   $Inst = $this->orderIdentityProviders($this->Country->identifier);
+   $Inst = $this->orderIdentityProviders($this->Country->name);
    if(! isset($this->Idp))
      $this->Idp = new Idp ($Inst[0]['idp']);
    $i_id = $this->Idp->identifier;
@@ -336,8 +336,8 @@ public function langSelection() {
 
 public function yourChoice() {
   $out = '';
-   $c = strtoupper($this->Country->identifier);
-   $name = isset(Federation::$FederationList[$c]) ? Federation::$FederationList[$c] : $c;
+   $c = strtoupper($this->Country->name);
+   $name = isset(Federation::$federationList[$c]) ? Federation::$federationList[$c] : $c;
    $name = preg_replace('/ +/','&nbsp;',$name);
    $out .= "$name; ";
    $name = $this->Idp->name;
@@ -423,7 +423,7 @@ if($Gui->page == 0) {
         if(! isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {
         print "<p>\n";
           print $Gui->listCountries();
-          if($Gui->page == 2 && ! isset($FED[strtoupper($Gui->Country->identifier)]))
+          if($Gui->page == 2 && ! isset($FED[strtoupper($Gui->Country->name)]))
              $Gui->page = 1;
           print "<p>".$Gui->listIdPs();
           print "<p>".$Gui->listProfiles();

@@ -35,31 +35,28 @@ class DBConnection {
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
      * @return DBConnection the (only) instance of this class
      */
-    private static function handle($db) {
-        switch (strtoupper($db)) {
+    private static function handle($database) {
+        switch (strtoupper($database)) {
             case "INST":
-                if (!isset(self::$instance_inst)) {
-                    $c = __CLASS__;
-                    self::$instance_inst = new $c($db);
+                if (!isset(self::$instanceInst)) {
+                    $class = __CLASS__;
+                    self::$instanceInst = new $class($database);
                 }
-                return self::$instance_inst;
-                break;
+                return self::$instanceInst;
             case "USER":
-                if (!isset(self::$instance_user)) {
-                    $c = __CLASS__;
-                    self::$instance_user = new $c($db);
+                if (!isset(self::$instanceUser)) {
+                    $class = __CLASS__;
+                    self::$instanceUser = new $class($database);
                 }
-                return self::$instance_user;
-                break;
+                return self::$instanceUser;
             case "EXTERNAL":
-                if (!isset(self::$instance_external)) {
-                    $c = __CLASS__;
-                    self::$instance_external = new $c($db);
+                if (!isset(self::$instanceExternal)) {
+                    $class = __CLASS__;
+                    self::$instanceExternal = new $class($database);
                 }
-                return self::$instance_external;
-                break;
+                return self::$instanceExternal;
             default:
-                return FALSE;
+                throw new Exception("This type of database (".$strtoupper($database).") is not known!");
         }
     }
 
@@ -72,13 +69,13 @@ class DBConnection {
 
     /**
      * 
-     * @param string $db The database to do escapting for
+     * @param string $database The database to do escapting for
      * @param string $value The value to escape
      * @return string
      */
-    public static function escape_value($db, $value) {
-        $handle = DBConnection::handle($db);
-        debug(5, "Escaping $value for DB $db to get a safe query value.\n");
+    public static function escapeValue($database, $value) {
+        $handle = DBConnection::handle($database);
+        debug(5, "Escaping $value for DB $database to get a safe query value.\n");
         $escaped = mysqli_real_escape_string($handle->connection, $value);
         debug(5, "This is the result: $escaped .\n");
         return $escaped;
@@ -89,25 +86,26 @@ class DBConnection {
      * @param string $querystring the query to be executed
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      */
-    public static function exec($db, $querystring) {
+    public static function exec($database, $querystring) {
         // log exact query to debug log, if log level is at 5
         debug(5, "DB ATTEMPT: " . $querystring . "\n");
 
-        $instance = DBConnection::handle($db);
+        $instance = DBConnection::handle($database);
         if ($instance->connection == FALSE) {
-            debug(1, "ERROR: Cannot send query to $db database (no connection)!");
+            debug(1, "ERROR: Cannot send query to $database database (no connection)!");
             return FALSE;
         }
 
         $result = mysqli_query($instance->connection, $querystring);
         if ($result == FALSE) {
-            debug(1, "ERROR: Cannot execute query in $db database - (hopefully escaped) query was '$querystring'!");
+            debug(1, "ERROR: Cannot execute query in $database database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
 
         // log exact query to audit log, if it's not a SELECT
-        if (preg_match("/^SELECT/i", $querystring) == 0)
-            CAT::writeSQLAudit("[DB: " . strtoupper($db) . "] " . $querystring);
+        if (preg_match("/^SELECT/i", $querystring) == 0) {
+            CAT::writeSQLAudit("[DB: " . strtoupper($database) . "] " . $querystring);
+        }
         return $result;
     }
 
@@ -120,14 +118,16 @@ class DBConnection {
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option")
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
             return FALSE;
-        $blob_query = DBConnection::exec("INST", "SELECT option_value from $table WHERE row = $row");
-        while ($a = mysqli_fetch_object($blob_query))
-            $blob = $a->option_value;
-
-        if (!isset($blob))
+        }
+        $blobQuery = DBConnection::exec("INST", "SELECT option_value from $table WHERE row = $row");
+        while ($returnedData = mysqli_fetch_object($blobQuery)) {
+            $blob = $returnedData->option_value;
+        }
+        if (!isset($blob)) {
             return FALSE;
+        }
         return $blob;
     }
 
@@ -136,38 +136,45 @@ class DBConnection {
      * yes who the authorised admins to view it are (return array of user IDs)
      */
     public static function isDataRestricted($table, $row) {
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option")
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+        }
         switch ($table) {
             case "profile_option":
-                $blob_query = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
-                while ($a = mysqli_fetch_object($blob_query)) // only one row
-                    $blobprofile = $a->profile_id;
-                // is the profile in question public?
-                $profile = new Profile($blobprofile);
-                if ($profile->getShowtime() == TRUE) { // public data
-                    return FALSE;
-                } else {
-                    $inst = new IdP($profile->institution);
-                    return $inst->owner();
+                $blobQuery = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
+                while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
+                    $blobprofile = $profileIdQuery->profile_id;
                 }
-                break;
+                // is the profile in question public?
+                if (!isset($blobprofile)) {
+                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
+                }
+                $profile = new Profile($blobprofile);
+                if ($profile->isShowtime() == TRUE) { // public data
+                    return FALSE;
+                }
+                // okay, so it's NOT public. return the owner
+                $inst = new IdP($profile->institution);
+                return $inst->owner();
+                
             case "institution_option":
-                $blob_query = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
-                while ($a = mysqli_fetch_object($blob_query)) // only one row
-                    $blobinst = $a->institution_id;
+                $blobQuery = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
+                while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
+                    $blobinst = $instIdQuery->institution_id;
+                }
+                if (!isset($blobinst)) {
+                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
+                }
                 $inst = new IdP($blobinst);
                 // if at least one of the profiles belonging to the inst is public, the data is public
                 if ($inst->isOneProfileShowtime()) { // public data
                     return FALSE;
-                } else {
-                    return $inst->owner();
                 }
-                break;
+                // okay, so it's NOT public. return the owner
+                return $inst->owner();
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;
-                break;
             default:
                 return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
         }
@@ -177,8 +184,8 @@ class DBConnection {
      * Retrieves the last auto-id of an INSERT. Needs to be called immediately after the corresponding exec() call
      * @return int the last autoincrement-ID
      */
-    public static function lastID($db) {
-        $instance = DBConnection::handle($db);
+    public static function lastID($database) {
+        $instance = DBConnection::handle($database);
         return mysqli_insert_id($instance->connection);
     }
 
@@ -187,9 +194,9 @@ class DBConnection {
      * 
      * @var DBConnection 
      */
-    private static $instance_user;
-    private static $instance_inst;
-    private static $instance_external;
+    private static $instanceUser;
+    private static $instanceInst;
+    private static $instanceExternal;
 
     /**
      * The connection to the DB server
@@ -201,18 +208,16 @@ class DBConnection {
     /**
      * Class constructor. Cannot be called directly; use handle()
      */
-    private function __construct($db) {
-        $DB = strtoupper($db);
-        $this->connection = mysqli_connect(Config::$DB[$DB]['host'], Config::$DB[$DB]['user'], Config::$DB[$DB]['pass'], Config::$DB[$DB]['db']) or die("ERROR: Unable to connect to $DB database! This is a fatal error, giving up.");
+    private function __construct($database) {
+        $databaseCapitalised = strtoupper($database);
+        $this->connection = mysqli_connect(Config::$DB[$databaseCapitalised]['host'], Config::$DB[$databaseCapitalised]['user'], Config::$DB[$databaseCapitalised]['pass'], Config::$DB[$databaseCapitalised]['db']);
         if ($this->connection == FALSE) {
-            echo "ERROR: Unable to connect to $db database! This is a fatal error, giving up.";
-            exit(1);
+            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up.");
         }
 
-        if ($db == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team")
+        if ($databaseCapitalised == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") {
             mysqli_query($this->connection, "SET NAMES 'latin1'");
+        }
     }
 
 }
-
-?>

@@ -17,7 +17,7 @@
 /**
  * 
  */
-require_once('mobileconfig_superclass.php');
+require_once('mobileconfigSuperclass.php');
 
 // set_locale("devices");
 
@@ -30,7 +30,7 @@ require_once('mobileconfig_superclass.php');
  *
  * @package Developer
  */
-class Device_mobileconfig_ios_56 extends mobileconfig_superclass {
+class Device_mobileconfig_ios_56 extends mobileconfigSuperclass {
 
     /**
      * this array holds the list of EAP methods supported by this device

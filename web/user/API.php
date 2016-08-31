@@ -113,5 +113,3 @@ switch ($action) {
         break;
 }
 debug(4,"UserAPI action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
-
-?>

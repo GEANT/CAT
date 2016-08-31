@@ -39,7 +39,7 @@ $user = new User($_SESSION['user']);
 $mgmt = new UserManagement();
 
 // either the operation is done by federation operator himself
-$is_fed_admin = $user->isFederationAdmin($my_inst->federation);
+$isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 
 // or an admin of the IdP with federation admin blessings
 $is_admin_with_blessing = FALSE;
@@ -51,7 +51,7 @@ foreach ($owners as $oneowner) {
 
 // if none of the two, send the user away
 
-if (!$is_fed_admin && !$is_admin_with_blessing) {
+if (!$isFedAdmin && !$is_admin_with_blessing) {
     echo _("You do not have the necessary privileges to alter administrators of this institution. In fact, you shouldn't have come this far!");
     exit(1);
 }
@@ -72,7 +72,7 @@ if (isset($_POST['submitbutton'])) {
             exit(1);
         }
     } else if ($_POST['submitbutton'] == BUTTON_TAKECONTROL) {
-        if ($is_fed_admin) {
+        if ($isFedAdmin) {
             $ownermgmt = new UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
         } else {
@@ -101,13 +101,13 @@ if (isset($_GET['invitation'])) {
     echo "</table></div>";
 }
 
-if ($is_fed_admin) {
+if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     echo UI_remark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
     echo "</table></div>";    
 }
 
-if (!$is_fed_admin && $is_admin_with_blessing) {
+if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     echo UI_remark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
     echo "</table></div>";    
@@ -154,7 +154,7 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee)
-        echo "<tr><td>$invitee</td></tr>";
+        echo "<tr><td>".$invitee['mail']."</td></tr>";
     echo "</table>";
 }
 ?>
@@ -164,7 +164,7 @@ if (count($pending_invites) > 0) {
 </form>
 <br/>
 <?php
-if ($is_fed_admin) {
+if ($isFedAdmin) {
     $is_admin_himself = FALSE;
     foreach ($owners as $oneowner) {
         if ($oneowner['ID'] == $_SESSION['user'])

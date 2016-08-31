@@ -58,5 +58,3 @@ $user = new User($_SESSION['user']);
     </form>
     <?php
     footer();
-    ?>
-        

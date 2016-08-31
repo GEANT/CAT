@@ -70,5 +70,3 @@ function deauthenticate() {
         'ReturnStateStage' => 'MyLogoutState',
     ]);
 }
-
-?>

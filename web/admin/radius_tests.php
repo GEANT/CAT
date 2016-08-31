@@ -57,7 +57,7 @@ function printTm($tm) {
 
 function process_result($testsuite,$host) {
     $ret = [];
-    $server_info = [];
+    $server_cert = [];
     $udp_result = $testsuite->UDP_reachability_result[$host];
     if(isset($udp_result['certdata']) && count($udp_result['certdata'])) {
        foreach ($udp_result['certdata'] as $certdata) {

@@ -937,6 +937,7 @@ class RADIUSTests {
         $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
         if ($this->profile instanceof Profile) { // take profile's anon ID (special one for realm checks or generic one) if known
             $foo = $this->profile;
+            $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
             debug(3, "calculating local part with explicit Profile\n");
             // did the admin specify a special outer ID for realm checks?
             // take this with precedence
@@ -945,7 +946,7 @@ class RADIUSTests {
                 $anon_id = $foo->getAttributes('internal:checkuser_value')[0]['value'];
             }
             // if none, take the configured anon outer ID
-            elseif ($foo->use_anon_outer == TRUE && $foo->realm == $this->realm) {
+            elseif ($useAnonOuter == TRUE && $foo->realm == $this->realm) {
                 $anon_id = $foo->getAttributes("internal:anon_local_value")[0]['value'];
             }
         } elseif (preg_match("/(.*)@.*/", $inner_user, $matches)) {
@@ -1262,6 +1263,9 @@ network={
                 foreach ($ca_store as $one_ca) {
                     $x509 = new X509();
                     $decoded = $x509->processCertificate($one_ca['value']);
+                    if ($decoded === FALSE) {
+                        throw new Exception("Unable to parse a certificate that came right from our database and has previously passed all input validation. How can that be!");
+                    }
                     if ($decoded['ca'] == 1) {
                         if ($decoded['root'] == 1) { // save CAT roots to the root directory
                             $root_CA = fopen($tmp_dir . "/root-ca-eaponly/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
@@ -1643,5 +1647,3 @@ network={
     }
 
 }
-
-?>

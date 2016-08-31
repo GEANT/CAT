@@ -48,7 +48,7 @@ $eap_id = 0;
 if (isset($_POST['eaptype'])) {
     $eaptype = unserialize(stripslashes($_POST['eaptype']));
     // is this an actual EAP type we know of?
-    $eap_id = EAP::EAPMethodIdFromArray($eaptype);
+    $eap_id = EAP::eAPMethodIdFromArray($eaptype);
     if ($eap_id === FALSE) // oh-oh, unexpected malformed input. Goodbye.
         exit(1);
 }
@@ -84,17 +84,27 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 }
 
 if ($device) {
-    $attribs = $my_profile->getAttributes(0, 0, $device_key);
+    $attribs = [];
+    foreach ($my_profile->getAttributes() as $attrib) {
+        if ($attrib['device'] == $device_key) {
+            $attribs[] = $attrib;
+        }
+    }
     $captiontext = sprintf(_("device <strong>%s</strong>"), $device['display']);
     $keyword = "device-specific";
     $param_name = "Device";
     $extrainput = "<input type='hidden' name='device' value='" . $device_key . "'/>";
 } else {
-    $attribs = $my_profile->getAttributes(0, $eaptype, 0);
+    $attribs = [];
+    foreach ($my_profile->getAttributes() as $attrib) {
+        if ($attrib['eapmethod'] == $eaptype) {
+            $attribs[] = $attrib;
+        }
+    }
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
     $param_name = "EapSpecific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::EAPMethodArrayFromId($eap_id))) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::eAPMethodArrayFromId($eap_id))) . "'>";
 }
 ?>
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>

@@ -1,0 +1,13 @@
+languages:
+  JavaScript: true
+  Ruby: true
+  Python: true
+  PHP: true
+
+exclude_paths:
+- "config/config-template.php"
+- "devices/devices-template.php"
+- "web/external/"
+- "core/phpqrcode.php"
+
+

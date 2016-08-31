@@ -69,6 +69,10 @@ Var main_ssid
   Var Dialog1
   var Password
 !endif
+!ifdef GEANTLink
+!define CRED
+Var GL_Profile_id
+!endif
 !ifdef PEAP
 !define CRED
 !endif
@@ -78,6 +82,7 @@ Var main_ssid
   Var PASS1_F
   Var PASS1
   Var PASS_B64
+  Var UNAME_B64
   Var PASS2_F
   Var PASS2
 !endif
@@ -295,19 +300,17 @@ Function .onInit
 
 
   ${If} ${RunningX64}
-    StrCpy "$INSTDIR" "$PROGRAMFILES64\ArnesLink"
     StrCpy $Platform "64"
     StrCpy $Netsh "$WINDIR\sysnative\netsh"
     StrCpy $Msiexec "$WINDIR\sysnative\msiexec"
     ${Else}
-    StrCpy "$INSTDIR" "$PROGRAMFILES\ArnesLink"
     StrCpy $Platform "32"
     StrCpy $Netsh "netsh"
     StrCpy $Msiexec "msiexec"
   ${EndIf}
   !insertmacro debug_cat 3 "Platfrom:$Platform"
 
-  Call wVersionCheck
+;  Call wVersionCheck
   Call Wireless_Check
   Call NoWirelessConfirm
   Call CheckSymantec
@@ -854,53 +857,6 @@ Function InstallProfile
   ${EndIf}
 ; profile installation
   DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
-!ifdef ArnesLink
-  ${If} $R0 == 0
-  Push $R1
-  Pop $main_ssid
-  !insertmacro debug_cat 3 'Execute: "$INSTDIR\al_import.exe" "$TEMP\wlan_prof-$R0.xml"'
-  ClearErrors
-  ExecWait '"$INSTDIR\al_import.exe" "$TEMP\wlan_prof-$R0.xml"'
-  IfErrors 0 +4
-  MessageBox MB_OK "Wlan profile import failed! Continuing anyway!$\nMake sure to import wlan profile manually!"
-  !insertmacro debug_cat 1 "Wlan profile $R0 import failed!"
- 
-  
-  ${Else}
-    ${If} $R0 == 1
-       !insertmacro debug_cat 4  'mkdir "$TEMP\cat_tmp_dir"'
-       CreateDirectory "$TEMP\cat_tmp_dir"
-       !insertmacro debug_cat 4 "Deleting files"
-       Delete $TEMP\cat_tmp_dir\*
-       !insertmacro debug_cat 4 'Execute: "$TEMP\dump_arneslink_profile.cmd" "$TEMP" "$main_ssid"'
-       nsExec::Exec '"$TEMP\dump_arneslink_profile.cmd" "$TEMP" "$main_ssid"'
-       nsArray::Set Delete_files "$TEMP\cat_tmp_dir\a1.xml"
-    ${EndIf}
-    ExecWait '"$TEMP\install_arneslink_profile.cmd" "$TEMP" "$main_ssid" "$R1" $R0'
-    Pop $0
-    !insertmacro debug_cat 4 "install_arneslink_profile returned $0"
-    ${If} $0 <> 0
-      !insertmacro debug_cat 1 'Profile installation error for "$R1"'
-      IfSilent +2
-      MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
-      nsArray::Set Profile_states /key="$R0" ${PROFILE_STATE_FAIL}
-      Push 1
-      Pop $profile_fail
-    ${Else}
-       !insertmacro debug_cat 1 "Profile $R1 created"
-    !ifndef DEBUG_CAT
-       Delete "$TEMP\cat_tmp_dir\b$R0.xml"
-       Delete "$TEMP\cat_tmp_dir\c$R0.xml"
-    !endif
-    !ifdef DEBUG_CAT
-     ${If} $Debug_cat == 0
-       Delete "$TEMP\cat_tmp_dir\b$R0.xml"
-       Delete "$TEMP\cat_tmp_dir\c$R0.xml"
-     ${EndIf}
-    !endif
-    ${EndIf}
-  ${EndIf}
-!else
   !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
   nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
@@ -927,7 +883,6 @@ Function InstallProfile
   ${EndIf}
   !endif
   ${EndIf}
-!endif
 FunctionEnd
 
 ; Install credentials for wired
@@ -1085,6 +1040,8 @@ Abort
 ${EndIf}
 ${Base64_Encode} $PASS1
 Pop $PASS_B64
+${Base64_Encode} $UNAME
+Pop $UNAME_B64
 Call ShowAllButtons
 FunctionEnd
 ;=============================
@@ -1150,11 +1107,6 @@ Page custom WiredConfirm
 !ifdef LICENSE_FILE
   Page license
 !endif
-!ifdef ArnesLink
-  !define MUI_LICENSEPAGE_TEXT_TOP "<?php echo_nsi(_("In order to proceed we need to install ArnesLink, which is available under GPL license."))?>"
-  !define MUI_LICENSEPAGE_TEXT_BOTTOM "<?php echo_nsi(_("ArnesLink is available from ftp://ftp.arnes.si/software/eduroam/ArnesLink/."))?> <?php echo_nsi(_("Please accept the license in order to continue."))?>"
-  !insertmacro MUI_PAGE_LICENSE "GPL3.rtf"
-!endif
 ;============================
 !ifdef TLS
 PageEx components
@@ -1182,9 +1134,7 @@ SectionIn RO
 
 !insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Installation"))?>" "<?php echo_nsi( _("Checking for existing wireless profiles"))?>"
 !ifndef PWD
-!ifndef ArnesLink
 !include "certs.nsh"
-!endif
 !endif
 SectionEnd
 

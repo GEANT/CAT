@@ -1,5 +1,8 @@
 Changes in 1.2
-================
+==============
+
+Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
+
 - [FEATURE #1] UserAPI redone. Instead of the "id" as a common argument we now use
                meaningful names, like idp, profile, device etc.
                To get the new behaviour you need to set api_version argument to 2.
@@ -15,6 +18,8 @@ Changes in 1.2
 Configuration parameter changes
 -------------------------------
 
+[ADDED] $CONSORTIUM::silverbullet_default_maxusers
+[ADDED] $CONSORTIUM::silverbullet_realm_suffix
 
 Changes in previous versions
 ============================

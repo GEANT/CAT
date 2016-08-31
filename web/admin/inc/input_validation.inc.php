@@ -20,89 +20,85 @@ function input_validation_error($customtext) {
 }
 
 function valid_Fed($input, $owner) {
-    try {
-        $temp = new Federation($input);
-    } catch (Exception $fail) {
-        echo input_validation_error(_("This Federation identifier is not accessible!"));
-        exit(1);
-    }
 
-    foreach ($temp->listFederationAdmins() as $oneowner)
-        if ($oneowner == $owner)
+    $temp = new Federation($input);
+
+    foreach ($temp->listFederationAdmins() as $oneowner) {
+        if ($oneowner == $owner) {
             return $temp;
-    echo input_validation_error(_("This Federation identifier is not accessible!"));
-    exit(1);
+        }
+    }
+    throw new Exception(input_validation_error("User is not federation administrator!"));
 }
 
 function valid_IdP($input, $owner = 0) {
     if (!is_numeric($input)) {
-        echo input_validation_error(_("Value for IdP is not an integer!"));
-        exit(1);
-    }
-    try {
-        $temp = new IdP($input);
-    } catch (Exception $fail) {
-        echo input_validation_error(_("This IdP identifier is not accessible!"));
-        exit(1);
+        throw new Exception(input_validation_error("Value for IdP is not an integer!"));
     }
 
+    $temp = new IdP($input); // constructor throws an exception if NX, game over
+
     if ($owner !== 0) { // check if the authenticated user is allowed to see this institution
-        foreach ($temp->owner() as $oneowner)
-            if ($oneowner['ID'] == $owner)
+        foreach ($temp->owner() as $oneowner) {
+            if ($oneowner['ID'] == $owner) {
                 return $temp;
-        echo input_validation_error(_("This IdP identifier is not accessible!"));
-        exit(1);
+            }
+        }
+        throw new Exception(input_validation_error("This IdP identifier is not accessible!"));
     }
     return $temp;
 }
 
-function valid_Profile($input, $idp_identifier = NULL) {
+function valid_Profile($input, $idpIdentifier = NULL) {
     if (!is_numeric($input)) {
-        echo input_validation_error(_("Value for profile is not an integer!"));
-        exit(1);
-    }
-    try {
-        $temp = new Profile($input);
-    } catch (Exception $fail) {
-        echo input_validation_error(_("This profile is not accessible!"));
-        exit(1);
+        throw new Exception(input_validation_error("Value for profile is not an integer!"));
     }
 
-    if ($idp_identifier !== NULL && $temp->institution != $idp_identifier) {
-        echo input_validation_error(_("This profile is not accessible!"));
-        exit(1);
+    $temp = new Profile($input); // constructor throws an exception if NX, game over
+
+    if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
+        throw new Exception(input_validation_error("The profile does not belong to the IdP!"));
     }
     return $temp;
 }
 
 function valid_Device($input) {
     $devicelist = Devices::listDevices();
-    if (!isset($devicelist[$input]))
-        echo input_validation_error(_("This device does not exist!"));
+    if (!isset($devicelist[$input])) {
+        throw new Exception (input_validation_error("This device does not exist!"));
+    }
     return $input;
 }
 
-function valid_string_db($input, $allow_whitspace = 0) {
+function valid_string_db($input, $allowWhitespace = 0) {
     // always chop out invalid characters, and surrounding whitespace
-    $retval = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
+    $retvalStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
     // if some funny person wants to inject markup tags, remove them
-    $retval = filter_var($retval, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
+    $retval = filter_var($retvalStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
-    if ($allow_whitspace === 0)
-        $retval = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
-    else // even if we allow whitespace, not pathological ones!
-        $retval = preg_replace('/(\0|\r|\x0b)/', '', $retval);
+    if ($allowWhitespace === 0) {
+        return preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
+    }
+    // even if we allow whitespace, not pathological ones!
+    return preg_replace('/(\0|\r|\x0b)/', '', $retval);
+}
 
-    return $retval;
+function valid_integer($input) {
+    if (is_numeric($input)) {
+        return $input;
+    }
+    return FALSE;
 }
 
 function valid_consortium_oi($input) {
     $shallow = valid_string_db($input);
-    if (strlen($shallow) != 6 && strlen($shallow) != 10)
+    if (strlen($shallow) != 6 && strlen($shallow) != 10) {
         return FALSE;
-    if (!preg_match("/^[a-fA-F0-9]+$/", $shallow))
+    }
+    if (!preg_match("/^[a-fA-F0-9]+$/", $shallow)) {
         return FALSE;
+    }
     return $shallow;
 }
 
@@ -136,8 +132,7 @@ function valid_Realm($input) {
 function valid_user($input) {
     $retval = $input;
     if ($input != "" && !ctype_print($input)) {
-        echo input_validation_error(_("The user identifier is not an ASCII string!"));
-        exit(1);
+        throw new Exception(input_validation_error("The user identifier is not an ASCII string!"));
     }
     return $retval;
 }
@@ -145,21 +140,18 @@ function valid_user($input) {
 function valid_token($input) {
     $retval = $input;
     if ($input != "" && preg_match('/[^0-9a-fA-F]/', $input) != 0) {
-        echo input_validation_error(_("Token is not a hexadecimal string!"));
-        exit(1);
+        throw new Exception(input_validation_error("Token is not a hexadecimal string!"));
     }
     return $retval;
 }
 
 function valid_coordinate($input) {
     if (!is_numeric($input)) {
-        echo input_validation_error(_("Coordinate is not a numeric value!"));
-        exit(1);
+        throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
     }
     // lat and lon are always in the range of [-180;+180]
     if ($input < -180 || $input > 180) {
-        echo input_validation_error(_("Coordinate is out of bounds. Which planet are you from?"));
-        exit(1);
+        throw new Exception(input_validation_error("Coordinate is out of bounds. Which planet are you from?"));
     }
     return $input;
 }
@@ -169,25 +161,22 @@ function valid_coord_serialized($input) {
         $tentative = unserialize($input);
         if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat']))
             return $input;
-    } else {
-        echo input_validation_error(_("Wrong coordinate encoding!"));
-        exit(1);
     }
+    throw new Exception(input_validation_error(_("Wrong coordinate encoding!")));
 }
 
 function valid_multilang($content) {
     if (!is_array($content) || !isset($content["lang"]) || !isset($content["content"])) {
-        echo input_validation_error(_("Invalid structure in multi-language attribute!"));
-        exit(1);
+        throw new Exception(input_validation_error("Invalid structure in multi-language attribute!"));
     }
+    return TRUE;
 }
 
 function valid_boolean($input) {
     if ($input != "on") {
-        echo input_validation_error(_("Unknown state of boolean option!"));
-        exit(1);
-    } else
-        return $input;
+        throw new Exception(input_validation_error("Unknown state of boolean option!"));
+    }
+    return $input;
 }
 
 function valid_DB_reference($input) {
@@ -220,5 +209,3 @@ function valid_host($input) {
     // if we get here, it's bogus
     return FALSE;
 }
-
-?>

@@ -126,8 +126,8 @@ abstract class DeviceConfig {
        // phpMD says the below is not needed. Wow.
        // $idp = new IdP($profile->institution);
        $olddomain = CAT::set_locale("core");
-       $this->support_email_substitute = sprintf(_("your local %s support"),Config::$CONSORTIUM['name']);
-       $this->support_url_substitute = sprintf(_("your local %s support page"),Config::$CONSORTIUM['name']);
+       DeviceConfig::$support_email_substitute = sprintf(_("your local %s support"),Config::$CONSORTIUM['name']);
+       DeviceConfig::$support_url_substitute = sprintf(_("your local %s support page"),Config::$CONSORTIUM['name']);
        CAT::set_locale($olddomain);
 
        if($this->signer && $this->options['sign'])
@@ -334,8 +334,9 @@ abstract class DeviceConfig {
     */
    private function getInstallerBasename() {
       $replace_pattern = '/[ ()\/\'"]+/';
-      debug(4,"getInstallerBasename1:".$this->attributes['general:instname'][0]."\n");
-      $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][0]));
+      $lang_pointer = Config::$LANGUAGES[$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
+      debug(4,"getInstallerBasename1:".$this->attributes['general:instname'][$lang_pointer]."\n");
+      $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
       debug(4,"getInstallerBasename2:$inst\n");
       $Inst_a = explode('_',$inst);
       if(count($Inst_a) > 2) {
@@ -345,8 +346,8 @@ abstract class DeviceConfig {
       }   
       $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
       if($this->attributes['internal:profile_count'][0] > 1) {
-         if(!empty($this->attributes['profile:name']) && ! empty($this->attributes['profile:name'][0])) {
-             $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][0]));
+         if(!empty($this->attributes['profile:name']) && ! empty($this->attributes['profile:name'][$lang_pointer])) {
+             $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
              $prof = preg_replace('/_+$/','',$prof);
              return $c_name. '-'. $this->getDeviceId() . $inst .'-'. $prof;
          }
@@ -489,6 +490,16 @@ abstract class DeviceConfig {
      return("download path");
   }
 
+  protected function determineOuterIdString() {
+      $outerId = 0;
+      if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
+            $outerId = "@" . $this->attributes['internal:realm'][0];
+            if (isset($this->attributes['internal:anon_local_value'])) {
+                $outerId = $this->attributes['internal:anon_local_value'][0] . $outerId;
+            }
+        }
+        return $outerId;
+  }
 /**
  * Array passing all options to the device module.
  *
@@ -593,4 +604,3 @@ abstract class DeviceConfig {
    */
   public static $installerBasename;
 }
-?>

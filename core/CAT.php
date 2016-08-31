@@ -91,25 +91,18 @@ class CAT {
         switch ($level) {
             case "ALL":
                 $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(inst_id) AS instcount FROM institution");
-                $dbresult = mysqli_fetch_object($idpcount);
-                return $dbresult->instcount;
+                break;
             case "VALIDPROFILE":
-                // during migration, run the calculations for sufficient_config if still needed
-                $needtreatment = DBConnection::exec(CAT::$DB_TYPE, "SELECT profile_id FROM profile WHERE sufficient_config IS NULL");
-                while ($a = mysqli_fetch_object($needtreatment)) {
-                    $profile = new Profile($a->profile_id);
-                    $profile->prepShowtime();
-                }
                 $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.sufficient_config = 1");
-                $dbresult = mysqli_fetch_object($idpcount);
-                return $dbresult->instcount;
+                break;
             case "PUBLICPROFILE":
                 $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.showtime = 1");
-                $dbresult = mysqli_fetch_object($idpcount);
-                return $dbresult->instcount;
+                break;
             default:
                 return -1;
         }
+        $dbresult = mysqli_fetch_object($idpcount);
+        return $dbresult->instcount;
     }
     
     /**
@@ -210,12 +203,12 @@ class CAT {
             while ($a = mysqli_fetch_object($federations)) {
                 $b = $a->country;
                 $F = new Federation($b);
-                $c = strtoupper($F->identifier);
-                $C[$c] = isset(Federation::$FederationList[$c]) ? Federation::$FederationList[$c] : $c;
+                $c = strtoupper($F->name);
+                $C[$c] = isset(Federation::$federationList[$c]) ? Federation::$federationList[$c] : $c;
             }
         } else {
             new Federation;
-            $C = Federation::$FederationList;
+            $C = Federation::$federationList;
         }
         asort($C, SORT_LOCALE_STRING);
         $this->set_locale($olddomain);
@@ -253,7 +246,7 @@ class CAT {
 
                 return TRUE;
             default:
-                exit(1);
+                throw new Exception("Unable to write to AUDIT file (requested data was $user, $category, $message!");
         }
     }
 
@@ -292,5 +285,3 @@ class CAT {
     public static $locale;
 
 }
-
-?>
