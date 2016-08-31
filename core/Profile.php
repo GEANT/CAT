@@ -75,7 +75,6 @@ class Profile extends EntityWithDBProperties {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    
     private function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
         foreach ($new as $attrib) {
             $ignore = "";
@@ -90,7 +89,7 @@ class Profile extends EntityWithDBProperties {
         }
         return $existing;
     }
-    
+
     public function __construct($profileId, $idpObject = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
@@ -132,11 +131,11 @@ class Profile extends EntityWithDBProperties {
         $this->eapLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("EAPMETHODS");
 
         // merge all attributes which are device or eap method specific
-        
+
         $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
-        
+
         // now fetch and add profile-level attributes if not already set on deeper level
-        
+
         $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
@@ -170,7 +169,7 @@ class Profile extends EntityWithDBProperties {
         }
 
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
-        
+
         // now, fetch and add IdP-wide attributes
 
         $tempIdPAttributes = $idp->getAttributes();
@@ -485,14 +484,13 @@ class Profile extends EntityWithDBProperties {
 
         if ($completeOnly == 0) {
             return $this->privEaptypes;
-        } else {
-            foreach ($this->privEaptypes as $type) {
-                if ($this->isEapTypeDefinitionComplete($type) === true) {
-                    $temparray[] = $type;
-                }
-            }
-            return($temparray);
         }
+        foreach ($this->privEaptypes as $type) {
+            if ($this->isEapTypeDefinitionComplete($type) === true) {
+                $temparray[] = $type;
+            }
+        }
+        return($temparray);
     }
 
     /**
@@ -649,7 +647,7 @@ class Profile extends EntityWithDBProperties {
         } else {
             $attr = $attrBefore;
         }
-        
+
         $temp1 = [];
         foreach ($attr as $b) {
             $name = $b['name'];
@@ -688,11 +686,11 @@ class Profile extends EntityWithDBProperties {
                     $out[$name][0] = (isset($nameCandidate[$this->langIndex])) ? $nameCandidate[$this->langIndex] : $nameCandidate['C'];
                 }
                 if (isset($nameCandidate['en'])) {
-                   $out[$name][1] = $nameCandidate['en'];
+                    $out[$name][1] = $nameCandidate['en'];
                 } elseif (isset($nameCandidate['C'])) {
-                   $out[$name][1] = $nameCandidate['C'];
+                    $out[$name][1] = $nameCandidate['C'];
                 } elseif (isset($out[$name][0])) {
-                   $out[$name][1] = $out[$name][0];
+                    $out[$name][1] = $out[$name][0];
                 }
             } else {
                 if (isset($temp[$name]['Method'])) {
@@ -790,13 +788,13 @@ class Profile extends EntityWithDBProperties {
      * @var string
      */
     private $langIndex;
-    
+
     /**
      * boolean value: should anonymous outer IDs be used or not?
      * @var boolean
      */
     private $useAnonOuter;
-    
+
     /**
      * DB identifier of the parent institution of this profile
      * @var int
@@ -814,4 +812,5 @@ class Profile extends EntityWithDBProperties {
      * @var string
      */
     public $realm;
+
 }
