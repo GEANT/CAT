@@ -11,6 +11,30 @@ require_once("Helper.php");
 require_once("CAT.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
+function findResourceUrl($resourcetype) {
+    switch($resourcetype) {
+        case "CSS":
+            $path = "/resources/css/cat.css.php";
+        case "LOGO":
+            $path = "/resources/images/consortium_logo.png";
+        default:
+            throw new Exception("findResourceUrl: unknown type of resource requested");
+    }
+    $url = "//".valid_host($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
+    if ($url === FALSE) {
+        throw new Exception("We don't know our own hostname?!");
+    }
+    // we need to construct the right path to the file; we are either
+    // in the admin area or on the main index.php ...
+    if (strpos($_SERVER['PHP_SELF'], "admin/") !== FALSE) {
+        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . $path;
+    }
+    if (strpos($_SERVER['PHP_SELF'], "diag/") !== FALSE) {
+        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/")) . $path;
+    }
+    return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $path;
+}
+
 /**
  * This starts HTML in a default way. Most pages would call this.
  * Exception: if you need to add extra code in <head> or modify the <body> tag
@@ -42,21 +66,7 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
           <head lang='". $ourlocale ."'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
-    $cssUrl = valid_host($_SERVER['HTTP_HOST']);
-    if ($cssUrl === FALSE) {
-        throw new Exception("We don't know our own hostname?!");
-    }
-    // we need to construct the right path to the consortium logo; we are either
-    // in the admin area or on the main index.php ...
-    if (strpos($_SERVER['PHP_SELF'], "admin/") !== FALSE) {
-        $cssUrl .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . "/resources/css/cat.css.php";
-    } else if (strpos($_SERVER['PHP_SELF'], "diag/") !== FALSE) {
-        $cssUrl .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/")) . "/resources/css/cat.css.php";
-    } else {
-        $cssUrl .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/css/cat.css.php";
-    }
-
-    $cssUrl = "//" . $cssUrl; // omitting http or https means "on same protocol"
+    $cssUrl = findResourceUrl("CSS");
     
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -91,19 +101,7 @@ function headerDiv($cap1, $language) {
                 </form>
             </div><!--langselection-->
             <?php
-            $logoUrl = valid_host($_SERVER['HTTP_HOST']);
-            if ($logoUrl === FALSE) {
-                throw new Exception("We don't know our own hostname?!");
-            }
-            // we need to construct the right path to the consortium logo; we are either
-            // in the admin area or on the main index.php ...
-            if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE) {
-                $logoUrl .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/images/consortium_logo.png";
-            }
-            else {
-                $logoUrl .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . "/resources/images/consortium_logo.png";
-            }
-            $logoUrl = "//" . $logoUrl;
+            $logoUrl = findResourceUrl("LOGO");
             ?>
             <div class='consortium_logo'>
                 <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
