@@ -32,7 +32,7 @@ define("BUTTON_SANITY_TESTS", 8);
 $global_location_count = 0;
 
 function display_name($input) {
-    $DisplayNames = [_("Support: Web") => "support:url",
+    $displayNames = [_("Support: Web") => "support:url",
         _("Support: EAP Types") => "support:eap_types",
         _("Support: Phone") => "support:phone",
         _("Support: E-Mail") => "support:email",
@@ -76,20 +76,20 @@ function display_name($input) {
     ];
 
     if (count(Config::$CONSORTIUM['ssid']) > 0) {
-        $DisplayNames[_("Additional SSID")] = "media:SSID";
-        $DisplayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
+        $displayNames[_("Additional SSID")] = "media:SSID";
+        $displayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     } else {
-        $DisplayNames[_("SSID")] = "media:SSID";
-        $DisplayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
+        $displayNames[_("SSID")] = "media:SSID";
+        $displayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     }
 
     if (!empty(Config::$CONSORTIUM['interworking-consortium-oi']) && count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0) {
-        $DisplayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
+        $displayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
     } else {
-        $DisplayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
+        $displayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
     }
 
-    $find = array_search($input, $DisplayNames);
+    $find = array_search($input, $displayNames);
 
     if ($find === FALSE) { // sending back the original if we didn't find a better name
         $find = $input;
@@ -113,7 +113,7 @@ function tooltip($input) {
 
 function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
 
-    $UI_messages = [
+    $uiMessages = [
         L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
         L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
         L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
@@ -123,8 +123,8 @@ function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
     $retval = "";
     if (!$omittabletags)
         $retval .= "<tr><td>";
-    $caption = $caption !== 0 ? $caption : $UI_messages[$level]['text'];
-    $retval .= "<img class='icon' src='" . $UI_messages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
+    $caption = $caption !== 0 ? $caption : $uiMessages[$level]['text'];
+    $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
     if (!$omittabletags)
         $retval .= "</td><td>";
     if ($text !== 0)
@@ -205,19 +205,19 @@ function getBlobFromDB($ref, $checkpublic) {
         }
         $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
 
-        $owners_condensed = [];
+        $ownersCondensed = [];
 
-        if ($owners !== FALSE) { // see if we're authenticated and owners of the data
-            foreach ($owners as $oneowner) {
-                $owners_condensed[] = $oneowner['ID'];
-            }
+        if ($owners !== FALSE) { // restricted datam see if we're authenticated and owners of the data
             if (!isAuthenticated()) {
                 return FALSE; // admin-only, but we are not an admin
-            } elseif (array_search($_SESSION['user'], $owners_condensed) === FALSE) {
-                return FALSE; // wrong guy
-            } else {
-                // carry on and get the data
             }
+            foreach ($owners as $oneowner) {
+                $ownersCondensed[] = $oneowner['ID'];
+            }
+            if (array_search($_SESSION['user'], $ownersCondensed) === FALSE) {
+                return FALSE; // wrong guy
+            }
+            // carry on and get the data
         }
     }
 
@@ -238,13 +238,13 @@ function display_size($number) {
     return $number . " B";
 }
 
-function previewCAinHTML($ca_reference) {
-    $found = preg_match("/^ROWID-.*/", $ca_reference);
+function previewCAinHTML($cAReference) {
+    $found = preg_match("/^ROWID-.*/", $cAReference);
     if (!$found) {
         return "<div>" . _("Error, ROWID expected.") . "</div>";
     }
 
-    $ca_blob = base64_decode(getBlobFromDB($ca_reference, FALSE));
+    $ca_blob = base64_decode(getBlobFromDB($cAReference, FALSE));
 
     $func = new X509;
     $details = $func->processCertificate($ca_blob);
@@ -261,12 +261,12 @@ function previewCAinHTML($ca_reference) {
     return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
 }
 
-function previewImageinHTML($image_reference) {
-    $found = preg_match("/^ROWID-.*/", $image_reference);
+function previewImageinHTML($imageReference) {
+    $found = preg_match("/^ROWID-.*/", $imageReference);
     if (!$found) {
         return "<div>" . _("Error, ROWID expected.") . "</div>";
     }
-    return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $image_reference . "' alt='" . _("Preview of logo file") . "'/>";
+    return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
 }
 
 function previewInfoFileinHTML($fileReference) {
@@ -283,7 +283,7 @@ function previewInfoFileinHTML($fileReference) {
 
 function infoblock($optionlist, $class, $level) {
 // echo "<pre>".print_r($optionlist)."</pre>";
-    $google_markers = [];
+    $googleMarkers = [];
     $retval = "";
     $optioninfo = Options::instance();
 
@@ -304,11 +304,11 @@ function infoblock($optionlist, $class, $level) {
                 }
                 $content = $taggedarray["content"];
             }
-            
+
             switch ($type["type"]) {
                 case "coordinates":
                     $coords = unserialize($option['value']);
-                    $google_markers[] = $coords;
+                    $googleMarkers[] = $coords;
                     break;
                 case "file":
                     $retval .= "<tr><td>" . display_name($option['name']) . "</td><td>$language</td><td>";
@@ -334,17 +334,15 @@ function infoblock($optionlist, $class, $level) {
             }
         }
     }
-    if (count($google_markers)) {
+    if (count($googleMarkers)) {
         $marker = '<markers>';
-        $location_count = 0;
-        foreach ($google_markers as $g) {
-            $location_count++;
-            $marker .= '<marker name="' . $location_count . '" lat="' . $g['lat'] . '" lng="' . $g['lon'] . '" />';
+        $locationCount = 0;
+        foreach ($googleMarkers as $g) {
+            $locationCount++;
+            $marker .= '<marker name="' . $locationCount . '" lat="' . $g['lat'] . '" lng="' . $g['lon'] . '" />';
         }
         $marker .= '</markers>';
         $retval .= '<tr><td><script>markers=\'' . $marker . '\';</script></td><td></td><td></td></tr>';
     }
-
-
     return $retval;
 }
