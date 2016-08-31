@@ -90,6 +90,20 @@ class Profile extends EntityWithDBProperties {
         return $existing;
     }
 
+    private function fetchEAPMethodsFromDB() {
+        $eapMethod = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
+                                                        FROM supported_eap supp 
+                                                        WHERE supp.profile_id = $this->identifier 
+                                                        ORDER by preference");
+        $eapTypeArray = [];
+        while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
+            $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
+            $eapTypeArray[] = $eaptype;
+        }
+        debug(4, "Looks like this profile supports the following EAP types: ");
+        debug(4, $eapTypeArray);
+        return $eapTypeArray;
+    }
     public function __construct($profileId, $idpObject = 0) {
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
@@ -98,7 +112,8 @@ class Profile extends EntityWithDBProperties {
         $this->entityIdColumn = "profile_id";
         $this->identifier = $profileId;
         $this->attributes = [];
-
+        $this->langIndex = CAT::get_lang();
+        
         $profile = DBConnection::exec($this->databaseType, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
@@ -115,49 +130,24 @@ class Profile extends EntityWithDBProperties {
         }
 
         $this->realm = $profileQuery->realm;
-        $this->useAnonOuter = $profileQuery->use_anon_outer;
-        $this->langIndex = CAT::get_lang();
+        
         $this->instName = $idp->name;
 
-        $this->checkuser_outer = $profileQuery->checkuser_outer;
-        $this->checkuser_value = $profileQuery->checkuser_value;
-        $this->verify = $profileQuery->verify;
-        $this->hint = $profileQuery->hint;
-
-        // fetch all atributes from this profile from DB
-
-        $this->deviceLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("DEVICES");
-
-        $this->eapLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("EAPMETHODS");
-
-        // merge all attributes which are device or eap method specific
-
-        $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
-
-        // now fetch and add profile-level attributes if not already set on deeper level
-
-        $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
-                                            FROM $this->entityOptionTable
-                                            WHERE $this->entityIdColumn = $this->identifier  
-                                            AND device_id = NULL AND eap_method_id = 0
-                                            ORDER BY option_name", "Profile");
-
-        // plus internal attributes
-        // they share many attribute properties, so condense the generation
-
         $localValueIfAny = (preg_match('/@/', $this->realm) ? substr($this->realm, 0, strpos($this->realm, '@')) : "anonymous" );
-
+        
         $internalAttributes = [
             "internal:profile_count" => $idp->profileCount(),
-            "internal:checkuser_outer" => $this->checkuser_outer,
-            "internal:checkuser_value" => $this->checkuser_value,
-            "internal:verify_userinput_suffix" => $this->verify,
-            "internal:hint_userinput_suffix" => $this->hint,
+            "internal:checkuser_outer" => $profileQuery->checkuser_outer,
+            "internal:checkuser_value" => $profileQuery->checkuser_value,
+            "internal:verify_userinput_suffix" => $profileQuery->verify,
+            "internal:hint_userinput_suffix" => $profileQuery->hint,
             "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
-            "internal:use_anon_outer" => $this->useAnonOuter,
+            "internal:use_anon_outer" => $profileQuery->use_anon_outer,
             "internal:anon_local_value" => $localValueIfAny,
         ];
 
+        // internal attributes share many attribute properties, so condense the generation
+        
         foreach ($internalAttributes as $attName => $attValue) {
             $tempArrayProfLevel[] = ["name" => $attName,
                 "value" => $attValue,
@@ -167,10 +157,27 @@ class Profile extends EntityWithDBProperties {
                 "device" => NULL,
                 "eapmethod" => 0];
         }
+        
+        // fetch the EAP type and device-specific attributes in this profile from DB
+
+        $this->deviceLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("DEVICES");
+        $this->eapLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("EAPMETHODS");
+
+        // merge all attributes which are device or eap method specific
+
+        $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
+
+        // now fetch and merge profile-level attributes if not already set on deeper level
+
+        $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = $this->identifier  
+                                            AND device_id = NULL AND eap_method_id = 0
+                                            ORDER BY option_name", "Profile");
 
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
-        // now, fetch and add IdP-wide attributes
+        // now, fetch and merge IdP-wide attributes
 
         $tempIdPAttributes = $idp->getAttributes();
         $idpoptions = [];
@@ -192,18 +199,7 @@ class Profile extends EntityWithDBProperties {
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
 
-        $eapMethod = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
-                                                        FROM supported_eap supp 
-                                                        WHERE supp.profile_id = $this->identifier 
-                                                        ORDER by preference");
-        $eapTypeArray = [];
-        while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
-            $eapTypeArray[] = $eaptype;
-        }
-        debug(4, "Looks like this profile supports the following EAP types: ");
-        debug(4, $eapTypeArray);
-        $this->privEaptypes = $eapTypeArray;
+        $this->privEaptypes = $this->fetchEAPMethodsFromDB();
 
         debug(3, "--- END Constructing new Profile object ... ---\n");
     }
@@ -790,12 +786,6 @@ class Profile extends EntityWithDBProperties {
      * @var string
      */
     private $langIndex;
-
-    /**
-     * boolean value: should anonymous outer IDs be used or not?
-     * @var boolean
-     */
-    private $useAnonOuter;
 
     /**
      * DB identifier of the parent institution of this profile
