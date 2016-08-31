@@ -30,7 +30,7 @@ require_once('mobileconfig_superclass.php');
  *
  * @package Developer
  */
-class Device_mobileconfig_os_x extends mobileconfig_superclass {
+class Device_mobileconfig_os_x extends mobileconfigSuperclass {
 
     /**
      * this array holds the list of EAP methods supported by this device

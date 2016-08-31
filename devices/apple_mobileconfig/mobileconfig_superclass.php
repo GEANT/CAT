@@ -31,7 +31,7 @@ require_once('Helper.php');
  *
  * @package Developer
  */
-abstract class mobileconfig_superclass extends DeviceConfig {
+abstract class mobileconfigSuperclass extends DeviceConfig {
 
     private $massagedInst;
     private $massagedProfile;
@@ -126,13 +126,13 @@ abstract class mobileconfig_superclass extends DeviceConfig {
       <key>PayloadDisplayName</key>
          <string>" . Config::$CONSORTIUM['name'] . "</string>
       <key>PayloadIdentifier</key>
-         <string>" . mobileconfig_superclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
+         <string>" . mobileconfigSuperclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
       <key>PayloadOrganization</key>
          <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['general:instname'][0]), ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . uuid('', mobileconfig_superclass::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
+         <string>" . uuid('', mobileconfigSuperclass::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         if (isset($this->attributes['support:info_file'])) {
@@ -195,7 +195,32 @@ abstract class mobileconfig_superclass extends DeviceConfig {
         return $retval;
     }
 
-    private static $serial;
+    private function passPointBlock ($consortiumOi) {
+        $retval = "
+               <key>IsHotspot</key>
+               <true/>
+               <key>ServiceProviderRoamingEnabled</key>
+               <true/>
+               <key>DisplayedOperatorName</key>
+               <string>" . Config::$CONSORTIUM['name'] . "</string>";
+            // if we don't know the realm, omit the entire DomainName key
+            if (isset($this->attributes['internal:realm'])) {
+                $retval .= "<key>DomainName</key>
+               <string>";
+                $retval .= $this->attributes['internal:realm'][0];
+                $retval .= "</string>
+                ";
+            }
+            $retval .= "                <key>RoamingConsortiumOIs</key>
+                <array>";
+            foreach ($consortiumOi as $oiValue) {
+                $retval .= "<string>$oiValue</string>";
+            }
+            $retval .= "</array>";
+            return $retval;
+    }
+    
+    private $serial;
 
     private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $realm = 0) {
         $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
@@ -271,7 +296,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                <key>PayloadDisplayName</key>
                   <string>$payloadShortName</string>
                <key>PayloadIdentifier</key>
-                  <string>" . mobileconfig_superclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.$payloadIdentifier</string>
+                  <string>" . mobileconfigSuperclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.$payloadIdentifier</string>
                <key>PayloadOrganization</key>
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
@@ -299,27 +324,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                   <string>$escapedSSID</string>";
         }
         if (count($consortiumOi) > 0) {
-            $retval .= "
-               <key>IsHotspot</key>
-               <true/>
-               <key>ServiceProviderRoamingEnabled</key>
-               <true/>
-               <key>DisplayedOperatorName</key>
-               <string>" . Config::$CONSORTIUM['name'] . "</string>";
-            // if we don't know the realm, omit the entire DomainName key
-            if (isset($this->attributes['internal:realm'])) {
-                $retval .= "<key>DomainName</key>
-               <string>";
-                $retval .= $this->attributes['internal:realm'][0];
-                $retval .= "</string>
-                ";
-            }
-            $retval .= "                <key>RoamingConsortiumOIs</key>
-                <array>";
-            foreach ($consortiumOi as $oiValue) {
-                $retval .= "<string>$oiValue</string>";
-            }
-            $retval .= "</array>";
+            $retval .= $this->passPointBlock($consortiumOi);
         }
         $retval .= "</dict>";
         $this->serial = $this->serial + 1;
@@ -342,7 +347,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
 	<key>PayloadDisplayName</key>
 	<string>" . _("Disabled WiFi network") . "</string>
 	<key>PayloadIdentifier</key>
-	<string>" . mobileconfig_superclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.wifi.disabled.$sequence</string>
+	<string>" . mobileconfigSuperclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang.wifi.disabled.$sequence</string>
 	<key>PayloadType</key>
 	<string>com.apple.wifi.managed</string>
 	<key>PayloadUUID</key>
@@ -363,8 +368,8 @@ abstract class mobileconfig_superclass extends DeviceConfig {
     private function allNetworkBlocks($sSIDList, $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, $includeWired, $realm = 0) {
         $retval = "";
         $this->serial = 0;
-        foreach (array_keys($sSIDList) as $SSID) {
-            $retval .= $this->networkBlock($SSID, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
+        foreach (array_keys($sSIDList) as $ssid) {
+            $retval .= $this->networkBlock($ssid, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
         }
         if ($includeWired) {
             $retval .= $this->networkBlock("IRRELEVANT", NULL, $serverNameList, $cAUUIDList, $eapType, TRUE, $realm);
@@ -408,7 +413,7 @@ abstract class mobileconfig_superclass extends DeviceConfig {
                <key>PayloadDisplayName</key>
                <string>" . _("Identity Provider's CA") . "</string>
                <key>PayloadIdentifier</key>
-               <string>" . mobileconfig_superclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$serial</string>
+               <string>" . mobileconfigSuperclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.credential.$serial</string>
                <key>PayloadOrganization</key>
                <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
