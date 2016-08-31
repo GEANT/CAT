@@ -425,11 +425,13 @@ class Profile extends EntityWithDBProperties {
     }
 
     /**
-     * Removes all supported EAP methods
+     * overrides the parent class definition: in Profile, we additionally need 
+     * to delete the supported EAP types list in addition to just flushing the
+     * normal DB-based attributes
      */
-    public function flushSupportedEapMethods() {
+    public function beginFlushAttributes() {
         DBConnection::exec($this->databaseType, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
-        $this->updateFreshness();
+        return parent::beginFlushAttributes();
     }
 
     /** Toggle anonymous outer ID support.

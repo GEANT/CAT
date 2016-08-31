@@ -107,7 +107,6 @@ if (!$profile instanceof Profile) {
     exit(1);
 }
 
-$profile->flushSupportedEapMethods();
 ?>
 <h1><?php echo _("Submitted attributes for this profile"); ?></h1>
 <table>
@@ -161,8 +160,7 @@ $profile->flushSupportedEapMethods();
         $profile->setInputVerificationPreference(false,false);
     }
 
-
-    $remaining_attribs = $profile->beginflushAttributes(0);
+    $remaining_attribs = $profile->beginflushAttributes();
     $killlist = processSubmittedFields($profile, $remaining_attribs);
     $profile->commitFlushAttributes($killlist);
 
