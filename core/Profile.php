@@ -99,12 +99,10 @@ class Profile extends EntityWithDBProperties {
             $this->institution = $idp->name;
         }
 
-        $optioninstance = Options::instance();
-
         $this->realm = $profileQuery->realm;
         $this->useAnonOuter = $profileQuery->use_anon_outer;
         $this->langIndex = CAT::get_lang();
-        $this->inst_name = $idp->name;
+        $this->instName = $idp->name;
 
         $this->checkuser_outer = $profileQuery->checkuser_outer;
         $this->checkuser_value = $profileQuery->checkuser_value;
@@ -117,7 +115,7 @@ class Profile extends EntityWithDBProperties {
 
         $this->eapLevelAttributes = $this->fetchDeviceOrEAPLevelAttributes("EAPMETHODS");
 
-        $tempArrayProfileLevelOnly = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        $tempArrayProfileLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
                                             AND device_id = NULL AND eap_method_id = 0
@@ -140,7 +138,7 @@ class Profile extends EntityWithDBProperties {
         ];
 
         foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfileLevelOnly[] = ["name" => $attName,
+            $tempArrayProfileLevel[] = ["name" => $attName,
                 "value" => $attValue,
                 "level" => "Profile",
                 "row" => 0,
@@ -151,10 +149,12 @@ class Profile extends EntityWithDBProperties {
 
         // now, fetch IdP-wide attributes
 
-        $idpoptions = $idp->getAttributes();
-
-        foreach ($idpoptions as $theAttr) {
-            $temparray[] = [
+        $tempIdPAttributes = $idp->getAttributes();
+        $idpoptions = [];
+        // add "device" and "eapmethod" keys just to remain in sync with those
+        // attributes that came from the Profile level
+        foreach ($tempIdPAttributes as $theAttr) {
+            $idpoptions[] = [
                 "name" => $theAttr["name"],
                 "value" => $theAttr["value"],
                 "level" => $theAttr["level"],
@@ -171,7 +171,7 @@ class Profile extends EntityWithDBProperties {
 
         // now add profile-level attributes if not already set on deeper level
 
-        foreach ($tempArrayProfileLevelOnly as $attrib) {
+        foreach ($tempArrayProfileLevel as $attrib) {
             $ignore = "";
             foreach ($this->attributes as $approvedAttrib) {
                 if ($attrib["name"] == $approvedAttrib["name"] && $approvedAttrib["level"] != "Profile") {
@@ -649,7 +649,7 @@ class Profile extends EntityWithDBProperties {
         if ($eap != 0) { // filter out attributes pertaining only to a certain EAP type
             foreach ($attrBefore as $index => $attrib) {
                 if ($attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
-                    $attr[] = $attrib;
+                    $attr[$index] = $attrib;
                 }
             }
         } else {
@@ -674,29 +674,29 @@ class Profile extends EntityWithDBProperties {
         }
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
-                $S = [];
+                $nameCandidate = [];
                 if (isset($temp[$name]['Profile'])) {
-                    foreach ($temp[$name]['Profile'] as $z) {
-                        foreach ($z as $l => $w) {
-                            $S[$l] = $w;
+                    foreach ($temp[$name]['Profile'] as $oneProfileName) {
+                        foreach ($oneProfileName as $language => $nameInLanguage) {
+                            $nameCandidate[$language] = $nameInLanguage;
                         }
                     }
                 }
-                if (!$S && isset($temp[$name]['IdP'])) {
-                    foreach ($temp[$name]['IdP'] as $z) {
-                        foreach ($z as $l => $w) {
-                            $S[$l] = $w;
+                if (!$nameCandidate && isset($temp[$name]['IdP'])) {
+                    foreach ($temp[$name]['IdP'] as $oneIdPName) {
+                        foreach ($oneIdPName as $language => $nameInLanguage) {
+                            $nameCandidate[$language] = $nameInLanguage;
                         }
                     }
                 }
-                $out[$name]['langs'] = $S;
-                if (isset($S[$this->langIndex]) || isset($S['C'])) {
-                    $out[$name][0] = (isset($S[$this->langIndex])) ? $S[$this->langIndex] : $S['C'];
+                $out[$name]['langs'] = $nameCandidate;
+                if (isset($nameCandidate[$this->langIndex]) || isset($nameCandidate['C'])) {
+                    $out[$name][0] = (isset($nameCandidate[$this->langIndex])) ? $nameCandidate[$this->langIndex] : $nameCandidate['C'];
                 }
-                if (isset($S['en'])) {
-                   $out[$name][1] = $S['en'];
-                } elseif (isset($S['C'])) {
-                   $out[$name][1] = $S['C'];
+                if (isset($nameCandidate['en'])) {
+                   $out[$name][1] = $nameCandidate['en'];
+                } elseif (isset($nameCandidate['C'])) {
+                   $out[$name][1] = $nameCandidate['C'];
                 } elseif (isset($out[$name][0])) {
                    $out[$name][1] = $out[$name][0];
                 }
@@ -811,7 +811,7 @@ class Profile extends EntityWithDBProperties {
      * name of the parent institution of this profile in the current language
      * @var string
      */
-    public $inst_name;
+    public $instName;
 
     /**
      * realm of this profile (empty string if unset)

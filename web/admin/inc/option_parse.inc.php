@@ -145,7 +145,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
     // TODO brave new PHP7 world would do instead:
     // $optionarray = $_POST['option'] ?? [];
     // $valuearray = $_POST['value'] ?? [];
-    // $filesarray = $_FILES['value']['tmp_name] ?? [];
+    // $filesarray = $_FILES['value']['tmp_name'] ?? [];
     // $iterator = array_merge($optionarray, $valuearray, $filesarray);
 
     // following is a helper array to keep track of multilang options that were set in a specific language

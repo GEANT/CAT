@@ -343,9 +343,9 @@ private function GetRootURL() {
         usort($profiles,"profile_sort");
      foreach ($profiles as $P) {
        if($this->version == 1)
-          $return_array[] = ['id'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l]; 
+          $return_array[] = ['id'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->instName,'logo'=>$l]; 
        else
-          $return_array[] = ['profile'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->inst_name,'logo'=>$l]; 
+          $return_array[] = ['profile'=>$P->identifier,'display'=>$P->name, 'idp_name'=>$P->instName,'logo'=>$l]; 
      }
      echo $this->return_json($return_array);
   }
