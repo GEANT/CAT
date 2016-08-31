@@ -35,9 +35,9 @@ require_once("inc/common.inc.php");
 //require_once("DBConnection.php");
 require_once("SanityTests.php");
 
-function print_test_results($t) {
+function print_test_results($test) {
    $out = '';
-   switch($t->test_result['global']) {
+   switch($test->test_result['global']) {
        case L_OK:
          $message = "Your configuration appears to be fine.";
          break;
@@ -51,42 +51,14 @@ function print_test_results($t) {
          $message = "Your configuration appears to be fine.";
          break;
    }
-   $out .= UI_message($t->test_result['global'],"<br><strong>Test Summary</strong><br>".$message."<br>See below for details<br><hr>");
-   foreach ($t->out as $test => $test_val)  {
-   foreach ($test_val as $o)  {
+   $out .= UI_message($test->test_result['global'],"<br><strong>Test Summary</strong><br>".$message."<br>See below for details<br><hr>");
+   foreach ($test->out as $testValue)  {
+   foreach ($testValue as $o)  {
        $out .= UI_message($o['level'],$o['message']);
    }
    }
    return($out);
 }
-
-function return_test_results($t) {
-   $out = '';
-   switch($t->test_result['global']) {
-       case L_OK:
-         $message = "Your configuration appears to be fine.";
-         break;
-       case L_WARN:
-         $message = "There were some warnings, but your configuration should work.";
-         break;
-       case L_ERROR:
-         $message = "Your configuration appears to be broken, please fix the errors.";
-         break;
-       case L_NOTICE:
-         $message = "Your configuration appears to be fine.";
-         break;
-   }
-   $out .= UI_message($t->test_result['global'],"<br><strong>Test Summary</strong><br>".$message."<br>See below for details<br><hr>");
-   foreach ($t->out as $test => $test_val)  {
-   foreach ($test_val as $o)  {
-       $out .= UI_message($o['level'],$o['message']);
-   }
-   }
-   return($out);
-}
-
-
-
 
 if (!in_array("I do not care about security!", Config::$SUPERADMINS)) {
     require_once("inc/auth.inc.php");
