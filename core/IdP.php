@@ -75,13 +75,13 @@ class IdP extends EntityWithDBProperties {
 
         $this->federation = $instQuery->country;
         $this->externalDbSyncstate = $instQuery->external_db_syncstate;
-        
+
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
                                             ORDER BY option_name", "IdP");
-        
+
         $this->attributes[] = ["name" => "internal:country",
             "value" => $this->federation,
             "level" => "IdP",
@@ -216,7 +216,7 @@ class IdP extends EntityWithDBProperties {
         $profiles = $this->listProfiles();
 
         if (count($profiles) > 0) {
-            die("This IdP shouldn't have any profiles any more!");
+            throw new Exception("This IdP shouldn't have any profiles any more!");
         }
 
         DBConnection::exec($this->databaseType, "DELETE FROM ownership WHERE institution_id = $this->identifier");
@@ -303,28 +303,14 @@ Best regards,
      */
     public function getExternalDBId() {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $id = DBConnection::exec($this->databaseType, "SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
-            if (mysqli_num_rows($id) == 0) {
+            $idQuery = DBConnection::exec($this->databaseType, "SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
-            } else {
-                $externalIdQuery = mysqli_fetch_object($id);
-                return $externalIdQuery->external_db_id;
             }
+            $externalIdQuery = mysqli_fetch_object($idQuery);
+            return $externalIdQuery->external_db_id;
         }
         return FALSE;
-    }
-
-    /**
-     * Fetches information from the external database about this IdP
-     * 
-     * @return array details about that institution. Array may be empty if entity is not synced
-     */
-    public function getExternalDBEntityDetails() {
-        $externalId = $this->getExternalDBId();
-        if ($externalId !== FALSE) {
-            return Federation::getExternalDBEntityDetails($externalId);
-        }
-        return [];
     }
 
     public function setExternalDBId($identifier) {
@@ -337,4 +323,5 @@ Best regards,
             }
         }
     }
+
 }
