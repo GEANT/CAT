@@ -12,7 +12,7 @@ require_once("CAT.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
 function findResourceUrl($resourcetype) {
-    switch($resourcetype) {
+    switch ($resourcetype) {
         case "CSS":
             $path = "/resources/css/cat.css.php";
         case "LOGO":
@@ -20,7 +20,7 @@ function findResourceUrl($resourcetype) {
         default:
             throw new Exception("findResourceUrl: unknown type of resource requested");
     }
-    $url = "//".valid_host($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
+    $url = "//" . valid_host($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
     if ($url === FALSE) {
         throw new Exception("We don't know our own hostname?!");
     }
@@ -62,12 +62,12 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
     $ourlocale = CAT::get_lang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
-          <html xmlns='http://www.w3.org/1999/xhtml' lang='". $ourlocale ."'>
-          <head lang='". $ourlocale ."'>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
+          <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
     $cssUrl = findResourceUrl("CSS");
-    
+
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
 
@@ -104,11 +104,35 @@ function headerDiv($cap1, $language) {
             $logoUrl = findResourceUrl("LOGO");
             ?>
             <div class='consortium_logo'>
-                <img id='test_locate' src='<?php echo $logoUrl;?>' alt='Consortium Logo'>
+                <img id='test_locate' src='<?php echo $logoUrl; ?>' alt='Consortium Logo'>
             </div> <!-- consortium_logo -->
 
         </div><!--header_toprow-->
     </div> <!-- header -->
+    <?php
+}
+
+function sidebar($advancedControls) {
+    ?>
+    <div class='sidebar'><p>
+            <?php
+            if ($advancedControls) {
+                echo "<strong>" . _("You are:") . "</strong> "
+                . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
+              <br/>
+              <br/>
+              <a href='overview_user.php'>" . _("Go to your Profile page") . "</a> 
+              <a href='inc/logout.php'>" . _("Logout") . "</a> ";
+            }
+            $startPageUrl = "../";
+            if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE) {
+                $startPageUrl = dirname($_SERVER['SCRIPT_NAME']) . "/";
+            }
+
+            echo "<a href='" . $startPageUrl . "'>" . _("Start page") . "</a>";
+            ?>
+        </p>
+    </div> <!-- sidebar -->
     <?php
 }
 
@@ -117,41 +141,41 @@ function productheader($area, $language) {
     // highlighting to work
     echo "<div class='maincontent'>";
 
-        switch ($area) {
-            case "ADMIN-IDP":
-                $cap1 = Config::$APPEARANCE['productname_long'];
-                $cap2 = _("Administrator Interface - Identity Provider");
-                $advancedControls = TRUE;
-                break;
-            case "ADMIN":
-                $cap1 = Config::$APPEARANCE['productname_long'];
-                $cap2 = _("Administrator Interface");
-                $advancedControls = TRUE;
-                break;
-            case "USERMGMT":
-                $cap1 = Config::$APPEARANCE['productname_long'];
-                $cap2 = _("Management of User Details");
-                $advancedControls = TRUE;
-                break;
-            case "FEDERATION":
-                $cap1 = Config::$APPEARANCE['productname_long'];
-                $cap2 = _("Administrator Interface - Federation Management");
-                $advancedControls = TRUE;
-                break;
-            case "USER":
-                $cap1 = sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']);
-                $cap2 = Config::$APPEARANCE['productname_long'];
-                $advancedControls = FALSE;
-                break;
-            case "SUPERADMIN":
-                $cap1 = Config::$APPEARANCE['productname_long'];
-                $cap2 = _("CIC");
-                $advancedControls = TRUE;
-                break;
-            default:
-                $cap1 = Config::$APPEARANCE['productname_long'];
-                $cap2 = "It is an error if you ever see this string.";
-        }
+    switch ($area) {
+        case "ADMIN-IDP":
+            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap2 = _("Administrator Interface - Identity Provider");
+            $advancedControls = TRUE;
+            break;
+        case "ADMIN":
+            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap2 = _("Administrator Interface");
+            $advancedControls = TRUE;
+            break;
+        case "USERMGMT":
+            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap2 = _("Management of User Details");
+            $advancedControls = TRUE;
+            break;
+        case "FEDERATION":
+            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap2 = _("Administrator Interface - Federation Management");
+            $advancedControls = TRUE;
+            break;
+        case "USER":
+            $cap1 = sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']);
+            $cap2 = Config::$APPEARANCE['productname_long'];
+            $advancedControls = FALSE;
+            break;
+        case "SUPERADMIN":
+            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap2 = _("CIC");
+            $advancedControls = TRUE;
+            break;
+        default:
+            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap2 = "It is an error if you ever see this string.";
+    }
 
 
     echo headerDiv($cap1, $language);
@@ -169,24 +193,9 @@ function productheader($area, $language) {
               <p class='MOTD'>" . Config::$APPEARANCE['MOTD'] . "</p>
               </div><!--header_MOTD-->";
         }
+        echo sidebar($advancedControls);
         ?>
-        <div class='sidebar'><p>
-                <?php
-                if ($advancedControls) {
-                    echo "<strong>" . _("You are:") . "</strong> "
-                    . (isset($_SESSION['name']) ? $_SESSION['name'] : _("Unnamed User")) . "
-              <br/>
-              <br/>
-              <a href='overview_user.php'>" . _("Go to your Profile page") . "</a> 
-              <a href='inc/logout.php'>" . _("Logout") . "</a> ";
-                }
-                if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE)
-                    echo "<a href='" . dirname($_SERVER['SCRIPT_NAME']) . "/'>" . _("Start page") . "</a>";
-                else
-                    echo "<a href='../'>" . _("Start page") . "</a>";
-                ?>
-            </p>
-        </div> <!-- sidebar -->
+
     </div><!--secondrow-->
     <?php
 }
