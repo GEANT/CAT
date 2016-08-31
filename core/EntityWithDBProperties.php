@@ -84,22 +84,6 @@ class EntityWithDBProperties {
     }
 
     /**
-     * This function returns the count of specific attributes in an IdP
-     * This function will not retreive the values attributes (particularly important for large blobs),
-     * it is mainly intended as a test for an attribute existance.
-     *
-     * @param string $optionName name of the attribute whose existence in the IdP is to be checked
-     * @return int attribute count
-     */
-    public function isAttributeAvailable($optionName) {
-        $quotedIdentifier = (!is_int($identifier) ? "\"" : "") . $this->identifier . (!is_int($identifier) ? "\"" : "");
-        $escapedOptionName = DBConnection::escapeValue($this->databaseType, $optionName);
-        $result = DBConnection::exec($this->databaseType, "SELECT row FROM $this->entityOptionTable 
-              WHERE $this->entityIdColumn = $quotedIdentifier AND option_name = '$escapedOptionName'");
-        return(mysqli_num_rows($result));
-    }
-
-    /**
      * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
      * name in $optionName are retrieved; otherwise, all attributes are retrieved.
      *
