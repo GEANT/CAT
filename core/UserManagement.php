@@ -211,10 +211,10 @@ Best regards,
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
      * @param boolean $isByFedadmin is the invitation token created for a federation admin or from an existing inst admin
-     * @param type $for identifier (typically email address) for which the invitation is created
+     * @param string $for identifier (typically email address) for which the invitation is created
      * @param mixed $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
      * @param string $externalId if the IdP to be created is related to an external DB entity, this parameter contains that ID
-     * @param type $country if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
+     * @param string $country if the institution is new (i.e. $inst is a string) this parameter needs to specify the federation of the new inst
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
@@ -244,8 +244,8 @@ Best regards,
     /**
      * Retrieves all pending invitations for an institution or for a federation.
      * 
-     * @param type $idpIdentifier the identifier of the institution. If not set, returns invitations for not-yet-created insts
-     * @return if idp_identifier is set: an array of strings (mail addresses); otherwise an array of tuples (country;name;mail)
+     * @param int $idpIdentifier the identifier of the institution. If not set, returns invitations for not-yet-created insts
+     * @return array if idp_identifier is set: an array of strings (mail addresses); otherwise an array of tuples (country;name;mail)
      */
     public function listPendingInvitations($idpIdentifier = 0) {
         $retval = [];
