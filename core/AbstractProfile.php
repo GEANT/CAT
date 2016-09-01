@@ -47,7 +47,7 @@ define("NOTCONFIGURED", 3);
  * @package Developer
  */
 abstract class AbstractProfile extends EntityWithDBProperties {
-    
+
     /**
      * DB identifier of the parent institution of this profile
      * @var int
@@ -83,12 +83,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * number of profiles of the IdP this profile is attached to
      */
     protected $idpNumberOfProfiles;
-    
+
     /**
      * IdP-wide attributes of the IdP this profile is attached to
      */
     protected $idpAttributes;
-    
+
     /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
      * static EAP method.
@@ -107,7 +107,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         debug(4, $eapTypeArray);
         return $eapTypeArray;
     }
-    
+
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -189,7 +189,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * tests if the configurator needs to be regenerated
      * returns the configurator path or NULL if regeneration is required
      */
-
     /**
      * This function tests if the configurator needs to be regenerated 
      * (properties of the Profile may have changed since the last configurator 
@@ -199,7 +198,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $device device ID to check
      * @return mixed a string with the path to the configurator download, or NULL if it needs to be regenerated
      */
-        /**
+
+    /**
      * This function tests if the configurator needs to be regenerated (properties of the Profile may have changed since the last configurator generation).
      * 
      * @param string $device device ID to check
@@ -229,7 +229,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string path the path where the new installer can be found
      */
     abstract public function updateCache($device, $path, $mime);
-    
+
     /**
      * Log a new download for our stats
      * 
@@ -337,40 +337,44 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function isEapTypeDefinitionComplete($eaptype) {
         $missing = [];
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
-        if ($eaptype["OUTER"] == PEAP || $eaptype["OUTER"] == TLS || $eaptype["OUTER"] == TTLS || $eaptype["OUTER"] == FAST) {
-
-            $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
-            $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
-
-            if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
-                foreach ($caOption as $oneCa) {
-                    $x509 = new X509();
-                    $caParsed = $x509->processCertificate($oneCa['value']);
-                    if ($caParsed['root'] == 1) {
-                        return true;
-                    }
+        switch ($eaptype['OUTER']) {
+            case TLS:
+                if ($eaptype['INNER'] == NE_SILVERBULLET) {
+                    // silverbullet does not have any configurable properties
+                    return true;
                 }
-                $missing[] = "eap:ca_file";
-            }
-            if (count($caOption) == 0) {
-                $missing[] = "eap:ca_file";
-            }
-            if (count($cnOption) == 0) {
-                $missing[] = "eap:server_name";
-            }
-            return $missing;
-        } elseif ($eaptype["OUTER"] == PWD || $eaptype["INNER"] == NE_SILVERBULLET) {
-            /*
-              $cn_option = $this->getAttributes("eap:server_name", $eaptype);
-              if (count($cn_option) > 0) */
-            return true;
-            /* $missing[] = "eap:server_name";
-              return $missing; */
+                // intentionally fall through: normal TLS must go through all
+                // cert and name checks!
+            case PEAP:
+            case TTLS:
+            case FAST:
+                $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
+                $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
+
+                if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
+                    foreach ($caOption as $oneCa) {
+                        $x509 = new X509();
+                        $caParsed = $x509->processCertificate($oneCa['value']);
+                        if ($caParsed['root'] == 1) {
+                            return true;
+                        }
+                    }
+                    $missing[] = "eap:ca_file";
+                }
+                if (count($caOption) == 0) {
+                    $missing[] = "eap:ca_file";
+                }
+                if (count($cnOption) == 0) {
+                    $missing[] = "eap:server_name";
+                }
+                return $missing;
+            case PWD:
+                // well actually this EAP type has a server name; but it's optional
+                // so no reason to be picky on it
+                return true;
+            default: 
+                return false;
         }
-
-        // we have no idea; let's say false
-
-        return false;
     }
 
     /**
@@ -575,4 +579,5 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         return TRUE;
     }
+
 }
