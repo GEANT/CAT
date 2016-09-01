@@ -20,8 +20,6 @@
 require_once('DeviceConfig.php');
 require_once('Helper.php');
 
-// set_locale("devices");
-
 /**
  * This is the main implementation class of the module
  *
@@ -393,7 +391,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $pem);
         $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
         $trimmedPem = trim($stage2);
-        //return print_r($result);
+        
         $stream = "
             <dict>
                <key>PayloadCertificateFileName</key>
