@@ -108,7 +108,7 @@ $test_type = $_REQUEST['test_type'];
 
 $check_realm = valid_Realm($_REQUEST['realm']); 
 
-if (!$check_realm) {
+if ($check_realm === FALSE) {
     throw new Exception("Invalid realm was submitted!");
 }
 
