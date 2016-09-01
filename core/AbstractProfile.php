@@ -335,7 +335,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return mixed TRUE if the EAP type is complete; an array of missing attribues if it's incomplete; FALSE if it's incomplete for other reasons
      */
     public function isEapTypeDefinitionComplete($eaptype) {
-        $missing = [];
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
             case TLS:
@@ -348,6 +347,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             case PEAP:
             case TTLS:
             case FAST:
+                $missing = true;
                 $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
                 $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
 
