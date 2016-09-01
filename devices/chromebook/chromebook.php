@@ -100,33 +100,32 @@ class Device_Chromebook extends DeviceConfig {
         }
         // construct outer id, if anonymity is desired
         $outerId = $this->determineOuterIdString();
-        
+
+        $eapPrettyprint = EAP::eapDisplayName($this->selected_eap);
+        // ONC has its own enums, and guess what, they don't always match
+        if ($eapPrettyprint["OUTER"] == "PEAP" && $eapPrettyprint["INNER"] == "MSCHAPV2")
+        // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
+            $eapPrettyprint["INNER"] = "MSCHAPv2";
+        if ($eapPrettyprint["OUTER"] == "TTLS" && $eapPrettyprint["INNER"] == "MSCHAPV2") {
+            $eapPrettyprint["OUTER"] = "EAP-TTLS";
+            $eapPrettyprint["INNER"] = "MSCHAPv2";
+        }
+        if ($eapPrettyprint["OUTER"] == "TLS")
+            $eapPrettyprint["OUTER"] = "EAP-TLS";
+        // define EAP properties
+
+        $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
+        if ($eapPrettyprint["INNER"] == "MSCHAPv2")
+            $eaparray["Inner"] = $eapPrettyprint["INNER"];
+        $eaparray["SaveCredentials"] = true;
+        $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
+        $eaparray["UseSystemCAs"] = false;
+
+        if ($outerId)
+            $eaparray["AnonymousIdentity"] = "$outerId";
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
-            $networkUuid = uuid($prefix, $ssid);
-            $eapPrettyprint = EAP::eapDisplayName($this->selected_eap);
-            // ONC has its own enums, and guess what, they don't always match
-            if ($eapPrettyprint["OUTER"] == "PEAP" && $eapPrettyprint["INNER"] == "MSCHAPV2")
-                // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
-                $eapPrettyprint["INNER"] = "MSCHAPv2";
-            if ($eapPrettyprint["OUTER"] == "TTLS" && $eapPrettyprint["INNER"] == "MSCHAPV2") {
-                $eapPrettyprint["OUTER"] = "EAP-TTLS";
-                $eapPrettyprint["INNER"] = "MSCHAPv2";
-            }
-            if ($eapPrettyprint["OUTER"] == "TLS")
-                $eapPrettyprint["OUTER"] = "EAP-TLS";
-            // define EAP properties
-
-            $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
-            if ($eapPrettyprint["INNER"] == "MSCHAPv2")
-                $eaparray["Inner"] = $eapPrettyprint["INNER"];
-            $eaparray["SaveCredentials"] = true;
-            $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
-            $eaparray["UseSystemCAs"] = false;
-                    
-            if ($outerId)
-                $eaparray["AnonymousIdentity"] = "$outerId";
-            
+            $networkUuid = uuid('', $ssid);
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "$ssid",
@@ -159,15 +158,15 @@ class Device_Chromebook extends DeviceConfig {
         // define CA certificates
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            debug(2,$ca['pem']);
+            debug(2, $ca['pem']);
             $caSanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            debug(2,$caSanitized."\n");
+            debug(2, $caSanitized . "\n");
             // remove \n
             $caSanitized = str_replace("\n", "", $caSanitized);
             $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
-            debug(2,$caSanitized."\n");
+            debug(2, $caSanitized . "\n");
         }
-                
+
         $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $outputFile = fopen('installer_profile', 'w');
         fwrite($outputFile, $outputJson);
@@ -193,4 +192,5 @@ class Device_Chromebook extends DeviceConfig {
         $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes.");
         return $out;
     }
+
 }
