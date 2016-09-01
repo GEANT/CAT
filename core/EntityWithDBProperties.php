@@ -29,7 +29,7 @@
  *
  * @package Developer
  */
-class EntityWithDBProperties {
+abstract class EntityWithDBProperties {
 
     /**
      * This variable gets initialised with the known IdP attributes in the constructor. It never gets updated until the object
@@ -74,14 +74,6 @@ class EntityWithDBProperties {
      * the name of the entity in the current locale
      */
     public $name;
-
-    /**
-     * Virtual: sub-classes should define themselves what it means to become
-     * stale
-     */
-    protected function updateFreshness() {
-        
-    }
 
     /**
      * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute

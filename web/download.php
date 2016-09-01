@@ -15,6 +15,7 @@
 
 include(dirname(dirname(__FILE__))."/config/_config.php");
 require_once("UserAPI.php");
+require_once('ProfileFactory.php');
 $Gui = new UserAPI();
 
 
@@ -39,7 +40,7 @@ debug(4,"download: profile:$profile_id; inst:$inst_id; device:$device\n");
 
 // first block will test if the user input was valid.
 
-$p = new Profile($profile_id);
+$p = ProfileFactory::instantiate($profile_id);
 
 if(!$p->institution || $p->institution !== $inst_id) {
   header("HTTP/1.0 404 Not Found");

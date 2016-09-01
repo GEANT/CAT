@@ -9,7 +9,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("CAT.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("ProfileFactory.php");
+require_once("ProfileRADIUS.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -45,6 +46,9 @@ if (isset($_GET['profile_id'])) {
     $edit_mode = TRUE;
 }
 
+if (!$my_profile instanceof ProfileRADIUS) {
+    throw new Exception("This page should only be called to submit RADIUS Profile information!");
+}
 // extended input checks
 
 $realm = FALSE;
@@ -97,12 +101,12 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     if ($edit_mode) {
         $profile = $my_profile;
     } else {
-        $profile = $my_inst->newProfile();
+        $profile = $my_inst->newProfile("RADIUS");
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
     }
 }
 
-if (!$profile instanceof Profile) {
+if (!$profile instanceof ProfileRADIUS) {
     echo _("Darn! Could not get a proper profile handle!");
     exit(1);
 }
@@ -179,7 +183,10 @@ if (!$profile instanceof Profile) {
 
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
 
-    $profile = new Profile($profile->identifier);
+    $profile = ProfileFactory::instantiate($profile->identifier);
+    if (!$profile instanceof ProfileRADIUS) {
+        throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
+    }
 
     foreach (EAP::listKnownEAPTypes() as $a) {
         if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && $_POST[display_name($a) . "-priority"] != "") {
@@ -202,7 +209,11 @@ if (!$profile instanceof Profile) {
         }
     }
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-    $reloadedProfile = new Profile($profile->identifier);
+    $reloadedProfile = ProfileFactory::instantiate($profile->identifier);
+    // this can't possibly be another type of Profile, but to make code analysers happy:
+    if (!$profile instanceof ProfileRADIUS) {
+        throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
+    }
     $reloadedProfile->prepShowtime();
     ?>
 </table>

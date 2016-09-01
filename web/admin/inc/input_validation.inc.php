@@ -9,8 +9,10 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once 'Options.php';
-require_once 'DBConnection.php';
+require_once('Options.php');
+require_once('DBConnection.php');
+require_once('ProfileFactory.php');
+require_once('AbstractProfile.php');
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
@@ -54,7 +56,7 @@ function valid_Profile($input, $idpIdentifier = NULL) {
         throw new Exception(input_validation_error("Value for profile is not an integer!"));
     }
 
-    $temp = new Profile($input); // constructor throws an exception if NX, game over
+    $temp = ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
 
     if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
         throw new Exception(input_validation_error("The profile does not belong to the IdP!"));

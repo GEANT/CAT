@@ -22,7 +22,8 @@ require_once("Helper.php");
 require_once("Options.php");
 require_once("CAT.php");
 require_once("User.php");
-require_once("Profile.php");
+require_once("ProfileFactory.php");
+require_once("AbstractProfile.php");
 require_once("Federation.php");
 require_once("DeviceFactory.php");
 require_once("devices/devices.php");
@@ -57,7 +58,7 @@ class UserAPI extends CAT {
     $Dev = Devices::listDevices();
     $Config = $Dev[$device];
     debug(4,"installer:$device:$prof_id\n");
-    $profile = new Profile($prof_id);
+    $profile = ProfileFactory::instantiate($prof_id);
     $attribs = $profile->getCollapsedAttributes();
     // test if the profile is production-ready and if not if the authenticated user is an owner
     if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
@@ -150,7 +151,7 @@ class UserAPI extends CAT {
  public function deviceInfo($device,$prof_id) {
     $this->set_locale("devices");
     $out = 0;
-    $profile = new Profile($prof_id);
+    $profile = ProfileFactory::instantiate($prof_id);
     $factory = new DeviceFactory($device);
     $dev = $factory->device;
     if(isset($dev)) {
@@ -175,7 +176,7 @@ class UserAPI extends CAT {
  */
  public function profileAttributes($prof_id) {
     $this->set_locale("devices");
-      $profile = new Profile($prof_id);
+      $profile = ProfileFactory::instantiate($prof_id);
       $attr = $profile->getCollapsedAttributes();
       $a = [];
       if(isset($attr['support:email']))
@@ -420,7 +421,7 @@ private function GetRootURL() {
        header("HTTP/1.0 404 Not Found");
        return;
     }
-    $profile = new Profile($prof_id);
+    $profile = ProfileFactory::instantiate($prof_id);
     $profile->incrementDownloadStats($device, $generated_for);
     $file = $this->i_path;
     $filetype = $o['mime'];

@@ -11,6 +11,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("UserManagement.php");
 require_once("CAT.php");
+require_once("ProfileFactory.php");
+require_once("AbstractProfile.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/option_parse.inc.php");
 require_once("inc/common.inc.php");
@@ -96,7 +98,7 @@ switch($sanitised_action) {
                 unset($_POST['option'][$optindex]);
         // if we do have profile-level options - create a profile and fill in the values!
         if (count($_POST['option']) > 0) {
-            $newprofile = $idp->newProfile();
+            $newprofile = $idp->newProfile("RADIUS");
             processSubmittedFields($newprofile, [], 0, 0, TRUE);
             $_POST = $original_post;
             // sift through the options to find API ones (these are not caught by pSF() )
@@ -160,7 +162,7 @@ switch($sanitised_action) {
                 }
             }
             // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-            $profile = new Profile($newprofile->identifier);
+            $profile = ProfileFactory::instantiate($newprofile->identifier);
             $profile->prepShowtime();
         }
         $_POST = $original_post;

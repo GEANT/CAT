@@ -18,7 +18,7 @@ require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 
-function profilechecks(IdP $idpinfo,Profile $profile) {
+function profilechecks(IdP $idpinfo,ProfileRADIUS $profile) {
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
     

@@ -16,7 +16,8 @@
  * @package Developer
  */
 require_once('Helper.php');
-require_once('Profile.php');
+require_once('ProfileFactory.php');
+require_once('AbstractProfile.php');
 require_once('IdP.php');
 
 /**
@@ -56,7 +57,7 @@ class DBConnection {
                 }
                 return self::$instanceExternal;
             default:
-                throw new Exception("This type of database (".$strtoupper($database).") is not known!");
+                throw new Exception("This type of database (".strtoupper($database).") is not known!");
         }
     }
 
@@ -149,7 +150,7 @@ class DBConnection {
                 if (!isset($blobprofile)) {
                     return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
                 }
-                $profile = new Profile($blobprofile);
+                $profile = ProfileFactory::instantiate($blobprofile);
                 if ($profile->isShowtime() == TRUE) { // public data
                     return FALSE;
                 }

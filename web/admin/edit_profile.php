@@ -9,7 +9,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Federation.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("ProfileRADIUS.php");
 require_once("Helper.php");
 require_once("CAT.php");
 
@@ -128,6 +128,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $wizard_style = FALSE;
     $edit_mode = TRUE;
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("This page is only for editing RADIUS profiles!");
+    }
 
     $use_anon = $my_profile->getAttributes("internal:use_anon_outer");
     if (count($use_anon) > 0) {

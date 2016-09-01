@@ -21,7 +21,8 @@ require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("EAP.php");
 require_once("X509.php");
 require_once("Helper.php");
-
+require_once("ProfileFactory.php");
+require_once("ProfileRADIUS.php");
 
 // generic return codes
 
@@ -274,10 +275,15 @@ class RADIUSTests {
         ];
         $this->errorlist = [];
         $this->initialise_errors();
-        if ($profile_id !== 0)
-            $this->profile = new Profile($profile_id);
-        else
+        if ($profile_id !== 0) {
+            $this->profile = ProfileFactory::instantiate($profile_id);
+            if (!$this->profile instanceof ProfileRADIUS) {
+                throw new Exception("The profile is not a ProfileRADIUS! We can only check those!");
+            } 
+        }
+        else {
             $this->profile = FALSE;
+        }
 
         CAT::set_locale($oldlocale);
     }
@@ -935,7 +941,7 @@ class RADIUSTests {
     private function best_outer_localpart($inner_user) {
         $matches = [];
         $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
-        if ($this->profile instanceof Profile) { // take profile's anon ID (special one for realm checks or generic one) if known
+        if ($this->profile instanceof ProfileRADIUS) { // take profile's anon ID (special one for realm checks or generic one) if known
             $foo = $this->profile;
             $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
             debug(3, "calculating local part with explicit Profile\n");
@@ -982,7 +988,7 @@ class RADIUSTests {
             $matches = [];
             if (preg_match("/.*(@.*)/", $inner_user, $matches)) {
                 $final_outer = $this->best_outer_localpart($inner_user) . $matches[1];
-            } elseif ($this->profile instanceof Profile && $this->profile->realm != "") { // hm, we can only take the realm from Profile
+            } elseif ($this->profile instanceof ProfileRADIUS && $this->profile->realm != "") { // hm, we can only take the realm from Profile
                 $final_outer = $this->best_outer_localpart($inner_user) . "@" . $this->profile->realm;
             } else { // we have no idea what realm to send this to. Give up.
                 return RETVAL_INCOMPLETE_DATA;

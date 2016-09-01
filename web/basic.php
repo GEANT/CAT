@@ -18,6 +18,8 @@
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("CAT.php");
 require_once("UserAPI.php");
+require_once('ProfileFactory.php');
+require_once('AbstractProfile.php');
 
 debug(4,"basic.php\n");
 debug(4,$_POST);
@@ -103,7 +105,7 @@ public function __construct() {
        }
        $this->page =  3;
        try {
-         $this->Profile = new Profile($_REQUEST['profile']);
+         $this->Profile = ProfileFactory::instantiate($_REQUEST['profile']);
        }
        catch (Exception $fail) {
          $this->page =  2;

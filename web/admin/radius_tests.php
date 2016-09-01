@@ -107,6 +107,9 @@ $test_type = $_REQUEST['test_type'];
 $check_realm = valid_Realm($_REQUEST['realm']); 
 if (isset($_REQUEST['profile_id'])) {
     $my_profile = valid_Profile($_REQUEST['profile_id']); 
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
+    }
     $check_realm = valid_Realm($_REQUEST['realm'], $_REQUEST['profile_id']); 
     $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
 } else {

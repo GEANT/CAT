@@ -279,7 +279,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                 continue;
             }
             switch (get_class($object)) {
-                case 'Profile':
+                case 'ProfileRADIUS':
                     if ($device !== 0) {
                     $object->addAttributeDeviceSpecific($name, $value, $device);
                 } elseif ($eaptype != 0) {

@@ -30,6 +30,10 @@ $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
 
+if (!$my_profile instanceof ProfileRADIUS) {
+    throw new Exception("Redirect options can only be set for RADIUS profiles!");
+}
+
 $device = NULL;
 $device_key = NULL;
 if (isset($_POST['device'])) {

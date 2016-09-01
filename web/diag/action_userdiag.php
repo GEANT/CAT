@@ -10,7 +10,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Helper.php");
 require_once("CAT.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once('ProfileFactory.php');
+require_once("ProfileRADIUS.php");
 require_once("RADIUSTests.php");
 require_once("Federation.php");
 
@@ -161,9 +162,9 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $checks = [];
     foreach ($listofrealms as $realm) {
         $sanitised_realm = trim(valid_string_db($realm));
-        if (Profile::profileFromRealm($sanitised_realm)) { // a CAT participant
-            $profile_id = Profile::profileFromRealm($sanitised_realm);
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => new Profile($profile_id)];
+        if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
+            $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);
+            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => ProfileFactory::instantiate($profile_id)];
             echo "Debugging CAT Profile $profile_id for $sanitised_realm<br/>";
         } else if (!empty($global->getExternalDBEntityDetails(0, $realm))) {
             $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "EXT_DB"];

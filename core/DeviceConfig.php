@@ -16,7 +16,7 @@
  */
 require_once('Helper.php');
 require_once('CAT.php');
-require_once('Profile.php');
+require_once('AbstractProfile.php');
 require_once('X509.php');
 require_once('EAP.php');
 include_once("devices/devices.php");
@@ -84,12 +84,12 @@ abstract class DeviceConfig {
     * - process CA certificates and store them as 'internal:CAs' attribute
     * - process and save optional info files and store references to them in
     *   'internal:info_file' attribute
-    * @param Profile $profile the profile object which will be passed by the caller
+    * @param AbstractProfile $profile the profile object which will be passed by the caller
     * @final not to be redefined
     */
-    final public function setup(Profile $profile) {
+    final public function setup(AbstractProfile $profile) {
        debug(4,"module setup start\n");
-       if(! $profile instanceof Profile) {
+       if(! $profile instanceof AbstractProfile) {
           debug(2,"No profile has been set\n");
           error("No profile has been set");
           exit;
@@ -454,7 +454,7 @@ abstract class DeviceConfig {
     return(['name'=>'local-info.'.$ext,'mime'=>$ext]);
   }
 
-  private function getProfileAttributes(Profile $profile) {
+  private function getProfileAttributes(AbstractProfile $profile) {
      $eaps = $profile->getEapMethodsinOrderOfPreference(1);
      if($eap = $this->getPreferredEapType($eaps)) {
           $a = $profile->getCollapsedAttributes($eap);
