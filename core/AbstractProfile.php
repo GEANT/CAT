@@ -387,7 +387,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         if ($locale == 0) {
             $locale = $this->langIndex;
         }
-        $redirectUrl = 0;
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
         // if it was a general one, we are done. Find out if there is one such
@@ -445,7 +444,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
                         // fetch customtexts for device
-                        $deviceCustomtext = "";
                         $customTextAttributes = [];
                         $attributeList = $this->getAttributes("device-specific:redirect");
                         foreach ($attributeList as $oneAttribute) {

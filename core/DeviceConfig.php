@@ -123,8 +123,6 @@ abstract class DeviceConfig {
        $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];;
        $this->attributes['internal:consortia'] = $this->getConsortia();
        $this->lang_index = CAT::get_lang();
-       // phpMD says the below is not needed. Wow.
-       // $idp = new IdP($profile->institution);
        $olddomain = CAT::set_locale("core");
        DeviceConfig::$support_email_substitute = sprintf(_("your local %s support"),Config::$CONSORTIUM['name']);
        DeviceConfig::$support_url_substitute = sprintf(_("your local %s support page"),Config::$CONSORTIUM['name']);

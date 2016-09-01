@@ -169,8 +169,6 @@ class CAT {
                     $lang_index = $language;
                 }
 
-            // echo "Trying to set language to $thelang...";
-//        putenv("LC_ALL=$thelang");
             if (setlocale(LC_ALL, $thelang))
                 break;
         }
@@ -185,7 +183,7 @@ class CAT {
      */
     static public function get_lang() {
        if(self::$LANG === '')
-         list(self::$LANG, $xx) = self::set_lang();
+         list(self::$LANG, ) = self::set_lang();
        return self::$LANG;
     }
 

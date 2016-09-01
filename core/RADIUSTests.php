@@ -388,8 +388,10 @@ class RADIUSTests {
         /**
          * Test could not be run because CAT software isn't configured for it
          */
+        
         $code = RETVAL_NOTCONFIGURED;
-
+        $this->return_codes[$code]["message"] = _("Product is not configured to run this check.");
+        $this->return_codes[$code]["severity"] = L_OK;
         /**
          * Test skipped because there was nothing to be done
          */
@@ -751,7 +753,7 @@ class RADIUSTests {
      * @return array of oddities; the array is empty if everything is fine
      */
     public function property_check_servercert(&$servercert) {
-        // debug(4, "SERVER CERT IS: " . print_r($servercert, TRUE));
+        debug(5, "SERVER CERT IS: " . print_r($servercert, TRUE));
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
         $returnarray = $this->property_check_intermediate($servercert, TRUE);
@@ -970,8 +972,6 @@ class RADIUSTests {
             return RETVAL_NOTCONFIGURED;
         }
 
-        $final_inner = FALSE;
-        $final_outer = FALSE;
         // figure out the actual inner and outer identity to use. Inner may or
         // may not have a realm; if it has, the realm of inner and outer do not
         // necessarily match
@@ -1073,7 +1073,7 @@ network={
         $testresults = [];
         $testresults['cert_oddities'] = [];
         $packetflow_orig = [];
-        $packetflow = [];
+        
         $cmdline = Config::$PATHS['eapol_test'] .
                 " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
@@ -1177,7 +1177,6 @@ network={
             // Write the root CAs into a trusted root CA dir
             // and intermediate and first server cert into a PEM file
             // for later chain validation
-            $CRLs = []; // if one is missing, set to FALSE
 
             $server_file = fopen($tmp_dir . "/incomingserver.pem", "w");
 
@@ -1589,16 +1588,11 @@ network={
      * @return int returncode
      */
     public function CApath_check($host) {
-
-        $res = RETVAL_OK;
-        /*        if (preg_match("/\[/", $host))
-          return RETVAL_INVALID; */
         if (!isset($this->TLS_CA_checks_result[$host]))
             $this->TLS_CA_checks_result[$host] = [];
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
         fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
-        $res = $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
-        return $res;
+        return $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
     }
 
     /**

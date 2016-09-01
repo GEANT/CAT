@@ -136,6 +136,7 @@ class ProfileSilverbullet extends AbstractProfile {
         // in code analysis. So let's waste some cycles.
         $device = $path;
         $path = $mime;
+        $mime = $device;
     }
 
 
