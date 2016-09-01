@@ -5,12 +5,6 @@ class Device_RedirectDev extends DeviceConfig {
    /**
     * Constructs a Device object.
     *
-    * It is CRUTCIAL that the constructor sets $this->supportedEapMethods to an array of methods
-    * available for the particular device.
-    * {@source}
-    * @param string $device a pointer to a device module, which must
-    * be an index of one of the devices defined in the {@link Devices}
-    * array in {@link devices.php}.
     * @final not to be redefined
     */
     final public function __construct() {
