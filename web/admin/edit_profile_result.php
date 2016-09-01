@@ -116,7 +116,7 @@ if (!$profile instanceof ProfileRADIUS) {
 <table>
     <?php
     // set realm info, if submitted
-    if ($realm != FALSE) {
+    if ($realm !== FALSE) {
         $profile->setRealm($anon_local . "@" . $realm);
         echo UI_okay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
     } else {
@@ -124,7 +124,7 @@ if (!$profile instanceof ProfileRADIUS) {
     }
     // set anon ID, if submitted
     if ($anon != FALSE) {
-        if ($realm == FALSE) {
+        if ($realm === FALSE) {
             echo UI_error(_("Anonymous Outer Identities cannot be turned on: realm is missing!"));
         } else {
             $profile->setAnonymousIDSupport(true);
@@ -136,7 +136,7 @@ if (!$profile instanceof ProfileRADIUS) {
     }
 
     if ($checkuser != FALSE) {
-        if ($realm == FALSE) {
+        if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
             $profile->setRealmcheckUser(true,$checkuser_name);
@@ -148,7 +148,7 @@ if (!$profile instanceof ProfileRADIUS) {
     }
     
     if ($verify != FALSE) {
-        if ($realm == FALSE) {
+        if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
             $profile->setInputVerificationPreference($verify,$hint);
