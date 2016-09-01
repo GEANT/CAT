@@ -157,4 +157,7 @@ class User extends EntityWithDBProperties {
         return $sent;
     }
 
+    public function updateFreshness() {
+        // User is always fresh
+    }
 }

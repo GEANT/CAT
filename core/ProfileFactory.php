@@ -21,7 +21,7 @@ class ProfileFactory {
     /** is this profile a RADIUS profile or SILVERBULLET?
      * find out, and return an instance of the instantiated sub-class as appropriate
      * 
-     * @param type $profileId ID of the profile in DB
+     * @param int $profileId ID of the profile in DB
      * @return AbstractProfile a sub-class of AbstractProfile matching the type
      */
     public static function instantiate($profileId, $idpObject = 0) {

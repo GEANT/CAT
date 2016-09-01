@@ -485,6 +485,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
 
         $temp1 = [];
+        $temp = [];
+        $flags = [];
+        $out = [];
         foreach ($attr as $b) {
             $name = $b['name'];
             $temp1[] = $name;

@@ -72,14 +72,13 @@ public function processCertificate ($cadata) {
         }
         $ca_der = X509::pem2der($cadata);
         $ca_pem = X509::der2pem($ca_der);
-        // echo "XXXXXXXXXXXXX".$cadata."XXXXXXXXXXXXX"; exit;
+        
     } else {
         $ca_der = $cadata;
         $ca_pem =  X509::der2pem($cadata);
     }
 
-    # check that the certificate is OK
-//print "<pre>CA:\n$ca_pem</pre>\n";
+    // check that the certificate is OK
     $myca = openssl_x509_read($ca_pem);
     if ($myca == FALSE) 
         return FALSE;

@@ -182,4 +182,5 @@ abstract class EntityWithDBProperties {
         return $tempAttributes;
     }
 
+    abstract public function updateFreshness();
 }

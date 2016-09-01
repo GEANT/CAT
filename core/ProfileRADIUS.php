@@ -273,7 +273,7 @@ class ProfileRADIUS extends AbstractProfile {
      *
      */
     public function setAnonymousIDSupport($shallwe) {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = " . ($shallwe == true ? "1" : "0") . " WHERE profile_id = $this->identifier");
+        DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
     }
 
     /** Toggle special username for realm checks
@@ -283,7 +283,7 @@ class ProfileRADIUS extends AbstractProfile {
      *
      */
     public function setRealmCheckUser($shallwe, $localpart = NULL) {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET checkuser_outer = " . ($shallwe == true ? "1" : "0") .
+        DBConnection::exec($this->databaseType, "UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
                 ( $localpart !== NULL ? ", checkuser_value = '$localpart' " : "") .
                 " WHERE profile_id = $this->identifier");
     }

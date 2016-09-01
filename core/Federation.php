@@ -73,6 +73,10 @@ class Federation extends EntityWithDBProperties {
         return $dataArray;
     }
 
+    public function updateFreshness() {
+        // Federation is always fresh
+    }
+    
     public static function downloadStats($format, $federationid = NULL) {
         $data = Federation::downloadStatsCore($federationid);
         $retstring = "";
