@@ -307,7 +307,7 @@ Best regards,
     /**
      * Retrieves the external DB identifier of this institution. Returns FALSE if no ID is known.
      * 
-     * @return int the external identifier; or FALSE if no external ID is known
+     * @return mixed the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
