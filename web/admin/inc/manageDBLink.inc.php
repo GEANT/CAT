@@ -103,9 +103,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         if (!$externalid) { // we are in SYNCED state so this cannot happen
             throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the institution!");
         }
-            
+
         $extinfo = Federation::getExternalDBEntityDetails($externalid);
-        
+
         echo "<table>";
         foreach ($extinfo['names'] as $lang => $name)
             echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $lang) . "</td><td>$name</td>";
@@ -122,20 +122,22 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $candidates = $my_inst->getExternalDBSyncCandidates();
         echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
         printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), Config::$CONSORTIUM['name']) . " ";
-        echo "<table>";
-        if (count($candidates) > 0)
+        if ($candidates !== FALSE)
             printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), Config::$CONSORTIUM['name']);
+        echo "<table>";
         echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
-        foreach ($candidates as $candidate) {
-            $info = Federation::getExternalDBEntityDetails($candidate);
-            echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
-            foreach ($info['names'] as $lang => $name)
-                echo "[$lang] $name<br/>";
-            echo "</td><td>";
-            foreach ($info['admins'] as $number => $admin_details)
-                echo "[E-Mail] " . $admin_details['email'] . "<br/>";
-            echo "</td></tr>";
-            $temparray[] = $candidate;
+        if ($candidates !== FALSE) {
+            foreach ($candidates as $candidate) {
+                $info = Federation::getExternalDBEntityDetails($candidate);
+                echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
+                foreach ($info['names'] as $lang => $name)
+                    echo "[$lang] $name<br/>";
+                echo "</td><td>";
+                foreach ($info['admins'] as $number => $admin_details)
+                    echo "[E-Mail] " . $admin_details['email'] . "<br/>";
+                echo "</td></tr>";
+                $temparray[] = $candidate;
+            }
         }
         // we might have been wrong in our guess...
         $fed = new Federation(strtoupper($my_inst->federation));
@@ -168,7 +170,7 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee)
-        echo "<tr><td>".$invitee['mail']."</td></tr>";
+        echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
     echo "</table>";
 }
 ?>
