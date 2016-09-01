@@ -150,6 +150,11 @@ abstract class EntityWithDBProperties {
         $this->updateFreshness();
     }
 
+    /**
+     * files are base64-encoded and could be multi-language tagged. This function properly tears these file attributes apart
+     * @param string $optionContent a string; either base64 string or an array with a language tag and base64
+     * @return array an array with indexes lang and content. lang can be empty; content is base64-decoded
+     */
     protected function decodeFileAttribute($optionContent) {
         // suppress E_NOTICE on the following... we are testing *if*
         // we have a serialized value - so not having one is fine and
@@ -162,6 +167,12 @@ abstract class EntityWithDBProperties {
         return ["lang" => "", "content" => base64_decode($optionContent)];
     }
 
+    /**
+     * retrieve attributes from a database.
+     * @param string $query sub-classes set the query to execute to get to the options
+     * @param string $level the retrieved options get flagged with this "level" identifier
+     * @return array the attributes in one array
+     */
     protected function retrieveOptionsFromDatabase($query, $level) {
         $optioninstance = Options::instance();
         $tempAttributes = [];
@@ -181,10 +192,14 @@ abstract class EntityWithDBProperties {
         }
         return $tempAttributes;
     }
-
-        /**
+    
+    /**
      * Checks if a raw data pointer is public data (return value FALSE) or if 
      * yes who the authorised admins to view it are (return array of user IDs)
+     * 
+     * @param string $table which database table is this about
+     * @param int $row row index of the table
+     * @return mixed FALSE if the data is public, an array of owners of the data if it is NOT public
      */
     public static function isDataRestricted($table, $row) {
         if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option" && $table != "user_options") {
@@ -234,5 +249,8 @@ abstract class EntityWithDBProperties {
         }
     }
 
+    /**
+     * when options in the DB change, this can mean generated installers become stale. sub-classes must define whether this is the case for them
+     */
     abstract public function updateFreshness();
 }
