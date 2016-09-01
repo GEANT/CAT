@@ -187,7 +187,7 @@ abstract class EntityWithDBProperties {
      * yes who the authorised admins to view it are (return array of user IDs)
      */
     public static function isDataRestricted($table, $row) {
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option" && $table != "user_options") {
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
         }
         switch ($table) {
@@ -226,6 +226,9 @@ abstract class EntityWithDBProperties {
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;
+                // user options are never public
+            case "user_options":
+                return [];
             default:
                 return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
         }

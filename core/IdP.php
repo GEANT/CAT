@@ -254,7 +254,7 @@ Best regards,
      * Performs a lookup in an external database to determine matching entities to this IdP. The business logic of this function is
      * roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
      * 
-     * @return array list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
+     * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates() {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
