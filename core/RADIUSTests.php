@@ -841,7 +841,7 @@ class RADIUSTests {
     /**
      * This function returns an array of errors which were encountered in all the tests.
      * 
-     * @return array
+     * @return array all the errors
      */
     public function listerrors() {
         return $this->errorlist;
@@ -853,21 +853,28 @@ class RADIUSTests {
      * The function fills array RADIUSTests::UDP_reachability_result[$probeindex] with all check detail
      * in case more than the return code is needed/wanted by the caller
      * 
-     * @param string $probeindex: refers to the specific UDP-host in the config that should be checked
-     * @param boolean $opname_check: should we check choking on Operator-Name?
-     * @param boolean $frag: should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
+     * @param string $probeindex refers to the specific UDP-host in the config that should be checked
+     * @param boolean $opnameCheck should we check choking on Operator-Name?
+     * @param boolean $frag should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
      * @return int returncode
      */
-    public function UDP_reachability($probeindex, $opname_check = TRUE, $frag = TRUE) {
+    public function UDP_reachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcerthandle = fopen(dirname(__FILE__) . "/clientcert.p12", "r");
         debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
-        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opname_check, $frag, $clientcert);
+        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
     }
 
+    /**
+     * There is a CRL Distribution Point URL in the certificate. So download the
+     * CRL and attach it to the cert structure so that we can later find out if
+     * the cert was revoked
+     * @param array $cert by-reference: the cert data we are writing into
+     * @return int result code whether we were successful in retrieving the CRL
+     */
     private function add_cert_crl(&$cert) {
         $crl_url = [];
         $returnresult = 0;
@@ -890,6 +897,12 @@ class RADIUSTests {
         return $returnresult;
     }
 
+    /**
+     * We don't want to write passwords of the live login test to our logs. Filter them out
+     * @param string $string_to_redact what should be redacted
+     * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @return array the output of eapol_test with the password redacted
+     */
     private function redact($string_to_redact, $inputarray) {
         $temparray = preg_replace("/^.*$string_to_redact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($string_to_redact);
@@ -906,6 +919,12 @@ class RADIUSTests {
         return preg_replace("/$spaced/", " HEX ENCODED PASSWORD REDACTED ", $temparray);
     }
 
+    /**
+     * Filters eapol_test output and finds out the packet codes out of which the conversation was comprised of
+     * 
+     * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @return array the packet codes which were exchanged, in sequence
+     */
     private function filter_packettype($inputarray) {
         $retarray = [];
         foreach ($inputarray as $line) {
@@ -918,7 +937,13 @@ class RADIUSTests {
         }
         return $retarray;
     }
-
+    
+    /**
+     * this function checks if there was a "Retry allowed" MSCHAPv2 error message in the conversation
+     * 
+     * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @return boolean returns TRUE if method was ACKed; false if only NAKs in the flow
+     */
     private function check_mschap_691_r($inputarray) {
         foreach ($inputarray as $lineid => $line) {
             if (preg_match("/MSCHAPV2: error 691/", $line) && preg_match("/MSCHAPV2: retry is allowed/", $inputarray[$lineid + 1])) {
@@ -927,10 +952,14 @@ class RADIUSTests {
         }
         return FALSE;
     }
-
-    // this function assumes that there was an EAP conversation; calling it on other packet flows gets undefined results
-    // it checks if the flow contained at least one method proposition which was not NAKed
-    // returns TRUE if method was ACKed; false if only NAKs in the flow
+    
+    /**
+     * this function assumes that there was an EAP conversation; calling it on other packet flows gets undefined results
+     * it checks if the flow contained at least one method proposition which was not NAKed
+     * 
+     * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @return boolean returns TRUE if method was ACKed; false if only NAKs in the flow
+     */
     private function check_conversation_eap_method_ack($inputarray) {
         foreach ($inputarray as $lineid => $line) {
             if (preg_match("/CTRL-EVENT-EAP-PROPOSED-METHOD/", $line) && !preg_match("/NAK$/", $line)) {
@@ -940,6 +969,15 @@ class RADIUSTests {
         return FALSE;
     }
 
+    /**
+     * Which outer ID should we use? Calculate the local part of it.
+     * Not trivial: there is 
+     * - the inner username (only if no outer ID defined
+     * - the outer username for installer rollout (preferred over inner)
+     * - the outer username dedicated for our tests (preferred over outer-installer)
+     * @param string $inner_user
+     * @return string the best-match string
+     */
     private function best_outer_localpart($inner_user) {
         $matches = [];
         $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
@@ -966,6 +1004,20 @@ class RADIUSTests {
         return $anon_id;
     }
 
+    /**
+     * The big Guy. This performs an actual login with EAP and records how far 
+     * it got and what oddities were observed along the way
+     * @param int $probeindex the probe we are connecting to (as set in product config)
+     * @param array $eaptype EAP type to use for connection
+     * @param string $inner_user inner username to try
+     * @param string $password password to try
+     * @param string $outer_user outer username to set
+     * @param boolean $opname_check whether or not we check with Operator-Name set
+     * @param boolean $frag whether or not we check with an oversized packet forcing fragmentation
+     * @param string $clientcertdata client certificate credential to try
+     * @return int overall return code of the login test
+     * @throws Exception
+     */
     public function UDP_login($probeindex, $eaptype, $inner_user, $password, $outer_user = '', $opname_check = TRUE, $frag = TRUE, $clientcertdata = NULL) {
         if (!isset(Config::$RADIUSTESTS['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
@@ -1132,6 +1184,10 @@ network={
             $finalretval = RETVAL_OK;
         }
 
+        // only to make sure we've defined this in all code paths
+        // not setting it has no real-world effect, but Scrutinizer mocks
+        $ackedmethod = FALSE; 
+        
         if ($finalretval == RETVAL_CONVERSATION_REJECT) {
             $ackedmethod = $this->check_conversation_eap_method_ack($packetflow_orig);
             if (!$ackedmethod)
@@ -1170,7 +1226,7 @@ network={
             $number_server = 0;
             $eap_number_intermediate = 0;
             $cat_number_intermediate = 0;
-            $servercert;
+            $servercert = FALSE;
             $totally_selfsigned = FALSE;
 
 
@@ -1296,18 +1352,19 @@ network={
                         }
                     }
                 }
-                if ($number_server > 0)
+                if ($number_server > 0) {
                     debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
+                }
                 $checkstring = "";
                 if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
                     debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                     $checkstring = "-crl_check_all";
-                    $CRL_file = fopen($tmp_dir . "/root-ca-eaponly/crl$crlindex.pem", "w"); // this is where the root CAs go
-                    fwrite($CRL_file, $servercert['CRL'][0]);
-                    fclose($CRL_file);
-                    $CRL_file = fopen($tmp_dir . "/root-ca-allcerts/crl$crlindex.pem", "w"); // this is where the root CAs go
-                    fwrite($CRL_file, $servercert['CRL'][0]);
-                    fclose($CRL_file);
+                    $CRL_file1 = fopen($tmp_dir . "/root-ca-eaponly/crl-server.pem", "w"); // this is where the root CAs go
+                    fwrite($CRL_file1, $servercert['CRL'][0]);
+                    fclose($CRL_file1);
+                    $CRL_file2 = fopen($tmp_dir . "/root-ca-allcerts/crl-server.pem", "w"); // this is where the root CAs go
+                    fwrite($CRL_file2, $servercert['CRL'][0]);
+                    fclose($CRL_file2);
                 }
 
                 // save all intermediate certificate CRLs to separate files in root-ca directory
@@ -1317,6 +1374,7 @@ network={
 
                 // ... and run the verification test
                 $verify_result_eaponly = [];
+                $verify_result_allcerts = [];
                 // the error log will complain if we run this test against an empty file of certs
                 // so test if there's something PEMy in the file at all
                 if (filesize("$tmp_dir/incomingserver.pem") > 10) {
@@ -1487,11 +1545,10 @@ network={
     /**
      * This function executes openssl s_client command
      * 
-     * @param string $key points NAPTR_hostname_records
-     * @param string $bracketaddr IP address
-     * @param int $port
+     * @param string $host IP address
      * @param string $arg arguments to add to the openssl command 
-     * @return string result of oenssl s_client ...
+     * @param array $testresults by-reference: the testresults array we are writing into
+     * @return string result of openssl s_client ...
      */
     function openssl_s_client($host, $arg, &$testresults) {
         debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
@@ -1509,12 +1566,12 @@ network={
      * @param string $host IP:port
      * @param string $testtype capath or clients
      * @param string $opensslbabble openssl command output
-     * @param pointer to results array
-     * @param string $type results array key
-     * @param int $k results array key
+     * @param array $testresults by-reference: pointer to results array we write into
+     * @param string $type type of certificate
+     * @param int $resultArrayKey results array key
      * @return int return code
      */
-    function openssl_result($host, $testtype, $opensslbabble, &$testresults, $type = '', $k = 0) {
+    function openssl_result($host, $testtype, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
         $oldlocale = CAT::set_locale('diagnostics');
 
         $res = RETVAL_OK;
@@ -1541,8 +1598,8 @@ network={
                     }
                     $oids = $this->property_check_policy($data);
                     if (!empty($oids)) {
-                        foreach ($oids as $k => $o)
-                            $testresults[$host]['certdata']['extensions']['policyoid'][] = " $o ($k)";
+                        foreach ($oids as $resultArrayKey => $o)
+                            $testresults[$host]['certdata']['extensions']['policyoid'][] = " $o ($resultArrayKey)";
                     }
                     if (($crl = $this->property_certificate_get_field($data, 'crlDistributionPoints'))) {
                         $testresults[$host]['certdata']['extensions']['crlDistributionPoint'] = $crl;
@@ -1553,27 +1610,28 @@ network={
                 }
                 break;
             case "clients":
-                $ret = $testresults[$host]['ca'][$type]['certificate'][$k]['returncode'];
+                $ret = $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'];
                 $output = implode($opensslbabble);
                 $unknownca = 0;
                 if ($ret == 0)
-                    $testresults[$host]['ca'][$type]['certificate'][$k]['connected'] = 1;
+                    $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 1;
                 else {
-                    $testresults[$host]['ca'][$type]['certificate'][$k]['connected'] = 0;
+                    $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 0;
                     if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
-                        $testresults[$host]['ca'][$type]['certificate'][$k]['returncode'] = RETVAL_CONNECTION_REFUSED;
+                        $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'] = RETVAL_CONNECTION_REFUSED;
+                        $resComment = _("No TLS connection established: Connection refused");
                     } elseif (preg_match('/sslv3 alert certificate expired/', $output))
-                        $res_comment = _("certificate expired");
+                        $resComment = _("certificate expired");
                     elseif (preg_match('/sslv3 alert certificate revoked/', $output))
-                        $res_comment = _("certificate was revoked");
+                        $resComment = _("certificate was revoked");
                     elseif (preg_match('/SSL alert number 46/', $output))
-                        $res_comment = _("bad policy");
+                        $resComment = _("bad policy");
                     elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
-                        $res_comment = _("unknown authority");
-                        $testresults[$host]['ca'][$type]['certificate'][$k]['reason'] = CERTPROB_UNKNOWN_CA;
+                        $resComment = _("unknown authority");
+                        $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = CERTPROB_UNKNOWN_CA;
                     } else
-                        $res_comment = _("unknown authority or no certificate policy or another problem");
-                    $testresults[$host]['ca'][$type]['certificate'][$k]['resultcomment'] = $res_comment;
+                        $resComment = _("unknown authority or no certificate policy or another problem");
+                    $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['resultcomment'] = $resComment;
                 }
                 break;
         }
@@ -1591,13 +1649,12 @@ network={
         if (!isset($this->TLS_CA_checks_result[$host]))
             $this->TLS_CA_checks_result[$host] = [];
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
-        fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
+        // this does not make any sense - which "$f" should this be? fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
         return $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
     }
 
     /**
-     * This function performs 
-     * This function performs executes openssl s_client command to check if a server accept a client certificate
+     * This function executes openssl s_client command to check if a server accept a client certificate
      * @param string $host IP:port
      * @return int returncode
      */
