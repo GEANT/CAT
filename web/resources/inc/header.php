@@ -11,6 +11,14 @@ require_once("Helper.php");
 require_once("CAT.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
+/**
+ * constructs a URL to the main resources (CSS and LOGO)
+ * 
+ * @param string $resourcetype which type of resource do we need a URL for? CSS or LOGO?
+ * @return string the URL to the resource
+ * @throws Exception if something went wrong during the URL construction
+ */
+
 function findResourceUrl($resourcetype) {
     switch ($resourcetype) {
         case "CSS":
@@ -43,9 +51,10 @@ function findResourceUrl($resourcetype) {
  * (e.g. onload) then you should call defaultPagePrelude, close head, open body,
  * and then call productheader.
  * 
- * @param type $pagetitle
- * @param type $area
- * @param type $authRequired
+ * @param string $pagetitle Title of the page to display
+ * @param string $area the area in which this page is (displays some matching <h1>s)
+ * @param boolean $authRequired
+ * @return \CAT an instance of the CAT object (useful for later lang change operations etc.)
  */
 function pageheader($pagetitle, $area, $authRequired = TRUE) {
     $cat = defaultPagePrelude($pagetitle, $authRequired);
@@ -54,6 +63,12 @@ function pageheader($pagetitle, $area, $authRequired = TRUE) {
     return $cat;
 }
 
+/**
+ * 
+ * @param string $pagetitle Title of the page to display
+ * @param boolean $authRequired does the user need to be autenticated to access this page?
+ * @return \CAT an instance of the CAT object (useful for later lang change operations etc.)
+ */
 function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
     if ($authRequired == TRUE) {
         require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
@@ -76,6 +91,11 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
     return $cat;
 }
 
+/**
+ * constructs a <div> called 'header' for use on the top of the page
+ * @param string $cap1 caption to display in this div
+ * @param string $language current language (this one gets pre-set in the lang selector drop-down
+ */
 function headerDiv($cap1, $language) {
     $place = parse_url($_SERVER['REQUEST_URI']);
     ?>
@@ -114,6 +134,10 @@ function headerDiv($cap1, $language) {
     <?php
 }
 
+/**
+ * Our (very modest and light) sidebar. authenticated admins get more options, like logout
+ * @param boolean $advancedControls
+ */
 function sidebar($advancedControls) {
     ?>
     <div class='sidebar'><p>
@@ -138,6 +162,12 @@ function sidebar($advancedControls) {
     <?php
 }
 
+/**
+ * the entire top of the page (<body> part)
+ * 
+ * @param string $area the area we are in
+ * @param string $language the currently set language
+ */
 function productheader($area, $language) {
     // this <div is closing in footer, keep it in PHP for Netbeans syntax
     // highlighting to work
