@@ -58,6 +58,11 @@ abstract class DeviceConfig {
      */
     public $specialities;
 
+    /**
+     * list of supported EAP methods
+     * @var array EAP methods
+     */
+    public $supportedEapMethods;
    /**
      * device module constructor should be defined by each module, but if it is not, then here is a default one
      */
