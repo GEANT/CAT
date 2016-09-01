@@ -139,6 +139,10 @@ function valid_Realm($input) {
         echo input_validation_error(_("Realm contains spaces!"));
         return FALSE;
     }
+    if (strlen($input) == 0) {
+        echo input_validation_error(_("Realm is empty!"));
+        return FALSE;
+    }
     return $check;
 }
 

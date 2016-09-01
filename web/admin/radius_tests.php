@@ -100,23 +100,29 @@ function process_result($testsuite,$host) {
     return $ret;
 }
 
-if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type'])
-    exit;
+if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
+    throw new Exception("No test type specified!");
+}
 
 $test_type = $_REQUEST['test_type']; 
+
 $check_realm = valid_Realm($_REQUEST['realm']); 
+
+if (!$check_realm) {
+    throw new Exception("Invalid realm was submitted!");
+}
+
 if (isset($_REQUEST['profile_id'])) {
     $my_profile = valid_Profile($_REQUEST['profile_id']); 
     if (!$my_profile instanceof ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
-    $check_realm = valid_Realm($_REQUEST['realm'], $_REQUEST['profile_id']); 
     $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
 } else {
     $my_profile = NULL;
-    $check_realm = valid_Realm($_REQUEST['realm']); 
     $testsuite = new RADIUSTests($check_realm);
 }
+
 $host = $_REQUEST['src'];
 /*if(!preg_match('/^[0-9\.:]*$/',$host))
    exit;
