@@ -72,6 +72,12 @@ function valid_Device($input) {
     return $input;
 }
 
+/**
+ * 
+ * @param string $input a string to be made SQL-safe
+ * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
+ * @return string the massaged string
+ */
 function valid_string_db($input, $allowWhitespace = 0) {
     // always chop out invalid characters, and surrounding whitespace
     $retvalStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
@@ -80,10 +86,15 @@ function valid_string_db($input, $allowWhitespace = 0) {
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
     if ($allowWhitespace === 0) {
-        return preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
-    }
+        $afterWhitespace = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
+    } else {
     // even if we allow whitespace, not pathological ones!
-    return preg_replace('/(\0|\r|\x0b)/', '', $retval);
+    $afterWhitespace = preg_replace('/(\0|\r|\x0b)/', '', $retval);
+    }
+    if (is_array($afterWhitespace)) {
+        throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
+    }
+    return $afterWhitespace;
 }
 
 function valid_integer($input) {
