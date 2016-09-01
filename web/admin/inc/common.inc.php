@@ -15,6 +15,7 @@ require_once("CAT.php");
 require_once("X509.php");
 require_once("EAP.php");
 require_once("DBConnection.php");
+require_once("EntityWithDBProperties.php");
 
 require_once("input_validation.inc.php");
 require_once("auth.inc.php"); // no authentication here, but we need to check if authenticated
@@ -203,7 +204,7 @@ function getBlobFromDB($ref, $checkpublic) {
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
         }
-        $owners = DBConnection::isDataRestricted($reference["table"], $reference["rowindex"]);
+        $owners = EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
 
         $ownersCondensed = [];
 

@@ -21,10 +21,10 @@
  * necessary includes
  */
 require_once('Helper.php');
-require_once('IdP.php');
 require_once('EAP.php');
 require_once('X509.php');
 require_once('EntityWithDBProperties.php');
+require_once('IdP.php');
 require_once('devices/devices.php');
 
 define("HIDDEN", -1);

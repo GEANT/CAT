@@ -19,9 +19,9 @@
  * necessary includes
  */
 require_once('DBConnection.php');
+require_once('EntityWithDBProperties.php');
 require_once("Federation.php");
 require_once("IdP.php");
-require_once('EntityWithDBProperties.php');
 require_once("core/PHPMailer/src/PHPMailer.php");
 require_once("core/PHPMailer/src/SMTP.php");
 

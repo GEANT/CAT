@@ -122,9 +122,10 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $candidates = $my_inst->getExternalDBSyncCandidates();
         echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
         printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), Config::$CONSORTIUM['name']) . " ";
+        echo "<table>";
         if (count($candidates) > 0)
             printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), Config::$CONSORTIUM['name']);
-        echo "<table><tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
+        echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
         foreach ($candidates as $candidate) {
             $info = Federation::getExternalDBEntityDetails($candidate);
             echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
