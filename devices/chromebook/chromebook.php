@@ -142,7 +142,7 @@ class Device_Chromebook extends DeviceConfig {
         };
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
-            $networkUuid = "{" . uuid($prefix, "wired-dot1x-ethernet") . "}";
+            $networkUuid = "{" . uuid('', "wired-dot1x-ethernet") . "}";
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "eduroam configuration (wired network)",
