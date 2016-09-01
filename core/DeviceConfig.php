@@ -215,7 +215,7 @@ abstract class DeviceConfig {
     *
     * @param string $source_name The source file name
     * @param string $output_name The destination file name
-    * @param int $use_win_cp Set Windows charset if non-zero
+    * @param int $encoding Set Windows charset if non-zero
     *
     * @final not to be redefined
     */
@@ -261,7 +261,7 @@ abstract class DeviceConfig {
     * This is required by the Windows installer and is expected to go away in the future.
     *
     * @param string $source_name The source file name
-    * @param int $use_win_cp Set Windows charset if non-zero
+    * @param int $encoding Set Windows charset if non-zero
     *
     * @final not to be redefined
     */
