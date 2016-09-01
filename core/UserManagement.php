@@ -104,48 +104,51 @@ class UserManagement {
                              FROM invitations 
                              WHERE invite_token = '$escapedToken' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         if ($invitationDetails = mysqli_fetch_object($instinfo)) {
-            if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing inst
+            if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
                 DBConnection::exec(UserManagement::$databaseType, "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$escapedOwner', $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ");
                 CAT::writeAudit($escapedOwner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
                 return new IdP($invitationDetails->cat_institution_id);
-            } else { // create new IdP
-                $fed = new Federation($invitationDetails->country);
-                $idp = new IdP($fed->newIdP($escapedOwner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
+            }
+            // create new IdP
+            $fed = new Federation($invitationDetails->country);
+            $idp = new IdP($fed->newIdP($escapedOwner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
 
-                if ($invitationDetails->external_db_uniquehandle != NULL) {
-                    $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
-                    $externalinfo = Federation::getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
-                    foreach ($externalinfo['names'] as $instlang => $instname) {
-                        $idp->addAttribute("general:instname", serialize(['lang' => $instlang, 'content' => $instname]));
-                    }
-                    // see if we had a C language, and if not, pick a good candidate
-                    if (!array_key_exists('C', $externalinfo['names'])) {
-                        if (array_key_exists('en', $externalinfo['names'])) { // English is a good candidate
-                            $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $externalinfo['names']['en']]));
-                            $bestnameguess = $externalinfo['names']['en'];
-                        } else { // no idea, let's take the first language we found
-                            $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => reset($externalinfo['names'])]));
-                            $bestnameguess = reset($externalinfo['names']);
-                        }
+            if ($invitationDetails->external_db_uniquehandle != NULL) {
+                $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
+                $externalinfo = Federation::getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
+                foreach ($externalinfo['names'] as $instlang => $instname) {
+                    $idp->addAttribute("general:instname", serialize(['lang' => $instlang, 'content' => $instname]));
+                }
+                // see if we had a C language, and if not, pick a good candidate
+                if (!array_key_exists('C', $externalinfo['names'])) {
+                    if (array_key_exists('en', $externalinfo['names'])) { // English is a good candidate
+                        $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $externalinfo['names']['en']]));
+                        $bestnameguess = $externalinfo['names']['en'];
+                    } else { // no idea, let's take the first language we found
+                        $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => reset($externalinfo['names'])]));
+                        $bestnameguess = reset($externalinfo['names']);
                     }
                 } else {
-                    $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $invitationDetails->name]));
-                    $bestnameguess = $invitationDetails->name;
+                    $bestnameguess = $externalinfo['names']['C'];
                 }
-                CAT::writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
+            } else {
+                $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $invitationDetails->name]));
+                $bestnameguess = $invitationDetails->name;
+            }
+            CAT::writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
-                $admins = $fed->listFederationAdmins();
+            $admins = $fed->listFederationAdmins();
 
-                // notify the fed admins...
+            // notify the fed admins...
 
-                foreach ($admins as $id) {
-                    $user = new User($id);
-                    /// arguments are: 1. IdP name; 
-                    ///                2. consortium name (e.g. eduroam); 
-                    ///                3. federation shortname, e.g. "LU"; 
-                    ///                4. product name (e.g. eduroam CAT); 
-                    ///                5. product long name (e.g. eduroam Configuration Assistant Tool)
-                    $message = sprintf(_("Hi,
+            foreach ($admins as $id) {
+                $user = new User($id);
+                /// arguments are: 1. IdP name; 
+                ///                2. consortium name (e.g. eduroam); 
+                ///                3. federation shortname, e.g. "LU"; 
+                ///                4. product name (e.g. eduroam CAT); 
+                ///                5. product long name (e.g. eduroam Configuration Assistant Tool)
+                $message = sprintf(_("Hi,
 
 the invitation for the new Identity Provider %s in your %s federation %s has been used and the IdP was created in %s.
 
@@ -154,14 +157,13 @@ We thought you might want to know.
 Best regards,
 
 %s"), $bestnameguess, Config::$CONSORTIUM['name'], strtoupper($fed->name), Config::$APPEARANCE['productname'], Config::$APPEARANCE['productname_long']);
-                    $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
-                    if ($retval == FALSE) {
-                        debug(2, "Mail to federation admin was NOT sent!\n");
-                    }
+                $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
+                if ($retval == FALSE) {
+                    debug(2, "Mail to federation admin was NOT sent!\n");
                 }
-
-                return $idp;
             }
+
+            return $idp;
         }
     }
 
