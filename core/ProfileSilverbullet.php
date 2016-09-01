@@ -61,17 +61,17 @@ class ProfileSilverbullet extends AbstractProfile {
         if (isset(CONFIG::$CONSORTIUM['silverbullet_default_maxusers'])) {
             $tempMaxUsers = CONFIG::$CONSORTIUM['silverbullet_default_maxusers'];
         }
-        $my_inst = new IdP ($this->institution);
-        $my_fed = new Federation($my_inst->federation);
-        $fed_maxusers = $my_fed->getAttributes("fed:silverbullet-maxusers");
-        if (isset($fed_maxusers[0])) {
-            $tempMaxUsers = $fed_maxusers[0]['value'];
+        $myInst = new IdP ($this->institution);
+        $myFed = new Federation($myInst->federation);
+        $fedMaxusers = $myFed->getAttributes("fed:silverbullet-maxusers");
+        if (isset($fedMaxusers[0])) {
+            $tempMaxUsers = $fedMaxusers[0]['value'];
         }
         
         // realm is automatically calculated, then stored in DB
         
-        $this->realm = "opaquehash@$my_inst->identifier-$this->identifier.".strtolower($my_inst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix'];
-        $this->setRealm("$my_inst->identifier-$this->identifier.".strtolower($my_inst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier.".strtolower($myInst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix'];
+        $this->setRealm("$myInst->identifier-$this->identifier.".strtolower($myInst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
         $internalAttributes = [
@@ -132,6 +132,10 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path, $mime) {
+        // params are needed for proper overriding, and I don't want any errors
+        // in code analysis. So let's waste some cycles.
+        $device = $path;
+        $path = $mime;
     }
 
 
@@ -143,6 +147,9 @@ class ProfileSilverbullet extends AbstractProfile {
      *
      */
     public function addSupportedEapMethod($type, $preference) {
+        // params are needed for proper overriding, and I don't want any errors
+        // in code analysis. So let's waste some cycles.
+        $type = $preference;
         DBConnection::exec($this->databaseType, "INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
                 . EAP::EAPMethodIdFromArray(EAP::$SILVERBULLET) . ", "
@@ -155,6 +162,9 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param type $shallwe
      */
     public function setAnonymousIDSupport($shallwe) {
+        // params are needed for proper overriding, and I don't want any errors
+        // in code analysis. So let's waste some cycles.
+        $shallwe = 0;
         DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
     }
 
