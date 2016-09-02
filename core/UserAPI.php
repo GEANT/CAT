@@ -91,7 +91,7 @@ class UserAPI extends CAT {
     }
     if($this->i_path && is_file($this->i_path)) { 
       debug(4,"Using cached installer for: $device\n");
-      $a['link'] = "API.php?api_version=$version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
+      $a['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
       $a['mime'] = $cache['mime'];
     } else {
       $factory = new DeviceFactory($device);
@@ -112,7 +112,7 @@ class UserAPI extends CAT {
          $profile->updateCache($device,$this->i_path,$a['mime']);
 //         rrmdir($dev->FPATH.'/tmp');
          debug(4,"Generated installer: ".$this->i_path.": for: $device\n");
-         $a['link'] = "API.php?api_version=$version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
+         $a['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
          } else {
          debug(2,"Installer generation failed for: $prof_id:$device:".CAT::get_lang()."\n");
          $a['link'] = 0;

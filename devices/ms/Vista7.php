@@ -549,10 +549,10 @@ debug(4,"code_page=".$this->code_page."\n");
    $result = $result && $this->copyFile('cat_150.bmp');
    $this->translateFile('common.inc','common.nsh',$this->code_page);
    if( $eap["OUTER"] == TTLS)  {
-     $result = $result && $this->copyFile('GEANTLink32.msi');
-     $result = $result && $this->copyFile('GEANTLink64.msi');
-     $result = $result && $this->copyFile('CredWrite.exe');
-     $result = $result && $this->copyFile('MsiUseFeature.exe');
+     $result = $result && $this->copyFile('GEANTLink/GEANTLink32.msi','GEANTLink32.msi');
+     $result = $result && $this->copyFile('GEANTLink/GEANTLink64.msi','GEANTLink64.msi');
+     $result = $result && $this->copyFile('GEANTLink/CredWrite.exe','CredWrite.exe');
+     $result = $result && $this->copyFile('GEANTLink/MsiUseFeature.exe','MsiUseFeature.exe');
      $this->translateFile('geant_link.inc','cat.NSI',$this->code_page);
    } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);

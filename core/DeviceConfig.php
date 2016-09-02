@@ -265,23 +265,27 @@ abstract class DeviceConfig {
     * The second optional parameter, if nonzero, should be the character set understood by iconv
     * This is required by the Windows installer and is expected to go away in the future.
     *
-    * @param string $source_name The source file name
+    * @param string $source_name The source string
     * @param int $encoding Set Windows charset if non-zero
     *
     * @final not to be redefined
     */
 
    final protected function translateString($source_string,$encoding = 0) {
+      debug(4,"translateString input: \"$source_string\"\n");
+      if(empty($source_string)) {
+        return($source_string);
+      }
       if(Config::$NSIS_VERSION >= 3)
         $encoding = 0;
       if($encoding)
         $output_c = iconv('UTF-8',$encoding.'//TRANSLIT',$source_string);
       else
         $output_c = $source_string;
-      if($output_c) 
+      if($output_c)
          $source_string  = str_replace('"','$\\"',$output_c);
       else
-         debug(2,"Failed to convert string $source_string\n");
+         debug(2,"Failed to convert string \"$source_string\"\n");
       return $source_string;
    }
 
