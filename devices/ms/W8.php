@@ -55,18 +55,18 @@ class Device_W8 extends WindowsCommon {
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap ==  EAP::$TTLS_PAP || $this->selected_eap == EAP::$TTLS_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
        $WindowsProfile = [];
-       $eap_config = $this->prepareEapConfig($this->attributes);
+       $eapConfig = $this->prepareEapConfig($this->attributes);
        $i = 0;
        foreach ($SSIDs as $ssid => $cipher) {
           if($cipher == 'TKIP') {
-             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eap_config,$i);
+             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eapConfig,$i);
              $i++;
           }
-          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eap_config,$i);
+          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eapConfig,$i);
           $i++;
        }
        if($set_wired) {
-         $this->writeLANprofile($eap_config);
+         $this->writeLANprofile($eapConfig);
        }
      } else {
        error("  this EAP type is not handled yet");
@@ -309,10 +309,10 @@ return $return_array;
 /**
  * produce PEAP, TLS and TTLS configuration files for Windows 8
  */
-  private function writeWLANprofile($wlan_profile_name,$ssid,$auth,$encryption,$eap_config,$i) {
+  private function writeWLANprofile($wlanProfileName,$ssid,$auth,$encryption,$eapConfig,$i) {
 $profile_file_contents = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-<name>'.$wlan_profile_name.'</name>
+<name>'.$wlanProfileName.'</name>
 <SSIDConfig>
 <SSID>
 <name>'.$ssid.'</name>
@@ -352,14 +352,14 @@ if(! is_dir('w8'))
   mkdir('w8');
 $xml_f_name = "w8/wlan_prof-$i.xml";
 $xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eap_config['w8']. $closing) ;
+fwrite($xml_f,$profile_file_contents. $eapConfig['w8']. $closing) ;
 fclose($xml_f);
 debug(2,"Installer has been written into directory $this->FPATH\n");
-debug(4,"WWWWLAN_Profile:$wlan_profile_name:$encryption\n");
-return("\"$wlan_profile_name\" \"$encryption\"");
+debug(4,"WWWWLAN_Profile:$wlanProfileName:$encryption\n");
+return("\"$wlanProfileName\" \"$encryption\"");
 }
 
-private function writeLANprofile($eap_config) {
+private function writeLANprofile($eapConfig) {
 $profile_file_contents = '<?xml version="1.0"?>
 <LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
 <MSM>
@@ -381,7 +381,7 @@ if(! is_dir('w8'))
   mkdir('w8');
 $xml_f_name = "w8/lan_prof.xml";
 $xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eap_config['w8']. $closing) ;
+fwrite($xml_f,$profile_file_contents. $eapConfig['w8']. $closing) ;
 fclose($xml_f);
 debug(2,"Installer has been written into directory $this->FPATH\n");
 }
