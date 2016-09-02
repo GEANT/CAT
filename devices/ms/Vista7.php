@@ -148,7 +148,7 @@ private function prepareEapConfig($attr) {
    }
 //   $servers = preg_quote(implode(';',$attr['eap:server_name']));
    $servers = implode(';',$attr['eap:server_name']);
-   $ca_array = $attr['internal:CAs'][0];
+   $caArray = $attr['internal:CAs'][0];
    $author_id = "0";
    if( $eap == EAP::$TTLS_PAP) {
       $author_id = "67532";
@@ -201,7 +201,7 @@ $profile_file_contents .= '
 $profile_file_contents .= '<ServerSideCredential>
 ';
 
-   foreach ($ca_array as $ca) {
+   foreach ($caArray as $ca) {
       
       $profile_file_contents .= '<CA><format>PEM</format><cert-data>';
       $profile_file_contents .= base64_encode($ca['der']);
@@ -240,8 +240,8 @@ elseif( $eap == EAP::$TLS) {
 <eapTls:ServerValidation>
 <eapTls:DisableUserPromptForServerValidation>true</eapTls:DisableUserPromptForServerValidation>
 <eapTls:ServerNames>'.$servers.'</eapTls:ServerNames>';
-if($ca_array) {
-foreach ($ca_array as $CA)
+if($caArray) {
+foreach ($caArray as $CA)
     if($CA['root'])
        $profile_file_contents .= "<eapTls:TrustedRootCA>".$CA['sha1']."</eapTls:TrustedRootCA>\n";
 }
@@ -271,8 +271,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 <msPeap:ServerValidation>
 <msPeap:DisableUserPromptForServerValidation>true</msPeap:DisableUserPromptForServerValidation> 
 <msPeap:ServerNames>'.$servers.'</msPeap:ServerNames>';
-if($ca_array) {
-foreach ($ca_array as $CA)
+if($caArray) {
+foreach ($caArray as $CA)
     if($CA['root'])
        $vista_ext .= "<msPeap:TrustedRootCA>".$CA['sha1']."</msPeap:TrustedRootCA>\n";
 }
@@ -298,8 +298,8 @@ $w7_ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <ServerValidation>
 <DisableUserPromptForServerValidation>true</DisableUserPromptForServerValidation>
 <ServerNames>'.$servers.'</ServerNames>';
-if($ca_array) {
-foreach ($ca_array as $CA)
+if($caArray) {
+foreach ($caArray as $CA)
     if($CA['root'])
         $w7_ext .= "<TrustedRootCA>".$CA['sha1']."</TrustedRootCA>\n";
 }
@@ -512,7 +512,7 @@ fclose($f);
 
 }
 
-private function writeProfilesNSH($P,$ca_array,$wired=0) {
+private function writeProfilesNSH($P,$caArray,$wired=0) {
 debug(4,"writeProfilesNSH");
 debug(4,$P);
   $fcontents = '';
@@ -525,8 +525,8 @@ fclose($f);
 
 $fcontents = '';
 $f = fopen('certs.nsh','w');
-if($ca_array) {
-foreach ($ca_array as $CA) {
+if($caArray) {
+foreach ($caArray as $CA) {
       $store = $CA['root'] ? "root" : "ca";
       $fcontents .= '!insertmacro install_ca_cert "'.$CA['file'].'" "'.$CA['sha1'].'" "'.$store."\"\n";
     }
