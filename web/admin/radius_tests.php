@@ -272,7 +272,7 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        $testresult = $testsuite->CApath_check($host);
+        $testresult = $testsuite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         // the host member of the array may not be set if RETVAL_SKIPPED was

@@ -109,6 +109,8 @@ class IdP extends EntityWithDBProperties {
             $oneProfile->institution = $this->identifier;
             $returnarray[] = $oneProfile;
         }
+        
+        debug(2,"listProfiles: ".print_r($returnarray,true));
         return $returnarray;
     }
 

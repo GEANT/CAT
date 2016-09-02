@@ -105,7 +105,7 @@ class ProfileRADIUS extends AbstractProfile {
         $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
-                                            AND device_id = NULL AND eap_method_id = 0
+                                            AND device_id IS NULL AND eap_method_id = 0
                                             ORDER BY option_name", "Profile");
 
         // internal attributes share many attribute properties, so condense the generation
@@ -120,8 +120,15 @@ class ProfileRADIUS extends AbstractProfile {
                 "eapmethod" => 0];
         }
 
+        debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
+        debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
+        
+        debug(5, "Profile-Level Attributes: ".print_r($attributesLowLevel, true));
+        
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
+        debug(5, "Merged Attributes: ".print_r($attributesLowLevel, true));
+        
         // now, fetch and merge IdP-wide attributes
 
         
@@ -156,11 +163,11 @@ class ProfileRADIUS extends AbstractProfile {
         switch ($devicesOrEAPMethods) {
             case "DEVICES":
                 $queryPart = "device_id";
-                $conditionPart = "AND eap_method_id = 0";
+                $conditionPart = "AND eap_method_id = 0 AND device_id IS NOT NULL";
                 break;
             case "EAPMETHODS":
                 $queryPart = "eap_method_id";
-                $conditionPart = "AND device_id = NULL";
+                $conditionPart = "AND device_id IS NULL AND eap_method_id != 0";
                 break;
             default:
                 throw new Exception("fetchDeviceOrEAPLevelAttributes: unexpected keyword $devicesOrEAPMethods");
@@ -221,17 +228,17 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
-    private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device = 0) {
+    private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device) {
         $escapedAttrName = DBConnection::escapeValue($this->databaseType, $attrName);
         $escapedAttrValue = DBConnection::escapeValue($this->databaseType, $attrValue);
 
-        DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id" . ($device !== 0 ? ",device_id" : "") . ") 
-                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType" . ($device !== 0 ? ",'" . DBConnection::escapeValue($this->databaseType, $device) . "'" : "" ) . ")");
+        DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
+                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType, " . ($device === NULL ? "NULL" : "'".DBConnection::escapeValue($this->databaseType, $device)."'") . ")");
         $this->updateFreshness();
     }
 
     public function addAttributeEAPSpecific($attrName, $attrValue, $eapType) {
-        $this->addAttributeAllLevels($attrName, $attrValue, $eapType, 0);
+        $this->addAttributeAllLevels($attrName, $attrValue, $eapType, NULL);
     }
 
     public function addAttributeDeviceSpecific($attrName, $attrValue, $device) {
@@ -239,7 +246,7 @@ class ProfileRADIUS extends AbstractProfile {
     }
 
     public function addAttribute($attrName, $attrValue) {
-        $this->addAttributeAllLevels($attrName, $attrValue, 0, 0);
+        $this->addAttributeAllLevels($attrName, $attrValue, 0, NULL);
     }
 
     /**

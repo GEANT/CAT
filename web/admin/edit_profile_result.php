@@ -43,12 +43,13 @@ $my_profile = FALSE;
 
 if (isset($_GET['profile_id'])) {
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("This page should only be called to submit RADIUS Profile information!");
+    }
     $edit_mode = TRUE;
 }
 
-if (!$my_profile instanceof ProfileRADIUS) {
-    throw new Exception("This page should only be called to submit RADIUS Profile information!");
-}
+
 // extended input checks
 
 $realm = FALSE;
@@ -110,7 +111,6 @@ if (!$profile instanceof ProfileRADIUS) {
     echo _("Darn! Could not get a proper profile handle!");
     exit(1);
 }
-
 ?>
 <h1><?php echo _("Submitted attributes for this profile"); ?></h1>
 <table>
@@ -139,29 +139,28 @@ if (!$profile instanceof ProfileRADIUS) {
         if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
-            $profile->setRealmcheckUser(true,$checkuser_name);
-            echo UI_okay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name."@".$realm));
+            $profile->setRealmcheckUser(true, $checkuser_name);
+            echo UI_okay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name . "@" . $realm));
         }
     } else {
         $profile->setRealmCheckUser(false);
         echo UI_okay(_("No special username for realm checks is configured."));
     }
-    
+
     if ($verify != FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
-            $profile->setInputVerificationPreference($verify,$hint);
+            $profile->setInputVerificationPreference($verify, $hint);
             if ($hint) {
-                $extratext = " ".sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."),$realm);
+                $extratext = " " . sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."), $realm);
             } else {
                 $extratext = ".";
             }
             echo UI_okay(sprintf(_("Where possible, username inputs will be <strong>verified to contain an @ and end with %s</strong>%s"), $realm, $extratext));
-            
         }
     } else {
-        $profile->setInputVerificationPreference(false,false);
+        $profile->setInputVerificationPreference(false, false);
     }
 
     $remaining_attribs = $profile->beginflushAttributes();

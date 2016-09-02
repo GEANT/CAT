@@ -484,6 +484,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $attr = $attrBefore;
         }
 
+        debug(2,"XXX Attributes: ".print_r($attrBefore, true).print_r($attr, true));
+        
         $temp1 = [];
         $temp = [];
         $flags = [];

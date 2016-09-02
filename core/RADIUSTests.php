@@ -994,8 +994,8 @@ class RADIUSTests {
             debug(3, "calculating local part with explicit Profile\n");
             // did the admin specify a special outer ID for realm checks?
             // take this with precedence
-            $checkuser_set = $foo->getAttributes('internal:checkuser_outer')[0]['value'];
-            if ($checkuser_set) {
+            $isCheckuserSet = $foo->getAttributes('internal:checkuser_outer')[0]['value'];
+            if ($isCheckuserSet) {
                 $anonIdentity = $foo->getAttributes('internal:checkuser_value')[0]['value'];
             }
             // if none, take the configured anon outer ID
@@ -1693,7 +1693,7 @@ network={
      * @param string $host IP:port
      * @return int returncode
      */
-    public function CApath_check($host) {
+    public function cApathCheck($host) {
         if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
         }
