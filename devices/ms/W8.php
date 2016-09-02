@@ -137,7 +137,7 @@ else {
 
 private function prepareEapConfig($attr) {
    $eap = $this->selected_eap;
-   $w8_ext = '';
+   $w8Ext = '';
    $useAnon = $attr['internal:use_anon_outer'] [0];
    if ($useAnon) {
      $outerUser = $attr['internal:anon_local_value'][0];
@@ -149,20 +149,20 @@ private function prepareEapConfig($attr) {
    $caArray = $attr['internal:CAs'][0];
 
 
-$profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+$profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
 ';
 
-$profile_file_contents .= '<Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
+$profileFileCont .= '<Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
     $this->selected_eap["OUTER"].'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
 if( $eap == EAP::$TLS) {
-$profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
+$profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
-  $profile_file_contents .= '
+  $profileFileCont .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
   xmlns:eapTls="http://www.microsoft.com/provisioning/EapTlsConnectionPropertiesV1">
@@ -178,15 +178,15 @@ $profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisionin
 if($caArray) {
 foreach ($caArray as $CA)
     if($CA['root'])
-       $profile_file_contents .= "<eapTls:TrustedRootCA>".$CA['sha1']."</eapTls:TrustedRootCA>\n";
+       $profileFileCont .= "<eapTls:TrustedRootCA>".$CA['sha1']."</eapTls:TrustedRootCA>\n";
 }
-$profile_file_contents .= '</eapTls:ServerValidation>
+$profileFileCont .= '</eapTls:ServerValidation>
 ';
 if(isset($attr['eap-specific:tls_use_other_id']) && $attr['eap-specific:tls_use_other_id'][0] == 'on')
-   $profile_file_contents .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
+   $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
 else
-   $profile_file_contents .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
-$profile_file_contents .= '
+   $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
+$profileFileCont .= '
 </eapTls:EapType>
 </baseEap:Eap>
 </Config>
@@ -196,10 +196,10 @@ if(isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on')
    $nea = 'true';
 else
    $nea = 'false';
-$profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
+$profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
-$w8_ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+$w8Ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <Eap xmlns="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1">
 <Type>25</Type>
 <EapType xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1">
@@ -209,9 +209,9 @@ $w8_ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 if($caArray) {
 foreach ($caArray as $CA)
     if($CA['root'])
-        $w8_ext .= "<TrustedRootCA>".$CA['sha1']."</TrustedRootCA>\n";
+        $w8Ext .= "<TrustedRootCA>".$CA['sha1']."</TrustedRootCA>\n";
 }
-$w8_ext .= '</ServerValidation>
+$w8Ext .= '</ServerValidation>
 <FastReconnect>true</FastReconnect> 
 <InnerEapOptional>false</InnerEapOptional> 
 <Eap xmlns="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1">
@@ -224,81 +224,81 @@ $w8_ext .= '</ServerValidation>
 <RequireCryptoBinding>false</RequireCryptoBinding>
 ';
 if($useAnon == 1) {
-$w8_ext .='<PeapExtensions>
+$w8Ext .='<PeapExtensions>
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
 ';
 if(isset($outerUser) && $outerUser) 
-$w8_ext .='<AnonymousUserName>'.$outerUser.'</AnonymousUserName>
+$w8Ext .='<AnonymousUserName>'.$outerUser.'</AnonymousUserName>
 ';
 else
-$w8_ext .='<AnonymousUserName/>
+$w8Ext .='<AnonymousUserName/>
 ';
-$w8_ext .='</IdentityPrivacy>
+$w8Ext .='</IdentityPrivacy>
 </PeapExtensions>
 ';
 }
-$w8_ext .='</EapType>
+$w8Ext .='</EapType>
 </Eap>
 </Config>
 ';
 } elseif ( $eap == EAP::$TTLS_PAP || $eap == EAP::$TTLS_MSCHAP2) {
-$profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">311</AuthorId>
+$profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">311</AuthorId>
 </EapMethod>
 ';
-$w8_ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+$w8Ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1">
 <ServerValidation>
 <ServerNames>'.$servers.'</ServerNames> ';
 if($caArray) {
 foreach ($caArray as $CA)
     if($CA['root'])
-        $w8_ext .= "<TrustedRootCAHash>".chunk_split($CA['sha1'],2,' ')."</TrustedRootCAHash>\n";
+        $w8Ext .= "<TrustedRootCAHash>".chunk_split($CA['sha1'],2,' ')."</TrustedRootCAHash>\n";
 }
-$w8_ext .='<DisablePrompt>true</DisablePrompt> 
+$w8Ext .='<DisablePrompt>true</DisablePrompt> 
 </ServerValidation>
 <Phase2Authentication>
 ';
 if ( $eap == EAP::$TTLS_PAP) {
-   $w8_ext .='<PAPAuthentication /> ';
+   $w8Ext .='<PAPAuthentication /> ';
 }
 if ( $eap == EAP::$TTLS_MSCHAP2)  {
-   $w8_ext .='<MSCHAPv2Authentication>
+   $w8Ext .='<MSCHAPv2Authentication>
 <UseWinlogonCredentials>false</UseWinlogonCredentials>
 </MSCHAPv2Authentication>
 ';
 }
-$w8_ext .= '</Phase2Authentication>
+$w8Ext .= '</Phase2Authentication>
 <Phase1Identity>
 ';
 if($useAnon == 1) {
-  $w8_ext .= '<IdentityPrivacy>true</IdentityPrivacy> 
+  $w8Ext .= '<IdentityPrivacy>true</IdentityPrivacy> 
 ';
   if(isset($outer_id) && $outer_id) 
-    $w8_ext .='<AnonymousIdentity>'.$outer_id.'</AnonymousIdentity>
+    $w8Ext .='<AnonymousIdentity>'.$outer_id.'</AnonymousIdentity>
 ';
   else
-    $w8_ext .='<AnonymousIdentity/>
+    $w8Ext .='<AnonymousIdentity/>
 ';
 } else {
-  $w8_ext .= '<IdentityPrivacy>false</IdentityPrivacy>
+  $w8Ext .= '<IdentityPrivacy>false</IdentityPrivacy>
 ';
 }
-$w8_ext .='</Phase1Identity>
+$w8Ext .='</Phase1Identity>
 </EapTtls>
 </Config>
 ';
 } elseif ( $eap == EAP::$PWD) {
-$profile_file_contents .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
+$profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
-   $profile_file_contents .= '<ConfigBlob></ConfigBlob>';
+   $profileFileCont .= '<ConfigBlob></ConfigBlob>';
 }
 
-$profile_file_contents_end = '</EapHostConfig></EAPConfig>';
-$return_array = [];
-$return_array['w8'] = $profile_file_contents.$w8_ext.$profile_file_contents_end;
-return $return_array;
+$profileFileContEnd = '</EapHostConfig></EAPConfig>';
+$returnArray = [];
+$returnArray['w8'] = $profileFileCont.$w8Ext.$profileFileContEnd;
+return $returnArray;
 }
 
 // $auth can be one of: "WPA", "WPA2"
@@ -310,7 +310,7 @@ return $return_array;
  * produce PEAP, TLS and TTLS configuration files for Windows 8
  */
   private function writeWLANprofile($wlanProfileName,$ssid,$auth,$encryption,$eapConfig,$i) {
-$profile_file_contents = '<?xml version="1.0"?>
+$profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
 <name>'.$wlanProfileName.'</name>
 <SSIDConfig>
@@ -331,12 +331,12 @@ $profile_file_contents = '<?xml version="1.0"?>
 </authEncryption>
 ';
 if($auth == 'WPA2') 
-$profile_file_contents .= '<PMKCacheMode>enabled</PMKCacheMode> 
+$profileFileCont .= '<PMKCacheMode>enabled</PMKCacheMode> 
 <PMKCacheTTL>720</PMKCacheTTL> 
 <PMKCacheSize>128</PMKCacheSize> 
 <preAuthMode>disabled</preAuthMode> 
 ';
-$profile_file_contents .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+$profileFileCont .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
 <cacheUserData>true</cacheUserData>
 <authMode>user</authMode>
 ';
@@ -350,17 +350,17 @@ $closing = '
 
 if(! is_dir('w8'))
   mkdir('w8');
-$xml_f_name = "w8/wlan_prof-$i.xml";
-$xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eapConfig['w8']. $closing) ;
-fclose($xml_f);
+$xmlFname = "w8/wlan_prof-$i.xml";
+$xmlF = fopen($xmlFname,'w');
+fwrite($xmlF,$profileFileCont. $eapConfig['w8']. $closing) ;
+fclose($xmlF);
 debug(2,"Installer has been written into directory $this->FPATH\n");
 debug(4,"WWWWLAN_Profile:$wlanProfileName:$encryption\n");
 return("\"$wlanProfileName\" \"$encryption\"");
 }
 
 private function writeLANprofile($eapConfig) {
-$profile_file_contents = '<?xml version="1.0"?>
+$profileFileCont = '<?xml version="1.0"?>
 <LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
 <MSM>
 <security>
@@ -379,10 +379,10 @@ $closing = '
 
 if(! is_dir('w8'))
   mkdir('w8');
-$xml_f_name = "w8/lan_prof.xml";
-$xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eapConfig['w8']. $closing) ;
-fclose($xml_f);
+$xmlFname = "w8/lan_prof.xml";
+$xmlF = fopen($xmlFname,'w');
+fwrite($xmlF,$profileFileCont. $eapConfig['w8']. $closing) ;
+fclose($xmlF);
 debug(2,"Installer has been written into directory $this->FPATH\n");
 }
 
@@ -406,11 +406,11 @@ PWD=>['str'=>'PWD','exec'=>'user'],
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-$exec_level = $EAP_OPTS[$eap["OUTER"]]['exec'];
-$eap_str = $EAP_OPTS[$eap["OUTER"]]['str'];
+$execLevel = $EAP_OPTS[$eap["OUTER"]]['exec'];
+$eapStr = $EAP_OPTS[$eap["OUTER"]]['str'];
 
-$fcontents .= '!define '.$eap_str;
-$fcontents .= "\n".'!define EXECLEVEL "'.$exec_level.'"';
+$fcontents .= '!define '.$eapStr;
+$fcontents .= "\n".'!define EXECLEVEL "'.$execLevel.'"';
 
 if($attr['internal:profile_count'][0] > 1)
 $fcontents .= "\n".'!define USER_GROUP "'.$this->translateString(str_replace('"','$\\"',$attr['profile:name'][0]), $this->code_page).'"';
