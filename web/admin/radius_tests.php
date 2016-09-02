@@ -202,7 +202,7 @@ switch ($test_type) {
                     $message = _("<strong>Test FAILED</strong>: the request was rejected. The most likely cause is that you have misspelt the Username and/or the Password.");
                     $level = L_ERROR;
                     break;
-                case RETVAL_NOT_CONFIGURED:
+                case RETVAL_NOTCONFIGURED:
                     $level = L_ERROR;
                     $message = _("This method cannot be tested");
                     break;
