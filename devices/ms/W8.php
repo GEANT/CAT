@@ -36,13 +36,13 @@ class Device_W8 extends WindowsCommon {
   public function writeInstaller() {
       $dom = textdomain(NULL);
       textdomain("devices");
-   // create certificate files and save their names in $CA_files arrary
-     $CA_files = $this->saveCertificateFiles('der');
+   // create certificate files and save their names in $caFiles arrary
+     $caFiles = $this->saveCertificateFiles('der');
 
      $allSSID = $this->attributes['internal:SSID'];
      $delSSIDs = $this->attributes['internal:remove_SSID'];
      $this->prepareInstallerLang();
-     $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
+     $setWired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
      $delProfiles = [];
      foreach ($delSSIDs as $ssid => $cipher) {
@@ -65,7 +65,7 @@ class Device_W8 extends WindowsCommon {
           $windowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eapConfig,$i);
           $i++;
        }
-       if($set_wired) {
+       if($setWired) {
          $this->writeLANprofile($eapConfig);
        }
      } else {
@@ -74,7 +74,7 @@ class Device_W8 extends WindowsCommon {
      }
     debug(4,"windowsProfile"); debug(4,$windowsProfile);
     
-    $this->writeProfilesNSH($windowsProfile, $CA_files,$set_wired);
+    $this->writeProfilesNSH($windowsProfile, $caFiles,$setWired);
     $this->writeAdditionalDeletes($delProfiles);
     if(isset($additional_deletes) && count($additional_deletes))
        $this->writeAdditionalDeletes($additional_deletes);
@@ -83,19 +83,19 @@ class Device_W8 extends WindowsCommon {
        $this->combineLogo($this->attributes['internal:logo_file']);
     $this->writeMainNSH($this->selected_eap,$this->attributes);
     $this->compileNSIS();
-    $installer_path = $this->signInstaller($this->attributes); 
+    $installerPath = $this->signInstaller($this->attributes); 
 
     textdomain($dom);
-    return($installer_path);  
+    return($installerPath);  
   }
 
   public function writeDeviceInfo() {
-    $ssid_ct=count($this->attributes['internal:SSID']);
+    $ssidCount=count($this->attributes['internal:SSID']);
    $out = "<p>";
    $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."),Config::$CONSORTIUM['name'],Config::$CONSORTIUM['name']);
    $out .= "<p>";
-    if($ssid_ct > 1) {
-        if($ssid_ct > 2) {
+    if($ssidCount > 1) {
+        if($ssidCount > 2) {
             $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
         } else
             $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
@@ -117,7 +117,7 @@ else {
    $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
    $out .= "<p>";
    $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
-        if($ssid_ct > 1) {
+        if($ssidCount > 1) {
              $out .= "<p>";
              $out .= _("You will be required to enter the same credentials for each of the configured notworks:")." ";
              $i = 0;
@@ -138,10 +138,10 @@ else {
 private function prepareEapConfig($attr) {
    $eap = $this->selected_eap;
    $w8_ext = '';
-   $use_anon = $attr['internal:use_anon_outer'] [0];
-   if ($use_anon) {
-     $outer_user = $attr['internal:anon_local_value'][0];
-     $outer_id = $outer_user.'@'.$attr['internal:realm'][0];
+   $useAnon = $attr['internal:use_anon_outer'] [0];
+   if ($useAnon) {
+     $outerUser = $attr['internal:anon_local_value'][0];
+     $outer_id = $outerUser.'@'.$attr['internal:realm'][0];
    }
 //   $servers = preg_quote(implode(';',$attr['eap:server_name']));
    $servers = implode(';',$attr['eap:server_name']);
@@ -223,13 +223,13 @@ $w8_ext .= '</ServerValidation>
 <EnableQuarantineChecks>'.$nea.'</EnableQuarantineChecks>
 <RequireCryptoBinding>false</RequireCryptoBinding>
 ';
-if($use_anon == 1) {
+if($useAnon == 1) {
 $w8_ext .='<PeapExtensions>
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
 ';
-if(isset($outer_user) && $outer_user) 
-$w8_ext .='<AnonymousUserName>'.$outer_user.'</AnonymousUserName>
+if(isset($outerUser) && $outerUser) 
+$w8_ext .='<AnonymousUserName>'.$outerUser.'</AnonymousUserName>
 ';
 else
 $w8_ext .='<AnonymousUserName/>
@@ -271,7 +271,7 @@ if ( $eap == EAP::$TTLS_MSCHAP2)  {
 $w8_ext .= '</Phase2Authentication>
 <Phase1Identity>
 ';
-if($use_anon == 1) {
+if($useAnon == 1) {
   $w8_ext .= '<IdentityPrivacy>true</IdentityPrivacy> 
 ';
   if(isset($outer_id) && $outer_id) 
