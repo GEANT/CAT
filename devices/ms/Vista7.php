@@ -35,13 +35,13 @@ class Device_Vista7 extends WindowsCommon {
   public function writeInstaller() {
       $dom = textdomain(NULL);
       textdomain("devices");
-   // create certificate files and save their names in $CA_files arrary
-     $CA_files = $this->saveCertificateFiles('der');
+   // create certificate files and save their names in $caFiles arrary
+     $caFiles = $this->saveCertificateFiles('der');
 
-     $SSIDs = $this->attributes['internal:SSID'];
+     $allSSID = $this->attributes['internal:SSID'];
      $delSSIDs = $this->attributes['internal:remove_SSID'];
      $this->prepareInstallerLang();
-     $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
+     $setWired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
 //   create a list of profiles to be deleted after installation
      $delProfiles = [];
      foreach ($delSSIDs as $ssid => $cipher) {
@@ -52,46 +52,46 @@ class Device_Vista7 extends WindowsCommon {
      }
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD || $this->selected_eap == EAP::$TTLS_PAP) {
-       $WindowsProfile = [];
-       $eap_config = $this->prepareEapConfig($this->attributes);
+       $windowsProfile = [];
+       $eapConfig = $this->prepareEapConfig($this->attributes);
        $i = 0;
-       foreach ($SSIDs as $ssid => $cipher) {
+       foreach ($allSSID as $ssid => $cipher) {
           if($cipher == 'TKIP') {
-             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eap_config,$i);
+             $windowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eapConfig,$i);
              $i++;
           }
-          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eap_config,$i);
+          $windowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eapConfig,$i);
           $i++;
        }
-       if($set_wired) {
-         $this->writeLANprofile($eap_config);
+       if($setWired) {
+         $this->writeLANprofile($eapConfig);
        }
      } else {
        error("  this EAP type is not handled yet");
        return;
      }
-    debug(4,"WindowsProfile"); debug(4,$WindowsProfile);
+    debug(4,"windowsProfile"); debug(4,$windowsProfile);
     
-    $this->writeProfilesNSH($WindowsProfile, $CA_files,$set_wired);
+    $this->writeProfilesNSH($windowsProfile, $caFiles,$setWired);
     $this->writeAdditionalDeletes($delProfiles);
     $this->copyFiles($this->selected_eap);
     if(isset($this->attributes['internal:logo_file']))
        $this->combineLogo($this->attributes['internal:logo_file']);
     $this->writeMainNSH($this->selected_eap,$this->attributes);
     $this->compileNSIS();
-    $installer_path = $this->signInstaller($this->attributes); 
+    $installerPath = $this->signInstaller($this->attributes); 
 
     textdomain($dom);
-    return($installer_path);  
+    return($installerPath);  
   }
 
   public function writeDeviceInfo() {
-    $ssid_ct=count($this->attributes['internal:SSID']);
+    $ssidCount=count($this->attributes['internal:SSID']);
     $out = "<p>";
     $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."),Config::$CONSORTIUM['name'],Config::$CONSORTIUM['name']);
     $out .= "<p>";
-    if($ssid_ct > 1) {
-        if($ssid_ct > 2) {
+    if($ssidCount > 1) {
+        if($ssidCount > 2) {
             $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
         } else
             $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
@@ -114,7 +114,7 @@ class Device_Vista7 extends WindowsCommon {
     if($this->eap == EAP::$PEAP_MSCHAP2) {
         $out .= "<p>";
         $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
-        if($ssid_ct > 1) {
+        if($ssidCount > 1) {
              $out .= "<p>";
              $out .= _("You will be required to enter the same credentials for each of the configured notworks:")." ";
              $i = 0;
@@ -133,41 +133,41 @@ class Device_Vista7 extends WindowsCommon {
 }
 
 private function prepareEapConfig($attr) {
-    $vista_ext = '';
-    $w7_ext = '';
+    $vistaExt = '';
+    $w7Ext = '';
     $eap = $this->selected_eap;
     if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
       debug(2,"this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
       error("this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
      return;
     }
-   $use_anon = $attr['internal:use_anon_outer'] [0];
+   $useAnon = $attr['internal:use_anon_outer'] [0];
    $realm = $attr['internal:realm'] [0];
-   if ($use_anon) {
-     $outer_user = $attr['internal:anon_local_value'][0];
+   if ($useAnon) {
+     $outerUser = $attr['internal:anon_local_value'][0];
    }
 //   $servers = preg_quote(implode(';',$attr['eap:server_name']));
    $servers = implode(';',$attr['eap:server_name']);
    $caArray = $attr['internal:CAs'][0];
-   $author_id = "0";
+   $authorId = "0";
    if( $eap == EAP::$TTLS_PAP) {
-      $author_id = "67532";
+      $authorId = "67532";
       $servers = implode('</ServerName><ServerName>',$attr['eap:server_name']);
    }
 
-  $profile_file_contents = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+  $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
 <Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
     $this->selected_eap["OUTER"] .'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
-<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$author_id.'</AuthorId>
+<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$authorId.'</AuthorId>
 </EapMethod>
 ';
 
 
    if( $eap == EAP::$TTLS_PAP) {
-$profile_file_contents .= '
+$profileFileCont .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
 <EAPIdentityProvider>
@@ -187,30 +187,30 @@ $profile_file_contents .= '
 <AuthenticationMethod>
 <EAPMethod>21</EAPMethod>
 ';
-if($use_anon == 1) {
-    $profile_file_contents .= '<ClientSideCredential>
+if($useAnon == 1) {
+    $profileFileCont .= '<ClientSideCredential>
 ';
-    if($outer_user == '')
-        $profile_file_contents .= '<AnonymousIdentity>@</AnonymousIdentity>';
+    if($outerUser == '')
+        $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
     else
-        $profile_file_contents .= '<AnonymousIdentity>'.$outer_user.'@'.$realm.'</AnonymousIdentity>';
-$profile_file_contents .= '
+        $profileFileCont .= '<AnonymousIdentity>'.$outerUser.'@'.$realm.'</AnonymousIdentity>';
+$profileFileCont .= '
 </ClientSideCredential>
 ';
 }
-$profile_file_contents .= '<ServerSideCredential>
+$profileFileCont .= '<ServerSideCredential>
 ';
 
    foreach ($caArray as $ca) {
       
-      $profile_file_contents .= '<CA><format>PEM</format><cert-data>';
-      $profile_file_contents .= base64_encode($ca['der']);
-      $profile_file_contents .= '</cert-data></CA>
+      $profileFileCont .= '<CA><format>PEM</format><cert-data>';
+      $profileFileCont .= base64_encode($ca['der']);
+      $profileFileCont .= '</cert-data></CA>
 ';
    }
-   $profile_file_contents .= "<ServerName>$servers</ServerName>\n";
+   $profileFileCont .= "<ServerName>$servers</ServerName>\n";
 
-$profile_file_contents .= '
+$profileFileCont .= '
 </ServerSideCredential>
 <InnerAuthenticationMethod>
 <NonEAPAuthMethod>PAP</NonEAPAuthMethod>
@@ -227,7 +227,7 @@ $profile_file_contents .= '
 
 }
 elseif( $eap == EAP::$TLS) {
-  $profile_file_contents .= '
+  $profileFileCont .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
   xmlns:eapTls="http://www.microsoft.com/provisioning/EapTlsConnectionPropertiesV1">
@@ -243,15 +243,15 @@ elseif( $eap == EAP::$TLS) {
 if($caArray) {
 foreach ($caArray as $CA)
     if($CA['root'])
-       $profile_file_contents .= "<eapTls:TrustedRootCA>".$CA['sha1']."</eapTls:TrustedRootCA>\n";
+       $profileFileCont .= "<eapTls:TrustedRootCA>".$CA['sha1']."</eapTls:TrustedRootCA>\n";
 }
-$profile_file_contents .= '</eapTls:ServerValidation>
+$profileFileCont .= '</eapTls:ServerValidation>
 ';
 if(isset($attr['eap-specific:tls_use_other_id']) && $attr['eap-specific:tls_use_other_id'][0] == 'on')
-   $profile_file_contents .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
+   $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
 else
-   $profile_file_contents .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
-$profile_file_contents .= '
+   $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
+$profileFileCont .= '
 </eapTls:EapType>
 </baseEap:Eap>
 </Config>
@@ -261,7 +261,7 @@ if(isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on')
    $nea = 'true';
 else
    $nea = 'false';
-$vista_ext = '<Config xmlns:eapUser="http://www.microsoft.com/provisioning/EapUserPropertiesV1" 
+$vistaExt = '<Config xmlns:eapUser="http://www.microsoft.com/provisioning/EapUserPropertiesV1" 
 xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
   xmlns:msPeap="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1" 
   xmlns:msChapV2="http://www.microsoft.com/provisioning/MsChapV2ConnectionPropertiesV1">
@@ -274,9 +274,9 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 if($caArray) {
 foreach ($caArray as $CA)
     if($CA['root'])
-       $vista_ext .= "<msPeap:TrustedRootCA>".$CA['sha1']."</msPeap:TrustedRootCA>\n";
+       $vistaExt .= "<msPeap:TrustedRootCA>".$CA['sha1']."</msPeap:TrustedRootCA>\n";
 }
-$vista_ext .= '</msPeap:ServerValidation>
+$vistaExt .= '</msPeap:ServerValidation>
 <msPeap:FastReconnect>true</msPeap:FastReconnect> 
 <msPeap:InnerEapOptional>0</msPeap:InnerEapOptional> 
 <baseEap:Eap>
@@ -291,7 +291,7 @@ $vista_ext .= '</msPeap:ServerValidation>
 </baseEap:Eap>
 </Config>
 ';
-$w7_ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+$w7Ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <Eap xmlns="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1">
 <Type>25</Type>
 <EapType xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV1">
@@ -301,9 +301,9 @@ $w7_ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 if($caArray) {
 foreach ($caArray as $CA)
     if($CA['root'])
-        $w7_ext .= "<TrustedRootCA>".$CA['sha1']."</TrustedRootCA>\n";
+        $w7Ext .= "<TrustedRootCA>".$CA['sha1']."</TrustedRootCA>\n";
 }
-$w7_ext .= '</ServerValidation>
+$w7Ext .= '</ServerValidation>
 <FastReconnect>true</FastReconnect> 
 <InnerEapOptional>false</InnerEapOptional> 
 <Eap xmlns="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1">
@@ -315,30 +315,30 @@ $w7_ext .= '</ServerValidation>
 <EnableQuarantineChecks>'.$nea.'</EnableQuarantineChecks>
 <RequireCryptoBinding>false</RequireCryptoBinding>
 ';
-if($use_anon == 1)
-$w7_ext .='<PeapExtensions>
+if($useAnon == 1)
+$w7Ext .='<PeapExtensions>
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
-<AnonymousUserName>'.$outer_user.'</AnonymousUserName>
+<AnonymousUserName>'.$outerUser.'</AnonymousUserName>
 </IdentityPrivacy>
 </PeapExtensions>
 ';
-$w7_ext .='</EapType>
+$w7Ext .='</EapType>
 </Eap>
 </Config>
 ';
 } elseif ( $eap == EAP::$PWD) {
-   $profile_file_contents .= '<ConfigBlob></ConfigBlob>';
+   $profileFileCont .= '<ConfigBlob></ConfigBlob>';
 } 
 
 
 
-$profile_file_contents_end = '</EapHostConfig></EAPConfig>
+$profileFileContEnd = '</EapHostConfig></EAPConfig>
 ';
-$return_array = [];
-$return_array['vista']= $profile_file_contents.$vista_ext.$profile_file_contents_end;
-$return_array['w7']= $profile_file_contents.$w7_ext.$profile_file_contents_end;
-return $return_array;
+$returnArray = [];
+$returnArray['vista']= $profileFileCont.$vistaExt.$profileFileContEnd;
+$returnArray['w7']= $profileFileCont.$w7Ext.$profileFileContEnd;
+return $returnArray;
 }
 
 
@@ -350,10 +350,10 @@ return $return_array;
 /**
  * produce PEAP and TLS configuration files for Vista and Windows 7
  */
-  private function writeWLANprofile($wlan_profile_name,$ssid,$auth,$encryption,$eap_config,$i) {
-$profile_file_contents = '<?xml version="1.0"?>
+  private function writeWLANprofile($wlanProfileName,$ssid,$auth,$encryption,$eapConfig,$i) {
+$profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
-<name>'.$wlan_profile_name.'</name>
+<name>'.$wlanProfileName.'</name>
 <SSIDConfig>
 <SSID>
 <name>'.$ssid.'</name>
@@ -372,12 +372,12 @@ $profile_file_contents = '<?xml version="1.0"?>
 </authEncryption>
 ';
 if($auth == 'WPA2')
-$profile_file_contents .= '<PMKCacheMode>enabled</PMKCacheMode>
+$profileFileCont .= '<PMKCacheMode>enabled</PMKCacheMode>
 <PMKCacheTTL>720</PMKCacheTTL>
 <PMKCacheSize>128</PMKCacheSize>
 <preAuthMode>disabled</preAuthMode>
 ';
-$profile_file_contents .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+$profileFileCont .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
 <cacheUserData>true</cacheUserData>
 <authMode>user</authMode>
 ';
@@ -393,21 +393,21 @@ if(! is_dir('w7'))
   mkdir('w7');
 if(! is_dir('vista'))
   mkdir('vista');
-$xml_f_name = "vista/wlan_prof-$i.xml";
-$xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eap_config['vista']. $closing) ;
-fclose($xml_f);
-$xml_f_name = "w7/wlan_prof-$i.xml";
-$xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eap_config['w7']. $closing) ;
-fclose($xml_f);
+$xmlFname = "vista/wlan_prof-$i.xml";
+$xmlF = fopen($xmlFname,'w');
+fwrite($xmlF,$profileFileCont. $eapConfig['vista']. $closing) ;
+fclose($xmlF);
+$xmlFname = "w7/wlan_prof-$i.xml";
+$xmlF = fopen($xmlFname,'w');
+fwrite($xmlF,$profileFileCont. $eapConfig['w7']. $closing) ;
+fclose($xmlF);
 debug(2,"Installer has been written into directory $this->FPATH\n");
-debug(4,"WLAN_Profile:$wlan_profile_name:$encryption\n");
-return("\"$wlan_profile_name\" \"$encryption\"");
+debug(4,"WLAN_Profile:$wlanProfileName:$encryption\n");
+return("\"$wlanProfileName\" \"$encryption\"");
 }
 
-private function writeLANprofile($eap_config) {
-$profile_file_contents = '<?xml version="1.0"?>
+private function writeLANprofile($eapConfig) {
+$profileFileCont = '<?xml version="1.0"?>
 <LANProfile xmlns="http://www.microsoft.com/networking/LAN/profile/v1">
 <MSM>
 <security>
@@ -427,30 +427,15 @@ if(! is_dir('w7'))
   mkdir('w7');
 if(! is_dir('vista'))
   mkdir('vista');
-$xml_f_name = "vista/lan_prof.xml";
-$xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eap_config['vista']. $closing) ;
-fclose($xml_f);
-$xml_f_name = "w7/lan_prof.xml";
-$xml_f = fopen($xml_f_name,'w');
-fwrite($xml_f,$profile_file_contents. $eap_config['w7']. $closing) ;
-fclose($xml_f);
+$xmlFname = "vista/lan_prof.xml";
+$xmlF = fopen($xmlFname,'w');
+fwrite($xmlF,$profileFileCont. $eapConfig['vista']. $closing) ;
+fclose($xmlF);
+$xmlFname = "w7/lan_prof.xml";
+$xmlF = fopen($xmlFname,'w');
+fwrite($xmlF,$profileFileCont. $eapConfig['w7']. $closing) ;
+fclose($xmlF);
 }
-
-private function glueServerNames($server_list) {
-//print_r($server_list);
- $A0 =  array_reverse(explode('.',array_shift($server_list)));
- $B = $A0;
- if($server_list) {
-   foreach($server_list as $a) {
-   $A= array_reverse(explode('.',$a));
-   $B = array_intersect_assoc($A0,$A);
-   $A0 = $B;
-   }
-  }
-  return(implode('.',array_reverse($B)));
-}
-
 
 private function writeMainNSH($eap,$attr) {
 debug(4,"writeMainNSH"); debug(4,$attr);
@@ -470,13 +455,13 @@ if(Config::$NSIS_VERSION >= 3)
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-$exec_level = $EAP_OPTS[$eap["OUTER"]]['exec'];
-$eap_str = $EAP_OPTS[$eap["OUTER"]]['str'];
-debug(4,"EAP_STR=$eap_str\n");
+$execLevel = $EAP_OPTS[$eap["OUTER"]]['exec'];
+$eapStr = $EAP_OPTS[$eap["OUTER"]]['str'];
+debug(4,"EAP_STR=$eapStr\n");
 debug(4,$eap);
 
-$fcontents .= '!define '.$eap_str;
-$fcontents .= "\n".'!define EXECLEVEL "'.$exec_level.'"';
+$fcontents .= '!define '.$eapStr;
+$fcontents .= "\n".'!define EXECLEVEL "'.$execLevel.'"';
 if($attr['internal:profile_count'][0] > 1)
 $fcontents .= "\n".'!define USER_GROUP "'.$this->translateString(str_replace('"','$\\"',$attr['profile:name'][0]), $this->code_page).'"';
 $fcontents .= '
