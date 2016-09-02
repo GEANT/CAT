@@ -18,25 +18,25 @@ require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 
-function profilechecks(IdP $idpinfo,ProfileRADIUS $profile) {
+function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
-    
+
     $configuredRealm = $profile->getAttributes("internal:realm");
     $realm = $configuredRealm[0]['value'];
     if (empty($realm)) {
         $tabletext .= "<td>N/A: Realm not known</td><td></td><td></td><td></td>";
-        
+
         // update database with the findings
-        
+
         DBConnection::exec("INST", "UPDATE profile SET "
-                . "status_dns = ".RETVAL_SKIPPED.", "
-                . "status_cert = ".RETVAL_SKIPPED.", "
-                . "status_reachability = ". RETVAL_SKIPPED.", "
-                . "status_TLS = ".RETVAL_SKIPPED.", "
+                . "status_dns = " . RETVAL_SKIPPED . ", "
+                . "status_cert = " . RETVAL_SKIPPED . ", "
+                . "status_reachability = " . RETVAL_SKIPPED . ", "
+                . "status_TLS = " . RETVAL_SKIPPED . ", "
                 . "last_status_check = NOW() "
-                . "WHERE profile_id = ".$profile->identifier);
-        
+                . "WHERE profile_id = " . $profile->identifier);
+
         return $tabletext;
     }
     $testsuite = new RADIUSTests($realm, $profile->identifier);
@@ -62,38 +62,35 @@ function profilechecks(IdP $idpinfo,ProfileRADIUS $profile) {
 
     if ($naptr > 0) {
         $naptrValid = $testsuite->NAPTR_compliance();
-        if ($naptrValid == RETVAL_INVALID)
-            $NAPTR_issues = true;
+        switch ($naptrValid) {
+            case RETVAL_INVALID:
+                $NAPTR_issues = true;
+                break;
+            case RETVAL_OK:
+                $srv = $testsuite->NAPTR_SRV();
+                if ($srv == RETVAL_INVALID) {
+                    $NAPTR_issues = true;
+                }
+                if ($srv > 0) {
+                    $hosts = $testsuite->NAPTR_hostnames();
+                    if ($hosts == RETVAL_INVALID)
+                        $NAPTR_issues = true;
+                }
+                break;
+        }
     }
-
-    // SRV resolution
-
-    if ($naptr > 0 && $naptrValid == RETVAL_OK) {
-        $srv = $testsuite->NAPTR_SRV();
-        if ($srv == RETVAL_INVALID)
-            $NAPTR_issues = true;
-    }
-
-    // IP addresses for the hosts
-    if ($naptr > 0 && $naptrValid == RETVAL_OK && $srv > 0) {
-        $hosts = $testsuite->NAPTR_hostnames();
-        if ($hosts == RETVAL_INVALID)
-            $NAPTR_issues = true;
-    }
-
     if ($NAPTR_issues) {
-        $tabletext .= UI_error(0,0,true);
+        $tabletext .= UI_error(0, 0, true);
     } else {
-        $tabletext .= UI_okay(0,0,true);
+        $tabletext .= UI_okay(0, 0, true);
     }
-    
+
     $UDPErrors = false;
     $certBiggestOddity = L_OK;
-    
+
     foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);
         $results = $testsuite->UDP_reachability_result[$hostindex];
-        //echo "<pre>".print_r($results,true)."</pre>";
         if ($results['packetflow_sane'] != TRUE)
             $UDPErrors = true;
         if (empty($results['packetflow'][11]))
@@ -104,17 +101,17 @@ function profilechecks(IdP $idpinfo,ProfileRADIUS $profile) {
                     $certBiggestOddity = $oddity['level'];
         }
     }
-    
+
     $tabletext .= "</td><td>";
-    $tabletext .= UI_message($certBiggestOddity,0,0,true);
-        
+    $tabletext .= UI_message($certBiggestOddity, 0, 0, true);
+
     $tabletext .= "</td><td>";
     if (!$UDPErrors) {
-        $tabletext .= UI_okay(0,0,true);
+        $tabletext .= UI_okay(0, 0, true);
     } else {
-        $tabletext .= UI_error(0,0,true);
+        $tabletext .= UI_error(0, 0, true);
     }
-    
+
     $tabletext .= "</td><td>";
 
     $dynamicErrors = false;
@@ -127,20 +124,20 @@ function profilechecks(IdP $idpinfo,ProfileRADIUS $profile) {
         }
     }
     if (!$dynamicErrors) {
-        $tabletext .= UI_okay(0,0,true);
+        $tabletext .= UI_okay(0, 0, true);
     } else {
-        $tabletext .= UI_error(0,0,true);
+        $tabletext .= UI_error(0, 0, true);
     }
     $tabletext .= "</td></tr>";
 
     DBConnection::exec("INST", "UPDATE profile SET "
-                . "status_dns = ".($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
-                . "status_cert = ".($certBiggestOddity) . ", "
-                . "status_reachability = ".($UDPErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
-                . "status_TLS = ".($dynamicErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
-                . "last_status_check = NOW() "
-                . "WHERE profile_id = ".$profile->identifier);    
-        
+            . "status_dns = " . ($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
+            . "status_cert = " . ($certBiggestOddity) . ", "
+            . "status_reachability = " . ($UDPErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
+            . "status_TLS = " . ($dynamicErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
+            . "last_status_check = NOW() "
+            . "WHERE profile_id = " . $profile->identifier);
+
     return $tabletext;
 }
 
@@ -177,7 +174,7 @@ if (count($profiles_showtime) > 0) {
     echo "<h2>" . _("Profiles marked as visible (V)") . "</h2>" . "<table>";
     echo rowdescription();
     foreach ($profiles_showtime as $oneprofile)
-        echo profilechecks($oneprofile['idp'],$oneprofile['profile']);
+        echo profilechecks($oneprofile['idp'], $oneprofile['profile']);
     echo "</table>";
 }
 
@@ -185,7 +182,7 @@ if (count($profiles_confready) > 0) {
     echo "<h2>" . _("Profiles with sufficient configuration, not marked as visible (C)") . "</h2>" . "<table>";
     echo rowdescription();
     foreach ($profiles_confready as $oneprofile)
-        echo profilechecks($oneprofile['idp'],$oneprofile['profile']);
+        echo profilechecks($oneprofile['idp'], $oneprofile['profile']);
     echo "</table>";
 }
 ?>
