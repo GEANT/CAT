@@ -240,9 +240,9 @@ class RADIUSTests {
      * realm for which the tests are to be carried out.
      * 
      * @param string $realm
-     * @param int $profile_id
+     * @param int $profileId
      */
-    public function __construct($realm, $profile_id = 0) {
+    public function __construct($realm, $profileId = 0) {
         $oldlocale = CAT::set_locale('diagnostics');
 
         $this->realm = $realm;
@@ -271,8 +271,8 @@ class RADIUSTests {
         ];
         $this->errorlist = [];
         $this->initialise_errors();
-        if ($profile_id !== 0) {
-            $this->profile = ProfileFactory::instantiate($profile_id);
+        if ($profileId !== 0) {
+            $this->profile = ProfileFactory::instantiate($profileId);
             if (!$this->profile instanceof ProfileRADIUS) {
                 throw new Exception("The profile is not a ProfileRADIUS! We can only check those!");
             }
@@ -344,26 +344,26 @@ class RADIUSTests {
             $this->NAPTR_compliance_executed = RETVAL_OK;
             return RETVAL_OK;
         }
-        $format_errors = [];
+        $formatErrors = [];
         // format of NAPTRs is consortium specific. eduroam below; others need
         // their own code
         if (Config::$CONSORTIUM['name'] == "eduroam") { // SW: APPROVED
             foreach ($this->NAPTR_records as $edupointer) {
                 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
-                    $format_errors[] = ["TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']];
+                    $formatErrors[] = ["TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']];
                 }
                 // no regex
                 if ($edupointer["regex"] != "") {
-                    $format_errors[] = ["TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']];
+                    $formatErrors[] = ["TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']];
                 }
             }
         }
-        if (count($format_errors) == 0) {
+        if (count($formatErrors) == 0) {
             $this->NAPTR_compliance_executed = RETVAL_OK;
             return RETVAL_OK;
         }
-        $this->errorlist = array_merge($this->errorlist, $format_errors);
+        $this->errorlist = array_merge($this->errorlist, $formatErrors);
         $this->NAPTR_compliance_executed = RETVAL_INVALID;
         return RETVAL_INVALID;
     }
@@ -713,30 +713,30 @@ class RADIUSTests {
         // a working subset of hosts anyway. We should continue checking all 
         // dicovered names.
 
-        $ip_addresses = [];
-        $resolution_errors = [];
+        $ipAddrs = [];
+        $resolutionErrors = [];
 
         foreach ($this->NAPTR_SRV_records as $server) {
-            $host_resolution_6 = dns_get_record($server["hostname"], DNS_AAAA);
-            $host_resolution_4 = dns_get_record($server["hostname"], DNS_A);
-            $host_resolution = array_merge($host_resolution_6, $host_resolution_4);
-            if ($host_resolution === FALSE || count($host_resolution) == 0) {
-                $resolution_errors[] = ["TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']];
+            $hostResolutionIPv6 = dns_get_record($server["hostname"], DNS_AAAA);
+            $hostResolutionIPv4 = dns_get_record($server["hostname"], DNS_A);
+            $hostResolution = array_merge($hostResolutionIPv6, $hostResolutionIPv4);
+            if ($hostResolution === FALSE || count($hostResolution) == 0) {
+                $resolutionErrors[] = ["TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']];
             } else {
-                foreach ($host_resolution as $address) {
+                foreach ($hostResolution as $address) {
                     if (isset($address["ip"])) {
-                        $ip_addresses[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
+                        $ipAddrs[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
                     } else {
-                        $ip_addresses[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
+                        $ipAddrs[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
                     }
                 }
             }
         }
 
-        $this->NAPTR_hostname_records = $ip_addresses;
+        $this->NAPTR_hostname_records = $ipAddrs;
 
-        if (count($resolution_errors) > 0) {
-            $this->errorlist = array_merge($this->errorlist, $resolution_errors);
+        if (count($resolutionErrors) > 0) {
+            $this->errorlist = array_merge($this->errorlist, $resolutionErrors);
             $this->NAPTR_hostname_executed = RETVAL_INVALID;
             return RETVAL_INVALID;
         }
@@ -814,31 +814,31 @@ class RADIUSTests {
     /**
      * This function parses a X.509 intermediate CA cert and checks if it finds client device incompatibilities
      * 
-     * @param array $intermediate_ca the properties of the certificate as returned by processCertificate()
+     * @param array $intermediateCa the properties of the certificate as returned by processCertificate()
      * @param boolean complain_about_cdp_existence: for intermediates, not having a CDP is less of an issue than for servers. Set the REMARK (..._INTERMEDIATE) flag if not complaining; and _SERVER if so
      * @return array of oddities; the array is empty if everything is fine
      */
-    private function propertyCheckIntermediate(&$intermediate_ca, $server_cert = FALSE) {
+    private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
         $returnarray = [];
-        if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
+        if (preg_match("/md5/i", $intermediateCa['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
         }
-        debug(4, "CERT IS: " . print_r($intermediate_ca, TRUE));
-        if ($intermediate_ca['basicconstraints_set'] == 0) {
+        debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
+        if ($intermediateCa['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
         }
-        if ($intermediate_ca['full_details']['public_key_length'] < 1024) {
+        if ($intermediateCa['full_details']['public_key_length'] < 1024) {
             $returnarray[] = CERTPROB_LOW_KEY_LENGTH;
         }
-        $from = $intermediate_ca['full_details']['validFrom_time_t'];
+        $validFrom = $intermediateCa['full_details']['validFrom_time_t'];
         $now = time();
-        $to = $intermediate_ca['full_details']['validTo_time_t'];
-        if ($from > $now || $to < $now) {
+        $validTo = $intermediateCa['full_details']['validTo_time_t'];
+        if ($validFrom > $now || $validTo < $now) {
             $returnarray[] = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         }
-        $add_cert_crl_result = $this->addCrltoCert($intermediate_ca);
-        if ($add_cert_crl_result !== 0 && $server_cert) {
-            $returnarray[] = $add_cert_crl_result;
+        $addCertCrlResult = $this->addCrltoCert($intermediateCa);
+        if ($addCertCrlResult !== 0 && $serverCert) {
+            $returnarray[] = $addCertCrlResult;
         }
 
         return $returnarray;
@@ -906,13 +906,13 @@ class RADIUSTests {
 
     /**
      * We don't want to write passwords of the live login test to our logs. Filter them out
-     * @param string $string_to_redact what should be redacted
+     * @param string $stringToRedact what should be redacted
      * @param array $inputarray array of strings (outputs of eapol_test command)
      * @return array the output of eapol_test with the password redacted
      */
-    private function redact($string_to_redact, $inputarray) {
-        $temparray = preg_replace("/^.*$string_to_redact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
-        $hex = bin2hex($string_to_redact);
+    private function redact($stringToRedact, $inputarray) {
+        $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
+        $hex = bin2hex($stringToRedact);
         debug(5, $hex[2]);
         $spaced = "";
         for ($i = 1; $i < strlen($hex); $i++) {
@@ -982,10 +982,10 @@ class RADIUSTests {
      * - the inner username (only if no outer ID defined
      * - the outer username for installer rollout (preferred over inner)
      * - the outer username dedicated for our tests (preferred over outer-installer)
-     * @param string $inner_user
+     * @param string $innerUser
      * @return string the best-match string
      */
-    private function bestOuterLocalpart($inner_user) {
+    private function bestOuterLocalpart($innerUser) {
         $matches = [];
         $anon_id = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
         if ($this->profile instanceof ProfileRADIUS) { // take profile's anon ID (special one for realm checks or generic one) if known
@@ -1002,7 +1002,7 @@ class RADIUSTests {
             elseif ($useAnonOuter == TRUE && $foo->realm == $this->realm) {
                 $anon_id = $foo->getAttributes("internal:anon_local_value")[0]['value'];
             }
-        } elseif (preg_match("/(.*)@.*/", $inner_user, $matches)) {
+        } elseif (preg_match("/(.*)@.*/", $innerUser, $matches)) {
             // otherwise, use the local part of inner ID if provided
 
             $anon_id = $matches[1];
@@ -1128,16 +1128,16 @@ network={
      * it got and what oddities were observed along the way
      * @param int $probeindex the probe we are connecting to (as set in product config)
      * @param array $eaptype EAP type to use for connection
-     * @param string $inner_user inner username to try
+     * @param string $innerUser inner username to try
      * @param string $password password to try
-     * @param string $outer_user outer username to set
-     * @param boolean $opname_check whether or not we check with Operator-Name set
+     * @param string $outerUser outer username to set
+     * @param boolean $opnameCheck whether or not we check with Operator-Name set
      * @param boolean $frag whether or not we check with an oversized packet forcing fragmentation
      * @param string $clientcertdata client certificate credential to try
      * @return int overall return code of the login test
      * @throws Exception
      */
-    public function UDP_login($probeindex, $eaptype, $inner_user, $password, $outer_user = '', $opname_check = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+    public function UDP_login($probeindex, $eaptype, $innerUser, $password, $outerUser = '', $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
         if (!isset(Config::$RADIUSTESTS['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
@@ -1148,19 +1148,19 @@ network={
         // necessarily match
         // if we weren't told a realm for outer and there is nothing in inner, consider the outer_user a realm only, and prefix with local part
         // inner: take whatever we got (it may or may not contain a realm identifier)
-        $final_inner = $inner_user;
+        $finalInner = $innerUser;
 
         // outer: if we've been given a full realm spec, take it as-is
-        if (preg_match("/@/", $outer_user)) {
-            $final_outer = $outer_user;
-        } elseif ($outer_user != "") {// make our own guess: we've been given an explicit realm for outer
-            $final_outer = $this->bestOuterLocalpart($inner_user) . $outer_user;
+        if (preg_match("/@/", $outerUser)) {
+            $finalOuter = $outerUser;
+        } elseif ($outerUser != "") {// make our own guess: we've been given an explicit realm for outer
+            $finalOuter = $this->bestOuterLocalpart($innerUser) . $outerUser;
         } else { // nothing. Use the realm from inner ID if it has one
             $matches = [];
-            if (preg_match("/.*(@.*)/", $inner_user, $matches)) {
-                $final_outer = $this->bestOuterLocalpart($inner_user) . $matches[1];
+            if (preg_match("/.*(@.*)/", $innerUser, $matches)) {
+                $finalOuter = $this->bestOuterLocalpart($innerUser) . $matches[1];
             } elseif ($this->profile instanceof ProfileRADIUS && $this->profile->realm != "") { // hm, we can only take the realm from Profile
-                $final_outer = $this->bestOuterLocalpart($inner_user) . "@" . $this->profile->realm;
+                $finalOuter = $this->bestOuterLocalpart($innerUser) . "@" . $this->profile->realm;
             } else { // we have no idea what realm to send this to. Give up.
                 return RETVAL_INCOMPLETE_DATA;
             }
@@ -1169,12 +1169,12 @@ network={
         // we will need a config blob for wpa_supplicant, in a temporary directory
         // code is copy&paste from DeviceConfig.php
 
-        $T = createTemporaryDirectory('test');
-        $tmpDir = $T['dir'];
+        $temporary = createTemporaryDirectory('test');
+        $tmpDir = $temporary['dir'];
         chdir($tmpDir);
         debug(4, "temp dir: $tmpDir\n");
         
-        $eap_text = EAP::eapDisplayName($eaptype);
+        $eapText = EAP::eapDisplayName($eaptype);
 
         if ($clientcertdata !== NULL) {
             $clientcertfile = fopen($tmpDir . "/client.p12", "w");
@@ -1188,11 +1188,11 @@ network={
             return RETVAL_NOTCONFIGURED;
         }
         // if we don't have a string for outer EAP method name, give up
-        if (!isset($eap_text['OUTER'])) {
+        if (!isset($eapText['OUTER'])) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
-        $theconfigs = $this->wpaSupplicantConfig($eaptype, $final_inner, $final_outer, $password);
+        $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
         // the config intentionally does not include CA checking. We do this
         // ourselves after getting the chain with -o.
         $wpaSupplicantConfig = fopen($tmpDir . "/udp_login_test.conf", "w");
@@ -1201,7 +1201,7 @@ network={
 
         $testresults = [];
         $testresults['cert_oddities'] = [];
-        $cmdline = $this->eapolTestConfig($probeindex, $opname_check, $frag);
+        $cmdline = $this->eapolTestConfig($probeindex, $opnameCheck, $frag);
         debug(4, "Shallow reachability check cmdline: $cmdline\n");
         debug(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
         $packetflow_orig = [];
