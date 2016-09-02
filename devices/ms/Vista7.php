@@ -26,7 +26,7 @@ require_once('WindowsCommon.php');
  */
 class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
-      $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD];
+      $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD, EAP::$TTLS_PAP];
       debug(4,"This device supports the following EAP methods: ");
       debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
@@ -151,7 +151,7 @@ private function prepareEapConfig($attr) {
    $ca_array = $attr['internal:CAs'][0];
    $author_id = "0";
    if( $eap == EAP::$TTLS_PAP) {
-      $author_id = "17236";
+      $author_id = "67532";
       $servers = implode('</ServerName><ServerName>',$attr['eap:server_name']);
    }
 
@@ -171,16 +171,16 @@ $profile_file_contents .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
 <EAPIdentityProvider>
-<ID>eduroam.si</ID>
+<ID>CATinstaller</ID>
 <ProviderInfo>
 <CredentialPrompt>
-<localized-text><lang>en</lang><text>'._("Please provide your user ID and password.").'</text></localized-text>
+<localized-text><lang>'.$this->lang_index.'</lang><text>'._("Please provide your user ID and password.").'</text></localized-text>
 </CredentialPrompt>
 <UserNameLabel>
-<localized-text><lang>en</lang><text>Username@domain:</text></localized-text>
+<localized-text><lang>'.$this->lang_index.'</lang><text>'._("Username@domain:").'</text></localized-text>
 </UserNameLabel>
 <PasswordLabel>
-<localized-text><lang>en</lang><text>Password:</text></localized-text>
+<localized-text><lang>'.$this->lang_index.'</lang><text>'._("Password:").'</text></localized-text>
 </PasswordLabel>
 </ProviderInfo>
 <AuthenticationMethods>
@@ -226,7 +226,6 @@ $profile_file_contents .= '
 ';
 
 }
-
 elseif( $eap == EAP::$TLS) {
   $profile_file_contents .= '
 
@@ -415,6 +414,8 @@ $profile_file_contents = '<?xml version="1.0"?>
 <OneXEnforced>false</OneXEnforced>
 <OneXEnabled>true</OneXEnabled>
 <OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+<cacheUserData>true</cacheUserData>
+<authMode>user</authMode>
 ';
 $closing = '
 </OneX>
@@ -458,7 +459,7 @@ debug(4,"MYLANG=".$this->lang."\n");
 $EAP_OPTS = [
 PEAP=>['str'=>'PEAP','exec'=>'user'],
 TLS=>['str'=>'TLS','exec'=>'user'],
-TTLS=>['str'=>'ArnesLink','exec'=>'user'],
+TTLS=>['str'=>'GEANTLink','exec'=>'user'],
 PWD=>['str'=>'PWD','exec'=>'user'],
 ];
 $fcontents = '';
@@ -548,12 +549,11 @@ debug(4,"code_page=".$this->code_page."\n");
    $result = $result && $this->copyFile('cat_150.bmp');
    $this->translateFile('common.inc','common.nsh',$this->code_page);
    if( $eap["OUTER"] == TTLS)  {
-     $result = $this->copyFile('GPL3.rtf');
-     $result = $result && $this->copyFile('ArnesLinkEn32.msi');
-     $result = $result && $this->copyFile('ArnesLinkEn64.msi');
-     $result = $result && $this->copyFile('dump_arneslink_profile.cmd');
-     $result = $result && $this->copyFile('install_arneslink_profile.cmd');
-     $this->translateFile('arnes_link.inc','cat.NSI',$this->code_page);
+     $result = $result && $this->copyFile('GEANTLink32.msi');
+     $result = $result && $this->copyFile('GEANTLink64.msi');
+     $result = $result && $this->copyFile('CredWrite.exe');
+     $result = $result && $this->copyFile('MsiUseFeature.exe');
+     $this->translateFile('geant_link.inc','cat.NSI',$this->code_page);
    } elseif($eap["OUTER"] == PWD) {
      $this->translateFile('pwd.inc','cat.NSI',$this->code_page);
      $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
@@ -567,3 +567,5 @@ debug(4,"copyFiles end\n");
 }
 
 }
+
+?>
