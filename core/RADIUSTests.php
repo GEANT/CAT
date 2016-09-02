@@ -1013,13 +1013,14 @@ class RADIUSTests {
 
     /**
      * 
-     * @param array $eap_text Textual representation of the EAP type
+     * @param array $eaptype array representation of the EAP type
      * @param string $inner inner username
      * @param string $outer outer username
      * @param string $password the password
      * @return array [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
      */
-    private function wpaSupplicantConfig(array $eap_text, string $inner, string $outer, string $password) {
+    private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password) {
+        $eap_text = EAP::eapDisplayName($eaptype);
         $config = '
 network={
   ssid="' . Config::$APPEARANCE['productname'] . ' testing"
@@ -1043,9 +1044,6 @@ network={
         }
         // for methods with client certs, add a client cert config block
         if ($eaptype == EAP::$TLS || $eaptype == EAP::$ANY) {
-            $clientcertfile = fopen($tmp_dir . "/client.p12", "w");
-            fwrite($clientcertfile, $clientcertdata);
-            fclose($clientcertfile);
             $config .= "  private_key=\"./client.p12\"\n";
             $log_config .= "  private_key=\"./client.p12\"\n";
             $config .= "  private_key_passwd=\"$password\"\n";
@@ -1105,8 +1103,8 @@ network={
      * @param boolean $opName include Operator-Name in request?
      * @param boolean $frag make request so large that fragmentation is needed?
      * @return string the command-line for eapol_test
-     */    
-    private function eapolTestConfig($opName, $frag) {
+     */
+    private function eapolTestConfig($probeindex, $opName, $frag) {
         $cmdline = Config::$PATHS['eapol_test'] .
                 " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
@@ -1124,7 +1122,7 @@ network={
         }
         return $cmdline;
     }
-    
+
     /**
      * The big Guy. This performs an actual login with EAP and records how far 
      * it got and what oddities were observed along the way
@@ -1178,6 +1176,12 @@ network={
         $wpa_supplicant_config = fopen($tmp_dir . "/udp_login_test.conf", "w");
         $eap_text = EAP::eapDisplayName($eaptype);
 
+        if ($clientcertdata !== NULL) {
+            $clientcertfile = fopen($tmp_dir . "/client.p12", "w");
+            fwrite($clientcertfile, $clientcertdata);
+            fclose($clientcertfile);
+        }
+
         // if we need client certs but don't have one, return
         if (($eaptype == EAP::$ANY || $eaptype == EAP::TLS) && $clientcertdata === NULL) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
@@ -1188,7 +1192,7 @@ network={
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
-        $theconfigs = $this->wpaSupplicantConfig($eap_text, $final_inner, $final_outer, $password);
+        $theconfigs = $this->wpaSupplicantConfig($eaptype, $final_inner, $final_outer, $password);
         // the config intentionally does not include CA checking. We do this
         // ourselves after getting the chain with -o.
 
@@ -1197,7 +1201,7 @@ network={
 
         $testresults = [];
         $testresults['cert_oddities'] = [];
-        $cmdline = $this->eapolTestConfig($opname_check, $frag);
+        $cmdline = $this->eapolTestConfig($probeindex, $opname_check, $frag);
         debug(4, "Shallow reachability check cmdline: $cmdline\n");
         debug(4, "Shallow reachability check config: $tmp_dir\n" . $theconfigs[1] . "\n");
         $packetflow_orig = [];
@@ -1214,10 +1218,10 @@ network={
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
-        
+
         // calculate packet counts and see what the overall flow was
         $finalretval = $this->packetCountEvaluation($testresults, $packetcount);
-        
+
         // only to make sure we've defined this in all code paths
         // not setting it has no real-world effect, but Scrutinizer mocks
         $ackedmethod = FALSE;
@@ -1272,13 +1276,10 @@ network={
             $server_file = fopen($tmp_dir . "/incomingserver.pem", "w");
 
             if (!mkdir($tmp_dir . "/root-ca-allcerts/", 0700, true)) {
-                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-allcerts/\n");
-                exit;
+                throw new Exception("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-allcerts/\n");
             }
-
             if (!mkdir($tmp_dir . "/root-ca-eaponly/", 0700, true)) {
-                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-eaponly/\n");
-                exit;
+                throw new Exception("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-eaponly/\n");
             }
 
             $eap_intermediate_oddities = [];
