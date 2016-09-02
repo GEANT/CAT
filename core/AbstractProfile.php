@@ -418,8 +418,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
                 $message = $deviceProperties['options']['message'];
             }
-            $eapCustomtext = "";
-            $deviceCustomtext = "";
+            $eapCustomtext = 0;
+            $deviceCustomtext = 0;
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
@@ -430,7 +430,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                             $eapCustomtext = $eAPOptions["eap-specific:customtext"][serialize($eap)];
                         } else {
                             // fetch customtexts from method-level attributes
-                            $eapCustomtext = "";
+                            $eapCustomtext = 0;
                             $customTextAttributes = [];
                             $attributeList = $this->getAttributes("eap-specific:redirect");
                             foreach ($attributeList as $oneAttribute) {
