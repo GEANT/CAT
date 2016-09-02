@@ -146,12 +146,17 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     if ($prefill) {
         debug(5, "Executed with PREFILL!\n");
         $retval .= "<td>";
-        foreach ($list as $key => $value) {
-            $listtype = $optioninfo->optionType($value);
-            $retval .= display_name($value);
-            $retval .= tooltip($value);
-            $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
+        // prefill is always only called with a list with exactly one element.
+        // if we see anything else here, get excited.
+        if (count($list) != 1) {
+            throw new Exception("Optiontext prefilled display only can work with exactly one option!");
         }
+        $value = $list[0];
+
+        $listtype = $optioninfo->optionType($value);
+        $retval .= display_name($value);
+        $retval .= tooltip($value);
+        $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 
         // language tag if any
         $retval .= "<td>";
