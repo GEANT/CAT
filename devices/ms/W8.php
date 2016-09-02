@@ -39,7 +39,7 @@ class Device_W8 extends WindowsCommon {
    // create certificate files and save their names in $CA_files arrary
      $CA_files = $this->saveCertificateFiles('der');
 
-     $SSIDs = $this->attributes['internal:SSID'];
+     $allSSID = $this->attributes['internal:SSID'];
      $delSSIDs = $this->attributes['internal:remove_SSID'];
      $this->prepareInstallerLang();
      $set_wired = isset($this->attributes['media:wired'][0]) && $this->attributes['media:wired'][0] == 'on' ? 1 : 0;
@@ -54,15 +54,15 @@ class Device_W8 extends WindowsCommon {
 
 
      if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap ==  EAP::$TTLS_PAP || $this->selected_eap == EAP::$TTLS_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
-       $WindowsProfile = [];
+       $windowsProfile = [];
        $eapConfig = $this->prepareEapConfig($this->attributes);
        $i = 0;
-       foreach ($SSIDs as $ssid => $cipher) {
+       foreach ($allSSID as $ssid => $cipher) {
           if($cipher == 'TKIP') {
-             $WindowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eapConfig,$i);
+             $windowsProfile[$i] = $this->writeWLANprofile ($ssid.' (TKIP)',$ssid,'WPA','TKIP',$eapConfig,$i);
              $i++;
           }
-          $WindowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eapConfig,$i);
+          $windowsProfile[$i] = $this->writeWLANprofile ($ssid,$ssid,'WPA2','AES',$eapConfig,$i);
           $i++;
        }
        if($set_wired) {
@@ -72,9 +72,9 @@ class Device_W8 extends WindowsCommon {
        error("  this EAP type is not handled yet");
        return;
      }
-    debug(4,"WindowsProfile"); debug(4,$WindowsProfile);
+    debug(4,"windowsProfile"); debug(4,$windowsProfile);
     
-    $this->writeProfilesNSH($WindowsProfile, $CA_files,$set_wired);
+    $this->writeProfilesNSH($windowsProfile, $CA_files,$set_wired);
     $this->writeAdditionalDeletes($delProfiles);
     if(isset($additional_deletes) && count($additional_deletes))
        $this->writeAdditionalDeletes($additional_deletes);
