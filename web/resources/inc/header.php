@@ -207,6 +207,7 @@ function productheader($area, $language) {
         default:
             $cap1 = Config::$APPEARANCE['productname_long'];
             $cap2 = "It is an error if you ever see this string.";
+            $advancedControls = FALSE;
     }
 
 

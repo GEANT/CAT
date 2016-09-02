@@ -34,7 +34,6 @@ define("RETVAL_OK", 0);
  * Test could not be run because CAT software isn't configured for it
  */
 define("RETVAL_NOTCONFIGURED", -100);
-define("RETVAL_NOT_CONFIGURED", -100);
 /**
  * Test skipped because there was nothing to be done
  */
@@ -229,15 +228,12 @@ class RADIUSTests {
     private $NAPTR_SRV_records;
     private $UDP_reachability_executed;
     private $errorlist;
+    private $TLS_certkeys = [];
     public $return_codes;
     public $UDP_reachability_result;
     public $TLS_CA_checks_result;
     public $TLS_clients_checks_result;
     public $NAPTR_hostname_records;
-
-    /**
-     */
-    public $TLS_certkeys = [];
 
     /**
      * Constructor for the EAPTests class. The single mandatory parameter is the
@@ -279,9 +275,8 @@ class RADIUSTests {
             $this->profile = ProfileFactory::instantiate($profile_id);
             if (!$this->profile instanceof ProfileRADIUS) {
                 throw new Exception("The profile is not a ProfileRADIUS! We can only check those!");
-            } 
-        }
-        else {
+            }
+        } else {
             $this->profile = FALSE;
         }
 
@@ -293,7 +288,7 @@ class RADIUSTests {
      * configured consortium NAPTR target.
      * 
      * possible RETVALs:
-     * - RETVAL_NOT_CONFIGURED; needs Config::$RADIUSTESTS['TLS-discoverytag']
+     * - RETVAL_NOTCONFIGURED; needs Config::$RADIUSTESTS['TLS-discoverytag']
      * - RETVAL_ONLYUNRELATEDNAPTR
      * - RETVAL_NONAPTR
      * 
@@ -304,34 +299,31 @@ class RADIUSTests {
             $this->NAPTR_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
-
         $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
-        if ($NAPTRs !== FALSE && count($NAPTRs) > 0) {
-            $NAPTRs_consortium = [];
-            foreach ($NAPTRs as $naptr) {
-                if ($naptr["services"] == Config::$RADIUSTESTS['TLS-discoverytag'])
-                    $NAPTRs_consortium[] = $naptr;
-            }
-
-            if (count($NAPTRs_consortium) > 0) {
-                $this->NAPTR_records = $NAPTRs_consortium;
-                $this->NAPTR_executed = count($NAPTRs_consortium);
-                return count($NAPTRs_consortium);
-            } else {
-                $this->NAPTR_executed = RETVAL_ONLYUNRELATEDNAPTR;
-                return RETVAL_ONLYUNRELATEDNAPTR;
-            }
-        } else {
+        if ($NAPTRs === FALSE || count($NAPTRs) == 0) {
             $this->NAPTR_executed = RETVAL_NONAPTR;
             return RETVAL_NONAPTR;
         }
+        $NAPTRs_consortium = [];
+        foreach ($NAPTRs as $naptr) {
+            if ($naptr["services"] == Config::$RADIUSTESTS['TLS-discoverytag']) {
+                $NAPTRs_consortium[] = $naptr;
+            }
+        }
+        if (count($NAPTRs_consortium) == 0) {
+            $this->NAPTR_executed = RETVAL_ONLYUNRELATEDNAPTR;
+            return RETVAL_ONLYUNRELATEDNAPTR;
+        }
+        $this->NAPTR_records = $NAPTRs_consortium;
+        $this->NAPTR_executed = count($NAPTRs_consortium);
+        return count($NAPTRs_consortium);
     }
 
     /**
      * Tests if all the dicovered NAPTR entries conform to the consortium's requirements
      * 
      * possible RETVALs:
-     * - RETVAL_NOT_CONFIGURED; needs Config::$RADIUSTESTS['TLS-discoverytag']
+     * - RETVAL_NOTCONFIGURED; needs Config::$RADIUSTESTS['TLS-discoverytag']
      * - RETVAL_INVALID (at least one format error)
      * - RETVAL_OK (all fine)
 
@@ -367,18 +359,17 @@ class RADIUSTests {
                 }
             }
         }
-        if (count($format_errors) > 0) {
-            $this->errorlist = array_merge($this->errorlist, $format_errors);
-            $this->NAPTR_compliance_executed = RETVAL_INVALID;
-            return RETVAL_INVALID;
-        } else {
+        if (count($format_errors) == 0) {
             $this->NAPTR_compliance_executed = RETVAL_OK;
             return RETVAL_OK;
         }
+        $this->errorlist = array_merge($this->errorlist, $format_errors);
+        $this->NAPTR_compliance_executed = RETVAL_INVALID;
+        return RETVAL_INVALID;
     }
 
 // generic return codes
-    function initialise_errors() {
+    private function initialise_errors() {
         $oldlocale = CAT::set_locale('diagnostics');
         $this->return_codes = [];
         /**
@@ -391,7 +382,6 @@ class RADIUSTests {
         /**
          * Test could not be run because CAT software isn't configured for it
          */
-        
         $code2 = RETVAL_NOTCONFIGURED;
         $this->return_codes[$code2]["message"] = _("Product is not configured to run this check.");
         $this->return_codes[$code2]["severity"] = L_OK;
@@ -736,8 +726,7 @@ class RADIUSTests {
                 foreach ($host_resolution as $address) {
                     if (isset($address["ip"])) {
                         $ip_addresses[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
-                    }
-                    else {
+                    } else {
                         $ip_addresses[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
                     }
                 }
@@ -763,7 +752,7 @@ class RADIUSTests {
      *    incoming_server_names, sAN_DNS and CN array values are also defined
      * @return array of oddities; the array is empty if everything is fine
      */
-    public function property_check_servercert(&$servercert) {
+    private function property_check_servercert(&$servercert) {
         debug(5, "SERVER CERT IS: " . print_r($servercert, TRUE));
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
@@ -778,40 +767,43 @@ class RADIUSTests {
             }
         }
         // check for wildcards
-
+        $CN = [];
         if (isset($servercert['full_details']['subject']['CN'])) {
-            if (is_array($servercert['full_details']['subject']['CN']))
+            if (is_array($servercert['full_details']['subject']['CN'])) {
                 $CN = $servercert['full_details']['subject']['CN'];
-            else
+            } else {
                 $CN = [$servercert['full_details']['subject']['CN']];
-        }
-        else {
-            $CN = [""];
+            }
         }
 
-        if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName']))
+        $sAN_list = [];
+        if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName'])) {
             $sAN_list = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
-        else
-            $sAN_list = [];
+        }
 
         $sAN_DNS = [];
-        foreach ($sAN_list as $san_name)
-            if (preg_match("/^DNS:/", $san_name))
+        foreach ($sAN_list as $san_name) {
+            if (preg_match("/^DNS:/", $san_name)) {
                 $sAN_DNS[] = substr($san_name, 4);
+            }
+        }
 
         $allnames = array_unique(array_merge($CN, $sAN_DNS));
 
-        if (preg_match("/\*/", implode($allnames)))
+        if (preg_match("/\*/", implode($allnames))) {
             $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
+        }
 
         // is there more than one CN? None or one is okay, more is asking for trouble.
-        if (count($CN) > 1)
+        if (count($CN) > 1) {
             $returnarray[] = CERTPROB_MULTIPLE_CN;
+        }
 
         // check for real hostname
         foreach ($allnames as $onename) {
-            if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE)
+            if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
                 $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
+            }
         }
         $servercert['incoming_server_names'] = $allnames;
         $servercert['sAN_DNS'] = $sAN_DNS;
@@ -826,7 +818,7 @@ class RADIUSTests {
      * @param boolean complain_about_cdp_existence: for intermediates, not having a CDP is less of an issue than for servers. Set the REMARK (..._INTERMEDIATE) flag if not complaining; and _SERVER if so
      * @return array of oddities; the array is empty if everything is fine
      */
-    public function property_check_intermediate(&$intermediate_ca, $server_cert = FALSE) {
+    private function property_check_intermediate(&$intermediate_ca, $server_cert = FALSE) {
         $returnarray = [];
         if (preg_match("/md5/i", $intermediate_ca['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
@@ -835,16 +827,19 @@ class RADIUSTests {
         if ($intermediate_ca['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
         }
-        if ($intermediate_ca['full_details']['public_key_length'] < 1024)
+        if ($intermediate_ca['full_details']['public_key_length'] < 1024) {
             $returnarray[] = CERTPROB_LOW_KEY_LENGTH;
+        }
         $from = $intermediate_ca['full_details']['validFrom_time_t'];
         $now = time();
         $to = $intermediate_ca['full_details']['validTo_time_t'];
-        if ($from > $now || $to < $now)
+        if ($from > $now || $to < $now) {
             $returnarray[] = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
+        }
         $add_cert_crl_result = $this->add_cert_crl($intermediate_ca);
-        if ($add_cert_crl_result !== 0 && $server_cert)
+        if ($add_cert_crl_result !== 0 && $server_cert) {
             $returnarray[] = $add_cert_crl_result;
+        }
 
         return $returnarray;
     }
@@ -895,8 +890,9 @@ class RADIUSTests {
             $returnresult = CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
             $crlcontent = downloadFile($crl_url[1] . $crl_url[2]);
-            if ($crlcontent === FALSE)
+            if ($crlcontent === FALSE) {
                 $returnresult = CERTPROB_NO_CRL_AT_CDP_URL;
+            }
             $begin_crl = strpos($crlcontent, "-----BEGIN X509 CRL-----");
             if ($begin_crl === FALSE) {
                 $pem = chunk_split(base64_encode($crlcontent), 64, "\n");
@@ -924,7 +920,7 @@ class RADIUSTests {
                 $spaced .= $hex[$i] . " ";
             } else {
                 $spaced .= $hex[$i];
-            };
+            }
         }
         debug(5, $hex . " HEX " . $spaced);
         return preg_replace("/$spaced/", " HEX ENCODED PASSWORD REDACTED ", $temparray);
@@ -948,7 +944,7 @@ class RADIUSTests {
         }
         return $retarray;
     }
-    
+
     /**
      * this function checks if there was a "Retry allowed" MSCHAPv2 error message in the conversation
      * 
@@ -963,7 +959,7 @@ class RADIUSTests {
         }
         return FALSE;
     }
-    
+
     /**
      * this function assumes that there was an EAP conversation; calling it on other packet flows gets undefined results
      * it checks if the flow contained at least one method proposition which was not NAKed
@@ -972,7 +968,7 @@ class RADIUSTests {
      * @return boolean returns TRUE if method was ACKed; false if only NAKs in the flow
      */
     private function check_conversation_eap_method_ack($inputarray) {
-        foreach ($inputarray as $lineid => $line) {
+        foreach ($inputarray as $line) {
             if (preg_match("/CTRL-EVENT-EAP-PROPOSED-METHOD/", $line) && !preg_match("/NAK$/", $line)) {
                 return TRUE;
             }
@@ -1013,6 +1009,118 @@ class RADIUSTests {
         }
         // if we couldn't gather any intelligible information, use the empty string
         return $anon_id;
+    }
+
+    /**
+     * 
+     * @param array $eaptype array representation of the EAP type
+     * @param string $inner inner username
+     * @param string $outer outer username
+     * @param string $password the password
+     * @return array [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
+     */
+    private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password) {
+        $eap_text = EAP::eapDisplayName($eaptype);
+        $config = '
+network={
+  ssid="' . Config::$APPEARANCE['productname'] . ' testing"
+  key_mgmt=WPA-EAP
+  proto=WPA2
+  pairwise=CCMP
+  group=CCMP
+  ';
+        // phase 1
+        $config .= 'eap=' . $eap_text['OUTER'] . "\n";
+        $log_config = $config;
+        // phase 2 if applicable; all inner methods have passwords
+        if (isset($eap_text['INNER']) && $eap_text['INNER'] != "") {
+            $config .= '  phase2="auth=' . $eap_text['INNER'] . "\"\n";
+            $log_config .= '  phase2="auth=' . $eap_text['INNER'] . "\"\n";
+        }
+        // all methods set a password, except EAP-TLS
+        if ($eaptype != EAP::$TLS) {
+            $config .= "  password=\"$password\"\n";
+            $log_config .= "  password=\"not logged for security reasons\"\n";
+        }
+        // for methods with client certs, add a client cert config block
+        if ($eaptype == EAP::$TLS || $eaptype == EAP::$ANY) {
+            $config .= "  private_key=\"./client.p12\"\n";
+            $log_config .= "  private_key=\"./client.p12\"\n";
+            $config .= "  private_key_passwd=\"$password\"\n";
+            $log_config .= "  private_key_passwd=\"not logged for security reasons\"\n";
+        }
+
+        // inner identity
+        $config .= '  identity="' . $inner . "\"\n";
+        $log_config .= '  identity="' . $inner . "\"\n";
+        // outer identity, may be equal
+        $config .= '  anonymous_identity="' . $outer . "\"\n";
+        $log_config .= '  anonymous_identity="' . $outer . "\"\n";
+        // done
+        $config .= "}";
+        $log_config .= "}";
+
+        return [$config, $log_config];
+    }
+
+    private function packetCountEvaluation(&$testresults, $packetcount) {
+        $reqs = (isset($packetcount[1]) ? $packetcount[1] : 0);
+        $accepts = (isset($packetcount[2]) ? $packetcount[2] : 0);
+        $rejects = (isset($packetcount[3]) ? $packetcount[3] : 0);
+        $challenges = (isset($packetcount[11]) ? $packetcount[11] : 0);
+        $testresults['packetflow_sane'] = TRUE;
+        if ($reqs - $accepts - $rejects - $challenges != 0 || $accepts > 1 || $rejects > 1) {
+            $testresults['packetflow_sane'] = FALSE;
+        }
+
+        // calculate the main return values that this test yielded
+
+        $finalretval = RETVAL_INVALID;
+        if ($accepts + $rejects == 0) { // no final response. hm.
+            if ($challenges > 0) { // but there was an Access-Challenge
+                $finalretval = RETVAL_SERVER_UNFINISHED_COMM;
+            } else {
+                $finalretval = RETVAL_NO_RESPONSE;
+            }
+        } else // either an accept or a reject
+        // rejection without EAP is fishy
+        if ($rejects > 0) {
+            if ($challenges == 0) {
+                $finalretval = RETVAL_IMMEDIATE_REJECT;
+            } else { // i.e. if rejected with challenges
+                $finalretval = RETVAL_CONVERSATION_REJECT;
+            }
+        } else if ($accepts > 0) {
+            $finalretval = RETVAL_OK;
+        }
+
+        return $finalretval;
+    }
+
+    /**
+     * generate an eapol_test command-line config for the fixed config filename 
+     * ./udp_login_test.conf
+     * @param boolean $opName include Operator-Name in request?
+     * @param boolean $frag make request so large that fragmentation is needed?
+     * @return string the command-line for eapol_test
+     */
+    private function eapolTestConfig($probeindex, $opName, $frag) {
+        $cmdline = Config::$PATHS['eapol_test'] .
+                " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
+                " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
+                " -o serverchain.pem" .
+                " -c ./udp_login_test.conf" .
+                " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
+                " -t " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['timeout'] . " ";
+        if ($opName) {
+            $cmdline .= '-N126:s:"1cat.eduroam.org" ';
+        }
+        if ($frag) {
+            for ($i = 0; $i < 6; $i++) { // 6 x 250 bytes means UDP fragmentation will occur - good!
+                $cmdline .= '-N26:x:0000625A0BF961616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161 ';
+            }
+        }
+        return $cmdline;
     }
 
     /**
@@ -1067,143 +1175,63 @@ class RADIUSTests {
         debug(4, "temp dir: $tmp_dir\n");
         $wpa_supplicant_config = fopen($tmp_dir . "/udp_login_test.conf", "w");
         $eap_text = EAP::eapDisplayName($eaptype);
-        $config = '
-network={
-  ssid="' . Config::$APPEARANCE['productname'] . ' testing"
-  key_mgmt=WPA-EAP
-  proto=WPA2
-  pairwise=CCMP
-  group=CCMP
-  ';
-        // phase 1
-        if (isset($eap_text['OUTER'])) {
-            $config .= 'eap=' . $eap_text['OUTER'] . "\n";
-        } else {// in case eapDisplayName didn't give an answer
+
+        if ($clientcertdata !== NULL) {
+            $clientcertfile = fopen($tmp_dir . "/client.p12", "w");
+            fwrite($clientcertfile, $clientcertdata);
+            fclose($clientcertfile);
+        }
+
+        // if we need client certs but don't have one, return
+        if (($eaptype == EAP::$ANY || $eaptype == EAP::TLS) && $clientcertdata === NULL) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
-            return RETVAL_NOT_CONFIGURED;
+            return RETVAL_NOTCONFIGURED;
         }
-        $log_config = $config;
-        // phase 2 if applicable; all inner methods have passwords
-        if (isset($eap_text['INNER']) && $eap_text['INNER'] != "") {
-            $config .= '  phase2="auth=' . $eap_text['INNER'] . "\"\n";
-            $log_config .= '  phase2="auth=' . $eap_text['INNER'] . "\"\n";
-            $config .= "  password=\"$password\"\n";
-            $log_config .= "  password=\"not logged for security reasons\"\n";
-            if ($eaptype == EAP::$EAP_ANY) { // add a junk client cert
-                if ($clientcertdata !== NULL) {
-                    $clientcertfile = fopen($tmp_dir . "/client.p12", "w");
-                    fwrite($clientcertfile, $clientcertdata);
-                    fclose($clientcertfile);
-                    $config .= "  private_key=\"./client.p12\"\n";
-                    $config .= "  private_key_passwd=\"$password\"\n";
-                    $log_config .= "  private_key_passwd=\"not logged for security reasons\"\n";
-                } else {
-                    $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
-                    return RETVAL_NOT_CONFIGURED;
-                }
-            }
-        } else if ($eaptype == EAP::$PWD) { // PWD has a password, but no phase2
-            $config .= "  password=\"$password\"\n";
-            $log_config .= "  password=\"not logged for security reasons\"\n";
-        } else if ($eaptype == EAP::$TLS) { // EAP-TLS has private credentials, no phase2
-            if ($clientcertdata !== NULL) {
-                $clientcertfile = fopen($tmp_dir . "/client.p12", "w");
-                fwrite($clientcertfile, $clientcertdata);
-                fclose($clientcertfile);
-                $config .= "  private_key=\"./client.p12\"\n";
-                $config .= "  private_key_passwd=\"$password\"\n";
-                $log_config .= "  private_key_passwd=\"not logged for security reasons\"\n";
-            } else {
-                $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
-                return RETVAL_NOT_CONFIGURED;
-            }
+        // if we don't have a string for outer EAP method name, give up
+        if (!isset($eap_text['OUTER'])) {
+            $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
+            return RETVAL_NOTCONFIGURED;
         }
-        // inner identity
-        $config .= '  identity="' . $final_inner . "\"\n";
-        $log_config .= '  identity="' . $final_inner . "\"\n";
-        // outer identity, may be equal
-        $config .= '  anonymous_identity="' . $final_outer . "\"\n";
-        $log_config .= '  anonymous_identity="' . $final_outer . "\"\n";
-        // done
-        $config .= "}";
-        $log_config .= "}";
+        $theconfigs = $this->wpaSupplicantConfig($eaptype, $final_inner, $final_outer, $password);
         // the config intentionally does not include CA checking. We do this
         // ourselves after getting the chain with -o.
 
-        fwrite($wpa_supplicant_config, $config);
+        fwrite($wpa_supplicant_config, $theconfigs[0]);
         fclose($wpa_supplicant_config);
 
         $testresults = [];
         $testresults['cert_oddities'] = [];
-        $packetflow_orig = [];
-        
-        $cmdline = Config::$PATHS['eapol_test'] .
-                " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
-                " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
-                " -o serverchain.pem" .
-                " -c ./udp_login_test.conf" .
-                " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
-                " -t " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['timeout'] . " ";
-        if ($opname_check)
-            $cmdline .= '-N126:s:"1cat.eduroam.org" ';
-        if ($frag)
-            for ($i = 0; $i < 6; $i++) // 6 x 250 bytes means UDP fragmentation will occur - good!
-                $cmdline .= '-N26:x:0000625A0BF961616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161 ';
-
+        $cmdline = $this->eapolTestConfig($probeindex, $opname_check, $frag);
         debug(4, "Shallow reachability check cmdline: $cmdline\n");
-        debug(4, "Shallow reachability check config: $tmp_dir\n$log_config\n");
+        debug(4, "Shallow reachability check config: $tmp_dir\n" . $theconfigs[1] . "\n");
+        $packetflow_orig = [];
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
         $time_stop = microtime(true);
         debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
         $packetflow = $this->filter_packettype($packetflow_orig);
-        if ($packetflow[count($packetflow) - 1] == 11 && $this->check_mschap_691_r($packetflow_orig))
+        if ($packetflow[count($packetflow) - 1] == 11 && $this->check_mschap_691_r($packetflow_orig)) {
             $packetflow[count($packetflow) - 1] = 3;
+        }
         debug(5, "Packetflow: " . print_r($packetflow, TRUE));
         $testresults['time_millisec'] = ($time_stop - $time_start) * 1000;
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
-        // first see if there was a packet count mismatch (retransmits?)
-        $reqs = (isset($packetcount[1]) ? $packetcount[1] : 0);
-        $accepts = (isset($packetcount[2]) ? $packetcount[2] : 0);
-        $rejects = (isset($packetcount[3]) ? $packetcount[3] : 0);
-        $challenges = (isset($packetcount[11]) ? $packetcount[11] : 0);
-        if ($reqs - $accepts - $rejects - $challenges != 0 || $accepts > 1 || $rejects > 1)
-            $testresults['packetflow_sane'] = FALSE;
-        else
-            $testresults['packetflow_sane'] = TRUE;
 
-        // calculate the main return values that this test yielded
-
-        $finalretval = RETVAL_INVALID;
-        if ($accepts + $rejects == 0) { // no final response. hm.
-            if ($challenges > 0) { // but there was an Access-Challenge
-                $finalretval = RETVAL_SERVER_UNFINISHED_COMM;
-            } else {
-                $finalretval = RETVAL_NO_RESPONSE;
-            }
-        } else // either an accept or a reject
-        // rejection without EAP is fishy
-        if ($rejects > 0) {
-            if ($challenges == 0) {
-                $finalretval = RETVAL_IMMEDIATE_REJECT;
-            } else { // i.e. if rejected with challenges
-                $finalretval = RETVAL_CONVERSATION_REJECT;
-            }
-        } else if ($accepts > 0) {
-            $finalretval = RETVAL_OK;
-        }
+        // calculate packet counts and see what the overall flow was
+        $finalretval = $this->packetCountEvaluation($testresults, $packetcount);
 
         // only to make sure we've defined this in all code paths
         // not setting it has no real-world effect, but Scrutinizer mocks
-        $ackedmethod = FALSE; 
-        
+        $ackedmethod = FALSE;
+
         if ($finalretval == RETVAL_CONVERSATION_REJECT) {
             $ackedmethod = $this->check_conversation_eap_method_ack($packetflow_orig);
-            if (!$ackedmethod)
+            if (!$ackedmethod) {
                 $testresults['cert_oddities'][] = CERTPROB_NO_COMMON_EAP_METHOD;
-        };
+            }
+        }
 
 
         // now let's look at the server cert+chain
@@ -1248,13 +1276,10 @@ network={
             $server_file = fopen($tmp_dir . "/incomingserver.pem", "w");
 
             if (!mkdir($tmp_dir . "/root-ca-allcerts/", 0700, true)) {
-                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-allcerts/\n");
-                exit;
+                throw new Exception("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-allcerts/\n");
             }
-
             if (!mkdir($tmp_dir . "/root-ca-eaponly/", 0700, true)) {
-                error("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-eaponly/\n");
-                exit;
+                throw new Exception("unable to create root CA directory (RADIUS Tests): $tmp_dir/root-ca-eaponly/\n");
             }
 
             $eap_intermediate_oddities = [];
@@ -1262,8 +1287,9 @@ network={
 
             foreach ($eap_certarray as $cert_pem) {
                 $cert = $x509->processCertificate($cert_pem);
-                if ($cert == FALSE)
+                if ($cert == FALSE) {
                     continue;
+                }
                 // consider the certificate a server cert 
                 // a) if it is not a CA and is not a self-signed root
                 // b) if it is a CA, and self-signed, and it is the only cert in
@@ -1287,34 +1313,37 @@ network={
                     // IdP/profile, not against an EAP-discovered CA
                 } else {
                     $eap_intermediate_oddities = array_merge($eap_intermediate_oddities, $this->property_check_intermediate($cert));
-                    $intermediate_file = fopen($tmp_dir . "/root-ca-eaponly/incomingintermediate$eap_number_intermediate.pem", "w");
-                    fwrite($intermediate_file, $cert_pem . "\n");
-                    fclose($intermediate_file);
-                    $intermediate_file = fopen($tmp_dir . "/root-ca-allcerts/incomingintermediate$eap_number_intermediate.pem", "w");
-                    fwrite($intermediate_file, $cert_pem . "\n");
-                    fclose($intermediate_file);
+                    $intermediateFileEAP = fopen($tmp_dir . "/root-ca-eaponly/incomingintermediate$eap_number_intermediate.pem", "w");
+                    fwrite($intermediateFileEAP, $cert_pem . "\n");
+                    fclose($intermediateFileEAP);
+                    $intermediateFileAll = fopen($tmp_dir . "/root-ca-allcerts/incomingintermediate$eap_number_intermediate.pem", "w");
+                    fwrite($intermediateFileAll, $cert_pem . "\n");
+                    fclose($intermediateFileAll);
 
 
                     if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
                         debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                        $CRL_file = fopen($tmp_dir . "/root-ca-eaponly/crl$eap_number_intermediate.pem", "w"); // this is where the root CAs go
-                        fwrite($CRL_file, $cert['CRL'][0]);
-                        fclose($CRL_file);
-                        $CRL_file = fopen($tmp_dir . "/root-ca-allcerts/crl$eap_number_intermediate.pem", "w"); // this is where the root CAs go
-                        fwrite($CRL_file, $cert['CRL'][0]);
-                        fclose($CRL_file);
+                        $cRLFileEAP = fopen($tmp_dir . "/root-ca-eaponly/crl$eap_number_intermediate.pem", "w"); // this is where the root CAs go
+                        fwrite($cRLFileEAP, $cert['CRL'][0]);
+                        fclose($cRLFileEAP);
+                        $CRLFileAll = fopen($tmp_dir . "/root-ca-allcerts/crl$eap_number_intermediate.pem", "w"); // this is where the root CAs go
+                        fwrite($CRLFileAll, $cert['CRL'][0]);
+                        fclose($CRLFileAll);
                     }
                     $eap_number_intermediate++;
                 }
                 $testresults['certdata'][] = $cert['full_details'];
             }
             fclose($server_file);
-            if ($number_root > 0 && !$totally_selfsigned)
+            if ($number_root > 0 && !$totally_selfsigned) {
                 $testresults['cert_oddities'][] = CERTPROB_ROOT_INCLUDED;
-            if ($number_server > 1)
+            }
+            if ($number_server > 1) {
                 $testresults['cert_oddities'][] = CERTPROB_TOO_MANY_SERVER_CERTS;
-            if ($number_server == 0)
+            }
+            if ($number_server == 0) {
                 $testresults['cert_oddities'][] = CERTPROB_NO_SERVER_CERT;
+            }
             // check server cert properties
             if ($number_server > 0) {
                 $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->property_check_servercert($servercert));
@@ -1340,12 +1369,12 @@ network={
                     }
                     if ($decoded['ca'] == 1) {
                         if ($decoded['root'] == 1) { // save CAT roots to the root directory
-                            $root_CA = fopen($tmp_dir . "/root-ca-eaponly/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
-                            fwrite($root_CA, $decoded['pem']);
-                            fclose($root_CA);
-                            $root_CA = fopen($tmp_dir . "/root-ca-allcerts/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
-                            fwrite($root_CA, $decoded['pem']);
-                            fclose($root_CA);
+                            $rootCAEAP = fopen($tmp_dir . "/root-ca-eaponly/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
+                            fwrite($rootCAEAP, $decoded['pem']);
+                            fclose($rootCAEAP);
+                            $rootCAAll = fopen($tmp_dir . "/root-ca-allcerts/configuredroot$number_configured_roots.pem", "w"); // this is where the root CAs go
+                            fwrite($rootCAAll, $decoded['pem']);
+                            fclose($rootCAAll);
                             $number_configured_roots = $number_configured_roots + 1;
                         } else { // save the intermadiates to allcerts directory
                             $intermediate_file = fopen($tmp_dir . "/root-ca-allcerts/cat-intermediate$cat_number_intermediate.pem", "w");
@@ -1443,8 +1472,9 @@ network={
                 // WARN if the configured name is only in either CN or sAN:DNS
                 $confnames = $my_profile->getAttributes("eap:server_name");
                 $expected_names = [];
-                foreach ($confnames as $tuple)
+                foreach ($confnames as $tuple) {
                     $expected_names[] = $tuple['value'];
+                }
 
                 // Strategy for checks: we are TOTALLY happy if any one of the
                 // configured names shows up in both the CN and a sAN
@@ -1512,12 +1542,14 @@ network={
      * @param structure $cert (returned from openssl_x509_parse) 
      * @return array of OIDs
      */
-    function property_check_policy($cert) {
+    private function property_check_policy($cert) {
         $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
-            foreach (Config::$RADIUSTESTS['TLS-acceptableOIDs'] as $key => $oid)
-                if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies']))
+            foreach (Config::$RADIUSTESTS['TLS-acceptableOIDs'] as $key => $oid) {
+                if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
                     $oids[$key] = $oid;
+                }
+            }
         }
         return $oids;
     }
@@ -1528,14 +1560,17 @@ network={
      * @param structure $cert (returned from openssl_x509_parse) 
      * @return string value of the issuer field or ''
      */
-    function property_certificate_get_issuer($cert) {
+    private function property_certificate_get_issuer($cert) {
         $issuer = '';
-        foreach ($cert['issuer'] as $key => $val)
-            if (is_array($val))
-                foreach ($val as $v)
+        foreach ($cert['issuer'] as $key => $val) {
+            if (is_array($val)) {
+                foreach ($val as $v) {
                     $issuer .= "/$key=$v";
-            else
+                }
+            } else {
                 $issuer .= "/$key=$val";
+            }
+        }
         return $issuer;
     }
 
@@ -1546,7 +1581,7 @@ network={
      * @param string $field 
      * @return string value of the extention named $field or ''
      */
-    function property_certificate_get_field($cert, $field) {
+    private function property_certificate_get_field($cert, $field) {
         if ($cert['extensions'][$field]) {
             return $cert['extensions'][$field];
         }
@@ -1559,11 +1594,13 @@ network={
      * @param string $host IP address
      * @param string $arg arguments to add to the openssl command 
      * @param array $testresults by-reference: the testresults array we are writing into
-     * @return string result of openssl s_client ...
+     * @return array result of openssl s_client ...
      */
-    function openssl_s_client($host, $arg, &$testresults) {
+    private function openssl_s_client($host, $arg, &$testresults) {
         debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
+        $opensslbabble = [];
+        $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
         exec(Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
@@ -1582,7 +1619,7 @@ network={
      * @param int $resultArrayKey results array key
      * @return int return code
      */
-    function openssl_result($host, $testtype, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
+    private function openssl_result($host, $testtype, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
         $oldlocale = CAT::set_locale('diagnostics');
 
         $res = RETVAL_OK;
@@ -1599,8 +1636,8 @@ network={
                 }
                 if (preg_match('/verify return:1/', implode($opensslbabble))) {
                     $testresults[$host]['status'] = RETVAL_OK;
-                    $servercert = implode("\n", $opensslbabble);
-                    $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercert);
+                    $servercertStage1 = implode("\n", $opensslbabble);
+                    $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercertStage1);
                     $data = openssl_x509_parse($servercert);
                     $testresults[$host]['certdata']['subject'] = $data['name'];
                     $testresults[$host]['certdata']['issuer'] = $this->property_certificate_get_issuer($data);
@@ -1609,8 +1646,9 @@ network={
                     }
                     $oids = $this->property_check_policy($data);
                     if (!empty($oids)) {
-                        foreach ($oids as $resultArrayKey => $o)
+                        foreach ($oids as $resultArrayKey => $o) {
                             $testresults[$host]['certdata']['extensions']['policyoid'][] = " $o ($resultArrayKey)";
+                        }
                     }
                     if (($crl = $this->property_certificate_get_field($data, 'crlDistributionPoints'))) {
                         $testresults[$host]['certdata']['extensions']['crlDistributionPoint'] = $crl;
@@ -1623,25 +1661,25 @@ network={
             case "clients":
                 $ret = $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'];
                 $output = implode($opensslbabble);
-                $unknownca = 0;
-                if ($ret == 0)
+                if ($ret == 0) {
                     $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 1;
-                else {
+                } else {
                     $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 0;
                     if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
                         $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'] = RETVAL_CONNECTION_REFUSED;
                         $resComment = _("No TLS connection established: Connection refused");
-                    } elseif (preg_match('/sslv3 alert certificate expired/', $output))
+                    } elseif (preg_match('/sslv3 alert certificate expired/', $output)) {
                         $resComment = _("certificate expired");
-                    elseif (preg_match('/sslv3 alert certificate revoked/', $output))
+                    } elseif (preg_match('/sslv3 alert certificate revoked/', $output)) {
                         $resComment = _("certificate was revoked");
-                    elseif (preg_match('/SSL alert number 46/', $output))
+                    } elseif (preg_match('/SSL alert number 46/', $output)) {
                         $resComment = _("bad policy");
-                    elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
+                    } elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
                         $resComment = _("unknown authority");
                         $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = CERTPROB_UNKNOWN_CA;
-                    } else
+                    } else {
                         $resComment = _("unknown authority or no certificate policy or another problem");
+                    }
                     $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['resultcomment'] = $resComment;
                 }
                 break;
@@ -1657,8 +1695,9 @@ network={
      * @return int returncode
      */
     public function CApath_check($host) {
-        if (!isset($this->TLS_CA_checks_result[$host]))
+        if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
+        }
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
         // this does not make any sense - which "$f" should this be? fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
         return $this->openssl_result($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
@@ -1671,45 +1710,47 @@ network={
      */
     public function TLS_clients_side_check($host) {
         $res = RETVAL_OK;
-        if (is_array(Config::$RADIUSTESTS['TLS-clientcerts']) && count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0) {
-            if (preg_match("/\[/", $host))
-                return RETVAL_INVALID;
-            foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $type => $tlsclient) {
-                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
-                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
-                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
-                $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['issuer'] = $tlsclient['issuerCA'];
-                foreach ($tlsclient['certificates'] as $k => $cert) {
-                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
-                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
-                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
-                    $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
-                    if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]))
-                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
-                    $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
-                    $res = $this->openssl_result($host, 'clients', $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
-                    if ($cert['expected'] == 'PASS') {
-                        if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
-                            if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
-                                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_NOT_ACCEPTED;
-                                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
-                                break;
-                            }
-                        }
-                    } else {
-                        if ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected'])
-                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_WRONGLY_ACCEPTED;
-
-                        if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+        if (!is_array(Config::$RADIUSTESTS['TLS-clientcerts']) || count(Config::$RADIUSTESTS['TLS-clientcerts']) == 0) {
+            return RETVAL_SKIPPED;
+        }
+        if (preg_match("/\[/", $host)) {
+            return RETVAL_INVALID;
+        }
+        foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $type => $tlsclient) {
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['issuer'] = $tlsclient['issuerCA'];
+            foreach ($tlsclient['certificates'] as $k => $cert) {
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
+                $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
+                if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
+                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
+                }
+                $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                $res = $this->openssl_result($host, 'clients', $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
+                if ($cert['expected'] == 'PASS') {
+                    if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
+                        if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_NOT_ACCEPTED;
                             $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
-                            echo "koniec zabawy2<br>";
                             break;
                         }
                     }
+                } else {
+                    if ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_WRONGLY_ACCEPTED;
+                    }
+
+                    if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
+                        echo "koniec zabawy2<br>";
+                        break;
+                    }
                 }
             }
-        } else {
-            return RETVAL_SKIPPED;
         }
         return $res;
     }
