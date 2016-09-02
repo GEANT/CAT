@@ -414,6 +414,8 @@ $profile_file_contents = '<?xml version="1.0"?>
 <OneXEnforced>false</OneXEnforced>
 <OneXEnabled>true</OneXEnabled>
 <OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
+<cacheUserData>true</cacheUserData>
+<authMode>user</authMode>
 ';
 $closing = '
 </OneX>
