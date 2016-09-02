@@ -157,6 +157,9 @@ class CAT {
 
         setlocale(LC_ALL, 0);
 
+        // initialise this variabe (code analysers complain that $lang_converted
+        // could be empty
+        $thelang = Config::$LANGUAGES[$defaultlocale]['locale'];
         foreach ($lang_converted as $try_lang) {
             // madness! setlocale is completely unflexible. If $try_lang is "en"
             // it will fail, because it only knows en_US, en_GB a.s.o.
