@@ -55,8 +55,6 @@ class UserAPI extends CAT {
  */
   public function generateInstaller($device,$prof_id, $generated_for = "user") {
     $this->set_locale("devices");
-    $Dev = Devices::listDevices();
-    $Config = $Dev[$device];
     debug(4,"installer:$device:$prof_id\n");
     $profile = ProfileFactory::instantiate($prof_id);
     $attribs = $profile->getCollapsedAttributes();
@@ -83,15 +81,7 @@ class UserAPI extends CAT {
     $a = [];
     $a['profile'] = $prof_id;
     $a['device'] = $device;
-    $this->i_path = $this->getCachedPath($device);
-/*
-    if( (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache'] ) || ( isset($Config['options']['no_cache']) && $Config['options']['no_cache'] ))
-      $this->i_path = FALSE;
-    else {
-      $cache = $profile->testCache($device);
-      $this->i_path = $cache['cache'];
-    }
-*/
+    $this->i_path = $this->getCachedPath($device,$profile);
     if($this->i_path) { 
       debug(4,"Using cached installer for: $device\n");
       $a['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
@@ -100,41 +90,23 @@ class UserAPI extends CAT {
       $myInstaller = $this->generateNewInstaller($device,$profile);
       $a['mime'] = $myInstaller['mime'];
       $a['link'] = $myInstaller['link'];
-/*
-      $factory = new DeviceFactory($device);
-      $dev = $factory->device;
-      if(isset($dev)) {
-         $dev->setup($profile);
-         $installer = $dev->writeInstaller();
-         $i_path = $dev->FPATH.'/tmp/'.$installer;
-         if($i_path && is_file($i_path)) {
-         if(isset($dev->options['mime']))
-               $a['mime'] = $dev->options['mime'];
-         else {
-           $info = new finfo();
-           $a['mime'] = $info->file($i_path, FILEINFO_MIME_TYPE);
-         }
-         $this->i_path = $dev->FPATH.'/'.$installer;
-         rename($i_path, $this->i_path);
-         $profile->updateCache($device,$this->i_path,$a['mime']);
-         rrmdir($dev->FPATH.'/tmp');
-         debug(4,"Generated installer: ".$this->i_path.": for: $device\n");
-         $a['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
-         } else {
-         debug(2,"Installer generation failed for: $prof_id:$device:".CAT::get_lang()."\n");
-         $a['link'] = 0;
-         }
-      } 
-*/
     }
     $this->set_locale("web_user");
     return($a);
  }
 
- private function getCachedPath($device) {
-    if( (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache'] ) || ( isset($Config['options']['no_cache']) && $Config['options']['no_cache'] )) {
+ private function getCachedPath($device,$profile) {
+    $Dev = Devices::listDevices();
+    $Config = $Dev[$device];
+    $no_cache = (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache']) ? 1 : 0;
+    if (isset($Config['options']['no_cache'])) {
+      $no_cache = $Config['options']['no_cache'] ? 1 : 0;
+    }
+    if( $no_cache ) {
+      debug(4,"getCachedPath: the no_cache option set for this device\n");
       return(FALSE);
     }
+    debug(4,"getCachedPath: caching option set for this device\n");
     $cache = $profile->testCache($device);
     $iPath = $cache['cache'];
     if($iPath  && is_file($iPath)) {
