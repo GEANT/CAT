@@ -16,7 +16,6 @@
  * @package Developer
  */
 require_once('Helper.php');
-require_once('Profile.php');
 require_once('IdP.php');
 
 /**
@@ -56,7 +55,7 @@ class DBConnection {
                 }
                 return self::$instanceExternal;
             default:
-                throw new Exception("This type of database (".$strtoupper($database).") is not known!");
+                throw new Exception("This type of database (".strtoupper($database).") is not known!");
         }
     }
 
@@ -129,55 +128,6 @@ class DBConnection {
             return FALSE;
         }
         return $blob;
-    }
-
-    /**
-     * Checks if a raw data pointer is public data (return value FALSE) or if 
-     * yes who the authorised admins to view it are (return array of user IDs)
-     */
-    public static function isDataRestricted($table, $row) {
-        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
-            return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
-        }
-        switch ($table) {
-            case "profile_option":
-                $blobQuery = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
-                while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
-                    $blobprofile = $profileIdQuery->profile_id;
-                }
-                // is the profile in question public?
-                if (!isset($blobprofile)) {
-                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
-                }
-                $profile = new Profile($blobprofile);
-                if ($profile->isShowtime() == TRUE) { // public data
-                    return FALSE;
-                }
-                // okay, so it's NOT public. return the owner
-                $inst = new IdP($profile->institution);
-                return $inst->owner();
-                
-            case "institution_option":
-                $blobQuery = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
-                while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
-                    $blobinst = $instIdQuery->institution_id;
-                }
-                if (!isset($blobinst)) {
-                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
-                }
-                $inst = new IdP($blobinst);
-                // if at least one of the profiles belonging to the inst is public, the data is public
-                if ($inst->isOneProfileShowtime()) { // public data
-                    return FALSE;
-                }
-                // okay, so it's NOT public. return the owner
-                return $inst->owner();
-            case "federation_option":
-                // federation metadata is always public
-                return FALSE;
-            default:
-                return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
-        }
     }
 
     /**

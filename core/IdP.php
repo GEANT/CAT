@@ -17,7 +17,8 @@
  * 
  */
 require_once('Helper.php');
-require_once('Profile.php');
+require_once('ProfileFactory.php');
+require_once('AbstractProfile.php');
 require_once("CAT.php");
 require_once("Options.php");
 require_once("DBConnection.php");
@@ -104,10 +105,12 @@ class IdP extends EntityWithDBProperties {
         $allProfiles = DBConnection::exec($this->databaseType, $query);
         $returnarray = [];
         while ($profileQuery = mysqli_fetch_object($allProfiles)) {
-            $oneProfile = new Profile($profileQuery->profile_id, $this);
+            $oneProfile = ProfileFactory::instantiate($profileQuery->profile_id, $this);
             $oneProfile->institution = $this->identifier;
             $returnarray[] = $oneProfile;
         }
+        
+        debug(2,"listProfiles: ".print_r($returnarray,true));
         return $returnarray;
     }
 
@@ -194,12 +197,19 @@ class IdP extends EntityWithDBProperties {
      *
      * @return object new Profile object if successful, or FALSE if an error occured
      */
-    public function newProfile() {
+    public function newProfile($type) {
         DBConnection::exec($this->databaseType, "INSERT INTO profile (inst_id) VALUES($this->identifier)");
         $identifier = DBConnection::lastID($this->databaseType);
 
         if ($identifier > 0) {
-            return new Profile($identifier, $this);
+            switch ($type) {
+            case "RADIUS":
+                return new ProfileRADIUS($identifier, $this);
+            case "SILVERBULLET":
+                return new ProfileSilverbullet($identifier, $this);
+            default:
+                throw new Exception("This type of profile is unknown and can not be added.");
+            }
         }
         return NULL;
     }
@@ -246,7 +256,7 @@ Best regards,
      * Performs a lookup in an external database to determine matching entities to this IdP. The business logic of this function is
      * roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
      * 
-     * @return array list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
+     * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates() {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -299,7 +309,7 @@ Best regards,
     /**
      * Retrieves the external DB identifier of this institution. Returns FALSE if no ID is known.
      * 
-     * @return int the external identifier; or FALSE if no external ID is known
+     * @return mixed the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED

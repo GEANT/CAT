@@ -21,13 +21,14 @@ function add_option($class, $prepopulate = 0) { // no GET class ? we've been cal
     $optioninfo = Options::instance();
     // print_r($prepopulate);
     if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
-        $a = 0;
-        foreach ($prepopulate as $option)
+        $number = 0;
+        foreach ($prepopulate as $option) {
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 debug(5, "About to execute optiontext with PREFILL!\n");
-                echo optiontext($a, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
+                echo optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
             }
+        }
     } else { // new: add empty list
         $list = $optioninfo->availableOptions($class);
         if ($class == "general") {
@@ -146,12 +147,17 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     if ($prefill) {
         debug(5, "Executed with PREFILL!\n");
         $retval .= "<td>";
-        foreach ($list as $key => $value) {
-            $listtype = $optioninfo->optionType($value);
-            $retval .= display_name($value);
-            $retval .= tooltip($value);
-            $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
+        // prefill is always only called with a list with exactly one element.
+        // if we see anything else here, get excited.
+        if (count($list) != 1) {
+            throw new Exception("Optiontext prefilled display only can work with exactly one option!");
         }
+        $value = $list[0];
+
+        $listtype = $optioninfo->optionType($value);
+        $retval .= display_name($value);
+        $retval .= tooltip($value);
+        $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 
         // language tag if any
         $retval .= "<td>";
@@ -213,12 +219,12 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
                 break;
             case "boolean":
-                $display_option = _("off");
+                $displayOption = _("off");
                 if ($content == "on") {
                     /// Device assessment is "on"
-                    $display_option = _("on");
+                    $displayOption = _("on");
                 }
-                $retval .= "<strong>$display_option</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$content' style='display:block'>";
+                $retval .= "<strong>$displayOption</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$content' style='display:block'>";
                 break;
             default:
                 // this should never happen!

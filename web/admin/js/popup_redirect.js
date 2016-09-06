@@ -9,7 +9,7 @@
 
 function getWindowHeight() {
     var windowHeight = 0;
-    if ( typeof( window.innerHeight ) == 'number' ) {
+    if ( typeof( window.innerHeight ) === 'number' ) {
         windowHeight = window.innerHeight;
     } else {
         if ( document.documentElement && document.documentElement.clientHeight ) {
@@ -43,7 +43,7 @@ function centerElement( el ) {
 
 function createMsgbox( type, onclick ) {
     var body = document.getElementsByTagName( "body" )[0];
-    if( document.getElementById( "overlay" ) == null ) {
+    if( document.getElementById( "overlay" ) === null ) {
         var overlay = document.createElement( "div" );
         overlay.setAttribute( "id", "overlay" );
         body.appendChild( overlay );
@@ -54,19 +54,24 @@ function createMsgbox( type, onclick ) {
     msgbox.setAttribute( "id", "msgbox" );
     var div = document.createElement( "div" );
     var msg = document.createElement( "div" );
-    if( type == "err" )
+    if( type === "err" ) {
         msg.setAttribute( "id", "errorbox" );
-    else if( type == "warn" )
+    }
+    else if( type === "warn" ) {
         msg.setAttribute( "id", "warnbox" );
-    else if( type == "info" )
+    }
+    else if( type === "info" ) {
         msg.setAttribute( "class", "graybox" );
+    }
     var img = document.createElement( "img" );
     img.setAttribute( "src", "../resources/images/icons/button_cancel.png" );
     img.setAttribute( "alt", "cancel" );
-    if( onclick )
+    if( onclick ) {
         img.setAttribute( "onclick", "removeMsgbox(); "+ onclick );
-    else
+    }
+    else {
         img.setAttribute( "onclick", "removeMsgbox()" );
+    }
     msg.appendChild( img );
     div.appendChild( msg );
     msgbox.appendChild( div );
@@ -76,15 +81,16 @@ function createMsgbox( type, onclick ) {
 
 
 function removeMsgbox() {
-    var body = document.getElementsByTagName( "body" )[0]
+    var body = document.getElementsByTagName( "body" )[0];
     body.removeChild( document.getElementById( "overlay" ) );
     body.removeChild( document.getElementById( "msgbox" ) );
 }
 
 
 function addEvent( elem, type, eventHandle ) {
-    if( elem == null || elem == undefined )
+    if( elem === null || elem === undefined ) {
         return;
+    }
     if( elem.addEventListener ) {
         elem.addEventListener( type, eventHandle, false );
     } else if( elem.attachEvent ) {
@@ -95,8 +101,9 @@ function addEvent( elem, type, eventHandle ) {
 
 function overlay_resize() {
     var el = document.getElementById( "msgbox" );
-    if( !el || !el.firstChild || !el.firstChild.firstChild )
+    if( !el || !el.firstChild || !el.firstChild.firstChild ) {
         return;
+    }
     centerElement( el.firstChild.firstChild );
 }
 
@@ -108,8 +115,9 @@ function postQueryData( funct, form ) {
     client.open( "POST", form.action );
     client.setRequestHeader( "Content-Type", "application/x-www-form-urlencoded" );
     var form_values = "";
-    for (var i = 0; i<form.elements.length; i++)
-        form_values = form_values + (form_values == "" ? "" : "&") + encodeURIComponent(form.elements[i].name) + "=" + encodeURIComponent(form.elements[i].value);
+    for (var i = 0; i<form.elements.length; i++) {
+        form_values = form_values + (form_values === "" ? "" : "&") + encodeURIComponent(form.elements[i].name) + "=" + encodeURIComponent(form.elements[i].value);
+    }
     client.send( form_values );
 }
 
@@ -118,7 +126,7 @@ function popupRedirectWindow(form) {
 }
 
 function createWindow() {
-    if( this.readyState == 4 && this.status == 200 ) {
+    if( this.readyState === 4 && this.status === 200 ) {
         var infoBox;
         infoBox = createMsgbox( "info" );
         infoBox.innerHTML += this.responseText;

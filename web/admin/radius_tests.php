@@ -100,20 +100,29 @@ function process_result($testsuite,$host) {
     return $ret;
 }
 
-if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type'])
-    exit;
+if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
+    throw new Exception("No test type specified!");
+}
 
 $test_type = $_REQUEST['test_type']; 
+
 $check_realm = valid_Realm($_REQUEST['realm']); 
+
+if ($check_realm === FALSE) {
+    throw new Exception("Invalid realm was submitted!");
+}
+
 if (isset($_REQUEST['profile_id'])) {
     $my_profile = valid_Profile($_REQUEST['profile_id']); 
-    $check_realm = valid_Realm($_REQUEST['realm'], $_REQUEST['profile_id']); 
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
+    }
     $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
 } else {
     $my_profile = NULL;
-    $check_realm = valid_Realm($_REQUEST['realm']); 
     $testsuite = new RADIUSTests($check_realm);
 }
+
 $host = $_REQUEST['src'];
 /*if(!preg_match('/^[0-9\.:]*$/',$host))
    exit;
@@ -193,7 +202,7 @@ switch ($test_type) {
                     $message = _("<strong>Test FAILED</strong>: the request was rejected. The most likely cause is that you have misspelt the Username and/or the Password.");
                     $level = L_ERROR;
                     break;
-                case RETVAL_NOT_CONFIGURED:
+                case RETVAL_NOTCONFIGURED:
                     $level = L_ERROR;
                     $message = _("This method cannot be tested");
                     break;
@@ -263,7 +272,7 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        $testresult = $testsuite->CApath_check($host);
+        $testresult = $testsuite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         // the host member of the array may not be set if RETVAL_SKIPPED was

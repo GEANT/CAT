@@ -30,6 +30,9 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
     productheader("ADMIN-IDP", CAT::get_lang());
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("Installer fine-tuning can only be called for RADIUS profiles!");
+    }
     $inst_name = $my_inst->name;
     $profile_name = $my_profile->name;
 

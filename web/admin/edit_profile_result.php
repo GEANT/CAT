@@ -9,7 +9,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("CAT.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("ProfileFactory.php");
+require_once("ProfileRADIUS.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -42,8 +43,12 @@ $my_profile = FALSE;
 
 if (isset($_GET['profile_id'])) {
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("This page should only be called to submit RADIUS Profile information!");
+    }
     $edit_mode = TRUE;
 }
+
 
 // extended input checks
 
@@ -97,22 +102,21 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     if ($edit_mode) {
         $profile = $my_profile;
     } else {
-        $profile = $my_inst->newProfile();
+        $profile = $my_inst->newProfile("RADIUS");
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
     }
 }
 
-if (!$profile instanceof Profile) {
+if (!$profile instanceof ProfileRADIUS) {
     echo _("Darn! Could not get a proper profile handle!");
     exit(1);
 }
-
 ?>
 <h1><?php echo _("Submitted attributes for this profile"); ?></h1>
 <table>
     <?php
     // set realm info, if submitted
-    if ($realm != FALSE) {
+    if ($realm !== FALSE) {
         $profile->setRealm($anon_local . "@" . $realm);
         echo UI_okay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
     } else {
@@ -120,7 +124,7 @@ if (!$profile instanceof Profile) {
     }
     // set anon ID, if submitted
     if ($anon != FALSE) {
-        if ($realm == FALSE) {
+        if ($realm === FALSE) {
             echo UI_error(_("Anonymous Outer Identities cannot be turned on: realm is missing!"));
         } else {
             $profile->setAnonymousIDSupport(true);
@@ -132,32 +136,31 @@ if (!$profile instanceof Profile) {
     }
 
     if ($checkuser != FALSE) {
-        if ($realm == FALSE) {
+        if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
-            $profile->setRealmcheckUser(true,$checkuser_name);
-            echo UI_okay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name."@".$realm));
+            $profile->setRealmcheckUser(true, $checkuser_name);
+            echo UI_okay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name . "@" . $realm));
         }
     } else {
         $profile->setRealmCheckUser(false);
         echo UI_okay(_("No special username for realm checks is configured."));
     }
-    
+
     if ($verify != FALSE) {
-        if ($realm == FALSE) {
+        if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
-            $profile->setInputVerificationPreference($verify,$hint);
+            $profile->setInputVerificationPreference($verify, $hint);
             if ($hint) {
-                $extratext = " ".sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."),$realm);
+                $extratext = " " . sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."), $realm);
             } else {
                 $extratext = ".";
             }
             echo UI_okay(sprintf(_("Where possible, username inputs will be <strong>verified to contain an @ and end with %s</strong>%s"), $realm, $extratext));
-            
         }
     } else {
-        $profile->setInputVerificationPreference(false,false);
+        $profile->setInputVerificationPreference(false, false);
     }
 
     $remaining_attribs = $profile->beginflushAttributes();
@@ -179,7 +182,10 @@ if (!$profile instanceof Profile) {
 
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
 
-    $profile = new Profile($profile->identifier);
+    $profile = ProfileFactory::instantiate($profile->identifier);
+    if (!$profile instanceof ProfileRADIUS) {
+        throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
+    }
 
     foreach (EAP::listKnownEAPTypes() as $a) {
         if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && $_POST[display_name($a) . "-priority"] != "") {
@@ -202,7 +208,11 @@ if (!$profile instanceof Profile) {
         }
     }
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-    $reloadedProfile = new Profile($profile->identifier);
+    $reloadedProfile = ProfileFactory::instantiate($profile->identifier);
+    // this can't possibly be another type of Profile, but to make code analysers happy:
+    if (!$profile instanceof ProfileRADIUS) {
+        throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
+    }
     $reloadedProfile->prepShowtime();
     ?>
 </table>

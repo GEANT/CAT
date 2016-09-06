@@ -310,7 +310,7 @@ Function .onInit
   ${EndIf}
   !insertmacro debug_cat 3 "Platfrom:$Platform"
 
-;  Call wVersionCheck
+  Call wVersionCheck
   Call Wireless_Check
   Call NoWirelessConfirm
   Call CheckSymantec

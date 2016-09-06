@@ -28,8 +28,11 @@ if (isset($_GET['profile_id']))
 else
     $my_profile = NULL;
 if ($my_profile != NULL) {
-   $cr = $my_profile->getAttributes("internal:realm");
-   if ($cr) {
+    if (!$my_profile instanceof ProfileRADIUS) {
+        throw new Exception("realm checks are only supported for RADIUS Profiles!");
+    }
+   $checkrealm = $my_profile->getAttributes("internal:realm");
+   if (count($checkrealm) > 0) {
       // checking our own stuff. Enable thorough checks
       $check_thorough = TRUE;
       $check_realm = $cr[0]['value'];

@@ -29,7 +29,7 @@
  *
  * @package Developer
  */
-class EntityWithDBProperties {
+abstract class EntityWithDBProperties {
 
     /**
      * This variable gets initialised with the known IdP attributes in the constructor. It never gets updated until the object
@@ -74,14 +74,6 @@ class EntityWithDBProperties {
      * the name of the entity in the current locale
      */
     public $name;
-
-    /**
-     * Virtual: sub-classes should define themselves what it means to become
-     * stale
-     */
-    protected function updateFreshness() {
-        
-    }
 
     /**
      * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
@@ -158,6 +150,11 @@ class EntityWithDBProperties {
         $this->updateFreshness();
     }
 
+    /**
+     * files are base64-encoded and could be multi-language tagged. This function properly tears these file attributes apart
+     * @param string $optionContent a string; either base64 string or an array with a language tag and base64
+     * @return array an array with indexes lang and content. lang can be empty; content is base64-decoded
+     */
     protected function decodeFileAttribute($optionContent) {
         // suppress E_NOTICE on the following... we are testing *if*
         // we have a serialized value - so not having one is fine and
@@ -170,6 +167,12 @@ class EntityWithDBProperties {
         return ["lang" => "", "content" => base64_decode($optionContent)];
     }
 
+    /**
+     * retrieve attributes from a database.
+     * @param string $query sub-classes set the query to execute to get to the options
+     * @param string $level the retrieved options get flagged with this "level" identifier
+     * @return array the attributes in one array
+     */
     protected function retrieveOptionsFromDatabase($query, $level) {
         $optioninstance = Options::instance();
         $tempAttributes = [];
@@ -189,5 +192,65 @@ class EntityWithDBProperties {
         }
         return $tempAttributes;
     }
+    
+    /**
+     * Checks if a raw data pointer is public data (return value FALSE) or if 
+     * yes who the authorised admins to view it are (return array of user IDs)
+     * 
+     * @param string $table which database table is this about
+     * @param int $row row index of the table
+     * @return mixed FALSE if the data is public, an array of owners of the data if it is NOT public
+     */
+    public static function isDataRestricted($table, $row) {
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option" && $table != "user_options") {
+            return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+        }
+        switch ($table) {
+            case "profile_option":
+                $blobQuery = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
+                while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
+                    $blobprofile = $profileIdQuery->profile_id;
+                }
+                // is the profile in question public?
+                if (!isset($blobprofile)) {
+                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
+                }
+                $profile = ProfileFactory::instantiate($blobprofile);
+                if ($profile->isShowtime() == TRUE) { // public data
+                    return FALSE;
+                }
+                // okay, so it's NOT public. return the owner
+                $inst = new IdP($profile->institution);
+                return $inst->owner();
+                
+            case "institution_option":
+                $blobQuery = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
+                while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
+                    $blobinst = $instIdQuery->institution_id;
+                }
+                if (!isset($blobinst)) {
+                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
+                }
+                $inst = new IdP($blobinst);
+                // if at least one of the profiles belonging to the inst is public, the data is public
+                if ($inst->isOneProfileShowtime()) { // public data
+                    return FALSE;
+                }
+                // okay, so it's NOT public. return the owner
+                return $inst->owner();
+            case "federation_option":
+                // federation metadata is always public
+                return FALSE;
+                // user options are never public
+            case "user_options":
+                return [];
+            default:
+                return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
+        }
+    }
 
+    /**
+     * when options in the DB change, this can mean generated installers become stale. sub-classes must define whether this is the case for them
+     */
+    abstract public function updateFreshness();
 }

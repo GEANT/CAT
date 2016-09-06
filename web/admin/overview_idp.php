@@ -11,7 +11,7 @@ require_once("Helper.php");
 require_once("CAT.php");
 require_once("Federation.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("AbstractProfile.php");
 require_once("phpqrcode.php");
 
 require_once("../resources/inc/header.php");
@@ -163,13 +163,14 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     
     if (count($profiles_for_this_idp) == 1) {
         $profile = $profiles_for_this_idp[0];
-        $methods = $profile->getEapMethodsInOrderOfPreference();
-        if (count($methods) == 1 && $methods[0]['INNER'] == NE_SILVERBULLET) {
+        if ($profile instanceof ProfileSilverbullet) {
             ?>
             <div style='display: table-row; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell;'>
-                    <h2><?php echo _("eduroam-as-a-Service");?></h2>
-                    <?php printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."),200,"opaquehash@$my_inst->identifier-$profile->identifier.".strtolower($my_inst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);?>
+                    <h2><?php echo $profile->name;?></h2>
+                    <?php 
+                    $maxusers = $profile->getAttributes("internal:silverbullet_maxusers");
+                    printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."),$maxusers[0]['value'],$profile->realm);?>
                     <br/>
                     <br/>
                     <form action='edit_silverbullet.php' method='POST'>

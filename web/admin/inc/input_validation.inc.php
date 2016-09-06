@@ -9,8 +9,10 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once 'Options.php';
-require_once 'DBConnection.php';
+require_once('Options.php');
+require_once('DBConnection.php');
+require_once('ProfileFactory.php');
+require_once('AbstractProfile.php');
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
@@ -54,7 +56,7 @@ function valid_Profile($input, $idpIdentifier = NULL) {
         throw new Exception(input_validation_error("Value for profile is not an integer!"));
     }
 
-    $temp = new Profile($input); // constructor throws an exception if NX, game over
+    $temp = ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
 
     if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
         throw new Exception(input_validation_error("The profile does not belong to the IdP!"));
@@ -70,6 +72,12 @@ function valid_Device($input) {
     return $input;
 }
 
+/**
+ * 
+ * @param string $input a string to be made SQL-safe
+ * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
+ * @return string the massaged string
+ */
 function valid_string_db($input, $allowWhitespace = 0) {
     // always chop out invalid characters, and surrounding whitespace
     $retvalStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
@@ -78,10 +86,15 @@ function valid_string_db($input, $allowWhitespace = 0) {
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
     if ($allowWhitespace === 0) {
-        return preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
-    }
+        $afterWhitespace = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
+    } else {
     // even if we allow whitespace, not pathological ones!
-    return preg_replace('/(\0|\r|\x0b)/', '', $retval);
+    $afterWhitespace = preg_replace('/(\0|\r|\x0b)/', '', $retval);
+    }
+    if (is_array($afterWhitespace)) {
+        throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
+    }
+    return $afterWhitespace;
 }
 
 function valid_integer($input) {
@@ -124,6 +137,10 @@ function valid_Realm($input) {
     }
     if (preg_match("/ /", $check) == 1) {
         echo input_validation_error(_("Realm contains spaces!"));
+        return FALSE;
+    }
+    if (strlen($input) == 0) {
+        echo input_validation_error(_("Realm is empty!"));
         return FALSE;
     }
     return $check;

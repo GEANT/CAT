@@ -157,6 +157,9 @@ class CAT {
 
         setlocale(LC_ALL, 0);
 
+        // initialise this variabe (code analysers complain that $lang_converted
+        // could be empty
+        $thelang = Config::$LANGUAGES[$defaultlocale]['locale'];
         foreach ($lang_converted as $try_lang) {
             // madness! setlocale is completely unflexible. If $try_lang is "en"
             // it will fail, because it only knows en_US, en_GB a.s.o.
@@ -169,8 +172,6 @@ class CAT {
                     $lang_index = $language;
                 }
 
-            // echo "Trying to set language to $thelang...";
-//        putenv("LC_ALL=$thelang");
             if (setlocale(LC_ALL, $thelang))
                 break;
         }
@@ -185,7 +186,7 @@ class CAT {
      */
     static public function get_lang() {
        if(self::$LANG === '')
-         list(self::$LANG, $xx) = self::set_lang();
+         list(self::$LANG, ) = self::set_lang();
        return self::$LANG;
     }
 
