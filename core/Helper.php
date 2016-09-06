@@ -82,7 +82,7 @@ function downloadFile($url) {
  * generates a UUID
  *
  * @param string $prefix an extra prefix to set before the UUID
- * @return UUID (possibly prefixed)
+ * @return string UUID (possibly prefixed)
  */
 function uuid($prefix = '', $deterministicSource = NULL) {
     if ($deterministicSource === NULL)
@@ -127,7 +127,7 @@ function getLocalisedValue($valueArray, $locale) {
  * create a temporary directory and return the location
  * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
  * @param $failIsFatal (default true) decides if a creation failure should cause an error
- * @return - the tupple full directory path, directory name
+ * @return array the tuple of: base path, absolute path for directory, directory name
  */
 function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
     $name = md5(time() . rand());
