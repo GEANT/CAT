@@ -50,6 +50,8 @@ function print_test_results($test) {
        case L_NOTICE:
          $message = "Your configuration appears to be fine.";
          break;
+       default:
+           throw new Exception("The result code level ".$test->test_result['global']." is not defined!");
    }
    $out .= UI_message($test->test_result['global'],"<br><strong>Test Summary</strong><br>".$message."<br>See below for details<br><hr>");
    foreach ($test->out as $testValue)  {
