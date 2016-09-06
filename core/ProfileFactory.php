@@ -24,7 +24,7 @@ class ProfileFactory {
      * @param int $profileId ID of the profile in DB
      * @return AbstractProfile a sub-class of AbstractProfile matching the type
      */
-    public static function instantiate($profileId, $idpObject = 0) {
+    public static function instantiate($profileId, $idpObject = NULL) {
         $eapMethod = DBConnection::exec("INST", "SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $profileId
