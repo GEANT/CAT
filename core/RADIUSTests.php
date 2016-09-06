@@ -1345,6 +1345,9 @@ network={
             }
             // check server cert properties
             if ($numberServer > 0) {
+                if ($servercert === FALSE) {
+                    throw new Exception("We incremented the numberServer counter and added a certificate. Now it's gone?!");
+                }
                 $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $this->propertyCheckServercert($servercert));
                 $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
             }
