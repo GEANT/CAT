@@ -151,8 +151,9 @@ class UserAPI extends CAT {
     $Dev = Devices::listDevices();
     $R = [];
     $ct = 0;
-    if($show_hidden !== 0 && $show_hidden != 1)
-      return;
+    if($show_hidden !== 0 && $show_hidden != 1) {
+      throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $show_hidden!");
+    }
     foreach ($Dev as $device => $D) {
       if(isset($D['options']['hidden']) && $D['options']['hidden'] && $show_hidden == 0)
          continue;
