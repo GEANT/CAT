@@ -45,7 +45,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject = 0) {
+    public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
         debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
