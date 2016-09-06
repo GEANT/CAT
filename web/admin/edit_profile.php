@@ -357,7 +357,7 @@ $idpoptions = $my_inst->getAttributes();
                                 this.form.elements["anon_local"].removeAttribute("disabled");
                             }
                             ;'/>
-                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='anon_local' value='$anon_local'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anon_local;?>'/>
                 </td>    
             </tr>
             <tr>
@@ -376,7 +376,7 @@ $idpoptions = $my_inst->getAttributes();
                                 this.form.elements["checkuser_local"].removeAttribute("disabled");
                             }
                             ;'/>
-                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='$checkuser_value'/>
+                    <input type='text' <?php echo ($checkuser_outer == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='<?php echo $checkuser_value;?>'/>
                 </td>
             </tr>
         </table>
