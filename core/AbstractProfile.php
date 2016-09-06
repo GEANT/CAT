@@ -515,7 +515,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                         }
                     }
                 }
-                if (!$nameCandidate && isset($temp[$name]['IdP'])) {
+                if (empty($nameCandidate) && isset($temp[$name]['IdP'])) {
                     foreach ($temp[$name]['IdP'] as $oneIdPName) {
                         foreach ($oneIdPName as $language => $nameInLanguage) {
                             $nameCandidate[$language] = $nameInLanguage;
