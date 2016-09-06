@@ -425,7 +425,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     $devStatus = HIDDEN;
                 } else {
                     $eap = $dev->getPreferredEapType($preferredEap);
-                    if ($eap) {
+                    if (count($eap) > 0) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
                             $eapCustomtext = $eAPOptions["eap-specific:customtext"][serialize($eap)];
                         } else {
