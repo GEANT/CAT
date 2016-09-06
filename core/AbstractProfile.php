@@ -468,13 +468,13 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * as wel as the chosen language.
      * can be called with an optional $eap argument
      * 
-     * @param array $eap if specified, retrieves attributes specific to the given EAP type
+     * @param array $eap if specified, retrieves all attributes except those not pertaining to the given EAP type
      * @return array list of attributes in collapsed style (index is the attrib name, value is an array of different values)
      */
-    public function getCollapsedAttributes($eap = 0) {
+    public function getCollapsedAttributes($eap = []) {
         $attrBefore = $this->getAttributes();
         $attr = [];
-        if ($eap != 0) { // filter out attributes pertaining only to a certain EAP type
+        if (count($eap) > 0) { // filter out eap-level attributes not pertaining to EAP type $eap
             foreach ($attrBefore as $index => $attrib) {
                 if ($attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
                     $attr[$index] = $attrib;
