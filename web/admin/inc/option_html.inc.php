@@ -36,32 +36,29 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
         }
     } else { // new: add empty list
         $list = $optioninfo->availableOptions($class);
-        if ($class == "general") {
-            $blacklistItem = array_search("general:geo_coordinates", $list);
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
-        } else if ($class == "profile") {
-            $blacklistItem = array_search("profile:QR-user", $list);
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
-        } else if ($class == "user") {
-            $blacklistItem = array_search("user:fedadmin", $list);
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
+        switch ($class) {
+            case "general":
+                $blacklistItem = array_search("general:geo_coordinates", $list);
+                break;
+            case "profile":
+                $blacklistItem = array_search("profile:QR-user", $list);
+                break;
+            case "user":
+                $blacklistItem = array_search("user:fedadmin", $list);
+                break;
+            default:
+                $blacklistItem = FALSE;
         }
-        /* echo "<pre>";
-          print_r($list);
-          echo "</pre>"; */
+        if ($blacklistItem !== FALSE) {
+                unset($list[$blacklistItem]);
+                $list = array_values($list);
+        }
+
         // add as many options as there are different option types
 
-        foreach (array_keys($list) as $key)
+        foreach (array_keys($list) as $key) {
             echo optiontext($key, $list);
+        }
     }
 }
 
@@ -118,7 +115,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     if (!$prefill) {
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
-        foreach ($list as $key => $value) {
+        foreach ($list as $value) {
             $listtype = $optioninfo->optionType($value);
             $retval .="<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
             if ($iterator == $defaultselect) {
@@ -212,7 +209,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                         break;
                     default:
                         $retval .= _("file content");
-                };
+                }
                 break;
             case "string":
                 $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
@@ -234,7 +231,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
             default:
                 // this should never happen!
                 throw new Exception("Internal Error: unknown attribute type $listtype!");
-        };
+        }
         $retval .= "</td>";
     }
     $retval .="
