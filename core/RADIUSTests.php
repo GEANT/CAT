@@ -1541,7 +1541,7 @@ network={
     /**
      * This function parses a X.509 cert and returns all certificatePolicies OIDs
      * 
-     * @param structure $cert (returned from openssl_x509_parse) 
+     * @param array $cert (returned from openssl_x509_parse) 
      * @return array of OIDs
      */
     private function propertyCheckPolicy($cert) {
@@ -1559,7 +1559,7 @@ network={
     /**
      * This function parses a X.509 cert and returns the value of $field
      * 
-     * @param structure $cert (returned from openssl_x509_parse) 
+     * @param array $cert (returned from openssl_x509_parse) 
      * @return string value of the issuer field or ''
      */
     private function getCertificateIssuer($cert) {
@@ -1579,7 +1579,7 @@ network={
     /**
      * This function parses a X.509 cert and returns the value of $field
      * 
-     * @param structure $cert (returned from openssl_x509_parse) 
+     * @param array $cert (returned from openssl_x509_parse) 
      * @param string $field 
      * @return string value of the extention named $field or ''
      */
@@ -1615,7 +1615,7 @@ network={
      * 
      * @param string $host IP:port
      * @param string $testtype capath or clients
-     * @param string $opensslbabble openssl command output
+     * @param array $opensslbabble openssl command output
      * @param array $testresults by-reference: pointer to results array we write into
      * @param string $type type of certificate
      * @param int $resultArrayKey results array key
