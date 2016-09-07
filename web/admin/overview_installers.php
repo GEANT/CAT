@@ -105,8 +105,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                         echo "<td class='compat_incomplete'></td>";
                     } elseif ($method === $preflist[0] || $defaultisset == FALSE) {
                         // see if we want to add a footnote: anon_id
-                        $anon = $my_profile->getAttributes("internal:use_anon_outer");
-                        $anon = $anon[0]['value'];
+                        $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
                         if ( $anon !== "" && isset($factory->device->specialities['anon_id'])) {
                             if (isset($factory->device->specialities['anon_id'][serialize($method)])) {
                                 $footnotetext = $factory->device->specialities['anon_id'][serialize($method)];
@@ -134,8 +133,9 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                         echo "<td class='compat_secondary'></td>";
                     }
                 }
-                else
+                else {
                     echo "<td class='compat_unsupported'></td>";
+                }
             }
             echo "</tr>";
         }
@@ -152,8 +152,9 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
     <?php
     if (count($footnotes)) {
         echo "<p><strong>" . _("Footnotes:") . "</strong></p><table>";
-        foreach ($footnotes as $number => $text)
+        foreach ($footnotes as $number => $text) {
             echo "<tr><td>($number) - </td><td>$text</td></tr>";
+        }
         echo "</table>";
     }
     ?>

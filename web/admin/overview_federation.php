@@ -127,20 +127,24 @@ $user = new User($_SESSION['user']);
 
     if (isset($_GET['invitation'])) {
         echo "<div class='ca-summary' style='position:relative;'><table>";
-
-        if ($_GET['invitation'] == "SUCCESS")
-            echo UI_remark(_("The invitation email was sent successfully."), _("The invitation email was sent."));
-        else if ($_GET['invitation'] == "FAILURE")
-            echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
-        else
-            echo UI_error(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
-
+        switch ($_GET['invitation']) {
+            case "SUCCESS":
+                echo UI_remark(_("The invitation email was sent successfully."), _("The invitation email was sent."));
+                break;
+            case "FAILURE":
+                echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+                break;
+            default:
+                echo UI_error(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
+        }
         echo "</table></div>";
     }
-    if (Config::$CONSORTIUM['name'] == 'eduroam')
+    if (Config::$CONSORTIUM['name'] == 'eduroam') {
         $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>Federation Operator manual</a>"),"https://wiki.geant.org/x/KQB_AQ")."</h3>";
-    else
+    }
+    else {
         $helptext = "";
+    }
     echo $helptext;
 
     ?>
@@ -150,11 +154,12 @@ $user = new User($_SESSION['user']);
             <th><?php echo _("Institution Name"); ?></th>
 
             <?php
-            $feds = $user->getAttributes("user:fedadmin");
+            // $feds = $user->getAttributes("user:fedadmin");
             $pending_invites = $mgmt->listPendingInvitations();
 
-            if (Config::$DB['enforce-external-sync'])
+            if (Config::$DB['enforce-external-sync']) {
                 echo "<th>" . sprintf(_("%s Database Sync Status"), Config::$CONSORTIUM['name']) . "</th>";
+            }
             ?>
             <th><?php echo _("Administrator Management"); ?></th>
         </tr>
@@ -165,12 +170,12 @@ $user = new User($_SESSION['user']);
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
-            foreach ($pending_invites as $oneinvite)
+            foreach ($pending_invites as $oneinvite) {
                 if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
                     // echo "PENDINGS!";
                     $display_pendings = TRUE;
                 }
-
+            }
             $idps = $thefed->listIdentityProviders();
 
             $my_idps = [];
@@ -253,7 +258,7 @@ $user = new User($_SESSION['user']);
                                </strong>
                             </td>
                          </tr>";
-                foreach ($pending_invites as $oneinvite)
+                foreach ($pending_invites as $oneinvite) {
                     if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
                         echo "<tr>
                                     <td>" .
@@ -270,8 +275,9 @@ $user = new User($_SESSION['user']);
                         echo "      </td>
                                  </tr>";
                     }
+                }
             }
-        };
+        }
         ?>
     </table>
     <hr/>

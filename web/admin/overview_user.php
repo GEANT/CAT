@@ -54,22 +54,27 @@ $user = new User($_SESSION['user']);
     </div>
     <div>
         <?php
-        if (!Config::$DB['userdb-readonly'])
+        if (!Config::$DB['userdb-readonly']) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
+        }
 
-        if ($user->isFederationAdmin())
+        if ($user->isFederationAdmin()) {
             echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to manage your federations') . "</button></form>";
-        if ($user->isSuperadmin())
+        }
+        if ($user->isSuperadmin()) {
             echo "<form action='112365365321.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to access the superadmin page') . "</button></form>";
+        }
         ?>
     </div>
     <?php
     $has_inst = $inst_mgmt->listInstitutionsByAdmin($_SESSION['user']);
 
-    if (Config::$CONSORTIUM['name'] == 'eduroam')
+    if (Config::$CONSORTIUM['name'] == 'eduroam') {
         $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"),"https://wiki.geant.org/x/SwB_AQ")."</h3>";
-    else
+    }
+    else {
         $helptext = "";
+    }
 
     if (sizeof($has_inst) > 0) {
         // we need to run the Federation constructor
@@ -121,19 +126,22 @@ $user = new User($_SESSION['user']);
                         }
                     } else { // don't list self
                         unset($admins[$number]);
-                        if ($username['LEVEL'] == "FED")
+                        if ($username['LEVEL'] == "FED") {
                             $i_am_blessed = TRUE;
+                        }
                     }
                 }
                 $number_of_other_admins = count($admins); // only the unnamed remain
-                if ($number_of_other_admins > 0)
+                if ($number_of_other_admins > 0) {
                     echo ngettext("other user", "other users", $number_of_other_admins);
+                }
                 // foreach ($the_inst->owner() as $admin)
                 // if ($admin != $_SESSION['user'])
                 // echo $admin . "<br/>";
                 echo "</td><td>";
-                if ($i_am_blessed)
+                if ($i_am_blessed) {
                     echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
+                }
                 echo "</td></tr>";
             }
         }
@@ -141,7 +149,7 @@ $user = new User($_SESSION['user']);
     }
     else {
         echo "<h2>" . _("You are not managing any institutions.") . "</h2>";
-    };
+    }
     if (Config::$CONSORTIUM['selfservice_registration'] === NULL) {
         echo "<p>" . _("Please ask your federation administrator to invite you to become an institution administrator.") . "</p>";
         echo "<hr/>
