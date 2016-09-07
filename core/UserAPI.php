@@ -594,51 +594,55 @@ private function geoDistance($P1,$P2) {
 
 /**
   * Order active identity providers according to their distance and name
-  * @param array $L - current location
+  * @param array $currentLocation - current location
   * @return array $IdPs -  list of arrays ('id', 'name');
   */
 
-public function orderIdentityProviders($country,$L=NULL) {
+public function orderIdentityProviders($country,$currentLocation=NULL) {
      $idps = Federation::listAllIdentityProviders(1,$country);
 
-  if(is_null($L)) {
-     $U = $this->locateUser();
-     if($U['status'] == 'ok') {
-     $L = $U['geo'];
+  if(is_null($currentLocation)) {
+     $userLocation = $this->locateUser();
+     if($userLocation['status'] == 'ok') {
+     $currentLocation = $userLocation['geo'];
      } else {
-       $L = ['lat'=>"90",'lon'=>"0"];
+       $currentLocation = ['lat'=>"90",'lon'=>"0"];
      }
   }
-  $T=[];
+  $idpTitle=[];
   $R=[];
      foreach ($idps as $idp) {
-        $T[$idp['entityID']] = $idp['title'];
+        $idpTitle[$idp['entityID']] = $idp['title'];
         $dist = 10000;
         if(isset($idp['geo'])) {
           $G=$idp['geo'];
           if(isset($G['lon'])) {
-             $d1 = $this->geoDistance($L,$G); 
+             $d1 = $this->geoDistance($currentLocation,$G); 
              if( $d1 < $dist)
                 $dist = $d1;
           } else {
             foreach ($G as $g) {
-             $d1 = $this->geoDistance($L,$g); 
+             $d1 = $this->geoDistance($currentLocation,$g); 
              if( $d1 < $dist)
                 $dist = $d1;
             }
           }
         }
-       if($dist > 100)
+       if($dist > 100) {
          $dist=10000;
+       }
       $d = sprintf("%06d",$dist);
       $R[$idp['entityID']] = $d." ".$idp['title'];
      }
      asort($R);
+     $outarray = [];
      foreach (array_keys($R) as $r) {
-      if($this->version == 1)
-         $outarray[] = ['id'=>$r, 'title'=>$T[$r]];
-      else
-         $outarray[] = ['idp'=>$r, 'title'=>$T[$r]];
+      if($this->version == 1) {
+         $outarray[] = ['id'=>$r, 'title'=>$idpTitle[$r]];
+      }
+      else {
+         $outarray[] = ['idp'=>$r, 'title'=>$idpTitle[$r]];
+      }
       }
      return($outarray);
 }
