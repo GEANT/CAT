@@ -136,7 +136,7 @@ public function processCertificate ($cadata) {
   * returns an array containing the PEM format of the certificate (s)
   * if the file contains multiple certificates it gets split into components
   *
-  * @param blob $cadata certificate in ether PEM or DER format
+  * @param string $cadata certificate in ether PEM or DER format
   * @return array
   */
 
