@@ -89,21 +89,24 @@ class SanityTest extends CAT {
      * The multiple tests wrapper
      * @param array $Tests the tests array.
      *
-     * The $Tests is a simple stings array, where each entry is a test name
+     * The $Tests is a simple string array, where each entry is a test name
      * the test names can also be given in the format "test=>subtest", which 
      * defines a conditional execution of the "subtest" if the "test" was run earier
      * and returned a success.
      */
     public function run_tests($Tests) {
-       foreach ($Tests as $t) {
-         if(preg_match('/(.+)=>(.+)/',$t,$m)) {
-            $tst = $m[1];
-            $subtst=$m[2];
-            if($this->test_result[$tst]  < L_ERROR)
+       foreach ($Tests as $testName) {
+           $matchArray = [];
+         if(preg_match('/(.+)=>(.+)/',$testName,$matchArray)) {
+            $tst = $matchArray[1];
+            $subtst=$matchArray[2];
+            if($this->test_result[$tst]  < L_ERROR) {
                $this->test($subtst);
+            }
          }
-         else
-            $this->test($t);
+         else {
+            $this->test($testName);
+         }
        }
     }
 
@@ -137,17 +140,20 @@ class SanityTest extends CAT {
         $this->test_result['global'] = max($this->test_result['global'],$level);
     }
 
-    private function get_exec_path($s) {
+    private function get_exec_path($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";
-        if (!empty(Config::$PATHS[$s])) {
-             preg_match('/([^ ]+) ?/',Config::$PATHS[$s],$m);
-             $exe = $m[1];
-             $the_path = exec("which " . Config::$PATHS[$s]);
-             if ($the_path == $exe)
+        if (!empty(Config::$PATHS[$pathToCheck])) {
+            $matchArray = [];
+             preg_match('/([^ ]+) ?/',Config::$PATHS[$pathToCheck],$matchArray);
+             $exe = $matchArray[1];
+             $the_path = exec("which " . Config::$PATHS[$pathToCheck]);
+             if ($the_path == $exe) {
                  $exec_is = "EXPLICIT";
-             else
+             }
+             else {
                  $exec_is = "IMPLICIT";
+             }
          } 
         return(['exec'=>$the_path,'exec_is'=>$exec_is]);
     }
@@ -156,38 +162,45 @@ class SanityTest extends CAT {
       *  Test for php version
       */
     private function php_test() {
-         if (version_compare(phpversion(), $this->php_needversion, '>='))
+         if (version_compare(phpversion(), $this->php_needversion, '>=')) {
             $this->test_return(L_OK,"<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
-         else
+         }
+         else {
             $this->test_return(L_ERROR,"<strong>PHP</strong> is too old. We need at least $this->php_needversion, but you only have ".phpversion(). ".");
+         }
     }
 
     /**
       * test for simpleSAMLphp
       */
     private function ssp_test() {
-         if (!is_file(CONFIG::$AUTHENTICATION['ssp-path-to-autoloader']))
+         if (!is_file(CONFIG::$AUTHENTICATION['ssp-path-to-autoloader'])) {
              $this->test_return(L_ERROR,"<strong>simpleSAMLphp</strong> not found!");
-         else
+         }
+         else {
              $this->test_return(L_OK,"<strong>simpleSAMLphp</strong> autoloader found.");
+         }
     }
 
     /**
       * test for security setting
       */
     private function security_test() {
-         if (in_array("I do not care about security!", Config::$SUPERADMINS))
+         if (in_array("I do not care about security!", Config::$SUPERADMINS)) {
              $this->test_return(L_WARN,"You do not care about security. This page should be made accessible to the CAT admin only! See config.php 'Superadmins'!");
+         }
     }
 
     /**
       * test if zip is available
       */
     private function zip_test() {
-         if (exec("which zip") != "")
+         if (exec("which zip") != "") {
              $this->test_return(L_OK,"<strong>zip</strong> binary found.");
-         else
+         }
+         else {
              $this->test_return(L_ERROR,"<strong>zip</strong> not found in your \$PATH!");
+         }
     }
 
     /**
@@ -197,72 +210,75 @@ class SanityTest extends CAT {
          exec(Config::$PATHS['eapol_test'], $out, $retval);
          if($retval == 255 ) {
             $o = preg_grep('/-o<server cert/',$out);
-               if(count($o) > 0)
+               if(count($o) > 0) {
                    $this->test_return(L_OK,"<strong>eapol_test</strong> script found.");
-               else
+               }
+               else {
                    $this->test_return(L_ERROR,"<strong>eapol_test</strong> found, but is too old!");
+               }
          }
-         else
+         else {
             $this->test_return(L_ERROR,"<strong>eapol_test</strong> not found!");
+         }
     }
 
     /**
       * test if logdir exists and is writable
       */
     private function logdir_test() {
-         if (fopen(Config::$PATHS['logdir'] . "/debug.log", "a") == FALSE)
+         if (fopen(Config::$PATHS['logdir'] . "/debug.log", "a") == FALSE) {
              $this->test_return(L_WARN,"Log files in <strong>" . Config::$PATHS['logdir'] . "</strong> are not writable!");
-         else
+         }
+         else {
              $this->test_return(L_OK,"Log directory is writable.");
+         }
     }
 
     /**
       * test for required PHP modules
       */
     private function phpModules_test() {
-        if (function_exists('idn_to_ascii'))
+        if (function_exists('idn_to_ascii')) {
             $this->test_return(L_OK,"PHP can handle internationalisation.");
-        else
-            $this->test_return(L_ERROR,"PHP can <strongNOT</strong> handle internationalisation (idn_to_ascii() from php5-intl).");
-
-        if (function_exists('gettext'))
-            $this->test_return(L_OK,"PHP extension <strong>GNU Gettext</strong> is installed.");
-        else
-           $this->test_return(L_ERROR,"PHP extension <strong>GNU Gettext</strong> not found!");
-
-        if (function_exists('openssl_sign'))
-            $this->test_return(L_OK,"PHP extension <strong>OpenSSL</strong> is installed.");
-        else
-            $this->test_return(L_ERROR,"PHP extension <strong>OpenSSL</strong> not found!");
-
-        if (class_exists('Imagick'))
-            $this->test_return(L_OK,"PHP extension <strong>Imagick</strong> is installed.");
-        else
-            $this->test_return(L_ERROR,"PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
-
-        if (function_exists('ImageCreate'))
-            $this->test_return(L_OK,"PHP extension <strong>GD</strong> is installed.");
-        else
-            $this->test_return(L_ERROR,"PHP extension <strong>GD</strong> not found!</a>.");
-
-        if (function_exists('mysqli_connect'))
-            $this->test_return(L_OK,"PHP extension <strong>MySQL</strong> is installed.");
-        else
-            $this->test_return(L_ERROR,"PHP extension <strong>MySQL</strong> not found!");
-/*
-        if (function_exists('geoip_record_by_name')) {
-           $host = '158.75.1.10';
-           $record = geoip_record_by_name($host);
-           if(! $record) 
-              $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
-           elseif($record['city'] != 'Torun')
-              $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
-           else
-              $this->test_return(L_OK,"PHP extension <strong>GeoIP</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
         }
-        else
-            $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a>.");
-*/
+        else {
+            $this->test_return(L_ERROR,"PHP can <strongNOT</strong> handle internationalisation (idn_to_ascii() from php5-intl).");
+        }
+
+        if (function_exists('gettext')) {
+            $this->test_return(L_OK,"PHP extension <strong>GNU Gettext</strong> is installed.");
+        }
+        else {
+           $this->test_return(L_ERROR,"PHP extension <strong>GNU Gettext</strong> not found!");
+        }
+
+        if (function_exists('openssl_sign')) {
+            $this->test_return(L_OK,"PHP extension <strong>OpenSSL</strong> is installed.");
+        }
+        else {
+            $this->test_return(L_ERROR,"PHP extension <strong>OpenSSL</strong> not found!");
+        }
+
+        if (class_exists('Imagick')) {
+            $this->test_return(L_OK,"PHP extension <strong>Imagick</strong> is installed.");
+        }
+        else {
+            $this->test_return(L_ERROR,"PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
+        }
+
+        if (function_exists('ImageCreate')) {
+            $this->test_return(L_OK,"PHP extension <strong>GD</strong> is installed.");
+        }
+        else {
+            $this->test_return(L_ERROR,"PHP extension <strong>GD</strong> not found!</a>.");
+        }
+
+        if (function_exists('mysqli_connect')) {
+            $this->test_return(L_OK,"PHP extension <strong>MySQL</strong> is installed.");
+        }
+        else {
+            $this->test_return(L_ERROR,"PHP extension <strong>MySQL</strong> not found!");
+        }
     }
 
     /**
@@ -282,7 +298,7 @@ class SanityTest extends CAT {
                   return;
               }
               $record = geoip_record_by_name($host_4);
-              if(! $record) {
+              if($record === FALSE) {
                  $this->test_return(L_ERROR,"PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                  return;
               }
@@ -338,12 +354,15 @@ class SanityTest extends CAT {
          $A = $this->get_exec_path('openssl');    
          if($A['exec'] != "") {
              $t = exec($A['exec'] . ' version');
-             if($A['exec_is'] == "EXPLICIT")
+             if($A['exec_is'] == "EXPLICIT") {
                 $this->test_return(L_OK,"<strong>$t</strong> was found and is configured explicitly in your config.");
-             else
+             }
+             else {
                 $this->test_return(L_WARN,"<strong>$t</strong> was found, but is not configured with an absolute path in your config.");
-         } else
+             }
+         } else {
             $this->test_return(L_ERROR,"<strong>openssl</strong> was not found on your system!");
+         }
     }
 
     /**
@@ -361,18 +380,23 @@ class SanityTest extends CAT {
          $A = $this->get_exec_path('makensis');    
          if($A['exec'] != "") {
              $t = exec($A['exec'] . ' -VERSION');
-             if($A['exec_is'] == "EXPLICIT") 
+             if($A['exec_is'] == "EXPLICIT") {
                 $this->test_return(L_OK,"<strong>makensis $t</strong> was found and is configured explicitly in your config.");
-             else
+             }
+             else {
                 $this->test_return(L_WARN,"<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
+             }
              exec($A['exec'] . ' -HELP',$t);
              $t1 = count(preg_grep('/INPUTCHARSET/',$t));
-             if($t1 == 1 && Config::$NSIS_VERSION == 2)
+             if($t1 == 1 && Config::$NSIS_VERSION == 2) {
                 $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
-             if($t1 == 0 && Config::$NSIS_VERSION >= 3)
+             }
+             if($t1 == 0 && Config::$NSIS_VERSION >= 3) {
                 $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
-         } else
+             }
+         } else {
             $this->test_return(L_ERROR,"<strong>makensis</strong> was not found on your system!");
+         }
     }
 
     /**
@@ -390,18 +414,23 @@ class SanityTest extends CAT {
          foreach ($this->NSIS_Modules as $module) {
             unset($out);
             exec(Config::$PATHS['makensis']." -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
-            if($retval > 0) 
+            if($retval > 0) {
                $NSIS_Module_status[$module] = 0;
-            else
+            }
+            else {
                $NSIS_Module_status[$module] = 1;
+            }
          }
-         if(is_file($exe))
+         if(is_file($exe)) {
             unlink($exe);
+         }
          foreach ($NSIS_Module_status as $module => $status) {
-            if($status == 1)
+            if($status == 1) {
                $this->test_return(L_OK,"NSIS module <strong>$module</strong> was found.");
-            else
+            }
+            else {
                $this->test_return(L_ERROR,"NSIS module <strong>$module</strong> was not found or is not working correctly.");
+            }
          }
     }
     private function NSIS_GetVersion_test() {
@@ -413,44 +442,47 @@ class SanityTest extends CAT {
          }
          $exe= 'tt.exe';
          exec(Config::$PATHS['makensis']." -V1 '-XOutFile $exe' '-XSection X' '-XGetVersion::WindowsName' '-XSectionEnd'", $out, $retval);
-         if($retval > 0)
+         if($retval > 0) {
             $this->test_return(L_ERROR,"NSIS module <strong>GetVersion</strong> was not found or is not working correctly.");
-         else
+         }
+         else {
             $this->test_return(L_OK,"NSIS module <strong>GetVersion</strong> was found.");
-         if(is_file($exe))
+         }
+         if(is_file($exe)) {
             unlink($exe);
+         }
     }
 
     /**
       * test access to dowloads directories
       */
     private function directories_test() {
-               $Dir = createTemporaryDirectory('installer',0);
-               $dir = $Dir['dir'];
-               $base = $Dir['base'];
-               if($dir) {
+               $Dir1 = createTemporaryDirectory('installer',0);
+               $dir1 = $Dir1['dir'];
+               $base1 = $Dir1['base'];
+               if($dir1) {
                   $this->test_return(L_OK,"Installer cache directory is writable.");
-                  rrmdir($dir);
+                  rrmdir($dir1);
                } else {
-                  $this->test_return(L_ERROR,"Installer cache directory $base does not exist or is not writable!");
+                  $this->test_return(L_ERROR,"Installer cache directory $base1 does not exist or is not writable!");
                }
-               $Dir = createTemporaryDirectory('test',0);
-               $dir = $Dir['dir'];
-               $base = $Dir['base'];
-               if($dir) {
+               $Dir2 = createTemporaryDirectory('test',0);
+               $dir2 = $Dir2['dir'];
+               $base2 = $Dir2['base'];
+               if($dir2) {
                   $this->test_return(L_OK,"Test directory is writable.");
-                  rrmdir($dir);
+                  rrmdir($dir2);
                } else {
-                  $this->test_return(L_ERROR,"Test directory  $base does not exist or is not writable!");
+                  $this->test_return(L_ERROR,"Test directory $base2 does not exist or is not writable!");
                }
-               $Dir = createTemporaryDirectory('logo',0);
-               $dir = $Dir['dir'];
-               $base = $Dir['base'];
-               if($dir) {
+               $Dir3 = createTemporaryDirectory('logo',0);
+               $dir3 = $Dir3['dir'];
+               $base3 = $Dir3['base'];
+               if($dir3) {
                   $this->test_return(L_OK,"Logos cache directory is writable.");
-                  rrmdir($dir);
+                  rrmdir($dir3);
                } else {
-                  $this->test_return(L_ERROR,"Logos cache directory  $base does not exist or is not writable!");
+                  $this->test_return(L_ERROR,"Logos cache directory $base3 does not exist or is not writable!");
                }
     }
 
@@ -460,56 +492,64 @@ class SanityTest extends CAT {
     private function locales_test() {
                 $locales = shell_exec("locale -a");
                 $allthere = "";
-                foreach (Config::$LANGUAGES as $onelanguage)
-                    if (preg_match("/" . $onelanguage['locale'] . "/", $locales) == 0)
+                foreach (Config::$LANGUAGES as $onelanguage) {
+                    if (preg_match("/" . $onelanguage['locale'] . "/", $locales) == 0) {
                         $allthere .= $onelanguage['locale'] . " ";
-
-                if ($allthere == "")
+                    }
+                }
+                if ($allthere == "") {
                     $this->test_return(L_OK,"All of your configured locales are available on your system.");
-                else
+                }
+                else {
                     $this->test_return(L_WARN,"Some of your configured locales (<strong>$allthere</strong>) are not installed and will not be displayed correctly!");
+                }
     }
-
-    private function check_config_default($type,$key,$value) {
-                if (empty(Config::$type[$key]))
-                    $missingvalues .="type/webcert_OCSP ";
-                elseif (Config::$type['webcert_OCSP'] == $value)
-                    $defaultvalues .="type/$key ";
-    }
-
 
     /**
-      * test if detalts in the config have been replaced with some real values
+      * test if defaults in the config have been replaced with some real values
       */
     private function defaults_test() {
                 $defaultvalues = "";
                 $missingvalues = "";
-                if (Config::$APPEARANCE['from-mail'] == "cat-invite@your-cat-installation.example")
+                if (Config::$APPEARANCE['from-mail'] == "cat-invite@your-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/from-mail ";
-                if (Config::$APPEARANCE['support-contact']['url'] == "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!")
+                }
+                if (Config::$APPEARANCE['support-contact']['url'] == "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!") {
                     $defaultvalues .="APPEARANCE/support-contact/url ";
-                if (Config::$APPEARANCE['support-contact']['display'] == "cat-support@our-cat-installation.example")
+                }
+                if (Config::$APPEARANCE['support-contact']['display'] == "cat-support@our-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/support-contact/display ";
-                if (Config::$APPEARANCE['support-contact']['developer-mail'] == "cat-develop@our-cat-installation.example")
+                }
+                if (Config::$APPEARANCE['support-contact']['developer-mail'] == "cat-develop@our-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/support-contact/mail ";
-                if (Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example")
+                }
+                if (Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/abuse-mail ";
-                if (Config::$APPEARANCE['MOTD'] == "Release Candidate. All bugs to be shot on sight!")
+                }
+                if (Config::$APPEARANCE['MOTD'] == "Release Candidate. All bugs to be shot on sight!") {
                     $defaultvalues .="APPEARANCE/MOTD ";
-                if (Config::$APPEARANCE['webcert_CRLDP'] == ['list', 'of', 'CRL', 'pointers'])
+                }
+                if (Config::$APPEARANCE['webcert_CRLDP'] == ['list', 'of', 'CRL', 'pointers']) {
                     $defaultvalues .="APPEARANCE/webcert_CRLDP ";
-                if (empty(Config::$APPEARANCE['webcert_OCSP']))
+                }
+                if (empty(Config::$APPEARANCE['webcert_OCSP'])) {
                     $missingvalues .="APPEARANCE/webcert_OCSP ";
-                elseif (Config::$APPEARANCE['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers'])
+                }
+                elseif (Config::$APPEARANCE['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
                     $defaultvalues .="APPEARANCE/webcert_OCSP ";
-                if (isset(Config::$RADIUSTESTS['UDP-hosts'][0]) && Config::$RADIUSTESTS['UDP-hosts'][0]['ip'] == "192.0.2.1")
+                }
+                if (isset(Config::$RADIUSTESTS['UDP-hosts'][0]) && Config::$RADIUSTESTS['UDP-hosts'][0]['ip'] == "192.0.2.1") {
                     $defaultvalues .="RADIUSTESTS/UDP-hosts ";
-                if (Config::$DB['INST']['host'] == "db.host.example")
+                }
+                if (Config::$DB['INST']['host'] == "db.host.example") {
                     $defaultvalues .="DB/INST ";
-                if (Config::$DB['INST']['host'] == "db.host.example")
+                }
+                if (Config::$DB['INST']['host'] == "db.host.example") {
                     $defaultvalues .="DB/USER ";
-                if(!empty(Config::$DB['EXTERNAL']) && Config::$DB['EXTERNAL']['host'] == "customerdb.otherhost.example")
+                }
+                if(!empty(Config::$DB['EXTERNAL']) && Config::$DB['EXTERNAL']['host'] == "customerdb.otherhost.example") {
                     $defaultvalues .="DB/EXTERNAL ";
+                }
                 $files = [];
                 foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $cadata) {
                     foreach ($cadata['certificates'] as $cert_files) {
@@ -520,54 +560,64 @@ class SanityTest extends CAT {
 
                 foreach ($files as $file) {
                     $handle = fopen(CAT::$root . "/config/cli-certs/" . $file, 'r');
-                    if (!$handle)
+                    if (!$handle) {
                         $defaultvalues .="CERTIFICATE/$file ";
-                    else
+                    }
+                    else {
                         fclose($handle);
+                    }
                 }
-                if ($defaultvalues != "")
+                if ($defaultvalues != "") {
                     $this->test_return(L_WARN,"Your configuration in config/config.php contains unchanged default values or links to inexistent files: <strong>$defaultvalues</strong>!");
-                else
+                }
+                else {
                     $this->test_return(L_OK,"Your configuration does not contain any unchanged defaults, which is a good sign.");
+                }
     }
 
    /**
      * test access to databases
      */
    private function databases_test() {
-        $DB = 'INST';
-        $db = mysqli_connect(Config::$DB[$DB]['host'], Config::$DB[$DB]['user'], Config::$DB[$DB]['pass'], Config::$DB[$DB]['db']);
-        if(! $db) {
-           $this->test_return(L_ERROR,"Connection to the  $DB database failed");
+        $databaseName1 = 'INST';
+        $db1 = mysqli_connect(Config::$DB[$databaseName1]['host'], Config::$DB[$databaseName1]['user'], Config::$DB[$databaseName1]['pass'], Config::$DB[$databaseName1]['db']);
+        if(! $db1) {
+           $this->test_return(L_ERROR,"Connection to the  $databaseName1 database failed");
         } else {
-           $r = mysqli_query($db,'select * from profile_option_dict');
-           if($r->num_rows == $this->profile_option_ct)
-              $this->test_return(L_OK,"The $DB database appears to be OK.");
-           else
-              $this->test_return(L_ERROR,"The $DB database is reacheable but probably not updated to this version of CAT.");
+           $r = mysqli_query($db1,'select * from profile_option_dict');
+           if($r->num_rows == $this->profile_option_ct) {
+              $this->test_return(L_OK,"The $databaseName1 database appears to be OK.");
+           }
+           else {
+              $this->test_return(L_ERROR,"The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
+           }
         }
-        $DB = 'USER';
-        $db = mysqli_connect(Config::$DB[$DB]['host'], Config::$DB[$DB]['user'], Config::$DB[$DB]['pass'], Config::$DB[$DB]['db']);
-        if(! $db) {
-           $this->test_return(L_ERROR,"Connection to the  $DB database failed");
+        $databaseName2 = 'USER';
+        $db2 = mysqli_connect(Config::$DB[$databaseName2]['host'], Config::$DB[$databaseName2]['user'], Config::$DB[$databaseName2]['pass'], Config::$DB[$databaseName2]['db']);
+        if(! $db2) {
+           $this->test_return(L_ERROR,"Connection to the  $databaseName2 database failed");
         } else {
-           $r = mysqli_query($db,'desc view_admin');
-           if($r->num_rows == $this->view_admin_ct)
-              $this->test_return(L_OK,"The $DB database appears to be OK.");
-           else
-              $this->test_return(L_ERROR,"The $DB is reacheable but there is something wrong with the schema");
+           $r = mysqli_query($db2,'desc view_admin');
+           if($r->num_rows == $this->view_admin_ct) {
+              $this->test_return(L_OK,"The $databaseName2 database appears to be OK.");
+           }
+           else {
+              $this->test_return(L_ERROR,"The $databaseName2 is reacheable but there is something wrong with the schema");
+           }
         }
-        $DB = 'EXTERNAL';
-        if(! empty(Config::$DB[$DB])) {
-        $db = mysqli_connect(Config::$DB[$DB]['host'], Config::$DB[$DB]['user'], Config::$DB[$DB]['pass'], Config::$DB[$DB]['db']);
-        if(! $db) {
-           $this->test_return(L_ERROR,"Connection to the  $DB database failed");
+        $databaseName3 = 'EXTERNAL';
+        if(! empty(Config::$DB[$databaseName3])) {
+        $db3 = mysqli_connect(Config::$DB[$databaseName3]['host'], Config::$DB[$databaseName3]['user'], Config::$DB[$databaseName3]['pass'], Config::$DB[$databaseName3]['db']);
+        if(! $db3) {
+           $this->test_return(L_ERROR,"Connection to the  $databaseName3 database failed");
         } else {
-           $r = mysqli_query($db,'desc view_admin');
-           if($r->num_rows == $this->view_admin_ct)
-              $this->test_return(L_OK,"The $DB database appears to be OK.");
-           else
-              $this->test_return(L_ERROR,"The $DB is reacheable but there is something wrong with the schema");
+           $r = mysqli_query($db3,'desc view_admin');
+           if($r->num_rows == $this->view_admin_ct) {
+              $this->test_return(L_OK,"The $databaseName3 database appears to be OK.");
+           }
+           else {
+              $this->test_return(L_ERROR,"The $databaseName3 is reacheable but there is something wrong with the schema");
+           }
         }
         }
    }
@@ -577,13 +627,16 @@ class SanityTest extends CAT {
      * test devices.php for the no_cache option
      */
    private function device_cache_test() {
-       if((! empty(Devices::$Options['no_cache'])) && Devices::$Options['no_cache'])
+       if((! empty(Devices::$Options['no_cache'])) && Devices::$Options['no_cache']) {
           $global_no_cache = 1;
-       else
+       }
+       else {
           $global_no_cache = 0;
+       }
 
-       if($global_no_cache == 1)
+       if($global_no_cache == 1) {
           $this->test_return(L_WARN,"Devices no_cache global option is set, this is not a good idea in a production setting\n");
+       }
        $Devs = Devices::listDevices();
        $no_cache_dev = '';
        $no_cache_dev_count = 0;
@@ -604,10 +657,12 @@ class SanityTest extends CAT {
        }
 
 
-       if($no_cache_dev_count > 1 ) 
+       if($no_cache_dev_count > 1 ) {
           $this->test_return(L_WARN,"The following devices will not be cached: $no_cache_dev");
-       if($no_cache_dev_count == 1 ) 
+       }
+       if($no_cache_dev_count == 1 ) {
           $this->test_return(L_WARN,"The following device will not be cached: $no_cache_dev");
+       }
 
    }
 
@@ -636,10 +691,12 @@ class SanityTest extends CAT {
       $mail->Subject = "testing CAT configuration mail";
       $mail->Body = "Testing CAT mailing\n";
       $sent = $mail->send();
-      if($sent)
+      if($sent) {
           $this->test_return(L_OK,"mailer settings appear to be working, check ".Config::$APPEARANCE['abuse-mail']." mailbox if the message was receiced.");
-      else
+      }
+      else {
           $this->test_return(L_ERROR,"mailer settings failed, check the Config::MAILSETTINGS");
+      }
 
    }
 
