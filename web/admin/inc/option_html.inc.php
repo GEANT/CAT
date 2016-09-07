@@ -12,7 +12,12 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once("Options.php");
 require_once("common.inc.php");
 
-function add_option($class, $prepopulate = 0) { // no GET class ? we've been called directly:
+/**
+ * 
+ * @param string $class the class of options that is to be displayed
+ * @param array $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+ */
+function add_option($class, $prepopulate = []) { // no GET class ? we've been called directly:
     // this can mean either a new object (list all options with empty values)
     // or that an object is to be edited. In that case, $prepopulated has to
     // contain the array of existing variables
