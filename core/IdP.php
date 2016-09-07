@@ -70,7 +70,7 @@ class IdP extends EntityWithDBProperties {
         if (!is_numeric($instId)) {
             throw new Exception("Institutions are identified by an integer index!");
         }
-        $this->identifier = $instId;
+        $this->identifier = (int)$instId;
 
         $idp = DBConnection::exec($this->databaseType, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         if (!$instQuery = mysqli_fetch_object($idp)) {
