@@ -86,16 +86,20 @@ switch($sanitised_action) {
         // POST, but I need to do some sanitising first.
         // TODO For 1.1, make sure that pSF gets is field as a parameter, not implicitly via POST
         $original_post = $_POST;
-        foreach ($_POST['option'] as $optindex => $optname)
-            if (!preg_match("/^general:/",$optname) && !preg_match("/^support:/",$optname) && !preg_match("/^eap:/",$optname))
+        foreach ($_POST['option'] as $optindex => $optname) {
+            if (!preg_match("/^general:/",$optname) && !preg_match("/^support:/",$optname) && !preg_match("/^eap:/",$optname)) {
                 unset($_POST['option'][$optindex]);
+            }
+        }
         // now process all inst-wide options    
         processSubmittedFields($idp, [],0,0,TRUE);
         $_POST = $original_post;
         // same thing for profile options
-        foreach ($_POST['option'] as $optindex => $optname)
-            if (!preg_match("/^profile:/",$optname) || $optname == "profile:QR-user")
+        foreach ($_POST['option'] as $optindex => $optname) {
+            if (!preg_match("/^profile:/",$optname) || $optname == "profile:QR-user") {
                 unset($_POST['option'][$optindex]);
+            }
+        }
         // if we do have profile-level options - create a profile and fill in the values!
         if (count($_POST['option']) > 0) {
             $newprofile = $idp->newProfile("RADIUS");
@@ -108,16 +112,19 @@ switch($sanitised_action) {
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
-                        if (isset($_POST['value'][$optindex."-0"]))
+                        if (isset($_POST['value'][$optindex."-0"])) {
                                 $theanonid = valid_string_db($_POST['value'][$optindex."-0"]);
+                        }
                         break;
                     case "profile-api:realm":
-                        if (isset($_POST['value'][$optindex."-0"]) && valid_Realm($_POST['value'][$optindex."-0"]))
+                        if (isset($_POST['value'][$optindex."-0"]) && valid_Realm($_POST['value'][$optindex."-0"])) {
                                 $therealm = $_POST['value'][$optindex."-0"];
+                        }
                         break;
                     case "profile-api:useanon":
-                        if (isset($_POST['value'][$optindex."-3"]) && valid_boolean($_POST['value'][$optindex."-3"]) == "on")
+                        if (isset($_POST['value'][$optindex."-3"]) && valid_boolean($_POST['value'][$optindex."-3"]) == "on") {
                                 $use_anon = TRUE;
+                        }
                         break;
                     case "profile-api:eaptype":
                         $pref = 0;
