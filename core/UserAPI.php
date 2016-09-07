@@ -462,7 +462,8 @@ private function GetRootURL() {
  * If not then generate the file and save it in the cache
  * @param int $idp_id IdP identifier
  * @param int $disco flag turning on image generation for DiscoJuice
- * @param int $width, $height  maximum width and height of the generated image 
+ * @param int $width maximum width of the generated image 
+ * @param int $height  maximum height of the generated image
  * if one of these is 0 then it is treated as no upper bound
  *
  */

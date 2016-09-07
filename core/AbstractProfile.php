@@ -233,8 +233,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * Log a new download for our stats
      * 
-     * @param device the device id string
-     * @param area either admin or user
+     * @param string $device the device id string
+     * @param string $area either admin or user
      * @return TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
