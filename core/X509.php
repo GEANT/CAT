@@ -60,7 +60,7 @@ public function der2pem($der_data) {
   * ca   value 1 if CA certificate 0 otherwise
   *
   * </pre>
-  * @param blob $cadata certificate in ether PEM or DER format
+  * @param string $cadata certificate in ether PEM or DER format
   * @return array
   */
 public function processCertificate ($cadata) {
