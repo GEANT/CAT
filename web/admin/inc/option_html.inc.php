@@ -22,9 +22,9 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
     // or that an object is to be edited. In that case, $prepopulated has to
     // contain the array of existing variables
     // we expect the variable $class to contain the class of options
-    // print_r($prepopulate);
+    
     $optioninfo = Options::instance();
-    // print_r($prepopulate);
+    
     if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
         $number = 0;
         foreach ($prepopulate as $option) {
@@ -34,7 +34,7 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
                 echo optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
             }
         }
-    } else { // new: add empty list
+    } else { // not editing exist, this in new: add empty list
         $list = $optioninfo->availableOptions($class);
         switch ($class) {
             case "general":

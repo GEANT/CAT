@@ -283,21 +283,18 @@ function previewInfoFileinHTML($fileReference) {
 }
 
 function infoblock($optionlist, $class, $level) {
-// echo "<pre>".print_r($optionlist)."</pre>";
     $googleMarkers = [];
     $retval = "";
     $optioninfo = Options::instance();
 
     foreach ($optionlist as $option) {
         $type = $optioninfo->optionType($option['name']);
-// echo "CLASS $class, OPTIONNAME ".$option['name']." LEVEL $level, TYPE ".$type['type']." FLAG ".$type['flag']."\n";
         if (preg_match('/^' . $class . '/', $option['name']) && $option['level'] == "$level") {
             // all non-multilang attribs get this assignment ...
             $language = "";
             $content = $option['value'];
             // ... override them with multilang tags if needed
             if ($type["flag"] == "ML") {
-                // echo "processing multi-lang ".$option['name']. "with value ".$option['value'];
                 $taggedarray = unserialize($option['value']);
                 $language = _("default/other languages");
                 if ($taggedarray['lang'] != 'C') {

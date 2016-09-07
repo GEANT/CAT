@@ -124,7 +124,6 @@ if ($device) {
             if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))
                 $interesting_attribs[] = $attrib;
         }
-        // print_r($interesting_attribs);
         add_option($keyword, $interesting_attribs);
         ?>
     </table>

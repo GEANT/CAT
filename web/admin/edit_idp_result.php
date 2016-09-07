@@ -70,7 +70,6 @@ $remaining_attribs = $my_inst->beginflushAttributes();
 echo "<table>";
 $killlist = processSubmittedFields($my_inst, $_POST, $_FILES, $remaining_attribs);
 echo "</table>";
-// print_r($killlist);
 $my_inst->commitFlushAttributes($killlist);
 // delete cached logo, if present
 $logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identifier . ".png";

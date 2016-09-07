@@ -60,21 +60,16 @@ array_push($FAQ,
         'text'=>sprintf(_("You should send a mail to %s."),Config::$APPEARANCE['support-contact']['display'])
       ]);
 
-
-
-/*
+/**
+ * This is a template for further FAQ entries. Simply copy&paste and add more
+ * FAQ text in 'title' and 'text' respectively.
+ * 
 array_push($FAQ,
       array(
         'title'=>sprintf(_("")),
         'text'=>sprintf(_(""))
       ));
-
 */
-
-
-
-
-
 
 ?>
 

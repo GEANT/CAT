@@ -53,7 +53,6 @@ if (isset($_GET["class"])) {
         debug(1,"Unknown type of option!");
         exit(1);
     }
-    // echo "<pre>".print_r($list)."</pre>";
 
     echo optiontext(0, $list);
 }

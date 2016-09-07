@@ -33,7 +33,6 @@ if (isset($_POST['submitbutton'])) {
         echo "<table>";
         $killlist = processSubmittedFields($my_fed, $_POST, $_FILES, $remaining_attribs);
         echo "</table>";
-        // print_r($killlist);
         $my_fed->commitFlushAttributes($killlist);
 
         CAT::writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->name . " - attributes changed");
