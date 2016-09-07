@@ -70,7 +70,7 @@ function pageheader($pagetitle, $area, $authRequired = TRUE) {
  * @return \CAT an instance of the CAT object (useful for later lang change operations etc.)
  */
 function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
-    if ($authRequired == TRUE) {
+    if ($authRequired === TRUE) {
         require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
         authenticate();
     }

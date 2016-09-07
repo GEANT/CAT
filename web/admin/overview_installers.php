@@ -94,7 +94,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
 
                 if (count($redirectAttribs) > 0) {
                     echo "<td class='compat_redirected'>";
-                    if (in_array($method, $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method === $preflist[0] || $defaultisset == FALSE)) {
+                    if (in_array($method, $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method === $preflist[0] || $defaultisset === FALSE)) {
                         echo "$downloadform</form>";
                         $defaultisset = TRUE;
                     }
@@ -103,7 +103,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                 if (in_array($method, $factory->device->supportedEapMethods)) {
                     if ($my_profile->isEapTypeDefinitionComplete($method) !== true) {
                         echo "<td class='compat_incomplete'></td>";
-                    } elseif ($method === $preflist[0] || $defaultisset == FALSE) {
+                    } elseif ($method === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote: anon_id
                         $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
                         if ( $anon !== "" && isset($factory->device->specialities['anon_id'])) {

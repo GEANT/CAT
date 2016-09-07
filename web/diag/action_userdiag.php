@@ -289,7 +289,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
 
                 switch ($problem['STATUS']) {
                     case "INFRASTRUCTURE":
-                        if ($infrastructure_warned == FALSE) {
+                        if ($infrastructure_warned === FALSE) {
                             $warning_html = "<div class='problemsolution'>" . _("There is nothing you can do about this problem. Please do not change your device configuration. Please wait until the problem is resolved.") . "</div>" . $warning_html;
                             $warning_html = "<div class='problemdescription'>" . _("There is currently a problem with the roaming infrastructure. This may lead to intermittent or permanent failures. We will send an email to notify the operators about this problem.") . "</div>" . $warning_html;
                         }
