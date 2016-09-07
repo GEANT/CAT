@@ -59,7 +59,7 @@ class IdP extends EntityWithDBProperties {
      * Constructs an IdP object based on its details in the database.
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
      *
-     * @param integer $instId the database row identifier
+     * @param int $instId the database row identifier
      */
     public function __construct($instId) {
         debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
@@ -67,7 +67,7 @@ class IdP extends EntityWithDBProperties {
         $this->databaseType = "INST";
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
-        if (!is_int($instId)) {
+        if (!is_numeric($instId)) {
             throw new Exception("Institutions are identified by an integer index!");
         }
         $this->identifier = $instId;
