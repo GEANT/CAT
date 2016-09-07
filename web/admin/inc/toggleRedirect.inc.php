@@ -76,11 +76,11 @@ if ($device == NULL && $eaptype == NULL) {
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     if ($eaptype == NULL) {
         $remaining_attribs = $my_profile->beginflushAttributes(0, $device_key);
-        $killlist = processSubmittedFields($my_profile, $remaining_attribs, 0, $device_key, TRUE);
+        $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
     }
     if ($device == NULL) {
         $remaining_attribs = $my_profile->beginflushAttributes($eap_id, 0);
-        $killlist = processSubmittedFields($my_profile, $remaining_attribs, $eap_id, 0, TRUE);
+        $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
     }
     $my_inst->commitFlushAttributes($killlist);
     CAT::writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");

@@ -104,20 +104,20 @@ function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
     return $retval;
 }
 
-function collatePostArrays() {
+function collateOptionArrays($postArray, $filesArray) {
     $iterator = [];
-    if (!empty($_POST['option'])) {
-        foreach ($_POST['option'] as $optId => $optname) {
+    if (!empty($postArray['option'])) {
+        foreach ($postArray['option'] as $optId => $optname) {
             $iterator[$optId] = $optname;
         }
-        if (!empty($_POST['value'])) {
-            foreach ($_POST['value'] as $optId => $optvalue) {
+        if (!empty($postArray['value'])) {
+            foreach ($postArray['value'] as $optId => $optvalue) {
                 $iterator[$optId] = $optvalue;
             }
         }
     }
-    if (!empty($_FILES['value']['tmp_name'])) {
-        foreach ($_FILES['value']['tmp_name'] as $optId => $optfileref) {
+    if (!empty($filesArray['value']['tmp_name'])) {
+        foreach ($filesArray['value']['tmp_name'] as $optId => $optfileref) {
             $iterator[$optId] = $optfileref;
         }
     }
@@ -127,6 +127,8 @@ function collatePostArrays() {
 /**
  * 
  * @param mixed $object The object for which attributes were submitted
+ * @param array $postArray incoming attribute names and values as submitted with $_POST
+ * @param array $filesArray incoming attribute names and values as submitted with $_FILES
  * @param array $pendingattributes object's attributes stored by-reference in the DB which are tentatively marked for deletion
  * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
  * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
@@ -134,7 +136,7 @@ function collatePostArrays() {
  * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
  * @throws Exception
  */
-function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $device = NULL, $silent = FALSE) {
+function processSubmittedFields($object, $postArray, $filesArray, $pendingattributes, $eaptype = 0, $device = NULL, $silent = FALSE) {
 
 // construct new array with all non-empty options for later feeding into DB
 
@@ -150,7 +152,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
     // Step 1: collate option names, option values and uploaded files (by 
     // filename reference) into one array for later handling
     
-    $iterator = collatePostArrays();
+    $iterator = collateOptionArrays($postArray, $filesArray);
     
     // TODO brave new PHP7 world would do instead:
     // $optionarray = $_POST['option'] ?? [];

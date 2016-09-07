@@ -19,8 +19,6 @@
  */
 require_once('mobileconfigSuperclass.php');
 
-// set_locale("devices");
-
 /**
  * This is the main implementation class of the module
  *

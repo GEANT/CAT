@@ -81,30 +81,26 @@ switch($sanitised_action) {
         $mgmt = new UserManagement();
         $fed = new Federation($federation);
         $idp = new IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
-        // print_r($_POST);
-        // that's a bit unpleasant... processSubmittedFields reads directly from
-        // POST, but I need to do some sanitising first.
-        // TODO For 1.1, make sure that pSF gets is field as a parameter, not implicitly via POST
-        $original_post = $_POST;
-        foreach ($_POST['option'] as $optindex => $optname) {
+        
+        $instWideOptions = $_POST;
+        foreach ($instWideOptions['option'] as $optindex => $optname) {
             if (!preg_match("/^general:/",$optname) && !preg_match("/^support:/",$optname) && !preg_match("/^eap:/",$optname)) {
-                unset($_POST['option'][$optindex]);
+                unset($instWideOptions['option'][$optindex]);
             }
         }
         // now process all inst-wide options    
-        processSubmittedFields($idp, [],0,0,TRUE);
-        $_POST = $original_post;
+        processSubmittedFields($idp, $instWideOptions, $_FILES, [],0,0,TRUE);
         // same thing for profile options
-        foreach ($_POST['option'] as $optindex => $optname) {
+        $profileWideOptions = $_POST;
+        foreach ($profileWideOptions['option'] as $optindex => $optname) {
             if (!preg_match("/^profile:/",$optname) || $optname == "profile:QR-user") {
-                unset($_POST['option'][$optindex]);
+                unset($profileWideOptions['option'][$optindex]);
             }
         }
         // if we do have profile-level options - create a profile and fill in the values!
-        if (count($_POST['option']) > 0) {
+        if (count($profileWideOptions['option']) > 0) {
             $newprofile = $idp->newProfile("RADIUS");
-            processSubmittedFields($newprofile, [], 0, 0, TRUE);
-            $_POST = $original_post;
+            processSubmittedFields($newprofile, $profileWideOptions, $_FILES, [], 0, 0, TRUE);
             // sift through the options to find API ones (these are not caught by pSF() )
             $therealm = "";
             $theanonid = "anonymous";
@@ -172,7 +168,6 @@ switch($sanitised_action) {
             $profile = ProfileFactory::instantiate($newprofile->identifier);
             $profile->prepShowtime();
         }
-        $_POST = $original_post;
         // generate the token
         $newtoken = $mgmt->createToken(true, valid_string_db($_POST['NEWINST_PRIMARYADMIN']), $idp);
         // and send it back to the caller

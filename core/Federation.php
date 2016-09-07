@@ -530,8 +530,6 @@ class Federation extends EntityWithDBProperties {
                         // extracting real names is nice, but the <> notation
                         // really gets screwed up on POSTs and HTML safety
                         // so better not do this; use only mail addresses
-                        // keeping the old codeline in case we revive this
-                        // $mailnames .= '"'.$matches[1].'" <'.$matches[2].'>';
                         $mailnames .= $matches[2];
                     }
                 }

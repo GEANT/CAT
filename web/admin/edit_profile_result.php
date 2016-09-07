@@ -164,7 +164,7 @@ if (!$profile instanceof ProfileRADIUS) {
     }
 
     $remaining_attribs = $profile->beginflushAttributes();
-    $killlist = processSubmittedFields($profile, $remaining_attribs);
+    $killlist = processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
     $profile->commitFlushAttributes($killlist);
 
     if ($redirect != FALSE) {

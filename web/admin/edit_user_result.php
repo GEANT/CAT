@@ -40,7 +40,7 @@ if (isset($_POST['option']))
 ?>
 <table>
     <?php
-    $killlist = processSubmittedFields($user, $remaining_attribs);
+    $killlist = processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
     $user->commitFlushAttributes($killlist);
     CAT::writeAudit($_SESSION['user'], "MOD", "User attributes changed");
     ?>

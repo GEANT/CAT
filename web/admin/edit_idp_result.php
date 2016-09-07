@@ -68,7 +68,7 @@ echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h
 $remaining_attribs = $my_inst->beginflushAttributes();
 
 echo "<table>";
-$killlist = processSubmittedFields($my_inst, $remaining_attribs);
+$killlist = processSubmittedFields($my_inst, $_POST, $_FILES, $remaining_attribs);
 echo "</table>";
 // print_r($killlist);
 $my_inst->commitFlushAttributes($killlist);

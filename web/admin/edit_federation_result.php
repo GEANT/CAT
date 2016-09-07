@@ -31,7 +31,7 @@ if (isset($_POST['submitbutton'])) {
         $remaining_attribs = $my_fed->beginflushAttributes();
 
         echo "<table>";
-        $killlist = processSubmittedFields($my_fed, $remaining_attribs);
+        $killlist = processSubmittedFields($my_fed, $_POST, $_FILES, $remaining_attribs);
         echo "</table>";
         // print_r($killlist);
         $my_fed->commitFlushAttributes($killlist);
