@@ -160,7 +160,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * It's EAP-TLS and there is no point in anonymity
-     * @param type $shallwe
+     * @param boolean $shallwe
      */
     public function setAnonymousIDSupport($shallwe) {
         // params are needed for proper overriding, and I don't want any errors
