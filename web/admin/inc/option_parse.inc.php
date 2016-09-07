@@ -124,7 +124,17 @@ function collatePostArrays() {
     return $iterator;
 }
 
-function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $device = 0, $silent = 0) {
+/**
+ * 
+ * @param mixed $object The object for which attributes were submitted
+ * @param array $pendingattributes object's attributes stored by-reference in the DB which are tentatively marked for deletion
+ * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
+ * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
+ * @param boolean $silent determines whether a HTML form with the result of processing should be output or not
+ * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
+ * @throws Exception
+ */
+function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $device = NULL, $silent = FALSE) {
 
 // construct new array with all non-empty options for later feeding into DB
 
@@ -280,7 +290,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             }
             switch (get_class($object)) {
                 case 'ProfileRADIUS':
-                    if ($device !== 0) {
+                    if ($device !== NULL) {
                     $object->addAttributeDeviceSpecific($name, $value, $device);
                 } elseif ($eaptype != 0) {
                     $object->addAttributeEAPSpecific($name, $value, $eaptype);
@@ -299,7 +309,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         }
     }
 
-    if ($silent == 0) {
+    if ($silent === FALSE) {
         echo displaySummaryInUI($good, $bad, $multilangAttrsWithC);
     }
     return $killlist;
