@@ -89,7 +89,7 @@ else if (isset($_POST['creation'])) {
         // send the user back to his federation overview page, append the result of the operation later
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
-        $newtoken = $mgmt->createToken("FED", $newmailaddress, $newinstname, 0, $newcountry);
+        $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $newinstname, 0, $newcountry);
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     } else if ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
         // a real external DB entry was submitted and all the required parameters are there
@@ -113,7 +113,7 @@ else if (isset($_POST['creation'])) {
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
         // TODO finish
-        $newtoken = $mgmt->createToken("FED", $newmailaddress, $prettyprintname, $newexternalid);
+        $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $prettyprintname, $newexternalid);
         CAT::writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     }
 } else {

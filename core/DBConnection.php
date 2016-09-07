@@ -111,13 +111,16 @@ class DBConnection {
     /**
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
-     * @param type $table institution_option or profile_option
-     * @param type $row rowindex
+     * @param string $table institution_option or profile_option
+     * @param string $row rowindex
      * @return boolean
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!
         if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
+            return FALSE;
+        }
+        if (!is_numeric($row)) {
             return FALSE;
         }
         $blobQuery = DBConnection::exec("INST", "SELECT option_value from $table WHERE row = $row");
@@ -132,6 +135,7 @@ class DBConnection {
 
     /**
      * Retrieves the last auto-id of an INSERT. Needs to be called immediately after the corresponding exec() call
+     * @param string $database the database from which the last ID is queried
      * @return int the last autoincrement-ID
      */
     public static function lastID($database) {
