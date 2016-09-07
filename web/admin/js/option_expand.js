@@ -18,8 +18,9 @@ function postXML( funct, form ) {
     client.open( "POST", form.action );
     client.setRequestHeader( "Content-Type", "application/x-www-form-urlencoded" );
     var form_values = "";
-    for (var i = 0; i<form.elements.length; i++)
+    for (var i = 0; i<form.elements.length; i++) {
         form_values = form_values + (form_values === "" ? "" : "&") + encodeURIComponent(form.elements[i].name) + "=" + encodeURIComponent(form.elements[i].value);
+    }
     client.send( form_values );
 }
 
