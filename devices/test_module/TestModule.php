@@ -79,9 +79,10 @@ class Device_TestModule extends DeviceConfig {
     * @final not to be redefined
     */
     final public function __construct() {
+        parent::__construct();
       $this->supportedEapMethods  = EAP::listKnownEAPTypes();
-      debug(4,"This device supports the following EAP methods: ");
-      debug(4,$this->supportedEapMethods);
+      $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
+      $this->loggerInstance->debug(4,$this->supportedEapMethods);
     }
 
   /**
@@ -91,17 +92,17 @@ class Device_TestModule extends DeviceConfig {
    * @return string installer path name
    */
    public function writeInstaller() {
-debug(4,"Test Module Installer start\n");
+$this->loggerInstance->debug(4,"Test Module Installer start\n");
    // create certificate files and save their names in $CA_files arrary
      $CA_files = $this->saveCertificateFiles('der');
   
     // copy a fixed file from the module Files directory
        if(! $this->copyFile('Module.howto'))
-          debug(2, "copying of Module.howto failed\n");
+          $this->loggerInstance->debug(2, "copying of Module.howto failed\n");
 
     // copy a fixed file from the module Files directory and saveunde a different name
        if( ! $this->copyFile('test_file','copied_test_file'))
-          debug(2, "copying of Module.howto to copied_test_file failed\n");
+          $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
        $this->dumpAttibutes('profile_attributes');
        $installer_path =  $this->zipInstaller($this->attributes);
        return($installer_path);

@@ -158,8 +158,9 @@ class ClientSideCredential extends XMLElement {
     $E = XMLElement::$AuthMethodElements['client'][$this->EAPType];
     $out = get_object_vars($this);
     $OUT = [];
-debug(4,"EEE:".$this->EAPType.":\n");
-debug(4,$E);
+    $loggerInstance = new Logging();
+$loggerInstance->debug(4,"EEE:".$this->EAPType.":\n");
+$loggerInstance->debug(4,$E);
     foreach ($out as $o => $v) {
        if(in_array($o, $E)) 
           $OUT[$o] = $v;

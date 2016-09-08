@@ -32,6 +32,10 @@ function sprint_nsi($in) {
  * @package ModuleWriting
  */
 class WindowsCommon extends DeviceConfig {
+    
+    public function __construct() {
+        parent::__construct();
+    }
 
 protected function prepareInstallerLang() {
     if(isset($this->LANGS[$this->lang_index])) {
@@ -55,7 +59,9 @@ protected function combineLogo($Logos) {
  $logo = new Imagick($Logos[0]['name']);
  $logo_size = $logo->getImageGeometry();
  $max = max($logo_size);
- debug(4,"Logo size: "); debug(4,$logo_size); debug(4,"max=$max\n");
+ $this->loggerInstance->debug(4,"Logo size: "); 
+ $this->loggerInstance->debug(4,$logo_size); 
+ $this->loggerInstance->debug(4,"max=$max\n");
 // resize logo if necessary
  if($max > $max_size) {
    if($max == $logo_size['width'])
@@ -64,7 +70,8 @@ protected function combineLogo($Logos) {
       $logo->scaleImage(0,$max_size);
  }
  $logo_size = $logo->getImageGeometry();
- debug(4,"New logo size: "); debug(4,$logo_size);
+ $this->loggerInstance->debug(4,"New logo size: "); 
+ $this->loggerInstance->debug(4,$logo_size);
 // calculate logo offsets for composition with the background
  $hoffset = round(($bg_image_size['width'] - $logo_size['width'])/2);
  $voffset = round(($bg_image_size['height'] - $logo_size['height'])/2) - $vshift;
@@ -93,14 +100,14 @@ protected function compileNSIS() {
       $makensis = Config::$PATHS['makensis']; 
    $o = $makensis.' -V4 cat.NSI > nsis.log';
    system($o);
-   debug(4,"compileNSIS:$o\n");
+   $this->loggerInstance->debug(4,"compileNSIS:$o\n");
 }
 
 protected function msInfoFile($attr) {
  $out = '';
 if(isset($attr['support:info_file'])) {
     $out .= '!define EXTERNAL_INFO "';
-//  debug(4,"Info file type ".$attr['support:info_file'][0]['mime']."\n");
+//  $this->loggerInstance->debug(4,"Info file type ".$attr['support:info_file'][0]['mime']."\n");
   if ($attr['internal:info_file'][0]['mime'] == 'rtf')
      $out = '!define LICENSE_FILE "'. $attr['internal:info_file'][0]['name'];
   elseif( $attr['internal:info_file'][0]['mime'] == 'txt') {
@@ -119,7 +126,7 @@ if(isset($attr['support:info_file'])) {
 
   $out .= "\"\n";
 }
- debug(4,"Info file returned: $out");
+ $this->loggerInstance->debug(4,"Info file returned: $out");
   return $out;
 }
 

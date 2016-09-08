@@ -30,6 +30,10 @@ require_once('XML.inc.php');
   * the current profile and declared by the given device.
   */
 abstract class Device_XML extends DeviceConfig {
+    
+    public function __construct() {
+        parent::__construct();
+    }
 
 /**
  * $lang_scope can be 'global' wheb all lang and all lang-specific information
@@ -117,7 +121,7 @@ private function getSimpleAttribute($attr_name) {
    if(isset($this->attributes[$attr_name][0]) && $this->attributes[$attr_name][0]) {
       $a = $this->attributes[$attr_name];
       if(! isset($this->AttributeNames[$attr_name])) {
-         debug(4,"Missing class definition for $attr_name\n");
+         $this->loggerInstance->debug(4,"Missing class definition for $attr_name\n");
          return;
       }
       $class_name = $this->AttributeNames[$attr_name];
@@ -133,7 +137,7 @@ private function getSimpleMLAttribute($attr_name) {
    if(isset($this->attributes[$attr_name][0]) && $this->attributes[$attr_name][0]) {
       $a = $this->attributes[$attr_name];
       if(! isset($this->AttributeNames[$attr_name])) {
-         debug(4,"Missing class definition for $attr_name\n");
+         $this->loggerInstance->debug(4,"Missing class definition for $attr_name\n");
          return;
       }
       $class_name = $this->AttributeNames[$attr_name];

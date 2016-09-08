@@ -26,10 +26,11 @@ require_once('WindowsCommon.php');
  */
 class Device_W8 extends WindowsCommon {
     final public function __construct() {
+        parent::__construct();
       $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$PWD];
 #      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
-      debug(4,"This device supports the following EAP methods: ");
-      debug(4,$this->supportedEapMethods);
+      $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
+      $this->loggerInstance->debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -72,7 +73,8 @@ class Device_W8 extends WindowsCommon {
        error("  this EAP type is not handled yet");
        return;
      }
-    debug(4,"windowsProfile"); debug(4,$windowsProfile);
+    $this->loggerInstance->debug(4,"windowsProfile"); 
+    $this->loggerInstance->debug(4,$windowsProfile);
     
     $this->writeProfilesNSH($windowsProfile, $caFiles,$setWired);
     $this->writeAdditionalDeletes($delProfiles);
@@ -354,8 +356,8 @@ $xmlFname = "w8/wlan_prof-$i.xml";
 $xmlF = fopen($xmlFname,'w');
 fwrite($xmlF,$profileFileCont. $eapConfig['w8']. $closing) ;
 fclose($xmlF);
-debug(2,"Installer has been written into directory $this->FPATH\n");
-debug(4,"WWWWLAN_Profile:$wlanProfileName:$encryption\n");
+$this->loggerInstance->debug(2,"Installer has been written into directory $this->FPATH\n");
+$this->loggerInstance->debug(4,"WWWWLAN_Profile:$wlanProfileName:$encryption\n");
 return("\"$wlanProfileName\" \"$encryption\"");
 }
 
@@ -383,13 +385,14 @@ $xmlFname = "w8/lan_prof.xml";
 $xmlF = fopen($xmlFname,'w');
 fwrite($xmlF,$profileFileCont. $eapConfig['w8']. $closing) ;
 fclose($xmlF);
-debug(2,"Installer has been written into directory $this->FPATH\n");
+$this->loggerInstance->debug(2,"Installer has been written into directory $this->FPATH\n");
 }
 
 
 
 private function writeMainNSH($eap,$attr) {
-debug(4,"writeMainNSH"); debug(4,$attr);
+$this->loggerInstance->debug(4,"writeMainNSH"); 
+$this->loggerInstance->debug(4,$attr);
 $fcontents = "!define W8\n";
 if(Config::$NSIS_VERSION >= 3)
     $fcontents .=  "Unicode true\n";
@@ -447,8 +450,8 @@ fclose($f);
 }
 
 private function writeProfilesNSH($P,$caArray,$wired=0) {
-debug(4,"writeProfilesNSH");
-debug(4,$P);
+$this->loggerInstance->debug(4,"writeProfilesNSH");
+$this->loggerInstance->debug(4,$P);
 $fcontents = '';
   foreach($P as $p) 
     $fcontents .= "!insertmacro define_wlan_profile $p\n";
@@ -472,7 +475,7 @@ fclose($f);
 //private function write
 
 private function copyFiles ($eap) {
-debug(4,"copyFiles start\n");
+$this->loggerInstance->debug(4,"copyFiles start\n");
    $result;
    $result = $this->copyFile('wlan_test.exe');
    $result = $this->copyFile('check_wired.cmd');
@@ -491,7 +494,7 @@ debug(4,"copyFiles start\n");
    $this->translateFile('eap_w8.inc','cat.NSI',$this->code_page);
    $result = 1;
    }
-debug(4,"copyFiles end\n");
+$this->loggerInstance->debug(4,"copyFiles end\n");
    return($result);
 }
 

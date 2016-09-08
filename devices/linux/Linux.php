@@ -31,12 +31,13 @@ require_once('DeviceConfig.php');
 class Device_Linux extends DeviceConfig {
 
       final public function __construct() {
+          parent::__construct();
 //      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
       $this->supportedEapMethods  = [ EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS ];
       $this->local_dir = '.cat_installer';
       $this->conf_file = '$HOME/'.$this->local_dir.'/cat_installer.conf';
-      debug(4,"LINUX: This device supports the following EAP methods: ");
-      debug(4,$this->supportedEapMethods);
+      $this->loggerInstance->debug(4,"LINUX: This device supports the following EAP methods: ");
+      $this->loggerInstance->debug(4,$this->supportedEapMethods);
     }
 
    public function writeInstaller() {

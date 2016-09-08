@@ -17,10 +17,12 @@ require_once("UserAPI.php");
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 require_once("CAT.php");
+require_once("Logging.php");
 $Gui = new UserAPI();
+$loggerInstance = new Logging();
 $Gui->set_locale("web_user");
-debug(4, "\n---------------------- index.php START --------------------------\n");
-//debug(4,$_REQUEST);
+$loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
+//$loggerInstance->debug(4,$_REQUEST);
 
 /**
   * Menu class helps to define the menu on the main page
@@ -92,7 +94,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         var download_message;
 <?php
 $OS = $Gui->detectOS();
-debug(4,$OS);
+$loggerInstance->debug(4,$OS);
 if($OS)
    print "recognised_os = '".$OS['device']."';\n";
 $download_message = sprintf(_("Download your %s installer"),Config::$CONSORTIUM['name']);

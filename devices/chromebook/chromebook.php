@@ -78,9 +78,10 @@ class Device_Chromebook extends DeviceConfig {
      * @final not to be redefined
      */
     final public function __construct() {
+        parent::__construct();
         $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
-        debug(4, "This device supports the following EAP methods: ");
-        debug(4, $this->supportedEapMethods);
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, $this->supportedEapMethods);
     }
 
     /**
@@ -90,7 +91,7 @@ class Device_Chromebook extends DeviceConfig {
      * @return string installer path name
      */
     public function writeInstaller() {
-        debug(4, "Chromebook Installer start\n");
+        $this->loggerInstance->debug(4, "Chromebook Installer start\n");
         $caRefs = [];
         // we don't do per-user encrypted containers
         $jsonArray = ["Type" => "UnencryptedConfiguration"];
@@ -158,13 +159,13 @@ class Device_Chromebook extends DeviceConfig {
         // define CA certificates
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            debug(2, $ca['pem']);
+            $this->loggerInstance->debug(2, $ca['pem']);
             $caSanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            debug(2, $caSanitized . "\n");
+            $this->loggerInstance->debug(2, $caSanitized . "\n");
             // remove \n
             $caSanitized = str_replace("\n", "", $caSanitized);
             $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
-            debug(2, $caSanitized . "\n");
+            $this->loggerInstance->debug(2, $caSanitized . "\n");
         }
 
         $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
@@ -173,11 +174,13 @@ class Device_Chromebook extends DeviceConfig {
         fclose($outputFile);
 
         $fileName = $this->installerBasename . '.onc';
-//        if ($this->sign) {
-//            $o = system($this->sign . " installer_profile '$e' > /dev/null");
-//           if ($o === FALSE)
-//                debug(2, "Signing the mobileconfig installer $e FAILED!\n");
-//        } else
+        if ($this->sign) { 
+            // can't be - ONC does not have the notion of signing
+            // but if they ever change their mind, we are prepared
+            $o = system($this->sign . " installer_profile '$e' > /dev/null");
+           if ($o === FALSE)
+                $this->loggerInstance->debug(2, "Signing the mobileconfig installer $e FAILED!\n");
+        } else
         rename("installer_profile", $fileName);
         return $fileName;
     }

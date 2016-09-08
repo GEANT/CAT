@@ -65,7 +65,7 @@ class ProfileRADIUS extends AbstractProfile {
      */
     public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
-        debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
@@ -73,7 +73,7 @@ class ProfileRADIUS extends AbstractProfile {
         $this->langIndex = CAT::get_lang();
 
         $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
-        debug(4, $profile);
+        $this->loggerInstance->debug(4, $profile);
         $profileQuery = mysqli_fetch_object($profile);
 
         $this->realm = $profileQuery->realm;
@@ -110,14 +110,14 @@ class ProfileRADIUS extends AbstractProfile {
 
         $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
         
-        debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
-        debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
+        $this->loggerInstance->debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
+        $this->loggerInstance->debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
         
-        debug(5, "Profile-Level Attributes: ".print_r($attributesLowLevel, true));
+        $this->loggerInstance->debug(5, "Profile-Level Attributes: ".print_r($attributesLowLevel, true));
         
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
-        debug(5, "Merged Attributes: ".print_r($attributesLowLevel, true));
+        $this->loggerInstance->debug(5, "Merged Attributes: ".print_r($attributesLowLevel, true));
         
         // now, fetch and merge IdP-wide attributes
 
@@ -143,7 +143,7 @@ class ProfileRADIUS extends AbstractProfile {
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
         
-        debug(3, "--- END Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
     private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods) {

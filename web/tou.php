@@ -17,8 +17,9 @@
 
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("UserAPI.php");
-
-debug(4,"\n----------------------------------TOU.PHP------------------------\n");
+require_once("Logging.php");
+$loggerInstance = new Logging();
+$loggerInstance->debug(4,"\n----------------------------------TOU.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang()?>">

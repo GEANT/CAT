@@ -50,8 +50,7 @@ if (isset($_GET["class"])) {
     case "eap-specific":
         break;
     default:
-        debug(1,"Unknown type of option!");
-        exit(1);
+        throw new Exception("Unknown type of option!");
     }
 
     echo optiontext(0, $list);

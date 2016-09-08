@@ -20,6 +20,7 @@
  */
 session_start();
 require_once("Helper.php");
+require_once("Logging.php");
 require_once("Federation.php");
 
 /**
@@ -113,9 +114,10 @@ class CAT {
      * @return string previous seting so that you can restore it later
      */
     public static function set_locale($domain) {
+        $loggerInstance = new Logging();
         $olddomain = textdomain(NULL);
-        debug(4, "set_locale($domain)\n");
-        debug(4, CAT::$root . "\n");
+        $loggerInstance->debug(4, "set_locale($domain)\n");
+        $loggerInstance->debug(4, CAT::$root . "\n");
         textdomain($domain);
         bindtextdomain($domain, CAT::$root . "/translation/");
         return $olddomain;
@@ -177,8 +179,9 @@ class CAT {
                 break;
         }
         putenv("LC_ALL=" . $thelang);
-        debug(4, "selected lang:$lang_index:$thelang\n");
-        debug(4, $lang_converted);
+        $loggerInstance = new Logging();
+        $loggerInstance->debug(4, "selected lang:$lang_index:$thelang\n");
+        $loggerInstance->debug(4, $lang_converted);
         return([$lang_index, $thelang]);
     }
 
@@ -216,64 +219,6 @@ class CAT {
         asort($C, SORT_LOCALE_STRING);
         $this->set_locale($olddomain);
         return($C);
-    }
-
-    /**
-     * Writes an audit log entry to the audit log file. These audits are semantic logs; they don't record every single modification
-     * in the database, but provide a logical "who did what" overview. The exact modification SQL statements are logged
-     * automatically with writeSQLAudit() instead. The log file path is configurable in _config.php.
-     * 
-     * @param string $user persistent identifier of the user who triggered the action
-     * @param string $category type of modification, from the fixed vocabulary: "NEW", "OWN", "MOD", "DEL"
-     * @param string $message message to log into the audit log
-     * @return boolean TRUE if successful. Will terminate script execution on failure. 
-     */
-    public static function writeAudit($user, $category, $message) {
-        switch ($category) {
-            case "NEW": // created a new object
-            case "OWN": // ownership changes
-            case "MOD": // modified existing object
-            case "DEL": // deleted an object
-                ob_start();
-                printf("%-015s",microtime(TRUE));
-                print " ($category) ";
-                print_r(" ".$user.": ".$message."\n");
-                $output = ob_get_clean();
-                if (Config::$PATHS['logdir']) {
-                    $f = fopen(Config::$PATHS['logdir'] . "/audit-activity.log", "a");
-                    fwrite($f, $output);
-                    fclose($f);
-                } else {
-                    print $output;
-                }
-
-                return TRUE;
-            default:
-                throw new Exception("Unable to write to AUDIT file (requested data was $user, $category, $message!");
-        }
-    }
-
-    /**
-     * Write an audit log entry to the SQL log file. Every SQL statement which is not a simple SELECT one will be written
-     * to the log file. The log file path is configurable in _config.php.
-     * 
-     * @param string $query the SQL query to be logged
-     */
-    public static function writeSQLAudit($query) {
-        // clean up text to be in one line, with no extra spaces
-        $logtext1 = preg_replace("/[\n\r]/", "", $query);
-        $logtext = preg_replace("/ +/", " ", $logtext1);
-        ob_start();
-        printf("%-015s",microtime(TRUE));
-        print(" ".$logtext."\n");
-        $output = ob_get_clean();
-        if (Config::$PATHS['logdir']) {
-            $f = fopen(Config::$PATHS['logdir'] . "/audit-SQL.log", "a");
-            fwrite($f, $output);
-            fclose($f);
-        } else {
-            print $output;
-        }
     }
 
     /**

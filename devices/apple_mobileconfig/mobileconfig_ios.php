@@ -29,15 +29,16 @@ require_once('mobileconfigSuperclass.php');
  * @package Developer
  */
 class Device_mobileconfig_ios extends mobileconfigSuperclass {
-
+    
     /**
      * this array holds the list of EAP methods supported by this device
      */
     
     final public function __construct() {
+        parent::__construct();
         $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2];
-        debug(4, "This device supports the following EAP methods: ");
-        debug(4, $this->supportedEapMethods);
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, $this->supportedEapMethods);
     }
 
 }

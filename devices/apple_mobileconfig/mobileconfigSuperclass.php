@@ -38,6 +38,10 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
     private $lang;
     static private $iPhonePayloadPrefix = "org.1x-config";
 
+    public function __construct() {
+        parent::__construct();
+    }
+    
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
@@ -62,7 +66,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $dom = textdomain(NULL);
         textdomain("devices");
 
-        debug(4, "mobileconfig Module Installer start\n");
+        $this->loggerInstance->debug(4, "mobileconfig Module Installer start\n");
 
         // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
         // also escape htmlspecialchars
@@ -145,7 +149,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         if ($this->sign) {
             $signing = system($this->sign . " installer_profile '$fileName' > /dev/null");
             if ($signing === FALSE) {
-                debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
+                $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
             }
         } else {
             rename("installer_profile", $fileName);
@@ -292,7 +296,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                   <string>" . $this->massagedConsortium . ".1x-config.org</string>
                <key>PayloadType</key>
                   <string>com.apple." . ($wired ? "firstactiveethernet" : "wifi") . ".managed</string>";
-        debug(2, get_class($this));
+        $this->loggerInstance->debug(2, get_class($this));
         if (get_class($this) != "Device_mobileconfig_ios_56") {
             $retval .= "<key>ProxyType</key>
                   <string>Auto</string>

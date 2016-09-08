@@ -15,9 +15,10 @@
 
 include(dirname(dirname(__FILE__))."/config/_config.php");
 require_once("UserAPI.php");
+require_once("Logging.php");
 require_once('ProfileFactory.php');
 $Gui = new UserAPI();
-
+$loggerInstance = new Logging();
 
 
 $profile_id = $_REQUEST['profile'];
@@ -29,14 +30,14 @@ $Gui->set_locale('devices');
 
 
 if ($generated_for != "admin" && $generated_for != "user") {
-    debug(2,"Invalid downloads triggered (neither for admin nor user???)");
+    $loggerInstance->debug(2,"Invalid downloads triggered (neither for admin nor user???)");
     print("Invalid downloads triggered (neither for admin nor user???)");
     exit(1);
 }
 
 //print_r($_REQUEST);
 
-debug(4,"download: profile:$profile_id; inst:$inst_id; device:$device\n");
+$loggerInstance->debug(4,"download: profile:$profile_id; inst:$inst_id; device:$device\n");
 
 // first block will test if the user input was valid.
 

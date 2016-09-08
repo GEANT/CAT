@@ -32,6 +32,7 @@
 use GeoIp2\Database\Reader;
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("Helper.php");
+require_once("Logging.php");
 require_once("CAT.php");
 require_once("devices/devices.php");
 require_once("core/PHPMailer/src/PHPMailer.php");
@@ -403,9 +404,10 @@ class SanityTest extends CAT {
       * test if all required NSIS modules are available
       */
     private function NSISmodules_test() {
+        $loggerInstance = new Logging();
          $tmp_dir = createTemporaryDirectory('installer',0)['dir'];
          if(!chdir($tmp_dir)) {
-           debug(2, "Cannot chdir to $tmp_dir\n");
+           $loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
            $this->test_return(L_ERROR,"NSIS modules test - problem with temporary directory permissions, cannot continue");
            return;
          }
@@ -434,9 +436,10 @@ class SanityTest extends CAT {
          }
     }
     private function NSIS_GetVersion_test() {
+        $loggerInstance = new Logging();
          $tmp_dir = createTemporaryDirectory('installer',0)['dir'];
          if(!chdir($tmp_dir)) {
-           debug(2, "Cannot chdir to $tmp_dir\n");
+           $loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
            $this->test_return(L_ERROR,"NSIS module <strong>GetVersion</strong> - problem with temporary directory permissions, cannot continue");
            return;
          }

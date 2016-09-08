@@ -15,11 +15,10 @@
 /**
  * 
  */
-require_once('Helper.php');
-require_once('CAT.php');
 require_once('AbstractProfile.php');
 require_once('X509.php');
 require_once('EAP.php');
+require_once('Logging.php');
 include_once("devices/devices.php");
 
 /**
@@ -44,7 +43,7 @@ include_once("devices/devices.php");
  * @package ModuleWriting
  * @abstract
  */
-abstract class DeviceConfig {
+abstract class DeviceConfig extends Entity {
 
     /**
      * stores the path to the temporary working directory for a module instance
@@ -68,9 +67,10 @@ abstract class DeviceConfig {
      * device module constructor should be defined by each module, but if it is not, then here is a default one
      */
     public function __construct() {
+        parent::__construct();
         $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP];
-        debug(4, "This device supports the following EAP methods: ");
-        debug(4, $this->supportedEapMethods);
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, $this->supportedEapMethods);
     }
 
     /**
@@ -92,9 +92,9 @@ abstract class DeviceConfig {
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile) {
-        debug(4, "module setup start\n");
+        $this->loggerInstance->debug(4, "module setup start\n");
         if (!$profile instanceof AbstractProfile) {
-            debug(2, "No profile has been set\n");
+            $this->loggerInstance->debug(2, "No profile has been set\n");
             error("No profile has been set");
             exit;
         }
@@ -147,8 +147,8 @@ abstract class DeviceConfig {
         foreach ($eap_array as $eap) {
             if (in_array($eap, $this->supportedEapMethods)) {
                 $this->selected_eap = $eap;
-                debug(4, "Selected EAP:");
-                debug(4, $eap);
+                $this->loggerInstance->debug(4, "Selected EAP:");
+                $this->loggerInstance->debug(4, $eap);
                 return($eap);
             }
         }
@@ -184,19 +184,19 @@ abstract class DeviceConfig {
         if ($output_name === 0)
             $output_name = $source_name;
 
-        debug(4, "fileCopy($source_name, $output_name)\n");
+        $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name))
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
         elseif (is_file($this->module_path . '/Files/' . $source_name))
             $source = $this->module_path . '/Files/' . $source_name;
         else {
-            debug(2, "fileCopy:reqested file $source_name does not exist\n");
+            $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
             return(FALSE);
         }
-        debug(4, "Copying $source to $output_name\n");
+        $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
         if (!$result)
-            debug(2, "fileCopy($source_name, $output_name) failed\n");
+            $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
         return($result);
     }
 
@@ -229,9 +229,9 @@ abstract class DeviceConfig {
         if ($output_name === 0)
             $output_name = $source_name;
 
-        debug(4, "translateFile($source_name, $output_name, $encoding)\n");
+        $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
-        debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
+        $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
         $source = "";
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name))
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
@@ -249,10 +249,10 @@ abstract class DeviceConfig {
         }
         $f = fopen("$output_name", "w");
         if (!$f)
-            debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
         fwrite($f, $output);
         fclose($f);
-        debug(4, "translateFile($source, $output_name, $encoding) end\n");
+        $this->loggerInstance->debug(4, "translateFile($source, $output_name, $encoding) end\n");
     }
 
     /**
@@ -272,7 +272,7 @@ abstract class DeviceConfig {
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
-        debug(4, "translateString input: \"$source_string\"\n");
+        $this->loggerInstance->debug(4, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
             return($source_string);
         }
@@ -289,7 +289,7 @@ abstract class DeviceConfig {
             $source_string = str_replace('"', '$\\"', $output_c);
         }
         else {
-            debug(2, "Failed to convert string \"$source_string\"\n");
+            $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
         }
         return $source_string;
     }
@@ -331,7 +331,7 @@ abstract class DeviceConfig {
             }
             return($CA_files);
         } else {
-            debug(2, 'incorrect format value specified');
+            $this->loggerInstance->debug(2, 'incorrect format value specified');
             return(FALSE);
         }
     }
@@ -346,9 +346,9 @@ abstract class DeviceConfig {
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
         $lang_pointer = Config::$LANGUAGES[$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
-        debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
+        $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
-        debug(4, "getInstallerBasename2:$inst\n");
+        $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
         if (count($Inst_a) > 2) {
             $inst = '';
@@ -436,11 +436,11 @@ abstract class DeviceConfig {
                 $ext = $m[1];
             else
                 $ext = 'unsupported';
-            debug(4, "saveLogoFile: $mime : $ext\n");
+            $this->loggerInstance->debug(4, "saveLogoFile: $mime : $ext\n");
             $f_name = 'logo-' . $i . '.' . $ext;
             $f = fopen($f_name, "w");
             if (!$f) {
-                debug(2, "saveLogoFile failed for: $f_name\n");
+                $this->loggerInstance->debug(2, "saveLogoFile failed for: $f_name\n");
                 die("problem opening the file\n");
             }
             fwrite($f, $blob);
@@ -455,7 +455,7 @@ abstract class DeviceConfig {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
-        debug(4, "saveInfoFile: $mime : $ext\n");
+        $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
         $f = fopen('local-info.' . $ext, "w");
         if (!$f)
             die("problem opening the file\n");

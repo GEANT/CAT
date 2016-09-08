@@ -20,6 +20,7 @@
  */
 include_once("devices/devices.php");
 include_once("CAT.php");
+include_once("Logging.php");
 
 /**
  * This factory instantiates a device module and makes it available in its member $device.
@@ -30,7 +31,7 @@ include_once("CAT.php");
  * @package Developer
  *
  */
-class DeviceFactory {
+class DeviceFactory extends Entity {
     /**
      * Contains the produced device instance
      * 
@@ -45,16 +46,16 @@ class DeviceFactory {
      * @param string $blueprint The name of the module to instantiate
      */
     public function __construct($blueprint) {
-
+      parent::__construct();
       $Dev = Devices::listDevices();
         if(isset($Dev[$blueprint])) {
             if($Dev[$blueprint]['directory'] && $Dev[$blueprint]['module'])
                 require_once("devices/".$Dev[$blueprint]['directory']."/".$Dev[$blueprint]['module'].".php");
-            debug(4,"loaded: devices/".$Dev[$blueprint]['directory']."/".$Dev[$blueprint]['module'].".php\n");
+            $this->loggerInstance->debug(4,"loaded: devices/".$Dev[$blueprint]['directory']."/".$Dev[$blueprint]['module'].".php\n");
             $class_name = "Device_".$Dev[$blueprint]['module'];
             $this->device = new $class_name();
             if(! $this->device) {
-                debug(2,"module loading failed");
+                $this->loggerInstance->debug(2,"module loading failed");
                 die("module loading failed");
             }
         } else {

@@ -103,8 +103,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        debug(4, "Looks like this profile supports the following EAP types: ");
-        debug(4, $eapTypeArray);
+        $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n$eapTypeArray");
         return $eapTypeArray;
     }
 
@@ -118,13 +117,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
     public function __construct($profileId, $idpObject = NULL) {
-        debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         $this->databaseType = "INST";
-        parent::__construct(); // we now have access to our database handle
+        parent::__construct(); // we now have access to our database handle and logging
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
-        debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
-            debug(2, "Profile $profileId not found in database!\n");
+            $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
             throw new Exception("Profile $profileId not found in database!");
         }
         $this->identifier = $profileId;
@@ -140,7 +138,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->instName = $idp->name;
         $this->idpNumberOfProfiles = $idp->profileCount();
         $this->idpAttributes = $idp->getAttributes();
-        debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
     }
 
     protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
@@ -216,7 +214,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
                 if ($lastChange < $cache->tm) {
-                    debug(4, "Installer cached:$cache->download_path\n");
+                    $this->loggerInstance->debug(4, "Installer cached:$cache->download_path\n");
                     $returnValue = ['cache' => $cache->download_path, 'mime' => $cache->mime];
                 }
             }
@@ -486,8 +484,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         } else {
             $attr = $attrBefore;
         }
-
-        debug(2,"XXX Attributes: ".print_r($attrBefore, true).print_r($attr, true));
         
         $temp1 = [];
         $temp = [];

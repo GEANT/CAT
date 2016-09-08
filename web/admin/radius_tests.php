@@ -12,11 +12,14 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("RADIUSTests.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
+require_once("Logging.php");
 
 
 ini_set('display_errors', '0');
 $Cat = new CAT();
 $Cat->set_locale("web_admin");
+
+$loggerInstance = new Logging();
 
 $additional_message = [
     L_OK => '',
@@ -154,7 +157,7 @@ switch ($test_type) {
                             $mydetails = openssl_x509_parse($certs['cert']);
                             if (isset($mydetails['subject']['CN']) && $mydetails['subject']['CN']) {
                                 $tls_username = $mydetails['subject']['CN'];
-                                debug(4, "PKCS12-CN=$tls_username\n");
+                                $loggerInstance->debug(4, "PKCS12-CN=$tls_username\n");
                             } else {
                                 $testresult = RETVAL_INCOMPLETE_DATA;
                                 $run_test = FALSE;
@@ -169,7 +172,7 @@ switch ($test_type) {
                     $run_test = FALSE;
                 }
                 if ($run_test) {
-                    debug(4, "TLS-USERNAME=$tls_username\n");
+                    $loggerInstance->debug(4, "TLS-USERNAME=$tls_username\n");
                     $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass, '', TRUE, TRUE, $clientcertdata);
                 }
             } else {
@@ -266,7 +269,7 @@ switch ($test_type) {
                 $level = L_ERROR;
                 break;
         }
-        debug(4, "SERVER=" . $returnarray['result'][$i]['server'] . "\n");
+        $loggerInstance->debug(4, "SERVER=" . $returnarray['result'][$i]['server'] . "\n");
         $returnarray['result'][$i]['level'] = $level;
         $returnarray['result'][$i]['message'] = $message;
         break;
@@ -332,7 +335,7 @@ switch ($test_type) {
     case 'tls':
         $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
         $opensslbabble = [];
-        debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1\n");
+        $loggerInstance->debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1\n");
         $time_start = microtime(true);
         exec(Config::$PATHS['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1", $opensslbabble);
         $time_stop = microtime(true);

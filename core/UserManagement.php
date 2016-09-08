@@ -33,7 +33,7 @@ require_once("CAT.php");
  * 
  * @package Developer
  */
-class UserManagement {
+class UserManagement extends Entity {
 
     /**
      * our handle to the INST database
@@ -46,6 +46,7 @@ class UserManagement {
      * Class constructor. Nothing special to be done when constructing.
      */
     public function __construct() {
+        parent::__construct();
         $this->databaseHandle = DBConnection::handle(UserManagement::$databaseType);
     }
 
@@ -166,7 +167,7 @@ Best regards,
 %s"), $bestnameguess, Config::$CONSORTIUM['name'], strtoupper($fed->name), Config::$APPEARANCE['productname'], Config::$APPEARANCE['productname_long']);
                 $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
                 if ($retval == FALSE) {
-                    debug(2, "Mail to federation admin was NOT sent!\n");
+                    $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
                 }
             }
 
@@ -259,7 +260,7 @@ Best regards,
         $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
-        debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
+        $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object($invitations)) {
             $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
         }
@@ -276,7 +277,7 @@ Best regards,
                                         FROM invitations 
                                         WHERE invite_created >= TIMESTAMPADD(HOUR, -25, NOW()) AND invite_created < TIMESTAMPADD(HOUR, -24, NOW()) AND used = 0");
         while ($expInvitationQuery = mysqli_fetch_object($invitations)) {
-            debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
+            $this->loggerInstance->debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
             if ($expInvitationQuery->cat_institution_id == NULL) {
                 $retval[] = ["country" => $expInvitationQuery->country, "level" => $expInvitationQuery->invite_issuer_level, "name" => $expInvitationQuery->name, "mail" => $expInvitationQuery->invite_dest_mail];
             } else {

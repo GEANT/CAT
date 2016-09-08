@@ -12,6 +12,7 @@
  */
 include(dirname(dirname(dirname(__FILE__)))."/config/_config.php");
 include_once("UserAPI.php");
+include_once("Logging.php");
 $API = new UserAPI();
 
 // extract request parameters; action is mandatory
@@ -112,4 +113,5 @@ switch ($action) {
         $API->JSON_orderIdentityProviders($federation,$L);
         break;
 }
-debug(4,"UserAPI action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
+$loggerInstance = new Logging();
+$loggerInstance->debug(4,"UserAPI action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");

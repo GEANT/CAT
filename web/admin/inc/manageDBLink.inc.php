@@ -11,6 +11,7 @@ require_once("auth.inc.php");
 require_once("IdP.php");
 require_once("Helper.php");
 require_once("CAT.php");
+require_once("Logging.php");
 require_once("UserManagement.php");
 
 require_once("common.inc.php");
@@ -165,7 +166,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 <br/>
 <?php
 $pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
+$loggerInstance = new Logging();
+$loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";

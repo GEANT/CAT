@@ -17,7 +17,7 @@
 /**
  * necessary includes
  */
-require_once('Helper.php');
+require_once('Entity.php');
 
 /**
  * The Options class contains convenience functions around option handling. It is implemented as a singleton to prevent
@@ -27,7 +27,7 @@ require_once('Helper.php');
  *
  * @package Developer
  */
-class Options {
+class Options extends Entity {
 
     /**
      * database which this class queries by default
@@ -75,7 +75,8 @@ class Options {
      */
     private function __construct() {
         $this->typeDb = [];
-        debug(3, "--- BEGIN constructing Options instance ---\n");
+        parent::__construct();
+        $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(Options::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         while ($optionDataQuery = mysqli_fetch_object($options)) {
@@ -85,7 +86,7 @@ class Options {
         $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["internal:country"] = ["type" => "string", "flag" => NULL];
 
-        debug(3, "--- END constructing Options instance ---\n");
+        $this->loggerInstance->debug(3, "--- END constructing Options instance ---\n");
     }
 
     /**
@@ -99,7 +100,7 @@ class Options {
      */
     public function availableOptions($className = 0) {
         $returnArray = [];
-        debug(3, "CLASSNAME IS $className\n");
+        $this->loggerInstance->debug(3, "CLASSNAME IS $className\n");
 
         foreach (array_keys($this->typeDb) as $name) {
             if ($className === 0) {
@@ -125,5 +126,4 @@ class Options {
     public function optionType($optionname) {
         return $this->typeDb[$optionname];
     }
-
 }

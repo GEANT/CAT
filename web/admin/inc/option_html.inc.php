@@ -11,6 +11,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("Options.php");
 require_once("common.inc.php");
+require_once("Logging.php");
 
 /**
  * 
@@ -30,7 +31,8 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
         foreach ($prepopulate as $option) {
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
-                debug(5, "About to execute optiontext with PREFILL!\n");
+                $loggerInstance = new Logging();
+                $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
                 echo optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
             }
         }
@@ -147,7 +149,8 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     }
 
     if ($prefill) {
-        debug(5, "Executed with PREFILL!\n");
+        $loggerInstance = new Logging();
+        $loggerInstance->debug(5, "Executed with PREFILL!\n");
         $retval .= "<td>";
         // prefill is always only called with a list with exactly one element.
         // if we see anything else here, get excited.

@@ -15,8 +15,7 @@
  * 
  * @package Developer
  */
-require_once('Helper.php');
-require_once('IdP.php');
+require_once('Logging.php');
 
 /**
  * This class is a singleton for establishing a connection to the database
@@ -28,7 +27,7 @@ require_once('IdP.php');
  *
  * @package Developer
  */
-class DBConnection {
+class DBConnection extends Entity {
 
     /**
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
@@ -75,9 +74,9 @@ class DBConnection {
      * @return string
      */
     public function escapeValue($value) {
-        debug(5, "Escaping $value for DB $this->databaseInstance to get a safe query value.\n");
+        $this->loggerInstance->debug(5, "Escaping $value for DB $this->databaseInstance to get a safe query value.\n");
         $escaped = mysqli_real_escape_string($this->connection, $value);
-        debug(5, "This is the result: $escaped .\n");
+        $this->loggerInstance->debug(5, "This is the result: $escaped .\n");
         return $escaped;
     }
 
@@ -88,16 +87,16 @@ class DBConnection {
      */
     public function exec($querystring) {
         // log exact query to debug log, if log level is at 5
-        debug(5, "DB ATTEMPT: " . $querystring . "\n");
+        $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
 
         if ($this->connection == FALSE) {
-            debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection)!");
+            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection)!");
             return FALSE;
         }
 
         $result = mysqli_query($this->connection, $querystring);
         if ($result == FALSE) {
-            debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
+            $this->loggerInstance->debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
 
@@ -155,6 +154,7 @@ class DBConnection {
      * Class constructor. Cannot be called directly; use handle()
      */
     private function __construct($database) {
+        parent::__construct();
         $databaseCapitalised = strtoupper($database);
         $this->connection = mysqli_connect(Config::$DB[$databaseCapitalised]['host'], Config::$DB[$databaseCapitalised]['user'], Config::$DB[$databaseCapitalised]['pass'], Config::$DB[$databaseCapitalised]['db']);
         if ($this->connection == FALSE) {

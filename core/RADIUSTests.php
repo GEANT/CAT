@@ -20,7 +20,7 @@
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("EAP.php");
 require_once("X509.php");
-require_once("Helper.php");
+require_once("Entity.php");
 require_once("ProfileFactory.php");
 require_once("ProfileRADIUS.php");
 
@@ -205,7 +205,7 @@ define("CERTPROB_MULTIPLE_CN", -226);
  *
  * @package Developer
  */
-class RADIUSTests {
+class RADIUSTests extends Entity{
 
     /**
      * This private variable contains the realm to be checked. Is filled in the
@@ -243,6 +243,7 @@ class RADIUSTests {
      * @param int $profileId
      */
     public function __construct($realm, $profileId = 0) {
+        parent::__construct();
         $oldlocale = CAT::set_locale('diagnostics');
 
         $this->realm = $realm;
@@ -753,7 +754,7 @@ class RADIUSTests {
      * @return array of oddities; the array is empty if everything is fine
      */
     private function propertyCheckServercert(&$servercert) {
-        debug(5, "SERVER CERT IS: " . print_r($servercert, TRUE));
+        $this->loggerInstance->debug(5, "SERVER CERT IS: " . print_r($servercert, TRUE));
         // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
         // so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
@@ -823,7 +824,7 @@ class RADIUSTests {
         if (preg_match("/md5/i", $intermediateCa['full_details']['signature_algorithm'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
         }
-        debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
+        $this->loggerInstance->debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
             $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
         }
@@ -868,7 +869,7 @@ class RADIUSTests {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcerthandle = fopen(dirname(__FILE__) . "/clientcert.p12", "r");
-        debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
+        $this->loggerInstance->debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
         return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
@@ -913,7 +914,7 @@ class RADIUSTests {
     private function redact($stringToRedact, $inputarray) {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($stringToRedact);
-        debug(5, $hex[2]);
+        $this->loggerInstance->debug(5, $hex[2]);
         $spaced = "";
         for ($i = 1; $i < strlen($hex); $i++) {
             if ($i % 2 == 1 && $i != strlen($hex)) {
@@ -922,7 +923,7 @@ class RADIUSTests {
                 $spaced .= $hex[$i];
             }
         }
-        debug(5, $hex . " HEX " . $spaced);
+        $this->loggerInstance->debug(5, $hex . " HEX " . $spaced);
         return preg_replace("/$spaced/", " HEX ENCODED PASSWORD REDACTED ", $temparray);
     }
 
@@ -991,7 +992,7 @@ class RADIUSTests {
         if ($this->profile instanceof ProfileRADIUS) { // take profile's anon ID (special one for realm checks or generic one) if known
             $foo = $this->profile;
             $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
-            debug(3, "calculating local part with explicit Profile\n");
+            $this->loggerInstance->debug(3, "calculating local part with explicit Profile\n");
             // did the admin specify a special outer ID for realm checks?
             // take this with precedence
             $isCheckuserSet = $foo->getAttributes('internal:checkuser_outer')[0]['value'];
@@ -1172,7 +1173,7 @@ network={
         $temporary = createTemporaryDirectory('test');
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
-        debug(4, "temp dir: $tmpDir\n");
+        $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
         
         $eapText = EAP::eapDisplayName($eaptype);
 
@@ -1202,18 +1203,18 @@ network={
         $testresults = [];
         $testresults['cert_oddities'] = [];
         $cmdline = $this->eapolTestConfig($probeindex, $opnameCheck, $frag);
-        debug(4, "Shallow reachability check cmdline: $cmdline\n");
-        debug(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
+        $this->loggerInstance->debug(4, "Shallow reachability check cmdline: $cmdline\n");
+        $this->loggerInstance->debug(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
         $packetflow_orig = [];
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
         $time_stop = microtime(true);
-        debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
+        $this->loggerInstance->debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
         $packetflow = $this->filterPackettype($packetflow_orig);
         if ($packetflow[count($packetflow) - 1] == 11 && $this->checkMschap691RetryAllowed($packetflow_orig)) {
             $packetflow[count($packetflow) - 1] = 3;
         }
-        debug(5, "Packetflow: " . print_r($packetflow, TRUE));
+        $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
         $testresults['time_millisec'] = ($time_stop - $time_start) * 1000;
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
@@ -1321,7 +1322,7 @@ network={
 
 
                     if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
-                        debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                        $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                         $cRLFileEAP = fopen($tmpDir . "/root-ca-eaponly/crl$eapIntermediates.pem", "w"); // this is where the root CAs go
                         fwrite($cRLFileEAP, $cert['CRL'][0]);
                         fclose($cRLFileEAP);
@@ -1385,7 +1386,7 @@ network={
 
                             $intermOdditiesCAT = array_merge($intermOdditiesCAT, $this->propertyCheckIntermediate($decoded));
                             if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
-                                debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                                $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                                 $cRLfile = fopen($tmpDir . "/root-ca-allcerts/crl_cat$catIntermediates.pem", "w"); // this is where the root CAs go
                                 fwrite($cRLfile, $decoded['CRL'][0]);
                                 fclose($cRLfile);
@@ -1395,11 +1396,11 @@ network={
                     }
                 }
                 if ($numberServer > 0) {
-                    debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
+                    $this->loggerInstance->debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
                 }
                 $checkstring = "";
                 if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
-                    debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                    $this->loggerInstance->debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
                     $checkstring = "-crl_check_all";
                     $cRLfile1 = fopen($tmpDir . "/root-ca-eaponly/crl-server.pem", "w"); // this is where the root CAs go
                     fwrite($cRLfile1, $servercert['CRL'][0]);
@@ -1421,11 +1422,11 @@ network={
                 // so test if there's something PEMy in the file at all
                 if (filesize("$tmpDir/incomingserver.pem") > 10) {
                     exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-                    debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
-                    debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
+                    $this->loggerInstance->debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
+                    $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
                     exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-                    debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
-                    debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
+                    $this->loggerInstance->debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
+                    $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
                 }
 
 
@@ -1486,9 +1487,9 @@ network={
                 // we are UNHAPPY if no names match!
                 $happiness = "UNHAPPY";
                 foreach ($expectedNames as $expectedName) {
-                    debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
+                    $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
                     if (array_search($expectedName, $servercert['CN']) !== FALSE && array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
-                        debug(4, "Totally happy!");
+                        $this->loggerInstance->debug(4, "Totally happy!");
                         $happiness = "TOTALLY";
                         break;
                     } else {
@@ -1521,7 +1522,7 @@ network={
 
             // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
             if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
-                debug(4, "Deleting trust chain problem report, if present.");
+                $this->loggerInstance->debug(4, "Deleting trust chain problem report, if present.");
                 if (($key = array_search(CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
                     unset($testresults['cert_oddities'][$key]);
                 }
@@ -1530,9 +1531,9 @@ network={
                 }
             }
         }
-        debug(4, "UDP_LOGIN\n");
-        debug(4, $testresults);
-        debug(4, "\nEND\n");
+        $this->loggerInstance->debug(4, "UDP_LOGIN\n");
+        $this->loggerInstance->debug(4, $testresults);
+        $this->loggerInstance->debug(4, "\nEND\n");
         $this->UDP_reachability_result[$probeindex] = $testresults;
         $this->UDP_reachability_executed = $finalretval;
         return $finalretval;
@@ -1599,7 +1600,7 @@ network={
      * @return array result of openssl s_client ...
      */
     private function openssl_s_client($host, $arg, &$testresults) {
-        debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures

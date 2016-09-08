@@ -17,6 +17,8 @@
  * 
  */
 
+require_once("Entity.php");
+
 /**
  * This class represents an Entity with properties stored in the DB.
  * IdPs have properties of their own, and may have one or more Profiles. The
@@ -29,7 +31,7 @@
  *
  * @package Developer
  */
-abstract class EntityWithDBProperties {
+abstract class EntityWithDBProperties extends Entity {
 
     /**
      * This variable gets initialised with the known IdP attributes in the constructor. It never gets updated until the object
@@ -68,7 +70,7 @@ abstract class EntityWithDBProperties {
      * @var DBConnection the instance of the default database we talk to usually
      */
     protected $databaseHandle;
-    
+        
     /**
      * the unique identifier of this entity instance
      * Federations are identified by their TLD -> string
@@ -84,6 +86,7 @@ abstract class EntityWithDBProperties {
     public $name;
 
     public function __construct() {
+        parent::__construct();
         // we are called after the sub-classes have declared their default
         // databse instance in $databaseType
         $this->databaseHandle = DBConnection::handle($this->databaseType);

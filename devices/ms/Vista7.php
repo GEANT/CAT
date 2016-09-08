@@ -26,9 +26,10 @@ require_once('WindowsCommon.php');
  */
 class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
+        parent::__construct();
       $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD, EAP::$TTLS_PAP];
-      debug(4,"This device supports the following EAP methods: ");
-      debug(4,$this->supportedEapMethods);
+      $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
+      $this->loggerInstance->debug(4,$this->supportedEapMethods);
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -70,7 +71,8 @@ class Device_Vista7 extends WindowsCommon {
        error("  this EAP type is not handled yet");
        return;
      }
-    debug(4,"windowsProfile"); debug(4,$windowsProfile);
+    $this->loggerInstance->debug(4,"windowsProfile"); 
+    $this->loggerInstance->debug(4,$windowsProfile);
     
     $this->writeProfilesNSH($windowsProfile, $caFiles,$setWired);
     $this->writeAdditionalDeletes($delProfiles);
@@ -137,7 +139,7 @@ private function prepareEapConfig($attr) {
     $w7Ext = '';
     $eap = $this->selected_eap;
     if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
-      debug(2,"this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
+      $this->loggerInstance->debug(2,"this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
       error("this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
      return;
     }
@@ -401,8 +403,8 @@ $xmlFname = "w7/wlan_prof-$i.xml";
 $xmlF = fopen($xmlFname,'w');
 fwrite($xmlF,$profileFileCont. $eapConfig['w7']. $closing) ;
 fclose($xmlF);
-debug(2,"Installer has been written into directory $this->FPATH\n");
-debug(4,"WLAN_Profile:$wlanProfileName:$encryption\n");
+$this->loggerInstance->debug(2,"Installer has been written into directory $this->FPATH\n");
+$this->loggerInstance->debug(4,"WLAN_Profile:$wlanProfileName:$encryption\n");
 return("\"$wlanProfileName\" \"$encryption\"");
 }
 
@@ -438,8 +440,9 @@ fclose($xmlF);
 }
 
 private function writeMainNSH($eap,$attr) {
-debug(4,"writeMainNSH"); debug(4,$attr);
-debug(4,"MYLANG=".$this->lang."\n");
+$this->loggerInstance->debug(4,"writeMainNSH"); 
+$this->loggerInstance->debug(4,$attr);
+$this->loggerInstance->debug(4,"MYLANG=".$this->lang."\n");
 
 $EAP_OPTS = [
 PEAP=>['str'=>'PEAP','exec'=>'user'],
@@ -457,8 +460,8 @@ if(Config::$NSIS_VERSION >= 3)
 // $fcontents .= "!define DEBUG_CAT\n";
 $execLevel = $EAP_OPTS[$eap["OUTER"]]['exec'];
 $eapStr = $EAP_OPTS[$eap["OUTER"]]['str'];
-debug(4,"EAP_STR=$eapStr\n");
-debug(4,$eap);
+$this->loggerInstance->debug(4,"EAP_STR=$eapStr\n");
+$this->loggerInstance->debug(4,$eap);
 
 $fcontents .= '!define '.$eapStr;
 $fcontents .= "\n".'!define EXECLEVEL "'.$execLevel.'"';
@@ -498,8 +501,8 @@ fclose($f);
 }
 
 private function writeProfilesNSH($P,$caArray,$wired=0) {
-debug(4,"writeProfilesNSH");
-debug(4,$P);
+$this->loggerInstance->debug(4,"writeProfilesNSH");
+$this->loggerInstance->debug(4,$P);
   $fcontents = '';
   foreach($P as $p) 
     $fcontents .= "!insertmacro define_wlan_profile $p\n";
@@ -521,8 +524,8 @@ fclose($f);
 }
 
 private function copyFiles ($eap) {
-debug(4,"copyFiles start\n");
-debug(4,"code_page=".$this->code_page."\n");
+$this->loggerInstance->debug(4,"copyFiles start\n");
+$this->loggerInstance->debug(4,"code_page=".$this->code_page."\n");
    $result;
    $result = $this->copyFile('wlan_test.exe');
    $result = $this->copyFile('check_wired.cmd');
@@ -547,7 +550,7 @@ debug(4,"code_page=".$this->code_page."\n");
      $this->translateFile('peap_tls.inc','cat.NSI',$this->code_page);
      $result = 1;
     }
-debug(4,"copyFiles end\n");
+$this->loggerInstance->debug(4,"copyFiles end\n");
    return($result);
 }
 

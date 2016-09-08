@@ -47,7 +47,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
-        debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
@@ -111,7 +111,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->name = _("eduroam-as-a-service");
         
-        debug(3, "--- END Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
     

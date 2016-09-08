@@ -18,6 +18,7 @@
  * necessary includes
  */
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once("Logging.php");
 
 define("L_OK", 0);
 define("L_REMARK", 4);
@@ -26,28 +27,6 @@ define("L_ERROR", 256);
 
 function error($t) {
     print ("$t\n");
-}
-
-/**
- * write debug messages to the log
- *
- */
-function debug($level, $t) {
-    if (Config::$DEBUG_LEVEL < $level) {
-        return;
-    }
-    ob_start();
-    printf("%-015s", microtime(TRUE));
-    print " ($level) ";
-    print_r($t);
-    $output = ob_get_clean();
-    if (Config::$PATHS['logdir']) {
-        $file = fopen(Config::$PATHS['logdir'] . "/debug.log", "a");
-        fwrite($file, $output);
-        fclose($file);
-        return;
-    }
-    print $output;
 }
 
 /**
@@ -64,17 +43,19 @@ function rrmdir($dir) {
 }
 
 function downloadFile($url) {
+    $loggerInstance = new Logging();
     if (preg_match("/:\/\//", $url)) {
         # we got a URL, download it
         $download = fopen($url, "rb");
         $data = stream_get_contents($download);
         if (!$data) {
-            debug(2, "Failed to download the file from $url");
+            
+            $loggerInstance->debug(2, "Failed to download the file from $url");
             return FALSE;
         }
         return $data;
     }
-    debug(3, "The specified string does not seem to be a URL!");
+    $loggerInstance->debug(3, "The specified string does not seem to be a URL!");
     return FALSE;
 }
 
@@ -105,6 +86,7 @@ function uuid($prefix = '', $deterministicSource = NULL) {
  * locale or to the defalut locale C if a better mach was not available
  */
 function getLocalisedValue($valueArray, $locale) {
+    $loggerInstance = new Logging();
     $out = 0;
     if (count($valueArray) > 0) {
         $returnValue = [];
@@ -119,7 +101,7 @@ function getLocalisedValue($valueArray, $locale) {
             $out = $returnValue['C'];
         }
     }
-    debug(4, "getLocalisedValue:$locale:$out\n");
+    $loggerInstance->debug(4, "getLocalisedValue:$locale:$out\n");
     return $out;
 }
 
@@ -130,6 +112,7 @@ function getLocalisedValue($valueArray, $locale) {
  * @return array the tuple of: base path, absolute path for directory, directory name
  */
 function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
+    $loggerInstance = new Logging();
     $name = md5(time() . rand());
     switch ($purpose) {
         case 'installer':
@@ -145,22 +128,23 @@ function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
             throw new Exception("unable to create temporary directory due to unknown purpose: $purpose\n");
     }
     $tmpDir = $path . '/' . $name;
-    debug(4, "temp dir: $purpose : $tmpDir\n");
+    $loggerInstance->debug(4, "temp dir: $purpose : $tmpDir\n");
     if (!mkdir($tmpDir, 0700, true)) {
         if ($failIsFatal) {
             throw new Exception("unable to create temporary directory: $tmpDir\n");
         }
-        debug(4, "Directory creation failed for $tmpDir\n");
+        $loggerInstance->debug(4, "Directory creation failed for $tmpDir\n");
         return ['base' => $path, 'dir' => '', $name => ''];
     }
-    debug(4, "Directory created: $tmpDir\n");
+    $loggerInstance->debug(4, "Directory created: $tmpDir\n");
     return ['base' => $path, 'dir' => $tmpDir, 'name' => $name];
 }
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
+    $loggerInstance = new Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
 
-    debug(4, "Consortium logo is at: " . CAT::$root . "/web/resources/images/consortium_logo_large.png");
+    $loggerInstance->debug(4, "Consortium logo is at: " . CAT::$root . "/web/resources/images/consortium_logo_large.png");
     $logogd = imagecreatefrompng(CAT::$root . "/web/resources/images/consortium_logo_large.png");
 
     $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
@@ -172,7 +156,7 @@ function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsy
     $maxoccupy = $totalpixels * 0.04;
     // find out how much we have to scale down logo to reach 10% QR estate
     $scale = sqrt($maxoccupy / $totallogopixels);
-    debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
+    $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
     // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
     $targetwidth = $symbolsize * round($sizelogo[0] * $scale / $symbolsize);
     $targetheight = $symbolsize * round($sizelogo[1] * $scale / $symbolsize);

@@ -20,9 +20,11 @@ require_once("CAT.php");
 require_once("UserAPI.php");
 require_once('ProfileFactory.php');
 require_once('AbstractProfile.php');
+require_once("Logging.php");
 
-debug(4,"basic.php\n");
-debug(4,$_POST);
+$loggerInstance = new Logging();
+$loggerInstance->debug(4,"basic.php\n");
+$loggerInstance->debug(4,$_POST);
 
 /**
   * SimpleGUI defines extensions of the GUI class used only in the simple interface
@@ -64,7 +66,7 @@ public function __construct() {
        if( $L['status'] == 'ok' ) {
          $c = strtoupper($L['country']);
        } else {
-         debug(2, "No coutry provided and unable to locate the address\n");
+         $loggerInstance->debug(2, "No coutry provided and unable to locate the address\n");
          $c='NONE';
        }
     }
@@ -374,7 +376,7 @@ public $profile_count;
 
 $Gui = new SimpleGUI();
 
-debug(4,"\n----------------------------------SIMPLE.PHP------------------------\n");
+$loggerInstance->debug(4,"\n----------------------------------SIMPLE.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang()?>">
@@ -409,7 +411,10 @@ debug(4,"\n----------------------------------SIMPLE.PHP------------------------\
     </head>
     <body style="">
 
-<?php debug(4,"SERVER\n"); debug(4,$_SERVER) ?>
+<?php 
+$loggerInstance->debug(4,"SERVER\n"); 
+$loggerInstance->debug(4,$_SERVER);
+?>
 <?php    print '<div id="motd">'.( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ).'</div>'; ?>
 <form name="my_form" method="POST" action="<?php echo $_SERVER['SCRIPT_NAME']?>" accept-charset='UTF-8'>
         <img src="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/images/consortium_logo.png" style="width: 20%; padding-right:20px; padding-top:0px; float:right" alt="logo" />

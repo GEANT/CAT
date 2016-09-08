@@ -62,10 +62,9 @@ class IdP extends EntityWithDBProperties {
      * @param int $instId the database row identifier
      */
     public function __construct($instId) {
-        debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
-
         $this->databaseType = "INST";
-        parent::__construct(); // now databaseHandle is available
+        parent::__construct(); // now databaseHandle and logging is available
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         if (!is_numeric($instId)) {
@@ -94,7 +93,7 @@ class IdP extends EntityWithDBProperties {
             "flag" => NULL];
 
         $this->name = getLocalisedValue($this->getAttributes('general:instname'), CAT::get_lang());
-        debug(3, "--- END Constructing new IdP object ... ---\n");
+        $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
     /**
@@ -114,7 +113,7 @@ class IdP extends EntityWithDBProperties {
             $returnarray[] = $oneProfile;
         }
         
-        debug(2,"listProfiles: ".print_r($returnarray,true));
+        $this->loggerInstance->debug(2,"listProfiles: ".print_r($returnarray,true));
         return $returnarray;
     }
 

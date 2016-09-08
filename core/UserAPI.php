@@ -26,6 +26,7 @@ require_once("ProfileFactory.php");
 require_once("AbstractProfile.php");
 require_once("Federation.php");
 require_once("DeviceFactory.php");
+require_once("Logging.php");
 require_once("devices/devices.php");
 use GeoIp2\Database\Reader;
 
@@ -36,6 +37,9 @@ use GeoIp2\Database\Reader;
  */
 class UserAPI extends CAT {
 
+    public function __construct() {
+        $this->loggerInstance = new Logging();
+    }
 /**
  * Prepare the device module environment and send back the link
  * This method creates a device module instance via the {@link DeviceFactory} call, 
@@ -55,25 +59,25 @@ class UserAPI extends CAT {
  */
   public function generateInstaller($device,$prof_id, $generated_for = "user") {
     $this->set_locale("devices");
-    debug(4,"installer:$device:$prof_id\n");
+    $this->loggerInstance->debug(4,"installer:$device:$prof_id\n");
     $profile = ProfileFactory::instantiate($prof_id);
     $attribs = $profile->getCollapsedAttributes();
     // test if the profile is production-ready and if not if the authenticated user is an owner
     if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-       debug(4,"Attempt to download a non-production ready installer fir profile: $prof_id\n");
+       $this->loggerInstance->debug(4,"Attempt to download a non-production ready installer fir profile: $prof_id\n");
        require_once(Config::$AUTHENTICATION['ssp-path-to-autoloader']);
        $as = new SimpleSAML_Auth_Simple(Config::$AUTHENTICATION['ssp-authsource']);
        if($as->isAuthenticated()) {
           $user_object = new User($_SESSION['user']);
           if($user_object->isIdPOwner($profile->institution)) {
-              debug(4, "User is the owner - allowing access\n");
+              $this->loggerInstance->debug(4, "User is the owner - allowing access\n");
           } else {
-             debug(2, "User not an owner of a non-production profile - access forbidden\n");
+             $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
        header("HTTP/1.0 403 Not Authorized");
              return;
           }
        } else {
-          debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
+          $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
           header("HTTP/1.0 403 Not Authorized");
           return;
        }
@@ -83,7 +87,7 @@ class UserAPI extends CAT {
     $a['device'] = $device;
     $this->i_path = $this->getCachedPath($device,$profile);
     if($this->i_path) { 
-      debug(4,"Using cached installer for: $device\n");
+      $this->loggerInstance->debug(4,"Using cached installer for: $device\n");
       $a['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
       $a['mime'] = $cache['mime'];
     } else {
@@ -103,10 +107,10 @@ class UserAPI extends CAT {
       $no_cache = $Config['options']['no_cache'] ? 1 : 0;
     }
     if( $no_cache ) {
-      debug(4,"getCachedPath: the no_cache option set for this device\n");
+      $this->loggerInstance->debug(4,"getCachedPath: the no_cache option set for this device\n");
       return(FALSE);
     }
-    debug(4,"getCachedPath: caching option set for this device\n");
+    $this->loggerInstance->debug(4,"getCachedPath: caching option set for this device\n");
     $cache = $profile->testCache($device);
     $iPath = $cache['cache'];
     if($iPath  && is_file($iPath)) {
@@ -134,10 +138,10 @@ class UserAPI extends CAT {
          rename($iPath, $this->i_path);
          $profile->updateCache($device,$this->i_path,$out['mime']);
          rrmdir($dev->FPATH.'/tmp');
-         debug(4,"Generated installer: ".$this->i_path.": for: $device\n");
+         $this->loggerInstance->debug(4,"Generated installer: ".$this->i_path.": for: $device\n");
          $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
        } else {
-         debug(2,"Installer generation failed for: $prof_id:$device:".CAT::get_lang()."\n");
+         $this->loggerInstance->debug(2,"Installer generation failed for: $prof_id:$device:".CAT::get_lang()."\n");
          $out['link'] = 0;
      }
    } 
@@ -417,11 +421,11 @@ private function GetRootURL() {
  * @return string JSON encoded data
  */
   public function JSON_generateInstaller($device,$prof_id) {
-    debug(4,"JSON::generateInstaller arguments: $device,$prof_id\n");
+    $this->loggerInstance->debug(4,"JSON::generateInstaller arguments: $device,$prof_id\n");
     $o = $this->generateInstaller($device,$prof_id);
-    debug(4,"output from GUI::generateInstaller:");
-    debug(4,$o);
-    debug(4,json_encode($o));
+    $this->loggerInstance->debug(4,"output from GUI::generateInstaller:");
+    $this->loggerInstance->debug(4,$o);
+    $this->loggerInstance->debug(4,json_encode($o));
 //    header('Content-type: application/json; utf-8');
     echo $this->return_json($o);
  }
@@ -435,10 +439,10 @@ private function GetRootURL() {
  */
 
  public function downloadInstaller($device,$prof_id,$generated_for='user') {
-    debug(4,"downloadInstaller arguments: $device,$prof_id,$generated_for\n");
+    $this->loggerInstance->debug(4,"downloadInstaller arguments: $device,$prof_id,$generated_for\n");
     $o = $this->generateInstaller($device,$prof_id);
-    debug(4,"output from GUI::generateInstaller:");
-    debug(4,$o);
+    $this->loggerInstance->debug(4,"output from GUI::generateInstaller:");
+    $this->loggerInstance->debug(4,$o);
     if(! $o['link']) {
        header("HTTP/1.0 404 Not Found");
        return;
@@ -447,7 +451,7 @@ private function GetRootURL() {
     $profile->incrementDownloadStats($device, $generated_for);
     $file = $this->i_path;
     $filetype = $o['mime'];
-    debug(4,"installer MIME type:$filetype\n");
+    $this->loggerInstance->debug(4,"installer MIME type:$filetype\n");
     header("Content-type: ".$filetype);
     header('Content-Disposition: inline; filename="'.basename($file).'"');
     header('Content-Length: ' . filesize($file));
@@ -486,7 +490,7 @@ private function GetRootURL() {
    }
 
    if($resize && is_file($logo_file)){
-      debug(4,"Using cached logo $logo_file for: $idp_id\n");
+      $this->loggerInstance->debug(4,"Using cached logo $logo_file for: $idp_id\n");
       $blob = file_get_contents($logo_file);
       $filetype = 'image/png';
    }
@@ -505,7 +509,7 @@ private function GetRootURL() {
          if( $image->setImageFormat('PNG')) {
            $image->thumbnailImage($width,$height,1);
            $blob = $image->getImageBlob();
-           debug(4,"Writing cached logo $logo_file for: $idp_id\n");
+           $this->loggerInstance->debug(4,"Writing cached logo $logo_file for: $idp_id\n");
            file_put_contents($logo_file,$blob);
          }
          else
@@ -666,25 +670,25 @@ public function detectOS() {
          return(['device'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
    }
    $browser = $_SERVER['HTTP_USER_AGENT'];
-   debug(4,"HTTP_USER_AGENT=$browser\n");
+   $this->loggerInstance->debug(4,"HTTP_USER_AGENT=$browser\n");
    foreach ($Dev as $dev_id => $device) {
      if(!isset($device['match']))
         continue;
      if(preg_match('/'.$device['match'].'/',$browser)) {
        if(!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
-          debug(4,"Browser_id: $dev_id\n");
+          $this->loggerInstance->debug(4,"Browser_id: $dev_id\n");
           if($this->version == 1)
              return(['id'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
           else
              return(['device'=>$dev_id,'display'=>$device['display'], 'group'=>$device['group']]);
        }
        else {
-         debug(2, "Unrecognised system: ".$_SERVER['HTTP_USER_AGENT']."\n");
+         $this->loggerInstance->debug(2, "Unrecognised system: ".$_SERVER['HTTP_USER_AGENT']."\n");
          return(false);
        }
      }
    }
-   debug(2, "Unrecognised system: ".$_SERVER['HTTP_USER_AGENT']."\n");
+   $this->loggerInstance->debug(2, "Unrecognised system: ".$_SERVER['HTTP_USER_AGENT']."\n");
    return(false);
 }
 
@@ -701,6 +705,11 @@ public function JSON_detectOS() {
 public $device;
 public $version;
 private $i_path;
+/**
+ * access to the logging system
+ * @var Logging
+ */
+private $loggerInstance;
   
 }
 function profile_sort($P1,$P2) {
