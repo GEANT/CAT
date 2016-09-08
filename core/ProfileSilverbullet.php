@@ -82,22 +82,13 @@ class ProfileSilverbullet extends AbstractProfile {
             "internal:silverbullet_maxusers" => $tempMaxUsers,
         ];
 
-        $tempArrayProfLevel = [];
+        $tempArrayProfLevel = []; // we don't currently store any profile-level attributes for SB in the database
 
         // internal attributes share many attribute properties, so condense the generation
 
-        foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfLevel[] = ["name" => $attName,
-                "value" => $attValue,
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => 0];
-        }
-
+        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
+        
         // now, fetch and merge IdP-wide attributes
-
         
         $idpoptions = [];
         // add "device" and "eapmethod" keys just to remain in sync with those

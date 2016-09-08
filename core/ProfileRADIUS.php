@@ -108,18 +108,8 @@ class ProfileRADIUS extends AbstractProfile {
                                             AND device_id IS NULL AND eap_method_id = 0
                                             ORDER BY option_name", "Profile");
 
-        // internal attributes share many attribute properties, so condense the generation
-
-        foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfLevel[] = ["name" => $attName,
-                "value" => $attValue,
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => 0];
-        }
-
+        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
+        
         debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
         debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
         

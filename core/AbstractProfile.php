@@ -586,4 +586,18 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         return TRUE;
     }
 
+    protected function addInternalAttributes($internalAttributes) {
+        // internal attributes share many attribute properties, so condense the generation
+        $retArray = [];
+        foreach ($internalAttributes as $attName => $attValue) {
+            $retArray[] = ["name" => $attName,
+                "value" => $attValue,
+                "level" => "Profile",
+                "row" => 0,
+                "flag" => NULL,
+                "device" => NULL,
+                "eapmethod" => 0];
+        }
+        return $retArray;
+    }
 }
