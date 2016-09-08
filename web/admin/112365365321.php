@@ -52,6 +52,8 @@ if (!in_array($user->identifier, Config::$SUPERADMINS) && !in_array("I do not ca
 
 $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
+$dbHandle = DBConnection::handle("INST");
+
 ?>
     <h1>By. Your. Command.</h1>
   <form action="112365365321.php" method="POST" accept-charset="UTF-8">
@@ -80,7 +82,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
             if (isset($_POST['admin_action']))
                 switch ($_POST['admin_action']) {
                     case BUTTON_PURGECACHE:
-                        $result = DBConnection::exec("INST", "UPDATE downloads SET download_path = NULL");
+                        $result = $dbHandle->exec("UPDATE downloads SET download_path = NULL");
                     // we do NOT break here - after the DB deletion comes the normal
                     // filesystem cleanup
                     case BUTTON_DELETE:
@@ -89,7 +91,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                         $i = 0;
 
                         $Cache = [];
-                        $result = DBConnection::exec("INST", "SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
+                        $result = $dbHandle->exec("SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
                         while ($r = mysqli_fetch_row($result)) {
                             $e = explode('/', $r[0]);
                             $Cache[$e[count($e) - 2]] = 1;
@@ -171,7 +173,7 @@ $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageh
                 $gross_user = 0;
                 foreach (Devices::listDevices() as $index => $device_array) {
                     echo "<tr>";
-                    $admin_query = DBConnection::exec("INST", "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads WHERE device_id = '$index'");
+                    $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads WHERE device_id = '$index'");
                     while ($a = mysqli_fetch_object($admin_query)) {
                         echo "<td>" . $device_array['display'] . "</td><td>" . $a->admin . "</td><td>" . $a->user . "</td>";
                         $gross_admin = $gross_admin + $a->admin;

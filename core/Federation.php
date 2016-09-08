@@ -57,12 +57,13 @@ class Federation extends EntityWithDBProperties {
 
         $dataArray = [];
 
+        $handle = DBConnection::handle("INST");
         foreach (Devices::listDevices() as $index => $deviceArray) {
             $query = "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads, profile, institution WHERE device_id = '$index' AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id ";
             if ($federationid != NULL) {
                 $query .= "AND institution.country = '" . $federationid . "'";
             }
-            $numberQuery = DBConnection::exec("INST", $query);
+            $numberQuery = $handle->exec($query);
             while ($queryResult = mysqli_fetch_object($numberQuery)) {
                 $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
                 $grossAdmin = $grossAdmin + $queryResult->admin;
@@ -126,6 +127,8 @@ class Federation extends EntityWithDBProperties {
         $this->identifier = $fedname;
         $this->name = $fedname;
 
+        parent::__construct(); // we now have access to our database handle
+        
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = CAT::set_locale('core');
@@ -405,19 +408,19 @@ class Federation extends EntityWithDBProperties {
      * @return int identifier of the new IdP
      */
     public function newIdP($ownerId, $level, $mail) {
-        DBConnection::exec($this->databaseType, "INSERT INTO institution (country) VALUES('$this->name')");
-        $identifier = DBConnection::lastID($this->databaseType);
+        $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->name')");
+        $identifier = $this->databaseHandle->lastID();
         if ($identifier == 0 || !CAT::writeAudit($ownerId, "NEW", "IdP $identifier")) {
             echo "<p>" . _("Could not create a new Institution!") . "</p>";
             throw new Exception("Could not create a new Institution!");
         }
         // escape all strings
-        $escapedOwnerId = DBConnection::escapeValue($this->databaseType, $ownerId);
-        $escapedLevel = DBConnection::escapeValue($this->databaseType, $level);
-        $escapedMail = DBConnection::escapeValue($this->databaseType, $mail);
+        $escapedOwnerId = $this->databaseHandle->escapeValue($ownerId);
+        $escapedLevel = $this->databaseHandle->escapeValue($level);
+        $escapedMail = $this->databaseHandle->escapeValue($mail);
 
         if ($escapedOwnerId != "PENDING") {
-            DBConnection::exec($this->databaseType, "INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$escapedOwnerId', $identifier, '$escapedLevel', '$escapedMail')");
+            $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$escapedOwnerId', $identifier, '$escapedLevel', '$escapedMail')");
         }
         return $identifier;
     }
@@ -431,11 +434,11 @@ class Federation extends EntityWithDBProperties {
      */
     public function listIdentityProviders($activeOnly = 0) {
         // default query is:
-        $allIDPs = DBConnection::exec($this->databaseType, "SELECT inst_id FROM institution
+        $allIDPs = $this->databaseHandle->exec("SELECT inst_id FROM institution
                WHERE country = '$this->name' ORDER BY inst_id");
         // the one for activeOnly is much more complex:
         if ($activeOnly) {
-            $allIDPs = DBConnection::exec($this->databaseType, "SELECT distinct institution.inst_id AS inst_id
+            $allIDPs = $this->databaseHandle->exec("SELECT distinct institution.inst_id AS inst_id
                FROM institution
                JOIN profile ON institution.inst_id = profile.inst_id
                WHERE institution.country = '$this->name' 
@@ -462,8 +465,8 @@ class Federation extends EntityWithDBProperties {
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'";
         }
-
-        $admins = DBConnection::exec("USER", $query);
+        $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
+        $admins = $userHandle->exec($query);
 
         while ($fedAdminQuery = mysqli_fetch_object($admins)) {
             $returnarray[] = $fedAdminQuery->user_id;
@@ -481,12 +484,13 @@ class Federation extends EntityWithDBProperties {
 
         if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
-            $externals = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
+            $externalHandle = DBConnection::handle("EXTERNAL");
+            $externals = $externalHandle->exec("SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
                                                                                 FROM view_active_idp_institution $countrysuffix");
-            $alreadyUsed = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution 
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
                                                                                                      AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
-            $pendingInvite = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_uniquehandle FROM invitations 
+            $pendingInvite = $this->databaseHandle->exec("SELECT DISTINCT external_db_uniquehandle FROM invitations 
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 
                                                                                                       AND used = 0");
@@ -547,7 +551,8 @@ class Federation extends EntityWithDBProperties {
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
-            $infoList = DBConnection::exec("EXTERNAL", "SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
+            $externalHandle = DBConnection::handle("EXTERNAL");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
             // split names and contacts into proper pairs
             while ($externalEntityQuery = mysqli_fetch_object($infoList)) {
                 $names = explode('#', $externalEntityQuery->collapsed_name);
@@ -576,7 +581,8 @@ class Federation extends EntityWithDBProperties {
      *
      */
     public static function listAllIdentityProviders($activeOnly = 0, $country = 0) {
-        DBConnection::exec("INST", "SET SESSION group_concat_max_len=10000");
+        $handle = DBConnection::handle("INST");
+        $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
                      group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
                      FROM institution ";
@@ -592,11 +598,11 @@ class Federation extends EntityWithDBProperties {
         }
         if ($country) {
             // escape the parameter
-            $country = DBConnection::escapeValue("INST", $country);
+            $country = $handle->escapeValue($country);
             $query .= "AND institution.country = '$country' ";
         }
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        $allIDPs = DBConnection::exec("INST", $query);
+        $allIDPs = $handle->exec($query);
         $returnarray = [];
         while ($queryResult = mysqli_fetch_object($allIDPs)) {
             $institutionOptions = explode('---', $queryResult->options);

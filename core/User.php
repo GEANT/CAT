@@ -40,10 +40,11 @@ class User extends EntityWithDBProperties {
      */
     public function __construct($userId) {
         $this->databaseType = "USER";
+        parent::__construct(); // database handle is now available
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = DBConnection::escapeValue($this->databaseType, $userId);
+        $this->identifier = $this->databaseHandle->escapeValue($userId);
 
         $optioninstance = Options::instance();
 
@@ -51,7 +52,7 @@ class User extends EntityWithDBProperties {
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = DBConnection::exec($this->databaseType, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
+            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
             $visited = FALSE;
             while ($userDetailQuery = mysqli_fetch_object($info)) {
                 if (!$visited) {

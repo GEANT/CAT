@@ -151,7 +151,7 @@ class ProfileSilverbullet extends AbstractProfile {
         // params are needed for proper overriding, and I don't want any errors
         // in code analysis. So let's waste some cycles.
         $type = $preference;
-        DBConnection::exec($this->databaseType, "INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
+        $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
                 . EAP::EAPMethodIdFromArray(EAP::$SILVERBULLET) . ", "
                 . 1 . ")");
@@ -166,7 +166,7 @@ class ProfileSilverbullet extends AbstractProfile {
         // params are needed for proper overriding, and I don't want any errors
         // in code analysis. So let's waste some cycles.
         $shallwe = 0;
-        DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
     }
 
     /**
@@ -190,7 +190,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * set the showtime and QR-user attributes if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
      */
     public function prepShowtime() {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
 }

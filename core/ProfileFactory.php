@@ -25,7 +25,8 @@ class ProfileFactory {
      * @return AbstractProfile a sub-class of AbstractProfile matching the type
      */
     public static function instantiate($profileId, $idpObject = NULL) {
-        $eapMethod = DBConnection::exec("INST", "SELECT eap_method_id 
+        $handle = DBConnection::handle("INST");
+        $eapMethod = $handle->exec("SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $profileId
                                                         ORDER by preference");

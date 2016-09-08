@@ -222,7 +222,8 @@ function getBlobFromDB($ref, $checkpublic) {
         }
     }
 
-    $blob = DBConnection::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+    
+    $blob = EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
     if (!$blob) {
         return FALSE;
     }

@@ -88,15 +88,16 @@ class CAT {
      * 
      */
     public function totalIdPs($level) {
+        $handle = DBConnection::handle(CAT::$DB_TYPE);
         switch ($level) {
             case "ALL":
-                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(inst_id) AS instcount FROM institution");
+                $idpcount = $handle->exec("SELECT COUNT(inst_id) AS instcount FROM institution");
                 break;
             case "VALIDPROFILE":
-                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.sufficient_config = 1");
+                $idpcount = $handle->exec("SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.sufficient_config = 1");
                 break;
             case "PUBLICPROFILE":
-                $idpcount = DBConnection::exec(CAT::$DB_TYPE, "SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.showtime = 1");
+                $idpcount = $handle->exec("SELECT COUNT(DISTINCT institution.inst_id) AS instcount FROM institution,profile WHERE institution.inst_id = profile.inst_id AND profile.showtime = 1");
                 break;
             default:
                 return -1;
@@ -198,8 +199,9 @@ class CAT {
      */
     public function printCountryList($active_only = 0) {
         $olddomain = $this->set_locale("core");
+        $handle = DBConnection::handle(CAT::$DB_TYPE);
         if ($active_only) {
-            $federations = DBConnection::exec(CAT::$DB_TYPE, "SELECT DISTINCT LOWER(institution.country) AS country FROM institution JOIN profile
+            $federations = $handle->exec("SELECT DISTINCT LOWER(institution.country) AS country FROM institution JOIN profile
                           ON institution.inst_id = profile.inst_id WHERE profile.showtime = 1 ORDER BY country");
             while ($a = mysqli_fetch_object($federations)) {
                 $b = $a->country;

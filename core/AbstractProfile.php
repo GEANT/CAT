@@ -94,7 +94,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * static EAP method.
      */
     protected function fetchEAPMethods() {
-        $eapMethod = DBConnection::exec($this->databaseType, "SELECT eap_method_id 
+        $eapMethod = $this->databaseHandle->exec("SELECT eap_method_id 
                                                         FROM supported_eap supp 
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
@@ -120,7 +120,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function __construct($profileId, $idpObject = NULL) {
         debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         $this->databaseType = "INST";
-        $profile = DBConnection::exec($this->databaseType, "SELECT inst_id FROM profile WHERE profile_id = $profileId");
+        parent::__construct(); // we now have access to our database handle
+        $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         debug(4, $profile);
         if (!$profile || $profile->num_rows == 0) {
             debug(2, "Profile $profileId not found in database!\n");
@@ -161,7 +162,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * find a profile, given its realm
      */
     public static function profileFromRealm($realm) {
-        $execQuery = DBConnection::exec("INST", "SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
+        // static, need to create our own handle
+        $handle = DBConnection::handle("INST");
+        $execQuery = $handle->exec("SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
         if ($profileIdQuery = mysqli_fetch_object($execQuery)) {
             return $profileIdQuery->profile_id;
         }
@@ -172,14 +175,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * update the last_changed timestamp for this profile
      */
     public function updateFreshness() {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE profile_id = $this->identifier");
     }
 
     /**
      * gets the last-modified timestamp (useful for caching "dirty" check)
      */
     public function getFreshness() {
-        $execUpdate = DBConnection::exec($this->databaseType, "SELECT last_change FROM profile WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
         if ($freshnessQuery = mysqli_fetch_object($execUpdate)) {
             return $freshnessQuery->last_change;
         }
@@ -207,10 +210,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function testCache($device) {
         $returnValue = NULL;
-        $escapedDevice = DBConnection::escapeValue($this->databaseType, $device);
-        $result = DBConnection::exec($this->databaseType, "SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->langIndex'");
+        $escapedDevice = $this->databaseHandle->escapeValue($device);
+        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->langIndex'");
         if ($result && $cache = mysqli_fetch_object($result)) {
-            $execUpdate = DBConnection::exec($this->databaseType, "SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
+            $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
                 if ($lastChange < $cache->tm) {
                     debug(4, "Installer cached:$cache->download_path\n");
@@ -238,9 +241,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
-        $escapedDevice = DBConnection::escapeValue($this->databaseType, $device);
+        $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user") {
-            DBConnection::exec($this->databaseType, "INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','$this->langIndex', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','$this->langIndex', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
         }
         return FALSE;
@@ -253,7 +256,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function getUserDownloadStats($device = 0) {
         $returnarray = [];
-        $numbers = DBConnection::exec($this->databaseType, "SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
+        $numbers = $this->databaseHandle->exec("SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
         while ($statsQuery = mysqli_fetch_object($numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
@@ -281,9 +284,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      *
      */
     public function destroy() {
-        DBConnection::exec($this->databaseType, "DELETE FROM profile_option WHERE profile_id = $this->identifier");
-        DBConnection::exec($this->databaseType, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
-        DBConnection::exec($this->databaseType, "DELETE FROM profile WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM profile_option WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM profile WHERE profile_id = $this->identifier");
         unset($this);
     }
 
@@ -293,8 +296,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
     public function setRealm($realm) {
-        $escapedRealm = DBConnection::escapeValue($this->databaseType, $realm);
-        DBConnection::exec($this->databaseType, "UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
+        $escapedRealm = $this->databaseHandle->escapeValue($realm);
+        $this->databaseHandle->exec("UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
         $this->realm = $escapedRealm;
     }
 
@@ -575,7 +578,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return boolean TRUE if profile is shown; FALSE if not
      */
     public function isShowtime() {
-        $result = DBConnection::exec($this->databaseType, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
+        $result = $this->databaseHandle->exec($this->databaseType, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
         $resultRow = mysqli_fetch_row($result);
         if ($resultRow[0] == "0") {
             return FALSE;

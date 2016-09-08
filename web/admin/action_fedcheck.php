@@ -20,6 +20,8 @@ require_once("../resources/inc/footer.php");
 
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
+    $dbHandle = DBConnection::handle("INST");
+    
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
     $configuredRealm = $profile->getAttributes("internal:realm");
@@ -29,7 +31,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
         // update database with the findings
 
-        DBConnection::exec("INST", "UPDATE profile SET "
+        $dbHandle->exec("UPDATE profile SET "
                 . "status_dns = " . RETVAL_SKIPPED . ", "
                 . "status_cert = " . RETVAL_SKIPPED . ", "
                 . "status_reachability = " . RETVAL_SKIPPED . ", "
@@ -130,7 +132,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
     $tabletext .= "</td></tr>";
 
-    DBConnection::exec("INST", "UPDATE profile SET "
+    $dbHandle->exec("UPDATE profile SET "
             . "status_dns = " . ($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
             . "status_cert = " . ($certBiggestOddity) . ", "
             . "status_reachability = " . ($UDPErrors ? RETVAL_INVALID : RETVAL_OK) . ", "

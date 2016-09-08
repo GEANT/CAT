@@ -76,7 +76,8 @@ class Options {
     private function __construct() {
         $this->typeDb = [];
         debug(3, "--- BEGIN constructing Options instance ---\n");
-        $options = DBConnection::exec(Options::$databaseType, "SELECT name,type,flag from profile_option_dict ORDER BY name");
+        $handle = DBConnection::handle(Options::$databaseType);
+        $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         while ($optionDataQuery = mysqli_fetch_object($options)) {
             $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
         }
