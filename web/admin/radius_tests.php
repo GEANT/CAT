@@ -34,15 +34,17 @@ function disp_name($eap) {
 function printDN($distinguishedName) {
   $out = '';
   foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // "CN" and "some.host.example" 
-      if(is_array ($nameValue)) {
-         foreach ($nameValue as $V) {
-            if($out) 
+      if(is_array ($nameValue)) { // multi-valued
+         foreach ($nameValue as $oneValue) {
+            if($out) {
                $out .= ',';
-            $out .= "$nameType=$V";
+            }
+            $out .= "$nameType=$oneValue";
          }
       } else {
-         if($out) 
+         if($out) {
             $out .= ',';
+         }
          $out .= "$nameType=$nameValue";
       }
   }
@@ -61,8 +63,9 @@ function process_result($testsuite,$host) {
     $udpResult = $testsuite->UDP_reachability_result[$host];
     if(isset($udpResult['certdata']) && count($udpResult['certdata'])) {
        foreach ($udpResult['certdata'] as $certdata) {
-          if($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned' )
+          if($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned' ) {
              continue;
+          }
           $serverCert =  [
              'subject' => printDN($certdata['subject']),
              'issuer' => printDN($certdata['issuer']),
@@ -78,8 +81,9 @@ function process_result($testsuite,$host) {
     if(isset($udpResult['incoming_server_names'][0]) ) {
         $ret['server'] = sprintf(_("Connected to %s."), $udpResult['incoming_server_names'][0]);
     }
-    else
+    else {
         $ret['server'] = 0;
+    }
     $ret['level'] = L_OK;
     $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
     if (isset($udpResult['cert_oddities']) && count($udpResult['cert_oddities']) > 0) {
@@ -124,12 +128,14 @@ if (isset($_REQUEST['profile_id'])) {
 }
 
 $host = $_REQUEST['src'];
-if(!preg_match('/^[0-9\.:]*$/',$host))
+if(!preg_match('/^[0-9\.:]*$/',$host)) {
    exit;
+}
 
 $hostindex = $_REQUEST['hostindex']; 
-if(!is_numeric($hostindex))
+if(!is_numeric($hostindex)) {
   exit;
+}
 
 
 $returnarray = [];
@@ -244,10 +250,12 @@ switch ($test_type) {
         switch ($testresult) {
             case RETVAL_CONVERSATION_REJECT:
                 $level = $returnarray['result'][$i]['level'];
-                if($level > L_OK)
+                if($level > L_OK) {
                     $message = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.") . ' ' . $additional_message[$level];
-                else
+                }
+                else {
                     $message = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
+                }
                 break;
             case RETVAL_IMMEDIATE_REJECT:
                 $message = _("<strong>Test FAILED</strong>: the request was rejected immediately, without EAP conversation. This is not necessarily an error: if the RADIUS server enforces that outer identities correspond to an existing username, then this result is expected (Note: you could configure a valid outer identity in your profile settings to get past this hurdle). In all other cases, the server appears misconfigured or it is unreachable.");
@@ -285,23 +293,29 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
             } else {
                 $returnarray['message'] = $testsuite->return_codes[$testsuite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = L_OK;
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] != RETVAL_CONNECTION_REFUSED)
+                if ($testsuite->TLS_CA_checks_result[$host]['status'] != RETVAL_CONNECTION_REFUSED) {
                     $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-                else
+                }
+                else {
                     $returnarray['level'] = L_ERROR;
+                }
                 if ($testsuite->TLS_CA_checks_result[$host]['status'] == RETVAL_OK) {
                     $returnarray['certdata'] = [];
                     $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
                     $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];
                     $returnarray['certdata']['extensions'] = [];
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname']))
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
                         $returnarray['certdata']['extensions']['subjectaltname'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']))
+                    }
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
                         $returnarray['certdata']['extensions']['policies'] = join(' ', $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint']))
+                    }
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
                         $returnarray['certdata']['extensions']['crldistributionpoints'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess']))
+                    }
+                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
                         $returnarray['certdata']['extensions']['authorityinfoaccess'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
+                    }
                 }
                 $returnarray['cert_oddities'] = [];
             }
@@ -315,13 +329,14 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         $k = 0;
         // the host member of the array may not exist if RETVAL_SKIPPED came out
         // (e.g. no client cert to test with). Be prepared for that
-        if (isset($testsuite->TLS_clients_checks_result[$host]))
+        if (isset($testsuite->TLS_clients_checks_result[$host])) {
             foreach ($testsuite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
                 foreach ($cli as $key => $val) {
                     $returnarray['ca'][$k][$key] = $val;
                 }
                 $k++;
             }
+        }
         $returnarray['result'] = $testresult;
         break;
     case 'tls':
@@ -344,8 +359,8 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
             $printedres .= UI_okay(_("Completed.") . $measure);
             $printedres .= "<tr><td></td><td><div class=\"more\">";
             $my_ip_addrs[$key]["status"] = "OK";
-            $servercert = implode("\n", $opensslbabble);
-            $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercert);
+            $servercertRaw = implode("\n", $opensslbabble);
+            $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercertRaw);
             $printedres .= 'XXXXXXXXXXXXXXXXXXXX<br>' . _("Server certificate") . '<ul>';
             $data = openssl_x509_parse($servercert);
             $printedres .= '<li>' . _("Subject") . ': ' . $data['name'];
@@ -356,8 +371,9 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
             $oids = check_policy($data);
             if (!empty($oids)) {
                 $printedres .= '<li>' . _("Certificate policies") . ':';
-                foreach ($oids as $k => $o)
+                foreach ($oids as $k => $o) {
                     $printedres .= " $o ($k)";
+                }
             }
             if (($crl = certificate_get_field($data, 'crlDistributionPoints'))) {
                 $printedres .= '<li>' . _("crlDistributionPoints") . ': ' . $crl;
