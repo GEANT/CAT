@@ -18,12 +18,11 @@ ini_set('display_errors', '0');
 $Cat = new CAT();
 $Cat->set_locale("web_admin");
 
-$additional_message =  [
-   L_OK => '',
-   L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
-   L_WARN => _("Some properties of the connection attempt were sub-optimal; the list is below."),
-   L_ERROR => _("Some configuration errors were observed; the list is below."),
- 
+$additional_message = [
+    L_OK => '',
+    L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
+    L_WARN => _("Some properties of the connection attempt were sub-optimal; the list is below."),
+    L_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
 function disp_name($eap) {
@@ -32,73 +31,66 @@ function disp_name($eap) {
 }
 
 function printDN($distinguishedName) {
-  $out = '';
-  foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // "CN" and "some.host.example" 
-      if(is_array ($nameValue)) { // multi-valued
-         foreach ($nameValue as $oneValue) {
-            if($out) {
-               $out .= ',';
+    $out = '';
+    foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // example: "CN" and "some.host.example" 
+        if (!is_array($nameValue)) { // single-valued: just a string
+            $nameValue = ["$nameValue"]; // convert it to a multi-value attrib with just one value :-) for unified processing later on
+        }
+        foreach ($nameValue as $oneValue) {
+            if ($out) {
+                $out .= ',';
             }
             $out .= "$nameType=$oneValue";
-         }
-      } else {
-         if($out) {
-            $out .= ',';
-         }
-         $out .= "$nameType=$nameValue";
-      }
-  }
-  return($out);
+        }
+    }
+    return($out);
 }
 
 function printTm($time) {
-  return(gmdate(DateTime::COOKIE,$time));
+    return(gmdate(DateTime::COOKIE, $time));
 }
 
-
-
-function process_result($testsuite,$host) {
+function process_result($testsuite, $host) {
     $ret = [];
     $serverCert = [];
     $udpResult = $testsuite->UDP_reachability_result[$host];
-    if(isset($udpResult['certdata']) && count($udpResult['certdata'])) {
-       foreach ($udpResult['certdata'] as $certdata) {
-          if($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned' ) {
-             continue;
-          }
-          $serverCert =  [
-             'subject' => printDN($certdata['subject']),
-             'issuer' => printDN($certdata['issuer']),
-             'validFrom' => printTm($certdata['validFrom_time_t']),
-             'validTo' => printTm($certdata['validTo_time_t']),
-             'serialNumber' => $certdata['serialNumber'].sprintf(" (0x%X)",$certdata['serialNumber']),
-             'sha1' => $certdata['sha1'],
-             'extensions' => $certdata['extensions']
-          ];
-       }
+    if (isset($udpResult['certdata']) && count($udpResult['certdata'])) {
+        foreach ($udpResult['certdata'] as $certdata) {
+            if ($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned') {
+                continue;
+            }
+            $serverCert = [
+                'subject' => printDN($certdata['subject']),
+                'issuer' => printDN($certdata['issuer']),
+                'validFrom' => printTm($certdata['validFrom_time_t']),
+                'validTo' => printTm($certdata['validTo_time_t']),
+                'serialNumber' => $certdata['serialNumber'] . sprintf(" (0x%X)", $certdata['serialNumber']),
+                'sha1' => $certdata['sha1'],
+                'extensions' => $certdata['extensions']
+            ];
+        }
     }
     $ret['server_cert'] = $serverCert;
-    if(isset($udpResult['incoming_server_names'][0]) ) {
+    $ret['server'] = 0;
+    if (isset($udpResult['incoming_server_names'][0])) {
         $ret['server'] = sprintf(_("Connected to %s."), $udpResult['incoming_server_names'][0]);
-    }
-    else {
-        $ret['server'] = 0;
     }
     $ret['level'] = L_OK;
     $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
-    if (isset($udpResult['cert_oddities']) && count($udpResult['cert_oddities']) > 0) {
-        $ret['message'] = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned. Some properties of the connection attempt were sub-optimal; the list is below.");
-        $ret['cert_oddities'] = [];
-        foreach ($udpResult['cert_oddities'] as $oddity) {
-            $o = [];
-            $o['code'] = $oddity;
-            $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
-            $o['level'] = $testsuite->return_codes[$oddity]["severity"];
-            $ret['level'] = max($ret['level'], $testsuite->return_codes[$oddity]["severity"]);
-            $ret['cert_oddities'][] = $o;
-        }
-    } else {
+    if (empty($udpResult['cert_oddities'])) {
         $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
+        return $ret;
+    }
+
+    $ret['message'] = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned. Some properties of the connection attempt were sub-optimal; the list is below.");
+    $ret['cert_oddities'] = [];
+    foreach ($udpResult['cert_oddities'] as $oddity) {
+        $o = [];
+        $o['code'] = $oddity;
+        $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
+        $o['level'] = $testsuite->return_codes[$oddity]["severity"];
+        $ret['level'] = max($ret['level'], $testsuite->return_codes[$oddity]["severity"]);
+        $ret['cert_oddities'][] = $o;
     }
 
     return $ret;
@@ -108,16 +100,16 @@ if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
 
-$test_type = $_REQUEST['test_type']; 
+$test_type = $_REQUEST['test_type'];
 
-$check_realm = valid_Realm($_REQUEST['realm']); 
+$check_realm = valid_Realm($_REQUEST['realm']);
 
 if ($check_realm === FALSE) {
     throw new Exception("Invalid realm was submitted!");
 }
 
 if (isset($_REQUEST['profile_id'])) {
-    $my_profile = valid_Profile($_REQUEST['profile_id']); 
+    $my_profile = valid_Profile($_REQUEST['profile_id']);
     if (!$my_profile instanceof ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
@@ -128,13 +120,13 @@ if (isset($_REQUEST['profile_id'])) {
 }
 
 $host = $_REQUEST['src'];
-if(!preg_match('/^[0-9\.:]*$/',$host)) {
-   exit;
+if (!preg_match('/^[0-9\.:]*$/', $host)) {
+    exit;
 }
 
-$hostindex = $_REQUEST['hostindex']; 
-if(!is_numeric($hostindex)) {
-  exit;
+$hostindex = $_REQUEST['hostindex'];
+if (!is_numeric($hostindex)) {
+    exit;
 }
 
 
@@ -155,14 +147,14 @@ switch ($test_type) {
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
-                    if(isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
+                    if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
                         $tls_username = valid_user($_REQUEST['tls_username']);
                     } else {
-                        if(openssl_pkcs12_read($clientcertdata,$certs,$privkey_pass)) {
+                        if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);
-                            if(isset($mydetails['subject']['CN']) && $mydetails['subject']['CN']) {
-                                $tls_username=$mydetails['subject']['CN'];
-                                debug(4,"PKCS12-CN=$tls_username\n");
+                            if (isset($mydetails['subject']['CN']) && $mydetails['subject']['CN']) {
+                                $tls_username = $mydetails['subject']['CN'];
+                                debug(4, "PKCS12-CN=$tls_username\n");
                             } else {
                                 $testresult = RETVAL_INCOMPLETE_DATA;
                                 $run_test = FALSE;
@@ -176,32 +168,32 @@ switch ($test_type) {
                     $testresult = RETVAL_INCOMPLETE_DATA;
                     $run_test = FALSE;
                 }
-                    if($run_test) {
-                        debug(4,"TLS-USERNAME=$tls_username\n");
-                        $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass,'', TRUE, TRUE, $clientcertdata);
-                    }
+                if ($run_test) {
+                    debug(4, "TLS-USERNAME=$tls_username\n");
+                    $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass, '', TRUE, TRUE, $clientcertdata);
+                }
             } else {
-                $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password,$outer_user_name);
+                $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password, $outer_user_name);
             }
-        $returnarray['result'][$i] = process_result($testsuite,$hostindex);
-        $returnarray['result'][$i]['eap'] = display_name($eap);
-        $returnarray['returncode'][$i] = $testresult;
+            $returnarray['result'][$i] = process_result($testsuite, $hostindex);
+            $returnarray['result'][$i]['eap'] = display_name($eap);
+            $returnarray['returncode'][$i] = $testresult;
 
 
             switch ($testresult) {
                 case RETVAL_OK :
                     $level = $returnarray['result'][$i]['level'];
-                    switch($level) {
-                         case L_OK :
-                             $message = _("<strong>Test successful.</strong>");
-                             break;
-                         case L_REMARK :
-                         case L_WARN :
-                             $message = _("<strong>Test partially successful</strong>: authentication succeded.") . ' ' . $additional_message[$level];
-                             break;
-                         case L_ERROR :
-                             $message = _("<strong>Test FAILED</strong>: authentication succeded.") . ' ' . $additional_message[$level];
-                             break;
+                    switch ($level) {
+                        case L_OK :
+                            $message = _("<strong>Test successful.</strong>");
+                            break;
+                        case L_REMARK :
+                        case L_WARN :
+                            $message = _("<strong>Test partially successful</strong>: authentication succeded.") . ' ' . $additional_message[$level];
+                            break;
+                        case L_ERROR :
+                            $message = _("<strong>Test FAILED</strong>: authentication succeded.") . ' ' . $additional_message[$level];
+                            break;
                     }
                     break;
                 case RETVAL_CONVERSATION_REJECT:
@@ -243,26 +235,25 @@ switch ($test_type) {
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $testresult = $testsuite->UDP_reachability($hostindex);
-        $returnarray['result'][$i] = process_result($testsuite,$hostindex);
+        $returnarray['result'][$i] = process_result($testsuite, $hostindex);
         $returnarray['result'][$i]['eap'] = 'ALL';
         $returnarray['returncode'][$i] = $testresult;
         // a failed check may not have gotten any certificate, be prepared for that
         switch ($testresult) {
             case RETVAL_CONVERSATION_REJECT:
                 $level = $returnarray['result'][$i]['level'];
-                if($level > L_OK) {
+                if ($level > L_OK) {
                     $message = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.") . ' ' . $additional_message[$level];
-                }
-                else {
+                } else {
                     $message = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
                 }
                 break;
             case RETVAL_IMMEDIATE_REJECT:
                 $message = _("<strong>Test FAILED</strong>: the request was rejected immediately, without EAP conversation. This is not necessarily an error: if the RADIUS server enforces that outer identities correspond to an existing username, then this result is expected (Note: you could configure a valid outer identity in your profile settings to get past this hurdle). In all other cases, the server appears misconfigured or it is unreachable.");
-                $level= L_WARN;
+                $level = L_WARN;
                 break;
             case RETVAL_NO_RESPONSE:
-                    $returnarray['result'][$i]['server'] = 0;
+                $returnarray['result'][$i]['server'] = 0;
                 $message = sprintf(_("<strong>Test FAILED</strong>: no reply from the RADIUS server after %d seconds. Either the responsible server is down, or routing is broken!"), $timeout);
                 $level = L_ERROR;
                 break;
@@ -272,10 +263,10 @@ switch ($test_type) {
                 break;
             default:
                 $message = _("unhandled error");
-                $level= L_ERROR;
+                $level = L_ERROR;
                 break;
         }
-debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
+        debug(4, "SERVER=" . $returnarray['result'][$i]['server'] . "\n");
         $returnarray['result'][$i]['level'] = $level;
         $returnarray['result'][$i]['message'] = $message;
         break;
@@ -295,8 +286,7 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
                 $returnarray['level'] = L_OK;
                 if ($testsuite->TLS_CA_checks_result[$host]['status'] != RETVAL_CONNECTION_REFUSED) {
                     $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-                }
-                else {
+                } else {
                     $returnarray['level'] = L_ERROR;
                 }
                 if ($testsuite->TLS_CA_checks_result[$host]['status'] == RETVAL_OK) {
@@ -385,7 +375,7 @@ debug(4,"SERVER=".$returnarray['result'][$i]['server']."\n");
         }
         break;
     default:
-      exit;
+        exit;
 }
 
 echo(json_encode($returnarray));
