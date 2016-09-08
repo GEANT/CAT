@@ -182,7 +182,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * gets the last-modified timestamp (useful for caching "dirty" check)
      */
     public function getFreshness() {
-        $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
+        $execUpdate = $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
         if ($freshnessQuery = mysqli_fetch_object($execUpdate)) {
             return $freshnessQuery->last_change;
         }
@@ -578,7 +578,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return boolean TRUE if profile is shown; FALSE if not
      */
     public function isShowtime() {
-        $result = $this->databaseHandle->exec($this->databaseType, "SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
+        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
         $resultRow = mysqli_fetch_row($result);
         if ($resultRow[0] == "0") {
             return FALSE;

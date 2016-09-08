@@ -354,7 +354,7 @@ class ProfileRADIUS extends AbstractProfile {
      */
     public function prepShowtime() {
         $properConfig = $this->readyForShowtime();
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = ". ($properconfig ? "TRUE" : "FALSE") ." WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = ". ($properConfig ? "TRUE" : "FALSE") ." WHERE profile_id = " . $this->identifier);
         
         $attribs = $this->getCollapsedAttributes();
         // if not enough info to go live, set FALSE

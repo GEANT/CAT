@@ -71,7 +71,6 @@ class DBConnection {
 
     /**
      * 
-     * @param string $database The database to do escapting for
      * @param string $value The value to escape
      * @return string
      */
@@ -111,7 +110,6 @@ class DBConnection {
 
     /**
      * Retrieves the last auto-id of an INSERT. Needs to be called immediately after the corresponding exec() call
-     * @param string $database the database from which the last ID is queried
      * @return int the last autoincrement-ID
      */
     public function lastID() {
