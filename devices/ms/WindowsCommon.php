@@ -60,7 +60,7 @@ protected function combineLogo($Logos) {
  $logo_size = $logo->getImageGeometry();
  $max = max($logo_size);
  $this->loggerInstance->debug(4,"Logo size: "); 
- $this->loggerInstance->debug(4,$logo_size); 
+ $this->loggerInstance->debug(4,print_r($logo_size,true)); 
  $this->loggerInstance->debug(4,"max=$max\n");
 // resize logo if necessary
  if($max > $max_size) {
@@ -71,7 +71,7 @@ protected function combineLogo($Logos) {
  }
  $logo_size = $logo->getImageGeometry();
  $this->loggerInstance->debug(4,"New logo size: "); 
- $this->loggerInstance->debug(4,$logo_size);
+ $this->loggerInstance->debug(4,print_r($logo_size,true));
 // calculate logo offsets for composition with the background
  $hoffset = round(($bg_image_size['width'] - $logo_size['width'])/2);
  $voffset = round(($bg_image_size['height'] - $logo_size['height'])/2) - $vshift;

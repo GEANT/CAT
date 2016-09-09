@@ -181,7 +181,7 @@ class CAT {
         putenv("LC_ALL=" . $thelang);
         $loggerInstance = new Logging();
         $loggerInstance->debug(4, "selected lang:$lang_index:$thelang\n");
-        $loggerInstance->debug(4, $lang_converted);
+        $loggerInstance->debug(4, print_r($lang_converted,true));
         return([$lang_index, $thelang]);
     }
 

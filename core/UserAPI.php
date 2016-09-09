@@ -422,12 +422,12 @@ private function GetRootURL() {
  */
   public function JSON_generateInstaller($device,$prof_id) {
     $this->loggerInstance->debug(4,"JSON::generateInstaller arguments: $device,$prof_id\n");
-    $o = $this->generateInstaller($device,$prof_id);
+    $output = $this->generateInstaller($device,$prof_id);
     $this->loggerInstance->debug(4,"output from GUI::generateInstaller:");
-    $this->loggerInstance->debug(4,$o);
-    $this->loggerInstance->debug(4,json_encode($o));
+    $this->loggerInstance->debug(4,print_r($output,true));
+    $this->loggerInstance->debug(4,json_encode($output));
 //    header('Content-type: application/json; utf-8');
-    echo $this->return_json($o);
+    echo $this->return_json($output);
  }
 
 /**
@@ -440,17 +440,17 @@ private function GetRootURL() {
 
  public function downloadInstaller($device,$prof_id,$generated_for='user') {
     $this->loggerInstance->debug(4,"downloadInstaller arguments: $device,$prof_id,$generated_for\n");
-    $o = $this->generateInstaller($device,$prof_id);
+    $output = $this->generateInstaller($device,$prof_id);
     $this->loggerInstance->debug(4,"output from GUI::generateInstaller:");
-    $this->loggerInstance->debug(4,$o);
-    if(! $o['link']) {
+    $this->loggerInstance->debug(4,print_r($output,true));
+    if(! $output['link']) {
        header("HTTP/1.0 404 Not Found");
        return;
     }
     $profile = ProfileFactory::instantiate($prof_id);
     $profile->incrementDownloadStats($device, $generated_for);
     $file = $this->i_path;
-    $filetype = $o['mime'];
+    $filetype = $output['mime'];
     $this->loggerInstance->debug(4,"installer MIME type:$filetype\n");
     header("Content-type: ".$filetype);
     header('Content-Disposition: inline; filename="'.basename($file).'"');
@@ -473,25 +473,26 @@ private function GetRootURL() {
  */
 
  public function sendLogo($idp_id, $disco=FALSE, $width=0, $height=0) {
-   $ExpStr = '';
+   $expiresString = '';
    $resize = 0;
+   $logoFile = "";
    if(($width || $height) && is_numeric($width) && is_numeric($height)) {
        $resize = 1;
        if($height == 0)
           $height = 10000;
        if($width == 0)
           $width = 10000;
-       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
+       $logoFile = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
    } elseif($disco == 1) {
        $width = 120;
        $height = 40;
        $resize = 1;
-       $logo_file = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
+       $logoFile = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
    }
 
-   if($resize && is_file($logo_file)){
-      $this->loggerInstance->debug(4,"Using cached logo $logo_file for: $idp_id\n");
-      $blob = file_get_contents($logo_file);
+   if($resize && is_file($logoFile)){
+      $this->loggerInstance->debug(4,"Using cached logo $logoFile for: $idp_id\n");
+      $blob = file_get_contents($logoFile);
       $filetype = 'image/png';
    }
    else {
@@ -501,7 +502,7 @@ private function GetRootURL() {
       $info = new finfo();
       $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
       $offset = 60 * 60 * 24 * 30;
-      $ExpStr = "Expires: " . gmdate( "D, d M Y H:i:s", time() + $offset ) . " GMT";
+      $expiresString = "Expires: " . gmdate( "D, d M Y H:i:s", time() + $offset ) . " GMT";
       if($resize) {
          $filetype = 'image/png';
          $image = new Imagick();
@@ -509,8 +510,8 @@ private function GetRootURL() {
          if( $image->setImageFormat('PNG')) {
            $image->thumbnailImage($width,$height,1);
            $blob = $image->getImageBlob();
-           $this->loggerInstance->debug(4,"Writing cached logo $logo_file for: $idp_id\n");
-           file_put_contents($logo_file,$blob);
+           $this->loggerInstance->debug(4,"Writing cached logo $logoFile for: $idp_id\n");
+           file_put_contents($logoFile,$blob);
          }
          else
            $blob = "XXXXXX";
@@ -518,7 +519,7 @@ private function GetRootURL() {
    }
    header( "Content-type: ".$filetype );
    header( "Cache-Control:max-age=36000, must-revalidate" );
-   header( $ExpStr );
+   header( $expiresString );
    echo $blob;
  }
 

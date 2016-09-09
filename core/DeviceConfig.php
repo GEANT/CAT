@@ -70,7 +70,7 @@ abstract class DeviceConfig extends Entity {
         parent::__construct();
         $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP];
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, $this->supportedEapMethods);
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods,true));
     }
 
     /**

@@ -37,7 +37,7 @@ class Device_Linux extends DeviceConfig {
       $this->local_dir = '.cat_installer';
       $this->conf_file = '$HOME/'.$this->local_dir.'/cat_installer.conf';
       $this->loggerInstance->debug(4,"LINUX: This device supports the following EAP methods: ");
-      $this->loggerInstance->debug(4,$this->supportedEapMethods);
+      $this->loggerInstance->debug(4,print_r($this->supportedEapMethods,true));
     }
 
    public function writeInstaller() {

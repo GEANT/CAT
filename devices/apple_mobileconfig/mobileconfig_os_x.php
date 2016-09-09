@@ -37,7 +37,7 @@ class Device_mobileconfig_os_x extends mobileconfigSuperclass {
         parent::__construct();
         $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, $this->supportedEapMethods);
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods,true));
     }
 
 }

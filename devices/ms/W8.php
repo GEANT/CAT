@@ -30,7 +30,7 @@ class Device_W8 extends WindowsCommon {
       $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$PWD];
 #      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
       $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
-      $this->loggerInstance->debug(4,$this->supportedEapMethods);
+      $this->loggerInstance->debug(4,print_r($this->supportedEapMethods,true));
       $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -74,7 +74,7 @@ class Device_W8 extends WindowsCommon {
        return;
      }
     $this->loggerInstance->debug(4,"windowsProfile"); 
-    $this->loggerInstance->debug(4,$windowsProfile);
+    $this->loggerInstance->debug(4,print_r($windowsProfile,true));
     
     $this->writeProfilesNSH($windowsProfile, $caFiles,$setWired);
     $this->writeAdditionalDeletes($delProfiles);

@@ -94,7 +94,7 @@ defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
         var download_message;
 <?php
 $OS = $Gui->detectOS();
-$loggerInstance->debug(4,$OS);
+$loggerInstance->debug(4,print_r($OS,true));
 if($OS)
    print "recognised_os = '".$OS['device']."';\n";
 $download_message = sprintf(_("Download your %s installer"),Config::$CONSORTIUM['name']);

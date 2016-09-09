@@ -66,7 +66,7 @@ public function __construct() {
        if( $L['status'] == 'ok' ) {
          $c = strtoupper($L['country']);
        } else {
-         $loggerInstance->debug(2, "No coutry provided and unable to locate the address\n");
+         $this->loggerInstance->debug(2, "No coutry provided and unable to locate the address\n");
          $c='NONE';
        }
     }
