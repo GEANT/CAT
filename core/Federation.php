@@ -410,7 +410,7 @@ class Federation extends EntityWithDBProperties {
     public function newIdP($ownerId, $level, $mail) {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->name')");
         $identifier = $this->databaseHandle->lastID();
-        if ($identifier == 0 || !CAT::writeAudit($ownerId, "NEW", "IdP $identifier")) {
+        if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
             echo "<p>" . _("Could not create a new Institution!") . "</p>";
             throw new Exception("Could not create a new Institution!");
         }

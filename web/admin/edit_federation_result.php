@@ -12,6 +12,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Federation.php");
 require_once("IdP.php");
 require_once("Helper.php");
+require_once("Logging.php");
 require_once("CAT.php");
 
 require_once("inc/common.inc.php");
@@ -35,7 +36,8 @@ if (isset($_POST['submitbutton'])) {
         echo "</table>";
         $my_fed->commitFlushAttributes($killlist);
 
-        CAT::writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->name . " - attributes changed");
+        $loggerInstance = new Logging();
+        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->name . " - attributes changed");
 
         // re-instantiate ourselves... profiles need fresh data
 

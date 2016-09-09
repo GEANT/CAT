@@ -11,7 +11,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("Federation.php");
 require_once("IdP.php");
-require_once("CAT.php");
+require_once("Logging.php");
 require_once("UserManagement.php");
 
 require_once("auth.inc.php");
@@ -33,6 +33,8 @@ function check_federation_privilege($country) {
 }
 
 authenticate();
+
+$loggerInstance = new Logging();
 
 $cat = new CAT();
 $cat->set_locale("web_admin");
@@ -72,7 +74,7 @@ if (isset($_GET['inst_id'])) {
 
     $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), CAT::get_lang());
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
-    CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
+    $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), Config::$CONSORTIUM['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
     // editing IdPs is done from within the popup. Send the user back to the popup, append the result of the operation later
     $redirect_destination = "manageAdmins.inc.php?inst_id=" . $_GET['inst_id'] . "&";
@@ -90,7 +92,7 @@ else if (isset($_POST['creation'])) {
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $newinstname, 0, $newcountry);
-        CAT::writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     } else if ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = valid_string_db($_POST['externals']);
@@ -114,7 +116,7 @@ else if (isset($_POST['creation'])) {
         // do the token creation magic
         // TODO finish
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $prettyprintname, $newexternalid);
-        CAT::writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     }
 } else {
     $wrongcontent = print_r($_POST, TRUE);

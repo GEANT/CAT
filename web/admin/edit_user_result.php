@@ -8,13 +8,15 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Logging.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/option_parse.inc.php");
+
+$loggerInstance = new Logging();
 
 pageheader(_("User Attributes - Summary of submitted data"), "USERMGMT");
 
@@ -42,7 +44,7 @@ if (isset($_POST['option']))
     <?php
     $killlist = processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
     $user->commitFlushAttributes($killlist);
-    CAT::writeAudit($_SESSION['user'], "MOD", "User attributes changed");
+    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "User attributes changed");
     ?>
 </table>
 <br/>

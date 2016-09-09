@@ -114,7 +114,7 @@ class UserManagement extends Entity {
         if ($invitationDetails = mysqli_fetch_object($instinfo)) {
             if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
                 $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$escapedOwner', $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ");
-                CAT::writeAudit($escapedOwner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                $this->loggerInstance->writeAudit($escapedOwner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
                 return new IdP($invitationDetails->cat_institution_id);
             }
             // create new IdP
@@ -143,7 +143,7 @@ class UserManagement extends Entity {
                 $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $invitationDetails->name]));
                 $bestnameguess = $invitationDetails->name;
             }
-            CAT::writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
+            $this->loggerInstance->writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             $admins = $fed->listFederationAdmins();
 

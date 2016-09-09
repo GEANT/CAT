@@ -10,7 +10,7 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(Config::$AUTHENTICATION['ssp-path-to-autoloader']);
 require_once("User.php");
-require_once("CAT.php");
+require_once("Logging.php");
 
 function isAuthenticated() {
     $as = new SimpleSAML_Auth_Simple(Config::$AUTHENTICATION['ssp-authsource']);
@@ -18,6 +18,7 @@ function isAuthenticated() {
 }
 
 function authenticate() {
+    $loggerInstance = new Logging();
     $as = new SimpleSAML_Auth_Simple(Config::$AUTHENTICATION['ssp-authsource']);
     $as->requireAuth();
 
@@ -37,14 +38,14 @@ function authenticate() {
     if (isset($admininfo[Config::$AUTHENTICATION['ssp-attrib-name']][0]) && (count($user_object->getAttributes('user:realname')) == 0)) {
         $name = $admininfo[Config::$AUTHENTICATION['ssp-attrib-name']][0];
         $user_object->addAttribute('user:realname', $name);
-        CAT::writeAudit($_SESSION['user'], "NEW", "User - added real name from external auth source");
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added real name from external auth source");
         $new_name_received = TRUE;
     }
 
     if (isset($admininfo[Config::$AUTHENTICATION['ssp-attrib-email']][0]) && (count($user_object->getAttributes('user:email')) == 0)) {
         $mail = $admininfo[Config::$AUTHENTICATION['ssp-attrib-email']][0];
         $user_object->addAttribute('user:email', $mail);
-        CAT::writeAudit($_SESSION['user'], "NEW", "User - added email address from external auth source");
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added email address from external auth source");
     }
 
     if (count($user_object->getAttributes('user:realname')) > 0 || $new_name_received) { // we have a real name ... set it

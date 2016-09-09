@@ -12,7 +12,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Federation.php");
 require_once("IdP.php");
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Logging.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -22,13 +22,15 @@ require_once("inc/option_parse.inc.php");
 
 require_once("inc/auth.inc.php");
 
+$loggerInstance = new Logging();
+
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
     authenticate();
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $inst_id = $my_inst->identifier;
     // delete the IdP and send user to enrollment
     $my_inst->destroy();
-    CAT::writeAudit($_SESSION['user'], "DEL", "IdP " . $inst_id);
+    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $inst_id);
     header("Location:overview_user.php");
 }
 
@@ -43,7 +45,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
     }
     // flush all IdP attributes and send user to creation wizard
     $my_inst->flushAttributes();
-    CAT::writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $inst_id);
+    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $inst_id);
     header("Location:edit_idp.php?inst_id=$inst_id&wizard=true");
 }
 
@@ -76,7 +78,7 @@ $logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identif
 if (is_file($logofile))
     unlink($logofile);
 
-CAT::writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
+$loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
 
 // re-instantiate ourselves... profiles need fresh data
 

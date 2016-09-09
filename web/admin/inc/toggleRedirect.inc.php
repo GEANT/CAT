@@ -12,6 +12,7 @@ require_once("IdP.php");
 require_once("Profile.php");
 require_once("Helper.php");
 require_once("CAT.php");
+require_once("Logging.php");
 
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
@@ -22,6 +23,7 @@ require_once("devices/devices.php");
 
 authenticate();
 
+$loggerInstance = new Logging();
 $Cat = new CAT();
 $Cat->set_locale("web_admin");
 
@@ -83,7 +85,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
     }
     $my_inst->commitFlushAttributes($killlist);
-    CAT::writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
+    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
     header("Location: ../overview_installers.php?inst_id=$my_inst->identifier&profile_id=$my_profile->identifier");
 }
 

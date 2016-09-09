@@ -102,7 +102,7 @@ class DBConnection extends Entity {
 
         // log exact query to audit log, if it's not a SELECT
         if (preg_match("/^SELECT/i", $querystring) == 0) {
-            CAT::writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
+            $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
         }
         return $result;
     }

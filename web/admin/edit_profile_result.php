@@ -7,7 +7,7 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("CAT.php");
+require_once("Logging.php");
 require_once("IdP.php");
 require_once("ProfileFactory.php");
 require_once("ProfileRADIUS.php");
@@ -22,13 +22,14 @@ require_once('inc/auth.inc.php');
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
+$loggerInstance = new Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     authenticate();
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     $profile_id = $my_profile->identifier;
     $my_profile->destroy();
-    CAT::writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
+    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
     header("Location: overview_idp.php?inst_id=$my_inst->identifier");
 }
 
@@ -103,7 +104,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $profile = $my_profile;
     } else {
         $profile = $my_inst->newProfile("RADIUS");
-        CAT::writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $my_inst->identifier . " - Profile created");
     }
 }
 
@@ -178,7 +179,7 @@ if (!$profile instanceof ProfileRADIUS) {
         echo UI_okay(_("Redirection is <strong>OFF</strong>"));
     }
 
-    CAT::writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
+    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
 
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
 
@@ -191,7 +192,7 @@ if (!$profile instanceof ProfileRADIUS) {
         if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && $_POST[display_name($a) . "-priority"] != "") {
             // add EAP type to profile as requested, but ...
             $profile->addSupportedEapMethod($a, $_POST[display_name($a) . "-priority"]);
-            CAT::writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
+            $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
             // see if we can enable the EAP type, or if info is missing
             $eapcompleteness = $profile->isEapTypeDefinitionComplete($a);
             if ($eapcompleteness === true) {
