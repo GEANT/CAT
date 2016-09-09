@@ -222,7 +222,7 @@ function getBlobFromDB($ref, $checkpublic) {
         }
     }
 
-    
+
     $blob = EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
     if (!$blob) {
         return FALSE;
@@ -281,6 +281,40 @@ function previewInfoFileinHTML($fileReference) {
     $decodedFileBlob = base64_decode($fileBlob['content']);
     $fileinfo = new finfo();
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+}
+
+function instLevelInfoBoxes(IdP $my_inst) {
+    $idpoptions = $my_inst->getAttributes();
+    $retval = "";
+    $retval .= "<div class='infobox'>
+        <h2>" . _("General Institution Details") . "</h2>
+        <table>
+            <tr>
+                <td>
+                    " . _("Country:") . "
+                </td>
+                <td>
+                </td>
+                <td>
+                    <strong>";
+    $my_fed = new Federation($my_inst->federation);
+    $retval .= $my_fed::$federationList[strtoupper($my_inst->federation)];
+    $retval .= "</strong>
+                </td>
+            </tr>" . infoblock($idpoptions, "general", "IdP") . "
+        </table>
+    </div>";
+
+    $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
+    foreach ($blocks as $block) {
+        $retval .= "<div class='infobox'>
+            <h2>" . $block[1] . "</h2>
+            <table>" .
+        infoblock($idpoptions, $block[0], "IdP") .
+        "</table>
+        </div>";
+    }
+    return $retval;
 }
 
 function infoblock($optionlist, $class, $level) {

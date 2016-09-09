@@ -169,7 +169,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $edit_mode = FALSE;
 }
 
-$idpoptions = $my_inst->getAttributes();
 ?>
 </head>
 <body>
@@ -184,37 +183,8 @@ $idpoptions = $my_inst->getAttributes();
             printf(_("Edit profile '%s' ..."), $prefill_name);
         ?>
     </h1>
-    <div class='infobox'>
-        <h2><?php echo _("General Institution Details"); ?></h2>
-        <table>
-            <tr>
-                <td>
-                    <?php echo "" . _("Country:") ?>
-                </td>
-                <td>
-                </td>
-                <td>
-                    <strong><?php
-                    $my_fed = new Federation($my_inst->federation);
-                    echo $my_fed::$federationList[strtoupper($my_inst->federation)];
-                    ?></strong>
-                </td>
-            </tr>
-            <?php echo infoblock($idpoptions, "general", "IdP"); ?>
-        </table>
-    </div>
-    <?php
-        $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
-        foreach ($blocks as $block) {
-            echo "<div class='infobox'>
-            <h2>" . $block[1] . "</h2>
-            <table>" .
-            infoblock($idpoptions, $block[0], "IdP") .
-            "</table>
-        </div>";
-        }
-        ?>
-    <?php
+    <?php echo instLevelInfoBoxes($my_inst);?>
+    
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($edit_mode ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
     ?>

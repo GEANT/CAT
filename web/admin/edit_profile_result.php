@@ -98,7 +98,6 @@ if (isset($_POST['redirect'])) {
 // if not, what is he doing on this page anyway!
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
-    $idpoptions = $my_inst->getAttributes();
     // maybe we were asked to edit an existing profile? check for that...
     if ($edit_mode) {
         $profile = $my_profile;

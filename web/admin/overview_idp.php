@@ -45,35 +45,8 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     <h1><?php echo _("Identity Provider Overview"); ?></h1>
     <div>
         <h2><?php echo _("IdP-wide settings"); ?></h2>
-        <div class="infobox">
-            <h2><?php echo _("General Institution Details"); ?></h2>
-            <table>
-                <tr>
-                    <td>
-                        <?php echo "" . _("Country") ?>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <strong><?php
-                            $foofed = new Federation($my_inst->federation);
-                            echo Federation::$federationList[strtoupper($my_inst->federation)];
-                            ?></strong>
-                    </td>
-                </tr>
-                <?php echo infoblock($idpoptions, "general", "IdP"); ?>
-            </table>
-        </div>
         <?php
-        $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
-        foreach ($blocks as $block) {
-            echo "<div class='infobox'>
-            <h2>" . $block[1] . "</h2>
-            <table>" .
-            infoblock($idpoptions, $block[0], "IdP") .
-            "</table>
-        </div>";
-        }
+        echo instLevelInfoBoxes($my_inst);
         ?>
         <div class='infobox' style='text-align:center;'>
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
