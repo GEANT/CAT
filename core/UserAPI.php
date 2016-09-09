@@ -710,7 +710,7 @@ private $i_path;
  * access to the logging system
  * @var Logging
  */
-private $loggerInstance;
+protected $loggerInstance;
   
 }
 function profile_sort($P1,$P2) {
