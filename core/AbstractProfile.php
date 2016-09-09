@@ -103,7 +103,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n$eapTypeArray");
+        $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n".print_r($eapTypeArray,true));
         return $eapTypeArray;
     }
 

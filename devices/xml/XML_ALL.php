@@ -5,6 +5,7 @@ require_once('XML.php');
 
 class Device_XML_ALL extends Device_XML{
     final public function __construct() {
+        parent::__construct();
       $this->supportedEapMethods  =
             [
               EAP::$PEAP_MSCHAP2,
