@@ -348,7 +348,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             case PEAP:
             case TTLS:
             case FAST:
-                $missing = true;
+                $missing = [];
                 $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
                 $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
 
@@ -367,6 +367,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 }
                 if (count($cnOption) == 0) {
                     $missing[] = "eap:server_name";
+                }
+                if (count($missing) == 0) {
+                    return TRUE;
                 }
                 return $missing;
             case PWD:
