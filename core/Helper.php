@@ -19,6 +19,7 @@
  */
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("Logging.php");
+require_once("CAT.php");
 
 define("L_OK", 0);
 define("L_REMARK", 4);
@@ -113,6 +114,7 @@ function getLocalisedValue($valueArray, $locale) {
  */
 function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
     $loggerInstance = new Logging();
+    $cat = new CAT();
     $name = md5(time() . rand());
     switch ($purpose) {
         case 'installer':

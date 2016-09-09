@@ -91,7 +91,7 @@ class UserAPI extends CAT {
       $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
       $installerProperties['mime'] = $cache['mime'];
     } else {
-      $myInstaller = $this->generateNewInstaller($device,$profile);
+      $myInstaller = $this->genegenerateNewInstallerrateNewInstaller($device,$profile);
       $installerProperties['mime'] = $myInstaller['mime'];
       $installerProperties['link'] = $myInstaller['link'];
     }

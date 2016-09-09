@@ -619,6 +619,6 @@ abstract class DeviceConfig extends Entity {
      *
      * @var string 
      */
-    public static $installerBasename;
+    public $installerBasename;
 
 }
