@@ -92,7 +92,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 if ($device) {
     $attribs = [];
     foreach ($my_profile->getAttributes() as $attrib) {
-        if ($attrib['device'] == $device_key) {
+        if (isset($attrib['device']) && $attrib['device'] == $device_key) {
             $attribs[] = $attrib;
         }
     }
@@ -103,7 +103,7 @@ if ($device) {
 } else {
     $attribs = [];
     foreach ($my_profile->getAttributes() as $attrib) {
-        if ($attrib['eapmethod'] == $eaptype) {
+        if (isset($attrib['eapmethod']) && $attrib['eapmethod'] == $eaptype) {
             $attribs[] = $attrib;
         }
     }

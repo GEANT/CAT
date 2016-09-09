@@ -82,21 +82,21 @@ class UserAPI extends CAT {
           return;
        }
     }
-    $a = [];
-    $a['profile'] = $prof_id;
-    $a['device'] = $device;
+    $installerProperties = [];
+    $installerProperties['profile'] = $prof_id;
+    $installerProperties['device'] = $device;
     $this->i_path = $this->getCachedPath($device,$profile);
     if($this->i_path) { 
       $this->loggerInstance->debug(4,"Using cached installer for: $device\n");
-      $a['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
-      $a['mime'] = $cache['mime'];
+      $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=".CAT::get_lang()."&profile=$prof_id&device=$device&generatedfor=$generated_for";
+      $installerProperties['mime'] = $cache['mime'];
     } else {
       $myInstaller = $this->generateNewInstaller($device,$profile);
-      $a['mime'] = $myInstaller['mime'];
-      $a['link'] = $myInstaller['link'];
+      $installerProperties['mime'] = $myInstaller['mime'];
+      $installerProperties['link'] = $myInstaller['link'];
     }
     $this->set_locale("web_user");
-    return($a);
+    return($installerProperties);
  }
 
  private function getCachedPath($device,$profile) {
@@ -153,25 +153,29 @@ class UserAPI extends CAT {
   */
  public function listDevices($show_hidden = 0) {
     $Dev = Devices::listDevices();
-    $R = [];
+    $returnList = [];
     $ct = 0;
     if($show_hidden !== 0 && $show_hidden != 1) {
       throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $show_hidden!");
     }
-    foreach ($Dev as $device => $D) {
-      if(isset($D['options']['hidden']) && $D['options']['hidden'] && $show_hidden == 0)
+    foreach ($Dev as $device => $deviceProperties) {
+      if(isset($deviceProperties['options']['hidden']) && $deviceProperties['options']['hidden'] && $show_hidden == 0) {
          continue;
+      }
       $ct ++;
-      if($this->version == 1)
-         $D['device'] = $device;
-      else
-         $D['device'] = $device;
-      $group = isset($D['group']) ? $D['group'] : 'other';
-      if (! isset($R[$group]))
-         $R[$group] = [];
-      $R[$group][$device] = $D;
+      if($this->version == 1) {
+         $deviceProperties['device'] = $device;
+      }
+      else {
+         $deviceProperties['device'] = $device;
+      }
+      $group = isset($deviceProperties['group']) ? $deviceProperties['group'] : 'other';
+      if (! isset($returnList[$group])) {
+         $returnList[$group] = [];
+      }
+      $returnList[$group][$device] = $deviceProperties;
     }
-   return $R;
+   return $returnList;
  }
 
  public function deviceInfo($device,$prof_id) {

@@ -99,6 +99,11 @@ class ProfileRADIUS extends AbstractProfile {
         // merge all attributes which are device or eap method specific
 
         $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
+        
+        $this->loggerInstance->debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
+        $this->loggerInstance->debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
+        
+        $this->loggerInstance->debug(5, "All low-Level Attributes: ".print_r($attributesLowLevel, true));
 
         // now fetch and merge profile-level attributes if not already set on deeper level
 
@@ -110,34 +115,24 @@ class ProfileRADIUS extends AbstractProfile {
 
         $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
         
-        $this->loggerInstance->debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
-        $this->loggerInstance->debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
-        
-        $this->loggerInstance->debug(5, "Profile-Level Attributes: ".print_r($attributesLowLevel, true));
-        
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
+        // hacky hack: device-specific:redirect can also apply to ALL devices
+        // (by setting device_id = NULL in the database; but then it will be
+        // retrieved /from/ the database without the "device" array key set
+        // so we need to add this here where applicable
+        
+        foreach ($attrUpToProfile as $oneAttr) {
+            if ($oneAttr['name'] == 'device-specific:redirect' && !isset($oneAttr['device'])) {
+                $oneAttr['device'] = NULL;
+            }
+        }
+        
         $this->loggerInstance->debug(5, "Merged Attributes: ".print_r($attributesLowLevel, true));
         
         // now, fetch and merge IdP-wide attributes
 
-        
-        $idpoptions = [];
-        // add "device" and "eapmethod" keys just to remain in sync with those
-        // attributes that came from the Profile level
-        foreach ($this->idpAttributes as $theAttr) {
-            $idpoptions[] = [
-                "name" => $theAttr["name"],
-                "value" => $theAttr["value"],
-                "level" => $theAttr["level"],
-                "row" => $theAttr["row"],
-                "flag" => $theAttr["flag"],
-                "device" => NULL,
-                "eapmethod" => 0,
-            ];
-        }
-
-        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $idpoptions, "IdP");
+        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $this->idpAttributes, "IdP");
 
         $this->privEaptypes = $this->fetchEAPMethods();
 

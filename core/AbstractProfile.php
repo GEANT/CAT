@@ -433,7 +433,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                             // fetch customtexts from method-level attributes
                             $eapCustomtext = 0;
                             $customTextAttributes = [];
-                            $attributeList = $this->getAttributes("eap-specific:redirect");
+                            $attributeList = $this->getAttributes("eap-specific:redirect"); // eap-specific attributes always have the array index 'eapmethod' set
                             foreach ($attributeList as $oneAttribute) {
                                 if ($oneAttribute["eapmethod"] == $eap) {
                                     $customTextAttributes[] = $oneAttribute;
@@ -448,7 +448,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                         $customTextAttributes = [];
                         $attributeList = $this->getAttributes("device-specific:redirect");
                         foreach ($attributeList as $oneAttribute) {
-                            if ($oneAttribute["device"] == $deviceIndex) {
+                            if ($oneAttribute["device"] == $deviceIndex) { // device-specific attributes always have the array index "device" set
                                 $customTextAttributes[] = $oneAttribute;
                             }
                         }
@@ -477,7 +477,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $attr = [];
         if (count($eap) > 0) { // filter out eap-level attributes not pertaining to EAP type $eap
             foreach ($attrBefore as $index => $attrib) {
-                if ($attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
+                if (!isset($attrib['eapmethod']) || $attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
                     $attr[$index] = $attrib;
                 }
             }
@@ -591,8 +591,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 "level" => "Profile",
                 "row" => 0,
                 "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => 0];
+                ];
         }
         return $retArray;
     }

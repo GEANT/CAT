@@ -89,23 +89,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
         
         // now, fetch and merge IdP-wide attributes
-        
-        $idpoptions = [];
-        // add "device" and "eapmethod" keys just to remain in sync with those
-        // attributes that came from the Profile level
-        foreach ($this->idpAttributes as $theAttr) {
-            $idpoptions[] = [
-                "name" => $theAttr["name"],
-                "value" => $theAttr["value"],
-                "level" => $theAttr["level"],
-                "row" => $theAttr["row"],
-                "flag" => $theAttr["flag"],
-                "device" => NULL,
-                "eapmethod" => 0,
-            ];
-        }
-
-        $this->attributes = $this->levelPrecedenceAttributeJoin($tempArrayProfLevel, $idpoptions, "IdP");
+       
+        $this->attributes = $this->levelPrecedenceAttributeJoin($tempArrayProfLevel, $this->idpAttributes, "IdP");
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
