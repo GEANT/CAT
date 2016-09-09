@@ -27,7 +27,7 @@ require_once('Entity.php');
  *
  * @package Developer
  */
-class Options extends Entity {
+class Options {
 
     /**
      * database which this class queries by default
@@ -42,7 +42,11 @@ class Options extends Entity {
      * @var Options
      */
     private static $instance;
-
+    
+    /**
+     * 
+     */
+    private $loggerInstance;
     /**
      * This private variable contains the list of all known options and their properties (i.e. flags).
      * 
@@ -75,7 +79,7 @@ class Options extends Entity {
      */
     private function __construct() {
         $this->typeDb = [];
-        parent::__construct();
+        $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(Options::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");

@@ -27,7 +27,7 @@ require_once('Logging.php');
  *
  * @package Developer
  */
-class DBConnection extends Entity {
+class DBConnection {
 
     /**
      * This is the actual constructor for the singleton. It creates a database connection if it is not up yet, and returns a handle to the database connection on every call.
@@ -149,12 +149,17 @@ class DBConnection extends Entity {
      * @var mysqli
      */
     private $connection;
+    
+    /**
+     * @var Logging
+     */
+    private $loggerInstance;
 
     /**
      * Class constructor. Cannot be called directly; use handle()
      */
     private function __construct($database) {
-        parent::__construct();
+        $this->loggerInstance = new Logging();
         $databaseCapitalised = strtoupper($database);
         $this->connection = mysqli_connect(Config::$DB[$databaseCapitalised]['host'], Config::$DB[$databaseCapitalised]['user'], Config::$DB[$databaseCapitalised]['pass'], Config::$DB[$databaseCapitalised]['db']);
         if ($this->connection == FALSE) {
