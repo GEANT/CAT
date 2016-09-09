@@ -10,7 +10,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Helper.php");
 require_once("CAT.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("AbstractProfile.php");
 require_once("RADIUSTests.php");
 
 require_once("inc/common.inc.php");

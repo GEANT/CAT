@@ -61,27 +61,20 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                             ?></strong>
                     </td>
                 </tr>
-<?php echo infoblock($idpoptions, "general", "IdP"); ?>
+                <?php echo infoblock($idpoptions, "general", "IdP"); ?>
             </table>
         </div>
-        <div class="infobox">
-            <h2><?php echo _("Global Helpdesk Details"); ?></h2>
-            <table>
-<?php echo infoblock($idpoptions, "support", "IdP"); ?>
-            </table>
-        </div>
-        <div class="infobox">
-            <h2><?php echo _("Media Properties"); ?></h2>
-            <table>
-<?php echo infoblock($idpoptions, "media", "IdP"); ?>
-            </table>
-        </div>
-        <div class='infobox'>
-            <h2><?php echo _("Global EAP Options"); ?></h2>
-            <table>
-<?php echo infoblock($idpoptions, "eap", "IdP"); ?>
-            </table>
-        </div>
+        <?php
+        $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
+        foreach ($blocks as $block) {
+            echo "<div class='infobox'>
+            <h2>" . $block[1] . "</h2>
+            <table>" .
+            infoblock($idpoptions, $block[0], "IdP") .
+            "</table>
+        </div>";
+        }
+        ?>
         <div class='infobox' style='text-align:center;'>
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
@@ -160,26 +153,27 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
-        echo "<h2>"._("There are not yet any profiles for your institution.")."</h2>";
+        echo "<h2>" . _("There are not yet any profiles for your institution.") . "</h2>";
     }
 
     // if there is one profile and it is of type Silver Bullet, display a very
     // simple widget with just a "Manage" button
-    
+
     if (count($profiles_for_this_idp) == 1) {
         $profile = $profiles_for_this_idp[0];
         if ($profile instanceof ProfileSilverbullet) {
             ?>
             <div style='display: table-row; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell;'>
-                    <h2><?php echo $profile->name;?></h2>
-                    <?php 
+                    <h2><?php echo $profile->name; ?></h2>
+                    <?php
                     $maxusers = $profile->getAttributes("internal:silverbullet_maxusers");
-                    printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."),$maxusers[0]['value'],$profile->realm);?>
+                    printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."), $maxusers[0]['value'], $profile->realm);
+                    ?>
                     <br/>
                     <br/>
                     <form action='edit_silverbullet.php' method='POST'>
-                        <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base");?></button>
+                        <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                     </form>
                 </div>
             </div>
@@ -191,7 +185,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         }
     }
     if (count($profiles_for_this_idp) > 0) { // no profiles yet.
-        echo "<h2>"._("Profiles for this institution")."</h2>";
+        echo "<h2>" . _("Profiles for this institution") . "</h2>";
     }
     foreach ($profiles_for_this_idp as $profile_list) {
         echo "<div style='display: table-row; margin-bottom: 20px;'>";
@@ -252,8 +246,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         }
         if ($showtime) {
             $buffer_headline .= UI_okay("", _("This profile is shown on the user download interface."), TRUE);
-        }
-        else if ($sufficient_config) {
+        } else if ($sufficient_config) {
             $buffer_headline .= UI_warning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), display_name("profile:production")), TRUE);
         }
         $buffer_headline .= "</div>";
@@ -263,7 +256,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         echo $buffer_headline;
 
         if (array_search(EAP::$TTLS_PAP, $typelist) !== FALSE && array_search(EAP::$TTLS_GTC, $typelist) === FALSE && array_search(EAP::$PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAP::$TTLS_MSCHAP2, $typelist) === FALSE) {
-        /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
+            /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
             $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
         }
 
@@ -307,8 +300,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             $URL = $profile_list->getCollapsedAttributes();
             if (isset($URL['device-specific:redirect'])) {
                 $displayurl = $URL['device-specific:redirect'][0];
-            }
-            else {
+            } else {
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://' ) . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             }
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
@@ -376,3 +368,4 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         <?php
     }
     footer();
+    

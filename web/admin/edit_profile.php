@@ -203,18 +203,17 @@ $idpoptions = $my_inst->getAttributes();
             <?php echo infoblock($idpoptions, "general", "IdP"); ?>
         </table>
     </div>
-    <div class="infobox">
-        <h2><?php echo _("Media Properties"); ?></h2>
-        <table><?php echo infoblock($idpoptions, "media", "IdP"); ?></table>
-    </div>
-    <div class="infobox">
-        <h2><?php echo _("Global Helpdesk Details"); ?></h2>
-        <table><?php echo infoblock($idpoptions, "support", "IdP"); ?></table>
-    </div>
-    <div class='infobox'>
-        <h2><?php echo _("Global EAP Options"); ?></h2>
-        <table><?php echo infoblock($idpoptions, "eap", "IdP"); ?></table>
-    </div>
+    <?php
+        $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
+        foreach ($blocks as $block) {
+            echo "<div class='infobox'>
+            <h2>" . $block[1] . "</h2>
+            <table>" .
+            infoblock($idpoptions, $block[0], "IdP") .
+            "</table>
+        </div>";
+        }
+        ?>
     <?php
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($edit_mode ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
