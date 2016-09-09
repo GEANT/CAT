@@ -38,6 +38,7 @@ use GeoIp2\Database\Reader;
 class UserAPI extends CAT {
 
     public function __construct() {
+        parent::__construct();
         $this->loggerInstance = new Logging();
     }
 /**
