@@ -104,7 +104,7 @@ switch($sanitised_action) {
             // sift through the options to find API ones (these are not caught by pSF() )
             $therealm = "";
             $theanonid = "anonymous";
-            $use_anon = FALSE;
+            $useAnon = FALSE;
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
@@ -119,7 +119,7 @@ switch($sanitised_action) {
                         break;
                     case "profile-api:useanon":
                         if (isset($_POST['value'][$optindex."-3"]) && valid_boolean($_POST['value'][$optindex."-3"]) == "on") {
-                                $use_anon = TRUE;
+                                $useAnon = TRUE;
                         }
                         break;
                     case "profile-api:eaptype":
@@ -160,7 +160,7 @@ switch($sanitised_action) {
             }
             if ($therealm != "") {
                 $newprofile->setRealm ($theanonid."@".$therealm);
-                if ($use_anon) {
+                if ($useAnon) {
                     $newprofile->setAnonymousIDSupport (true);
                 }
             }

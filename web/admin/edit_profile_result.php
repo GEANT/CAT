@@ -59,13 +59,13 @@ $anon = FALSE;
 if (isset($_POST['anon_support']))
     $anon = valid_boolean($_POST['anon_support']);
 
-$anon_local = "anonymous";
+$anonLocal = "anonymous";
 if (isset($_POST['anon_local'])) {
-    $anon_local = valid_string_db($_POST['anon_local']);
+    $anonLocal = valid_string_db($_POST['anon_local']);
 } else if ($my_profile !== FALSE) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
     $local = $my_profile->getAttributes("internal:anon_local_value");
     if (isset($local[0]))
-        $anon_local = $local[0]['value'];
+        $anonLocal = $local[0]['value'];
 }
 
 $checkuser = FALSE;
@@ -115,7 +115,7 @@ if (!$profile instanceof ProfileRADIUS) {
     <?php
     // set realm info, if submitted
     if ($realm !== FALSE) {
-        $profile->setRealm($anon_local . "@" . $realm);
+        $profile->setRealm($anonLocal . "@" . $realm);
         echo UI_okay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
     } else {
         $profile->setRealm("");

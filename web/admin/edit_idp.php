@@ -23,15 +23,15 @@ authenticate();
 
 // how do we determine if we should go into wizard mode? It's all in the URL
 if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
-    $wizard_style = TRUE;
+    $wizardStyle = TRUE;
 } else {
-    $wizard_style = FALSE;
+    $wizardStyle = FALSE;
 }
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
-if ($wizard_style)
+if ($wizardStyle)
     $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), Config::$APPEARANCE['productname']));
 else
     $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), Config::$APPEARANCE['productname'], $inst_name));
@@ -74,7 +74,7 @@ geo_widget_head($my_inst->federation, $inst_name)
 
     <h1>
         <?php
-        if ($wizard_style)
+        if ($wizardStyle)
             echo _("Step 2: General Information about your IdP");
         else
             printf(_("Editing IdP information for '%s'"), $inst_name);
@@ -95,17 +95,17 @@ geo_widget_head($my_inst->federation, $inst_name)
         </table>
     </div>
     <?php
-    echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizard_style ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
+    echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
 
-    if ($wizard_style)
+    if ($wizardStyle)
         echo "<p>" .
         _("Hello, newcomer. Your institution is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users.") . "</p>";
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
         <?php
-        if ($wizard_style) {
+        if ($wizardStyle) {
             echo "<p>" .
             _("This is the place where you can describe your institution in a fine-grained way. The solicited information is used as follows:") . "</p>
                       <ul>
@@ -126,12 +126,12 @@ geo_widget_head($my_inst->federation, $inst_name)
             $additional = TRUE;
         }
     }
-    geo_widget_body($wizard_style, $additional);
+    geo_widget_body($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>
         <?php
-        if ($wizard_style) {
+        if ($wizardStyle) {
             echo "<p>" .
             sprintf(_("In this section, you define on which media %s should be configured on user devices."), Config::$CONSORTIUM['name']) . "</p>
           <ul>";
@@ -181,7 +181,7 @@ geo_widget_head($my_inst->federation, $inst_name)
     <fieldset class="option_container">
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
         <?php
-        if ($wizard_style)
+        if ($wizardStyle)
             echo "<p>" .
             _("If your IdP provides a helpdesk for its users, it would be nice if you would tell us the pointers to this helpdesk. Some site installers might be able to signal this information to the user if he gets stuck.") . "</p>
         <p>" .
@@ -192,7 +192,7 @@ geo_widget_head($my_inst->federation, $inst_name)
 
         <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
-    if ($wizard_style) {
+    if ($wizardStyle) {
         echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
     } else {
         echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
