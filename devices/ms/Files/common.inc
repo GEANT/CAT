@@ -610,7 +610,7 @@ Function WiredConfirm
     wired:
     ${If} $wired == 1
       !insertmacro debug_cat 2 "Setting up dot3svc"
-;      nsExec::Exec  '"sc" start dot3svc'
+      nsExec::Exec  '"sc" start dot3svc'
       nsExec::Exec  '"sc" config dot3svc start= auto'
     ${EndIf}
     ${EndIf}
