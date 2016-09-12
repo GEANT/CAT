@@ -101,7 +101,7 @@ public function writeInstaller() {
 
     marshalObject($root,$eap_idp);
     $dom = dom_import_simplexml($root)->ownerDocument;
-    $res = $dom->schemaValidate(CAT::$root .'/devices/xml/eap-metadata.xsd');
+    $res = $dom->schemaValidate(ROOT .'/devices/xml/eap-metadata.xsd');
     $f = fopen($this->installerBasename.'.eap-config',"w");
     fwrite($f,$dom->saveXML());
     fclose($f);

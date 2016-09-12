@@ -116,15 +116,16 @@ function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
     $loggerInstance = new Logging();
     $cat = new CAT();
     $name = md5(time() . rand());
+    $path = ROOT;
     switch ($purpose) {
         case 'installer':
-            $path = CAT::$root . '/var/installer_cache';
+            $path .= '/var/installer_cache';
             break;
         case 'logo':
-            $path = CAT::$root . '/web/downloads/logos';
+            $path .= '/web/downloads/logos';
             break;
         case 'test':
-            $path = CAT::$root . '/var/tmp';
+            $path .= '/var/tmp';
             break;
         default:
             throw new Exception("unable to create temporary directory due to unknown purpose: $purpose\n");
@@ -146,8 +147,8 @@ function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsy
     $loggerInstance = new Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
 
-    $loggerInstance->debug(4, "Consortium logo is at: " . CAT::$root . "/web/resources/images/consortium_logo_large.png");
-    $logogd = imagecreatefrompng(CAT::$root . "/web/resources/images/consortium_logo_large.png");
+    $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
+    $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
 
     $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
     $sizelogo = [imagesx($logogd), imagesy($logogd)];

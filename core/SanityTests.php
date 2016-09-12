@@ -562,7 +562,7 @@ class SanityTest extends CAT {
                 }
 
                 foreach ($files as $file) {
-                    $handle = fopen(CAT::$root . "/config/cli-certs/" . $file, 'r');
+                    $handle = fopen(ROOT . "/config/cli-certs/" . $file, 'r');
                     if (!$handle) {
                         $defaultvalues .="CERTIFICATE/$file ";
                     }

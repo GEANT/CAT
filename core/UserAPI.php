@@ -487,12 +487,12 @@ private function GetRootURL() {
           $height = 10000;
        if($width == 0)
           $width = 10000;
-       $logoFile = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
+       $logoFile = ROOT . '/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
    } elseif($disco == 1) {
        $width = 120;
        $height = 40;
        $resize = 1;
-       $logoFile = CAT::$root.'/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
+       $logoFile = ROOT . '/web/downloads/logos/'.$idp_id.'_'.$width.'_'.$height.'.png';
    }
 
    if($resize && is_file($logoFile)){

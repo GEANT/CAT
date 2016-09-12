@@ -335,9 +335,9 @@ switch ($test_type) {
     case 'tls':
         $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
         $opensslbabble = [];
-        $loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1\n");
+        $loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . ROOT . "/config/ca-certs/ 2>&1\n");
         $time_start = microtime(true);
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ 2>&1", $opensslbabble);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $bracketaddr . ":" . $addr['port'] . " -tls1 -CApath " . ROOT . "/config/ca-certs/ 2>&1", $opensslbabble);
         $time_stop = microtime(true);
         $measure = ($time_stop - $time_start) * 1000;
         $returnarray['result'] = $testresult;

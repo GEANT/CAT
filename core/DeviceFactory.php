@@ -61,7 +61,7 @@ class DeviceFactory extends Entity {
         } else {
             error("unknown devicename:$blueprint");
         }
-       $this->device->module_path = CAT::$root.'/devices/'.$Dev[$blueprint]['directory'];
+       $this->device->module_path = ROOT.'/devices/'.$Dev[$blueprint]['directory'];
        $this->device->signer = isset($Dev[$blueprint]['signer']) ? $Dev[$blueprint]['signer'] : 0; 
        $this->device->device_id = $blueprint;
        $options = Devices::$Options;

@@ -133,7 +133,7 @@ abstract class DeviceConfig extends Entity {
         CAT::set_locale($olddomain);
 
         if ($this->signer && $this->options['sign'])
-            $this->sign = CAT::$root . '/signer/' . $this->signer;
+            $this->sign = ROOT . '/signer/' . $this->signer;
         $this->installerBasename = $this->getInstallerBasename();
     }
 

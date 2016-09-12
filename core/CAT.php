@@ -71,8 +71,6 @@ class CAT {
         $A = $this->set_lang();
         self::$locale = $A[1];
         $a = __DIR__;
-        self::$root = dirname($a);
-
 
         if (CAT::$RELEASE_VERSION) {
             $temp_version = "CAT-".CAT::$VERSION_MAJOR.".".CAT::$VERSION_MINOR;
@@ -118,9 +116,9 @@ class CAT {
         $loggerInstance = new Logging();
         $olddomain = textdomain(NULL);
         $loggerInstance->debug(4, "set_locale($domain)\n");
-        $loggerInstance->debug(4, CAT::$root . "\n");
+        $loggerInstance->debug(4, ROOT . "\n");
         textdomain($domain);
-        bindtextdomain($domain, CAT::$root . "/translation/");
+        bindtextdomain($domain, ROOT . "/translation/");
         return $olddomain;
     }
 
@@ -221,12 +219,6 @@ class CAT {
         $this->set_locale($olddomain);
         return($C);
     }
-
-    /**
-     * stores the location of the root directory
-     * @static string $root
-     */
-    public static $root;
 
     /**
      * language display name for the language set by the constructor

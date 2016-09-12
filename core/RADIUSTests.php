@@ -1600,11 +1600,11 @@ network={
      * @return array result of openssl s_client ...
      */
     private function openssl_s_client($host, $arg, &$testresults) {
-        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
@@ -1728,7 +1728,7 @@ network={
                 $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
                 $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
                 $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
-                $add = ' -cert ' . CAT::$root . '/config/cli-certs/' . $cert['public'] . ' -key ' . CAT::$root . '/config/cli-certs/' . $cert['private'];
+                $add = ' -cert ' . ROOT . '/config/cli-certs/' . $cert['public'] . ' -key ' . ROOT . '/config/cli-certs/' . $cert['private'];
                 if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
                     $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
                 }
