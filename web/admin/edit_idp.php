@@ -31,10 +31,12 @@ $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
-if ($wizardStyle)
+if ($wizardStyle) {
     $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
-else
+}
+else {
     $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
+}
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -43,9 +45,11 @@ else
 
 <?php
 $additional = FALSE;
-foreach ($idpoptions as $optionname => $optionvalue)
-    if ($optionvalue['name'] == "general:geo_coordinates")
+foreach ($idpoptions as $optionname => $optionvalue) {
+    if ($optionvalue['name'] == "general:geo_coordinates") {
         $additional = TRUE;
+    }
+}
 geo_widget_head($my_inst->federation, $inst_name)
 ?>
 <script>
@@ -58,7 +62,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         });
 
         $("#address").keypress(function (event) {
-            if (event.which == 13) {
+            if (event.which === 13) {
                 event.preventDefault();
                 getAddressLocation();
             }
@@ -74,10 +78,12 @@ geo_widget_head($my_inst->federation, $inst_name)
 
     <h1>
         <?php
-        if ($wizardStyle)
+        if ($wizardStyle) {
             echo _("Step 2: General Information about your IdP");
-        else
+        }
+        else {
             printf(_("Editing IdP information for '%s'"), $inst_name);
+        }
         ?>
     </h1>
     <div class='infobox'>
@@ -98,9 +104,10 @@ geo_widget_head($my_inst->federation, $inst_name)
     echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
 
-    if ($wizardStyle)
+    if ($wizardStyle) {
         echo "<p>" .
         _("Hello, newcomer. Your institution is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users.") . "</p>";
+    }
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
@@ -139,12 +146,14 @@ geo_widget_head($my_inst->federation, $inst_name)
             echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
             if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
                 $ssidlist = "";
-                foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid)
+                foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
                     $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
+                }
                 $ssidlist = substr($ssidlist, 2);
                 echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG['CONSORTIUM']['ssid'])), $ssidlist);
-                if (CONFIG['CONSORTIUM']['tkipsupport'])
+                if (CONFIG['CONSORTIUM']['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
+                }
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
             } else {
                 echo _("Please configure which SSIDs should be configured in the installers.");
@@ -156,8 +165,9 @@ geo_widget_head($my_inst->federation, $inst_name)
             echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
             if (count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
                 $consortiumlist = "";
-                foreach (CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $oi)
+                foreach (CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
                     $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
+                }
                 $consortiumlist = substr($consortiumlist, 2);
                 echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
@@ -181,12 +191,12 @@ geo_widget_head($my_inst->federation, $inst_name)
     <fieldset class="option_container">
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
         <?php
-        if ($wizardStyle)
+        if ($wizardStyle) {
             echo "<p>" .
             _("If your IdP provides a helpdesk for its users, it would be nice if you would tell us the pointers to this helpdesk. Some site installers might be able to signal this information to the user if he gets stuck.") . "</p>
         <p>" .
-            _("If you enteadd_optionr a value here, it will be added to the site installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all (shame on you!), you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
-
+            _("If you enter a value here, it will be added to the site installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all (shame on you!), you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
+        }
         prefilledOptionTable($idpoptions, "expandable_support_options", "support", "IdP");
         ?>
 
