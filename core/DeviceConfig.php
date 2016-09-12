@@ -128,8 +128,8 @@ abstract class DeviceConfig extends Entity {
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $this->lang_index = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
-        DeviceCONFIG['support']_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
-        DeviceCONFIG['support']_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
+        $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
+        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
         CAT::set_locale($olddomain);
 
         if ($this->signer && $this->options['sign'])
@@ -224,7 +224,7 @@ abstract class DeviceConfig extends Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
-        if (CONFIG['NSIS']_VERSION >= 3)
+        if (CONFIG['NSIS_VERSION'] >= 3)
             $encoding = 0;
         if ($output_name === 0)
             $output_name = $source_name;
@@ -276,7 +276,7 @@ abstract class DeviceConfig extends Entity {
         if (empty($source_string)) {
             return($source_string);
         }
-        if (CONFIG['NSIS']_VERSION >= 3) {
+        if (CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($encoding) {

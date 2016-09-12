@@ -53,7 +53,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPE
     </div>
 <?php
 echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->name" . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX']_UPLOAD_SIZE . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
 
 ?>
     <fieldset class="option_container">

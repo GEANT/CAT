@@ -343,7 +343,7 @@ class SanityTest extends CAT {
               $this->test_return(L_OK,"PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
               break;
            default:
-              $this->test_return(L_ERROR,'Check CONFIG['GEOIP'][\'version\'], it must be set to either 1 or 2');
+              $this->test_return(L_ERROR,'Check CONFIG[\'GEOIP\'][\'version\'], it must be set to either 1 or 2');
               break;
        }
     }
@@ -370,11 +370,11 @@ class SanityTest extends CAT {
       * test if makensis is available
       */
     private function makensis_test() {
-         if(! is_numeric(CONFIG['NSIS']_VERSION)) {
+         if(! is_numeric(CONFIG['NSIS_VERSION'])) {
             $this->test_return(L_ERROR,"NSIS_VERSION needs to be numeric!");
             return;
          }
-         if(CONFIG['NSIS']_VERSION < 2) {
+         if(CONFIG['NSIS_VERSION'] < 2) {
             $this->test_return(L_ERROR,"NSIS_VERSION needs to be at least 2!");
             return;
          }
@@ -389,10 +389,10 @@ class SanityTest extends CAT {
              }
              exec($A['exec'] . ' -HELP',$t);
              $t1 = count(preg_grep('/INPUTCHARSET/',$t));
-             if($t1 == 1 && CONFIG['NSIS']_VERSION == 2) {
+             if($t1 == 1 && CONFIG['NSIS_VERSION'] == 2) {
                 $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
              }
-             if($t1 == 0 && CONFIG['NSIS']_VERSION >= 3) {
+             if($t1 == 0 && CONFIG['NSIS_VERSION'] >= 3) {
                 $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
              }
          } else {

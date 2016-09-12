@@ -451,7 +451,7 @@ TTLS=>['str'=>'GEANTLink','exec'=>'user'],
 PWD=>['str'=>'PWD','exec'=>'user'],
 ];
 $fcontents = '';
-if(CONFIG['NSIS']_VERSION >= 3)
+if(CONFIG['NSIS_VERSION'] >= 3)
     $fcontents .=  "Unicode true\n";
  
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)

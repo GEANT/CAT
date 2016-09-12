@@ -394,7 +394,7 @@ private function writeMainNSH($eap,$attr) {
 $this->loggerInstance->debug(4,"writeMainNSH"); 
 $this->loggerInstance->debug(4,$attr);
 $fcontents = "!define W8\n";
-if(CONFIG['NSIS']_VERSION >= 3)
+if(CONFIG['NSIS_VERSION'] >= 3)
     $fcontents .=  "Unicode true\n";
 
 
