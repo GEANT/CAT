@@ -70,7 +70,6 @@ class CAT {
     public function __construct() {
         $A = $this->set_lang();
         self::$locale = $A[1];
-        $a = __DIR__;
 
         if (CAT::$RELEASE_VERSION) {
             $temp_version = "CAT-".CAT::$VERSION_MAJOR.".".CAT::$VERSION_MINOR;
