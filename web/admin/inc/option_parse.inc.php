@@ -105,22 +105,13 @@ function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
 }
 
 function collateOptionArrays($postArray, $filesArray) {
-    $iterator = [];
-    if (!empty($postArray['option'])) {
-        foreach ($postArray['option'] as $optId => $optname) {
-            $iterator[$optId] = $optname;
-        }
-        if (!empty($postArray['value'])) {
-            foreach ($postArray['value'] as $optId => $optvalue) {
-                $iterator[$optId] = $optvalue;
-            }
-        }
-    }
-    if (!empty($filesArray['value']['tmp_name'])) {
-        foreach ($filesArray['value']['tmp_name'] as $optId => $optfileref) {
-            $iterator[$optId] = $optfileref;
-        }
-    }
+
+    $optionarray = $postArray['option'] ?? [];
+    $valuearray = $postArray['value'] ?? [];
+    $filesarray = $filesArray['value']['tmp_name'] ?? [];
+
+    $iterator = array_merge($optionarray, $valuearray, $filesarray);
+
     return $iterator;
 }
 
@@ -154,12 +145,6 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
     
     $iterator = collateOptionArrays($postArray, $filesArray);
     
-    // TODO brave new PHP7 world would do instead:
-    // $optionarray = $_POST['option'] ?? [];
-    // $valuearray = $_POST['value'] ?? [];
-    // $filesarray = $_FILES['value']['tmp_name'] ?? [];
-    // $iterator = array_merge($optionarray, $valuearray, $filesarray);
-
     // following is a helper array to keep track of multilang options that were set in a specific language
     // but are not accompanied by a "default" language setting
     // if the array isn't empty by the end of processing, we need to warn the admin that this attribute

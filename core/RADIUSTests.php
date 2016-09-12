@@ -664,7 +664,7 @@ class RADIUSTests extends Entity{
      * 
      * @return int one of the RETVALs above or the number of SRV records which were resolved
      */
-    function NAPTR_SRV() {
+    public function NAPTR_SRV() {
         // see if preceding checks have been run, and run them if not
         // compliance check will cascade NAPTR check on its own
         if ($this->NAPTR_compliance_executed === FALSE) {
@@ -699,7 +699,7 @@ class RADIUSTests extends Entity{
         return count($sRVtargets);
     }
 
-    function NAPTR_hostnames() {
+    public function NAPTR_hostnames() {
         // make sure the previous tests have been run before we go on
         // preceeding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed === FALSE) {
