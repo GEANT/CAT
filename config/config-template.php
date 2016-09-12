@@ -21,7 +21,7 @@
  *
  * @package Configuration
  */
-class Config {
+const CONFIG = [
 
     /**
      * Defines parameters how this tool will present itself to users
@@ -35,7 +35,7 @@ class Config {
      * defaultlocale: language to use if user has no preferences in his browser, nor explicitly selects a language
      * @var array 
      */
-    public static $APPEARANCE = [
+    'APPEARANCE' => [
         'productname' => 'eduroam CAT',
         'productname_long' => 'eduroam Configuration Assistant Tool',
         'from-mail' => 'cat-invite@your-cat-installation.example',
@@ -56,7 +56,7 @@ class Config {
         // in "About CAT" then)
         'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
         'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
-    ];
+    ],
 
     /**
      * Defines various general parameters of the roaming consortium.
@@ -91,7 +91,7 @@ class Config {
      *             if left empty, realms would end in the federation name only
      * @var array
      */
-    public static $CONSORTIUM = [
+    'CONSORTIUM' => [
         'name' => 'eduroam',
         'ssid' => ['eduroam'],
         'tkipsupport' => FALSE,
@@ -110,7 +110,7 @@ class Config {
         'keypass' => NULL,
         'silverbullet_default_maxusers' => 200,
         'silverbullet_realm_suffix' => '.hosted.eduroam.org',
-    ];
+    ],
 
     /**
      * Various paths.
@@ -122,13 +122,13 @@ class Config {
      *   See also NSIS_VERSION further down
      * @var array
      */
-    public static $PATHS = [
+    'PATHS' => [
         'logdir' => '/var/log/CAT/',
         'openssl' => 'openssl',
         'c_rehash' => 'c_rehash',
         'eapol_test' => 'eapol_test',
         'makensis' => 'makensis',
-    ];
+    ],
 
     /**
      * Configuration for the simpleSAMLphp instance which authenticates CAT administrative users.
@@ -139,13 +139,13 @@ class Config {
      * attribute in which authsource transmits user's real name. Receiving this attribute is optional.
      * @var array
      */
-    public static $AUTHENTICATION = [
+    'AUTHENTICATION' => [
         'ssp-path-to-autoloader' => '/srv/www/simplesamlphp/lib/_autoload.php',
         'ssp-authsource' => 'default-sp',
         'ssp-attrib-identifier' => 'eptid',
         'ssp-attrib-email' => 'mail',
         'ssp-attrib-name' => 'cn',
-    ];
+    ],
 
     /**
       * Configuration for GeoIP2 
@@ -156,11 +156,11 @@ class Config {
       * @var array
       */
       
-    public static $GEOIP = [
+    'GEOIP' => [
         'version' => 0,
         'geoip2-path-to-autoloader' => '/usr/share/GeoIP2/vendor/autoload.php',
         'geoip2-path-to-db' => '/usr/share/GeoIP2/DB/GeoLite2-City.mmdb',
-    ];
+    ],
 
     /**
      * Configures the host to use to send emails to the outside world. We assume
@@ -170,17 +170,17 @@ class Config {
      * pass: password for the username
      * @var array
      */
-    public static $MAILSETTINGS = [ // we always use Submission
+    'MAILSETTINGS' => [ // we always use Submission
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
-    ];
+    ],
     
     /**
      * List of all supported languages in CAT. Comment some if you want to disable them
      * @var array
      */
-    public static $LANGUAGES = [
+    'LANGUAGES' => [
       'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8',    'latin_based' => TRUE],
       'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8',    'latin_based' => TRUE],
       'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
@@ -211,7 +211,7 @@ class Config {
 //      'nl' => array('display' => 'Nederlands', 'locale' => 'nl_NL.utf8',    'latin_based' => TRUE),
 //      'sv' => array('display' => 'Svenska', 'locale' => 'sv_SE.utf8',    'latin_based' => TRUE),
 //      'cy' => array('display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE),
-    ];
+    ],
 
     /**
      * Configures the reachability tests, both for plain RADIUS/UDP and RADIUS/TLS.
@@ -226,7 +226,7 @@ class Config {
      * 
      * @var array
      */
-    public static $RADIUSTESTS = [
+    'RADIUSTESTS' => [
         'UDP-hosts' => [
             ['display_name' => 'Recon Viper 1',
                 'ip' => '192.0.2.1',
@@ -283,7 +283,7 @@ class Config {
           ]
       ],
       'accreditedCAsURL' => '',
-    ];
+    ],
 
     /**
      * Set of database connection details. The third entry is only needed if you set $ENFORCE_EXTERNAL_DB_SYNC to TRUE.
@@ -291,7 +291,7 @@ class Config {
      * 
      * @var array
      */
-    public static $DB = [
+    'DB' => [
         'INST' => [
             'host' => 'db.host.example',
             'db' => 'cat',
@@ -325,13 +325,13 @@ class Config {
           * make it read-only
           */
          'userdb-readonly' => FALSE,
-    ];
+    ],
 
     /**
      * Maximum size of files to be uploaded. Clever people can circumvent this; in the end, the hard limit is configured in php.ini
      * @var int
      */
-    public static $MAX_UPLOAD_SIZE = 10000000;
+    'MAX_UPLOAD_SIZE' => 10000000,
 
     /**
      * Verbosity of some of the core code. The following debug levels are supported:
@@ -344,17 +344,17 @@ class Config {
      * @var int
      *
      */
-    public static $DEBUG_LEVEL = 5;
+    'DEBUG_LEVEL' => 5,
 
     /**
      * NSIS version - with version 3 UTF installers will be created
      * see also $PATHS['makensis']
      */
-    public static $NSIS_VERSION = 2 ;
+    'NSIS_VERSION' => 2,
 
-    public static $SUPERADMINS =  [
+    'SUPERADMINS' =>  [
         'eptid:someuser',
         'http://sommeopenid.example/anotheruser',
         'I do not care about security!',
-    ];
-}
+    ],
+];

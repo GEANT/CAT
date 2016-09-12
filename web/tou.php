@@ -24,7 +24,7 @@ $loggerInstance->debug(4,"\n----------------------------------TOU.PHP-----------
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang()?>">
     <head lang="<?php echo CAT::get_lang()?>"> 
-        <title><?php echo Config::$APPEARANCE['productname_long'];?></title>
+        <title><?php echo CONFIG['APPEARANCE']['productname_long'];?></title>
 <link media="only screen and (max-device-width: 480px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
 <link media="only screen and (min-device-width: 481px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic-large.css" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
@@ -40,16 +40,16 @@ function showTOU(){
     <body style="">
         <img src="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/images/consortium_logo.png" style="padding-right:20px; padding-top:20px; float:right" alt="logo" />
          <?php
-            print '<div id="motd">'.( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ).'</div>'; 
+            print '<div id="motd">'.( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ).'</div>'; 
 
-        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . Config::$APPEARANCE['productname'] . '</a></h1>';
+        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
 print '<div id="tou">';
 include("user/tou.php");
 print '</div>';
 
 // this variable gets set during "make distribution" only
 $RELEASE = "THERELEASE";
-echo "".Config::$APPEARANCE['productname']." - ";
+echo "".CONFIG['APPEARANCE']['productname']." - ";
 if ($RELEASE != "THERELEASE") 
     echo sprintf(_("Release %s"), $RELEASE);
 else

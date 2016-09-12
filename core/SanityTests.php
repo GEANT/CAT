@@ -144,11 +144,11 @@ class SanityTest extends CAT {
     private function get_exec_path($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";
-        if (!empty(Config::$PATHS[$pathToCheck])) {
+        if (!empty(CONFIG['PATHS'][$pathToCheck])) {
             $matchArray = [];
-             preg_match('/([^ ]+) ?/',Config::$PATHS[$pathToCheck],$matchArray);
+             preg_match('/([^ ]+) ?/',CONFIG['PATHS'][$pathToCheck],$matchArray);
              $exe = $matchArray[1];
-             $the_path = exec("which " . Config::$PATHS[$pathToCheck]);
+             $the_path = exec("which " . CONFIG['PATHS'][$pathToCheck]);
              if ($the_path == $exe) {
                  $exec_is = "EXPLICIT";
              }
@@ -175,7 +175,7 @@ class SanityTest extends CAT {
       * test for simpleSAMLphp
       */
     private function ssp_test() {
-         if (!is_file(CONFIG::$AUTHENTICATION['ssp-path-to-autoloader'])) {
+         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
              $this->test_return(L_ERROR,"<strong>simpleSAMLphp</strong> not found!");
          }
          else {
@@ -187,7 +187,7 @@ class SanityTest extends CAT {
       * test for security setting
       */
     private function security_test() {
-         if (in_array("I do not care about security!", Config::$SUPERADMINS)) {
+         if (in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
              $this->test_return(L_WARN,"You do not care about security. This page should be made accessible to the CAT admin only! See config.php 'Superadmins'!");
          }
     }
@@ -208,7 +208,7 @@ class SanityTest extends CAT {
       * test if eapol_test is availabe and reacent enough
       */
     private function eapol_test_test() {
-         exec(Config::$PATHS['eapol_test'], $out, $retval);
+         exec(CONFIG['PATHS']['eapol_test'], $out, $retval);
          if($retval == 255 ) {
             $o = preg_grep('/-o<server cert/',$out);
                if(count($o) > 0) {
@@ -227,8 +227,8 @@ class SanityTest extends CAT {
       * test if logdir exists and is writable
       */
     private function logdir_test() {
-         if (fopen(Config::$PATHS['logdir'] . "/debug.log", "a") == FALSE) {
-             $this->test_return(L_WARN,"Log files in <strong>" . Config::$PATHS['logdir'] . "</strong> are not writable!");
+         if (fopen(CONFIG['PATHS']['logdir'] . "/debug.log", "a") == FALSE) {
+             $this->test_return(L_WARN,"Log files in <strong>" . CONFIG['PATHS']['logdir'] . "</strong> are not writable!");
          }
          else {
              $this->test_return(L_OK,"Log directory is writable.");
@@ -289,7 +289,7 @@ class SanityTest extends CAT {
     private function geoip_test() {
        $host_4 = '145.0.2.50';
        $host_6 = '2001:610:188:444::50';
-       switch (Config::$GEOIP['version']) {
+       switch (CONFIG['GEOIP']['version']) {
            case 0:
               $this->test_return(L_REMARK,"As set in the config, no geolocation service will be used");
               break;
@@ -310,16 +310,16 @@ class SanityTest extends CAT {
               $this->test_return(L_REMARK,"PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We stronly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
               break;
            case 2:
-              if(! is_file(Config::$GEOIP['geoip2-path-to-autoloader'])) {
+              if(! is_file(CONFIG['GEOIP']['geoip2-path-to-autoloader'])) {
                  $this->test_return(L_ERROR,"PHP extension <strong>GeoIP2</strong> not found! Get it from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                  return;
               }
-              if(! is_file(Config::$GEOIP['geoip2-path-to-db'])) {
+              if(! is_file(CONFIG['GEOIP']['geoip2-path-to-db'])) {
                  $this->test_return(L_ERROR,"<strong>GeoIP2 database</strong> not found! See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                  return;
               }
-              require_once Config::$GEOIP['geoip2-path-to-autoloader'];
-              $reader = new Reader(Config::$GEOIP['geoip2-path-to-db']);
+              require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
+              $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
               try {
                  $record = $reader->city($host_4);
               } catch (Exception $e) {
@@ -343,7 +343,7 @@ class SanityTest extends CAT {
               $this->test_return(L_OK,"PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
               break;
            default:
-              $this->test_return(L_ERROR,'Check Config::$GEOIP[\'version\'], it must be set to either 1 or 2');
+              $this->test_return(L_ERROR,'Check CONFIG['GEOIP'][\'version\'], it must be set to either 1 or 2');
               break;
        }
     }
@@ -370,11 +370,11 @@ class SanityTest extends CAT {
       * test if makensis is available
       */
     private function makensis_test() {
-         if(! is_numeric(Config::$NSIS_VERSION)) {
+         if(! is_numeric(CONFIG['NSIS']_VERSION)) {
             $this->test_return(L_ERROR,"NSIS_VERSION needs to be numeric!");
             return;
          }
-         if(Config::$NSIS_VERSION < 2) {
+         if(CONFIG['NSIS']_VERSION < 2) {
             $this->test_return(L_ERROR,"NSIS_VERSION needs to be at least 2!");
             return;
          }
@@ -389,10 +389,10 @@ class SanityTest extends CAT {
              }
              exec($A['exec'] . ' -HELP',$t);
              $t1 = count(preg_grep('/INPUTCHARSET/',$t));
-             if($t1 == 1 && Config::$NSIS_VERSION == 2) {
+             if($t1 == 1 && CONFIG['NSIS']_VERSION == 2) {
                 $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
              }
-             if($t1 == 0 && Config::$NSIS_VERSION >= 3) {
+             if($t1 == 0 && CONFIG['NSIS']_VERSION >= 3) {
                 $this->test_return(L_ERROR,"Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
              }
          } else {
@@ -415,7 +415,7 @@ class SanityTest extends CAT {
          $NSIS_Module_status = [];
          foreach ($this->NSIS_Modules as $module) {
             unset($out);
-            exec(Config::$PATHS['makensis']." -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
+            exec(CONFIG['PATHS']['makensis']." -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
             if($retval > 0) {
                $NSIS_Module_status[$module] = 0;
             }
@@ -444,7 +444,7 @@ class SanityTest extends CAT {
            return;
          }
          $exe= 'tt.exe';
-         exec(Config::$PATHS['makensis']." -V1 '-XOutFile $exe' '-XSection X' '-XGetVersion::WindowsName' '-XSectionEnd'", $out, $retval);
+         exec(CONFIG['PATHS']['makensis']." -V1 '-XOutFile $exe' '-XSection X' '-XGetVersion::WindowsName' '-XSectionEnd'", $out, $retval);
          if($retval > 0) {
             $this->test_return(L_ERROR,"NSIS module <strong>GetVersion</strong> was not found or is not working correctly.");
          }
@@ -495,7 +495,7 @@ class SanityTest extends CAT {
     private function locales_test() {
                 $locales = shell_exec("locale -a");
                 $allthere = "";
-                foreach (Config::$LANGUAGES as $onelanguage) {
+                foreach (CONFIG['LANGUAGES'] as $onelanguage) {
                     if (preg_match("/" . $onelanguage['locale'] . "/", $locales) == 0) {
                         $allthere .= $onelanguage['locale'] . " ";
                     }
@@ -514,47 +514,47 @@ class SanityTest extends CAT {
     private function defaults_test() {
                 $defaultvalues = "";
                 $missingvalues = "";
-                if (Config::$APPEARANCE['from-mail'] == "cat-invite@your-cat-installation.example") {
+                if (CONFIG['APPEARANCE']['from-mail'] == "cat-invite@your-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/from-mail ";
                 }
-                if (Config::$APPEARANCE['support-contact']['url'] == "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!") {
+                if (CONFIG['APPEARANCE']['support-contact']['url'] == "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!") {
                     $defaultvalues .="APPEARANCE/support-contact/url ";
                 }
-                if (Config::$APPEARANCE['support-contact']['display'] == "cat-support@our-cat-installation.example") {
+                if (CONFIG['APPEARANCE']['support-contact']['display'] == "cat-support@our-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/support-contact/display ";
                 }
-                if (Config::$APPEARANCE['support-contact']['developer-mail'] == "cat-develop@our-cat-installation.example") {
+                if (CONFIG['APPEARANCE']['support-contact']['developer-mail'] == "cat-develop@our-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/support-contact/mail ";
                 }
-                if (Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
+                if (CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
                     $defaultvalues .="APPEARANCE/abuse-mail ";
                 }
-                if (Config::$APPEARANCE['MOTD'] == "Release Candidate. All bugs to be shot on sight!") {
+                if (CONFIG['APPEARANCE']['MOTD'] == "Release Candidate. All bugs to be shot on sight!") {
                     $defaultvalues .="APPEARANCE/MOTD ";
                 }
-                if (Config::$APPEARANCE['webcert_CRLDP'] == ['list', 'of', 'CRL', 'pointers']) {
+                if (CONFIG['APPEARANCE']['webcert_CRLDP'] == ['list', 'of', 'CRL', 'pointers']) {
                     $defaultvalues .="APPEARANCE/webcert_CRLDP ";
                 }
-                if (empty(Config::$APPEARANCE['webcert_OCSP'])) {
+                if (empty(CONFIG['APPEARANCE']['webcert_OCSP'])) {
                     $missingvalues .="APPEARANCE/webcert_OCSP ";
                 }
-                elseif (Config::$APPEARANCE['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
+                elseif (CONFIG['APPEARANCE']['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
                     $defaultvalues .="APPEARANCE/webcert_OCSP ";
                 }
-                if (isset(Config::$RADIUSTESTS['UDP-hosts'][0]) && Config::$RADIUSTESTS['UDP-hosts'][0]['ip'] == "192.0.2.1") {
+                if (isset(CONFIG['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
                     $defaultvalues .="RADIUSTESTS/UDP-hosts ";
                 }
-                if (Config::$DB['INST']['host'] == "db.host.example") {
+                if (CONFIG['DB']['INST']['host'] == "db.host.example") {
                     $defaultvalues .="DB/INST ";
                 }
-                if (Config::$DB['INST']['host'] == "db.host.example") {
+                if (CONFIG['DB']['INST']['host'] == "db.host.example") {
                     $defaultvalues .="DB/USER ";
                 }
-                if(!empty(Config::$DB['EXTERNAL']) && Config::$DB['EXTERNAL']['host'] == "customerdb.otherhost.example") {
+                if(!empty(CONFIG['DB']['EXTERNAL']) && CONFIG['DB']['EXTERNAL']['host'] == "customerdb.otherhost.example") {
                     $defaultvalues .="DB/EXTERNAL ";
                 }
                 $files = [];
-                foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $cadata) {
+                foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
                     foreach ($cadata['certificates'] as $cert_files) {
                         $files[] = $cert_files['public'];
                         $files[] = $cert_files['private'];
@@ -583,7 +583,7 @@ class SanityTest extends CAT {
      */
    private function databases_test() {
         $databaseName1 = 'INST';
-        $db1 = mysqli_connect(Config::$DB[$databaseName1]['host'], Config::$DB[$databaseName1]['user'], Config::$DB[$databaseName1]['pass'], Config::$DB[$databaseName1]['db']);
+        $db1 = mysqli_connect(CONFIG['DB'][$databaseName1]['host'], CONFIG['DB'][$databaseName1]['user'], CONFIG['DB'][$databaseName1]['pass'], CONFIG['DB'][$databaseName1]['db']);
         if(! $db1) {
            $this->test_return(L_ERROR,"Connection to the  $databaseName1 database failed");
         } else {
@@ -596,7 +596,7 @@ class SanityTest extends CAT {
            }
         }
         $databaseName2 = 'USER';
-        $db2 = mysqli_connect(Config::$DB[$databaseName2]['host'], Config::$DB[$databaseName2]['user'], Config::$DB[$databaseName2]['pass'], Config::$DB[$databaseName2]['db']);
+        $db2 = mysqli_connect(CONFIG['DB'][$databaseName2]['host'], CONFIG['DB'][$databaseName2]['user'], CONFIG['DB'][$databaseName2]['pass'], CONFIG['DB'][$databaseName2]['db']);
         if(! $db2) {
            $this->test_return(L_ERROR,"Connection to the  $databaseName2 database failed");
         } else {
@@ -609,8 +609,8 @@ class SanityTest extends CAT {
            }
         }
         $databaseName3 = 'EXTERNAL';
-        if(! empty(Config::$DB[$databaseName3])) {
-        $db3 = mysqli_connect(Config::$DB[$databaseName3]['host'], Config::$DB[$databaseName3]['user'], Config::$DB[$databaseName3]['pass'], Config::$DB[$databaseName3]['db']);
+        if(! empty(CONFIG['DB'][$databaseName3])) {
+        $db3 = mysqli_connect(CONFIG['DB'][$databaseName3]['host'], CONFIG['DB'][$databaseName3]['user'], CONFIG['DB'][$databaseName3]['pass'], CONFIG['DB'][$databaseName3]['db']);
         if(! $db3) {
            $this->test_return(L_ERROR,"Connection to the  $databaseName3 database failed");
         } else {
@@ -673,7 +673,7 @@ class SanityTest extends CAT {
      * test if mailer works
      */
    private function mailer_test() {
-      if (empty(Config::$APPEARANCE['abuse-mail']) || Config::$APPEARANCE['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
+      if (empty(CONFIG['APPEARANCE']['abuse-mail']) || CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
          $this->test_return(L_ERROR,"Your abuse-mail has not been set, cannot continue with mailer tests.");
          return;
       }
@@ -682,20 +682,20 @@ class SanityTest extends CAT {
       $mail->Port = 587;
       $mail->SMTPAuth = true;
       $mail->SMTPSecure = 'tls';
-      $mail->Host = Config::$MAILSETTINGS['host'];
-      $mail->Username = Config::$MAILSETTINGS['user'];
-      $mail->Password = Config::$MAILSETTINGS['pass'];
+      $mail->Host = CONFIG['MAILSETTINGS']['host'];
+      $mail->Username = CONFIG['MAILSETTINGS']['user'];
+      $mail->Password = CONFIG['MAILSETTINGS']['pass'];
       $mail->WordWrap = 72;
       $mail->isHTML(FALSE);
       $mail->CharSet = 'UTF-8';
-      $mail->From = Config::$APPEARANCE['from-mail'];
-      $mail->FromName = Config::$APPEARANCE['productname'] . " Invitation System";
-      $mail->addAddress(Config::$APPEARANCE['abuse-mail']);
+      $mail->From = CONFIG['APPEARANCE']['from-mail'];
+      $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
+      $mail->addAddress(CONFIG['APPEARANCE']['abuse-mail']);
       $mail->Subject = "testing CAT configuration mail";
       $mail->Body = "Testing CAT mailing\n";
       $sent = $mail->send();
       if($sent) {
-          $this->test_return(L_OK,"mailer settings appear to be working, check ".Config::$APPEARANCE['abuse-mail']." mailbox if the message was receiced.");
+          $this->test_return(L_OK,"mailer settings appear to be working, check ".CONFIG['APPEARANCE']['abuse-mail']." mailbox if the message was receiced.");
       }
       else {
           $this->test_return(L_ERROR,"mailer settings failed, check the Config::MAILSETTINGS");

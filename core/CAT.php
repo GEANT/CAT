@@ -22,6 +22,7 @@ session_start();
 require_once("Helper.php");
 require_once("Logging.php");
 require_once("Federation.php");
+require_once(dirname(__DIR__) . "/config/_config.php");
 
 /**
  * Define some variables which need to be globally accessible
@@ -154,22 +155,22 @@ class CAT {
             }
         };
         // always add configured locale as last resort
-        $defaultlocale = Config::$APPEARANCE['defaultlocale'];
-        $lang_converted[] = Config::$LANGUAGES[$defaultlocale]['locale'];
+        $defaultlocale = CONFIG['APPEARANCE']['defaultlocale'];
+        $lang_converted[] = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
         $lang_index = $defaultlocale;
 
         setlocale(LC_ALL, 0);
 
         // initialise this variabe (code analysers complain that $lang_converted
         // could be empty
-        $thelang = Config::$LANGUAGES[$defaultlocale]['locale'];
+        $thelang = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
         foreach ($lang_converted as $try_lang) {
             // madness! setlocale is completely unflexible. If $try_lang is "en"
             // it will fail, because it only knows en_US, en_GB a.s.o.
             // we need to map stuff manually
             $thelang = $try_lang;
 
-            foreach (Config::$LANGUAGES as $language => $value)
+            foreach (CONFIG['LANGUAGES'] as $language => $value)
                 if (preg_match("/^" . $language . ".*/", $try_lang)) {
                     $thelang = $value['locale'];
                     $lang_index = $language;

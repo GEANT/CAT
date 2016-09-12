@@ -75,7 +75,7 @@ if (isset($_GET['inst_id'])) {
     $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), CAT::get_lang());
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
-    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), Config::$CONSORTIUM['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
     // editing IdPs is done from within the popup. Send the user back to the popup, append the result of the operation later
     $redirect_destination = "manageAdmins.inc.php?inst_id=" . $_GET['inst_id'] . "&";
 } // or invite to manage a new inst, only for fedAdmins
@@ -87,7 +87,7 @@ else if (isset($_POST['creation'])) {
         $new_idp_authorized_fedadmin = check_federation_privilege($newcountry);
         $federation = new Federation($newcountry);
         $prettyprintname = $newinstname;
-        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), Config::$CONSORTIUM['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
@@ -111,7 +111,7 @@ else if (isset($_POST['creation'])) {
             foreach ($extinfo['names'] as $name)
                 $prettyprintname = $name;
         // fill the rest of the text
-        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), Config::$CONSORTIUM['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
         // TODO finish
@@ -153,7 +153,7 @@ $message .= wordwrap(_("To enlist as an administrator for that IdP, please click
     
 $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/action_enrollment.php?token=$newtoken
     
-" . wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), Config::$APPEARANCE['productname']), 72) . "
+" . wordwrap(sprintf(_("If clicking the link doesn't work, you can also go to the %s Administrator Interface at"), CONFIG['APPEARANCE']['productname']), 72) . "
     
 $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/ 
     
@@ -166,11 +166,11 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 
 " . wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "
 
-" . wordwrap(sprintf(_("We wish you a lot of fun with the %s."), Config::$APPEARANCE['productname']), 72) . "
+" . wordwrap(sprintf(_("We wish you a lot of fun with the %s."), CONFIG['APPEARANCE']['productname']), 72) . "
         
 " . sprintf(_("Sincerely,
 
-Your friendly folks from %s Operations"), Config::$CONSORTIUM['name']);
+Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
 // use PHPMailer to send the mail
 $mail = new PHPMailer\PHPMailer\PHPMailer();
@@ -178,16 +178,16 @@ $mail->isSMTP();
 $mail->Port = 587;
 $mail->SMTPAuth = true;
 $mail->SMTPSecure = 'tls';
-$mail->Host = Config::$MAILSETTINGS['host'];
-$mail->Username = Config::$MAILSETTINGS['user'];
-$mail->Password = Config::$MAILSETTINGS['pass'];
+$mail->Host = CONFIG['MAILSETTINGS']['host'];
+$mail->Username = CONFIG['MAILSETTINGS']['user'];
+$mail->Password = CONFIG['MAILSETTINGS']['pass'];
 // formatting nitty-gritty
 $mail->WordWrap = 72;
 $mail->isHTML(FALSE);
 $mail->CharSet = 'UTF-8';
 // who to whom?
-$mail->From = Config::$APPEARANCE['from-mail'];
-$mail->FromName = Config::$APPEARANCE['productname'] . " Invitation System";
+$mail->From = CONFIG['APPEARANCE']['from-mail'];
+$mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
     $fed = new Federation($newcountry);
     foreach ($fed->listFederationAdmins() as $fedadmin_id) {
@@ -195,8 +195,8 @@ if ($new_idp_authorized_fedadmin) {
         // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }
 }
-if (isset(Config::$APPEARANCE['invitation-bcc-mail']) && Config::$APPEARANCE['invitation-bcc-mail'] !== NULL)
-    $mail->addBCC(Config::$APPEARANCE['invitation-bcc-mail']);
+if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL)
+    $mail->addBCC(CONFIG['APPEARANCE']['invitation-bcc-mail']);
 
 // all addresses are wrapped in a string, but PHPMailer needs a structured list of addressees
 // sigh... so convert as needed
@@ -208,11 +208,11 @@ foreach ($recipients as $recipient)
     $mail->addAddress($recipient);
 
 // what do we want to say?
-$mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), Config::$APPEARANCE['productname']);
+$mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), CONFIG['APPEARANCE']['productname']);
 $mail->Body = $message;
 
-if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']))
-    $mail->sign(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']);
+if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']))
+    $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
 
 $sent = $mail->send();
 

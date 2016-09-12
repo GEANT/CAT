@@ -14,7 +14,7 @@ class Logging {
      * is specified and exists.
      */
     public function __construct() {
-        if (!isset(Config::$PATHS['logdir'])) {
+        if (!isset(CONFIG['PATHS']['logdir'])) {
             throw new Exception("No logdir was specified in the configuration. We cannot continue without one!");
         }
     }
@@ -25,9 +25,9 @@ class Logging {
      * @param string $message what to write into the file
      */
     private function writeToFile($filename, $message) {
-        $file = fopen(Config::$PATHS['logdir'] . "/$filename", "a");
+        $file = fopen(CONFIG['PATHS']['logdir'] . "/$filename", "a");
         if ($file === FALSE) {
-            throw new Exception("Unable to open debug file ". Config::$PATHS['logdir'] . "/$filename for writing!");
+            throw new Exception("Unable to open debug file ". CONFIG['PATHS']['logdir'] . "/$filename for writing!");
         }
         fwrite($file, sprintf("%-015s", microtime(TRUE)).$message);
         fclose($file);
@@ -42,7 +42,7 @@ class Logging {
      * @return void
      */
     public function debug($level, $text) {
-        if (Config::$DEBUG_LEVEL < $level) {
+        if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
         ob_start();

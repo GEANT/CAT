@@ -20,7 +20,7 @@ require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
 $inst_mgmt = new UserManagement();
-$cat = defaultPagePrelude(sprintf(_("%s: User Management"), Config::$APPEARANCE['productname']));
+$cat = defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new User($_SESSION['user']);
 ?>
 <!-- JQuery --> 
@@ -54,7 +54,7 @@ $user = new User($_SESSION['user']);
     </div>
     <div>
         <?php
-        if (!Config::$DB['userdb-readonly']) {
+        if (!CONFIG['DB']['userdb-readonly']) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
         }
 
@@ -69,7 +69,7 @@ $user = new User($_SESSION['user']);
     <?php
     $has_inst = $inst_mgmt->listInstitutionsByAdmin($_SESSION['user']);
 
-    if (Config::$CONSORTIUM['name'] == 'eduroam') {
+    if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
         $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"),"https://wiki.geant.org/x/SwB_AQ")."</h3>";
     }
     else {
@@ -150,7 +150,7 @@ $user = new User($_SESSION['user']);
     else {
         echo "<h2>" . _("You are not managing any institutions.") . "</h2>";
     }
-    if (Config::$CONSORTIUM['selfservice_registration'] === NULL) {
+    if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
         echo "<p>" . _("Please ask your federation administrator to invite you to become an institution administrator.") . "</p>";
         echo "<hr/>
              <div style='white-space: nowrap;'>

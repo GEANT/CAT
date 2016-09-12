@@ -249,7 +249,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, Config::$CONSORTIUM['name'], strtoupper($fed->name), Config::$APPEARANCE['productname'], Config::$APPEARANCE['productname_long']);
+%s"), $this->name, CONFIG['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
             $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
         }
         unset($this);
@@ -262,7 +262,7 @@ Best regards,
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates() {
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $list = [];
             $usedarray = [];
             // extract all institutions from the country
@@ -304,7 +304,7 @@ Best regards,
     }
 
     public function getExternalDBSyncState() {
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
         return EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
@@ -316,7 +316,7 @@ Best regards,
      * @return mixed the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
             if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
@@ -329,7 +329,7 @@ Best regards,
 
     public function setExternalDBId($identifier) {
         $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {

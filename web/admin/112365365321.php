@@ -38,16 +38,16 @@ require_once('devices/devices.php');
 require_once("DBConnection.php");
 require_once("inc/common.inc.php");
 
-if (!in_array("I do not care about security!", Config::$SUPERADMINS)) {
+if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     require_once("inc/auth.inc.php");
     authenticate();
     $no_security = 0;
 } else {
    $no_security = 1;
 }
-$user = new User((!in_array("I do not care about security!", Config::$SUPERADMINS) ? $_SESSION['user'] : "UNIDENTIFIED"));
+$user = new User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
 
-if (!in_array($user->identifier, Config::$SUPERADMINS) && !in_array("I do not care about security!", Config::$SUPERADMINS))
+if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS']))
     header("Location: overview_user.php");
 
 $cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageheader; we did our own before

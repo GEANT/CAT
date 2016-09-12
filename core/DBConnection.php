@@ -161,12 +161,12 @@ class DBConnection {
     private function __construct($database) {
         $this->loggerInstance = new Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = mysqli_connect(Config::$DB[$databaseCapitalised]['host'], Config::$DB[$databaseCapitalised]['user'], Config::$DB[$databaseCapitalised]['pass'], Config::$DB[$databaseCapitalised]['db']);
+        $this->connection = mysqli_connect(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
         if ($this->connection == FALSE) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up.");
         }
 
-        if ($databaseCapitalised == "EXTERNAL" && Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") {
+        if ($databaseCapitalised == "EXTERNAL" && CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             mysqli_query($this->connection, "SET NAMES 'latin1'");
         }
     }

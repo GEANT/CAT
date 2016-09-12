@@ -48,7 +48,7 @@ class User extends EntityWithDBProperties {
 
         $optioninstance = Options::instance();
 
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
@@ -105,7 +105,7 @@ class User extends EntityWithDBProperties {
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
     public function isSuperadmin() {
-        return in_array($this->identifier, Config::$SUPERADMINS);
+        return in_array($this->identifier, CONFIG['SUPERADMINS']);
     }
 
     /**
@@ -134,23 +134,23 @@ class User extends EntityWithDBProperties {
         $mail->SMTPAuth = true;
         $mail->Port = 587;
         $mail->SMTPSecure = 'tls';
-        $mail->Host = Config::$MAILSETTINGS['host'];
-        $mail->Username = Config::$MAILSETTINGS['user'];
-        $mail->Password = Config::$MAILSETTINGS['pass'];
+        $mail->Host = CONFIG['MAILSETTINGS']['host'];
+        $mail->Username = CONFIG['MAILSETTINGS']['user'];
+        $mail->Password = CONFIG['MAILSETTINGS']['pass'];
 // formatting nitty-gritty
         $mail->WordWrap = 72;
         $mail->isHTML(FALSE);
         $mail->CharSet = 'UTF-8';
 // who to whom?
-        $mail->From = Config::$APPEARANCE['from-mail'];
-        $mail->FromName = Config::$APPEARANCE['productname'] . " Notification System";
-        $mail->addReplyTo(Config::$APPEARANCE['support-contact']['mail'], Config::$APPEARANCE['productname'] . " " . _("Feedback"));
+        $mail->From = CONFIG['APPEARANCE']['from-mail'];
+        $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
+        $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
-        if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass'])) {
-            $mail->sign(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']);
+        if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
+            $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
         }
 
         $sent = $mail->send();

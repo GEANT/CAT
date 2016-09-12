@@ -19,7 +19,7 @@ require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
 
-$cat = defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), Config::$APPEARANCE['productname']));
+$cat = defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <!-- JQuery --> 
@@ -182,7 +182,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     <?php echo instLevelInfoBoxes($my_inst);?>
     
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($edit_mode ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
-                <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
+                <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX']_UPLOAD_SIZE . "'>";
     ?>
     <fieldset class="option_container">
         <legend>
@@ -199,8 +199,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo "<p>" . _("First of all we need a name for the profile. This will be displayed to end users, so you may want to choose a descriptive name like 'Professors', 'Students of the Faculty of Bioscience', etc.") . "</p>";
             echo "<p>" . _("Optionally, you can provide a longer descriptive text about who this profile is for. If you specify it, it will be displayed on the download page after the user has selected the profile name in the list.") . "</p>";
             echo "<p>" . _("You can also tell us your RADIUS realm. ");
-            if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || Config::$RADIUSTESTS['TLS-discoverytag'] != "") {
-                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), CONFIG::$CONSORTIUM['name']);
+            if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
+                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), CONFIG['CONSORTIUM']['name']);
             }
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }

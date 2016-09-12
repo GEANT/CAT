@@ -62,7 +62,7 @@ function print_test_results($test) {
    return($out);
 }
 
-if (!in_array("I do not care about security!", Config::$SUPERADMINS)) {
+if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     require_once("inc/auth.inc.php");
     authenticate();
     $user = new User($_SESSION['user']);

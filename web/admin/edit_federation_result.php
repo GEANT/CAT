@@ -23,7 +23,7 @@ require_once("inc/option_parse.inc.php");
 
 require_once("inc/auth.inc.php");
 
-pageheader(sprintf(_("%s: Federation Customisation (submission completed)"), Config::$APPEARANCE['productname']), "FEDERATION");
+pageheader(sprintf(_("%s: Federation Customisation (submission completed)"), CONFIG['APPEARANCE']['productname']), "FEDERATION");
 $my_fed = valid_Fed($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
     if (( $_POST['submitbutton'] == BUTTON_SAVE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go

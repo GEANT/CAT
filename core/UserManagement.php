@@ -164,7 +164,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $bestnameguess, Config::$CONSORTIUM['name'], strtoupper($fed->name), Config::$APPEARANCE['productname'], Config::$APPEARANCE['productname_long']);
+%s"), $bestnameguess, CONFIG['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
                 $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
                 if ($retval == FALSE) {
                     $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");

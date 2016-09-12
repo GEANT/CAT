@@ -20,7 +20,7 @@ require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-$cat = defaultPagePrelude(sprintf(_("%s: Federation Management"), Config::$APPEARANCE['productname']));
+$cat = defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
 $user = new User($_SESSION['user']);
 ?>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
@@ -139,7 +139,7 @@ $user = new User($_SESSION['user']);
         }
         echo "</table></div>";
     }
-    if (Config::$CONSORTIUM['name'] == 'eduroam') {
+    if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
         $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>Federation Operator manual</a>"),"https://wiki.geant.org/x/KQB_AQ")."</h3>";
     }
     else {
@@ -157,8 +157,8 @@ $user = new User($_SESSION['user']);
             // $feds = $user->getAttributes("user:fedadmin");
             $pending_invites = $mgmt->listPendingInvitations();
 
-            if (Config::$DB['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), Config::$CONSORTIUM['name']) . "</th>";
+            if (CONFIG['DB']['enforce-external-sync']) {
+                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG['CONSORTIUM']['name']) . "</th>";
             }
             ?>
             <th><?php echo _("Administrator Management"); ?></th>
@@ -222,7 +222,7 @@ $user = new User($_SESSION['user']);
                          <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . "
                       </td>";
                 // external DB sync, if configured as being necessary
-                if (Config::$DB['enforce-external-sync']) {
+                if (CONFIG['DB']['enforce-external-sync']) {
                     if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
                         echo "<td>";
                         echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>

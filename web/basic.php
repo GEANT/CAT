@@ -324,7 +324,7 @@ public function displayDeviceDownload() {
 public function langSelection() {
    $out = _("View this page in")." ";
    $out .= '<select onchange="submit_form(this)" name="lang">';
-   foreach (Config::$LANGUAGES as $lng => $value) {
+   foreach (CONFIG['LANGUAGES'] as $lng => $value) {
        $out .= '<option value="'.$lng.'"';
        if ($lng === CAT::get_lang())
           $out .= ' selected';
@@ -381,7 +381,7 @@ $loggerInstance->debug(4,"\n----------------------------------SIMPLE.PHP--------
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang()?>">
     <head lang="<?php echo CAT::get_lang()?>"> 
-        <title><?php echo Config::$APPEARANCE['productname_long'];?></title>
+        <title><?php echo CONFIG['APPEARANCE']['productname_long'];?></title>
 <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
     <script type="text/javascript">
@@ -415,7 +415,7 @@ $loggerInstance->debug(4,"\n----------------------------------SIMPLE.PHP--------
 $loggerInstance->debug(4,"SERVER\n"); 
 $loggerInstance->debug(4,$_SERVER);
 ?>
-<?php    print '<div id="motd">'.( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ).'</div>'; ?>
+<?php    print '<div id="motd">'.( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ).'</div>'; ?>
 <form name="my_form" method="POST" action="<?php echo $_SERVER['SCRIPT_NAME']?>" accept-charset='UTF-8'>
         <img src="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/images/consortium_logo.png" style="width: 20%; padding-right:20px; padding-top:0px; float:right" alt="logo" />
          <?php
@@ -425,7 +425,7 @@ if($Gui->page == 0) {
        $Gui->page = 2;
 }
 */
-        print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . CAT::get_lang() . '">' . Config::$APPEARANCE['productname'] . '</a></h1>';
+        print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . CAT::get_lang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
         print $Gui->langSelection();
         if(! isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {
         print "<p>\n";
@@ -452,7 +452,7 @@ if($Gui->page == 0) {
         <div class='footer'><hr />
 <?php
 print('<a href="tou.php">'._("Terms of use")."</a><p>");
-echo Config::$APPEARANCE['productname']." - " . CAT::$VERSION;
+echo CONFIG['APPEARANCE']['productname']." - " . CAT::$VERSION;
 echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a></div>";?>
 </body>
 </html>

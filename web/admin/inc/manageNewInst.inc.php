@@ -38,28 +38,28 @@ $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to register new IdPs."), Config::$CONSORTIUM['name']);
+    echo sprintf(_("You do not have the necessary privileges to register new IdPs."), CONFIG['CONSORTIUM']['name']);
     exit(1);
 }
 // okay... we are indeed entitled to "do stuff"
 $feds = $user->getAttributes("user:fedadmin");
 ?>
 <h1>
-    <?php printf(_("%s - Register New Institution"), Config::$APPEARANCE['productname']); ?>
+    <?php printf(_("%s - Register New Institution"), CONFIG['APPEARANCE']['productname']); ?>
 </h1>
 <?php
 echo _("On this page, you can add new institutions to your federation. Please fill out the form below to send out an email invitation to the new institution's administrator.");
-if (Config::$DB['enforce-external-sync']) {
-    echo "<p>" . sprintf(_("You can either register a known IdP (as defined in the %s database) or create a totally new IdP."), Config::$CONSORTIUM['name']) . "</p>";
-    echo "<p>" . sprintf(_("The latter one is typically for institutions which are yet in a testing phase and therefore don't appear in the %s database yet."), Config::$CONSORTIUM['name']) . "</p>";
-    echo "<p>" . sprintf(_("Please keep in mind that any profiles of such new institutions will only be made available on the user download page after you have linked them to an entity in the %s database (but they are otherwise fully functional)."), Config::$CONSORTIUM['name']) . "</p>";
+if (CONFIG['DB']['enforce-external-sync']) {
+    echo "<p>" . sprintf(_("You can either register a known IdP (as defined in the %s database) or create a totally new IdP."), CONFIG['CONSORTIUM']['name']) . "</p>";
+    echo "<p>" . sprintf(_("The latter one is typically for institutions which are yet in a testing phase and therefore don't appear in the %s database yet."), CONFIG['CONSORTIUM']['name']) . "</p>";
+    echo "<p>" . sprintf(_("Please keep in mind that any profiles of such new institutions will only be made available on the user download page after you have linked them to an entity in the %s database (but they are otherwise fully functional)."), CONFIG['CONSORTIUM']['name']) . "</p>";
 };
 ?>
 <hr/>
 <form name='sendinvite' action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
     <table>
         <?php
-        if (Config::$DB['enforce-external-sync']) {
+        if (CONFIG['DB']['enforce-external-sync']) {
             echo "<tr><td>
                 <input type='radio' name='creation' value='existing'>" . _("Existing IdP:") . "</input>
                      </td>";

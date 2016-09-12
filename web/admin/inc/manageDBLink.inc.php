@@ -26,7 +26,7 @@ header("Content-Type:text/html;charset=utf-8");
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || Config::$DB['enforce-external-sync'] == FALSE)
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || CONFIG['DB']['enforce-external-sync'] == FALSE)
     header("Location: ../overview_federation.php");
 
 // if not, must operate on a proper IdP
@@ -40,7 +40,7 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // if not, send the user away
 
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this institution."), Config::$CONSORTIUM['name']);
+    echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this institution."), CONFIG['CONSORTIUM']['name']);
     exit(1);
 }
 
@@ -62,16 +62,16 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 }
 ?>
 <h1>
-    <?php printf(_("%s Database Link Status for IdP '%s'"), Config::$CONSORTIUM['name'], $my_inst->name); ?>
+    <?php printf(_("%s Database Link Status for IdP '%s'"), CONFIG['CONSORTIUM']['name'], $my_inst->name); ?>
 </h1>
 <hr/>
 <p>
     <?php
     if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_SYNCED) {
 
-        printf(_("This institution is linked to the %s database."), Config::$CONSORTIUM['name']) . "</p>";
-        echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), Config::$APPEARANCE['productname'], Config::$CONSORTIUM['name']) . "</p>";
-        echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), Config::$APPEARANCE['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), Config::$CONSORTIUM['name']) . "</td></tr>";
+        printf(_("This institution is linked to the %s database."), CONFIG['CONSORTIUM']['name']) . "</p>";
+        echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name']) . "</p>";
+        echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG['APPEARANCE']['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG['CONSORTIUM']['name']) . "</td></tr>";
         echo "<tr><td>";
         // left-hand side: CAT DB
         echo "<table>";
@@ -82,7 +82,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
             if ($thename['lang'] == "C")
                 $language = "default/other";
             else
-                $language = Config::$LANGUAGES[$thename['lang']]['display'];
+                $language = CONFIG['LANGUAGES'][$thename['lang']]['display'];
 
             echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $language) . "</td><td>" . $thename['content'] . "</td></tr>";
         }
@@ -117,14 +117,14 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         echo "</td></tr></table>";
     } else if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
         $temparray = [];
-        printf(_("This institution is not yet linked to the %s database."), Config::$CONSORTIUM['name']) . " ";
+        printf(_("This institution is not yet linked to the %s database."), CONFIG['CONSORTIUM']['name']) . " ";
         echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
-        printf(_("You can link it to the %s database below."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name']);
+        printf(_("You can link it to the %s database below."), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']);
         $candidates = $my_inst->getExternalDBSyncCandidates();
         echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
-        printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), Config::$CONSORTIUM['name']) . " ";
+        printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), CONFIG['CONSORTIUM']['name']) . " ";
         if ($candidates !== FALSE)
-            printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), Config::$CONSORTIUM['name']);
+            printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG['CONSORTIUM']['name']);
         echo "<table>";
         echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
         if ($candidates !== FALSE) {

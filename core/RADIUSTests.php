@@ -196,7 +196,7 @@ define("CERTPROB_MULTIPLE_CN", -226);
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
- * the real world. Can only be used if Config::$RADIUSTESTS is configured.
+ * the real world. Can only be used if CONFIG['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -289,14 +289,14 @@ class RADIUSTests extends Entity{
      * configured consortium NAPTR target.
      * 
      * possible RETVALs:
-     * - RETVAL_NOTCONFIGURED; needs Config::$RADIUSTESTS['TLS-discoverytag']
+     * - RETVAL_NOTCONFIGURED; needs CONFIG['RADIUSTESTS']['TLS-discoverytag']
      * - RETVAL_ONLYUNRELATEDNAPTR
      * - RETVAL_NONAPTR
      * 
      * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
      */
     public function NAPTR() {
-        if (Config::$RADIUSTESTS['TLS-discoverytag'] == "") {
+        if (CONFIG['RADIUSTESTS']['TLS-discoverytag'] == "") {
             $this->NAPTR_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
@@ -307,7 +307,7 @@ class RADIUSTests extends Entity{
         }
         $NAPTRs_consortium = [];
         foreach ($NAPTRs as $naptr) {
-            if ($naptr["services"] == Config::$RADIUSTESTS['TLS-discoverytag']) {
+            if ($naptr["services"] == CONFIG['RADIUSTESTS']['TLS-discoverytag']) {
                 $NAPTRs_consortium[] = $naptr;
             }
         }
@@ -324,7 +324,7 @@ class RADIUSTests extends Entity{
      * Tests if all the dicovered NAPTR entries conform to the consortium's requirements
      * 
      * possible RETVALs:
-     * - RETVAL_NOTCONFIGURED; needs Config::$RADIUSTESTS['TLS-discoverytag']
+     * - RETVAL_NOTCONFIGURED; needs CONFIG['RADIUSTESTS']['TLS-discoverytag']
      * - RETVAL_INVALID (at least one format error)
      * - RETVAL_OK (all fine)
 
@@ -348,7 +348,7 @@ class RADIUSTests extends Entity{
         $formatErrors = [];
         // format of NAPTRs is consortium specific. eduroam below; others need
         // their own code
-        if (Config::$CONSORTIUM['name'] == "eduroam") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             foreach ($this->NAPTR_records as $edupointer) {
                 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
@@ -561,7 +561,7 @@ class RADIUSTests extends Entity{
          * cert is not yet, or not any more, valid but is not taking part in server validation
          */
         $code27 = CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
-        $this->return_codes[$code27]["message"] = sprintf(_("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your %s configuration."), Config::$APPEARANCE['productname']);
+        $this->return_codes[$code27]["message"] = sprintf(_("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your %s configuration."), CONFIG['APPEARANCE']['productname']);
         $this->return_codes[$code27]["severity"] = L_REMARK;
 
         /**
@@ -1024,7 +1024,7 @@ class RADIUSTests extends Entity{
         $eapText = EAP::eapDisplayName($eaptype);
         $config = '
 network={
-  ssid="' . Config::$APPEARANCE['productname'] . ' testing"
+  ssid="' . CONFIG['APPEARANCE']['productname'] . ' testing"
   key_mgmt=WPA-EAP
   proto=WPA2
   pairwise=CCMP
@@ -1106,13 +1106,13 @@ network={
      * @return string the command-line for eapol_test
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
-        $cmdline = Config::$PATHS['eapol_test'] .
-                " -a " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['ip'] .
-                " -s " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['secret'] .
+        $cmdline = CONFIG['PATHS']['eapol_test'] .
+                " -a " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
+                " -s " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
                 " -c ./udp_login_test.conf" .
                 " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
-                " -t " . Config::$RADIUSTESTS['UDP-hosts'][$probeindex]['timeout'] . " ";
+                " -t " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
         if ($opName) {
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
         }
@@ -1139,7 +1139,7 @@ network={
      * @throws Exception
      */
     public function UDP_login($probeindex, $eaptype, $innerUser, $password, $outerUser = '', $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
-        if (!isset(Config::$RADIUSTESTS['UDP-hosts'][$probeindex])) {
+        if (!isset(CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
@@ -1412,8 +1412,8 @@ network={
 
                 // save all intermediate certificate CRLs to separate files in root-ca directory
                 // now c_rehash the root CA directory ...
-                system(Config::$PATHS['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
-                system(Config::$PATHS['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+                system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
+                system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
 
                 // ... and run the verification test
                 $verifyResultEaponly = [];
@@ -1421,11 +1421,11 @@ network={
                 // the error log will complain if we run this test against an empty file of certs
                 // so test if there's something PEMy in the file at all
                 if (filesize("$tmpDir/incomingserver.pem") > 10) {
-                    exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-                    $this->loggerInstance->debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
+                    exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
+                    $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
                     $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
-                    exec(Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-                    $this->loggerInstance->debug(4, Config::$PATHS['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
+                    exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
+                    $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
                     $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
                 }
 
@@ -1548,7 +1548,7 @@ network={
     private function propertyCheckPolicy($cert) {
         $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
-            foreach (Config::$RADIUSTESTS['TLS-acceptableOIDs'] as $key => $oid) {
+            foreach (CONFIG['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
                 if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
                     $oids[$key] = $oid;
                 }
@@ -1600,11 +1600,11 @@ network={
      * @return array result of openssl s_client ...
      */
     private function openssl_s_client($host, $arg, &$testresults) {
-        $this->loggerInstance->debug(4, Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
+        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(Config::$PATHS['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . CAT::$root . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
@@ -1713,13 +1713,13 @@ network={
      */
     public function TLS_clients_side_check($host) {
         $res = RETVAL_OK;
-        if (!is_array(Config::$RADIUSTESTS['TLS-clientcerts']) || count(Config::$RADIUSTESTS['TLS-clientcerts']) == 0) {
+        if (!is_array(CONFIG['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) == 0) {
             return RETVAL_SKIPPED;
         }
         if (preg_match("/\[/", $host)) {
             return RETVAL_INVALID;
         }
-        foreach (Config::$RADIUSTESTS['TLS-clientcerts'] as $type => $tlsclient) {
+        foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];

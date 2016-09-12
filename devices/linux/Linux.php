@@ -87,12 +87,12 @@ fi
    $out .= "<p>";
     if($ssid_ct > 1) {
         if($ssid_ct > 2) {
-            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
+            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',CONFIG['CONSORTIUM']['ssid']))." ";
         } else
-            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
+            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',CONFIG['CONSORTIUM']['ssid']))." ";
         $i = 0;
         foreach ($this->attributes['internal:SSID'] as $ssid=>$v) {
-           if(! in_array($ssid, Config::$CONSORTIUM['ssid'])) {
+           if(! in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
              if($i > 0)
            $out .= ", ";
          $i++;
@@ -233,7 +233,7 @@ done
 
 
 function ask {
-     T="'.Config::$APPEARANCE['productname'].'"
+     T="'.CONFIG['APPEARANCE']['productname'].'"
 #  if ! [ -z "$3" ] ; then
 #     T="$T: $3"
 #  fi

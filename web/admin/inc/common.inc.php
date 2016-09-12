@@ -76,7 +76,7 @@ function display_name($input) {
         _("Silver Bullet: max users per profile") => "fed:silverbullet-maxusers",
     ];
 
-    if (count(Config::$CONSORTIUM['ssid']) > 0) {
+    if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
         $displayNames[_("Additional SSID")] = "media:SSID";
         $displayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     } else {
@@ -84,7 +84,7 @@ function display_name($input) {
         $displayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     }
 
-    if (!empty(Config::$CONSORTIUM['interworking-consortium-oi']) && count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0) {
+    if (!empty(CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
         $displayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
     } else {
         $displayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
@@ -100,8 +100,8 @@ function display_name($input) {
 
 function tooltip($input) {
     $descriptions = [];
-    if (count(Config::$CONSORTIUM['ssid']) > 0) {
-        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'])] = "media:SSID";
+    if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'])] = "media:SSID";
     }
 
     $find = array_search($input, $descriptions);
@@ -333,7 +333,7 @@ function infoblock($optionlist, $class, $level) {
                 $taggedarray = unserialize($option['value']);
                 $language = _("default/other languages");
                 if ($taggedarray['lang'] != 'C') {
-                    $language = Config::$LANGUAGES[$taggedarray['lang']]['display'];
+                    $language = CONFIG['LANGUAGES'][$taggedarray['lang']]['display'];
                 }
                 $content = $taggedarray["content"];
             }

@@ -66,8 +66,8 @@ class UserAPI extends CAT {
     // test if the profile is production-ready and if not if the authenticated user is an owner
     if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
        $this->loggerInstance->debug(4,"Attempt to download a non-production ready installer fir profile: $prof_id\n");
-       require_once(Config::$AUTHENTICATION['ssp-path-to-autoloader']);
-       $as = new SimpleSAML_Auth_Simple(Config::$AUTHENTICATION['ssp-authsource']);
+       require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+       $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
        if($as->isAuthenticated()) {
           $user_object = new User($_SESSION['user']);
           if($user_object->isIdPOwner($profile->institution)) {
@@ -262,7 +262,7 @@ private function GetRootURL() {
   */
   public function JSON_listLanguages() {
      $return_array = [];
-     foreach(Config::$LANGUAGES as $id => $val){
+     foreach(CONFIG['LANGUAGES'] as $id => $val){
        if($this->version == 1)
           $return_array[] = ['id'=>$id,'display'=>$val['display'],'locale'=>$val['locale']];
        else
@@ -547,8 +547,8 @@ private function GetRootURL() {
 
 
  public function locateUser2() {
-   require_once Config::$GEOIP['geoip2-path-to-autoloader'];
-   $reader = new Reader(Config::$GEOIP['geoip2-path-to-db']);
+   require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
+   $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
    $host = $_SERVER['REMOTE_ADDR'];
    try {
       $record = $reader->city($host);
@@ -570,11 +570,11 @@ private function GetRootURL() {
 public function JSON_locateUser() {
     header('Content-type: application/json; utf-8');
    
-    if(empty(Config::$GEOIP['version']) || Config::$GEOIP['version'] == 0)
+    if(empty(CONFIG['GEOIP']['version']) || CONFIG['GEOIP']['version'] == 0)
       echo json_encode(['status' => 'error', 'error' =>'Geolocation not supported']);
-    if(Config::$GEOIP['version'] == 1)
+    if(CONFIG['GEOIP']['version'] == 1)
       echo json_encode($this->locateUser());
-    if(Config::$GEOIP['version'] == 2)
+    if(CONFIG['GEOIP']['version'] == 2)
       echo json_encode($this->locateUser2());
 }
 

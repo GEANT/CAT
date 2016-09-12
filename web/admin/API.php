@@ -38,7 +38,7 @@ function return_error($code, $description) {
 
 echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
 
-if (!isset(Config::$CONSORTIUM['registration_API_keys']) || count(Config::$CONSORTIUM['registration_API_keys']) == 0) {
+if (!isset(CONFIG['CONSORTIUM']['registration_API_keys']) || count(CONFIG['CONSORTIUM']['registration_API_keys']) == 0) {
     return_error(ERROR_API_DISABLED, "API is disabled in this instance of CAT");
     exit(1);
 }
@@ -48,7 +48,7 @@ if (!isset($_POST['APIKEY'])) {
     exit(1);
 }
 
-foreach (Config::$CONSORTIUM['registration_API_keys'] as $key => $fed_name)
+foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name)
     if ($_POST['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;

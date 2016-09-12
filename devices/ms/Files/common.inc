@@ -112,7 +112,7 @@ Var GL_Profile_id
 !define MUI_HEADERIMAGE_BITMAP "cat_150.bmp"
 !define MUI_COMPONENTSPAGE_SMALLDESC
 
-!define WELCOME_HEADER "<?php printf(sprint_nsi(_("Welcome to the %s installer")),Config::$CONSORTIUM['name'])?>"
+!define WELCOME_HEADER "<?php printf(sprint_nsi(_("Welcome to the %s installer")),CONFIG['CONSORTIUM']['name'])?>"
 !define FAREWELL_HEADER "<?php echo_nsi( _("Installation complete"))?>"
 !define FAREWELL_TEXT	"<?php echo_nsi( _("Network profiles have been installed."))?>$\r$\n$\n <?php echo_nsi(  _("Your system is ready."))?>"
 !define FAREWELL_FAIL	"<?php echo_nsi( _("Network installation had errors."))?>$\r$\n$\n <?php echo_nsi( _("Please contact \${SUPPORT}."))?>"
@@ -757,7 +757,7 @@ Call ShowAllButtons
     ${If} $Symantec_installed  != 0
      !insertmacro debug_cat 3 "Symantec problem"
      IfSilent +2
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),Config::$CONSORTIUM['name']) ?>"
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),CONFIG['CONSORTIUM']['name']) ?>"
     Exec '"explorer" /select,"$EXEDIR\inst_cat.cmd"'
     Quit
 
@@ -944,7 +944,7 @@ FunctionEnd
 !ifdef TLS
 Function PFXCertificateSelect
 ;TRANSLATION
-!insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),Config::$CONSORTIUM['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
+!insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
   ${If} $PFX_install == 0
     Return
   ${EndIf}
@@ -1112,7 +1112,7 @@ Page custom WiredConfirm
 PageEx components
 PageCallbacks showComponents "" ""
 ;TRANSLATION
-ComponentText "<?php printf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),Config::$CONSORTIUM['name'])?>" "" \
+ComponentText "<?php printf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),CONFIG['CONSORTIUM']['name'])?>" "" \
       "<?php echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
 PageExEnd
 ;=============================

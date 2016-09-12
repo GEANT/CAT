@@ -23,9 +23,9 @@ $Gui = new UserAPI();
         <div id="heading">
             <?php
             print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
-            print '<div id="motd">'.( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ).'</div>';
-            print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("%s Copyright and Licensing"), Config::$APPEARANCE['productname']) . '</h1>
-<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . Config::$APPEARANCE['productname_long'] . '</h2>';
+            print '<div id="motd">'.( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ).'</div>';
+            print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("%s Copyright and Licensing"), CONFIG['APPEARANCE']['productname']) . '</h1>
+<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
             echo '<table id="lang_select"><tr><td>';
             echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '">' . _("Start page") . '</a></td></tr></table>';
             ?>
@@ -195,7 +195,7 @@ Andreas
                 <?php
 // this variable gets set during "make distribution" only
                     $RELEASE = "THERELEASE";
-                    echo Config::$APPEARANCE['productname'] . " - ";
+                    echo CONFIG['APPEARANCE']['productname'] . " - ";
                     if ($RELEASE != "THERELEASE")
                         echo sprintf(_("Release %s"), $RELEASE);
                     else
@@ -205,7 +205,7 @@ Andreas
                  </td>
                  <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
                  <?php
-                     if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") // SW: APPROVED
+                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") // SW: APPROVED
                          echo "
                   <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
                   <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>

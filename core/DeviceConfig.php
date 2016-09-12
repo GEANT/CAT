@@ -128,8 +128,8 @@ abstract class DeviceConfig extends Entity {
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $this->lang_index = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
-        DeviceConfig::$support_email_substitute = sprintf(_("your local %s support"), Config::$CONSORTIUM['name']);
-        DeviceConfig::$support_url_substitute = sprintf(_("your local %s support page"), Config::$CONSORTIUM['name']);
+        DeviceCONFIG['support']_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
+        DeviceCONFIG['support']_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
         CAT::set_locale($olddomain);
 
         if ($this->signer && $this->options['sign'])
@@ -206,7 +206,7 @@ abstract class DeviceConfig extends Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied
+     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the third parameter value.
      * If the second argument is provided and is not equal to 0, then the file will be
      * saved under the name taken from this argument.
@@ -224,7 +224,7 @@ abstract class DeviceConfig extends Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
-        if (Config::$NSIS_VERSION >= 3)
+        if (CONFIG['NSIS']_VERSION >= 3)
             $encoding = 0;
         if ($output_name === 0)
             $output_name = $source_name;
@@ -261,7 +261,7 @@ abstract class DeviceConfig extends Entity {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied
+     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the second parameter value.
      * The second optional parameter, if nonzero, should be the character set understood by iconv
      * This is required by the Windows installer and is expected to go away in the future.
@@ -276,7 +276,7 @@ abstract class DeviceConfig extends Entity {
         if (empty($source_string)) {
             return($source_string);
         }
-        if (Config::$NSIS_VERSION >= 3) {
+        if (CONFIG['NSIS']_VERSION >= 3) {
             $encoding = 0;
         }
         if ($encoding) {
@@ -345,7 +345,7 @@ abstract class DeviceConfig extends Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
-        $lang_pointer = Config::$LANGUAGES[$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = CONFIG['LANGUAGES'][$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
@@ -355,7 +355,7 @@ abstract class DeviceConfig extends Entity {
             foreach ($Inst_a as $i)
                 $inst .= $i[0];
         }
-        $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
+        $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
         if ($this->attributes['internal:profile_count'][0] > 1) {
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
                 $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
@@ -378,9 +378,9 @@ abstract class DeviceConfig extends Entity {
     private function getSSIDs() {
         $S['add'] = [];
         $S['del'] = [];
-        if (isset(Config::$CONSORTIUM['ssid'])) {
-            foreach (Config::$CONSORTIUM['ssid'] as $ssid) {
-                if (isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] == TRUE)
+        if (isset(CONFIG['CONSORTIUM']['ssid'])) {
+            foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
+                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE)
                     $S['add'][$ssid] = 'TKIP';
                 else {
                     $S['add'][$ssid] = 'AES';
@@ -409,7 +409,7 @@ abstract class DeviceConfig extends Entity {
 
     private function getConsortia() {
         $OIs = [];
-        $OIs = array_merge($OIs, Config::$CONSORTIUM['interworking-consortium-oi']);
+        $OIs = array_merge($OIs, CONFIG['CONSORTIUM']['interworking-consortium-oi']);
         if (isset($this->attributes['media:consortium_OI']))
             foreach ($this->attributes['media:consortium_OI'] as $new_oi)
                 $OIs[] = $new_oi;
@@ -579,7 +579,7 @@ abstract class DeviceConfig extends Entity {
     public $signer;
 
     /**
-     * the string referencing the language (index ot the Config::$LANGUAGES array).
+     * the string referencing the language (index ot the CONFIG['LANGUAGES'] array).
      * It is set to the current language and may be used by the device module to
      * set its language
      *

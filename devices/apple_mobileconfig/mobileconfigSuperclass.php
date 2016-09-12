@@ -85,7 +85,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $this->massagedInst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $instName))), ENT_XML1, 'UTF-8');
         $this->massagedProfile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $profileName))), ENT_XML1, 'UTF-8');
         $this->massagedCountry = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
-        $this->massagedConsortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', Config::$CONSORTIUM['name']))), ENT_XML1, 'UTF-8');
+        $this->massagedConsortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', CONFIG['CONSORTIUM']['name']))), ENT_XML1, 'UTF-8');
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
 
         $outerId = $this->determineOuterIdString();
@@ -117,9 +117,9 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $outputXml .= "
          </array>
       <key>PayloadDescription</key>
-         <string>" . sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), Config::$CONSORTIUM['name']) . "</string>
+         <string>" . sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']) . "</string>
       <key>PayloadDisplayName</key>
-         <string>" . Config::$CONSORTIUM['name'] . "</string>
+         <string>" . CONFIG['CONSORTIUM']['name'] . "</string>
       <key>PayloadIdentifier</key>
          <string>" . mobileconfigSuperclass::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
       <key>PayloadOrganization</key>
@@ -174,7 +174,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $out .= "</li>";
         $out .= "<li>" . _("to enter the username and password of your institution");
         if ($ssidCount > 1) {
-            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, Config::$CONSORTIUM['name'], $ssidCount);
+            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, CONFIG['CONSORTIUM']['name'], $ssidCount);
         }
         $out .= "</li>";
         $out .= "</ul>";
@@ -197,7 +197,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                <key>ServiceProviderRoamingEnabled</key>
                <true/>
                <key>DisplayedOperatorName</key>
-               <string>" . Config::$CONSORTIUM['name'] . "</string>";
+               <string>" . CONFIG['CONSORTIUM']['name'] . "</string>";
             // if we don't know the realm, omit the entire DomainName key
             if (isset($this->attributes['internal:realm'])) {
                 $retval .= "<key>DomainName</key>
@@ -222,20 +222,20 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         
         $payloadIdentifier = "wifi." . $this->serial;
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
-        $payloadName = sprintf(_("%s configuration for network name %s"), Config::$CONSORTIUM['name'], $escapedSSID);
+        $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG['CONSORTIUM']['name'], $escapedSSID);
         $encryptionTypeString = "WPA";
         
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
             $payloadShortName = _("Wired Network");
-            $payloadName = sprintf(_("%s configuration for wired network"), Config::$CONSORTIUM['name']);
+            $payloadName = sprintf(_("%s configuration for wired network"), CONFIG['CONSORTIUM']['name']);
             $encryptionTypeString = "any";
         }
         
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
             $payloadIdentifier = "hs20";
             $payloadShortName = _("Hotspot 2.0 Settings");
-            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), Config::$CONSORTIUM['name']);
+            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG['CONSORTIUM']['name']);
             $encryptionTypeString = "WPA";
         }
         
@@ -338,7 +338,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
 	<key>IsHotspot</key>
 	<false/>
 	<key>PayloadDescription</key>
-	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), Config::$CONSORTIUM['name']) . "</string>
+	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), CONFIG['CONSORTIUM']['name']) . "</string>
 	<key>PayloadDisplayName</key>
 	<string>" . _("Disabled WiFi network") . "</string>
 	<key>PayloadIdentifier</key>

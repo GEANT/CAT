@@ -24,9 +24,9 @@ $mode = "TOKEN";
 
 $checkval = $usermgmt->checkTokenValidity($_GET['token']);
 
-if (Config::$CONSORTIUM['selfservice_registration'] !== NULL && $_GET['token'] == "SELF-REGISTER") {
+if (CONFIG['CONSORTIUM']['selfservice_registration'] !== NULL && $_GET['token'] == "SELF-REGISTER") {
     $mode = "SELFSERVICE";
-    $federation = Config::$CONSORTIUM['selfservice_registration'];
+    $federation = CONFIG['CONSORTIUM']['selfservice_registration'];
     $checkval = "OK-NEW";
 }
 

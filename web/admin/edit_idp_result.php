@@ -50,7 +50,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
 }
 
 
-pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), Config::$APPEARANCE['productname']), "ADMIN-IDP");
+pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
@@ -88,9 +88,9 @@ $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 $ssids = [];
 
-if (isset(Config::$CONSORTIUM['ssid']) && count(Config::$CONSORTIUM['ssid']) > 0)
-    foreach (Config::$CONSORTIUM['ssid'] as $ssidname)
-        $ssids[] = $ssidname . " " . (isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+if (isset(CONFIG['CONSORTIUM']['ssid']) && count(CONFIG['CONSORTIUM']['ssid']) > 0)
+    foreach (CONFIG['CONSORTIUM']['ssid'] as $ssidname)
+        $ssids[] = $ssidname . " " . (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
 
 $custom_ssids_wpa2 = $my_inst->getAttributes("media:SSID");
 $custom_ssids_wpa = $my_inst->getAttributes("media:SSID_with_legacy");

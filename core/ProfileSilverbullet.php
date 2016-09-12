@@ -58,8 +58,8 @@ class ProfileSilverbullet extends AbstractProfile {
         
         // set to global config value
         
-        if (isset(CONFIG::$CONSORTIUM['silverbullet_default_maxusers'])) {
-            $tempMaxUsers = CONFIG::$CONSORTIUM['silverbullet_default_maxusers'];
+        if (isset(CONFIG['CONSORTIUM']['silverbullet_default_maxusers'])) {
+            $tempMaxUsers = CONFIG['CONSORTIUM']['silverbullet_default_maxusers'];
         }
         $myInst = new IdP ($this->institution);
         $myFed = new Federation($myInst->federation);
@@ -70,8 +70,8 @@ class ProfileSilverbullet extends AbstractProfile {
         
         // realm is automatically calculated, then stored in DB
         
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier.".strtolower($myInst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix'];
-        $this->setRealm("$myInst->identifier-$this->identifier.".strtolower($myInst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier.".strtolower($myInst->federation).CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
+        $this->setRealm("$myInst->identifier-$this->identifier.".strtolower($myInst->federation).CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
         $internalAttributes = [

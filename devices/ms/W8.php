@@ -94,16 +94,16 @@ class Device_W8 extends WindowsCommon {
   public function writeDeviceInfo() {
     $ssidCount=count($this->attributes['internal:SSID']);
    $out = "<p>";
-   $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."),Config::$CONSORTIUM['name'],Config::$CONSORTIUM['name']);
+   $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."),CONFIG['CONSORTIUM']['name'],CONFIG['CONSORTIUM']['name']);
    $out .= "<p>";
     if($ssidCount > 1) {
         if($ssidCount > 2) {
-            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
+            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',CONFIG['CONSORTIUM']['ssid']))." ";
         } else
-            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',Config::$CONSORTIUM['ssid']))." ";
+            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',CONFIG['CONSORTIUM']['ssid']))." ";
         $i = 0;
         foreach ($this->attributes['internal:SSID'] as $ssid=>$v) {
-           if(! in_array($ssid, Config::$CONSORTIUM['ssid'])) {
+           if(! in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
              if($i > 0)
            $out .= ", ";
          $i++;
@@ -394,7 +394,7 @@ private function writeMainNSH($eap,$attr) {
 $this->loggerInstance->debug(4,"writeMainNSH"); 
 $this->loggerInstance->debug(4,$attr);
 $fcontents = "!define W8\n";
-if(Config::$NSIS_VERSION >= 3)
+if(CONFIG['NSIS']_VERSION >= 3)
     $fcontents .=  "Unicode true\n";
 
 
@@ -418,8 +418,8 @@ $fcontents .= "\n".'!define EXECLEVEL "'.$execLevel.'"';
 if($attr['internal:profile_count'][0] > 1)
 $fcontents .= "\n".'!define USER_GROUP "'.$this->translateString(str_replace('"','$\\"',$attr['profile:name'][0]), $this->code_page).'"';
 $fcontents .= '
-Caption "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),Config::$CONSORTIUM['name'],$attr['general:instname'][0]), $this->code_page).'"
-!define APPLICATION "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),Config::$CONSORTIUM['name'],$attr['general:instname'][0]), $this->code_page).'"
+Caption "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),CONFIG['CONSORTIUM']['name'],$attr['general:instname'][0]), $this->code_page).'"
+!define APPLICATION "'. $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")),CONFIG['CONSORTIUM']['name'],$attr['general:instname'][0]), $this->code_page).'"
 !define VERSION "'.CAT::$VERSION_MAJOR.'.'.CAT::$VERSION_MINOR.'"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "'.$this->lang.'"

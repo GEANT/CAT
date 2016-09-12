@@ -462,7 +462,7 @@ class Federation extends EntityWithDBProperties {
     public function listFederationAdmins() {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = '" . strtoupper($this->name) . "'";
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
@@ -482,7 +482,7 @@ class Federation extends EntityWithDBProperties {
             $countrysuffix = " WHERE country = '" . strtolower($this->name) . "'";
         }
 
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
             $externalHandle = DBConnection::handle("EXTERNAL");
             $externals = $externalHandle->exec("SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
@@ -546,7 +546,7 @@ class Federation extends EntityWithDBProperties {
 
     public static function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";

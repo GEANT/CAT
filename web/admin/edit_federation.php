@@ -22,7 +22,7 @@ authenticate();
 $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
-$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APPEARANCE['productname'], $my_fed->name));
+$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
 
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -53,7 +53,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
     </div>
 <?php
 echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->name" . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX']_UPLOAD_SIZE . "'>";
 
 ?>
     <fieldset class="option_container">

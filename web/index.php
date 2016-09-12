@@ -57,7 +57,7 @@ public function printMenu() {
 private $menu;
 }
 
-defaultPagePrelude(Config::$APPEARANCE['productname_long'], FALSE);
+defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 
 ?>
 
@@ -97,7 +97,7 @@ $OS = $Gui->detectOS();
 $loggerInstance->debug(4,print_r($OS,true));
 if($OS)
    print "recognised_os = '".$OS['device']."';\n";
-$download_message = sprintf(_("Download your %s installer"),Config::$CONSORTIUM['name']);
+$download_message = sprintf(_("Download your %s installer"),CONFIG['CONSORTIUM']['name']);
 print 'download_message = "'.$download_message.'";';
 //TODO modify this based on OS detection
 if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT']))
@@ -122,14 +122,14 @@ include("user/js/cat_js.php");
         <div id="heading">
             <?php
             print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
-            print '<div id="motd">'.( isset(Config::$APPEARANCE['MOTD']) ? Config::$APPEARANCE['MOTD'] : '&nbsp' ).'</div>';
-            print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']) . '</h1>
-<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . Config::$APPEARANCE['productname_long'] . '</h2>';
+            print '<div id="motd">'.( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ).'</div>';
+            print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
+<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
             echo '<table id="lang_select"><tr><td>';
             echo _("View this page in");
             ?>
             <?php
-            foreach (Config::$LANGUAGES as $lang => $value) {
+            foreach (CONFIG['LANGUAGES'] as $lang => $value) {
                 echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
             }
             echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . _("Start page") . '</a></td></tr></table>';
@@ -151,13 +151,13 @@ include("user/js/cat_js.php");
                             <table id="left_menu">
 <?php
                                 $menu = new Menu( [
-                                   "about_consortium"=>[sprintf(_("About %s"), Config::$CONSORTIUM['name']),'padding-bottom:20px;font-weight: bold; '],
-                                   "about"=>sprintf(_("About %s"), Config::$APPEARANCE['productname']),
+                                   "about_consortium"=>[sprintf(_("About %s"), CONFIG['CONSORTIUM']['name']),'padding-bottom:20px;font-weight: bold; '],
+                                   "about"=>sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
                                    "tou"=>sprintf(_("Terms of use")),
                                    "faq"=>sprintf(_("FAQ")),
                                    "report"=>sprintf(_("Report a problem")),
                                    "develop"=>sprintf(_("Become a CAT developer")),
-                                   "admin"=>[sprintf(_("%s admin:<br>manage your IdP"), Config::$CONSORTIUM['name']),'padding-top:30px;'],
+                                   "admin"=>[sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name']),'padding-top:30px;'],
                                 ]);
 
                                 $menu->printMenu(); ?>
@@ -172,14 +172,14 @@ include("user/js/cat_js.php");
                                 <tr>
                                     <td id="slides" style="background: #fff url(resources/images/gradient-bg.png) repeat-x; height:272px; border-radius: 16px; width: 100%; padding-left:20px;">
                                         <div>
-                                            <span id="line1"><?php printf(_("%s installation made easy:"), Config::$CONSORTIUM['name']) ?></span>
+                                            <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG['CONSORTIUM']['name']) ?></span>
                                             <span id="line2"></span>
                                             <span id="line3"></span>
                                             <span id="line4"><?php echo _("Custom built for your home institution") ?></span>
                                             <span id="line5">
                                             <?php
-                                            if (isset(Config::$CONSORTIUM['signer_name']) && Config::$CONSORTIUM['signer_name'] != "")
-                                                echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"),Config::$CONSORTIUM['name'],Config::$CONSORTIUM['signer_name']);
+                                            if (isset(CONFIG['CONSORTIUM']['signer_name']) && CONFIG['CONSORTIUM']['signer_name'] != "")
+                                                echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"),CONFIG['CONSORTIUM']['name'],CONFIG['CONSORTIUM']['signer_name']);
                                             ?>
                                             </span>
                                         </div>
@@ -192,7 +192,7 @@ include("user/js/cat_js.php");
                     </tr>
                     <tr>
                         <td id="user_button_td">
-<?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
+<?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
 
                         </td>
                     </tr>
@@ -334,13 +334,13 @@ include("user/js/cat_js.php");
             <tr>
                 <td style="padding-left:20px; text-align:left">
                 <?php
-                    echo Config::$APPEARANCE['productname'] . " - " . CAT::$VERSION;
+                    echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
                     echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
                 ?>
                  </td>
                  <td style="padding-left:80px; text-align:right;">
                  <?php
-                     if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") // SW: APPROVED
+                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") // SW: APPROVED
                          echo "
                   <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
                   <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>

@@ -21,7 +21,7 @@ require_once("inc/input_validation.inc.php");
 include "inc/geo_widget.php";
 
 
-$cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), Config::$APPEARANCE['productname']));
+$cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -84,7 +84,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( Config::$CONSORTIUM['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
                 </form>
 
             </td>
@@ -100,7 +100,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     <h2><?php _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || Config::$RADIUSTESTS['TLS-discoverytag'] != "") {
+        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -110,7 +110,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                         </td>
                     </tr>";
         }
-        if (Config::$CONSORTIUM['name'] == "eduroam") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
                         <td>" . _("Check server status of European federations") . "</td>
                         <td>
@@ -239,7 +239,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $hasRealmArray = $profile_list->getAttributes("internal:realm");
         $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
-        if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || ( count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0 && Config::$RADIUSTESTS['TLS-discoverytag'] != "")) {
+        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "")) {
             echo "<form action='action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "

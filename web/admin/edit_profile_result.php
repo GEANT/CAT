@@ -33,7 +33,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     header("Location: overview_idp.php?inst_id=$my_inst->identifier");
 }
 
-pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), Config::$APPEARANCE['productname']), "ADMIN-IDP");
+pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
 
 // check if profile exists and belongs to IdP
 

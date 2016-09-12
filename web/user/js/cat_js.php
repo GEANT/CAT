@@ -497,7 +497,7 @@ $(".signin").DiscoJuice({
    "title":"<?php echo _("Home institution") ?>",
    "subtitle":"<?php echo _("Select your <strong>institution<\/strong>") ?>",
    "textHelp": "<?php echo _("Help, my institution is not on the list") ?>",
-   "textHelpMore": "<?php echo sprintf(_("This system relies on information supplied by local %s administrators. If your institution is not on the list, then nag them to add information to the %s database."),Config::$CONSORTIUM['name'],Config::$APPEARANCE['productname']); ?>",
+   "textHelpMore": "<?php echo sprintf(_("This system relies on information supplied by local %s administrators. If your institution is not on the list, then nag them to add information to the %s database."),CONFIG['CONSORTIUM']['name'],CONFIG['APPEARANCE']['productname']); ?>",
    "textLocateMe": "<?php echo _("Locate me more accurately using HTML5 Geo-Location") ?>",
    "textShowProviders": "<?php echo _("Show institutions in") ?>",
    "textAllCountries": "<?php echo _("all countries") ?>",

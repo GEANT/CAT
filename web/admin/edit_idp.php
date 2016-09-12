@@ -32,9 +32,9 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle)
-    $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), Config::$APPEARANCE['productname']));
+    $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
 else
-    $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), Config::$APPEARANCE['productname'], $inst_name));
+    $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -96,7 +96,7 @@ geo_widget_head($my_inst->federation, $inst_name)
     </div>
     <?php
     echo "<form enctype='multipart/form-data' action='edit_idp_result.php?inst_id=$my_inst->identifier" . ($wizardStyle ? "&wizard=true" : "") . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX']_UPLOAD_SIZE . "'>";
 
     if ($wizardStyle)
         echo "<p>" .
@@ -133,17 +133,17 @@ geo_widget_head($my_inst->federation, $inst_name)
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("In this section, you define on which media %s should be configured on user devices."), Config::$CONSORTIUM['name']) . "</p>
+            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG['CONSORTIUM']['name']) . "</p>
           <ul>";
             echo "<li>";
-            echo "<strong>" . ( count(Config::$CONSORTIUM['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
-            if (count(Config::$CONSORTIUM['ssid']) > 0) {
+            echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
+            if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
                 $ssidlist = "";
-                foreach (Config::$CONSORTIUM['ssid'] as $ssid)
+                foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid)
                     $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
                 $ssidlist = substr($ssidlist, 2);
-                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(Config::$CONSORTIUM['ssid'])), $ssidlist);
-                if (Config::$CONSORTIUM['tkipsupport'])
+                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG['CONSORTIUM']['ssid'])), $ssidlist);
+                if (CONFIG['CONSORTIUM']['tkipsupport'])
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
             } else {
@@ -153,13 +153,13 @@ geo_widget_head($my_inst->federation, $inst_name)
             echo "</li>";
 
             echo "<li>";
-            echo "<strong>" . ( count(Config::$CONSORTIUM['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
-            if (count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0) {
+            echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
+            if (count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
                 $consortiumlist = "";
-                foreach (Config::$CONSORTIUM['interworking-consortium-oi'] as $oi)
+                foreach (CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $oi)
                     $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
                 $consortiumlist = substr($consortiumlist, 2);
-                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(Config::$CONSORTIUM['interworking-consortium-oi'])), $consortiumlist);
+                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), display_name("media:consortium_OI"));
             } else {

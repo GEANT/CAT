@@ -8,7 +8,7 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once(Config::$AUTHENTICATION['ssp-path-to-autoloader']);
+require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
 
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
