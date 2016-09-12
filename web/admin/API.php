@@ -82,6 +82,9 @@ switch($sanitised_action) {
         $fed = new Federation($federation);
         $idp = new IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
         
+        // ensure seq. number asc. order for options (S1, S2...)
+        uksort($_POST['option'],"cmpSequenceNumber");
+
         $instWideOptions = $_POST;
         foreach ($instWideOptions['option'] as $optindex => $optname) {
             if (!preg_match("/^general:/",$optname) && !preg_match("/^support:/",$optname) && !preg_match("/^eap:/",$optname)) {
