@@ -117,7 +117,6 @@ if ($device) {
 <hr/>
 
 <form action='inc/toggleRedirect.inc.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $my_profile->identifier; ?>' method='post' accept-charset='UTF-8'><?php echo $extrainput; ?>
-    <table id='expandable_<?php echo $keyword; ?>_options'>
         <?php
 // see if we already have any attributes; if so, display these
         $interesting_attribs = [];
@@ -126,9 +125,8 @@ if ($device) {
             if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))
                 $interesting_attribs[] = $attrib;
         }
-        add_option($keyword, $interesting_attribs);
+        prefilledOptionTable($interesting_attribs, "expandable_$keyword_options", $keyword, "Method");
         ?>
-    </table>
     <button type='button' class='newoption' onclick='<?php echo "add" . $param_name . "Options(\"\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>

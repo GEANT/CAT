@@ -111,7 +111,6 @@ $cat = defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), Confi
 <?php
 // initialize inputs
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-$my_profile = FALSE;
 $anon_local = "anonymous";
 $use_anon = FALSE;
 $checkuser_outer = FALSE;
@@ -120,13 +119,10 @@ $verify = FALSE;
 $hint = FALSE;
 $realm = "";
 $prefill_name = "";
-$prefill_methods = [];
-$profile_options = [];
 $blacklisted = FALSE;
 
 if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not create a new one!
     $wizard_style = FALSE;
-    $edit_mode = TRUE;
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof ProfileRADIUS) {
         throw new Exception("This page is only for editing RADIUS profiles!");
@@ -166,7 +162,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     }
 } else {
     $wizard_style = TRUE;
-    $edit_mode = FALSE;
+    $my_profile = NULL;
+    $prefill_methods = [];
+    $profile_options = [];
 }
 
 ?>
@@ -206,21 +204,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), CONFIG::$CONSORTIUM['name']);
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }
+
+        echo prefilledOptionTable($profile_options, "expandable_profile_options", "profile", "Profile");
         ?>
-
-        <table id="expandable_profile_options">
-            <?php
-            $prepopulate = [];
-            if ($edit_mode) {
-                $existing_attribs = $my_profile->getAttributes();
-
-                foreach ($existing_attribs as $existing_attribute)
-                    if ($existing_attribute['level'] == "Profile")
-                        $prepopulate[] = $existing_attribute;
-            }
-            add_option("profile", $prepopulate);
-            ?>
-        </table>
         <button type='button' class='newoption' onclick='addDefaultProfileOptions()'><?php echo _("Add new option"); ?></button>
         <table>
             <?php
@@ -418,7 +404,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     foreach ($methods as $a) {
         $display = display_name($a);
         $enabled = FALSE;
-        if ($edit_mode)
             foreach ($prefill_methods as $prio => $value) {
                 if (display_name($a) == display_name($value)) {
                     $enabled = TRUE;
@@ -497,18 +482,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         }
         ?>
     </p>
-    <table id="expandable_support_options">
-        <?php
-        $prepopulate = [];
-        if ($edit_mode) {
-            $existing_attribs = $my_profile->getAttributes();
-            foreach ($existing_attribs as $existing_attribute)
-                if ($existing_attribute['level'] == "Profile")
-                    $prepopulate[] = $existing_attribute;
-        }
-        add_option("support", $prepopulate);
-        ?>
-    </table>
+    <?php
+    echo prefilledOptionTable($profile_options, "expandable_support_options", "support", "Profile");
+    ?>
     <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button>
 </fieldset>
 <fieldset class="option_container" id="eap_override">
@@ -528,18 +504,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         }
         ?>
     </p>
-    <table id="expandable_eapserver_options">
-        <?php
-        $prepopulate = [];
-        if ($edit_mode) {
-            $existing_attribs = $my_profile->getAttributes();
-            foreach ($existing_attribs as $existing_attribute)
-                if ($existing_attribute['level'] == "Profile")
-                    $prepopulate[] = $existing_attribute;
-        }
-        add_option("eap", $prepopulate);
-        ?>
-    </table>
+    <?php
+    echo prefilledOptionTable($profile_options, "expandable_eapserver_options", "eap", "Profile");
+    ?>
     <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
 </fieldset>
 <fieldset class="option_container" id='media_override'>
@@ -560,18 +527,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         }
         ?>
     </p>
-    <table id="expandable_media_options">
-        <?php
-        $prepopulate = array();
-        if ($edit_mode) {
-            $existing_attribs = $my_profile->getAttributes();
-            foreach ($existing_attribs as $existing_attribute)
-                if ($existing_attribute['level'] == "Profile")
-                    $prepopulate[] = $existing_attribute;
-        }
-        add_option("media", $prepopulate);
-        ?>
-    </table>
+    <?php
+    echo prefilledOptionTable($profile_options, "expandable_media_options", "media", "Profile");
+    ?>
     <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
 <?php
 if ($wizard_style)

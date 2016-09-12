@@ -13,6 +13,20 @@ require_once("Options.php");
 require_once("common.inc.php");
 require_once("Logging.php");
 
+function prefilledOptionTable($existing_options, $tablename, $attributePrefix, $level) {
+    $retval = "<table id='$tablename'>";
+
+    $prepopulate = [];
+    foreach ($existing_options as $existing_attribute) {
+        if ($existing_attribute['level'] == $level) {
+            $prepopulate[] = $existing_attribute;
+        }
+    }
+    $retval .= add_option($attributePrefix, $prepopulate);
+    $retval .= "</table>";
+    return $retval;
+}
+
 /**
  * 
  * @param string $class the class of options that is to be displayed
@@ -23,9 +37,10 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
     // or that an object is to be edited. In that case, $prepopulated has to
     // contain the array of existing variables
     // we expect the variable $class to contain the class of options
-    
+    $retval = "";
+
     $optioninfo = Options::instance();
-    
+
     if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
         $number = 0;
         foreach ($prepopulate as $option) {
@@ -33,7 +48,7 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 $loggerInstance = new Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
-                echo optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
+                $retval .= optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
             }
         }
     } else { // not editing exist, this in new: add empty list
@@ -52,16 +67,17 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
                 $blacklistItem = FALSE;
         }
         if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
+            unset($list[$blacklistItem]);
+            $list = array_values($list);
         }
 
         // add as many options as there are different option types
 
         foreach (array_keys($list) as $key) {
-            echo optiontext($key, $list);
+            $retval .= optiontext($key, $list);
         }
     }
+    return $retval;
 }
 
 function optiontext($defaultselect, $list, $prefill = 0) {

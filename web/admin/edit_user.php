@@ -40,9 +40,7 @@ $user = new User($_SESSION['user']);
             <legend>
                 <strong><?php echo _("Your attributes"); ?></strong>
             </legend>
-            <table id="expandable_user_options">
-                <?php add_option("user", $user->getAttributes()); ?>
-            </table>
+                <?php prefilledOptionTable($user->getAttributes(), "expandable_user_options", "user", "User"); ?>
             <button type='button' class='newoption' onclick='addDefaultUserOptions()'>
                 <?php echo _("Add new option"); ?>
             </button>

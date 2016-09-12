@@ -39,15 +39,13 @@ pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), Config::$APPEARAN
 
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
-$edit_mode = FALSE;
-$my_profile = FALSE;
+$my_profile = NULL;
 
 if (isset($_GET['profile_id'])) {
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof ProfileRADIUS) {
         throw new Exception("This page should only be called to submit RADIUS Profile information!");
     }
-    $edit_mode = TRUE;
 }
 
 
@@ -99,7 +97,7 @@ if (isset($_POST['redirect'])) {
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     // maybe we were asked to edit an existing profile? check for that...
-    if ($edit_mode) {
+    if ($my_profile instanceof AbstractProfile) {
         $profile = $my_profile;
     } else {
         $profile = $my_inst->newProfile("RADIUS");
