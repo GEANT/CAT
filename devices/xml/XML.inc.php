@@ -354,9 +354,9 @@ function marshalObject($node, $object) {
             $node->addChild($name, $value);
         } else {
             if (getType($value) == 'array') {
-                foreach ($value as $v) {
-                    if (is_object($v)) {
-                        marshalObject($node, $v);
+                foreach ($value as $insideValue) {
+                    if (is_object($insideValue)) {
+                        marshalObject($node, $insideValue);
                     }
                 }
             } else {
