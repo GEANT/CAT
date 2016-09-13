@@ -354,10 +354,11 @@ function marshalObject($node, $object) {
             $node->addChild($name, $value);
         } else {
             if (getType($value) == 'array') {
-                foreach ($value as $v)
+                foreach ($value as $v) {
                     if (is_object($v)) {
                         marshalObject($node, $v);
                     }
+                }
             } else {
                 if (getType($value) == 'object') {
                     marshalObject($node, $value);
