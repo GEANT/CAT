@@ -52,7 +52,7 @@ class UserAPI extends CAT {
      * passing the returned path name.
      * 
      * @param string $device identifier as in {@link devices.php}
-     * @param int $prof_id profile identifier
+     * @param int $profileId profile identifier
      *
      * @return array 
      *  array with the following fields: 
@@ -61,24 +61,24 @@ class UserAPI extends CAT {
      *  link - the path name of the resulting installer
      *  mime - the mimetype of the installer
      */
-    public function generateInstaller($device, $prof_id, $generated_for = "user") {
+    public function generateInstaller($device, $profileId, $generatedFor = "user") {
         $this->set_locale("devices");
-        $this->loggerInstance->debug(4, "installer:$device:$prof_id\n");
-        $profile = ProfileFactory::instantiate($prof_id);
+        $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
+        $profile = ProfileFactory::instantiate($profileId);
         $attribs = $profile->getCollapsedAttributes();
         // test if the profile is production-ready and if not if the authenticated user is an owner
         if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-            $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer fir profile: $prof_id\n");
+            $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer fir profile: $profileId\n");
             require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-            $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-            if (!$as->isAuthenticated()) {
+            $authSource = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+            if (!$authSource->isAuthenticated()) {
                 $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
                 header("HTTP/1.0 403 Not Authorized");
                 return;
             }
 
-            $user_object = new User($_SESSION['user']);
-            if (!$user_object->isIdPOwner($profile->institution)) {
+            $userObject = new User($_SESSION['user']);
+            if (!$userObject->isIdPOwner($profile->institution)) {
                 $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
                 header("HTTP/1.0 403 Not Authorized");
                 return;
@@ -86,12 +86,12 @@ class UserAPI extends CAT {
             $this->loggerInstance->debug(4, "User is the owner - allowing access\n");
         }
         $installerProperties = [];
-        $installerProperties['profile'] = $prof_id;
+        $installerProperties['profile'] = $profileId;
         $installerProperties['device'] = $device;
-        $this->i_path = $this->getCachedPath($device, $profile);
-        if ($this->i_path) {
+        $this->installerPath = $this->getCachedPath($device, $profile);
+        if ($this->installerPath) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=$prof_id&device=$device&generatedfor=$generated_for";
+            $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile);
@@ -137,11 +137,11 @@ class UserAPI extends CAT {
                     $info = new finfo();
                     $out['mime'] = $info->file($iPath, FILEINFO_MIME_TYPE);
                 }
-                $this->i_path = $dev->FPATH . '/' . $installer;
-                rename($iPath, $this->i_path);
-                $profile->updateCache($device, $this->i_path, $out['mime']);
+                $this->installerPath = $dev->FPATH . '/' . $installer;
+                rename($iPath, $this->installerPath);
+                $profile->updateCache($device, $this->installerPath, $out['mime']);
                 rrmdir($dev->FPATH . '/tmp');
-                $this->loggerInstance->debug(4, "Generated installer: " . $this->i_path . ": for: $device\n");
+                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device\n");
                 $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=$prof_id&device=$device&generatedfor=$generated_for";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: $prof_id:$device:" . CAT::get_lang() . "\n");
@@ -154,18 +154,18 @@ class UserAPI extends CAT {
     /**
      * interface to Devices::listDevices() 
      */
-    public function listDevices($show_hidden = 0) {
-        $Dev = Devices::listDevices();
+    public function listDevices($showHidden = 0) {
+        $dev = Devices::listDevices();
         $returnList = [];
-        $ct = 0;
-        if ($show_hidden !== 0 && $show_hidden != 1) {
-            throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $show_hidden!");
+        $count = 0;
+        if ($showHidden !== 0 && $showHidden != 1) {
+            throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $showHidden!");
         }
-        foreach ($Dev as $device => $deviceProperties) {
-            if (isset($deviceProperties['options']['hidden']) && $deviceProperties['options']['hidden'] && $show_hidden == 0) {
+        foreach ($dev as $device => $deviceProperties) {
+            if (isset($deviceProperties['options']['hidden']) && $deviceProperties['options']['hidden'] && $showHidden == 0) {
                 continue;
             }
-            $ct ++;
+            $count ++;
             if ($this->version == 1) {
                 $deviceProperties['device'] = $device;
             } else {
@@ -337,17 +337,18 @@ class UserAPI extends CAT {
     /**
      * Return the list of IdPs in a given country ordered with respect to the user location
      *
-     * @param int $idp_id the IdP identifier
      * @return string JSON encoded data
      */
-    public function JSON_orderIdentityProviders($country, $L = NULL) {
-        $idps = $this->orderIdentityProviders($country, $L);
+    public function JSON_orderIdentityProviders($country, $location = NULL) {
+        $idps = $this->orderIdentityProviders($country, $location);
         $return_array = [];
         foreach ($idps as $idp) {
-            if ($this->version == 1)
+            if ($this->version == 1) {
                 $return_array[] = ['id' => $idp['id'], 'display' => $idp['title']];
-            else
+            }
+            else {
                 $return_array[] = ['idp' => $idp['id'], 'display' => $idp['title']];
+            }
         }
         echo $this->return_json($return_array);
     }
@@ -355,22 +356,22 @@ class UserAPI extends CAT {
     /**
      * Produce a list of profiles available for a given IdP
      *
-     * @param int $idp_id the IdP identifier
+     * @param int $idpIdentifier the IdP identifier
      * @return string JSON encoded data
      */
-    public function JSON_listProfiles($idp_id, $sort = 0) {
+    public function JSON_listProfiles($idpIdentifier, $sort = 0) {
         $this->set_locale("web_user");
         $return_array = [];
         try {
-            $idp = new IdP($idp_id);
+            $idp = new IdP($idpIdentifier);
         } catch (Exception $fail) {
             echo $this->return_json($return_array, 0);
             return;
         }
-        $l = 0;
+        $hasLogo = FALSE;
         $logo = $idp->getAttributes('general:logo_file');
-        if ($logo) {
-            $l = 1;
+        if (count($logo)>0) {
+            $hasLogo = 1;
         }
         $profiles = $idp->listProfiles(1);
         if ($sort == 1) {
@@ -378,10 +379,10 @@ class UserAPI extends CAT {
         }
         foreach ($profiles as $P) {
             if ($this->version == 1) {
-                $return_array[] = ['id' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $l];
+                $return_array[] = ['id' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
             }
             else {
-                $return_array[] = ['profile' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $l];
+                $return_array[] = ['profile' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
             }
         }
         echo $this->return_json($return_array);
@@ -458,7 +459,7 @@ class UserAPI extends CAT {
         }
         $profile = ProfileFactory::instantiate($prof_id);
         $profile->incrementDownloadStats($device, $generated_for);
-        $file = $this->i_path;
+        $file = $this->installerPath;
         $filetype = $output['mime'];
         $this->loggerInstance->debug(4, "installer MIME type:$filetype\n");
         header("Content-type: " . $filetype);
@@ -474,39 +475,41 @@ class UserAPI extends CAT {
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param int $idp_id IdP identifier
+     * @param int $idpIdentifier IdP identifier
      * @param int $disco flag turning on image generation for DiscoJuice
      * @param int $width maximum width of the generated image 
      * @param int $height  maximum height of the generated image
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendLogo($idp_id, $disco = FALSE, $width = 0, $height = 0) {
+    public function sendLogo($idpIdentifier, $disco = FALSE, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = 1;
-            if ($height == 0)
+            if ($height == 0) {
                 $height = 10000;
-            if ($width == 0)
+            }
+            if ($width == 0) {
                 $width = 10000;
-            $logoFile = ROOT . '/web/downloads/logos/' . $idp_id . '_' . $width . '_' . $height . '.png';
+            }
+            $logoFile = ROOT . '/web/downloads/logos/' . $idpIdentifier . '_' . $width . '_' . $height . '.png';
         } elseif ($disco == 1) {
             $width = 120;
             $height = 40;
             $resize = 1;
-            $logoFile = ROOT . '/web/downloads/logos/' . $idp_id . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idpIdentifier . '_' . $width . '_' . $height . '.png';
         }
 
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $idp_id\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $idpIdentifier\n");
             $blob = file_get_contents($logoFile);
             $filetype = 'image/png';
         } else {
-            $idp = new IdP($idp_id);
-            $at = $idp->getAttributes('general:logo_file');
-            $blob = $at[0]['value'];
+            $idp = new IdP($idpIdentifier);
+            $logoAttribute = $idp->getAttributes('general:logo_file');
+            $blob = $logoAttribute[0]['value'];
             $info = new finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
             $offset = 60 * 60 * 24 * 30;
@@ -518,7 +521,7 @@ class UserAPI extends CAT {
                 if ($image->setImageFormat('PNG')) {
                     $image->thumbnailImage($width, $height, 1);
                     $blob = $image->getImageBlob();
-                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $idp_id\n");
+                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $idpIdentifier\n");
                     file_put_contents($logoFile, $blob);
                 } else
                     $blob = "XXXXXX";
@@ -590,14 +593,14 @@ class UserAPI extends CAT {
     /**
      * Calculate the distence in km between two points given their
      * geo coordinates.
-     * @param array $P1 - first point as an 'lat', 'lon' array 
-     * @param array $P2 - second point as an 'lat', 'lon' array 
+     * @param array $point1 - first point as an 'lat', 'lon' array 
+     * @param array $profile1 - second point as an 'lat', 'lon' array 
      * @return float distance in km
      */
-    private function geoDistance($P1, $P2) {
+    private function geoDistance($point1, $profile1) {
 
-        $dist = sin(deg2rad($P1['lat'])) * sin(deg2rad($P2['lat'])) +
-                cos(deg2rad($P1['lat'])) * cos(deg2rad($P2['lat'])) * cos(deg2rad($P1['lon'] - $P2['lon']));
+        $dist = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
+                cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
         $dist = rad2deg(acos($dist)) * 60 * 1.1852;
         return(round($dist));
     }
@@ -712,7 +715,7 @@ class UserAPI extends CAT {
 
     public $device;
     public $version;
-    private $i_path;
+    private $installerPath;
 
     /**
      * access to the logging system
@@ -722,6 +725,6 @@ class UserAPI extends CAT {
 
 }
 
-function profile_sort($P1, $P2) {
-    return strcasecmp($P1->name, $P2->name);
+function profile_sort($P1, $profile2) {
+    return strcasecmp($P1->name, $profile2->name);
 }
