@@ -35,8 +35,8 @@ class Menu {
   * as the title argument or an two element array - the first element of this array will be
   * the title and the second is a style specification applied to the given menu item
  */
-public function __construct($menu_array) {
-  $this->menu = $menu_array;
+public function __construct($menuArray) {
+  $this->menu = $menuArray;
 }
 
 private function printMenuLine($index,$title="",$style="") {
@@ -90,15 +90,15 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
         <script type="text/javascript" src="external/jquery/jquery-ui.js"></script> 
         <!-- JQuery --> 
         <script type="text/javascript">
-        var recognised_os = '';
-        var download_message;
+        var recognisedOS = '';
+        var downloadMessage;
 <?php
-$OS = $Gui->detectOS();
-$loggerInstance->debug(4,print_r($OS,true));
-if($OS)
-   print "recognised_os = '".$OS['device']."';\n";
-$download_message = sprintf(_("Download your %s installer"),CONFIG['CONSORTIUM']['name']);
-print 'download_message = "'.$download_message.'";';
+$operatingSystem = $Gui->detectOS();
+$loggerInstance->debug(4,print_r($operatingSystem,true));
+if($operatingSystem)
+   print "recognisedOS = '".$operatingSystem['device']."';\n";
+$downloadMessage = sprintf(_("Download your %s installer"),CONFIG['CONSORTIUM']['name']);
+print 'downloadMessage = "'.$downloadMessage.'";';
 //TODO modify this based on OS detection
 if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT']))
     $profile_list_size = 1;
@@ -254,7 +254,7 @@ include("user/js/cat_js.php");
                             </span>
                     </div> <!-- id="profile_redirect" -->
                     <div id="devices" class="device_list">
-<?php if($OS) { ?>  <!-- this part is shown when we have guessed the OS -->
+<?php if($operatingSystem) { ?>  <!-- this part is shown when we have guessed the OS -->
                         
                         <div class="sub_h" id="guess_os"> 
                               <table id='browser'>
@@ -262,21 +262,21 @@ include("user/js/cat_js.php");
                                      <td>
                                          <button style='height:70px; width:450px; padding-bottom:0px;
                                               position:relative; 
-                                              background-image:url("resources/images/vendorlogo/<?php echo $OS['group']?>.png");
+                                              background-image:url("resources/images/vendorlogo/<?php echo $operatingSystem['group']?>.png");
                                               background-repeat:no-repeat;
-                                              background-position: 10px 10px;' id='g_<?php echo $OS['device']?>'>
-                                             <img id='cross_icon_<?php echo $OS['device']?>' src='resources/images/icons/delete_32.png' 
+                                              background-position: 10px 10px;' id='g_<?php echo $operatingSystem['device']?>'>
+                                             <img id='cross_icon_<?php echo $operatingSystem['device']?>' src='resources/images/icons/delete_32.png' 
                                                   style='position:absolute; left:16px; top:25px; opacity:0.9; display:none; '>
                                               <div class='download_button_text' 
                                                    style='font-size:12px; top:5px; height: 30px'
-                                                   id='download_button_header_<?php echo $OS['device']?>'>
-                                                   <?php print $download_message ?>
+                                                   id='download_button_header_<?php echo $operatingSystem['device']?>'>
+                                                   <?php print $downloadMessage ?>
                                              </div>
                                              <div class='download_button_text' style='font-size:20px; bottom: 5px; '>
-                                                <?php echo $OS['display']?>
+                                                <?php echo $operatingSystem['display']?>
                                              </div>
                                          </button>
-                                         <div class='device_info' id='info_g_<?php echo $OS['device']?>'></div>
+                                         <div class='device_info' id='info_g_<?php echo $operatingSystem['device']?>'></div>
                                      </td>
                                      <td style='vertical-align:top'>
                                          <button class='more_info_b' 
@@ -285,7 +285,7 @@ include("user/js/cat_js.php");
                                                 background-image:url("resources/images/icons/info_b.png");
                                                 background-repeat:no-repeat;
                                                 background-position: 2px 7px;' 
-                                              id='g_info_b_<?php echo $OS['device']?>'>
+                                              id='g_info_b_<?php echo $operatingSystem['device']?>'>
                                          </button>
                                      </td>
                                   </tr>
@@ -301,18 +301,18 @@ include("user/js/cat_js.php");
                                 <table id="device_list" style="padding:0px;">
                                     <?php
                                     $Gui->set_locale("devices");
-                                    foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $G) {
-                                        $ct = count($G);
-                                        $i = 0;
-                                        print '<tbody><tr><td class="vendor" rowspan="' . $ct . '"><img src="resources/images/vendorlogo/' . $group . '.png" alt="'.$group.' Device"></td>';
-                                        foreach ($G as $d => $D) {
-                                            if ($i)
+                                    foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
+                                        $groupIndex = count($deviceGroup);
+                                        $deviceIndex = 0;
+                                        print '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="resources/images/vendorlogo/' . $group . '.png" alt="'.$group.' Device"></td>';
+                                        foreach ($deviceGroup as $d => $D) {
+                                            if ($deviceIndex)
                                                 print '<tr>';
-                                            $j = ($i+1)*20;
+                                            $j = ($deviceIndex+1)*20;
                                             print "<td><button id='" . $d . "'>" . $D['display'] . "</button>";
                                             print "<div class='device_info' id='info_" . $d . "'></div></td>";
                                             print "<td><button class='more_info_b' id='info_b_" . $d . "'></button></td></tr>\n";
-                                            $i++;
+                                            $deviceIndex++;
                                         }
                                         print "</tbody>";
                                     }

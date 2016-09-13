@@ -104,11 +104,11 @@ function printP(i,v) {
   }
 }
 function resetDevices() {
- if(recognised_os !== '' ) {
+ if(recognisedOS !== '' ) {
     $("#guess_os").show();
     $("#other_installers").hide();
-    $("#download_button_header_"+recognised_os).html(download_message);
-    $("#cross_icon_"+recognised_os).hide();
+    $("#download_button_header_"+recognisedOS).html(downloadMessage);
+    $("#cross_icon_"+recognisedOS).hide();
  }
  $(".device_list button").removeClass('alertButton');
  $(".device_list button").removeClass('disabledDevice');
