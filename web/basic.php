@@ -43,14 +43,12 @@ class SimpleGUI extends UserAPI {
         $this->set_locale('core');
         $this->version = 2;
         $this->args['lang'] = CAT::get_lang();
-//print "<pre>"; print_r($_REQUEST); print "</pre>";
 
         /*
           The request may contain identifiers of country, idp, profile, device
           We require that if an identifiet of a lower level exists then all higher identifiers must also
           be present and match. If a mismatch occures that the lower level identifiers are dropped
          */
-
 
         if (isset($_REQUEST['reset_dev']) && $_REQUEST['reset_dev'] == 1) {
             unset($_REQUEST['device']);
@@ -124,11 +122,10 @@ class SimpleGUI extends UserAPI {
                 $this->args['device'] = $_REQUEST['device'];
             }
         }
-//print "<pre>"; print_r($_REQUEST); print "</pre>";
         $this->set_locale("web_user");
     }
 
-// print coutry selection
+// print country selection
     public function listCountries() {
         $out = '';
         $federations = $this->printCountryList(1);
@@ -287,7 +284,6 @@ class SimpleGUI extends UserAPI {
             if (isset($oneDevice['options']) && isset($oneDevice['options']['hidden']) && $oneDevice['options']['hidden']) {
                 continue;
             }
-            $disp = $oneDevice['display'];
             if ($oneDevice['id'] === '0') {
                 print _("Your local administrator has specified a redirect to a local support page.") . ' ' . _("Click on the link below to continue.");
                 print '<div style="width:100%; text-align:center"><a href ="' . $oneDevice['redirect'] . '">' . $oneDevice['redirect'] . '</a></div>';

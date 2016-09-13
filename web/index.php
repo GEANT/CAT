@@ -22,7 +22,6 @@ $Gui = new UserAPI();
 $loggerInstance = new Logging();
 $Gui->set_locale("web_user");
 $loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
-//$loggerInstance->debug(4,$_REQUEST);
 
 /**
   * Menu class helps to define the menu on the main page

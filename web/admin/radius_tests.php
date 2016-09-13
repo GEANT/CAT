@@ -35,7 +35,7 @@ function disp_name($eap) {
 
 function printDN($distinguishedName) {
     $out = '';
-    foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // example: "CN" and "some.host.example" 
+    foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // to give an example: "CN" => "some.host.example" 
         if (!is_array($nameValue)) { // single-valued: just a string
             $nameValue = ["$nameValue"]; // convert it to a multi-value attrib with just one value :-) for unified processing later on
         }

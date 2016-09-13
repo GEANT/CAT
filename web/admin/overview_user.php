@@ -19,7 +19,7 @@ require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-$inst_mgmt = new UserManagement();
+$instMgmt = new UserManagement();
 $cat = defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new User($_SESSION['user']);
 ?>
@@ -67,7 +67,7 @@ $user = new User($_SESSION['user']);
         ?>
     </div>
     <?php
-    $has_inst = $inst_mgmt->listInstitutionsByAdmin($_SESSION['user']);
+    $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
     if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
         $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"),"https://wiki.geant.org/x/SwB_AQ")."</h3>";
@@ -76,34 +76,34 @@ $user = new User($_SESSION['user']);
         $helptext = "";
     }
 
-    if (sizeof($has_inst) > 0) {
+    if (sizeof($hasInst) > 0) {
         // we need to run the Federation constructor
         $unused = new Federation("LU");
-        echo "<h2>" . sprintf(ngettext("You are managing the following institution:", "You are managing the following <strong>%d</strong> institutions:", sizeof($has_inst)), sizeof($has_inst)) . "</h2>";
+        echo "<h2>" . sprintf(ngettext("You are managing the following institution:", "You are managing the following <strong>%d</strong> institutions:", sizeof($hasInst)), sizeof($hasInst)) . "</h2>";
         echo $helptext;
         $instlist = [];
         $my_idps = [];
-        $my_feds = [];
+        $myFeds = [];
         $fed_count = 0;
         echo "<table class='user_overview'>";
 
-        foreach ($has_inst as $inst_id) {
-            $my_inst = new IdP($inst_id);
+        foreach ($hasInst as $instId) {
+            $my_inst = new IdP($instId);
             $inst_name = $my_inst->name;
             $fed_id = strtoupper($my_inst->federation);
-            $my_idps[$fed_id][$inst_id] = strtolower($inst_name);
-            $my_feds[$fed_id] = $unused::$federationList[$fed_id];
-            $instlist[$inst_id] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
+            $my_idps[$fed_id][$instId] = strtolower($inst_name);
+            $myFeds[$fed_id] = $unused::$federationList[$fed_id];
+            $instlist[$instId] = ["country" => strtoupper($my_inst->federation), "name" => $inst_name, "object" => $my_inst];
         }
 
-        asort($my_feds);
+        asort($myFeds);
 
         foreach ($instlist as $key => $row) {
             $country[$key] = $row['country'];
             $name[$key] = $row['name'];
         }
         echo "<tr><th>" . _("Institution Name") . "</th><th>" . _("Other admins of this institution") . "</th><th>" . _("Administrator Management") . "</th></tr>";
-        foreach ($my_feds as $fed_id => $fed_name) {
+        foreach ($myFeds as $fed_id => $fed_name) {
             echo "<tr><td colspan='3'><strong>" . sprintf(_("Institutions in federation %s"), $fed_name) . "</strong></td></tr>";
 
             $fed_idps = $my_idps[$fed_id];
@@ -115,7 +115,7 @@ $user = new User($_SESSION['user']);
                 echo "<tr><td><a href='overview_idp.php?inst_id=$the_inst->identifier'>" . $oneinst['name'] . "</a></td><td>";
                 echo "<input type='hidden' name='inst' value='$the_inst->identifier'>";
                 $admins = $the_inst->owner();
-                $i_am_blessed = FALSE;
+                $blessedUser = FALSE;
                 foreach ($admins as $number => $username) {
                     if ($username['ID'] != $_SESSION['user']) {
                         $coadmin = new User($username['ID']);
@@ -127,19 +127,16 @@ $user = new User($_SESSION['user']);
                     } else { // don't list self
                         unset($admins[$number]);
                         if ($username['LEVEL'] == "FED") {
-                            $i_am_blessed = TRUE;
+                            $blessedUser = TRUE;
                         }
                     }
                 }
-                $number_of_other_admins = count($admins); // only the unnamed remain
-                if ($number_of_other_admins > 0) {
-                    echo ngettext("other user", "other users", $number_of_other_admins);
+                $otherAdminCount = count($admins); // only the unnamed remain
+                if ($otherAdminCount > 0) {
+                    echo ngettext("other user", "other users", $otherAdminCount);
                 }
-                // foreach ($the_inst->owner() as $admin)
-                // if ($admin != $_SESSION['user'])
-                // echo $admin . "<br/>";
                 echo "</td><td>";
-                if ($i_am_blessed) {
+                if ($blessedUser) {
                     echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
                 }
                 echo "</td></tr>";

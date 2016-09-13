@@ -27,17 +27,17 @@ $loggerInstance = new Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
     authenticate();
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-    $inst_id = $my_inst->identifier;
+    $instId = $my_inst->identifier;
     // delete the IdP and send user to enrollment
     $my_inst->destroy();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $inst_id);
+    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
     header("Location:overview_user.php");
 }
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
     authenticate();
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-    $inst_id = $my_inst->identifier;
+    $instId = $my_inst->identifier;
     //
     $profiles = $my_inst->listProfiles();
     foreach ($profiles as $profile) {
@@ -45,8 +45,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
     }
     // flush all IdP attributes and send user to creation wizard
     $my_inst->flushAttributes();
-    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $inst_id);
-    header("Location:edit_idp.php?inst_id=$inst_id&wizard=true");
+    $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
+    header("Location:edit_idp.php?inst_id=$instId&wizard=true");
 }
 
 
