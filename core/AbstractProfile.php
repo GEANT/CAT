@@ -299,15 +299,20 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->realm = $escapedRealm;
     }
 
-    /**
+        /**
      * register new supported EAP method for this profile
-     * Silverbullet always adds exactly one EAP method
      *
      * @param array $type The EAP Type, as defined in class EAP
      * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      *
      */
-    abstract public function addSupportedEapMethod($type, $preference);
+    public function addSupportedEapMethod($type, $preference) {
+        $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
+                . $this->identifier . ", "
+                . EAP::EAPMethodIdFromArray($type) . ", "
+                . $preference . ")");
+        $this->updateFreshness();
+    }
 
     /**
      * Produces an array of EAP methods supported by this profile, ordered by preference

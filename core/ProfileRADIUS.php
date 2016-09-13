@@ -236,21 +236,6 @@ class ProfileRADIUS extends AbstractProfile {
     }
 
     /**
-     * register new supported EAP method for this profile
-     *
-     * @param array $type The EAP Type, as defined in class EAP
-     * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
-     *
-     */
-    public function addSupportedEapMethod($type, $preference) {
-        $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
-                . $this->identifier . ", "
-                . EAP::EAPMethodIdFromArray($type) . ", "
-                . $preference . ")");
-        $this->updateFreshness();
-    }
-
-    /**
      * overrides the parent class definition: in Profile, we additionally need 
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes

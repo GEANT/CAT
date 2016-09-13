@@ -121,11 +121,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function addSupportedEapMethod($type, $preference) {
         // params are needed for proper overriding, but not used at all.
-        $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
-                . $this->identifier . ", "
-                . EAP::EAPMethodIdFromArray(EAP::$SILVERBULLET) . ", "
-                . 1 . ")");
-        $this->updateFreshness();
+        parent::addSupportedEapMethod(EAP::$SILVERBULLET, 1);
     }
 
     /**
