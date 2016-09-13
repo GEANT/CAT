@@ -304,7 +304,7 @@ class UserAPI extends CAT {
     /**
      * Return the list of IdPs in a given country
      *
-     * @param int $idp_id the IdP identifier
+     * @param string $country the country we are interested in
      * @return string JSON encoded data
      */
     public function JSON_listIdentityProviders($country) {
