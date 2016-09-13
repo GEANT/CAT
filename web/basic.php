@@ -38,11 +38,11 @@ class SimpleGUI extends UserAPI {
      */
     public function __construct() {
         parent::__construct();
-        $this->Args = [];
+        $this->args = [];
         $this->page = 0;
         $this->set_locale('core');
         $this->version = 2;
-        $this->Args['lang'] = CAT::get_lang();
+        $this->args['lang'] = CAT::get_lang();
 //print "<pre>"; print_r($_REQUEST); print "</pre>";
 
         /*
@@ -62,9 +62,9 @@ class SimpleGUI extends UserAPI {
         if (isset($_REQUEST['country']) && $_REQUEST['country']) {
             $country = strtoupper($_REQUEST['country']);
         } else {
-            $L = $this->locateUser();
-            if ($L['status'] == 'ok') {
-                $country = strtoupper($L['country']);
+            $location = $this->locateUser();
+            if ($location['status'] == 'ok') {
+                $country = strtoupper($location['country']);
             } else {
                 $this->loggerInstance->debug(2, "No coutry provided and unable to locate the address\n");
                 $country = 'NONE';
@@ -73,8 +73,8 @@ class SimpleGUI extends UserAPI {
         if (!in_array($country, $federations)) {
             $country = array_shift($federations);
         }
-        $this->Country = new Federation($country);
-        $this->Args['country'] = $this->Country->name;
+        $this->country = new Federation($country);
+        $this->args['country'] = $this->country->name;
         $this->page = 1;
 
 // If we have IdP identifier then match country to this identifier
@@ -86,42 +86,42 @@ class SimpleGUI extends UserAPI {
         if (isset($_REQUEST['idp']) && $_REQUEST['idp']) {
             $this->page = 2;
             try {
-                $this->Idp = new IdP($_REQUEST['idp']);
+                $this->idp = new IdP($_REQUEST['idp']);
             } catch (Exception $fail) {
                 $this->page = 1;
                 $this->set_locale("web_user");
                 return;
             }
-            $country_tmp = new Federation($this->Idp->federation);
-            if (strtoupper($this->Country->name) !== strtoupper($country_tmp->name)) {
-                unset($this->Idp);
+            $countryTemp = new Federation($this->idp->federation);
+            if (strtoupper($this->country->name) !== strtoupper($countryTemp->name)) {
+                unset($this->idp);
                 $this->page = 1;
                 $this->set_locale("web_user");
                 return;
             }
-            $this->Args['idp'] = $_REQUEST['idp'];
-            $this->profileCount = $this->Idp->profileCount();
+            $this->args['idp'] = $_REQUEST['idp'];
+            $this->profileCount = $this->idp->profileCount();
             if (!isset($_REQUEST['profile'])) {
                 $this->set_locale("web_user");
                 return;
             }
             $this->page = 3;
             try {
-                $this->Profile = ProfileFactory::instantiate($_REQUEST['profile']);
+                $this->profile = ProfileFactory::instantiate($_REQUEST['profile']);
             } catch (Exception $fail) {
                 $this->page = 2;
                 $this->set_locale("web_user");
                 return;
             }
-            if ($this->Profile->institution != $this->Idp->identifier) {
-                unset($this->Profile);
+            if ($this->profile->institution != $this->idp->identifier) {
+                unset($this->profile);
                 $this->page = 2;
                 $this->set_locale("web_user");
                 return;
             }
-            $this->Args['profile'] = $_REQUEST['profile'];
+            $this->args['profile'] = $_REQUEST['profile'];
             if (isset($_REQUEST['device'])) {
-                $this->Args['device'] = $_REQUEST['device'];
+                $this->args['device'] = $_REQUEST['device'];
             }
         }
 //print "<pre>"; print_r($_REQUEST); print "</pre>";
@@ -131,32 +131,32 @@ class SimpleGUI extends UserAPI {
 // print coutry selection
     public function listCountries() {
         $out = '';
-        $FED = $this->printCountryList(1);
+        $federations = $this->printCountryList(1);
         $out .= _('Select your country') . '<br>';
         $out .= '<select name="country" onchange="submit_form(this)">' . "\n";
-        foreach ($FED as $f => $F) {
-            $out .= '<option value="' . $f . '"';
-            if ($f === $this->Country->name) {
+        foreach ($federations as $fedId => $fedName) {
+            $out .= '<option value="' . $fedId . '"';
+            if ($fedId === $this->country->name) {
                 $out .= ' selected';
             }
-            $out .= '>' . $F . '</option>' . "\n";
+            $out .= '>' . $fedName . '</option>' . "\n";
         }
         $out .= '</select>';
         return $out;
     }
 
     public function listIdPs() {
-        $Inst = $this->orderIdentityProviders($this->Country->name);
-        if (!isset($this->Idp)) {
-            $this->Idp = new Idp($Inst[0]['idp']);
+        $Inst = $this->orderIdentityProviders($this->country->name);
+        if (!isset($this->idp)) {
+            $this->idp = new Idp($Inst[0]['idp']);
         }
-        $i_id = $this->Idp->identifier;
+        $idpId = $this->idp->identifier;
         $out = '';
         $out .= _("Select your institution");
         $out .= '<select name="idp" onchange="submit_form(this)">';
         foreach ($Inst as $I) {
             $out .= '<option value="' . $I['idp'] . '"';
-            if ($I['idp'] == $i_id) {
+            if ($I['idp'] == $idpId) {
                 $out .= ' selected';
             }
             $out .= '>' . $I['title'] . '</option>';
@@ -166,22 +166,22 @@ class SimpleGUI extends UserAPI {
     }
 
     public function listProfiles() {
-        $Prof = $this->Idp->listProfiles(1);
-        if (!isset($this->Profile)) {
-            $this->Profile = $Prof[0];
+        $profiles = $this->idp->listProfiles(1);
+        if (!isset($this->profile)) {
+            $this->profile = $profiles[0];
         }
-        $p_id = $this->Profile->identifier;
-        $this->Args['profile'] = $p_id;
+        $profileId = $this->profile->identifier;
+        $this->args['profile'] = $profileId;
         $out = '';
-        if (count($Prof) > 1) {
+        if (count($profiles) > 1) {
             $out .= _("Select the user group") . '<br>';
             $out .= '<select name="profile" onchange="submit_form(this)">';
-            foreach ($Prof as $P) {
-                $out .= '<option value="' . $P->identifier . '"';
-                if ($P->identifier == $p_id) {
+            foreach ($profiles as $profile) {
+                $out .= '<option value="' . $profile->identifier . '"';
+                if ($profile->identifier == $profileId) {
                     $out .= ' selected';
                 }
-                $out .= '>' . $P->name . '</option>';
+                $out .= '>' . $profile->name . '</option>';
             }
             $out .= '</select>';
         } else {
@@ -191,19 +191,19 @@ class SimpleGUI extends UserAPI {
     }
 
     public function listDevices() {
-        if (!isset($this->Profile)) {
+        if (!isset($this->profile)) {
             return '';
         }
         $detectedOs = $this->detectOS();
         $deviceName = $detectedOs['device'];
-        $this->Args['device'] = $deviceName;
+        $this->args['device'] = $deviceName;
         $profileRedirect = 0;
         $redirectTarget = '';
         $deviceRedirects = '';
         $selectedOs = 0;
         $unsupportedMessage = '<div id="unsupported_os">' . _("Your operating system was not properly detected, is not supported yet or cannot be configured with settings provided by your institution") . "</div><br>";
 
-        $attributes = $this->profileAttributes($this->Profile->identifier);
+        $attributes = $this->profileAttributes($this->profile->identifier);
         $thedevices = $attributes['devices'];
         $message = '';
         if (!$deviceName) {
@@ -260,21 +260,21 @@ class SimpleGUI extends UserAPI {
 
     public function displayDeviceDownload() {
         $this->set_locale('devices');
-        $a = $this->profileAttributes($this->Profile->identifier);
-        $thedevices = $a['devices'];
+        $attributes = $this->profileAttributes($this->profile->identifier);
+        $thedevices = $attributes['devices'];
         $this->set_locale("web_user");
         $out = '';
-        if (isset($a['description']) && $a['description']) {
-            print '<div>' . $a['description'] . '</div>';
+        if (isset($attributes['description']) && $attributes['description']) {
+            print '<div>' . $attributes['description'] . '</div>';
         }
-        if (isset($a['local_email']) && $a['local_email']) {
-            $out .= '<p>Email: <a href="mailto:' . $a['local_email'] . '">' . $a['local_email'] . '</a>';
+        if (isset($attributes['local_email']) && $attributes['local_email']) {
+            $out .= '<p>Email: <a href="mailto:' . $attributes['local_email'] . '">' . $attributes['local_email'] . '</a>';
         }
-        if (isset($a['local_url']) && $a['local_url']) {
-            $out .= '<p>WWW: <a href="' . $a['local_url'] . '">' . $a['local_url'] . '</a>';
+        if (isset($attributes['local_url']) && $attributes['local_url']) {
+            $out .= '<p>WWW: <a href="' . $attributes['local_url'] . '">' . $attributes['local_url'] . '</a>';
         }
-        if (isset($a['local_phone']) && $a['local_phone']) {
-            $out .= '<p>Tel: <a href="' . $a['local_phone'] . '">' . $a['local_phone'] . '</a>';
+        if (isset($attributes['local_phone']) && $attributes['local_phone']) {
+            $out .= '<p>Tel: <a href="' . $attributes['local_phone'] . '">' . $attributes['local_phone'] . '</a>';
         }
         if ($out !== '') {
             print '<div class="user_info">';
@@ -293,13 +293,13 @@ class SimpleGUI extends UserAPI {
                 print '<div style="width:100%; text-align:center"><a href ="' . $oneDevice['redirect'] . '">' . $oneDevice['redirect'] . '</a></div>';
                 exit;
             }
-            if ($oneDevice['id'] === $this->Args['device']) {
+            if ($oneDevice['id'] === $this->args['device']) {
                 break;
             }
         }
         $this->set_locale("web_user");
 
-        $installer = $this->generateInstaller($this->Args['device'], $this->Profile->identifier);
+        $installer = $this->generateInstaller($this->args['device'], $this->profile->identifier);
         if (!$installer['link']) {
             print _("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.");
             return;
@@ -355,15 +355,15 @@ class SimpleGUI extends UserAPI {
      */
     public function yourChoice() {
         $out = '';
-        $capitalisedCountry = strtoupper($this->Country->name);
+        $capitalisedCountry = strtoupper($this->country->name);
         $name = isset(Federation::$federationList[$capitalisedCountry]) ? Federation::$federationList[$capitalisedCountry] : $capitalisedCountry;
         $name = preg_replace('/ +/', '&nbsp;', $name);
         $out .= "$name; ";
-        $name = $this->Idp->name;
+        $name = $this->idp->name;
         $name = preg_replace('/ +/', '&nbsp;', $name);
         $out .= "$name";
         if ($this->profileCount > 1) {
-            $name = '; ' . $this->Profile->name;
+            $name = '; ' . $this->profile->name;
             $name = preg_replace('/ +/', '&nbsp;', $name);
             $out .= "$name";
         }
@@ -376,14 +376,14 @@ class SimpleGUI extends UserAPI {
      * @param string $text link text
      * @return string
      */
-    public function passArgument($arg_name) {
-        return '<input type="hidden" name="' . $arg_name . '" value="' . $this->Args[$arg_name] . '">';
+    public function passArgument($argName) {
+        return '<input type="hidden" name="' . $argName . '" value="' . $this->args[$argName] . '">';
     }
 
-    public $Country;
-    public $Idp;
-    public $Profile;
-    public $Args;
+    public $country;
+    public $idp;
+    public $profile;
+    public $args;
     public $profileCount;
 
 }
@@ -444,8 +444,9 @@ print $Gui->langSelection();
 if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {
     print "<p>\n";
     print $Gui->listCountries();
-    if ($Gui->page == 2 && !isset($FED[strtoupper($Gui->Country->name)]))
+    if ($Gui->page == 2 && !isset($FED[strtoupper($Gui->country->name)])) {
         $Gui->page = 1;
+    }
     print "<p>" . $Gui->listIdPs();
     print "<p>" . $Gui->listProfiles();
     print "<p>" . $Gui->listDevices();
