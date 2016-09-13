@@ -76,9 +76,9 @@ fi
             $outString .= $this->printPasswordDialog();
         }
         $outString .= $this->checkNMResultAndCont();
-        $installer_path = $this->installerBasename . '.sh';
-        file_put_contents($installer_path, $outString);
-        return($installer_path);
+        $installerPath = $this->installerBasename . '.sh';
+        file_put_contents($installerPath, $outString);
+        return($installerPath);
     }
 
     public function writeDeviceInfo() {
