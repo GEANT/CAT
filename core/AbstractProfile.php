@@ -190,6 +190,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * tests if the configurator needs to be regenerated
      * returns the configurator path or NULL if regeneration is required
      */
+    
     /**
      * This function tests if the configurator needs to be regenerated 
      * (properties of the Profile may have changed since the last configurator 
