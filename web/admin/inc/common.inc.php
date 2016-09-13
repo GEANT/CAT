@@ -246,10 +246,10 @@ function previewCAinHTML($cAReference) {
         return "<div>" . _("Error, ROWID expected.") . "</div>";
     }
 
-    $ca_blob = base64_decode(getBlobFromDB($cAReference, FALSE));
+    $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
 
     $func = new X509;
-    $details = $func->processCertificate($ca_blob);
+    $details = $func->processCertificate($cAblob);
     if ($details === FALSE) {
         return _("There was an error processing the certificate!");
     }
@@ -283,8 +283,8 @@ function previewInfoFileinHTML($fileReference) {
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
 }
 
-function instLevelInfoBoxes(IdP $my_inst) {
-    $idpoptions = $my_inst->getAttributes();
+function instLevelInfoBoxes(IdP $myInst) {
+    $idpoptions = $myInst->getAttributes();
     $retval = "";
     $retval .= "<div class='infobox'>
         <h2>" . _("General Institution Details") . "</h2>
@@ -297,8 +297,8 @@ function instLevelInfoBoxes(IdP $my_inst) {
                 </td>
                 <td>
                     <strong>";
-    $my_fed = new Federation($my_inst->federation);
-    $retval .= $my_fed::$federationList[strtoupper($my_inst->federation)];
+    $myFed = new Federation($myInst->federation);
+    $retval .= $myFed::$federationList[strtoupper($myInst->federation)];
     $retval .= "</strong>
                 </td>
             </tr>" . infoblock($idpoptions, "general", "IdP") . "
