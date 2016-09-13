@@ -1,10 +1,12 @@
 <?php
-/* *********************************************************************************
+
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 /**
  * This file creates Linux installers
  *
@@ -13,7 +15,6 @@
  *
  * @package ModuleWriting
  */
-
 /**
  * necessary includes
  */
@@ -30,18 +31,18 @@ require_once('DeviceConfig.php');
  */
 class Device_Linux extends DeviceConfig {
 
-      final public function __construct() {
-          parent::__construct();
+    final public function __construct() {
+        parent::__construct();
 //      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
-      $this->supportedEapMethods  = [ EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS ];
-      $this->local_dir = '.cat_installer';
-      $this->conf_file = '$HOME/'.$this->local_dir.'/cat_installer.conf';
-      $this->loggerInstance->debug(4,"LINUX: This device supports the following EAP methods: ");
-      $this->loggerInstance->debug(4,print_r($this->supportedEapMethods,true));
+        $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
+        $this->localDir = '.cat_installer';
+        $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';
+        $this->loggerInstance->debug(4, "LINUX: This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
-   public function writeInstaller() {
-      $out_string = '#!/usr/bin/env bash
+    public function writeInstaller() {
+        $outString = '#!/usr/bin/env bash
 if [ -z "$BASH" ] ; then
    bash  $0
    exit
@@ -49,152 +50,156 @@ fi
 
 
 ';
-      $out_string .= $this->printFunctions();
-      $out_string .= $this->printStart();
-      $out_string .= $this->printProfileConfirmation();
-      $out_string .= $this->printUserConsent();
-      $out_string .= $this->printCheckDirectory();
-      $CAs = $this->attributes['internal:CAs'][0];
-      $this->server_name = $this->glueServerNames($this->attributes['eap:server_name']);
-      $this->server_alt_subject_name_list = $this->mkSubjectAltNameList($this->attributes['eap:server_name']);
-      $out_string .= "# save certificates\n";
-      $out_string .= 'echo "';
-      foreach ($CAs as $ca) {
-        $out_string .= $ca['pem']."\n";
-      }
-      $out_string .= '"'." > \$HOME/$this->local_dir/ca.pem\n";
+        $outString .= $this->printFunctions();
+        $outString .= $this->printStart();
+        $outString .= $this->printProfileConfirmation();
+        $outString .= $this->printUserConsent();
+        $outString .= $this->printCheckDirectory();
+        $cAlist = $this->attributes['internal:CAs'][0];
+        $this->serverName = $this->glueServerNames($this->attributes['eap:server_name']);
+        $this->serverAltSubjNames = $this->mkSubjectAltNameList($this->attributes['eap:server_name']);
+        $outString .= "# save certificates\n";
+        $outString .= 'echo "';
+        foreach ($cAlist as $oneCa) {
+            $outString .= $oneCa['pem'] . "\n";
+        }
+        $outString .= '"' . " > \$HOME/$this->localDir/ca.pem\n";
 
-     $SSIDs = $this->attributes['internal:SSID'];
-     $delSSIDs = $this->attributes['internal:remove_SSID'];
+        $ssids = $this->attributes['internal:SSID'];
+        $delSSIDs = $this->attributes['internal:remove_SSID'];
 
-     $out_string .= $this->printNMScript($SSIDs,$delSSIDs);
-     $out_string .= $this->writeWpaConf($SSIDs);
-     if($this->selected_eap == EAP::$TLS) 
-       $out_string .= $this->printP12Dialog();
-     else
-       $out_string .= $this->printPasswordDialog();
-     $out_string .= $this->checkNMResultAndCont();
-     $installer_path = $this->installerBasename.'.sh';
-      file_put_contents($installer_path, $out_string);
-      return($installer_path);
-   }
+        $outString .= $this->printNMScript($ssids, $delSSIDs);
+        $outString .= $this->writeWpaConf($ssids);
+        if ($this->selected_eap == EAP::$TLS) {
+            $outString .= $this->printP12Dialog();
+        } else {
+            $outString .= $this->printPasswordDialog();
+        }
+        $outString .= $this->checkNMResultAndCont();
+        $installer_path = $this->installerBasename . '.sh';
+        file_put_contents($installer_path, $outString);
+        return($installer_path);
+    }
 
     public function writeDeviceInfo() {
-    $ssid_ct=count($this->attributes['internal:SSID']);
-    $out = '';
+        $ssidCount = count($this->attributes['internal:SSID']);
+        $out = '';
 
-   $out .= _("The installer is in the form of a bash script. It will try to configure eduroam under Network Manager and if this is either not appropriate for your system or your version of Network Manager is too old, a wpa_supplicant config file will be created instead.");
-   $out .= "<p>";
-    if($ssid_ct > 1) {
-        if($ssid_ct > 2) {
-            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"),implode(', ',CONFIG['CONSORTIUM']['ssid']))." ";
-        } else
-            $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"),implode(', ',CONFIG['CONSORTIUM']['ssid']))." ";
-        $i = 0;
-        foreach ($this->attributes['internal:SSID'] as $ssid=>$v) {
-           if(! in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
-             if($i > 0)
-           $out .= ", ";
-         $i++;
-         $out .= "<strong>$ssid</strong>";
-       }
+        $out .= _("The installer is in the form of a bash script. It will try to configure eduroam under Network Manager and if this is either not appropriate for your system or your version of Network Manager is too old, a wpa_supplicant config file will be created instead.");
+        $out .= "<p>";
+        if ($ssidCount > 1) {
+            if ($ssidCount > 2) {
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
+            } else {
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
+            }
+            $iterator = 0;
+            foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
+                if (!in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
+                    if ($iterator > 0) {
+                        $out .= ", ";
+                    }
+                    $iterator++;
+                    $out .= "<strong>$ssid</strong>";
+                }
+            }
+            $out .= "<p>";
+        }
+        $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
+        if ($this->eap == EAP::$TLS) {
+            $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
+        }
+        else {
+            $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
+            $out .= "<p>";
+            $out .= _("You will be requested to enter your account credentials during the installation. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
+        }
+        $out .= "<p>";
+        return $out;
     }
-    $out .= "<p>";
-    }
-   $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
-if($this->eap == EAP::$TLS)
-   $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
-else {
-   $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
-   $out .= "<p>";
-   $out .= _("You will be requested to enter your account credentials during the installation. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
-}
-    $out .= "<p>";
-    return $out;
-  }
 
-
-  private function printCheckDirectory() {
-$out = 'if [ -d $HOME/'.$this->local_dir.' ] ; then
-   if ! ask "'.sprintf(_("Directory %s exists; some of its files may be overwritten."),'$HOME/'.$this->local_dir).'" "'._("Continue").'" 1 ; then exit; fi
+    private function printCheckDirectory() {
+        $out = 'if [ -d $HOME/' . $this->localDir . ' ] ; then
+   if ! ask "' . sprintf(_("Directory %s exists; some of its files may be overwritten."), '$HOME/' . $this->localDir) . '" "' . _("Continue") . '" 1 ; then exit; fi
 else
-  mkdir $HOME/'.$this->local_dir.'
+  mkdir $HOME/' . $this->localDir . '
 fi
 ';
- return $out;
-  }
+        return $out;
+    }
 
-  private function checkNMResultAndCont() {
-    $out = 'if run_python_script ; then
-   show_info "'._("Installation successful").'"
+    private function checkNMResultAndCont() {
+        $out = 'if run_python_script ; then
+   show_info "' . _("Installation successful") . '"
 else
-   show_info "'._("Network Manager configuration failed, generating wpa_supplicant.conf").'"
-   if ! ask "'.("Network Manager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text.").'" "'._("Write the file").'" 1 ; then exit ; fi
+   show_info "' . _("Network Manager configuration failed, generating wpa_supplicant.conf") . '"
+   if ! ask "' . ("Network Manager configuration failed, but we may generate a wpa_supplicant configuration file if you wish. Be warned that your connection password will be saved in this file as clear text.") . '" "' . _("Write the file") . '" 1 ; then exit ; fi
 
-if [ -f '.$this->conf_file.' ] ; then
-  if ! ask "'.sprintf(_("File %s exists; it will be overwritten."),$this->conf_file).'" "'._("Continue").'" 1 ; then confirm_exit; fi
-  rm '.$this->conf_file.'
+if [ -f ' . $this->confFile . ' ] ; then
+  if ! ask "' . sprintf(_("File %s exists; it will be overwritten."), $this->confFile) . '" "' . _("Continue") . '" 1 ; then confirm_exit; fi
+  rm ' . $this->confFile . '
   fi
    create_wpa_conf
-   show_info "'.sprintf(_("Output written to %s"),$this->conf_file).'"
+   show_info "' . sprintf(_("Output written to %s"), $this->confFile) . '"
 fi
 ';
-  return $out;
-  }
-
-private function printStart() {
-     $out = "setup_environment\n";
-     $out .= 'show_info "'._("This installer has been prepared for \${ORGANISATION}").'\n\n'._("More information and comments:").'\n\nEMAIL: ${SUPPORT}\nWWW: ${URL}\n\n'.
-_("Installer created with software from the GEANT project.").'"
-';
-  return $out;
-}
-
-
-private function printProfileConfirmation() {
- if($this->attributes['internal:profile_count'][0] > 1)
-       $out = 'if ! ask "'.sprintf(_("This installer will only work properly if you are a member of %s and the user group: %s."),'${bf}'.$this->attributes['general:instname'][0].'${n}','${bf}'.$this->attributes['profile:name'][0]).'${n}"';
-    else
-       $out = 'if ! ask "'.sprintf(_("This installer will only work properly if you are a member of %s."),'${bf}'.$this->attributes['general:instname'][0]).'${n}"';
-    $out .= ' "'._("Continue").'" 1 ; then exit; fi
-';
-  return $out;
-
-}
-
-
-  private function printUserConsent() {
-    $out = '';
-    if(isset($this->attributes['support:info_file'])) {
-      if( $this->attributes['internal:info_file'][0]['mime'] == 'txt') {
-         $handle = fopen($this->attributes['internal:info_file'][0]['name'],"r");
-         $consent = '';
-         while (($buffer = fgets($handle, 4096)) !== false) {
-           $consent .= rtrim($buffer) . '\n';
-         }
-         $out = 'if ! ask "'.$consent.'${n}" "'._("Continue").'" 1 ; then exit; fi
-';
-      }
+        return $out;
     }
-    return $out;
-  }
+
+    private function printStart() {
+        $out = "setup_environment\n";
+        $out .= 'show_info "' . _("This installer has been prepared for \${ORGANISATION}") . '\n\n' . _("More information and comments:") . '\n\nEMAIL: ${SUPPORT}\nWWW: ${URL}\n\n' .
+                _("Installer created with software from the GEANT project.") . '"
+';
+        return $out;
+    }
+
+    private function printProfileConfirmation() {
+        if ($this->attributes['internal:profile_count'][0] > 1) {
+            $out = 'if ! ask "' . sprintf(_("This installer will only work properly if you are a member of %s and the user group: %s."), '${bf}' . $this->attributes['general:instname'][0] . '${n}', '${bf}' . $this->attributes['profile:name'][0]) . '${n}"';
+        }
+        else {
+            $out = 'if ! ask "' . sprintf(_("This installer will only work properly if you are a member of %s."), '${bf}' . $this->attributes['general:instname'][0]) . '${n}"';
+        }
+        $out .= ' "' . _("Continue") . '" 1 ; then exit; fi
+';
+        return $out;
+    }
+
+    private function printUserConsent() {
+        $out = '';
+        if (isset($this->attributes['support:info_file'])) {
+            if ($this->attributes['internal:info_file'][0]['mime'] == 'txt') {
+                $handle = fopen($this->attributes['internal:info_file'][0]['name'], "r");
+                $consent = '';
+                while (($buffer = fgets($handle, 4096)) !== false) {
+                    $consent .= rtrim($buffer) . '\n';
+                }
+                $out = 'if ! ask "' . $consent . '${n}" "' . _("Continue") . '" 1 ; then exit; fi
+';
+            }
+        }
+        return $out;
+    }
+
 # ask user for confirmation
 # the first argument is the user prompt
 # if the second argument is 0 then the first element of yes_no array
 # will be the default value prompted to the user
-  private function printFunctions() {
-$url = (isset($this->attributes['support:url'][0]) && $this->attributes['support:url'][0] ) ? $this->attributes['support:url'][0] : $this->support_url_substitute;
-$support=(isset($this->attributes['support:email'][0]) && $this->attributes['support:email'][0] ) ? $this->attributes['support:email'][0] : $this->support_email_substitute;
-$out ='
+
+    private function printFunctions() {
+        $url = (isset($this->attributes['support:url'][0]) && $this->attributes['support:url'][0] ) ? $this->attributes['support:url'][0] : $this->support_url_substitute;
+        $support = (isset($this->attributes['support:email'][0]) && $this->attributes['support:email'][0] ) ? $this->attributes['support:email'][0] : $this->support_email_substitute;
+        $out = '
 my_name=$0
 
 
 function setup_environment {
   bf=""
   n=""
-  ORGANISATION="'.$this->attributes['general:instname'][0].'"
-  URL="'.$url.'"
-  SUPPORT="'.$support.'"
+  ORGANISATION="' . $this->attributes['general:instname'][0] . '"
+  URL="' . $url . '"
+  SUPPORT="' . $support . '"
 if [ ! -z "$DISPLAY" ] ; then
   if which zenity 1>/dev/null 2>&1 ; then
     ZENITY=`which zenity`
@@ -233,7 +238,7 @@ done
 
 
 function ask {
-     T="'.CONFIG['APPEARANCE']['productname'].'"
+     T="' . CONFIG['APPEARANCE']['productname'] . '"
 #  if ! [ -z "$3" ] ; then
 #     T="$T: $3"
 #  fi
@@ -253,8 +258,8 @@ function ask {
      fi
   fi
 
-  yes='._("Y").'
-  no='._("N").'
+  yes=' . _("Y") . '
+  no=' . _("N") . '
   yes1=`echo $yes | awk \'{ print toupper($0) }\'`
   no1=`echo $no | awk \'{ print toupper($0) }\'`
 
@@ -311,12 +316,12 @@ function show_info {
 
 function confirm_exit {
   if [ ! -z $KDIALOG ] ; then
-     if $KDIALOG --yesno "'._("Really quit?").'"  ; then
+     if $KDIALOG --yesno "' . _("Really quit?") . '"  ; then
      exit 1
      fi
   fi
   if [ ! -z $ZENITY ] ; then
-     if $ZENITY --question --text="'._("Really quit?").'" 2>/dev/null ; then
+     if $ZENITY --question --text="' . _("Really quit?") . '" 2>/dev/null ; then
         exit 1
      fi
   fi
@@ -369,85 +374,84 @@ function user_cred {
   PASSWORD="a"
   PASSWORD1="b"
 
-  if ! USER_NAME=`prompt_nonempty_string 1 "'._("enter your userid").'"` ; then
+  if ! USER_NAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '"` ; then
     exit 1
   fi
 
   while [ "$PASSWORD" != "$PASSWORD1" ]
   do
-    if ! PASSWORD=`prompt_nonempty_string 0 "'._("enter your password").'"` ; then
+    if ! PASSWORD=`prompt_nonempty_string 0 "' . _("enter your password") . '"` ; then
       exit 1
     fi
-    if ! PASSWORD1=`prompt_nonempty_string 0 "'._("repeat your password").'"` ; then
+    if ! PASSWORD1=`prompt_nonempty_string 0 "' . _("repeat your password") . '"` ; then
       exit 1
     fi
     if [ "$PASSWORD" != "$PASSWORD1" ] ; then
-      alert "'._("passwords do not match").'"
+      alert "' . _("passwords do not match") . '"
     fi
   done
 }
 ';
-return $out;
+        return $out;
+    }
 
-}
-
-
-  private function writeWpaConf($SSIDs) {
-     $e = EAP::eapDisplayName($this->selected_eap);
-$out = 'function create_wpa_conf {
-cat << EOFW >> '.$this->conf_file."\n";
-     foreach (array_keys($SSIDs) as $ssid) {
-    $out .= '
+    private function writeWpaConf($ssids) {
+        $eapMethod = EAP::eapDisplayName($this->selected_eap);
+        $out = 'function create_wpa_conf {
+cat << EOFW >> ' . $this->confFile . "\n";
+        foreach (array_keys($ssids) as $ssid) {
+            $out .= '
 network={
-  ssid="'.$ssid.'"
+  ssid="' . $ssid . '"
   key_mgmt=WPA-EAP
   pairwise=CCMP
   group=CCMP TKIP
-  eap='.$e['OUTER'].'
-  ca_cert="${HOME}/'.$this->local_dir.'/ca.pem"
+  eap=' . $eapMethod['OUTER'] . '
+  ca_cert="${HOME}/' . $this->localDir . '/ca.pem"
   identity="${USER_NAME}"';
-  if($this->server_name)
-    $out .= '
-  domain_suffix_match="'.$this->server_name.'"';
-  if($this->selected_eap == EAP::$TLS) {
-    $out .= '
-  private_key="${HOME}/'.$this->local_dir.'/user.p12"
+            if ($this->serverName) {
+                $out .= '
+  domain_suffix_match="' . $this->serverName . '"';
+            }
+            if ($this->selected_eap == EAP::$TLS) {
+                $out .= '
+  private_key="${HOME}/' . $this->localDir . '/user.p12"
   private_key_passwd="${PASSWORD}"';
-  } else {
-    $out .= '
-  phase2="auth='.$e['INNER'].'"
+            } else {
+                $out .= '
+  phase2="auth=' . $eapMethod['INNER'] . '"
   password="${PASSWORD}"';
-  if($this->attributes['internal:use_anon_outer'][0] == 1) 
-    $out .= '
-  anonymous_identity="'.$this->attributes['internal:anon_local_value'][0].'@'.$this->attributes['internal:realm'][0].'"';
-  }
-    $out .= '
+                if ($this->attributes['internal:use_anon_outer'][0] == 1) {
+                    $out .= '
+  anonymous_identity="' . $this->attributes['internal:anon_local_value'][0] . '@' . $this->attributes['internal:realm'][0] . '"';
+                }
+            }
+            $out .= '
 }';
-}
-  $out .= '
+        }
+        $out .= '
 EOFW
-chmod 600 '.$this->conf_file.'
+chmod 600 ' . $this->confFile . '
 }
 ';
-  return $out;
-}
+        return $out;
+    }
 
-
-
-  private function printPasswordDialog() {
-  $out = '#prompt user for credentials
+    private function printPasswordDialog() {
+        $out = '#prompt user for credentials
   user_cred
   ';
-  return $out;
-}
-  private function printP12Dialog() {
-  $out ='function p12dialog {
+        return $out;
+    }
+
+    private function printP12Dialog() {
+        $out = 'function p12dialog {
   if [ ! -z $ZENITY ] ; then
-    if ! cert=`$ZENITY --file-selection --file-filter="'._("personal certificate file (p12 or pfx)").' | *.p12 *.P12 *.pfx *.PFX" --file-filter="All files | *" --title="'._("personal certificate file (p12 or pfx)").'" 2>/dev/null` ; then
+    if ! cert=`$ZENITY --file-selection --file-filter="' . _("personal certificate file (p12 or pfx)") . ' | *.p12 *.P12 *.pfx *.PFX" --file-filter="All files | *" --title="' . _("personal certificate file (p12 or pfx)") . '" 2>/dev/null` ; then
        exit
     fi
   elif [ ! -z $KDIALOG ] ; then
-    if ! cert=`$KDIALOG --getopenfilename . "*.p12 *.P12 *.pfx *.PFX | '._("personal certificate file (p12 or pfx)").'" --title "'._("personal certificate file (p12 or pfx)").'"` ; then
+    if ! cert=`$KDIALOG --getopenfilename . "*.p12 *.P12 *.pfx *.PFX | ' . _("personal certificate file (p12 or pfx)") . '" --title "' . _("personal certificate file (p12 or pfx)") . '"` ; then
        exit
     fi
   
@@ -459,7 +463,7 @@ chmod 600 '.$this->conf_file.'
     fi
 
     while true ; do
-      prompt="'._("personal certificate file (p12 or pfx)").'"
+      prompt="' . _("personal certificate file (p12 or pfx)") . '"
       read -p "${prompt} [$bf$cert${n}]" cert_f
       if [ "$cert" -a -z "$cert_f" ] ; then
          break
@@ -468,20 +472,20 @@ chmod 600 '.$this->conf_file.'
           cert=$cert_f
           break
         else
-          echo "'._("file not found").'"
+          echo "' . _("file not found") . '"
           cert=""
         fi
       fi
     done
 fi
-    cp "$cert" $HOME/'.$this->local_dir.'/user.p12
-    cert=$HOME/'.$this->local_dir.'/user.p12
+    cp "$cert" $HOME/' . $this->localDir . '/user.p12
+    cert=$HOME/' . $this->localDir . '/user.p12
 
     PASSWORD=""
-    prompt="'._("enter the password for the certificate file").'"
+    prompt="' . _("enter the password for the certificate file") . '"
     while [ ! "$PASSWORD" ]
     do
-      if ! PASSWORD=`prompt_nonempty_string 0 "'._("enter the password for the certificate file").'"` ; then
+      if ! PASSWORD=`prompt_nonempty_string 0 "' . _("enter the password for the certificate file") . '"` ; then
         exit 1
       fi
       if openssl pkcs12 -in $cert -passin pass:"$PASSWORD" -noout 2>/dev/null; then
@@ -494,44 +498,46 @@ fi
         PASSWORD=""
       fi
     done
-      if ! USERNAME=`prompt_nonempty_string 1 "'._("enter your userid").'" "$USER_NAME"` ; then
+      if ! USERNAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" "$USER_NAME"` ; then
        exit 1
     fi
 }  
 p12dialog
 ';
- return $out;
-}
+        return $out;
+    }
 
+    private function glueServerNames($serverList) {
+        if (!$serverList) {
+            return '';
+        }
+        $A0 = array_reverse(explode('.', array_shift($serverList)));
+        $B = $A0;
+        foreach ($serverList as $oneServer) {
+            $A = array_reverse(explode('.', $oneServer));
+            $B = array_intersect_assoc($A0, $A);
+            $A0 = $B;
+        }
+        return(implode('.', array_reverse($B)));
+    }
 
-private function glueServerNames($server_list) {
-  if(! $server_list)
-    return '';
-  $A0 =  array_reverse(explode('.',array_shift($server_list)));
-  $B = $A0;
-  foreach($server_list as $a) {
-     $A= array_reverse(explode('.',$a));
-     $B = array_intersect_assoc($A0,$A);
-     $A0 = $B;
-   }
-  return(implode('.',array_reverse($B)));
-}
+    private function mkSubjectAltNameList($serverList) {
+        if (!$serverList) {
+            return '';
+        }
+        $out = '';
+        foreach ($serverList as $oneServer) {
+            if ($out) {
+                $out .= ',';
+            }
+            $out .= "'DNS:$oneServer'";
+        }
+        return $out;
+    }
 
-private function mkSubjectAltNameList($server_list) {
-  if(! $server_list)
-    return '';
-  $out = '';
-  foreach($server_list as $a) {
-     if($out)
-       $out .= ','; 
-     $out .= "'DNS:$a'";
-  }
-  return $out;
-}
-
-private function printNMScript($SSIDs,$delSSIDs) {
-   $e = EAP::eapDisplayName($this->selected_eap);
-$out = 'function run_python_script {
+    private function printNMScript($ssids, $delSSIDs) {
+        $eapMethod = EAP::eapDisplayName($this->selected_eap);
+        $out = 'function run_python_script {
 PASSWORD=$( echo "$PASSWORD" | sed "s/\'/\\\\\\\'/g" )
 if python << EEE1 > /dev/null 2>&1
 import dbus
@@ -589,8 +595,8 @@ class EduroamNMConfigTool:
             sys.exit(2)
 
     def check_opts(self):
-        self.cacert_file = \'${HOME}/'.$this->local_dir.'/ca.pem\'
-        self.pfx_file = \'${HOME}/'.$this->local_dir.'/user.p12\'
+        self.cacert_file = \'${HOME}/' . $this->localDir . '/ca.pem\'
+        self.pfx_file = \'${HOME}/' . $this->localDir . '/user.p12\'
         if not os.path.isfile(self.cacert_file):
             print("Certificate file not found, looks like a CAT error")
             sys.exit(2)
@@ -639,8 +645,8 @@ class EduroamNMConfigTool:
                pass
 
     def add_connection(self,ssid):
-        server_alt_subject_name_list = dbus.Array({'.$this->server_alt_subject_name_list.'})
-        server_name = \''.$this->server_name.'\'
+        server_alt_subject_name_list = dbus.Array({' . $this->serverAltSubjNames . '})
+        server_name = \'' . $this->serverName . '\'
         if self.nm_version == "0.9" or self.nm_version == "1.0":
              match_key = \'altsubject-matches\'
              match_value = server_alt_subject_name_list
@@ -665,27 +671,28 @@ class EduroamNMConfigTool:
             \'group\': [\'ccmp\', \'tkip\']
         })
         s_8021x = dbus.Dictionary({
-            \'eap\': [\''.strtolower($e['OUTER']).'\'],
+            \'eap\': [\'' . strtolower($eapMethod['OUTER']) . '\'],
             \'identity\': \'$USER_NAME\',
             \'ca-cert\': dbus.ByteArray("file://{0}\0".format(self.cacert_file).encode(\'utf8\')),';
-    if($this->server_name) {
-             $out .= '
+        if ($this->serverName) {
+            $out .= '
              match_key: match_value,';
-    }
-    if($this->selected_eap == EAP::$TLS) {
-       $out .= '
+        }
+        if ($this->selected_eap == EAP::$TLS) {
+            $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key-password\':  \'$PASSWORD\',';
-    } else {
-       $out .= '
+        } else {
+            $out .= '
             \'password\': \'$PASSWORD\',
-            \'phase2-auth\': \''.strtolower($e['INNER']).'\',';
-         if($this->attributes['internal:use_anon_outer'][0] == 1) 
-              $out .= '
-            \'anonymous-identity\': \''.$this->attributes['internal:anon_local_value'][0].'@'.$this->attributes['internal:realm'][0].'\',';
-    }
-    $out .= '
+            \'phase2-auth\': \'' . strtolower($eapMethod['INNER']) . '\',';
+            if ($this->attributes['internal:use_anon_outer'][0] == 1) {
+                $out .= '
+            \'anonymous-identity\': \'' . $this->attributes['internal:anon_local_value'][0] . '@' . $this->attributes['internal:realm'][0] . '\',';
+            }
+        }
+        $out .= '
         })
         s_ip4 = dbus.Dictionary({\'method\': \'auto\'})
         s_ip6 = dbus.Dictionary({\'method\': \'auto\'})
@@ -702,19 +709,20 @@ class EduroamNMConfigTool:
     def main(self):
         self.check_opts()
         ver = self.connect_to_NM()';
-     foreach (array_keys($SSIDs) as $ssid) {
-           $out .='
-        self.delete_existing_connections(\''.$ssid.'\')
-        self.add_connection(\''.$ssid.'\')';
-     }
+        foreach (array_keys($ssids) as $ssid) {
+            $out .= '
+        self.delete_existing_connections(\'' . $ssid . '\')
+        self.add_connection(\'' . $ssid . '\')';
+        }
 //   create a list of profiles to be deleted after installation
-     foreach ($delSSIDs as $ssid => $cipher) {
-         if($cipher == 'DEL')
-            $out .='
-        self.delete_existing_connections(\''.$ssid.'\')';
-     }
+        foreach ($delSSIDs as $ssid => $cipher) {
+            if ($cipher == 'DEL') {
+                $out .= '
+        self.delete_existing_connections(\'' . $ssid . '\')';
+            }
+        }
 
-$out .='
+        $out .= '
 
 if __name__ == "__main__":
     ENMCT = EduroamNMConfigTool()
@@ -722,12 +730,12 @@ if __name__ == "__main__":
 EOF
 }
 ';
-return $out;
-}
+        return $out;
+    }
 
+    private $localDir;
+    private $confFile;
+    private $serverName;
+    private $serverAltSubjNames;
 
-private $local_dir;
-private $conf_file;
-private $server_name;
-private $server_alt_subject_name_list;
 }
