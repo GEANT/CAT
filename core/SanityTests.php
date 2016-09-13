@@ -80,7 +80,7 @@ class SanityTest extends CAT {
        $m_name = $test.'_test';
        $this->test_result[$test] = 0;
        if(! method_exists($this,$m_name)) {
-           $this->test_return($test,L_ERROR,"Configuration error, no test configured for <strong>$test</strong>.");
+           $this->test_return(L_ERROR,"Configuration error, no test configured for <strong>$test</strong>.");
            return;
        }
        $this->$m_name();

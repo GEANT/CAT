@@ -185,7 +185,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                     $multilangAttrsWithC[$objValue] = TRUE;
                 }
             }
-            $content = "";
+            
             switch ($optioninfo["type"]) {
                 case "string":
                     if (!empty($iterator["$objId-0"])) {

@@ -46,4 +46,4 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
         <h2>401/403</h2>
         <p><?php echo sprintf(_("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang())?></p>
     </div>
-        <?php footer(TRUE);
+        <?php footer();

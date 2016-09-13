@@ -197,8 +197,6 @@ function valid_boolean($input) {
 }
 
 function valid_DB_reference($input) {
-    $table = "";
-    $rowindex = "";
     $rowindexmatch = [];
 
     if (preg_match("/IdP/", $input)) {

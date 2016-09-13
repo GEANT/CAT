@@ -154,7 +154,6 @@ $user = new User($_SESSION['user']);
             <th><?php echo _("Institution Name"); ?></th>
 
             <?php
-            // $feds = $user->getAttributes("user:fedadmin");
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (CONFIG['DB']['enforce-external-sync']) {

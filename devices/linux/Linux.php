@@ -33,7 +33,6 @@ class Device_Linux extends DeviceConfig {
 
     final public function __construct() {
         parent::__construct();
-//      $this->supportedEapMethods  = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP);
         $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
         $this->localDir = '.cat_installer';
         $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';

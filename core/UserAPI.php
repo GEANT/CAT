@@ -180,14 +180,13 @@ class UserAPI extends CAT {
         return $returnList;
     }
 
-    public function deviceInfo($device, $prof_id) {
+    public function deviceInfo($device, $profileId) {
         $this->set_locale("devices");
         $out = 0;
-        $profile = ProfileFactory::instantiate($prof_id);
+        $profile = ProfileFactory::instantiate($profileId);
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         if (isset($dev)) {
-//       $dev->setup($profile);
             $out = $dev->writeDeviceInfo();
         }
         $this->set_locale("web_user");

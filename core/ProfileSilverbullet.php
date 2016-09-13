@@ -108,11 +108,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path, $mime) {
-        // params are needed for proper overriding, and I don't want any errors
-        // in code analysis. So let's waste some cycles.
-        $device = $path;
-        $path = $mime;
-        $mime = $device;
+        // params are needed for proper overriding, but not needed at all.
     }
 
 
@@ -124,9 +120,7 @@ class ProfileSilverbullet extends AbstractProfile {
      *
      */
     public function addSupportedEapMethod($type, $preference) {
-        // params are needed for proper overriding, and I don't want any errors
-        // in code analysis. So let's waste some cycles.
-        $type = $preference;
+        // params are needed for proper overriding, but not used at all.
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
                 . EAP::EAPMethodIdFromArray(EAP::$SILVERBULLET) . ", "
@@ -139,9 +133,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param boolean $shallwe
      */
     public function setAnonymousIDSupport($shallwe) {
-        // params are needed for proper overriding, and I don't want any errors
-        // in code analysis. So let's waste some cycles.
-        $shallwe = 0;
+        // params are needed for proper overriding, but not used at all.
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
     }
 
