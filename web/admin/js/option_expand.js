@@ -33,7 +33,7 @@ function addSupportOption() {
     }
 }
 
-function addInstOption() {
+function addGeneralOption() {
     if( this.readyState === 4 && this.status === 200 ) {
         var field = document.getElementById("expandable_general_options");
         var div = document.createElement('tbody');
@@ -116,8 +116,8 @@ function addDefaultSupportOptions() {
     getXML(addSupportOption,"inc/option_xhr.inc.php?class=support")
 }
 
-function addDefaultInstOptions() {
-    getXML(addInstOption,"inc/option_xhr.inc.php?class=general");
+function addDefaultGeneralOptions() {
+    getXML(addGeneralOption,"inc/option_xhr.inc.php?class=general");
 }
 
 function addDefaultUserOptions() {

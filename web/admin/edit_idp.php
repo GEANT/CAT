@@ -121,9 +121,9 @@ geo_widget_head($my_inst->federation, $inst_name)
 
             echo "</ul>";
         }
-        prefilledOptionTable($idpoptions, "general", "IdP");
+        echo prefilledOptionTable($idpoptions, "general", "IdP");
         ?>
-        <button type='button' class='newoption' onclick='addDefaultInstOptions()'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='addDefaultGeneralOptions()'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
     $additional = FALSE;
@@ -184,7 +184,7 @@ geo_widget_head($my_inst->federation, $inst_name)
             . "</li>";
             echo "</ul>";
         }
-        prefilledOptionTable($idpoptions, "media", "IdP");
+        echo prefilledOptionTable($idpoptions, "media", "IdP");
         ?>
         <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
 
@@ -197,7 +197,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         <p>" .
             _("If you enter a value here, it will be added to the site installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all (shame on you!), you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
         }
-        prefilledOptionTable($idpoptions, "support", "IdP");
+        echo prefilledOptionTable($idpoptions, "support", "IdP");
         ?>
 
         <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button></fieldset>
