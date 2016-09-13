@@ -5,9 +5,10 @@
 
 /* General function for doing HTTP XML GET requests. */
 
-function getXML( funct, URL ) {
+function getXML(URL, attribute_class ) {
     var client = new XMLHttpRequest();
-    client.onreadystatechange = funct;
+    client.attribute_class = attribute_class;
+    client.onreadystatechange = addOption;
     client.open( "GET", URL+"&etype=XML" );
     client.send();
 }
@@ -24,81 +25,9 @@ function postXML( funct, form ) {
     client.send( form_values );
 }
 
-function addSupportOption() {
+function addOption(attribute_class) {
     if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_support_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addGeneralOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_general_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addUserOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_user_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addProfileOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_profile_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addEapServerOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_eap_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addMediaOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_media_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addFedOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_fed_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addDeviceOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_device-specific_options");
-        var div = document.createElement('tbody');
-        div.innerHTML = this.responseText;
-        field.appendChild(div.firstChild);
-    }
-}
-
-function addEapSpecificOption() {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_eap-specific_options");
+        var field = document.getElementById("expandable_"+this.attribute_class+"_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
         field.appendChild(div.firstChild);
@@ -113,39 +42,39 @@ function processCredentials() {
 }
 
 function addDefaultSupportOptions() {
-    getXML(addSupportOption,"inc/option_xhr.inc.php?class=support")
+    getXML("inc/option_xhr.inc.php?class=support", "support")
 }
 
 function addDefaultGeneralOptions() {
-    getXML(addGeneralOption,"inc/option_xhr.inc.php?class=general");
+    getXML("inc/option_xhr.inc.php?class=general", "general");
 }
 
 function addDefaultUserOptions() {
-    getXML(addUserOption,"inc/option_xhr.inc.php?class=user");
+    getXML("inc/option_xhr.inc.php?class=user", "user");
 }
 
 function addDefaultProfileOptions() {
-    getXML(addProfileOption,"inc/option_xhr.inc.php?class=profile");
+    getXML("inc/option_xhr.inc.php?class=profile", "profile");
 }
 
 function addDefaultEapServerOptions() {
-    getXML(addEapServerOption,"inc/option_xhr.inc.php?class=eap");
+    getXML("inc/option_xhr.inc.php?class=eap", "eap");
 }
 
 function addDefaultMediaOptions() {
-    getXML(addMediaOption,"inc/option_xhr.inc.php?class=media");
+    getXML("inc/option_xhr.inc.php?class=media", "media");
 }
 
 function addDefaultFedOptions() {
-    getXML(addFedOption,"inc/option_xhr.inc.php?class=fed");
+    getXML("inc/option_xhr.inc.php?class=fed", "fed");
 }
 
 function addDeviceOptions() {
-    getXML(addDeviceOption,"inc/option_xhr.inc.php?class=device-specific");
+    getXML("inc/option_xhr.inc.php?class=device-specific", "device-specific");
 }
 
 function addEapSpecificOptions() {
-    getXML(addEapSpecificOption,"inc/option_xhr.inc.php?class=eap-specific");
+    getXML("inc/option_xhr.inc.php?class=eap-specific", "eap-specific");
 }
 
 function doCredentialCheck(form) {

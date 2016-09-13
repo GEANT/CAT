@@ -126,13 +126,6 @@ geo_widget_head($my_inst->federation, $inst_name)
         <button type='button' class='newoption' onclick='addDefaultGeneralOptions()'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    $additional = FALSE;
-
-    foreach ($idpoptions as $optionname => $optionvalue) {
-        if ($optionvalue['name'] == "general:geo_coordinates") {
-            $additional = TRUE;
-        }
-    }
     geo_widget_body($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
