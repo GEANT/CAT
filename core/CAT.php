@@ -68,19 +68,19 @@ class CAT {
      *  additionally it also sets static variables $laing_index and $root
      */
     public function __construct() {
-        $A = $this->set_lang();
-        self::$locale = $A[1];
-
+        $language = $this->set_lang();
+        self::$locale = $language[1];
+        CAT::$VERSION = _("Unreleased SVN Revision");
         if (CAT::$RELEASE_VERSION) {
             $temp_version = "CAT-".CAT::$VERSION_MAJOR.".".CAT::$VERSION_MINOR;
-            if (CAT::$VERSION_PATCH != 0)
+            if (CAT::$VERSION_PATCH != 0) {
                     $temp_version .= ".".CAT::$VERSION_PATCH;
-            if (CAT::$VERSION_EXTRA != "")
+            }
+            if (CAT::$VERSION_EXTRA != "") {
                 $temp_version .= "-".CAT::$VERSION_EXTRA;
+            }
             CAT::$VERSION = sprintf(_("Release %s"), $temp_version );
         }
-        else
-            CAT::$VERSION = _("Unreleased SVN Revision");
     }
 
     /** 
@@ -195,28 +195,29 @@ class CAT {
     /**
      * Prepares a list of countries known to the CAT.
      * 
-     * @param int $active_only is set and nonzero will cause that only countries with some institutions underneath will be listed
+     * @param int $activeOnly is set and nonzero will cause that only countries with some institutions underneath will be listed
      * @return array Array indexed by (uppercase) lang codes and sorted according to the current locale
      */
-    public function printCountryList($active_only = 0) {
+    public function printCountryList($activeOnly = 0) {
         $olddomain = $this->set_locale("core");
         $handle = DBConnection::handle(CAT::$DB_TYPE);
-        if ($active_only) {
+        $returnArray = []; // in if -> the while might never be executed, so initialise
+        if ($activeOnly) {
             $federations = $handle->exec("SELECT DISTINCT LOWER(institution.country) AS country FROM institution JOIN profile
                           ON institution.inst_id = profile.inst_id WHERE profile.showtime = 1 ORDER BY country");
-            while ($a = mysqli_fetch_object($federations)) {
-                $b = $a->country;
-                $F = new Federation($b);
-                $c = strtoupper($F->name);
-                $C[$c] = isset(Federation::$federationList[$c]) ? Federation::$federationList[$c] : $c;
+            while ($activeFederations = mysqli_fetch_object($federations)) {
+                $fedIdentifier = $activeFederations->country;
+                $fedObject = new Federation($fedIdentifier);
+                $capFedName = strtoupper($fedObject->name);
+                $returnArray[$capFedName] = isset(Federation::$federationList[$capFedName]) ? Federation::$federationList[$capFedName] : $capFedName;
             }
         } else {
             new Federation;
-            $C = Federation::$federationList;
+            $returnArray = Federation::$federationList;
         }
-        asort($C, SORT_LOCALE_STRING);
+        asort($returnArray, SORT_LOCALE_STRING);
         $this->set_locale($olddomain);
-        return($C);
+        return($returnArray);
     }
 
     /**
