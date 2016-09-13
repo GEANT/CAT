@@ -127,7 +127,7 @@ if ($device) {
         }
         echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
         ?>
-    <button type='button' class='newoption' onclick='<?php echo "add" . $param_name . "Options(\"\")"; ?>'><?php echo _("Add new option"); ?></button>
+    <button type='button' class='newoption' onclick='<?php echo "getXML(\"$param_name\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>
     <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>

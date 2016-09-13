@@ -207,7 +207,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 
         echo prefilledOptionTable($profile_options, "profile", "Profile");
         ?>
-        <button type='button' class='newoption' onclick='addDefaultProfileOptions()'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("profile")'><?php echo _("Add new option"); ?></button>
         <table>
             <?php
             ?>
@@ -495,7 +495,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     <?php
     echo prefilledOptionTable($profile_options, "support", "Profile");
     ?>
-    <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button>
+    <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button>
 </fieldset>
 <fieldset class="option_container" id="eap_override">
     <legend><strong><?php echo _("EAP Details for this profile"); ?></strong></legend>
@@ -520,7 +520,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     <?php
     echo prefilledOptionTable($profile_options, "eap", "Profile");
     ?>
-    <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
+    <button type='button' class='newoption' onclick='getXML("eap")'><?php echo _("Add new option"); ?></button>
 </fieldset>
 <fieldset class="option_container" id='media_override'>
     <legend><strong><?php echo _("Media Properties for this profile"); ?></strong></legend>
@@ -546,7 +546,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     <?php
     echo prefilledOptionTable($profile_options, "media", "Profile");
     ?>
-    <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
+    <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 <?php
 if ($wizardStyle) {
     echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";

@@ -123,7 +123,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         }
         echo prefilledOptionTable($idpoptions, "general", "IdP");
         ?>
-        <button type='button' class='newoption' onclick='addDefaultGeneralOptions()'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
     geo_widget_body($wizardStyle, $additional);
@@ -179,7 +179,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         }
         echo prefilledOptionTable($idpoptions, "media", "IdP");
         ?>
-        <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
+        <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 
     <fieldset class="option_container">
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
@@ -193,7 +193,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         echo prefilledOptionTable($idpoptions, "support", "IdP");
         ?>
 
-        <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button></fieldset>
+        <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($wizardStyle) {
         echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";

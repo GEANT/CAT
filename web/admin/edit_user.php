@@ -41,7 +41,7 @@ $user = new User($_SESSION['user']);
                 <strong><?php echo _("Your attributes"); ?></strong>
             </legend>
                 <?php echo prefilledOptionTable($user->getAttributes(), "user", "User"); ?>
-            <button type='button' class='newoption' onclick='addDefaultUserOptions()'>
+            <button type='button' class='newoption' onclick='getXML("user")'>
                 <?php echo _("Add new option"); ?>
             </button>
         </fieldset>

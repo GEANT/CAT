@@ -5,11 +5,11 @@
 
 /* General function for doing HTTP XML GET requests. */
 
-function getXML(URL, attribute_class ) {
+function getXML(attribute_class ) {
     var client = new XMLHttpRequest();
     client.attribute_class = attribute_class;
     client.onreadystatechange = addOption;
-    client.open( "GET", URL+"&etype=XML" );
+    client.open( "GET", "inc/option_xhr.inc.php?class="+attribute_class+"&etype=XML" );
     client.send();
 }
 
@@ -39,42 +39,6 @@ function processCredentials() {
         var field = document.getElementById("disposable_credential_container");
         field.innerHTML = this.responseText;
     }
-}
-
-function addDefaultSupportOptions() {
-    getXML("inc/option_xhr.inc.php?class=support", "support")
-}
-
-function addDefaultGeneralOptions() {
-    getXML("inc/option_xhr.inc.php?class=general", "general");
-}
-
-function addDefaultUserOptions() {
-    getXML("inc/option_xhr.inc.php?class=user", "user");
-}
-
-function addDefaultProfileOptions() {
-    getXML("inc/option_xhr.inc.php?class=profile", "profile");
-}
-
-function addDefaultEapServerOptions() {
-    getXML("inc/option_xhr.inc.php?class=eap", "eap");
-}
-
-function addDefaultMediaOptions() {
-    getXML("inc/option_xhr.inc.php?class=media", "media");
-}
-
-function addDefaultFedOptions() {
-    getXML("inc/option_xhr.inc.php?class=fed", "fed");
-}
-
-function addDeviceOptions() {
-    getXML("inc/option_xhr.inc.php?class=device-specific", "device-specific");
-}
-
-function addEapSpecificOptions() {
-    getXML("inc/option_xhr.inc.php?class=eap-specific", "eap-specific");
 }
 
 function doCredentialCheck(form) {
