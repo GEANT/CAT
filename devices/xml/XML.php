@@ -143,18 +143,18 @@ abstract class Device_XML extends DeviceConfig {
             $this->loggerInstance->debug(4, "Missing class definition for $attrName\n");
             return;
         }
-        $class_name = $this->AttributeNames[$attrName];
+        $className = $this->AttributeNames[$attrName];
         $objs = [];
         if ($this->langScope === 'global') {
             foreach ($attributeList['langs'] as $language => $value) {
                 $language = ( $language === 'C' ? 'any' : $language );
-                $obj = new $class_name();
+                $obj = new $className();
                 $obj->setValue($value);
                 $obj->setAttributes(['lang' => $language]);
                 $objs[] = $obj;
             }
         } else {
-            $obj = new $class_name();
+            $obj = new $className();
             $obj->setValue($attributeList[0]);
             $objs[] = $obj;
         }
