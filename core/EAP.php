@@ -52,7 +52,6 @@ define("INTEGER_EAP_pwd", 7);
 define("INTEGER_SILVERBULLET", 8);
 
 class EAP {
-
     /* constants only work for simple types. So these arrays need to be variables. :-(
       Don't ever change them though. */
 
@@ -70,7 +69,7 @@ class EAP {
      */
     public static $TLS = ["OUTER" => TLS, "INNER" => NONE];
 
-   /**
+    /**
      * EAP-TLS: Outer EAP Type = 13, no inner EAP
      *
      * @var array of EAP type IDs that describe EAP-TLS
@@ -123,7 +122,7 @@ class EAP {
      *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
      */
     public static $EAP_ANY = ["OUTER" => 255, "INNER" => 255];
-    
+
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
@@ -147,16 +146,18 @@ class EAP {
 
     public static function innerAuth($eap) {
         $out = [];
-        if ($eap["INNER"]) {
+        if ($eap["INNER"]) { // there is an inner EAP method
             $out['EAP'] = 1;
             $out['METHOD'] = $eap["INNER"];
-        } else {
-            $out['EAP'] = 0;
-            if ($eap == EAP::$TTLS_PAP)
-                $out['METHOD'] = NE_PAP;
-            if ($eap == EAP::$TTLS_MSCHAP2)
-                $out['METHOD'] = NE_MSCHAP2;
+            return $out;
         }
+        // there is none
+        $out['EAP'] = 0;
+        if ($eap == EAP::$TTLS_PAP)
+            $out['METHOD'] = NE_PAP;
+        if ($eap == EAP::$TTLS_MSCHAP2)
+            $out['METHOD'] = NE_MSCHAP2;
+
         return $out;
     }
 
@@ -222,4 +223,5 @@ class EAP {
         }
         return NULL;
     }
+
 }
