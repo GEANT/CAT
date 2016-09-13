@@ -45,8 +45,10 @@ function getImageFromDB($id) {
         case "text/rtf": // fall-through, same treatment
         case "application/rtf":
             header("Content-Disposition: attachment; filename='download.rtf'");
+            break;
         case "text/plain":
             header("Content-Disposition: attachment; filename='download.txt'");
+            break;
         default:
             throw new Exception("Unsupported file type encountered!");
     }
