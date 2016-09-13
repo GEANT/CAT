@@ -125,7 +125,7 @@ if ($device) {
             if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))
                 $interesting_attribs[] = $attrib;
         }
-        prefilledOptionTable($interesting_attribs, "expandable_$keyword_options", $keyword, "Method");
+        prefilledOptionTable($interesting_attribs, $keyword, "Method");
         ?>
     <button type='button' class='newoption' onclick='<?php echo "add" . $param_name . "Options(\"\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>

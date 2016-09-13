@@ -59,7 +59,7 @@ echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed
     <fieldset class="option_container">
         <legend><strong><?php echo _("Federation Properties"); ?></strong></legend>
         <?php
-        prefilledOptionTable($fed_options, "expandable_fed_options", "fed", "FED");
+        prefilledOptionTable($fed_options, "fed", "FED");
         ?>
         <button type='button' class='newoption' onclick='addDefaultFedOptions()'><?php echo _("Add new option"); ?></button>
     </fieldset>

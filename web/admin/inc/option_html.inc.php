@@ -13,8 +13,8 @@ require_once("Options.php");
 require_once("common.inc.php");
 require_once("Logging.php");
 
-function prefilledOptionTable($existing_options, $tablename, $attributePrefix, $level) {
-    $retval = "<table id='$tablename'>";
+function prefilledOptionTable($existing_options, $attributePrefix, $level) {
+    $retval = "<table id='expandable_$attributePrefix"."_options'>";
 
     $prepopulate = [];
     foreach ($existing_options as $existing_attribute) {

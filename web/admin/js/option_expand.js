@@ -35,7 +35,7 @@ function addSupportOption() {
 
 function addInstOption() {
     if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_inst_options");
+        var field = document.getElementById("expandable_general_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
         field.appendChild(div.firstChild);
@@ -62,7 +62,7 @@ function addProfileOption() {
 
 function addEapServerOption() {
     if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_eapserver_options");
+        var field = document.getElementById("expandable_eap_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
         field.appendChild(div.firstChild);

@@ -205,7 +205,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }
 
-        echo prefilledOptionTable($profile_options, "expandable_profile_options", "profile", "Profile");
+        echo prefilledOptionTable($profile_options, "profile", "Profile");
         ?>
         <button type='button' class='newoption' onclick='addDefaultProfileOptions()'><?php echo _("Add new option"); ?></button>
         <table>
@@ -493,7 +493,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </p>
     <?php
-    echo prefilledOptionTable($profile_options, "expandable_support_options", "support", "Profile");
+    echo prefilledOptionTable($profile_options, "support", "Profile");
     ?>
     <button type='button' class='newoption' onclick='addDefaultSupportOptions()'><?php echo _("Add new option"); ?></button>
 </fieldset>
@@ -518,7 +518,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </p>
     <?php
-    echo prefilledOptionTable($profile_options, "expandable_eapserver_options", "eap", "Profile");
+    echo prefilledOptionTable($profile_options, "eap", "Profile");
     ?>
     <button type='button' class='newoption' onclick='addDefaultEapServerOptions()'><?php echo _("Add new option"); ?></button>
 </fieldset>
@@ -544,7 +544,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </p>
     <?php
-    echo prefilledOptionTable($profile_options, "expandable_media_options", "media", "Profile");
+    echo prefilledOptionTable($profile_options, "media", "Profile");
     ?>
     <button type='button' class='newoption' onclick='addDefaultMediaOptions()'><?php echo _("Add new option"); ?></button></fieldset>
 <?php
