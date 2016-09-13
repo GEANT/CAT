@@ -104,12 +104,11 @@ class Device_Chromebook extends DeviceConfig {
 
         $eapPrettyprint = EAP::eapDisplayName($this->selectedEap);
         // ONC has its own enums, and guess what, they don't always match
-        if ($eapPrettyprint["OUTER"] == "PEAP" && $eapPrettyprint["INNER"] == "MSCHAPV2")
-        // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
+        if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
             $eapPrettyprint["INNER"] = "MSCHAPv2";
-        if ($eapPrettyprint["OUTER"] == "TTLS" && $eapPrettyprint["INNER"] == "MSCHAPV2") {
+        }
+        if ($eapPrettyprint["OUTER"] == "TTLS") {
             $eapPrettyprint["OUTER"] = "EAP-TTLS";
-            $eapPrettyprint["INNER"] = "MSCHAPv2";
         }
         if ($eapPrettyprint["OUTER"] == "TLS")
             $eapPrettyprint["OUTER"] = "EAP-TLS";
