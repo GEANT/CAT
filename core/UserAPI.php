@@ -103,13 +103,13 @@ class UserAPI extends CAT {
     }
 
     private function getCachedPath($device, $profile) {
-        $Dev = Devices::listDevices();
-        $Config = $Dev[$device];
-        $no_cache = (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache']) ? 1 : 0;
-        if (isset($Config['options']['no_cache'])) {
-            $no_cache = $Config['options']['no_cache'] ? 1 : 0;
+        $deviceList = Devices::listDevices();
+        $deviceConfig = $deviceList[$device];
+        $noCache = (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache']) ? 1 : 0;
+        if (isset($deviceConfig['options']['no_cache'])) {
+            $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
         }
-        if ($no_cache) {
+        if ($noCache) {
             $this->loggerInstance->debug(4, "getCachedPath: the no_cache option set for this device\n");
             return(FALSE);
         }
@@ -142,9 +142,9 @@ class UserAPI extends CAT {
                 $profile->updateCache($device, $this->installerPath, $out['mime']);
                 rrmdir($dev->FPATH . '/tmp');
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=$prof_id&device=$device&generatedfor=$generated_for";
+                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=".$profile->identifier."&device=$device&generatedfor=$generated_for";
             } else {
-                $this->loggerInstance->debug(2, "Installer generation failed for: $prof_id:$device:" . CAT::get_lang() . "\n");
+                $this->loggerInstance->debug(2, "Installer generation failed for: ".$profile->identifier.":$device:" . CAT::get_lang() . "\n");
                 $out['link'] = 0;
             }
         }
@@ -257,11 +257,11 @@ class UserAPI extends CAT {
     /* JSON functions */
 
     public function return_json($data, $status = 1) {
-        $return_array = [];
-        $return_array['status'] = $status;
-        $return_array['data'] = $data;
-        $return_array['tou'] = "Please consult Terms of Use at: " . $this->GetRootURL() . "/tou.php";
-        return(json_encode($return_array));
+        $returnArray = [];
+        $returnArray['status'] = $status;
+        $returnArray['data'] = $data;
+        $returnArray['tou'] = "Please consult Terms of Use at: " . $this->GetRootURL() . "/tou.php";
+        return(json_encode($returnArray));
     }
 
     /**
@@ -270,14 +270,16 @@ class UserAPI extends CAT {
      * 
      */
     public function JSON_listLanguages() {
-        $return_array = [];
+        $returnArray = [];
         foreach (CONFIG['LANGUAGES'] as $id => $val) {
-            if ($this->version == 1)
-                $return_array[] = ['id' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
-            else
-                $return_array[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
+            if ($this->version == 1) {
+                $returnArray[] = ['id' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
+            }
+            else {
+                $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
+            }
         }
-        echo $this->return_json($return_array);
+        echo $this->return_json($returnArray);
     }
 
     /**
@@ -286,15 +288,17 @@ class UserAPI extends CAT {
      * @return string JSON encoded data
      */
     public function JSON_listCountries() {
-        $FED = $this->printCountryList(1);
-        $return_array = [];
-        foreach ($FED as $id => $val) {
-            if ($this->version == 1)
-                $return_array[] = ['id' => $id, 'display' => $val];
-            else
-                $return_array[] = ['federation' => $id, 'display' => $val];
+        $federations = $this->printCountryList(1);
+        $returnArray = [];
+        foreach ($federations as $id => $val) {
+            if ($this->version == 1) {
+                $returnArray[] = ['id' => $id, 'display' => $val];
+            }
+            else {
+                $returnArray[] = ['federation' => $id, 'display' => $val];
+            }
         }
-        echo $this->return_json($return_array);
+        echo $this->return_json($returnArray);
     }
 
     /**
@@ -305,14 +309,16 @@ class UserAPI extends CAT {
      */
     public function JSON_listIdentityProviders($country) {
         $idps = Federation::listAllIdentityProviders(1, $country);
-        $return_array = [];
+        $returnArray = [];
         foreach ($idps as $idp) {
-            if ($this->version == 1)
-                $return_array[] = ['id' => $idp['entityID'], 'display' => $idp['title']];
-            else
-                $return_array[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
+            if ($this->version == 1) {
+                $returnArray[] = ['id' => $idp['entityID'], 'display' => $idp['title']];
+            }
+            else {
+                $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
+            }
         }
-        echo $this->return_json($return_array);
+        echo $this->return_json($returnArray);
     }
 
     /**
@@ -323,15 +329,17 @@ class UserAPI extends CAT {
      */
     public function JSON_listIdentityProvidersForDisco() {
         $idps = Federation::listAllIdentityProviders(1);
-        $return_array = [];
+        $returnArray = [];
         foreach ($idps as $idp) {
-            if ($this->version == 1)
+            if ($this->version == 1) {
                 $idp['id'] = $idp['entityID'];
-            else
+            }
+            else {
                 $idp['idp'] = $idp['entityID'];
-            $return_array[] = $idp;
+            }
+            $returnArray[] = $idp;
         }
-        echo json_encode($return_array);
+        echo json_encode($returnArray);
     }
 
     /**
@@ -341,16 +349,16 @@ class UserAPI extends CAT {
      */
     public function JSON_orderIdentityProviders($country, $location = NULL) {
         $idps = $this->orderIdentityProviders($country, $location);
-        $return_array = [];
+        $returnArray = [];
         foreach ($idps as $idp) {
             if ($this->version == 1) {
-                $return_array[] = ['id' => $idp['id'], 'display' => $idp['title']];
+                $returnArray[] = ['id' => $idp['id'], 'display' => $idp['title']];
             }
             else {
-                $return_array[] = ['idp' => $idp['id'], 'display' => $idp['title']];
+                $returnArray[] = ['idp' => $idp['id'], 'display' => $idp['title']];
             }
         }
-        echo $this->return_json($return_array);
+        echo $this->return_json($returnArray);
     }
 
     /**
@@ -361,11 +369,11 @@ class UserAPI extends CAT {
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {
         $this->set_locale("web_user");
-        $return_array = [];
+        $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
         } catch (Exception $fail) {
-            echo $this->return_json($return_array, 0);
+            echo $this->return_json($returnArray, 0);
             return;
         }
         $hasLogo = FALSE;
@@ -379,26 +387,26 @@ class UserAPI extends CAT {
         }
         foreach ($profiles as $P) {
             if ($this->version == 1) {
-                $return_array[] = ['id' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
+                $returnArray[] = ['id' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
             }
             else {
-                $return_array[] = ['profile' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
+                $returnArray[] = ['profile' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
             }
         }
-        echo $this->return_json($return_array);
+        echo $this->return_json($returnArray);
     }
 
     /**
      * Return the list of devices available for the given profile
      *
-     * @param int $profile_id the Profile identifier
+     * @param int $profileId the Profile identifier
      * @return string JSON encoded data
      */
-    public function JSON_listDevices($profile_id) {
+    public function JSON_listDevices($profileId) {
         $this->set_locale("web_user");
-        $return_array = [];
-        $a = $this->profileAttributes($profile_id);
-        $thedevices = $a['devices'];
+        $returnArray = [];
+        $profileAttributes = $this->profileAttributes($profileId);
+        $thedevices = $profileAttributes['devices'];
         if (!isset($profile_redirect) || !$profile_redirect) {
             $profile_redirect = 0;
             foreach ($thedevices as $D) {
@@ -411,17 +419,17 @@ class UserAPI extends CAT {
                         $profile_redirect = 1;
                         $disp = $c;
                     }
-                    $return_array[] = ['id' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
+                    $returnArray[] = ['id' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
                 } else {
                     if ($D['device'] === '0') {
                         $profile_redirect = 1;
                         $disp = $c;
                     }
-                    $return_array[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
+                    $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
                 }
             }
         }
-        echo $this->return_json($return_array);
+        echo $this->return_json($returnArray);
     }
 
     /**
@@ -523,8 +531,9 @@ class UserAPI extends CAT {
                     $blob = $image->getImageBlob();
                     $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $idpIdentifier\n");
                     file_put_contents($logoFile, $blob);
-                } else
+                } else {
                     $blob = "XXXXXX";
+                }
             }
         }
         header("Content-type: " . $filetype);
@@ -542,8 +551,9 @@ class UserAPI extends CAT {
         $result = ['status' => 'ok'];
         $result['country'] = $record['country_code'];
 //  the two lines below are a dirty hack to take of the error in naming the UK federation
-        if ($result['country'] == 'GB')
+        if ($result['country'] == 'GB') {
             $result['country'] = 'UK';
+        }
         $result['region'] = $record['region'];
         $result['geo'] = ['lat' => (float) $record['latitude'], 'lon' => (float) $record['longitude']];
         return($result);
@@ -562,8 +572,9 @@ class UserAPI extends CAT {
         $result = ['status' => 'ok'];
         $result['country'] = $record->country->isoCode;
 //  the two lines below are a dirty hack to take of the error in naming the UK federation
-        if ($result['country'] == 'GB')
+        if ($result['country'] == 'GB') {
             $result['country'] = 'UK';
+        }
         $result['region'] = $record->continent->name;
 
         $result['geo'] = ['lat' => (float) $record->location->latitude, 'lon' => (float) $record->location->longitude];
@@ -573,12 +584,21 @@ class UserAPI extends CAT {
     public function JSON_locateUser() {
         header('Content-type: application/json; utf-8');
 
-        if (empty(CONFIG['GEOIP']['version']) || CONFIG['GEOIP']['version'] == 0)
-            echo json_encode(['status' => 'error', 'error' => 'Geolocation not supported']);
-        if (CONFIG['GEOIP']['version'] == 1)
-            echo json_encode($this->locateUser());
-        if (CONFIG['GEOIP']['version'] == 2)
-            echo json_encode($this->locateUser2());
+        $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
+        
+        switch ($geoipVersion) {
+            case 0:
+                echo json_encode(['status' => 'error', 'error' => 'Geolocation not supported']);
+                break;
+            case 1:
+                echo json_encode($this->locateUser());
+                break;
+            case 2:
+                echo json_encode($this->locateUser2());
+                break;
+            default:
+                throw new Exception("This version of GeoIP is not known!");
+        }
     }
 
     /**
@@ -599,9 +619,9 @@ class UserAPI extends CAT {
      */
     private function geoDistance($point1, $profile1) {
 
-        $dist = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
+        $distIntermediate = sin(deg2rad($point1['lat'])) * sin(deg2rad($profile1['lat'])) +
                 cos(deg2rad($point1['lat'])) * cos(deg2rad($profile1['lat'])) * cos(deg2rad($point1['lon'] - $profile1['lon']));
-        $dist = rad2deg(acos($dist)) * 60 * 1.1852;
+        $dist = rad2deg(acos($distIntermediate)) * 60 * 1.1852;
         return(round($dist));
     }
 
@@ -703,14 +723,14 @@ class UserAPI extends CAT {
     }
 
     public function JSON_detectOS() {
-        $return_array = $this->detectOS();
-        if ($return_array) {
+        $returnArray = $this->detectOS();
+        if ($returnArray) {
             $status = 1;
         }
         else {
             $status = 0;
         }
-        echo $this->return_json($return_array, $status);
+        echo $this->return_json($returnArray, $status);
     }
 
     public $device;
@@ -725,6 +745,6 @@ class UserAPI extends CAT {
 
 }
 
-function profile_sort($P1, $profile2) {
-    return strcasecmp($P1->name, $profile2->name);
+function profile_sort($profile1, $profile2) {
+    return strcasecmp($profile1->name, $profile2->name);
 }
