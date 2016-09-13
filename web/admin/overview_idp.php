@@ -209,7 +209,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $buffer_headline = "<h2 style='overflow:auto;'>";
 
         $buffer_headline .= "<div style='float:right;'>";
-        $sufficient_config = $profile_list->getSufficientConfig();
+        $sufficient_config = $profile_list->hasSufficientConfig();
         $showtime = $profile_list->isShowtime();
         if ($has_overrides) {
             $buffer_headline .= UI_remark("", _("Option override on profile level is in effect."), TRUE);

@@ -148,7 +148,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * We can't be *NOT* ready
      */
-    public function getSufficientConfig() {
+    public function hasSufficientConfig() {
         return TRUE;
     }
 

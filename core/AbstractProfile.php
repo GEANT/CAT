@@ -427,7 +427,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
-                } else {
+                }
+                else {
                     $eap = $dev->getPreferredEapType($preferredEap);
                     if (count($eap) > 0) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
@@ -555,7 +556,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * * @return boolean TRUE if enough info is set to enable installers
      */
-    abstract public function getSufficientConfig();
+    abstract public function hasSufficientConfig();
 
     /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean

@@ -293,7 +293,7 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * 
      */
-    public function getSufficientConfig() {
+    public function hasSufficientConfig() {
         $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
         $configQuery = mysqli_fetch_row($result);
         if ($configQuery[0] == "0") {
