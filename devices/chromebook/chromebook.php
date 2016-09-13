@@ -102,7 +102,7 @@ class Device_Chromebook extends DeviceConfig {
         // construct outer id, if anonymity is desired
         $outerId = $this->determineOuterIdString();
 
-        $eapPrettyprint = EAP::eapDisplayName($this->selected_eap);
+        $eapPrettyprint = EAP::eapDisplayName($this->selectedEap);
         // ONC has its own enums, and guess what, they don't always match
         if ($eapPrettyprint["OUTER"] == "PEAP" && $eapPrettyprint["INNER"] == "MSCHAPV2")
         // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)

@@ -52,7 +52,7 @@ class Device_Vista7 extends WindowsCommon {
           $delProfiles[] = $ssid.' (TKIP)';
      }
 
-     if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap == EAP::$PWD || $this->selected_eap == EAP::$TTLS_PAP) {
+     if ($this->selectedEap == EAP::$TLS || $this->selectedEap == EAP::$PEAP_MSCHAP2 || $this->selectedEap == EAP::$PWD || $this->selectedEap == EAP::$TTLS_PAP) {
        $windowsProfile = [];
        $eapConfig = $this->prepareEapConfig($this->attributes);
        $i = 0;
@@ -76,10 +76,10 @@ class Device_Vista7 extends WindowsCommon {
     
     $this->writeProfilesNSH($windowsProfile, $caFiles,$setWired);
     $this->writeAdditionalDeletes($delProfiles);
-    $this->copyFiles($this->selected_eap);
+    $this->copyFiles($this->selectedEap);
     if(isset($this->attributes['internal:logo_file']))
        $this->combineLogo($this->attributes['internal:logo_file']);
-    $this->writeMainNSH($this->selected_eap,$this->attributes);
+    $this->writeMainNSH($this->selectedEap,$this->attributes);
     $this->compileNSIS();
     $installerPath = $this->signInstaller($this->attributes); 
 
@@ -137,7 +137,7 @@ class Device_Vista7 extends WindowsCommon {
 private function prepareEapConfig($attr) {
     $vistaExt = '';
     $w7Ext = '';
-    $eap = $this->selected_eap;
+    $eap = $this->selectedEap;
     if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
       $this->loggerInstance->debug(2,"this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
       error("this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
@@ -160,7 +160,7 @@ private function prepareEapConfig($attr) {
   $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapMethod>
 <Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
-    $this->selected_eap["OUTER"] .'</Type>
+    $this->selectedEap["OUTER"] .'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 <AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$authorId.'</AuthorId>
@@ -176,13 +176,13 @@ $profileFileCont .= '
 <ID>CATinstaller</ID>
 <ProviderInfo>
 <CredentialPrompt>
-<localized-text><lang>'.$this->lang_index.'</lang><text>'._("Please provide your user ID and password.").'</text></localized-text>
+<localized-text><lang>'.$this->langIndex.'</lang><text>'._("Please provide your user ID and password.").'</text></localized-text>
 </CredentialPrompt>
 <UserNameLabel>
-<localized-text><lang>'.$this->lang_index.'</lang><text>'._("Username@domain:").'</text></localized-text>
+<localized-text><lang>'.$this->langIndex.'</lang><text>'._("Username@domain:").'</text></localized-text>
 </UserNameLabel>
 <PasswordLabel>
-<localized-text><lang>'.$this->lang_index.'</lang><text>'._("Password:").'</text></localized-text>
+<localized-text><lang>'.$this->langIndex.'</lang><text>'._("Password:").'</text></localized-text>
 </PasswordLabel>
 </ProviderInfo>
 <AuthenticationMethods>

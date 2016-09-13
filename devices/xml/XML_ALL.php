@@ -14,8 +14,8 @@ class Device_XML_ALL extends Device_XML{
               EAP::$TLS,
               EAP::$PWD,
        ];
-      $this->lang_scope = 'single';
-      $this->all_eaps = TRUE;
+      $this->langScope = 'single';
+      $this->allEaps = TRUE;
     }
 }
 

@@ -13,8 +13,8 @@ class Device_Lollipop extends Device_XML{
               EAP::$TTLS_MSCHAP2,
               EAP::$TLS,
        ];
-      $this->lang_scope = 'single';
-      $this->all_eaps = TRUE;
+      $this->langScope = 'single';
+      $this->allEaps = TRUE;
     }
 }
 

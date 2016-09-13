@@ -10,7 +10,7 @@ class Device_XML_TTLS_PAP extends Device_XML {
             [
               EAP::$TTLS_PAP,
        ];
-      $this->lang_scope = 'single';
+      $this->langScope = 'single';
     }
 }
 

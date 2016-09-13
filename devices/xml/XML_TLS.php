@@ -10,7 +10,7 @@ class Device_XML_TLS extends Device_XML {
             [
               EAP::$TLS,
        ];
-      $this->lang_scope = 'single';
+      $this->langScope = 'single';
     }
 }
 

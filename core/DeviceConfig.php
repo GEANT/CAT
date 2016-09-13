@@ -99,7 +99,7 @@ abstract class DeviceConfig extends Entity {
             exit;
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        if (!$this->selected_eap) {
+        if (!$this->selectedEap) {
             error("No EAP type specified.");
             exit;
         }
@@ -126,7 +126,7 @@ abstract class DeviceConfig extends Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
         ;
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $this->lang_index = CAT::get_lang();
+        $this->langIndex = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
         $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
         $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
@@ -146,7 +146,7 @@ abstract class DeviceConfig extends Entity {
     public function getPreferredEapType($eap_array) {
         foreach ($eap_array as $eap) {
             if (in_array($eap, $this->supportedEapMethods)) {
-                $this->selected_eap = $eap;
+                $this->selectedEap = $eap;
                 $this->loggerInstance->debug(4, "Selected EAP:");
                 $this->loggerInstance->debug(4, $eap);
                 return($eap);
@@ -345,7 +345,7 @@ abstract class DeviceConfig extends Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
-        $lang_pointer = CONFIG['LANGUAGES'][$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = CONFIG['LANGUAGES'][$this->langIndex]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
@@ -564,7 +564,7 @@ abstract class DeviceConfig extends Entity {
      * optimal EAP method selected given profile and device
      * @var EAP::constant
      */
-    public $selected_eap;
+    public $selectedEap;
 
     /**
      * the path to the profile signing program
@@ -585,7 +585,7 @@ abstract class DeviceConfig extends Entity {
      *
      * @var string
      */
-    public $lang_index;
+    public $langIndex;
 
     /**
      * The string identifier of the device (don't show this to users)

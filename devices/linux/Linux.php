@@ -70,7 +70,7 @@ fi
 
         $outString .= $this->printNMScript($ssids, $delSSIDs);
         $outString .= $this->writeWpaConf($ssids);
-        if ($this->selected_eap == EAP::$TLS) {
+        if ($this->selectedEap == EAP::$TLS) {
             $outString .= $this->printP12Dialog();
         } else {
             $outString .= $this->printPasswordDialog();
@@ -396,7 +396,7 @@ function user_cred {
     }
 
     private function writeWpaConf($ssids) {
-        $eapMethod = EAP::eapDisplayName($this->selected_eap);
+        $eapMethod = EAP::eapDisplayName($this->selectedEap);
         $out = 'function create_wpa_conf {
 cat << EOFW >> ' . $this->confFile . "\n";
         foreach (array_keys($ssids) as $ssid) {
@@ -413,7 +413,7 @@ network={
                 $out .= '
   domain_suffix_match="' . $this->serverName . '"';
             }
-            if ($this->selected_eap == EAP::$TLS) {
+            if ($this->selectedEap == EAP::$TLS) {
                 $out .= '
   private_key="${HOME}/' . $this->localDir . '/user.p12"
   private_key_passwd="${PASSWORD}"';
@@ -536,7 +536,7 @@ p12dialog
     }
 
     private function printNMScript($ssids, $delSSIDs) {
-        $eapMethod = EAP::eapDisplayName($this->selected_eap);
+        $eapMethod = EAP::eapDisplayName($this->selectedEap);
         $out = 'function run_python_script {
 PASSWORD=$( echo "$PASSWORD" | sed "s/\'/\\\\\\\'/g" )
 if python << EEE1 > /dev/null 2>&1
@@ -678,7 +678,7 @@ class EduroamNMConfigTool:
             $out .= '
              match_key: match_value,';
         }
-        if ($this->selected_eap == EAP::$TLS) {
+        if ($this->selectedEap == EAP::$TLS) {
             $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),

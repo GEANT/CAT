@@ -12,8 +12,8 @@ class Device_KitKat extends Device_XML{
               EAP::$TTLS_PAP,
               EAP::$TTLS_MSCHAP2,
        ];
-      $this->lang_scope = 'single';
-      $this->all_eaps = TRUE;
+      $this->langScope = 'single';
+      $this->allEaps = TRUE;
     }
 }
 

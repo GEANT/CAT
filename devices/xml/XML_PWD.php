@@ -10,7 +10,7 @@ class Device_XML_PWD extends Device_XML {
             [
               EAP::$PWD,
        ];
-      $this->lang_scope = 'single';
+      $this->langScope = 'single';
     }
 }
 

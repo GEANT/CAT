@@ -94,7 +94,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $consortiumOIList = $this->attributes['internal:consortia'];
         $serverNames = $this->attributes['eap:server_name'];
         $cAUUIDs = $this->listCAUuids($this->attributes['internal:CAs'][0]);
-        $eapType = $this->selected_eap;
+        $eapType = $this->selectedEap;
         $outputXml = "";
         $outputXml .= "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"

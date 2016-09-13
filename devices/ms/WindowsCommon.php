@@ -38,8 +38,8 @@ class WindowsCommon extends DeviceConfig {
     }
 
 protected function prepareInstallerLang() {
-    if(isset($this->LANGS[$this->lang_index])) {
-      $L = $this->LANGS[$this->lang_index];
+    if(isset($this->LANGS[$this->langIndex])) {
+      $L = $this->LANGS[$this->langIndex];
       $this->lang = $L['nsis'];
       $this->code_page = 'cp'.$L['cp'];
     } else {

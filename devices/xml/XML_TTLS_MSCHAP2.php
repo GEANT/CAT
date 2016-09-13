@@ -10,7 +10,7 @@ class Device_XML_TTLS_MSCHAP2 extends Device_XML {
             [
               EAP::$TTLS_MSCHAP2,
        ];
-      $this->lang_scope = 'single';
+      $this->langScope = 'single';
     }
 }
 

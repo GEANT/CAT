@@ -10,7 +10,7 @@ class Device_XML_PEAP extends Device_XML {
             [
               EAP::$PEAP_MSCHAP2,
        ];
-      $this->lang_scope = 'single';
+      $this->langScope = 'single';
     }
 }
 

@@ -54,7 +54,7 @@ class Device_W8 extends WindowsCommon {
      }
 
 
-     if ($this->selected_eap == EAP::$TLS || $this->selected_eap == EAP::$PEAP_MSCHAP2 || $this->selected_eap ==  EAP::$TTLS_PAP || $this->selected_eap == EAP::$TTLS_MSCHAP2 || $this->selected_eap == EAP::$PWD) {
+     if ($this->selectedEap == EAP::$TLS || $this->selectedEap == EAP::$PEAP_MSCHAP2 || $this->selectedEap ==  EAP::$TTLS_PAP || $this->selectedEap == EAP::$TTLS_MSCHAP2 || $this->selectedEap == EAP::$PWD) {
        $windowsProfile = [];
        $eapConfig = $this->prepareEapConfig($this->attributes);
        $i = 0;
@@ -80,10 +80,10 @@ class Device_W8 extends WindowsCommon {
     $this->writeAdditionalDeletes($delProfiles);
     if(isset($additional_deletes) && count($additional_deletes))
        $this->writeAdditionalDeletes($additional_deletes);
-    $this->copyFiles($this->selected_eap);
+    $this->copyFiles($this->selectedEap);
     if(isset($this->attributes['internal:logo_file']))
        $this->combineLogo($this->attributes['internal:logo_file']);
-    $this->writeMainNSH($this->selected_eap,$this->attributes);
+    $this->writeMainNSH($this->selectedEap,$this->attributes);
     $this->compileNSIS();
     $installerPath = $this->signInstaller($this->attributes); 
 
@@ -138,7 +138,7 @@ else {
 
 
 private function prepareEapConfig($attr) {
-   $eap = $this->selected_eap;
+   $eap = $this->selectedEap;
    $w8Ext = '';
    $useAnon = $attr['internal:use_anon_outer'] [0];
    if ($useAnon) {
@@ -156,7 +156,7 @@ $profileFileCont = '<EAPConfig><EapHostConfig xmlns="http://www.microsoft.com/pr
 ';
 
 $profileFileCont .= '<Type xmlns="http://www.microsoft.com/provisioning/EapCommon">'.
-    $this->selected_eap["OUTER"].'</Type>
+    $this->selectedEap["OUTER"].'</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
