@@ -37,7 +37,7 @@ class XMLElement {
      *  @var array of XLM element names which are allowed
      *  EAP method names are defined in core/EAP.php
      */
-    public static $AuthMethodElements = [
+    public static $authMethodElements = [
         'server' => [
             TLS => ['CA', 'ServerID'],
             FAST => ['CA', 'ServerID'],
@@ -160,8 +160,8 @@ class ServerSideCredential extends XMLElement {
     protected $ServerID; //multi
 
     public function getAll() {
-        if (isset(XMLElement::$AuthMethodElements['server'][$this->EAPType]) && XMLElement::$AuthMethodElements['server'][$this->EAPType]) {
-            $E = XMLElement::$AuthMethodElements['server'][$this->EAPType];
+        if (isset(XMLElement::$authMethodElements['server'][$this->EAPType]) && XMLElement::$authMethodElements['server'][$this->EAPType]) {
+            $E = XMLElement::$authMethodElements['server'][$this->EAPType];
             $out = get_object_vars($this);
             $OUT = [];
             foreach ($out as $o => $v) {
@@ -190,19 +190,19 @@ class ClientSideCredential extends XMLElement {
     protected $ProvisionPAC;
 
     public function getAll() {
-        if (isset(XMLElement::$AuthMethodElements['client'][$this->EAPType]) && XMLElement::$AuthMethodElements['client'][$this->EAPType]) {
-            $E = XMLElement::$AuthMethodElements['client'][$this->EAPType];
-            $out = get_object_vars($this);
-            $OUT = [];
+        if (isset(XMLElement::$authMethodElements['client'][$this->EAPType]) && XMLElement::$authMethodElements['client'][$this->EAPType]) {
+            $element = XMLElement::$authMethodElements['client'][$this->EAPType];
+            $objectVars = get_object_vars($this);
+            $outputArray = [];
             $loggerInstance = new Logging();
             $loggerInstance->debug(4, "EEE:" . $this->EAPType . ":\n");
-            $loggerInstance->debug(4, $E);
-            foreach ($out as $o => $v) {
-                if (in_array($o, $E)) {
-                    $OUT[$o] = $v;
+            $loggerInstance->debug(4, $element);
+            foreach ($objectVars as $name => $value) {
+                if (in_array($name, $element)) {
+                    $outputArray[$name] = $value;
                 }
             }
-            return($OUT);
+            return($outputArray);
         }
     }
 
