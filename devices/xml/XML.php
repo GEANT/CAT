@@ -44,7 +44,6 @@ abstract class Device_XML extends DeviceConfig {
     public $VendorSpecific;
 
     public function writeDeviceInfo() {
-        $ssid_ct = count($this->attributes['internal:SSID']);
         $out = "<p>";
         $out .= sprintf(_("This is a generic configuration file in the IETF <a href='%s'>EAP Metadata -00</a> XML format."), "https://tools.ietf.org/html/draft-winter-opsawg-eap-metadata-00");
         return $out;
@@ -65,17 +64,17 @@ abstract class Device_XML extends DeviceConfig {
 //lang attribute
         $methodList = [];
         if ($this->allEaps) {
-            $EAPs = [];
+            $eapmethods = [];
             foreach ($attr['all_eaps'] as $eap) {
                 if (in_array($eap, $this->supportedEapMethods)) {
-                    $EAPs[] = $eap;
+                    $eapmethods[] = $eap;
                 }
             }
         } else {
-            $EAPs = [$this->selectedEap];
+            $eapmethods = [$this->selectedEap];
         }
 
-        foreach ($EAPs as $eap) {
+        foreach ($eapmethods as $eap) {
             $methodList[] = $this->getAuthMethod($eap);
         }
         $authMethods = new AuthenticationMethods();
@@ -103,9 +102,9 @@ abstract class Device_XML extends DeviceConfig {
         marshalObject($root, $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
         $res = $dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd');
-        $f = fopen($this->installerBasename . '.eap-config', "w");
-        fwrite($f, $dom->saveXML());
-        fclose($f);
+        $file = fopen($this->installerBasename . '.eap-config', "w");
+        fwrite($file, $dom->saveXML());
+        fclose($file);
         return($this->installerBasename . '.eap-config');
     }
 
@@ -169,14 +168,14 @@ abstract class Device_XML extends DeviceConfig {
         if ($this->langScope === 'global') {
             $instNameLangs = $attr['general:instname']['langs'];
             if ($attr['internal:profile_count'][0] > 1) {
-                $P = $attr['profile:name']['langs'];
+                $profileNameLangs = $attr['profile:name']['langs'];
             }
             foreach ($instNameLangs as $language => $value) {
                 $language = ( $language === 'C' ? 'any' : $language );
                 $displayname = new DisplayName();
-                if (isset($P)) {
-                    $p = isset($P[$language]) ? $P[$language] : $P['C'];
-                    $value .= ' - ' . $p;
+                if (isset($profileNameLangs)) {
+                    $langOrC = isset($profileNameLangs[$language]) ? $profileNameLangs[$language] : $profileNameLangs['C'];
+                    $value .= ' - ' . $langOrC;
                 }
                 $displayname->setValue($value);
                 $displayname->setAttributes(['lang' => $language]);
@@ -197,11 +196,11 @@ abstract class Device_XML extends DeviceConfig {
     private function getProviderLogo() {
         $attr = $this->attributes;
         if (isset($attr['general:logo_file'][0])) {
-            $logo_string = base64_encode($attr['general:logo_file'][0]);
-            $logo_mime = 'image/' . $attr['internal:logo_file'][0]['mime'];
+            $logoString = base64_encode($attr['general:logo_file'][0]);
+            $logoMime = 'image/' . $attr['internal:logo_file'][0]['mime'];
             $providerlogo = new ProviderLogo();
-            $providerlogo->setAttributes(['mime' => $logo_mime, 'encoding' => 'base64']);
-            $providerlogo->setValue($logo_string);
+            $providerlogo->setAttributes(['mime' => $logoMime, 'encoding' => 'base64']);
+            $providerlogo->setValue($logoString);
             return $providerlogo;
         }
     }
@@ -220,24 +219,24 @@ abstract class Device_XML extends DeviceConfig {
     private function getProvideLocation() {
         $attr = $this->attributes;
         if (isset($attr['general:geo_coordinates'])) {
-            $at = $attr['general:geo_coordinates'];
-            if (count($at) > 1) {
-                $at1 = [];
-                foreach ($at as $a) {
+            $attrCoordinates = $attr['general:geo_coordinates'];
+            if (count($attrCoordinates) > 1) {
+                $location = [];
+                foreach ($attrCoordinates as $a) {
                     $providerlocation = new ProviderLocation();
                     $b = unserialize($a);
                     $providerlocation->setProperty('Longitude', $b['lon']);
                     $providerlocation->setProperty('Latitude', $b['lat']);
-                    $at1[] = $providerlocation;
+                    $location[] = $providerlocation;
                 }
             } else {
                 $providerlocation = new ProviderLocation();
-                $b = unserialize($at[0]);
+                $b = unserialize($attrCoordinates[0]);
                 $providerlocation->setProperty('Longitude', $b['lon']);
                 $providerlocation->setProperty('Latitude', $b['lat']);
-                $at1 = $providerlocation;
+                $location = $providerlocation;
             }
-            return$at1;
+            return $location;
         }
     }
 
@@ -250,10 +249,10 @@ abstract class Device_XML extends DeviceConfig {
     }
 
     private function getCompatibleUses() {
-        $SSIDs = $this->attributes['internal:SSID'];
+        $ssids = $this->attributes['internal:SSID'];
         $compatibleuses = new CompatibleUses();
         $ieee80211s = [];
-        foreach ($SSIDs as $ssid => $ciph) {
+        foreach ($ssids as $ssid => $ciph) {
             $ieee80211 = new IEEE80211();
             $ieee80211->setProperty('SSID', $ssid);
             $ieee80211->setProperty('MinRSNProto', $ciph == 'AES' ? 'CCMP' : 'TKIP');
@@ -265,7 +264,7 @@ abstract class Device_XML extends DeviceConfig {
 
     private function getAuthenticationMethodParams($eap) {
         $inner = EAP::innerAuth($eap);
-        $outer_id = $eap["OUTER"];
+        $outerMethod = $eap["OUTER"];
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {
             $innerauthmethod = new InnerAuthenticationMethod();
@@ -275,9 +274,9 @@ abstract class Device_XML extends DeviceConfig {
             $eaptype->setValue($inner['METHOD']);
             $eapmethod->setProperty('Type', $eaptype);
             $innerauthmethod->setProperty($class_name, $eapmethod);
-            return ['inner_method' => $innerauthmethod, 'methodID' => $outer_id, 'inner_methodID' => $inner['METHOD']];
+            return ['inner_method' => $innerauthmethod, 'methodID' => $outerMethod, 'inner_methodID' => $inner['METHOD']];
         } else {
-            return ['inner_method' => 0, 'methodID' => $outer_id, 'inner_methodID' => 0];
+            return ['inner_method' => 0, 'methodID' => $outerMethod, 'inner_methodID' => 0];
         }
     }
 
@@ -307,13 +306,13 @@ abstract class Device_XML extends DeviceConfig {
 
 // Certificates and server names
 
-        $CAs = [];
-        $cas = $attr['internal:CAs'][0];
-        foreach ($cas as $ca) {
-            $CA = new CA();
-            $CA->setValue(base64_encode($ca['der']));
-            $CA->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
-            $CAs[] = $CA;
+        $cAlist = [];
+        $attrCaList = $attr['internal:CAs'][0];
+        foreach ($attrCaList as $ca) {
+            $ca = new CA();
+            $ca->setValue(base64_encode($ca['der']));
+            $ca->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
+            $cAlist[] = $ca;
         }
 
         $serverids = [];
@@ -325,7 +324,7 @@ abstract class Device_XML extends DeviceConfig {
         }
 
         $serversidecredential->setProperty('EAPType', $eaptype->getValue());
-        $serversidecredential->setProperty('CA', $CAs);
+        $serversidecredential->setProperty('CA', $cAlist);
         $serversidecredential->setProperty('ServerID', $serverids);
         $authmethod->setProperty('ServerSideCredential', $serversidecredential);
 
