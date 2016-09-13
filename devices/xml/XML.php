@@ -268,12 +268,12 @@ abstract class Device_XML extends DeviceConfig {
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {
             $innerauthmethod = new InnerAuthenticationMethod();
-            $class_name = $inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod';
-            $eapmethod = new $class_name();
+            $typeOfInner = $inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod';
+            $eapmethod = new $typeOfInner();
             $eaptype = new Type();
             $eaptype->setValue($inner['METHOD']);
             $eapmethod->setProperty('Type', $eaptype);
-            $innerauthmethod->setProperty($class_name, $eapmethod);
+            $innerauthmethod->setProperty($typeOfInner, $eapmethod);
             return ['inner_method' => $innerauthmethod, 'methodID' => $outerMethod, 'inner_methodID' => $inner['METHOD']];
         } else {
             return ['inner_method' => 0, 'methodID' => $outerMethod, 'inner_methodID' => 0];
