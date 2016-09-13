@@ -70,7 +70,7 @@ abstract class DeviceConfig extends Entity {
         parent::__construct();
         $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP];
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods,true));
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     /**
@@ -104,27 +104,30 @@ abstract class DeviceConfig extends Entity {
             exit;
         }
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $T = createTemporaryDirectory('installer');
-        $this->FPATH = $T['dir'];
-        mkdir($T['dir'] . '/tmp');
-        chdir($T['dir'] . '/tmp');
-        $CAs = [];
+        $tempDir = createTemporaryDirectory('installer');
+        $this->FPATH = $tempDir['dir'];
+        mkdir($tempDir['dir'] . '/tmp');
+        chdir($tempDir['dir'] . '/tmp');
+        $caList = [];
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
-                if ($c = X509::processCertificate($ca))
-                    $CAs[] = $c;
+                $processedCert = X509::processCertificate($ca);
+                if ($processedCert) {
+                    $caList[] = $processedCert;
+                }
             }
-            $this->attributes['internal:CAs'][0] = $CAs;
+            $this->attributes['internal:CAs'][0] = $caList;
         }
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
-        if (isset($this->attributes['general:logo_file']))
+        if (isset($this->attributes['general:logo_file'])) {
             $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
+        }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
-        ;
+        
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
-        ;
+        
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $this->langIndex = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
@@ -181,22 +184,25 @@ abstract class DeviceConfig extends Entity {
      * @final not to be redefined
      */
     final protected function copyFile($source_name, $output_name = 0) {
-        if ($output_name === 0)
+        if ($output_name === 0) {
             $output_name = $source_name;
-
+        }
         $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name))
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        elseif (is_file($this->module_path . '/Files/' . $source_name))
+        }
+        elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
+        }
         else {
             $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
             return(FALSE);
         }
         $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
-        if (!$result)
+        if (!$result) {
             $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
+        }
         return($result);
     }
 
@@ -224,34 +230,39 @@ abstract class DeviceConfig extends Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
-        if (CONFIG['NSIS_VERSION'] >= 3)
+        if (CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
-        if ($output_name === 0)
+        }
+        if ($output_name === 0) {
             $output_name = $source_name;
+        }
 
         $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
         $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
         $source = "";
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name))
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        elseif (is_file($this->module_path . '/Files/' . $source_name))
+        }
+        elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
-        
+        }
         if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable
             include($source);
         }
         $output = ob_get_clean();
         if ($encoding) {
-            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
-            if ($output_c)
-                $output = $output_c;
+            $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
+            if ($outputClean) {
+                $output = $outputClean;
+            }
         }
-        $f = fopen("$output_name", "w");
-        if (!$f)
+        $fileHandle = fopen("$output_name", "w");
+        if (!$fileHandle) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
-        fwrite($f, $output);
-        fclose($f);
+        }
+        fwrite($fileHandle, $output);
+        fclose($fileHandle);
         $this->loggerInstance->debug(4, "translateFile($source, $output_name, $encoding) end\n");
     }
 
@@ -281,14 +292,12 @@ abstract class DeviceConfig extends Entity {
         }
         if ($encoding) {
             $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
-        }
-        else {
+        } else {
             $output_c = $source_string;
         }
         if ($output_c) {
             $source_string = str_replace('"', '$\\"', $output_c);
-        }
-        else {
+        } else {
             $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
         }
         return $source_string;
@@ -306,33 +315,38 @@ abstract class DeviceConfig extends Entity {
      * root is set to 1 for the CA roor certicicate and 0 otherwise
      */
     final protected function saveCertificateFiles($format) {
-        if ($format == 'der' || $format == 'pam') {
-            $i = 0;
-            $CA_files = [];
-            $ca_array = $this->attributes['internal:CAs'][0];
-            if (!$ca_array)
+        switch ($format) {
+            case "der": // fall-thorugh, same treatment
+            case "pem":
+                $iterator = 0;
+                $caFiles = [];
+                $caArray = $this->attributes['internal:CAs'][0];
+                if (!$caArray) {
+                    return(FALSE);
+                }
+                foreach ($caArray as $certAuthority) {
+                    $fileHandle = fopen("cert-$iterator.crt", "w");
+                    if (!$fileHandle) {
+                        die("problem opening the file\n");
+                    }
+                    if ($format == "pem") {
+                        fwrite($fileHandle, $certAuthority['pem']);
+                    } else {
+                        fwrite($fileHandle, $certAuthority['der']);
+                    }
+                    fclose($fileHandle);
+                    $certAuthorityProps = [];
+                    $certAuthorityProps['file'] = "cert-$iterator.crt";
+                    $certAuthorityProps['sha1'] = $certAuthority['sha1'];
+                    $certAuthorityProps['md5'] = $certAuthority['md5'];
+                    $certAuthorityProps['root'] = $certAuthority['root'];
+                    $caFiles[] = $certAuthorityProps;
+                    $iterator++;
+                }
+                return($caFiles);
+            default:
+                $this->loggerInstance->debug(2, 'incorrect format value specified');
                 return(FALSE);
-            foreach ($ca_array as $CA) {
-                $f = fopen("cert-$i.crt", "w");
-                if (!$f)
-                    die("problem opening the file\n");
-                if ($format == "pem")
-                    fwrite($f, $CA['pem']);
-                else
-                    fwrite($f, $CA['der']);
-                fclose($f);
-                $C = [];
-                $C['file'] = "cert-$i.crt";
-                $C['sha1'] = $CA['sha1'];
-                $C['md5'] = $CA['md5'];
-                $C['root'] = $CA['root'];
-                $CA_files[] = $C;
-                $i++;
-            }
-            return($CA_files);
-        } else {
-            $this->loggerInstance->debug(2, 'incorrect format value specified');
-            return(FALSE);
         }
     }
 
@@ -352,68 +366,76 @@ abstract class DeviceConfig extends Entity {
         $Inst_a = explode('_', $inst);
         if (count($Inst_a) > 2) {
             $inst = '';
-            foreach ($Inst_a as $i)
+            foreach ($Inst_a as $i) {
                 $inst .= $i[0];
-        }
-        $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
-        if ($this->attributes['internal:profile_count'][0] > 1) {
-            if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
-                $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
-                $prof = preg_replace('/_+$/', '', $prof);
-                return $c_name . '-' . $this->getDeviceId() . $inst . '-' . $prof;
             }
         }
-        return $c_name . '-' . $this->getDeviceId() . $inst;
+        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
+        if ($this->attributes['internal:profile_count'][0] > 1) {
+            if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
+                $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
+                $prof = preg_replace('/_+$/', '', $profTemp);
+                return $consortiumName . '-' . $this->getDeviceId() . $inst . '-' . $prof;
+            }
+        }
+        return $consortiumName . '-' . $this->getDeviceId() . $inst;
     }
 
     private function getDeviceId() {
-        $d_id = $this->device_id;
-        if (isset($this->options['device_id']))
-            $d_id = $this->options['device_id'];
-        if ($d_id !== '')
-            $d_id .= '-';
-        return $d_id;
+        $deviceId = $this->device_id;
+        if (isset($this->options['device_id'])) {
+            $deviceId = $this->options['device_id'];
+        }
+        if ($deviceId !== '') {
+            $deviceId .= '-';
+        }
+        return $deviceId;
     }
 
     private function getSSIDs() {
-        $S['add'] = [];
-        $S['del'] = [];
+        $ssidList = [];
+        $ssidList['add'] = [];
+        $ssidList['del'] = [];
         if (isset(CONFIG['CONSORTIUM']['ssid'])) {
             foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
-                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE)
-                    $S['add'][$ssid] = 'TKIP';
-                else {
-                    $S['add'][$ssid] = 'AES';
-                    $S['del'][$ssid] = 'TKIP';
+                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE) {
+                    $ssidList['add'][$ssid] = 'TKIP';
+                } else {
+                    $ssidList['add'][$ssid] = 'AES';
+                    $ssidList['del'][$ssid] = 'TKIP';
                 }
             }
         }
         if (isset($this->attributes['media:SSID'])) {
-            $SSID = $this->attributes['media:SSID'];
+            $ssidWpa2 = $this->attributes['media:SSID'];
 
-            foreach ($SSID as $ssid)
-                $S['add'][$ssid] = 'AES';
+            foreach ($ssidWpa2 as $ssid) {
+                $ssidList['add'][$ssid] = 'AES';
+            }
         }
         if (isset($this->attributes['media:SSID_with_legacy'])) {
-            $SSID = $this->attributes['media:SSID_with_legacy'];
-            foreach ($SSID as $ssid)
-                $S['add'][$ssid] = 'TKIP';
+            $ssidTkip = $this->attributes['media:SSID_with_legacy'];
+            foreach ($ssidTkip as $ssid) {
+                $ssidList['add'][$ssid] = 'TKIP';
+            }
         }
         if (isset($this->attributes['media:remove_SSID'])) {
-            $SSID = $this->attributes['media:remove_SSID'];
-            foreach ($SSID as $ssid)
-                $S['del'][$ssid] = 'DEL';
+            $ssidRemove = $this->attributes['media:remove_SSID'];
+            foreach ($ssidRemove as $ssid) {
+                $ssidList['del'][$ssid] = 'DEL';
+            }
         }
-        return $S;
+        return $ssidList;
     }
 
     private function getConsortia() {
-        $OIs = [];
-        $OIs = array_merge($OIs, CONFIG['CONSORTIUM']['interworking-consortium-oi']);
-        if (isset($this->attributes['media:consortium_OI']))
-            foreach ($this->attributes['media:consortium_OI'] as $new_oi)
-                $OIs[] = $new_oi;
-        return $OIs;
+        $consortia = CONFIG['CONSORTIUM']['interworking-consortium-oi'];
+        if (isset($this->attributes['media:consortium_OI'])) {
+            foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
+                $consortia[] = $new_oi;
+            }
+        }
+        return $consortia;
     }
 
     /**
@@ -426,27 +448,29 @@ abstract class DeviceConfig extends Entity {
         'application/pdf' => 'pdf',
     ];
 
-    private function saveLogoFile($Logos) {
-        $i = 0;
+    private function saveLogoFile($logos) {
+        $iterator = 0;
         $returnarray = [];
-        foreach ($Logos as $blob) {
+        foreach ($logos as $blob) {
             $finfo = new finfo(FILEINFO_MIME_TYPE);
             $mime = $finfo->buffer($blob);
-            if (preg_match('/^image\/(.*)/', $mime, $m))
-                $ext = $m[1];
-            else
+            $matches = [];
+            if (preg_match('/^image\/(.*)/', $mime, $matches)) {
+                $ext = $matches[1];
+            } else {
                 $ext = 'unsupported';
+            }
             $this->loggerInstance->debug(4, "saveLogoFile: $mime : $ext\n");
-            $f_name = 'logo-' . $i . '.' . $ext;
-            $f = fopen($f_name, "w");
-            if (!$f) {
-                $this->loggerInstance->debug(2, "saveLogoFile failed for: $f_name\n");
+            $fileName = 'logo-' . $iterator . '.' . $ext;
+            $fileHandle = fopen($fileName, "w");
+            if (!$fileHandle) {
+                $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
                 die("problem opening the file\n");
             }
-            fwrite($f, $blob);
-            fclose($f);
-            $returnarray[] = ['name' => $f_name, 'mime' => $ext];
-            $i++;
+            fwrite($fileHandle, $blob);
+            fclose($fileHandle);
+            $returnarray[] = ['name' => $fileName, 'mime' => $ext];
+            $iterator++;
         }
         return($returnarray);
     }
@@ -456,11 +480,12 @@ abstract class DeviceConfig extends Entity {
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
         $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
-        $f = fopen('local-info.' . $ext, "w");
-        if (!$f)
+        $fileHandle = fopen('local-info.' . $ext, "w");
+        if (!$fileHandle) {
             die("problem opening the file\n");
-        fwrite($f, $blob);
-        fclose($f);
+        }
+        fwrite($fileHandle, $blob);
+        fclose($fileHandle);
         return(['name' => 'local-info.' . $ext, 'mime' => $ext]);
     }
 
