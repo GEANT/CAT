@@ -13,6 +13,16 @@ require_once("Options.php");
 
 require_once("input_validation.inc.php");
 
+function cmpSequenceNumber($left, $right) {
+  $pat = "/^S([0-9]+)(-.*)?$/";
+  $rep = "$1";
+  $leftNum = (int)preg_replace($pat, $rep, $left);
+  $rightNum = (int)preg_replace($pat, $rep, $right);
+  return ($left != $leftNum && $right != $rightNum) ?
+    $leftNum - $rightNum :
+    strcmp($left, $right);
+}
+
 function postProcessValidAttributes($options, &$good, &$bad) {
     foreach ($options as $index => $iterateOption) {
         foreach ($iterateOption as $name => $value) {
