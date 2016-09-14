@@ -120,7 +120,7 @@ class Device_W8 extends WindowsCommon {
             $out .= "<p>";
         }
 
-        if ($this->eap == TLS) {
+        if ($this->selectedEap == TLS) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
