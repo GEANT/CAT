@@ -59,14 +59,14 @@ class Device_Vista7 extends WindowsCommon {
         if ($this->selectedEap == EAP::$TLS || $this->selectedEap == EAP::$PEAP_MSCHAP2 || $this->selectedEap == EAP::$PWD || $this->selectedEap == EAP::$TTLS_PAP) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
-            $i = 0;
+            $iterator = 0;
             foreach ($allSSID as $ssid => $cipher) {
                 if ($cipher == 'TKIP') {
-                    $windowsProfile[$i] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $i);
-                    $i++;
+                    $windowsProfile[$iterator] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
+                    $iterator++;
                 }
-                $windowsProfile[$i] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $i);
-                $i++;
+                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
+                $iterator++;
             }
             if ($setWired) {
                 $this->writeLANprofile($eapConfig);
@@ -359,15 +359,19 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         return $returnArray;
     }
 
-// $auth can be one of: "WPA", "WPA2"
-// $encryption can be one of: "TKIP", "AES"
-// $servers is an array of allowed server names (regular expressions allowed)
-// $ca is an array of allowed CA fingerprints
 
     /**
-     * produce PEAP and TLS configuration files for Vista and Windows 7
+     * produce PEAP, TLS and TTLS configuration files for Windows 8
+     * 
+     * @param string $wlanProfileName
+     * @param string $ssid
+     * @param string $auth can be one of "WPA", "WPA2"
+     * @param string $encryption can be one of: "TKIP", "AES"
+     * @param string $eapConfig XML configuration block with EAP config data
+     * @param int $profileNumber counter, which profile number is this
+     * @return string
      */
-    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $i) {
+    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber) {
         $profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
 <name>' . $wlanProfileName . '</name>
@@ -413,11 +417,11 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         if (!is_dir('vista')) {
             mkdir('vista');
         }
-        $vistaFileName = "vista/wlan_prof-$i.xml";
+        $vistaFileName = "vista/wlan_prof-$profileNumber.xml";
         $vistaFileHandle = fopen($vistaFileName, 'w');
         fwrite($vistaFileHandle, $profileFileCont . $eapConfig['vista'] . $closing);
         fclose($vistaFileHandle);
-        $sevenFileName = "w7/wlan_prof-$i.xml";
+        $sevenFileName = "w7/wlan_prof-$profileNumber.xml";
         $sevenFileHandle = fopen($sevenFileName, 'w');
         fwrite($sevenFileHandle, $profileFileCont . $eapConfig['w7'] . $closing);
         fclose($sevenFileHandle);
@@ -464,7 +468,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $this->loggerInstance->debug(4, $attr);
         $this->loggerInstance->debug(4, "MYLANG=" . $this->lang . "\n");
 
-        $EAP_OPTS = [
+        $eapOptions = [
             PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             TLS => ['str' => 'TLS', 'exec' => 'user'],
             TTLS => ['str' => 'GEANTLink', 'exec' => 'user'],
@@ -479,8 +483,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-        $execLevel = $EAP_OPTS[$eap["OUTER"]]['exec'];
-        $eapStr = $EAP_OPTS[$eap["OUTER"]]['str'];
+        $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
+        $eapStr = $eapOptions[$eap["OUTER"]]['str'];
         $this->loggerInstance->debug(4, "EAP_STR=$eapStr\n");
         $this->loggerInstance->debug(4, $eap);
 
@@ -522,12 +526,12 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         fclose($fileHandle);
     }
 
-    private function writeProfilesNSH($P, $caArray, $wired = 0) {
+    private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {
         $this->loggerInstance->debug(4, "writeProfilesNSH");
-        $this->loggerInstance->debug(4, $P);
+        $this->loggerInstance->debug(4, $wlanProfiles);
         $contentWlan = '';
-        foreach ($P as $p) {
-            $contentWlan .= "!insertmacro define_wlan_profile $p\n";
+        foreach ($wlanProfiles as $wlanProfile) {
+            $contentWlan .= "!insertmacro define_wlan_profile $wlanProfile\n";
         }
 
         $fileHandleProfiles = fopen('profiles.nsh', 'w');
