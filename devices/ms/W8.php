@@ -61,14 +61,14 @@ class Device_W8 extends WindowsCommon {
         if ($this->selectedEap == EAP::$TLS || $this->selectedEap == EAP::$PEAP_MSCHAP2 || $this->selectedEap == EAP::$TTLS_PAP || $this->selectedEap == EAP::$TTLS_MSCHAP2 || $this->selectedEap == EAP::$PWD) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
-            $i = 0;
+            $iterator = 0;
             foreach ($allSSID as $ssid => $cipher) {
                 if ($cipher == 'TKIP') {
-                    $windowsProfile[$i] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $i);
-                    $i++;
+                    $windowsProfile[$iterator] = $this->writeWLANprofile($ssid . ' (TKIP)', $ssid, 'WPA', 'TKIP', $eapConfig, $iterator);
+                    $iterator++;
                 }
-                $windowsProfile[$i] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $i);
-                $i++;
+                $windowsProfile[$iterator] = $this->writeWLANprofile($ssid, $ssid, 'WPA2', 'AES', $eapConfig, $iterator);
+                $iterator++;
             }
             if ($setWired) {
                 $this->writeLANprofile($eapConfig);
@@ -82,8 +82,8 @@ class Device_W8 extends WindowsCommon {
 
         $this->writeProfilesNSH($windowsProfile, $caFiles, $setWired);
         $this->writeAdditionalDeletes($delProfiles);
-        if (isset($additional_deletes) && count($additional_deletes)) {
-            $this->writeAdditionalDeletes($additional_deletes);
+        if (isset($additionalDeletes) && count($additionalDeletes)) {
+            $this->writeAdditionalDeletes($additionalDeletes);
         }
         $this->copyFiles($this->selectedEap);
         if (isset($this->attributes['internal:logo_file'])) {
@@ -149,7 +149,7 @@ class Device_W8 extends WindowsCommon {
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {
             $outerUser = $attr['internal:anon_local_value'][0];
-            $outer_id = $outerUser . '@' . $attr['internal:realm'][0];
+            $outerId = $outerUser . '@' . $attr['internal:realm'][0];
         }
 //   $servers = preg_quote(implode(';',$attr['eap:server_name']));
         $servers = implode(';', $attr['eap:server_name']);
@@ -292,8 +292,8 @@ class Device_W8 extends WindowsCommon {
             if ($useAnon == 1) {
                 $w8Ext .= '<IdentityPrivacy>true</IdentityPrivacy> 
 ';
-                if (isset($outer_id) && $outer_id) {
-                    $w8Ext .= '<AnonymousIdentity>' . $outer_id . '</AnonymousIdentity>
+                if (isset($outerId) && $outerId) {
+                    $w8Ext .= '<AnonymousIdentity>' . $outerId . '</AnonymousIdentity>
                 ';}
                 else {
                     $w8Ext .= '<AnonymousIdentity/>
@@ -319,15 +319,18 @@ class Device_W8 extends WindowsCommon {
         return $returnArray;
     }
 
-// $auth can be one of: "WPA", "WPA2"
-// $encryption can be one of: "TKIP", "AES"
-// $servers is an array of allowed server names (regular expressions allowed)
-// $ca is an array of allowed CA fingerprints
-
     /**
      * produce PEAP, TLS and TTLS configuration files for Windows 8
+     * 
+     * @param string $wlanProfileName
+     * @param string $ssid
+     * @param string $auth can be one of "WPA", "WPA2"
+     * @param string $encryption can be one of: "TKIP", "AES"
+     * @param string $eapConfig XML configuration block with EAP config data
+     * @param int $profileNumber counter, which profile number is this
+     * @return string
      */
-    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $i) {
+    private function writeWLANprofile($wlanProfileName, $ssid, $auth, $encryption, $eapConfig, $profileNumber) {
         $profileFileCont = '<?xml version="1.0"?>
 <WLANProfile xmlns="http://www.microsoft.com/networking/WLAN/profile/v1">
 <name>' . $wlanProfileName . '</name>
@@ -369,7 +372,7 @@ class Device_W8 extends WindowsCommon {
         if (!is_dir('w8')) {
             mkdir('w8');
         }
-        $xmlFname = "w8/wlan_prof-$i.xml";
+        $xmlFname = "w8/wlan_prof-$profileNumber.xml";
         $xmlF = fopen($xmlFname, 'w');
         fwrite($xmlF, $profileFileCont . $eapConfig['w8'] . $closing);
         fclose($xmlF);
@@ -414,7 +417,7 @@ class Device_W8 extends WindowsCommon {
             $fcontents .= "Unicode true\n";
         }
 
-        $EAP_OPTS = [
+        $eapOptions = [
             PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             TLS => ['str' => 'TLS', 'exec' => 'user'],
             TTLS => ['str' => 'TTLS', 'exec' => 'user'],
@@ -425,8 +428,8 @@ class Device_W8 extends WindowsCommon {
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
-        $execLevel = $EAP_OPTS[$eap["OUTER"]]['exec'];
-        $eapStr = $EAP_OPTS[$eap["OUTER"]]['str'];
+        $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
+        $eapStr = $eapOptions[$eap["OUTER"]]['str'];
 
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
@@ -461,17 +464,17 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         ';
         }
 
-        $f = fopen('main.nsh', 'w');
-        fwrite($f, $fcontents);
-        fclose($f);
+        $fileHandle = fopen('main.nsh', 'w');
+        fwrite($fileHandle, $fcontents);
+        fclose($fileHandle);
     }
 
-    private function writeProfilesNSH($P, $caArray, $wired = 0) {
+    private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {
         $this->loggerInstance->debug(4, "writeProfilesNSH");
-        $this->loggerInstance->debug(4, $P);
+        $this->loggerInstance->debug(4, $wlanProfiles);
         $fcontentsProfile = '';
-        foreach ($P as $p) {
-            $fcontentsProfile .= "!insertmacro define_wlan_profile $p\n";
+        foreach ($wlanProfiles as $wlanProfile) {
+            $fcontentsProfile .= "!insertmacro define_wlan_profile $wlanProfile\n";
         }
 
         $fileHandleProfiles = fopen('profiles.nsh', 'w');
