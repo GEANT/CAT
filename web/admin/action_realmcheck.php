@@ -731,7 +731,7 @@ print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
                           echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
                }
                       // ask for cert + privkey if TLS-based method is active
-                      if (in_array(EAP::$TLS, $prof_compl))
+                      if (in_array(TLS, $prof_compl))
                           echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>

@@ -160,7 +160,7 @@ class Device_Vista7 extends WindowsCommon {
         $servers = implode(';', $attr['eap:server_name']);
         $caArray = $attr['internal:CAs'][0];
         $authorId = "0";
-        if ($eap == EAP::$TTLS_PAP) {
+        if ($eap == TTLS_PAP) {
             $authorId = "67532";
             $servers = implode('</ServerName><ServerName>', $attr['eap:server_name']);
         }
@@ -176,7 +176,7 @@ class Device_Vista7 extends WindowsCommon {
 ';
 
 
-        if ($eap == EAP::$TTLS_PAP) {
+        if ($eap == TTLS_PAP) {
             $profileFileCont .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
@@ -235,7 +235,7 @@ class Device_Vista7 extends WindowsCommon {
 </EAPIdentityProviderList>
 </Config>
 ';
-        } elseif ($eap == EAP::$TLS) {
+        } elseif ($eap == TLS) {
             $profileFileCont .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
@@ -345,7 +345,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 </Eap>
 </Config>
 ';
-        } elseif ($eap == EAP::$PWD) {
+        } elseif ($eap == PWD) {
             $profileFileCont .= '<ConfigBlob></ConfigBlob>';
         }
 

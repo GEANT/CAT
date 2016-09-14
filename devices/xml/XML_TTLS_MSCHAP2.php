@@ -8,7 +8,7 @@ class Device_XML_TTLS_MSCHAP2 extends Device_XML {
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              EAP::$TTLS_MSCHAP2,
+              TTLS_MSCHAP2,
        ];
       $this->langScope = 'single';
     }

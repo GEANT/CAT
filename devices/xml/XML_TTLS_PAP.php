@@ -8,7 +8,7 @@ class Device_XML_TTLS_PAP extends Device_XML {
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              EAP::$TTLS_PAP,
+              TTLS_PAP,
        ];
       $this->langScope = 'single';
     }

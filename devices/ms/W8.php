@@ -30,7 +30,6 @@ class Device_W8 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
         $this->supportedEapMethods = [TLS, PEAP_MSCHAP2, TTLS_PAP, TTLS_MSCHAP2, PWD];
-#      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
         $this->specialities['anon_id'][serialize(PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
@@ -121,7 +120,7 @@ class Device_W8 extends WindowsCommon {
             $out .= "<p>";
         }
 
-        if ($this->eap == EAP::$TLS) {
+        if ($this->eap == TLS) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -166,7 +165,7 @@ class Device_W8 extends WindowsCommon {
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
-        if ($eap == EAP::$TLS) {
+        if ($eap == TLS) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
@@ -258,7 +257,7 @@ class Device_W8 extends WindowsCommon {
 </Eap>
 </Config>
 ';
-        } elseif ($eap == EAP::$TTLS_PAP || $eap == EAP::$TTLS_MSCHAP2) {
+        } elseif ($eap == TTLS_PAP || $eap == TTLS_MSCHAP2) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">311</AuthorId>
 </EapMethod>
 ';
@@ -277,10 +276,10 @@ class Device_W8 extends WindowsCommon {
 </ServerValidation>
 <Phase2Authentication>
 ';
-            if ($eap == EAP::$TTLS_PAP) {
+            if ($eap == TTLS_PAP) {
                 $w8Ext .= '<PAPAuthentication /> ';
             }
-            if ($eap == EAP::$TTLS_MSCHAP2) {
+            if ($eap == TTLS_MSCHAP2) {
                 $w8Ext .= '<MSCHAPv2Authentication>
 <UseWinlogonCredentials>false</UseWinlogonCredentials>
 </MSCHAPv2Authentication>
@@ -306,7 +305,7 @@ class Device_W8 extends WindowsCommon {
 </EapTtls>
 </Config>
 ';
-        } elseif ($eap == EAP::$PWD) {
+        } elseif ($eap == PWD) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';

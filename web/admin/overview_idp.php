@@ -325,7 +325,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $methods = $one_profile->getEapMethodsinOrderOfPreference();
         // silver bullet is an exclusive method; looking in the first entry of
         // the array will catch it.
-        if (count($methods) > 0 && $methods[0] == EAP::$SILVERBULLET) {
+        if (count($methods) > 0 && $methods[0] == SILVERBULLET) {
             $found_silverbullet = TRUE;
         }
     }

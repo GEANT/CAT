@@ -412,7 +412,7 @@ network={
                 $out .= '
   domain_suffix_match="' . $this->serverName . '"';
             }
-            if ($this->selectedEap == EAP::$TLS) {
+            if ($this->selectedEap == TLS) {
                 $out .= '
   private_key="${HOME}/' . $this->localDir . '/user.p12"
   private_key_passwd="${PASSWORD}"';
@@ -677,7 +677,7 @@ class EduroamNMConfigTool:
             $out .= '
              match_key: match_value,';
         }
-        if ($this->selectedEap == EAP::$TLS) {
+        if ($this->selectedEap == TLS) {
             $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),

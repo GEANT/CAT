@@ -145,7 +145,7 @@ switch ($test_type) {
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
-            if ($eap == EAP::$TLS) {
+            if ($eap == TLS) {
                 $run_test = TRUE;
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
