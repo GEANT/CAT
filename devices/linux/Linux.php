@@ -33,7 +33,7 @@ class Device_Linux extends DeviceConfig {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [PEAP_MSCHAP2, TTLS_PAP, TTLS_MSCHAP2, TLS];
+        $this->supportedEapMethods = [EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS];
         $this->localDir = '.cat_installer';
         $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';
         $this->loggerInstance->debug(4, "LINUX: This device supports the following EAP methods: ");
@@ -69,7 +69,7 @@ fi
 
         $outString .= $this->printNMScript($ssids, $delSSIDs);
         $outString .= $this->writeWpaConf($ssids);
-        if ($this->selectedEap == TLS) {
+        if ($this->selectedEap == EAPTYPE_TLS) {
             $outString .= $this->printP12Dialog();
         } else {
             $outString .= $this->printPasswordDialog();
@@ -105,7 +105,7 @@ fi
             $out .= "<p>";
         }
         $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
-        if ($this->eap == TLS) {
+        if ($this->eap == EAPTYPE_TLS) {
             $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
         }
         else {
@@ -412,7 +412,7 @@ network={
                 $out .= '
   domain_suffix_match="' . $this->serverName . '"';
             }
-            if ($this->selectedEap == TLS) {
+            if ($this->selectedEap == EAPTYPE_TLS) {
                 $out .= '
   private_key="${HOME}/' . $this->localDir . '/user.p12"
   private_key_passwd="${PASSWORD}"';
@@ -677,7 +677,7 @@ class EduroamNMConfigTool:
             $out .= '
              match_key: match_value,';
         }
-        if ($this->selectedEap == TLS) {
+        if ($this->selectedEap == EAPTYPE_TLS) {
             $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),

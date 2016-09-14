@@ -29,10 +29,10 @@ class Device_W8 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [TLS, PEAP_MSCHAP2, TTLS_PAP, TTLS_MSCHAP2, PWD];
+        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD];
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
-        $this->specialities['anon_id'][serialize(PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
     public function writeInstaller() {
@@ -57,7 +57,7 @@ class Device_W8 extends WindowsCommon {
         }
 
 
-        if ($this->selectedEap == TLS || $this->selectedEap == PEAP_MSCHAP2 || $this->selectedEap == TTLS_PAP || $this->selectedEap == TTLS_MSCHAP2 || $this->selectedEap == PWD) {
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -120,7 +120,7 @@ class Device_W8 extends WindowsCommon {
             $out .= "<p>";
         }
 
-        if ($this->selectedEap == TLS) {
+        if ($this->selectedEap == EAPTYPE_TLS) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -165,7 +165,7 @@ class Device_W8 extends WindowsCommon {
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
-        if ($eap == TLS) {
+        if ($eap == EAPTYPE_TLS) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
@@ -202,7 +202,7 @@ class Device_W8 extends WindowsCommon {
 </baseEap:Eap>
 </Config>
 ';
-        } elseif ($eap == PEAP_MSCHAP2) {
+        } elseif ($eap == EAPTYPE_PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
             }
@@ -257,7 +257,7 @@ class Device_W8 extends WindowsCommon {
 </Eap>
 </Config>
 ';
-        } elseif ($eap == TTLS_PAP || $eap == TTLS_MSCHAP2) {
+        } elseif ($eap == EAPTYPE_TTLS_PAP || $eap == EAPTYPE_TTLS_MSCHAP2) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">311</AuthorId>
 </EapMethod>
 ';
@@ -276,10 +276,10 @@ class Device_W8 extends WindowsCommon {
 </ServerValidation>
 <Phase2Authentication>
 ';
-            if ($eap == TTLS_PAP) {
+            if ($eap == EAPTYPE_TTLS_PAP) {
                 $w8Ext .= '<PAPAuthentication /> ';
             }
-            if ($eap == TTLS_MSCHAP2) {
+            if ($eap == EAPTYPE_TTLS_MSCHAP2) {
                 $w8Ext .= '<MSCHAPv2Authentication>
 <UseWinlogonCredentials>false</UseWinlogonCredentials>
 </MSCHAPv2Authentication>
@@ -305,7 +305,7 @@ class Device_W8 extends WindowsCommon {
 </EapTtls>
 </Config>
 ';
-        } elseif ($eap == PWD) {
+        } elseif ($eap == EAPTYPE_PWD) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';

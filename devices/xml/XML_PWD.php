@@ -8,7 +8,7 @@ class Device_XML_PWD extends Device_XML {
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              PWD,
+              EAPTYPE_PWD,
        ];
       $this->langScope = 'single';
     }

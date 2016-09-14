@@ -88,8 +88,9 @@ protected function signInstaller($attr) {
    if($this->sign) {
       $o = system($this->sign." installer.exe '$e' > /dev/null");
    }
-   else
+   else {
       rename("installer.exe",$e);
+   }
    return $e;
 }
 

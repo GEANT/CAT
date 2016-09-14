@@ -8,7 +8,7 @@ class Device_XML_TLS extends Device_XML {
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              TLS,
+              EAPTYPE_TLS,
        ];
       $this->langScope = 'single';
     }

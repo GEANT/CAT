@@ -35,7 +35,7 @@ class ProfileFactory {
             $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        if ((count($eapTypeArray) == 1) && $eapTypeArray[0] == SILVERBULLET ) {
+        if ((count($eapTypeArray) == 1) && $eapTypeArray[0] == EAPTYPE_SILVERBULLET ) {
             return new ProfileSilverbullet($profileId, $idpObject);
         }
         return new ProfileRADIUS($profileId, $idpObject);

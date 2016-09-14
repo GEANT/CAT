@@ -228,7 +228,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         echo $buffer_headline;
 
-        if (array_search(TTLS_PAP, $typelist) !== FALSE && array_search(TTLS_GTC, $typelist) === FALSE && array_search(PEAP_MSCHAP2, $typelist) === FALSE && array_search(TTLS_MSCHAP2, $typelist) === FALSE) {
+        if (array_search(EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
             /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
             $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
         }
@@ -325,7 +325,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $methods = $one_profile->getEapMethodsinOrderOfPreference();
         // silver bullet is an exclusive method; looking in the first entry of
         // the array will catch it.
-        if (count($methods) > 0 && $methods[0] == SILVERBULLET) {
+        if (count($methods) > 0 && $methods[0] == EAPTYPE_SILVERBULLET) {
             $found_silverbullet = TRUE;
         }
     }
