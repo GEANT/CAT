@@ -51,6 +51,9 @@ const INTEGER_TTLS_MSCHAPv2 = 6;
 const INTEGER_EAP_pwd = 7;
 const INTEGER_SILVERBULLET = 8;
 
+// PHP7 allows to define constants with arrays as value. Hooray! This makes
+// lots of public static members of the EAP class obsolete
+
 /**
  * PEAP-MSCHAPv2: Outer EAP Type = 25, Inner EAP Type = 26
  */
@@ -101,13 +104,7 @@ const EAP_NONE = ["OUTER" => NONE, "INNER" => NONE];
  */
 const EAP_ANY = ["OUTER" => 255, "INNER" => 255];
 
-// PHP7 allows to define constants with arrays as value. Hooray! This makes
-// lots of public static members of the EAP class obsolete
-
 class EAP {
-    /* constants only work for simple types. So these arrays need to be variables. :-(
-      Don't ever change them though. */
-
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
