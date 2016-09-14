@@ -13,6 +13,7 @@ require_once("Federation.php");
 require_once("IdP.php");
 require_once("Logging.php");
 require_once("UserManagement.php");
+require_once("Helper.php");
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
@@ -182,19 +183,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 
 Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
-// use PHPMailer to send the mail
-$mail = new PHPMailer\PHPMailer\PHPMailer();
-$mail->isSMTP();
-$mail->Port = 587;
-$mail->SMTPAuth = true;
-$mail->SMTPSecure = 'tls';
-$mail->Host = CONFIG['MAILSETTINGS']['host'];
-$mail->Username = CONFIG['MAILSETTINGS']['user'];
-$mail->Password = CONFIG['MAILSETTINGS']['pass'];
-// formatting nitty-gritty
-$mail->WordWrap = 72;
-$mail->isHTML(FALSE);
-$mail->CharSet = 'UTF-8';
+$mail = mailHandle();
 // who to whom?
 $mail->From = CONFIG['APPEARANCE']['from-mail'];
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";

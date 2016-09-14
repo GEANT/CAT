@@ -22,6 +22,7 @@ require_once('DBConnection.php');
 require_once('EntityWithDBProperties.php');
 require_once("Federation.php");
 require_once("IdP.php");
+require_once("Helper.php");
 require_once("core/PHPMailer/src/PHPMailer.php");
 require_once("core/PHPMailer/src/SMTP.php");
 
@@ -128,19 +129,7 @@ class User extends EntityWithDBProperties {
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
         }
-// use PHPMailer to send the mail
-        $mail = new PHPMailer\PHPMailer\PHPMailer();
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Port = 587;
-        $mail->SMTPSecure = 'tls';
-        $mail->Host = CONFIG['MAILSETTINGS']['host'];
-        $mail->Username = CONFIG['MAILSETTINGS']['user'];
-        $mail->Password = CONFIG['MAILSETTINGS']['pass'];
-// formatting nitty-gritty
-        $mail->WordWrap = 72;
-        $mail->isHTML(FALSE);
-        $mail->CharSet = 'UTF-8';
+        $mail = mailHandle();
 // who to whom?
         $mail->From = CONFIG['APPEARANCE']['from-mail'];
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";

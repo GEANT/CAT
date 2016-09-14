@@ -49,7 +49,7 @@ function downloadFile($url) {
         $download = fopen($url, "rb");
         $data = stream_get_contents($download);
         if (!$data) {
-            
+
             $loggerInstance->debug(2, "Failed to download the file from $url");
             return FALSE;
         }
@@ -96,8 +96,7 @@ function getLocalisedValue($valueArray, $locale) {
         }
         if (isset($returnValue[$locale])) {
             $out = $returnValue[$locale];
-        }
-        elseif (isset($returnValue['C'])) {
+        } elseif (isset($returnValue['C'])) {
             $out = $returnValue['C'];
         }
     }
@@ -169,8 +168,25 @@ function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsy
     $targetplacementx = $symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
     $targetplacementy = $symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
     imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
-    imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);    
+    imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
     ob_start();
     imagepng($inputgd);
     return ob_get_clean();
+}
+
+function mailHandle() {
+// use PHPMailer to send the mail
+    $mail = new PHPMailer\PHPMailer\PHPMailer();
+    $mail->isSMTP();
+    $mail->SMTPAuth = true;
+    $mail->Port = 587;
+    $mail->SMTPSecure = 'tls';
+    $mail->Host = CONFIG['MAILSETTINGS']['host'];
+    $mail->Username = CONFIG['MAILSETTINGS']['user'];
+    $mail->Password = CONFIG['MAILSETTINGS']['pass'];
+// formatting nitty-gritty
+    $mail->WordWrap = 72;
+    $mail->isHTML(FALSE);
+    $mail->CharSet = 'UTF-8';
+    return $mail;
 }
