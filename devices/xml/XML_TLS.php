@@ -13,5 +13,3 @@ class Device_XML_TLS extends Device_XML {
       $this->langScope = 'single';
     }
 }
-
-?>

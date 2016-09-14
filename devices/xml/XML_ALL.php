@@ -18,5 +18,3 @@ class Device_XML_ALL extends Device_XML{
       $this->allEaps = TRUE;
     }
 }
-
-?>

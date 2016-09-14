@@ -17,5 +17,3 @@ class Device_Lollipop extends Device_XML{
       $this->allEaps = TRUE;
     }
 }
-
-?>

@@ -16,5 +16,3 @@ class Device_KitKat extends Device_XML{
       $this->allEaps = TRUE;
     }
 }
-
-?>

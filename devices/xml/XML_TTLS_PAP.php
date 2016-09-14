@@ -13,5 +13,3 @@ class Device_XML_TTLS_PAP extends Device_XML {
       $this->langScope = 'single';
     }
 }
-
-?>
