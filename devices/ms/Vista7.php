@@ -541,9 +541,9 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $contentCerts = '';
         $fileHandleCerts = fopen('certs.nsh', 'w');
         if ($caArray) {
-            foreach ($caArray as $CA) {
-                $store = $CA['root'] ? "root" : "ca";
-                $contentCerts .= '!insertmacro install_ca_cert "' . $CA['file'] . '" "' . $CA['sha1'] . '" "' . $store . "\"\n";
+            foreach ($caArray as $certAuthority) {
+                $store = $certAuthority['root'] ? "root" : "ca";
+                $contentCerts .= '!insertmacro install_ca_cert "' . $certAuthority['file'] . '" "' . $certAuthority['sha1'] . '" "' . $store . "\"\n";
             }
             fwrite($fileHandleCerts, $contentCerts);
         }
