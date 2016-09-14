@@ -183,9 +183,9 @@ class Device_W8 extends WindowsCommon {
 <eapTls:DisableUserPromptForServerValidation>true</eapTls:DisableUserPromptForServerValidation>
 <eapTls:ServerNames>' . $servers . '</eapTls:ServerNames>';
             if ($caArray) {
-                foreach ($caArray as $CA) {
-                    if ($CA['root']) {
-                        $profileFileCont .= "<eapTls:TrustedRootCA>" . $CA['sha1'] . "</eapTls:TrustedRootCA>\n";
+                foreach ($caArray as $certAuthority) {
+                    if ($certAuthority['root']) {
+                        $profileFileCont .= "<eapTls:TrustedRootCA>" . $certAuthority['sha1'] . "</eapTls:TrustedRootCA>\n";
                     }
                 }
             }
@@ -220,9 +220,9 @@ class Device_W8 extends WindowsCommon {
 <DisableUserPromptForServerValidation>true</DisableUserPromptForServerValidation>
 <ServerNames>' . $servers . '</ServerNames>';
             if ($caArray) {
-                foreach ($caArray as $CA) {
-                    if ($CA['root']) {
-                        $w8Ext .= "<TrustedRootCA>" . $CA['sha1'] . "</TrustedRootCA>\n";
+                foreach ($caArray as $certAuthority) {
+                    if ($certAuthority['root']) {
+                        $w8Ext .= "<TrustedRootCA>" . $certAuthority['sha1'] . "</TrustedRootCA>\n";
                     }
                 }
             }
@@ -266,9 +266,9 @@ class Device_W8 extends WindowsCommon {
 <ServerValidation>
 <ServerNames>' . $servers . '</ServerNames> ';
             if ($caArray) {
-                foreach ($caArray as $CA) {
-                    if ($CA['root']) {
-                        $w8Ext .= "<TrustedRootCAHash>" . chunk_split($CA['sha1'], 2, ' ') . "</TrustedRootCAHash>\n";
+                foreach ($caArray as $certAuthority) {
+                    if ($certAuthority['root']) {
+                        $w8Ext .= "<TrustedRootCAHash>" . chunk_split($certAuthority['sha1'], 2, ' ') . "</TrustedRootCAHash>\n";
                     }
                 }
             }
