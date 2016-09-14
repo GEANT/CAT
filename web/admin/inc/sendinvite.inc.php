@@ -25,8 +25,9 @@ function check_federation_privilege($country) {
     $fed_privs = $user_object->getAttributes("user:fedadmin");
     // a new IdP was requested and all the required parameters are there
         foreach ($fed_privs as $onefed) {
-            if (strtolower($onefed['value']) == strtolower($country))
+            if (strtolower($onefed['value']) == strtolower($country)) {
                 return TRUE;
+            }
         }
         echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
         exit(1);
@@ -43,8 +44,9 @@ $mgmt = new UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
 
 // check if the user is authenticated, and we have a valid mail address
-if (!isset($_SESSION['user']) || !isset($_POST['mailaddr']))
+if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     exit(1);
+}
 
 $newmailaddress = valid_string_db($_POST['mailaddr']);
 $newcountry = "";
@@ -61,8 +63,9 @@ if (isset($_GET['inst_id'])) {
     $is_owner = FALSE;
     $owners = $idp->owner();
     foreach ($owners as $oneowner) {
-        if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED")
+        if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED") {
             $is_owner = TRUE;
+        }
     }
     // check if he is (also) federation admin for the federation this IdP is in. His invitations have more blessing then.
     $fedadmin = $user_object->isFederationAdmin($idp->federation);
@@ -93,7 +96,7 @@ else if (isset($_POST['creation'])) {
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $newinstname, 0, $newcountry);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
-    } else if ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
+    } elseif ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = valid_string_db($_POST['externals']);
         $extinfo = Federation::getExternalDBEntityDetails($newexternalid);
@@ -102,14 +105,19 @@ else if (isset($_POST['creation'])) {
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $ourlang = CAT::get_lang();
         $prettyprintname = "";
-        foreach ($extinfo['names'] as $lang => $name)
-            if ($lang == $ourlang)
+        foreach ($extinfo['names'] as $lang => $name) {
+            if ($lang == $ourlang) {
                 $prettyprintname = $name;
-        if ($prettyprintname == "" && isset($extinfo['names']['en']))
+            }
+        }
+        if ($prettyprintname == "" && isset($extinfo['names']['en'])) {
             $prettyprintname = $extinfo['names']['en'];
-        if ($prettyprintname == "")
-            foreach ($extinfo['names'] as $name)
+        }
+        if ($prettyprintname == "") {
+            foreach ($extinfo['names'] as $name) {
                 $prettyprintname = $name;
+            }
+        }
         // fill the rest of the text
         $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         $redirect_destination = "../overview_federation.php?";
@@ -127,8 +135,9 @@ else if (isset($_POST['creation'])) {
 }
 // are we on https?
 $proto = "http://";
-if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
     $proto = "https://";
+}
 
 // then, send out the mail
 $message = _("Hello,") . "
@@ -139,14 +148,15 @@ $message = _("Hello,") . "
 
 if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
     $customtext = $federation->getAttributes('fed:custominvite');
-    if (count($customtext) > 0)
+    if (count($customtext) > 0) {
         $message .= wordwrap(_("Additional message from your federation administrator:"),72) . "
 ---------------------------------
 "
                   . wordwrap($customtext[0]['value'],72) . "
 ---------------------------------
 
-";
+    ";
+    }
 }
 
 $message .= wordwrap(_("To enlist as an administrator for that IdP, please click on the following link:"), 72) . "
@@ -195,8 +205,9 @@ if ($new_idp_authorized_fedadmin) {
         // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }
 }
-if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL)
+if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL) {
     $mail->addBCC(CONFIG['APPEARANCE']['invitation-bcc-mail']);
+}
 
 // all addresses are wrapped in a string, but PHPMailer needs a structured list of addressees
 // sigh... so convert as needed
@@ -204,20 +215,23 @@ if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['
 $recipients = explode(", ", $newmailaddress);
 
 // fill the destinations in PHPMailer API
-foreach ($recipients as $recipient)
+foreach ($recipients as $recipient) {
     $mail->addAddress($recipient);
+}
 
 // what do we want to say?
 $mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), CONFIG['APPEARANCE']['productname']);
 $mail->Body = $message;
 
-if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']))
+if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
     $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
+}
 
 $sent = $mail->send();
 
 // invalidate the token immediately if the mail could not be sent!
-if (!$sent)
+if (!$sent) {
     $mgmt->invalidateToken($newtoken);
+}
 $status = ($sent ? "SUCCESS" : "FAILURE");
 header("Location: $redirect_destination" . "invitation=$status");
