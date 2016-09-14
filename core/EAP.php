@@ -42,7 +42,7 @@ define("NE_SILVERBULLET", 999);
  *
  * @package Developer
  */
-const INTEGER_TTLS_PAP =  1;
+const INTEGER_TTLS_PAP = 1;
 const INTEGER_PEAP_MSCHAPv2 = 2;
 const INTEGER_TLS = 3;
 const INTEGER_FAST_GTC = 4;
@@ -51,56 +51,55 @@ const INTEGER_TTLS_MSCHAPv2 = 6;
 const INTEGER_EAP_pwd = 7;
 const INTEGER_SILVERBULLET = 8;
 
-    /**
-     * PEAP-MSCHAPv2: Outer EAP Type = 25, Inner EAP Type = 26
-     */
-    const PEAP_MSCHAP2 = ["OUTER" => PEAP, "INNER" => MSCHAP2];
+/**
+ * PEAP-MSCHAPv2: Outer EAP Type = 25, Inner EAP Type = 26
+ */
+const PEAP_MSCHAP2 = ["OUTER" => PEAP, "INNER" => MSCHAP2];
 
-    /**
-     * EAP-TLS: Outer EAP Type = 13, no inner EAP
-     */
-    const TLS = ["OUTER" => TLS, "INNER" => NONE];
+/**
+ * EAP-TLS: Outer EAP Type = 13, no inner EAP
+ */
+const TLS = ["OUTER" => TLS, "INNER" => NONE];
 
-    /**
-     * EAP-TLS: Outer EAP Type = 13, no inner EAP
-     */
-    const SILVERBULLET = ["OUTER" => TLS, "INNER" => NE_SILVERBULLET];
+/**
+ * EAP-TLS: Outer EAP Type = 13, no inner EAP
+ */
+const SILVERBULLET = ["OUTER" => TLS, "INNER" => NE_SILVERBULLET];
 
-    /**
-     * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
-     */
-    const TTLS_PAP = ["OUTER" => TTLS, "INNER" => NONE];
+/**
+ * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
+ */
+const TTLS_PAP = ["OUTER" => TTLS, "INNER" => NONE];
 
-    /**
-     * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
-     */
-    const TTLS_MSCHAP2 = ["OUTER" => TTLS, "INNER" => MSCHAP2];
+/**
+ * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
+ */
+const TTLS_MSCHAP2 = ["OUTER" => TTLS, "INNER" => MSCHAP2];
 
-    /**
-     * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
-     */
-    const TTLS_GTC = ["OUTER" => TTLS, "INNER" => GTC];
+/**
+ * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
+ */
+const TTLS_GTC = ["OUTER" => TTLS, "INNER" => GTC];
 
-    /**
-     * EAP-FAST (GTC): Outer EAP type = 43, Inner EAP Type = 6
-     */
-    const FAST_GTC = ["OUTER" => FAST, "INNER" => GTC];
+/**
+ * EAP-FAST (GTC): Outer EAP type = 43, Inner EAP Type = 6
+ */
+const FAST_GTC = ["OUTER" => FAST, "INNER" => GTC];
 
-    /**
-     * PWD: Outer EAP type = 52, no inner EAP
-     */
-    const PWD = ["OUTER" => PWD, "INNER" => NONE];
+/**
+ * PWD: Outer EAP type = 52, no inner EAP
+ */
+const PWD = ["OUTER" => PWD, "INNER" => NONE];
 
-    /**
-     * NULL: no outer EAP, no inner EAP
-     */
-    const EAP_NONE = ["OUTER" => NONE, "INNER" => NONE];
+/**
+ * NULL: no outer EAP, no inner EAP
+ */
+const EAP_NONE = ["OUTER" => NONE, "INNER" => NONE];
 
-    /**
-     *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
-     */
-    const EAP_ANY = ["OUTER" => 255, "INNER" => 255];
-
+/**
+ *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
+ */
+const EAP_ANY = ["OUTER" => 255, "INNER" => 255];
 
 // PHP7 allows to define constants with arrays as value. Hooray! This makes
 // lots of public static members of the EAP class obsolete
@@ -108,7 +107,6 @@ const INTEGER_SILVERBULLET = 8;
 class EAP {
     /* constants only work for simple types. So these arrays need to be variables. :-(
       Don't ever change them though. */
-
 
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
@@ -210,4 +208,5 @@ class EAP {
         }
         return NULL;
     }
+
 }
