@@ -8,7 +8,7 @@ class Device_XML_PEAP extends Device_XML {
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              EAP::$PEAP_MSCHAP2,
+              PEAP_MSCHAP2,
        ];
       $this->langScope = 'single';
     }

@@ -8,10 +8,10 @@ class Device_Lollipop extends Device_XML{
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              EAP::$PEAP_MSCHAP2,
-              EAP::$TTLS_PAP,
-              EAP::$TTLS_MSCHAP2,
-              EAP::$TLS,
+              PEAP_MSCHAP2,
+              TTLS_PAP,
+              TTLS_MSCHAP2,
+              TLS,
        ];
       $this->langScope = 'single';
       $this->allEaps = TRUE;

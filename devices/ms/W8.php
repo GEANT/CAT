@@ -29,11 +29,11 @@ class Device_W8 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$PWD];
+        $this->supportedEapMethods = [TLS, PEAP_MSCHAP2, TTLS_PAP, TTLS_MSCHAP2, PWD];
 #      $this->supportedEapMethods = array(EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$PWD);
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
-        $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->specialities['anon_id'][serialize(PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
     public function writeInstaller() {
@@ -58,7 +58,7 @@ class Device_W8 extends WindowsCommon {
         }
 
 
-        if ($this->selectedEap == EAP::$TLS || $this->selectedEap == EAP::$PEAP_MSCHAP2 || $this->selectedEap == EAP::$TTLS_PAP || $this->selectedEap == EAP::$TTLS_MSCHAP2 || $this->selectedEap == EAP::$PWD) {
+        if ($this->selectedEap == TLS || $this->selectedEap == PEAP_MSCHAP2 || $this->selectedEap == TTLS_PAP || $this->selectedEap == TTLS_MSCHAP2 || $this->selectedEap == PWD) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -203,7 +203,7 @@ class Device_W8 extends WindowsCommon {
 </baseEap:Eap>
 </Config>
 ';
-        } elseif ($eap == EAP::$PEAP_MSCHAP2) {
+        } elseif ($eap == PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
             }

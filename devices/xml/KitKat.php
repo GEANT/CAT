@@ -8,9 +8,9 @@ class Device_KitKat extends Device_XML{
         parent::__construct();
       $this->supportedEapMethods  =
             [
-              EAP::$PEAP_MSCHAP2,
-              EAP::$TTLS_PAP,
-              EAP::$TTLS_MSCHAP2,
+              PEAP_MSCHAP2,
+              TTLS_PAP,
+              TTLS_MSCHAP2,
        ];
       $this->langScope = 'single';
       $this->allEaps = TRUE;

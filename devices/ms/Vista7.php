@@ -29,10 +29,10 @@ class Device_Vista7 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$PWD, EAP::$TTLS_PAP];
+        $this->supportedEapMethods = [TLS, PEAP_MSCHAP2, PWD, TTLS_PAP];
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
-        $this->specialities['anon_id'][serialize(EAP::$PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->specialities['anon_id'][serialize(PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
     public function writeInstaller() {
@@ -56,7 +56,7 @@ class Device_Vista7 extends WindowsCommon {
             }
         }
 
-        if ($this->selectedEap == EAP::$TLS || $this->selectedEap == EAP::$PEAP_MSCHAP2 || $this->selectedEap == EAP::$PWD || $this->selectedEap == EAP::$TTLS_PAP) {
+        if ($this->selectedEap == TLS || $this->selectedEap == PEAP_MSCHAP2 || $this->selectedEap == PWD || $this->selectedEap == TTLS_PAP) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -115,14 +115,14 @@ class Device_Vista7 extends WindowsCommon {
             }
             $out .= "<p>";
         }
-        if ($this->eap == EAP::$TLS) {
+        if ($this->eap == TLS) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
             return($out);
         }
         // not EAP-TLS
         $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
 
-        if ($this->eap == EAP::$PEAP_MSCHAP2) {
+        if ($this->eap == PEAP_MSCHAP2) {
             $out .= "<p>";
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
@@ -146,7 +146,7 @@ class Device_Vista7 extends WindowsCommon {
         $vistaExt = '';
         $w7Ext = '';
         $eap = $this->selectedEap;
-        if ($eap != EAP::$TLS && $eap != EAP::$PEAP_MSCHAP2 && $eap != EAP::$PWD && $eap != EAP::$TTLS_PAP) {
+        if ($eap != TLS && $eap != PEAP_MSCHAP2 && $eap != PWD && $eap != TTLS_PAP) {
             $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
             error("this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
             return;
@@ -268,7 +268,7 @@ class Device_Vista7 extends WindowsCommon {
 </baseEap:Eap>
 </Config>
 ';
-        } elseif ($eap == EAP::$PEAP_MSCHAP2) {
+        } elseif ($eap == PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
             } else {

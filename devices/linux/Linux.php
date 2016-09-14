@@ -33,7 +33,7 @@ class Device_Linux extends DeviceConfig {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
+        $this->supportedEapMethods = [PEAP_MSCHAP2, TTLS_PAP, TTLS_MSCHAP2, TLS];
         $this->localDir = '.cat_installer';
         $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';
         $this->loggerInstance->debug(4, "LINUX: This device supports the following EAP methods: ");
@@ -69,7 +69,7 @@ fi
 
         $outString .= $this->printNMScript($ssids, $delSSIDs);
         $outString .= $this->writeWpaConf($ssids);
-        if ($this->selectedEap == EAP::$TLS) {
+        if ($this->selectedEap == TLS) {
             $outString .= $this->printP12Dialog();
         } else {
             $outString .= $this->printPasswordDialog();
@@ -105,7 +105,7 @@ fi
             $out .= "<p>";
         }
         $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
-        if ($this->eap == EAP::$TLS) {
+        if ($this->eap == TLS) {
             $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
         }
         else {

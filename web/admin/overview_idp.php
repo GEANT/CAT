@@ -228,7 +228,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         echo $buffer_headline;
 
-        if (array_search(EAP::$TTLS_PAP, $typelist) !== FALSE && array_search(EAP::$TTLS_GTC, $typelist) === FALSE && array_search(EAP::$PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAP::$TTLS_MSCHAP2, $typelist) === FALSE) {
+        if (array_search(TTLS_PAP, $typelist) !== FALSE && array_search(TTLS_GTC, $typelist) === FALSE && array_search(PEAP_MSCHAP2, $typelist) === FALSE && array_search(TTLS_MSCHAP2, $typelist) === FALSE) {
             /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
             $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
         }

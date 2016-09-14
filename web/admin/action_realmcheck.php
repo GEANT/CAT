@@ -718,12 +718,12 @@ print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
                     <input type='hidden' name='profile_id' value='".$my_profile->identifier."'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
-              if (in_array(EAP::$PEAP_MSCHAP2, $prof_compl) ||
-                              in_array(EAP::$TTLS_MSCHAP2, $prof_compl) ||
-                              in_array(EAP::$TTLS_GTC, $prof_compl) ||
-                              in_array(EAP::$FAST_GTC, $prof_compl) ||
-                              in_array(EAP::$PWD, $prof_compl) ||
-                              in_array(EAP::$TTLS_PAP, $prof_compl)
+              if (in_array(PEAP_MSCHAP2, $prof_compl) ||
+                              in_array(TTLS_MSCHAP2, $prof_compl) ||
+                              in_array(TTLS_GTC, $prof_compl) ||
+                              in_array(FAST_GTC, $prof_compl) ||
+                              in_array(PWD, $prof_compl) ||
+                              in_array(TTLS_PAP, $prof_compl)
                       ) { 
                           echo  "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Real (inner) username:") . "</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";

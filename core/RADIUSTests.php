@@ -872,7 +872,7 @@ class RADIUSTests extends Entity{
         $this->loggerInstance->debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
-        return $this->UDP_login($probeindex, EAP::$EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
+        return $this->UDP_login($probeindex, EAP_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -1039,12 +1039,12 @@ network={
             $logConfig .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
         }
         // all methods set a password, except EAP-TLS
-        if ($eaptype != EAP::$TLS) {
+        if ($eaptype != TLS) {
             $config .= "  password=\"$password\"\n";
             $logConfig .= "  password=\"not logged for security reasons\"\n";
         }
         // for methods with client certs, add a client cert config block
-        if ($eaptype == EAP::$TLS || $eaptype == EAP::$ANY) {
+        if ($eaptype == TLS || $eaptype == ANY) {
             $config .= "  private_key=\"./client.p12\"\n";
             $logConfig .= "  private_key=\"./client.p12\"\n";
             $config .= "  private_key_passwd=\"$password\"\n";
@@ -1184,7 +1184,7 @@ network={
         }
 
         // if we need client certs but don't have one, return
-        if (($eaptype == EAP::$ANY || $eaptype == EAP::TLS) && $clientcertdata === NULL) {
+        if (($eaptype == ANY || $eaptype == TLS) && $clientcertdata === NULL) {
             $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
             return RETVAL_NOTCONFIGURED;
         }
@@ -1240,7 +1240,7 @@ network={
         // TODO: also only do this if EAP types all mismatched; we won't have a
         // cert in that case
         if (
-                $eaptype != EAP::$PWD &&
+                $eaptype != PWD &&
                 (($finalretval == RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RETVAL_OK)
         ) {
 

@@ -133,25 +133,25 @@ switch($sanitised_action) {
                             $_POST['value'][$optindex."-0"] <= 7 ) {
                                 switch ($_POST['value'][$optindex."-0"]) {
                                     case 1:
-                                        $newprofile->addSupportedEapMethod (EAP::$TTLS_PAP, $pref);
+                                        $newprofile->addSupportedEapMethod (TTLS_PAP, $pref);
                                         break;
                                     case 2:
-                                        $newprofile->addSupportedEapMethod (EAP::$PEAP_MSCHAP2, $pref);
+                                        $newprofile->addSupportedEapMethod (PEAP_MSCHAP2, $pref);
                                         break;
                                     case 3:
-                                        $newprofile->addSupportedEapMethod (EAP::$TLS, $pref);
+                                        $newprofile->addSupportedEapMethod (TLS, $pref);
                                         break;
                                     case 4:
-                                        $newprofile->addSupportedEapMethod (EAP::$FAST_GTC, $pref);
+                                        $newprofile->addSupportedEapMethod (FAST_GTC, $pref);
                                         break;
                                     case 5:
-                                        $newprofile->addSupportedEapMethod (EAP::$TTLS_GTC, $pref);
+                                        $newprofile->addSupportedEapMethod (TTLS_GTC, $pref);
                                         break;
                                     case 6:
-                                        $newprofile->addSupportedEapMethod (EAP::$TTLS_MSCHAP2, $pref);
+                                        $newprofile->addSupportedEapMethod (TTLS_MSCHAP2, $pref);
                                         break;
                                     case 7:
-                                        $newprofile->addSupportedEapMethod (EAP::$PWD, $pref);
+                                        $newprofile->addSupportedEapMethod (PWD, $pref);
                                         break;
                                 }
                                 $pref = $pref + 1;
