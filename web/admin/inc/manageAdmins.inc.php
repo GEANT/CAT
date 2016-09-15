@@ -25,7 +25,6 @@ $Cat->set_locale("web_admin");
 header("Content-Type:text/html;charset=utf-8");
 
 // where did the user come from? Save this...
-
 // the user can come only from overview_user or overview_federation
 // to prevent HTTP response slitting attacks, pick and rewrite the destination URL
 
@@ -105,15 +104,14 @@ if (isset($_GET['invitation'])) {
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     echo UI_remark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
-    echo "</table></div>";    
+    echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     echo UI_remark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
-    echo "</table></div>";    
+    echo "</table></div>";
 }
-
 ?>
 <table>
     <?php
@@ -156,7 +154,7 @@ if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
     foreach ($pending_invites as $invitee)
-        echo "<tr><td>".$invitee['mail']."</td></tr>";
+        echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
     echo "</table>";
 }
 ?>
@@ -173,7 +171,8 @@ if ($isFedAdmin) {
             $is_admin_himself = TRUE;
     }
 
-    if (!$is_admin_himself) echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+    if (!$is_admin_himself)
+        echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='" . BUTTON_TAKECONTROL . "'>" . _("Take control of this institution") . "</button>
 </form>";
 }

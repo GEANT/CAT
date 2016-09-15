@@ -142,9 +142,9 @@ class UserAPI extends CAT {
                 $profile->updateCache($device, $this->installerPath, $out['mime']);
                 rrmdir($dev->FPATH . '/tmp');
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=".$profile->identifier."&device=$device&generatedfor=$generated_for";
+                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
             } else {
-                $this->loggerInstance->debug(2, "Installer generation failed for: ".$profile->identifier.":$device:" . CAT::get_lang() . "\n");
+                $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . CAT::get_lang() . "\n");
                 $out['link'] = 0;
             }
         }
@@ -273,8 +273,7 @@ class UserAPI extends CAT {
         foreach (CONFIG['LANGUAGES'] as $id => $val) {
             if ($this->version == 1) {
                 $returnArray[] = ['id' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
-            }
-            else {
+            } else {
                 $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
             }
         }
@@ -292,8 +291,7 @@ class UserAPI extends CAT {
         foreach ($federations as $id => $val) {
             if ($this->version == 1) {
                 $returnArray[] = ['id' => $id, 'display' => $val];
-            }
-            else {
+            } else {
                 $returnArray[] = ['federation' => $id, 'display' => $val];
             }
         }
@@ -312,8 +310,7 @@ class UserAPI extends CAT {
         foreach ($idps as $idp) {
             if ($this->version == 1) {
                 $returnArray[] = ['id' => $idp['entityID'], 'display' => $idp['title']];
-            }
-            else {
+            } else {
                 $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
             }
         }
@@ -332,8 +329,7 @@ class UserAPI extends CAT {
         foreach ($idps as $idp) {
             if ($this->version == 1) {
                 $idp['id'] = $idp['entityID'];
-            }
-            else {
+            } else {
                 $idp['idp'] = $idp['entityID'];
             }
             $returnArray[] = $idp;
@@ -352,8 +348,7 @@ class UserAPI extends CAT {
         foreach ($idps as $idp) {
             if ($this->version == 1) {
                 $returnArray[] = ['id' => $idp['id'], 'display' => $idp['title']];
-            }
-            else {
+            } else {
                 $returnArray[] = ['idp' => $idp['id'], 'display' => $idp['title']];
             }
         }
@@ -377,7 +372,7 @@ class UserAPI extends CAT {
         }
         $hasLogo = FALSE;
         $logo = $idp->getAttributes('general:logo_file');
-        if (count($logo)>0) {
+        if (count($logo) > 0) {
             $hasLogo = 1;
         }
         $profiles = $idp->listProfiles(1);
@@ -387,8 +382,7 @@ class UserAPI extends CAT {
         foreach ($profiles as $P) {
             if ($this->version == 1) {
                 $returnArray[] = ['id' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
-            }
-            else {
+            } else {
                 $returnArray[] = ['profile' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
             }
         }
@@ -584,7 +578,7 @@ class UserAPI extends CAT {
         header('Content-type: application/json; utf-8');
 
         $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
-        
+
         switch ($geoipVersion) {
             case 0:
                 echo json_encode(['status' => 'error', 'error' => 'Geolocation not supported']);
@@ -690,8 +684,7 @@ class UserAPI extends CAT {
             $device = $Dev[$dev_id];
             if ($this->version == 1) {
                 return(['id' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-            }
-            else {
+            } else {
                 return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
             }
         }
@@ -706,12 +699,10 @@ class UserAPI extends CAT {
                     $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
                     if ($this->version == 1) {
                         return(['id' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-                    }
-                    else {
+                    } else {
                         return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
                     }
-                }
-                else {
+                } else {
                     $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
                     return(false);
                 }
@@ -725,8 +716,7 @@ class UserAPI extends CAT {
         $returnArray = $this->detectOS();
         if ($returnArray) {
             $status = 1;
-        }
-        else {
+        } else {
             $status = 0;
         }
         echo $this->return_json($returnArray, $status);

@@ -57,7 +57,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
             <br>
-        <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
+            <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
         </div>
         <?php
         $loadmap = FALSE;

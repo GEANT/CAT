@@ -310,8 +310,8 @@ function instLevelInfoBoxes(IdP $myInst) {
         $retval .= "<div class='infobox'>
             <h2>" . $block[1] . "</h2>
             <table>" .
-        infoblock($idpoptions, $block[0], "IdP") .
-        "</table>
+                infoblock($idpoptions, $block[0], "IdP") .
+                "</table>
         </div>";
     }
     return $retval;

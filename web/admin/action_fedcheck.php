@@ -21,7 +21,7 @@ require_once("../resources/inc/footer.php");
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dbHandle = DBConnection::handle("INST");
-    
+
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
     $configuredRealm = $profile->getAttributes("internal:realm");

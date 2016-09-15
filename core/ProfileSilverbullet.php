@@ -37,7 +37,7 @@ require_once('AbstractProfile.php');
  * @package Developer
  */
 class ProfileSilverbullet extends AbstractProfile {
-    
+
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -55,23 +55,22 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->langIndex = CAT::get_lang();
 
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
-        
         // set to global config value
-        
+
         if (isset(CONFIG['CONSORTIUM']['silverbullet_default_maxusers'])) {
             $tempMaxUsers = CONFIG['CONSORTIUM']['silverbullet_default_maxusers'];
         }
-        $myInst = new IdP ($this->institution);
+        $myInst = new IdP($this->institution);
         $myFed = new Federation($myInst->federation);
         $fedMaxusers = $myFed->getAttributes("fed:silverbullet-maxusers");
         if (isset($fedMaxusers[0])) {
             $tempMaxUsers = $fedMaxusers[0]['value'];
         }
-        
+
         // realm is automatically calculated, then stored in DB
-        
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier.".strtolower($myInst->federation).CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
-        $this->setRealm("$myInst->identifier-$this->identifier.".strtolower($myInst->federation).CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
+
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
+        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
         $internalAttributes = [
@@ -83,23 +82,21 @@ class ProfileSilverbullet extends AbstractProfile {
         ];
 
         $tempArrayProfLevel = []; // we don't currently store any profile-level attributes for SB in the database
-
         // internal attributes share many attribute properties, so condense the generation
 
         $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
-        
+
         // now, fetch and merge IdP-wide attributes
-       
+
         $this->attributes = $this->levelPrecedenceAttributeJoin($tempArrayProfLevel, $this->idpAttributes, "IdP");
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
         $this->name = _("eduroam-as-a-service");
-        
+
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
-    
     /**
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
@@ -110,7 +107,6 @@ class ProfileSilverbullet extends AbstractProfile {
     public function updateCache($device, $path, $mime) {
         // params are needed for proper overriding, but not needed at all.
     }
-
 
     /**
      * register new supported EAP method for this profile
@@ -157,4 +153,5 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->databaseHandle->exec("UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
         $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
+
 }

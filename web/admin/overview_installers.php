@@ -1,8 +1,8 @@
 <?php
-/***********************************************************************************
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
@@ -107,7 +107,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                     } elseif ($method === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote: anon_id
                         $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
-                        if ( $anon !== "" && isset($factory->device->specialities['anon_id'])) {
+                        if ($anon !== "" && isset($factory->device->specialities['anon_id'])) {
                             if (isset($factory->device->specialities['anon_id'][serialize($method)])) {
                                 $footnotetext = $factory->device->specialities['anon_id'][serialize($method)];
                                 $display_footnote = TRUE;
@@ -133,8 +133,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                     } else {
                         echo "<td class='compat_secondary'></td>";
                     }
-                }
-                else {
+                } else {
                     echo "<td class='compat_unsupported'></td>";
                 }
             }
@@ -160,9 +159,10 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
     }
     ?>
     <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
-        <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>'>
+        <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'>
             <?php echo _("Return to dashboard"); ?>
         </button>
     </form>
     <?php
     footer();
+    

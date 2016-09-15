@@ -1,10 +1,12 @@
 <?php
-/* *********************************************************************************
+
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 /**
  * This file contains the Factory for Device module instantiation
  *
@@ -14,7 +16,6 @@
  * @package Developer
  *
  */
-
 /**
  * required includes
  */
@@ -32,6 +33,7 @@ include_once("Logging.php");
  *
  */
 class DeviceFactory extends Entity {
+
     /**
      * Contains the produced device instance
      * 
@@ -46,30 +48,31 @@ class DeviceFactory extends Entity {
      * @param string $blueprint The name of the module to instantiate
      */
     public function __construct($blueprint) {
-      parent::__construct();
-      $Dev = Devices::listDevices();
-        if(isset($Dev[$blueprint])) {
-            if($Dev[$blueprint]['directory'] && $Dev[$blueprint]['module'])
-                require_once("devices/".$Dev[$blueprint]['directory']."/".$Dev[$blueprint]['module'].".php");
-            $this->loggerInstance->debug(4,"loaded: devices/".$Dev[$blueprint]['directory']."/".$Dev[$blueprint]['module'].".php\n");
-            $class_name = "Device_".$Dev[$blueprint]['module'];
+        parent::__construct();
+        $Dev = Devices::listDevices();
+        if (isset($Dev[$blueprint])) {
+            if ($Dev[$blueprint]['directory'] && $Dev[$blueprint]['module'])
+                require_once("devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php");
+            $this->loggerInstance->debug(4, "loaded: devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php\n");
+            $class_name = "Device_" . $Dev[$blueprint]['module'];
             $this->device = new $class_name();
-            if(! $this->device) {
-                $this->loggerInstance->debug(2,"module loading failed");
+            if (!$this->device) {
+                $this->loggerInstance->debug(2, "module loading failed");
                 die("module loading failed");
             }
         } else {
             error("unknown devicename:$blueprint");
         }
-       $this->device->module_path = ROOT.'/devices/'.$Dev[$blueprint]['directory'];
-       $this->device->signer = isset($Dev[$blueprint]['signer']) ? $Dev[$blueprint]['signer'] : 0; 
-       $this->device->device_id = $blueprint;
-       $options = Devices::$Options;
-       if(isset($Dev[$blueprint]['options'])) {
-          $Opt = $Dev[$blueprint]['options'];
-          foreach ($Opt as $option => $value)
-            $options[$option] = $value;
-       }
-       $this->device->options = $options;
+        $this->device->module_path = ROOT . '/devices/' . $Dev[$blueprint]['directory'];
+        $this->device->signer = isset($Dev[$blueprint]['signer']) ? $Dev[$blueprint]['signer'] : 0;
+        $this->device->device_id = $blueprint;
+        $options = Devices::$Options;
+        if (isset($Dev[$blueprint]['options'])) {
+            $Opt = $Dev[$blueprint]['options'];
+            foreach ($Opt as $option => $value)
+                $options[$option] = $value;
+        }
+        $this->device->options = $options;
     }
+
 }

@@ -67,7 +67,7 @@ function valid_Profile($input, $idpIdentifier = NULL) {
 function valid_Device($input) {
     $devicelist = Devices::listDevices();
     if (!isset($devicelist[$input])) {
-        throw new Exception (input_validation_error("This device does not exist!"));
+        throw new Exception(input_validation_error("This device does not exist!"));
     }
     return $input;
 }
@@ -88,8 +88,8 @@ function valid_string_db($input, $allowWhitespace = 0) {
     if ($allowWhitespace === 0) {
         $afterWhitespace = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
     } else {
-    // even if we allow whitespace, not pathological ones!
-    $afterWhitespace = preg_replace('/(\0|\r|\x0b)/', '', $retval);
+        // even if we allow whitespace, not pathological ones!
+        $afterWhitespace = preg_replace('/(\0|\r|\x0b)/', '', $retval);
     }
     if (is_array($afterWhitespace)) {
         throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");

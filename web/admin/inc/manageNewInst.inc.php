@@ -75,8 +75,8 @@ if (CONFIG['DB']['enforce-external-sync']) {
                 $entities = $thefed->listExternalEntities(TRUE);
 
                 foreach ($entities as $v) {
-                echo "<option id='".$v['contactlist']."' value='" . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
-            }
+                    echo "<option id='" . $v['contactlist'] . "' value='" . $v['ID'] . "'>[" . $fed_value['value'] . "] " . $v['name'] . "</option>";
+                }
             }
 
             echo "</select></td></tr>";
@@ -87,7 +87,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
                 <input type='radio' name='creation' value='new'><?php echo _("New IdP"); ?></input>
             </td>
             <td>
-<?php echo _("Name"); ?><input type='text' size='40' id='name' name='name' onchange='document.sendinvite.creation[1].checked=true'/>
+                <?php echo _("Name"); ?><input type='text' size='40' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
             </td>
             <td><?php echo _("Federation"); ?>
                 <select id='country' name='country'>
@@ -110,9 +110,9 @@ if (CONFIG['DB']['enforce-external-sync']) {
         </tr>
     </table>
     <hr/>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE;?>'><?php echo _("Send invitation"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Send invitation"); ?></button>
 </form>
 <br/>
 <form action='inc/manageNewInst.inc.php' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>'><?php echo _("Close"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Close"); ?></button>
 </form>

@@ -205,7 +205,7 @@ define("CERTPROB_MULTIPLE_CN", -226);
  *
  * @package Developer
  */
-class RADIUSTests extends Entity{
+class RADIUSTests extends Entity {
 
     /**
      * This private variable contains the realm to be checked. Is filled in the
@@ -1174,7 +1174,7 @@ network={
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
         $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
-        
+
         $eapText = EAP::eapDisplayName($eaptype);
 
         if ($clientcertdata !== NULL) {
@@ -1281,9 +1281,9 @@ network={
             }
 
             $intermOdditiesEAP = [];
-            
+
             $testresults['certdata'] = [];
-            
+
             $serverFile = fopen($tmpDir . "/incomingserver.pem", "w");
             foreach ($eapCertarray as $certPem) {
                 $cert = $x509->processCertificate($certPem);

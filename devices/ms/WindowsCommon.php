@@ -121,10 +121,11 @@ class WindowsCommon extends DeviceConfig {
                 $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
             } elseif ($attr['internal:info_file'][0]['mime'] == 'txt') {
                 $in_txt = file_get_contents($attr['internal:info_file'][0]['name']);
-                if (CONFIG['NSIS_VERSION'] >= 3)
+                if (CONFIG['NSIS_VERSION'] >= 3) {
                     $out_txt = $in_txt;
-                else
+                } else {
                     $out_txt = iconv('UTF-8', $this->code_page . '//TRANSLIT', $in_txt);
+                }
                 if ($out_txt) {
                     file_put_contents('info_f.txt', $out_txt);
                     $out = '!define LICENSE_FILE " info_f.txt';

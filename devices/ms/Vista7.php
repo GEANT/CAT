@@ -359,7 +359,6 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         return $returnArray;
     }
 
-
     /**
      * produce PEAP, TLS and TTLS configuration files for Windows 8
      * 

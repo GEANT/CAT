@@ -1,8 +1,9 @@
 <?php
-/***********************************************************************************
+
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 
@@ -40,7 +41,7 @@ function getImageFromDB($id) {
     $info = new finfo();
     $filetype = $info->buffer($finalBlob, FILEINFO_MIME_TYPE);
     header("Content-type: " . $filetype);
-    
+
     switch ($filetype) {
         case "text/rtf": // fall-through, same treatment
         case "application/rtf":
@@ -52,7 +53,7 @@ function getImageFromDB($id) {
         default:
             throw new Exception("Unsupported file type encountered!");
     }
-    
+
     header("Cache-Control: must-revalidate");
     $offset = 60 * 60 * 24 * 30;
     $ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";

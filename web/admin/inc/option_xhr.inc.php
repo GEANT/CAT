@@ -1,8 +1,9 @@
 <?php
-/***********************************************************************************
+
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 
@@ -25,32 +26,32 @@ if (isset($_GET["class"])) {
     $list = $optioninfo->availableOptions($_GET["class"]);
 
     switch ($_GET['class']) {
-    case "general":
-        $blacklist_item = array_search("general:geo_coordinates", $list);
-        if ($blacklist_item !== FALSE) {
-            unset($list[$blacklist_item]);
+        case "general":
+            $blacklist_item = array_search("general:geo_coordinates", $list);
+            if ($blacklist_item !== FALSE) {
+                unset($list[$blacklist_item]);
+                $list = array_values($list);
+            }
+            break;
+        case "user":
+            $blacklist_item = array_search("user:fedadmin", $list);
+            if ($blacklist_item !== FALSE) {
+                unset($list[$blacklist_item]);
+                $list = array_values($list);
+            }
+            break;
+        case "eap":
+        case "support":
+        case "profile":
+        case "media":
+        case "fed":
             $list = array_values($list);
-        }
-        break;
-    case "user":
-        $blacklist_item = array_search("user:fedadmin", $list);
-        if ($blacklist_item !== FALSE) {
-            unset($list[$blacklist_item]);
-            $list = array_values($list);
-        }
-        break;
-    case "eap":
-    case "support":
-    case "profile":
-    case "media":
-    case "fed":
-            $list = array_values($list);
-        break;
-    case "device-specific":
-    case "eap-specific":
-        break;
-    default:
-        throw new Exception("Unknown type of option!");
+            break;
+        case "device-specific":
+        case "eap-specific":
+            break;
+        default:
+            throw new Exception("Unknown type of option!");
     }
 
     echo optiontext(0, $list);

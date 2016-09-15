@@ -5,29 +5,29 @@
 
 /* General function for doing HTTP XML GET requests. */
 
-function getXML(attribute_class ) {
+function getXML(attribute_class) {
     var client = new XMLHttpRequest();
     client.attribute_class = attribute_class;
     client.onreadystatechange = addOption;
-    client.open( "GET", "inc/option_xhr.inc.php?class="+attribute_class+"&etype=XML" );
+    client.open("GET", "inc/option_xhr.inc.php?class=" + attribute_class + "&etype=XML");
     client.send();
 }
 
-function postXML( funct, form ) {
+function postXML(funct, form) {
     var client = new XMLHttpRequest();
     client.onreadystatechange = funct;
-    client.open( "POST", form.action );
-    client.setRequestHeader( "Content-Type", "application/x-www-form-urlencoded" );
+    client.open("POST", form.action);
+    client.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var form_values = "";
-    for (var i = 0; i<form.elements.length; i++) {
+    for (var i = 0; i < form.elements.length; i++) {
         form_values = form_values + (form_values === "" ? "" : "&") + encodeURIComponent(form.elements[i].name) + "=" + encodeURIComponent(form.elements[i].value);
     }
-    client.send( form_values );
+    client.send(form_values);
 }
 
 function addOption(attribute_class) {
-    if( this.readyState === 4 && this.status === 200 ) {
-        var field = document.getElementById("expandable_"+this.attribute_class+"_options");
+    if (this.readyState === 4 && this.status === 200) {
+        var field = document.getElementById("expandable_" + this.attribute_class + "_options");
         var div = document.createElement('tbody');
         div.innerHTML = this.responseText;
         field.appendChild(div.firstChild);
@@ -35,7 +35,7 @@ function addOption(attribute_class) {
 }
 
 function processCredentials() {
-    if( this.readyState === 4 && this.status === 200 ) {
+    if (this.readyState === 4 && this.status === 200) {
         var field = document.getElementById("disposable_credential_container");
         field.innerHTML = this.responseText;
     }
@@ -45,10 +45,10 @@ function doCredentialCheck(form) {
     postXML(processCredentials, form);
 }
 
-function deleteOption(e,identifier) {
+function deleteOption(e, identifier) {
     var field = document.getElementById(identifier);
-           if(e) {
-             marks[e - 1].setOptions({visible: false});
-        }
-        field.parentNode.removeChild(field);
+    if (e) {
+        marks[e - 1].setOptions({visible: false});
+    }
+    field.parentNode.removeChild(field);
 }

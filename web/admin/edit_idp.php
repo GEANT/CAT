@@ -33,8 +33,7 @@ $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
     $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
-}
-else {
+} else {
     $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
 // let's check if the inst handle actually exists in the DB and user is authorised
@@ -80,8 +79,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         <?php
         if ($wizardStyle) {
             echo _("Step 2: General Information about your IdP");
-        }
-        else {
+        } else {
             printf(_("Editing IdP information for '%s'"), $inst_name);
         }
         ?>

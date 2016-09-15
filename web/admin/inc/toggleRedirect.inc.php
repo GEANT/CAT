@@ -114,17 +114,17 @@ if ($device) {
 <hr/>
 
 <form action='inc/toggleRedirect.inc.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $my_profile->identifier; ?>' method='post' accept-charset='UTF-8'><?php echo $extrainput; ?>
-        <?php
+    <?php
 // see if we already have any attributes; if so, display these
-        $interesting_attribs = [];
+    $interesting_attribs = [];
 
-        foreach ($attribs as $attrib) {
-            if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
-                $interesting_attribs[] = $attrib;
-            }
+    foreach ($attribs as $attrib) {
+        if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
+            $interesting_attribs[] = $attrib;
         }
-        echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
-        ?>
+    }
+    echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
+    ?>
     <button type='button' class='newoption' onclick='<?php echo "getXML(\"$param_name\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>

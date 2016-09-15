@@ -343,4 +343,5 @@ abstract class Device_XML extends DeviceConfig {
         }
         return $authmethod;
     }
+
 }

@@ -162,7 +162,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $prefill_methods = [];
     $profile_options = [];
 }
-
 ?>
 </head>
 <body>
@@ -173,14 +172,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         <?php
         if ($wizardStyle) {
             echo _("Step 3: Defining a user group profile");
-        }
-        else {
+        } else {
             printf(_("Edit profile '%s' ..."), $prefill_name);
         }
         ?>
     </h1>
-    <?php echo instLevelInfoBoxes($my_inst);
-    
+    <?php
+    echo instLevelInfoBoxes($my_inst);
+
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($my_profile !== NULL ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
     ?>
@@ -281,9 +280,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                 </td>
                 <td>
                     <input type='checkbox' <?php
-                        echo ($verify != FALSE ? "checked" : "" );
-                        echo ($realm == "" ? "disabled" : "" );
-                        ?> name='verify_support' onclick='
+                    echo ($verify != FALSE ? "checked" : "" );
+                    echo ($realm == "" ? "disabled" : "" );
+                    ?> name='verify_support' onclick='
                                 if (this.form.elements["verify_support"].checked !== true) {
                                     this.form.elements["hint_support"].setAttribute("disabled", "disabled");
                                 } else {
@@ -312,7 +311,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                 this.form.elements["anon_local"].removeAttribute("disabled");
                             }
                             ;'/>
-                    <input type='text' <?php echo ($checkuserOuter == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anonLocal;?>'/>
+                    <input type='text' <?php echo ($checkuserOuter == FALSE ? "disabled" : "" ); ?> name='anon_local' value='<?php echo $anonLocal; ?>'/>
                 </td>    
             </tr>
             <tr>
@@ -331,7 +330,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                 this.form.elements["checkuser_local"].removeAttribute("disabled");
                             }
                             ;'/>
-                    <input type='text' <?php echo ($checkuserOuter == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='<?php echo $checkuserValue;?>'/>
+                    <input type='text' <?php echo ($checkuserOuter == FALSE ? "disabled" : "" ); ?> name='checkuser_local' value='<?php echo $checkuserValue; ?>'/>
                 </td>
             </tr>
         </table>
@@ -392,8 +391,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if (count($eapoptionsNames) > 0) {
             echo "<strong>" . _("EAP options inherited from Global level:") . "</strong><br />";
             foreach ($eapoptionsNames as $optionname => $count) {
-            /// option count and enumeration
-            /// Example: "(3x) Server Name"
+                /// option count and enumeration
+                /// Example: "(3x) Server Name"
                 printf(_("(%dx) %s") . "<br />", $count, display_name($optionname));
             }
         }
@@ -410,19 +409,19 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     foreach ($methods as $a) {
         $display = display_name($a);
         $enabled = FALSE;
-            foreach ($prefill_methods as $prio => $value) {
-                if (display_name($a) == display_name($value)) {
-                    $enabled = TRUE;
-                    $countactive = $prio + 1;
-                }
+        foreach ($prefill_methods as $prio => $value) {
+            if (display_name($a) == display_name($value)) {
+                $enabled = TRUE;
+                $countactive = $prio + 1;
             }
+        }
     }
     ?>
     <div>
         <table style="border:none">
             <tr>
                 <th style="vertical-align:top; padding:1em">
-<?php echo _('Supported EAP types for this profile'); ?>
+                    <?php echo _('Supported EAP types for this profile'); ?>
                 </th>
                 <td id="supported_eap">
                     <ol id="sortable1" class="eapmethods">
@@ -436,7 +435,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                     </ol>
                 </td>
                 <td rowspan=3 style="text-align:center; width:12em; padding:1em">
-<?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
+                    <?php echo _('Use "drag &amp; drop" to mark an EAP method and move it to the supported (green) area. Prioritisation is done automatically, depending on where you "drop" the method.'); ?>
                 </td>
             </tr>
             <tr id="eap_bottom_row">
@@ -444,7 +443,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             </tr>
             <tr>
                 <th style="vertical-align:top; padding:1em">
-<?php echo _('Unsupported EAP types'); ?>
+                    <?php echo _('Unsupported EAP types'); ?>
                 </th>
                 <td style="vertical-align:top" id="unsupported_eap">
                     <ol id="sortable2" class="eapmethods">

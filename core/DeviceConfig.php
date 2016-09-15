@@ -125,9 +125,9 @@ abstract class DeviceConfig extends Entity {
             $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
         }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
-        
+
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
-        
+
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $this->langIndex = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
@@ -190,11 +190,9 @@ abstract class DeviceConfig extends Entity {
         $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        }
-        elseif (is_file($this->module_path . '/Files/' . $source_name)) {
+        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
-        }
-        else {
+        } else {
             $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
             return(FALSE);
         }
@@ -243,8 +241,7 @@ abstract class DeviceConfig extends Entity {
         $source = "";
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        }
-        elseif (is_file($this->module_path . '/Files/' . $source_name)) {
+        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
         }
         if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable

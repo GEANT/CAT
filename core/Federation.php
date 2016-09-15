@@ -77,7 +77,7 @@ class Federation extends EntityWithDBProperties {
     public function updateFreshness() {
         // Federation is always fresh
     }
-    
+
     public static function downloadStats($format, $federationid = NULL) {
         $data = Federation::downloadStatsCore($federationid);
         $retstring = "";
@@ -128,7 +128,7 @@ class Federation extends EntityWithDBProperties {
         $this->name = $fedname;
 
         parent::__construct(); // we now have access to our database handle
-        
+
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = CAT::set_locale('core');

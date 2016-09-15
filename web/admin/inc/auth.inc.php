@@ -33,7 +33,7 @@ function authenticate() {
 
     $_SESSION['user'] = $user;
     $new_name_received = FALSE;
-    
+
     $user_object = new User($user);
     if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($user_object->getAttributes('user:realname')) == 0)) {
         $name = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0];

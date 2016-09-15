@@ -55,7 +55,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @var array
      */
     private $eapLevelAttributes;
-    
+
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -99,11 +99,11 @@ class ProfileRADIUS extends AbstractProfile {
         // merge all attributes which are device or eap method specific
 
         $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
-        
-        $this->loggerInstance->debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
-        $this->loggerInstance->debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
-        
-        $this->loggerInstance->debug(5, "All low-Level Attributes: ".print_r($attributesLowLevel, true));
+
+        $this->loggerInstance->debug(5, "Device-Level Attributes: " . print_r($this->deviceLevelAttributes, true));
+        $this->loggerInstance->debug(5, "EAP-Level Attributes: " . print_r($this->eapLevelAttributes, true));
+
+        $this->loggerInstance->debug(5, "All low-Level Attributes: " . print_r($attributesLowLevel, true));
 
         // now fetch and merge profile-level attributes if not already set on deeper level
 
@@ -114,22 +114,22 @@ class ProfileRADIUS extends AbstractProfile {
                                             ORDER BY option_name", "Profile");
 
         $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
-        
+
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
         // hacky hack: device-specific:redirect can also apply to ALL devices
         // (by setting device_id = NULL in the database; but then it will be
         // retrieved /from/ the database without the "device" array key set
         // so we need to add this here where applicable
-        
+
         foreach ($attrUpToProfile as $oneAttr) {
             if ($oneAttr['name'] == 'device-specific:redirect' && !isset($oneAttr['device'])) {
                 $oneAttr['device'] = NULL;
             }
         }
-        
-        $this->loggerInstance->debug(5, "Merged Attributes: ".print_r($attributesLowLevel, true));
-        
+
+        $this->loggerInstance->debug(5, "Merged Attributes: " . print_r($attributesLowLevel, true));
+
         // now, fetch and merge IdP-wide attributes
 
         $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $this->idpAttributes, "IdP");
@@ -137,7 +137,7 @@ class ProfileRADIUS extends AbstractProfile {
         $this->privEaptypes = $this->fetchEAPMethods();
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
-        
+
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
@@ -219,7 +219,7 @@ class ProfileRADIUS extends AbstractProfile {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
 
         $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
-                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType, " . ($device === NULL ? "NULL" : "'".$escapedDevice."'") . ")");
+                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType, " . ($device === NULL ? "NULL" : "'" . $escapedDevice . "'") . ")");
         $this->updateFreshness();
     }
 
@@ -324,8 +324,8 @@ class ProfileRADIUS extends AbstractProfile {
      */
     public function prepShowtime() {
         $properConfig = $this->readyForShowtime();
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = ". ($properConfig ? "TRUE" : "FALSE") ." WHERE profile_id = " . $this->identifier);
-        
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
+
         $attribs = $this->getCollapsedAttributes();
         // if not enough info to go live, set FALSE
         // even if enough info is there, admin has the ultimate say: 
@@ -336,7 +336,7 @@ class ProfileRADIUS extends AbstractProfile {
         }
         $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
-    
+
     /**
      * deletes all attributes in this profile on the method level
      *
@@ -351,12 +351,12 @@ class ProfileRADIUS extends AbstractProfile {
         if ($eapId != 0 and $deviceId != "") {
             throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - both were specified in the parameters.");
         }
-        
+
         $extracondition = "AND eap_method_id = $eapId"; // this string is used for EAP method specifics
-        
+
         if ($eapId == 0) // we are filtering on device instead, overwrite condition
             $extracondition = "AND device_id = '$deviceId'";
-        
+
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
         // there are currently none file-based attributes on method level, so result here is always empty, but better be prepared for the future
@@ -367,4 +367,5 @@ class ProfileRADIUS extends AbstractProfile {
         }
         return $returnArray;
     }
+
 }

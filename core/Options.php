@@ -42,11 +42,12 @@ class Options {
      * @var Options
      */
     private static $instance;
-    
+
     /**
      * 
      */
     private $loggerInstance;
+
     /**
      * This private variable contains the list of all known options and their properties (i.e. flags).
      * 
@@ -130,4 +131,5 @@ class Options {
     public function optionType($optionname) {
         return $this->typeDb[$optionname];
     }
+
 }
