@@ -176,8 +176,9 @@ function valid_coordinate($input) {
 function valid_coord_serialized($input) {
     if (is_array(unserialize($input))) {
         $tentative = unserialize($input);
-        if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat']))
+        if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat'])) {
             return $input;
+        }
     }
     throw new Exception(input_validation_error(_("Wrong coordinate encoding!")));
 }
@@ -205,22 +206,26 @@ function valid_DB_reference($input) {
         $table = "profile_option";
     } elseif (preg_match("/FED/", $input)) {
         $table = "federation_option";
-    } else
+    } else {
         return FALSE;
+    }
     if (preg_match("/.*-([0-9]*)/", $input, $rowindexmatch)) {
         $rowindex = $rowindexmatch[1];
-    } else
+    } else {
         return FALSE;
+    }
     return ["table" => $table, "rowindex" => $rowindex];
 }
 
 function valid_host($input) {
     // is it a valid IP address (IPv4 or IPv6)?
-    if (filter_var($input, FILTER_VALIDATE_IP))
+    if (filter_var($input, FILTER_VALIDATE_IP)) {
         return $input;
+    }
     // if not, it must be a host name. Use email validation by prefixing with a local part
-    if (filter_var("stefan@" . $input, FILTER_VALIDATE_EMAIL))
+    if (filter_var("stefan@" . $input, FILTER_VALIDATE_EMAIL)) {
         return $input;
+    }
     // if we get here, it's bogus
     return FALSE;
 }

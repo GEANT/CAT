@@ -81,7 +81,7 @@ class Device_Chromebook extends DeviceConfig {
         parent::__construct();
         $this->supportedEapMethods = [EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS];
         $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods,true));
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     /**
@@ -110,19 +110,22 @@ class Device_Chromebook extends DeviceConfig {
         if ($eapPrettyprint["OUTER"] == "TTLS") {
             $eapPrettyprint["OUTER"] = "EAP-TTLS";
         }
-        if ($eapPrettyprint["OUTER"] == "TLS")
+        if ($eapPrettyprint["OUTER"] == "TLS") {
             $eapPrettyprint["OUTER"] = "EAP-TLS";
+        }
         // define EAP properties
 
         $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
-        if ($eapPrettyprint["INNER"] == "MSCHAPv2")
+        if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
             $eaparray["Inner"] = $eapPrettyprint["INNER"];
+        }
         $eaparray["SaveCredentials"] = true;
         $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
         $eaparray["UseSystemCAs"] = false;
 
-        if ($outerId)
+        if ($outerId) {
             $eaparray["AnonymousIdentity"] = "$outerId";
+        }
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
             $networkUuid = uuid('', $ssid);
@@ -139,7 +142,7 @@ class Device_Chromebook extends DeviceConfig {
                 ],
                 "ProxySettings" => ["Type" => "WPAD"],
             ];
-        };
+        }
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
             $networkUuid = "{" . uuid('', "wired-dot1x-ethernet") . "}";
@@ -153,18 +156,18 @@ class Device_Chromebook extends DeviceConfig {
                 ],
                 "ProxySettings" => ["Type" => "WPAD"],
             ];
-        };
+        }
 
         // define CA certificates
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            $this->loggerInstance->debug(2, $ca['pem']);
-            $caSanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            $this->loggerInstance->debug(2, $caSanitized . "\n");
+            $this->loggerInstance->debug(3, $ca['pem']);
+            $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            $this->loggerInstance->debug(4, $caSanitized1 . "\n");
             // remove \n
-            $caSanitized = str_replace("\n", "", $caSanitized);
+            $caSanitized = str_replace("\n", "", $caSanitized1);
             $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
-            $this->loggerInstance->debug(2, $caSanitized . "\n");
+            $this->loggerInstance->debug(3, $caSanitized . "\n");
         }
 
         $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
@@ -173,15 +176,17 @@ class Device_Chromebook extends DeviceConfig {
         fclose($outputFile);
 
         $fileName = $this->installerBasename . '.onc';
-        if ($this->sign) { 
+        if ($this->sign) {
             // can't be - ONC does not have the notion of signing
             // but if they ever change their mind, we are prepared
             $finalFilename = "finalfilename.onc";
             $outputFromSigning = system($this->sign . " installer_profile '$finalFilename' > /dev/null");
-           if ($outputFromSigning === FALSE)
+            if ($outputFromSigning === FALSE) {
                 $this->loggerInstance->debug(2, "Signing the mobileconfig installer $finalFilename FAILED!\n");
-        } else
-        rename("installer_profile", $fileName);
+            }
+        } else {
+            rename("installer_profile", $fileName);
+        }
         return $fileName;
     }
 

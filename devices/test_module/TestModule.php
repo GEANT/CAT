@@ -1,10 +1,12 @@
 <?php
-/* *********************************************************************************
+
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 /**
  * This file contains the TestModule class
  *
@@ -28,11 +30,9 @@
  *  
  * @package ModuleWriting
  */
-
 /**
  * this array holds the list of EAP methods supported by this device
  */
-
 /**
  * 
  */
@@ -70,67 +70,69 @@ require_once('DeviceConfig.php');
  * @package ModuleWriting
  */
 class Device_TestModule extends DeviceConfig {
-   /**
-    * Constructs a Device object.
-    *
-    * It is CRUCIAL that the constructor sets $this->supportedEapMethods to an array of methods
-    * available for the particular device.
-    * {@source}
-    * @final not to be redefined
-    */
+
+    /**
+     * Constructs a Device object.
+     *
+     * It is CRUCIAL that the constructor sets $this->supportedEapMethods to an array of methods
+     * available for the particular device.
+     * {@source}
+     * @final not to be redefined
+     */
     final public function __construct() {
         parent::__construct();
-      $this->supportedEapMethods  = EAP::listKnownEAPTypes();
-      $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
-      $this->loggerInstance->debug(4,print_r($this->supportedEapMethods,true));
+        $this->supportedEapMethods = EAP::listKnownEAPTypes();
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
-  /**
-   * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
-   *
-   * {@source}
-   * @return string installer path name
-   */
-   public function writeInstaller() {
-$this->loggerInstance->debug(4,"Test Module Installer start\n");
-   // create certificate files and save their names in $CA_files arrary
-     $CA_files = $this->saveCertificateFiles('der');
-  
-    // copy a fixed file from the module Files directory
-       if(! $this->copyFile('Module.howto'))
-          $this->loggerInstance->debug(2, "copying of Module.howto failed\n");
+    /**
+     * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
+     *
+     * {@source}
+     * @return string installer path name
+     */
+    public function writeInstaller() {
+        $this->loggerInstance->debug(4, "Test Module Installer start\n");
+        // create certificate files and save their names in $CA_files arrary
+        $CA_files = $this->saveCertificateFiles('der');
 
-    // copy a fixed file from the module Files directory and saveunde a different name
-       if( ! $this->copyFile('test_file','copied_test_file'))
-          $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
-       $this->dumpAttibutes('profile_attributes');
-       $installer_path =  $this->zipInstaller($this->attributes);
-       return($installer_path);
-   }
+        // copy a fixed file from the module Files directory
+        if (!$this->copyFile('Module.howto')) {
+            $this->loggerInstance->debug(2, "copying of Module.howto failed\n");
+        }
 
-  /**
-    * prepare module desctiption and usage information
-    * {@source}
-    * @return string HTML text to be displayed in the information window
-    */
+        // copy a fixed file from the module Files directory and saveunde a different name
+        if (!$this->copyFile('test_file', 'copied_test_file')) {
+            $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
+        }
+        $this->dumpAttibutes('profile_attributes');
+        $installer_path = $this->zipInstaller($this->attributes);
+        return($installer_path);
+    }
+
+    /**
+     * prepare module desctiption and usage information
+     * {@source}
+     * @return string HTML text to be displayed in the information window
+     */
     public function writeDeviceInfo() {
-    $ssid_ct=count($this->attributes['internal:SSID']);
-    $out = "<p>";
-    $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes.");
-    return $out;
+        $ssid_ct = count($this->attributes['internal:SSID']);
+        $out = "<p>";
+        $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with $ssid_ct SSIDs to configure.");
+        return $out;
     }
 
-
-/**
-  * zip files and return the archive name
-  *
-  * inline{@source}
-  * return string
-  */
-  private function zipInstaller($attr) {
-    $e = $this->installerBasename.'.zip';
-    $o = system('zip -q '.$e.' *');
-    return $e;
-  }
+    /**
+     * zip files and return the archive name
+     *
+     * inline{@source}
+     * return string
+     */
+    private function zipInstaller($attr) {
+        $e = $this->installerBasename . '.zip';
+        $o = system('zip -q ' . $e . ' *');
+        return $e;
+    }
 
 }

@@ -48,12 +48,13 @@ if (!isset($_POST['APIKEY'])) {
     exit(1);
 }
 
-foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name)
+foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
     if ($_POST['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;
         $checkval = "OK-NEW";
     }
+}
 
 if ($checkval == "FAIL") {
     return_error(ERROR_INVALID_APIKEY, "APIKEY is invalid");

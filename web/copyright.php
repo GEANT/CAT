@@ -23,7 +23,7 @@ $Gui = new UserAPI();
         <div id="heading">
             <?php
             print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
-            print '<div id="motd">'.( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ).'</div>';
+            print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
             print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("%s Copyright and Licensing"), CONFIG['APPEARANCE']['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
             echo '<table id="lang_select"><tr><td>';
@@ -75,7 +75,7 @@ $Gui = new UserAPI();
                     Attribution Rights
                     <ol>
                         <li>You must retain, in the Source Code of any Derivative Works that You create, all copyright, patent or trade mark notices from the Source Code of the Original Work, as well as any notices of licensing and any descriptive text identified therein as an “Attribution Notice”, including the following notice:<br/>
-On behalf of the GÉANT project, GEANT Limited is the sole owner of the copyright in all material which was developed by a member of the GÉANT project. GEANT Limited is a not-for-profit limited liability company registered in England and Wales (company number 02806796) and with its registered company address at 126-130 Hills Road Cambridge CB2 1PQ. This work is part of a project that has received funding from the European Union’s Horizon 2020 research and innovation programme under Grant Agreement No. 691567 (GN4-1).
+                            On behalf of the GÉANT project, GEANT Limited is the sole owner of the copyright in all material which was developed by a member of the GÉANT project. GEANT Limited is a not-for-profit limited liability company registered in England and Wales (company number 02806796) and with its registered company address at 126-130 Hills Road Cambridge CB2 1PQ. This work is part of a project that has received funding from the European Union’s Horizon 2020 research and innovation programme under Grant Agreement No. 691567 (GN4-1).
                         </li>
                         <li>You must cause the Source Code for any Derivative Works that You create to carry a prominent Attribution Notice reasonably calculated to inform recipients that You have modified the Original Work.</li>
                     </ol>
@@ -128,7 +128,7 @@ On behalf of the GÉANT project, GEANT Limited is the sole owner of the copyrigh
                 </li>
                 <li>
                     Right to Use<br/>
-You may use the Original Work in all ways not otherwise restricted or conditioned by this Licence or by law, and Licensor promises not to interfere with or be responsible for such uses by You.
+                    You may use the Original Work in all ways not otherwise restricted or conditioned by this Licence or by law, and Licensor promises not to interfere with or be responsible for such uses by You.
                 </li>
                 <li>Definitions
                     <ol>
@@ -189,33 +189,35 @@ Andreas
         </div>
         <div class='footer'>
             <hr />
-        <table style='width:100%'>
-            <tr>
-                <td style="padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;">
-                <?php
+            <table style='width:100%'>
+                <tr>
+                    <td style="padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;">
+                        <?php
 // this variable gets set during "make distribution" only
-                    $RELEASE = "THERELEASE";
-                    echo CONFIG['APPEARANCE']['productname'] . " - ";
-                    if ($RELEASE != "THERELEASE")
-                        echo sprintf(_("Release %s"), $RELEASE);
-                    else
-                        echo _("Unreleased SVN Revision");
-                    echo " &copy; 2011-15 G&Eacute;ANT Ltd. on behalf of the GN3 and GN3plus consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
-                ?>
-                 </td>
-                 <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
-                 <?php
-                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") // SW: APPROVED
-                         echo "
+                        $RELEASE = "THERELEASE";
+                        echo CONFIG['APPEARANCE']['productname'] . " - ";
+                        if ($RELEASE != "THERELEASE") {
+                            echo sprintf(_("Release %s"), $RELEASE);
+                        } else {
+                            echo _("Unreleased SVN Revision");
+                        }
+                        echo " &copy; 2011-15 G&Eacute;ANT Ltd. on behalf of the GN3 and GN3plus consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+                        ?>
+                    </td>
+                    <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
+                        <?php
+                        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
+                            echo "
                   <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
                   <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
                   <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
-                     else
-                         echo "&nbsp;";
-                 ?>
-                </td>
-            </tr>
-        </table>
-    </div>
+                        } else {
+                            echo "&nbsp;";
+                        }
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

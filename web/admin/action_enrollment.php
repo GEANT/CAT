@@ -53,9 +53,11 @@ if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTI
         $newidp = $usermgmt->createIdPFromToken($_GET['token'], $_SESSION['user']);
         $usermgmt->invalidateToken($_GET['token']);
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - Token used and invalidated");
-    };
+    }
 }
-if ($checkval == "OK-EXISTING")
+if ($checkval == "OK-EXISTING") {
     header("Location: overview_user.php");
-else
+}
+else {
     header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
+}

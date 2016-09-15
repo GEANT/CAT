@@ -52,30 +52,34 @@ if (isset($_GET['profile_id'])) {
 // extended input checks
 
 $realm = FALSE;
-if (isset($_POST['realm']) && $_POST['realm'] != "")
+if (isset($_POST['realm']) && $_POST['realm'] != "") {
     $realm = valid_Realm($_POST['realm']);
+}
 
 $anon = FALSE;
-if (isset($_POST['anon_support']))
+if (isset($_POST['anon_support'])) {
     $anon = valid_boolean($_POST['anon_support']);
+}
 
 $anonLocal = "anonymous";
 if (isset($_POST['anon_local'])) {
     $anonLocal = valid_string_db($_POST['anon_local']);
-} else if ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
+} elseif ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
     $local = $my_profile->getAttributes("internal:anon_local_value");
-    if (isset($local[0]))
+    if (isset($local[0])) {
         $anonLocal = $local[0]['value'];
+    }
 }
 
 $checkuser = FALSE;
-if (isset($_POST['checkuser_support']))
+if (isset($_POST['checkuser_support'])) {
     $checkuser = valid_boolean($_POST['checkuser_support']);
+}
 
 $checkuser_name = "anonymous";
 if (isset($_POST['checkuser_local'])) {
     $checkuser_name = valid_string_db($_POST['checkuser_local']);
-} else if ($my_profile !== NULL) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
+} elseif ($my_profile !== NULL) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
     $checkuser_name = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
 }
 

@@ -135,8 +135,9 @@ abstract class DeviceConfig extends Entity {
         $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
         CAT::set_locale($olddomain);
 
-        if ($this->signer && $this->options['sign'])
+        if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
+        }
         $this->installerBasename = $this->getInstallerBasename();
     }
 
@@ -326,7 +327,7 @@ abstract class DeviceConfig extends Entity {
                     if (!$fileHandle) {
                         die("problem opening the file\n");
                     }
-                    if ($format == "pem") {
+                    if ($format === "pem") {
                         fwrite($fileHandle, $certAuthority['pem']);
                     } else {
                         fwrite($fileHandle, $certAuthority['der']);
