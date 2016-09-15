@@ -360,7 +360,7 @@ class ProfileRADIUS extends AbstractProfile {
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
         // there are currently none file-based attributes on method level, so result here is always empty, but better be prepared for the future
-        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
+        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier $extracondition");
         $returnArray = [];
         while ($queryResult = mysqli_fetch_object($execFlush)) {
             $returnArray[$queryResult->row] = "KILLME";
