@@ -71,10 +71,11 @@ class WindowsCommon extends DeviceConfig {
         $this->loggerInstance->debug(4, "max=$max\n");
 // resize logo if necessary
         if ($max > $max_size) {
-            if ($max == $logo_size['width'])
+            if ($max == $logo_size['width']) {
                 $logo->scaleImage($max_size, 0);
-            else
+            } else {
                 $logo->scaleImage(0, $max_size);
+            }
         }
         $logo_size = $logo->getImageGeometry();
         $this->loggerInstance->debug(4, "New logo size: ");
@@ -101,10 +102,11 @@ class WindowsCommon extends DeviceConfig {
     }
 
     protected function compileNSIS() {
-        if (CONFIG['NSIS_VERSION'] >= 3)
+        if (CONFIG['NSIS_VERSION'] >= 3) {
             $makensis = CONFIG['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
-        else
+        } else {
             $makensis = CONFIG['PATHS']['makensis'];
+        }
         $o = $makensis . ' -V4 cat.NSI > nsis.log';
         system($o);
         $this->loggerInstance->debug(4, "compileNSIS:$o\n");
@@ -115,9 +117,9 @@ class WindowsCommon extends DeviceConfig {
         if (isset($attr['support:info_file'])) {
             $out .= '!define EXTERNAL_INFO "';
 //  $this->loggerInstance->debug(4,"Info file type ".$attr['support:info_file'][0]['mime']."\n");
-            if ($attr['internal:info_file'][0]['mime'] == 'rtf')
+            if ($attr['internal:info_file'][0]['mime'] == 'rtf') {
                 $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
-            elseif ($attr['internal:info_file'][0]['mime'] == 'txt') {
+            } elseif ($attr['internal:info_file'][0]['mime'] == 'txt') {
                 $in_txt = file_get_contents($attr['internal:info_file'][0]['name']);
                 if (CONFIG['NSIS_VERSION'] >= 3)
                     $out_txt = $in_txt;
@@ -127,8 +129,9 @@ class WindowsCommon extends DeviceConfig {
                     file_put_contents('info_f.txt', $out_txt);
                     $out = '!define LICENSE_FILE " info_f.txt';
                 }
-            } else
+            } else {
                 $out = '!define EXTERNAL_INFO "' . $attr['internal:info_file'][0]['name'];
+            }
 
             $out .= "\"\n";
         }
@@ -136,14 +139,16 @@ class WindowsCommon extends DeviceConfig {
         return $out;
     }
 
-    protected function writeAdditionalDeletes($P) {
-        if (count($P) == 0)
+    protected function writeAdditionalDeletes($profiles) {
+        if (count($profiles) == 0) {
             return;
-        $f = fopen('profiles.nsh', 'a');
-        fwrite($f, "!define AdditionalDeletes\n");
-        foreach ($P as $p)
-            fwrite($f, "!insertmacro define_delete_profile \"$p\"\n");
-        fclose($f);
+        }
+        $fileHandle = fopen('profiles.nsh', 'a');
+        fwrite($fileHandle, "!define AdditionalDeletes\n");
+        foreach ($profiles as $profile) {
+            fwrite($fileHandle, "!insertmacro define_delete_profile \"$profile\"\n");
+        }
+        fclose($fileHandle);
     }
 
     public $LANGS = [
@@ -196,5 +201,3 @@ class WindowsCommon extends DeviceConfig {
     public $lang;
 
 }
-?>
-
