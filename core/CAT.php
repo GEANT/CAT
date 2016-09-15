@@ -149,10 +149,11 @@ class CAT {
         } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
             foreach ($langs as $lang) {
+                $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);
                 $lang_converted[] = (isset($result[1]) && $result[1] ? $result[1] : $lang);
             }
-        };
+        }
         // always add configured locale as last resort
         $defaultlocale = CONFIG['APPEARANCE']['defaultlocale'];
         $lang_converted[] = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
@@ -176,8 +177,9 @@ class CAT {
                 }
             }
 
-            if (setlocale(LC_ALL, $thelang))
+            if (setlocale(LC_ALL, $thelang)) {
                 break;
+            }
         }
         putenv("LC_ALL=" . $thelang);
         $loggerInstance = new Logging();

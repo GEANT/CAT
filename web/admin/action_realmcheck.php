@@ -23,10 +23,11 @@ $check_thorough = FALSE;
 $error_message = '';
 $my_inst = valid_IdP($_REQUEST['inst_id'], $_SESSION['user']);
 
-if (isset($_GET['profile_id']))
+if (isset($_GET['profile_id'])) {
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
-else
+} else {
     $my_profile = NULL;
+}
 if ($my_profile != NULL) {
     if (!$my_profile instanceof ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
@@ -46,19 +47,21 @@ if ($my_profile != NULL) {
             $_SESSION['check_realm'] = $check_realm;
         }
     } else {
-        if (!empty($_SESSION['check_realm']))
+        if (!empty($_SESSION['check_realm'])) {
             $check_realm = $_SESSION['check_realm'];
-        else
+        } else {
             $check_realm = FALSE;
+        }
     }
-    if ($check_realm)
+    if ($check_realm) {
         $testsuite = new RADIUSTests($check_realm);
-    else
+    } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
+    }
 }
 
-$translate = _("STATIC");
-$translate = _("DYNAMIC");
+$translate1 = _("STATIC");
+$translate2 = _("DYNAMIC");
 $errorstate = [];
 ?>
 <link rel="stylesheet" type="text/css" href="../external/jquery/jquery-ui.css" />
@@ -169,7 +172,7 @@ $errorstate = [];
             event.preventDefault();
             var missing = 0;
             $(".mandatory").each(function (index) {
-                if ($.trim($(this).val()) == '') {
+                if ($.trim($(this).val()) === '') {
                     $(this).addClass('missing_input');
                     missing = 1;
                 } else
@@ -194,12 +197,12 @@ $errorstate = [];
             cliinfo = cliinfo + '<li>' + clientcert + ' <b>' + data.ca[key].clientcertinfo.from + '</b>' + ', ' + data.ca[key].clientcertinfo.message + '<br>(CA: ' + data.ca[key].clientcertinfo.issuer + ')';
             cliinfo = cliinfo + '<ul>';
             for (var c in data.ca[key].certificate) {
-                if (data.ca[key].certificate[c].returncode == refused_code) {
+                if (data.ca[key].certificate[c].returncode === refused_code) {
                     srefused = 1;
                     arefailed = 1;
                 }
             }
-            if (srefused == 0) {
+            if (srefused === 0) {
                 for (var c in data.ca[key].certificate) {
                     cliinfo = cliinfo + '<li><i>' + data.ca[key].certificate[c].message + ', ' + expectedres + states[data.ca[key].certificate[c].expected] + '</i>';
                     cliinfo = cliinfo + '<ul style=\"list-style-type: none;\">';
@@ -209,16 +212,16 @@ $errorstate = [];
                         arefailed = 1;
                     }
                     add = '';
-                    if (data.ca[key].certificate[c].expected == 'PASS') {
-                        if (data.ca[key].certificate[c].connected == 1)
+                    if (data.ca[key].certificate[c].expected === 'PASS') {
+                        if (data.ca[key].certificate[c].connected === 1)
                             state = accepted;
                         else {
-                            if (data.ca[key].certificate[c].reason == unknownca_code)
+                            if (data.ca[key].certificate[c].reason === unknownca_code)
                                 add = '<br>' + listofcas + ' <a href=\"' + listsource + '\">' + getitfrom + '</a>';
                             state = notacceptedwithreason + ': ' + data.ca[key].certificate[c].resultcomment;
                         }
                     } else {
-                        if (data.ca[key].certificate[c].connected == 1) {
+                        if (data.ca[key].certificate[c].connected === 1) {
                             level = L_WARN;
                             state = falseaccepted;
                         } else {
@@ -229,7 +232,7 @@ $errorstate = [];
                     cliinfo = cliinfo + '<li><table><tbody><tr><td class="icon_td"><img class="icon" src="' + icons[level] + '" style="width: 24px;"></td><td>' + state;
                     cliinfo = cliinfo + ' <?php echo "(" . sprintf(_("elapsed time: %sms."), "'+data.ca[key].certificate[c].time_millisec+'&nbsp;") . ")"; ?>' + add + '</td></tr>';
                     cliinfo = cliinfo + '</tbody></table></ul></li>';
-                    if (data.ca[key].certificate[c].finalerror == 1) {
+                    if (data.ca[key].certificate[c].finalerror === 1) {
                         cliinfo = cliinfo + '<li>' + restskipped + '</li>';
                     }
                 }
@@ -296,7 +299,7 @@ $errorstate = [];
         }
         $("#srcca" + data.hostindex).html('<div>' + data.message + '</div>' + more);
         $("#srcca" + data.hostindex + "_img").attr('src', icons[data.level]);
-        if ((addresses[data.ip] == 0) && $('#clientstest').is(':hidden')) {
+        if ((addresses[data.ip] === 0) && $('#clientstest').is(':hidden')) {
             $('#clientstest').show();
         }
         running_ajax_dyn--;
@@ -316,7 +319,7 @@ $errorstate = [];
 //show_debug(JSON.stringify(data));
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
-        if (v.server != 0) {
+        if (v.server !== 0) {
             $("#src" + data.hostindex).html('<strong>' + v.server + '</strong><br/><?php printf(_("elapsed time: %sms."), "'+v.time_millisec+'&nbsp;") ?><p>' + v.message + '</p>');
             var cert_data = "<tr class='server_cert'><td>&nbsp;</td><td colspan=2><div><dl class='server_cert_list'>";
             $.each(server_cert, function (l, s) {
@@ -325,7 +328,7 @@ $errorstate = [];
 
             var ext = '';
             $.each(v.server_cert.extensions, function (l, s) {
-                if (ext != '')
+                if (ext !== '')
                     ext = ext + '<br>';
                 ext = ext + '<strong>' + l + ': </strong>' + s;
             });
@@ -333,7 +336,7 @@ $errorstate = [];
             cert_data = cert_data + "<dt><?php echo _("Extensions") ?></dt><dd>" + ext + "</dd></dl>";
             cert_data = cert_data + "<a href='' class='morelink'><?php echo _("show server certificate details") ?>&raquo;</a></div></tr>";
 
-            if (v.level > L_OK && v.cert_oddities != undefined) {
+            if (v.level > L_OK && v.cert_oddities !== undefined) {
                 $.each(v.cert_oddities, function (j, w) {
                     $("#src" + data.hostindex).append('<tr class="results_tr"><td>&nbsp;</td><td class="icon_td"><img src="' + icons[w.level] + '"></td><td>' + w.message + '</td></tr>');
                 });
@@ -349,12 +352,12 @@ $errorstate = [];
     }
 
     function ajax_end() {
-        if (running_ajax_stat == 0) {
+        if (running_ajax_stat === 0) {
             $("#main_static_ico").attr('src', icons[global_level_udp]);
             $("#main_static_result").html(global_info[global_level_udp] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
             $("#main_static_result").show();
         }
-        if (running_ajax_dyn == 0) {
+        if (running_ajax_dyn === 0) {
             $("#main_dynamic_ico").attr('src', icons[global_level_dyn]);
             $("#main_dynamic_result").html(global_info[global_level_dyn] + ' ' + "<?php echo _("See the appropriate tab for details.") ?>");
             $("#main_dynamic_result").show();
@@ -368,7 +371,7 @@ $errorstate = [];
         $.each(data.result, function (i, v) {
             var o = '<table><tr><td colspan=2>';
             var cert_data = '';
-            if (v.server != '0') {
+            if (v.server !== '0') {
                 o = o + '<strong>' + v.server + '</strong><p>';
                 cert_data = "<tr><td>&nbsp;</td><td><p><strong><?php echo _("Server certificate details:") ?></strong><dl class='udp_login'>";
                 $.each(server_cert, function (l, s) {
@@ -377,7 +380,7 @@ $errorstate = [];
 
                 var ext = '';
                 $.each(v.server_cert.extensions, function (l, s) {
-                    if (ext != '')
+                    if (ext !== '')
                         ext = ext + '<br>';
                     ext = ext + '<strong>' + l + ': </strong>' + s;
                 });
@@ -433,11 +436,11 @@ $(\"#live_src" . $hostindex . "_img\").show();
         $(".server_cert").hide();
 <?php
 foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
-    if ($check_thorough)
+    if ($check_thorough) {
         $extraarg = "profile_id: " . $my_profile->identifier . ", ";
-    else
+    } else {
         $extraarg = "";
-
+    }
     print "
 $(\"#src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
@@ -556,8 +559,9 @@ if ($error_message) {
                     } else {
                         echo UI_message(L_ERROR, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
                         echo "</table><div class='notacceptable'><table>";
-                        foreach ($testsuite->listerrors() as $details)
+                        foreach ($testsuite->listerrors() as $details) {
                             echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
+                        }
                         echo "</table></div>";
                     }
                     echo '</div>';
@@ -572,13 +576,8 @@ if ($error_message) {
                  $("#dynamic_tests").show();
               ';
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
-                        $host = '';
-                        if ($addr['family'] == "IPv6")
-                            $host .= '[';
-                        $host .= $addr['IP'];
-                        if ($addr['family'] == "IPv6")
-                            $host .= ']';
-                        $host .= ':' . $addr['port'];
+                        $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
+
                         /* if($addr['family'] == "IPv6")
                           continue; */
                         print "
@@ -729,11 +728,12 @@ if ($error_message) {
                         echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
                     }
                     // ask for cert + privkey if TLS-based method is active
-                    if (in_array(EAPTYPE_TLS, $prof_compl))
+                    if (in_array(EAPTYPE_TLS, $prof_compl)) {
                         echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>
                         <tr><td>" . _("Username, if different from certificate Subject:") . "</td><td><input type='text' id='tls_username' name='tls_username'/></td></tr>";
+                    }
                     echo "<tr><td colspan='2'><button id='submit_credentials'>" . _("Submit credentials") . "</button></td></tr></table></form>";
                     echo "<div id='live_login_results' style='display:none'>";
                     foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
@@ -762,12 +762,14 @@ if ($error_message) {
             var realm = '<?php echo $check_realm; ?>';
             run_udp();
 <?php
-if ($naptr > 0)
+if ($naptr > 0) {
     echo "run_dynamic();";
-else
+} else {
     echo '$("#tabs-d-li").hide();';
-if (!$check_thorough)
+}
+if (!$check_thorough) {
     echo '$("#tabs-through").hide();';
+}
 ?>
         </script>
         <?php footer() ?>

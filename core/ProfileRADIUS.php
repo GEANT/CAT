@@ -354,8 +354,9 @@ class ProfileRADIUS extends AbstractProfile {
 
         $extracondition = "AND eap_method_id = $eapId"; // this string is used for EAP method specifics
 
-        if ($eapId == 0) // we are filtering on device instead, overwrite condition
+        if ($eapId == 0) { // we are filtering on device instead, overwrite condition
             $extracondition = "AND device_id = '$deviceId'";
+        }
 
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();

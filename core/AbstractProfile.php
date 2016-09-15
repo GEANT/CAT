@@ -260,13 +260,13 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $device the device id string
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
-    public function getUserDownloadStats($device = 0) {
+    public function getUserDownloadStats($device = NULL) {
         $returnarray = [];
         $numbers = $this->databaseHandle->exec("SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
         while ($statsQuery = mysqli_fetch_object($numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
-        if ($device !== 0) {
+        if ($device !== NULL) {
             if (isset($returnarray[$device])) {
                 return $returnarray[$device];
             }

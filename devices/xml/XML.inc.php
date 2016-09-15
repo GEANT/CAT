@@ -310,6 +310,11 @@ class Phone extends XMLElement {
 
  */
 
+/**
+ * 
+ * @param SimpleXMLElement $key
+ * @param string $value
+ */
 function SimpleXMLElement_append($key, $value) {
     if (trim((string) $value) == '') {
         $element = $key->addChild($value->getName());
