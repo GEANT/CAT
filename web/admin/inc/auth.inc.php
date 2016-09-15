@@ -58,12 +58,7 @@ function deauthenticate() {
 
     $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
 
-    $url = $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
-
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
-        $url = "https://" . $url;
-    else
-        $url = "http://" . $url;
+    $url = "//" . $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
 
     $as->logout([
         'ReturnTo' => $url,
