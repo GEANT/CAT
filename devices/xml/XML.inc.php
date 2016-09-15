@@ -361,7 +361,7 @@ function marshalObject($node, $object) {
             $node->addAttribute($attrt, $attrv);
         }
     }
-    if ($simplexmlelement != NULL) {
+    if ($simplexmlelement !== NULL) {
         SimpleXMLElement_append($node, $simplexmlelement);
         return;
     }
