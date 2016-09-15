@@ -125,7 +125,7 @@ if (!$profile instanceof ProfileRADIUS) {
         $profile->setRealm("");
     }
     // set anon ID, if submitted
-    if ($anon != FALSE) {
+    if ($anon !== FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Anonymous Outer Identities cannot be turned on: realm is missing!"));
         } else {
@@ -137,7 +137,7 @@ if (!$profile instanceof ProfileRADIUS) {
         echo UI_okay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
     }
 
-    if ($checkuser != FALSE) {
+    if ($checkuser !== FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
@@ -149,7 +149,7 @@ if (!$profile instanceof ProfileRADIUS) {
         echo UI_okay(_("No special username for realm checks is configured."));
     }
 
-    if ($verify != FALSE) {
+    if ($verify !== FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
@@ -169,7 +169,7 @@ if (!$profile instanceof ProfileRADIUS) {
     $killlist = processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
     $profile->commitFlushAttributes($killlist);
 
-    if ($redirect != FALSE) {
+    if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo UI_error(_("Redirection can't be activated - you did not specify a target location!"));
         } else {
