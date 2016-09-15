@@ -325,7 +325,7 @@ class Device_W8 extends WindowsCommon {
      * @param string $ssid
      * @param string $auth can be one of "WPA", "WPA2"
      * @param string $encryption can be one of: "TKIP", "AES"
-     * @param string $eapConfig XML configuration block with EAP config data
+     * @param array $eapConfig XML configuration block with EAP config data
      * @param int $profileNumber counter, which profile number is this
      * @return string
      */
