@@ -45,8 +45,9 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 $is_admin_with_blessing = FALSE;
 $owners = $my_inst->owner();
 foreach ($owners as $oneowner) {
-    if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED")
+    if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED") {
         $is_admin_with_blessing = TRUE;
+    }
 }
 
 // if none of the two, send the user away
@@ -65,13 +66,14 @@ if (isset($_POST['submitbutton'])) {
             $ownermgmt->removeAdminFromIdP($my_inst, $_POST['admin_id']);
             // if the user deleted himself, go back to overview page. Otherwise, just stay here and display the remaining owners
             // we don't decide about that here; it's done by JS magic in the calling button
-            if ($_POST['admin_id'] == $_SESSION['user'])
+            if ($_POST['admin_id'] == $_SESSION['user']) {
                 header("Location: $dest");
+            }
         } else {
             echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";
             exit(1);
         }
-    } else if ($_POST['submitbutton'] == BUTTON_TAKECONTROL) {
+    } elseif ($_POST['submitbutton'] == BUTTON_TAKECONTROL) {
         if ($isFedAdmin) {
             $ownermgmt = new UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
@@ -90,14 +92,16 @@ if (isset($_POST['submitbutton'])) {
 <?php
 if (isset($_GET['invitation'])) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-
-    if ($_GET['invitation'] == "SUCCESS")
-        echo UI_remark(_("The invitation email was sent successfully."), _("The invitation email was sent."));
-    else if ($_GET['invitation'] == "FAILURE")
-        echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
-    else
-        echo UI_error(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
-
+    switch ($_GET['invitation']) {
+        case "SUCCESS":
+            echo UI_remark(_("The invitation email was sent successfully."), _("The invitation email was sent."));
+            break;
+        case "FAILURE":
+            echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+            break;
+        default:
+            throw new Exception("Error: unknown result code of invitation!?!");
+    }
     echo "</table></div>";
 }
 
@@ -118,20 +122,22 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
     foreach ($my_inst->owner() as $oneowner) {
         $ownerinfo = new User($oneowner['ID']);
         $ownername = $ownerinfo->getAttributes("user:realname");
-        if (count($ownername) > 0)
+        if (count($ownername) > 0) {
             $prettyprint = $ownername[0]['value'];
-        else
+        } else {
             $prettyprint = _("User without name");
+        }
         echo "
             <tr>
               <td>
                  <strong>$prettyprint</strong>
                  <br/>";
 
-        if ($oneowner['MAIL'] != "SELF-APPOINTED")
+        if ($oneowner['MAIL'] != "SELF-APPOINTED") {
             printf(_("(originally invited as %s)"), $oneowner['MAIL']);
-        else
+        } else {
             echo _("(self-appointed)");
+        }
 
         echo "</td>
               <td>
@@ -153,8 +159,9 @@ $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifi
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
-    foreach ($pending_invites as $invitee)
+    foreach ($pending_invites as $invitee) {
         echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
+    }
     echo "</table>";
 }
 ?>
@@ -167,14 +174,16 @@ if (count($pending_invites) > 0) {
 if ($isFedAdmin) {
     $is_admin_himself = FALSE;
     foreach ($owners as $oneowner) {
-        if ($oneowner['ID'] == $_SESSION['user'])
+        if ($oneowner['ID'] == $_SESSION['user']) {
             $is_admin_himself = TRUE;
+        }
     }
 
-    if (!$is_admin_himself)
+    if (!$is_admin_himself) {
         echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='" . BUTTON_TAKECONTROL . "'>" . _("Take control of this institution") . "</button>
 </form>";
+    }
 }
 ?>
 <hr/>
