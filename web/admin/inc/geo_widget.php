@@ -281,7 +281,7 @@ function geo_widget_body($wizard, $additional) {
     echo "<fieldset class='option_container'>
         <legend><strong>" . _("Location") . "</strong></legend>";
 
-    if ($wizard)
+    if ($wizard) {
         echo "<p>" .
         _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
         "</p>
@@ -293,6 +293,7 @@ function geo_widget_body($wizard, $additional) {
                      <strong>" .
         _("We will use the coordinates as indicated by the marker for geolocation.") .
         "</strong>";
+    }
     if ($additional) {
         echo _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
     }

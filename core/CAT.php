@@ -169,11 +169,12 @@ class CAT {
             // we need to map stuff manually
             $thelang = $try_lang;
 
-            foreach (CONFIG['LANGUAGES'] as $language => $value)
+            foreach (CONFIG['LANGUAGES'] as $language => $value) {
                 if (preg_match("/^" . $language . ".*/", $try_lang)) {
                     $thelang = $value['locale'];
                     $lang_index = $language;
                 }
+            }
 
             if (setlocale(LC_ALL, $thelang))
                 break;
@@ -189,8 +190,9 @@ class CAT {
      * gets the language setting in CAT
      */
     static public function get_lang() {
-        if (self::$LANG === '')
+        if (self::$LANG === '') {
             list(self::$LANG, ) = self::set_lang();
+        }
         return self::$LANG;
     }
 

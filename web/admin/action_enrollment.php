@@ -57,7 +57,6 @@ if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTI
 }
 if ($checkval == "OK-EXISTING") {
     header("Location: overview_user.php");
-}
-else {
+} else {
     header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
 }

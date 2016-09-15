@@ -642,13 +642,15 @@ class UserAPI extends CAT {
                 $G = $idp['geo'];
                 if (isset($G['lon'])) {
                     $d1 = $this->geoDistance($currentLocation, $G);
-                    if ($d1 < $dist)
+                    if ($d1 < $dist) {
                         $dist = $d1;
+                    }
                 } else {
                     foreach ($G as $g) {
                         $d1 = $this->geoDistance($currentLocation, $g);
-                        if ($d1 < $dist)
+                        if ($d1 < $dist) {
                             $dist = $d1;
+                        }
                     }
                 }
             }

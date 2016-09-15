@@ -136,11 +136,13 @@ class EAP {
         }
         // there is none
         $out['EAP'] = 0;
-        if ($eap == EAPTYPE_TTLS_PAP)
-            $out['METHOD'] = NE_PAP;
-        if ($eap == EAPTYPE_TTLS_MSCHAP2)
-            $out['METHOD'] = NE_MSCHAP2;
-
+        switch ($eap) {
+            case EAPTYPE_TTLS_PAP:
+                $out['METHOD'] = NE_PAP;
+                break;
+            case EAPTYPE_TTLS_MSCHAP2:
+                $out['METHOD'] = NE_MSCHAP2;
+        }
         return $out;
     }
 

@@ -47,8 +47,9 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
 }
 $user = new User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
 
-if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS']))
+if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     header("Location: overview_user.php");
+}
 
 $cat = pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
@@ -61,9 +62,8 @@ $dbHandle = DBConnection::handle("INST");
             <strong>Configuration Check</strong>
         </legend>
         <?php
-        if (isset($_POST['admin_action'])) {
-            if ($_POST['admin_action'] == BUTTON_SANITY_TESTS)
-                include("sanity_tests.php");
+        if (isset($_POST['admin_action']) && ($_POST['admin_action'] == BUTTON_SANITY_TESTS)) {
+            include("sanity_tests.php");
         }
         ?>
         <button type="submit" name="admin_action" value="<?php echo BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
@@ -78,7 +78,7 @@ $dbHandle = DBConnection::handle("INST");
                 <strong>Administrative actions</strong>
             </legend>
             <?php
-            if (isset($_POST['admin_action']))
+            if (isset($_POST['admin_action'])) {
                 switch ($_POST['admin_action']) {
                     case BUTTON_PURGECACHE:
                         $result = $dbHandle->exec("UPDATE downloads SET download_path = NULL");
@@ -100,13 +100,14 @@ $dbHandle = DBConnection::handle("INST");
 
                             /* This is the correct way to loop over the directory. */
                             while (false !== ($entry = readdir($handle))) {
-                                if ($entry === '.' || $entry === '..')
+                                if ($entry === '.' || $entry === '..') {
                                     continue;
+                                }
                                 $ftime = $tm - filemtime($downloads . '/' . $entry);
-                                if ($ftime < 3600)
+                                if ($ftime < 3600) {
                                     continue;
+                                }
                                 if (isset($Cache[$entry])) {
-//          print "Keep: $entry\n";
                                     continue;
                                 }
                                 rrmdir($downloads . '/' . $entry);
@@ -121,6 +122,7 @@ $dbHandle = DBConnection::handle("INST");
                     default:
                         break;
                 }
+            }
             ?>
             <p>Use this button to delete old temporary directories inside 'downloads'. Cached installers which are still valid will not be deleted.</p>
             <button type="submit" name="admin_action" value="<?php echo BUTTON_DELETE; ?>">Delete OBSOLETE download directories</button>

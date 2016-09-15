@@ -26,8 +26,9 @@ header("Content-Type:text/html;charset=utf-8");
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || CONFIG['DB']['enforce-external-sync'] == FALSE)
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || CONFIG['DB']['enforce-external-sync'] == FALSE) {
     header("Location: ../overview_federation.php");
+}
 
 // if not, must operate on a proper IdP
 $my_inst = valid_IdP($_GET['inst_id']);
@@ -49,13 +50,14 @@ if (!$isFedAdmin) {
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     // someone clever pushed the button without selecting an inst?
-    if (!isset($_POST['inst_link']))
+    if (!isset($_POST['inst_link'])) {
         header("Location: ../overview_federation.php");
+    }
     // okay, he did sumbit an inst. It's either a (string) handle from a promising 
     // candidate, or "other" as selected from the drop-down list
     if ($_POST['inst_link'] != "other") {
         $my_inst->setExternalDBId(valid_string_db($_POST['inst_link']));
-    } else if (isset($_POST['inst_link_other'])) {
+    } elseif (isset($_POST['inst_link_other'])) {
         $my_inst->setExternalDBId(valid_string_db($_POST['inst_link_other']));
     }
     header("Location: ../overview_federation.php");
@@ -79,10 +81,11 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 
         foreach ($names as $name) {
             $thename = unserialize($name['value']);
-            if ($thename['lang'] == "C")
+            if ($thename['lang'] == "C") {
                 $language = "default/other";
-            else
+            } else {
                 $language = CONFIG['LANGUAGES'][$thename['lang']]['display'];
+            }
 
             echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $language) . "</td><td>" . $thename['content'] . "</td></tr>";
         }
@@ -92,8 +95,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         foreach ($admins as $admin) {
             $user = new User($admin['ID']);
             $username = $user->getAttributes("user:realname");
-            if (count($username) == 0)
+            if (count($username) == 0) {
                 $username[0]['value'] = _("Unnamed User");
+            }
             echo "<tr><td>" . _("Administrator [invited as]") . "</td><td>" . $username[0]['value'] . " [" . $admin['MAIL'] . "]</td></tr>";
         }
         echo "</table>";
@@ -108,10 +112,12 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $extinfo = Federation::getExternalDBEntityDetails($externalid);
 
         echo "<table>";
-        foreach ($extinfo['names'] as $lang => $name)
+        foreach ($extinfo['names'] as $lang => $name) {
             echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $lang) . "</td><td>$name</td>";
-        foreach ($extinfo['admins'] as $number => $admin_details)
+        }
+        foreach ($extinfo['admins'] as $number => $admin_details) {
             echo "<tr><td>" . _("Administrator email") . "</td><td>" . $admin_details['email'] . "</td></tr>";
+        }
         echo "</table>";
         // end of right-hand side
         echo "</td></tr></table>";
@@ -123,19 +129,22 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $candidates = $my_inst->getExternalDBSyncCandidates();
         echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
         printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), CONFIG['CONSORTIUM']['name']) . " ";
-        if ($candidates !== FALSE)
+        if ($candidates !== FALSE) {
             printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG['CONSORTIUM']['name']);
+        }
         echo "<table>";
         echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
         if ($candidates !== FALSE) {
             foreach ($candidates as $candidate) {
                 $info = Federation::getExternalDBEntityDetails($candidate);
                 echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
-                foreach ($info['names'] as $lang => $name)
+                foreach ($info['names'] as $lang => $name) {
                     echo "[$lang] $name<br/>";
+                }
                 echo "</td><td>";
-                foreach ($info['admins'] as $number => $admin_details)
+                foreach ($info['admins'] as $number => $admin_details) {
                     echo "[E-Mail] " . $admin_details['email'] . "<br/>";
+                }
                 echo "</td></tr>";
                 $temparray[] = $candidate;
             }
@@ -157,8 +166,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
             echo "</select></td></tr>";
         }
         // issue a big red warning if there are no link candidates at all in the federation
-        if (empty($buffer) && empty($candidates))
+        if (empty($buffer) && empty($candidates)) {
             echo "<tr><td style='color:#ff0000' colspan='2'>There are no unmapped institutions in the external database for this federation!</td></tr>";
+        }
         echo "</table><button type='submit' name='submitbutton' id='submit' value='" . BUTTON_SAVE . "' disabled >" . _("Create Link") . "</button></form>";
     }
     ?>
@@ -171,8 +181,9 @@ $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifi
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
     echo "<table>";
-    foreach ($pending_invites as $invitee)
+    foreach ($pending_invites as $invitee) {
         echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
+    }
     echo "</table>";
 }
 ?>

@@ -82,11 +82,13 @@ class X509 {
 
         // check that the certificate is OK
         $myca = openssl_x509_read($ca_pem);
-        if ($myca == FALSE)
+        if ($myca == FALSE) {
             return FALSE;
+        }
         $mydetails = openssl_x509_parse($myca);
-        if (!isset($mydetails['subject']))
+        if (!isset($mydetails['subject'])) {
             return FALSE;
+        }
         $md5 = openssl_digest($ca_der, 'MD5');
         $sha1 = openssl_digest($ca_der, 'SHA1');
         $out = ["uuid" => uuid(), "pem" => $ca_pem, "der" => $ca_der, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
@@ -107,28 +109,31 @@ class X509 {
             $out['basicconstraints_set'] = 0;
         }
 
-        if ($out['ca'] > 0 && $out['root'] == 0)
+        if ($out['ca'] > 0 && $out['root'] == 0) {
             $mydetails['type'] = 'interm_ca';
-        if ($out['ca'] == 0 && $out['root'] == 0)
+        }
+        if ($out['ca'] == 0 && $out['root'] == 0) {
             $mydetails['type'] = 'server';
+        }
         $mydetails['sha1'] = $sha1;
         $out['full_details'] = $mydetails;
 
         // we are also interested in the signature algorithm and length of public key,
         // whith ..._parse doesn't tell us :-(
 
-
         openssl_x509_export($myca, $output, FALSE);
-        if (preg_match('/^\s+Signature Algorithm:\s*(.*)\s*$/m', $output, $match))
+        $match = [];
+        if (preg_match('/^\s+Signature Algorithm:\s*(.*)\s*$/m', $output, $match)) {
             $out['full_details']['signature_algorithm'] = $match[1];
-        else
+        } else {
             $out['full_details']['signature_algorithm'] = $output;
+        }
 
-        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $match)) && is_numeric($match[1]))
+        if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $match)) && is_numeric($match[1])) {
             $out['full_details']['public_key_length'] = $match[1];
-        else
+        } else {
             $out['full_details']['public_key_length'] = $output;
-
+        }
         return $out;
     }
 
@@ -146,8 +151,9 @@ class X509 {
         // maybe we got no real cert data at all? The code is hardened, but will
         // produce ugly WARNING level output in the logfiles, so let's avoid at least
         // the trivial case: if the file is empty, there's no cert in it
-        if ($cadata == "")
+        if ($cadata == "") {
             return $returnarray;
+        }
         $start_c = strpos($cadata, "-----BEGIN CERTIFICATE-----");
         if ($start_c !== FALSE) {
             $cadata = substr($cadata, $start_c);

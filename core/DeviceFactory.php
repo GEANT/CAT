@@ -51,8 +51,9 @@ class DeviceFactory extends Entity {
         parent::__construct();
         $Dev = Devices::listDevices();
         if (isset($Dev[$blueprint])) {
-            if ($Dev[$blueprint]['directory'] && $Dev[$blueprint]['module'])
+            if ($Dev[$blueprint]['directory'] && $Dev[$blueprint]['module']) {
                 require_once("devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php");
+            }
             $this->loggerInstance->debug(4, "loaded: devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php\n");
             $class_name = "Device_" . $Dev[$blueprint]['module'];
             $this->device = new $class_name();
@@ -69,8 +70,9 @@ class DeviceFactory extends Entity {
         $options = Devices::$Options;
         if (isset($Dev[$blueprint]['options'])) {
             $Opt = $Dev[$blueprint]['options'];
-            foreach ($Opt as $option => $value)
+            foreach ($Opt as $option => $value) {
                 $options[$option] = $value;
+            }
         }
         $this->device->options = $options;
     }
