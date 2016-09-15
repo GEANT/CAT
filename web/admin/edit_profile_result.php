@@ -154,7 +154,7 @@ if (!$profile instanceof ProfileRADIUS) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
             $profile->setInputVerificationPreference($verify, $hint);
-            if ($hint) {
+            if ($hint !== FALSE) {
                 $extratext = " " . sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."), $realm);
             } else {
                 $extratext = ".";
