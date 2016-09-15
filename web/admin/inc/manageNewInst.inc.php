@@ -23,8 +23,9 @@ authenticate();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE))
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE)) {
     header("Location: ../overview_federation.php");
+}
 
 $cat = new CAT();
 $cat->set_locale("web_admin");
@@ -53,7 +54,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
     echo "<p>" . sprintf(_("You can either register a known IdP (as defined in the %s database) or create a totally new IdP."), CONFIG['CONSORTIUM']['name']) . "</p>";
     echo "<p>" . sprintf(_("The latter one is typically for institutions which are yet in a testing phase and therefore don't appear in the %s database yet."), CONFIG['CONSORTIUM']['name']) . "</p>";
     echo "<p>" . sprintf(_("Please keep in mind that any profiles of such new institutions will only be made available on the user download page after you have linked them to an entity in the %s database (but they are otherwise fully functional)."), CONFIG['CONSORTIUM']['name']) . "</p>";
-};
+}
 ?>
 <hr/>
 <form name='sendinvite' action='inc/sendinvite.inc.php' method='post' accept-charset='UTF-8'>
@@ -93,9 +94,11 @@ if (CONFIG['DB']['enforce-external-sync']) {
                 <select id='country' name='country'>
                     <?php
                     foreach ($cat->printCountryList() as $iso_code => $country) {
-                        foreach ($feds as $fed_value)
-                            if (strtoupper($fed_value['value']) == strtoupper($iso_code))
+                        foreach ($feds as $fed_value) {
+                            if (strtoupper($fed_value['value']) == strtoupper($iso_code)) {
                                 echo "<option value='$iso_code'>$country</option>";
+                            }
+                        }
                     }
                     ?>
                 </select>

@@ -50,10 +50,12 @@ print '</div>';
 // this variable gets set during "make distribution" only
 $RELEASE = "THERELEASE";
 echo "".CONFIG['APPEARANCE']['productname']." - ";
-if ($RELEASE != "THERELEASE") 
+if ($RELEASE != "THERELEASE")  {
     echo sprintf(_("Release %s"), $RELEASE);
-else
+}
+else {
     echo _("Unreleased SVN Revision");
-echo " &copy; 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia</div>";?>
+}
+echo " &copy; 2011-16 DANTE Ltd., GEANT Ltd. on behalf of the GN3, GN3plus, GN4-1 and GN4-2 consortia</div>";?>
 </body>
 </html>
