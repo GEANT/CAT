@@ -342,7 +342,7 @@ function marshalObject($node, $object) {
     if ($object->getValue()) {
         $val = $object->getValue();
     }
-    $simplexmlelement = '';
+    $simplexmlelement = NULL;
     if ($val instanceof SimpleXMLElement) {
         $simplexmlelement = $val;
         $val = '';
@@ -361,7 +361,7 @@ function marshalObject($node, $object) {
             $node->addAttribute($attrt, $attrv);
         }
     }
-    if ($simplexmlelement != '') {
+    if ($simplexmlelement != NULL) {
         SimpleXMLElement_append($node, $simplexmlelement);
         return;
     }
