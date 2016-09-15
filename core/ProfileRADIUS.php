@@ -336,4 +336,35 @@ class ProfileRADIUS extends AbstractProfile {
         }
         $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
+    
+    /**
+     * deletes all attributes in this profile on the method level
+     *
+     * @param int $eapId the numeric identifier of the EAP method
+     * @param string $deviceId the name of the device
+     * @return array list of row id's of file-based attributes which weren't deleted
+     */
+    public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
+        if ($eapId == 0 and $deviceId = "") {
+            throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - none was specified in the parameters.");
+        }
+        if ($eapId != 0 and $deviceId != "") {
+            throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - both were specified in the parameters.");
+        }
+        
+        $extracondition = "AND eap_method_id = $eapId"; // this string is used for EAP method specifics
+        
+        if ($eapId == 0) // we are filtering on device instead, overwrite condition
+            $extracondition = "AND device_id = '$deviceId'";
+        
+        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
+        $this->updateFreshness();
+        // there are currently none file-based attributes on method level, so result here is always empty, but better be prepared for the future
+        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier $extracondition");
+        $returnArray = [];
+        while ($queryResult = mysqli_fetch_object($execFlush)) {
+            $returnArray[$queryResult->row] = "KILLME";
+        }
+        return $returnArray;
+    }
 }

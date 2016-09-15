@@ -46,7 +46,7 @@ if (isset($_POST['device'])) {
         $device = $devices[$device_key];
     } else {
         // unknown device, i.e. malformed input. Goodbye.
-        exit(1);
+        throw new Exception("Tried to change device-level attributes, but the device is not known!");
     }
 }
 $eaptype = NULL;
@@ -55,22 +55,19 @@ if (isset($_POST['eaptype'])) {
     $eaptype = unserialize(stripslashes($_POST['eaptype']));
     // is this an actual EAP type we know of?
     $eap_id = EAP::eAPMethodIdFromArray($eaptype);
-    if ($eap_id === FALSE) // oh-oh, unexpected malformed input. Goodbye.
-        exit(1);
+    if ($eap_id === FALSE) { // oh-oh, unexpected malformed input. Goodbye.
+        throw new Exception("Tried to change EAP method level attributes, but the EAP type is not known!");
+    }
 }
 
 // there is either one or the other. If both are set, something's fishy.
-
 if ($device != NULL && $eaptype != NULL) {
-    echo _("This page needs to be called either for EAP-Types OR for devices, not both simultaneously!");
-    exit(1);
+    throw new Exception("This page needs to be called either for EAP-Types OR for devices, not both simultaneously!");
 }
 
 // if none are set, something's fishy, too.
-
 if ($device == NULL && $eaptype == NULL) {
-    echo _("This page needs to be called either for EAP-Types OR for devices, but none of the two were set!");
-    exit(1);
+    throw new Exception("This page needs to be called either for EAP-Types OR for devices, but none of the two were set!");
 }
 
 // if we have a pushed button, submit attributes and send user back to the compat matrix
@@ -81,7 +78,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
     }
     if ($device == NULL) {
-        $remaining_attribs = $my_profile->beginflushAttributes($eap_id, 0);
+        $remaining_attribs = $my_profile->beginflushAttributes($eap_id, "");
         $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
     }
     $my_inst->commitFlushAttributes($killlist);
@@ -122,8 +119,9 @@ if ($device) {
         $interesting_attribs = [];
 
         foreach ($attribs as $attrib) {
-            if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))
+            if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
                 $interesting_attribs[] = $attrib;
+            }
         }
         echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
         ?>
