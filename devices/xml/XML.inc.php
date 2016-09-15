@@ -313,7 +313,7 @@ class Phone extends XMLElement {
 /**
  * 
  * @param SimpleXMLElement $key
- * @param string $value
+ * @param SimpleXMLElement $value
  */
 function SimpleXMLElement_append($key, $value) {
     if (trim((string) $value) == '') {
