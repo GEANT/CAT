@@ -213,7 +213,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                     continue 2;
                 case "text":
                     if (!empty($iterator["$objId-1"])) {
-                        $content = valid_string_db($iterator["$objId-1"], 1);
+                        $content = valid_string_db($iterator["$objId-1"], TRUE);
                         break;
                     }
                     continue 2;
@@ -227,7 +227,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
 // echo "In file processing ...<br/>";
                     if (!empty($iterator["$objId-1"])) { // was already in, by ROWID reference, extract
                         // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                        $content = valid_string_db(urldecode($iterator["$objId-1"]), 1);
+                        $content = valid_string_db(urldecode($iterator["$objId-1"]), TRUE);
                         break;
                     } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";

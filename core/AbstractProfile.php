@@ -141,6 +141,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
     }
 
+    /**
+     * join new attributes to existing ones, but only if not already defined on
+     * a different level in the existing set
+     * @param array $existing the already existing attributes
+     * @param array $new the new set of attributes
+     * @param string $newlevel the level of the new attributes
+     * @return array the new set of attributes
+     */
     protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
         foreach ($new as $attrib) {
             $ignore = "";
@@ -236,7 +244,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @param string $device the device id string
      * @param string $area either admin or user
-     * @return TRUE if incrementing worked, FALSE if not
+     * @return boolean TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
@@ -392,8 +400,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $locale for text-based attributes, either returns values for the default value, or if specified here, in the locale specified
      * @return array of device ids display names and their status
      */
-    public function listDevices($locale = 0) {
-        if ($locale == 0) {
+    public function listDevices($locale = NULL) {
+        if ($locale === NULL) {
             $locale = $this->langIndex;
         }
         $returnarray = [];

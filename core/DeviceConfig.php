@@ -184,8 +184,8 @@ abstract class DeviceConfig extends Entity {
      * @return bool result of the copy operation
      * @final not to be redefined
      */
-    final protected function copyFile($source_name, $output_name = 0) {
-        if ($output_name === 0) {
+    final protected function copyFile($source_name, $output_name = NULL) {
+        if ($output_name === NULL) {
             $output_name = $source_name;
         }
         $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
@@ -228,11 +228,11 @@ abstract class DeviceConfig extends Entity {
      *
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
+    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
         if (CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
-        if ($output_name === 0) {
+        if ($output_name === NULL) {
             $output_name = $source_name;
         }
 

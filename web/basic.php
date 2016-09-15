@@ -367,9 +367,9 @@ class SimpleGUI extends UserAPI {
     }
 
     /**
-     * returns the navigation link to a given GUI page
-     * @param int $new_page new page number
-     * @param string $text link text
+     * generates a hidden input field with the given argName
+     * 
+     * @param string $argName name of the hidden input field
      * @return string
      */
     public function passArgument($argName) {

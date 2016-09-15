@@ -102,6 +102,13 @@ class UserAPI extends CAT {
         return($installerProperties);
     }
 
+    /**
+     * This function tries to find a cached copy of an installer for a given
+     * combination of Profile and device
+     * @param string $device
+     * @param Profile $profile
+     * @return boolean,string the string with the path to the cached copy, or FALSE if no cached copy exists
+     */
     private function getCachedPath($device, $profile) {
         $deviceList = Devices::listDevices();
         $deviceConfig = $deviceList[$device];
@@ -122,6 +129,13 @@ class UserAPI extends CAT {
         return(FALSE);
     }
 
+    /**
+     * Generates a new installer for the given combination of device and Profile
+     * 
+     * @param string $device
+     * @param Profile $profile
+     * @return array info about the new installer (mime and link)
+     */
     private function generateNewInstaller($device, $profile) {
         $factory = new DeviceFactory($device);
         $dev = $factory->device;

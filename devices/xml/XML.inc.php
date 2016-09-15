@@ -78,6 +78,11 @@ class XMLElement {
         return empty($this->attributes) ? 0 : 1;
     }
 
+    /**
+     * adds an attribute with the given value to the set of attributes
+     * @param string $attribute
+     * @param mixed $value
+     */
     public function setAttribute($attribute, $value) {
         if (!isset($this->attributes)) {
             $this->attributes = [];
@@ -85,6 +90,11 @@ class XMLElement {
         $this->attributes[$attribute] = $value;
     }
 
+    /**
+     * 
+     * @param string $property
+     * @param mixed $value
+     */
     public function setProperty($property, $value) {
         $this->$property = $value;
     }
@@ -314,6 +324,12 @@ function SimpleXMLElement_append($key, $value) {
     }
 }
 
+/**
+ * 
+ * @param SimpleXMLElement $node
+ * @param EAPIdentityProvider $object
+ * @return void
+ */
 function marshalObject($node, $object) {
     $val = '';
     $className = get_class($object);
