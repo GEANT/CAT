@@ -236,7 +236,7 @@ class SanityTest extends CAT {
         if (function_exists('idn_to_ascii')) {
             $this->test_return(L_OK, "PHP can handle internationalisation.");
         } else {
-            $this->test_return(L_ERROR, "PHP can <strongNOT</strong> handle internationalisation (idn_to_ascii() from php5-intl).");
+            $this->test_return(L_ERROR, "PHP can <strong>NOT</strong> handle internationalisation (idn_to_ascii() from php7.0-intl).");
         }
 
         if (function_exists('gettext')) {
@@ -416,26 +416,6 @@ class SanityTest extends CAT {
             } else {
                 $this->test_return(L_ERROR, "NSIS module <strong>$module</strong> was not found or is not working correctly.");
             }
-        }
-    }
-
-    private function NSIS_GetVersion_test() {
-        $loggerInstance = new Logging();
-        $tmp_dir = createTemporaryDirectory('installer', 0)['dir'];
-        if (!chdir($tmp_dir)) {
-            $loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
-            $this->test_return(L_ERROR, "NSIS module <strong>GetVersion</strong> - problem with temporary directory permissions, cannot continue");
-            return;
-        }
-        $exe = 'tt.exe';
-        exec(CONFIG['PATHS']['makensis'] . " -V1 '-XOutFile $exe' '-XSection X' '-XGetVersion::WindowsName' '-XSectionEnd'", $out, $retval);
-        if ($retval > 0) {
-            $this->test_return(L_ERROR, "NSIS module <strong>GetVersion</strong> was not found or is not working correctly.");
-        } else {
-            $this->test_return(L_OK, "NSIS module <strong>GetVersion</strong> was found.");
-        }
-        if (is_file($exe)) {
-            unlink($exe);
         }
     }
 
