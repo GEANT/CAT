@@ -8,6 +8,9 @@
 /**
  * 
  */
-  $root = dirname(dirname(__FILE__));
-  include($root."/config/config.php");
-  set_include_path(get_include_path() . PATH_SEPARATOR . "$root/core" . PATH_SEPARATOR . "$root");
+
+$old_include_path = get_include_path();
+set_include_path(dirname(__DIR__));
+require_once("packageRoot.php");
+include(ROOT."/config/config.php");  
+set_include_path($old_include_path . PATH_SEPARATOR . ROOT . "/core" . PATH_SEPARATOR . ROOT);

@@ -104,11 +104,11 @@ function printP(i,v) {
   }
 }
 function resetDevices() {
- if(recognised_os !== '' ) {
+ if(recognisedOS !== '' ) {
     $("#guess_os").show();
     $("#other_installers").hide();
-    $("#download_button_header_"+recognised_os).html(download_message);
-    $("#cross_icon_"+recognised_os).hide();
+    $("#download_button_header_"+recognisedOS).html(downloadMessage);
+    $("#cross_icon_"+recognisedOS).hide();
  }
  $(".device_list button").removeClass('alertButton');
  $(".device_list button").removeClass('disabledDevice');
@@ -464,11 +464,13 @@ $(document).ready(function(){
   resetDevices();
  <?php 
 if(isset($_REQUEST['idp']) && $_REQUEST['idp']) { 
-    if(! is_numeric($_REQUEST['idp']))
+    if(! is_numeric($_REQUEST['idp'])) {
         exit;
+    }
     $p_id = (isset($_REQUEST['profile']) && $_REQUEST['profile']) ? $_REQUEST['profile'] : 0; 
-    if(! is_numeric($p_id))
+    if(! is_numeric($p_id)) {
         exit;
+    }
    print 'listProfiles('.$_REQUEST['idp'].','.$p_id.');';
 }
  ?>
@@ -497,7 +499,7 @@ $(".signin").DiscoJuice({
    "title":"<?php echo _("Home institution") ?>",
    "subtitle":"<?php echo _("Select your <strong>institution<\/strong>") ?>",
    "textHelp": "<?php echo _("Help, my institution is not on the list") ?>",
-   "textHelpMore": "<?php echo sprintf(_("This system relies on information supplied by local %s administrators. If your institution is not on the list, then nag them to add information to the %s database."),Config::$CONSORTIUM['name'],Config::$APPEARANCE['productname']); ?>",
+   "textHelpMore": "<?php echo sprintf(_("This system relies on information supplied by local %s administrators. If your institution is not on the list, then nag them to add information to the %s database."),CONFIG['CONSORTIUM']['name'],CONFIG['APPEARANCE']['productname']); ?>",
    "textLocateMe": "<?php echo _("Locate me more accurately using HTML5 Geo-Location") ?>",
    "textShowProviders": "<?php echo _("Show institutions in") ?>",
    "textAllCountries": "<?php echo _("all countries") ?>",

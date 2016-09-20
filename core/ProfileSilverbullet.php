@@ -37,7 +37,7 @@ require_once('AbstractProfile.php');
  * @package Developer
  */
 class ProfileSilverbullet extends AbstractProfile {
-    
+
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -45,9 +45,9 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject = 0) {
+    public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
-        debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
@@ -55,23 +55,22 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->langIndex = CAT::get_lang();
 
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
-        
         // set to global config value
-        
-        if (isset(CONFIG::$CONSORTIUM['silverbullet_default_maxusers'])) {
-            $tempMaxUsers = CONFIG::$CONSORTIUM['silverbullet_default_maxusers'];
+
+        if (isset(CONFIG['CONSORTIUM']['silverbullet_default_maxusers'])) {
+            $tempMaxUsers = CONFIG['CONSORTIUM']['silverbullet_default_maxusers'];
         }
-        $myInst = new IdP ($this->institution);
+        $myInst = new IdP($this->institution);
         $myFed = new Federation($myInst->federation);
         $fedMaxusers = $myFed->getAttributes("fed:silverbullet-maxusers");
         if (isset($fedMaxusers[0])) {
             $tempMaxUsers = $fedMaxusers[0]['value'];
         }
-        
+
         // realm is automatically calculated, then stored in DB
-        
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier.".strtolower($myInst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix'];
-        $this->setRealm("$myInst->identifier-$this->identifier.".strtolower($myInst->federation).Config::$CONSORTIUM['silverbullet_realm_suffix']);
+
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
+        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
         $internalAttributes = [
@@ -82,48 +81,22 @@ class ProfileSilverbullet extends AbstractProfile {
             "internal:silverbullet_maxusers" => $tempMaxUsers,
         ];
 
-        $tempArrayProfLevel = [];
-
+        $tempArrayProfLevel = []; // we don't currently store any profile-level attributes for SB in the database
         // internal attributes share many attribute properties, so condense the generation
 
-        foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfLevel[] = ["name" => $attName,
-                "value" => $attValue,
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => 0];
-        }
+        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
 
         // now, fetch and merge IdP-wide attributes
 
-        
-        $idpoptions = [];
-        // add "device" and "eapmethod" keys just to remain in sync with those
-        // attributes that came from the Profile level
-        foreach ($this->idpAttributes as $theAttr) {
-            $idpoptions[] = [
-                "name" => $theAttr["name"],
-                "value" => $theAttr["value"],
-                "level" => $theAttr["level"],
-                "row" => $theAttr["row"],
-                "flag" => $theAttr["flag"],
-                "device" => NULL,
-                "eapmethod" => 0,
-            ];
-        }
-
-        $this->attributes = $this->levelPrecedenceAttributeJoin($tempArrayProfLevel, $idpoptions, "IdP");
+        $this->attributes = $this->levelPrecedenceAttributeJoin($tempArrayProfLevel, $this->idpAttributes, "IdP");
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
         $this->name = _("eduroam-as-a-service");
-        
-        debug(3, "--- END Constructing new Profile object ... ---\n");
+
+        $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
-    
     /**
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
@@ -132,13 +105,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path, $mime) {
-        // params are needed for proper overriding, and I don't want any errors
-        // in code analysis. So let's waste some cycles.
-        $device = $path;
-        $path = $mime;
-        $mime = $device;
+        // params are needed for proper overriding, but not needed at all.
     }
-
 
     /**
      * register new supported EAP method for this profile
@@ -148,31 +116,23 @@ class ProfileSilverbullet extends AbstractProfile {
      *
      */
     public function addSupportedEapMethod($type, $preference) {
-        // params are needed for proper overriding, and I don't want any errors
-        // in code analysis. So let's waste some cycles.
-        $type = $preference;
-        DBConnection::exec($this->databaseType, "INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
-                . $this->identifier . ", "
-                . EAP::EAPMethodIdFromArray(EAP::$SILVERBULLET) . ", "
-                . 1 . ")");
-        $this->updateFreshness();
+        // params are needed for proper overriding, but not used at all.
+        parent::addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1);
     }
 
     /**
      * It's EAP-TLS and there is no point in anonymity
-     * @param type $shallwe
+     * @param boolean $shallwe
      */
     public function setAnonymousIDSupport($shallwe) {
-        // params are needed for proper overriding, and I don't want any errors
-        // in code analysis. So let's waste some cycles.
-        $shallwe = 0;
-        DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
+        // params are needed for proper overriding, but not used at all.
+        $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
     }
 
     /**
      * We can't be *NOT* ready
      */
-    public function getSufficientConfig() {
+    public function hasSufficientConfig() {
         return TRUE;
     }
 
@@ -190,7 +150,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * set the showtime and QR-user attributes if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
      */
     public function prepShowtime() {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
+
 }

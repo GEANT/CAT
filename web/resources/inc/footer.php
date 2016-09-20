@@ -19,13 +19,13 @@ function footer() {
             <tr>
                 <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
                     <?php
-                    echo Config::$APPEARANCE['productname'] . " - " . CAT::$VERSION;
+                    echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
                     ?>
                     "&nbsp;&copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>
                 </td>
                 <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
                     <?php
-                    if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                    if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
                         $logoBase = valid_host($_SERVER['HTTP_HOST']);
                         if ($logoBase === FALSE) {
                             throw new Exception("We don't know our own hostname?!");

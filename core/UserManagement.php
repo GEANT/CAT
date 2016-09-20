@@ -33,13 +33,21 @@ require_once("CAT.php");
  * 
  * @package Developer
  */
-class UserManagement {
+class UserManagement extends Entity {
+
+    /**
+     * our handle to the INST database
+     * 
+     * @var DBConnection
+     */
+    private $databaseHandle;
 
     /**
      * Class constructor. Nothing special to be done when constructing.
      */
     public function __construct() {
-        
+        parent::__construct();
+        $this->databaseHandle = DBConnection::handle(UserManagement::$databaseType);
     }
 
     /**
@@ -63,8 +71,8 @@ class UserManagement {
      * @return string
      */
     public function checkTokenValidity($token) {
-        $escapedToken = DBConnection::escapeValue(UserManagement::$databaseType, $token);
-        $check = DBConnection::exec(UserManagement::$databaseType, "SELECT invite_token, cat_institution_id 
+        $escapedToken = $this->databaseHandle->escapeValue($token);
+        $check = $this->databaseHandle->exec("SELECT invite_token, cat_institution_id 
                            FROM invitations 
                            WHERE invite_token = '$escapedToken' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
 
@@ -76,7 +84,7 @@ class UserManagement {
         }
         // if we haven't returned from the function yet, it is an invalid token... 
         // be a little verbose what's wrong with it
-        $checkReason = DBConnection::exec(UserManagement::$databaseType, "SELECT invite_token, used FROM invitations WHERE invite_token = '$escapedToken'");
+        $checkReason = $this->databaseHandle->exec("SELECT invite_token, used FROM invitations WHERE invite_token = '$escapedToken'");
         if ($invalidTokenCheck = mysqli_fetch_object($checkReason)) {
             if ($invalidTokenCheck->used == 1) {
                 return "FAIL-ALREADYCONSUMED";
@@ -96,17 +104,17 @@ class UserManagement {
      * @return IdP 
      */
     public function createIdPFromToken($token, $owner) {
-        $escapedToken = DBConnection::escapeValue(UserManagement::$databaseType, $token);
-        $escapedOwner = DBConnection::escapeValue(UserManagement::$databaseType, $owner);
+        $escapedToken = $this->databaseHandle->escapeValue($token);
+        $escapedOwner = $this->databaseHandle->escapeValue($owner);
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
-        $instinfo = DBConnection::exec(UserManagement::$databaseType, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
+        $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
                              FROM invitations 
                              WHERE invite_token = '$escapedToken' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
         if ($invitationDetails = mysqli_fetch_object($instinfo)) {
             if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
-                DBConnection::exec(UserManagement::$databaseType, "INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$escapedOwner', $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ");
-                CAT::writeAudit($escapedOwner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$escapedOwner', $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ");
+                $this->loggerInstance->writeAudit($escapedOwner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
                 return new IdP($invitationDetails->cat_institution_id);
             }
             // create new IdP
@@ -135,7 +143,7 @@ class UserManagement {
                 $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $invitationDetails->name]));
                 $bestnameguess = $invitationDetails->name;
             }
-            CAT::writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
+            $this->loggerInstance->writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             $admins = $fed->listFederationAdmins();
 
@@ -156,10 +164,10 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $bestnameguess, Config::$CONSORTIUM['name'], strtoupper($fed->name), Config::$APPEARANCE['productname'], Config::$APPEARANCE['productname_long']);
+%s"), $bestnameguess, CONFIG['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
                 $retval = $user->sendMailToUser(_("IdP in your federation was created"), $message);
                 if ($retval == FALSE) {
-                    debug(2, "Mail to federation admin was NOT sent!\n");
+                    $this->loggerInstance->debug(2, "Mail to federation admin was NOT sent!\n");
                 }
             }
 
@@ -174,8 +182,8 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function addAdminToIdp($idp, $user) {
-        $escapedUser = DBConnection::escapeValue(UserManagement::$databaseType, $user);
-        DBConnection::exec(UserManagement::$databaseType, "INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES($idp->identifier,'$escapedUser','FED','SELF-APPOINTED')");
+        $escapedUser = $this->databaseHandle->escapeValue($user);
+        $this->databaseHandle->exec("INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES($idp->identifier,'$escapedUser','FED','SELF-APPOINTED')");
         return TRUE;
     }
 
@@ -186,8 +194,8 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function removeAdminFromIdP($idp, $user) {
-        $escapedUser = DBConnection::escapeValue(UserManagement::$databaseType, $user);
-        DBConnection::exec(UserManagement::$databaseType, "DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = '$escapedUser'");
+        $escapedUser = $this->databaseHandle->escapeValue($user);
+        $this->databaseHandle->exec("DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = '$escapedUser'");
         return TRUE;
     }
 
@@ -200,8 +208,8 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function invalidateToken($token) {
-        $escapedToken = DBConnection::escapeValue(UserManagement::$databaseType, $token);
-        DBConnection::exec(UserManagement::$databaseType, "UPDATE invitations SET used = 1 WHERE invite_token = '$escapedToken'");
+        $escapedToken = $this->databaseHandle->escapeValue($token);
+        $this->databaseHandle->exec("UPDATE invitations SET used = 1 WHERE invite_token = '$escapedToken'");
         return TRUE;
     }
 
@@ -210,7 +218,7 @@ Best regards,
      * administrator of an existing institution, or for a new institution. In the latter case, the institution only actually gets 
      * created in the DB if the token is actually consumed via createIdPFromToken().
      * 
-     * @param boolean $isByFedadmin is the invitation token created for a federation admin or from an existing inst admin
+     * @param boolean $isByFedadmin is the invitation token created for a federation admin (TRUE) or from an existing inst admin (FALSE)
      * @param string $for identifier (typically email address) for which the invitation is created
      * @param mixed $instIdentifier either an instance of the IdP class (for existing institutions to invite new admins) or a string (new institution - this is the inst name then)
      * @param string $externalId if the IdP to be created is related to an external DB entity, this parameter contains that ID
@@ -218,24 +226,24 @@ Best regards,
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
-        $escapedFor = DBConnection::escapeValue(UserManagement::$databaseType, $for);
+        $escapedFor = $this->databaseHandle->escapeValue($for);
         $token = sha1(base_convert(rand(0, 10e16), 10, 36)) . sha1(base_convert(rand(0, 10e16), 10, 36));
         $level = ($isByFedadmin ? "FED" : "INST");
 
         if ($instIdentifier instanceof IdP) {
-            DBConnection::exec(UserManagement::$databaseType, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES('$level', '$escapedFor', '$token',$instIdentifier->identifier)");
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES('$level', '$escapedFor', '$token',$instIdentifier->identifier)");
             return $token;
         } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
             // what country are we talking about?
-            $newname = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($instIdentifier));
+            $newname = $this->databaseHandle->escapeValue(valid_string_db($instIdentifier));
             $extinfo = Federation::getExternalDBEntityDetails($externalId);
-            $externalhandle = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($externalId));
-            DBConnection::exec(UserManagement::$databaseType, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
+            $externalhandle = $this->databaseHandle->escapeValue(valid_string_db($externalId));
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
             return $token;
         } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            $newname = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($instIdentifier));
-            $newcountry = DBConnection::escapeValue(UserManagement::$databaseType, valid_string_db($country));
-            DBConnection::exec(UserManagement::$databaseType, "INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $newcountry . "')");
+            $newname = $this->databaseHandle->escapeValue(valid_string_db($instIdentifier));
+            $newcountry = $this->databaseHandle->escapeValue(valid_string_db($country));
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $newcountry . "')");
             return $token;
         }
         throw new Exception("Creation of a new token failed!");
@@ -249,10 +257,10 @@ Best regards,
      */
     public function listPendingInvitations($idpIdentifier = 0) {
         $retval = [];
-        $invitations = DBConnection::exec(UserManagement::$databaseType, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
+        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
-        debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
+        $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
         while ($invitationQuery = mysqli_fetch_object($invitations)) {
             $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
         }
@@ -265,11 +273,11 @@ Best regards,
      */
     public function listRecentlyExpiredInvitations() {
         $retval = [];
-        $invitations = DBConnection::exec(UserManagement::$databaseType, "SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
+        $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE invite_created >= TIMESTAMPADD(HOUR, -25, NOW()) AND invite_created < TIMESTAMPADD(HOUR, -24, NOW()) AND used = 0");
         while ($expInvitationQuery = mysqli_fetch_object($invitations)) {
-            debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
+            $this->loggerInstance->debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
             if ($expInvitationQuery->cat_institution_id == NULL) {
                 $retval[] = ["country" => $expInvitationQuery->country, "level" => $expInvitationQuery->invite_issuer_level, "name" => $expInvitationQuery->name, "mail" => $expInvitationQuery->invite_dest_mail];
             } else {
@@ -288,8 +296,8 @@ Best regards,
      */
     public function listInstitutionsByAdmin($userid) {
         $returnarray = [];
-        $escapedUserid = DBConnection::escapeValue(UserManagement::$databaseType, $userid);
-        $institutions = DBConnection::exec(UserManagement::$databaseType, "SELECT institution_id FROM ownership WHERE user_id = '$escapedUserid' ORDER BY institution_id");
+        $escapedUserid = $this->databaseHandle->escapeValue($userid);
+        $institutions = $this->databaseHandle->exec("SELECT institution_id FROM ownership WHERE user_id = '$escapedUserid' ORDER BY institution_id");
         while ($instQuery = mysqli_fetch_object($institutions)) {
             $returnarray[] = $instQuery->institution_id;
         }

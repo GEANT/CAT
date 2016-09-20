@@ -78,9 +78,10 @@ class Device_Chromebook extends DeviceConfig {
      * @final not to be redefined
      */
     final public function __construct() {
-        $this->supportedEapMethods = [EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP, EAP::$TTLS_MSCHAP2, EAP::$TLS];
-        debug(4, "This device supports the following EAP methods: ");
-        debug(4, $this->supportedEapMethods);
+        parent::__construct();
+        $this->supportedEapMethods = [EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS];
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     /**
@@ -90,7 +91,7 @@ class Device_Chromebook extends DeviceConfig {
      * @return string installer path name
      */
     public function writeInstaller() {
-        debug(4, "Chromebook Installer start\n");
+        $this->loggerInstance->debug(4, "Chromebook Installer start\n");
         $caRefs = [];
         // we don't do per-user encrypted containers
         $jsonArray = ["Type" => "UnencryptedConfiguration"];
@@ -101,28 +102,30 @@ class Device_Chromebook extends DeviceConfig {
         // construct outer id, if anonymity is desired
         $outerId = $this->determineOuterIdString();
 
-        $eapPrettyprint = EAP::eapDisplayName($this->selected_eap);
+        $eapPrettyprint = EAP::eapDisplayName($this->selectedEap);
         // ONC has its own enums, and guess what, they don't always match
-        if ($eapPrettyprint["OUTER"] == "PEAP" && $eapPrettyprint["INNER"] == "MSCHAPV2")
-        // the dictionary entry EAP-MSCHAPv2 does not work. Setting MSCHAPv2 does. (ChromeOS 50)
-            $eapPrettyprint["INNER"] = "MSCHAPv2";
-        if ($eapPrettyprint["OUTER"] == "TTLS" && $eapPrettyprint["INNER"] == "MSCHAPV2") {
-            $eapPrettyprint["OUTER"] = "EAP-TTLS";
+        if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
             $eapPrettyprint["INNER"] = "MSCHAPv2";
         }
-        if ($eapPrettyprint["OUTER"] == "TLS")
+        if ($eapPrettyprint["OUTER"] == "TTLS") {
+            $eapPrettyprint["OUTER"] = "EAP-TTLS";
+        }
+        if ($eapPrettyprint["OUTER"] == "TLS") {
             $eapPrettyprint["OUTER"] = "EAP-TLS";
+        }
         // define EAP properties
 
         $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
-        if ($eapPrettyprint["INNER"] == "MSCHAPv2")
+        if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
             $eaparray["Inner"] = $eapPrettyprint["INNER"];
+        }
         $eaparray["SaveCredentials"] = true;
         $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
         $eaparray["UseSystemCAs"] = false;
 
-        if ($outerId)
+        if ($outerId) {
             $eaparray["AnonymousIdentity"] = "$outerId";
+        }
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
             $networkUuid = uuid('', $ssid);
@@ -139,7 +142,7 @@ class Device_Chromebook extends DeviceConfig {
                 ],
                 "ProxySettings" => ["Type" => "WPAD"],
             ];
-        };
+        }
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
             $networkUuid = "{" . uuid('', "wired-dot1x-ethernet") . "}";
@@ -153,18 +156,18 @@ class Device_Chromebook extends DeviceConfig {
                 ],
                 "ProxySettings" => ["Type" => "WPAD"],
             ];
-        };
+        }
 
         // define CA certificates
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            debug(2, $ca['pem']);
-            $caSanitized = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            debug(2, $caSanitized . "\n");
+            $this->loggerInstance->debug(3, $ca['pem']);
+            $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            $this->loggerInstance->debug(4, $caSanitized1 . "\n");
             // remove \n
-            $caSanitized = str_replace("\n", "", $caSanitized);
+            $caSanitized = str_replace("\n", "", $caSanitized1);
             $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
-            debug(2, $caSanitized . "\n");
+            $this->loggerInstance->debug(3, $caSanitized . "\n");
         }
 
         $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
@@ -173,12 +176,17 @@ class Device_Chromebook extends DeviceConfig {
         fclose($outputFile);
 
         $fileName = $this->installerBasename . '.onc';
-//        if ($this->sign) {
-//            $o = system($this->sign . " installer_profile '$e' > /dev/null");
-//           if ($o === FALSE)
-//                debug(2, "Signing the mobileconfig installer $e FAILED!\n");
-//        } else
-        rename("installer_profile", $fileName);
+        if ($this->sign) {
+            // can't be - ONC does not have the notion of signing
+            // but if they ever change their mind, we are prepared
+            $finalFilename = "finalfilename.onc";
+            $outputFromSigning = system($this->sign . " installer_profile '$finalFilename' > /dev/null");
+            if ($outputFromSigning === FALSE) {
+                $this->loggerInstance->debug(2, "Signing the mobileconfig installer $finalFilename FAILED!\n");
+            }
+        } else {
+            rename("installer_profile", $fileName);
+        }
         return $fileName;
     }
 

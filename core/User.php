@@ -22,6 +22,7 @@ require_once('DBConnection.php');
 require_once('EntityWithDBProperties.php');
 require_once("Federation.php");
 require_once("IdP.php");
+require_once("Helper.php");
 require_once("core/PHPMailer/src/PHPMailer.php");
 require_once("core/PHPMailer/src/SMTP.php");
 
@@ -40,18 +41,19 @@ class User extends EntityWithDBProperties {
      */
     public function __construct($userId) {
         $this->databaseType = "USER";
+        parent::__construct(); // database handle is now available
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = DBConnection::escapeValue($this->databaseType, $userId);
+        $this->identifier = $this->databaseHandle->escapeValue($userId);
 
         $optioninstance = Options::instance();
 
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = DBConnection::exec($this->databaseType, "SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
+            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
             $visited = FALSE;
             while ($userDetailQuery = mysqli_fetch_object($info)) {
                 if (!$visited) {
@@ -104,7 +106,7 @@ class User extends EntityWithDBProperties {
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
     public function isSuperadmin() {
-        return in_array($this->identifier, Config::$SUPERADMINS);
+        return in_array($this->identifier, CONFIG['SUPERADMINS']);
     }
 
     /**
@@ -127,29 +129,17 @@ class User extends EntityWithDBProperties {
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
         }
-// use PHPMailer to send the mail
-        $mail = new PHPMailer\PHPMailer\PHPMailer();
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Port = 587;
-        $mail->SMTPSecure = 'tls';
-        $mail->Host = Config::$MAILSETTINGS['host'];
-        $mail->Username = Config::$MAILSETTINGS['user'];
-        $mail->Password = Config::$MAILSETTINGS['pass'];
-// formatting nitty-gritty
-        $mail->WordWrap = 72;
-        $mail->isHTML(FALSE);
-        $mail->CharSet = 'UTF-8';
+        $mail = mailHandle();
 // who to whom?
-        $mail->From = Config::$APPEARANCE['from-mail'];
-        $mail->FromName = Config::$APPEARANCE['productname'] . " Notification System";
-        $mail->addReplyTo(Config::$APPEARANCE['support-contact']['mail'], Config::$APPEARANCE['productname'] . " " . _("Feedback"));
+        $mail->From = CONFIG['APPEARANCE']['from-mail'];
+        $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
+        $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
-        if (isset(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass'])) {
-            $mail->sign(Config::$CONSORTIUM['certfilename'], Config::$CONSORTIUM['keyfilename'], Config::$CONSORTIUM['keypass']);
+        if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
+            $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
         }
 
         $sent = $mail->send();
@@ -160,4 +150,5 @@ class User extends EntityWithDBProperties {
     public function updateFreshness() {
         // User is always fresh
     }
+
 }

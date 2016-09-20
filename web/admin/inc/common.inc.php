@@ -57,14 +57,14 @@ function display_name($input) {
         _("Federation Administrator") => "user:fedadmin",
         _("Real Name") => "user:realname",
         _("E-Mail Address") => "user:email",
-        _("PEAP-MSCHAPv2") => EAP::$PEAP_MSCHAP2,
-        _("TLS") => EAP::$TLS,
-        _("TTLS-PAP") => EAP::$TTLS_PAP,
-        _("TTLS-MSCHAPv2") => EAP::$TTLS_MSCHAP2,
-        _("TTLS-GTC") => EAP::$TTLS_GTC,
-        _("FAST-GTC") => EAP::$FAST_GTC,
-        _("EAP-pwd") => EAP::$PWD,
-        _("eduroam-as-a-service") => EAP::$SILVERBULLET,
+        _("PEAP-MSCHAPv2") => EAPTYPE_PEAP_MSCHAP2,
+        _("TLS") => EAPTYPE_TLS,
+        _("TTLS-PAP") => EAPTYPE_TTLS_PAP,
+        _("TTLS-MSCHAPv2") => EAPTYPE_TTLS_MSCHAP2,
+        _("TTLS-GTC") => EAPTYPE_TTLS_GTC,
+        _("FAST-GTC") => EAPTYPE_FAST_GTC,
+        _("EAP-pwd") => EAPTYPE_PWD,
+        _("eduroam-as-a-service") => EAPTYPE_SILVERBULLET,
         _("Remove/Disable SSID") => "media:remove_SSID",
         _("Custom CSS file for User Area") => "fed:css_file",
         _("Federation Logo") => "fed:logo_file",
@@ -76,7 +76,7 @@ function display_name($input) {
         _("Silver Bullet: max users per profile") => "fed:silverbullet-maxusers",
     ];
 
-    if (count(Config::$CONSORTIUM['ssid']) > 0) {
+    if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
         $displayNames[_("Additional SSID")] = "media:SSID";
         $displayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     } else {
@@ -84,7 +84,7 @@ function display_name($input) {
         $displayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
     }
 
-    if (!empty(Config::$CONSORTIUM['interworking-consortium-oi']) && count(Config::$CONSORTIUM['interworking-consortium-oi']) > 0) {
+    if (!empty(CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
         $displayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
     } else {
         $displayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
@@ -100,8 +100,8 @@ function display_name($input) {
 
 function tooltip($input) {
     $descriptions = [];
-    if (count(Config::$CONSORTIUM['ssid']) > 0) {
-        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'], Config::$CONSORTIUM['name'])] = "media:SSID";
+    if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+        $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'])] = "media:SSID";
     }
 
     $find = array_search($input, $descriptions);
@@ -112,7 +112,7 @@ function tooltip($input) {
     return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
 }
 
-function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
+function UI_message($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
 
     $uiMessages = [
         L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
@@ -122,16 +122,20 @@ function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
     ];
 
     $retval = "";
-    if (!$omittabletags)
+    if (!$omittabletags) {
         $retval .= "<tr><td>";
-    $caption = $caption !== 0 ? $caption : $uiMessages[$level]['text'];
+    }
+    $caption = ($customCaption !== 0 ? $customCaption : $uiMessages[$level]['text']);
     $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
-    if (!$omittabletags)
+    if (!$omittabletags) {
         $retval .= "</td><td>";
-    if ($text !== 0)
+    }
+    if ($text !== 0) {
         $retval .= $text;
-    if (!$omittabletags)
+    }
+    if (!$omittabletags) {
         $retval .= "</td></tr>";
+    }
     return $retval;
 }
 
@@ -222,7 +226,8 @@ function getBlobFromDB($ref, $checkpublic) {
         }
     }
 
-    $blob = DBConnection::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+
+    $blob = EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
     if (!$blob) {
         return FALSE;
     }
@@ -245,10 +250,10 @@ function previewCAinHTML($cAReference) {
         return "<div>" . _("Error, ROWID expected.") . "</div>";
     }
 
-    $ca_blob = base64_decode(getBlobFromDB($cAReference, FALSE));
+    $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
 
     $func = new X509;
-    $details = $func->processCertificate($ca_blob);
+    $details = $func->processCertificate($cAblob);
     if ($details === FALSE) {
         return _("There was an error processing the certificate!");
     }
@@ -282,26 +287,57 @@ function previewInfoFileinHTML($fileReference) {
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
 }
 
+function instLevelInfoBoxes(IdP $myInst) {
+    $idpoptions = $myInst->getAttributes();
+    $retval = "";
+    $retval .= "<div class='infobox'>
+        <h2>" . _("General Institution Details") . "</h2>
+        <table>
+            <tr>
+                <td>
+                    " . _("Country:") . "
+                </td>
+                <td>
+                </td>
+                <td>
+                    <strong>";
+    $myFed = new Federation($myInst->federation);
+    $retval .= $myFed::$federationList[strtoupper($myInst->federation)];
+    $retval .= "</strong>
+                </td>
+            </tr>" . infoblock($idpoptions, "general", "IdP") . "
+        </table>
+    </div>";
+
+    $blocks = [["support", _("Global Helpdesk Details")], ["media", _("Media Properties")]];
+    foreach ($blocks as $block) {
+        $retval .= "<div class='infobox'>
+            <h2>" . $block[1] . "</h2>
+            <table>" .
+                infoblock($idpoptions, $block[0], "IdP") .
+                "</table>
+        </div>";
+    }
+    return $retval;
+}
+
 function infoblock($optionlist, $class, $level) {
-// echo "<pre>".print_r($optionlist)."</pre>";
     $googleMarkers = [];
     $retval = "";
     $optioninfo = Options::instance();
 
     foreach ($optionlist as $option) {
         $type = $optioninfo->optionType($option['name']);
-// echo "CLASS $class, OPTIONNAME ".$option['name']." LEVEL $level, TYPE ".$type['type']." FLAG ".$type['flag']."\n";
         if (preg_match('/^' . $class . '/', $option['name']) && $option['level'] == "$level") {
             // all non-multilang attribs get this assignment ...
             $language = "";
             $content = $option['value'];
             // ... override them with multilang tags if needed
             if ($type["flag"] == "ML") {
-                // echo "processing multi-lang ".$option['name']. "with value ".$option['value'];
                 $taggedarray = unserialize($option['value']);
                 $language = _("default/other languages");
                 if ($taggedarray['lang'] != 'C') {
-                    $language = Config::$LANGUAGES[$taggedarray['lang']]['display'];
+                    $language = CONFIG['LANGUAGES'][$taggedarray['lang']]['display'];
                 }
                 $content = $taggedarray["content"];
             }

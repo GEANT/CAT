@@ -11,53 +11,73 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("Options.php");
 require_once("common.inc.php");
+require_once("Logging.php");
 
-function add_option($class, $prepopulate = 0) { // no GET class ? we've been called directly:
+function prefilledOptionTable($existing_options, $attributePrefix, $level) {
+    $retval = "<table id='expandable_$attributePrefix" . "_options'>";
+
+    $prepopulate = [];
+    foreach ($existing_options as $existing_attribute) {
+        if ($existing_attribute['level'] == $level) {
+            $prepopulate[] = $existing_attribute;
+        }
+    }
+    $retval .= add_option($attributePrefix, $prepopulate);
+    $retval .= "</table>";
+    return $retval;
+}
+
+/**
+ * 
+ * @param string $class the class of options that is to be displayed
+ * @param array $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
+ */
+function add_option($class, $prepopulate = []) { // no GET class ? we've been called directly:
     // this can mean either a new object (list all options with empty values)
     // or that an object is to be edited. In that case, $prepopulated has to
     // contain the array of existing variables
     // we expect the variable $class to contain the class of options
-    // print_r($prepopulate);
+    $retval = "";
+
     $optioninfo = Options::instance();
-    // print_r($prepopulate);
+
     if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
         $number = 0;
         foreach ($prepopulate as $option) {
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
-                debug(5, "About to execute optiontext with PREFILL!\n");
-                echo optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
+                $loggerInstance = new Logging();
+                $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
+                $retval .= optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
             }
         }
-    } else { // new: add empty list
+    } else { // not editing exist, this in new: add empty list
         $list = $optioninfo->availableOptions($class);
-        if ($class == "general") {
-            $blacklistItem = array_search("general:geo_coordinates", $list);
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
-        } else if ($class == "profile") {
-            $blacklistItem = array_search("profile:QR-user", $list);
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
-        } else if ($class == "user") {
-            $blacklistItem = array_search("user:fedadmin", $list);
-            if ($blacklistItem !== FALSE) {
-                unset($list[$blacklistItem]);
-                $list = array_values($list);
-            }
+        switch ($class) {
+            case "general":
+                $blacklistItem = array_search("general:geo_coordinates", $list);
+                break;
+            case "profile":
+                $blacklistItem = array_search("profile:QR-user", $list);
+                break;
+            case "user":
+                $blacklistItem = array_search("user:fedadmin", $list);
+                break;
+            default:
+                $blacklistItem = FALSE;
         }
-        /* echo "<pre>";
-          print_r($list);
-          echo "</pre>"; */
+        if ($blacklistItem !== FALSE) {
+            unset($list[$blacklistItem]);
+            $list = array_values($list);
+        }
+
         // add as many options as there are different option types
 
-        foreach (array_keys($list) as $key)
-            echo optiontext($key, $list);
+        foreach (array_keys($list) as $key) {
+            $retval .= optiontext($key, $list);
+        }
     }
+    return $retval;
 }
 
 function optiontext($defaultselect, $list, $prefill = 0) {
@@ -113,25 +133,25 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     if (!$prefill) {
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
-        foreach ($list as $key => $value) {
+        foreach ($list as $value) {
             $listtype = $optioninfo->optionType($value);
-            $retval .="<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
+            $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
             if ($iterator == $defaultselect) {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
             }
-            $retval .=">" . display_name($value) . "</option>";
+            $retval .= ">" . display_name($value) . "</option>";
             $iterator++;
         }
         if (!isset($activelisttype)) {
             throw new Exception("We should have found the active list type by now!");
         }
-        $retval .="</select></td>";
-        $retval .="<td>
+        $retval .= "</select></td>";
+        $retval .= "<td>
           <select style='display:" . ($activelisttype["flag"] == "ML" ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (Config::$LANGUAGES as $langindex => $possibleLang) {
+        foreach (CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
             $thislang = $possibleLang['display'];
             $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
         }
@@ -145,7 +165,8 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     }
 
     if ($prefill) {
-        debug(5, "Executed with PREFILL!\n");
+        $loggerInstance = new Logging();
+        $loggerInstance->debug(5, "Executed with PREFILL!\n");
         $retval .= "<td>";
         // prefill is always only called with a list with exactly one element.
         // if we see anything else here, get excited.
@@ -190,7 +211,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 $allLocationCount++;
                 $locationIndex = $allLocationCount;
                 $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
-                $retval .="<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
+                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
                 break;
             case "file":
                 $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($content) . "'>";
@@ -207,7 +228,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                         break;
                     default:
                         $retval .= _("file content");
-                };
+                }
                 break;
             case "string":
                 $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
@@ -229,10 +250,10 @@ function optiontext($defaultselect, $list, $prefill = 0) {
             default:
                 // this should never happen!
                 throw new Exception("Internal Error: unknown attribute type $listtype!");
-        };
+        }
         $retval .= "</td>";
     }
-    $retval .="
+    $retval .= "
 
        <td>
           <button type='button' class='delete' onclick='deleteOption(" . $locationIndex . ",\"option-S" . $rowid . "\")'>-</button>

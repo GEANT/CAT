@@ -59,17 +59,20 @@ class IdP extends EntityWithDBProperties {
      * Constructs an IdP object based on its details in the database.
      * Cannot be used to define a new IdP in the database! This happens via Federation::newIdP()
      *
-     * @param integer $instId the database row identifier
+     * @param int $instId the database row identifier
      */
     public function __construct($instId) {
-        debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
-
         $this->databaseType = "INST";
+        parent::__construct(); // now databaseHandle and logging is available
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
-        $this->identifier = $instId;
+        if (!is_numeric($instId)) {
+            throw new Exception("Institutions are identified by an integer index!");
+        }
+        $this->identifier = (int) $instId;
 
-        $idp = DBConnection::exec($this->databaseType, "SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
+        $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         if (!$instQuery = mysqli_fetch_object($idp)) {
             throw new Exception("IdP $this->identifier not found in database!");
         }
@@ -90,7 +93,7 @@ class IdP extends EntityWithDBProperties {
             "flag" => NULL];
 
         $this->name = getLocalisedValue($this->getAttributes('general:instname'), CAT::get_lang());
-        debug(3, "--- END Constructing new IdP object ... ---\n");
+        $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
     /**
@@ -102,20 +105,20 @@ class IdP extends EntityWithDBProperties {
      */
     public function listProfiles($activeOnly = 0) {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
-        $allProfiles = DBConnection::exec($this->databaseType, $query);
+        $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
         while ($profileQuery = mysqli_fetch_object($allProfiles)) {
             $oneProfile = ProfileFactory::instantiate($profileQuery->profile_id, $this);
             $oneProfile->institution = $this->identifier;
             $returnarray[] = $oneProfile;
         }
-        
-        debug(2,"listProfiles: ".print_r($returnarray,true));
+
+        $this->loggerInstance->debug(2, "listProfiles: " . print_r($returnarray, true));
         return $returnarray;
     }
 
     public function isOneProfileConfigured() {
-        $allProfiles = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
+        $allProfiles = $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
         if (mysqli_num_rows($allProfiles) > 0) {
             return TRUE;
         }
@@ -123,7 +126,7 @@ class IdP extends EntityWithDBProperties {
     }
 
     public function isOneProfileShowtime() {
-        $allProfiles = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND showtime = 1");
+        $allProfiles = $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND showtime = 1");
         if (mysqli_num_rows($allProfiles) > 0) {
             return TRUE;
         }
@@ -131,7 +134,7 @@ class IdP extends EntityWithDBProperties {
     }
 
     public function getAllProfileStatusOverview() {
-        $allProfiles = DBConnection::exec($this->databaseType, "SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
+        $allProfiles = $this->databaseHandle->exec("SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
         $returnarray = ['dns' => RETVAL_SKIPPED, 'cert' => L_OK, 'reachability' => RETVAL_SKIPPED, 'TLS' => RETVAL_SKIPPED, 'checktime' => NULL];
         while ($statusQuery = mysqli_fetch_object($allProfiles)) {
             if ($statusQuery->status_dns < $returnarray['dns']) {
@@ -160,7 +163,7 @@ class IdP extends EntityWithDBProperties {
      */
     public function owner() {
         $returnarray = [];
-        $admins = DBConnection::exec($this->databaseType, "SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
+        $admins = $this->databaseHandle->exec("SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
         while ($ownerQuery = mysqli_fetch_object($admins)) {
             $returnarray[] = ['ID' => $ownerQuery->user_id, 'MAIL' => $ownerQuery->orig_mail, 'LEVEL' => $ownerQuery->blesslevel];
         }
@@ -175,7 +178,7 @@ class IdP extends EntityWithDBProperties {
      * @return int profile count
      */
     public function profileCount() {
-        $result = DBConnection::exec($this->databaseType, "SELECT profile_id FROM profile 
+        $result = $this->databaseHandle->exec("SELECT profile_id FROM profile 
              WHERE inst_id = $this->identifier");
         return(mysqli_num_rows($result));
     }
@@ -188,7 +191,7 @@ class IdP extends EntityWithDBProperties {
     public function updateFreshness() {
         // freshness is always defined for *Profiles*
         // IdP needs to update timestamp of all its profiles if an IdP-wide attribute changed
-        DBConnection::exec($this->databaseType, "UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE inst_id = '$this->identifier'");
+        $this->databaseHandle->exec("UPDATE profile SET last_change = CURRENT_TIMESTAMP WHERE inst_id = '$this->identifier'");
     }
 
     /**
@@ -198,17 +201,17 @@ class IdP extends EntityWithDBProperties {
      * @return object new Profile object if successful, or FALSE if an error occured
      */
     public function newProfile($type) {
-        DBConnection::exec($this->databaseType, "INSERT INTO profile (inst_id) VALUES($this->identifier)");
-        $identifier = DBConnection::lastID($this->databaseType);
+        $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
+        $identifier = $this->databaseHandle->lastID();
 
         if ($identifier > 0) {
             switch ($type) {
-            case "RADIUS":
-                return new ProfileRADIUS($identifier, $this);
-            case "SILVERBULLET":
-                return new ProfileSilverbullet($identifier, $this);
-            default:
-                throw new Exception("This type of profile is unknown and can not be added.");
+                case "RADIUS":
+                    return new ProfileRADIUS($identifier, $this);
+                case "SILVERBULLET":
+                    return new ProfileSilverbullet($identifier, $this);
+                default:
+                    throw new Exception("This type of profile is unknown and can not be added.");
             }
         }
         return NULL;
@@ -229,9 +232,9 @@ class IdP extends EntityWithDBProperties {
             throw new Exception("This IdP shouldn't have any profiles any more!");
         }
 
-        DBConnection::exec($this->databaseType, "DELETE FROM ownership WHERE institution_id = $this->identifier");
-        DBConnection::exec($this->databaseType, "DELETE FROM institution_option WHERE institution_id = $this->identifier");
-        DBConnection::exec($this->databaseType, "DELETE FROM institution WHERE inst_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM ownership WHERE institution_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM institution_option WHERE institution_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM institution WHERE inst_id = $this->identifier");
 
         // notify federation admins
 
@@ -246,7 +249,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, Config::$CONSORTIUM['name'], strtoupper($fed->name), Config::$APPEARANCE['productname'], Config::$APPEARANCE['productname_long']);
+%s"), $this->name, CONFIG['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
             $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
         }
         unset($this);
@@ -259,13 +262,14 @@ Best regards,
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates() {
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $list = [];
             $usedarray = [];
             // extract all institutions from the country
-            $candidateList = DBConnection::exec("EXTERNAL", "SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = '" . strtolower($this->federation) . "'");
+            $externalHandle = DBConnection::handle("EXTERNAL");
+            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = '" . strtolower($this->federation) . "'");
 
-            $alreadyUsed = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
             while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
@@ -300,7 +304,7 @@ Best regards,
     }
 
     public function getExternalDBSyncState() {
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
         return EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
@@ -312,8 +316,8 @@ Best regards,
      * @return mixed the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $idQuery = DBConnection::exec($this->databaseType, "SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
             if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
             }
@@ -324,12 +328,12 @@ Best regards,
     }
 
     public function setExternalDBId($identifier) {
-        $escapedIdentifier = DBConnection::escapeValue($this->databaseType, $identifier);
-        if (Config::$CONSORTIUM['name'] == "eduroam" && isset(Config::$CONSORTIUM['deployment-voodoo']) && Config::$CONSORTIUM['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $alreadyUsed = DBConnection::exec($this->databaseType, "SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+        $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {
-                DBConnection::exec($this->databaseType, "UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
             }
         }
     }

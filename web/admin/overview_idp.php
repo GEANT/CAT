@@ -21,16 +21,16 @@ require_once("inc/input_validation.inc.php");
 include "inc/geo_widget.php";
 
 
-$cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), Config::$APPEARANCE['productname']));
+$cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 // delete stored realm
 
-if (isset($_SESSION['check_realm']))
+if (isset($_SESSION['check_realm'])) {
     unset($_SESSION['check_realm']);
-
+}
 
 geo_widget_head($my_inst->federation, $my_inst->name);
 ?>
@@ -45,43 +45,9 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     <h1><?php echo _("Identity Provider Overview"); ?></h1>
     <div>
         <h2><?php echo _("IdP-wide settings"); ?></h2>
-        <div class="infobox">
-            <h2><?php echo _("General Institution Details"); ?></h2>
-            <table>
-                <tr>
-                    <td>
-                        <?php echo "" . _("Country") ?>
-                    </td>
-                    <td>
-                    </td>
-                    <td>
-                        <strong><?php
-                            $foofed = new Federation($my_inst->federation);
-                            echo Federation::$federationList[strtoupper($my_inst->federation)];
-                            ?></strong>
-                    </td>
-                </tr>
-<?php echo infoblock($idpoptions, "general", "IdP"); ?>
-            </table>
-        </div>
-        <div class="infobox">
-            <h2><?php echo _("Global Helpdesk Details"); ?></h2>
-            <table>
-<?php echo infoblock($idpoptions, "support", "IdP"); ?>
-            </table>
-        </div>
-        <div class="infobox">
-            <h2><?php echo _("Media Properties"); ?></h2>
-            <table>
-<?php echo infoblock($idpoptions, "media", "IdP"); ?>
-            </table>
-        </div>
-        <div class='infobox'>
-            <h2><?php echo _("Global EAP Options"); ?></h2>
-            <table>
-<?php echo infoblock($idpoptions, "eap", "IdP"); ?>
-            </table>
-        </div>
+        <?php
+        echo instLevelInfoBoxes($my_inst);
+        ?>
         <div class='infobox' style='text-align:center;'>
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
@@ -91,19 +57,22 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
             <br>
-        <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
+            <?php echo "<a href='$displayurl'>$displayurl</a>"; ?>
         </div>
         <?php
         $loadmap = FALSE;
-        foreach ($idpoptions as $optionname => $optionvalue)
-            if ($optionvalue['name'] == "general:geo_coordinates")
+        foreach ($idpoptions as $optionname => $optionvalue) {
+            if ($optionvalue['name'] == "general:geo_coordinates") {
                 $loadmap = TRUE;
-        if ($loadmap)
+            }
+        }
+        if ($loadmap === TRUE) {
             echo '
 <div class="infobox"  style="width:270px;">
 <div id="map" style="width:100%; height:150px"></div>
 </div>
 ';
+        }
         ?>
     </div>
     <table>
@@ -115,7 +84,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( Config::$CONSORTIUM['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
                 </form>
 
             </td>
@@ -131,7 +100,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     <h2><?php _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || Config::$RADIUSTESTS['TLS-discoverytag'] != "")
+        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -140,7 +109,8 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                             </form>
                         </td>
                     </tr>";
-        if (Config::$CONSORTIUM['name'] == "eduroam") // SW: APPROVED
+        }
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
                         <td>" . _("Check server status of European federations") . "</td>
                         <td>
@@ -149,32 +119,34 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                            </form>
                         </td>
                     </tr>";
+        }
         ?>
     </table>
     <hr/>
     <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
-        echo "<h2>"._("There are not yet any profiles for your institution.")."</h2>";
+        echo "<h2>" . _("There are not yet any profiles for your institution.") . "</h2>";
     }
 
     // if there is one profile and it is of type Silver Bullet, display a very
     // simple widget with just a "Manage" button
-    
+
     if (count($profiles_for_this_idp) == 1) {
         $profile = $profiles_for_this_idp[0];
         if ($profile instanceof ProfileSilverbullet) {
             ?>
             <div style='display: table-row; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell;'>
-                    <h2><?php echo $profile->name;?></h2>
-                    <?php 
+                    <h2><?php echo $profile->name; ?></h2>
+                    <?php
                     $maxusers = $profile->getAttributes("internal:silverbullet_maxusers");
-                    printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."),$maxusers[0]['value'],$profile->realm);?>
+                    printf(_("You can create up to %d users. Their credentials will carry the name <strong>%s</strong>."), $maxusers[0]['value'], $profile->realm);
+                    ?>
                     <br/>
                     <br/>
                     <form action='edit_silverbullet.php' method='POST'>
-                        <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base");?></button>
+                        <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                     </form>
                 </div>
             </div>
@@ -186,7 +158,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         }
     }
     if (count($profiles_for_this_idp) > 0) { // no profiles yet.
-        echo "<h2>"._("Profiles for this institution")."</h2>";
+        echo "<h2>" . _("Profiles for this institution") . "</h2>";
     }
     foreach ($profiles_for_this_idp as $profile_list) {
         echo "<div style='display: table-row; margin-bottom: 20px;'>";
@@ -225,48 +197,55 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 }
                 $buffer_eaptypediv .= "</div>";
                 $allcomplete = FALSE;
-            };
+            }
             $attribs = $profile_list->getAttributes();
-            foreach ($attribs as $attrib)
-                if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name']))
+            foreach ($attribs as $attrib) {
+                if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name'])) {
                     $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method level are in effect.") . "'>";
+                }
+            }
             $buffer_eaptypediv .= "<br/>";
         }
         $buffer_headline = "<h2 style='overflow:auto;'>";
 
         $buffer_headline .= "<div style='float:right;'>";
-        $sufficient_config = $profile_list->getSufficientConfig();
+        $sufficient_config = $profile_list->hasSufficientConfig();
         $showtime = $profile_list->isShowtime();
-        if ($has_overrides)
+        if ($has_overrides) {
             $buffer_headline .= UI_remark("", _("Option override on profile level is in effect."), TRUE);
-        if (!$allcomplete)
+        }
+        if (!$allcomplete) {
             $buffer_headline .= UI_error("", _("The information in this profile is incomplete."), TRUE);
-        if ($showtime)
+        }
+        if ($showtime) {
             $buffer_headline .= UI_okay("", _("This profile is shown on the user download interface."), TRUE);
-        else if ($sufficient_config)
+        } else if ($sufficient_config) {
             $buffer_headline .= UI_warning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), display_name("profile:production")), TRUE);
+        }
         $buffer_headline .= "</div>";
 
         $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
         echo $buffer_headline;
 
-        if (array_search(EAP::$TTLS_PAP, $typelist) !== FALSE && array_search(EAP::$TTLS_GTC, $typelist) === FALSE && array_search(EAP::$PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAP::$TTLS_MSCHAP2, $typelist) === FALSE)
-        /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
+        if (array_search(EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
+            /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
             $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
+        }
 
         $buffer_eaptypediv .= "</div>";
         echo $buffer_eaptypediv;
         $has_eaptypes = count($profile_list->getEapMethodsInOrderOfPreference(1));
-        $has_realm = $profile_list->getAttributes("internal:realm");
-        $has_realm = $has_realm[0]['value'];
+        $hasRealmArray = $profile_list->getAttributes("internal:realm");
+        $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
-        if (count(Config::$RADIUSTESTS['UDP-hosts']) > 0 || ( count(Config::$RADIUSTESTS['TLS-clientcerts']) > 0 && Config::$RADIUSTESTS['TLS-discoverytag'] != ""))
+        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "")) {
             echo "<form action='action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>
                           </form>";
+        }
         echo "<form action='overview_installers.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_eaptypes ? "" : "disabled='disabled'  title='" . _("You have not fully configured any supported EAP types!") . "'") . ">
                                   " . _("Installer Fine-Tuning and Download") . "
@@ -292,10 +271,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         if ($profile_list->isShowtime()) {
             echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
             $URL = $profile_list->getCollapsedAttributes();
-            if (isset($URL['device-specific:redirect']))
+            if (isset($URL['device-specific:redirect'])) {
                 $displayurl = $URL['device-specific:redirect'][0];
-            else
+            } else {
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://' ) . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
+            }
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
             $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
@@ -308,8 +288,9 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             echo "<div style='width:20px;'></div>";
             echo "<div style='display: table-cell; min-width:200px;'><p><strong>" . _("User Downloads") . "</strong></p><table>";
             $stats = $profile_list->getUserDownloadStats();
-            foreach ($stats as $dev => $count)
+            foreach ($stats as $dev => $count) {
                 echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
+            }
             echo "</table></div>";
         }
         echo "</div>";
@@ -344,11 +325,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $methods = $one_profile->getEapMethodsinOrderOfPreference();
         // silver bullet is an exclusive method; looking in the first entry of
         // the array will catch it.
-        if (count($methods) > 0 && $methods[0] == EAP::$SILVERBULLET) {
+        if (count($methods) > 0 && $methods[0] == EAPTYPE_SILVERBULLET) {
             $found_silverbullet = TRUE;
         }
     }
-    if ($found_silverbullet == FALSE) {
+    if ($found_silverbullet === FALSE) {
         ?>
         <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
             <div>
@@ -360,3 +341,4 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         <?php
     }
     footer();
+    

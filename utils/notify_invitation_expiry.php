@@ -45,20 +45,22 @@ foreach (Federation::$federationList as $federation => $federation_name) {
 invitation tokens for the following new institutions have recently expired:
 
 ";
-        foreach ($listofinstnames as $instname)
+        foreach ($listofinstnames as $instname) {
             $mailtext .= "$instname\n";
+        }
 
-        if ($numberofexistingidps > 0)
-            $mailtext .="
+        if ($numberofexistingidps > 0) {
+            $mailtext .= "
 
 Additionally, $numberofexistingidps invitations for existing institutions have expired.
-";
+        ";
+        }
         $mailtext .= "
 We thought you might like to know.
 
 Greetings,
 
-A humble eduroam CAT cron job
+A humble " . CONFIG['APPEARANCE']['productname'] . " cron job
 ";
 
         foreach ($admins as $admin) {

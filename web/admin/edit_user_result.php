@@ -8,13 +8,15 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Logging.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/option_parse.inc.php");
+
+$loggerInstance = new Logging();
 
 pageheader(_("User Attributes - Summary of submitted data"), "USERMGMT");
 
@@ -23,7 +25,7 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != BUTTON_SAVE) { /
     echo "<p>" . _("The page was called with insufficient data. Please report this as an error.") . "</p>";
     footer();
     exit(0);
-};
+}
 ?>
 <h1>
     <?php _("Submitted attributes"); ?>
@@ -31,18 +33,20 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != BUTTON_SAVE) { /
 <?php
 $remaining_attribs = $user->beginflushAttributes();
 
-if (isset($_POST['option']))
-    foreach ($_POST['option'] as $opt_id => $optname)
+if (isset($_POST['option'])) {
+    foreach ($_POST['option'] as $opt_id => $optname) {
         if ($optname == "user:fedadmin") {
             echo "Security violation: user tried to make himself federation administrator!";
             exit(1);
         }
+    }
+}
 ?>
 <table>
     <?php
-    $killlist = processSubmittedFields($user, $remaining_attribs);
+    $killlist = processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
     $user->commitFlushAttributes($killlist);
-    CAT::writeAudit($_SESSION['user'], "MOD", "User attributes changed");
+    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "User attributes changed");
     ?>
 </table>
 <br/>

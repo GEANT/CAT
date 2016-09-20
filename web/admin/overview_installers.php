@@ -1,8 +1,8 @@
 <?php
-/***********************************************************************************
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
@@ -10,7 +10,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Helper.php");
 require_once("CAT.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("EAP.php");
+require_once("AbstractProfile.php");
 require_once("DeviceFactory.php");
 
 require_once("inc/common.inc.php");
@@ -86,7 +87,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                 // first of all: if redirected, indicate by color
 
                 $redirectAttribs = [];
-                foreach ($my_profile->getAttributes("device-specific:redirect") as $oneRedirect) {
+                foreach ($my_profile->getAttributes("device-specific:redirect") as $oneRedirect) { //device-specific attributes always have the array key 'device' set
                     if ($oneRedirect['device'] == $index) {
                         $redirectAttribs[] = $oneRedirect;
                     }
@@ -94,7 +95,7 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
 
                 if (count($redirectAttribs) > 0) {
                     echo "<td class='compat_redirected'>";
-                    if (in_array($method, $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method === $preflist[0] || $defaultisset == FALSE)) {
+                    if (in_array($method, $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method === $preflist[0] || $defaultisset === FALSE)) {
                         echo "$downloadform</form>";
                         $defaultisset = TRUE;
                     }
@@ -103,11 +104,10 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                 if (in_array($method, $factory->device->supportedEapMethods)) {
                     if ($my_profile->isEapTypeDefinitionComplete($method) !== true) {
                         echo "<td class='compat_incomplete'></td>";
-                    } elseif ($method === $preflist[0] || $defaultisset == FALSE) {
+                    } elseif ($method === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote: anon_id
-                        $anon = $my_profile->getAttributes("internal:use_anon_outer");
-                        $anon = $anon[0]['value'];
-                        if ( $anon !== "" && isset($factory->device->specialities['anon_id'])) {
+                        $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
+                        if ($anon !== "" && isset($factory->device->specialities['anon_id'])) {
                             if (isset($factory->device->specialities['anon_id'][serialize($method)])) {
                                 $footnotetext = $factory->device->specialities['anon_id'][serialize($method)];
                                 $display_footnote = TRUE;
@@ -133,9 +133,9 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
                     } else {
                         echo "<td class='compat_secondary'></td>";
                     }
-                }
-                else
+                } else {
                     echo "<td class='compat_unsupported'></td>";
+                }
             }
             echo "</tr>";
         }
@@ -152,15 +152,17 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
     <?php
     if (count($footnotes)) {
         echo "<p><strong>" . _("Footnotes:") . "</strong></p><table>";
-        foreach ($footnotes as $number => $text)
+        foreach ($footnotes as $number => $text) {
             echo "<tr><td>($number) - </td><td>$text</td></tr>";
+        }
         echo "</table>";
     }
     ?>
     <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
-        <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE;?>'>
+        <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'>
             <?php echo _("Return to dashboard"); ?>
         </button>
     </form>
     <?php
     footer();
+    
