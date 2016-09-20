@@ -12,11 +12,13 @@
  */
 include(dirname(dirname(dirname(__FILE__)))."/config/_config.php");
 include_once("UserAPI.php");
+include_once("Logging.php");
 $API = new UserAPI();
 
 // extract request parameters; action is mandatory
-if(!isset($_REQUEST['action']))
+if(!isset($_REQUEST['action'])) {
    exit;
+}
 
 $action  = $_REQUEST['action'];
 $id      = ( isset($_REQUEST['id'])      ? $_REQUEST['id']      : FALSE );
@@ -26,7 +28,8 @@ $disco   = ( isset($_REQUEST['disco'])   ? $_REQUEST['disco']   : FALSE );
 $sort    = ( isset($_REQUEST['sort'])    ? $_REQUEST['sort']    : 0 );
 $generatedfor      = ( isset($_REQUEST['generatedfor'])      ? $_REQUEST['generatedfor']      : 'user' );
     
-debug(4,"cat_back action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
+$loggerInstance = new Logging();
+$loggerInstance->debug(4,"cat_back action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
 
 switch ($action) {
     case 'listLanguages':
@@ -42,29 +45,41 @@ switch ($action) {
         $API->JSON_listIdentityProvidersForDisco();
         break;
     case 'listProfiles': // needs $id set - abort if not
-        if ($id === FALSE) exit;
+        if ($id === FALSE) {
+            exit;
+        }
         $API->JSON_listProfiles($id,$sort);
         break;
     case 'listDevices':
         $API->JSON_listDevices($id);
         break;
     case 'generateInstaller': // needs $id and $profile set
-        if ($id === FALSE || $profile === FALSE) exit;
+        if ($id === FALSE || $profile === FALSE) {
+            exit;
+        }
         $API->JSON_generateInstaller($id, $profile);
         break;
     case 'downloadInstaller': // needs $id and $profile set optional $generatedfor
-        if ($id === FALSE || $profile === FALSE) exit;
+        if ($id === FALSE || $profile === FALSE) { 
+            exit;
+        }
         $API->downloadInstaller($id, $profile,$generatedfor);
         break;
     case 'profileAttributes': // needs $id set
-        if ($id === FALSE) exit;
+        if ($id === FALSE) { 
+            exit;
+        }
         $API->JSON_profileAttributes($id);
         break;
     case 'sendLogo': // needs $id and $disco set
-        if ($id === FALSE) exit;
+        if ($id === FALSE) {
+            exit;
+        }
         $API->sendLogo($id, $disco);
     case 'deviceInfo': // needs $id and profile set
-        if ($id === FALSE || $profile === FALSE) exit;
+        if ($id === FALSE || $profile === FALSE) {
+            exit;
+        }
         $API->deviceInfo($id, $profile);
         break;
     case 'locateUser':

@@ -20,6 +20,8 @@ require_once("../resources/inc/footer.php");
 
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
+    $dbHandle = DBConnection::handle("INST");
+
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
     $configuredRealm = $profile->getAttributes("internal:realm");
@@ -29,7 +31,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
         // update database with the findings
 
-        DBConnection::exec("INST", "UPDATE profile SET "
+        $dbHandle->exec("UPDATE profile SET "
                 . "status_dns = " . RETVAL_SKIPPED . ", "
                 . "status_cert = " . RETVAL_SKIPPED . ", "
                 . "status_reachability = " . RETVAL_SKIPPED . ", "
@@ -53,7 +55,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
                 $tabletext .= sprintf(_("No associated NAPTR records"));
                 break;
             default: // if none of the possible negative retvals, then we have matching NAPTRs
-                $tabletext .= sprintf(_("%d %s NAPTR records"), $naptr, Config::$CONSORTIUM['name']);
+                $tabletext .= sprintf(_("%d %s NAPTR records"), $naptr, CONFIG['CONSORTIUM']['name']);
         }
 
     // compliance checks for NAPTRs
@@ -88,7 +90,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     $UDPErrors = false;
     $certBiggestOddity = L_OK;
 
-    foreach (Config::$RADIUSTESTS['UDP-hosts'] as $hostindex => $host) {
+    foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);
         $results = $testsuite->UDP_reachability_result[$hostindex];
         if ($results['packetflow_sane'] != TRUE)
@@ -130,7 +132,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
     $tabletext .= "</td></tr>";
 
-    DBConnection::exec("INST", "UPDATE profile SET "
+    $dbHandle->exec("UPDATE profile SET "
             . "status_dns = " . ($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
             . "status_cert = " . ($certBiggestOddity) . ", "
             . "status_reachability = " . ($UDPErrors ? RETVAL_INVALID : RETVAL_OK) . ", "

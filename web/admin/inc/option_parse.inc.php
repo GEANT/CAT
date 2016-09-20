@@ -13,6 +13,16 @@ require_once("Options.php");
 
 require_once("input_validation.inc.php");
 
+function cmpSequenceNumber($left, $right) {
+    $pat = "/^S([0-9]+)(-.*)?$/";
+    $rep = "$1";
+    $leftNum = (int) preg_replace($pat, $rep, $left);
+    $rightNum = (int) preg_replace($pat, $rep, $right);
+    return ($left != $leftNum && $right != $rightNum) ?
+            $leftNum - $rightNum :
+            strcmp($left, $right);
+}
+
 function postProcessValidAttributes($options, &$good, &$bad) {
     foreach ($options as $index => $iterateOption) {
         foreach ($iterateOption as $name => $value) {
@@ -104,27 +114,30 @@ function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
     return $retval;
 }
 
-function collatePostArrays() {
-    $iterator = [];
-    if (!empty($_POST['option'])) {
-        foreach ($_POST['option'] as $optId => $optname) {
-            $iterator[$optId] = $optname;
-        }
-        if (!empty($_POST['value'])) {
-            foreach ($_POST['value'] as $optId => $optvalue) {
-                $iterator[$optId] = $optvalue;
-            }
-        }
-    }
-    if (!empty($_FILES['value']['tmp_name'])) {
-        foreach ($_FILES['value']['tmp_name'] as $optId => $optfileref) {
-            $iterator[$optId] = $optfileref;
-        }
-    }
+function collateOptionArrays($postArray, $filesArray) {
+
+    $optionarray = $postArray['option'] ?? [];
+    $valuearray = $postArray['value'] ?? [];
+    $filesarray = $filesArray['value']['tmp_name'] ?? [];
+
+    $iterator = array_merge($optionarray, $valuearray, $filesarray);
+
     return $iterator;
 }
 
-function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $device = 0, $silent = 0) {
+/**
+ * 
+ * @param mixed $object The object for which attributes were submitted
+ * @param array $postArray incoming attribute names and values as submitted with $_POST
+ * @param array $filesArray incoming attribute names and values as submitted with $_FILES
+ * @param array $pendingattributes object's attributes stored by-reference in the DB which are tentatively marked for deletion
+ * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
+ * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
+ * @param boolean $silent determines whether a HTML form with the result of processing should be output or not
+ * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
+ * @throws Exception
+ */
+function processSubmittedFields($object, $postArray, $filesArray, $pendingattributes, $eaptype = 0, $device = NULL, $silent = FALSE) {
 
 // construct new array with all non-empty options for later feeding into DB
 
@@ -139,14 +152,8 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 
     // Step 1: collate option names, option values and uploaded files (by 
     // filename reference) into one array for later handling
-    
-    $iterator = collatePostArrays();
-    
-    // TODO brave new PHP7 world would do instead:
-    // $optionarray = $_POST['option'] ?? [];
-    // $valuearray = $_POST['value'] ?? [];
-    // $filesarray = $_FILES['value']['tmp_name'] ?? [];
-    // $iterator = array_merge($optionarray, $valuearray, $filesarray);
+
+    $iterator = collateOptionArrays($postArray, $filesArray);
 
     // following is a helper array to keep track of multilang options that were set in a specific language
     // but are not accompanied by a "default" language setting
@@ -178,25 +185,25 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                     $multilangAttrsWithC[$objValue] = TRUE;
                 }
             }
-            $content = "";
+
             switch ($optioninfo["type"]) {
                 case "string":
                     if (!empty($iterator["$objId-0"])) {
                         switch ($objValue) {
                             case "media:consortium_OI":
                                 $content = valid_consortium_oi($iterator["$objId-0"]);
-                            if ($content === FALSE) {
-                                $bad[] = $objValue;
-                                continue 3;
-                            }
-                            break;
+                                if ($content === FALSE) {
+                                    $bad[] = $objValue;
+                                    continue 3;
+                                }
+                                break;
                             case "media:remove_SSID":
                                 $content = valid_string_db($iterator["$objId-0"]);
-                            if ($content == "eduroam") {
-                                $bad[] = $objValue;
-                                continue 3;
-                            }
-                            break;
+                                if ($content == "eduroam") {
+                                    $bad[] = $objValue;
+                                    continue 3;
+                                }
+                                break;
                             default:
                                 $content = valid_string_db($iterator["$objId-0"]);
                                 break;
@@ -206,7 +213,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
                     continue 2;
                 case "text":
                     if (!empty($iterator["$objId-1"])) {
-                        $content = valid_string_db($iterator["$objId-1"], 1);
+                        $content = valid_string_db($iterator["$objId-1"], TRUE);
                         break;
                     }
                     continue 2;
@@ -220,7 +227,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
 // echo "In file processing ...<br/>";
                     if (!empty($iterator["$objId-1"])) { // was already in, by ROWID reference, extract
                         // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                        $content = valid_string_db(urldecode($iterator["$objId-1"]), 1);
+                        $content = valid_string_db(urldecode($iterator["$objId-1"]), TRUE);
                         break;
                     } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
@@ -280,14 +287,14 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
             }
             switch (get_class($object)) {
                 case 'ProfileRADIUS':
-                    if ($device !== 0) {
-                    $object->addAttributeDeviceSpecific($name, $value, $device);
-                } elseif ($eaptype != 0) {
-                    $object->addAttributeEAPSpecific($name, $value, $eaptype);
-                } else {
-                    $object->addAttribute($name, $value);
-                }
-                break;
+                    if ($device !== NULL) {
+                        $object->addAttributeDeviceSpecific($name, $value, $device);
+                    } elseif ($eaptype != 0) {
+                        $object->addAttributeEAPSpecific($name, $value, $eaptype);
+                    } else {
+                        $object->addAttribute($name, $value);
+                    }
+                    break;
                 case 'IdP':
                 case 'User':
                 case 'Federation':
@@ -299,7 +306,7 @@ function processSubmittedFields($object, $pendingattributes, $eaptype = 0, $devi
         }
     }
 
-    if ($silent == 0) {
+    if ($silent === FALSE) {
         echo displaySummaryInUI($good, $bad, $multilangAttrsWithC);
     }
     return $killlist;

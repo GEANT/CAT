@@ -70,7 +70,7 @@ function pageheader($pagetitle, $area, $authRequired = TRUE) {
  * @return \CAT an instance of the CAT object (useful for later lang change operations etc.)
  */
 function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
-    if ($authRequired == TRUE) {
+    if ($authRequired === TRUE) {
         require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
         authenticate();
     }
@@ -108,7 +108,7 @@ function headerDiv($cap1, $language) {
                 <form action='<?php echo $place['path']; ?>' method='GET' accept-charset='UTF-8'><?php echo _("View this page in"); ?>&nbsp;
                     <select id='lang' name='lang' onchange='this.form.submit()'>
                         <?php
-                        foreach (Config::$LANGUAGES as $lang => $value) {
+                        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
                             echo "<option value='$lang' " . (strtoupper($language) == strtoupper($lang) ? "selected" : "" ) . " >" . $value['display'] . "</option> ";
                         }
                         ?>
@@ -175,37 +175,37 @@ function productheader($area, $language) {
 
     switch ($area) {
         case "ADMIN-IDP":
-            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = _("Administrator Interface - Identity Provider");
             $advancedControls = TRUE;
             break;
         case "ADMIN":
-            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = _("Administrator Interface");
             $advancedControls = TRUE;
             break;
         case "USERMGMT":
-            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = _("Management of User Details");
             $advancedControls = TRUE;
             break;
         case "FEDERATION":
-            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = _("Administrator Interface - Federation Management");
             $advancedControls = TRUE;
             break;
         case "USER":
-            $cap1 = sprintf(_("Welcome to %s"), Config::$APPEARANCE['productname']);
-            $cap2 = Config::$APPEARANCE['productname_long'];
+            $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
+            $cap2 = CONFIG['APPEARANCE']['productname_long'];
             $advancedControls = FALSE;
             break;
         case "SUPERADMIN":
-            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = _("CIC");
             $advancedControls = TRUE;
             break;
         default:
-            $cap1 = Config::$APPEARANCE['productname_long'];
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = "It is an error if you ever see this string.";
             $advancedControls = FALSE;
     }
@@ -216,14 +216,14 @@ function productheader($area, $language) {
     echo "<div class='pagecontent'>"; // closes in footer again
     echo "<div class='trick'>"; // closes in footer again
     ?>
-    <div id='secondrow' style='border-bottom:5px solid <?php echo Config::$APPEARANCE['colour1']; ?>; min-height:100px;'>
+    <div id='secondrow' style='border-bottom:5px solid <?php echo CONFIG['APPEARANCE']['colour1']; ?>; min-height:100px;'>
         <div id='secondarycaptions' style='display:inline-block; float:left'>
             <h2><?php echo $cap2; ?></h2>
         </div><!--secondarycaptions-->
         <?php
-        if (isset(Config::$APPEARANCE['MOTD']) && Config::$APPEARANCE['MOTD'] != "") {
+        if (isset(CONFIG['APPEARANCE']['MOTD']) && CONFIG['APPEARANCE']['MOTD'] != "") {
             echo "<div id='header_MOTD' style='display:inline-block; padding-left:20px;vertical-align:top;'>
-              <p class='MOTD'>" . Config::$APPEARANCE['MOTD'] . "</p>
+              <p class='MOTD'>" . CONFIG['APPEARANCE']['MOTD'] . "</p>
               </div><!--header_MOTD-->";
         }
         echo sidebar($advancedControls);

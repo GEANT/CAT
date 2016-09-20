@@ -10,7 +10,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("UserManagement.php");
-require_once("CAT.php");
+require_once("Logging.php");
 require_once("Federation.php");
 require_once("IdP.php");
 require_once("Helper.php");
@@ -24,15 +24,15 @@ $mode = "TOKEN";
 
 $checkval = $usermgmt->checkTokenValidity($_GET['token']);
 
-if (Config::$CONSORTIUM['selfservice_registration'] !== NULL && $_GET['token'] == "SELF-REGISTER") {
+if (CONFIG['CONSORTIUM']['selfservice_registration'] !== NULL && $_GET['token'] == "SELF-REGISTER") {
     $mode = "SELFSERVICE";
-    $federation = Config::$CONSORTIUM['selfservice_registration'];
+    $federation = CONFIG['CONSORTIUM']['selfservice_registration'];
     $checkval = "OK-NEW";
 }
 
 if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTING")) {
     pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
-    echo "<h1>"._("Error creating new IdP binding!")."</h1>";
+    echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     if ($checkval == "FAIL-ALREADYCONSUMED") {
         echo "<p>" . _("Sorry... this token has already been used to create an institution. If you got it from a mailing list, probably someone else used it before you.") . "</p>";
     } elseif ($checkval == "FAIL-EXPIRED") {
@@ -44,17 +44,19 @@ if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTI
     exit(1);
 } else { // token is valid. Get meta-info and create inst
     // TODO get invitation level and mail, store it as property
+    $loggerInstance = new Logging();
     if ($mode == "SELFSERVICE") {
         $fed = new Federation($federation);
         $newidp = new IdP($fed->newIdP($_SESSION['user'], "FED", $mode));
-        CAT::writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - $mode registration");
+        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - $mode registration");
     } else {
         $newidp = $usermgmt->createIdPFromToken($_GET['token'], $_SESSION['user']);
         $usermgmt->invalidateToken($_GET['token']);
-        CAT::writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - Token used and invalidated");
-    };
+        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - Token used and invalidated");
+    }
 }
-if ($checkval == "OK-EXISTING")
+if ($checkval == "OK-EXISTING") {
     header("Location: overview_user.php");
-else
+} else {
     header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
+}

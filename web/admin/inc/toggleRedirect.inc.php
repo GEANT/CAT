@@ -9,9 +9,10 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("auth.inc.php");
 require_once("IdP.php");
-require_once("Profile.php");
+require_once("AbstractProfile.php");
 require_once("Helper.php");
 require_once("CAT.php");
+require_once("Logging.php");
 
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
@@ -22,6 +23,7 @@ require_once("devices/devices.php");
 
 authenticate();
 
+$loggerInstance = new Logging();
 $Cat = new CAT();
 $Cat->set_locale("web_admin");
 
@@ -44,7 +46,7 @@ if (isset($_POST['device'])) {
         $device = $devices[$device_key];
     } else {
         // unknown device, i.e. malformed input. Goodbye.
-        exit(1);
+        throw new Exception("Tried to change device-level attributes, but the device is not known!");
     }
 }
 $eaptype = NULL;
@@ -53,44 +55,41 @@ if (isset($_POST['eaptype'])) {
     $eaptype = unserialize(stripslashes($_POST['eaptype']));
     // is this an actual EAP type we know of?
     $eap_id = EAP::eAPMethodIdFromArray($eaptype);
-    if ($eap_id === FALSE) // oh-oh, unexpected malformed input. Goodbye.
-        exit(1);
+    if ($eap_id === FALSE) { // oh-oh, unexpected malformed input. Goodbye.
+        throw new Exception("Tried to change EAP method level attributes, but the EAP type is not known!");
+    }
 }
 
 // there is either one or the other. If both are set, something's fishy.
-
 if ($device != NULL && $eaptype != NULL) {
-    echo _("This page needs to be called either for EAP-Types OR for devices, not both simultaneously!");
-    exit(1);
+    throw new Exception("This page needs to be called either for EAP-Types OR for devices, not both simultaneously!");
 }
 
 // if none are set, something's fishy, too.
-
 if ($device == NULL && $eaptype == NULL) {
-    echo _("This page needs to be called either for EAP-Types OR for devices, but none of the two were set!");
-    exit(1);
+    throw new Exception("This page needs to be called either for EAP-Types OR for devices, but none of the two were set!");
 }
 
 // if we have a pushed button, submit attributes and send user back to the compat matrix
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     if ($eaptype == NULL) {
-        $remaining_attribs = $my_profile->beginflushAttributes(0, $device_key);
-        $killlist = processSubmittedFields($my_profile, $remaining_attribs, 0, $device_key, TRUE);
+        $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
+        $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
     }
     if ($device == NULL) {
-        $remaining_attribs = $my_profile->beginflushAttributes($eap_id, 0);
-        $killlist = processSubmittedFields($my_profile, $remaining_attribs, $eap_id, 0, TRUE);
+        $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eap_id, "");
+        $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
     }
     $my_inst->commitFlushAttributes($killlist);
-    CAT::writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
+    $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
     header("Location: ../overview_installers.php?inst_id=$my_inst->identifier&profile_id=$my_profile->identifier");
 }
 
 if ($device) {
     $attribs = [];
     foreach ($my_profile->getAttributes() as $attrib) {
-        if ($attrib['device'] == $device_key) {
+        if (isset($attrib['device']) && $attrib['device'] == $device_key) {
             $attribs[] = $attrib;
         }
     }
@@ -101,7 +100,7 @@ if ($device) {
 } else {
     $attribs = [];
     foreach ($my_profile->getAttributes() as $attrib) {
-        if ($attrib['eapmethod'] == $eaptype) {
+        if (isset($attrib['eapmethod']) && $attrib['eapmethod'] == $eaptype) {
             $attribs[] = $attrib;
         }
     }
@@ -115,20 +114,18 @@ if ($device) {
 <hr/>
 
 <form action='inc/toggleRedirect.inc.php?inst_id=<?php echo $my_inst->identifier; ?>&amp;profile_id=<?php echo $my_profile->identifier; ?>' method='post' accept-charset='UTF-8'><?php echo $extrainput; ?>
-    <table id='expandable_<?php echo $keyword; ?>_options'>
-        <?php
+    <?php
 // see if we already have any attributes; if so, display these
-        $interesting_attribs = [];
+    $interesting_attribs = [];
 
-        foreach ($attribs as $attrib) {
-            if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name']))
-                $interesting_attribs[] = $attrib;
+    foreach ($attribs as $attrib) {
+        if ($attrib['level'] == "Method" && preg_match('/^' . $keyword . ':/', $attrib['name'])) {
+            $interesting_attribs[] = $attrib;
         }
-        // print_r($interesting_attribs);
-        add_option($keyword, $interesting_attribs);
-        ?>
-    </table>
-    <button type='button' class='newoption' onclick='<?php echo "add" . $param_name . "Options(\"\")"; ?>'><?php echo _("Add new option"); ?></button>
+    }
+    echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
+    ?>
+    <button type='button' class='newoption' onclick='<?php echo "getXML(\"$param_name\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>
     <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>

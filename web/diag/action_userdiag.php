@@ -23,8 +23,8 @@ require_once("../resources/inc/footer.php");
 $cat = defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
 productheader("USER", CAT::$lang_index);
 ?>
-<h1><?php printf(_("eduroam authentication diagnostics"), Config::$CONSORTIUM['name']); ?></h1>
-<p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), Config::$CONSORTIUM['name']); ?></p>
+<h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
+<p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
 <p><?php
     echo _("Please follow the instructions below.");
     $global = new Federation();
@@ -80,7 +80,7 @@ function username_format_lecture() {
     $retval = "<div class='problemdescription'><p>" . _("Roaming with eduroam requires a username in the format 'localname@realm'. Many Identity Providers also require that same format also when using the network locally.") . "</p>";
     $retval .= "<p>" . _("Exceptions to that format requirement apply only when an Idenity Provider forces the use of an anonymous outer identity using specially prepared configuration profiles or extensive manual instructions.") . "</p>";
     $retval .= "<p>" . _("Since you do not know the realm that is used by your Identity Provider, the first step is to double-check the correct username format.") . "</p></div>";
-    $retval .= "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your Identity Provider - it will, among others, set up the correct username format. If you do not find your Identity Provider there, please contact the organisation's helpdesk directly."), Config::$APPEARANCE['productname'], mainpage_url()) . "</p></div>";
+    $retval .= "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your Identity Provider - it will, among others, set up the correct username format. If you do not find your Identity Provider there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], mainpage_url()) . "</p></div>";
     return $retval;
 }
 
@@ -109,7 +109,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
         case "deviceprob":
             echo "<h2>" . _("It is very likely that the configuration of the non-working device is incorrect.") . "</h2>";
             echo "<div class='problemdescription'><p>" . _("A proper configuration for eduroam requires more than a username and password. Some settings such as a required 'anonymous outer identity' can prevent the device from working.") . "</p></div>";
-            echo "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your device and Identity Provider. If you do not find your Identity Provider or device there, please contact the organisation's helpdesk directly."), Config::$APPEARANCE['productname'], mainpage_url()) . "</p></div>";
+            echo "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your device and Identity Provider. If you do not find your Identity Provider or device there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], mainpage_url()) . "</p></div>";
         case "sometimes-roaming":
         case "sometimes":
             // a real problem maybe. But the user is clueless about his realm.
@@ -132,7 +132,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
                     }
 
                     $current_locale = setlocale(LC_ALL, 0);
-                    setlocale(LC_ALL, Config::$LANGUAGES[CAT::$lang_index]['locale']);
+                    setlocale(LC_ALL, CONFIG['LANGUAGES'][CAT::$lang_index]['locale']);
                     array_multisort($name, SORT_ASC, SORT_LOCALE_STRING, $displaylist);
                     setlocale(LC_ALL, $current_locale);
 
@@ -181,7 +181,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $realmproblems = [];
 
     foreach ($checks as $check) {
-        foreach (Config::$RADIUSTESTS['UDP-hosts'] as $number => $probe) {
+        foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
             $checkresult[$number] = $check['instance']->UDP_reachability($number, TRUE, TRUE);
             if ($checkresult[$number] == RETVAL_CONVERSATION_REJECT) { // great
                 // only emit a warning in case of ALIEN - NRO did not populate DB!
@@ -289,14 +289,14 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
 
                 switch ($problem['STATUS']) {
                     case "INFRASTRUCTURE":
-                        if ($infrastructure_warned == FALSE) {
+                        if ($infrastructure_warned === FALSE) {
                             $warning_html = "<div class='problemsolution'>" . _("There is nothing you can do about this problem. Please do not change your device configuration. Please wait until the problem is resolved.") . "</div>" . $warning_html;
                             $warning_html = "<div class='problemdescription'>" . _("There is currently a problem with the roaming infrastructure. This may lead to intermittent or permanent failures. We will send an email to notify the operators about this problem.") . "</div>" . $warning_html;
                         }
                         $infrastructure_warned = TRUE;
                     case "REACHABLE": // only complain if ALIEN
                         if ($problem['DETAIL'] == "REALM_NOT_IN_DB") {
-                            $warning_html .= "<div class='problemdescription'>" . sprintf(_("This realm is not a known %s participant. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead."), Config::$CONSORTIUM['name']) . "</div>";
+                            $warning_html .= "<div class='problemdescription'>" . sprintf(_("This realm is not a known %s participant. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead."), CONFIG['CONSORTIUM']['name']) . "</div>";
                             $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration.") . "</div>";
                         }
                         // drill down further: are there any certprobs of critical

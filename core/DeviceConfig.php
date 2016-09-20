@@ -15,11 +15,10 @@
 /**
  * 
  */
-require_once('Helper.php');
-require_once('CAT.php');
 require_once('AbstractProfile.php');
 require_once('X509.php');
 require_once('EAP.php');
+require_once('Logging.php');
 include_once("devices/devices.php");
 
 /**
@@ -44,7 +43,7 @@ include_once("devices/devices.php");
  * @package ModuleWriting
  * @abstract
  */
-abstract class DeviceConfig {
+abstract class DeviceConfig extends Entity {
 
     /**
      * stores the path to the temporary working directory for a module instance
@@ -68,9 +67,10 @@ abstract class DeviceConfig {
      * device module constructor should be defined by each module, but if it is not, then here is a default one
      */
     public function __construct() {
-        $this->supportedEapMethods = [EAP::$TLS, EAP::$PEAP_MSCHAP2, EAP::$TTLS_PAP];
-        debug(4, "This device supports the following EAP methods: ");
-        debug(4, $this->supportedEapMethods);
+        parent::__construct();
+        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP];
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     /**
@@ -92,48 +92,52 @@ abstract class DeviceConfig {
      * @final not to be redefined
      */
     final public function setup(AbstractProfile $profile) {
-        debug(4, "module setup start\n");
+        $this->loggerInstance->debug(4, "module setup start\n");
         if (!$profile instanceof AbstractProfile) {
-            debug(2, "No profile has been set\n");
+            $this->loggerInstance->debug(2, "No profile has been set\n");
             error("No profile has been set");
             exit;
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        if (!$this->selected_eap) {
+        if (!$this->selectedEap) {
             error("No EAP type specified.");
             exit;
         }
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $T = createTemporaryDirectory('installer');
-        $this->FPATH = $T['dir'];
-        mkdir($T['dir'] . '/tmp');
-        chdir($T['dir'] . '/tmp');
-        $CAs = [];
+        $tempDir = createTemporaryDirectory('installer');
+        $this->FPATH = $tempDir['dir'];
+        mkdir($tempDir['dir'] . '/tmp');
+        chdir($tempDir['dir'] . '/tmp');
+        $caList = [];
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
-                if ($c = X509::processCertificate($ca))
-                    $CAs[] = $c;
+                $processedCert = X509::processCertificate($ca);
+                if ($processedCert) {
+                    $caList[] = $processedCert;
+                }
             }
-            $this->attributes['internal:CAs'][0] = $CAs;
+            $this->attributes['internal:CAs'][0] = $caList;
         }
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
-        if (isset($this->attributes['general:logo_file']))
+        if (isset($this->attributes['general:logo_file'])) {
             $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
+        }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
-        ;
+
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
-        ;
+
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $this->lang_index = CAT::get_lang();
+        $this->langIndex = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
-        DeviceConfig::$support_email_substitute = sprintf(_("your local %s support"), Config::$CONSORTIUM['name']);
-        DeviceConfig::$support_url_substitute = sprintf(_("your local %s support page"), Config::$CONSORTIUM['name']);
+        $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
+        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
         CAT::set_locale($olddomain);
 
-        if ($this->signer && $this->options['sign'])
-            $this->sign = CAT::$root . '/signer/' . $this->signer;
+        if ($this->signer && $this->options['sign']) {
+            $this->sign = ROOT . '/signer/' . $this->signer;
+        }
         $this->installerBasename = $this->getInstallerBasename();
     }
 
@@ -146,9 +150,9 @@ abstract class DeviceConfig {
     public function getPreferredEapType($eap_array) {
         foreach ($eap_array as $eap) {
             if (in_array($eap, $this->supportedEapMethods)) {
-                $this->selected_eap = $eap;
-                debug(4, "Selected EAP:");
-                debug(4, $eap);
+                $this->selectedEap = $eap;
+                $this->loggerInstance->debug(4, "Selected EAP:");
+                $this->loggerInstance->debug(4, $eap);
                 return($eap);
             }
         }
@@ -180,23 +184,24 @@ abstract class DeviceConfig {
      * @return bool result of the copy operation
      * @final not to be redefined
      */
-    final protected function copyFile($source_name, $output_name = 0) {
-        if ($output_name === 0)
+    final protected function copyFile($source_name, $output_name = NULL) {
+        if ($output_name === NULL) {
             $output_name = $source_name;
-
-        debug(4, "fileCopy($source_name, $output_name)\n");
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name))
+        }
+        $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        elseif (is_file($this->module_path . '/Files/' . $source_name))
+        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
-        else {
-            debug(2, "fileCopy:reqested file $source_name does not exist\n");
+        } else {
+            $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
             return(FALSE);
         }
-        debug(4, "Copying $source to $output_name\n");
+        $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
-        if (!$result)
-            debug(2, "fileCopy($source_name, $output_name) failed\n");
+        if (!$result) {
+            $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
+        }
         return($result);
     }
 
@@ -206,7 +211,7 @@ abstract class DeviceConfig {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied
+     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the third parameter value.
      * If the second argument is provided and is not equal to 0, then the file will be
      * saved under the name taken from this argument.
@@ -223,36 +228,40 @@ abstract class DeviceConfig {
      *
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
-        if (Config::$NSIS_VERSION >= 3)
+    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
+        if (CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
-        if ($output_name === 0)
+        }
+        if ($output_name === NULL) {
             $output_name = $source_name;
+        }
 
-        debug(4, "translateFile($source_name, $output_name, $encoding)\n");
+        $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
-        debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
+        $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
         $source = "";
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name))
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        elseif (is_file($this->module_path . '/Files/' . $source_name))
+        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
-        
+        }
         if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable
             include($source);
         }
         $output = ob_get_clean();
         if ($encoding) {
-            $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
-            if ($output_c)
-                $output = $output_c;
+            $outputClean = iconv('UTF-8', $encoding . '//TRANSLIT', $output);
+            if ($outputClean) {
+                $output = $outputClean;
+            }
         }
-        $f = fopen("$output_name", "w");
-        if (!$f)
-            debug(2, "translateFile($source, $output_name, $encoding) failed\n");
-        fwrite($f, $output);
-        fclose($f);
-        debug(4, "translateFile($source, $output_name, $encoding) end\n");
+        $fileHandle = fopen("$output_name", "w");
+        if (!$fileHandle) {
+            $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+        }
+        fwrite($fileHandle, $output);
+        fclose($fileHandle);
+        $this->loggerInstance->debug(4, "translateFile($source, $output_name, $encoding) end\n");
     }
 
     /**
@@ -261,7 +270,7 @@ abstract class DeviceConfig {
      * Transcoding is only required for Windows installers, and no Unicode support
      * in NSIS (NSIS version below 3)
      * Trancoding is only applied if the third optional parameter is set and nonzero
-     * If Config::$NSIS_VERSION is set to 3 or more, no transcoding will be applied
+     * If CONFIG['NSIS']_VERSION is set to 3 or more, no transcoding will be applied
      * regardless of the second parameter value.
      * The second optional parameter, if nonzero, should be the character set understood by iconv
      * This is required by the Windows installer and is expected to go away in the future.
@@ -272,24 +281,22 @@ abstract class DeviceConfig {
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
-        debug(4, "translateString input: \"$source_string\"\n");
+        $this->loggerInstance->debug(4, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
             return($source_string);
         }
-        if (Config::$NSIS_VERSION >= 3) {
+        if (CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($encoding) {
             $output_c = iconv('UTF-8', $encoding . '//TRANSLIT', $source_string);
-        }
-        else {
+        } else {
             $output_c = $source_string;
         }
         if ($output_c) {
             $source_string = str_replace('"', '$\\"', $output_c);
-        }
-        else {
-            debug(2, "Failed to convert string \"$source_string\"\n");
+        } else {
+            $this->loggerInstance->debug(2, "Failed to convert string \"$source_string\"\n");
         }
         return $source_string;
     }
@@ -306,33 +313,38 @@ abstract class DeviceConfig {
      * root is set to 1 for the CA roor certicicate and 0 otherwise
      */
     final protected function saveCertificateFiles($format) {
-        if ($format == 'der' || $format == 'pam') {
-            $i = 0;
-            $CA_files = [];
-            $ca_array = $this->attributes['internal:CAs'][0];
-            if (!$ca_array)
+        switch ($format) {
+            case "der": // fall-thorugh, same treatment
+            case "pem":
+                $iterator = 0;
+                $caFiles = [];
+                $caArray = $this->attributes['internal:CAs'][0];
+                if (!$caArray) {
+                    return(FALSE);
+                }
+                foreach ($caArray as $certAuthority) {
+                    $fileHandle = fopen("cert-$iterator.crt", "w");
+                    if (!$fileHandle) {
+                        die("problem opening the file\n");
+                    }
+                    if ($format === "pem") {
+                        fwrite($fileHandle, $certAuthority['pem']);
+                    } else {
+                        fwrite($fileHandle, $certAuthority['der']);
+                    }
+                    fclose($fileHandle);
+                    $certAuthorityProps = [];
+                    $certAuthorityProps['file'] = "cert-$iterator.crt";
+                    $certAuthorityProps['sha1'] = $certAuthority['sha1'];
+                    $certAuthorityProps['md5'] = $certAuthority['md5'];
+                    $certAuthorityProps['root'] = $certAuthority['root'];
+                    $caFiles[] = $certAuthorityProps;
+                    $iterator++;
+                }
+                return($caFiles);
+            default:
+                $this->loggerInstance->debug(2, 'incorrect format value specified');
                 return(FALSE);
-            foreach ($ca_array as $CA) {
-                $f = fopen("cert-$i.crt", "w");
-                if (!$f)
-                    die("problem opening the file\n");
-                if ($format == "pem")
-                    fwrite($f, $CA['pem']);
-                else
-                    fwrite($f, $CA['der']);
-                fclose($f);
-                $C = [];
-                $C['file'] = "cert-$i.crt";
-                $C['sha1'] = $CA['sha1'];
-                $C['md5'] = $CA['md5'];
-                $C['root'] = $CA['root'];
-                $CA_files[] = $C;
-                $i++;
-            }
-            return($CA_files);
-        } else {
-            debug(2, 'incorrect format value specified');
-            return(FALSE);
         }
     }
 
@@ -345,75 +357,83 @@ abstract class DeviceConfig {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
-        $lang_pointer = Config::$LANGUAGES[$this->lang_index]['latin_based'] == TRUE ? 0 : 1;
-        debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
+        $lang_pointer = CONFIG['LANGUAGES'][$this->langIndex]['latin_based'] == TRUE ? 0 : 1;
+        $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
-        debug(4, "getInstallerBasename2:$inst\n");
+        $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
         if (count($Inst_a) > 2) {
             $inst = '';
-            foreach ($Inst_a as $i)
+            foreach ($Inst_a as $i) {
                 $inst .= $i[0];
-        }
-        $c_name = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', Config::$CONSORTIUM['name']));
-        if ($this->attributes['internal:profile_count'][0] > 1) {
-            if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
-                $prof = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
-                $prof = preg_replace('/_+$/', '', $prof);
-                return $c_name . '-' . $this->getDeviceId() . $inst . '-' . $prof;
             }
         }
-        return $c_name . '-' . $this->getDeviceId() . $inst;
+        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
+        if ($this->attributes['internal:profile_count'][0] > 1) {
+            if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
+                $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
+                $prof = preg_replace('/_+$/', '', $profTemp);
+                return $consortiumName . '-' . $this->getDeviceId() . $inst . '-' . $prof;
+            }
+        }
+        return $consortiumName . '-' . $this->getDeviceId() . $inst;
     }
 
     private function getDeviceId() {
-        $d_id = $this->device_id;
-        if (isset($this->options['device_id']))
-            $d_id = $this->options['device_id'];
-        if ($d_id !== '')
-            $d_id .= '-';
-        return $d_id;
+        $deviceId = $this->device_id;
+        if (isset($this->options['device_id'])) {
+            $deviceId = $this->options['device_id'];
+        }
+        if ($deviceId !== '') {
+            $deviceId .= '-';
+        }
+        return $deviceId;
     }
 
     private function getSSIDs() {
-        $S['add'] = [];
-        $S['del'] = [];
-        if (isset(Config::$CONSORTIUM['ssid'])) {
-            foreach (Config::$CONSORTIUM['ssid'] as $ssid) {
-                if (isset(Config::$CONSORTIUM['tkipsupport']) && Config::$CONSORTIUM['tkipsupport'] == TRUE)
-                    $S['add'][$ssid] = 'TKIP';
-                else {
-                    $S['add'][$ssid] = 'AES';
-                    $S['del'][$ssid] = 'TKIP';
+        $ssidList = [];
+        $ssidList['add'] = [];
+        $ssidList['del'] = [];
+        if (isset(CONFIG['CONSORTIUM']['ssid'])) {
+            foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
+                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE) {
+                    $ssidList['add'][$ssid] = 'TKIP';
+                } else {
+                    $ssidList['add'][$ssid] = 'AES';
+                    $ssidList['del'][$ssid] = 'TKIP';
                 }
             }
         }
         if (isset($this->attributes['media:SSID'])) {
-            $SSID = $this->attributes['media:SSID'];
+            $ssidWpa2 = $this->attributes['media:SSID'];
 
-            foreach ($SSID as $ssid)
-                $S['add'][$ssid] = 'AES';
+            foreach ($ssidWpa2 as $ssid) {
+                $ssidList['add'][$ssid] = 'AES';
+            }
         }
         if (isset($this->attributes['media:SSID_with_legacy'])) {
-            $SSID = $this->attributes['media:SSID_with_legacy'];
-            foreach ($SSID as $ssid)
-                $S['add'][$ssid] = 'TKIP';
+            $ssidTkip = $this->attributes['media:SSID_with_legacy'];
+            foreach ($ssidTkip as $ssid) {
+                $ssidList['add'][$ssid] = 'TKIP';
+            }
         }
         if (isset($this->attributes['media:remove_SSID'])) {
-            $SSID = $this->attributes['media:remove_SSID'];
-            foreach ($SSID as $ssid)
-                $S['del'][$ssid] = 'DEL';
+            $ssidRemove = $this->attributes['media:remove_SSID'];
+            foreach ($ssidRemove as $ssid) {
+                $ssidList['del'][$ssid] = 'DEL';
+            }
         }
-        return $S;
+        return $ssidList;
     }
 
     private function getConsortia() {
-        $OIs = [];
-        $OIs = array_merge($OIs, Config::$CONSORTIUM['interworking-consortium-oi']);
-        if (isset($this->attributes['media:consortium_OI']))
-            foreach ($this->attributes['media:consortium_OI'] as $new_oi)
-                $OIs[] = $new_oi;
-        return $OIs;
+        $consortia = CONFIG['CONSORTIUM']['interworking-consortium-oi'];
+        if (isset($this->attributes['media:consortium_OI'])) {
+            foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
+                $consortia[] = $new_oi;
+            }
+        }
+        return $consortia;
     }
 
     /**
@@ -426,27 +446,29 @@ abstract class DeviceConfig {
         'application/pdf' => 'pdf',
     ];
 
-    private function saveLogoFile($Logos) {
-        $i = 0;
+    private function saveLogoFile($logos) {
+        $iterator = 0;
         $returnarray = [];
-        foreach ($Logos as $blob) {
+        foreach ($logos as $blob) {
             $finfo = new finfo(FILEINFO_MIME_TYPE);
             $mime = $finfo->buffer($blob);
-            if (preg_match('/^image\/(.*)/', $mime, $m))
-                $ext = $m[1];
-            else
+            $matches = [];
+            if (preg_match('/^image\/(.*)/', $mime, $matches)) {
+                $ext = $matches[1];
+            } else {
                 $ext = 'unsupported';
-            debug(4, "saveLogoFile: $mime : $ext\n");
-            $f_name = 'logo-' . $i . '.' . $ext;
-            $f = fopen($f_name, "w");
-            if (!$f) {
-                debug(2, "saveLogoFile failed for: $f_name\n");
+            }
+            $this->loggerInstance->debug(4, "saveLogoFile: $mime : $ext\n");
+            $fileName = 'logo-' . $iterator . '.' . $ext;
+            $fileHandle = fopen($fileName, "w");
+            if (!$fileHandle) {
+                $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
                 die("problem opening the file\n");
             }
-            fwrite($f, $blob);
-            fclose($f);
-            $returnarray[] = ['name' => $f_name, 'mime' => $ext];
-            $i++;
+            fwrite($fileHandle, $blob);
+            fclose($fileHandle);
+            $returnarray[] = ['name' => $fileName, 'mime' => $ext];
+            $iterator++;
         }
         return($returnarray);
     }
@@ -455,12 +477,13 @@ abstract class DeviceConfig {
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
-        debug(4, "saveInfoFile: $mime : $ext\n");
-        $f = fopen('local-info.' . $ext, "w");
-        if (!$f)
+        $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
+        $fileHandle = fopen('local-info.' . $ext, "w");
+        if (!$fileHandle) {
             die("problem opening the file\n");
-        fwrite($f, $blob);
-        fclose($f);
+        }
+        fwrite($fileHandle, $blob);
+        fclose($fileHandle);
         return(['name' => 'local-info.' . $ext, 'mime' => $ext]);
     }
 
@@ -562,9 +585,9 @@ abstract class DeviceConfig {
 
     /**
      * optimal EAP method selected given profile and device
-     * @var EAP::constant
+     * @var array
      */
-    public $selected_eap;
+    public $selectedEap;
 
     /**
      * the path to the profile signing program
@@ -579,13 +602,13 @@ abstract class DeviceConfig {
     public $signer;
 
     /**
-     * the string referencing the language (index ot the Config::$LANGUAGES array).
+     * the string referencing the language (index ot the CONFIG['LANGUAGES'] array).
      * It is set to the current language and may be used by the device module to
      * set its language
      *
      * @var string
      */
-    public $lang_index;
+    public $langIndex;
 
     /**
      * The string identifier of the device (don't show this to users)
@@ -619,6 +642,6 @@ abstract class DeviceConfig {
      *
      * @var string 
      */
-    public static $installerBasename;
+    public $installerBasename;
 
 }

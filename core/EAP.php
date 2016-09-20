@@ -42,88 +42,70 @@ define("NE_SILVERBULLET", 999);
  *
  * @package Developer
  */
-define("INTEGER_TTLS_PAP", 1);
-define("INTEGER_PEAP_MSCHAPv2", 2);
-define("INTEGER_TLS", 3);
-define("INTEGER_FAST_GTC", 4);
-define("INTEGER_TTLS_GTC", 5);
-define("INTEGER_TTLS_MSCHAPv2", 6);
-define("INTEGER_EAP_pwd", 7);
-define("INTEGER_SILVERBULLET", 8);
+const INTEGER_TTLS_PAP = 1;
+const INTEGER_PEAP_MSCHAPv2 = 2;
+const INTEGER_TLS = 3;
+const INTEGER_FAST_GTC = 4;
+const INTEGER_TTLS_GTC = 5;
+const INTEGER_TTLS_MSCHAPv2 = 6;
+const INTEGER_EAP_pwd = 7;
+const INTEGER_SILVERBULLET = 8;
+
+// PHP7 allows to define constants with arrays as value. Hooray! This makes
+// lots of public static members of the EAP class obsolete
+
+/**
+ * PEAP-MSCHAPv2: Outer EAP Type = 25, Inner EAP Type = 26
+ */
+const EAPTYPE_PEAP_MSCHAP2 = ["OUTER" => PEAP, "INNER" => MSCHAP2];
+
+/**
+ * EAP-TLS: Outer EAP Type = 13, no inner EAP
+ */
+const EAPTYPE_TLS = ["OUTER" => TLS, "INNER" => NONE];
+
+/**
+ * EAP-TLS: Outer EAP Type = 13, no inner EAP
+ */
+const EAPTYPE_SILVERBULLET = ["OUTER" => TLS, "INNER" => NE_SILVERBULLET];
+
+/**
+ * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
+ */
+const EAPTYPE_TTLS_PAP = ["OUTER" => TTLS, "INNER" => NONE];
+
+/**
+ * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
+ */
+const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => TTLS, "INNER" => MSCHAP2];
+
+/**
+ * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
+ */
+const EAPTYPE_TTLS_GTC = ["OUTER" => TTLS, "INNER" => GTC];
+
+/**
+ * EAP-FAST (GTC): Outer EAP type = 43, Inner EAP Type = 6
+ */
+const EAPTYPE_FAST_GTC = ["OUTER" => FAST, "INNER" => GTC];
+
+/**
+ * PWD: Outer EAP type = 52, no inner EAP
+ */
+const EAPTYPE_PWD = ["OUTER" => PWD, "INNER" => NONE];
+
+/**
+ * NULL: no outer EAP, no inner EAP
+ */
+const EAPTYPE_NONE = ["OUTER" => NONE, "INNER" => NONE];
+
+/**
+ *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
+ */
+const EAPTYPE_ANY = ["OUTER" => 255, "INNER" => 255];
 
 class EAP {
 
-    /* constants only work for simple types. So these arrays need to be variables. :-(
-      Don't ever change them though. */
-
-    /**
-     * PEAP-MSCHAPv2: Outer EAP Type = 25, Inner EAP Type = 26
-     *
-     * @var array of EAP type IDs that describe PEAP-MSCHAPv2
-     */
-    public static $PEAP_MSCHAP2 = ["OUTER" => PEAP, "INNER" => MSCHAP2];
-
-    /**
-     * EAP-TLS: Outer EAP Type = 13, no inner EAP
-     *
-     * @var array of EAP type IDs that describe EAP-TLS
-     */
-    public static $TLS = ["OUTER" => TLS, "INNER" => NONE];
-
-   /**
-     * EAP-TLS: Outer EAP Type = 13, no inner EAP
-     *
-     * @var array of EAP type IDs that describe EAP-TLS
-     */
-    public static $SILVERBULLET = ["OUTER" => TLS, "INNER" => NE_SILVERBULLET];
-
-    /**
-     * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
-     * 
-     * @var array of EAP type IDs that describe TTLS-PAP
-     */
-    public static $TTLS_PAP = ["OUTER" => TTLS, "INNER" => NONE];
-
-    /**
-     * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
-     * 
-     * @var array of EAP type IDs that describe TTLS-MSCHAPv2
-     */
-    public static $TTLS_MSCHAP2 = ["OUTER" => TTLS, "INNER" => MSCHAP2];
-
-    /**
-     * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
-     * 
-     * @var array of EAP type IDs that describe TTLS-GTC
-     */
-    public static $TTLS_GTC = ["OUTER" => TTLS, "INNER" => GTC];
-
-    /**
-     * EAP-FAST (GTC): Outer EAP type = 43, Inner EAP Type = 6
-     * 
-     * @var array of EAP type IDs that describe EAP-FAST (GTC)
-     */
-    public static $FAST_GTC = ["OUTER" => FAST, "INNER" => GTC];
-
-    /**
-     * PWD: Outer EAP type = 52, no inner EAP
-     * 
-     * @var array of EAP type IDs that describe EAP-PWD
-     */
-    public static $PWD = ["OUTER" => PWD, "INNER" => NONE];
-
-    /**
-     * NULL: no outer EAP, no inner EAP
-     * 
-     * @var array of EAP type IDs that describes the NULL EAP Method
-     */
-    public static $EAP_NONE = ["OUTER" => NONE, "INNER" => NONE];
-
-    /**
-     *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
-     */
-    public static $EAP_ANY = ["OUTER" => 255, "INNER" => 255];
-    
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
@@ -131,30 +113,34 @@ class EAP {
      * @return array EAP method in array representation (OUTER as string/INNER as string)
      */
     public static function eapDisplayName($eap) {
-        $EAP_DISPLAY_NAME = [];
-        $EAP_DISPLAY_NAME[serialize(EAP::$PEAP_MSCHAP2)] = ["OUTER" => 'PEAP', "INNER" => 'MSCHAPV2'];
-        $EAP_DISPLAY_NAME[serialize(EAP::$TLS)] = ["OUTER" => 'TLS', "INNER" => ''];
-        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_PAP)] = ["OUTER" => 'TTLS', "INNER" => 'PAP'];
-        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_MSCHAP2)] = ["OUTER" => 'TTLS', "INNER" => 'MSCHAPV2'];
-        $EAP_DISPLAY_NAME[serialize(EAP::$TTLS_GTC)] = ["OUTER" => 'TTLS', "INNER" => 'GTC'];
-        $EAP_DISPLAY_NAME[serialize(EAP::$FAST_GTC)] = ["OUTER" => 'FAST', "INNER" => 'GTC'];
-        $EAP_DISPLAY_NAME[serialize(EAP::$PWD)] = ["OUTER" => 'PWD', "INNER" => ''];
-        $EAP_DISPLAY_NAME[serialize(EAP::$EAP_NONE)] = ["OUTER" => '', "INNER" => ''];
-        $EAP_DISPLAY_NAME[serialize(EAP::$SILVERBULLET)] = ["OUTER" => 'TLS', "INNER" => 'SILVERBULLET'];
-        $EAP_DISPLAY_NAME[serialize(EAP::$EAP_ANY)] = ["OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC'];
-        return($EAP_DISPLAY_NAME[serialize($eap)]);
+        $eapDisplayName = [];
+        $eapDisplayName[serialize(EAPTYPE_PEAP_MSCHAP2)] = ["OUTER" => 'PEAP', "INNER" => 'MSCHAPV2'];
+        $eapDisplayName[serialize(EAPTYPE_TLS)] = ["OUTER" => 'TLS', "INNER" => ''];
+        $eapDisplayName[serialize(EAPTYPE_TTLS_PAP)] = ["OUTER" => 'TTLS', "INNER" => 'PAP'];
+        $eapDisplayName[serialize(EAPTYPE_TTLS_MSCHAP2)] = ["OUTER" => 'TTLS', "INNER" => 'MSCHAPV2'];
+        $eapDisplayName[serialize(EAPTYPE_TTLS_GTC)] = ["OUTER" => 'TTLS', "INNER" => 'GTC'];
+        $eapDisplayName[serialize(EAPTYPE_FAST_GTC)] = ["OUTER" => 'FAST', "INNER" => 'GTC'];
+        $eapDisplayName[serialize(EAPTYPE_PWD)] = ["OUTER" => 'PWD', "INNER" => ''];
+        $eapDisplayName[serialize(EAPTYPE_NONE)] = ["OUTER" => '', "INNER" => ''];
+        $eapDisplayName[serialize(EAPTYPE_SILVERBULLET)] = ["OUTER" => 'TLS', "INNER" => 'SILVERBULLET'];
+        $eapDisplayName[serialize(EAPTYPE_ANY)] = ["OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC'];
+        return($eapDisplayName[serialize($eap)]);
     }
 
     public static function innerAuth($eap) {
         $out = [];
-        if ($eap["INNER"]) {
+        if ($eap["INNER"]) { // there is an inner EAP method
             $out['EAP'] = 1;
             $out['METHOD'] = $eap["INNER"];
-        } else {
-            $out['EAP'] = 0;
-            if ($eap == EAP::$TTLS_PAP)
+            return $out;
+        }
+        // there is none
+        $out['EAP'] = 0;
+        switch ($eap) {
+            case EAPTYPE_TTLS_PAP:
                 $out['METHOD'] = NE_PAP;
-            if ($eap == EAP::$TTLS_MSCHAP2)
+                break;
+            case EAPTYPE_TTLS_MSCHAP2:
                 $out['METHOD'] = NE_MSCHAP2;
         }
         return $out;
@@ -167,34 +153,34 @@ class EAP {
      */
     public static function listKnownEAPTypes() {
         $returnarray = [];
-        $returnarray[] = EAP::$FAST_GTC;
-        $returnarray[] = EAP::$PEAP_MSCHAP2;
-        $returnarray[] = EAP::$PWD;
-        $returnarray[] = EAP::$TLS;
-        $returnarray[] = EAP::$TTLS_GTC;
-        $returnarray[] = EAP::$TTLS_MSCHAP2;
-        $returnarray[] = EAP::$TTLS_PAP;
-        $returnarray[] = EAP::$SILVERBULLET;
+        $returnarray[] = EAPTYPE_FAST_GTC;
+        $returnarray[] = EAPTYPE_PEAP_MSCHAP2;
+        $returnarray[] = EAPTYPE_PWD;
+        $returnarray[] = EAPTYPE_TLS;
+        $returnarray[] = EAPTYPE_TTLS_GTC;
+        $returnarray[] = EAPTYPE_TTLS_MSCHAP2;
+        $returnarray[] = EAPTYPE_TTLS_PAP;
+        $returnarray[] = EAPTYPE_SILVERBULLET;
         return $returnarray;
     }
 
     public static function eAPMethodIdFromArray($methodArray) {
         switch ($methodArray) {
-            case EAP::$FAST_GTC:
+            case EAPTYPE_FAST_GTC:
                 return INTEGER_FAST_GTC;
-            case EAP::$PEAP_MSCHAP2:
+            case EAPTYPE_PEAP_MSCHAP2:
                 return INTEGER_PEAP_MSCHAPv2;
-            case EAP::$PWD:
+            case EAPTYPE_PWD:
                 return INTEGER_EAP_pwd;
-            case EAP::$TLS:
+            case EAPTYPE_TLS:
                 return INTEGER_TLS;
-            case EAP::$TTLS_GTC:
+            case EAPTYPE_TTLS_GTC:
                 return INTEGER_TTLS_GTC;
-            case EAP::$TTLS_MSCHAP2:
+            case EAPTYPE_TTLS_MSCHAP2:
                 return INTEGER_TTLS_MSCHAPv2;
-            case EAP::$TTLS_PAP:
+            case EAPTYPE_TTLS_PAP:
                 return INTEGER_TTLS_PAP;
-            case EAP::$SILVERBULLET:
+            case EAPTYPE_SILVERBULLET:
                 return INTEGER_SILVERBULLET;
         }
 
@@ -204,22 +190,23 @@ class EAP {
     public static function eAPMethodArrayFromId($identifier) {
         switch ($identifier) {
             case INTEGER_EAP_pwd:
-                return EAP::$PWD;
+                return EAPTYPE_PWD;
             case INTEGER_FAST_GTC:
-                return EAP::$FAST_GTC;
+                return EAPTYPE_FAST_GTC;
             case INTEGER_PEAP_MSCHAPv2:
-                return EAP::$PEAP_MSCHAP2;
+                return EAPTYPE_PEAP_MSCHAP2;
             case INTEGER_TLS:
-                return EAP::$TLS;
+                return EAPTYPE_TLS;
             case INTEGER_TTLS_GTC:
-                return EAP::$TTLS_GTC;
+                return EAPTYPE_TTLS_GTC;
             case INTEGER_TTLS_MSCHAPv2:
-                return EAP::$TTLS_MSCHAP2;
+                return EAPTYPE_TTLS_MSCHAP2;
             case INTEGER_TTLS_PAP:
-                return EAP::$TTLS_PAP;
+                return EAPTYPE_TTLS_PAP;
             case INTEGER_SILVERBULLET:
-                return EAP::$SILVERBULLET;
+                return EAPTYPE_SILVERBULLET;
         }
         return NULL;
     }
+
 }

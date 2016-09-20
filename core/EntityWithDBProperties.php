@@ -16,6 +16,7 @@
 /**
  * 
  */
+require_once("Entity.php");
 
 /**
  * This class represents an Entity with properties stored in the DB.
@@ -29,7 +30,7 @@
  *
  * @package Developer
  */
-abstract class EntityWithDBProperties {
+abstract class EntityWithDBProperties extends Entity {
 
     /**
      * This variable gets initialised with the known IdP attributes in the constructor. It never gets updated until the object
@@ -62,6 +63,14 @@ abstract class EntityWithDBProperties {
     protected $entityIdColumn;
 
     /**
+     * We need database access. Be sure to instantiate the singleton, and then
+     * use its instance (rather than always accessing everything statically)
+     * 
+     * @var DBConnection the instance of the default database we talk to usually
+     */
+    protected $databaseHandle;
+
+    /**
      * the unique identifier of this entity instance
      * Federations are identified by their TLD -> string
      * everything else has an integer row name in the DB -> int
@@ -74,6 +83,13 @@ abstract class EntityWithDBProperties {
      * the name of the entity in the current locale
      */
     public $name;
+
+    public function __construct() {
+        parent::__construct();
+        // we are called after the sub-classes have declared their default
+        // databse instance in $databaseType
+        $this->databaseHandle = DBConnection::handle($this->databaseType);
+    }
 
     /**
      * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
@@ -102,9 +118,9 @@ abstract class EntityWithDBProperties {
      */
     public function beginFlushAttributes() {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
-        DBConnection::exec($this->databaseType, "DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
+        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
         $this->updateFreshness();
-        $execFlush = DBConnection::exec($this->databaseType, "SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
+        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
         $returnArray = [];
         while ($queryResult = mysqli_fetch_object($execFlush)) {
             $returnArray[$queryResult->row] = "KILLME";
@@ -120,7 +136,7 @@ abstract class EntityWithDBProperties {
     public function commitFlushAttributes($tobedeleted) {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         foreach (array_keys($tobedeleted) as $row) {
-            DBConnection::exec($this->databaseType, "DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
+            $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
             $this->updateFreshness();
         }
     }
@@ -140,9 +156,9 @@ abstract class EntityWithDBProperties {
      */
     public function addAttribute($attrName, $attrValue) {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
-        $escapedAttrName = DBConnection::escapeValue($this->databaseType, $attrName);
-        $escapedAttrValue = DBConnection::escapeValue($this->databaseType, $attrValue);
-        DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value) VALUES("
+        $escapedAttrName = $this->databaseHandle->escapeValue($attrName);
+        $escapedAttrValue = $this->databaseHandle->escapeValue($attrValue);
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value) VALUES("
                 . $quotedIdentifier . ", '"
                 . $escapedAttrName . "', '"
                 . $escapedAttrValue
@@ -176,7 +192,7 @@ abstract class EntityWithDBProperties {
     protected function retrieveOptionsFromDatabase($query, $level) {
         $optioninstance = Options::instance();
         $tempAttributes = [];
-        $attributeDbExec = DBConnection::exec($this->databaseType, $query);
+        $attributeDbExec = $this->databaseHandle->exec($query);
 
         while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
             // decode base64 for files (respecting multi-lang)
@@ -192,7 +208,34 @@ abstract class EntityWithDBProperties {
         }
         return $tempAttributes;
     }
-    
+
+    /**
+     * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
+     * 
+     * @param string $table institution_option or profile_option
+     * @param string $row rowindex
+     * @return boolean
+     */
+    public static function fetchRawDataByIndex($table, $row) {
+        // only for select tables!
+        if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option") {
+            return FALSE;
+        }
+        if (!is_numeric($row)) {
+            return FALSE;
+        }
+
+        $handle = DBConnection::handle("INST");
+        $blobQuery = $handle->exec("SELECT option_value from $table WHERE row = $row");
+        while ($returnedData = mysqli_fetch_object($blobQuery)) {
+            $blob = $returnedData->option_value;
+        }
+        if (!isset($blob)) {
+            return FALSE;
+        }
+        return $blob;
+    }
+
     /**
      * Checks if a raw data pointer is public data (return value FALSE) or if 
      * yes who the authorised admins to view it are (return array of user IDs)
@@ -205,9 +248,11 @@ abstract class EntityWithDBProperties {
         if ($table != "institution_option" && $table != "profile_option" && $table != "federation_option" && $table != "user_options") {
             return []; // better safe than sorry: that's an error, so assume nobody is authorised to act on that data
         }
+        // we need to create our own DB handle as this is a static method
+        $handle = DBConnection::handle("INST");
         switch ($table) {
             case "profile_option":
-                $blobQuery = DBConnection::exec("INST", "SELECT profile_id from $table WHERE row = $row");
+                $blobQuery = $handle->exec("SELECT profile_id from $table WHERE row = $row");
                 while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
                     $blobprofile = $profileIdQuery->profile_id;
                 }
@@ -222,9 +267,9 @@ abstract class EntityWithDBProperties {
                 // okay, so it's NOT public. return the owner
                 $inst = new IdP($profile->institution);
                 return $inst->owner();
-                
+
             case "institution_option":
-                $blobQuery = DBConnection::exec("INST", "SELECT institution_id from $table WHERE row = $row");
+                $blobQuery = $handle->exec("SELECT institution_id from $table WHERE row = $row");
                 while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
                     $blobinst = $instIdQuery->institution_id;
                 }
@@ -241,7 +286,7 @@ abstract class EntityWithDBProperties {
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;
-                // user options are never public
+            // user options are never public
             case "user_options":
                 return [];
             default:

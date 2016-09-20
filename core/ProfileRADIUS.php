@@ -55,7 +55,7 @@ class ProfileRADIUS extends AbstractProfile {
      * @var array
      */
     private $eapLevelAttributes;
-    
+
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -63,17 +63,17 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject = 0) {
+    public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
-        debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
         $this->langIndex = CAT::get_lang();
 
-        $profile = DBConnection::exec($this->databaseType, "SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
-        debug(4, $profile);
+        $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
+        $this->loggerInstance->debug(4, $profile);
         $profileQuery = mysqli_fetch_object($profile);
 
         $this->realm = $profileQuery->realm;
@@ -100,6 +100,11 @@ class ProfileRADIUS extends AbstractProfile {
 
         $attributesLowLevel = array_merge($this->deviceLevelAttributes, $this->eapLevelAttributes);
 
+        $this->loggerInstance->debug(5, "Device-Level Attributes: " . print_r($this->deviceLevelAttributes, true));
+        $this->loggerInstance->debug(5, "EAP-Level Attributes: " . print_r($this->eapLevelAttributes, true));
+
+        $this->loggerInstance->debug(5, "All low-Level Attributes: " . print_r($attributesLowLevel, true));
+
         // now fetch and merge profile-level attributes if not already set on deeper level
 
         $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
@@ -108,52 +113,32 @@ class ProfileRADIUS extends AbstractProfile {
                                             AND device_id IS NULL AND eap_method_id = 0
                                             ORDER BY option_name", "Profile");
 
-        // internal attributes share many attribute properties, so condense the generation
+        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
 
-        foreach ($internalAttributes as $attName => $attValue) {
-            $tempArrayProfLevel[] = ["name" => $attName,
-                "value" => $attValue,
-                "level" => "Profile",
-                "row" => 0,
-                "flag" => NULL,
-                "device" => NULL,
-                "eapmethod" => 0];
-        }
-
-        debug(5, "Device-Level Attributes: ".print_r($this->deviceLevelAttributes, true));
-        debug(5, "EAP-Level Attributes: ".print_r($this->eapLevelAttributes, true));
-        
-        debug(5, "Profile-Level Attributes: ".print_r($attributesLowLevel, true));
-        
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
-        debug(5, "Merged Attributes: ".print_r($attributesLowLevel, true));
-        
-        // now, fetch and merge IdP-wide attributes
+        // hacky hack: device-specific:redirect can also apply to ALL devices
+        // (by setting device_id = NULL in the database; but then it will be
+        // retrieved /from/ the database without the "device" array key set
+        // so we need to add this here where applicable
 
-        
-        $idpoptions = [];
-        // add "device" and "eapmethod" keys just to remain in sync with those
-        // attributes that came from the Profile level
-        foreach ($this->idpAttributes as $theAttr) {
-            $idpoptions[] = [
-                "name" => $theAttr["name"],
-                "value" => $theAttr["value"],
-                "level" => $theAttr["level"],
-                "row" => $theAttr["row"],
-                "flag" => $theAttr["flag"],
-                "device" => NULL,
-                "eapmethod" => 0,
-            ];
+        foreach ($attrUpToProfile as $oneAttr) {
+            if ($oneAttr['name'] == 'device-specific:redirect' && !isset($oneAttr['device'])) {
+                $oneAttr['device'] = NULL;
+            }
         }
 
-        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $idpoptions, "IdP");
+        $this->loggerInstance->debug(5, "Merged Attributes: " . print_r($attributesLowLevel, true));
+
+        // now, fetch and merge IdP-wide attributes
+
+        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $this->idpAttributes, "IdP");
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
         $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
-        
-        debug(3, "--- END Constructing new Profile object ... ---\n");
+
+        $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
     private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods) {
@@ -173,7 +158,7 @@ class ProfileRADIUS extends AbstractProfile {
                 throw new Exception("fetchDeviceOrEAPLevelAttributes: unexpected keyword $devicesOrEAPMethods");
         }
 
-        $allAttributes = DBConnection::exec($this->databaseType, "SELECT option_name, option_value, $queryPart as deviceormethod, row 
+        $allAttributes = $this->databaseHandle->exec("SELECT option_name, option_value, $queryPart as deviceormethod, row 
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = $this->identifier $conditionPart");
 
@@ -212,9 +197,9 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path, $mime) {
-        $escapedDevice = DBConnection::escapeValue($this->databaseType, $device);
-        $escapedPath = DBConnection::escapeValue($this->databaseType, $path);
-        DBConnection::exec($this->databaseType, "INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
+        $escapedDevice = $this->databaseHandle->escapeValue($device);
+        $escapedPath = $this->databaseHandle->escapeValue($path);
+        $this->databaseHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
                                         VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '$this->langIndex', CURRENT_TIMESTAMP ) 
                                         ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
     }
@@ -229,11 +214,12 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
     private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device) {
-        $escapedAttrName = DBConnection::escapeValue($this->databaseType, $attrName);
-        $escapedAttrValue = DBConnection::escapeValue($this->databaseType, $attrValue);
+        $escapedAttrName = $this->databaseHandle->escapeValue($attrName);
+        $escapedAttrValue = $this->databaseHandle->escapeValue($attrValue);
+        $escapedDevice = $this->databaseHandle->escapeValue($device);
 
-        DBConnection::exec($this->databaseType, "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
-                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType, " . ($device === NULL ? "NULL" : "'".DBConnection::escapeValue($this->databaseType, $device)."'") . ")");
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
+                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType, " . ($device === NULL ? "NULL" : "'" . $escapedDevice . "'") . ")");
         $this->updateFreshness();
     }
 
@@ -250,27 +236,12 @@ class ProfileRADIUS extends AbstractProfile {
     }
 
     /**
-     * register new supported EAP method for this profile
-     *
-     * @param array $type The EAP Type, as defined in class EAP
-     * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
-     *
-     */
-    public function addSupportedEapMethod($type, $preference) {
-        DBConnection::exec($this->databaseType, "INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
-                . $this->identifier . ", "
-                . EAP::EAPMethodIdFromArray($type) . ", "
-                . $preference . ")");
-        $this->updateFreshness();
-    }
-
-    /**
      * overrides the parent class definition: in Profile, we additionally need 
      * to delete the supported EAP types list in addition to just flushing the
      * normal DB-based attributes
      */
     public function beginFlushAttributes() {
-        DBConnection::exec($this->databaseType, "DELETE FROM supported_eap WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
         return parent::beginFlushAttributes();
     }
 
@@ -280,7 +251,7 @@ class ProfileRADIUS extends AbstractProfile {
      *
      */
     public function setAnonymousIDSupport($shallwe) {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
+        $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = " . ($shallwe === true ? "1" : "0") . " WHERE profile_id = $this->identifier");
     }
 
     /** Toggle special username for realm checks
@@ -290,7 +261,7 @@ class ProfileRADIUS extends AbstractProfile {
      *
      */
     public function setRealmCheckUser($shallwe, $localpart = NULL) {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
+        $this->databaseHandle->exec("UPDATE profile SET checkuser_outer = " . ($shallwe === true ? "1" : "0") .
                 ( $localpart !== NULL ? ", checkuser_value = '$localpart' " : "") .
                 " WHERE profile_id = $this->identifier");
     }
@@ -299,7 +270,7 @@ class ProfileRADIUS extends AbstractProfile {
      * 
      */
     public function setInputVerificationPreference($verify, $hint) {
-        DBConnection::exec($this->databaseType, "UPDATE profile SET verify_userinput_suffix = " . ($verify == true ? "1" : "0") .
+        $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify == true ? "1" : "0") .
                 ", hint_userinput_suffix = " . ($hint == true ? "1" : "0") .
                 " WHERE profile_id = $this->identifier");
     }
@@ -307,8 +278,8 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * 
      */
-    public function getSufficientConfig() {
-        $result = DBConnection::exec($this->databaseType, "SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
+    public function hasSufficientConfig() {
+        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
         $configQuery = mysqli_fetch_row($result);
         if ($configQuery[0] == "0") {
             return FALSE;
@@ -341,7 +312,7 @@ class ProfileRADIUS extends AbstractProfile {
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
         if (!isset($attribs['media:SSID']) &&
                 !isset($attribs['media:SSID_with_legacy']) &&
-                (!isset(Config::$CONSORTIUM['ssid']) || count(Config::$CONSORTIUM['ssid']) == 0) &&
+                (!isset(CONFIG['CONSORTIUM']['ssid']) || count(CONFIG['CONSORTIUM']['ssid']) == 0) &&
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }
@@ -353,19 +324,49 @@ class ProfileRADIUS extends AbstractProfile {
      */
     public function prepShowtime() {
         $properConfig = $this->readyForShowtime();
-        if ($properConfig) {
-            DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        } else {
-            DBConnection::exec($this->databaseType, "UPDATE profile SET sufficient_config = FALSE WHERE profile_id = " . $this->identifier);
-        }
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
+
         $attribs = $this->getCollapsedAttributes();
         // if not enough info to go live, set FALSE
         // even if enough info is there, admin has the ultimate say: 
         //   if he doesn't want to go live, no further checks are needed, set FALSE as well
         if (!$properConfig || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-            DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
+            $this->databaseHandle->exec("UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
             return;
         }
-        DBConnection::exec($this->databaseType, "UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
     }
+
+    /**
+     * deletes all attributes in this profile on the method level
+     *
+     * @param int $eapId the numeric identifier of the EAP method
+     * @param string $deviceId the name of the device
+     * @return array list of row id's of file-based attributes which weren't deleted
+     */
+    public function beginFlushMethodLevelAttributes($eapId, $deviceId) {
+        if ($eapId == 0 and $deviceId = "") {
+            throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - none was specified in the parameters.");
+        }
+        if ($eapId != 0 and $deviceId != "") {
+            throw new Exception("MethodLevel attributes pertain either to an EAP method or a device - both were specified in the parameters.");
+        }
+
+        $extracondition = "AND eap_method_id = $eapId"; // this string is used for EAP method specifics
+
+        if ($eapId == 0) { // we are filtering on device instead, overwrite condition
+            $extracondition = "AND device_id = '$deviceId'";
+        }
+
+        $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
+        $this->updateFreshness();
+        // there are currently none file-based attributes on method level, so result here is always empty, but better be prepared for the future
+        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier $extracondition");
+        $returnArray = [];
+        while ($queryResult = mysqli_fetch_object($execFlush)) {
+            $returnArray[$queryResult->row] = "KILLME";
+        }
+        return $returnArray;
+    }
+
 }

@@ -1,8 +1,8 @@
 <?php
-/***********************************************************************************
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
@@ -23,7 +23,7 @@ $user = new User($_SESSION['user']);
 <script src="js/option_expand.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php productheader("USERMGMT",CAT::get_lang()); ?>
+    <?php productheader("USERMGMT", CAT::get_lang()); ?>
     <h1>
         <?php _("Editing User Attributes"); ?>
     </h1>
@@ -40,21 +40,20 @@ $user = new User($_SESSION['user']);
             <legend>
                 <strong><?php echo _("Your attributes"); ?></strong>
             </legend>
-            <table id="expandable_user_options">
-                <?php add_option("user", $user->getAttributes()); ?>
-            </table>
-            <button type='button' class='newoption' onclick='addDefaultUserOptions()'>
+            <?php echo prefilledOptionTable($user->getAttributes(), "user", "User"); ?>
+            <button type='button' class='newoption' onclick='getXML("user")'>
                 <?php echo _("Add new option"); ?>
             </button>
         </fieldset>
         <div>
-            <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE;?>'>
+            <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE; ?>'>
                 <?php echo _("Save data"); ?>
             </button>
-            <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location="overview_user.php"'>
+            <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = "overview_user.php"'>
                 <?php echo _("Discard changes"); ?>
             </button>
         </div>
     </form>
     <?php
     footer();
+    

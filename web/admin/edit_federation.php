@@ -22,8 +22,7 @@ authenticate();
 $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
-$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APPEARANCE['productname'], $my_fed->name));
-
+$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
@@ -31,12 +30,12 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
 </head>
 <body>
 
-<?php productheader("FEDERATION", CAT::get_lang()); ?>
+    <?php productheader("FEDERATION", CAT::get_lang()); ?>
 
     <h1>
-<?php
-    printf(_("Editing Federation information for '%s'"), $my_fed->name);
-?>
+        <?php
+        printf(_("Editing Federation information for '%s'"), $my_fed->name);
+        ?>
     </h1>
     <div class='infobox'>
         <h2><?php echo _("Federation Properties"); ?></h2>
@@ -45,26 +44,24 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), Config::$APP
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-        echo Federation::$federationList[strtoupper($my_fed->name)];
-?></strong></td>
+                        echo Federation::$federationList[strtoupper($my_fed->name)];
+                        ?></strong></td>
             </tr>
-                        <?php echo infoblock($fed_options, "fed", "FED"); ?>
+            <?php echo infoblock($fed_options, "fed", "FED"); ?>
         </table>
     </div>
-<?php
-echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->name" . "' method='post' accept-charset='UTF-8'>
-              <input type='hidden' name='MAX_FILE_SIZE' value='" . Config::$MAX_UPLOAD_SIZE . "'>";
-
-?>
+    <?php
+    echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->name" . "' method='post' accept-charset='UTF-8'>
+              <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+    ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Federation Properties"); ?></strong></legend>
-        <table id="expandable_fed_options">
         <?php
-        add_option("fed", $fed_options);
+        echo prefilledOptionTable($fed_options, "fed", "FED");
         ?>
-        </table>
-        <button type='button' class='newoption' onclick='addDefaultFedOptions()'><?php echo _("Add new option"); ?></button>
+        <button type='button' class='newoption' onclick='getXML("fed")'><?php echo _("Add new option"); ?></button>
     </fieldset>
-<?php
+    <?php
     echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
-footer();
+    footer();
+    
