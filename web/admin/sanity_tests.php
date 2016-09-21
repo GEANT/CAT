@@ -20,7 +20,6 @@ $Tests = [
     'openssl',
     'makensis',
     'makensis=>NSISmodules',
-    'makensis=>NSIS_GetVersion',
     'zip',
     'eapol_test',
     'locales',

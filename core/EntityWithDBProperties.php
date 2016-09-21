@@ -193,7 +193,9 @@ abstract class EntityWithDBProperties extends Entity {
         $optioninstance = Options::instance();
         $tempAttributes = [];
         $attributeDbExec = $this->databaseHandle->exec($query);
-
+        if (empty($attributeDbExec)) {
+            return $tempAttributes;
+        }
         while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
             // decode base64 for files (respecting multi-lang)
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);

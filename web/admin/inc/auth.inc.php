@@ -50,7 +50,9 @@ function authenticate() {
 
     if (count($user_object->getAttributes('user:realname')) > 0 || $new_name_received) { // we have a real name ... set it
         $name_array = $user_object->getAttributes("user:realname");
-        $_SESSION['name'] = $name_array[0]['value'];
+        if (!empty($name_array[0])) {
+            $_SESSION['name'] = $name_array[0]['value'];
+        }
     }
 }
 
