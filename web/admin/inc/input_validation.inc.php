@@ -169,9 +169,12 @@ function valid_token($input) {
  * @throws Exception
  */
 function valid_coordinate($input) {
+    $oldlocale = setlocale(LC_NUMERIC);
+    setlocale(LC_NUMERIC, "en_GB");
     if (!is_numeric($input)) {
         throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
     }
+    setlocale(LC_NUMERIC, $oldlocale);
     // lat and lon are always in the range of [-180;+180]
     if ($input < -180 || $input > 180) {
         throw new Exception(input_validation_error("Coordinate is out of bounds. Which planet are you from?"));
