@@ -1,4 +1,5 @@
 <?php
+namespace lib\view;
 /**
  * Provides means to layout page elements.
  * 
@@ -17,10 +18,15 @@ interface PageBuilder {
     /**
      * Prints page header elements.
      */
-    public function printPageHeader();
+    public function renderPageHeader();
+    
     /**
      * Prints page footer elements.
      */
-    public function printPageFooter();
+    public function renderPageFooter();
     
+    /**
+     * Prints page content elements.
+     */
+    public function renderPageContent();
 }

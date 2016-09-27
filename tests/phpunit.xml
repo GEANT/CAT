@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="../web/admin/lib/autoloader.php">
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>unit</directory>
+    </testsuite>
+    <testsuite name="UnitView">
+      <directory>unit/lib/view</directory>
+    </testsuite>
+    <testsuite name="UnitViewHtml">
+      <directory>unit/lib/view/html</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>
