@@ -10,7 +10,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once("auth.inc.php");
 require_once("IdP.php");
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 require_once("Logging.php");
 require_once("UserManagement.php");
 
@@ -19,8 +19,8 @@ require_once("input_validation.inc.php");
 
 authenticate();
 
-$Cat = new CAT();
-$Cat->setTextDomain("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 

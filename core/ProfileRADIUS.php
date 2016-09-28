@@ -70,7 +70,6 @@ class ProfileRADIUS extends AbstractProfile {
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
-        $this->langIndex = CAT::getLang();
 
         $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
         $this->loggerInstance->debug(4, $profile);
@@ -136,7 +135,7 @@ class ProfileRADIUS extends AbstractProfile {
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
-        $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->langIndex); // cannot be set per device or eap type
+        $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->languageInstance->getLang()); // cannot be set per device or eap type
 
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
@@ -200,7 +199,7 @@ class ProfileRADIUS extends AbstractProfile {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         $escapedPath = $this->databaseHandle->escapeValue($path);
         $this->databaseHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
-                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '$this->langIndex', CURRENT_TIMESTAMP ) 
+                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '".$this->languageInstance->getLang()."', CURRENT_TIMESTAMP ) 
                                         ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
     }
 

@@ -24,8 +24,8 @@ require_once("devices/devices.php");
 authenticate();
 
 $loggerInstance = new Logging();
-$Cat = new CAT();
-$Cat->setTextDomain("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);

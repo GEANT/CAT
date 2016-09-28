@@ -17,7 +17,7 @@ require_once("UserAPI.php");
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 $Gui = new UserAPI();
-$Gui->setTextDomain("web_user");
+$Gui->languageInstance->setTextDomain("web_user");
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
@@ -37,13 +37,13 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
         }
-        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::getLang() . '">' . _("Start page") . '</a></td></tr></table>';
+        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $Gui->languageInstance->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
         ?>
     </div> <!-- id="heading" -->
     <div id="main_body" style='padding:20px;'>
         <h1><?php echo _("Maybe this is the CAT you are looking for...");?></h1>
         <p><?php echo _("but we don't want to show it to you. You need to be authenticated and authorised to see this content. Since you are not, you got this error page usually known as");?></p>
         <h2>401/403</h2>
-        <p><?php echo sprintf(_("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::getLang())?></p>
+        <p><?php echo sprintf(_("Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $Gui->languageInstance->getLang())?></p>
     </div>
         <?php footer();

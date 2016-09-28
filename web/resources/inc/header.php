@@ -8,7 +8,7 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
 /**
@@ -54,29 +54,26 @@ function findResourceUrl($resourcetype) {
  * @param string $pagetitle Title of the page to display
  * @param string $area the area in which this page is (displays some matching <h1>s)
  * @param boolean $authRequired
- * @return \CAT an instance of the CAT object (useful for later lang change operations etc.)
  */
 function pageheader($pagetitle, $area, $authRequired = TRUE) {
-    $cat = defaultPagePrelude($pagetitle, $authRequired);
+    defaultPagePrelude($pagetitle, $authRequired);
     echo "</head></body>";
-    productheader($area, CAT::getLang());
-    return $cat;
+    productheader($area);
 }
 
 /**
  * 
  * @param string $pagetitle Title of the page to display
  * @param boolean $authRequired does the user need to be autenticated to access this page?
- * @return \CAT an instance of the CAT object (useful for later lang change operations etc.)
  */
 function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
     if ($authRequired === TRUE) {
         require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
         authenticate();
     }
-    $cat = new CAT();
-    $cat->setTextDomain("web_admin");
-    $ourlocale = CAT::getLang();
+    $langObject = new Language();
+    $langObject->languageInstance->setTextDomain("web_admin");
+    $ourlocale = $langObject->languageInstance->getLang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
@@ -87,8 +84,6 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
 
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
-
-    return $cat;
 }
 
 /**
@@ -166,9 +161,10 @@ function sidebar($advancedControls) {
  * the entire top of the page (<body> part)
  * 
  * @param string $area the area we are in
- * @param string $language the currently set language
  */
-function productheader($area, $language) {
+function productheader($area) {
+    $langObject = new Language();
+    $language = $langObject->getLang();
     // this <div is closing in footer, keep it in PHP for Netbeans syntax
     // highlighting to work
     echo "<div class='maincontent'>";

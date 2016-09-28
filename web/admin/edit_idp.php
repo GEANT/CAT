@@ -10,7 +10,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Federation.php");
 require_once("IdP.php");
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -32,9 +32,9 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
+    defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
 } else {
-    $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
+    defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
@@ -72,8 +72,9 @@ geo_widget_head($my_inst->federation, $inst_name)
 </script>
 </head>
 <body onload='load(1)'>
-
-    <?php productheader("ADMIN-IDP", CAT::getLang()); ?>
+    <?php 
+    $langObject = new Language();
+    productheader("ADMIN-IDP"); ?>
 
     <h1>
         <?php

@@ -9,7 +9,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Federation.php");
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -22,7 +22,8 @@ authenticate();
 $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
-$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
+defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
+$langObject = new Language();
 ?>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
@@ -30,7 +31,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPE
 </head>
 <body>
 
-    <?php productheader("FEDERATION", CAT::getLang()); ?>
+    <?php productheader("FEDERATION"); ?>
 
     <h1>
         <?php

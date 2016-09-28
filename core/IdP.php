@@ -92,7 +92,7 @@ class IdP extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL];
 
-        $this->name = getLocalisedValue($this->getAttributes('general:instname'), CAT::getLang());
+        $this->name = getLocalisedValue($this->getAttributes('general:instname'), $this->languageInstance->getLang());
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 

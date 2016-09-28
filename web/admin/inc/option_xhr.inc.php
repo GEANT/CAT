@@ -18,8 +18,8 @@ session_start();
 
 if (isset($_GET["class"])) {
     // XHR call: language isn't set yet ... so do it
-    $Cat = new CAT();
-    $Cat->setTextDomain("web_admin");
+    $languageInstance = new Language();
+    $languageInstance->setTextDomain("web_admin");
     $optioninfo = Options::instance();
     // add one option of the specified class
 

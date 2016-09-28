@@ -26,7 +26,7 @@ $instId = $_REQUEST['idp'];
 $device = $_REQUEST['device'];
 $generated_for = $_REQUEST['generatedfor'];
 
-$Gui->setTextDomain('devices');
+$Gui->languageInstance->setTextDomain('devices');
 
 
 if ($generated_for != "admin" && $generated_for != "user") {

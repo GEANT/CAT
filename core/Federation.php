@@ -131,7 +131,7 @@ class Federation extends EntityWithDBProperties {
 
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
-        $oldlocale = CAT::setTextDomain('core');
+        $oldlocale = $this->languageInstance->setTextDomain('core');
 
         Federation::$federationList = [
             'AD' => _("Andorra"),
@@ -383,7 +383,7 @@ class Federation extends EntityWithDBProperties {
             'ZW' => 'Zimbabwe',
         ];
 
-        CAT::setTextDomain($oldlocale);
+        $this->languageInstance->setTextDomain($oldlocale);
 
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
@@ -513,8 +513,8 @@ class Federation extends EntityWithDBProperties {
                     $thislang = explode(': ', $name, 2);
                     $availableLanguages[$thislang[0]] = $thislang[1];
                 }
-                if (array_key_exists(CAT::getLang(), $availableLanguages)) {
-                    $thelangauge = $availableLanguages[CAT::getLang()];
+                if (array_key_exists($this->languageInstance->getLang(), $availableLanguages)) {
+                    $thelangauge = $availableLanguages[$this->languageInstance->getLang()];
                 } else if (array_key_exists("en", $availableLanguages)) {
                     $thelangauge = $availableLanguages["en"];
                 } else { // whatever. Pick one out of the list
@@ -632,7 +632,7 @@ class Federation extends EntityWithDBProperties {
 
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
-                $name = getLocalisedValue($names, CAT::getLang());
+                $name = getLocalisedValue($names, $this->languageInstance->getLang());
             }
             $oneInstitutionResult['title'] = $name;
             if (count($geo) > 0) {

@@ -19,8 +19,8 @@ require_once("input_validation.inc.php");
 
 authenticate();
 
-$Cat = new CAT();
-$Cat->setTextDomain("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 

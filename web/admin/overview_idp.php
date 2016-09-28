@@ -21,7 +21,7 @@ require_once("inc/input_validation.inc.php");
 include "inc/geo_widget.php";
 
 
-$cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
+defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -37,7 +37,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 </head>
 <body  onload='load(0)'>
     <?php
-    productheader("ADMIN-IDP", CAT::getLang());
+    productheader("ADMIN-IDP");
 
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();

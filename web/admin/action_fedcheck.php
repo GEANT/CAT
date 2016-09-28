@@ -154,7 +154,7 @@ function rowdescription() {
             . "</tr>";
 }
 
-$cat = defaultPagePrelude(_("Authentication Server Status for all known federation members"));
+defaultPagePrelude(_("Authentication Server Status for all known federation members"));
 
 // check authorisation of user; this check immediately dies if not authorised
 

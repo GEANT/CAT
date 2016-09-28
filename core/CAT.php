@@ -22,6 +22,7 @@
 session_start();
 require_once("Helper.php");
 require_once("Logging.php");
+require_once("Language.php");
 require_once("Federation.php");
 require_once(dirname(__DIR__) . "/config/_config.php");
 
@@ -61,28 +62,26 @@ class CAT {
      * The entire copyright line, generated in constructor
      */
     public $CAT_COPYRIGHT;
-    
-    /**
-      /**
-     * database which this class queries by default
-     * 
-     * @var string
-     */
-    private static $LANG = '';
-    
+        
     /**
      * the default database to query in this class.
      */
     const DB_TYPE = "INST";
 
     /**
+     * this class needs to manipulate textDomain settings, so needs access to
+     * language settings
+     * 
+     * @var Language
+     */
+    protected $languageInstance;
+    /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
      *  additionally it also sets static variables $laing_index and $root
      */
     public function __construct() {
-        $language = $this->setLang();
-        self::$locale = $language[1];
+        $languageObject = new Language(); // establishes the currently selected language
         $this->CAT_VERSION_STRING = _("Unreleased SVN Revision");
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
@@ -120,104 +119,13 @@ class CAT {
     }
 
     /**
-     * Sets the gettext domain
-     *
-     * @param string $domain
-     * @return string previous seting so that you can restore it later
-     */
-    public static function setTextDomain($domain) {
-        $loggerInstance = new Logging();
-        $olddomain = textdomain(NULL);
-        $loggerInstance->debug(4, "set_locale($domain)\n");
-        $loggerInstance->debug(4, ROOT . "\n");
-        textdomain($domain);
-        bindtextdomain($domain, ROOT . "/translation/");
-        return $olddomain;
-    }
-
-    /**
-     * set_lang does all language setting magic
-     * checks if lang has been declared in the http call
-     * if not, checks for saved lang in the SESSION
-     * or finally checks browser properties.
-     * Only one of the supported langiages can be set
-     * if a match is not found, the default langiage is used
-     * @param $hardsetlang - this is currently not used but
-     * will allow to forst lang setting if this was ever required
-     */
-    private static function setLang($hardsetlang = 0) {
-        $lang_converted = [];
-        if ($hardsetlang !== 0) {
-            $hardsetlocale = $hardsetlang;
-            $lang_converted[] = $hardsetlocale;
-            $_SESSION['language'] = $hardsetlocale;
-        } elseif (isset($_REQUEST['lang'])) {
-            $hardsetlocale = $_REQUEST['lang'];
-            $lang_converted[] = $hardsetlocale;
-            $_SESSION['language'] = $hardsetlocale;
-        } elseif (isset($_SESSION['language'])) {
-            $hardsetlocale = $_SESSION['language'];
-            $lang_converted[] = $hardsetlocale;
-        } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-            foreach ($langs as $lang) {
-                $result = [];
-                preg_match("/(.*);+.*/", $lang, $result);
-                $lang_converted[] = (isset($result[1]) && $result[1] ? $result[1] : $lang);
-            }
-        }
-        // always add configured locale as last resort
-        $defaultlocale = CONFIG['APPEARANCE']['defaultlocale'];
-        $lang_converted[] = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
-        $lang_index = $defaultlocale;
-
-        setlocale(LC_ALL, 0);
-
-        // initialise this variabe (code analysers complain that $lang_converted
-        // could be empty
-        $thelang = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
-        foreach ($lang_converted as $try_lang) {
-            // madness! setlocale is completely unflexible. If $try_lang is "en"
-            // it will fail, because it only knows en_US, en_GB a.s.o.
-            // we need to map stuff manually
-            $thelang = $try_lang;
-
-            foreach (CONFIG['LANGUAGES'] as $language => $value) {
-                if (preg_match("/^" . $language . ".*/", $try_lang)) {
-                    $thelang = $value['locale'];
-                    $lang_index = $language;
-                }
-            }
-
-            if (setlocale(LC_ALL, $thelang)) {
-                break;
-            }
-        }
-        putenv("LC_ALL=" . $thelang);
-        $loggerInstance = new Logging();
-        $loggerInstance->debug(4, "selected lang:$lang_index:$thelang\n");
-        $loggerInstance->debug(4, print_r($lang_converted, true));
-        return([$lang_index, $thelang]);
-    }
-
-    /**
-     * gets the language setting in CAT
-     */
-    static public function getLang() {
-        if (self::$LANG === '') {
-            list(self::$LANG, ) = self::setLang();
-        }
-        return self::$LANG;
-    }
-
-    /**
      * Prepares a list of countries known to the CAT.
      * 
      * @param int $activeOnly is set and nonzero will cause that only countries with some institutions underneath will be listed
      * @return array Array indexed by (uppercase) lang codes and sorted according to the current locale
      */
     public function printCountryList($activeOnly = 0) {
-        $olddomain = $this->setTextDomain("core");
+        $olddomain = $this->languageInstance->setTextDomain("core");
         $handle = DBConnection::handle(CAT::DB_TYPE);
         $returnArray = []; // in if -> the while might never be executed, so initialise
         if ($activeOnly) {
@@ -234,13 +142,7 @@ class CAT {
             $returnArray = Federation::$federationList;
         }
         asort($returnArray, SORT_LOCALE_STRING);
-        $this->setTextDomain($olddomain);
+        $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
     }
-
-    /**
-     * language display name for the language set by the constructor
-     */
-    public static $locale;
-
 }

@@ -20,14 +20,14 @@ require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-$cat = defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
+defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
 $user = new User($_SESSION['user']);
 ?>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>
 <body>
     <?php
-    productheader("FEDERATION", CAT::getLang());
+    productheader("FEDERATION");
     ?>
     <h1>
         <?php echo _("Federation Overview"); ?>

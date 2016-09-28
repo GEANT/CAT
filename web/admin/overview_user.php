@@ -20,7 +20,7 @@ require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
 $instMgmt = new UserManagement();
-$cat = defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
+defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new User($_SESSION['user']);
 ?>
 <!-- JQuery --> 
@@ -31,7 +31,7 @@ $user = new User($_SESSION['user']);
 </head>
 <body>
     <?php
-    productheader("ADMIN", CAT::getLang());
+    productheader("ADMIN");
     ?>
     <h1>
         <?php echo _("User Overview"); ?>

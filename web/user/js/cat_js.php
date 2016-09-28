@@ -4,7 +4,7 @@
  * License: see the LICENSE file in the root directory
  ***********************************************************************************/
 ?>
-<?php $Gui->setTextDomain('web_user'); ?>
+<?php $Gui->langaugeInstance->setTextDomain('web_user'); ?>
 var n;
 var profile;
 // var device_button_bg ="#0a698e";

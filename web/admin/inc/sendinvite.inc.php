@@ -38,8 +38,8 @@ authenticate();
 
 $loggerInstance = new Logging();
 
-$cat = new CAT();
-$cat->setTextDomain("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 $mgmt = new UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
@@ -76,7 +76,7 @@ if (isset($_GET['inst_id'])) {
         exit(1);
     }
 
-    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), CAT::getLang());
+    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), $languageInstance->getLang());
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
@@ -104,10 +104,9 @@ else if (isset($_POST['creation'])) {
         $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
         $federation = new Federation($extinfo['country']);
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
-        $ourlang = CAT::getLang();
         $prettyprintname = "";
         foreach ($extinfo['names'] as $lang => $name) {
-            if ($lang == $ourlang) {
+            if ($lang == $languageInstance->getLang()) {
                 $prettyprintname = $name;
             }
         }

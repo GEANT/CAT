@@ -13,7 +13,6 @@ include(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("CAT.php");
 require_once("resources/inc/footer.inc.php");
 
-$cat = new CAT();
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -195,6 +194,7 @@ Andreas
                 <tr>
                     <td style="padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;">
                         <?php
+                        $cat = new CAT();
                         echo $cat->CAT_COPYRIGHT;
                         ?>
                     </td>

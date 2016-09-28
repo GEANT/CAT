@@ -19,6 +19,7 @@ require_once('AbstractProfile.php');
 require_once('X509.php');
 require_once('EAP.php');
 require_once('Logging.php');
+require_once('Language.php');
 include_once("devices/devices.php");
 
 /**
@@ -129,11 +130,10 @@ abstract class DeviceConfig extends Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $this->langIndex = CAT::getLang();
-        $olddomain = CAT::setTextDomain("core");
+        $olddomain = $this->languageInstance->setTextDomain("core");
         $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
         $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
-        CAT::setTextDomain($olddomain);
+        $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
@@ -357,7 +357,7 @@ abstract class DeviceConfig extends Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
-        $lang_pointer = CONFIG['LANGUAGES'][$this->langIndex]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
@@ -600,15 +600,6 @@ abstract class DeviceConfig extends Entity {
      */
     public $sign;
     public $signer;
-
-    /**
-     * the string referencing the language (index ot the CONFIG['LANGUAGES'] array).
-     * It is set to the current language and may be used by the device module to
-     * set its language
-     *
-     * @var string
-     */
-    public $langIndex;
 
     /**
      * The string identifier of the device (don't show this to users)

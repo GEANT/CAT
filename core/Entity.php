@@ -17,6 +17,7 @@
  * 
  */
 require_once("Logging.php");
+require_once("Language.php");
 
 /**
  * This class represents an Entity with properties stored in the DB.
@@ -40,8 +41,16 @@ abstract class Entity {
      */
     protected $loggerInstance;
 
+    /**
+     * access to language settings to be able to switch textDomain
+     * 
+     * @var Language
+     */
+    protected $languageInstance;
+    
     public function __construct() {
         $this->loggerInstance = new Logging();
+        $this->languageInstance = new Language();
     }
 
 }

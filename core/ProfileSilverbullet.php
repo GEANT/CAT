@@ -52,7 +52,6 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
-        $this->langIndex = CAT::getLang();
 
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
         // set to global config value

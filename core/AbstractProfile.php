@@ -74,12 +74,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     protected $privEaptypes;
 
     /**
-     * current language
-     * @var string
-     */
-    protected $langIndex;
-
-    /**
      * number of profiles of the IdP this profile is attached to
      */
     protected $idpNumberOfProfiles;
@@ -217,7 +211,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function testCache($device) {
         $returnValue = NULL;
         $escapedDevice = $this->databaseHandle->escapeValue($device);
-        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->langIndex'");
+        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '".$this->languageInstance->getLang()."'");
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
@@ -249,7 +243,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function incrementDownloadStats($device, $area) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user") {
-            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','$this->langIndex', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','".$this->languageInstance->getLang()."', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
         }
         return FALSE;
@@ -402,7 +396,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function listDevices($locale = NULL) {
         if ($locale === NULL) {
-            $locale = $this->langIndex;
+            $locale = $this->languageInstance->getLang();
         }
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
@@ -538,8 +532,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     }
                 }
                 $out[$name]['langs'] = $nameCandidate;
-                if (isset($nameCandidate[$this->langIndex]) || isset($nameCandidate['C'])) {
-                    $out[$name][0] = (isset($nameCandidate[$this->langIndex])) ? $nameCandidate[$this->langIndex] : $nameCandidate['C'];
+                if (isset($nameCandidate[$this->languageInstance->getLang()]) || isset($nameCandidate['C'])) {
+                    $out[$name][0] = (isset($nameCandidate[$this->languageInstance->getLang()])) ? $nameCandidate[$this->languageInstance->getLang()] : $nameCandidate['C'];
                 }
                 if (isset($nameCandidate['en'])) {
                     $out[$name][1] = $nameCandidate['en'];

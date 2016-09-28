@@ -184,13 +184,13 @@ class Device_Vista7 extends WindowsCommon {
 <ID>CATinstaller</ID>
 <ProviderInfo>
 <CredentialPrompt>
-<localized-text><lang>' . $this->langIndex . '</lang><text>' . _("Please provide your user ID and password.") . '</text></localized-text>
+<localized-text><lang>' . $this->languageInstance->getLang() . '</lang><text>' . _("Please provide your user ID and password.") . '</text></localized-text>
 </CredentialPrompt>
 <UserNameLabel>
-<localized-text><lang>' . $this->langIndex . '</lang><text>' . _("Username@domain:") . '</text></localized-text>
+<localized-text><lang>' . $this->languageInstance->getLang() . '</lang><text>' . _("Username@domain:") . '</text></localized-text>
 </UserNameLabel>
 <PasswordLabel>
-<localized-text><lang>' . $this->langIndex . '</lang><text>' . _("Password:") . '</text></localized-text>
+<localized-text><lang>' . $this->languageInstance->getLang() . '</lang><text>' . _("Password:") . '</text></localized-text>
 </PasswordLabel>
 </ProviderInfo>
 <AuthenticationMethods>
