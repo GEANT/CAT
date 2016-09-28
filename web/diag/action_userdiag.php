@@ -133,7 +133,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
 
                     $current_locale = setlocale(LC_ALL, 0);
                     $langObject = new Language();
-                    setlocale(LC_ALL, CONFIG['LANGUAGES'][$langObject->lang_index]['locale']);
+                    setlocale(LC_ALL, CONFIG['LANGUAGES'][$langObject->locale]);
                     array_multisort($name, SORT_ASC, SORT_LOCALE_STRING, $displaylist);
                     setlocale(LC_ALL, $current_locale);
 

@@ -72,7 +72,7 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         authenticate();
     }
     $langObject = new Language();
-    $langObject->languageInstance->setTextDomain("web_admin");
+    $langObject->setTextDomain("web_admin");
     $ourlocale = $langObject->languageInstance->getLang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>

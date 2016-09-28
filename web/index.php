@@ -20,7 +20,8 @@ require_once("CAT.php");
 require_once("Logging.php");
 $Gui = new UserAPI();
 $loggerInstance = new Logging();
-$Gui->languageInstance->setTextDomain("web_user");
+$langObject = new Language();
+$langObject->setTextDomain("web_user");
 $loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
 
 /**
@@ -115,11 +116,11 @@ include("user/js/cat_js.php");
     var loading_ico = new Image();
     loading_ico.src = "resources/images/icons/loading51.gif";
 </script>
-<?php $Gui->languageInstance->setTextDomain("web_user"); ?>
+<?php $langObject->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
 <script type="text/javascript" src="external/discojuice/discojuice.js"></script>
 <script type="text/javascript">
-    var lang = "<?php echo($Gui->languageInstance->getLang()) ?>";
+    var lang = "<?php echo($langObject->getLang()) ?>";
 </script>
 <link rel="stylesheet" type="text/css" href="external/discojuice/css/discojuice.css" />
 </head>
@@ -137,7 +138,7 @@ include("user/js/cat_js.php");
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
         }
-        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $Gui->languageInstance->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
+        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
         ?>
     </div> <!-- id="heading" -->
     <div id="loading_ico">
@@ -307,7 +308,7 @@ include("user/js/cat_js.php");
                             <?php echo _("Choose an installer to download"); ?>
                             <table id="device_list" style="padding:0px;">
                                 <?php
-                                $Gui->languageInstance->setTextDomain("devices");
+                                $langObject->setTextDomain("devices");
                                 foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
                                     $groupIndex = count($deviceGroup);
                                     $deviceIndex = 0;
@@ -324,7 +325,7 @@ include("user/js/cat_js.php");
                                     }
                                     print "</tbody>";
                                 }
-                                $Gui->languageInstance->setTextDomain("web_user");
+                                $langObject->setTextDomain("web_user");
                                 ?>
                             </table>
                         </div>

@@ -20,6 +20,7 @@ require_once("UserAPI.php");
 require_once('ProfileFactory.php');
 require_once('AbstractProfile.php');
 require_once("Logging.php");
+require_once("Language.php");
 
 $loggerInstance = new Logging();
 $loggerInstance->debug(4, "basic.php\n");
@@ -394,8 +395,11 @@ $Gui = new SimpleGUI();
 $loggerInstance->debug(4, "\n----------------------------------SIMPLE.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $Gui->languageInstance->getLang() ?>">
-    <head lang="<?php echo $Gui->languageInstance->getLang() ?>"> 
+<?php
+$langObject = new Language();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
+    <head lang="<?php echo $langObject->getLang() ?>"> 
         <title><?php echo CONFIG['APPEARANCE']['productname_long']; ?></title>
         <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 

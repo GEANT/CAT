@@ -19,7 +19,7 @@
 /**
  * necessary includes
  */
-require_once("CAT.php");
+require_once("Language.php");
 require_once('IdP.php');
 require_once('EntityWithDBProperties.php');
 
@@ -632,7 +632,8 @@ class Federation extends EntityWithDBProperties {
 
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
-                $name = getLocalisedValue($names, $this->languageInstance->getLang());
+                $langObject = new Language();
+                $name = getLocalisedValue($names, $langObject->getLang());
             }
             $oneInstitutionResult['title'] = $name;
             if (count($geo) > 0) {

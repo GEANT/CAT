@@ -19,14 +19,14 @@
  *
  */
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("UserAPI.php");
+require_once("Language.php");
 require_once("EAP.php");
 require_once(dirname(dirname(__FILE__)) . "/admin/inc/input_validation.inc.php");
 require_once(dirname(dirname(__FILE__)) . "/admin/inc/common.inc.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/devices/devices.php");
 
-$API = new UserAPI();
-$API->languageInstance->setTextDomain("web_user");
+$langObject = new Language();
+$langObject->setTextDomain("web_user");
 
 $page = $_REQUEST['page'];
 
