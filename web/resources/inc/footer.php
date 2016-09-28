@@ -10,6 +10,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.
 require_once("CAT.php");
 
 function footer() {
+    $cat = new CAT();
     echo "</div><!-- trick -->
           </div><!-- pagecontent -->";
     ?>
@@ -18,10 +19,7 @@ function footer() {
         <table style='width:100%'>
             <tr>
                 <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                    <?php
-                    echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
-                    ?>
-                    "&nbsp;&copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>
+                    <?php echo $cat->CAT_COPYRIGHT; ?>
                 </td>
                 <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
                     <?php

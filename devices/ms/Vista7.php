@@ -495,7 +495,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $fcontents .= '
 Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->code_page) . '"
 !define APPLICATION "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->code_page) . '"
-!define VERSION "' . CAT::$VERSION_MAJOR . '.' . CAT::$VERSION_MINOR . '"
+!define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
 ';

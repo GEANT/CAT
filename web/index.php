@@ -125,14 +125,14 @@ include("user/js/cat_js.php");
 </head>
 <body>
     <div id="heading">
-<?php
-print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
-print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
-print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
+        <?php
+        print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
+        print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
-echo '<table id="lang_select"><tr><td>';
-echo _("View this page in");
-?>
+        echo '<table id="lang_select"><tr><td>';
+        echo _("View this page in");
+        ?>
         <?php
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
@@ -141,7 +141,7 @@ echo _("View this page in");
         ?>
     </div> <!-- id="heading" -->
     <div id="loading_ico">
-<?php echo _("Authenticating") . "..." ?><br><img src="resources/images/icons/loading51.gif" alt="Authenticating ..."/>
+        <?php echo _("Authenticating") . "..." ?><br><img src="resources/images/icons/loading51.gif" alt="Authenticating ..."/>
     </div>
     <div id="info_overlay">
         <div id="info_window"></div>
@@ -149,24 +149,24 @@ echo _("View this page in");
     </div>
     <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>/">
         <div id="main_body">
-<?php if (!isset($_REQUEST['idp']) || !$_REQUEST['idp']) { ?>
+            <?php if (!isset($_REQUEST['idp']) || !$_REQUEST['idp']) { ?>
                 <table id="front_page">
                     <tr>
                         <td rowspan=2 id="menu_column">
                             <table id="left_menu">
-    <?php
-    $menu = new Menu([
-        "about_consortium" => [sprintf(_("About %s"), CONFIG['CONSORTIUM']['name']), 'padding-bottom:20px;font-weight: bold; '],
-        "about" => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
-        "tou" => sprintf(_("Terms of use")),
-        "faq" => sprintf(_("FAQ")),
-        "report" => sprintf(_("Report a problem")),
-        "develop" => sprintf(_("Become a CAT developer")),
-        "admin" => [sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name']), 'padding-top:30px;'],
-    ]);
+                                <?php
+                                $menu = new Menu([
+                                    "about_consortium" => [sprintf(_("About %s"), CONFIG['CONSORTIUM']['name']), 'padding-bottom:20px;font-weight: bold; '],
+                                    "about" => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
+                                    "tou" => sprintf(_("Terms of use")),
+                                    "faq" => sprintf(_("FAQ")),
+                                    "report" => sprintf(_("Report a problem")),
+                                    "develop" => sprintf(_("Become a CAT developer")),
+                                    "admin" => [sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name']), 'padding-top:30px;'],
+                                ]);
 
-    $menu->printMenu();
-    ?>
+                                $menu->printMenu();
+                                ?>
                             </table>
                         </td>
                         <td style="vertical-align: top; height:280px; background: #fff; padding-left: 20px; padding-right: 20px">
@@ -183,11 +183,11 @@ echo _("View this page in");
                                             <span id="line3"></span>
                                             <span id="line4"><?php echo _("Custom built for your home institution") ?></span>
                                             <span id="line5">
-    <?php
-    if (isset(CONFIG['CONSORTIUM']['signer_name']) && CONFIG['CONSORTIUM']['signer_name'] != "") {
-        echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['signer_name']);
-    }
-    ?>
+                                                <?php
+                                                if (isset(CONFIG['CONSORTIUM']['signer_name']) && CONFIG['CONSORTIUM']['signer_name'] != "") {
+                                                    echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['signer_name']);
+                                                }
+                                                ?>
                                             </span>
                                         </div>
                                         <div id = "img_roll">
@@ -199,19 +199,19 @@ echo _("View this page in");
                     </tr>
                     <tr>
                         <td id="user_button_td">
-    <?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
+                            <?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
 
                         </td>
                     </tr>
                 </table> <!-- id="front_page" -->
-<?php } ?>
+            <?php } ?>
             <!-- the user_page div contains all information for a given IdP, i.e. the profile selection (if multiple profiles are defined)
                  and the device selection (including the automatic OS detection ) -->
             <div id="user_page">
                 <div id="institution_name">
                     <span id="inst_name_span"></span> <!-- this will be filled with the IdP name -->
                     <button class="signin">
-<?php echo _("select another"); ?>
+                        <?php echo _("select another"); ?>
                     </button>
                 </div>
                 <div> <!-- IdP logo, if present -->
@@ -219,7 +219,7 @@ echo _("View this page in");
                 </div>
                 <div id="profiles"> <!-- this is the profile selection filled during run time -->
                     <div id="profiles_h" class="sub_h">
-<?php echo _("Select the user group"); ?>
+                        <?php echo _("Select the user group"); ?>
                     </div>
                     <table>
                         <tr>
@@ -234,16 +234,16 @@ echo _("View this page in");
                     <p>
                         <span id="download_info"><?php
 /// the empty href is dynamically exchanged with the actual path by jQuery at runtime
-echo _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
-?></span>
+                            echo _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
+                            ?></span>
                     <p>
-                            <?php printf(_("Dear user from %s,"), "<span class='inst_name'></span>") ?>
+                        <?php printf(_("Dear user from %s,"), "<span class='inst_name'></span>") ?>
                         <br/>
                         <br/>
-<?php echo _("we would like to warmly welcome you among the several million users of eduroam®! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!") ?>
+                        <?php echo _("we would like to warmly welcome you among the several million users of eduroam®! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!") ?>
                     </p>
                     <p>
-<?php echo _("Now that you have downloaded and installed a client configurator, all you need to do is find an eduroam® hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!") ?>
+                        <?php echo _("Now that you have downloaded and installed a client configurator, all you need to do is find an eduroam® hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!") ?>
                     <p>
                         <?php printf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>") ?>
                     </p>
@@ -252,7 +252,7 @@ echo _("Your download will start shortly. In case of problems with the automatic
                     </p>
                 </div> <!-- id="user_welcomer_page" -->
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
-<?php echo _("Your local administrator has specified a redirect to a local support page.<br>
+                    <?php echo _("Your local administrator has specified a redirect to a local support page.<br>
                             When you click <b>Continue</b> this support page will be opened in a new window/tab."); ?>
                     <br>
                     <span class="redirect_link">
@@ -261,7 +261,7 @@ echo _("Your download will start shortly. In case of problems with the automatic
                     </span>
                 </div> <!-- id="profile_redirect" -->
                 <div id="devices" class="device_list">
-<?php if ($operatingSystem) { ?>  <!-- this part is shown when we have guessed the OS -->
+                    <?php if ($operatingSystem) { ?>  <!-- this part is shown when we have guessed the OS -->
 
                         <div class="sub_h" id="guess_os"> 
                             <table id='browser'>
@@ -277,10 +277,10 @@ echo _("Your download will start shortly. In case of problems with the automatic
                                             <div class='download_button_text' 
                                                  style='font-size:12px; top:5px; height: 30px'
                                                  id='download_button_header_<?php echo $operatingSystem['device'] ?>'>
-    <?php print $downloadMessage ?>
+                                                     <?php print $downloadMessage ?>
                                             </div>
                                             <div class='download_button_text' style='font-size:20px; bottom: 5px; '>
-    <?php echo $operatingSystem['display'] ?>
+                                                <?php echo $operatingSystem['display'] ?>
                                             </div>
                                         </button>
                                         <div class='device_info' id='info_g_<?php echo $operatingSystem['device'] ?>'></div>
@@ -301,31 +301,31 @@ echo _("Your download will start shortly. In case of problems with the automatic
                                 <a href="javascript:other_installers()"><?php echo _("All platforms"); ?></a>
                             </div>
                         </div> <!-- id="guess_os" -->
-<?php } ?>
+                    <?php } ?>
                     <div class="sub_h">
                         <div id="other_installers">
-<?php echo _("Choose an installer to download"); ?>
+                            <?php echo _("Choose an installer to download"); ?>
                             <table id="device_list" style="padding:0px;">
-                            <?php
-                            $Gui->setTextDomain("devices");
-                            foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
-                                $groupIndex = count($deviceGroup);
-                                $deviceIndex = 0;
-                                print '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="resources/images/vendorlogo/' . $group . '.png" alt="' . $group . ' Device"></td>';
-                                foreach ($deviceGroup as $d => $D) {
-                                    if ($deviceIndex) {
-                                        print '<tr>';
+                                <?php
+                                $Gui->setTextDomain("devices");
+                                foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
+                                    $groupIndex = count($deviceGroup);
+                                    $deviceIndex = 0;
+                                    print '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="resources/images/vendorlogo/' . $group . '.png" alt="' . $group . ' Device"></td>';
+                                    foreach ($deviceGroup as $d => $D) {
+                                        if ($deviceIndex) {
+                                            print '<tr>';
+                                        }
+                                        $j = ($deviceIndex + 1) * 20;
+                                        print "<td><button id='" . $d . "'>" . $D['display'] . "</button>";
+                                        print "<div class='device_info' id='info_" . $d . "'></div></td>";
+                                        print "<td><button class='more_info_b' id='info_b_" . $d . "'></button></td></tr>\n";
+                                        $deviceIndex++;
                                     }
-                                    $j = ($deviceIndex + 1) * 20;
-                                    print "<td><button id='" . $d . "'>" . $D['display'] . "</button>";
-                                    print "<div class='device_info' id='info_" . $d . "'></div></td>";
-                                    print "<td><button class='more_info_b' id='info_b_" . $d . "'></button></td></tr>\n";
-                                    $deviceIndex++;
+                                    print "</tbody>";
                                 }
-                                print "</tbody>";
-                            }
-                            $Gui->setTextDomain("web_user");
-                            ?>
+                                $Gui->setTextDomain("web_user");
+                                ?>
                             </table>
                         </div>
                     </div>
@@ -341,22 +341,21 @@ echo _("Your download will start shortly. In case of problems with the automatic
         <table style='width:100%'>
             <tr>
                 <td style="padding-left:20px; text-align:left">
-<?php
-echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
-echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
-?>
+                    <?php
+                    echo $Gui->CAT_COPYRIGHT;
+                    ?>
                 </td>
                 <td style="padding-left:80px; text-align:right;">
-<?php
-if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-    echo "
+                    <?php
+                    if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                        echo "
                   <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
                   <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
                   <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
-} else {
-    echo "&nbsp;";
-}
-?>
+                    } else {
+                        echo "&nbsp;";
+                    }
+                    ?>
                 </td>
             </tr>
         </table>

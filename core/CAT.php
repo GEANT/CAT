@@ -42,18 +42,25 @@ class CAT {
      * developers need to set this in code. The user-displayed string
      * is generated into $VERSION below
      */
-    public static $VERSION_MAJOR = 1;
-    public static $VERSION_MINOR = 2;
-    public static $VERSION_PATCH = 0;
-    public static $VERSION_EXTRA = "";
-    public static $RELEASE_VERSION = FALSE;
-    public static $USER_API_VERSION = 2;
+    const VERSION_MAJOR = 1;
+    const VERSION_MINOR = 2;
+    const VERSION_PATCH = 0;
+    const VERSION_EXTRA = "";
+    const RELEASE_VERSION = FALSE;
+    const USER_API_VERSION = 2;
 
     /*
      * This is the user-displayed string; controlled by the four options above
      * It is generated in the constructor.
+     * 
+     * @var string
      */
-    public static $VERSION;
+    public $CAT_VERSION_STRING;
+    
+    /*
+     * The entire copyright line, generated in constructor
+     */
+    public $CAT_COPYRIGHT;
     
     /**
       /**
@@ -72,17 +79,18 @@ class CAT {
     public function __construct() {
         $language = $this->setLang();
         self::$locale = $language[1];
-        CAT::$VERSION = _("Unreleased SVN Revision");
-        if (CAT::$RELEASE_VERSION) {
-            $temp_version = "CAT-" . CAT::$VERSION_MAJOR . "." . CAT::$VERSION_MINOR;
-            if (CAT::$VERSION_PATCH != 0) {
-                $temp_version .= "." . CAT::$VERSION_PATCH;
+        $this->CAT_VERSION_STRING = _("Unreleased SVN Revision");
+        if (CAT::RELEASE_VERSION) {
+            $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
+            if (CAT::VERSION_PATCH != 0) {
+                $temp_version .= "." . CAT::VERSION_PATCH;
             }
-            if (CAT::$VERSION_EXTRA != "") {
-                $temp_version .= "-" . CAT::$VERSION_EXTRA;
+            if (CAT::VERSION_EXTRA != "") {
+                $temp_version .= "-" . CAT::VERSION_EXTRA;
             }
-            CAT::$VERSION = sprintf(_("Release %s"), $temp_version);
+            $this->CAT_VERSION_STRING = sprintf(_("Release %s"), $temp_version);
         }
+        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; 2011-16 Dante Ltd. and G&Eacute;ANT on behalf of the GN3, GN3plus, GN4-1 and GN4-2 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
     }
 
     /**

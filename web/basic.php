@@ -467,8 +467,8 @@ if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQ
         <div class='footer'><hr />
             <?php
             print('<a href="tou.php">' . _("Terms of use") . "</a><p>");
-            echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
-            echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a></div>";
+            echo $Gui->CAT_COPYRIGHT;
+            echo "</div>";
             ?>
     </body>
 </html>
