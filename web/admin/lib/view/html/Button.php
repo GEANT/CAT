@@ -8,29 +8,17 @@ namespace lib\view\html;
  */
 class Button extends Tag{
     
-    private $attributesString = "";
-    private $title = "";
-    protected $name = "";
-    protected $value = "";
+    const SUBMIT_TYPE = 'submit';
+    const RESET_TYPE = 'reset';
+    const BUTTON_TYPE = 'button';
     
-    public function __construct($type, $title, $name, $value, $class = ''){
-        $this->attributesString .= new Attribute('type', $type);
-        $this->attributesString .= new Attribute('class', $class);
-        $this->title = $title;
-        $this->name = $name;
-        $this->value = $value;
+    public function __construct($title, $type = self::SUBMIT_TYPE, $name = '', $value = '', $class = ''){
+        parent::__construct('button');
+        $this->addAttribute('type', $type);
+        $this->addAttribute('name', $name);
+        $this->addAttribute('value', $value);
+        $this->addAttribute('class', $class);
+        $this->addText($title);
     }
     
-    /**
-     * 
-     * @return string
-     */
-    protected function composeNameValueString(){
-        return new Attribute('name', $this->name).new Attribute('value', $this->value);
-    }
-    
-    public function __toString(){
-        $this->attributesString .= $this->composeNameValueString();
-        return "\n".$this->tab."<button".$this->attributesString.">" ."\n\t".$this->tab.$this->title. "\n".$this->tab."</button>";
-    }
 }

@@ -7,5 +7,8 @@ namespace lib\view\html;
  *
  */
 interface HtmlElement {
+    /**
+     * 
+     */
     public function __toString();
 }

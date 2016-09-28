@@ -1,12 +1,12 @@
 <?php
 namespace lib\view;
 
-use lib\view\html\Table;
+use lib\view\html\Button;
+use lib\view\html\CompositeTag;
 use lib\view\html\Row;
-use lib\view\html\JsButton;
+use lib\view\html\Table;
 use lib\view\html\Tag;
 use lib\view\html\UnaryTag;
-use lib\view\html\CompositeTag;
 
 class UserCredentialsForm implements PageElement{
     
@@ -18,18 +18,24 @@ class UserCredentialsForm implements PageElement{
 
     /**
      *
-     * @var Table
+     * @var PageElementDecorator
      */
     private $decorator;
+    
+    /**
+     * @var string
+     */
+    private $action;
     
     /**
      * 
      * @param string $title
      */
     public function __construct($title) {
+        $this->action = $_SERVER['REQUEST_URI'];
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
-        $this->decorator = new TitledFormDecorator($this->table, $title, $_SERVER['REQUEST_URI'], PageElement::EDITABLEBLOCK_CLASS);
+        $this->decorator = new TitledFormDecorator($this->table, $title, $this->action, PageElement::EDITABLEBLOCK_CLASS);
     }
     
     /**
@@ -47,31 +53,28 @@ class UserCredentialsForm implements PageElement{
         $row->addAttribute('style', 'background:#F0F0F0;');
         $index = $this->table->size();
         $this->table->addRow($row);
-        $this->table->addToCell($index, 'user', new JsButton('button', _('Delete user'), 'user_id', 1, JsButton::DELETE_USER_ACTION, 'delete'));
-        $this->table->addToCell($index, 'user', new JsButton('button', _('New Credential'), '', '', JsButton::NEW_CREDENTIAL_ACTION));
-        $this->table->addToCell($index, 'action', new JsButton('button', _('Revoke'), 'credential_id', 1, JsButton::REVOKE_CREDENTIAL_ACTION, 'delete'));
+        $this->table->addToCell($index, 'user', new Button(_('Delete user'),'button','','','delete'));
+        $this->table->addToCell($index, 'user', new Button(_('New Credential'),'button'));
+        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'button', '', '', 'delete'));
     }
     
     public function addCertificateRow($rowArray){
         $index = $this->table->size();
         $this->table->addRowArray($rowArray);
-        $this->table->addToCell($index, 'action', new JsButton('button', _('Revoke'), 'credential_id', 1, JsButton::REVOKE_CREDENTIAL_ACTION, 'delete'));
+        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'button', '', '', 'delete'));
     }
     
     public function render(){
         $this->decorator->render();
-        
-        $p = new Tag('p');
-        //$p->addAttribute('style', 'font-weight:bold;');
-        $p->addText(_("Provide user name and surname to create a new user:"));
-        $p->render();
-        
-        $input = new UnaryTag('input');
-        $input->addAttribute("type", "text");
-        $p = new CompositeTag('p');
-        $p->addTag($input);
-        $p->render();
-        
-        echo new JsButton('button', _('Add new user'), '', '', JsButton::NEW_USER_ACTION);
+        ?>
+        <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
+            <div style="padding: 10px;">
+                <label for="newUserName"><?php echo _("Provide user name and surname to create a new user:"); ?></label>
+                <input type="text" name="newUserName" style="display:block;margin: 5px 0px 10px 0px;">
+                <button type="submit" ><?php echo _('Add new user'); ?></button>
+            </div>
+            
+        </form>
+        <?php
     }
 }

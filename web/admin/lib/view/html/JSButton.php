@@ -6,7 +6,7 @@ namespace lib\view\html;
  * @author Zilvinas Vaira
  *
  */
-class JsButton extends Button{
+class JSButton extends Button{
     
     const REVOKE_CREDENTIAL_ACTION = 'revokeCredential';
     const DELETE_USER_ACTION = 'deleteUser';
@@ -16,16 +16,11 @@ class JsButton extends Button{
     
     private $action = "";
     
-    public function __construct($type, $title, $name, $value, $action, $class = ''){
-        parent::__construct($type, $title, $name, $value, $class);
+    public function __construct($title, $action, $name = '', $value = '', $type = 'button', $class = ''){
+        parent::__construct($title, $type, $name, $value, $class);
         $this->action = $action;
     }
     
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \lib\html\RegularButton::composeNameValueString()
-     */
     protected function composeNameValueString() {
         return ' onclick="'.$this->action.'(\''.$this->name.'\',\''.$this->value.'\')"';
     }
