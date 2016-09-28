@@ -99,11 +99,13 @@ abstract class DeviceConfig extends Entity {
             error("No profile has been set");
             exit;
         }
-        $this->attributes = $this->getProfileAttributes($profile);
-        if (!$this->selectedEap) {
+        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
+        $this->calculatePreferredEapType($eaps);
+        if (count($this->selectedEap) == 0) {
             error("No EAP type specified.");
             exit;
         }
+        $this->attributes = $this->getProfileAttributes($profile);
         // create temporary directory, its full path will be saved in $this->FPATH;
         $tempDir = createTemporaryDirectory('installer');
         $this->FPATH = $tempDir['dir'];
@@ -145,18 +147,16 @@ abstract class DeviceConfig extends Entity {
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
      * @param array eap_array an array of eap methods supported by a given device
-     * @return array the best matching EAP type for the profile; the array may be empty if no match was found
      */
-    public function getPreferredEapType($eap_array) {
+    public function calculatePreferredEapType($eap_array) {
+        $this->selectedEap = [];
         foreach ($eap_array as $eap) {
             if (in_array($eap, $this->supportedEapMethods)) {
                 $this->selectedEap = $eap;
                 $this->loggerInstance->debug(4, "Selected EAP:");
                 $this->loggerInstance->debug(4, $eap);
-                return($eap);
             }
         }
-        return [];
     }
 
     /**
@@ -488,8 +488,7 @@ abstract class DeviceConfig extends Entity {
     }
 
     private function getProfileAttributes(AbstractProfile $profile) {
-        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
-        $bestMatchEap = $this->getPreferredEapType($eaps);
+        $bestMatchEap = $this->selectedEap;
         if (count($bestMatchEap) > 0) {
             $a = $profile->getCollapsedAttributes($bestMatchEap);
             $a['eap'] = $bestMatchEap;
