@@ -69,7 +69,11 @@ class CAT {
      * @var string
      */
     private static $LANG = '';
-    private static $DB_TYPE = "INST";
+    
+    /**
+     * the default database to query in this class.
+     */
+    const DB_TYPE = "INST";
 
     /**
      *  Constructor sets the language by calling set_lang 
@@ -97,7 +101,7 @@ class CAT {
      * 
      */
     public function totalIdPs($level) {
-        $handle = DBConnection::handle(CAT::$DB_TYPE);
+        $handle = DBConnection::handle(CAT::DB_TYPE);
         switch ($level) {
             case "ALL":
                 $idpcount = $handle->exec("SELECT COUNT(inst_id) AS instcount FROM institution");
@@ -214,7 +218,7 @@ class CAT {
      */
     public function printCountryList($activeOnly = 0) {
         $olddomain = $this->setTextDomain("core");
-        $handle = DBConnection::handle(CAT::$DB_TYPE);
+        $handle = DBConnection::handle(CAT::DB_TYPE);
         $returnArray = []; // in if -> the while might never be executed, so initialise
         if ($activeOnly) {
             $federations = $handle->exec("SELECT DISTINCT LOWER(institution.country) AS country FROM institution JOIN profile
