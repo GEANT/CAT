@@ -23,7 +23,6 @@
 require_once('DBConnection.php');
 require_once("Federation.php");
 require_once("IdP.php");
-require_once("CAT.php");
 
 /**
  * This class manages user privileges and bindings to institutions

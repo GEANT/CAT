@@ -21,7 +21,6 @@
  */
 include_once("devices/devices.php");
 include_once("CAT.php");
-include_once("Logging.php");
 
 /**
  * This factory instantiates a device module and makes it available in its member $device.

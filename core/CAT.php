@@ -21,8 +21,6 @@
  */
 session_start();
 require_once("Helper.php");
-require_once("Logging.php");
-require_once("Language.php");
 require_once("Federation.php");
 require_once(dirname(__DIR__) . "/config/_config.php");
 

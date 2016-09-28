@@ -4,7 +4,10 @@
  * License: see the LICENSE file in the root directory
  ***********************************************************************************/
 ?>
-<?php $Gui->langaugeInstance->setTextDomain('web_user'); ?>
+<?php 
+require_once("Language.php");
+$langObject = new Language();
+$langObject->setTextDomain('web_user'); ?>
 var n;
 var profile;
 // var device_button_bg ="#0a698e";

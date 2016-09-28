@@ -7,7 +7,6 @@
 ?>
 <?php
 
-require_once("AbstractProfile.php");
 require_once("ProfileRADIUS.php");
 require_once("ProfileSilverbullet.php");
 

@@ -12,7 +12,6 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once('Options.php');
 require_once('DBConnection.php');
 require_once('ProfileFactory.php');
-require_once('AbstractProfile.php');
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases

@@ -38,7 +38,7 @@ define("NOTCONFIGURED", 3);
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
  * one can set attribute in the Profile directly. If there is a conflict between
  * IdP-wide and Profile-wide attributes, the more specific ones (i.e. Profile) win.
- *
+ * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *

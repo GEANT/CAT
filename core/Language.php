@@ -51,8 +51,8 @@ class Language {
      */
     public function __construct() {
         $language = $this->setLang();
-        Language::$LANG = $language[0];
-        Language::$locale = $language[1];
+        $this->LANG = $language[0];
+        $this->locale = $language[1];
     }
 
     /**
@@ -140,6 +140,6 @@ class Language {
      * gets the language setting in CAT
      */
     public function getLang() {
-        return Language::$LANG;
+        return $this->LANG;
     }
 }

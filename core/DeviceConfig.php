@@ -18,8 +18,6 @@
 require_once('AbstractProfile.php');
 require_once('X509.php');
 require_once('EAP.php');
-require_once('Logging.php');
-require_once('Language.php');
 include_once("devices/devices.php");
 
 /**

@@ -11,7 +11,7 @@
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once("CAT.php");
-require_once("resources/inc/footer.inc.php");
+require_once("resources/inc/footer.php");
 
 ?>
 <!DOCTYPE html>

@@ -19,7 +19,6 @@
 /**
  * necessary includes
  */
-require_once("Language.php");
 require_once('IdP.php');
 require_once('EntityWithDBProperties.php');
 

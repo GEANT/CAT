@@ -18,12 +18,11 @@
  */
 require_once('Helper.php');
 require_once('ProfileFactory.php');
+require_once('EntityWithDBProperties.php');
 require_once('AbstractProfile.php');
-require_once("CAT.php");
 require_once("Options.php");
 require_once("DBConnection.php");
 require_once("RADIUSTests.php");
-require_once('EntityWithDBProperties.php');
 
 define("EXTERNAL_DB_SYNCSTATE_NOT_SYNCED", 0);
 define("EXTERNAL_DB_SYNCSTATE_SYNCED", 1);
