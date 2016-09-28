@@ -30,7 +30,7 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPE
 </head>
 <body>
 
-    <?php productheader("FEDERATION", CAT::get_lang()); ?>
+    <?php productheader("FEDERATION", CAT::getLang()); ?>
 
     <h1>
         <?php

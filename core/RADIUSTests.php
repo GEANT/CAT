@@ -244,7 +244,7 @@ class RADIUSTests extends Entity {
      */
     public function __construct($realm, $profileId = 0) {
         parent::__construct();
-        $oldlocale = CAT::set_locale('diagnostics');
+        $oldlocale = CAT::setTextDomain('diagnostics');
 
         $this->realm = $realm;
         $this->UDP_reachability_result = [];
@@ -281,7 +281,7 @@ class RADIUSTests extends Entity {
             $this->profile = FALSE;
         }
 
-        CAT::set_locale($oldlocale);
+        CAT::setTextDomain($oldlocale);
     }
 
     /**
@@ -371,7 +371,7 @@ class RADIUSTests extends Entity {
 
 // generic return codes
     private function initialiseErrors() {
-        $oldlocale = CAT::set_locale('diagnostics');
+        $oldlocale = CAT::setTextDomain('diagnostics');
         $this->return_codes = [];
         /**
          * Test was executed and the result was as expected.
@@ -651,7 +651,7 @@ class RADIUSTests extends Entity {
         $this->return_codes[$code40]["message"] = _("The certificate contains more than one CommonName (CN) field. This is reportedly problematic on many supplicants.");
         $this->return_codes[$code40]["severity"] = L_WARN;
 
-        CAT::set_locale($oldlocale);
+        CAT::setTextDomain($oldlocale);
     }
 
     /**
@@ -1624,7 +1624,7 @@ network={
      * @return int return code
      */
     private function opensslResult($host, $testtype, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
-        $oldlocale = CAT::set_locale('diagnostics');
+        $oldlocale = CAT::setTextDomain('diagnostics');
 
         $res = RETVAL_OK;
         switch ($testtype) {
@@ -1689,7 +1689,7 @@ network={
                 break;
         }
 
-        CAT::set_locale($oldlocale);
+        CAT::setTextDomain($oldlocale);
         return $res;
     }
 

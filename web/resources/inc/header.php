@@ -59,7 +59,7 @@ function findResourceUrl($resourcetype) {
 function pageheader($pagetitle, $area, $authRequired = TRUE) {
     $cat = defaultPagePrelude($pagetitle, $authRequired);
     echo "</head></body>";
-    productheader($area, CAT::get_lang());
+    productheader($area, CAT::getLang());
     return $cat;
 }
 
@@ -75,8 +75,8 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         authenticate();
     }
     $cat = new CAT();
-    $cat->set_locale("web_admin");
-    $ourlocale = CAT::get_lang();
+    $cat->setTextDomain("web_admin");
+    $ourlocale = CAT::getLang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>

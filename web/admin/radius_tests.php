@@ -17,7 +17,7 @@ require_once("Logging.php");
 
 ini_set('display_errors', '0');
 $Cat = new CAT();
-$Cat->set_locale("web_admin");
+$Cat->setTextDomain("web_admin");
 
 $loggerInstance = new Logging();
 

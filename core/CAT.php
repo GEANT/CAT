@@ -54,7 +54,7 @@ class CAT {
      * It is generated in the constructor.
      */
     public static $VERSION;
-
+    
     /**
       /**
      * database which this class queries by default
@@ -70,7 +70,7 @@ class CAT {
      *  additionally it also sets static variables $laing_index and $root
      */
     public function __construct() {
-        $language = $this->set_lang();
+        $language = $this->setLang();
         self::$locale = $language[1];
         CAT::$VERSION = _("Unreleased SVN Revision");
         if (CAT::$RELEASE_VERSION) {
@@ -113,7 +113,7 @@ class CAT {
      * @param string $domain
      * @return string previous seting so that you can restore it later
      */
-    public static function set_locale($domain) {
+    public static function setTextDomain($domain) {
         $loggerInstance = new Logging();
         $olddomain = textdomain(NULL);
         $loggerInstance->debug(4, "set_locale($domain)\n");
@@ -133,7 +133,7 @@ class CAT {
      * @param $hardsetlang - this is currently not used but
      * will allow to forst lang setting if this was ever required
      */
-    private static function set_lang($hardsetlang = 0) {
+    private static function setLang($hardsetlang = 0) {
         $lang_converted = [];
         if ($hardsetlang !== 0) {
             $hardsetlocale = $hardsetlang;
@@ -191,9 +191,9 @@ class CAT {
     /**
      * gets the language setting in CAT
      */
-    static public function get_lang() {
+    static public function getLang() {
         if (self::$LANG === '') {
-            list(self::$LANG, ) = self::set_lang();
+            list(self::$LANG, ) = self::setLang();
         }
         return self::$LANG;
     }
@@ -205,7 +205,7 @@ class CAT {
      * @return array Array indexed by (uppercase) lang codes and sorted according to the current locale
      */
     public function printCountryList($activeOnly = 0) {
-        $olddomain = $this->set_locale("core");
+        $olddomain = $this->setTextDomain("core");
         $handle = DBConnection::handle(CAT::$DB_TYPE);
         $returnArray = []; // in if -> the while might never be executed, so initialise
         if ($activeOnly) {
@@ -222,7 +222,7 @@ class CAT {
             $returnArray = Federation::$federationList;
         }
         asort($returnArray, SORT_LOCALE_STRING);
-        $this->set_locale($olddomain);
+        $this->setTextDomain($olddomain);
         return($returnArray);
     }
 

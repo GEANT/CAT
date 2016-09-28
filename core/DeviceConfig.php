@@ -129,11 +129,11 @@ abstract class DeviceConfig extends Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $this->langIndex = CAT::get_lang();
-        $olddomain = CAT::set_locale("core");
+        $this->langIndex = CAT::getLang();
+        $olddomain = CAT::setTextDomain("core");
         $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
         $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
-        CAT::set_locale($olddomain);
+        CAT::setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;

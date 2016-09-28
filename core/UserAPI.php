@@ -62,7 +62,7 @@ class UserAPI extends CAT {
      *  mime - the mimetype of the installer
      */
     public function generateInstaller($device, $profileId, $generatedFor = "user") {
-        $this->set_locale("devices");
+        $this->setTextDomain("devices");
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $profile = ProfileFactory::instantiate($profileId);
         $attribs = $profile->getCollapsedAttributes();
@@ -91,14 +91,14 @@ class UserAPI extends CAT {
         $this->installerPath = $this->getCachedPath($device, $profile);
         if ($this->installerPath) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
+            $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile);
             $installerProperties['mime'] = $myInstaller['mime'];
             $installerProperties['link'] = $myInstaller['link'];
         }
-        $this->set_locale("web_user");
+        $this->setTextDomain("web_user");
         return($installerProperties);
     }
 
@@ -156,9 +156,9 @@ class UserAPI extends CAT {
                 $profile->updateCache($device, $this->installerPath, $out['mime']);
                 rrmdir($dev->FPATH . '/tmp');
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::get_lang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
+                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . CAT::getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
             } else {
-                $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . CAT::get_lang() . "\n");
+                $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . CAT::getLang() . "\n");
                 $out['link'] = 0;
             }
         }
@@ -195,7 +195,7 @@ class UserAPI extends CAT {
     }
 
     public function deviceInfo($device, $profileId) {
-        $this->set_locale("devices");
+        $this->setTextDomain("devices");
         $out = 0;
         $profile = ProfileFactory::instantiate($profileId);
         $factory = new DeviceFactory($device);
@@ -203,7 +203,7 @@ class UserAPI extends CAT {
         if (isset($dev)) {
             $out = $dev->writeDeviceInfo();
         }
-        $this->set_locale("web_user");
+        $this->setTextDomain("web_user");
         echo $out;
     }
 
@@ -220,7 +220,7 @@ class UserAPI extends CAT {
      * - devices - an array of device names and their statuses (for a given profile)
      */
     public function profileAttributes($profId) {
-        $this->set_locale("devices");
+        $this->setTextDomain("devices");
         $profile = ProfileFactory::instantiate($profId);
         $attr = $profile->getCollapsedAttributes();
         $returnArray = [];
@@ -237,7 +237,7 @@ class UserAPI extends CAT {
             $returnArray['description'] = $attr['profile:description'][0];
         }
         $returnArray['devices'] = $profile->listDevices();
-        $this->set_locale("web_user");
+        $this->setTextDomain("web_user");
         return($returnArray);
     }
 
@@ -376,7 +376,7 @@ class UserAPI extends CAT {
      * @return string JSON encoded data
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {
-        $this->set_locale("web_user");
+        $this->setTextDomain("web_user");
         $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
@@ -410,7 +410,7 @@ class UserAPI extends CAT {
      * @return string JSON encoded data
      */
     public function JSON_listDevices($profileId) {
-        $this->set_locale("web_user");
+        $this->setTextDomain("web_user");
         $returnArray = [];
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];

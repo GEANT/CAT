@@ -28,7 +28,7 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE)) {
 }
 
 $cat = new CAT();
-$cat->set_locale("web_admin");
+$cat->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 

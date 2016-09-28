@@ -17,7 +17,7 @@ require_once("UserAPI.php");
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 $Gui = new UserAPI();
-$Gui->set_locale("web_user");
+$Gui->setTextDomain("web_user");
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
@@ -37,14 +37,14 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
         }
-        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . _("Start page") . '</a></td></tr></table>';
+        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::getLang() . '">' . _("Start page") . '</a></td></tr></table>';
         ?>
     </div> <!-- id="heading" -->
     <div id="main_body" style='padding:20px;'>
         <h1><?php echo _("This is not the CAT you are looking for.");?></h1>
         <p><?php echo _("Whatever you expected to see at this URL - it's not here. The only thing here is the number");?></p>
         <h2>404</h2>
-        <p><?php echo sprintf(_("staring at you. Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang())?></p>
+        <p><?php echo sprintf(_("staring at you. Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::getLang())?></p>
     </div> <!-- id="main_body" -->
 
         <?php footer();

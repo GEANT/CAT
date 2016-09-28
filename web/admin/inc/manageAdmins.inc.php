@@ -20,7 +20,7 @@ require_once("input_validation.inc.php");
 authenticate();
 
 $Cat = new CAT();
-$Cat->set_locale("web_admin");
+$Cat->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 

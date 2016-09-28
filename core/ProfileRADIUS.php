@@ -70,7 +70,7 @@ class ProfileRADIUS extends AbstractProfile {
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
-        $this->langIndex = CAT::get_lang();
+        $this->langIndex = CAT::getLang();
 
         $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
         $this->loggerInstance->debug(4, $profile);

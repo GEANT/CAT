@@ -25,7 +25,7 @@ authenticate();
 
 $loggerInstance = new Logging();
 $Cat = new CAT();
-$Cat->set_locale("web_admin");
+$Cat->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);

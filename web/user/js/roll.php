@@ -15,7 +15,7 @@
  * the bottom of this file
 */
 ?>
-<?php $Gui->set_locale('web_user'); ?>
+<?php $Gui->setTextDomain('web_user'); ?>
 
 
 var img_vis = 0;

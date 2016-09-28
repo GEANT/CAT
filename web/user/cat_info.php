@@ -26,7 +26,7 @@ require_once(dirname(dirname(__FILE__)) . "/admin/inc/common.inc.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/devices/devices.php");
 
 $API = new UserAPI();
-$API->set_locale("web_user");
+$API->setTextDomain("web_user");
 
 $page = $_REQUEST['page'];
 

@@ -166,7 +166,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP", CAT::get_lang());
+    productheader("ADMIN-IDP", CAT::getLang());
     ?>
     <h1>
         <?php
