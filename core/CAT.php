@@ -35,7 +35,7 @@ require_once(dirname(__DIR__) . "/config/_config.php");
  *
  * @package Developer
  */
-class CAT {
+class CAT extends Entity {
 
     /**
      * which version is this?
@@ -69,19 +69,13 @@ class CAT {
     const DB_TYPE = "INST";
 
     /**
-     * this class needs to manipulate textDomain settings, so needs access to
-     * language settings
-     * 
-     * @var Language
-     */
-    protected $languageInstance;
-    /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
      *  additionally it also sets static variables $laing_index and $root
      */
     public function __construct() {
-        $this->languageInstance = new Language(); // establishes the currently selected language
+        parent::__construct();
+        $olddomain = $this->languageInstance->setTextDomain("user");
         $this->CAT_VERSION_STRING = _("Unreleased SVN Revision");
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
@@ -94,6 +88,7 @@ class CAT {
             $this->CAT_VERSION_STRING = sprintf(_("Release %s"), $temp_version);
         }
         $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; 2011-16 Dante Ltd. and G&Eacute;ANT on behalf of the GN3, GN3plus, GN4-1 and GN4-2 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->languageInstance->setTextDomain($olddomain);
     }
 
     /**

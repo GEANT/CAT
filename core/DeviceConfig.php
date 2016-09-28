@@ -492,7 +492,7 @@ abstract class DeviceConfig extends Entity {
         if (count($bestMatchEap) > 0) {
             $a = $profile->getCollapsedAttributes($bestMatchEap);
             $a['eap'] = $bestMatchEap;
-            $a['all_eaps'] = $eaps;
+            $a['all_eaps'] = $profile->getEapMethodsinOrderOfPreference(1);
             return($a);
         }
         error("No supported eap types found for this profile.");

@@ -41,7 +41,6 @@ class UserAPI extends CAT {
 
     public function __construct() {
         parent::__construct();
-        $this->loggerInstance = new Logging();
     }
 
     /**
@@ -741,12 +740,6 @@ class UserAPI extends CAT {
     public $device;
     public $version;
     private $installerPath;
-
-    /**
-     * access to the logging system
-     * @var Logging
-     */
-    protected $loggerInstance;
 
 }
 
