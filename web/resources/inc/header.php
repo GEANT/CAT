@@ -73,7 +73,7 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
     }
     $langObject = new Language();
     $langObject->setTextDomain("web_admin");
-    $ourlocale = $langObject->languageInstance->getLang();
+    $ourlocale = $langObject->getLang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>

@@ -81,7 +81,7 @@ class CAT {
      *  additionally it also sets static variables $laing_index and $root
      */
     public function __construct() {
-        $languageInstance = new Language(); // establishes the currently selected language
+        $this->languageInstance = new Language(); // establishes the currently selected language
         $this->CAT_VERSION_STRING = _("Unreleased SVN Revision");
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
