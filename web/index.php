@@ -348,10 +348,7 @@ include("user/js/cat_js.php");
                 <td style="padding-left:80px; text-align:right;">
                     <?php
                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo "
-                  <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
-                  <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
-                  <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
+                        echo attributionEurope();
                     } else {
                         echo "&nbsp;";
                     }

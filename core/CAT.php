@@ -40,7 +40,7 @@ class CAT {
      * which version is this?
      * even if we are unreleased, keep track of internal version-to-be
      * developers need to set this in code. The user-displayed string
-     * is generated into $VERSION below
+     * is generated into $CAT_VERSION_STRING and $CAT_COPYRIGHT below
      */
     const VERSION_MAJOR = 1;
     const VERSION_MINOR = 2;
