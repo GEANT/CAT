@@ -13,13 +13,13 @@ require_once("Options.php");
 require_once("common.inc.php");
 require_once("Logging.php");
 
-function prefilledOptionTable($existing_options, $attributePrefix, $level) {
+function prefilledOptionTable($existingAttributes, $attributePrefix, $level) {
     $retval = "<table id='expandable_$attributePrefix" . "_options'>";
 
     $prepopulate = [];
-    foreach ($existing_options as $existing_attribute) {
-        if ($existing_attribute['level'] == $level) {
-            $prepopulate[] = $existing_attribute;
+    foreach ($existingAttributes as $existingAttribute) {
+        if ($existingAttribute['level'] == $level) {
+            $prepopulate[] = $existingAttribute;
         }
     }
     $retval .= add_option($attributePrefix, $prepopulate);
@@ -80,7 +80,7 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
     return $retval;
 }
 
-function noPrefillText($rowid, $defaultselect) {
+function noPrefillText($rowid, $list, $defaultselect) {
     $retval = "";
     $optioninfo = Options::instance();
     $jsmagic = "onchange='
@@ -161,7 +161,7 @@ function noPrefillText($rowid, $defaultselect) {
     return $retval;
 }
 
-function prefillText($rowid, $prefill, $list, &$locationIndex, &$allLocationCount) {
+function prefillText($rowid, $list, $prefill, &$locationIndex, &$allLocationCount) {
     $retval = "";
     $optioninfo = Options::instance();
     $loggerInstance = new Logging();
@@ -262,11 +262,11 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     $retval = "<tr id='option-S$rowid' style='vertical-align:top'>";
 
     if (!$prefill) {
-        $retval .= noPrefillText($rowid, $defaultselect);
+        $retval .= noPrefillText($rowid, $list, $defaultselect);
     }
 
     if ($prefill) {
-        prefillText($rowid, $prefill, $list, $locationIndex, $allLocationCount);
+        prefillText($rowid, $list, $prefill, $locationIndex, $allLocationCount);
     }
     $retval .= "
 

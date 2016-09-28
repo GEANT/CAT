@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"POT-Creation-Date: 2016-09-28 15:58+0200\n"
 "PO-Revision-Date: 2015-04-07 14:08+0000\n"
 "Last-Translator: Janos Mohacsi <mohacsi@niif.hu>\n"
 "Language-Team: Hungarian (http://www.transifex.com/projects/p/cat/language/"
@@ -35,7 +35,7 @@ msgstr ""
 "mint 6000 helyen. További részleteket a <a href='http://www.eduroam."
 "org'>weboldalon</a> találhat."
 
-#: web/user/cat_info.php:44
+#: web/user/cat_info.php:45
 #, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local "
@@ -57,22 +57,22 @@ msgstr ""
 "anyaintézményi rendszergazdával és beszéld rá, hogy töltse fel szükséges "
 "konfigurációkat  <span class='edu_cat'>%s</span>."
 
-#: web/user/cat_info.php:45
+#: web/user/cat_info.php:46
 #, php-format
 msgid ""
 "<span class='edu_cat'>%s</span> currently supports the following devices and "
 "EAP type combinations:"
 msgstr ""
 
-#: web/user/cat_info.php:46
+#: web/user/cat_info.php:47
 msgid "Device Group"
 msgstr ""
 
-#: web/user/cat_info.php:46
+#: web/user/cat_info.php:47
 msgid "Device"
 msgstr ""
 
-#: web/user/cat_info.php:68
+#: web/user/cat_info.php:76
 #, php-format
 msgid ""
 "<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use "
@@ -82,7 +82,7 @@ msgid ""
 "(the service itself)</li>"
 msgstr ""
 
-#: web/user/cat_info.php:73
+#: web/user/cat_info.php:81
 #, php-format
 msgid ""
 "<li><b>%s</b> (the CRL Distribution Point for the site certificate), also "
@@ -93,7 +93,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/user/cat_info.php:75
+#: web/user/cat_info.php:84
 #, php-format
 msgid ""
 "<li><b>%s</b> (the OCSP Responder for the site certificate), also TCP/80</li>"
@@ -102,7 +102,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: web/user/cat_info.php:76
+#: web/user/cat_info.php:86
 #, php-format
 msgid ""
 "<li><b>android.l.google.com</b> (Google Play access for Android App)</"
@@ -119,7 +119,7 @@ msgid ""
 "google.com</b></li><li><b>checkout.google.com</b></li></ul>"
 msgstr ""
 
-#: web/user/cat_info.php:102
+#: web/user/cat_info.php:112
 #, php-format
 msgid ""
 "The most important need is adding new installer modules, which will "
@@ -133,7 +133,7 @@ msgstr ""
 "modult akkor az nagyszerű. Vedd fel velünk a kapcsoltatot  <a href='mailto:"
 "%s'>%s</a>, illetve olvasd el a  <a href='%s'>CAT dokumentációját</a>"
 
-#: web/user/cat_info.php:105
+#: web/user/cat_info.php:115
 #, fuzzy, php-format
 msgid ""
 "Please send a problem report to <a href='%s'>%s</a>. Some screen dumps are "
@@ -142,7 +142,7 @@ msgstr ""
 "Légy szíves a hibabejelentést küldd ide:<a href='mailto:%s'>%s</a>. Képernyő "
 "képek a hibáról nagyon hasznosak."
 
-#: web/user/cat_info.php:107
+#: web/user/cat_info.php:117
 #, php-format
 msgid ""
 "<br/><br/>If you are a copyright holder and believe that content on this "
@@ -150,7 +150,7 @@ msgid ""
 "content, please notify us at <a href='mailto:%s'>%s</a>."
 msgstr ""
 
-#: web/user/cat_info.php:123
+#: web/user/cat_info.php:133
 #, php-format
 msgid ""
 "You must have received an invitation from your national %s operator before "
@@ -161,11 +161,11 @@ msgstr ""
 "meghívólevelet az országos %s operátortól. Ha ez már megvolt, kattints a "
 "Belépés gombra!"
 
-#: web/user/cat_info.php:125
+#: web/user/cat_info.php:135
 msgid "Please authenticate yourself and login"
 msgstr "Légy szíves azonosítsd magad és lépj be"
 
-#: web/user/cat_info.php:126
+#: web/user/cat_info.php:137
 msgid "Login"
 msgstr "Belépés"
 
@@ -345,7 +345,7 @@ msgstr "Kérdésem van a weboldallal kapcsolatban. Kihez fordulhatok?"
 msgid "You should send a mail to %s."
 msgstr "Küldj egy levelet a %s címre!"
 
-#: web/user/faq.php:83
+#: web/user/faq.php:78
 msgid "Frequently Asked Questions"
 msgstr "Gyakori kérdések"
 
@@ -353,7 +353,7 @@ msgstr "Gyakori kérdések"
 msgid "Terms of Use"
 msgstr "Felhasználási feltételek"
 
-#: web/user/js/cat_js.php:23 web/basic.php:287
+#: web/user/js/cat_js.php:26 web/basic.php:306
 msgid ""
 "This is embarrassing. Generation of your installer failed. System admins "
 "have been notified. We will try to take care of the problem as soon as "
@@ -363,49 +363,49 @@ msgstr ""
 "rendszer adminisztrátorait értesítettük. A hibát a lehető leggyorsabban "
 "igyekszünk elhárítani. "
 
-#: web/user/js/cat_js.php:59
+#: web/user/js/cat_js.php:62
 msgid "no matching data found"
 msgstr "Nem találtam illeszkedő adatot"
 
-#: web/user/js/cat_js.php:68
+#: web/user/js/cat_js.php:71
 msgid "Selected institution:"
 msgstr "Választott intézmény:"
 
-#: web/user/js/cat_js.php:73
+#: web/user/js/cat_js.php:76
 msgid "select"
 msgstr "válassz"
 
-#: web/user/js/cat_js.php:188
+#: web/user/js/cat_js.php:191
 msgid "WWW:"
 msgstr "Web:"
 
-#: web/user/js/cat_js.php:190
+#: web/user/js/cat_js.php:193
 msgid "email:"
 msgstr "E-mail:"
 
-#: web/user/js/cat_js.php:192
+#: web/user/js/cat_js.php:195
 msgid "tel:"
 msgstr "Tel:"
 
-#: web/user/js/cat_js.php:194
+#: web/user/js/cat_js.php:197
 msgid ""
 "If you encounter problems, then you can obtain direct assistance from you "
 "home organisation at:"
 msgstr "Ha problémád támadna, nyugodtan kérj segítséget az anyaintézményedtől:"
 
-#: web/user/js/cat_js.php:196 web/basic.php:266
+#: web/user/js/cat_js.php:199 web/basic.php:284
 msgid ""
 "If you encounter problems you should ask for help at your home institution"
 msgstr "Ha elakadnál, legjobb ha segítséget kérsz az anyaintézményedtől"
 
-#: web/user/js/cat_js.php:209 web/user/js/cat_js.php:234
+#: web/user/js/cat_js.php:212 web/user/js/cat_js.php:237
 msgid ""
 "This device cannot be configured with settings provided by your institution"
 msgstr ""
 "Ez az eszköz nem konfigurálható azokkal a beállításokkal, amelyek jelenleg "
 "az intézménynél be vannak állítva."
 
-#: web/user/js/cat_js.php:221
+#: web/user/js/cat_js.php:224
 msgid ""
 "Your site administrator has specified that this device should be configured "
 "with resources located on a local page. When you click <b>Continue</b> this "
@@ -415,27 +415,27 @@ msgstr ""
 "konfigurációját a helyi oldal alapján kell megtenni. Ha  <b>Folytatás</b> "
 "gombra kattintasz, akkor az az oldal fog megnyilni egy új böngésző lapon."
 
-#: web/user/js/cat_js.php:221 web/user/js/cat_js.php:229 web/index.php:250
+#: web/user/js/cat_js.php:224 web/user/js/cat_js.php:232 web/index.php:260
 msgid "Continue"
 msgstr "Tovább"
 
-#: web/user/js/cat_js.php:235 web/index.php:141
+#: web/user/js/cat_js.php:238 web/index.php:149
 msgid "Close"
 msgstr "Bezárás"
 
-#: web/user/js/cat_js.php:497
+#: web/user/js/cat_js.php:502
 msgid "Home institution"
 msgstr "Anyaintézmény"
 
-#: web/user/js/cat_js.php:498
+#: web/user/js/cat_js.php:503
 msgid "Select your <strong>institution<\\/strong>"
 msgstr "Válaszd ki az <strong>intézményed<\\/strong>!"
 
-#: web/user/js/cat_js.php:499
+#: web/user/js/cat_js.php:504
 msgid "Help, my institution is not on the list"
 msgstr "Segítséget kérek! Az intézményem nincs a felsorolásban."
 
-#: web/user/js/cat_js.php:500
+#: web/user/js/cat_js.php:505
 #, php-format
 msgid ""
 "This system relies on information supplied by local %s administrators. If "
@@ -446,124 +446,124 @@ msgstr ""
 "szolgáltatnak. Ha az intézményed nincs a listán, kérd meg őket, hogy "
 "táplálják be a szükséges információkat az %s adatbázisba!"
 
-#: web/user/js/cat_js.php:501
+#: web/user/js/cat_js.php:506
 msgid "Locate me more accurately using HTML5 Geo-Location"
 msgstr ""
 "Pontosabb helymeghatározást kérek a HTML5 Geo-Location szolgáltatása révén"
 
-#: web/user/js/cat_js.php:502
+#: web/user/js/cat_js.php:507
 msgid "Show institutions in"
 msgstr "Mutasd az itteni intézményeket:"
 
-#: web/user/js/cat_js.php:503
+#: web/user/js/cat_js.php:508
 msgid "all countries"
 msgstr "minden ország"
 
-#: web/user/js/cat_js.php:504
+#: web/user/js/cat_js.php:509
 msgid "or search for an institution, in example Univerity of Oslo"
 msgstr "vagy keress az intézmények között, pl. Óbudai Egyetem"
 
-#: web/user/js/cat_js.php:505
+#: web/user/js/cat_js.php:510
 msgid "show all countries"
 msgstr "Mutass minden országot"
 
-#: web/user/js/cat_js.php:506
+#: web/user/js/cat_js.php:511
 msgid "Results limited to"
 msgstr "Az eredmények számának korlátja:"
 
-#: web/user/js/cat_js.php:507
+#: web/user/js/cat_js.php:512
 msgid "entries - show more"
 msgstr "bejegyzések - mutass még"
 
-#: web/user/js/cat_js.php:508
+#: web/user/js/cat_js.php:513
 msgid "Nearby"
 msgstr "közeli"
 
-#: web/user/js/cat_js.php:509
+#: web/user/js/cat_js.php:514
 msgid "Location timeout"
 msgstr "helymeghatározási időtúllépés"
 
-#: web/user/js/cat_js.php:510
+#: web/user/js/cat_js.php:515
 msgid "Could not get your position"
 msgstr "Nem tudom meghatározni a poziciód"
 
-#: web/user/js/cat_js.php:511
+#: web/user/js/cat_js.php:516
 msgid "Your browser has denied access to your location"
 msgstr "A böngésző visszautasította a helyinformációkhoz való hozzáférést."
 
-#: web/user/js/cat_js.php:512
+#: web/user/js/cat_js.php:517
 msgid "Unknown location error"
 msgstr "Ismeretlen helymeghatározási hiba"
 
-#: web/user/js/cat_js.php:513
+#: web/user/js/cat_js.php:518
 msgid "You are here:"
 msgstr "Itt vagy:"
 
-#: web/user/js/cat_js.php:514
+#: web/user/js/cat_js.php:519
 msgid "Getting your location..."
 msgstr "Helymeghatározás folyamatban..."
 
-#: web/user/js/cat_js.php:515
+#: web/user/js/cat_js.php:520
 msgid "Nearby providers shown on top."
 msgstr "Közelebbi szolgáltatók legfelül talalhatóak"
 
 #. /devices.php
 #.
-#: web/user/js/roll.php:124
+#: web/user/js/roll.php:127
 msgid "MS Windows"
 msgstr "MS Windows"
 
-#: web/user/js/roll.php:124
+#: web/user/js/roll.php:127
 #, fuzzy
 msgid "10, 8, 7, Vista"
 msgstr "8, 7, Vista, XP"
 
-#: web/user/js/roll.php:125
+#: web/user/js/roll.php:128
 msgid "Apple OS X"
 msgstr "Apple OS X"
 
-#: web/user/js/roll.php:126
+#: web/user/js/roll.php:129
 msgid "Android"
 msgstr ""
 
-#: web/user/js/roll.php:126
+#: web/user/js/roll.php:129
 msgid "4.3+"
 msgstr ""
 
-#: web/user/js/roll.php:127
+#: web/user/js/roll.php:130
 msgid "Apple iOS devices"
 msgstr "Apple iOS eszközök"
 
-#: web/user/js/roll.php:127
+#: web/user/js/roll.php:130
 msgid "iPhone, iPad, iPod touch"
 msgstr "iPhone, iPad, iPod touch"
 
-#: web/user/js/roll.php:128
+#: web/user/js/roll.php:131
 msgid "Linux"
 msgstr "Linux"
 
-#: web/user/js/roll.php:128
+#: web/user/js/roll.php:131
 msgid "all major distributions"
 msgstr "Minden nagyobb kiadás"
 
-#: web/4013.php:31 web/404.php:31 web/index.php:124
+#: web/4013.php:32 web/404.php:31 web/index.php:132
 #, php-format
 msgid "Welcome to %s"
 msgstr "Üdvözli az %s"
 
-#: web/4013.php:34 web/404.php:34 web/basic.php:321 web/index.php:127
+#: web/4013.php:35 web/404.php:34 web/basic.php:342 web/index.php:135
 msgid "View this page in"
 msgstr "Nyelvválasztás:"
 
-#: web/4013.php:40 web/404.php:40 web/copyright.php:30 web/index.php:133
+#: web/4013.php:41 web/404.php:40 web/copyright.php:31 web/index.php:141
 msgid "Start page"
 msgstr "Címlap"
 
-#: web/4013.php:44
+#: web/4013.php:45
 msgid "Maybe this is the CAT you are looking for..."
 msgstr "Valószínű, hogy az általad keresett CAT..."
 
-#: web/4013.php:45
+#: web/4013.php:46
 #, fuzzy
 msgid ""
 "but we don't want to show it to you. You need to be authenticated and "
@@ -573,7 +573,7 @@ msgstr ""
 "de nem akarjuk megmutatni neked. Lépj be a megfelelő jogosultsággal, hogy "
 "lásd a tartalmat. Mivel ez nem történt meg, ezért ez a hibajelezést kapod"
 
-#: web/4013.php:47
+#: web/4013.php:48
 #, php-format
 msgid ""
 "Your mistake? Our error? Who knows! Maybe you should go back to the <a "
@@ -607,15 +607,15 @@ msgstr ""
 msgid "Select your country"
 msgstr "Válaszd ki az országod"
 
-#: web/basic.php:151
+#: web/basic.php:149
 msgid "Select your institution"
 msgstr "Válassz intézményt"
 
-#: web/basic.php:171 web/index.php:213
+#: web/basic.php:180 web/index.php:223
 msgid "Select the user group"
 msgstr "Válaszd ki a felhasználói csoportot"
 
-#: web/basic.php:198
+#: web/basic.php:207
 msgid ""
 "Your operating system was not properly detected, is not supported yet or "
 "cannot be configured with settings provided by your institution"
@@ -624,129 +624,120 @@ msgstr ""
 "vagy nem lehetséges konfigurálni azokkal a beállításokkal amelyek az "
 "intézményedhez tartoznak."
 
-#: web/basic.php:205 web/index.php:298
+#: web/basic.php:215 web/index.php:308
 msgid "Choose an installer to download"
 msgstr "Válaszd ki a letöltendő installálót"
 
-#: web/basic.php:238 web/basic.php:276
+#: web/basic.php:252 web/basic.php:294
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 msgstr ""
 "A helyi adminisztrátor redirected állított be a helyi beállítások lapra."
 
-#: web/basic.php:238
+#: web/basic.php:252
 msgid "When you click <b>CONTINUE</b> this support page will be opened."
 msgstr "Ha a <b>Folytatás</b>-ra kattintasz ez a támogató lap nyílik meg."
 
-#: web/basic.php:240
+#: web/basic.php:254
 msgid "CONTINUE to local support page"
 msgstr "Folytatás a helyi támogató lapra"
 
-#: web/basic.php:244
+#: web/basic.php:258
 msgid "Do you have an account at this institution?"
 msgstr "Rendelkezel hozzáféréssel az adott intézménynél?"
 
-#: web/basic.php:244
+#: web/basic.php:258
 msgid ""
 "If so and if the other settings above are OK then click here to download..."
 msgstr ""
 "Ha igen, és a fenti beállítások megfelelőek, akkor kattints ide a "
 "letöltéshez."
 
-#: web/basic.php:276
+#: web/basic.php:294
 msgid "Click on the link below to continue."
 msgstr "Kattints a lenti linkre a folytatáshoz."
 
-#: web/basic.php:309
+#: web/basic.php:332
 msgid "Download installer for"
 msgstr "Az installáló letöltése ehhez:"
 
-#: web/basic.php:311
+#: web/basic.php:334
 msgid "Start over"
 msgstr "Előlről kezd"
 
-#: web/basic.php:447 web/index.php:154
+#: web/basic.php:473 web/index.php:162
 #, php-format
 msgid "Terms of use"
 msgstr "Felhasználási feltételek"
 
-#: web/copyright.php:27
+#: web/copyright.php:28
 #, php-format
 msgid "%s Copyright and Licensing"
 msgstr ""
 
-#: web/copyright.php:200 web/tou.php:53
-#, php-format
-msgid "Release %s"
-msgstr "Release %s"
-
-#: web/copyright.php:202 web/tou.php:55
-msgid "Unreleased SVN Revision"
-msgstr "Kibocsátattlan SVN revizió"
-
-#: web/index.php:98
+#: web/index.php:105
 #, php-format
 msgid "Download your %s installer"
 msgstr "%s telepítő letöltése"
 
-#: web/index.php:137
+#: web/index.php:145
 msgid "Authenticating"
 msgstr "Azonosítás folyamatban"
 
-#: web/index.php:152 web/index.php:153
+#: web/index.php:160 web/index.php:161
 #, php-format
 msgid "About %s"
 msgstr "Az %s"
 
-#: web/index.php:155
+#: web/index.php:163
 #, php-format
 msgid "FAQ"
 msgstr "GYIK"
 
-#: web/index.php:156
+#: web/index.php:164
 #, php-format
 msgid "Report a problem"
 msgstr "Hibajelentés"
 
-#: web/index.php:157
+#: web/index.php:165
 #, php-format
 msgid "Become a CAT developer"
 msgstr "Légy CAT fejlesztő!"
 
-#: web/index.php:158
+#: web/index.php:166
 #, php-format
 msgid "%s admin:<br>manage your IdP"
 msgstr "%s adminisztrálás:<br>a saját IdP-d kezelése"
 
-#: web/index.php:173
+#: web/index.php:182
 #, php-format
 msgid "%s installation made easy:"
 msgstr "%s telepítés könnyű lett:"
 
-#: web/index.php:176
+#: web/index.php:185
 msgid "Custom built for your home institution"
 msgstr "Kifejezetten az anyaintézményed részére elkészítve"
 
-#: web/index.php:180
+#: web/index.php:189
 #, php-format
 msgid "Digitally signed by the organisation that coordinates %s: %s"
 msgstr "Digitálisan aláírta a szervezet, amelyet  %s:%s koordinál."
 
-#: web/index.php:193
+#: web/index.php:203
 #, php-format
 msgid "%s user:<br>download your %s installer"
 msgstr "%s felhasználó!<br>Töltsd le az %s installálót!"
 
-#: web/index.php:205
+#: web/index.php:215
 msgid "select another"
 msgstr "válassz másikat"
 
-#: web/index.php:224
+#: web/index.php:234
 msgid "Welcome aboard the eduroam® user community!"
 msgstr "Üdvözlünk az eduroam® felhasználói közösségben!"
 
 #. / the empty href is dynamically exchanged with the actual path by jQuery at runtime
-#: web/index.php:228
+#: web/index.php:238
 #, fuzzy
 msgid ""
 "Your download will start shortly. In case of problems with the automatic "
@@ -755,12 +746,12 @@ msgstr ""
 "A letöltés hamarosan elindul. Ha probléma merülne fel az automatikus "
 "letöltéssel, akkor használd a direct linket: <a href=''>link</a>."
 
-#: web/index.php:231
+#: web/index.php:241
 #, php-format
 msgid "Dear user from %s,"
 msgstr "Tisztelt %s felhasználó!"
 
-#: web/index.php:234
+#: web/index.php:244
 msgid ""
 "we would like to warmly welcome you among the several million users of "
 "eduroam®! From now on, you will be able to use internet access resources on "
@@ -771,7 +762,7 @@ msgstr ""
 "Mostantól kezdve  ezernyi egyetemen, kutatóintézetben és a világ más helyein "
 "fogsz tudni teljesen ingyenesen internetezni. "
 
-#: web/index.php:237
+#: web/index.php:247
 msgid ""
 "Now that you have downloaded and installed a client configurator, all you "
 "need to do is find an eduroam® hotspot in your vicinity and enter your user "
@@ -783,7 +774,7 @@ msgstr ""
 "felhasználói azonosítódat ( 'felhasználói név és jelszó' vagy 'személyes "
 "tanúsítvány') - és máris online lehetsz!"
 
-#: web/index.php:239
+#: web/index.php:249
 #, php-format
 msgid ""
 "Should you have any problems using this service, please always contact the "
@@ -794,11 +785,11 @@ msgstr ""
 "kapcsolatot a %s hibabejelentővel. Ők fogják diagnosztizálni a problémát és "
 "segítenek elhárítani azt. Elérhetőségük fentebb látható."
 
-#: web/index.php:242
+#: web/index.php:252
 msgid "Back to downloads"
 msgstr "Vissza a letöltéshez"
 
-#: web/index.php:246
+#: web/index.php:256
 msgid ""
 "Your local administrator has specified a redirect to a local support page."
 "<br>\n"
@@ -810,9 +801,18 @@ msgstr ""
 "Ha <b>Folytatás gombra</b> kattintasz ez a támogató oldal nyílik meg új "
 "ablakban/fülben."
 
-#: web/index.php:292
+#: web/index.php:302
 msgid "All platforms"
 msgstr "Minden platform"
+
+#: web/tou.php:54
+#, php-format
+msgid "Release %s"
+msgstr "Release %s"
+
+#: web/tou.php:56
+msgid "Unreleased SVN Revision"
+msgstr "Kibocsátattlan SVN revizió"
 
 #~ msgid "Why is there no support for Android?"
 #~ msgstr "Androidra miért nincs támogatás?"
