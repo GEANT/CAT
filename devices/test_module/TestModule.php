@@ -136,7 +136,7 @@ class Device_TestModule extends DeviceConfig {
             // never mind. The array contains all properties of the profile in
             // question and you CAN use the information here
             // just adding some code below to remove "unused code" warnings
-            $attr = [];
+            $this->loggerInstance->debug(2,"This profile has no attributes at all.\n");
         }
         $filename = $this->installerBasename . '.zip';
         $return = system('zip -q ' . $filename . ' *');
