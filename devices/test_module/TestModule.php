@@ -94,8 +94,11 @@ class Device_TestModule extends DeviceConfig {
      */
     public function writeInstaller() {
         $this->loggerInstance->debug(4, "Test Module Installer start\n");
-        // create certificate files and save their names in $CA_files arrary
-        $CA_files = $this->saveCertificateFiles('der');
+        // create certificate files and save their names in $cAfiles arrary
+        $cAfiles = $this->saveCertificateFiles('der');
+        if ($cAfiles === FALSE) {
+            $this->loggerInstance->debug(2, "copying of certificates failed\n");
+        }
 
         // copy a fixed file from the module Files directory
         if (!$this->copyFile('Module.howto')) {
@@ -107,8 +110,7 @@ class Device_TestModule extends DeviceConfig {
             $this->loggerInstance->debug(2, "copying of Module.howto to copied_test_file failed\n");
         }
         $this->dumpAttibutes('profile_attributes');
-        $installer_path = $this->zipInstaller($this->attributes);
-        return($installer_path);
+        return $this->zipInstaller($this->attributes);
     }
 
     /**
@@ -117,9 +119,9 @@ class Device_TestModule extends DeviceConfig {
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {
-        $ssid_ct = count($this->attributes['internal:SSID']);
+        $ssidCount = count($this->attributes['internal:SSID']);
         $out = "<p>";
-        $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with $ssid_ct SSIDs to configure.");
+        $out .= _("This installer is an example only. It produces a zip file containig the IdP certificates, info and logo files (if such have been defined by the IdP administrator) and a dump of all available attributes. The installer is called with $ssidCount SSIDs to configure.");
         return $out;
     }
 
@@ -130,9 +132,16 @@ class Device_TestModule extends DeviceConfig {
      * return string
      */
     private function zipInstaller($attr) {
-        $e = $this->installerBasename . '.zip';
-        $o = system('zip -q ' . $e . ' *');
-        return $e;
+        if (count($attr)==0) {
+            // never mind, just checking. You CAN use the $attr array to extract
+            // information about the IdP/Profile if there's a need
+        }
+        $fileName = $this->installerBasename . '.zip';
+        $output = system('zip -q ' . $fileName . ' *');
+        if ($output === FALSE) {
+            $this->loggerInstance->debug(2, "unable to zip the installer\n");
+        }
+        return $fileName;
     }
 
 }
