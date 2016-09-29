@@ -248,8 +248,8 @@ class UserAPI extends CAT {
     private function GetRootURL() {
         $backtrace = debug_backtrace();
         $backtraceFileInfo = array_pop($backtrace);
-        $file = $backtraceFileInfo['file'];
-        $file = substr($file, strlen(dirname(__DIR__)));
+        $fileTemp = $backtraceFileInfo['file'];
+        $file = substr($fileTemp, strlen(dirname(__DIR__)));
         while (substr($file, 0, 1) == '/') {
             $file = substr($file, 1);
         }
@@ -261,9 +261,7 @@ class UserAPI extends CAT {
         if ($out == '/') {
             $out = '';
         }
-        $urlString = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'https' : 'http';
-        $urlString .= '://' . $_SERVER['HTTP_HOST'] . $out;
-        return $urlString;
+        return '//' . $_SERVER['HTTP_HOST'] . $out;
     }
 
     /* JSON functions */

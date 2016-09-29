@@ -113,7 +113,7 @@ $user = new User($_SESSION['user']);
                     <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
                     <th style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
-                <?php echo Federation::downloadStats("table", $thefed->name); ?>
+                <?php echo $thefed->downloadStats("table"); ?>
             </table>
         </div>
         <?php

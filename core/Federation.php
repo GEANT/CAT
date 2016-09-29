@@ -50,7 +50,7 @@ class Federation extends EntityWithDBProperties {
      */
     public static $federationList = [];
 
-    private static function downloadStatsCore($federationid = NULL) {
+    private function downloadStatsCore() {
         $grossAdmin = 0;
         $grossUser = 0;
 
@@ -59,9 +59,9 @@ class Federation extends EntityWithDBProperties {
         $handle = DBConnection::handle("INST");
         foreach (Devices::listDevices() as $index => $deviceArray) {
             $query = "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads, profile, institution WHERE device_id = '$index' AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id ";
-            if ($federationid != NULL) {
-                $query .= "AND institution.country = '" . $federationid . "'";
-            }
+            
+            $query .= "AND institution.country = '" . $this->name . "'";
+            
             $numberQuery = $handle->exec($query);
             while ($queryResult = mysqli_fetch_object($numberQuery)) {
                 $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
@@ -77,8 +77,8 @@ class Federation extends EntityWithDBProperties {
         // Federation is always fresh
     }
 
-    public static function downloadStats($format, $federationid = NULL) {
-        $data = Federation::downloadStatsCore($federationid);
+    public function downloadStats($format) {
+        $data = $this->downloadStatsCore();
         $retstring = "";
 
         switch ($format) {
@@ -92,7 +92,7 @@ class Federation extends EntityWithDBProperties {
                 $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>" . $data['TOTAL']['ADMIN'] . "</strong></td><td><strong>" . $data['TOTAL']['USER'] . "</strong></td></tr>";
                 break;
             case "XML":
-                $retstring .= "<federation id='" . ( $federationid == NULL ? "ALL" : $federationid ) . "' ts='" . date("Y-m-d") . "T" . date("H:i:s") . "'>\n";
+                $retstring .= "<federation id='$this->name' ts='" . date("Y-m-d") . "T" . date("H:i:s") . "'>\n";
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
