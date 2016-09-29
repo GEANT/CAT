@@ -132,6 +132,10 @@ class Device_TestModule extends DeviceConfig {
      * return string
      */
     private function zipInstaller($attr) {
+        if (count($attr)==0) {
+            // never mind. The array contains all properties of the profile in
+            // question and you CAN use the information here
+        }
         $filename = $this->installerBasename . '.zip';
         $return = system('zip -q ' . $filename . ' *');
         if ($return === FALSE) {
