@@ -29,10 +29,14 @@ use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
 use lib\view\UserCredentialsForm;
+use lib\view\DefaultPage;
 
 authenticate();
 
-$builder = new InstitutionPageBuilder(_("Managing institution users"), PageBuilder::ADMIN_IDP_USERS);
+$page = new DefaultPage(_('Managing institution users'));
+$page->appendScript('js/silverbullet.js');
+$page->appendCss('css/silverbullet.css');
+$builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
 
 //Info block data preparation
 $infoBlock = new InfoBlockTable( _('Current institution users'));
@@ -55,9 +59,16 @@ $builder->addContentElement($editBlock);
 
 $cat = $builder->createPagePrelude();
 ?>
+
+<?php echo $page->fetchMeta(); ?>
+
+<?php echo $page->fetchCss(); ?>
+
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
-<script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script> 
+<script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script>
+<?php echo $page->fetchScript(); ?>
+
 </head>
 <body>
     

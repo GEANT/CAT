@@ -23,7 +23,11 @@ class Tag extends UnaryTag{
      * @return string
      */
     protected function composeInnerString(){
-        return "\n\t" . $this->tab . $this->text;
+        $innerString = "";
+        if(!empty($this->text)){
+            $innerString = "\n\t" . $this->tab . $this->text;
+        }
+        return $innerString;
     }
     
     /**
@@ -32,7 +36,14 @@ class Tag extends UnaryTag{
      * @see UnaryTag::composeTagString()
      */
     protected function composeTagString($attributeString){
-        return "\n".$this->tab."<" . $this->name . $attributeString . ">" . $this->composeInnerString() . "\n".$this->tab."</" . $this->name . ">";
+        $tagString = "";
+        $innerString = $this->composeInnerString();
+        if(!empty($innerString)){
+            $tagString = "\n".$this->tab."<" . $this->name . $attributeString . ">" . $innerString . "\n".$this->tab."</" . $this->name . ">";
+        }else{
+            $tagString = "\n".$this->tab."<" . $this->name . $attributeString . "></" . $this->name . ">";
+        }
+        return $tagString;
     }
     
 }

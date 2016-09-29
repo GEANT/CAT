@@ -2,11 +2,8 @@
 namespace lib\view;
 
 use lib\view\html\Button;
-use lib\view\html\CompositeTag;
 use lib\view\html\Row;
 use lib\view\html\Table;
-use lib\view\html\Tag;
-use lib\view\html\UnaryTag;
 
 class UserCredentialsForm implements PageElement{
     
@@ -68,9 +65,9 @@ class UserCredentialsForm implements PageElement{
         $this->decorator->render();
         ?>
         <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
-            <div style="padding: 10px;">
+            <div class="sb-add-new-user">
                 <label for="newUserName"><?php echo _("Provide user name and surname to create a new user:"); ?></label>
-                <input type="text" name="newUserName" style="display:block;margin: 5px 0px 10px 0px;">
+                <input type="text" name="newUserName">
                 <button type="submit" ><?php echo _('Add new user'); ?></button>
             </div>
             

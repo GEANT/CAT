@@ -55,18 +55,18 @@ class UnaryTag implements HtmlElement, PageElement{
      * @return string
      */
     protected function composeTagString($attributeString){
-        return $this->tab.'<'.$this->name.$attributeString.'>';
+        return "\n" . $this->tab . "<".$this->name.$attributeString.">";
     }
     
     public function __toString(){
-        $attributeString = '';
+        $attributeString = "";
         foreach ($this->attributes as $attribute) {
             $attributeString .= $attribute;
         }
         if(isset($this->name)){
             return $this->composeTagString($attributeString);
         }else{
-            return '';
+            return "";
         }
     }
     

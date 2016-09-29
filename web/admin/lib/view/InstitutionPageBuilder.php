@@ -52,10 +52,10 @@ class InstitutionPageBuilder implements PageBuilder{
     /**
      * Initiates contents of a page.
      * 
-     * @param string $titleSlug Common title slug that identifies main feature of the page.
+     * @param Page $page Common title slug that identifies main feature of the page.
      * @param string $pageType Page type identifier.
      */
-    public function __construct($titleSlug, $pageType){
+    public function __construct($page, $pageType){
         if(isset($_GET['inst_id'])){
             try {
                 $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -64,8 +64,8 @@ class InstitutionPageBuilder implements PageBuilder{
             }
             if($this->isReady()){
                 $this->pageType = $pageType;
-                $this->pageTitle = sprintf(_("%s: %s '%s'"), CONFIG['APPEARANCE']['productname'], $titleSlug, $this->institution->name);
-                $this->headerTitle = sprintf(_("%s information for '%s'"), $titleSlug, $this->institution->name);
+                $this->pageTitle = sprintf(_("%s: %s '%s'"), CONFIG['APPEARANCE']['productname'], $page->getTitle(), $this->institution->name);
+                $this->headerTitle = sprintf(_("%s information for '%s'"), $page->getTitle(), $this->institution->name);
             }
         }
     }
