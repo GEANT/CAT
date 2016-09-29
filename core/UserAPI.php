@@ -318,7 +318,7 @@ class UserAPI extends CAT {
      * @return string JSON encoded data
      */
     public function JSON_listIdentityProviders($country) {
-        $idps = Federation::listAllIdentityProviders(1, $country);
+        $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
             if ($this->version == 1) {
@@ -337,7 +337,7 @@ class UserAPI extends CAT {
      * @return string JSON encoded data
      */
     public function JSON_listIdentityProvidersForDisco() {
-        $idps = Federation::listAllIdentityProviders(1);
+        $idps = $this->listAllIdentityProviders(1);
         $returnArray = [];
         foreach ($idps as $idp) {
             if ($this->version == 1) {
@@ -637,7 +637,7 @@ class UserAPI extends CAT {
      * @return array $IdPs -  list of arrays ('id', 'name');
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {
-        $idps = Federation::listAllIdentityProviders(1, $country);
+        $idps = $this->listAllIdentityProviders(1, $country);
 
         if (is_null($currentLocation)) {
             $currentLocation = ['lat' => "90", 'lon' => "0"];
