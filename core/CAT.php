@@ -209,4 +209,33 @@ class CAT extends Entity {
         $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
     }
+    
+        public function getExternalDBEntityDetails($externalId, $realm = NULL) {
+        $list = [];
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $scanforrealm = "";
+            if ($realm !== NULL) {
+                $scanforrealm = "OR inst_realm LIKE '%$realm%'";
+            }
+            $externalHandle = DBConnection::handle("EXTERNAL");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
+            // split names and contacts into proper pairs
+            while ($externalEntityQuery = mysqli_fetch_object($infoList)) {
+                $names = explode('#', $externalEntityQuery->collapsed_name);
+                foreach ($names as $name) {
+                    $perlang = explode(': ', $name, 2);
+                    $list['names'][$perlang[0]] = $perlang[1];
+                }
+                $contacts = explode('#', $externalEntityQuery->collapsed_contact);
+                foreach ($contacts as $contact) {
+                    $email1 = explode('e: ', $contact);
+                    $email2 = explode(',', $email1[1]);
+                    $list['admins'][] = ["email" => $email2[0]];
+                }
+                $list['country'] = $externalEntityQuery->country;
+                $list['realmlist'] = $externalEntityQuery->realmlist;
+            }
+        }
+        return $list;
+    }
 }

@@ -69,6 +69,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 <hr/>
 <p>
     <?php
+    $cat = new CAT();
     if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_SYNCED) {
 
         printf(_("This institution is linked to the %s database."), CONFIG['CONSORTIUM']['name']) . "</p>";
@@ -109,7 +110,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
             throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the institution!");
         }
 
-        $extinfo = Federation::getExternalDBEntityDetails($externalid);
+        $extinfo = $cat->getExternalDBEntityDetails($externalid);
 
         echo "<table>";
         foreach ($extinfo['names'] as $lang => $name) {
@@ -136,7 +137,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
         if ($candidates !== FALSE) {
             foreach ($candidates as $candidate) {
-                $info = Federation::getExternalDBEntityDetails($candidate);
+                $info = $cat->getExternalDBEntityDetails($candidate);
                 echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
                 foreach ($info['names'] as $lang => $name) {
                     echo "[$lang] $name<br/>";

@@ -21,6 +21,7 @@
  * necessary includes
  */
 require_once('DBConnection.php');
+require_once("CAT.php");
 require_once("Federation.php");
 require_once("IdP.php");
 
@@ -122,7 +123,8 @@ class UserManagement extends Entity {
 
             if ($invitationDetails->external_db_uniquehandle != NULL) {
                 $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
-                $externalinfo = Federation::getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
+                $cat = new CAT();
+                $externalinfo = $cat->getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
                 foreach ($externalinfo['names'] as $instlang => $instname) {
                     $idp->addAttribute("general:instname", serialize(['lang' => $instlang, 'content' => $instname]));
                 }
@@ -235,7 +237,8 @@ Best regards,
         } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
             // what country are we talking about?
             $newname = $this->databaseHandle->escapeValue(valid_string_db($instIdentifier));
-            $extinfo = Federation::getExternalDBEntityDetails($externalId);
+            $cat = new CAT();
+            $extinfo = $cat->getExternalDBEntityDetails($externalId);
             $externalhandle = $this->databaseHandle->escapeValue(valid_string_db($externalId));
             $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
             return $token;

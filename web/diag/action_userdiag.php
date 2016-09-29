@@ -13,6 +13,7 @@ require_once("IdP.php");
 require_once('ProfileFactory.php');
 require_once("ProfileRADIUS.php");
 require_once("RADIUSTests.php");
+require_once("CAT.php");
 require_once("Federation.php");
 
 require_once("../admin/inc/input_validation.inc.php");
@@ -163,11 +164,12 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $checks = [];
     foreach ($listofrealms as $realm) {
         $sanitised_realm = trim(valid_string_db($realm));
+        $cat = new CAT();
         if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
             $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);
             $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => ProfileFactory::instantiate($profile_id)];
             echo "Debugging CAT Profile $profile_id for $sanitised_realm<br/>";
-        } else if (!empty($global->getExternalDBEntityDetails(0, $realm))) {
+        } else if (!empty($cat->getExternalDBEntityDetails(0, $realm))) {
             $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "EXT_DB"];
             echo "Debugging non-CAT but existing realm $sanitised_realm<br/>";
         } else {
