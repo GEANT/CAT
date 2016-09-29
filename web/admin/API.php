@@ -32,7 +32,7 @@ $mode = "API";
 
 function return_error($code, $description) {
     echo "<CAT-API-Response>\n";
-    echo "  <error>\n    <code>".$code."</code>\n    <description>$description</description>\n  </error>\n";
+    echo "  <error>\n    <code>" . $code . "</code>\n    <description>$description</description>\n  </error>\n";
     echo "</CAT-API-Response>\n";
 }
 
@@ -44,59 +44,60 @@ if (!isset(CONFIG['CONSORTIUM']['registration_API_keys']) || count(CONFIG['CONSO
 }
 
 if (!isset($_POST['APIKEY'])) {
-    return_error(ERROR_NO_APIKEY,"POST did not contain an APIKEY");
+    return_error(ERROR_NO_APIKEY, "POST did not contain an APIKEY");
     exit(1);
 }
 
-foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name)
+foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
     if ($_POST['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;
         $checkval = "OK-NEW";
     }
+}
 
 if ($checkval == "FAIL") {
-    return_error(ERROR_INVALID_APIKEY,"APIKEY is invalid");
+    return_error(ERROR_INVALID_APIKEY, "APIKEY is invalid");
     exit(1);
 }
-    
+
 // it's a valid admin; what does he want to do?
 
 if (!isset($_POST['ACTION'])) {
-    return_error(ERROR_NO_ACTION,"POST did not contain the desired ACTION");
+    return_error(ERROR_NO_ACTION, "POST did not contain the desired ACTION");
     exit(1);
 }
 
 $sanitised_action = valid_string_db($_POST['ACTION']);
 
-switch($sanitised_action) {
+switch ($sanitised_action) {
     case 'NEWINST':
         // fine... we need two parameters for that:
         // mail address, inst name
         if (!isset($_POST['NEWINST_PRIMARYADMIN'])) {
-            return_error(ERROR_MISSING_PARAMETER,"POST missed at least one required parameter (NEWINST_PRIMARYADMIN)");
+            return_error(ERROR_MISSING_PARAMETER, "POST missed at least one required parameter (NEWINST_PRIMARYADMIN)");
             exit(1);
         }
         // alright: create the IdP, fill in attributes
         $mgmt = new UserManagement();
         $fed = new Federation($federation);
         $idp = new IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
-        
+
         // ensure seq. number asc. order for options (S1, S2...)
-        uksort($_POST['option'],"cmpSequenceNumber");
+        uksort($_POST['option'], "cmpSequenceNumber");
 
         $instWideOptions = $_POST;
         foreach ($instWideOptions['option'] as $optindex => $optname) {
-            if (!preg_match("/^general:/",$optname) && !preg_match("/^support:/",$optname) && !preg_match("/^eap:/",$optname)) {
+            if (!preg_match("/^general:/", $optname) && !preg_match("/^support:/", $optname) && !preg_match("/^eap:/", $optname)) {
                 unset($instWideOptions['option'][$optindex]);
             }
         }
         // now process all inst-wide options    
-        processSubmittedFields($idp, $instWideOptions, $_FILES, [],0,0,TRUE);
+        processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, 0, TRUE);
         // same thing for profile options
         $profileWideOptions = $_POST;
         foreach ($profileWideOptions['option'] as $optindex => $optname) {
-            if (!preg_match("/^profile:/",$optname) || $optname == "profile:QR-user") {
+            if (!preg_match("/^profile:/", $optname) || $optname == "profile:QR-user") {
                 unset($profileWideOptions['option'][$optindex]);
             }
         }
@@ -111,60 +112,60 @@ switch($sanitised_action) {
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
-                        if (isset($_POST['value'][$optindex."-0"])) {
-                                $theanonid = valid_string_db($_POST['value'][$optindex."-0"]);
+                        if (isset($_POST['value'][$optindex . "-0"])) {
+                            $theanonid = valid_string_db($_POST['value'][$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:realm":
-                        if (isset($_POST['value'][$optindex."-0"]) && valid_Realm($_POST['value'][$optindex."-0"])) {
-                                $therealm = $_POST['value'][$optindex."-0"];
+                        if (isset($_POST['value'][$optindex . "-0"]) && valid_Realm($_POST['value'][$optindex . "-0"])) {
+                            $therealm = $_POST['value'][$optindex . "-0"];
                         }
                         break;
                     case "profile-api:useanon":
-                        if (isset($_POST['value'][$optindex."-3"]) && valid_boolean($_POST['value'][$optindex."-3"]) == "on") {
-                                $useAnon = TRUE;
+                        if (isset($_POST['value'][$optindex . "-3"]) && valid_boolean($_POST['value'][$optindex . "-3"]) == "on") {
+                            $useAnon = TRUE;
                         }
                         break;
                     case "profile-api:eaptype":
                         $pref = 0;
-                        if (isset($_POST['value'][$optindex."-0"]) && 
-                            is_numeric($_POST['value'][$optindex."-0"]) && 
-                            $_POST['value'][$optindex."-0"] >= 1 &&
-                            $_POST['value'][$optindex."-0"] <= 7 ) {
-                                switch ($_POST['value'][$optindex."-0"]) {
-                                    case 1:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_TTLS_PAP, $pref);
-                                        break;
-                                    case 2:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_PEAP_MSCHAP2, $pref);
-                                        break;
-                                    case 3:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_TLS, $pref);
-                                        break;
-                                    case 4:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_FAST_GTC, $pref);
-                                        break;
-                                    case 5:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_TTLS_GTC, $pref);
-                                        break;
-                                    case 6:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_TTLS_MSCHAP2, $pref);
-                                        break;
-                                    case 7:
-                                        $newprofile->addSupportedEapMethod (EAPTYPE_PWD, $pref);
-                                        break;
-                                }
-                                $pref = $pref + 1;
+                        if (isset($_POST['value'][$optindex . "-0"]) &&
+                                is_numeric($_POST['value'][$optindex . "-0"]) &&
+                                $_POST['value'][$optindex . "-0"] >= 1 &&
+                                $_POST['value'][$optindex . "-0"] <= 7) {
+                            switch ($_POST['value'][$optindex . "-0"]) {
+                                case 1:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_PAP, $pref);
+                                    break;
+                                case 2:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_PEAP_MSCHAP2, $pref);
+                                    break;
+                                case 3:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_TLS, $pref);
+                                    break;
+                                case 4:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_FAST_GTC, $pref);
+                                    break;
+                                case 5:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_GTC, $pref);
+                                    break;
+                                case 6:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_MSCHAP2, $pref);
+                                    break;
+                                case 7:
+                                    $newprofile->addSupportedEapMethod(EAPTYPE_PWD, $pref);
+                                    break;
                             }
+                            $pref = $pref + 1;
+                        }
                         break;
                     default:
                         break;
                 }
             }
             if ($therealm != "") {
-                $newprofile->setRealm ($theanonid."@".$therealm);
+                $newprofile->setRealm($theanonid . "@" . $therealm);
                 if ($useAnon) {
-                    $newprofile->setAnonymousIDSupport (true);
+                    $newprofile->setAnonymousIDSupport(true);
                 }
             }
             // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
@@ -176,30 +177,30 @@ switch($sanitised_action) {
         // and send it back to the caller
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
         echo "<CAT-API-Response>\n";
-        echo "  <success action='NEWINST'>\n    <enrollment_URL>$URL</enrollment_URL>\n    <inst_unique_id>".$idp->identifier."</inst_unique_id>\n  </success>\n";
+        echo "  <success action='NEWINST'>\n    <enrollment_URL>$URL</enrollment_URL>\n    <inst_unique_id>" . $idp->identifier . "</inst_unique_id>\n  </success>\n";
         echo "</CAT-API-Response>\n";
-            exit(0);
+        exit(0);
         break;
     case 'ADMINCOUNT':
         if (!isset($_POST['INST_IDENTIFIER'])) {
-            return_error(ERROR_MISSING_PARAMETER,"Parameter missing (INST_IDENTIFIER)");
+            return_error(ERROR_MISSING_PARAMETER, "Parameter missing (INST_IDENTIFIER)");
             exit(1);
         }
         $wannabeidp = valid_IdP($_POST['INST_IDENTIFIER']);
-        if (! $wannabeidp instanceof IdP) {
-            return_error(ERROR_INVALID_PARAMETER,"Parameter invalid (INST_IDENTIFIER)");
+        if (!$wannabeidp instanceof IdP) {
+            return_error(ERROR_INVALID_PARAMETER, "Parameter invalid (INST_IDENTIFIER)");
             exit(1);
         }
         if (strtoupper($wannabeidp->federation) != strtoupper($federation)) {
-            return_error(ERROR_INVALID_PARAMETER,"Parameter invalid (INST_IDENTIFIER)");
+            return_error(ERROR_INVALID_PARAMETER, "Parameter invalid (INST_IDENTIFIER)");
             exit(1);
         }
         echo "<CAT-API-Response>\n";
-        echo "  <success action='ADMINCOUNT'>\n    <number_of_admins>".count($wannabeidp->owner())."</number_of_admins>\n  </success>\n";        
+        echo "  <success action='ADMINCOUNT'>\n    <number_of_admins>" . count($wannabeidp->owner()) . "</number_of_admins>\n  </success>\n";
         echo "</CAT-API-Response>\n";
-            exit(0);
+        exit(0);
         break;
     default:
-        return_error(ERROR_INVALID_ACTION,"POST contained an unknown ACTION");
+        return_error(ERROR_INVALID_ACTION, "POST contained an unknown ACTION");
         exit(1);
 }

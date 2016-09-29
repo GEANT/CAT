@@ -125,9 +125,9 @@ abstract class DeviceConfig extends Entity {
             $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
         }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
-        
+
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
-        
+
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $this->langIndex = CAT::get_lang();
         $olddomain = CAT::set_locale("core");
@@ -135,8 +135,9 @@ abstract class DeviceConfig extends Entity {
         $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
         CAT::set_locale($olddomain);
 
-        if ($this->signer && $this->options['sign'])
+        if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
+        }
         $this->installerBasename = $this->getInstallerBasename();
     }
 
@@ -183,18 +184,16 @@ abstract class DeviceConfig extends Entity {
      * @return bool result of the copy operation
      * @final not to be redefined
      */
-    final protected function copyFile($source_name, $output_name = 0) {
-        if ($output_name === 0) {
+    final protected function copyFile($source_name, $output_name = NULL) {
+        if ($output_name === NULL) {
             $output_name = $source_name;
         }
         $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        }
-        elseif (is_file($this->module_path . '/Files/' . $source_name)) {
+        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
-        }
-        else {
+        } else {
             $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
             return(FALSE);
         }
@@ -229,11 +228,11 @@ abstract class DeviceConfig extends Entity {
      *
      * @final not to be redefined
      */
-    final protected function translateFile($source_name, $output_name = 0, $encoding = 0) {
+    final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
         if (CONFIG['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
-        if ($output_name === 0) {
+        if ($output_name === NULL) {
             $output_name = $source_name;
         }
 
@@ -243,8 +242,7 @@ abstract class DeviceConfig extends Entity {
         $source = "";
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        }
-        elseif (is_file($this->module_path . '/Files/' . $source_name)) {
+        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
             $source = $this->module_path . '/Files/' . $source_name;
         }
         if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable
@@ -329,7 +327,7 @@ abstract class DeviceConfig extends Entity {
                     if (!$fileHandle) {
                         die("problem opening the file\n");
                     }
-                    if ($format == "pem") {
+                    if ($format === "pem") {
                         fwrite($fileHandle, $certAuthority['pem']);
                     } else {
                         fwrite($fileHandle, $certAuthority['der']);

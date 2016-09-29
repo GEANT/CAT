@@ -33,7 +33,7 @@ function authenticate() {
 
     $_SESSION['user'] = $user;
     $new_name_received = FALSE;
-    
+
     $user_object = new User($user);
     if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($user_object->getAttributes('user:realname')) == 0)) {
         $name = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0];
@@ -50,7 +50,9 @@ function authenticate() {
 
     if (count($user_object->getAttributes('user:realname')) > 0 || $new_name_received) { // we have a real name ... set it
         $name_array = $user_object->getAttributes("user:realname");
-        $_SESSION['name'] = $name_array[0]['value'];
+        if (!empty($name_array[0])) {
+            $_SESSION['name'] = $name_array[0]['value'];
+        }
     }
 }
 
@@ -58,12 +60,7 @@ function deauthenticate() {
 
     $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
 
-    $url = $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
-
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
-        $url = "https://" . $url;
-    else
-        $url = "http://" . $url;
+    $url = "//" . $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
 
     $as->logout([
         'ReturnTo' => $url,

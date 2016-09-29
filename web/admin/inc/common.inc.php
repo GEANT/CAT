@@ -112,7 +112,7 @@ function tooltip($input) {
     return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
 }
 
-function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
+function UI_message($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
 
     $uiMessages = [
         L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
@@ -122,16 +122,20 @@ function UI_message($level, $text = 0, $caption = 0, $omittabletags = FALSE) {
     ];
 
     $retval = "";
-    if (!$omittabletags)
+    if (!$omittabletags) {
         $retval .= "<tr><td>";
-    $caption = $caption !== 0 ? $caption : $uiMessages[$level]['text'];
+    }
+    $caption = ($customCaption !== 0 ? $customCaption : $uiMessages[$level]['text']);
     $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
-    if (!$omittabletags)
+    if (!$omittabletags) {
         $retval .= "</td><td>";
-    if ($text !== 0)
+    }
+    if ($text !== 0) {
         $retval .= $text;
-    if (!$omittabletags)
+    }
+    if (!$omittabletags) {
         $retval .= "</td></tr>";
+    }
     return $retval;
 }
 
@@ -310,8 +314,8 @@ function instLevelInfoBoxes(IdP $myInst) {
         $retval .= "<div class='infobox'>
             <h2>" . $block[1] . "</h2>
             <table>" .
-        infoblock($idpoptions, $block[0], "IdP") .
-        "</table>
+                infoblock($idpoptions, $block[0], "IdP") .
+                "</table>
         </div>";
     }
     return $retval;

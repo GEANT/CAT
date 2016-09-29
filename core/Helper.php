@@ -34,10 +34,11 @@ function error($t) {
  */
 function rrmdir($dir) {
     foreach (glob($dir . '/*') as $file) {
-        if (is_dir($file))
+        if (is_dir($file)) {
             rrmdir($file);
-        else
+        } else {
             unlink($file);
+        }
     }
     rmdir($dir);
 }
@@ -66,10 +67,11 @@ function downloadFile($url) {
  * @return string UUID (possibly prefixed)
  */
 function uuid($prefix = '', $deterministicSource = NULL) {
-    if ($deterministicSource === NULL)
+    if ($deterministicSource === NULL) {
         $chars = md5(uniqid(mt_rand(), true));
-    else
+    } else {
         $chars = md5($deterministicSource);
+    }
     $uuid = substr($chars, 0, 8) . '-';
     $uuid .= substr($chars, 8, 4) . '-';
     $uuid .= substr($chars, 12, 4) . '-';

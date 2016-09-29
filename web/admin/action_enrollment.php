@@ -32,7 +32,7 @@ if (CONFIG['CONSORTIUM']['selfservice_registration'] !== NULL && $_GET['token'] 
 
 if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTING")) {
     pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
-    echo "<h1>"._("Error creating new IdP binding!")."</h1>";
+    echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     if ($checkval == "FAIL-ALREADYCONSUMED") {
         echo "<p>" . _("Sorry... this token has already been used to create an institution. If you got it from a mailing list, probably someone else used it before you.") . "</p>";
     } elseif ($checkval == "FAIL-EXPIRED") {
@@ -53,9 +53,10 @@ if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTI
         $newidp = $usermgmt->createIdPFromToken($_GET['token'], $_SESSION['user']);
         $usermgmt->invalidateToken($_GET['token']);
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - Token used and invalidated");
-    };
+    }
 }
-if ($checkval == "OK-EXISTING")
+if ($checkval == "OK-EXISTING") {
     header("Location: overview_user.php");
-else
+} else {
     header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
+}

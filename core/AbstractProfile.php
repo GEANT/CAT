@@ -103,7 +103,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n".print_r($eapTypeArray,true));
+        $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
         return $eapTypeArray;
     }
 
@@ -141,6 +141,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
     }
 
+    /**
+     * join new attributes to existing ones, but only if not already defined on
+     * a different level in the existing set
+     * @param array $existing the already existing attributes
+     * @param array $new the new set of attributes
+     * @param string $newlevel the level of the new attributes
+     * @return array the new set of attributes
+     */
     protected function levelPrecedenceAttributeJoin($existing, $new, $newlevel) {
         foreach ($new as $attrib) {
             $ignore = "";
@@ -190,7 +198,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * tests if the configurator needs to be regenerated
      * returns the configurator path or NULL if regeneration is required
      */
-    
     /**
      * This function tests if the configurator needs to be regenerated 
      * (properties of the Profile may have changed since the last configurator 
@@ -237,7 +244,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * @param string $device the device id string
      * @param string $area either admin or user
-     * @return TRUE if incrementing worked, FALSE if not
+     * @return boolean TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
@@ -253,13 +260,13 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $device the device id string
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
-    public function getUserDownloadStats($device = 0) {
+    public function getUserDownloadStats($device = NULL) {
         $returnarray = [];
         $numbers = $this->databaseHandle->exec("SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
         while ($statsQuery = mysqli_fetch_object($numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
-        if ($device !== 0) {
+        if ($device !== NULL) {
             if (isset($returnarray[$device])) {
                 return $returnarray[$device];
             }
@@ -300,7 +307,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->realm = $escapedRealm;
     }
 
-        /**
+    /**
      * register new supported EAP method for this profile
      *
      * @param array $type The EAP Type, as defined in class EAP
@@ -349,8 +356,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     // silverbullet does not have any configurable properties
                     return true;
                 }
-                // intentionally fall through: normal TLS must go through all
-                // cert and name checks!
+            // intentionally fall through: normal TLS must go through all
+            // cert and name checks!
             case PEAP:
             case TTLS:
             case FAST:
@@ -382,7 +389,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 // well actually this EAP type has a server name; but it's optional
                 // so no reason to be picky on it
                 return true;
-            default: 
+            default:
                 return false;
         }
     }
@@ -393,8 +400,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $locale for text-based attributes, either returns values for the default value, or if specified here, in the locale specified
      * @return array of device ids display names and their status
      */
-    public function listDevices($locale = 0) {
-        if ($locale == 0) {
+    public function listDevices($locale = NULL) {
+        if ($locale === NULL) {
             $locale = $this->langIndex;
         }
         $returnarray = [];
@@ -433,8 +440,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
-                }
-                else {
+                } else {
                     $eap = $dev->getPreferredEapType($preferredEap);
                     if (count($eap) > 0) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
@@ -494,7 +500,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         } else {
             $attr = $attrBefore;
         }
-        
+
         $temp1 = [];
         $temp = [];
         $flags = [];
@@ -601,8 +607,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 "level" => "Profile",
                 "row" => 0,
                 "flag" => NULL,
-                ];
+            ];
         }
         return $retArray;
     }
+
 }

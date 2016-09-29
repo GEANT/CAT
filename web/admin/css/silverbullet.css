@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.sb-add-new-user{
+    padding: 10px;
+}
+.sb-add-new-user input{
+    display:block;
+    margin: 5px 0px 10px 0px;
+}

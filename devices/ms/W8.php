@@ -193,8 +193,7 @@ class Device_W8 extends WindowsCommon {
 ';
             if (isset($attr['eap-specific:tls_use_other_id']) && $attr['eap-specific:tls_use_other_id'][0] == 'on') {
                 $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
-            }
-            else {
+            } else {
                 $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
             }
             $profileFileCont .= '
@@ -205,8 +204,7 @@ class Device_W8 extends WindowsCommon {
         } elseif ($eap == EAPTYPE_PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
-            }
-            else {
+            } else {
                 $nea = 'false';
             }
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
@@ -245,10 +243,11 @@ class Device_W8 extends WindowsCommon {
 ';
                 if (isset($outerUser) && $outerUser) {
                     $w8Ext .= '<AnonymousUserName>' . $outerUser . '</AnonymousUserName>
-                ';}
-                else {
+                ';
+                } else {
                     $w8Ext .= '<AnonymousUserName/>
-                ';}
+                ';
+                }
                 $w8Ext .= '</IdentityPrivacy>
 </PeapExtensions>
 ';
@@ -293,10 +292,11 @@ class Device_W8 extends WindowsCommon {
 ';
                 if (isset($outerId) && $outerId) {
                     $w8Ext .= '<AnonymousIdentity>' . $outerId . '</AnonymousIdentity>
-                ';}
-                else {
+                ';
+                } else {
                     $w8Ext .= '<AnonymousIdentity/>
-                ';}
+                ';
+                }
             } else {
                 $w8Ext .= '<IdentityPrivacy>false</IdentityPrivacy>
 ';
@@ -325,7 +325,7 @@ class Device_W8 extends WindowsCommon {
      * @param string $ssid
      * @param string $auth can be one of "WPA", "WPA2"
      * @param string $encryption can be one of: "TKIP", "AES"
-     * @param string $eapConfig XML configuration block with EAP config data
+     * @param array $eapConfig XML configuration block with EAP config data
      * @param int $profileNumber counter, which profile number is this
      * @return string
      */
@@ -355,7 +355,8 @@ class Device_W8 extends WindowsCommon {
 <PMKCacheTTL>720</PMKCacheTTL> 
 <PMKCacheSize>128</PMKCacheSize> 
 <preAuthMode>disabled</preAuthMode> 
-        ';}
+        ';
+        }
         $profileFileCont .= '<OneX xmlns="http://www.microsoft.com/networking/OneX/v1">
 <cacheUserData>true</cacheUserData>
 <authMode>user</authMode>

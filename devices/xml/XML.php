@@ -133,6 +133,11 @@ abstract class Device_XML extends DeviceConfig {
         return($obj);
     }
 
+    /**
+     * 
+     * @param string $attrName
+     * @return array of values for this attribute
+     */
     private function getSimpleMLAttribute($attrName) {
         if ((!isset($this->attributes[$attrName][0]) || !$this->attributes[$attrName][0])) {
             return '';
@@ -343,4 +348,5 @@ abstract class Device_XML extends DeviceConfig {
         }
         return $authmethod;
     }
+
 }

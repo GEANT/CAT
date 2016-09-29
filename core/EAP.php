@@ -105,6 +105,7 @@ const EAPTYPE_NONE = ["OUTER" => NONE, "INNER" => NONE];
 const EAPTYPE_ANY = ["OUTER" => 255, "INNER" => 255];
 
 class EAP {
+
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
@@ -135,11 +136,13 @@ class EAP {
         }
         // there is none
         $out['EAP'] = 0;
-        if ($eap == EAPTYPE_TTLS_PAP)
-            $out['METHOD'] = NE_PAP;
-        if ($eap == EAPTYPE_TTLS_MSCHAP2)
-            $out['METHOD'] = NE_MSCHAP2;
-
+        switch ($eap) {
+            case EAPTYPE_TTLS_PAP:
+                $out['METHOD'] = NE_PAP;
+                break;
+            case EAPTYPE_TTLS_MSCHAP2:
+                $out['METHOD'] = NE_MSCHAP2;
+        }
         return $out;
     }
 

@@ -16,7 +16,6 @@
 /**
  * 
  */
-
 require_once("Logging.php");
 
 /**
@@ -33,7 +32,7 @@ require_once("Logging.php");
  */
 abstract class Entity {
 
-        /**
+    /**
      * We occasionally log stuff (debug/audit). Have an initialised Logging
      * instance nearby is sure helpful.
      * 
@@ -44,4 +43,5 @@ abstract class Entity {
     public function __construct() {
         $this->loggerInstance = new Logging();
     }
+
 }

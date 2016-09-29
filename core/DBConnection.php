@@ -57,7 +57,7 @@ class DBConnection {
                 }
                 return self::$instanceExternal;
             default:
-                throw new Exception("This type of database (".strtoupper($database).") is not known!");
+                throw new Exception("This type of database (" . strtoupper($database) . ") is not known!");
         }
     }
 
@@ -121,35 +121,35 @@ class DBConnection {
      * @var DBConnection 
      */
     private static $instanceUser;
-    
+
     /**
      * Holds the singleton instance reference to INST database
      * 
      * @var DBConnection 
      */
     private static $instanceInst;
-    
+
     /**
      * Holds the singleton instance reference to EXTERNAL database
      * 
      * @var DBConnection 
      */
     private static $instanceExternal;
-    
+
     /**
      * after instantiation, keep state of which DB *this one* talks to
      * 
      * @var string which database does this instance talk to
      */
     private $databaseInstance;
-        
+
     /**
      * The connection to the DB server
      * 
      * @var mysqli
      */
     private $connection;
-    
+
     /**
      * @var Logging
      */

@@ -25,7 +25,7 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != BUTTON_SAVE) { /
     echo "<p>" . _("The page was called with insufficient data. Please report this as an error.") . "</p>";
     footer();
     exit(0);
-};
+}
 ?>
 <h1>
     <?php _("Submitted attributes"); ?>
@@ -33,12 +33,14 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != BUTTON_SAVE) { /
 <?php
 $remaining_attribs = $user->beginflushAttributes();
 
-if (isset($_POST['option']))
-    foreach ($_POST['option'] as $opt_id => $optname)
+if (isset($_POST['option'])) {
+    foreach ($_POST['option'] as $opt_id => $optname) {
         if ($optname == "user:fedadmin") {
             echo "Security violation: user tried to make himself federation administrator!";
             exit(1);
         }
+    }
+}
 ?>
 <table>
     <?php

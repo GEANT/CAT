@@ -205,7 +205,7 @@ define("CERTPROB_MULTIPLE_CN", -226);
  *
  * @package Developer
  */
-class RADIUSTests extends Entity{
+class RADIUSTests extends Entity {
 
     /**
      * This private variable contains the realm to be checked. Is filled in the
@@ -909,7 +909,7 @@ class RADIUSTests extends Entity{
      * We don't want to write passwords of the live login test to our logs. Filter them out
      * @param string $stringToRedact what should be redacted
      * @param array $inputarray array of strings (outputs of eapol_test command)
-     * @return array the output of eapol_test with the password redacted
+     * @return string[] the output of eapol_test with the password redacted
      */
     private function redact($stringToRedact, $inputarray) {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
@@ -1018,7 +1018,7 @@ class RADIUSTests extends Entity{
      * @param string $inner inner username
      * @param string $outer outer username
      * @param string $password the password
-     * @return array [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
+     * @return string[] [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
      */
     private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password) {
         $eapText = EAP::eapDisplayName($eaptype);
@@ -1101,6 +1101,7 @@ network={
     /**
      * generate an eapol_test command-line config for the fixed config filename 
      * ./udp_login_test.conf
+     * @param int $probeindex number of the probe to check against
      * @param boolean $opName include Operator-Name in request?
      * @param boolean $frag make request so large that fragmentation is needed?
      * @return string the command-line for eapol_test
@@ -1174,7 +1175,7 @@ network={
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
         $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
-        
+
         $eapText = EAP::eapDisplayName($eaptype);
 
         if ($clientcertdata !== NULL) {
@@ -1281,9 +1282,9 @@ network={
             }
 
             $intermOdditiesEAP = [];
-            
+
             $testresults['certdata'] = [];
-            
+
             $serverFile = fopen($tmpDir . "/incomingserver.pem", "w");
             foreach ($eapCertarray as $certPem) {
                 $cert = $x509->processCertificate($certPem);

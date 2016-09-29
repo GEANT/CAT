@@ -1,18 +1,20 @@
 <?php
-/***********************************************************************************
+
+/* * *********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 // embed this into a page which should display the geo widget
 // needs to be called twice:
 //   in <head>, insert javascript voodoo
 //   in <body>, insert <div>
 // and should have $inst_country, $inst_name set to a meaningful name of a site to locate
-
-    ?>
+?>
 <?php
+
 function geo_widget_head($inst_country, $inst_name) {
     new Federation("blablub"); // needed to fill some static members with dynamic value
     echo "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
@@ -71,19 +73,19 @@ function geo_widget_head($inst_country, $inst_name) {
          *
          */
         function locator_magic() {
-            geocoder.geocode({'address':\"$inst_name\", 'region':\"".strtolower($inst_country)."\"},
+            geocoder.geocode({'address':\"$inst_name\", 'region':\"" . strtolower($inst_country) . "\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
-                    locate_country(\"".Federation::$federationList[strtoupper($inst_country)]."\");
+                    locate_country(\"" . Federation::$federationList[strtoupper($inst_country)] . "\");
                 } else {
                     var i;
                     for(i = 0; i < r.length; i++) {
                         Addr = getAddressElements(r[i].address_components);
-                        if(Addr.country == \"". strtoupper($inst_country)."\")
+                        if(Addr.country == \"" . strtoupper($inst_country) . "\")
                         break;
                     }
-                    if(Addr.country != \"". strtoupper($inst_country)."\")
-                    locate_country(\"". Federation::$federationList[strtoupper($inst_country)]."\");
+                    if(Addr.country != \"" . strtoupper($inst_country) . "\")
+                    locate_country(\"" . Federation::$federationList[strtoupper($inst_country)] . "\");
                     else {
                         addMarker(r[i].geometry.location,15,null);
                     }
@@ -96,7 +98,7 @@ function geo_widget_head($inst_country, $inst_name) {
          */
         function markerClicked(m) {
             info_window.close();
-            var t = \"". _("This is location ")."\"+m.info;
+            var t = \"" . _("This is location ") . "\"+m.info;
             info_window.setContent(t);
             info_window.setPosition(m.getPosition());
             info_window.open(map,m);
@@ -175,7 +177,7 @@ function geo_widget_head($inst_country, $inst_name) {
         function getAddressLocation() {
             var city = $('#address').val();
             if(city == '') {
-                alert(\""._("nothing entered in the address field")."\");
+                alert(\"" . _("nothing entered in the address field") . "\");
                 return false;
             }
             geocoder.geocode( { 'address': city}, function(results, status) {
@@ -195,7 +197,7 @@ function geo_widget_head($inst_country, $inst_name) {
          * trigger geolocation
          */
         function locateMe() {
-            $('#address').val(\"". _("locating")."\");
+            $('#address').val(\"" . _("locating") . "\");
             navigator.geolocation.getCurrentPosition(locate_succes,locate_fail,{maximumAge:3600000, timeout:5000});
         }
 
@@ -273,33 +275,31 @@ function geo_widget_head($inst_country, $inst_name) {
                 locator_magic();
         }
     </script>";
-
 }
 
 function geo_widget_body($wizard, $additional) {
     echo "<fieldset class='option_container'>
-        <legend><strong>". _("Location")."</strong></legend>";
+        <legend><strong>" . _("Location") . "</strong></legend>";
 
-    if ($wizard)
-            echo "<p>".
-            _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.").
-                 "</p>
-                     <ul>".
-                        _("<li>Drag the marker in the map to your place, or</li>
+    if ($wizard) {
+        echo "<p>" .
+        _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
+        "</p>
+                     <ul>" .
+        _("<li>Drag the marker in the map to your place, or</li>
 <li>enter your street address in the field below for lookup, or</li>
-<li>use the 'Locate Me!' button</li>").
-                    "</ul>
-                     <strong>".
-                    _("We will use the coordinates as indicated by the marker for geolocation.").
-                    "</strong>";
-        if ($additional) {
-            echo _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
-        }
-        echo "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+<li>use the 'Locate Me!' button</li>") .
+        "</ul>
+                     <strong>" .
+        _("We will use the coordinates as indicated by the marker for geolocation.") .
+        "</strong>";
+    }
+    if ($additional) {
+        echo _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
+    }
+    echo "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
 
-        echo"            <div class='googlemap' id='map'></div>";
-        echo "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
-        echo "        </fieldset>";
-    
-
+    echo"            <div class='googlemap' id='map'></div>";
+    echo "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
+    echo "        </fieldset>";
 }

@@ -17,12 +17,7 @@ $state = SimpleSAML_Auth_State::loadState((string) $_REQUEST['LogoutState'], 'My
 $ls = $state['saml:sp:LogoutStatus']; /* Only works for SAML SP */
 if ($ls['Code'] === 'urn:oasis:names:tc:SAML:2.0:status:Success' && !isset($ls['SubCode'])) {
     /* Successful logout. */
-    $url = htmlspecialchars($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/logout_check.php"));
-    if ($_SERVER['HTTPS'] == "on")
-        $url = "https://" . $url;
-    else
-        $url = "http://" . $url;
-
+    $url = "//" . htmlspecialchars($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/logout_check.php"));
     header("Location: $url");
 } else {
     /* Logout failed. Tell the user to close the browser. */

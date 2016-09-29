@@ -70,7 +70,7 @@ class IdP extends EntityWithDBProperties {
         if (!is_numeric($instId)) {
             throw new Exception("Institutions are identified by an integer index!");
         }
-        $this->identifier = (int)$instId;
+        $this->identifier = (int) $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
         if (!$instQuery = mysqli_fetch_object($idp)) {
@@ -112,8 +112,8 @@ class IdP extends EntityWithDBProperties {
             $oneProfile->institution = $this->identifier;
             $returnarray[] = $oneProfile;
         }
-        
-        $this->loggerInstance->debug(2,"listProfiles: ".print_r($returnarray,true));
+
+        $this->loggerInstance->debug(2, "listProfiles: " . print_r($returnarray, true));
         return $returnarray;
     }
 
@@ -206,12 +206,12 @@ class IdP extends EntityWithDBProperties {
 
         if ($identifier > 0) {
             switch ($type) {
-            case "RADIUS":
-                return new ProfileRADIUS($identifier, $this);
-            case "SILVERBULLET":
-                return new ProfileSilverbullet($identifier, $this);
-            default:
-                throw new Exception("This type of profile is unknown and can not be added.");
+                case "RADIUS":
+                    return new ProfileRADIUS($identifier, $this);
+                case "SILVERBULLET":
+                    return new ProfileSilverbullet($identifier, $this);
+                default:
+                    throw new Exception("This type of profile is unknown and can not be added.");
             }
         }
         return NULL;

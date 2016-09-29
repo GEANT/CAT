@@ -1,10 +1,12 @@
 <?php
-/* *********************************************************************************
+
+/* * ********************************************************************************
  * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
  * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+ * ********************************************************************************* */
 ?>
 <?php
+
 /**
  * 
  * 
@@ -14,7 +16,6 @@
  *
  * @package Developer
  */
-
 /**
  * necessary includes
  */
@@ -35,7 +36,7 @@ require_once(dirname(__DIR__) . "/config/_config.php");
  */
 class CAT {
 
-    /** 
+    /**
      * which version is this?
      * even if we are unreleased, keep track of internal version-to-be
      * developers need to set this in code. The user-displayed string
@@ -47,21 +48,22 @@ class CAT {
     public static $VERSION_EXTRA = "";
     public static $RELEASE_VERSION = FALSE;
     public static $USER_API_VERSION = 2;
-    
+
     /*
      * This is the user-displayed string; controlled by the four options above
      * It is generated in the constructor.
      */
-    
     public static $VERSION;
+
     /**
-   /**
+      /**
      * database which this class queries by default
      * 
      * @var string
      */
     private static $LANG = '';
     private static $DB_TYPE = "INST";
+
     /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
@@ -72,18 +74,18 @@ class CAT {
         self::$locale = $language[1];
         CAT::$VERSION = _("Unreleased SVN Revision");
         if (CAT::$RELEASE_VERSION) {
-            $temp_version = "CAT-".CAT::$VERSION_MAJOR.".".CAT::$VERSION_MINOR;
+            $temp_version = "CAT-" . CAT::$VERSION_MAJOR . "." . CAT::$VERSION_MINOR;
             if (CAT::$VERSION_PATCH != 0) {
-                    $temp_version .= ".".CAT::$VERSION_PATCH;
+                $temp_version .= "." . CAT::$VERSION_PATCH;
             }
             if (CAT::$VERSION_EXTRA != "") {
-                $temp_version .= "-".CAT::$VERSION_EXTRA;
+                $temp_version .= "-" . CAT::$VERSION_EXTRA;
             }
-            CAT::$VERSION = sprintf(_("Release %s"), $temp_version );
+            CAT::$VERSION = sprintf(_("Release %s"), $temp_version);
         }
     }
 
-    /** 
+    /**
      * 
      */
     public function totalIdPs($level) {
@@ -104,7 +106,7 @@ class CAT {
         $dbresult = mysqli_fetch_object($idpcount);
         return $dbresult->instcount;
     }
-    
+
     /**
      * Sets the gettext domain
      *
@@ -147,10 +149,11 @@ class CAT {
         } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
             foreach ($langs as $lang) {
+                $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);
                 $lang_converted[] = (isset($result[1]) && $result[1] ? $result[1] : $lang);
             }
-        };
+        }
         // always add configured locale as last resort
         $defaultlocale = CONFIG['APPEARANCE']['defaultlocale'];
         $lang_converted[] = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
@@ -167,19 +170,21 @@ class CAT {
             // we need to map stuff manually
             $thelang = $try_lang;
 
-            foreach (CONFIG['LANGUAGES'] as $language => $value)
+            foreach (CONFIG['LANGUAGES'] as $language => $value) {
                 if (preg_match("/^" . $language . ".*/", $try_lang)) {
                     $thelang = $value['locale'];
                     $lang_index = $language;
                 }
+            }
 
-            if (setlocale(LC_ALL, $thelang))
+            if (setlocale(LC_ALL, $thelang)) {
                 break;
+            }
         }
         putenv("LC_ALL=" . $thelang);
         $loggerInstance = new Logging();
         $loggerInstance->debug(4, "selected lang:$lang_index:$thelang\n");
-        $loggerInstance->debug(4, print_r($lang_converted,true));
+        $loggerInstance->debug(4, print_r($lang_converted, true));
         return([$lang_index, $thelang]);
     }
 
@@ -187,9 +192,10 @@ class CAT {
      * gets the language setting in CAT
      */
     static public function get_lang() {
-       if(self::$LANG === '')
-         list(self::$LANG, ) = self::set_lang();
-       return self::$LANG;
+        if (self::$LANG === '') {
+            list(self::$LANG, ) = self::set_lang();
+        }
+        return self::$LANG;
     }
 
     /**

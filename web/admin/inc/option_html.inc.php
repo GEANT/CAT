@@ -14,7 +14,7 @@ require_once("common.inc.php");
 require_once("Logging.php");
 
 function prefilledOptionTable($existing_options, $attributePrefix, $level) {
-    $retval = "<table id='expandable_$attributePrefix"."_options'>";
+    $retval = "<table id='expandable_$attributePrefix" . "_options'>";
 
     $prepopulate = [];
     foreach ($existing_options as $existing_attribute) {
@@ -135,19 +135,19 @@ function optiontext($defaultselect, $list, $prefill = 0) {
         $iterator = 0;
         foreach ($list as $value) {
             $listtype = $optioninfo->optionType($value);
-            $retval .="<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
+            $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
             if ($iterator == $defaultselect) {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
             }
-            $retval .=">" . display_name($value) . "</option>";
+            $retval .= ">" . display_name($value) . "</option>";
             $iterator++;
         }
         if (!isset($activelisttype)) {
             throw new Exception("We should have found the active list type by now!");
         }
-        $retval .="</select></td>";
-        $retval .="<td>
+        $retval .= "</select></td>";
+        $retval .= "<td>
           <select style='display:" . ($activelisttype["flag"] == "ML" ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
             <option value='' name='select_language' selected>" . _("select language") . "</option>
             <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
@@ -211,7 +211,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
                 $allLocationCount++;
                 $locationIndex = $allLocationCount;
                 $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
-                $retval .="<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
+                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
                 break;
             case "file":
                 $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($content) . "'>";
@@ -253,7 +253,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
         }
         $retval .= "</td>";
     }
-    $retval .="
+    $retval .= "
 
        <td>
           <button type='button' class='delete' onclick='deleteOption(" . $locationIndex . ",\"option-S" . $rowid . "\")'>-</button>

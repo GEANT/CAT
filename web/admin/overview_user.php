@@ -70,9 +70,8 @@ $user = new User($_SESSION['user']);
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
     if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"),"https://wiki.geant.org/x/SwB_AQ")."</h3>";
-    }
-    else {
+        $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), "https://wiki.geant.org/x/SwB_AQ") . "</h3>";
+    } else {
         $helptext = "";
     }
 
@@ -143,8 +142,7 @@ $user = new User($_SESSION['user']);
             }
         }
         echo "</table>";
-    }
-    else {
+    } else {
         echo "<h2>" . _("You are not managing any institutions.") . "</h2>";
     }
     if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
@@ -172,3 +170,4 @@ $user = new User($_SESSION['user']);
     ?>
     <?php
     footer();
+    

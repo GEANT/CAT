@@ -27,12 +27,12 @@ class Logging {
     private function writeToFile($filename, $message) {
         $file = fopen(CONFIG['PATHS']['logdir'] . "/$filename", "a");
         if ($file === FALSE) {
-            throw new Exception("Unable to open debug file ". CONFIG['PATHS']['logdir'] . "/$filename for writing!");
+            throw new Exception("Unable to open debug file " . CONFIG['PATHS']['logdir'] . "/$filename for writing!");
         }
-        fwrite($file, sprintf("%-015s", microtime(TRUE)).$message);
+        fwrite($file, sprintf("%-015s", microtime(TRUE)) . $message);
         fclose($file);
     }
-    
+
     /**
      *
      * write debug messages to the log, if the debug level is high enough
@@ -51,7 +51,7 @@ class Logging {
         $output = ob_get_clean();
 
         $this->writeToFile("debug.log", $output);
-        
+
         return;
     }
 
@@ -71,7 +71,7 @@ class Logging {
             case "OWN": // ownership changes
             case "MOD": // modified existing object
             case "DEL": // deleted an object
-                ob_start();                
+                ob_start();
                 print " ($category) ";
                 print_r(" " . $user . ": " . $message . "\n");
                 $output = ob_get_clean();

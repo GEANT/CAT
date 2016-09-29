@@ -41,7 +41,7 @@ class UserManagement extends Entity {
      * @var DBConnection
      */
     private $databaseHandle;
-    
+
     /**
      * Class constructor. Nothing special to be done when constructing.
      */

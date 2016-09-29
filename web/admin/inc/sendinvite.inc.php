@@ -25,13 +25,13 @@ function check_federation_privilege($country) {
     $user_object = new User($_SESSION['user']);
     $fed_privs = $user_object->getAttributes("user:fedadmin");
     // a new IdP was requested and all the required parameters are there
-        foreach ($fed_privs as $onefed) {
-            if (strtolower($onefed['value']) == strtolower($country)) {
-                return TRUE;
-            }
+    foreach ($fed_privs as $onefed) {
+        if (strtolower($onefed['value']) == strtolower($country)) {
+            return TRUE;
         }
-        echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
-        exit(1);
+    }
+    echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
+    exit(1);
 }
 
 authenticate();
@@ -143,17 +143,17 @@ if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
 // then, send out the mail
 $message = _("Hello,") . "
     
-" . wordwrap($introtext, 72)  . "
+" . wordwrap($introtext, 72) . "
     
 ";
 
 if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
     $customtext = $federation->getAttributes('fed:custominvite');
     if (count($customtext) > 0) {
-        $message .= wordwrap(_("Additional message from your federation administrator:"),72) . "
+        $message .= wordwrap(_("Additional message from your federation administrator:"), 72) . "
 ---------------------------------
 "
-                  . wordwrap($customtext[0]['value'],72) . "
+                . wordwrap($customtext[0]['value'], 72) . "
 ---------------------------------
 
     ";
@@ -172,8 +172,8 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
         _("and enter the invitation token") . "
     $newtoken
 " . ( /* $new_idp_authorized_fedadmin */ FALSE ?
-                wordwrap(_("manually. If you reply to this mail, you will reach the federation administrators of your federation."), 72) :
-                wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
+        wordwrap(_("manually. If you reply to this mail, you will reach the federation administrators of your federation."), 72) :
+        wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
 
 " . wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "
 
@@ -190,7 +190,7 @@ $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
     $fed = new Federation($newcountry);
     foreach ($fed->listFederationAdmins() as $fedadmin_id) {
-        $fedadmin = new User($fedadmin_id);       
+        $fedadmin = new User($fedadmin_id);
         // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }
 }

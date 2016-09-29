@@ -16,7 +16,6 @@
 /**
  * 
  */
-
 require_once("Entity.php");
 
 /**
@@ -63,14 +62,14 @@ abstract class EntityWithDBProperties extends Entity {
      */
     protected $entityIdColumn;
 
-    /** 
+    /**
      * We need database access. Be sure to instantiate the singleton, and then
      * use its instance (rather than always accessing everything statically)
      * 
      * @var DBConnection the instance of the default database we talk to usually
      */
     protected $databaseHandle;
-        
+
     /**
      * the unique identifier of this entity instance
      * Federations are identified by their TLD -> string
@@ -91,7 +90,7 @@ abstract class EntityWithDBProperties extends Entity {
         // databse instance in $databaseType
         $this->databaseHandle = DBConnection::handle($this->databaseType);
     }
-    
+
     /**
      * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
      * name in $optionName are retrieved; otherwise, all attributes are retrieved.
@@ -194,7 +193,9 @@ abstract class EntityWithDBProperties extends Entity {
         $optioninstance = Options::instance();
         $tempAttributes = [];
         $attributeDbExec = $this->databaseHandle->exec($query);
-
+        if (empty($attributeDbExec)) {
+            return $tempAttributes;
+        }
         while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
             // decode base64 for files (respecting multi-lang)
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
@@ -209,8 +210,8 @@ abstract class EntityWithDBProperties extends Entity {
         }
         return $tempAttributes;
     }
-    
-        /**
+
+    /**
      * Retrieves data from the underlying tables, for situations where instantiating the IdP or Profile object is inappropriate
      * 
      * @param string $table institution_option or profile_option
@@ -225,7 +226,7 @@ abstract class EntityWithDBProperties extends Entity {
         if (!is_numeric($row)) {
             return FALSE;
         }
-       
+
         $handle = DBConnection::handle("INST");
         $blobQuery = $handle->exec("SELECT option_value from $table WHERE row = $row");
         while ($returnedData = mysqli_fetch_object($blobQuery)) {
@@ -237,7 +238,6 @@ abstract class EntityWithDBProperties extends Entity {
         return $blob;
     }
 
-    
     /**
      * Checks if a raw data pointer is public data (return value FALSE) or if 
      * yes who the authorised admins to view it are (return array of user IDs)
@@ -269,7 +269,7 @@ abstract class EntityWithDBProperties extends Entity {
                 // okay, so it's NOT public. return the owner
                 $inst = new IdP($profile->institution);
                 return $inst->owner();
-                
+
             case "institution_option":
                 $blobQuery = $handle->exec("SELECT institution_id from $table WHERE row = $row");
                 while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
@@ -288,7 +288,7 @@ abstract class EntityWithDBProperties extends Entity {
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;
-                // user options are never public
+            // user options are never public
             case "user_options":
                 return [];
             default:

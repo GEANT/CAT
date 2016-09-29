@@ -78,6 +78,11 @@ class XMLElement {
         return empty($this->attributes) ? 0 : 1;
     }
 
+    /**
+     * adds an attribute with the given value to the set of attributes
+     * @param string $attribute
+     * @param mixed $value
+     */
     public function setAttribute($attribute, $value) {
         if (!isset($this->attributes)) {
             $this->attributes = [];
@@ -85,6 +90,11 @@ class XMLElement {
         $this->attributes[$attribute] = $value;
     }
 
+    /**
+     * 
+     * @param string $property
+     * @param mixed $value
+     */
     public function setProperty($property, $value) {
         $this->$property = $value;
     }
@@ -300,6 +310,11 @@ class Phone extends XMLElement {
 
  */
 
+/**
+ * 
+ * @param SimpleXMLElement $key
+ * @param SimpleXMLElement $value
+ */
 function SimpleXMLElement_append($key, $value) {
     if (trim((string) $value) == '') {
         $element = $key->addChild($value->getName());
@@ -314,6 +329,12 @@ function SimpleXMLElement_append($key, $value) {
     }
 }
 
+/**
+ * 
+ * @param SimpleXMLElement $node
+ * @param EAPIdentityProvider $object
+ * @return void
+ */
 function marshalObject($node, $object) {
     $val = '';
     $className = get_class($object);
@@ -321,7 +342,7 @@ function marshalObject($node, $object) {
     if ($object->getValue()) {
         $val = $object->getValue();
     }
-    $simplexmlelement = '';
+    $simplexmlelement = NULL;
     if ($val instanceof SimpleXMLElement) {
         $simplexmlelement = $val;
         $val = '';
@@ -340,7 +361,7 @@ function marshalObject($node, $object) {
             $node->addAttribute($attrt, $attrv);
         }
     }
-    if ($simplexmlelement != '') {
+    if ($simplexmlelement !== NULL) {
         SimpleXMLElement_append($node, $simplexmlelement);
         return;
     }

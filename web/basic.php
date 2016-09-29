@@ -144,13 +144,15 @@ class SimpleGUI extends UserAPI {
 
     public function listIdPs() {
         $Inst = $this->orderIdentityProviders($this->country->name);
-        if (!isset($this->idp)) {
-            $this->idp = new Idp($Inst[0]['idp']);
-        }
-        $idpId = $this->idp->identifier;
         $out = '';
         $out .= _("Select your institution");
         $out .= '<select name="idp" onchange="submit_form(this)">';
+        if (!empty($Inst)) {
+            if (!isset($this->idp)) {
+                $this->idp = new Idp($Inst[0]['idp']);
+            }
+            $idpId = $this->idp->identifier;
+        }
         foreach ($Inst as $I) {
             $out .= '<option value="' . $I['idp'] . '"';
             if ($I['idp'] == $idpId) {
@@ -163,6 +165,9 @@ class SimpleGUI extends UserAPI {
     }
 
     public function listProfiles() {
+        if (empty($this->idp)) {
+            return('');
+        }
         $profiles = $this->idp->listProfiles(1);
         if (!isset($this->profile)) {
             $this->profile = $profiles[0];
@@ -187,7 +192,7 @@ class SimpleGUI extends UserAPI {
         return $out;
     }
 
-    public function listDevices() {
+    public function listProfileDevices() {
         if (!isset($this->profile)) {
             return '';
         }
@@ -367,9 +372,9 @@ class SimpleGUI extends UserAPI {
     }
 
     /**
-     * returns the navigation link to a given GUI page
-     * @param int $new_page new page number
-     * @param string $text link text
+     * generates a hidden input field with the given argName
+     * 
+     * @param string $argName name of the hidden input field
      * @return string
      */
     public function passArgument($argName) {
@@ -445,7 +450,7 @@ if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQ
     }
     print "<p>" . $Gui->listIdPs();
     print "<p>" . $Gui->listProfiles();
-    print "<p>" . $Gui->listDevices();
+    print "<p>" . $Gui->listProfileDevices();
     print '<input type="hidden" name="devices_h" id="devices_h" value="0">';
 } else {
     if ($Gui->page != 3) {

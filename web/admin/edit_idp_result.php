@@ -75,8 +75,9 @@ echo "</table>";
 $my_inst->commitFlushAttributes($killlist);
 // delete cached logo, if present
 $logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identifier . ".png";
-if (is_file($logofile))
+if (is_file($logofile)) {
     unlink($logofile);
+}
 
 $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identifier . " - attributes changed");
 
@@ -88,29 +89,36 @@ $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 $ssids = [];
 
-if (isset(CONFIG['CONSORTIUM']['ssid']) && count(CONFIG['CONSORTIUM']['ssid']) > 0)
-    foreach (CONFIG['CONSORTIUM']['ssid'] as $ssidname)
+if (isset(CONFIG['CONSORTIUM']['ssid']) && count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+    foreach (CONFIG['CONSORTIUM']['ssid'] as $ssidname) {
         $ssids[] = $ssidname . " " . (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+    }
+}
 
 $custom_ssids_wpa2 = $my_inst->getAttributes("media:SSID");
 $custom_ssids_wpa = $my_inst->getAttributes("media:SSID_with_legacy");
 $wired_support = $my_inst->getAttributes("media:wired");
 
-if (count($custom_ssids_wpa) > 0)
-    foreach ($custom_ssids_wpa as $ssidname)
+if (count($custom_ssids_wpa) > 0) {
+    foreach ($custom_ssids_wpa as $ssidname) {
         $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
+    }
+}
 
-if (count($custom_ssids_wpa2) > 0)
-    foreach ($custom_ssids_wpa2 as $ssidname)
+if (count($custom_ssids_wpa2) > 0) {
+    foreach ($custom_ssids_wpa2 as $ssidname) {
         $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
+    }
+}
 
 echo "<table>";
 if (count($ssids) > 0) {
     $printedlist = "";
-    foreach ($ssids as $names)
+    foreach ($ssids as $names) {
         $printedlist = $printedlist . "$names ";
+    }
     echo UI_okay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
-};
+}
 if (count($wired_support) > 0) {
     echo UI_okay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
 }

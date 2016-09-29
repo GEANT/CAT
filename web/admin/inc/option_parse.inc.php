@@ -14,13 +14,13 @@ require_once("Options.php");
 require_once("input_validation.inc.php");
 
 function cmpSequenceNumber($left, $right) {
-  $pat = "/^S([0-9]+)(-.*)?$/";
-  $rep = "$1";
-  $leftNum = (int)preg_replace($pat, $rep, $left);
-  $rightNum = (int)preg_replace($pat, $rep, $right);
-  return ($left != $leftNum && $right != $rightNum) ?
-    $leftNum - $rightNum :
-    strcmp($left, $right);
+    $pat = "/^S([0-9]+)(-.*)?$/";
+    $rep = "$1";
+    $leftNum = (int) preg_replace($pat, $rep, $left);
+    $rightNum = (int) preg_replace($pat, $rep, $right);
+    return ($left != $leftNum && $right != $rightNum) ?
+            $leftNum - $rightNum :
+            strcmp($left, $right);
 }
 
 function postProcessValidAttributes($options, &$good, &$bad) {
@@ -152,9 +152,9 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
 
     // Step 1: collate option names, option values and uploaded files (by 
     // filename reference) into one array for later handling
-    
+
     $iterator = collateOptionArrays($postArray, $filesArray);
-    
+
     // following is a helper array to keep track of multilang options that were set in a specific language
     // but are not accompanied by a "default" language setting
     // if the array isn't empty by the end of processing, we need to warn the admin that this attribute
@@ -185,25 +185,25 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                     $multilangAttrsWithC[$objValue] = TRUE;
                 }
             }
-            
+
             switch ($optioninfo["type"]) {
                 case "string":
                     if (!empty($iterator["$objId-0"])) {
                         switch ($objValue) {
                             case "media:consortium_OI":
                                 $content = valid_consortium_oi($iterator["$objId-0"]);
-                            if ($content === FALSE) {
-                                $bad[] = $objValue;
-                                continue 3;
-                            }
-                            break;
+                                if ($content === FALSE) {
+                                    $bad[] = $objValue;
+                                    continue 3;
+                                }
+                                break;
                             case "media:remove_SSID":
                                 $content = valid_string_db($iterator["$objId-0"]);
-                            if ($content == "eduroam") {
-                                $bad[] = $objValue;
-                                continue 3;
-                            }
-                            break;
+                                if ($content == "eduroam") {
+                                    $bad[] = $objValue;
+                                    continue 3;
+                                }
+                                break;
                             default:
                                 $content = valid_string_db($iterator["$objId-0"]);
                                 break;
@@ -213,7 +213,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                     continue 2;
                 case "text":
                     if (!empty($iterator["$objId-1"])) {
-                        $content = valid_string_db($iterator["$objId-1"], 1);
+                        $content = valid_string_db($iterator["$objId-1"], TRUE);
                         break;
                     }
                     continue 2;
@@ -227,7 +227,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
 // echo "In file processing ...<br/>";
                     if (!empty($iterator["$objId-1"])) { // was already in, by ROWID reference, extract
                         // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                        $content = valid_string_db(urldecode($iterator["$objId-1"]), 1);
+                        $content = valid_string_db(urldecode($iterator["$objId-1"]), TRUE);
                         break;
                     } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
@@ -288,13 +288,13 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
             switch (get_class($object)) {
                 case 'ProfileRADIUS':
                     if ($device !== NULL) {
-                    $object->addAttributeDeviceSpecific($name, $value, $device);
-                } elseif ($eaptype != 0) {
-                    $object->addAttributeEAPSpecific($name, $value, $eaptype);
-                } else {
-                    $object->addAttribute($name, $value);
-                }
-                break;
+                        $object->addAttributeDeviceSpecific($name, $value, $device);
+                    } elseif ($eaptype != 0) {
+                        $object->addAttributeEAPSpecific($name, $value, $eaptype);
+                    } else {
+                        $object->addAttribute($name, $value);
+                    }
+                    break;
                 case 'IdP':
                 case 'User':
                 case 'Federation':

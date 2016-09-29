@@ -52,30 +52,34 @@ if (isset($_GET['profile_id'])) {
 // extended input checks
 
 $realm = FALSE;
-if (isset($_POST['realm']) && $_POST['realm'] != "")
+if (isset($_POST['realm']) && $_POST['realm'] != "") {
     $realm = valid_Realm($_POST['realm']);
+}
 
 $anon = FALSE;
-if (isset($_POST['anon_support']))
+if (isset($_POST['anon_support'])) {
     $anon = valid_boolean($_POST['anon_support']);
+}
 
 $anonLocal = "anonymous";
 if (isset($_POST['anon_local'])) {
     $anonLocal = valid_string_db($_POST['anon_local']);
-} else if ($my_profile !== FALSE) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
+} elseif ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
     $local = $my_profile->getAttributes("internal:anon_local_value");
-    if (isset($local[0]))
+    if (isset($local[0])) {
         $anonLocal = $local[0]['value'];
+    }
 }
 
 $checkuser = FALSE;
-if (isset($_POST['checkuser_support']))
+if (isset($_POST['checkuser_support'])) {
     $checkuser = valid_boolean($_POST['checkuser_support']);
+}
 
 $checkuser_name = "anonymous";
 if (isset($_POST['checkuser_local'])) {
     $checkuser_name = valid_string_db($_POST['checkuser_local']);
-} else if ($my_profile !== FALSE) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
+} elseif ($my_profile !== NULL) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
     $checkuser_name = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
 }
 
@@ -121,7 +125,7 @@ if (!$profile instanceof ProfileRADIUS) {
         $profile->setRealm("");
     }
     // set anon ID, if submitted
-    if ($anon != FALSE) {
+    if ($anon !== FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Anonymous Outer Identities cannot be turned on: realm is missing!"));
         } else {
@@ -133,7 +137,7 @@ if (!$profile instanceof ProfileRADIUS) {
         echo UI_okay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
     }
 
-    if ($checkuser != FALSE) {
+    if ($checkuser !== FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
@@ -145,12 +149,12 @@ if (!$profile instanceof ProfileRADIUS) {
         echo UI_okay(_("No special username for realm checks is configured."));
     }
 
-    if ($verify != FALSE) {
+    if ($verify !== FALSE) {
         if ($realm === FALSE) {
             echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
         } else {
             $profile->setInputVerificationPreference($verify, $hint);
-            if ($hint) {
+            if ($hint !== FALSE) {
                 $extratext = " " . sprintf(_("and the input field will be prefilled with '<strong>@%s</strong>'."), $realm);
             } else {
                 $extratext = ".";
@@ -165,7 +169,7 @@ if (!$profile instanceof ProfileRADIUS) {
     $killlist = processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
     $profile->commitFlushAttributes($killlist);
 
-    if ($redirect != FALSE) {
+    if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo UI_error(_("Redirection can't be activated - you did not specify a target location!"));
         } else {

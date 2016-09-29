@@ -67,7 +67,7 @@ function valid_Profile($input, $idpIdentifier = NULL) {
 function valid_Device($input) {
     $devicelist = Devices::listDevices();
     if (!isset($devicelist[$input])) {
-        throw new Exception (input_validation_error("This device does not exist!"));
+        throw new Exception(input_validation_error("This device does not exist!"));
     }
     return $input;
 }
@@ -78,18 +78,18 @@ function valid_Device($input) {
  * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
  * @return string the massaged string
  */
-function valid_string_db($input, $allowWhitespace = 0) {
+function valid_string_db($input, $allowWhitespace = FALSE) {
     // always chop out invalid characters, and surrounding whitespace
     $retvalStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
     // if some funny person wants to inject markup tags, remove them
     $retval = filter_var($retvalStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
-    if ($allowWhitespace === 0) {
+    if ($allowWhitespace === FALSE) {
         $afterWhitespace = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retval);
     } else {
-    // even if we allow whitespace, not pathological ones!
-    $afterWhitespace = preg_replace('/(\0|\r|\x0b)/', '', $retval);
+        // even if we allow whitespace, not pathological ones!
+        $afterWhitespace = preg_replace('/(\0|\r|\x0b)/', '', $retval);
     }
     if (is_array($afterWhitespace)) {
         throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
@@ -162,6 +162,12 @@ function valid_token($input) {
     return $retval;
 }
 
+/**
+ * 
+ * @param string $input a numeric value in range of a geo coordinate [-180;180]
+ * @return string returns back the input if all is good; throws an Exception if out of bounds or not numeric
+ * @throws Exception
+ */
 function valid_coordinate($input) {
     if (!is_numeric($input)) {
         throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
@@ -173,11 +179,18 @@ function valid_coordinate($input) {
     return $input;
 }
 
+/**
+ * 
+ * @param string $input the string to be checked: is this a serialised array with lat/lon keys in a valid number range?
+ * @return string returns $input if checks have passed; throws an Exception if something's wrong
+ * @throws Exception
+ */
 function valid_coord_serialized($input) {
     if (is_array(unserialize($input))) {
         $tentative = unserialize($input);
-        if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat']))
+        if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat'])) {
             return $input;
+        }
     }
     throw new Exception(input_validation_error(_("Wrong coordinate encoding!")));
 }
@@ -189,6 +202,14 @@ function valid_multilang($content) {
     return TRUE;
 }
 
+/**
+ * This checks the state of a HTML GET/POST "boolean" (if not checked, no value
+ * is submitted at all; if checked, has the word "on". Anything else is a big
+ * error
+ * @param string $input the string to test
+ * @return string echoes back the input if good, throws an Exception otherwise
+ * @throws Exception
+ */
 function valid_boolean($input) {
     if ($input != "on") {
         throw new Exception(input_validation_error("Unknown state of boolean option!"));
@@ -205,22 +226,26 @@ function valid_DB_reference($input) {
         $table = "profile_option";
     } elseif (preg_match("/FED/", $input)) {
         $table = "federation_option";
-    } else
+    } else {
         return FALSE;
+    }
     if (preg_match("/.*-([0-9]*)/", $input, $rowindexmatch)) {
         $rowindex = $rowindexmatch[1];
-    } else
+    } else {
         return FALSE;
+    }
     return ["table" => $table, "rowindex" => $rowindex];
 }
 
 function valid_host($input) {
     // is it a valid IP address (IPv4 or IPv6)?
-    if (filter_var($input, FILTER_VALIDATE_IP))
+    if (filter_var($input, FILTER_VALIDATE_IP)) {
         return $input;
+    }
     // if not, it must be a host name. Use email validation by prefixing with a local part
-    if (filter_var("stefan@" . $input, FILTER_VALIDATE_EMAIL))
+    if (filter_var("stefan@" . $input, FILTER_VALIDATE_EMAIL)) {
         return $input;
+    }
     // if we get here, it's bogus
     return FALSE;
 }

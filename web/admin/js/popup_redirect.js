@@ -9,13 +9,13 @@
 
 function getWindowHeight() {
     var windowHeight = 0;
-    if ( typeof( window.innerHeight ) === 'number' ) {
+    if (typeof (window.innerHeight) === 'number') {
         windowHeight = window.innerHeight;
     } else {
-        if ( document.documentElement && document.documentElement.clientHeight ) {
+        if (document.documentElement && document.documentElement.clientHeight) {
             windowHeight = document.documentElement.clientHeight;
         } else {
-            if ( document.body && document.body.clientHeight ) {
+            if (document.body && document.body.clientHeight) {
                 windowHeight = document.body.clientHeight;
             }
         }
@@ -26,13 +26,13 @@ function getWindowHeight() {
 
 /* Center an element in the browser window */
 
-function centerElement( el ) {
-    if ( document.getElementById ) {
+function centerElement(el) {
+    if (document.getElementById) {
         var windowHeight = getWindowHeight();
-        if ( windowHeight > 0 ) {
+        if (windowHeight > 0) {
             var contentHeight = el.offsetHeight;
-            if ( windowHeight - contentHeight > 0 ) {
-                el.parentNode.style.top = ( ( windowHeight / 2 ) - ( contentHeight / 2 ) ) + 'px';
+            if (windowHeight - contentHeight > 0) {
+                el.parentNode.style.top = ((windowHeight / 2) - (contentHeight / 2)) + 'px';
             }
         }
     }
@@ -41,84 +41,81 @@ function centerElement( el ) {
 
 /* Display errors/warnings/infos in an overlay box, */
 
-function createMsgbox( type, onclick ) {
-    var body = document.getElementsByTagName( "body" )[0];
-    if( document.getElementById( "overlay" ) === null ) {
-        var overlay = document.createElement( "div" );
-        overlay.setAttribute( "id", "overlay" );
-        body.appendChild( overlay );
+function createMsgbox(type, onclick) {
+    var body = document.getElementsByTagName("body")[0];
+    if (document.getElementById("overlay") === null) {
+        var overlay = document.createElement("div");
+        overlay.setAttribute("id", "overlay");
+        body.appendChild(overlay);
     } else {
-        body.removeChild( document.getElementById( "msgbox" ) );
+        body.removeChild(document.getElementById("msgbox"));
     }
-    var msgbox = document.createElement( "div" );
-    msgbox.setAttribute( "id", "msgbox" );
-    var div = document.createElement( "div" );
-    var msg = document.createElement( "div" );
-    if( type === "err" ) {
-        msg.setAttribute( "id", "errorbox" );
+    var msgbox = document.createElement("div");
+    msgbox.setAttribute("id", "msgbox");
+    var div = document.createElement("div");
+    var msg = document.createElement("div");
+    if (type === "err") {
+        msg.setAttribute("id", "errorbox");
+    } else if (type === "warn") {
+        msg.setAttribute("id", "warnbox");
+    } else if (type === "info") {
+        msg.setAttribute("class", "graybox");
     }
-    else if( type === "warn" ) {
-        msg.setAttribute( "id", "warnbox" );
+    var img = document.createElement("img");
+    img.setAttribute("src", "../resources/images/icons/button_cancel.png");
+    img.setAttribute("alt", "cancel");
+    if (onclick) {
+        img.setAttribute("onclick", "removeMsgbox(); " + onclick);
+    } else {
+        img.setAttribute("onclick", "removeMsgbox()");
     }
-    else if( type === "info" ) {
-        msg.setAttribute( "class", "graybox" );
-    }
-    var img = document.createElement( "img" );
-    img.setAttribute( "src", "../resources/images/icons/button_cancel.png" );
-    img.setAttribute( "alt", "cancel" );
-    if( onclick ) {
-        img.setAttribute( "onclick", "removeMsgbox(); "+ onclick );
-    }
-    else {
-        img.setAttribute( "onclick", "removeMsgbox()" );
-    }
-    msg.appendChild( img );
-    div.appendChild( msg );
-    msgbox.appendChild( div );
-    body.appendChild( msgbox );
+    msg.appendChild(img);
+    div.appendChild(msg);
+    msgbox.appendChild(div);
+    body.appendChild(msgbox);
     return msg;
 }
 
 
 function removeMsgbox() {
-    var body = document.getElementsByTagName( "body" )[0];
-    body.removeChild( document.getElementById( "overlay" ) );
-    body.removeChild( document.getElementById( "msgbox" ) );
+    var body = document.getElementsByTagName("body")[0];
+    body.removeChild(document.getElementById("overlay"));
+    body.removeChild(document.getElementById("msgbox"));
 }
 
 
-function addEvent( elem, type, eventHandle ) {
-    if( elem === null || elem === undefined ) {
+function addEvent(elem, type, eventHandle) {
+    if (elem === null || elem === undefined) {
         return;
     }
-    if( elem.addEventListener ) {
-        elem.addEventListener( type, eventHandle, false );
-    } else if( elem.attachEvent ) {
-        elem.attachEvent( "on" + type, eventHandle );
+    if (elem.addEventListener) {
+        elem.addEventListener(type, eventHandle, false);
+    } else if (elem.attachEvent) {
+        elem.attachEvent("on" + type, eventHandle);
     }
 }
 
 
 function overlay_resize() {
-    var el = document.getElementById( "msgbox" );
-    if( !el || !el.firstChild || !el.firstChild.firstChild ) {
+    var el = document.getElementById("msgbox");
+    if (!el || !el.firstChild || !el.firstChild.firstChild) {
         return;
     }
-    centerElement( el.firstChild.firstChild );
+    centerElement(el.firstChild.firstChild);
 }
 
-addEvent( window, "resize", overlay_resize );
+addEvent(window, "resize", overlay_resize);
 
-function postQueryData( funct, form ) {
+function postQueryData(funct, form) {
     var client = new XMLHttpRequest();
     client.onreadystatechange = funct;
-    client.open( "POST", form.action );
-    client.setRequestHeader( "Content-Type", "application/x-www-form-urlencoded" );
+    client.open("POST", form.action);
+    client.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     var form_values = "";
-    for (var i = 0; i<form.elements.length; i++) {
+    for (var i = 0; i < form.elements.length; i++) {
         form_values = form_values + (form_values === "" ? "" : "&") + encodeURIComponent(form.elements[i].name) + "=" + encodeURIComponent(form.elements[i].value);
     }
-    client.send( form_values );
+    client.send(form_values);
 }
 
 function popupRedirectWindow(form) {
@@ -126,10 +123,10 @@ function popupRedirectWindow(form) {
 }
 
 function createWindow() {
-    if( this.readyState === 4 && this.status === 200 ) {
+    if (this.readyState === 4 && this.status === 200) {
         var infoBox;
-        infoBox = createMsgbox( "info" );
+        infoBox = createMsgbox("info");
         infoBox.innerHTML += this.responseText;
-        centerElement( infoBox );
+        centerElement(infoBox);
     }
 }

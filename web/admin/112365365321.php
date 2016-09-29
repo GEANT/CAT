@@ -9,22 +9,22 @@
  * The $Tests array lists the config tests to be run
  */
 $Tests = [
-'ssp',
-'security',
-'php',
-'phpModules',
-'openssl',
-'makensis',
-'makensis=>NSISmodules',
-'makensis=>NSIS_GetVersion',
-'zip',
-'eapol_test',
-'directories',
-'locales',
-'defaults',
-'databases',
-'device_cache',
-'mailer',
+    'ssp',
+    'security',
+    'php',
+    'phpModules',
+    'openssl',
+    'makensis',
+    'makensis=>NSISmodules',
+    'makensis=>NSIS_GetVersion',
+    'zip',
+    'eapol_test',
+    'directories',
+    'locales',
+    'defaults',
+    'databases',
+    'device_cache',
+    'mailer',
 ];
 
 ini_set('display_errors', '0');
@@ -43,43 +43,42 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     authenticate();
     $no_security = 0;
 } else {
-   $no_security = 1;
+    $no_security = 1;
 }
 $user = new User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
 
-if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS']))
+if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     header("Location: overview_user.php");
+}
 
-$cat = pageheader("By. Your. Command.","SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
+$cat = pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
 $dbHandle = DBConnection::handle("INST");
-
 ?>
-    <h1>By. Your. Command.</h1>
-  <form action="112365365321.php" method="POST" accept-charset="UTF-8">
-        <fieldset class="option_container">
-            <legend>
-                <strong>Configuration Check</strong>
-            </legend>
-<?php
-            if (isset($_POST['admin_action'])) {
-               if($_POST['admin_action'] == BUTTON_SANITY_TESTS)
-                        include("sanity_tests.php");
-            }
-?>
-<button type="submit" name="admin_action" value="<?php echo BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
-</fieldset>
-<?php if($no_security) {
-     print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config.php and login as one.</h2>";
-
-   } else {
-?>
+<h1>By. Your. Command.</h1>
+<form action="112365365321.php" method="POST" accept-charset="UTF-8">
+    <fieldset class="option_container">
+        <legend>
+            <strong>Configuration Check</strong>
+        </legend>
+        <?php
+        if (isset($_POST['admin_action']) && ($_POST['admin_action'] == BUTTON_SANITY_TESTS)) {
+            include("sanity_tests.php");
+        }
+        ?>
+        <button type="submit" name="admin_action" value="<?php echo BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
+    </fieldset>
+    <?php
+    if ($no_security) {
+        print "<h2 style='color: red'>In order to do more you need to configure the SUPERADMIN section  in config/config.php and login as one.</h2>";
+    } else {
+        ?>
         <fieldset class="option_container">
             <legend>
                 <strong>Administrative actions</strong>
             </legend>
             <?php
-            if (isset($_POST['admin_action']))
+            if (isset($_POST['admin_action'])) {
                 switch ($_POST['admin_action']) {
                     case BUTTON_PURGECACHE:
                         $result = $dbHandle->exec("UPDATE downloads SET download_path = NULL");
@@ -101,13 +100,14 @@ $dbHandle = DBConnection::handle("INST");
 
                             /* This is the correct way to loop over the directory. */
                             while (false !== ($entry = readdir($handle))) {
-                                if ($entry === '.' || $entry === '..')
+                                if ($entry === '.' || $entry === '..') {
                                     continue;
+                                }
                                 $ftime = $tm - filemtime($downloads . '/' . $entry);
-                                if ($ftime < 3600)
+                                if ($ftime < 3600) {
                                     continue;
+                                }
                                 if (isset($Cache[$entry])) {
-//          print "Keep: $entry\n";
                                     continue;
                                 }
                                 rrmdir($downloads . '/' . $entry);
@@ -122,6 +122,7 @@ $dbHandle = DBConnection::handle("INST");
                     default:
                         break;
                 }
+            }
             ?>
             <p>Use this button to delete old temporary directories inside 'downloads'. Cached installers which are still valid will not be deleted.</p>
             <button type="submit" name="admin_action" value="<?php echo BUTTON_DELETE; ?>">Delete OBSOLETE download directories</button>
@@ -129,7 +130,7 @@ $dbHandle = DBConnection::handle("INST");
             <button type="submit" name="admin_action" value="<?php echo BUTTON_PURGECACHE; ?>">Delete ALL download directories</button>
         </fieldset>
 
-       <fieldset class="option_container">
+        <fieldset class="option_container">
             <legend>
                 <strong>Registered Identity Providers</strong>
             </legend>
@@ -158,7 +159,7 @@ $dbHandle = DBConnection::handle("INST");
                 </tr>
             </table>
         </fieldset>
-       <fieldset class="option_container">
+        <fieldset class="option_container">
             <legend>
                 <strong>Total Downloads</strong>
             </legend>
@@ -189,8 +190,7 @@ $dbHandle = DBConnection::handle("INST");
                 </tr>
             </table>
         </fieldset>
-<?php } ?>
-    </form>
-    <?php
-    footer();
-    
+    <?php } ?>
+</form>
+<?php
+footer();
