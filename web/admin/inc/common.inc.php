@@ -33,6 +33,19 @@ define("BUTTON_SANITY_TESTS", 8);
 $allLocationCount = 0;
 
 function display_name($input) {
+    
+    $ssidText = _("SSID");
+    $ssidLegacyText = _("SSID (with WPA/TKIP)");
+    $passpointOiText = _("HS20 Consortium OI");
+    
+    if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+        $ssidText = _("Additional SSID");
+        $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
+    }
+    if (!empty(CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+        $passpointOiText = _("Additional HS20 Consortium OI");
+    }
+    
     $displayNames = [_("Support: Web") => "support:url",
         _("Support: EAP Types") => "support:eap_types",
         _("Support: Phone") => "support:phone",
@@ -74,22 +87,11 @@ function display_name($input) {
         _("Enable Silver Bullet") => "fed:silverbullet",
         _("Silver Bullet: Do not terminate EAP") => "fed:silverbullet-noterm",
         _("Silver Bullet: max users per profile") => "fed:silverbullet-maxusers",
+        $ssidText => "media:SSID",
+        $ssidLegacyText => "media:SSID_with_legacy",
+        $passpointOiText => "media:consortium_OI",
     ];
-
-    if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
-        $displayNames[_("Additional SSID")] = "media:SSID";
-        $displayNames[_("Additional SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
-    } else {
-        $displayNames[_("SSID")] = "media:SSID";
-        $displayNames[_("SSID (with WPA/TKIP)")] = "media:SSID_with_legacy";
-    }
-
-    if (!empty(CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
-        $displayNames[_("Additional HS20 Consortium OI")] = "media:consortium_OI";
-    } else {
-        $displayNames[_("HS20 Consortium OI")] = "media:consortium_OI";
-    }
-
+        
     $find = array_search($input, $displayNames);
 
     if ($find === FALSE) { // sending back the original if we didn't find a better name
