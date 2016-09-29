@@ -2,6 +2,7 @@
 
 use lib\view\PageBuilder;
 use lib\view\InstitutionPageBuilder;
+use lib\view\DefaultPage;
 
 const CONFIG = ['APPEARANCE' => ['productname' => 'Test Product']];
 
@@ -25,17 +26,17 @@ class InstitutionPageBuilderTest extends \PHPUnit_Framework_TestCase{
     
     public function testConstructorSuccess(){
         $_GET['inst_id']=1;
-        $builder = new InstitutionPageBuilder("Testing Page", PageBuilder::ADMIN_IDP_USERS);
+        $builder = new InstitutionPageBuilder(new DefaultPage("Testing Page"), PageBuilder::ADMIN_IDP_USERS);
         $this->assertTrue($builder->isReady());
     }
     
     public function testConstructorFailure(){
         $_GET['inst_id']=-1;
-        $builder = new InstitutionPageBuilder("Testing Page", PageBuilder::ADMIN_IDP_USERS);
+        $builder = new InstitutionPageBuilder(new DefaultPage("Testing Page"), PageBuilder::ADMIN_IDP_USERS);
         $this->assertFalse($builder->isReady());
         
         unset($_GET['inst_id']);
-        $builder = new InstitutionPageBuilder("Testing Page", PageBuilder::ADMIN_IDP_USERS);
+        $builder = new InstitutionPageBuilder(new DefaultPage("Testing Page"), PageBuilder::ADMIN_IDP_USERS);
         $this->assertFalse($builder->isReady());
     }
     
