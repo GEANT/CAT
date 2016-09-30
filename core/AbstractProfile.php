@@ -485,35 +485,35 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function getCollapsedAttributes($eap = []) {
         $attrBefore = $this->getAttributes();
-        $attr = [];
+        $attrList = [];
         if (count($eap) > 0) { // filter out eap-level attributes not pertaining to EAP type $eap
             foreach ($attrBefore as $index => $attrib) {
                 if (!isset($attrib['eapmethod']) || $attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
-                    $attr[$index] = $attrib;
+                    $attrList[$index] = $attrib;
                 }
             }
         } else {
-            $attr = $attrBefore;
+            $attrList = $attrBefore;
         }
 
         $temp1 = [];
         $temp = [];
         $flags = [];
         $out = [];
-        foreach ($attr as $b) {
-            $name = $b['name'];
+        foreach ($attrList as $attribute) {
+            $name = $attribute['name'];
             $temp1[] = $name;
-            $level = $b['level'];
-            $value = $b['value'];
+            $level = $attribute['level'];
+            $value = $attribute['value'];
             if (!isset($temp[$name][$level])) {
                 $temp[$name][$level] = [];
             }
-            if ($b['flag'] == 'ML') {
+            if ($attribute['flag'] == 'ML') {
                 $v = unserialize($value);
                 $value = [$v['lang'] => $v['content']];
             }
             $temp[$name][$level][] = $value;
-            $flags[$name] = $b['flag'];
+            $flags[$name] = $attribute['flag'];
         }
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
