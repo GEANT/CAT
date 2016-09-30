@@ -190,7 +190,7 @@ if (!$profile instanceof ProfileRADIUS) {
     }
 
     foreach (EAP::listKnownEAPTypes() as $a) {
-        if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && $_POST[display_name($a) . "-priority"] != "") {
+        if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && is_numeric($_POST[display_name($a) . "-priority"])) {
             // add EAP type to profile as requested, but ...
             $profile->addSupportedEapMethod($a, $_POST[display_name($a) . "-priority"]);
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
