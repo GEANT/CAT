@@ -97,7 +97,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         </tr>
     </table>
     <hr/>
-    <h2><?php _("Available Support actions"); ?></h2>
+    <h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
         if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
