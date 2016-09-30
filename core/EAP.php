@@ -110,14 +110,14 @@ class EAP {
      * conversion table between array and integer representations
      */
     const EAPTYPES_CONVERSION = [
-        EAPTYPE_FAST_GTC => INTEGER_FAST_GTC,
-        EAPTYPE_PEAP_MSCHAP2 => INTEGER_PEAP_MSCHAPv2,
-        EAPTYPE_PWD => INTEGER_EAP_pwd,
-        EAPTYPE_TLS => INTEGER_TLS,
-        EAPTYPE_TTLS_GTC => INTEGER_TTLS_GTC,
-        EAPTYPE_TTLS_MSCHAP2 => INTEGER_TTLS_MSCHAPv2,
-        EAPTYPE_TTLS_PAP => INTEGER_TTLS_PAP,
-        EAPTYPE_SILVERBULLET => INTEGER_SILVERBULLET,
+        INTEGER_FAST_GTC      => EAPTYPE_FAST_GTC,
+        INTEGER_PEAP_MSCHAPv2 => EAPTYPE_PEAP_MSCHAP2,
+        INTEGER_EAP_pwd       => EAPTYPE_PWD,
+        INTEGER_TLS           => EAPTYPE_TLS,
+        INTEGER_TTLS_GTC      => EAPTYPE_TTLS_GTC,
+        INTEGER_TTLS_MSCHAPv2 => EAPTYPE_TTLS_MSCHAP2,
+        INTEGER_TTLS_PAP      => EAPTYPE_TTLS_PAP,
+        INTEGER_SILVERBULLET  => EAPTYPE_SILVERBULLET,
     ];
 
     /**
@@ -166,7 +166,7 @@ class EAP {
      * @return array of all EAP types the CAT knows about
      */
     public static function listKnownEAPTypes() {
-        return array_keys(EAP::EAPTYPES_CONVERSION);
+        return array_values(EAP::EAPTYPES_CONVERSION);
     }
 
     /**
@@ -176,10 +176,10 @@ class EAP {
      * @return array|int
      */
     public static function eAPMethodArrayIdConversion($input) {
-        if (is_array($input) && isset(EAP::EAPTYPES_CONVERSION[$input])) {
+        if (is_numeric($input) && isset(EAP::EAPTYPES_CONVERSION[(int)$input])) {
             return EAP::EAPTYPES_CONVERSION[$input];
         }
-        if (is_numeric($input)) {
+        if (is_array($input)) {
             $keys = array_keys(EAP::EAPTYPES_CONVERSION, $input);
             if (count($keys) == 1) {
                 return $keys[0];
