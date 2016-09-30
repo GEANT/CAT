@@ -211,7 +211,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function testCache($device) {
         $returnValue = NULL;
         $escapedDevice = $this->databaseHandle->escapeValue($device);
-        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '".$this->languageInstance->getLang()."'");
+        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
@@ -243,7 +243,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function incrementDownloadStats($device, $area) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user") {
-            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','".$this->languageInstance->getLang()."', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
         }
         return FALSE;
@@ -518,20 +518,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
                 $nameCandidate = [];
-                if (isset($temp[$name]['Profile'])) {
-                    foreach ($temp[$name]['Profile'] as $oneProfileName) {
-                        foreach ($oneProfileName as $language => $nameInLanguage) {
-                            $nameCandidate[$language] = $nameInLanguage;
+                $levelsToTry = ['Profile', 'IdP'];
+                foreach ($levelsToTry as $level) {
+                    if (empty($nameCandidate) && isset($temp[$name][$level])) {
+                        foreach ($temp[$name][$level] as $oneName) {
+                            foreach ($oneName as $language => $nameInLanguage) {
+                                $nameCandidate[$language] = $nameInLanguage;
+                            }
                         }
                     }
                 }
-                if (empty($nameCandidate) && isset($temp[$name]['IdP'])) {
-                    foreach ($temp[$name]['IdP'] as $oneIdPName) {
-                        foreach ($oneIdPName as $language => $nameInLanguage) {
-                            $nameCandidate[$language] = $nameInLanguage;
-                        }
-                    }
-                }
+
                 $out[$name]['langs'] = $nameCandidate;
                 if (isset($nameCandidate[$this->languageInstance->getLang()]) || isset($nameCandidate['C'])) {
                     $out[$name][0] = (isset($nameCandidate[$this->languageInstance->getLang()])) ? $nameCandidate[$this->languageInstance->getLang()] : $nameCandidate['C'];
