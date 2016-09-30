@@ -1598,11 +1598,16 @@ network={
      * @return array result of openssl s_client ...
      */
     private function openssl_s_client($host, $arg, &$testresults) {
-        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
+        // we got the IP address either from DNS (guaranteeing well-formedness)
+        // or from filter_var'ed user input. So it is always safe as an argument
+        // but code analysers want this more explicit, so here is this extra
+        // call to escapeshellarg()
+        $escapedHost = escapeshellarg($host);
+        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
