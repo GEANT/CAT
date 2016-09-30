@@ -102,6 +102,10 @@ define("CERTPROB_NO_SERVER_CERT", -202);
  */
 define("CERTPROB_MD5_SIGNATURE", -204);
 /**
+ * The/a server certificate was signed with an MD5 signature.
+ */
+define("CERTPROB_SHA1_SIGNATURE", -227);
+/**
  * one of the keys in the cert chain was smaller than 1024 bits
  */
 define("CERTPROB_LOW_KEY_LENGTH", -220);
@@ -494,6 +498,13 @@ class RADIUSTests extends Entity {
         $this->return_codes[$code17]["severity"] = L_WARN;
 
         /**
+         * A certificate was signed with an SHA1 signature.
+         */
+        $code17a = CERTPROB_SHA1_SIGNATURE;
+        $this->return_codes[$code17a]["message"] = _("At least one certificate in the chain is signed with the SHA-1 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
+        $this->return_codes[$code17a]["severity"] = L_WARN;
+        
+        /**
          * Low public key length (<1024)
          */
         $code18 = CERTPROB_LOW_KEY_LENGTH;
@@ -818,8 +829,11 @@ class RADIUSTests extends Entity {
      */
     private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
         $returnarray = [];
-        if (preg_match("/md5/i", $intermediateCa['full_details']['signature_algorithm'])) {
+        if (preg_match("/md5/i", $intermediateCa['full_details']['signatureTypeSN'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
+        }
+        if (preg_match("/sha1/i", $intermediateCa['full_details']['signatureTypeSN'])) {
+            $returnarray[] = CERTPROB_SHA1_SIGNATURE;
         }
         $this->loggerInstance->debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
@@ -1598,11 +1612,16 @@ network={
      * @return array result of openssl s_client ...
      */
     private function openssl_s_client($host, $arg, &$testresults) {
-        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
+        // we got the IP address either from DNS (guaranteeing well-formedness)
+        // or from filter_var'ed user input. So it is always safe as an argument
+        // but code analysers want this more explicit, so here is this extra
+        // call to escapeshellarg()
+        $escapedHost = escapeshellarg($host);
+        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $host . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
