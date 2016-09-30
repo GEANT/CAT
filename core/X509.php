@@ -29,22 +29,22 @@ class X509 {
 
     /** transform PEM formed certificate to DER format
      *
-     *  @param mixed $pem_data blob of data, which is hopefully a PEM certificate
+     *  @param mixed $pemData blob of data, which is hopefully a PEM certificate
      *  @return the DER representation of the certificate
      *
      *  @author http://php.net/manual/en/ref.openssl.php (comment from 29-Mar-2007)
      */
-    public function pem2der($pem_data) {
+    public function pem2der($pemData) {
         $begin = "CERTIFICATE-----";
         $end = "-----END";
-        $pem_data = substr($pem_data, strpos($pem_data, $begin) + strlen($begin));
-        $pem_data = substr($pem_data, 0, strpos($pem_data, $end));
-        $der = base64_decode($pem_data);
+        $pemData = substr($pemData, strpos($pemData, $begin) + strlen($begin));
+        $pemData = substr($pemData, 0, strpos($pemData, $end));
+        $der = base64_decode($pemData);
         return $der;
     }
 
-    public function der2pem($der_data) {
-        $pem = chunk_split(base64_encode($der_data), 64, "\n");
+    public function der2pem($derData) {
+        $pem = chunk_split(base64_encode($derData), 64, "\n");
         $pem = "-----BEGIN CERTIFICATE-----\n" . $pem . "-----END CERTIFICATE-----\n";
         return $pem;
     }
@@ -67,21 +67,21 @@ class X509 {
      * @return array
      */
     public function processCertificate($cadata) {
-        $begin_pem = strpos($cadata, "-----BEGIN CERTIFICATE-----");
-        if ($begin_pem !== FALSE) {
-            $end_c = strpos($cadata, "-----END CERTIFICATE-----") + 25;
-            if ($end_c !== FALSE) {
-                $cadata = substr($cadata, $begin_pem, $end_c - $begin_pem);
+        $pemBegin = strpos($cadata, "-----BEGIN CERTIFICATE-----");
+        if ($pemBegin !== FALSE) {
+            $pemEnd = strpos($cadata, "-----END CERTIFICATE-----") + 25;
+            if ($pemEnd !== FALSE) {
+                $cadata = substr($cadata, $pemBegin, $pemEnd - $pemBegin);
             }
-            $ca_der = X509::pem2der($cadata);
-            $ca_pem = X509::der2pem($ca_der);
+            $authorityDer = X509::pem2der($cadata);
+            $authorityPem = X509::der2pem($authorityDer);
         } else {
-            $ca_der = $cadata;
-            $ca_pem = X509::der2pem($cadata);
+            $authorityDer = $cadata;
+            $authorityPem = X509::der2pem($cadata);
         }
 
         // check that the certificate is OK
-        $myca = openssl_x509_read($ca_pem);
+        $myca = openssl_x509_read($authorityPem);
         if ($myca == FALSE) {
             return FALSE;
         }
@@ -89,11 +89,11 @@ class X509 {
         if (!isset($mydetails['subject'])) {
             return FALSE;
         }
-        $md5 = openssl_digest($ca_der, 'MD5');
-        $sha1 = openssl_digest($ca_der, 'SHA1');
-        $out = ["uuid" => uuid(), "pem" => $ca_pem, "der" => $ca_der, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
-        $diff_a = array_diff($mydetails['issuer'], $mydetails['subject']);
-        if (count($diff_a) == 0) {
+        $md5 = openssl_digest($authorityDer, 'MD5');
+        $sha1 = openssl_digest($authorityDer, 'SHA1');
+        $out = ["uuid" => uuid(), "pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
+        $difference = array_diff($mydetails['issuer'], $mydetails['subject']);
+        if (count($difference) == 0) {
             $out['root'] = 1;
             $mydetails['type'] = 'root';
         } else {
@@ -154,18 +154,18 @@ class X509 {
         if ($cadata == "") {
             return $returnarray;
         }
-        $start_c = strpos($cadata, "-----BEGIN CERTIFICATE-----");
-        if ($start_c !== FALSE) {
-            $cadata = substr($cadata, $start_c);
-            $end_c = strpos($cadata, "-----END CERTIFICATE-----") + 25;
-            $next_c = strpos($cadata, "-----BEGIN CERTIFICATE-----", 30);
-            while ($next_c !== FALSE) {
-                $returnarray[] = substr($cadata, 0, $end_c);
-                $cadata = substr($cadata, $next_c);
-                $end_c = strpos($cadata, "-----END CERTIFICATE-----") + 25;
-                $next_c = strpos($cadata, "-----BEGIN CERTIFICATE-----", 30);
+        $startPem = strpos($cadata, "-----BEGIN CERTIFICATE-----");
+        if ($startPem !== FALSE) {
+            $cadata = substr($cadata, $startPem);
+            $endPem = strpos($cadata, "-----END CERTIFICATE-----") + 25;
+            $nextPem = strpos($cadata, "-----BEGIN CERTIFICATE-----", 30);
+            while ($nextPem !== FALSE) {
+                $returnarray[] = substr($cadata, 0, $endPem);
+                $cadata = substr($cadata, $nextPem);
+                $endPem = strpos($cadata, "-----END CERTIFICATE-----") + 25;
+                $nextPem = strpos($cadata, "-----BEGIN CERTIFICATE-----", 30);
             }
-            $returnarray[] = substr($cadata, 0, $end_c);
+            $returnarray[] = substr($cadata, 0, $endPem);
         } else {
             // we hand it over to der2pem (no user content coming in from any caller
             // so we know we work with valid cert data in the first place
