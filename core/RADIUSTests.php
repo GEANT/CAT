@@ -102,6 +102,10 @@ define("CERTPROB_NO_SERVER_CERT", -202);
  */
 define("CERTPROB_MD5_SIGNATURE", -204);
 /**
+ * The/a server certificate was signed with an MD5 signature.
+ */
+define("CERTPROB_SHA1_SIGNATURE", -227);
+/**
  * one of the keys in the cert chain was smaller than 1024 bits
  */
 define("CERTPROB_LOW_KEY_LENGTH", -220);
@@ -494,6 +498,13 @@ class RADIUSTests extends Entity {
         $this->return_codes[$code17]["severity"] = L_WARN;
 
         /**
+         * A certificate was signed with an SHA1 signature.
+         */
+        $code17a = CERTPROB_SHA1_SIGNATURE;
+        $this->return_codes[$code17a]["message"] = _("At least one certificate in the chain is signed with the SHA-1 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
+        $this->return_codes[$code17a]["severity"] = L_WARN;
+        
+        /**
          * Low public key length (<1024)
          */
         $code18 = CERTPROB_LOW_KEY_LENGTH;
@@ -818,8 +829,11 @@ class RADIUSTests extends Entity {
      */
     private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
         $returnarray = [];
-        if (preg_match("/md5/i", $intermediateCa['full_details']['signature_algorithm'])) {
+        if (preg_match("/md5/i", $intermediateCa['full_details']['signatureTypeSN'])) {
             $returnarray[] = CERTPROB_MD5_SIGNATURE;
+        }
+        if (preg_match("/sha1/i", $intermediateCa['full_details']['signatureTypeSN'])) {
+            $returnarray[] = CERTPROB_SHA1_SIGNATURE;
         }
         $this->loggerInstance->debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {

@@ -115,19 +115,14 @@ class X509 {
             $mydetails['type'] = 'server';
         }
         $mydetails['sha1'] = $sha1;
+        // the signature algorithm is available in PHP7 with the property "signatureTypeSN", example "RSA-SHA512"
         $out['full_details'] = $mydetails;
 
-        // we are also interested in the signature algorithm and length of public key,
-        // whith ..._parse doesn't tell us :-(
-
-        openssl_x509_export($myca, $output, FALSE);
         $match = [];
-        if (preg_match('/^\s+Signature Algorithm:\s*(.*)\s*$/m', $output, $match)) {
-            $out['full_details']['signature_algorithm'] = $match[1];
-        } else {
-            $out['full_details']['signature_algorithm'] = $output;
-        }
-
+        
+        // we are also interested in the length of public key,
+        // whith ..._parse doesn't tell us :-(
+        openssl_x509_export($myca, $output, FALSE);
         if ((preg_match('/^\s+Public-Key:\s*\((.*) bit\)\s*$/m', $output, $match)) && is_numeric($match[1])) {
             $out['full_details']['public_key_length'] = $match[1];
         } else {

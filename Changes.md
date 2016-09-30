@@ -14,6 +14,7 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                more
 - [FEATURE #6] deprecated NSISArray has been replaced with nsArry
 - [FEATURE #7] Support for UTF-8 installer has been added (this requires nsis v3)
+- [FEATURE #8] also check for SHA-1 signatures and warn if found
 
 Configuration parameter changes
 -------------------------------
