@@ -61,7 +61,11 @@ if (isset($_POST['eaptype'])) {
         
     // is this an actual EAP type we know of?
     $eap_id = EAP::eAPMethodArrayIdConversion($eaptype); // function throws its own Exception if unknown
-    
+    // to make code review tools happy, double-check that it's an integer (we
+    // gave it an array, so this will always be the case
+    if (!is_numeric($eap_id)) {
+        throw new Exception("This is impossible - the integer EAP ID is not a numeric value!");
+    }
 }
 
 // there is either one or the other. If both are set, something's fishy.
