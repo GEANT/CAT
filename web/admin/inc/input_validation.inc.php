@@ -168,7 +168,7 @@ function valid_token($input) {
  * @throws Exception
  */
 function valid_coordinate($input) {
-    $oldlocale = setlocale(LC_NUMERIC);
+    $oldlocale = setlocale(LC_NUMERIC,0);
     setlocale(LC_NUMERIC, "en_GB");
     if (!is_numeric($input)) {
         throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
