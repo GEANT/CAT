@@ -53,8 +53,15 @@ $eaptype = NULL;
 $eap_id = 0;
 if (isset($_POST['eaptype'])) {
     $eaptype = unserialize(stripslashes($_POST['eaptype']));
+    // the POST could have sneaked in an integer instead of the expected array.
+    // be sure to double-check
+    if (!is_array($eaptype)) {
+        throw new Exception("Input must be the array representation of an EAP type");
+    }
+        
     // is this an actual EAP type we know of?
     $eap_id = EAP::eAPMethodArrayIdConversion($eaptype); // function throws its own Exception if unknown
+    
 }
 
 // there is either one or the other. If both are set, something's fishy.
