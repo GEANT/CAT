@@ -93,22 +93,21 @@ class X509 {
         $sha1 = openssl_digest($authorityDer, 'SHA1');
         $out = ["uuid" => uuid(), "pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
         $difference = array_diff($mydetails['issuer'], $mydetails['subject']);
+        $out['root'] = 0; // default, unless concinved otherwise below
         if (count($difference) == 0) {
             $out['root'] = 1;
             $mydetails['type'] = 'root';
-        } else {
-            $out['root'] = 0;
         }
+        // again default: not a CA unless convinced otherwise
+        $out['ca'] = 0; // we need to resolve this ambiguity
+        $out['basicconstraints_set'] = 0;
         // if no basicContraints are set at all, this is a problem in itself
         // is this a CA? or not? Treat as server, but add a warning...
         if (isset($mydetails['extensions']['basicConstraints'])) {
             $out['ca'] = preg_match('/^CA:TRUE/', $mydetails['extensions']['basicConstraints']);
             $out['basicconstraints_set'] = 1;
-        } else {
-            $out['ca'] = 0; // we need to resolve this ambiguity
-            $out['basicconstraints_set'] = 0;
         }
-
+        
         if ($out['ca'] > 0 && $out['root'] == 0) {
             $mydetails['type'] = 'interm_ca';
         }
