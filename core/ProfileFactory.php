@@ -31,7 +31,7 @@ class ProfileFactory {
                                                         ORDER by preference");
         $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
+            $eaptype = EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
         if ((count($eapTypeArray) == 1) && $eapTypeArray[0] == EAPTYPE_SILVERBULLET) {

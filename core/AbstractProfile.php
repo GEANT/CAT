@@ -94,7 +94,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                                         ORDER by preference");
         $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
+            $eaptype = EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
         $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
@@ -311,7 +311,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function addSupportedEapMethod($type, $preference) {
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
-                . EAP::EAPMethodIdFromArray($type) . ", "
+                . EAP::eAPMethodArrayIdConversion($type) . ", "
                 . $preference . ")");
         $this->updateFreshness();
     }

@@ -171,7 +171,7 @@ class ProfileRADIUS extends AbstractProfile {
                     "row" => $attributeQuery->row,
                     "flag" => $optinfo['flag'],
                     "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
-                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::EAPMethodArrayFromId($attributeQuery->deviceormethod))];
+                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
             } else {
                 $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
 
@@ -182,7 +182,7 @@ class ProfileRADIUS extends AbstractProfile {
                     "row" => $attributeQuery->row,
                     "flag" => $optinfo['flag'],
                     "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
-                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::EAPMethodArrayFromId($attributeQuery->deviceormethod))];
+                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
             }
         }
         return $temparray;

@@ -107,6 +107,20 @@ const EAPTYPE_ANY = ["OUTER" => 255, "INNER" => 255];
 class EAP {
 
     /**
+     * conversion table between array and integer representations
+     */
+    const EAPTYPES_CONVERSION = [
+        EAPTYPE_FAST_GTC => INTEGER_FAST_GTC,
+        EAPTYPE_PEAP_MSCHAP2 => INTEGER_PEAP_MSCHAPv2,
+        EAPTYPE_PWD => INTEGER_EAP_pwd,
+        EAPTYPE_TLS => INTEGER_TLS,
+        EAPTYPE_TTLS_GTC => INTEGER_TTLS_GTC,
+        EAPTYPE_TTLS_MSCHAP2 => INTEGER_TTLS_MSCHAPv2,
+        EAPTYPE_TTLS_PAP => INTEGER_TTLS_PAP,
+        EAPTYPE_SILVERBULLET => INTEGER_SILVERBULLET,
+    ];
+
+    /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
      * @param array EAP method in array representation (OUTER/INNER)
@@ -152,61 +166,25 @@ class EAP {
      * @return array of all EAP types the CAT knows about
      */
     public static function listKnownEAPTypes() {
-        $returnarray = [];
-        $returnarray[] = EAPTYPE_FAST_GTC;
-        $returnarray[] = EAPTYPE_PEAP_MSCHAP2;
-        $returnarray[] = EAPTYPE_PWD;
-        $returnarray[] = EAPTYPE_TLS;
-        $returnarray[] = EAPTYPE_TTLS_GTC;
-        $returnarray[] = EAPTYPE_TTLS_MSCHAP2;
-        $returnarray[] = EAPTYPE_TTLS_PAP;
-        $returnarray[] = EAPTYPE_SILVERBULLET;
-        return $returnarray;
+        return array_keys(EAP::EAPTYPES_CONVERSION);
     }
 
-    public static function eAPMethodIdFromArray($methodArray) {
-        switch ($methodArray) {
-            case EAPTYPE_FAST_GTC:
-                return INTEGER_FAST_GTC;
-            case EAPTYPE_PEAP_MSCHAP2:
-                return INTEGER_PEAP_MSCHAPv2;
-            case EAPTYPE_PWD:
-                return INTEGER_EAP_pwd;
-            case EAPTYPE_TLS:
-                return INTEGER_TLS;
-            case EAPTYPE_TTLS_GTC:
-                return INTEGER_TTLS_GTC;
-            case EAPTYPE_TTLS_MSCHAP2:
-                return INTEGER_TTLS_MSCHAPv2;
-            case EAPTYPE_TTLS_PAP:
-                return INTEGER_TTLS_PAP;
-            case EAPTYPE_SILVERBULLET:
-                return INTEGER_SILVERBULLET;
+    /**
+     * EAP methods have two representations: an integer enumeration and an array with keys OUTER and INNER
+     * This function converts between the two.
+     * @param int|array $input either the integer ID of an EAP type (returns array representation) or the array representation (returns integer)
+     * @return array|int
+     */
+    public static function eAPMethodArrayIdConversion($input) {
+        if (is_array($input) && isset(EAP::EAPTYPES_CONVERSION[$input])) {
+            return EAP::EAPTYPES_CONVERSION[$input];
         }
-
-        return FALSE;
-    }
-
-    public static function eAPMethodArrayFromId($identifier) {
-        switch ($identifier) {
-            case INTEGER_EAP_pwd:
-                return EAPTYPE_PWD;
-            case INTEGER_FAST_GTC:
-                return EAPTYPE_FAST_GTC;
-            case INTEGER_PEAP_MSCHAPv2:
-                return EAPTYPE_PEAP_MSCHAP2;
-            case INTEGER_TLS:
-                return EAPTYPE_TLS;
-            case INTEGER_TTLS_GTC:
-                return EAPTYPE_TTLS_GTC;
-            case INTEGER_TTLS_MSCHAPv2:
-                return EAPTYPE_TTLS_MSCHAP2;
-            case INTEGER_TTLS_PAP:
-                return EAPTYPE_TTLS_PAP;
-            case INTEGER_SILVERBULLET:
-                return EAPTYPE_SILVERBULLET;
+        if (is_numeric($input)) {
+            $keys = array_keys(EAP::EAPTYPES_CONVERSION, $input);
+            if (count($keys) == 1) {
+                return $keys[0];
+            }
         }
-        return NULL;
+        throw new Exception("Unable to map EAP method array to EAP method int or vice versa: $input!");
     }
-
 }
