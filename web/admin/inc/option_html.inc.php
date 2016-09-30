@@ -266,7 +266,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     }
 
     if ($prefill) {
-        prefillText($rowid, $list, $prefill, $locationIndex, $allLocationCount);
+        $retval .= prefillText($rowid, $list, $prefill, $locationIndex, $allLocationCount);
     }
     $retval .= "
 
