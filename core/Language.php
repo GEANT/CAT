@@ -81,59 +81,61 @@ class Language {
      * @param $hardsetlang - this is currently not used but
      * will allow to forst lang setting if this was ever required
      */
-    private function setLang($hardsetlang = 0) {
-        $lang_converted = [];
-        if ($hardsetlang !== 0) {
-            $hardsetlocale = $hardsetlang;
-            $lang_converted[] = $hardsetlocale;
-            $_SESSION['language'] = $hardsetlocale;
-        } elseif (isset($_REQUEST['lang'])) {
-            $hardsetlocale = $_REQUEST['lang'];
-            $lang_converted[] = $hardsetlocale;
-            $_SESSION['language'] = $hardsetlocale;
-        } elseif (isset($_SESSION['language'])) {
-            $hardsetlocale = $_SESSION['language'];
-            $lang_converted[] = $hardsetlocale;
-        } elseif (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+    private function setLang($hardSetLang = 0) {
+        // $langConverted will contain candidates for the language setting in the order
+        // of prefference
+        $langConverted = [];
+        if ($hardSetLang !== 0) {
+            $langConverted[] = $hardSetLang;
+        } 
+        if (! empty($_REQUEST['lang'])) {
+            $langConverted[] = $_REQUEST['lang'];
+        }
+        if (! empty($_SESSION['language'])) {
+            $langConverted[] = $_SESSION['language'];
+        }
+        if (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
             foreach ($langs as $lang) {
                 $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);
-                $lang_converted[] = (isset($result[1]) && $result[1] ? $result[1] : $lang);
+                $langConverted[] = (empty($result[1]) ? $lang : $result[1]);
             }
         }
-        // always add configured locale as last resort
-        $defaultlocale = CONFIG['APPEARANCE']['defaultlocale'];
-        $lang_converted[] = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
-        $lang_index = $defaultlocale;
-
+        $langIndex = CONFIG['APPEARANCE']['defaultlocale'];
+        $theLocale = CONFIG['LANGUAGES'][$langIndex]['locale'];
+        // always add configured default language as the last resort
+        $langConverted[] = $langIndex;
         setlocale(LC_ALL, 0);
-
-        // initialise this variabe (code analysers complain that $lang_converted
-        // could be empty
-        $thelang = CONFIG['LANGUAGES'][$defaultlocale]['locale'];
-        foreach ($lang_converted as $try_lang) {
-            // madness! setlocale is completely unflexible. If $try_lang is "en"
+        foreach ($langConverted as $tryLang) {
+            // madness! setlocale is completely unflexible. If $tryLang is "en"
             // it will fail, because it only knows en_US, en_GB a.s.o.
             // we need to map stuff manually
-            $thelang = $try_lang;
+            $localeTmp = FALSE;
 
+            // check if this language is supported by the CAT config
             foreach (CONFIG['LANGUAGES'] as $language => $value) {
-                if (preg_match("/^" . $language . ".*/", $try_lang)) {
-                    $thelang = $value['locale'];
-                    $lang_index = $language;
+                if (preg_match("/^" . $language . ".*/", $tryLang)) {
+                    $localeTmp = $value['locale'];
+                    $langIndex = $language; // ???
+                    break;
                 }
             }
-
-            if (setlocale(LC_ALL, $thelang)) {
-                break;
+            // make sure that the selected locale is actually instlled on this system
+            // normally this should not be needed, but it is a safeguard agains misconfiguration
+            if ($localeTmp) {
+                if (setlocale(LC_ALL, $localeTmp)) {
+                    $theLocale = $localeTmp;
+                    break;
+                }
             }
         }
-        putenv("LC_ALL=" . $thelang);
+        putenv("LC_ALL=" . $theLocale);
+        $_SESSION['language'] = $langIndex;
         $loggerInstance = new Logging();
-        $loggerInstance->debug(4, "selected lang:$lang_index:$thelang\n");
-        $loggerInstance->debug(4, print_r($lang_converted, true));
-        return([$lang_index, $thelang]);
+        $loggerInstance->debug(4, "selected lang:$langIndex:$theLocale\n");
+        $loggerInstance->debug(4, print_r($langConverted, true));
+        return([$langIndex, $theLocale]);
     }
 
     /**
