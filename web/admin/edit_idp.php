@@ -92,8 +92,8 @@ geo_widget_head($my_inst->federation, $inst_name)
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-                        new Federation("blablub");
-                        echo Federation::$federationList[strtoupper($my_inst->federation)];
+                        $fed = new Federation($my_inst->federation);
+                        echo $fed->name;
                         ?></strong></td>
             </tr>
             <?php echo infoblock($idpoptions, "general", "IdP"); ?>

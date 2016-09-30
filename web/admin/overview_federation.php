@@ -65,7 +65,7 @@ $user = new User($_SESSION['user']);
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("Federation Properties: %s"), strtoupper($thefed->name)); ?>
+                <?php echo sprintf(_("Federation Properties: %s"), $thefed->name); ?>
             </h2>
             <table>
                 <!-- fed properties -->
@@ -77,7 +77,7 @@ $user = new User($_SESSION['user']);
                     </td>
                     <td>
                         <strong><?php
-                            echo Federation::$federationList[strtoupper($thefed->name)];
+                            echo $thefed->name;
                             ?></strong>
                     </td>
                 </tr>
@@ -85,13 +85,13 @@ $user = new User($_SESSION['user']);
                 echo infoblock($thefed->getAttributes(), "fed", "FED");
                 ?>
                 <tr>
-                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->name); ?>'/><button type="submit">Edit</button></form></td>
+                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
                 </tr>
             </table>
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->name)); ?>
+                <?php echo sprintf(_("Federation Statistics: %s"), $thefed->name); ?>
             </h2>
             <table>
                 <!-- idp stats -->
@@ -163,12 +163,12 @@ $user = new User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$federationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->name) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed->name . '</span>', "action_fedcheck.php?fed=" . $thefed->identifier) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
             foreach ($pending_invites as $oneinvite) {
-                if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
+                if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
                     // echo "PENDINGS!";
                     $display_pendings = TRUE;
                 }
@@ -256,7 +256,7 @@ $user = new User($_SESSION['user']);
                             </td>
                          </tr>";
                 foreach ($pending_invites as $oneinvite) {
-                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
+                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
                         echo "<tr>
                                     <td>" .
                         $oneinvite['name'] . "

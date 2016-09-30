@@ -15,8 +15,10 @@
 ?>
 <?php
 
+require_once("CAT.php");
+
 function geo_widget_head($inst_country, $inst_name) {
-    new Federation("blablub"); // needed to fill some static members with dynamic value
+    $cat = new CAT();
     echo "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script type='text/javascript'>
         // some global variables;
@@ -76,7 +78,7 @@ function geo_widget_head($inst_country, $inst_name) {
             geocoder.geocode({'address':\"$inst_name\", 'region':\"" . strtolower($inst_country) . "\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
-                    locate_country(\"" . Federation::$federationList[strtoupper($inst_country)] . "\");
+                    locate_country(\"" . $cat->knownFederations[strtoupper($inst_country)] . "\");
                 } else {
                     var i;
                     for(i = 0; i < r.length; i++) {
@@ -85,7 +87,7 @@ function geo_widget_head($inst_country, $inst_name) {
                         break;
                     }
                     if(Addr.country != \"" . strtoupper($inst_country) . "\")
-                    locate_country(\"" . Federation::$federationList[strtoupper($inst_country)] . "\");
+                    locate_country(\"" . $cat->knownFederations[strtoupper($inst_country)] . "\");
                     else {
                         addMarker(r[i].geometry.location,15,null);
                     }

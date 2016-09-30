@@ -304,7 +304,7 @@ function instLevelInfoBoxes(IdP $myInst) {
                 <td>
                     <strong>";
     $myFed = new Federation($myInst->federation);
-    $retval .= $myFed::$federationList[strtoupper($myInst->federation)];
+    $retval .= $myFed->name;
     $retval .= "</strong>
                 </td>
             </tr>" . infoblock($idpoptions, "general", "IdP") . "
