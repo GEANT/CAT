@@ -123,8 +123,9 @@ if (isset($_REQUEST['profile_id'])) {
 }
 
 $host = $_REQUEST['src'];
-if (!preg_match('/^[0-9\.:]*$/', $host)) {
-    exit;
+// check if this is a valid IP address
+if (!filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+    throw new Exception("The input is not a valid IP address from acceptable IP ranges!");
 }
 
 $hostindex = $_REQUEST['hostindex'];
