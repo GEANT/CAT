@@ -1,5 +1,4 @@
 <?php
-
 use lib\view\html\Button;
 
 class ButtonTest extends \PHPUnit_Framework_TestCase{

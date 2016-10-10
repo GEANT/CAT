@@ -25,11 +25,12 @@ require_once("inc/option_html.inc.php");
 require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 
+use lib\domain\SilverbulletFactory;
+use lib\view\DefaultPage;
 use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
 use lib\view\UserCredentialsForm;
-use lib\view\DefaultPage;
 
 authenticate();
 
@@ -37,24 +38,37 @@ $page = new DefaultPage(_('Managing institution users'));
 $page->appendScript('js/silverbullet.js');
 $page->appendCss('css/silverbullet.css');
 $builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
-
-//Info block data preparation
-$infoBlock = new InfoBlockTable( _('Current institution users'));
-$infoBlock->addRow(array('John Doe', '4 active credentials', '0 expired credentials'));
-$infoBlock->addRow(array('Mary Bernard', '3 active credentials', '0 expired credentials'));
-$builder->addContentElement($infoBlock);
-
-//Edit form data preparation
-$editBlock = new UserCredentialsForm(_('Manage institution users'));
-$editBlock->addTitleRow(array('user' => 'User', 'credentials' => 'Credentials', 'expirity' => 'Expirity', 'action' => 'Actions'));
-$editBlock->addUserCertificateRow(array('user' => 'John Doe', 'credentials' => 'cert1', 'expirity' => '2017-03-21'));
-$editBlock->addCertificateRow(array('credentials' => 'cert1', 'expirity' => '2017-03-21'));
-$editBlock->addCertificateRow(array('credentials' => 'cert2', 'expirity' => '2017-05-23'));
-$editBlock->addCertificateRow(array('credentials' => 'cert3', 'expirity' => '2018-02-12'));
-$editBlock->addUserCertificateRow(array('user' => 'Mary Bernard', 'credentials' => 'cert1', 'expirity' => '2017-08-27'));
-$editBlock->addCertificateRow(array('credentials' => 'cert1', 'expirity' => '2017-08-27'));
-$editBlock->addCertificateRow(array('credentials' => 'cert2', 'expirity' => '2018-11-01'));
-$builder->addContentElement($editBlock);
+if($builder->isReady()){
+    
+    $factory = new SilverbulletFactory($builder->getInstitution());
+    $factory->parseRequest();
+    
+    $users = $factory->createUsers();
+    $stats = $factory->getUserStats();
+    
+    //Info block data preparation
+    $infoBlock = new InfoBlockTable( _('Current institution users'));
+    $infoBlock->addRow(array('The assigned realm', $builder->getRealmName()));
+    $infoBlock->addRow(array('The total number of active users which are allowed for this profile', $stats[SilverbulletFactory::STATS_TOTAL]));
+    $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletFactory::STATS_ACTIVE]));
+    $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletFactory::STATS_PASSIVE]));
+    $builder->addContentElement($infoBlock);
+    
+    //Edit form data preparation
+    $editBlock = new UserCredentialsForm(_('Manage institution users'));
+    $editBlock->addTitleRow(array('user' => 'User', 'credentials' => 'Credentials', 'expiry' => 'Expiry', 'action' => 'Actions'));
+    foreach ($users as $user) {
+        $editBlock->addUserRow($user);
+        $certificates = $user->getCertificates();
+        $count = 1;
+        foreach ($certificates as $certificate) {
+            $editBlock->addCertificateRow($certificate, $count);
+            $count++;
+        }
+    }
+    
+    $builder->addContentElement($editBlock);
+}
 
 
 $cat = $builder->createPagePrelude();
