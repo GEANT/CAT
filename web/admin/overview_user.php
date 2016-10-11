@@ -27,6 +27,7 @@ $user = new User($_SESSION['user']);
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <!-- JQuery --> 
 <script type="text/javascript"><?php require_once("inc/overview_js.php") ?></script>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>
 <body>

@@ -19,6 +19,7 @@ require_once("inc/option_html.inc.php");
 defaultPagePrelude(_("Editing User Attributes"));
 $user = new User($_SESSION['user']);
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 </head>
 <body>

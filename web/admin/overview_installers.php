@@ -23,6 +23,7 @@ require_once("devices/devices.php");
 
 defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>

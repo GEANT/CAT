@@ -20,6 +20,7 @@ require_once("inc/option_html.inc.php");
 
 defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <!-- JQuery --> 
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
