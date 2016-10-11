@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `cat`.`certificate` (
+CREATE TABLE IF NOT EXISTS `certificate` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `inst_id` INT(11) NOT NULL COMMENT '',
   `user_id` VARCHAR(255) NOT NULL COMMENT '',
