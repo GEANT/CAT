@@ -4,11 +4,17 @@
     <testsuite name="Unit">
       <directory>unit</directory>
     </testsuite>
-    <testsuite name="UnitView">
+    <testsuite name="View">
       <directory>unit/lib/view</directory>
     </testsuite>
-    <testsuite name="UnitViewHtml">
+    <testsuite name="Html">
       <directory>unit/lib/view/html</directory>
+    </testsuite>
+    <testsuite name="Autoloader">
+      <directory>unit/lib/autoloader</directory>
+    </testsuite>
+    <testsuite name="Domain">
+      <directory>unit/lib/domain</directory>
     </testsuite>
   </testsuites>
 </phpunit>

@@ -1,10 +1,9 @@
 <?php
-
 use lib\view\PageBuilder;
 use lib\view\InstitutionPageBuilder;
 use lib\view\DefaultPage;
 
-const CONFIG = ['APPEARANCE' => ['productname' => 'Test Product']];
+require_once(__DIR__ . '../../../../../core/User.php');
 
 function valid_IdP($input, $owner){
     if ($input == 1){

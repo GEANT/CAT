@@ -11,7 +11,7 @@ class InstitutionPageBuilder implements PageBuilder{
    /**
     * Particular IdP instance. If set to null means that page is entered by a mistake.
     * 
-    * @var IdP
+    * @var \IdP
     */
     private $institution = null;
     
@@ -75,6 +75,32 @@ class InstitutionPageBuilder implements PageBuilder{
      */
     public function isReady(){
         return isset($this->institution);
+    }
+    
+    /**
+     * 
+     * @return IdP
+     */
+    public function getInstitution(){
+        return $this->institution;
+    }
+    
+    /**
+     * 
+     * @return \IdP
+     */
+    public function getRealmName(){
+        $realmName = 'unknown';
+        if($this->isReady()){
+            $profiles = $this->institution->listProfiles();
+            if (count($profiles) == 1) {
+                $profile = $profiles[0];
+                if ($profile instanceof \ProfileSilverbullet) {
+                    return $profile->realm;
+                }
+            }
+        }
+        return $realmName;
     }
     
     public function addContentElement($element){

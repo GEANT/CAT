@@ -1,5 +1,4 @@
 <?php
-
 use lib\view\html\CompositeTag;
 use lib\view\html\Tag;
 

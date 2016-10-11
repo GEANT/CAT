@@ -29,7 +29,7 @@ class InfoBlockTable implements PageElement{
      */
     public function addRow($rowArray){
         $row = new Row($rowArray);
-        $row->addCellAttribute(0, 'style', 'font-weight:bold;');
+        $row->addCellAttribute(0, 'class', Table::TITLED_CELL_CLASS);
         $this->table->addRow($row);
     }
     

@@ -7,6 +7,8 @@ namespace lib\view\html;
  */
 class Table extends Tag{
     
+    const TITLED_CELL_CLASS = 'sb-titled-cell';
+    
     /**
      * 
      * @var array
