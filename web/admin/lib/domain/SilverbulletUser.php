@@ -6,39 +6,49 @@ namespace lib\domain;
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletUser extends \User{
+class SilverbulletUser extends PersistentEntity{
     
-    const OPTION_SILVERBULLET_USER = 'user:silverbullet';
+    const TABLE = 'silverbullet_user';
     
     /**
+     * Required institution identifier
+     * 
+     * @var string
+     */
+    const INSTID = 'inst_id';
+    /**
+     * Required user name attribute
+     * 
+     * @var string
+     */
+    const USERNAME = 'username';
+    
+    /**
+     * List of certificates for user entity
      * 
      * @var SilverbulletCertificate []
      */
     private $certificates = array();
     
-    public function __construct($userId, $institutionId){
-        parent::__construct($userId);
-        $this->certificates = SilverbulletCertificate::list($userId);
-        if(!$this->hasSillverbulletOption() && !empty($userId)){
-            $this->addAttribute(self::OPTION_SILVERBULLET_USER, $institutionId);
-        }
-    }
-    
     /**
+     * Constructor that should be used when creating a new record. Refer to Silverbullet:: create and Silverbullet::list to load existing records.
      * 
-     * @return boolean
+     * @param int $institutionId
+     * @param string $username
      */
-    private function hasSillverbulletOption(){
-        $found = false;
-        foreach ($this->attributes as $attribute) {
-            if($attribute['name'] == self::OPTION_SILVERBULLET_USER){
-                $found = true;
-                break;
-            }
-        }
-        return $found;
+    public function __construct($institutionId, $username){
+        parent::__construct(self::TABLE, self::TYPE_INST);
+        $this->set(self::INSTID, $institutionId);
+        $this->set(self::USERNAME, $username);
     }
     
+    public function getInstitutionId(){
+        return $this->get(self::INSTID);
+    }
+    
+    public function getUsername(){
+        return $this->get(self::USERNAME);
+    }
     
     /**
      * 
@@ -56,38 +66,60 @@ class SilverbulletUser extends \User{
         return count($this->certificates) > 0;
     }
     
+    protected function validate(){
+        //TODO Implement type handling for SilverbulletUser
+    }
+    
     /**
      * 
+     * {@inheritDoc}
+     * @see \lib\domain\Persistent::load()
+     */
+    public function load(){
+        $state = parent::load();
+        $this->certificates = SilverbulletCertificate::list($this);
+        return $state;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \lib\domain\Persistent::delete()
      */
     public function delete(){
-        //$this->flushAttributes();
-        $this->databaseHandle->exec("DELETE FROM `user_options` WHERE `user_id`='".$this->identifier."';");
+        $state = parent::delete();
         foreach ($this->certificates as $certificate) {
             $certificate->delete();
         }
+        return $state;
     }
     
     /**
      * 
-     * @return SilverbulletUser []
+     * @param ins $userId
+     * @return \lib\domain\SilverbulletUser
      */
-    public static function list($institutionId) {
-        $returnarray = array();
-        $query = "SELECT user_id FROM user_options WHERE option_name = '" . self::OPTION_SILVERBULLET_USER . "' AND option_value = '" . $institutionId . "'";
-        
-        //TODO Not sure if this is required for Sillverbullet
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->name) . "'";
-        }
-        
-        $userHandle = \DBConnection::handle("USER"); // we need something from the USER database for a change
-        $users = $userHandle->exec($query);
-        
-        while ($silverbulletUser = mysqli_fetch_object($users)) {
-            $returnarray[] = new SilverbulletUser($silverbulletUser->user_id, $institutionId);
-        }
-        return $returnarray;
+    public static function prepare($userId){
+        $instance = new SilverbulletUser(null, '');
+        $instance->set(self::ID, $userId);
+        return $instance;
     }
     
+    /**
+     * 
+     * @return \lib\domain\SilverbulletUser []
+     */
+    public static function list($institutionId) {
+        $databaseHandle = \DBConnection::handle(self::TYPE_INST);
+        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::INSTID."`='" . $institutionId . "'");
+        $list = array();
+        while ($row = mysqli_fetch_assoc($result)) {
+            $user = new SilverbulletUser(null, '');
+            $user->row = $row;
+            $user->certificates = SilverbulletCertificate::list($user);
+            $list[] = $user;
+        }
+        return $list;
+    }
     
 }

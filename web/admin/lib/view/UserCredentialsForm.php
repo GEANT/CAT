@@ -53,12 +53,12 @@ class UserCredentialsForm implements PageElement{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array('user' => $user->identifier));
+        $row = new Row(array('user' => $user->getUsername()));
         $row->addAttribute('class', 'sb-user-row');
         $index = $this->table->size();
         $this->table->addRow($row);
-        $this->table->addToCell($index, 'action', new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->identifier, 'delete'));
-        $this->table->addToCell($index, 'action', new Button(_('New Credential'),'submit', SilverbulletFactory::COMMAND_ADD_CERTIFICATE, $user->identifier));
+        $this->table->addToCell($index, 'action', new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->getIdentifier(), 'delete'));
+        $this->table->addToCell($index, 'action', new Button(_('New Credential'),'submit', SilverbulletFactory::COMMAND_ADD_CERTIFICATE, $user->getIdentifier()));
     }
     
     /**
@@ -68,8 +68,8 @@ class UserCredentialsForm implements PageElement{
      */
     public function addCertificateRow($certificate, $count){
         $index = $this->table->size();
-        $this->table->addRowArray(array('credentials' => 'cert' . $count, 'expiry' => $certificate->getExpiry()));
-        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE, $certificate->identifier, 'delete'));
+        $this->table->addRowArray(array('credentials' => 'cert' . $count, 'token' => $certificate->getOneTimeToken(), 'tokenExpiry' => $certificate->getTokenExpiry(), 'expiry' => $certificate->getExpiry()));
+        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE, $certificate->getIdentifier(), 'delete'));
     }
     
     public function render(){
@@ -79,7 +79,7 @@ class UserCredentialsForm implements PageElement{
         </form>
         <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
             <div class="sb-add-new-user">
-                <label for="newUserName"><?php echo _("Please enter a username of your choice to create a new user:"); ?></label>
+                <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice to create a new user:"); ?></label>
                 <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
                 <button type="submit" ><?php echo _('Add new user'); ?></button>
             </div>
