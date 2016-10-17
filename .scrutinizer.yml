@@ -2,11 +2,11 @@ build:
     environment:
         php:
             version: 7.0.8
-	postgresql: false
-	redis:	false
-	mysql: 5.6
+        postgresql: false
+        redis: false
+        mysql: 5.6
     dependencies:
-	before: mysql < schema/schema.sql
+        before: mysql < schema/schema.sql
 filter:
     excluded_paths: [web/external/*, core/phpqrcode.php, config/config-template.php, devices/devices-template.php]
 
