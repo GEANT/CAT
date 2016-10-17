@@ -27,7 +27,7 @@ class Attribute implements HtmlElement{
      * @param string $value
      */
     public function __construct($name, $value){
-        $characters = array('"','=');
+        $characters = array('"');
         $this->name = str_replace($characters, '', $name);
         $this->value = str_replace($characters, '', $value);
     }

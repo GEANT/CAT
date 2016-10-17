@@ -10,6 +10,10 @@ use lib\domain\SilverbulletCertificate;
 
 class UserCredentialsForm implements PageElement{
     
+    const TITLEROW_CLASS = 'sb-title-row';
+    const USERROW_CLASS = 'sb-user-row';
+    const ADDNEWUSER_CLASS = 'sb-add-new-user';
+    
     /**
      *
      * @var Table
@@ -35,7 +39,7 @@ class UserCredentialsForm implements PageElement{
         $this->action = $_SERVER['REQUEST_URI'];
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
-        $this->decorator = new TitledFormDecorator($this->table, $title, $this->action, PageElement::EDITABLEBLOCK_CLASS);
+        $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
     }
     
     /**
@@ -44,7 +48,7 @@ class UserCredentialsForm implements PageElement{
      */
     public function addTitleRow($rowArray){
         $row = new Row($rowArray);
-        $row->addAttribute('class', 'sb-title-row');
+        $row->addAttribute('class', self::TITLEROW_CLASS);
         $this->table->addRow($row);
     }
     
@@ -54,7 +58,7 @@ class UserCredentialsForm implements PageElement{
      */
     public function addUserRow($user){
         $row = new Row(array('user' => $user->getUsername()));
-        $row->addAttribute('class', 'sb-user-row');
+        $row->addAttribute('class', self::USERROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);
         $this->table->addToCell($index, 'action', new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->getIdentifier(), 'delete'));
@@ -68,22 +72,23 @@ class UserCredentialsForm implements PageElement{
      */
     public function addCertificateRow($certificate, $count){
         $index = $this->table->size();
-        $this->table->addRowArray(array('credentials' => 'cert' . $count, 'token' => $certificate->getOneTimeToken(), 'tokenExpiry' => $certificate->getTokenExpiry(), 'expiry' => $certificate->getExpiry()));
+        $this->table->addRowArray(array('credentials' => $certificate->getCertificateTitle($count), 'token' => $certificate->getOneTimeToken(), 'tokenExpiry' => $certificate->getTokenExpiry(), 'expiry' => $certificate->getExpiry()));
         $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE, $certificate->getIdentifier(), 'delete'));
     }
     
     public function render(){
+        
         ?>
-        <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
+        <div class="<?php echo self::EDITABLEBLOCK_CLASS;?>">
             <?php $this->decorator->render();?>
-        </form>
-        <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
-            <div class="sb-add-new-user">
-                <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice to create a new user:"); ?></label>
-                <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
-                <button type="submit" ><?php echo _('Add new user'); ?></button>
-            </div>
-        </form>
+            <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
+                <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
+                    <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice to create a new user:"); ?></label>
+                    <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
+                    <button type="submit" ><?php echo _('Add new user'); ?></button>
+                </div>
+            </form>
+        </div>
         <?php
     }
 }

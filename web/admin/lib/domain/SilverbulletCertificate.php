@@ -57,10 +57,18 @@ class SilverbulletCertificate extends PersistentEntity{
         if(!empty($silverbulletUser)){
             $this->set(self::INSTID, $silverbulletUser->getInstitutionId());
             $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
-            $this->set(self::ONETIMETOKEN, '92jd998d02u3d0dj02j3d2');
+            $this->set(self::ONETIMETOKEN, $this->generateToken());
             //$this->set(self::TOKENEXPIRY, 'NOW() + INTERVAL 1 WEEK');
             $this->set(self::TOKENEXPIRY, date('Y-m-d H:i:s',strtotime("+1 week")));
         }
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    private function generateToken(){
+        return hash("sha512", base_convert(rand(0, 10e16), 10, 36));
     }
     
     /**
@@ -68,7 +76,17 @@ class SilverbulletCertificate extends PersistentEntity{
      * @return string
      */
     public function getOneTimeToken(){
-        return $this->get(self::ONETIMETOKEN);
+        $tokenExpiryTime = strtotime($this->get(self::TOKENEXPIRY));
+        $currentTime = time();
+        if(empty($this->get(self::DOCUMENT))){
+            if($currentTime > $tokenExpiryTime){
+                return _('User did not consume the token and it expired!');
+            }else{
+                return $this->get(self::ONETIMETOKEN);
+            }
+        }else{
+            return "";
+        }
     }
     
     /**
@@ -86,6 +104,14 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     public function getExpiry(){
         return $this->get(self::EXPIRY);
+    }
+    
+    public function getCertificateTitle($count = ''){
+        if(empty($this->get(self::DOCUMENT))){
+            return '';
+        }else{
+            return 'cert'.$count;
+        }
     }
     
     protected function validate(){
