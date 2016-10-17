@@ -4,10 +4,10 @@ build:
             version: 7.0.8
         postgresql: false
         redis: false
-        mysql: 5.6
+        mysql: 5.5
     dependencies:
         before: 
-            - mysql < schema/schema.sql
+            - mysql -h 127.0.0.1 -u root < schema/schema.sql
 filter:
     excluded_paths: [web/external/*, core/phpqrcode.php, config/config-template.php, devices/devices-template.php]
 
