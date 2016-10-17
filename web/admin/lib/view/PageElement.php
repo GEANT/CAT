@@ -7,7 +7,7 @@ namespace lib\view;
  */
 interface PageElement {
     const INFOBLOCK_CLASS = 'infobox';
-    const EDITABLEBLOCK_CLASS = 'sb-editable-block';
+    const OPTIONBLOCK_CLASS = 'option_container';
     /**
      * 
      */

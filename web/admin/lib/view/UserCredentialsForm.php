@@ -10,6 +10,7 @@ use lib\domain\SilverbulletCertificate;
 
 class UserCredentialsForm implements PageElement{
     
+    const EDITABLEBLOCK_CLASS = 'sb-editable-block';
     const TITLEROW_CLASS = 'sb-title-row';
     const USERROW_CLASS = 'sb-user-row';
     const ADDNEWUSER_CLASS = 'sb-add-new-user';
