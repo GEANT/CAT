@@ -4,63 +4,73 @@ require_once(__DIR__ . '../../../../../core/DBConnection.php');
 require_once(__DIR__ . '../../../../../core/User.php');
 
 use lib\domain\SilverbulletUser;
+use lib\domain\SilverbulletCertificate;
 
 class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
-    private $userId = 'testuserid';
+    private $username = 'testusername';
     
     private $institutionId = 1;
     
-    private $institutionHandle;
-    
-    private $userHandle;
-    
+    /**
+     * 
+     * @var SilverbulletUser
+     */
+    private $newUser = null;
     
     protected function setup() {
-        $this->institutionHandle = DBConnection::handle('INST');
-        $this->userHandle = DBConnection::handle('USER');
+        $this->newUser = new SilverbulletUser($this->institutionId, $this->username);
     }
     
-    public function testUserConstructor(){
-        $newUser = new SilverbulletUser($this->userId, $this->institutionId);
+    public function testNewUser(){
+        $this->newUser->save();
+        $this->assertNotEmpty($this->newUser->getIdentifier());
         
-        $existingUser = new SilverbulletUser($this->userId, $this->institutionId);
-        $this->assertEquals($newUser->identifier, $existingUser->identifier);
+        $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
+        $existingUser->load();
         
-        $result = $this->userHandle->exec("SELECT * FROM `user_options` WHERE user_id = '".$this->userId."'");
-        $this->assertTrue(mysqli_num_rows($result)>0);
+        $username = $existingUser->getUsername();
+        $this->assertNotEmpty($username);
         
+        $institutionId = $existingUser->getInstitutionId();
+        $this->assertNotEmpty($institutionId);
+        
+        $list = SilverbulletUser::list($this->institutionId);
         $found = false;
-        while($row = mysqli_fetch_assoc($result)){
-            if($row['option_name'] == SilverbulletUser::OPTION_SILVERBULLET_USER && $row['option_value'] == 1){
+        foreach ($list as $user) {
+            if($user->getIdentifier() == $this->newUser->getIdentifier()){
                 $found = true;
                 break;
             }
         }
         $this->assertTrue($found);
+        
+        $result = $this->newUser->delete();
+        $this->assertTrue($result);
     }
     
     public function testInactiveUser(){
-        $newUser = new SilverbulletUser($this->userId, $this->institutionId);
-        $this->assertFalse($newUser->isActive());
+        $this->newUser->save();
+        $this->assertFalse($this->newUser->isActive());
     }
     
     public function testActiveUser(){
-        $remove = array();
-        $this->institutionHandle->exec("INSERT INTO `certificate` (`inst_id`,`user_id`, `expiry`, `document`) VALUES ('1', '" . $this->userId . "', NOW() + INTERVAL 1 YEAR,'Test certificate contents...')");
-        $remove [] = $this->institutionHandle->lastID();
-        $this->institutionHandle->exec("INSERT INTO `certificate` (`inst_id`,`user_id`, `expiry`, `document`) VALUES ('1', '" . $this->userId . "', NOW() + INTERVAL 1 YEAR,'Test certificate contents...')");
-        $remove [] = $this->institutionHandle->lastID();
-        $newUser = new SilverbulletUser($this->userId, $this->institutionId);
-        $this->assertTrue($newUser->isActive());
+        $this->newUser->save();
+        $certificate1 = new SilverbulletCertificate($this->newUser);
+        $certificate1->save();
+        $certificate2 = new SilverbulletCertificate($this->newUser);
+        $certificate2->save();
         
-        $certificates = $newUser->getCertificates();
+        $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
+        $existingUser->load();
+        $this->assertTrue($existingUser->isActive());
+        
+        $certificates = $existingUser->getCertificates();
         $this->assertEquals(2, count($certificates));
     }
     
     protected function tearDown(){
-        $this->institutionHandle->exec("DELETE FROM `certificate` WHERE user_id='".$this->userId."'");
-        $this->userHandle->exec("DELETE FROM `user_options` WHERE `user_id`='".$this->userId."';");
+        $this->newUser->delete();
     }
     
 }

@@ -16,3 +16,12 @@
     display:block;
     margin: 5px 0px 10px 0px;
 }
+.sb-editable-block fieldset{
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+    padding: 5px;
+    min-width: 500px;
+    min-height: 150px;
+    vertical-align: top;
+}

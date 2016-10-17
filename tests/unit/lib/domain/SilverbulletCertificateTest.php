@@ -3,43 +3,78 @@ require_once(__DIR__ . '../../../../../config/config.php');
 require_once(__DIR__ . '../../../../../core/EntityWithDBProperties.php');
 require_once(__DIR__ . '../../../../../core/DBConnection.php');
 use lib\domain\SilverbulletCertificate;
+use lib\domain\SilverbulletUser;
 
 class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     
-    private $institutionHandle;
-    
+    /**
+     * 
+     * @var SilverbulletCertificate
+     */
     private $newCertificate;
     
+    
+    /**
+     * 
+     * @var SilverbulletCertificate
+     */
     private $faultyCertificate;
     
-    private $userId = 'testuserid';
+    /**
+     * 
+     * @var integer
+     */
+    private $institutionId = 1;
+    
+    /**
+     * 
+     * @var SilverbulletUser
+     */
+    private $newUser = null;
+    
+    /**
+     *
+     * @var SilverbulletUser
+     */
+    
+    private $faultyUser = null;
     
     protected function setUp(){
-        $this->institutionHandle = DBConnection::handle('INST');
-        $this->newCertificate = new SilverbulletCertificate();
-        $this->faultyCertificate = new SilverbulletCertificate(-1);
+        $this->newUser = new SilverbulletUser($this->institutionId, 'testusername');
+        $this->newUser->save();
+        
+        $this->faultyUser = new SilverbulletUser($this->institutionId, 'faultytestusername');
+        
+        $this->newCertificate = new SilverbulletCertificate($this->newUser);
+        $this->faultyCertificate = new SilverbulletCertificate($this->faultyUser);
     }
     
     public function testNewCertificateSuccess() {
-        $this->newCertificate->setFields(1, $this->userId);
         $this->newCertificate->save();
-        $this->assertNotEmpty($this->newCertificate->identifier);
+        $this->assertNotEmpty($this->newCertificate->getIdentifier());
         
-        $existingCertificate = new SilverbulletCertificate($this->newCertificate->identifier);
+        $existingCertificate = SilverbulletCertificate::prepare($this->newCertificate->getIdentifier());
         $existingCertificate->load();
+        $this->assertNotEmpty($existingCertificate->getIdentifier());
+        
+        $oneTimeToken = $existingCertificate->getOneTimeToken();
+        $this->assertNotEmpty($oneTimeToken);
+        
+        $tokenExpiry = $existingCertificate->getTokenExpiry();
+        $this->assertNotEmpty($tokenExpiry);
+        
         $expiry = $existingCertificate->getExpiry();
-        $this->assertNotEmpty($expiry);
-
-        $expiryTime = strtotime($expiry);
-        $expectedTime = strtotime("+1 year");
-        $currentTime = time();
-        $difference = abs($expiryTime - $currentTime - $expectedTime + $currentTime);
+        $this->assertEmpty($expiry);
+        
+        $tokenExpiryTime = strtotime($tokenExpiry);
+        $tokenExpectedTime = strtotime("+1 week");
+        $difference = abs($tokenExpiryTime - $tokenExpectedTime);
         $this->assertTrue($difference < 10000);
         
-        $list = SilverbulletCertificate::list($this->userId);
+        $list = SilverbulletCertificate::list($this->newUser);
         $found = false;
         foreach ($list as $certificate) {
-            if($certificate->identifier == $this->newCertificate->identifier){
+            if($certificate->getIdentifier() == $this->newCertificate->getIdentifier()){
                 $found = true;
                 break;
             }
@@ -51,18 +86,18 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     }
     
     public function testNewCertificateFailure(){
-        $this->newCertificate->save();
-        $this->assertEmpty($this->newCertificate->identifier);
+        $this->faultyCertificate->save();
+        $this->assertEmpty($this->faultyCertificate->getIdentifier());
         
-        $existingCertificate = new SilverbulletCertificate($this->newCertificate->identifier);
+        $existingCertificate = SilverbulletCertificate::prepare($this->faultyCertificate->getIdentifier());
         $existingCertificate->load();
-        $expiry = $existingCertificate->getExpiry();
-        $this->assertEmpty($expiry);
+        $this->assertEmpty($existingCertificate->getOneTimeToken());
+        $this->assertEmpty($existingCertificate->getTokenExpiry());
         
-        $list = SilverbulletCertificate::list($this->userId);
+        $list = SilverbulletCertificate::list($this->faultyUser);
         $found = false;
         foreach ($list as $certificate) {
-            if($certificate->identifier == $this->newCertificate->identifier){
+            if($certificate->getIdentifier() == $this->faultyCertificate->getIdentifier()){
                 $found = true;
                 break;
             }
@@ -70,16 +105,16 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         $this->assertFalse($found);
     }
     
-    public function testExistingCertificateFailure(){
+    public function testFaultyCertificateLoadFailure(){
         $this->faultyCertificate->load();
-        $this->assertEmpty($this->faultyCertificate->identifier);
-        
-        $expiry = $this->faultyCertificate->getExpiry();
-        $this->assertEmpty($expiry);
+        $this->assertEmpty($this->faultyCertificate->getIdentifier());
     }
     
     protected function tearDown(){
-        $this->institutionHandle->exec("DELETE FROM `user_options` WHERE `user_id`='".$this->userId."';");
+        $this->newUser->delete();
+        if(!empty($this->faultyCertificate)){
+            $this->faultyCertificate->delete();
+        }
     }
     
 }

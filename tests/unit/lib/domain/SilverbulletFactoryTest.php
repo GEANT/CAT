@@ -2,75 +2,80 @@
 
 use lib\domain\SilverbulletFactory;
 use lib\domain\SilverbulletUser;
+use lib\domain\SilverbulletCertificate;
 
 class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     
-    private $userId = 'testuserid';
+    private $username = 'testusername';
     
     private $institutionId = 1;
     
-    private $institutionHandle;
+    private $user = null;
     
-    private $userHandle;
+    private $databaseHandle;
     
     private $factory;
     
     protected function setUp(){
-        $this->institutionHandle = DBConnection::handle('INST');
-        $this->userHandle = DBConnection::handle('USER');
-        
+        $this->databaseHandle = DBConnection::handle('INST');
         $this->factory = new SilverbulletFactory(new IdP($this->institutionId));
+        
+        $this->user = new SilverbulletUser($this->institutionId, $this->username);
     }
     
     public function testNewUser() {
-        $_POST[SilverbulletFactory::COMMAND_ADD_USER] = $this->userId;
+        $usersBefore = count(SilverbulletUser::list($this->institutionId));
+        
+        $_POST[SilverbulletFactory::COMMAND_ADD_USER] = $this->username;
         $this->factory->parseRequest();
         
-        $result = $this->userHandle->exec("SELECT * FROM `user_options` WHERE user_id = '".$this->userId."'");
-        $this->assertTrue(mysqli_num_rows($result)>0);
-        
-        $found = false;
-        while($row = mysqli_fetch_assoc($result)){
-            if($row['option_name'] == SilverbulletUser::OPTION_SILVERBULLET_USER && $row['option_value'] == 1){
-                $found = true;
-                break;
-            }
-        }
-        $this->assertTrue($found);
+        $usersAfter = count(SilverbulletUser::list($this->institutionId));
+        $this->assertTrue($usersAfter > $usersBefore);
     }
     
     public function testDeleteUser() {
-        $user = new SilverbulletUser($this->userId, $this->institutionId);
-        $_POST[SilverbulletFactory::COMMAND_DELETE_USER] = $this->userId;
+        $this->user->save();
+        
+        $usersBefore = count(SilverbulletUser::list($this->institutionId));
+        
+        $_POST[SilverbulletFactory::COMMAND_DELETE_USER] = $this->user->getIdentifier();
         $this->factory->parseRequest();
-    
-        $result = $this->userHandle->exec("SELECT * FROM `user_options` WHERE user_id = '".$this->userId."'");
-        $this->assertEquals(0, mysqli_num_rows($result));
+        
+        $usersAfter = count(SilverbulletUser::list($this->institutionId));
+        
+        $this->assertTrue($usersBefore > $usersAfter);
     }
     
     public function testNewCertificate() {
-        $user = new SilverbulletUser($this->userId, $this->institutionId);
-        $_POST[SilverbulletFactory::COMMAND_ADD_CERTIFICATE] = $this->userId;
-        $this->factory->parseRequest();
-    
-        $result = $this->institutionHandle->exec("SELECT * FROM `certificate` WHERE user_id = '".$this->userId."'");
-        $this->assertEquals(1, mysqli_num_rows($result));
+        $this->user->save();
         
+        $certificatesBefore = count(SilverbulletCertificate::list($this->user));
+        
+        $_POST[SilverbulletFactory::COMMAND_ADD_CERTIFICATE] = $this->user->getIdentifier();
+        $this->factory->parseRequest();
+        
+        $certificatesAfter = count(SilverbulletCertificate::list($this->user));
+        
+        $this->assertTrue($certificatesAfter > $certificatesBefore);
     }
     
     public function testRevokeCertificate() {
-        $user = new SilverbulletUser($this->userId, $this->institutionId);
-        $this->institutionHandle->exec("INSERT INTO `certificate` (`inst_id`,`user_id`, `expiry`, `document`) VALUES ('".$this->institutionId."', '".$this->userId."', NOW() + INTERVAL 1 YEAR,'Testing certificate file contents..')");
-        $_POST[SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE] = $this->institutionHandle->lastID();
+        $this->user->save();
+        $certificate = new SilverbulletCertificate($this->user);
+        $certificate->save();
+        
+        $certificatesBefore = count(SilverbulletCertificate::list($this->user));
+        
+        $_POST[SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE] = $certificate->getIdentifier();
         $this->factory->parseRequest();
     
-        $result = $this->institutionHandle->exec("SELECT * FROM `certificate` WHERE user_id = '".$this->userId."'");
-        $this->assertEquals(0, mysqli_num_rows($result));
-    
+        $certificatesAfter = count(SilverbulletCertificate::list($this->user));
+        $this->assertTrue($certificatesBefore > $certificatesAfter);
     }
     
     protected function tearDown(){
-        $this->institutionHandle->exec("DELETE FROM `certificate` WHERE user_id='".$this->userId."'");
-        $this->userHandle->exec("DELETE FROM `user_options` WHERE `user_id`='".$this->userId."';");
+        $this->user->delete();
+        $this->databaseHandle->exec("DELETE FROM `".SilverbulletUser::TABLE."` WHERE `".SilverbulletUser::USERNAME."`='".$this->username."'");
+        
     }
 }

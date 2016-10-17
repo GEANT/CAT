@@ -39,17 +39,20 @@ class SilverbulletFactory {
     
     public function parseRequest(){
         if(isset($_POST[self::COMMAND_ADD_USER])){
-            $this->addUser($_POST[self::COMMAND_ADD_USER]);
+            $user = new SilverbulletUser($this->institution->identifier, $_POST[self::COMMAND_ADD_USER]);
+            $user->save();
         }elseif (isset($_POST[self::COMMAND_DELETE_USER])){
-            $this->deleteUser($_POST[self::COMMAND_DELETE_USER]);
+            $user = SilverbulletUser::prepare($_POST[self::COMMAND_DELETE_USER]);
+            $user->delete();
             $this->redirectAfterSubmit();
         }elseif (isset($_POST[self::COMMAND_ADD_CERTIFICATE])){
-            $certificate = new SilverbulletCertificate();
-            $certificate->setFields($this->institution->identifier, $_POST[self::COMMAND_ADD_CERTIFICATE]);
+            $user = SilverbulletUser::prepare($_POST[self::COMMAND_ADD_CERTIFICATE]);
+            $user->load();
+            $certificate = new SilverbulletCertificate($user);
             $certificate->save();
             $this->redirectAfterSubmit();
         }elseif (isset($_POST[self::COMMAND_REVOKE_CERTIFICATE])){
-            $certificate = new SilverbulletCertificate($_POST[self::COMMAND_REVOKE_CERTIFICATE]);
+            $certificate = SilverbulletCertificate::prepare($_POST[self::COMMAND_REVOKE_CERTIFICATE]);
             $certificate->delete();
             $this->redirectAfterSubmit();
         }
@@ -60,26 +63,6 @@ class SilverbulletFactory {
             header("Location: " . $_SERVER['REQUEST_URI'] );
             die();
         }
-    }
-    
-    /**
-     *
-     * @param string $userId
-     * @return SilverbulletUser
-     */
-    private function addUser($userId){
-        return new SilverbulletUser($userId, $this->institution->identifier);
-    }
-    
-    /**
-     *
-     * @param string $userId
-     * @return SilverbulletUser
-     */
-    private function deleteUser($userId){
-        $user = new SilverbulletUser($userId, $this->institution->identifier);
-        $user->delete();
-        return $user;
     }
     
     /**
