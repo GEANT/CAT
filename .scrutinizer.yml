@@ -7,7 +7,7 @@ build:
         mysql: 5.5
     dependencies:
         before: 
-            - mysql -h 127.0.0.1 -u root -e create database cat
+            - mysql -h 127.0.0.1 -u root -e 'create database cat'
             - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
 filter:
     excluded_paths: [web/external/*, core/phpqrcode.php, config/config-template.php, devices/devices-template.php]
