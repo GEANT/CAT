@@ -190,5 +190,10 @@ function mailHandle() {
     $mail->WordWrap = 72;
     $mail->isHTML(FALSE);
     $mail->CharSet = 'UTF-8';
+    $mail->From = CONFIG['APPEARANCE']['from-mail'];
+    // are we fancy? i.e. S/MIME signing?
+    if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
+            $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
+        }
     return $mail;
 }

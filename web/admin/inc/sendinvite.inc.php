@@ -186,7 +186,6 @@ Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
 $mail = mailHandle();
 // who to whom?
-$mail->From = CONFIG['APPEARANCE']['from-mail'];
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
     $fed = new Federation($newcountry);
@@ -212,10 +211,6 @@ foreach ($recipients as $recipient) {
 // what do we want to say?
 $mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), CONFIG['APPEARANCE']['productname']);
 $mail->Body = $message;
-
-if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
-    $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
-}
 
 $sent = $mail->send();
 

@@ -131,16 +131,12 @@ class User extends EntityWithDBProperties {
         }
         $mail = mailHandle();
 // who to whom?
-        $mail->From = CONFIG['APPEARANCE']['from-mail'];
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
         $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
-        if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
-            $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
-        }
 
         $sent = $mail->send();
 
