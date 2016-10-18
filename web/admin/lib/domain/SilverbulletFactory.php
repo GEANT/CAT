@@ -19,9 +19,9 @@ class SilverbulletFactory {
     
     /**
      *
-     * @var \IdP
+     * @var \ProfileSilverbullet
      */
-    private $institution;
+    private $profile;
     
     /**
      * 
@@ -31,15 +31,15 @@ class SilverbulletFactory {
     
     /**
      *
-     * @param \IdP $institution
+     * @param \ProfileSilverbullet $profile
      */
-    public function __construct($institution){
-        $this->institution = $institution;
+    public function __construct($profile){
+        $this->profile = $profile;
     }
     
     public function parseRequest(){
         if(isset($_POST[self::COMMAND_ADD_USER])){
-            $user = new SilverbulletUser($this->institution->identifier, $_POST[self::COMMAND_ADD_USER]);
+            $user = new SilverbulletUser($this->profile->identifier, $_POST[self::COMMAND_ADD_USER]);
             $user->save();
         }elseif (isset($_POST[self::COMMAND_DELETE_USER])){
             $user = SilverbulletUser::prepare($_POST[self::COMMAND_DELETE_USER]);
@@ -70,7 +70,7 @@ class SilverbulletFactory {
      * @return \lib\domain\SilverbulletUser
      */
     public function createUsers(){
-        $this->users = SilverbulletUser::list($this->institution->identifier);
+        $this->users = SilverbulletUser::list($this->profile->identifier);
         return $this->users;
     }
     

@@ -40,7 +40,7 @@ $page->appendCss('css/silverbullet.css');
 $builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
 if($builder->isReady()){
     
-    $factory = new SilverbulletFactory($builder->getInstitution());
+    $factory = new SilverbulletFactory($builder->getProfile());
     $factory->parseRequest();
     
     $users = $factory->createUsers();

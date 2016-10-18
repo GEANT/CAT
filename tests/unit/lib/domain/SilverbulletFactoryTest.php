@@ -8,7 +8,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     
     private $username = 'testusername';
     
-    private $institutionId = 1;
+    private $profileId = 1;
     
     private $user = null;
     
@@ -18,30 +18,30 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     
     protected function setUp(){
         $this->databaseHandle = DBConnection::handle('INST');
-        $this->factory = new SilverbulletFactory(new IdP($this->institutionId));
+        $this->factory = new SilverbulletFactory(new IdP($this->profileId));
         
-        $this->user = new SilverbulletUser($this->institutionId, $this->username);
+        $this->user = new SilverbulletUser($this->profileId, $this->username);
     }
     
     public function testNewUser() {
-        $usersBefore = count(SilverbulletUser::list($this->institutionId));
+        $usersBefore = count(SilverbulletUser::list($this->profileId));
         
         $_POST[SilverbulletFactory::COMMAND_ADD_USER] = $this->username;
         $this->factory->parseRequest();
         
-        $usersAfter = count(SilverbulletUser::list($this->institutionId));
+        $usersAfter = count(SilverbulletUser::list($this->profileId));
         $this->assertTrue($usersAfter > $usersBefore);
     }
     
     public function testDeleteUser() {
         $this->user->save();
         
-        $usersBefore = count(SilverbulletUser::list($this->institutionId));
+        $usersBefore = count(SilverbulletUser::list($this->profileId));
         
         $_POST[SilverbulletFactory::COMMAND_DELETE_USER] = $this->user->getIdentifier();
         $this->factory->parseRequest();
         
-        $usersAfter = count(SilverbulletUser::list($this->institutionId));
+        $usersAfter = count(SilverbulletUser::list($this->profileId));
         
         $this->assertTrue($usersBefore > $usersAfter);
     }

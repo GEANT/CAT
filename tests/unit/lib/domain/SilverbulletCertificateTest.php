@@ -24,7 +24,7 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
      * 
      * @var integer
      */
-    private $institutionId = 1;
+    private $profileId = 1;
     
     /**
      * 
@@ -40,10 +40,10 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     private $faultyUser = null;
     
     protected function setUp(){
-        $this->newUser = new SilverbulletUser($this->institutionId, 'testusername');
+        $this->newUser = new SilverbulletUser($this->profileId, 'testusername');
         $this->newUser->save();
         
-        $this->faultyUser = new SilverbulletUser($this->institutionId, 'faultytestusername');
+        $this->faultyUser = new SilverbulletUser($this->profileId, 'faultytestusername');
         
         $this->newCertificate = new SilverbulletCertificate($this->newUser);
         $this->faultyCertificate = new SilverbulletCertificate($this->faultyUser);

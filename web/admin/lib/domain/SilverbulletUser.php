@@ -11,11 +11,11 @@ class SilverbulletUser extends PersistentEntity{
     const TABLE = 'silverbullet_user';
     
     /**
-     * Required institution identifier
+     * Required profile identifier
      * 
      * @var string
      */
-    const INSTID = 'inst_id';
+    const PROFILEID = 'profile_id';
     /**
      * Required user name attribute
      * 
@@ -33,17 +33,17 @@ class SilverbulletUser extends PersistentEntity{
     /**
      * Constructor that should be used when creating a new record. Refer to Silverbullet:: create and Silverbullet::list to load existing records.
      * 
-     * @param int $institutionId
+     * @param int $profileId
      * @param string $username
      */
-    public function __construct($institutionId, $username){
+    public function __construct($profileId, $username){
         parent::__construct(self::TABLE, self::TYPE_INST);
-        $this->set(self::INSTID, $institutionId);
+        $this->set(self::PROFILEID, $profileId);
         $this->set(self::USERNAME, $username);
     }
     
-    public function getInstitutionId(){
-        return $this->get(self::INSTID);
+    public function getProfileId(){
+        return $this->get(self::PROFILEID);
     }
     
     public function getUsername(){
@@ -109,9 +109,9 @@ class SilverbulletUser extends PersistentEntity{
      * 
      * @return \lib\domain\SilverbulletUser []
      */
-    public static function list($institutionId) {
+    public static function list($profileId) {
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::INSTID."`='" . $institutionId . "'");
+        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`='" . $profileId . "'");
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');
