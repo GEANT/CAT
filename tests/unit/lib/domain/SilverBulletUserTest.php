@@ -10,7 +10,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
     private $username = 'testusername';
     
-    private $institutionId = 1;
+    private $profileId = 1;
     
     /**
      * 
@@ -19,7 +19,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     private $newUser = null;
     
     protected function setup() {
-        $this->newUser = new SilverbulletUser($this->institutionId, $this->username);
+        $this->newUser = new SilverbulletUser($this->profileId, $this->username);
     }
     
     public function testNewUser(){
@@ -32,10 +32,10 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $username = $existingUser->getUsername();
         $this->assertNotEmpty($username);
         
-        $institutionId = $existingUser->getInstitutionId();
-        $this->assertNotEmpty($institutionId);
+        $profileId = $existingUser->getProfileId();
+        $this->assertNotEmpty($profileId);
         
-        $list = SilverbulletUser::list($this->institutionId);
+        $list = SilverbulletUser::list($this->profileId);
         $found = false;
         foreach ($list as $user) {
             if($user->getIdentifier() == $this->newUser->getIdentifier()){

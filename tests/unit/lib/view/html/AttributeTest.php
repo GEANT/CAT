@@ -11,8 +11,7 @@ class AttributeTest extends \PHPUnit_Framework_TestCase{
         $this->assertEquals($space,' ');
     
         $spaceRemoved = substr($string, 1);
-        $pair = explode('=', $spaceRemoved);
-        $this->assertEquals(count($pair),2);
+        $pair = explode('=', $spaceRemoved, 2);
     
         if(count($pair)>1){
             $this->assertTrue(strlen($pair[0]) > 0);

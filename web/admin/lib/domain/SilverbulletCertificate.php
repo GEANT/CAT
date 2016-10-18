@@ -11,11 +11,11 @@ class SilverbulletCertificate extends PersistentEntity{
     const TABLE = 'silverbullet_certificate';
     
     /**
-     * Required institution identifier
+     * Required profile identifier
      * 
      * @var string
      */
-    const INSTID = 'inst_id';
+    const PROFILEID = 'profile_id';
     
     /**
      * Required user identifier
@@ -55,7 +55,7 @@ class SilverbulletCertificate extends PersistentEntity{
     public function __construct($silverbulletUser) {
         parent::__construct(self::TABLE, self::TYPE_INST);
         if(!empty($silverbulletUser)){
-            $this->set(self::INSTID, $silverbulletUser->getInstitutionId());
+            $this->set(self::PROFILEID, $silverbulletUser->getProfileId());
             $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
             $this->set(self::ONETIMETOKEN, $this->generateToken());
             //$this->set(self::TOKENEXPIRY, 'NOW() + INTERVAL 1 WEEK');
@@ -68,7 +68,7 @@ class SilverbulletCertificate extends PersistentEntity{
      * @return string
      */
     private function generateToken(){
-        return hash("sha512", base_convert(rand(0, 10e16), 10, 36));
+        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
     }
     
     /**
@@ -78,7 +78,7 @@ class SilverbulletCertificate extends PersistentEntity{
     public function getOneTimeToken(){
         $tokenExpiryTime = strtotime($this->get(self::TOKENEXPIRY));
         $currentTime = time();
-        if(empty($this->get(self::DOCUMENT))){
+        if(!empty($this->get(self::TOKENEXPIRY)) && empty($this->get(self::DOCUMENT))){
             if($currentTime > $tokenExpiryTime){
                 return _('User did not consume the token and it expired!');
             }else{

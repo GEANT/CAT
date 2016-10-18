@@ -87,18 +87,30 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
+     * @return \ProfileSilverbullet|mixed
+     */
+    public function getProfile(){
+        $profile = null;
+        if($this->isReady()){
+            $profiles = $this->institution->listProfiles();
+            if (count($profiles) == 1) {
+                if ($profiles[0] instanceof \ProfileSilverbullet) {
+                    $profile = $profiles[0];
+                }
+            }
+        }
+        return $profile;
+    }
+    
+    /**
+     * 
      * @return \IdP
      */
     public function getRealmName(){
         $realmName = 'unknown';
-        if($this->isReady()){
-            $profiles = $this->institution->listProfiles();
-            if (count($profiles) == 1) {
-                $profile = $profiles[0];
-                if ($profile instanceof \ProfileSilverbullet) {
-                    return $profile->realm;
-                }
-            }
+        $profile = $this->getProfile();
+        if(!empty($profile)){
+            $realmName = $profile->realm;
         }
         return $realmName;
     }
