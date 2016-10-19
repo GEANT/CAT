@@ -52,7 +52,7 @@ if (isset($_POST['device'])) {
 $eaptype = NULL;
 $eap_id = 0;
 if (isset($_POST['eaptype'])) {
-    $eaptype = unserialize(stripslashes($_POST['eaptype']));
+    $eaptype = unserialize(stripslashes($_POST['eaptype']), [ "allowed_classes" => false ]);
     // the POST could have sneaked in an integer instead of the expected array.
     // be sure to double-check
     if (!is_array($eaptype)) {
