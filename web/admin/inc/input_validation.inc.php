@@ -188,8 +188,8 @@ function valid_coordinate($input) {
  * @throws Exception
  */
 function valid_coord_serialized($input) {
-    if (is_array(unserialize($input))) {
-        $tentative = unserialize($input);
+    $tentative = unserialize($input, [ "allowed_classes" => false ]);
+    if (is_array($tentative)) {
         if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat'])) {
             return $input;
         }
