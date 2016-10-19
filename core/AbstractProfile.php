@@ -537,13 +537,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 if (isset($nameCandidate[$this->languageInstance->getLang()]) || isset($nameCandidate['C'])) {
                     $out[$name][0] = (isset($nameCandidate[$this->languageInstance->getLang()])) ? $nameCandidate[$this->languageInstance->getLang()] : $nameCandidate['C'];
                 }
-                if (isset($nameCandidate['en'])) {
-                    $out[$name][1] = $nameCandidate['en'];
-                } elseif (isset($nameCandidate['C'])) {
-                    $out[$name][1] = $nameCandidate['C'];
-                } elseif (isset($out[$name][0])) {
-                    $out[$name][1] = $out[$name][0];
-                }
+                
+                $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
+                
             } else {
                 if (isset($temp[$name]['Method'])) {
                     $out[$name] = $temp[$name]['Method'];
