@@ -229,6 +229,7 @@ class CAT extends Entity {
             'GA' => 'Gabon',
             'GM' => 'Gambia, The',
             'GE' => 'Georgia',
+            'GEANT' => 'The GEANT country',
             'GH' => 'Ghana',
             'GI' => 'Gibraltar',
             'GL' => 'Greenland',
