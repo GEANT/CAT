@@ -115,11 +115,12 @@ class Federation extends EntityWithDBProperties {
         $this->databaseType = "INST";
         $this->entityOptionTable = "federation_option";
         $this->entityIdColumn = "federation_id";
-        $this->identifier = $fedname;
+        
         $cat = new CAT();
-        if (!isset($cat->knownFederations[$this->identifier])) {
+        if (!isset($cat->knownFederations[$fedname])) {
             throw new Exception("This federation is not known to the system!");
         }
+        $this->identifier = $fedname;
         $this->name = $cat->knownFederations[$this->identifier];
 
         parent::__construct(); // we now have access to our database handle
