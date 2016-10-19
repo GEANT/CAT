@@ -539,15 +539,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 }
                 
                 $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
-                
             } else {
-                if (isset($temp[$name]['Method'])) {
-                    $out[$name] = $temp[$name]['Method'];
-                } elseif (isset($temp[$name]['Profile'])) {
-                    $out[$name] = $temp[$name]['Profile'];
-                } else {
-                    $out[$name] = $temp[$name]['IdP'];
-                }
+                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'];
             }
         }
         return($out);
