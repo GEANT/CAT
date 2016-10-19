@@ -179,11 +179,9 @@ class UserAPI extends CAT {
                 continue;
             }
             $count ++;
-            if ($this->version == 1) {
-                $deviceProperties['device'] = $device;
-            } else {
-                $deviceProperties['device'] = $device;
-            }
+            
+            $deviceProperties['device'] = $device;
+            
             $group = isset($deviceProperties['group']) ? $deviceProperties['group'] : 'other';
             if (!isset($returnList[$group])) {
                 $returnList[$group] = [];
@@ -282,11 +280,7 @@ class UserAPI extends CAT {
     public function JSON_listLanguages() {
         $returnArray = [];
         foreach (CONFIG['LANGUAGES'] as $id => $val) {
-            if ($this->version == 1) {
-                $returnArray[] = ['id' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
-            } else {
-                $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
-            }
+            $returnArray[] = [( $this->version == 1 ? 'id' : 'lang') => $id, 'display' => $val['display'], 'locale' => $val['locale']];
         }
         echo $this->return_json($returnArray);
     }
@@ -300,11 +294,7 @@ class UserAPI extends CAT {
         $federations = $this->printCountryList(1);
         $returnArray = [];
         foreach ($federations as $id => $val) {
-            if ($this->version == 1) {
-                $returnArray[] = ['id' => $id, 'display' => $val];
-            } else {
-                $returnArray[] = ['federation' => $id, 'display' => $val];
-            }
+            $returnArray[] = [( $this->version == 1 ? 'id' : 'federation' ) => $id, 'display' => $val];
         }
         echo $this->return_json($returnArray);
     }
@@ -319,11 +309,7 @@ class UserAPI extends CAT {
         $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
-            if ($this->version == 1) {
-                $returnArray[] = ['id' => $idp['entityID'], 'display' => $idp['title']];
-            } else {
-                $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
-            }
+            $returnArray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $idp['entityID'], 'display' => $idp['title']];
         }
         echo $this->return_json($returnArray);
     }
@@ -338,11 +324,7 @@ class UserAPI extends CAT {
         $idps = $this->listAllIdentityProviders(1);
         $returnArray = [];
         foreach ($idps as $idp) {
-            if ($this->version == 1) {
-                $idp['id'] = $idp['entityID'];
-            } else {
-                $idp['idp'] = $idp['entityID'];
-            }
+            $idp[( $this->version == 1 ? 'id' : 'idp' )] = $idp['entityID'];
             $returnArray[] = $idp;
         }
         echo json_encode($returnArray);
@@ -357,11 +339,7 @@ class UserAPI extends CAT {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {
-            if ($this->version == 1) {
-                $returnArray[] = ['id' => $idp['id'], 'display' => $idp['title']];
-            } else {
-                $returnArray[] = ['idp' => $idp['id'], 'display' => $idp['title']];
-            }
+            $returnArray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $idp['id'], 'display' => $idp['title']];
         }
         echo $this->return_json($returnArray);
     }
@@ -390,12 +368,8 @@ class UserAPI extends CAT {
         if ($sort == 1) {
             usort($profiles, "profile_sort");
         }
-        foreach ($profiles as $P) {
-            if ($this->version == 1) {
-                $returnArray[] = ['id' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
-            } else {
-                $returnArray[] = ['profile' => $P->identifier, 'display' => $P->name, 'idp_name' => $P->instName, 'logo' => $hasLogo];
-            }
+        foreach ($profiles as $profile) {
+            $returnArray[] = [( $this->version == 1 ? 'id' : 'profile' ) => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
         }
         echo $this->return_json($returnArray);
     }
@@ -674,11 +648,7 @@ class UserAPI extends CAT {
         asort($resultSet);
         $outarray = [];
         foreach (array_keys($resultSet) as $r) {
-            if ($this->version == 1) {
-                $outarray[] = ['id' => $r, 'title' => $idpTitle[$r]];
-            } else {
-                $outarray[] = ['idp' => $r, 'title' => $idpTitle[$r]];
-            }
+            $outarray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $r, 'title' => $idpTitle[$r]];
         }
         return($outarray);
     }
@@ -695,11 +665,7 @@ class UserAPI extends CAT {
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];
             $device = $Dev[$dev_id];
-            if ($this->version == 1) {
-                return(['id' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-            } else {
-                return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-            }
+            return([( $this->version == 1 ? 'id' : 'device') => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
         }
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $this->loggerInstance->debug(4, "HTTP_USER_AGENT=$browser\n");
@@ -710,11 +676,7 @@ class UserAPI extends CAT {
             if (preg_match('/' . $device['match'] . '/', $browser)) {
                 if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
                     $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
-                    if ($this->version == 1) {
-                        return(['id' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-                    } else {
-                        return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-                    }
+                    return([( $this->version == 1 ? 'id' : 'device' ) => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
                 } else {
                     $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
                     return(false);
