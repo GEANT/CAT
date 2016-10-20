@@ -171,15 +171,15 @@ class ServerSideCredential extends XMLElement {
 
     public function getAll() {
         if (isset(XMLElement::$authMethodElements['server'][$this->EAPType]) && XMLElement::$authMethodElements['server'][$this->EAPType]) {
-            $E = XMLElement::$authMethodElements['server'][$this->EAPType];
-            $out = get_object_vars($this);
-            $OUT = [];
-            foreach ($out as $o => $v) {
-                if (in_array($o, $E)) {
-                    $OUT[$o] = $v;
+            $element = XMLElement::$authMethodElements['server'][$this->EAPType];
+            $objectVariables = get_object_vars($this);
+            $outArray = [];
+            foreach ($objectVariables as $o => $v) {
+                if (in_array($o, $element)) {
+                    $outArray[$o] = $v;
                 }
             }
-            return($OUT);
+            return($outArray);
         }
     }
 
