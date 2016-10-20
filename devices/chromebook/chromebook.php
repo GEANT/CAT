@@ -186,7 +186,7 @@ class Device_Chromebook extends DeviceConfig {
 
         $outputFromSigning = system($this->sign . " installer_profile '$fileName' > /dev/null");
         if ($outputFromSigning === FALSE) {
-            $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
+            $this->loggerInstance->debug(2, "Signing the ONC installer $fileName FAILED!\n");
         }
 
         return $fileName;

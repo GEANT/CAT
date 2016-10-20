@@ -98,7 +98,10 @@ class WindowsCommon extends DeviceConfig {
             return $fileName;
         }
         // are actually signing
-        $output = system($this->sign . " installer.exe '$fileName' > /dev/null");
+        $outputFromSigning = system($this->sign . " installer.exe '$fileName' > /dev/null");
+        if ($outputFromSigning === FALSE) {
+            $this->loggerInstance->debug(2, "Signing the WindowsCommon installer $fileName FAILED!\n");
+        }
         return $fileName;
     }
 
