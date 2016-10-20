@@ -84,7 +84,7 @@ class Device_Vista7 extends WindowsCommon {
         }
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
-        $installerPath = $this->signInstaller($this->attributes);
+        $installerPath = $this->signInstaller();
 
         textdomain($dom);
         return($installerPath);

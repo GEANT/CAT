@@ -91,14 +91,15 @@ class WindowsCommon extends DeviceConfig {
         $bg_image->writeImage('BMP3:cat_bg.bmp');
     }
 
-    protected function signInstaller($attr) {
-        $e = $this->installerBasename . '.exe';
-        if ($this->sign) {
-            $o = system($this->sign . " installer.exe '$e' > /dev/null");
-        } else {
-            rename("installer.exe", $e);
+    protected function signInstaller() {
+        $fileName = $this->installerBasename . '.exe';
+        if (!$this->sign) {
+            rename("installer.exe", $fileName);
+            return $fileName;
         }
-        return $e;
+        // are actually signing
+        $output = system($this->sign . " installer.exe '$fileName' > /dev/null");
+        return $fileName;
     }
 
     protected function compileNSIS() {

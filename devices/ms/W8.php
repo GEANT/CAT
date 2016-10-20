@@ -88,7 +88,7 @@ class Device_W8 extends WindowsCommon {
         }
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
-        $installerPath = $this->signInstaller($this->attributes);
+        $installerPath = $this->signInstaller();
 
         textdomain($dom);
         return($installerPath);
