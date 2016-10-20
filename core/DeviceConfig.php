@@ -64,7 +64,7 @@ abstract class DeviceConfig extends Entity {
 
     /**
      * 
-     * @param type $eapArray the list of EAP methods the device supports
+     * @param array $eapArray the list of EAP methods the device supports
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
