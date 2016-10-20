@@ -41,7 +41,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
     public function __construct() {
         parent::__construct();
     }
-    
+
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
@@ -145,17 +145,19 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         fwrite($xmlFile, $outputXml);
         fclose($xmlFile);
 
-        $fileName = $this->installerBasename . '.mobileconfig';
-        if ($this->sign) {
-            $signing = system($this->sign . " installer_profile '$fileName' > /dev/null");
-            if ($signing === FALSE) {
-                $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
-            }
-        } else {
-            rename("installer_profile", $fileName);
-        }
-
         textdomain($dom);
+
+        $fileName = $this->installerBasename . '.mobileconfig';
+
+        if (!$this->sign) {
+            rename("installer_profile", $fileName);
+            return $fileName;
+        }
+        // still here? Then we are signing.
+        $signing = system($this->sign . " installer_profile '$fileName' > /dev/null");
+        if ($signing === FALSE) {
+            $this->loggerInstance->debug(2, "Signing the mobileconfig installer $fileName FAILED!\n");
+        }
         return $fileName;
     }
 
@@ -190,7 +192,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         return $retval;
     }
 
-    private function passPointBlock ($consortiumOi) {
+    private function passPointBlock($consortiumOi) {
         $retval = "
                <key>IsHotspot</key>
                <true/>
@@ -198,47 +200,47 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                <true/>
                <key>DisplayedOperatorName</key>
                <string>" . CONFIG['CONSORTIUM']['name'] . "</string>";
-            // if we don't know the realm, omit the entire DomainName key
-            if (isset($this->attributes['internal:realm'])) {
-                $retval .= "<key>DomainName</key>
+        // if we don't know the realm, omit the entire DomainName key
+        if (isset($this->attributes['internal:realm'])) {
+            $retval .= "<key>DomainName</key>
                <string>";
-                $retval .= $this->attributes['internal:realm'][0];
-                $retval .= "</string>
+            $retval .= $this->attributes['internal:realm'][0];
+            $retval .= "</string>
                 ";
-            }
-            $retval .= "                <key>RoamingConsortiumOIs</key>
+        }
+        $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
-            foreach ($consortiumOi as $oiValue) {
-                $retval .= "<string>$oiValue</string>";
-            }
-            $retval .= "</array>";
-            return $retval;
+        foreach ($consortiumOi as $oiValue) {
+            $retval .= "<string>$oiValue</string>";
+        }
+        $retval .= "</array>";
+        return $retval;
     }
-    
+
     private $serial;
 
     private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $realm = 0) {
         $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
-        
+
         $payloadIdentifier = "wifi." . $this->serial;
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
         $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG['CONSORTIUM']['name'], $escapedSSID);
         $encryptionTypeString = "WPA";
-        
+
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
             $payloadShortName = _("Wired Network");
             $payloadName = sprintf(_("%s configuration for wired network"), CONFIG['CONSORTIUM']['name']);
             $encryptionTypeString = "any";
         }
-        
+
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
             $payloadIdentifier = "hs20";
             $payloadShortName = _("Hotspot 2.0 Settings");
             $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG['CONSORTIUM']['name']);
             $encryptionTypeString = "WPA";
         }
-        
+
         $retval = "
             <dict>
                <key>EAPClientConfiguration</key>
@@ -395,7 +397,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $pem);
         $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
         $trimmedPem = trim($stage2);
-        
+
         $stream = "
             <dict>
                <key>PayloadCertificateFileName</key>
