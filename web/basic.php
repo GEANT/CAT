@@ -144,22 +144,22 @@ class SimpleGUI extends UserAPI {
     }
 
     public function listIdPs() {
-        $Inst = $this->orderIdentityProviders($this->country->identifier);
+        $instList = $this->orderIdentityProviders($this->country->identifier);
         $out = '';
         $out .= _("Select your institution");
         $out .= '<select name="idp" onchange="submit_form(this)">';
-        if (!empty($Inst)) {
+        if (!empty($instList)) {
             if (!isset($this->idp)) {
-                $this->idp = new Idp($Inst[0]['idp']);
+                $this->idp = new Idp($instList[0]['idp']);
             }
             $idpId = $this->idp->identifier;
         }
-        foreach ($Inst as $I) {
-            $out .= '<option value="' . $I['idp'] . '"';
-            if ($I['idp'] == $idpId) {
+        foreach ($instList as $oneInst) {
+            $out .= '<option value="' . $oneInst['idp'] . '"';
+            if ($oneInst['idp'] == $idpId) {
                 $out .= ' selected';
             }
-            $out .= '>' . $I['title'] . '</option>';
+            $out .= '>' . $oneInst['title'] . '</option>';
         }
         $out .= '</select>';
         return $out;
