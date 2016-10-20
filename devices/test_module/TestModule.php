@@ -81,9 +81,7 @@ class Device_TestModule extends DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = EAP::listKnownEAPTypes();
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        $this->setSupportedEapMethods(EAP::listKnownEAPTypes());
     }
 
     /**

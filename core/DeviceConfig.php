@@ -63,13 +63,22 @@ abstract class DeviceConfig extends Entity {
     public $supportedEapMethods;
 
     /**
-     * device module constructor should be defined by each module, but if it is not, then here is a default one
+     * 
+     * @param type $eapArray the list of EAP methods the device supports
+     */
+    protected function setSupportedEapMethods($eapArray) {
+        $this->supportedEapMethods = $eapArray;
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+    }
+    
+    /**
+     * device module constructor should be defined by each module. 
+     * The one important thing to do is to call setSupportedEapMethods with an 
+     * array of EAP methods the device supports
      */
     public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP];
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     /**

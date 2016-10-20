@@ -29,9 +29,7 @@ class Device_Vista7 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_PWD, EAPTYPE_TTLS_PAP];
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_PWD, EAPTYPE_TTLS_PAP]);
         $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 

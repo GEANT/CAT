@@ -33,11 +33,9 @@ class Device_Linux extends DeviceConfig {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS];
+        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS]);
         $this->localDir = '.cat_installer';
         $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';
-        $this->loggerInstance->debug(4, "LINUX: This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     public function writeInstaller() {
