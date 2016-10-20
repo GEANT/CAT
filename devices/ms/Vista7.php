@@ -488,11 +488,11 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
         if ($attr['internal:profile_count'][0] > 1) {
-            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->code_page) . '"';
+            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
         $fcontents .= '
-Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->code_page) . '"
-!define APPLICATION "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->code_page) . '"
+Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
@@ -501,9 +501,9 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 
 
         $fcontents .= ';--------------------------------
-!define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->code_page) . '"
-!define SUPPORT "' . ((isset($attr['support:email'][0]) && $attr['support:email'][0] ) ? $attr['support:email'][0] : $this->translateString($this->support_email_substitute, $this->code_page)) . '"
-!define URL "' . ((isset($attr['support:url'][0]) && $attr['support:url'][0] ) ? $attr['support:url'][0] : $this->translateString($this->support_url_substitute, $this->code_page)) . '"
+!define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
+!define SUPPORT "' . ((isset($attr['support:email'][0]) && $attr['support:email'][0] ) ? $attr['support:email'][0] : $this->translateString($this->support_email_substitute, $this->codePage)) . '"
+!define URL "' . ((isset($attr['support:url'][0]) && $attr['support:url'][0] ) ? $attr['support:url'][0] : $this->translateString($this->support_url_substitute, $this->codePage)) . '"
 
 !ifdef TLS
 ';
@@ -549,7 +549,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
-        $this->loggerInstance->debug(4, "code_page=" . $this->code_page . "\n");
+        $this->loggerInstance->debug(4, "code_page=" . $this->codePage . "\n");
         $result;
         $result = $this->copyFile('wlan_test.exe');
         $result = $this->copyFile('check_wired.cmd');
@@ -559,7 +559,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $result = $this->copyFile('cat_bg.bmp');
         $result = $result && $this->copyFile('cat32.ico');
         $result = $result && $this->copyFile('cat_150.bmp');
-        $this->translateFile('common.inc', 'common.nsh', $this->code_page);
+        $this->translateFile('common.inc', 'common.nsh', $this->codePage);
 
         switch ($eap["OUTER"]) {
             case TTLS:
@@ -567,15 +567,15 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
                 $result = $result && $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi');
                 $result = $result && $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe');
                 $result = $result && $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe');
-                $this->translateFile('geant_link.inc', 'cat.NSI', $this->code_page);
+                $this->translateFile('geant_link.inc', 'cat.NSI', $this->codePage);
                 break;
             case PWD:
-                $this->translateFile('pwd.inc', 'cat.NSI', $this->code_page);
+                $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
                 $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
                 $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
                 break;
             default:
-                $this->translateFile('peap_tls.inc', 'cat.NSI', $this->code_page);
+                $this->translateFile('peap_tls.inc', 'cat.NSI', $this->codePage);
                 $result = 1;
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
