@@ -68,7 +68,7 @@ abstract class DeviceConfig extends Entity {
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, "This device (".__CLASS__.") supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
     
