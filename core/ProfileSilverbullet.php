@@ -73,7 +73,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
         $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
-        
+
         // but there's some common internal attributes populated directly
         $internalAttributes = [
             "internal:profile_count" => $this->idpNumberOfProfiles,
@@ -83,16 +83,18 @@ class ProfileSilverbullet extends AbstractProfile {
             "internal:silverbullet_maxusers" => $tempMaxUsers,
             "profile:production" => "on",
         ];
-        
+
         // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
-        $x509 = new X509();
-        $caHandle = fopen(dirname(__FILE__)."/../config/SilverbulletServerCerts/".strtoupper($myFed->identifier)."/root.pem", "r");
-        $cAFile = fread($caHandle, 16000000);
         $silverbulletAttributes = [
-          "eap:server_name"   => "auth.".strtolower($myFed->identifier).CONFIG['CONSORTIUM']['silverbullet_realm_suffix'],
-          "eap:ca_file" => $x509->der2pem(($x509->pem2der($cAFile))),
+            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'],
         ];
-        
+        $x509 = new X509();
+        $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
+        if ($caHandle !== FALSE) {
+            $cAFile = fread($caHandle, 16000000);
+            $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
+        }
+
         $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
 
         // now, fetch and merge IdP-wide attributes
@@ -166,20 +168,20 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * issue a certificate based on a token
      */
-    public function generateCertificate($token ,$importPassword) {
+    public function generateCertificate($token, $importPassword) {
         // SQL query to find out if token is valid, and if so, what is the expiry date of the user
         // HTTP POST to the CA with the expiry date, the profile realm and the importPassword
         // on successful execution, 
         // * store cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         // * return PKCS#12 data stream
-        
         // and until that all is implemented, use the sample certificate
         // its import password is "abcd" without the quotes. Don't blame me, blame entropy ;-)
-        $handle = fopen(dirname(__FILE__).'/sample1.p12','r');
+        $handle = fopen(dirname(__FILE__) . '/sample1.p12', 'r');
         return [
             "certdata" => fread($handle, 1600000),
             "password" => $importPassword,
             "expiry" => "2019-10-25T12:43:02Z",
-            ];
+        ];
     }
+
 }
