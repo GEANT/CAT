@@ -141,31 +141,6 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
-     * We can't be *NOT* ready
-     */
-    public function hasSufficientConfig() {
-        return TRUE;
-    }
-
-    /**
-     * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
-     * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
-     * 
-     * @return boolean TRUE if enough information for showtime is set; FALSE if not
-     */
-    public function readyForShowtime() {
-        return TRUE;
-    }
-
-    /**
-     * set the showtime and QR-user attributes if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
-     */
-    public function prepShowtime() {
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
-    }
-
-    /**
      * issue a certificate based on a token
      */
     public function generateCertificate($token, $importPassword) {
