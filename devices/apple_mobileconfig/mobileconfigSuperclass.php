@@ -427,10 +427,11 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $mimeBlob = base64_encode($binaryBlob);
         $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
         $payloadUUID = uuid('', $mimeBlob);
-        return ["block" => "<dict>
-                  <key>Password</key>
-                     <string>" . $this->clientCert['password'] . "</string>
-                  <key>PayloadCertificateFileName</key>
+        return ["block" => "<dict>".
+                  // we don't include the import password. It's displayed on screen, and should be input by the user.
+                  // <key>Password</key>
+                  //   <string>" . $this->clientCert['password'] . "</string>
+                  "<key>PayloadCertificateFileName</key>
                      <string>cert-cli.pfx</string>
                   <key>PayloadContent</key>
                      <data>
@@ -439,7 +440,7 @@ $mimeFormatted
                   <key>PayloadDescription</key>
                      <string>MIME Base-64 encoded PKCS#12 Client Certificate</string>
                   <key>PayloadDisplayName</key>
-                     <string>Client Certificate</string>
+                     <string>"._("eduroam user certificate")."</string>
                   <key>PayloadIdentifier</key>
                      <string>com.apple.security.pkcs12.$payloadUUID</string>
                   <key>PayloadType</key>

@@ -89,7 +89,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $caHandle = fopen(dirname(__FILE__)."/../config/SilverbulletServerCerts/".strtoupper($myFed->identifier)."/root.pem", "r");
         $cAFile = fread($caHandle, 16000000);
         $silverbulletAttributes = [
-          "eap:server_name"   => "auth.".strtolower($myFed->identifier).".hosted.eduroam.org",
+          "eap:server_name"   => "auth.".strtolower($myFed->identifier).CONFIG['CONSORTIUM']['silverbullet_realm_suffix'],
           "eap:ca_file" => $x509->der2pem(($x509->pem2der($cAFile))),
         ];
         
