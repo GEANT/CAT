@@ -1,0 +1,149 @@
+<?php
+/* * *********************************************************************************
+ * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
+ * License: see the LICENSE file in the root directory
+ * ********************************************************************************* */
+?>
+<?php
+/**
+ * Front-end for the user GUI
+ *
+ * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @package UserGUI
+ */
+error_reporting(E_ALL | E_STRICT);
+include(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once("UserAPI.php");
+require_once("resources/inc/header.php");
+require_once("resources/inc/footer.php");
+require_once("web/admin/inc/input_validation.inc.php");
+require_once("Logging.php");
+
+$Gui = new UserAPI();
+$Gui->set_locale("web_user");
+$loggerInstance = new Logging();
+$loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
+
+$operatingSystem = $Gui->detectOS();
+$loggerInstance->debug(4, print_r($operatingSystem, true));
+
+defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+
+const TOKENSTATUS_VALID = 0;
+const TOKENSTATUS_REDEEMED = 1;
+const TOKENSTATUS_EXPIRED = 2;
+const TOKENSTATUS_INVALID = 3;
+
+function random_str(
+$length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+) {
+    $str = '';
+    $max = strlen($keyspace) - 1;
+    if ($max < 1) {
+        throw new Exception('$keyspace must be at least two characters long');
+    }
+    for ($i = 0; $i < $length; ++$i) {
+        $str .= $keyspace[random_int(0, $max)];
+    }
+    return $str;
+}
+?>
+</head>
+<body>
+    <div id="heading">
+<?php
+print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
+print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
+<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
+echo '<table id="lang_select"><tr><td>';
+echo _("View this page in");
+?>
+        <?php
+        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
+            echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
+        }
+        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . _("Start page") . '</a></td></tr></table>';
+        ?>
+    </div> <!-- id="heading" -->
+        <?php
+        $cleanToken = FALSE;
+        $tokenStatus = TOKENSTATUS_INVALID; // default
+
+        if (isset($_REQUEST['token'])) {
+            $cleanToken = valid_token($_REQUEST['token']);
+        } else {
+            // user came to page without a token.
+            // use client cert Apache Voodoo to find out the certificate serial number
+            // of the user, then the token belonging to that cert, and then use the
+            // token info for the normal status page display
+            // $cleanToken = "123abc";
+        }
+
+        if ($cleanToken) {
+            // check status of this silverbullet token according to info in DB:
+            // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
+            //
+        // until that is implemented, assume it's VALID and proceed to issue certificate
+            $tokenStatus = TOKENSTATUS_VALID;
+        }
+
+        echo "<h1>Thanks for coming to the status page.</h1>";
+
+        switch ($tokenStatus) {
+            case TOKENSTATUS_VALID:
+                if ($operatingSystem) {
+                    echo "<p>We will issue your login credential now.</p>";
+                    echo "<p>Detected OS: " . $operatingSystem['display'] . "</p>";
+                    $importPassword = random_str(6);
+                    // the sample cert always has the same import password.
+                    // TODO delete this line when actual cert generation is in place
+                    $importPassword = "abcd";
+                    // find out which profile the token is associated with. Until that's done, assume profile_id = 1
+                    // (that profile must ACTUALLY have SilverBullet enabled! profile 1 on ticker has that...)
+                    echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
+                    echo "<h1>Import Password: $importPassword</h1>";
+                    $installer = $Gui->generateInstaller($operatingSystem['device'], 1, "user", $cleanToken, $importPassword);
+                    echo "<pre>".print_r($installer, TRUE)."</pre>";
+                } else {
+                    echo "<p>We would love to issue you a login credential, but this is not possible because we could not detect your operating system.</h1>";
+                }
+                break;
+            case TOKENSTATUS_REDEEMED:
+                echo "<p>We have the following information on file for your login credential: lots</p>";
+                break;
+            case TOKENSTATUS_EXPIRED:
+                echo "<p>You have been given this URL to retrieve your login credential, but did not pick it up in time. You cannot use it any more. Please ask your administrator to issue you a new token.</p>";
+                break;
+            case TOKENSTATUS_INVALID:
+                echo "<p>Unfortunately, we know nothing about your account.</p><p>You should either use the exact link you got during sign-up to come here, or you should visit this page with the client certificate (you may need to click Accept to a strange question in your browser for that).";
+        }
+        ?>
+
+
+    <div class='footer' id='footer'>
+        <table style='width:100%'>
+            <tr>
+                <td style="padding-left:20px; text-align:left">
+<?php
+echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
+echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+?>
+                </td>
+                <td style="padding-left:80px; text-align:right;">
+<?php
+if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+    echo "
+                  <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
+                  <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
+                  <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
+} else {
+    echo "&nbsp;";
+}
+?>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

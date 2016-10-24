@@ -22,6 +22,7 @@
 require_once('Helper.php');
 require_once('IdP.php');
 require_once('AbstractProfile.php');
+require_once('X509.php');
 
 /**
  * This class represents an EAP Profile.
@@ -73,18 +74,28 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
+        // but there's some common internal attributes populated directly
         $internalAttributes = [
             "internal:profile_count" => $this->idpNumberOfProfiles,
             "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
             "internal:use_anon_outer" => FALSE,
             "internal:anon_local_value" => $localValueIfAny,
             "internal:silverbullet_maxusers" => $tempMaxUsers,
+            "profile:production" => "on",
         ];
 
-        $tempArrayProfLevel = []; // we don't currently store any profile-level attributes for SB in the database
-        // internal attributes share many attribute properties, so condense the generation
+        // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
+        $silverbulletAttributes = [
+            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'],
+        ];
+        $x509 = new X509();
+        $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
+        if ($caHandle !== FALSE) {
+            $cAFile = fread($caHandle, 16000000);
+            $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
+        }
 
-        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
+        $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
 
         // now, fetch and merge IdP-wide attributes
 
@@ -130,28 +141,22 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
-     * We can't be *NOT* ready
+     * issue a certificate based on a token
      */
-    public function hasSufficientConfig() {
-        return TRUE;
-    }
-
-    /**
-     * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
-     * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
-     * 
-     * @return boolean TRUE if enough information for showtime is set; FALSE if not
-     */
-    public function readyForShowtime() {
-        return TRUE;
-    }
-
-    /**
-     * set the showtime and QR-user attributes if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
-     */
-    public function prepShowtime() {
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+    public function generateCertificate($token, $importPassword) {
+        // SQL query to find out if token is valid, and if so, what is the expiry date of the user
+        // HTTP POST to the CA with the expiry date, the profile realm and the importPassword
+        // on successful execution, 
+        // * store cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
+        // * return PKCS#12 data stream
+        // and until that all is implemented, use the sample certificate
+        // its import password is "abcd" without the quotes. Don't blame me, blame entropy ;-)
+        $handle = fopen(dirname(__FILE__) . '/sample1.p12', 'r');
+        return [
+            "certdata" => fread($handle, 1600000),
+            "password" => $importPassword,
+            "expiry" => "2019-10-25T12:43:02Z",
+        ];
     }
 
 }

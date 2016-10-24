@@ -41,7 +41,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
     public function __construct() {
         parent::__construct();
     }
-    
+
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
@@ -110,14 +110,33 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
             $includeWired = TRUE;
         }
 
-        $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $outerId);
+        // if we are in silverbullet, we will need a whole own block for the client credential
+        // and also for the profile expiry
+
+        $clientCertUUID = NULL;
+        if ($eapType['INNER'] == NE_SILVERBULLET) {
+            $blockinfo = $this->clientP12Block();
+            $outputXml .= $blockinfo['block'];
+            $clientCertUUID = $blockinfo['UUID'];
+        }
 
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
+        
+        $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $clientCertUUID, $outerId);
+
+        
+
+        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+
+        // simpler message for silverbullet
+        if ($eapType['INNER'] == NE_SILVERBULLET) {
+            $tagline = sprintf(_("eduroam-as-a-service configuration for IdP '%s' - provided by %s"), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+        }
 
         $outputXml .= "
          </array>
       <key>PayloadDescription</key>
-         <string>" . sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']) . "</string>
+         <string>$tagline</string>
       <key>PayloadDisplayName</key>
          <string>" . CONFIG['CONSORTIUM']['name'] . "</string>
       <key>PayloadIdentifier</key>
@@ -138,6 +157,9 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . "</string>
          </dict>
          ";
+        }
+        if ($eapType['INNER'] == NE_SILVERBULLET) {
+            $outputXml .= $this->expiryBlock();
         }
         $outputXml .= "</dict></plist>";
 
@@ -190,7 +212,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         return $retval;
     }
 
-    private function passPointBlock ($consortiumOi) {
+    private function passPointBlock($consortiumOi) {
         $retval = "
                <key>IsHotspot</key>
                <true/>
@@ -198,47 +220,47 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                <true/>
                <key>DisplayedOperatorName</key>
                <string>" . CONFIG['CONSORTIUM']['name'] . "</string>";
-            // if we don't know the realm, omit the entire DomainName key
-            if (isset($this->attributes['internal:realm'])) {
-                $retval .= "<key>DomainName</key>
+        // if we don't know the realm, omit the entire DomainName key
+        if (isset($this->attributes['internal:realm'])) {
+            $retval .= "<key>DomainName</key>
                <string>";
-                $retval .= $this->attributes['internal:realm'][0];
-                $retval .= "</string>
+            $retval .= $this->attributes['internal:realm'][0];
+            $retval .= "</string>
                 ";
-            }
-            $retval .= "                <key>RoamingConsortiumOIs</key>
+        }
+        $retval .= "                <key>RoamingConsortiumOIs</key>
                 <array>";
-            foreach ($consortiumOi as $oiValue) {
-                $retval .= "<string>$oiValue</string>";
-            }
-            $retval .= "</array>";
-            return $retval;
+        foreach ($consortiumOi as $oiValue) {
+            $retval .= "<string>$oiValue</string>";
+        }
+        $retval .= "</array>";
+        return $retval;
     }
-    
+
     private $serial;
 
-    private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $realm = 0) {
+    private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $clientCertUUID, $realm = 0) {
         $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
-        
+
         $payloadIdentifier = "wifi." . $this->serial;
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
         $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG['CONSORTIUM']['name'], $escapedSSID);
         $encryptionTypeString = "WPA";
-        
+
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
             $payloadShortName = _("Wired Network");
             $payloadName = sprintf(_("%s configuration for wired network"), CONFIG['CONSORTIUM']['name']);
             $encryptionTypeString = "any";
         }
-        
+
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
             $payloadIdentifier = "hs20";
             $payloadShortName = _("Hotspot 2.0 Settings");
             $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG['CONSORTIUM']['name']);
             $encryptionTypeString = "WPA";
         }
-        
+
         $retval = "
             <dict>
                <key>EAPClientConfiguration</key>
@@ -309,6 +331,13 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                      <string>System</string>
                   </array>";
         }
+        if ($eapType['INNER'] == NE_SILVERBULLET) {
+            if ($clientCertUUID === NULL) {
+                throw new Exception("Silverbullet REQUIRES a client certificate and we need to know the UUID!");
+            }
+            $retval .= "<key>PayloadCertificateUUID</key>
+                        <string>$clientCertUUID</string>";
+        }
         $retval .= "
                <key>PayloadUUID</key>
                   <string>" . uuid() . "</string>
@@ -360,17 +389,17 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         return $retval;
     }
 
-    private function allNetworkBlocks($sSIDList, $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, $includeWired, $realm = 0) {
+    private function allNetworkBlocks($sSIDList, $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, $includeWired, $clientcertUUID, $realm = 0) {
         $retval = "";
         $this->serial = 0;
         foreach (array_keys($sSIDList) as $ssid) {
-            $retval .= $this->networkBlock($ssid, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
+            $retval .= $this->networkBlock($ssid, NULL, $serverNameList, $cAUUIDList, $eapType, FALSE, $clientcertUUID, $realm);
         }
         if ($includeWired) {
-            $retval .= $this->networkBlock("IRRELEVANT", NULL, $serverNameList, $cAUUIDList, $eapType, TRUE, $realm);
+            $retval .= $this->networkBlock("IRRELEVANT", NULL, $serverNameList, $cAUUIDList, $eapType, TRUE, $clientcertUUID, $realm);
         }
         if (count($consortiumOIList) > 0) {
-            $retval .= $this->networkBlock("IRRELEVANT", $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, FALSE, $realm);
+            $retval .= $this->networkBlock("IRRELEVANT", $consortiumOIList, $serverNameList, $cAUUIDList, $eapType, FALSE, $clientcertUUID, $realm);
         }
         if (isset($this->attributes['media:remove_SSID'])) {
             foreach ($this->attributes['media:remove_SSID'] as $index => $removeSSID) {
@@ -390,12 +419,55 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         return $retval;
     }
 
+    private function clientP12Block() {
+        if (!is_array($this->clientCert)) {
+            throw new Exception("the client block was called but there is no client certificate!");
+        }
+        $binaryBlob = $this->clientCert["certdata"];
+        $mimeBlob = base64_encode($binaryBlob);
+        $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
+        $payloadUUID = uuid('', $mimeBlob);
+        return ["block" => "<dict>".
+                  // we don't include the import password. It's displayed on screen, and should be input by the user.
+                  // <key>Password</key>
+                  //   <string>" . $this->clientCert['password'] . "</string>
+                  "<key>PayloadCertificateFileName</key>
+                     <string>cert-cli.pfx</string>
+                  <key>PayloadContent</key>
+                     <data>
+$mimeFormatted
+                     </data>
+                  <key>PayloadDescription</key>
+                     <string>MIME Base-64 encoded PKCS#12 Client Certificate</string>
+                  <key>PayloadDisplayName</key>
+                     <string>"._("eduroam user certificate")."</string>
+                  <key>PayloadIdentifier</key>
+                     <string>com.apple.security.pkcs12.$payloadUUID</string>
+                  <key>PayloadType</key>
+                     <string>com.apple.security.pkcs12</string>
+                  <key>PayloadUUID</key>
+                     <string>$payloadUUID</string>
+                  <key>PayloadVersion</key>
+                     <integer>1</integer>
+                </dict>",
+            "UUID" => $payloadUUID,];
+    }
+
+    private function expiryBlock() {
+        if (!is_array($this->clientCert)) {
+            throw new Exception("the expiry block was called but there is no client certificate!");
+        }
+        $expiryTime = $this->clientCert['expiry'];
+        return "<key>RemovalDate</key>
+        <date>$expiryTime</date>";
+    }
+
     private function caBlob($uuid, $pem, $serial) {
         // cut lines with CERTIFICATE
         $stage1 = preg_replace('/-----BEGIN CERTIFICATE-----/', '', $pem);
         $stage2 = preg_replace('/-----END CERTIFICATE-----/', '', $stage1);
         $trimmedPem = trim($stage2);
-        
+
         $stream = "
             <dict>
                <key>PayloadCertificateFileName</key>
