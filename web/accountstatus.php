@@ -18,6 +18,7 @@ require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 require_once("web/admin/inc/input_validation.inc.php");
 require_once("Logging.php");
+require_once("Helper.php");
 
 $Gui = new UserAPI();
 $Gui->set_locale("web_user");
@@ -34,19 +35,6 @@ const TOKENSTATUS_REDEEMED = 1;
 const TOKENSTATUS_EXPIRED = 2;
 const TOKENSTATUS_INVALID = 3;
 
-function random_str(
-$length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-) {
-    $str = '';
-    $max = strlen($keyspace) - 1;
-    if ($max < 1) {
-        throw new Exception('$keyspace must be at least two characters long');
-    }
-    for ($i = 0; $i < $length; ++$i) {
-        $str .= $keyspace[random_int(0, $max)];
-    }
-    return $str;
-}
 ?>
 </head>
 <body>

@@ -145,15 +145,48 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function generateCertificate($token, $importPassword) {
         // SQL query to find out if token is valid, and if so, what is the expiry date of the user
-        // HTTP POST to the CA with the expiry date, the profile realm and the importPassword
+        // token needs to lead us to the NRO ... (DB query for token -> profile -> inst -> federation); setting this to LU right now.
+        // ... and give us an expiry date (setting expiry date to something like 2019)
+        $federation = 'LU';
+        $usernameLocalPart = random_str(64);
+        $username = $usernameLocalPart . "@" . $this->realm;
+        $validity = date_diff(date_create(), date_create("31-12-2019 23:59:59"), TRUE);
+        $expiryDays = $validity->days;
+        
+        // HTTP POST to the CA with the $expiryDays, $federation, the desired $username (incl. realm) and the $importPassword
         // on successful execution, 
-        // * store cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
-        // * return PKCS#12 data stream
-        // and until that all is implemented, use the sample certificate
+        
+        // as that is still TODO, generate a slightly stubby implementation of a CA right here
+        
+        $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
+        $csr = openssl_csr_new(
+                [ 'O' => 'eduroam', 
+                  'OU' => $federation, 
+                  'emailAddress' => $username, 
+                ],
+                $privateKey, [
+                    'digest_alg' => 'sha256',
+                    'req_extensions' => 'v3_req',
+                ]
+                );
+        
+        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'digest_alg' => 'sha256' ] );
+        
+        $exportedCert = "";
+        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
+        
+        // if not wanting to do the CA stuff above, use the sample certificate
         // its import password is "abcd" without the quotes. Don't blame me, blame entropy ;-)
-        $handle = fopen(dirname(__FILE__) . '/sample1.p12', 'r');
+        
+        // $handle = fopen(dirname(__FILE__) . '/sample1.p12', 'r');
+        
+        // * store resulting cert DN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
+        // 
+        // * return PKCS#12 data stream
+        
         return [
-            "certdata" => fread($handle, 1600000),
+            // "certdata" => fread($handle, 1600000),
+            "certdata" => $exportedCert,
             "password" => $importPassword,
             "expiry" => "2019-10-25T12:43:02Z",
         ];
