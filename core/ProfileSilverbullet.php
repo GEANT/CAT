@@ -170,7 +170,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 ]
                 );
         
-        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'digest_alg' => 'sha256' ] );
+        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'digest_alg' => 'sha256' ], 42 );
         
         $exportedCert = "";
         openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
