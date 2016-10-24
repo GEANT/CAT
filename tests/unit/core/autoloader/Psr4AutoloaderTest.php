@@ -1,5 +1,5 @@
 <?php
-use lib\autoloader\Psr4Autoloader;
+use core\autoloader\Psr4Autoloader;
 
 class MockPsr4Autoloader extends Psr4Autoloader
 {

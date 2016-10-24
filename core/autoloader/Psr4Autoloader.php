@@ -1,5 +1,5 @@
 <?php
-namespace lib\autoloader;
+namespace core\autoloader;
 
 /**
  * An example of a general-purpose implementation that includes the optional
