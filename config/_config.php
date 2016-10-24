@@ -8,7 +8,7 @@
 /**
  * 
  */
-
+require_once ("autoloader.php");
 $old_include_path = get_include_path();
 set_include_path(dirname(__DIR__));
 require_once("packageRoot.php");
