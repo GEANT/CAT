@@ -219,19 +219,19 @@ class UserAPI extends CAT {
     public function profileAttributes($profId) {
         $this->languageInstance->setTextDomain("devices");
         $profile = ProfileFactory::instantiate($profId);
-        $attr = $profile->getCollapsedAttributes();
+        $attribs = $profile->getCollapsedAttributes();
         $returnArray = [];
-        if (isset($attr['support:email'])) {
-            $returnArray['local_email'] = $attr['support:email'][0];
+        if (isset($attribs['support:email'])) {
+            $returnArray['local_email'] = $attribs['support:email'][0];
         }
-        if (isset($attr['support:phone'])) {
-            $returnArray['local_phone'] = $attr['support:phone'][0];
+        if (isset($attribs['support:phone'])) {
+            $returnArray['local_phone'] = $attribs['support:phone'][0];
         }
-        if (isset($attr['support:url'])) {
-            $returnArray['local_url'] = $attr['support:url'][0];
+        if (isset($attribs['support:url'])) {
+            $returnArray['local_url'] = $attribs['support:url'][0];
         }
-        if (isset($attr['profile:description'])) {
-            $returnArray['description'] = $attr['profile:description'][0];
+        if (isset($attribs['profile:description'])) {
+            $returnArray['description'] = $attribs['profile:description'][0];
         }
         $returnArray['devices'] = $profile->listDevices();
         $this->languageInstance->setTextDomain("web_user");
