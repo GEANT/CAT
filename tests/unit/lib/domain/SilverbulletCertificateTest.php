@@ -57,19 +57,8 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         $existingCertificate->load();
         $this->assertNotEmpty($existingCertificate->getIdentifier());
         
-        $oneTimeToken = $existingCertificate->getOneTimeToken();
-        $this->assertNotEmpty($oneTimeToken);
-        
-        $tokenExpiry = $existingCertificate->getTokenExpiry();
-        $this->assertNotEmpty($tokenExpiry);
-        
-        $expiry = $existingCertificate->getExpiry();
+        $expiry = $existingCertificate->get(SilverbulletCertificate::EXPIRY);
         $this->assertEmpty($expiry);
-        
-        $tokenExpiryTime = strtotime($tokenExpiry);
-        $tokenExpectedTime = strtotime("+1 week");
-        $difference = abs($tokenExpiryTime - $tokenExpectedTime);
-        $this->assertTrue($difference < 10000);
         
         $list = SilverbulletCertificate::list($this->newUser);
         $found = false;
@@ -91,8 +80,6 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         
         $existingCertificate = SilverbulletCertificate::prepare($this->faultyCertificate->getIdentifier());
         $existingCertificate->load();
-        $this->assertEmpty($existingCertificate->getOneTimeToken());
-        $this->assertEmpty($existingCertificate->getTokenExpiry());
         
         $list = SilverbulletCertificate::list($this->faultyUser);
         $found = false;
