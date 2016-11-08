@@ -26,9 +26,9 @@ build:
               ], 
               'RADIUSTESTS' => [], 
               'DB' => [
-              'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
-              'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
-              'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
+              'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
+              'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
+              'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
               'userdb-readonly' => FALSE,
               ], 
               'MAX_UPLOAD_SIZE' => [], 
