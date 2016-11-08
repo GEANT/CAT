@@ -549,7 +549,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
 
     public function hasSufficientConfig() {
-        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
+        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = ?", "i", $this->identifier);
         $configQuery = mysqli_fetch_row($result);
         if ($configQuery[0] == "0") {
             return FALSE;
