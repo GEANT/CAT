@@ -10,25 +10,26 @@ build:
             - mysql -h 127.0.0.1 -u root -e 'create database cat'
             - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
             - | 
-echo "<?php const CONFIG = 
-['APPEARANCE' => [ 'productname' => 'CAT' ], 
-'CONSORTIUM' => [], 
-'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
-'AUTHENTICATION' => [], 
-'GEOIP' => [], 
-'MAILSETTINGS' => [], 
-'LANGUAGES' => [], 
-'RADIUSTESTS' => [], 
-'DB' => [
-  'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
-  'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
-  'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
-  'userdb-readonly' => FALSE,
-], 
-'MAX_UPLOAD_SIZE' => [], 
-'DEBUG_LEVEL' => 5, 
-'NSIS_VERSION' => 2, 
-'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config.php
+              echo "<?php const CONFIG = 
+              [
+              'APPEARANCE' => [ 'productname' => 'CAT' ], 
+              'CONSORTIUM' => [], 
+              'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
+              'AUTHENTICATION' => [], 
+              'GEOIP' => [], 
+              'MAILSETTINGS' => [], 
+              'LANGUAGES' => [], 
+              'RADIUSTESTS' => [], 
+              'DB' => [
+              'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
+              'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
+              'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => ''],
+              'userdb-readonly' => FALSE,
+              ], 
+              'MAX_UPLOAD_SIZE' => [], 
+              'DEBUG_LEVEL' => 5, 
+              'NSIS_VERSION' => 2, 
+              'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config.php
             - cp /home/scrutinizer/build/devices/devices-template.php /home/scrutinizer/build/devices/devices.php
 
 tools:
