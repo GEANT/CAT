@@ -75,7 +75,7 @@ class DBConnection {
      */
     public function escapeValue($value) {
         $this->loggerInstance->debug(5, "Escaping $value for DB $this->databaseInstance to get a safe query value.\n");
-        $escaped = mysqli_real_escape_string($this->connection, $value);
+        $escaped = $this->connection->real_escape_string($value);
         $this->loggerInstance->debug(5, "This is the result: $escaped .\n");
         return $escaped;
     }
@@ -89,22 +89,30 @@ class DBConnection {
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
 
-        if ($this->connection == FALSE) {
-            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection)!");
+        if ($this->connection->connect_error) {
+            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection, error number".$this->connection->connect_errno.")!");
             return FALSE;
         }
         if ($types == NULL) {
-            $result = mysqli_query($this->connection, $querystring);
+            $result = $this->connection->query($querystring);
         } else {
             // fancy! prepared statement with dedicated argument list
             if (strlen($types) != count($arguments)) {
                 throw new Exception("DB Prepared Statement: Number of arguments and the type list length differ!");
             }
-            $statementObject = new mysqli_stmt($this->connection);
+            $statementObject = $this->connection->stmt_init();
+            echo $querystring;
             $statementObject->prepare($querystring);
-            foreach ($arguments as $index => $content) {
-                $statementObject->bind_param($types[$index], $content);
-            }
+            
+            // we have a variable number of arguments packed into the ... array
+            // but the function needs to be called exactly once, with a series of
+            // individual arguments, not an array. The voodoo solution is to call
+            // it via call_user_func_array()
+            
+            $localArray = $arguments;
+            array_unshift($localArray,$types);
+            call_user_func_array([$statementObject, "bind_param"], $localArray);
+            
             $result = $statementObject->execute();
         }
         
@@ -125,7 +133,7 @@ class DBConnection {
      * @return int the last autoincrement-ID
      */
     public function lastID() {
-        return mysqli_insert_id($this->connection);
+        return $this->connection->insert_id();
     }
 
     /**
@@ -174,13 +182,13 @@ class DBConnection {
     private function __construct($database) {
         $this->loggerInstance = new Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = mysqli_connect(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
-        if ($this->connection == FALSE) {
-            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up.");
+        $this->connection = new mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
+        if ($this->connection->connect_error) {
+            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number ".$this->connection->connect_errno.").");
         }
 
         if ($databaseCapitalised == "EXTERNAL" && CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
-            mysqli_query($this->connection, "SET NAMES 'latin1'");
+            $this->connection->query("SET NAMES 'latin1'");
         }
     }
 

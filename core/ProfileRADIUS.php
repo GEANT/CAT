@@ -214,10 +214,11 @@ class ProfileRADIUS extends AbstractProfile {
     private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device) {
         $escapedAttrName = $this->databaseHandle->escapeValue($attrName);
         $escapedAttrValue = $this->databaseHandle->escapeValue($attrValue);
-        $escapedDevice = $this->databaseHandle->escapeValue($device);
+        $escapedDevice = ($device == NULL ? NULL : $this->databaseHandle->escapeValue($device));
 
-        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
-                          VALUES(" . $this->identifier . ", '$escapedAttrName', '$escapedAttrValue', $eapType, " . ($device === NULL ? "NULL" : "'" . $escapedDevice . "'") . ")");
+        $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
+                          VALUES(?, ?, ?, ?, ?)";
+        $this->databaseHandle->exec($prepQuery, "issis", $this->identifier, $escapedAttrName, $escapedAttrValue, $eapType, $escapedDevice );
         $this->updateFreshness();
     }
 
