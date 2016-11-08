@@ -9,7 +9,8 @@ build:
         before: 
             - mysql -h 127.0.0.1 -u root -e 'create database cat'
             - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
-            | echo "<?php const CONFIG = 
+            - | 
+echo "<?php const CONFIG = 
 ['APPEARANCE' => [ 'productname' => 'CAT' ], 
 'CONSORTIUM' => [], 
 'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
