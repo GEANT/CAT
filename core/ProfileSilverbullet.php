@@ -153,15 +153,11 @@ class ProfileSilverbullet extends AbstractProfile {
         $validity = date_diff(date_create(), date_create("31-12-2019 23:59:59"), TRUE);
         $expiryDays = $validity->days;
         
-        // HTTP POST to the CA with the $expiryDays, $federation, the desired $username (incl. realm) and the $importPassword
-        // on successful execution, 
-        
-        // as that is still TODO, generate a slightly stubby implementation of a CA right here
-        
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         $csr = openssl_csr_new(
                 [ 'O' => 'eduroam', 
                   'OU' => $federation, 
+                  'CN' => $this->instName . " - " ._("eduroam access"),
                   'emailAddress' => $username, 
                 ],
                 $privateKey, [
@@ -170,7 +166,15 @@ class ProfileSilverbullet extends AbstractProfile {
                 ]
                 );
         
-        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'digest_alg' => 'sha256' ], 42 );
+        // HTTP POST the CSR to the CA with the $expiryDays as parameter
+        // on successful execution, gets back a PEM file which is the certificate
+        
+        // as that is still TODO, generate a slightly stubby implementation of a CA right here
+        // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
+        
+        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
+        
+        // with the cert, our private key and import password, make a PKCS#12 container out of it
         
         $exportedCert = "";
         openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
