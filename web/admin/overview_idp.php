@@ -145,7 +145,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                     ?>
                     <br/>
                     <br/>
-                    <form action='edit_silverbullet.php' method='POST'>
+                    <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='POST'>
                         <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                     </form>
                 </div>

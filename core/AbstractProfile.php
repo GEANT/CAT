@@ -350,12 +350,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
             case TLS:
-                if ($eaptype['INNER'] == NE_SILVERBULLET) {
-                    // silverbullet does not have any configurable properties
-                    return true;
-                }
-            // intentionally fall through: normal TLS must go through all
-            // cert and name checks!
             case PEAP:
             case TTLS:
             case FAST:
@@ -553,22 +547,65 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * * @return boolean TRUE if enough info is set to enable installers
      */
-    abstract public function hasSufficientConfig();
 
-    /**
+    public function hasSufficientConfig() {
+        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
+        $configQuery = mysqli_fetch_row($result);
+        if ($configQuery[0] == "0") {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+   /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
      * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
-     * Silverbullet is always TRUE here.
      * 
      * @return boolean TRUE if enough information for showtime is set; FALSE if not
      */
-    abstract public function readyForShowtime();
+    public function readyForShowtime() {
+        $properConfig = FALSE;
+        $attribs = $this->getCollapsedAttributes();
+        // do we have enough to go live? Check if any of the configured EAP methods is completely configured ...
+        if (sizeof($this->getEapMethodsinOrderOfPreference(1)) > 0) {
+            $properConfig = TRUE;
+        }
+        // if not, it could still be that general redirect has been set
+        if (!$properConfig) {
+            if (isset($attribs['device-specific:redirect'])) {
+                $properConfig = TRUE;
+            }
+            // just a per-device redirect? would be good enough... but this is not actually possible:
+            // per-device redirects can only be set on the "fine-tuning" page, which is only accessible
+            // if at least one EAP type is fully configured - which is caught above and makes readyForShowtime TRUE already
+        }
+        // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
+        if (!isset($attribs['media:SSID']) &&
+                !isset($attribs['media:SSID_with_legacy']) &&
+                (!isset(CONFIG['CONSORTIUM']['ssid']) || count(CONFIG['CONSORTIUM']['ssid']) == 0) &&
+                !isset($attribs['media:wired'])) {
+            $properConfig = FALSE;
+        }
+        return $properConfig;
+    }
 
     /**
-     * set the showtime attribute if readyForShowTime says that there is enough info *and* the admin flagged the profile for showing
-     * since Silverbullet doesn't allow the admin to flag anything, this is is always the case
+     * set the showtime property if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
      */
-    abstract public function prepShowtime();
+    public function prepShowtime() {
+        $properConfig = $this->readyForShowtime();
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
+
+        $attribs = $this->getCollapsedAttributes();
+        // if not enough info to go live, set FALSE
+        // even if enough info is there, admin has the ultimate say: 
+        //   if he doesn't want to go live, no further checks are needed, set FALSE as well
+        if (!$properConfig || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
+            $this->databaseHandle->exec("UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
+            return;
+        }
+        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+    }
 
     /**
      * Checks if the profile is shown (showable) to end users

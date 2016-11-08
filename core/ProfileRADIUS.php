@@ -274,68 +274,6 @@ class ProfileRADIUS extends AbstractProfile {
     }
 
     /**
-     * 
-     */
-    public function hasSufficientConfig() {
-        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = " . $this->identifier);
-        $configQuery = mysqli_fetch_row($result);
-        if ($configQuery[0] == "0") {
-            return FALSE;
-        }
-        return TRUE;
-    }
-
-    /**
-     * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
-     * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
-     * 
-     * @return boolean TRUE if enough information for showtime is set; FALSE if not
-     */
-    public function readyForShowtime() {
-        $properConfig = FALSE;
-        $attribs = $this->getCollapsedAttributes();
-        // do we have enough to go live? Check if any of the configured EAP methods is completely configured ...
-        if (sizeof($this->getEapMethodsinOrderOfPreference(1)) > 0) {
-            $properConfig = TRUE;
-        }
-        // if not, it could still be that general redirect has been set
-        if (!$properConfig) {
-            if (isset($attribs['device-specific:redirect'])) {
-                $properConfig = TRUE;
-            }
-            // just a per-device redirect? would be good enough... but this is not actually possible:
-            // per-device redirects can only be set on the "fine-tuning" page, which is only accessible
-            // if at least one EAP type is fully configured - which is caught above and makes readyForShowtime TRUE already
-        }
-        // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
-        if (!isset($attribs['media:SSID']) &&
-                !isset($attribs['media:SSID_with_legacy']) &&
-                (!isset(CONFIG['CONSORTIUM']['ssid']) || count(CONFIG['CONSORTIUM']['ssid']) == 0) &&
-                !isset($attribs['media:wired'])) {
-            $properConfig = FALSE;
-        }
-        return $properConfig;
-    }
-
-    /**
-     * set the showtime and QR-user attributes if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
-     */
-    public function prepShowtime() {
-        $properConfig = $this->readyForShowtime();
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
-
-        $attribs = $this->getCollapsedAttributes();
-        // if not enough info to go live, set FALSE
-        // even if enough info is there, admin has the ultimate say: 
-        //   if he doesn't want to go live, no further checks are needed, set FALSE as well
-        if (!$properConfig || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-            $this->databaseHandle->exec("UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
-            return;
-        }
-        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
-    }
-
-    /**
      * deletes all attributes in this profile on the method level
      *
      * @param int $eapId the numeric identifier of the EAP method

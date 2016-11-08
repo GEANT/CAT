@@ -99,13 +99,14 @@ abstract class DeviceConfig extends Entity {
      * @param AbstractProfile $profile the profile object which will be passed by the caller
      * @final not to be redefined
      */
-    final public function setup(AbstractProfile $profile) {
+    final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
         if (!$profile instanceof AbstractProfile) {
             $this->loggerInstance->debug(2, "No profile has been set\n");
             error("No profile has been set");
             exit;
         }
+
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
         if (count($this->selectedEap) == 0) {
@@ -113,15 +114,27 @@ abstract class DeviceConfig extends Entity {
             exit;
         }
         $this->attributes = $this->getProfileAttributes($profile);
+        
+        // if we are instantiating a Silverbullet profile AND have been given
+        // a token, attempt to create the client certificate NOW
+        // then, this is the only instance of the device ever which knows the
+        // cert and private key. It's not saved anywhere, so it's gone forever
+        // after code execution!
+        
+        if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
+            $this->clientCert = $profile->generateCertificate($token, $importPassword);
+        }
+        
         // create temporary directory, its full path will be saved in $this->FPATH;
         $tempDir = createTemporaryDirectory('installer');
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');
         $caList = [];
+        $x509 = new X509();
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
-                $processedCert = X509::processCertificate($ca);
+                $processedCert = $x509->processCertificate($ca);
                 if ($processedCert) {
                     $caList[] = $processedCert;
                 }
@@ -640,5 +653,10 @@ abstract class DeviceConfig extends Entity {
      * @var string 
      */
     public $installerBasename;
+    
+    /**
+     * stores the PKCS#12 DER representation of a client certificate for SilverBullet
+     */
+    protected $clientCert;
 
 }

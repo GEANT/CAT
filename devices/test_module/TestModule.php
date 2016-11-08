@@ -92,7 +92,7 @@ class Device_TestModule extends DeviceConfig {
      */
     public function writeInstaller() {
         $this->loggerInstance->debug(4, "Test Module Installer start\n");
-        // create certificate files and save their names in $CA_files arrary
+        // create certificate files and save their names in $cAfiles arrary
         $cAfiles = $this->saveCertificateFiles('der');
         if ($cAfiles === FALSE) {
             $this->loggerInstance->debug(2, "copying of certificates failed\n");
@@ -131,17 +131,14 @@ class Device_TestModule extends DeviceConfig {
      */
     private function zipInstaller($attr) {
         if (count($attr)==0) {
-            // never mind. The array contains all properties of the profile in
-            // question and you CAN use the information here
-            // just adding some code below to remove "unused code" warnings
-            $this->loggerInstance->debug(2,"This profile has no attributes at all.\n");
+            // never mind, just checking. You CAN use the $attr array to extract
+            // information about the IdP/Profile if there's a need
         }
-        $filename = $this->installerBasename . '.zip';
-        $return = system('zip -q ' . $filename . ' *');
-        if ($return === FALSE) {
-            $this->loggerInstance->debug(2, "zipping installer data failed\n");
+        $fileName = $this->installerBasename . '.zip';
+        $output = system('zip -q ' . $fileName . ' *');
+        if ($output === FALSE) {
+            $this->loggerInstance->debug(2, "unable to zip the installer\n");
         }
-        return $filename;
+        return $fileName;
     }
-
 }

@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+.sb-titled-cell{
+    font-weight:bold;
+}
+.sb-user-row{
+    background:#F0F0F0;
+}
+.sb-title-row{
+    background:lightgrey;
+}
+.sb-add-new-user{
+    padding: 10px;
+}
+.sb-add-new-user input{
+    display:block;
+    margin: 5px 0px 10px 0px;
+}
+.sb-editable-block fieldset{
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+    padding: 5px;
+    min-width: 500px;
+    min-height: 150px;
+    vertical-align: top;
+}

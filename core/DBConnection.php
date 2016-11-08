@@ -85,7 +85,7 @@ class DBConnection {
      * @param string $querystring the query to be executed
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      */
-    public function exec($querystring) {
+    public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
 
@@ -93,9 +93,22 @@ class DBConnection {
             $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection)!");
             return FALSE;
         }
-
-        $result = mysqli_query($this->connection, $querystring);
-        if ($result == FALSE) {
+        if ($types == NULL) {
+            $result = mysqli_query($this->connection, $querystring);
+        } else {
+            // fancy! prepared statement with dedicated argument list
+            if (strlen($types) != count($arguments)) {
+                throw new Exception("DB Prepared Statement: Number of arguments and the type list length differ!");
+            }
+            $statementObject = new mysqli_stmt($this->connection);
+            $statementObject->prepare($querystring);
+            foreach ($arguments as $index => $content) {
+                $statementObject->bind_param($types[$index], $content);
+            }
+            $result = $statementObject->execute();
+        }
+        
+        if ($result === FALSE) {
             $this->loggerInstance->debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }

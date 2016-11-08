@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="../config/autoloader.php">
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>unit</directory>
+    </testsuite>
+    <testsuite name="View">
+      <directory>unit/lib/view</directory>
+    </testsuite>
+    <testsuite name="Html">
+      <directory>unit/lib/view/html</directory>
+    </testsuite>
+    <testsuite name="Autoloader">
+      <directory>unit/core/autoloader</directory>
+    </testsuite>
+    <testsuite name="Domain">
+      <directory>unit/lib/domain</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

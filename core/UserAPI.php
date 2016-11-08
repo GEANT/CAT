@@ -60,8 +60,9 @@ class UserAPI extends CAT {
      *  link - the path name of the resulting installer
      *  mime - the mimetype of the installer
      */
-    public function generateInstaller($device, $profileId, $generatedFor = "user") {
+    public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
         $this->languageInstance->setTextDomain("devices");
+        
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $profile = ProfileFactory::instantiate($profileId);
         $attribs = $profile->getCollapsedAttributes();
@@ -88,12 +89,12 @@ class UserAPI extends CAT {
         $installerProperties['profile'] = $profileId;
         $installerProperties['device'] = $device;
         $this->installerPath = $this->getCachedPath($device, $profile);
-        if ($this->installerPath) {
+        if ($this->installerPath && $token == NULL && $password == NULL ) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
-            $myInstaller = $this->generateNewInstaller($device, $profile);
+            $myInstaller = $this->generateNewInstaller($device, $profile, $token, $password);
             $installerProperties['mime'] = $myInstaller['mime'];
             $installerProperties['link'] = $myInstaller['link'];
         }
@@ -135,12 +136,12 @@ class UserAPI extends CAT {
      * @param AbstractProfile $profile
      * @return array info about the new installer (mime and link)
      */
-    private function generateNewInstaller($device, $profile) {
+    private function generateNewInstaller($device, $profile, $token, $password) {
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         $out = [];
         if (isset($dev)) {
-            $dev->setup($profile);
+            $dev->setup($profile, $token, $password);
             $installer = $dev->writeInstaller();
             $iPath = $dev->FPATH . '/tmp/' . $installer;
             if ($iPath && is_file($iPath)) {

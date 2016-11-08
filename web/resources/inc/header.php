@@ -175,6 +175,11 @@ function productheader($area) {
             $cap2 = _("Administrator Interface - Identity Provider");
             $advancedControls = TRUE;
             break;
+        case "ADMIN-IDP-USERS":
+            $cap1 = CONFIG['APPEARANCE']['productname_long'];
+            $cap2 = _("Administrator Interface - eduroam-as-a-service User Management");
+            $advancedControls = TRUE;
+            break;
         case "ADMIN":
             $cap1 = CONFIG['APPEARANCE']['productname_long'];
             $cap2 = _("Administrator Interface");
