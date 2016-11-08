@@ -9,6 +9,7 @@ build:
         before: 
             - mysql -h 127.0.0.1 -u root -e 'create database cat'
             - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
+            - echo "const CONFIG = ['APPEARANCE' => [], 'CONSORTIUM' => [], 'PATHS' => [], 'AUTHENTICATION' => [], 'GEOIP' => [], 'MAILSETTINGS' => [], 'LANGUAGES' => [], 'RADIUSTESTS' => [], 'DB' => [], 'MAX_UPLOAD_SIZE' => [], 'DEBUG_LEVEL' => 5, 'NSIS_VERSION' => 2, 'SUPERADMINS' => [], ]" >config/config.php
 
 tools:
     php_code_coverage:
