@@ -55,9 +55,9 @@ class Federation extends EntityWithDBProperties {
                     . "FROM downloads, profile, institution "
                     . "WHERE device_id = ? AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id "
                     . "AND institution.country = ?";
-            
+
             $numberQuery = $handle->exec($query, "ss", $index, $this->identifier);
-            
+
             while ($queryResult = mysqli_fetch_object($numberQuery)) {
                 $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
                 $grossAdmin = $grossAdmin + $queryResult->admin;
@@ -118,7 +118,7 @@ class Federation extends EntityWithDBProperties {
         $this->databaseType = "INST";
         $this->entityOptionTable = "federation_option";
         $this->entityIdColumn = "federation_id";
-        
+
         $cat = new CAT();
         if (!isset($cat->knownFederations[$fedname])) {
             throw new Exception("This federation is not known to the system!");
@@ -127,7 +127,6 @@ class Federation extends EntityWithDBProperties {
         $this->name = $cat->knownFederations[$this->identifier];
 
         parent::__construct(); // we now have access to our database handle
-
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
                                             FROM $this->entityOptionTable
@@ -219,17 +218,14 @@ class Federation extends EntityWithDBProperties {
 
     public function listExternalEntities($unmappedOnly) {
         $returnarray = [];
-        $countrysuffix = "";
-
-        if ($this->identifier != "") {
-            $countrysuffix = " WHERE country = '" . strtolower($this->identifier) . "'";
-        }
 
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
+            $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
+
+
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $externals = $externalHandle->exec("SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact 
-                                                                                FROM view_active_idp_institution $countrysuffix");
+            $externals = $externalHandle->exec($query, "s", $this->identifier);
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
                                                                                                      AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
@@ -285,4 +281,5 @@ class Federation extends EntityWithDBProperties {
         }
         return $returnarray;
     }
+
 }
