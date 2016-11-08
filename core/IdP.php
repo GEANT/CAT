@@ -266,7 +266,7 @@ Best regards,
             $usedarray = [];
             // extract all institutions from the country
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = '" . strtolower($this->federation) . "'");
+            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", strtolower($this->federation));
 
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
             while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {

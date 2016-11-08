@@ -204,12 +204,12 @@ class Federation extends EntityWithDBProperties {
 
     public function listFederationAdmins() {
         $returnarray = [];
-        $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = '" . strtoupper($this->identifier) . "'";
+        $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = '" . strtolower($this->identifier) . "'";
+            $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
-        $admins = $userHandle->exec($query);
+        $admins = $userHandle->exec($query, "s", strtoupper($this->identifier));
 
         while ($fedAdminQuery = mysqli_fetch_object($admins)) {
             $returnarray[] = $fedAdminQuery->user_id;

@@ -601,10 +601,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // even if enough info is there, admin has the ultimate say: 
         //   if he doesn't want to go live, no further checks are needed, set FALSE as well
         if (!$properConfig || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-            $this->databaseHandle->exec("UPDATE profile SET showtime = FALSE WHERE profile_id = " . $this->identifier);
+            $this->databaseHandle->exec("UPDATE profile SET showtime = FALSE WHERE profile_id = ?", "i", $this->identifier);
             return;
         }
-        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = ?", "i", $this->identifier);
     }
 
     /**
@@ -612,7 +612,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return boolean TRUE if profile is shown; FALSE if not
      */
     public function isShowtime() {
-        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
+        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
         $resultRow = mysqli_fetch_row($result);
         if ($resultRow[0] == "0") {
             return FALSE;
