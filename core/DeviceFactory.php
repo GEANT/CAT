@@ -58,7 +58,7 @@ class DeviceFactory extends Entity {
             $this->device = new $class_name();
             if (!$this->device) {
                 $this->loggerInstance->debug(2, "module loading failed");
-                die("module loading failed");
+                throw new Exception("module loading failed");
             }
         } else {
             error("unknown devicename:$blueprint");

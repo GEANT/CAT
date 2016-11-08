@@ -68,8 +68,7 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     authenticate();
     $user = new User($_SESSION['user']);
     if (!$user->isSuperadmin()) {
-        print "Not Superadmin";
-        exit;
+        throw new Exception("Not Superadmin");
     }
 }
 $test = new SanityTest();

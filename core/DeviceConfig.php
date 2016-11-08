@@ -103,15 +103,13 @@ abstract class DeviceConfig extends Entity {
         $this->loggerInstance->debug(4, "module setup start\n");
         if (!$profile instanceof AbstractProfile) {
             $this->loggerInstance->debug(2, "No profile has been set\n");
-            error("No profile has been set");
-            exit;
+            throw new Exception("No profile has been set");
         }
 
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
         $this->calculatePreferredEapType($eaps);
         if (count($this->selectedEap) == 0) {
-            error("No EAP type specified.");
-            exit;
+            throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
         
@@ -345,7 +343,7 @@ abstract class DeviceConfig extends Entity {
                 foreach ($caArray as $certAuthority) {
                     $fileHandle = fopen("cert-$iterator.crt", "w");
                     if (!$fileHandle) {
-                        die("problem opening the file\n");
+                        throw new Exception("problem opening the file");
                     }
                     if ($format === "pem") {
                         fwrite($fileHandle, $certAuthority['pem']);
@@ -483,7 +481,7 @@ abstract class DeviceConfig extends Entity {
             $fileHandle = fopen($fileName, "w");
             if (!$fileHandle) {
                 $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
-                die("problem opening the file\n");
+                throw new Exception("problem opening the file");
             }
             fwrite($fileHandle, $blob);
             fclose($fileHandle);
@@ -500,7 +498,7 @@ abstract class DeviceConfig extends Entity {
         $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
         if (!$fileHandle) {
-            die("problem opening the file\n");
+            throw new Exception("problem opening the file");
         }
         fwrite($fileHandle, $blob);
         fclose($fileHandle);

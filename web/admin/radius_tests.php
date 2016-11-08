@@ -130,7 +130,7 @@ if ($host === FALSE) {
 
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
-    exit;
+    throw new Exception("The requested host index is not numeric!");
 }
 
 
@@ -379,7 +379,7 @@ switch ($test_type) {
         }
         break;
     default:
-        exit;
+        throw new Exception("Unknown test requested: default case reached!");
 }
 
 echo(json_encode($returnarray));
