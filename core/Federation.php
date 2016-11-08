@@ -50,11 +50,14 @@ class Federation extends EntityWithDBProperties {
 
         $handle = DBConnection::handle("INST");
         foreach (Devices::listDevices() as $index => $deviceArray) {
-            $query = "SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads, profile, institution WHERE device_id = '$index' AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id ";
+            $query = "SELECT SUM(downloads_admin) AS admin, "
+                    . "SUM(downloads_user) AS user "
+                    . "FROM downloads, profile, institution "
+                    . "WHERE device_id = ? AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id "
+                    . "AND institution.country = ?";
             
-            $query .= "AND institution.country = '" . $this->identifier . "'";
+            $numberQuery = $handle->exec($query, "ss", $index, $this->identifier);
             
-            $numberQuery = $handle->exec($query);
             while ($queryResult = mysqli_fetch_object($numberQuery)) {
                 $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
                 $grossAdmin = $grossAdmin + $queryResult->admin;

@@ -101,7 +101,6 @@ class DBConnection {
                 throw new Exception("DB Prepared Statement: Number of arguments and the type list length differ!");
             }
             $statementObject = $this->connection->stmt_init();
-            echo $querystring;
             $statementObject->prepare($querystring);
             
             // we have a variable number of arguments packed into the ... array
@@ -112,11 +111,13 @@ class DBConnection {
             $localArray = $arguments;
             array_unshift($localArray,$types);
             call_user_func_array([$statementObject, "bind_param"], $localArray);
+            $statementObject->execute();
+            $result = $statementObject->get_result();
             
-            $result = $statementObject->execute();
+            $statementObject->close();
         }
         
-        if ($result === FALSE) {
+        if ($result === FALSE && $this->connection->errno) {
             $this->loggerInstance->debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
