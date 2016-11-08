@@ -58,7 +58,7 @@ class UserCredentialsForm implements PageElement{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array('user' => $user->getUsername()));
+        $row = new Row(array('user' => $user->getUsername(), 'token' => $user->getOneTimeTokenLink(), 'expiry' => $user->getTokenExpiry()));
         $row->addAttribute('class', self::USERROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);
@@ -73,7 +73,7 @@ class UserCredentialsForm implements PageElement{
      */
     public function addCertificateRow($certificate, $count){
         $index = $this->table->size();
-        $this->table->addRowArray(array('credentials' => $certificate->getCertificateTitle($count), 'token' => $certificate->getOneTimeToken(), 'tokenExpiry' => $certificate->getTokenExpiry(), 'expiry' => $certificate->getExpiry()));
+        $this->table->addRowArray(array('user' => $certificate->getCertificateTitle($count), 'token' => $certificate->getSerialNumber(), 'expiry' => $certificate->getExpiry()));
         $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE, $certificate->getIdentifier(), 'delete'));
     }
     
@@ -86,6 +86,12 @@ class UserCredentialsForm implements PageElement{
                 <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
                     <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice to create a new user:"); ?></label>
                     <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
+                    <label for="<?php echo SilverbulletFactory::PARAM_YEAR; ?>"><?php echo _("Enter new user expiry date:"); ?></label>
+                    <div>
+                        <input type="text" maxlength="4" style="width: 40px; display: inline;" name="<?php echo SilverbulletFactory::PARAM_YEAR; ?>"> - 
+                        <input type="text" maxlength="2" style="width: 20px; display: inline;" name="<?php echo SilverbulletFactory::PARAM_MONTH; ?>"> - 
+                        <input type="text" maxlength="2" style="width: 20px; display: inline;" name="<?php echo SilverbulletFactory::PARAM_DAY; ?>">
+                    </div>
                     <button type="submit" ><?php echo _('Add new user'); ?></button>
                 </div>
             </form>

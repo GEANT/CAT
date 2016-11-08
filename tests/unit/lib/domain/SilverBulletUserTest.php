@@ -35,6 +35,17 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $profileId = $existingUser->getProfileId();
         $this->assertNotEmpty($profileId);
         
+        $oneTimeToken = $existingUser->getOneTimeToken();
+        $this->assertNotEmpty($oneTimeToken);
+        
+        $tokenExpiry = $existingUser->getTokenExpiry();
+        $this->assertNotEmpty($tokenExpiry);
+        
+        $tokenExpiryTime = strtotime($tokenExpiry);
+        $tokenExpectedTime = strtotime("+1 week");
+        $difference = abs($tokenExpiryTime - $tokenExpectedTime);
+        $this->assertTrue($difference < 10000);
+        
         $list = SilverbulletUser::list($this->profileId);
         $found = false;
         foreach ($list as $user) {

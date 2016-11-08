@@ -16,12 +16,27 @@ class SilverbulletUser extends PersistentEntity{
      * @var string
      */
     const PROFILEID = 'profile_id';
+    
     /**
      * Required user name attribute
      * 
      * @var string
      */
     const USERNAME = 'username';
+    
+    /**
+     *
+     * @var string
+     */
+    const ONETIMETOKEN = 'one_time_token';
+    
+    /**
+     *
+     * @var string
+     */
+    const TOKENEXPIRY = 'token_expiry';
+    
+    private $defaultTokenExpiry;
     
     /**
      * List of certificates for user entity
@@ -40,6 +55,25 @@ class SilverbulletUser extends PersistentEntity{
         parent::__construct(self::TABLE, self::TYPE_INST);
         $this->set(self::PROFILEID, $profileId);
         $this->set(self::USERNAME, $username);
+        $this->set(self::ONETIMETOKEN, $this->generateToken());
+        //$this->set(self::TOKENEXPIRY, 'NOW() + INTERVAL 1 WEEK');
+        $this->defaultTokenExpiry = date('Y-m-d H:i:s',strtotime("+1 week"));
+        $this->set(self::TOKENEXPIRY, $this->defaultTokenExpiry);
+    }
+    
+    public function setTokenExpiry($year, $month, $day){
+        $tokenExpiry = date('Y-m-d H:i:s', strtotime($year."-".$month."-".$day));
+        if($tokenExpiry > $this->defaultTokenExpiry){
+            $this->set(self::TOKENEXPIRY, $tokenExpiry);
+        }
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    private function generateToken(){
+        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
     }
     
     public function getProfileId(){
@@ -48,6 +82,55 @@ class SilverbulletUser extends PersistentEntity{
     
     public function getUsername(){
         return $this->get(self::USERNAME);
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isTokenExpired(){
+        $tokenExpiryTime = strtotime($this->get(self::TOKENEXPIRY));
+        $currentTime = time();
+        return $currentTime > $tokenExpiryTime;
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function getOneTimeToken(){
+        if($this->isTokenExpired()){
+            return _('User did not consume the token and it expired!');
+        }else{
+            return $this->get(self::ONETIMETOKEN);
+        }
+    }
+    
+    public function getOneTimeTokenLink($host = ''){
+        $link = "";
+        if(empty($host)){
+            if (isset($_SERVER['HTTPS'])) {
+                $link = 'https://' . $_SERVER["HTTP_HOST"];
+            } else {
+                $link = 'http://' . $_SERVER["HTTP_HOST"];
+            }
+        }else{
+            $link = $host;
+        }
+        if($this->isTokenExpired()){
+            $link = _('User did not consume the token and it expired!');
+        }else{
+            $link .= "/accountstatus.php?token=".$this->get(self::ONETIMETOKEN);
+        }
+        return $link;
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    public function getTokenExpiry(){
+        return $this->get(self::TOKENEXPIRY);
     }
     
     /**

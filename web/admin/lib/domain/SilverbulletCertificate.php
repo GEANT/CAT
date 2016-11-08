@@ -28,25 +28,19 @@ class SilverbulletCertificate extends PersistentEntity{
      * 
      * @var string
      */
-    const ONETIMETOKEN = 'one_time_token';
+    const SERIALNUMBER = 'serial_number';
     
     /**
-     * 
+     *
      * @var string
      */
-    const TOKENEXPIRY = 'token_expiry';
+    const CN = 'cn';
     
     /**
-     * 
+     *
      * @var string
      */
     const EXPIRY = 'expiry';
-    
-    /**
-     * 
-     * @var string
-     */
-    const DOCUMENT = 'document';
     
     /**
      * 
@@ -57,60 +51,63 @@ class SilverbulletCertificate extends PersistentEntity{
         if(!empty($silverbulletUser)){
             $this->set(self::PROFILEID, $silverbulletUser->getProfileId());
             $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
-            $this->set(self::ONETIMETOKEN, $this->generateToken());
-            //$this->set(self::TOKENEXPIRY, 'NOW() + INTERVAL 1 WEEK');
-            $this->set(self::TOKENEXPIRY, date('Y-m-d H:i:s',strtotime("+1 week")));
         }
     }
     
     /**
      * 
-     * @return string
+     * @param string $serialNumber
+     * @param string $cn
+     * @param string $expiry
      */
-    private function generateToken(){
-        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
+    public function setCertificateDetails($serialNumber, $cn, $expiry){
+        $this->set(self::SERIALNUMBER, $serialNumber);
+        $this->set(self::CN, $cn);
+        $expiry = date('Y-m-d H:i:s', strtotime($expiry));
+        $this->set(self::EXPIRY, $expiry);
     }
-    
+
     /**
      *
      * @return string
      */
-    public function getOneTimeToken(){
-        $tokenExpiryTime = strtotime($this->get(self::TOKENEXPIRY));
-        $currentTime = time();
-        if(!empty($this->get(self::TOKENEXPIRY)) && empty($this->get(self::DOCUMENT))){
-            if($currentTime > $tokenExpiryTime){
-                return _('User did not consume the token and it expired!');
-            }else{
-                return $this->get(self::ONETIMETOKEN);
-            }
+    public function getSerialNumber(){
+        if(empty($this->get(self::SERIALNUMBER))){
+            return "n/a";
         }else{
-            return "";
+            return $this->get(self::SERIALNUMBER);
         }
     }
-    
+
     /**
      *
      * @return string
      */
-    public function getTokenExpiry(){
-        return $this->get(self::TOKENEXPIRY);
+    public function getCommonName(){
+        if(empty($this->get(self::CN))){
+            return "n/a";
+        }else{
+            return $this->get(self::CN);
+        }
     }
-    
     
     /**
      * 
      * @return string
      */
     public function getExpiry(){
-        return $this->get(self::EXPIRY);
+        if(empty($this->get(self::EXPIRY))){
+            return "n/a";
+        }else{
+            return $this->get(self::EXPIRY);
+        }
     }
     
     public function getCertificateTitle($count = ''){
-        if(empty($this->get(self::DOCUMENT))){
-            return '';
-        }else{
+        if(empty($this->get(self::SERIALNUMBER))||empty($this->get(self::CN))){
             return 'cert'.$count;
+        }else{
+            return $this->getCommonName();
         }
     }
     
