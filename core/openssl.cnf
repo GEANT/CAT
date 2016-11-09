@@ -1,0 +1,5 @@
+distinguished_name  = req_distinguished_name
+[req_distinguished_name]
+[v3_req]
+[v3_ca]
+subjectAltName = email:copy
