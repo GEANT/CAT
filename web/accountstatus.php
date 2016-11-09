@@ -113,8 +113,8 @@ echo _("View this page in");
             <tr>
                 <td style="padding-left:20px; text-align:left">
 <?php
-echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
-echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+echo CONFIG['APPEARANCE']['productname'] . " - " . $Gui->CAT_VERSION_STRING;
+echo $Gui->CAT_COPYRIGHT;
 ?>
                 </td>
                 <td style="padding-left:80px; text-align:right;">
