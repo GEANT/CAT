@@ -21,7 +21,7 @@ require_once("Logging.php");
 require_once("Helper.php");
 
 $Gui = new UserAPI();
-$Gui->set_locale("web_user");
+$Gui->languageInstance->setTextDomain("web_user");
 $loggerInstance = new Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 
