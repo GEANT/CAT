@@ -141,6 +141,10 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * issue a certificate based on a token
+     *
+     * @param string $token
+     * @param string $importPassword
+     * @return array
      */
     public function generateCertificate($token, $importPassword) {
         // SQL query to find out if token is valid, and if so, what is the expiry date of the user
@@ -170,29 +174,29 @@ class ProfileSilverbullet extends AbstractProfile {
         
         // as that is still TODO, generate a slightly stubby implementation of a CA right here
         // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
-        
-        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
+        // serial numbers are not maintaining state because random, and could be duplicate
+        // on heavy use. But this is a temporary stopgap CA only anyway, so who cares.
+        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'config' => 'openssl.cnf', 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
         
         // with the cert, our private key and import password, make a PKCS#12 container out of it
-        
         $exportedCert = "";
         openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
+                
+        // TODO store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         
-        // if not wanting to do the CA stuff above, use the sample certificate
-        // its import password is "abcd" without the quotes. Don't blame me, blame entropy ;-)
-        
-        // $handle = fopen(dirname(__FILE__) . '/sample1.p12', 'r');
-        
-        // * store resulting cert DN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
-        // 
-        // * return PKCS#12 data stream
-        
+        // return PKCS#12 data stream
         return [
-            // "certdata" => fread($handle, 1600000),
             "certdata" => $exportedCert,
             "password" => $importPassword,
             "expiry" => "2019-10-25T12:43:02Z",
         ];
+    }
+    
+    public function revokeCertificate($serial) {
+        // this is a total stub, as we do not have a proper CA yet
+        // it will again be replaced with a HTTP POST of the revocation request
+        // and will get an updated CRL and OCSP statement back
+        return ["CRL" => "-----CRL HERE-----", "OCSP" => "OCSPStatementHere" ];
     }
 
 }
