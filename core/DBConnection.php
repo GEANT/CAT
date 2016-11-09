@@ -134,7 +134,7 @@ class DBConnection {
      * @return int the last autoincrement-ID
      */
     public function lastID() {
-        return $this->connection->insert_id();
+        return $this->connection->insert_id;
     }
 
     /**
