@@ -84,9 +84,6 @@ echo _("View this page in");
                     echo "<p>We will issue your login credential now.</p>";
                     echo "<p>Detected OS: " . $operatingSystem['display'] . "</p>";
                     $importPassword = random_str(6);
-                    // the sample cert always has the same import password.
-                    // TODO delete this line when actual cert generation is in place
-                    $importPassword = "abcd";
                     // find out which profile the token is associated with. Until that's done, assume profile_id = 1
                     // (that profile must ACTUALLY have SilverBullet enabled! profile 1 on ticker has that...)
                     echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
