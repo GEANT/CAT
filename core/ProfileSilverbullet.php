@@ -170,7 +170,9 @@ class ProfileSilverbullet extends AbstractProfile {
                 );
         
         // HTTP POST the CSR to the CA with the $expiryDays as parameter
-        // on successful execution, gets back a PEM file which is the certificate
+        // on successful execution, gets back a PEM file which is the certificate (in JSON, structure TBD)
+        
+        // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
         
         // as that is still TODO, generate a slightly stubby implementation of a CA right here
         // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
@@ -200,8 +202,25 @@ class ProfileSilverbullet extends AbstractProfile {
     public function revokeCertificate($serial) {
         // this is a total stub, as we do not have a proper CA yet
         // it will again be replaced with a HTTP POST of the revocation request
-        // and will get an updated CRL and OCSP statement back
+        // and will get an updated CRL and OCSP statement back, in JSON
+        
+        // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
+        
         return ["CRL" => "-----CRL HERE-----", "OCSP" => "OCSPStatementHere" ];
+    }
+    
+    /**
+     * 
+     * @param string $url the URL to send the request to
+     * @param array $postValues POST values to send
+     */
+    private function httpRequest($url, $postValues) {
+        $options = [
+            'http' => [ 'header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues) ]
+        ];
+        $context = stream_context_create($options);
+        return file_get_contents($url, false, $context);
+        
     }
 
 }
