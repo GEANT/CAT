@@ -192,6 +192,11 @@ class ProfileSilverbullet extends AbstractProfile {
         ];
     }
     
+    /**
+     * revokes a certificate
+     * @param string $serial the serial number of the cert to revoke
+     * @return array with revocation information
+     */
     public function revokeCertificate($serial) {
         // this is a total stub, as we do not have a proper CA yet
         // it will again be replaced with a HTTP POST of the revocation request
