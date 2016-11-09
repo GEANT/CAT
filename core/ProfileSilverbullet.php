@@ -178,7 +178,7 @@ class ProfileSilverbullet extends AbstractProfile {
         // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
         // serial numbers are not maintaining state because random, and could be duplicate
         // on heavy use. But this is a temporary stopgap CA only anyway, so who cares.
-        $cert = openssl_csr_sign($csr, NULL, $privateKey, $expiryDays, [ 'config' => 'openssl.cnf', 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
+        $cert = openssl_csr_sign($csr, "../config/SilverbulletClientCerts/issuingca.pem", "../config/SilverbulletClientCerts/issuingca.key", $expiryDays, [ 'config' => 'openssl.cnf', 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
         
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCert = "";
