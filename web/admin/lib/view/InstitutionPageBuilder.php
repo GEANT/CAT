@@ -137,7 +137,8 @@ class InstitutionPageBuilder implements PageBuilder{
      * @see \lib\view\PageBuilder::renderPageHeader()
      */
     public function renderPageHeader(){
-        productheader($this->pageType, \CAT::get_lang());
+        $langHandler = new \Language();
+        productheader($this->pageType, $langHandler->getLang());
         ?>
         <h1>
             <?php echo $this->headerTitle; ?>
