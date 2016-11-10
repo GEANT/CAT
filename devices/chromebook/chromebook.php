@@ -79,9 +79,7 @@ class Device_Chromebook extends DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS];
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS]);
     }
 
     /**
@@ -176,17 +174,21 @@ class Device_Chromebook extends DeviceConfig {
         fclose($outputFile);
 
         $fileName = $this->installerBasename . '.onc';
-        if ($this->sign) {
-            // can't be - ONC does not have the notion of signing
-            // but if they ever change their mind, we are prepared
-            $finalFilename = "finalfilename.onc";
-            $outputFromSigning = system($this->sign . " installer_profile '$finalFilename' > /dev/null");
-            if ($outputFromSigning === FALSE) {
-                $this->loggerInstance->debug(2, "Signing the mobileconfig installer $finalFilename FAILED!\n");
-            }
-        } else {
+
+        if (!$this->sign) {
             rename("installer_profile", $fileName);
+            return $fileName;
         }
+
+        // still here? We are signing. That actually can't be - ONC does not
+        // have the notion of signing
+        // but if they ever change their mind, we are prepared
+
+        $outputFromSigning = system($this->sign . " installer_profile '$fileName' > /dev/null");
+        if ($outputFromSigning === FALSE) {
+            $this->loggerInstance->debug(2, "Signing the ONC installer $fileName FAILED!\n");
+        }
+
         return $fileName;
     }
 

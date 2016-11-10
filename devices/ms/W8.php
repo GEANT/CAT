@@ -29,9 +29,7 @@ class Device_W8 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD];
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD]);
         $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -90,7 +88,7 @@ class Device_W8 extends WindowsCommon {
         }
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
-        $installerPath = $this->signInstaller($this->attributes);
+        $installerPath = $this->signInstaller();
 
         textdomain($dom);
         return($installerPath);
@@ -435,21 +433,21 @@ class Device_W8 extends WindowsCommon {
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
 
         if ($attr['internal:profile_count'][0] > 1) {
-            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->code_page) . '"';
+            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
         $fcontents .= '
-Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->code_page) . '"
-!define APPLICATION "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->code_page) . '"
-!define VERSION "' . CAT::$VERSION_MAJOR . '.' . CAT::$VERSION_MINOR . '"
+Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
         $fcontents .= ';--------------------------------
-!define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->code_page) . '"
-!define SUPPORT "' . ((isset($attr['support:email'][0]) && $attr['support:email'][0] ) ? $attr['support:email'][0] : $this->translateString($this->support_email_substitute, $this->code_page)) . '"
-!define URL "' . ((isset($attr['support:url'][0]) && $attr['support:url'][0] ) ? $attr['support:url'][0] : $this->translateString($this->support_url_substitute, $this->code_page)) . '"
+!define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
+!define SUPPORT "' . ((isset($attr['support:email'][0]) && $attr['support:email'][0] ) ? $attr['support:email'][0] : $this->translateString($this->support_email_substitute, $this->codePage)) . '"
+!define URL "' . ((isset($attr['support:url'][0]) && $attr['support:url'][0] ) ? $attr['support:url'][0] : $this->translateString($this->support_url_substitute, $this->codePage)) . '"
 
 !ifdef TLS
 ';
@@ -506,13 +504,13 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $result = $this->copyFile('base64.nsh');
         $result = $result && $this->copyFile('cat32.ico');
         $result = $result && $this->copyFile('cat_150.bmp');
-        $this->translateFile('common.inc', 'common.nsh', $this->code_page);
+        $this->translateFile('common.inc', 'common.nsh', $this->codePage);
         if ($eap["OUTER"] == PWD) {
-            $this->translateFile('pwd.inc', 'cat.NSI', $this->code_page);
+            $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
             $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
             $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
         } else {
-            $this->translateFile('eap_w8.inc', 'cat.NSI', $this->code_page);
+            $this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage);
             $result = 1;
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");

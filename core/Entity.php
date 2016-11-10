@@ -17,11 +17,11 @@
  * 
  */
 require_once("Logging.php");
+require_once("Language.php");
 
 /**
- * This class represents an Entity with properties stored in the DB.
- * IdPs have properties of their own, and may have one or more Profiles. The
- * profiles can override the institution-wide properties.
+ * This class represents an Entity in its widest sense. Every entity can log
+ * and query/change the language settings where needed.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -40,8 +40,16 @@ abstract class Entity {
      */
     protected $loggerInstance;
 
+    /**
+     * access to language settings to be able to switch textDomain
+     * 
+     * @var Language
+     */
+    protected $languageInstance;
+    
     public function __construct() {
         $this->loggerInstance = new Logging();
+        $this->languageInstance = new Language();
     }
 
 }

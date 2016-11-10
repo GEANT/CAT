@@ -90,7 +90,7 @@ function postProcessCoordinates($options, &$good) {
     return $options;
 }
 
-function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
+function displaySummaryInUI($good, $bad, $mlAttribsWithC) {
     $retval = "";
     // don't do your own table - only the <tr>s here
     // list all attributes that were set correctly
@@ -106,7 +106,7 @@ function displaySummaryInUI($good, $bad, $multilangAttribsWithC) {
         $retval .= UI_error(sprintf(_("%dx %s"), $count, display_name($name)));
     }
     // list multilang without default
-    foreach ($multilangAttribsWithC as $attribName => $isitsetornot) {
+    foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
         if ($isitsetornot == FALSE) {
             $retval .= UI_warning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), display_name($attribName)));
         }

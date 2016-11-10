@@ -15,14 +15,15 @@
  * 
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("UserAPI.php");
+require_once("Language.php");
 require_once("Logging.php");
 $loggerInstance = new Logging();
+$langObject = new Language();
 $loggerInstance->debug(4, "\n----------------------------------TOU.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang() ?>">
-    <head lang="<?php echo CAT::get_lang() ?>"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
+    <head lang="<?php echo $langObject->getLang() ?>"> 
         <title><?php echo CONFIG['APPEARANCE']['productname_long']; ?></title>
         <link media="only screen and (max-device-width: 480px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
         <link media="only screen and (min-device-width: 481px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic-large.css" type= "text/css" rel="stylesheet" />
@@ -41,7 +42,7 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
         <?php
         print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
 
-        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
+        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
         print '<div id="tou">';
         include("user/tou.php");
         print '</div>';

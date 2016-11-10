@@ -25,11 +25,11 @@ function echo_nsi($in) {
 }
 
 /**
- * @param string $in input string
+ * @param string $input input string
  * @return string
  */
-function sprint_nsi($in) {
-    return preg_replace('/"/', '$\"', $in);
+function sprint_nsi($input) {
+    return preg_replace('/"/', '$\"', $input);
 }
 
 /**
@@ -45,60 +45,64 @@ class WindowsCommon extends DeviceConfig {
     }
 
     protected function prepareInstallerLang() {
-        if (isset($this->LANGS[$this->langIndex])) {
-            $L = $this->LANGS[$this->langIndex];
-            $this->lang = $L['nsis'];
-            $this->code_page = 'cp' . $L['cp'];
+        if (isset($this->LANGS[$this->languageInstance->getLang()])) {
+            $language = $this->LANGS[$this->languageInstance->getLang()];
+            $this->lang = $language['nsis'];
+            $this->codePage = 'cp' . $language['cp'];
         } else {
             $this->lang = 'English';
-            $this->code_page = 'cp1252';
+            $this->codePage = 'cp1252';
         }
     }
 
-    protected function combineLogo($Logos) {
+    protected function combineLogo($logos) {
         // maximum size to which we want to resize
-        $max_size = 120;
+        $maxSize = 120;
 // logo wull be shited up by this much
         $vshift = 20;
-        $bg_image = new Imagick('cat_bg.bmp');
-        $bg_image->setFormat('BMP3');
-        $bg_image_size = $bg_image->getImageGeometry();
-        $logo = new Imagick($Logos[0]['name']);
-        $logo_size = $logo->getImageGeometry();
-        $max = max($logo_size);
+        $bgImage = new Imagick('cat_bg.bmp');
+        $bgImage->setFormat('BMP3');
+        $bgImageSize = $bgImage->getImageGeometry();
+        $logo = new Imagick($logos[0]['name']);
+        $logoSize = $logo->getImageGeometry();
+        $max = max($logoSize);
         $this->loggerInstance->debug(4, "Logo size: ");
-        $this->loggerInstance->debug(4, print_r($logo_size, true));
+        $this->loggerInstance->debug(4, print_r($logoSize, true));
         $this->loggerInstance->debug(4, "max=$max\n");
 // resize logo if necessary
-        if ($max > $max_size) {
-            if ($max == $logo_size['width']) {
-                $logo->scaleImage($max_size, 0);
+        if ($max > $maxSize) {
+            if ($max == $logoSize['width']) {
+                $logo->scaleImage($maxSize, 0);
             } else {
-                $logo->scaleImage(0, $max_size);
+                $logo->scaleImage(0, $maxSize);
             }
         }
-        $logo_size = $logo->getImageGeometry();
+        $logoSize = $logo->getImageGeometry();
         $this->loggerInstance->debug(4, "New logo size: ");
-        $this->loggerInstance->debug(4, print_r($logo_size, true));
+        $this->loggerInstance->debug(4, print_r($logoSize, true));
 // calculate logo offsets for composition with the background
-        $hoffset = round(($bg_image_size['width'] - $logo_size['width']) / 2);
-        $voffset = round(($bg_image_size['height'] - $logo_size['height']) / 2) - $vshift;
+        $hoffset = round(($bgImageSize['width'] - $logoSize['width']) / 2);
+        $voffset = round(($bgImageSize['height'] - $logoSize['height']) / 2) - $vshift;
 
 //logo image is put on top of the background
-        $bg_image->compositeImage($logo, $logo->getImageCompose(), $hoffset, $voffset);
+        $bgImage->compositeImage($logo, $logo->getImageCompose(), $hoffset, $voffset);
 
 //new image is saved as the background
-        $bg_image->writeImage('BMP3:cat_bg.bmp');
+        $bgImage->writeImage('BMP3:cat_bg.bmp');
     }
 
-    protected function signInstaller($attr) {
-        $e = $this->installerBasename . '.exe';
-        if ($this->sign) {
-            $o = system($this->sign . " installer.exe '$e' > /dev/null");
-        } else {
-            rename("installer.exe", $e);
+    protected function signInstaller() {
+        $fileName = $this->installerBasename . '.exe';
+        if (!$this->sign) {
+            rename("installer.exe", $fileName);
+            return $fileName;
         }
-        return $e;
+        // are actually signing
+        $outputFromSigning = system($this->sign . " installer.exe '$fileName' > /dev/null");
+        if ($outputFromSigning === FALSE) {
+            $this->loggerInstance->debug(2, "Signing the WindowsCommon installer $fileName FAILED!\n");
+        }
+        return $fileName;
     }
 
     protected function compileNSIS() {
@@ -107,9 +111,9 @@ class WindowsCommon extends DeviceConfig {
         } else {
             $makensis = CONFIG['PATHS']['makensis'];
         }
-        $o = $makensis . ' -V4 cat.NSI > nsis.log';
-        system($o);
-        $this->loggerInstance->debug(4, "compileNSIS:$o\n");
+        $command = $makensis . ' -V4 cat.NSI > nsis.log';
+        system($command);
+        $this->loggerInstance->debug(4, "compileNSIS:$command\n");
     }
 
     protected function msInfoFile($attr) {
@@ -120,14 +124,14 @@ class WindowsCommon extends DeviceConfig {
             if ($attr['internal:info_file'][0]['mime'] == 'rtf') {
                 $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
             } elseif ($attr['internal:info_file'][0]['mime'] == 'txt') {
-                $in_txt = file_get_contents($attr['internal:info_file'][0]['name']);
+                $infoFile = file_get_contents($attr['internal:info_file'][0]['name']);
                 if (CONFIG['NSIS_VERSION'] >= 3) {
-                    $out_txt = $in_txt;
+                    $infoFileConverted = $infoFile;
                 } else {
-                    $out_txt = iconv('UTF-8', $this->code_page . '//TRANSLIT', $in_txt);
+                    $infoFileConverted = iconv('UTF-8', $this->codePage . '//TRANSLIT', $infoFile);
                 }
-                if ($out_txt) {
-                    file_put_contents('info_f.txt', $out_txt);
+                if ($infoFileConverted) {
+                    file_put_contents('info_f.txt', $infoFileConverted);
                     $out = '!define LICENSE_FILE " info_f.txt';
                 }
             } else {
@@ -198,7 +202,7 @@ class WindowsCommon extends DeviceConfig {
         'af' => ['nsis' => "Afrikaans", 'cp' => '1252'],
         'ast' => ['nsis' => "Asturian", 'cp' => '1252'],
     ];
-    public $code_page;
+    public $codePage;
     public $lang;
 
 }

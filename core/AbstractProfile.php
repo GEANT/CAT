@@ -38,7 +38,7 @@ define("NOTCONFIGURED", 3);
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
  * one can set attribute in the Profile directly. If there is a conflict between
  * IdP-wide and Profile-wide attributes, the more specific ones (i.e. Profile) win.
- *
+ * 
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
@@ -74,12 +74,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     protected $privEaptypes;
 
     /**
-     * current language
-     * @var string
-     */
-    protected $langIndex;
-
-    /**
      * number of profiles of the IdP this profile is attached to
      */
     protected $idpNumberOfProfiles;
@@ -100,7 +94,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                                         ORDER by preference");
         $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = EAP::EAPMethodArrayFromId($eapQuery->eap_method_id);
+            $eaptype = EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
         $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
@@ -119,6 +113,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function __construct($profileId, $idpObject = NULL) {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our database handle and logging
+        // first make sure that we are operating on numeric identifiers
+        if (!is_numeric($profileId)) {
+            throw new Exception("Non-numeric Profile identifier was passed to AbstarctProfile constructor!");
+        }
         $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
@@ -217,7 +215,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function testCache($device) {
         $returnValue = NULL;
         $escapedDevice = $this->databaseHandle->escapeValue($device);
-        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '$this->langIndex'");
+        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
@@ -249,7 +247,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function incrementDownloadStats($device, $area) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user") {
-            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','$this->langIndex', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
         }
         return FALSE;
@@ -317,7 +315,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function addSupportedEapMethod($type, $preference) {
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
-                . EAP::EAPMethodIdFromArray($type) . ", "
+                . EAP::eAPMethodArrayIdConversion($type) . ", "
                 . $preference . ")");
         $this->updateFreshness();
     }
@@ -352,12 +350,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
             case TLS:
-                if ($eaptype['INNER'] == NE_SILVERBULLET) {
-                    // silverbullet does not have any configurable properties
-                    return true;
-                }
-            // intentionally fall through: normal TLS must go through all
-            // cert and name checks!
             case PEAP:
             case TTLS:
             case FAST:
@@ -402,7 +394,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function listDevices($locale = NULL) {
         if ($locale === NULL) {
-            $locale = $this->langIndex;
+            $locale = $this->languageInstance->getLang();
         }
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
@@ -441,7 +433,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = HIDDEN;
                 } else {
-                    $eap = $dev->getPreferredEapType($preferredEap);
+                    $dev->calculatePreferredEapType($preferredEap);
+                    $eap = $dev->selectedEap;
                     if (count($eap) > 0) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
                             $eapCustomtext = $eAPOptions["eap-specific:customtext"][serialize($eap)];
@@ -490,72 +483,58 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function getCollapsedAttributes($eap = []) {
         $attrBefore = $this->getAttributes();
-        $attr = [];
+        $attrList = [];
         if (count($eap) > 0) { // filter out eap-level attributes not pertaining to EAP type $eap
             foreach ($attrBefore as $index => $attrib) {
                 if (!isset($attrib['eapmethod']) || $attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
-                    $attr[$index] = $attrib;
+                    $attrList[$index] = $attrib;
                 }
             }
         } else {
-            $attr = $attrBefore;
+            $attrList = $attrBefore;
         }
 
         $temp1 = [];
         $temp = [];
         $flags = [];
         $out = [];
-        foreach ($attr as $b) {
-            $name = $b['name'];
+        foreach ($attrList as $attribute) {
+            $name = $attribute['name'];
             $temp1[] = $name;
-            $level = $b['level'];
-            $value = $b['value'];
+            $level = $attribute['level'];
+            $value = $attribute['value'];
             if (!isset($temp[$name][$level])) {
                 $temp[$name][$level] = [];
             }
-            if ($b['flag'] == 'ML') {
+            if ($attribute['flag'] == 'ML') {
                 $v = unserialize($value);
                 $value = [$v['lang'] => $v['content']];
             }
             $temp[$name][$level][] = $value;
-            $flags[$name] = $b['flag'];
+            $flags[$name] = $attribute['flag'];
         }
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
                 $nameCandidate = [];
-                if (isset($temp[$name]['Profile'])) {
-                    foreach ($temp[$name]['Profile'] as $oneProfileName) {
-                        foreach ($oneProfileName as $language => $nameInLanguage) {
-                            $nameCandidate[$language] = $nameInLanguage;
+                $levelsToTry = ['Profile', 'IdP'];
+                foreach ($levelsToTry as $level) {
+                    if (empty($nameCandidate) && isset($temp[$name][$level])) {
+                        foreach ($temp[$name][$level] as $oneName) {
+                            foreach ($oneName as $language => $nameInLanguage) {
+                                $nameCandidate[$language] = $nameInLanguage;
+                            }
                         }
                     }
                 }
-                if (empty($nameCandidate) && isset($temp[$name]['IdP'])) {
-                    foreach ($temp[$name]['IdP'] as $oneIdPName) {
-                        foreach ($oneIdPName as $language => $nameInLanguage) {
-                            $nameCandidate[$language] = $nameInLanguage;
-                        }
-                    }
-                }
+
                 $out[$name]['langs'] = $nameCandidate;
-                if (isset($nameCandidate[$this->langIndex]) || isset($nameCandidate['C'])) {
-                    $out[$name][0] = (isset($nameCandidate[$this->langIndex])) ? $nameCandidate[$this->langIndex] : $nameCandidate['C'];
+                if (isset($nameCandidate[$this->languageInstance->getLang()]) || isset($nameCandidate['C'])) {
+                    $out[$name][0] = (isset($nameCandidate[$this->languageInstance->getLang()])) ? $nameCandidate[$this->languageInstance->getLang()] : $nameCandidate['C'];
                 }
-                if (isset($nameCandidate['en'])) {
-                    $out[$name][1] = $nameCandidate['en'];
-                } elseif (isset($nameCandidate['C'])) {
-                    $out[$name][1] = $nameCandidate['C'];
-                } elseif (isset($out[$name][0])) {
-                    $out[$name][1] = $out[$name][0];
-                }
+                
+                $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
             } else {
-                if (isset($temp[$name]['Method'])) {
-                    $out[$name] = $temp[$name]['Method'];
-                } elseif (isset($temp[$name]['Profile'])) {
-                    $out[$name] = $temp[$name]['Profile'];
-                } else {
-                    $out[$name] = $temp[$name]['IdP'];
-                }
+                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'];
             }
         }
         return($out);
@@ -568,29 +547,72 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * * @return boolean TRUE if enough info is set to enable installers
      */
-    abstract public function hasSufficientConfig();
 
-    /**
+    public function hasSufficientConfig() {
+        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = ?", "i", $this->identifier);
+        $configQuery = mysqli_fetch_row($result);
+        if ($configQuery[0] == "0") {
+            return FALSE;
+        }
+        return TRUE;
+    }
+
+   /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
      * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
-     * Silverbullet is always TRUE here.
      * 
      * @return boolean TRUE if enough information for showtime is set; FALSE if not
      */
-    abstract public function readyForShowtime();
+    public function readyForShowtime() {
+        $properConfig = FALSE;
+        $attribs = $this->getCollapsedAttributes();
+        // do we have enough to go live? Check if any of the configured EAP methods is completely configured ...
+        if (sizeof($this->getEapMethodsinOrderOfPreference(1)) > 0) {
+            $properConfig = TRUE;
+        }
+        // if not, it could still be that general redirect has been set
+        if (!$properConfig) {
+            if (isset($attribs['device-specific:redirect'])) {
+                $properConfig = TRUE;
+            }
+            // just a per-device redirect? would be good enough... but this is not actually possible:
+            // per-device redirects can only be set on the "fine-tuning" page, which is only accessible
+            // if at least one EAP type is fully configured - which is caught above and makes readyForShowtime TRUE already
+        }
+        // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
+        if (!isset($attribs['media:SSID']) &&
+                !isset($attribs['media:SSID_with_legacy']) &&
+                (!isset(CONFIG['CONSORTIUM']['ssid']) || count(CONFIG['CONSORTIUM']['ssid']) == 0) &&
+                !isset($attribs['media:wired'])) {
+            $properConfig = FALSE;
+        }
+        return $properConfig;
+    }
 
     /**
-     * set the showtime attribute if readyForShowTime says that there is enough info *and* the admin flagged the profile for showing
-     * since Silverbullet doesn't allow the admin to flag anything, this is is always the case
+     * set the showtime property if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
      */
-    abstract public function prepShowtime();
+    public function prepShowtime() {
+        $properConfig = $this->readyForShowtime();
+        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = " . ($properConfig ? "TRUE" : "FALSE") . " WHERE profile_id = " . $this->identifier);
+
+        $attribs = $this->getCollapsedAttributes();
+        // if not enough info to go live, set FALSE
+        // even if enough info is there, admin has the ultimate say: 
+        //   if he doesn't want to go live, no further checks are needed, set FALSE as well
+        if (!$properConfig || !isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
+            $this->databaseHandle->exec("UPDATE profile SET showtime = FALSE WHERE profile_id = ?", "i", $this->identifier);
+            return;
+        }
+        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = ?", "i", $this->identifier);
+    }
 
     /**
      * Checks if the profile is shown (showable) to end users
      * @return boolean TRUE if profile is shown; FALSE if not
      */
     public function isShowtime() {
-        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = " . $this->identifier);
+        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
         $resultRow = mysqli_fetch_row($result);
         if ($resultRow[0] == "0") {
             return FALSE;

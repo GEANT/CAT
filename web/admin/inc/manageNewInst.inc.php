@@ -27,8 +27,8 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE)) {
     header("Location: ../overview_federation.php");
 }
 
-$cat = new CAT();
-$cat->set_locale("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 
@@ -93,6 +93,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
             <td><?php echo _("Federation"); ?>
                 <select id='country' name='country'>
                     <?php
+                    $cat = new CAT();
                     foreach ($cat->printCountryList() as $iso_code => $country) {
                         foreach ($feds as $fed_value) {
                             if (strtoupper($fed_value['value']) == strtoupper($iso_code)) {

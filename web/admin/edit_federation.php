@@ -9,7 +9,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Federation.php");
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -22,15 +22,17 @@ authenticate();
 $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
-$cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
+defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
+$langObject = new Language();
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script> 
 </head>
 <body>
 
-    <?php productheader("FEDERATION", CAT::get_lang()); ?>
+    <?php productheader("FEDERATION"); ?>
 
     <h1>
         <?php
@@ -44,14 +46,14 @@ $cat = defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPE
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-                        echo Federation::$federationList[strtoupper($my_fed->name)];
+                        echo $my_fed->name;
                         ?></strong></td>
             </tr>
             <?php echo infoblock($fed_options, "fed", "FED"); ?>
         </table>
     </div>
     <?php
-    echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->name" . "' method='post' accept-charset='UTF-8'>
+    echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->identifier" . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
     ?>
     <fieldset class="option_container">

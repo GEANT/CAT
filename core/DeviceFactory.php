@@ -21,7 +21,6 @@
  */
 include_once("devices/devices.php");
 include_once("CAT.php");
-include_once("Logging.php");
 
 /**
  * This factory instantiates a device module and makes it available in its member $device.
@@ -59,7 +58,7 @@ class DeviceFactory extends Entity {
             $this->device = new $class_name();
             if (!$this->device) {
                 $this->loggerInstance->debug(2, "module loading failed");
-                die("module loading failed");
+                throw new Exception("module loading failed");
             }
         } else {
             error("unknown devicename:$blueprint");

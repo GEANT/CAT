@@ -51,7 +51,7 @@ function getImageFromDB($id) {
             header("Content-Disposition: attachment; filename='download.txt'");
             break;
         default:
-            throw new Exception("Unsupported file type encountered!");
+            // do nothing special with the Content-Disposition header
     }
 
     header("Cache-Control: must-revalidate");

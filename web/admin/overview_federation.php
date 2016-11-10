@@ -20,14 +20,15 @@ require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-$cat = defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
+defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
 $user = new User($_SESSION['user']);
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>
 <body>
     <?php
-    productheader("FEDERATION", CAT::get_lang());
+    productheader("FEDERATION");
     ?>
     <h1>
         <?php echo _("Federation Overview"); ?>
@@ -65,7 +66,7 @@ $user = new User($_SESSION['user']);
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("Federation Properties: %s"), strtoupper($thefed->name)); ?>
+                <?php echo sprintf(_("Federation Properties: %s"), $thefed->name); ?>
             </h2>
             <table>
                 <!-- fed properties -->
@@ -77,7 +78,7 @@ $user = new User($_SESSION['user']);
                     </td>
                     <td>
                         <strong><?php
-                            echo Federation::$federationList[strtoupper($thefed->name)];
+                            echo $thefed->name;
                             ?></strong>
                     </td>
                 </tr>
@@ -85,13 +86,13 @@ $user = new User($_SESSION['user']);
                 echo infoblock($thefed->getAttributes(), "fed", "FED");
                 ?>
                 <tr>
-                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->name); ?>'/><button type="submit">Edit</button></form></td>
+                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
                 </tr>
             </table>
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("Federation Statistics: %s"), strtoupper($thefed->name)); ?>
+                <?php echo sprintf(_("Federation Statistics: %s"), $thefed->name); ?>
             </h2>
             <table>
                 <!-- idp stats -->
@@ -113,7 +114,7 @@ $user = new User($_SESSION['user']);
                     <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
                     <th style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
-                <?php echo Federation::downloadStats("table", $thefed->name); ?>
+                <?php echo $thefed->downloadStats("table"); ?>
             </table>
         </div>
         <?php
@@ -163,12 +164,12 @@ $user = new User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed::$federationList[$onefed['value']] . '</span>', "action_fedcheck.php?fed=" . $thefed->name) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed->name . '</span>', "action_fedcheck.php?fed=" . $thefed->identifier) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
             foreach ($pending_invites as $oneinvite) {
-                if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
+                if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
                     // echo "PENDINGS!";
                     $display_pendings = TRUE;
                 }
@@ -256,7 +257,7 @@ $user = new User($_SESSION['user']);
                             </td>
                          </tr>";
                 foreach ($pending_invites as $oneinvite) {
-                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->name)) {
+                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
                         echo "<tr>
                                     <td>" .
                         $oneinvite['name'] . "

@@ -13,45 +13,46 @@ require_once("User.php");
 require_once("Logging.php");
 
 function isAuthenticated() {
-    $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-    return $as->isAuthenticated();
+    $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+    return $authSimple->isAuthenticated();
 }
 
 function authenticate() {
     $loggerInstance = new Logging();
-    $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-    $as->requireAuth();
+    $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+    $authSimple->requireAuth();
 
-    $admininfo = $as->getAttributes();
+    $admininfo = $authSimple->getAttributes();
 
     if (!isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0])) {
-        echo "FATAL ERROR: we did not receive a unique user identifier from the authentication source!";
-        exit(1);
+        $failtext = "FATAL ERROR: we did not receive a unique user identifier from the authentication source!";
+        echo $failtext;
+        throw new Exception($failtext);
     }
 
     $user = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0];
 
     $_SESSION['user'] = $user;
-    $new_name_received = FALSE;
+    $newNameReceived = FALSE;
 
-    $user_object = new User($user);
-    if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($user_object->getAttributes('user:realname')) == 0)) {
+    $userObject = new User($user);
+    if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($userObject->getAttributes('user:realname')) == 0)) {
         $name = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0];
-        $user_object->addAttribute('user:realname', $name);
+        $userObject->addAttribute('user:realname', $name);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added real name from external auth source");
-        $new_name_received = TRUE;
+        $newNameReceived = TRUE;
     }
 
-    if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0]) && (count($user_object->getAttributes('user:email')) == 0)) {
+    if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0]) && (count($userObject->getAttributes('user:email')) == 0)) {
         $mail = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0];
-        $user_object->addAttribute('user:email', $mail);
+        $userObject->addAttribute('user:email', $mail);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added email address from external auth source");
     }
 
-    if (count($user_object->getAttributes('user:realname')) > 0 || $new_name_received) { // we have a real name ... set it
-        $name_array = $user_object->getAttributes("user:realname");
-        if (!empty($name_array[0])) {
-            $_SESSION['name'] = $name_array[0]['value'];
+    if (count($userObject->getAttributes('user:realname')) > 0 || $newNameReceived) { // we have a real name ... set it
+        $nameArray = $userObject->getAttributes("user:realname");
+        if (!empty($nameArray[0])) {
+            $_SESSION['name'] = $nameArray[0]['value'];
         }
     }
 }

@@ -12,7 +12,6 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once('Options.php');
 require_once('DBConnection.php');
 require_once('ProfileFactory.php');
-require_once('AbstractProfile.php');
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
@@ -169,9 +168,12 @@ function valid_token($input) {
  * @throws Exception
  */
 function valid_coordinate($input) {
+    $oldlocale = setlocale(LC_NUMERIC,0);
+    setlocale(LC_NUMERIC, "en_GB");
     if (!is_numeric($input)) {
         throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
     }
+    setlocale(LC_NUMERIC, $oldlocale);
     // lat and lon are always in the range of [-180;+180]
     if ($input < -180 || $input > 180) {
         throw new Exception(input_validation_error("Coordinate is out of bounds. Which planet are you from?"));
@@ -186,8 +188,8 @@ function valid_coordinate($input) {
  * @throws Exception
  */
 function valid_coord_serialized($input) {
-    if (is_array(unserialize($input))) {
-        $tentative = unserialize($input);
+    $tentative = unserialize($input, [ "allowed_classes" => false ]);
+    if (is_array($tentative)) {
         if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat'])) {
             return $input;
         }

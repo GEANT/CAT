@@ -88,7 +88,7 @@ abstract class Device_XML extends DeviceConfig {
             $eapIdp->setAttribute('namespace', $NAMESPACE);
         }
         if ($this->langScope === 'single') {
-            $eapIdp->setAttribute('lang', $this->langIndex);
+            $eapIdp->setAttribute('lang', $this->languageInstance->getLang());
         }
         $eapIdp->setAttribute('version', '1');
 

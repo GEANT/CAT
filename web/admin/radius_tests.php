@@ -16,8 +16,8 @@ require_once("Logging.php");
 
 
 ini_set('display_errors', '0');
-$Cat = new CAT();
-$Cat->set_locale("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 $loggerInstance = new Logging();
 
@@ -122,14 +122,15 @@ if (isset($_REQUEST['profile_id'])) {
     $testsuite = new RADIUSTests($check_realm);
 }
 
-$host = $_REQUEST['src'];
-if (!preg_match('/^[0-9\.:]*$/', $host)) {
-    exit;
+$host = filter_var($_REQUEST['src'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+// check if this is a valid IP address
+if ($host === FALSE) {
+    throw new Exception("The input is not a valid IP address from acceptable IP ranges!");
 }
 
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
-    exit;
+    throw new Exception("The requested host index is not numeric!");
 }
 
 
@@ -378,7 +379,7 @@ switch ($test_type) {
         }
         break;
     default:
-        exit;
+        throw new Exception("Unknown test requested: default case reached!");
 }
 
 echo(json_encode($returnarray));

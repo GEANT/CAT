@@ -8,11 +8,12 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 require_once("IdP.php");
 require_once('ProfileFactory.php');
 require_once("ProfileRADIUS.php");
 require_once("RADIUSTests.php");
+require_once("CAT.php");
 require_once("Federation.php");
 
 require_once("../admin/inc/input_validation.inc.php");
@@ -20,8 +21,8 @@ require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 
 // no authentication - this is for John Doe
-$cat = defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
-productheader("USER", CAT::$lang_index);
+defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
+productheader("USER");
 ?>
 <h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
 <p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
@@ -132,7 +133,8 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
                     }
 
                     $current_locale = setlocale(LC_ALL, 0);
-                    setlocale(LC_ALL, CONFIG['LANGUAGES'][CAT::$lang_index]['locale']);
+                    $langObject = new Language();
+                    setlocale(LC_ALL, CONFIG['LANGUAGES'][$langObject->locale]);
                     array_multisort($name, SORT_ASC, SORT_LOCALE_STRING, $displaylist);
                     setlocale(LC_ALL, $current_locale);
 
@@ -162,11 +164,12 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $checks = [];
     foreach ($listofrealms as $realm) {
         $sanitised_realm = trim(valid_string_db($realm));
+        $cat = new CAT();
         if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
             $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);
             $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => ProfileFactory::instantiate($profile_id)];
             echo "Debugging CAT Profile $profile_id for $sanitised_realm<br/>";
-        } else if (!empty($global->getExternalDBEntityDetails(0, $realm))) {
+        } else if (!empty($cat->getExternalDBEntityDetails(0, $realm))) {
             $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "EXT_DB"];
             echo "Debugging non-CAT but existing realm $sanitised_realm<br/>";
         } else {

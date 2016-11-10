@@ -20,6 +20,7 @@ require_once("UserAPI.php");
 require_once('ProfileFactory.php');
 require_once('AbstractProfile.php');
 require_once("Logging.php");
+require_once("Language.php");
 
 $loggerInstance = new Logging();
 $loggerInstance->debug(4, "basic.php\n");
@@ -40,9 +41,9 @@ class SimpleGUI extends UserAPI {
         parent::__construct();
         $this->args = [];
         $this->page = 0;
-        $this->set_locale('core');
+        $this->languageInstance->setTextDomain('core');
         $this->version = 2;
-        $this->args['lang'] = CAT::get_lang();
+        $this->args['lang'] = $this->languageInstance->getLang();
 
         /*
           The request may contain identifiers of country, idp, profile, device
@@ -72,7 +73,7 @@ class SimpleGUI extends UserAPI {
             $country = array_shift($federations);
         }
         $this->country = new Federation($country);
-        $this->args['country'] = $this->country->name;
+        $this->args['country'] = $this->country->identifier;
         $this->page = 1;
 
 // If we have IdP identifier then match country to this identifier
@@ -87,20 +88,20 @@ class SimpleGUI extends UserAPI {
                 $this->idp = new IdP($_REQUEST['idp']);
             } catch (Exception $fail) {
                 $this->page = 1;
-                $this->set_locale("web_user");
+                $this->languageInstance->setTextDomain("web_user");
                 return;
             }
             $countryTemp = new Federation($this->idp->federation);
-            if (strtoupper($this->country->name) !== strtoupper($countryTemp->name)) {
+            if (strtoupper($this->country->identifier) !== strtoupper($countryTemp->identifier)) {
                 unset($this->idp);
                 $this->page = 1;
-                $this->set_locale("web_user");
+                $this->languageInstance->setTextDomain("web_user");
                 return;
             }
             $this->args['idp'] = $_REQUEST['idp'];
             $this->profileCount = $this->idp->profileCount();
             if (!isset($_REQUEST['profile'])) {
-                $this->set_locale("web_user");
+                $this->languageInstance->setTextDomain("web_user");
                 return;
             }
             $this->page = 3;
@@ -108,13 +109,13 @@ class SimpleGUI extends UserAPI {
                 $this->profile = ProfileFactory::instantiate($_REQUEST['profile']);
             } catch (Exception $fail) {
                 $this->page = 2;
-                $this->set_locale("web_user");
+                $this->languageInstance->setTextDomain("web_user");
                 return;
             }
             if ($this->profile->institution != $this->idp->identifier) {
                 unset($this->profile);
                 $this->page = 2;
-                $this->set_locale("web_user");
+                $this->languageInstance->setTextDomain("web_user");
                 return;
             }
             $this->args['profile'] = $_REQUEST['profile'];
@@ -122,7 +123,7 @@ class SimpleGUI extends UserAPI {
                 $this->args['device'] = $_REQUEST['device'];
             }
         }
-        $this->set_locale("web_user");
+        $this->languageInstance->setTextDomain("web_user");
     }
 
 // print country selection
@@ -133,7 +134,7 @@ class SimpleGUI extends UserAPI {
         $out .= '<select name="country" onchange="submit_form(this)">' . "\n";
         foreach ($federations as $fedId => $fedName) {
             $out .= '<option value="' . $fedId . '"';
-            if ($fedId === $this->country->name) {
+            if ($fedId === $this->country->identifier) {
                 $out .= ' selected';
             }
             $out .= '>' . $fedName . '</option>' . "\n";
@@ -143,22 +144,22 @@ class SimpleGUI extends UserAPI {
     }
 
     public function listIdPs() {
-        $Inst = $this->orderIdentityProviders($this->country->name);
+        $instList = $this->orderIdentityProviders($this->country->identifier);
         $out = '';
         $out .= _("Select your institution");
         $out .= '<select name="idp" onchange="submit_form(this)">';
-        if (!empty($Inst)) {
+        if (!empty($instList)) {
             if (!isset($this->idp)) {
-                $this->idp = new Idp($Inst[0]['idp']);
+                $this->idp = new Idp($instList[0]['idp']);
             }
             $idpId = $this->idp->identifier;
         }
-        foreach ($Inst as $I) {
-            $out .= '<option value="' . $I['idp'] . '"';
-            if ($I['idp'] == $idpId) {
+        foreach ($instList as $oneInst) {
+            $out .= '<option value="' . $oneInst['idp'] . '"';
+            if ($oneInst['idp'] == $idpId) {
                 $out .= ' selected';
             }
-            $out .= '>' . $I['title'] . '</option>';
+            $out .= '>' . $oneInst['title'] . '</option>';
         }
         $out .= '</select>';
         return $out;
@@ -261,10 +262,10 @@ class SimpleGUI extends UserAPI {
     }
 
     public function displayDeviceDownload() {
-        $this->set_locale('devices');
+        $this->languageInstance->setTextDomain('devices');
         $attributes = $this->profileAttributes($this->profile->identifier);
         $thedevices = $attributes['devices'];
-        $this->set_locale("web_user");
+        $this->languageInstance->setTextDomain("web_user");
         $out = '';
         if (isset($attributes['description']) && $attributes['description']) {
             print '<div>' . $attributes['description'] . '</div>';
@@ -298,7 +299,7 @@ class SimpleGUI extends UserAPI {
                 break;
             }
         }
-        $this->set_locale("web_user");
+        $this->languageInstance->setTextDomain("web_user");
 
         $installer = $this->generateInstaller($this->args['device'], $this->profile->identifier);
         if (!$installer['link']) {
@@ -326,7 +327,7 @@ class SimpleGUI extends UserAPI {
         }
         print $extraText;
 
-        $downloadLink = 'user/API.php?action=downloadInstaller&api_version=2&generatedfor=user&lang=' . CAT::get_lang() . '&device=' . $installer['device'] . '&profile=' . $installer['profile'];
+        $downloadLink = 'user/API.php?action=downloadInstaller&api_version=2&generatedfor=user&lang=' . $this->languageInstance->getLang() . '&device=' . $installer['device'] . '&profile=' . $installer['profile'];
 
         print '<p><button id="download_button" onclick="window.location.href=\'' . rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' . $downloadLink . '\'; return(false)"><div>' . _("Download installer for") . '<br><span style="color:yellow; font-weight: bold">' . $oneDevice['display'] . '</span></div></button>';
 
@@ -342,7 +343,7 @@ class SimpleGUI extends UserAPI {
         $out .= '<select onchange="submit_form(this)" name="lang">';
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             $out .= '<option value="' . $lang . '"';
-            if ($lang === CAT::get_lang()) {
+            if ($lang === $this->languageInstance->getLang()) {
                 $out .= ' selected';
             }
             $out .= '>' . $value['display'] . '</option>';
@@ -356,8 +357,8 @@ class SimpleGUI extends UserAPI {
      */
     public function yourChoice() {
         $out = '';
-        $capitalisedCountry = strtoupper($this->country->name);
-        $name = isset(Federation::$federationList[$capitalisedCountry]) ? Federation::$federationList[$capitalisedCountry] : $capitalisedCountry;
+        $capitalisedCountry = strtoupper($this->country->identifier);
+        $name = isset($this->knownFederations[$capitalisedCountry]) ? $this->knownFederations[$capitalisedCountry] : $capitalisedCountry;
         $name = preg_replace('/ +/', '&nbsp;', $name);
         $out .= "$name; ";
         $name = $this->idp->name;
@@ -394,8 +395,11 @@ $Gui = new SimpleGUI();
 $loggerInstance->debug(4, "\n----------------------------------SIMPLE.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang() ?>">
-    <head lang="<?php echo CAT::get_lang() ?>"> 
+<?php
+$langObject = new Language();
+?>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
+    <head lang="<?php echo $langObject->getLang() ?>"> 
         <title><?php echo CONFIG['APPEARANCE']['productname_long']; ?></title>
         <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
@@ -440,12 +444,12 @@ $loggerInstance->debug(4, $_SERVER);
   $Gui->page = 2;
   }
  */
-print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . CAT::get_lang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
+print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . $Gui->languageInstance->getLang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
 print $Gui->langSelection();
 if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {
     print "<p>\n";
     print $Gui->listCountries();
-    if ($Gui->page == 2 && !isset($FED[strtoupper($Gui->country->name)])) {
+    if ($Gui->page == 2 && !isset($FED[strtoupper($Gui->country->identifier)])) {
         $Gui->page = 1;
     }
     print "<p>" . $Gui->listIdPs();
@@ -467,8 +471,8 @@ if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQ
         <div class='footer'><hr />
             <?php
             print('<a href="tou.php">' . _("Terms of use") . "</a><p>");
-            echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
-            echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a></div>";
+            echo $Gui->CAT_COPYRIGHT;
+            echo "</div>";
             ?>
     </body>
 </html>

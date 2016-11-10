@@ -26,9 +26,6 @@ $instId = $_REQUEST['idp'];
 $device = $_REQUEST['device'];
 $generated_for = $_REQUEST['generatedfor'];
 
-$Gui->set_locale('devices');
-
-
 if ($generated_for != "admin" && $generated_for != "user") {
     $loggerInstance->debug(2,"Invalid downloads triggered (neither for admin nor user???)");
     print("Invalid downloads triggered (neither for admin nor user???)");

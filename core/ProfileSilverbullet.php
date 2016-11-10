@@ -22,6 +22,7 @@
 require_once('Helper.php');
 require_once('IdP.php');
 require_once('AbstractProfile.php');
+require_once('X509.php');
 
 /**
  * This class represents an EAP Profile.
@@ -52,7 +53,6 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
-        $this->langIndex = CAT::get_lang();
 
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
         // set to global config value
@@ -73,18 +73,28 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
+        // but there's some common internal attributes populated directly
         $internalAttributes = [
             "internal:profile_count" => $this->idpNumberOfProfiles,
             "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
             "internal:use_anon_outer" => FALSE,
             "internal:anon_local_value" => $localValueIfAny,
             "internal:silverbullet_maxusers" => $tempMaxUsers,
+            "profile:production" => "on",
         ];
 
-        $tempArrayProfLevel = []; // we don't currently store any profile-level attributes for SB in the database
-        // internal attributes share many attribute properties, so condense the generation
+        // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
+        $silverbulletAttributes = [
+            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'],
+        ];
+        $x509 = new X509();
+        $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
+        if ($caHandle !== FALSE) {
+            $cAFile = fread($caHandle, 16000000);
+            $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
+        }
 
-        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
+        $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
 
         // now, fetch and merge IdP-wide attributes
 
@@ -130,28 +140,87 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
-     * We can't be *NOT* ready
+     * issue a certificate based on a token
+     *
+     * @param string $token
+     * @param string $importPassword
+     * @return array
      */
-    public function hasSufficientConfig() {
-        return TRUE;
+    public function generateCertificate($token, $importPassword) {
+        // SQL query to find out if token is valid, and if so, what is the expiry date of the user
+        // token needs to lead us to the NRO ... (DB query for token -> profile -> inst -> federation); setting this to LU right now.
+        // ... and give us an expiry date (setting expiry date to something like 2019)
+        $federation = 'LU';
+        $usernameLocalPart = random_str(64);
+        $username = $usernameLocalPart . "@" . $this->realm;
+        $validity = date_diff(date_create(), date_create("31-12-2019 23:59:59"), TRUE);
+        $expiryDays = $validity->days;
+        
+        $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
+        $csr = openssl_csr_new(
+                [ 'O' => 'eduroam', 
+                  'OU' => $federation, 
+                  'CN' => $this->instName . " - " ._("eduroam access"),
+                  'emailAddress' => $username, 
+                ],
+                $privateKey, [
+                    'digest_alg' => 'sha256',
+                    'req_extensions' => 'v3_req',
+                ]
+                );
+        
+        // HTTP POST the CSR to the CA with the $expiryDays as parameter
+        // on successful execution, gets back a PEM file which is the certificate (in JSON, structure TBD)
+        
+        // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
+        
+        // as that is still TODO, generate a slightly stubby implementation of a CA right here
+        // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
+        // serial numbers are not maintaining state because random, and could be duplicate
+        // on heavy use. But this is a temporary stopgap CA only anyway, so who cares.
+        $cert = openssl_csr_sign($csr, "../config/SilverbulletClientCerts/issuingca.pem", "../config/SilverbulletClientCerts/issuingca.key", $expiryDays, [ 'config' => 'openssl.cnf', 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
+        
+        // with the cert, our private key and import password, make a PKCS#12 container out of it
+        $exportedCert = "";
+        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
+                
+        // TODO store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
+        
+        // return PKCS#12 data stream
+        return [
+            "certdata" => $exportedCert,
+            "password" => $importPassword,
+            "expiry" => "2019-10-25T12:43:02Z",
+        ];
     }
-
+    
     /**
-     * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
-     * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
+     * revokes a certificate
+     * @param string $serial the serial number of the cert to revoke
+     * @return array with revocation information
+     */
+    public function revokeCertificate($serial) {
+        // this is a total stub, as we do not have a proper CA yet
+        // it will again be replaced with a HTTP POST of the revocation request
+        // and will get an updated CRL and OCSP statement back, in JSON
+        
+        // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
+        
+        return ["CRL" => "-----CRL HERE-----", "OCSP" => "OCSPStatementHere" ];
+    }
+    
+    /**
      * 
-     * @return boolean TRUE if enough information for showtime is set; FALSE if not
+     * @param string $url the URL to send the request to
+     * @param array $postValues POST values to send
      */
-    public function readyForShowtime() {
-        return TRUE;
-    }
-
-    /**
-     * set the showtime and QR-user attributes if prepShowTime says that there is enough info *and* the admin flagged the profile for showing
-     */
-    public function prepShowtime() {
-        $this->databaseHandle->exec("UPDATE profile SET sufficient_config = TRUE WHERE profile_id = " . $this->identifier);
-        $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = " . $this->identifier);
+    private function httpRequest($url, $postValues) {
+        $options = [
+            'http' => [ 'header' => 'Content-type: application/x-www-form-urlencoded\r\n', "method" => 'POST', 'content' => http_build_query($postValues) ]
+        ];
+        $context = stream_context_create($options);
+        return file_get_contents($url, false, $context);
+        
     }
 
 }

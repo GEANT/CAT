@@ -15,7 +15,10 @@
  * the bottom of this file
 */
 ?>
-<?php $Gui->set_locale('web_user'); ?>
+<?php 
+require_once("Language.php");
+$langObject = new Language();
+$langObject->setTextDomain('web_user'); ?>
 
 
 var img_vis = 0;

@@ -8,7 +8,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 require_once("IdP.php");
 require_once("EAP.php");
 require_once("AbstractProfile.php");
@@ -21,14 +21,15 @@ require_once("../resources/inc/footer.php");
 
 require_once("devices/devices.php");
 
-$cat = defaultPagePrelude(_("Device Compatibility matrix"));
+defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP", CAT::get_lang());
+    productheader("ADMIN-IDP");
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof ProfileRADIUS) {
@@ -79,7 +80,8 @@ $cat = defaultPagePrelude(_("Device Compatibility matrix"));
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $display_footnote = FALSE;
-                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . CAT::get_lang() . "' method='post' accept-charset='UTF-8'>
+                $langObject = new Language();
+                $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='id' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . _("Download") . "</button>

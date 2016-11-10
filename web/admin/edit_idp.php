@@ -10,7 +10,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("Federation.php");
 require_once("IdP.php");
 require_once("Helper.php");
-require_once("CAT.php");
+require_once("Language.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -32,12 +32,13 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
+    defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
 } else {
-    $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
+    defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script> 
@@ -72,8 +73,9 @@ geo_widget_head($my_inst->federation, $inst_name)
 </script>
 </head>
 <body onload='load(1)'>
-
-    <?php productheader("ADMIN-IDP", CAT::get_lang()); ?>
+    <?php 
+    $langObject = new Language();
+    productheader("ADMIN-IDP"); ?>
 
     <h1>
         <?php
@@ -91,8 +93,8 @@ geo_widget_head($my_inst->federation, $inst_name)
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-                        new Federation("blablub");
-                        echo Federation::$federationList[strtoupper($my_inst->federation)];
+                        $fed = new Federation($my_inst->federation);
+                        echo $fed->name;
                         ?></strong></td>
             </tr>
             <?php echo infoblock($idpoptions, "general", "IdP"); ?>

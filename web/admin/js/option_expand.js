@@ -13,18 +13,6 @@ function getXML(attribute_class) {
     client.send();
 }
 
-function postXML(funct, form) {
-    var client = new XMLHttpRequest();
-    client.onreadystatechange = funct;
-    client.open("POST", form.action);
-    client.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    var form_values = "";
-    for (var i = 0; i < form.elements.length; i++) {
-        form_values = form_values + (form_values === "" ? "" : "&") + encodeURIComponent(form.elements[i].name) + "=" + encodeURIComponent(form.elements[i].value);
-    }
-    client.send(form_values);
-}
-
 function addOption(attribute_class) {
     if (this.readyState === 4 && this.status === 200) {
         var field = document.getElementById("expandable_" + this.attribute_class + "_options");

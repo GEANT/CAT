@@ -24,8 +24,8 @@ require_once("devices/devices.php");
 authenticate();
 
 $loggerInstance = new Logging();
-$Cat = new CAT();
-$Cat->set_locale("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -52,11 +52,19 @@ if (isset($_POST['device'])) {
 $eaptype = NULL;
 $eap_id = 0;
 if (isset($_POST['eaptype'])) {
-    $eaptype = unserialize(stripslashes($_POST['eaptype']));
+    $eaptype = unserialize(stripslashes($_POST['eaptype']), [ "allowed_classes" => false ]);
+    // the POST could have sneaked in an integer instead of the expected array.
+    // be sure to double-check
+    if (!is_array($eaptype)) {
+        throw new Exception("Input must be the array representation of an EAP type");
+    }
+        
     // is this an actual EAP type we know of?
-    $eap_id = EAP::eAPMethodIdFromArray($eaptype);
-    if ($eap_id === FALSE) { // oh-oh, unexpected malformed input. Goodbye.
-        throw new Exception("Tried to change EAP method level attributes, but the EAP type is not known!");
+    $eap_id = EAP::eAPMethodArrayIdConversion($eaptype); // function throws its own Exception if unknown
+    // to make code review tools happy, double-check that it's an integer (we
+    // gave it an array, so this will always be the case
+    if (!is_numeric($eap_id)) {
+        throw new Exception("This is impossible - the integer EAP ID is not a numeric value!");
     }
 }
 
@@ -107,7 +115,7 @@ if ($device) {
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
     $param_name = "EapSpecific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::eAPMethodArrayFromId($eap_id))) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::eAPMethodArrayIdConversion($eap_id))) . "'>";
 }
 ?>
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>

@@ -11,7 +11,6 @@ require_once("Federation.php");
 require_once("IdP.php");
 require_once("ProfileRADIUS.php");
 require_once("Helper.php");
-require_once("CAT.php");
 
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
@@ -19,8 +18,9 @@ require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
 
-$cat = defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
+defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <!-- JQuery --> 
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
@@ -166,7 +166,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP", CAT::get_lang());
+    productheader("ADMIN-IDP");
     ?>
     <h1>
         <?php

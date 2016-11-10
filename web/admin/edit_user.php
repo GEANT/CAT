@@ -8,7 +8,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("Helper.php");
-require_once("CAT.php");
 require_once("User.php");
 
 require_once("inc/common.inc.php");
@@ -17,13 +16,14 @@ require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/option_html.inc.php");
 
-$cat = defaultPagePrelude(_("Editing User Attributes"));
+defaultPagePrelude(_("Editing User Attributes"));
 $user = new User($_SESSION['user']);
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php productheader("USERMGMT", CAT::get_lang()); ?>
+    <?php productheader("USERMGMT"); ?>
     <h1>
         <?php _("Editing User Attributes"); ?>
     </h1>

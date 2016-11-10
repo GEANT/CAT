@@ -8,6 +8,7 @@
 // please run this as a cron job every hour
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+require_once("CAT.php");
 require_once("Federation.php");
 require_once("UserManagement.php");
 require_once("User.php");
@@ -18,10 +19,9 @@ require_once("User.php");
 $mgmt_object = new UserManagement();
 $invitation_list = $mgmt_object->listRecentlyExpiredInvitations();
 
-//need to instantiate Federation once before the country list is populated
-$dummy_fed = new Federation("LU");
+$cat = new CAT();
 
-foreach (Federation::$federationList as $federation => $federation_name) {
+foreach ($cat->knownFederations as $federation => $federation_name) {
     // construct list of invitations in this federation
     $thisfedlist = [];
     $listofinstnames = [];
@@ -37,25 +37,28 @@ foreach (Federation::$federationList as $federation => $federation_name) {
         }
     }
 
-    if (!empty($thisfedlist)) {
-        $this_fed = new Federation(reset($thisfedlist)["country"]);
-        $admins = $this_fed->listFederationAdmins();
-        $mailtext = "Hello,
+    if (empty($thisfedlist)) { // nothing to do
+        return;
+    }
+
+    $this_fed = new Federation(reset($thisfedlist)["country"]);
+    $admins = $this_fed->listFederationAdmins();
+    $mailtext = "Hello,
 
 invitation tokens for the following new institutions have recently expired:
 
 ";
-        foreach ($listofinstnames as $instname) {
-            $mailtext .= "$instname\n";
-        }
+    foreach ($listofinstnames as $instname) {
+        $mailtext .= "$instname\n";
+    }
 
-        if ($numberofexistingidps > 0) {
-            $mailtext .= "
+    if ($numberofexistingidps > 0) {
+        $mailtext .= "
 
 Additionally, $numberofexistingidps invitations for existing institutions have expired.
         ";
-        }
-        $mailtext .= "
+    }
+    $mailtext .= "
 We thought you might like to know.
 
 Greetings,
@@ -63,9 +66,8 @@ Greetings,
 A humble " . CONFIG['APPEARANCE']['productname'] . " cron job
 ";
 
-        foreach ($admins as $admin) {
-            $user = new User($admin);
-            $user->sendMailToUser("Expired Invitations in the last hour", $mailtext);
-        }
+    foreach ($admins as $admin) {
+        $user = new User($admin);
+        $user->sendMailToUser("Expired Invitations in the last hour", $mailtext);
     }
 }

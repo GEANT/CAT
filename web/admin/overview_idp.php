@@ -21,7 +21,7 @@ require_once("inc/input_validation.inc.php");
 include "inc/geo_widget.php";
 
 
-$cat = defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
+defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -37,7 +37,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 </head>
 <body  onload='load(0)'>
     <?php
-    productheader("ADMIN-IDP", CAT::get_lang());
+    productheader("ADMIN-IDP");
 
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
@@ -97,7 +97,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         </tr>
     </table>
     <hr/>
-    <h2><?php _("Available Support actions"); ?></h2>
+    <h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
         if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
@@ -145,7 +145,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                     ?>
                     <br/>
                     <br/>
-                    <form action='edit_silverbullet.php' method='POST'>
+                    <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='POST'>
                         <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                     </form>
                 </div>

@@ -23,6 +23,7 @@ translation:
                 echo "*** Now translating in $$lang ***"; \
 		echo "********************************************"; \
 		for area in web_admin web_user devices core diagnostics ; do \
+			mkdir -p $$lang/LC_MESSAGES; \
 			msgmerge -q -v -U $$lang/$$area.po translation/$$area.pot; \
 			msgfmt $$lang/$$area.po -o $$lang/LC_MESSAGES/$$area.mo; \
 			done; \

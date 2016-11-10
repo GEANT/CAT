@@ -51,7 +51,7 @@ if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not c
     header("Location: overview_user.php");
 }
 
-$cat = pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
+pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
 $dbHandle = DBConnection::handle("INST");
 ?>
@@ -140,6 +140,9 @@ $dbHandle = DBConnection::handle("INST");
                     <th>Configured</th>
                     <th>Public Download</th>
                 </tr>
+                <?php
+                $cat = new CAT();
+                ?>
                 <tr>
                     <td>
                         <?php

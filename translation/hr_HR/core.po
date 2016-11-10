@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"POT-Creation-Date: 2016-09-28 15:58+0200\n"
 "PO-Revision-Date: 2015-04-08 10:05+0000\n"
 "Last-Translator: Dubravko Penezic <dpenezic@gmail.com>\n"
 "Language-Team: Croatian (Croatia) (http://www.transifex.com/projects/p/cat/"
@@ -23,290 +23,294 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: core/CAT.php:81
+#: core/CAT.php:77
+msgid "Unreleased SVN Revision"
+msgstr ""
+
+#: core/CAT.php:86
 #, php-format
 msgid "Release %s"
 msgstr ""
 
-#: core/CAT.php:84
-msgid "Unreleased SVN Revision"
-msgstr ""
-
-#: core/DeviceConfig.php:129
+#: core/DeviceConfig.php:134
 #, php-format
 msgid "your local %s support"
 msgstr "lokalna podrška %s"
 
-#: core/DeviceConfig.php:130
+#: core/DeviceConfig.php:135
 #, php-format
 msgid "your local %s support page"
 msgstr "stranica lokalne podrške %s"
 
-#: core/DeviceConfig.php:162
+#: core/DeviceConfig.php:167
 msgid "Sorry, this should not happen - no additional information is available"
 msgstr "Pogreška, nema dodatnih informacija"
 
-#: core/Federation.php:128
+#: core/Federation.php:136
 msgid "Andorra"
 msgstr "Andora"
 
-#: core/Federation.php:129
+#: core/Federation.php:137
 msgid "Austria"
 msgstr "Austrija"
 
-#: core/Federation.php:130
+#: core/Federation.php:138
 msgid "Belgium"
 msgstr "Belgija"
 
-#: core/Federation.php:131
+#: core/Federation.php:139
 msgid "Bulgaria"
 msgstr "Bugarska"
 
-#: core/Federation.php:132
+#: core/Federation.php:140
 msgid "Cyprus"
 msgstr "Cipar"
 
-#: core/Federation.php:133
+#: core/Federation.php:141
 msgid "Czech Republic"
 msgstr "Češka"
 
-#: core/Federation.php:134
+#: core/Federation.php:142
 msgid "Denmark"
 msgstr "Danska"
 
-#: core/Federation.php:135
+#: core/Federation.php:143
 msgid "Estonia"
 msgstr "Estonija"
 
-#: core/Federation.php:136
+#: core/Federation.php:144
 msgid "Finland"
 msgstr "Finska"
 
-#: core/Federation.php:137
+#: core/Federation.php:145
 msgid "France"
 msgstr "Francuska"
 
-#: core/Federation.php:138
+#: core/Federation.php:146
 msgid "Germany"
 msgstr "Njemačka"
 
-#: core/Federation.php:139
+#: core/Federation.php:147
 msgid "Greece"
 msgstr "Grčka"
 
-#: core/Federation.php:140
+#: core/Federation.php:148
 msgid "Croatia"
 msgstr "Hrvatska"
 
-#: core/Federation.php:141
+#: core/Federation.php:149
 msgid "Ireland"
 msgstr "Irska"
 
-#: core/Federation.php:142
+#: core/Federation.php:150
 msgid "Iceland"
 msgstr "Island"
 
-#: core/Federation.php:143
+#: core/Federation.php:151
 msgid "Italy"
 msgstr "Italija"
 
-#: core/Federation.php:144
+#: core/Federation.php:152
 msgid "Hungary"
 msgstr "Mađarska"
 
-#: core/Federation.php:145
+#: core/Federation.php:153
 msgid "Luxembourg"
 msgstr "Luksemburg"
 
-#: core/Federation.php:146
+#: core/Federation.php:154
 msgid "Latvia"
 msgstr "Latvija"
 
-#: core/Federation.php:147
+#: core/Federation.php:155
 msgid "Lithuania"
 msgstr "Litva"
 
-#: core/Federation.php:148
+#: core/Federation.php:156
 msgid "Macedonia"
 msgstr "Makedonija"
 
-#: core/Federation.php:149
+#: core/Federation.php:157
 msgid "Serbia"
 msgstr "Srbija"
 
-#: core/Federation.php:150
+#: core/Federation.php:158
 msgid "Netherlands"
 msgstr "Nizozemska"
 
-#: core/Federation.php:151
+#: core/Federation.php:159
 msgid "Norway"
 msgstr "Norveška"
 
-#: core/Federation.php:152
+#: core/Federation.php:160
 msgid "Poland"
 msgstr "Poljska"
 
-#: core/Federation.php:153
+#: core/Federation.php:161
 msgid "Portugal"
 msgstr "Portugal"
 
-#: core/Federation.php:154
+#: core/Federation.php:162
 msgid "Romania"
 msgstr "Rumunjska"
 
-#: core/Federation.php:155
+#: core/Federation.php:163
 msgid "Slovenia"
 msgstr "Slovenija"
 
-#: core/Federation.php:156
+#: core/Federation.php:164
 msgid "Spain"
 msgstr "Španjolska"
 
-#: core/Federation.php:157
+#: core/Federation.php:165
 msgid "Sweden"
 msgstr "Švedska"
 
-#: core/Federation.php:158
+#: core/Federation.php:166
 msgid "Slovakia"
 msgstr "Slovačka"
 
-#: core/Federation.php:159
+#: core/Federation.php:167
 msgid "Switzerland"
 msgstr "Švicarska"
 
-#: core/Federation.php:160
+#: core/Federation.php:168
 msgid "Turkey"
 msgstr "Turska"
 
-#: core/Federation.php:161
+#: core/Federation.php:169
 msgid "United Kingdom"
 msgstr "Ujedinjeno Kraljevstvo"
 
-#: core/Federation.php:163
+#: core/Federation.php:171
 msgid "Australia"
 msgstr "Australija"
 
-#: core/Federation.php:164
+#: core/Federation.php:172
 msgid "Canada"
 msgstr "Kanada"
 
-#: core/Federation.php:165
+#: core/Federation.php:173
 msgid "Israel"
 msgstr "Izrael"
 
-#: core/Federation.php:166
+#: core/Federation.php:174
 msgid "Japan"
 msgstr "Japan"
 
-#: core/Federation.php:167
+#: core/Federation.php:175
 msgid "New Zealand"
 msgstr "Novi Zeland"
 
-#: core/Federation.php:168
+#: core/Federation.php:176
 msgid "U.S.A."
 msgstr "S.A.D."
 
-#: core/Federation.php:169
+#: core/Federation.php:177
 msgid "Brazil"
 msgstr "Brazil"
 
-#: core/Federation.php:170
+#: core/Federation.php:178
 msgid "Chile"
 msgstr "Čile"
 
-#: core/Federation.php:171
+#: core/Federation.php:179
 msgid "Peru"
 msgstr "Peru"
 
-#: core/Federation.php:172
+#: core/Federation.php:180
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: core/Federation.php:173
+#: core/Federation.php:181
 msgid "Default"
 msgstr "Zadano"
 
-#: core/Federation.php:174
+#: core/Federation.php:182
 msgid "Armenia"
 msgstr "Armenija"
 
-#: core/Federation.php:175
+#: core/Federation.php:183
 msgid "Azerbaijan"
 msgstr "Azerbejdžan"
 
-#: core/Federation.php:176
+#: core/Federation.php:184
 msgid "Belarus"
 msgstr "Bjelorusija"
 
-#: core/Federation.php:177
+#: core/Federation.php:185
 msgid "Ecuador"
 msgstr "Ekvador"
 
-#: core/Federation.php:178
+#: core/Federation.php:186
 msgid "Hong Kong"
 msgstr "Hong Kong"
 
-#: core/Federation.php:179
+#: core/Federation.php:187
 msgid "Kenya"
 msgstr "Kenija"
 
-#: core/Federation.php:180
+#: core/Federation.php:188
 msgid "Kyrgyzstan"
 msgstr "Kirgistan"
 
-#: core/Federation.php:181
+#: core/Federation.php:189
 msgid "Korea"
 msgstr "Koreja"
 
-#: core/Federation.php:182
+#: core/Federation.php:190
 msgid "Kazakhstan"
 msgstr "Kazahstan"
 
-#: core/Federation.php:183
+#: core/Federation.php:191
 msgid "Morocco"
 msgstr "Maroko"
 
-#: core/Federation.php:184
+#: core/Federation.php:192
 msgid "Moldova"
 msgstr "Moldavija"
 
-#: core/Federation.php:185
+#: core/Federation.php:193
 msgid "Montenegro"
 msgstr "Crna Gora"
 
-#: core/Federation.php:186
+#: core/Federation.php:194
 msgid "Macau"
 msgstr "Makao"
 
-#: core/Federation.php:187
+#: core/Federation.php:195
 msgid "Malta"
 msgstr "Malta"
 
-#: core/Federation.php:188
+#: core/Federation.php:196
 msgid "Russia"
 msgstr "Rusija"
 
-#: core/Federation.php:189
+#: core/Federation.php:197
 msgid "Singapore"
 msgstr "Singapur"
 
-#: core/Federation.php:190
+#: core/Federation.php:198
 msgid "Thailand"
 msgstr "Tajland"
 
-#: core/Federation.php:191
+#: core/Federation.php:199
 msgid "Taiwan"
 msgstr "Tajvan"
 
-#: core/Federation.php:192
+#: core/Federation.php:200
 msgid "South Africa"
 msgstr "Južna Afrika"
 
-#: core/Federation.php:432
+#: core/Federation.php:413
 msgid "Could not create a new Institution!"
 msgstr "Nemogućnost kreiranja nove institucije"
 
-#: core/IdP.php:355
+#: core/Federation.php:632
+msgid "Unnamed Entity"
+msgstr ""
+
+#: core/IdP.php:243
 #, php-format
 msgid ""
 "Hi,\n"
@@ -329,16 +333,20 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/IdP.php:364
+#: core/IdP.php:252
 msgid "IdP in your federation was deleted"
 msgstr "IdP u vašoj federaciji je obrisan"
+
+#: core/ProfileSilverbullet.php:94
+msgid "eduroam-as-a-service"
+msgstr ""
 
 #. / arguments are: 1. IdP name;
 #. /                2. consortium name (e.g. eduroam);
 #. /                3. federation shortname, e.g. "LU";
 #. /                4. product name (e.g. eduroam CAT);
 #. /                5. product long name (e.g. eduroam Configuration Assistant Tool)
-#: core/UserManagement.php:150
+#: core/UserManagement.php:158
 #, php-format
 msgid ""
 "Hi,\n"
@@ -363,11 +371,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: core/UserManagement.php:159
+#: core/UserManagement.php:167
 msgid "IdP in your federation was created"
 msgstr "IdP u vašoj federaciji je kreiran"
 
-#: core/User.php:256
+#: core/User.php:136
 msgid "Feedback"
 msgstr "Povratna informacija"
 

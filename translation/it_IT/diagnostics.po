@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"POT-Creation-Date: 2016-09-28 15:58+0200\n"
 "PO-Revision-Date: 2015-04-08 16:27+0000\n"
 "Last-Translator: Daniele Albrizio <daniele@albrizio.it>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/"
@@ -21,47 +21,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/RADIUSTests.php:263
+#: core/RADIUSTests.php:261
 msgid "eduPKI"
 msgstr "eduPKI"
 
-#: core/RADIUSTests.php:264
+#: core/RADIUSTests.php:262
 msgid "Nicolaus Copernicus University"
 msgstr "Università Nicolò Copernico"
 
-#: core/RADIUSTests.php:265
+#: core/RADIUSTests.php:263
 msgid "accredited"
 msgstr "acrreditata"
 
-#: core/RADIUSTests.php:266
+#: core/RADIUSTests.php:264
 msgid "non-accredited"
 msgstr "non accreditata"
 
-#: core/RADIUSTests.php:267
+#: core/RADIUSTests.php:265
 msgid "correct certificate"
 msgstr "certificato corretto"
 
-#: core/RADIUSTests.php:268
+#: core/RADIUSTests.php:266
 msgid "certificate with wrong policy OID"
 msgstr "certificato con una politica OID errata"
 
-#: core/RADIUSTests.php:269
+#: core/RADIUSTests.php:267
 msgid "expired certificate"
 msgstr "cretificato scaduto"
 
-#: core/RADIUSTests.php:270
+#: core/RADIUSTests.php:268
 msgid "revoked certificate"
 msgstr "certificato revocato"
 
-#: core/RADIUSTests.php:271
+#: core/RADIUSTests.php:269
 msgid "pass"
 msgstr "successo"
 
-#: core/RADIUSTests.php:272
+#: core/RADIUSTests.php:270
 msgid "fail"
 msgstr "fallito"
 
-#: core/RADIUSTests.php:273
+#: core/RADIUSTests.php:271
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "eduroam-accredited CA (ora solo per i test)"
 
@@ -69,29 +69,33 @@ msgstr "eduroam-accredited CA (ora solo per i test)"
 msgid "Completed"
 msgstr "Completato"
 
-#: core/RADIUSTests.php:391
+#: core/RADIUSTests.php:386
+msgid "Product is not configured to run this check."
+msgstr ""
+
+#: core/RADIUSTests.php:392
 msgid "This check was skipped."
 msgstr "Questo controllo è stato saltato."
 
-#: core/RADIUSTests.php:398
+#: core/RADIUSTests.php:399
 msgid "There were errors during the test."
 msgstr "Si è verificato un errore durante il controllo."
 
-#: core/RADIUSTests.php:406
+#: core/RADIUSTests.php:407
 msgid "This realm has no NAPTR records."
 msgstr "Questo realm non ha record NAPTR."
 
-#: core/RADIUSTests.php:413
+#: core/RADIUSTests.php:414
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
 "Sono stati trovati dei record NAPTR ma fanno tutti riferimento a servizi non "
 "correlati."
 
-#: core/RADIUSTests.php:421
+#: core/RADIUSTests.php:422
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Non c'è stata alcuna risposta dal server RADIUS."
 
-#: core/RADIUSTests.php:428
+#: core/RADIUSTests.php:429
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -99,7 +103,7 @@ msgstr ""
 "E' avvenuta una comunicazione bidirezionale con il server RADIUS, ma è "
 "terminata a metà."
 
-#: core/RADIUSTests.php:435
+#: core/RADIUSTests.php:436
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -107,7 +111,7 @@ msgstr ""
 "Il server Radius ha rifiutato la richiesta di autenticazione immediatamente "
 "nella sua prima risposta."
 
-#: core/RADIUSTests.php:442
+#: core/RADIUSTests.php:443
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
@@ -115,23 +119,23 @@ msgstr ""
 "Il server Radius ha  rifiutato la richiesta di autenticazione dopo una "
 "conversazione EAP."
 
-#: core/RADIUSTests.php:449
+#: core/RADIUSTests.php:450
 msgid "Connection refused"
 msgstr "Connessione rifiutata"
 
-#: core/RADIUSTests.php:456
+#: core/RADIUSTests.php:457
 msgid "Not enough data provided to perform an authentication"
 msgstr ""
 "Non sono stati forniti i dati sufficienti per eseguire una autenticazione"
 
-#: core/RADIUSTests.php:463
+#: core/RADIUSTests.php:464
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "La password del certicifato inserita non corrisponde a quella del file del "
 "certificato."
 
-#: core/RADIUSTests.php:471
+#: core/RADIUSTests.php:472
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -141,15 +145,15 @@ msgstr ""
 "ha nessuno scopo utile, ma aumenta lo scambio di pacchetti con probabili "
 "tempi di round-trip maggiori e quindi autenticazioni più lente."
 
-#: core/RADIUSTests.php:478
+#: core/RADIUSTests.php:479
 msgid "There is more than one server certificate in the chain."
 msgstr "C'è più di un certificato server nella catena dei certificati."
 
-#: core/RADIUSTests.php:485
+#: core/RADIUSTests.php:486
 msgid "There is no server certificate in the chain."
 msgstr "NON c'è alcun certificato server nella catena dei certificati."
 
-#: core/RADIUSTests.php:492
+#: core/RADIUSTests.php:493
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -159,7 +163,7 @@ msgstr ""
 "Molti sistemi operativi, incluso iOS di Apple, falliranno la validazione di "
 "questo certificato."
 
-#: core/RADIUSTests.php:499
+#: core/RADIUSTests.php:500
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
@@ -169,7 +173,7 @@ msgstr ""
 "bit. Molti sistemi operativi recenti lo considerano inaccettabile e "
 "falliranno la validazione del certificato server. "
 
-#: core/RADIUSTests.php:506
+#: core/RADIUSTests.php:507
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -179,7 +183,7 @@ msgstr ""
 "Authentication'. La maggior parte dei sistemi operativi Microsoft falliranno "
 "la validazione del certificato."
 
-#: core/RADIUSTests.php:513
+#: core/RADIUSTests.php:514
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -187,7 +191,7 @@ msgstr ""
 "Il certificato server non include un punto di distribuzione della CRL e crea "
 "quindi problemi di compatibilità con Windows Phone 8."
 
-#: core/RADIUSTests.php:520
+#: core/RADIUSTests.php:521
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -199,7 +203,7 @@ msgstr ""
 "Il controllo della validità del certificato server con una CRL non sarà "
 "possibile."
 
-#: core/RADIUSTests.php:527
+#: core/RADIUSTests.php:528
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "non-existing location. Some Operating Systems check certificate validity by "
@@ -212,11 +216,11 @@ msgstr ""
 "certificato. La verifica del certificato server con una CRL non sarà "
 "possibile."
 
-#: core/RADIUSTests.php:534
+#: core/RADIUSTests.php:535
 msgid "The server certificate was revoked by the CA!"
 msgstr "Il certificato del server è stato revocato dalla CA!"
 
-#: core/RADIUSTests.php:541
+#: core/RADIUSTests.php:542
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -229,7 +233,7 @@ msgstr ""
 "questi per la configurazione del supplicant, allora puoi ignorare questo "
 "avviso."
 
-#: core/RADIUSTests.php:548
+#: core/RADIUSTests.php:549
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -242,7 +246,7 @@ msgstr ""
 "certificato contiene anche nomi senza wildcard e usi solo questi nella "
 "configurazione del supplicant, puoi ignorare questo avviso."
 
-#: core/RADIUSTests.php:555
+#: core/RADIUSTests.php:556
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -250,7 +254,7 @@ msgstr ""
 "Almeno un certificato è fuori dal periodo di validità (non ancora valido o "
 "già scaduto)!"
 
-#: core/RADIUSTests.php:562
+#: core/RADIUSTests.php:563
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -263,7 +267,7 @@ msgstr ""
 "usato per la validazione del server. Considerane la rimozione dalla tua "
 "configurazione %s."
 
-#: core/RADIUSTests.php:569
+#: core/RADIUSTests.php:570
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -271,7 +275,7 @@ msgstr ""
 "Il certificato server non può essere validato verso la root CA che hai "
 "configurato nel tuo profilo!"
 
-#: core/RADIUSTests.php:573
+#: core/RADIUSTests.php:574
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -283,7 +287,7 @@ msgstr ""
 "verificato usando le CA intermedie del tuo profilo. Dovresti considerare "
 "l'invio delle CA intermedie richieste nella conversazione EAP."
 
-#: core/RADIUSTests.php:579
+#: core/RADIUSTests.php:580
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -291,7 +295,7 @@ msgstr ""
 "Il nome del server EAP non corrisponde ad alcun nome configurato nel tuo "
 "profilo!"
 
-#: core/RADIUSTests.php:586
+#: core/RADIUSTests.php:587
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -301,7 +305,7 @@ msgstr ""
 "del certificato entrante; la migliore pratica corrente è che il certificato "
 "contenga il nome in ENTRAMBE le posizioni."
 
-#: core/RADIUSTests.php:593
+#: core/RADIUSTests.php:594
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -313,61 +317,65 @@ msgstr ""
 "entity. Almeno Mac OS X 10.8 (Mountain Lion) non validerà questo certificato "
 "per l'uso con EAP!"
 
-#: core/RADIUSTests.php:600
+#: core/RADIUSTests.php:601
 msgid "The server presented a certificate from an unknown authority."
 msgstr ""
 "Il server ha presentato un certificato firmato da una autorità sconosciuta"
 
-#: core/RADIUSTests.php:607
+#: core/RADIUSTests.php:608
 msgid "The server accepted the INVALID client certificate."
 msgstr "Il server ha accettato il certificato INVALIDO del client."
 
-#: core/RADIUSTests.php:614
+#: core/RADIUSTests.php:615
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Il server ha rifiutato il certificato del client, anche se era valido."
 
-#: core/RADIUSTests.php:621
+#: core/RADIUSTests.php:622
 msgid "The server rejected the client certificate as expected."
 msgstr "Il server ha rifiutato il certificato come previsto."
 
-#: core/RADIUSTests.php:628
+#: core/RADIUSTests.php:629
 msgid "The CRL of a certificate could not be found."
 msgstr "La CRL del certificato non può essere trovata."
 
-#: core/RADIUSTests.php:635
+#: core/RADIUSTests.php:636
 msgid "EAP method negotiation failed!"
 msgstr "Negoziazione del metodo EAP, fallita!"
 
-#: core/RADIUSTests.php:642
+#: core/RADIUSTests.php:643
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
 
-#: core/RADIUSTests.php:649
+#: core/RADIUSTests.php:650
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
 
-#: core/RADIUSTests.php:1557
+#: core/RADIUSTests.php:1671
+msgid "No TLS connection established: Connection refused"
+msgstr ""
+
+#: core/RADIUSTests.php:1673
 msgid "certificate expired"
 msgstr "certificato scaduto"
 
-#: core/RADIUSTests.php:1559
+#: core/RADIUSTests.php:1675
 msgid "certificate was revoked"
 msgstr "il certificato è stato revocato"
 
-#: core/RADIUSTests.php:1561
+#: core/RADIUSTests.php:1677
 msgid "bad policy"
 msgstr "Policy errata"
 
-#: core/RADIUSTests.php:1563
+#: core/RADIUSTests.php:1679
 msgid "unknown authority"
 msgstr "authority sconosciuta"
 
-#: core/RADIUSTests.php:1566
+#: core/RADIUSTests.php:1682
 msgid "unknown authority or no certificate policy or another problem"
 msgstr ""
 "autority sconosciuta o nessuna policy per i certificati oppure un altro "

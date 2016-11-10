@@ -11,6 +11,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("Federation.php");
 require_once("IdP.php");
+require_once("CAT.php");
 require_once("Logging.php");
 require_once("UserManagement.php");
 require_once("Helper.php");
@@ -36,10 +37,11 @@ function check_federation_privilege($country) {
 
 authenticate();
 
+$catInstance = new CAT();
 $loggerInstance = new Logging();
 
-$cat = new CAT();
-$cat->set_locale("web_admin");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_admin");
 
 $mgmt = new UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
@@ -76,7 +78,7 @@ if (isset($_GET['inst_id'])) {
         exit(1);
     }
 
-    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), CAT::get_lang());
+    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), $languageInstance->getLang());
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
@@ -100,14 +102,13 @@ else if (isset($_POST['creation'])) {
     } elseif ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = valid_string_db($_POST['externals']);
-        $extinfo = Federation::getExternalDBEntityDetails($newexternalid);
+        $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
         $federation = new Federation($extinfo['country']);
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
-        $ourlang = CAT::get_lang();
         $prettyprintname = "";
         foreach ($extinfo['names'] as $lang => $name) {
-            if ($lang == $ourlang) {
+            if ($lang == $languageInstance->getLang()) {
                 $prettyprintname = $name;
             }
         }
@@ -185,7 +186,6 @@ Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
 $mail = mailHandle();
 // who to whom?
-$mail->From = CONFIG['APPEARANCE']['from-mail'];
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
     $fed = new Federation($newcountry);
@@ -211,10 +211,6 @@ foreach ($recipients as $recipient) {
 // what do we want to say?
 $mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), CONFIG['APPEARANCE']['productname']);
 $mail->Body = $message;
-
-if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
-    $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
-}
 
 $sent = $mail->send();
 

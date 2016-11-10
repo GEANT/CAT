@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"POT-Creation-Date: 2016-09-28 15:58+0200\n"
 "PO-Revision-Date: 2015-04-07 16:28+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
@@ -51,62 +51,62 @@ msgstr ""
 "άνθρωπος; Αν όχι, πήγαινε στη <a href='overview_user.php'>σελίδα προφίλ</a> "
 "σου."
 
-#: web/admin/action_fedcheck.php:50
+#: web/admin/action_fedcheck.php:52
 #, fuzzy
 msgid "No NAPTR records"
 msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 
-#: web/admin/action_fedcheck.php:53
+#: web/admin/action_fedcheck.php:55
 #, fuzzy, php-format
 msgid "No associated NAPTR records"
 msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 
-#: web/admin/action_fedcheck.php:56
+#: web/admin/action_fedcheck.php:58
 #, fuzzy, php-format
 msgid "%d %s NAPTR records"
 msgstr "Αυτός ο τομέας έχει %d %s εγγραφές NAPTR."
 
-#: web/admin/action_fedcheck.php:149
+#: web/admin/action_fedcheck.php:148
 #, fuzzy
 msgid "Inst Name"
 msgstr "Όνομα Ιδρύματος"
 
-#: web/admin/action_fedcheck.php:150
+#: web/admin/action_fedcheck.php:149
 #, fuzzy
 msgid "Profile Name"
 msgstr "Εμφανιζόμενο Όνομα Προφίλ"
 
-#: web/admin/action_fedcheck.php:151
+#: web/admin/action_fedcheck.php:150
 #, fuzzy
 msgid "DNS Checks"
 msgstr "Έλεγχοι DNS"
 
-#: web/admin/action_fedcheck.php:152
+#: web/admin/action_fedcheck.php:151
 msgid "Cert Checks"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:153
+#: web/admin/action_fedcheck.php:152
 msgid "Reachability Checks"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:154
+#: web/admin/action_fedcheck.php:153
 msgid "RADIUS/TLS Checks"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:158
+#: web/admin/action_fedcheck.php:157
 #, fuzzy
 msgid "Authentication Server Status for all known federation members"
 msgstr "Έλεγχος κατάστασης εξυπηρετητή στις Ευρωπαϊκές ομοσπονδίες"
 
-#: web/admin/action_fedcheck.php:177
+#: web/admin/action_fedcheck.php:176
 msgid "Profiles marked as visible (V)"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:185
+#: web/admin/action_fedcheck.php:184
 msgid "Profiles with sufficient configuration, not marked as visible (C)"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:193
+#: web/admin/action_fedcheck.php:192
 #, fuzzy
 msgid "Return to federation overview"
 msgstr "Επισκόπηση Ομοσπονδίας"
@@ -115,264 +115,264 @@ msgstr "Επισκόπηση Ομοσπονδίας"
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Έλεγχος ακεραιότητας για το δυναμικό εντοπισμό τομέων"
 
-#: web/admin/action_realmcheck.php:38
+#: web/admin/action_realmcheck.php:43
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Ζητήσατε να γίνει έλεγχος τομέα, αλλά δε γνωρίζουμε τον τομέα για αυτό το "
 "προφίλ!"
 
-#: web/admin/action_realmcheck.php:54
+#: web/admin/action_realmcheck.php:60
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr "Δε δόθηκε έγκυρο όνομα τομέα, δεν είναι δυνατή η εκτέλεση ελέγχων!"
 
-#: web/admin/action_realmcheck.php:57
+#: web/admin/action_realmcheck.php:64
 msgid "STATIC"
 msgstr "ΣΤΑΤΙΚΟΙ"
 
-#: web/admin/action_realmcheck.php:58
+#: web/admin/action_realmcheck.php:65
 msgid "DYNAMIC"
 msgstr "ΔΥΝΑΜΙΚΟΙ"
 
-#: web/admin/action_realmcheck.php:86
+#: web/admin/action_realmcheck.php:93
 msgid "PASS"
 msgstr "ΕΠΙΤΥΧΙΑ"
 
-#: web/admin/action_realmcheck.php:87
+#: web/admin/action_realmcheck.php:94
 msgid "FAIL"
 msgstr "ΑΠΟΤΥΧΙΑ"
 
-#: web/admin/action_realmcheck.php:88
+#: web/admin/action_realmcheck.php:95
 msgid "Client certificate:"
 msgstr "Πιστοποιητικό πελάτη:"
 
-#: web/admin/action_realmcheck.php:89
+#: web/admin/action_realmcheck.php:96
 msgid "expected result: "
 msgstr "αναμενόμενο αποτέλεσμα:"
 
-#: web/admin/action_realmcheck.php:90
+#: web/admin/action_realmcheck.php:97
 msgid "Server accepted this client certificate"
 msgstr "Ο εξυπηρετητής αποδέχτηκε αυτό το πιστοποιητικό πελάτη"
 
-#: web/admin/action_realmcheck.php:91
+#: web/admin/action_realmcheck.php:98
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "Ο εξυπηρετητής αποδέχτηκε αυτό το πιστοποιητικό πελάτη, αλλά δεν έπρεπε"
 
-#: web/admin/action_realmcheck.php:92
+#: web/admin/action_realmcheck.php:99
 msgid "Server did not accept this client certificate"
 msgstr "Ο εξυπηρετητής δεν αποδέχτηκε αυτό το πιστοποιητικό πελάτη"
 
-#: web/admin/action_realmcheck.php:93
+#: web/admin/action_realmcheck.php:100
 msgid "Server did not accept this client certificate - reason"
 msgstr "Ο εξυπηρετητής δεν αποδέχτηκε αυτό το πιστοποιητικό πελάτη - αιτία"
 
-#: web/admin/action_realmcheck.php:94
+#: web/admin/action_realmcheck.php:101
 msgid "Rest of tests for this CA skipped"
 msgstr "Οι υπόλοιπες δοκιμές για αυτό το CA θα παραβλεφθούν"
 
-#: web/admin/action_realmcheck.php:95
+#: web/admin/action_realmcheck.php:102
 msgid "You should update your list of accredited CAs"
 msgstr "Πρέπει να ενημερώσετε τη λίστα των διαπιστευμένων CA"
 
-#: web/admin/action_realmcheck.php:96
+#: web/admin/action_realmcheck.php:103
 msgid "Get it from here."
 msgstr "Λήψη από εδώ"
 
-#: web/admin/action_realmcheck.php:98
+#: web/admin/action_realmcheck.php:105
 msgid "more"
 msgstr "περισσότερα"
 
-#: web/admin/action_realmcheck.php:100 web/admin/action_realmcheck.php:652
+#: web/admin/action_realmcheck.php:107 web/admin/action_realmcheck.php:653
 msgid "Show detailed information for all tests"
 msgstr "Εμφάνιση λεπτομερών πληροφοριών για όλους τους ελέγχους"
 
-#: web/admin/action_realmcheck.php:103
+#: web/admin/action_realmcheck.php:110
 msgid "Connection refused"
 msgstr "Άρνηση σύνδεσης"
 
-#: web/admin/action_realmcheck.php:115 web/admin/radius_tests.php:340
+#: web/admin/action_realmcheck.php:122 web/admin/radius_tests.php:357
 msgid "Server certificate"
 msgstr "Πιστοποιητικό εξυπηρετητή"
 
-#: web/admin/action_realmcheck.php:116 web/admin/radius_tests.php:342
+#: web/admin/action_realmcheck.php:123 web/admin/radius_tests.php:359
 msgid "Subject"
 msgstr "Θέμα"
 
-#: web/admin/action_realmcheck.php:117 web/admin/radius_tests.php:343
+#: web/admin/action_realmcheck.php:124 web/admin/radius_tests.php:360
 msgid "Issuer"
 msgstr "Εκδότης"
 
-#: web/admin/action_realmcheck.php:118 web/admin/radius_tests.php:345
+#: web/admin/action_realmcheck.php:125 web/admin/radius_tests.php:362
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/admin/action_realmcheck.php:119 web/admin/radius_tests.php:349
+#: web/admin/action_realmcheck.php:126 web/admin/radius_tests.php:366
 msgid "Certificate policies"
 msgstr "Πολιτικές πιστοποιητικών"
 
-#: web/admin/action_realmcheck.php:120
+#: web/admin/action_realmcheck.php:127
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/admin/action_realmcheck.php:121 web/admin/radius_tests.php:357
+#: web/admin/action_realmcheck.php:128 web/admin/radius_tests.php:375
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/admin/action_realmcheck.php:122
+#: web/admin/action_realmcheck.php:129
 msgid "Hide detailed information for all tests"
 msgstr "Απόκρυψη λεπτομερών πληροφοριών για όλους τους ελέγχους"
 
-#: web/admin/action_realmcheck.php:177
+#: web/admin/action_realmcheck.php:183
 msgid "Some required input is missing!"
 msgstr "Δεν έχουν συμπληρωθεί όλα τα απαιτούμενα πεδία!"
 
-#: web/admin/action_realmcheck.php:229 web/admin/action_realmcheck.php:319
-#: web/admin/action_realmcheck.php:342 web/admin/action_realmcheck.php:394
+#: web/admin/action_realmcheck.php:234 web/admin/action_realmcheck.php:324
+#: web/admin/action_realmcheck.php:347 web/admin/action_realmcheck.php:399
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "υπολειπόμενος χρόνος: %sms."
 
-#: web/admin/action_realmcheck.php:306
+#: web/admin/action_realmcheck.php:311
 msgid "Subject:"
 msgstr "Θέμα:"
 
-#: web/admin/action_realmcheck.php:307
+#: web/admin/action_realmcheck.php:312
 msgid "Issuer:"
 msgstr "Εκδότης:"
 
-#: web/admin/action_realmcheck.php:308
+#: web/admin/action_realmcheck.php:313
 msgid "Valid from:"
 msgstr "Εγκρίθηκε από:"
 
-#: web/admin/action_realmcheck.php:309
+#: web/admin/action_realmcheck.php:314
 msgid "Valid to:"
 msgstr "Έγκυρο σε:"
 
-#: web/admin/action_realmcheck.php:310
+#: web/admin/action_realmcheck.php:315
 msgid "Serial number:"
 msgstr "Σειριακός αριθμός:"
 
-#: web/admin/action_realmcheck.php:311
+#: web/admin/action_realmcheck.php:316
 msgid "SHA1 fingerprint:"
 msgstr "SHA1 αποτύπωμα:"
 
-#: web/admin/action_realmcheck.php:332 web/admin/action_realmcheck.php:384
+#: web/admin/action_realmcheck.php:337 web/admin/action_realmcheck.php:389
 msgid "Extensions"
 msgstr "Επεκτάσεις"
 
-#: web/admin/action_realmcheck.php:333
+#: web/admin/action_realmcheck.php:338
 msgid "show server certificate details"
 msgstr "προβολή λεπτομερειών πιστοποιητικού εξυπηρετητή"
 
-#: web/admin/action_realmcheck.php:353 web/admin/action_realmcheck.php:358
+#: web/admin/action_realmcheck.php:358 web/admin/action_realmcheck.php:363
 msgid "See the appropriate tab for details."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:372
+#: web/admin/action_realmcheck.php:377
 msgid "Server certificate details:"
 msgstr "Λεπτομέρειες πιστοποιητικού εξυπηρετητή"
 
-#: web/admin/action_realmcheck.php:464
+#: web/admin/action_realmcheck.php:468
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Δοκιμές τομέα για: %s"
 
-#: web/admin/action_realmcheck.php:472 web/admin/action_realmcheck.php:480
+#: web/admin/action_realmcheck.php:476 web/admin/action_realmcheck.php:484
 #, fuzzy
 msgid "Overview"
 msgstr "Επισκόπηση Χρηστών"
 
-#: web/admin/action_realmcheck.php:473 web/admin/action_realmcheck.php:595
+#: web/admin/action_realmcheck.php:477 web/admin/action_realmcheck.php:596
 msgid "Static connectivity tests"
 msgstr "Δοκιμές στατικής συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:474 web/admin/action_realmcheck.php:600
+#: web/admin/action_realmcheck.php:478 web/admin/action_realmcheck.php:601
 msgid "Dynamic connectivity tests"
 msgstr "Δοκιμές δυναμικής συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:475
+#: web/admin/action_realmcheck.php:479
 msgid "Live login tests"
 msgstr "Ζωντανές δοκιμές σύνδεσης"
 
-#: web/admin/action_realmcheck.php:484
+#: web/admin/action_realmcheck.php:488
 #, fuzzy
 msgid "DNS chekcs"
 msgstr "Έλεγχοι DNS"
 
-#: web/admin/action_realmcheck.php:489
+#: web/admin/action_realmcheck.php:493
 msgid "Checking NAPTR existence:"
 msgstr "Έλεγχος ύπαρξης NAPTR:"
 
-#: web/admin/action_realmcheck.php:492
+#: web/admin/action_realmcheck.php:496
 msgid "This realm has no NAPTR records."
 msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 
-#: web/admin/action_realmcheck.php:495
+#: web/admin/action_realmcheck.php:499
 #, php-format
 msgid "This realm has NAPTR records, but none are associated with %s."
 msgstr ""
 "Αυτός ο τομέας έχει εγγραφές NAPTR, αλλά καμία δεν είναι συσχετισμένη με %s."
 
-#: web/admin/action_realmcheck.php:498
+#: web/admin/action_realmcheck.php:502
 #, php-format
 msgid "This realm has %d %s NAPTR records."
 msgstr "Αυτός ο τομέας έχει %d %s εγγραφές NAPTR."
 
-#: web/admin/action_realmcheck.php:505
+#: web/admin/action_realmcheck.php:509
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Έλεγχος συμβατότητας NAPTR (flag = S και regex = {empty}):"
 
-#: web/admin/action_realmcheck.php:509
+#: web/admin/action_realmcheck.php:513
 msgid "No issues found."
 msgstr "Δεν βρέθηκαν θέματα."
 
-#: web/admin/action_realmcheck.php:512 web/admin/action_realmcheck.php:528
+#: web/admin/action_realmcheck.php:516 web/admin/action_realmcheck.php:532
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Βρέθηκε τουλάχιστον ένα NAPTR με άκυρο περιεχόμενο!"
 
-#: web/admin/action_realmcheck.php:522
+#: web/admin/action_realmcheck.php:526
 msgid "Checking SRVs:"
 msgstr "Έλεγχος SRVs:"
 
-#: web/admin/action_realmcheck.php:525 web/admin/action_realmcheck.php:541
+#: web/admin/action_realmcheck.php:529 web/admin/action_realmcheck.php:545
 msgid "This check was skipped."
 msgstr "Αυτός ο έλεγχος παραλείφθηκε."
 
-#: web/admin/action_realmcheck.php:531
+#: web/admin/action_realmcheck.php:535
 #, php-format
 msgid "%d host names discovered."
 msgstr "Εντοπίστηκαν %d hostnames."
 
-#: web/admin/action_realmcheck.php:538
+#: web/admin/action_realmcheck.php:542
 msgid "Checking IP address resolution:"
 msgstr "Έλεγχος ανάλυσης της IP διεύθυνσης:"
 
-#: web/admin/action_realmcheck.php:544
+#: web/admin/action_realmcheck.php:548
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Τουλάχιστον ένα hostname δεν μπόρεσε να εντοπιστεί!"
 
-#: web/admin/action_realmcheck.php:547
+#: web/admin/action_realmcheck.php:551
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "Εντοπίστηκαν %d διευθύνσεις IP."
 
-#: web/admin/action_realmcheck.php:554 web/admin/action_realmcheck.php:557
+#: web/admin/action_realmcheck.php:558 web/admin/action_realmcheck.php:561
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Ο τομέας είναι <strong>%s</strong> "
 
-#: web/admin/action_realmcheck.php:554
+#: web/admin/action_realmcheck.php:558
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "χωρίς να αντιμετωπιστούν σφάλματα DNS. Συγχαρητήρια!"
 
-#: web/admin/action_realmcheck.php:557
+#: web/admin/action_realmcheck.php:561
 msgid "but there were DNS errors! Check them!"
 msgstr "αλλά υπήρχαν σφάλματα DNS! Ελέγξτε τα!"
 
-#: web/admin/action_realmcheck.php:557
+#: web/admin/action_realmcheck.php:561
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -381,20 +381,20 @@ msgstr ""
 "περισσότερα σφάλματα μπορεί να προκύψουν σε αυτό το σημείο. Οι ακριβείς "
 "αιτίες των σφαλμάτων παραθέτονται παρακάτω."
 
-#: web/admin/action_realmcheck.php:593
+#: web/admin/action_realmcheck.php:594
 #, fuzzy
 msgid "Dynamic discovery test is not configured"
 msgstr "Αυτός ο έλεγχος δεν έχει ρυθμιστεί."
 
-#: web/admin/action_realmcheck.php:611
+#: web/admin/action_realmcheck.php:612
 msgid "Repeat static connectivity tests"
 msgstr "Επαναλάβετε τις δοκιμές στατικής συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:614
+#: web/admin/action_realmcheck.php:615
 msgid "STATIC connectivity tests"
 msgstr "Δοκιμές ΣΤΑΤΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:616
+#: web/admin/action_realmcheck.php:617
 #, php-format
 msgid ""
 "This check sends a request for the realm through various entry points of the "
@@ -412,42 +412,42 @@ msgstr ""
 "συνεπώς το αναμενόμενο αποτέλεσμα είναι να λάβουμε απάντηση Access-Reject "
 "έχοντας ολοκληρώσει μια συζήτηση EAP."
 
-#: web/admin/action_realmcheck.php:621 web/admin/action_realmcheck.php:740
+#: web/admin/action_realmcheck.php:622 web/admin/action_realmcheck.php:742
 #, php-format
 msgid "Testing from: %s"
 msgstr "Δοκιμάζεται από: %s"
 
-#: web/admin/action_realmcheck.php:626 web/admin/action_realmcheck.php:665
-#: web/admin/action_realmcheck.php:683
+#: web/admin/action_realmcheck.php:627 web/admin/action_realmcheck.php:666
+#: web/admin/action_realmcheck.php:684
 msgid "testing..."
 msgstr "δοκιμάζοντας..."
 
-#: web/admin/action_realmcheck.php:643
+#: web/admin/action_realmcheck.php:644
 msgid "Repeat dynamic connectivity tests"
 msgstr "Επαναλάβετε τις δοκιμές δυναμικής συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:647
+#: web/admin/action_realmcheck.php:648
 msgid "DYNAMIC connectivity tests"
 msgstr "Δοκιμές ΔΥΝΑΜΙΚΗΣ συνδεσιμότητας"
 
-#: web/admin/action_realmcheck.php:651
+#: web/admin/action_realmcheck.php:652
 msgid "Some errors were found during the tests, see below"
 msgstr ""
 "Παρουσιάστηκαν κάποια σφάλματα κατά τη διάρκεια των δοκιμών, δείτε παρακάτω"
 
-#: web/admin/action_realmcheck.php:651
+#: web/admin/action_realmcheck.php:652
 msgid "All tests passed, congratulations!"
 msgstr "Επιτυχία σε όλες τις δοκιμές, συγχαρητήρια!"
 
-#: web/admin/action_realmcheck.php:652
+#: web/admin/action_realmcheck.php:653
 msgid "Checking server handshake..."
 msgstr "Έλεγχος χειραψίας εξυπηρετητή..."
 
-#: web/admin/action_realmcheck.php:691
+#: web/admin/action_realmcheck.php:692
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "Έλεγχος αν είναι αποδεκτά τα πιστοποιητικά από CA..."
 
-#: web/admin/action_realmcheck.php:691
+#: web/admin/action_realmcheck.php:692
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -455,11 +455,11 @@ msgstr ""
 "Θα δοκιμαστούν μερικά πιστοποιητικά πελάτη για να ελεγχθεί αν οι "
 "εξυπηρετητές έχουν ανοχές σε προβλήματα πιστοποιητικών."
 
-#: web/admin/action_realmcheck.php:705
+#: web/admin/action_realmcheck.php:706
 msgid "Live login test"
 msgstr "Live δοκιμή εισόδου"
 
-#: web/admin/action_realmcheck.php:709
+#: web/admin/action_realmcheck.php:710
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -467,7 +467,7 @@ msgstr ""
 "Αν εισάγετε ενεργά διαπιστευτήρια εισόδου εδώ, μπορείτε να ελέγξετε την "
 "πιστοποίηση από διάφορα σημεία ελέγχου σε όλο τον κόσμο."
 
-#: web/admin/action_realmcheck.php:710
+#: web/admin/action_realmcheck.php:711
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -480,7 +480,7 @@ msgstr ""
 "και τον τύπο EAP που δόθηκε δούλεψε πραγματικά. Αν έχετε ορίσει ανώνυμο "
 "εξωτερικό ID, ο έλεγχος θα χρησιμοποιήσει αυτό."
 
-#: web/admin/action_realmcheck.php:711
+#: web/admin/action_realmcheck.php:712
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -493,43 +493,43 @@ msgstr ""
 "δοκιμαστικούς λογαριασμούς</strong> εδώ· οι μόνιμοι έγκυροι δοκιμαστικοί "
 "λογαριασμοί που κυκλοφορούν ελεύθεροι θεωρούνται επικίνδυνοι!"
 
-#: web/admin/action_realmcheck.php:725
+#: web/admin/action_realmcheck.php:726
 msgid "Password-based EAP types"
 msgstr "Τύποι EAP με κωδικό"
 
-#: web/admin/action_realmcheck.php:726
+#: web/admin/action_realmcheck.php:727
 msgid "Real (inner) username:"
 msgstr "Πραγματικό (εσωτερικό) όνομα χρήστη:"
 
-#: web/admin/action_realmcheck.php:727
+#: web/admin/action_realmcheck.php:728
 msgid "Anonymous outer ID (optional):"
 msgstr "Ανώνυμο εξωτερικό ID (προαιρετικό):"
 
-#: web/admin/action_realmcheck.php:728
+#: web/admin/action_realmcheck.php:729
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: web/admin/action_realmcheck.php:732
+#: web/admin/action_realmcheck.php:733
 msgid "Certificate-based EAP types"
 msgstr "Τύποι EAP με πιστοποιητικό"
 
-#: web/admin/action_realmcheck.php:733
+#: web/admin/action_realmcheck.php:734
 msgid "Certificate file (.p12 or .pfx):"
 msgstr "Αρχείο πιστοποίησης (.p12 or .pfx):"
 
-#: web/admin/action_realmcheck.php:734
+#: web/admin/action_realmcheck.php:735
 msgid "Certificate password, if any:"
 msgstr "Κωδικός πιστοποιητικού, εάν υπάρχει:"
 
-#: web/admin/action_realmcheck.php:735
+#: web/admin/action_realmcheck.php:736
 msgid "Username, if different from certificate Subject:"
 msgstr "Όνομα χρήστη, εάν διαφέρει από το Θέμα του πιστοποιητικού:"
 
-#: web/admin/action_realmcheck.php:736
+#: web/admin/action_realmcheck.php:738
 msgid "Submit credentials"
 msgstr "Υποβολή διαπιστευτηρίων"
 
-#: web/admin/action_realmcheck.php:757 web/admin/overview_installers.php:154
+#: web/admin/action_realmcheck.php:758 web/admin/overview_installers.php:164
 msgid "Return to dashboard"
 msgstr "Επιστροφή στον πίνακα ελέγχου"
 
@@ -543,48 +543,47 @@ msgstr "%s: Γίνεται επεξεργασία του IdP '%s'"
 msgid "Editing Federation information for '%s'"
 msgstr "Επεξεργασία πληροφοριών IdP για '%s'"
 
-#: web/admin/edit_federation.php:42 web/admin/edit_federation.php:60
+#: web/admin/edit_federation.php:42 web/admin/edit_federation.php:59
 #, fuzzy
 msgid "Federation Properties"
 msgstr "Ιδιότητες Media"
 
-#: web/admin/edit_federation.php:45 web/admin/edit_idp.php:87
-#: web/admin/edit_profile.php:187
+#: web/admin/edit_federation.php:45 web/admin/edit_idp.php:92
+#: web/admin/inc/common.inc.php:298
 msgid "Country:"
 msgstr "Χώρα:"
 
-#: web/admin/edit_federation.php:66 web/admin/edit_idp.php:123
-#: web/admin/edit_idp.php:188 web/admin/edit_idp.php:205
-#: web/admin/edit_idp.php:218 web/admin/edit_profile.php:250
-#: web/admin/edit_profile.php:507 web/admin/edit_profile.php:538
-#: web/admin/edit_profile.php:570 web/admin/edit_user.php:47
-#: web/admin/inc/toggleRedirect.inc.php:117
+#: web/admin/edit_federation.php:63 web/admin/edit_idp.php:125
+#: web/admin/edit_idp.php:181 web/admin/edit_idp.php:195
+#: web/admin/edit_profile.php:208 web/admin/edit_profile.php:496
+#: web/admin/edit_profile.php:521 web/admin/edit_profile.php:547
+#: web/admin/edit_user.php:44 web/admin/inc/toggleRedirect.inc.php:128
 msgid "Add new option"
 msgstr "Προσθήκη νέας επιλογής"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_idp.php:224
-#: web/admin/edit_profile.php:574 web/admin/edit_user.php:52
-#: web/admin/inc/toggleRedirect.inc.php:120
+#: web/admin/edit_federation.php:66 web/admin/edit_idp.php:200
+#: web/admin/edit_profile.php:552 web/admin/edit_user.php:49
+#: web/admin/inc/toggleRedirect.inc.php:131
 msgid "Save data"
 msgstr "Αποθήκευση δεδομένων"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_idp.php:224
-#: web/admin/edit_profile.php:574 web/admin/edit_user.php:55
+#: web/admin/edit_federation.php:66 web/admin/edit_idp.php:200
+#: web/admin/edit_profile.php:552 web/admin/edit_user.php:52
 msgid "Discard changes"
 msgstr "Απόρριψη αλλαγών"
 
-#: web/admin/edit_federation_result.php:25
+#: web/admin/edit_federation_result.php:26
 #, php-format
 msgid "%s: Federation Customisation (submission completed)"
 msgstr ""
 
-#: web/admin/edit_federation_result.php:30
+#: web/admin/edit_federation_result.php:31
 #, fuzzy, php-format
 msgid "Submitted attributes for federation '%s'"
 msgstr "Attributes του IdP '%s' που έχουν υποβληθεί"
 
-#: web/admin/edit_federation_result.php:45 web/admin/edit_idp_result.php:117
-#: web/admin/edit_profile_result.php:207
+#: web/admin/edit_federation_result.php:46 web/admin/edit_idp_result.php:134
+#: web/admin/edit_profile_result.php:223
 msgid "Continue to dashboard"
 msgstr "Συνέχεια στον πίνακα ελέγχου"
 
@@ -598,20 +597,20 @@ msgstr "%s: Οδηγός εγγραφής IdP (βήμα 2)"
 msgid "%s: Editing IdP '%s'"
 msgstr "%s: Γίνεται επεξεργασία του IdP '%s'"
 
-#: web/admin/edit_idp.php:78
+#: web/admin/edit_idp.php:82
 msgid "Step 2: General Information about your IdP"
 msgstr "Βήμα 2: Γενικές πληροφορίες για τον IdP σας"
 
-#: web/admin/edit_idp.php:80
+#: web/admin/edit_idp.php:84
 #, php-format
 msgid "Editing IdP information for '%s'"
 msgstr "Επεξεργασία πληροφοριών IdP για '%s'"
 
-#: web/admin/edit_idp.php:84
+#: web/admin/edit_idp.php:89
 msgid "General Institution Properties"
 msgstr "Γενικές Ιδιότητες Ιδρύματος"
 
-#: web/admin/edit_idp.php:103
+#: web/admin/edit_idp.php:108
 msgid ""
 "Hello, newcomer. Your institution is new to us. This wizard will ask you "
 "several questions about your IdP, so that we can generate beautiful profiles "
@@ -626,11 +625,11 @@ msgstr ""
 "συμπληρώσετε όσο το δυνατόν περισσότερα πεδία\n"
 "προς όφελος των τελικών χρηστών σας."
 
-#: web/admin/edit_idp.php:106
+#: web/admin/edit_idp.php:112
 msgid "General Information"
 msgstr "Γενικές πληροφορίες"
 
-#: web/admin/edit_idp.php:110
+#: web/admin/edit_idp.php:116
 msgid ""
 "This is the place where you can describe your institution in a fine-grained "
 "way. The solicited information is used as follows:"
@@ -638,7 +637,7 @@ msgstr ""
 "Αυτό είναι το μέρος όπου μπορείτε να περιγράψετε το ίδρυμά σας με έναν "
 "όμορφα διατυπωμένο τρόπο. Οι ζητούμενες πληροφορίες είναι οι εξής:"
 
-#: web/admin/edit_idp.php:112
+#: web/admin/edit_idp.php:118
 msgid ""
 "<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
 "all installers where a custom logo is possible. We accept any image format, "
@@ -651,7 +650,7 @@ msgstr ""
 "προτείνουμε SVG. Αν δεν ανεβάσετε κάποιο λογότυπο, θα χρησιμοποιήσουμε το "
 "γενικό λογότυπο (δείτε την πάνω δεξιά γωνία αυτής της σελίδας)"
 
-#: web/admin/edit_idp.php:113
+#: web/admin/edit_idp.php:119
 msgid ""
 "<strong>Terms of Use</strong>: Some installers support displaying text to "
 "the user during installation time. If so, we will make that happen if you "
@@ -662,12 +661,11 @@ msgstr ""
 "αυτή η δυνατότητα, θα το πραγματοποιήσουμε αν ανεβάσετε ένα αρχείο RTF ή "
 "απλού κειμένου το οποίο πρέπει να εμφανίζεται."
 
-#: web/admin/edit_idp.php:136 web/admin/edit_profile.php:202
-#: web/admin/overview_idp.php:73
+#: web/admin/edit_idp.php:131 web/admin/inc/common.inc.php:312
 msgid "Media Properties"
 msgstr "Ιδιότητες Media"
 
-#: web/admin/edit_idp.php:140
+#: web/admin/edit_idp.php:135
 #, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
@@ -676,22 +674,22 @@ msgstr ""
 "Σε αυτή την ενότητα ορίζεται σε ποια media θα πρέπει να γίνει η ρύθμιση του "
 "%s όσον αφορά τις συσκευές χρηστών."
 
-#: web/admin/edit_idp.php:143
+#: web/admin/edit_idp.php:138
 msgid "Additional SSIDs:"
 msgstr "Επιπρόσθετα SSID:"
 
-#: web/admin/edit_idp.php:143
+#: web/admin/edit_idp.php:138
 msgid "SSIDs:"
 msgstr "SSIDs:"
 
-#: web/admin/edit_idp.php:149
+#: web/admin/edit_idp.php:145
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] "Εμείς πάντα θα ρυθμίζουμε αυτό το SSID για WPA2/AES: %s."
 msgstr[1] "Εμείς πάντα θα ρυθμίζουμε αυτά τα SSIDs για WPA2/AES: %s."
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_idp.php:147
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
@@ -699,7 +697,7 @@ msgstr ""
 "Επίσης θα ρυθμιστούν για WPA/TKIP αν η συσκευή υποστηρίζει πολλαπλούς τύπους "
 "κρυπτογράφησης."
 
-#: web/admin/edit_idp.php:152
+#: web/admin/edit_idp.php:149
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
@@ -708,13 +706,13 @@ msgstr ""
 "Είναι επίσης δυνατό να καθορίσετε επιπρόσθετα SSIDs με τις επιλογές '%s' και "
 "'%s' παρακάτω."
 
-#: web/admin/edit_idp.php:154
+#: web/admin/edit_idp.php:151
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr ""
 "Παρακαλούμε ρυθμίστε τα SSIDs τα οποία πρέπει να συμπεριληφθούν στα πακέτα "
 "εγκατάστασης."
 
-#: web/admin/edit_idp.php:156
+#: web/admin/edit_idp.php:153
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
@@ -725,22 +723,22 @@ msgstr ""
 "πρέπει να συμπεριλάβουμε συμβατική υποστήριξη WPA/TKIP όπου αυτό είναι "
 "δυνατό."
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_idp.php:157
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Επιπρόσθετες κοινοπραξίες Hotspot 2.0 / Passpoint:"
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_idp.php:157
 msgid "Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Κοινοπραξίες Hotspot 2.0 / Passpoint:"
 
-#: web/admin/edit_idp.php:166
+#: web/admin/edit_idp.php:164
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
 msgstr[0] "Εμείς πάντα θα ρυθμίζουμε αυτό το Consortium OI: %s."
 msgstr[1] "Εμείς πάντα θα ρυθμίζουμε αυτά τα Consortium OIs: %s."
 
-#: web/admin/edit_idp.php:168
+#: web/admin/edit_idp.php:166
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
@@ -749,18 +747,18 @@ msgstr ""
 "Είναι επίσης δυνατό να καθορίσετε επιπρόσθετα προσαρμοσμένα OIs με την "
 "επιλογή '%s' παρακάτω."
 
-#: web/admin/edit_idp.php:170
+#: web/admin/edit_idp.php:168
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
 "Παρακαλούμε ρυθμίστε τα Consortium OIs τα οποία πρέπει να συμπεριληφθούν στα "
 "πακέτα εγκατάστασης."
 
-#: web/admin/edit_idp.php:173
+#: web/admin/edit_idp.php:171
 msgid "Support for wired IEEE 802.1X:"
 msgstr "Υποστήριξη για ενσύρματο IEEE 802.1X:"
 
-#: web/admin/edit_idp.php:174
+#: web/admin/edit_idp.php:172
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
 "wired ethernet, please check the corresponding box. Note that this makes the "
@@ -776,11 +774,11 @@ msgstr ""
 "συσκευή που δε διαθέτει ενεργή κάρτα ενσύρματου δικτύου ethernet θα "
 "αποτυγχάνει)."
 
-#: web/admin/edit_idp.php:176
+#: web/admin/edit_idp.php:174
 msgid "Removal of bootstrap/onboarding SSIDs:"
 msgstr "Αφαίρεση SSIDs για bootstrap/onboarding:"
 
-#: web/admin/edit_idp.php:177
+#: web/admin/edit_idp.php:175
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
@@ -791,11 +789,11 @@ msgstr ""
 "εγκατάσταση. Με αυτή την επιλογή, το SSID είτε θα αφαιρεθεί ή θα οριστεί για "
 "'Μόνο μη αυτόματη σύνδεση'."
 
-#: web/admin/edit_idp.php:191
+#: web/admin/edit_idp.php:184
 msgid "Helpdesk Details for all users"
 msgstr "Λεπτομέρειες helpdesk για όλους τους χρήστες"
 
-#: web/admin/edit_idp.php:195
+#: web/admin/edit_idp.php:188
 msgid ""
 "If your IdP provides a helpdesk for its users, it would be nice if you would "
 "tell us the pointers to this helpdesk. Some site installers might be able to "
@@ -805,7 +803,7 @@ msgstr ""
 "μας λέγατε ποιο είναι αυτό. Μερικά δικτυακά πακέτα εγκατάστασης ίσως να "
 "μπορούν να δώσουν αυτή την πληροφορία στο χρήστη αν κολλήσει κάπου."
 
-#: web/admin/edit_idp.php:197
+#: web/admin/edit_idp.php:190
 msgid ""
 "If you enter a value here, it will be added to the site installers for all "
 "your users, and will be displayed on the download page. If you operate "
@@ -822,40 +820,7 @@ msgstr ""
 "ορίσετε προαιρετικά πληροφορίες για helpdesk ανά προφίλ αργότερα μέσω αυτού "
 "του οδηγού."
 
-#: web/admin/edit_idp.php:207
-msgid "EAP details for all users"
-msgstr "Λεπτομέρειες EAP για όλους τους χρήστες"
-
-#: web/admin/edit_idp.php:210
-msgid ""
-"Most EAP methods need server-side authentication details, like the CA "
-"certificate and/or server name(s) of your authentication servers. If all the "
-"EAP methods you support work with the same CA and or Common Names of "
-"servers, you can enter them here and they will be added as trust anchors in "
-"all profiles. If the details differ per profile or per EAP-type, you can "
-"also enter them in the individual profiles later."
-msgstr ""
-"Οι περισσότερες μέθοδοι EAP χρειάζονται λεπτομέρειες πιστοποίησης από τη "
-"μεριά του εξυπηρετητή, όπως πιστοποιητικό CA ή/και όνομα(-τα) των "
-"εξυπηρετητών πιστοποίησης. Αν όλες οι μέθοδοι EAP που υποστηρίζετε δουλεύουν "
-"με το ίδιο CA ή/και με κοινά ονόματα εξυπηρετητών, μπορείτε να τα εισάγετε "
-"εδώ και θα προστεθούν ως ενσωματώσεις εμπιστευτικότητας σε όλα τα προφίλ. Αν "
-"οι λεπτομέρειες διαφέρουν ανά προφίλ ή ανά τύπο EAP, μπορείτε να τα εισάγετε "
-"και ξεχωριστά στα προφίλ αργότερα."
-
-#: web/admin/edit_idp.php:211
-#, php-format
-msgid ""
-"<strong>Note well: </strong>The server-side validation is a cornerstone of "
-"%s; without it, users are subject to man-in-the-middle attacks! We will not "
-"generate site installers without Trusted CA anchors and server names."
-msgstr ""
-"<strong>Προσέξτε ιδιαίτερα: </strong>Η επαλήθευση της ταυτότητας εξυπηρετητή "
-"είναι ο ακρογωνιαίος λίθος του %s· χωρίς αυτή, οι χρήστες υπόκειται σε "
-"επιθέσεις man-in-the-middle! Δε θα παράγουμε πακέτα εγκατάστασης χωρίς "
-"αγκυρώσεις σε Έμπιστες Αρχές Πιστοποίησης και ονόματα εξυπηρετητών."
-
-#: web/admin/edit_idp.php:222
+#: web/admin/edit_idp.php:198
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
@@ -864,45 +829,45 @@ msgstr ""
 "Όταν σιγουρευτείτε ότι όλα είναι σωστά, παρακαλούμε κάντε κλικ στο "
 "%sΣυνέχεια ...%s"
 
-#: web/admin/edit_idp_result.php:51
+#: web/admin/edit_idp_result.php:53
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
 msgstr "%s: διάλογος εγγραφής IdP (βήμα 2 ολοκληρώθηκε)"
 
-#: web/admin/edit_idp_result.php:56
+#: web/admin/edit_idp_result.php:69
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Attributes του IdP '%s' που έχουν υποβληθεί"
 
-#: web/admin/edit_idp_result.php:81 web/admin/edit_idp_result.php:89
+#: web/admin/edit_idp_result.php:94 web/admin/edit_idp_result.php:104
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES και WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:81 web/admin/edit_idp_result.php:93
+#: web/admin/edit_idp_result.php:94 web/admin/edit_idp_result.php:110
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:120
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "Τα πακέτα εγκατάστασής σας θα ρυθμίσουν τα ακόλουθα SSIDs: <strong>%s</"
 "strong>"
 
-#: web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:120
 msgid "SSIDs configured"
 msgstr "Ρυθμισμένα SSIDs"
 
-#: web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "Τα πακέτα εγκατάστασής σας θα ρυθμίσουν τις ενσύρματες διεπαφές."
 
-#: web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Ενσύρματα ρυθμισμένο"
 
-#: web/admin/edit_idp_result.php:108
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -910,41 +875,35 @@ msgstr ""
 "Δεν μπορούμε να παράγουμε πακέτα εγκατάστασης γιατί ούτε τα ασύρματα SSIDs "
 "ούτε οι ενσύρματες διεπαφές έχουν επιλεγεί ως στόχος!"
 
-#: web/admin/edit_idp_result.php:119
-msgid "Continue to profile definition"
+#: web/admin/edit_idp_result.php:140
+#, fuzzy
+msgid "Continue to eduroam-as-a-service properties"
+msgstr "Συνέχεια στη σελίδα επισκόπησης χρηστών"
+
+#: web/admin/edit_idp_result.php:142
+#, fuzzy
+msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Συνέχεια στον ορισμό προφίλ"
 
-#: web/admin/edit_profile.php:22
+#: web/admin/edit_profile.php:21
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr "%s: Οδηγός εγγραφής IdP (Βήμα 3)"
 
-#: web/admin/edit_profile.php:177
+#: web/admin/edit_profile.php:173
 msgid "Step 3: Defining a user group profile"
 msgstr "Βήμα 3: Ορισμός προφίλ ομάδας χρηστών"
 
-#: web/admin/edit_profile.php:179
+#: web/admin/edit_profile.php:175
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr "Επεξεργασία προφίλ '%s' ..."
 
-#: web/admin/edit_profile.php:183 web/admin/overview_idp.php:49
-msgid "General Institution Details"
-msgstr "Γενικές Πληροφορίες Ιδρύματος"
-
-#: web/admin/edit_profile.php:206 web/admin/overview_idp.php:67
-msgid "Global Helpdesk Details"
-msgstr "Λεπτομέρειες Καθολικού Helpdesk"
-
-#: web/admin/edit_profile.php:210 web/admin/overview_idp.php:79
-msgid "Global EAP Options"
-msgstr "Καθολικές Επιλογές EAP"
-
-#: web/admin/edit_profile.php:219
+#: web/admin/edit_profile.php:187
 msgid "General Profile properties"
 msgstr "Γενικές ιδιότητες Προφίλ"
 
-#: web/admin/edit_profile.php:223
+#: web/admin/edit_profile.php:191
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -956,11 +915,11 @@ msgstr ""
 "σελίδας. Μόλις τελειώσουμε, ο οδηγός τερματίζει και θα μεταφερθείτε στη "
 "βασική σελίδα διαχείρισης IdP."
 
-#: web/admin/edit_profile.php:225
+#: web/admin/edit_profile.php:194
 msgid "Profile Name and RADIUS realm"
 msgstr "Όνομα προφίλ και τομέας RADIUS"
 
-#: web/admin/edit_profile.php:228
+#: web/admin/edit_profile.php:197
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
@@ -970,7 +929,7 @@ msgstr ""
 "στους τελικούς χρήστες, οπότε καλό είναι να διαλέξετε ένα περιγραφικό όνομα "
 "όπως 'Μέλη ΔΕΠ', 'Φοιτητές Πολυτεχνικής', κτλ"
 
-#: web/admin/edit_profile.php:229
+#: web/admin/edit_profile.php:198
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
@@ -980,11 +939,11 @@ msgstr ""
 "με το ποιανού είναι αυτό το προφίλ. Αν το καθορίσετε, θα εμφανίζεται στη "
 "σελίδα λήψεων μετά την επιλογή του μέσω της λίστας από το χρήστη."
 
-#: web/admin/edit_profile.php:230
+#: web/admin/edit_profile.php:199
 msgid "You can also tell us your RADIUS realm. "
 msgstr "Μπορείτε επίσης να μας αναφέρετε το δικό σας τομέα RADIUS."
 
-#: web/admin/edit_profile.php:232
+#: web/admin/edit_profile.php:201
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
@@ -994,7 +953,7 @@ msgstr ""
 "ακεραιότητας αργότερα, το οποίο ελέγχει την προσβασιμότητα του τομέα σας "
 "στην υποδομή %s. "
 
-#: web/admin/edit_profile.php:233
+#: web/admin/edit_profile.php:203
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
@@ -1002,16 +961,16 @@ msgstr ""
 "Πρέπει να εισάγετε το όνομα τομέα αν θέλετε να υποστηρίζονται οι ανώνυμες "
 "εξωτερικές ταυτότητες (δείτε παρακάτω)"
 
-#: web/admin/edit_profile.php:258
+#: web/admin/edit_profile.php:216
 msgid "Realm:"
 msgstr "Τομέας:"
 
-#: web/admin/edit_profile.php:301
+#: web/admin/edit_profile.php:259
 #, fuzzy
 msgid "Realm Options"
 msgstr "Καθολικές Επιλογές EAP"
 
-#: web/admin/edit_profile.php:305
+#: web/admin/edit_profile.php:263
 #, fuzzy, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
@@ -1023,14 +982,14 @@ msgstr ""
 "εγκατάστασης με διαθέσιμες τις ανώνυμες εξωτερικές ταυτότητες; Πρέπει να "
 "συμπληρώσετε το πεδίο 'Τομέας' για να δουλέψει αυτή η λειτουργία."
 
-#: web/admin/edit_profile.php:306
+#: web/admin/edit_profile.php:264
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix (sub-realms will pass this "
 "validation)."
 msgstr ""
 
-#: web/admin/edit_profile.php:307
+#: web/admin/edit_profile.php:265
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
@@ -1038,27 +997,27 @@ msgid ""
 "username we can use for testing."
 msgstr ""
 
-#: web/admin/edit_profile.php:316
+#: web/admin/edit_profile.php:277
 msgid "Verify user input to contain realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:323
+#: web/admin/edit_profile.php:292
 msgid "Prefill user input with realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:327
+#: web/admin/edit_profile.php:302
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Ενεργοποίηση Ανώνυμης Εξωτερικής Ταυτότητας:"
 
-#: web/admin/edit_profile.php:337
+#: web/admin/edit_profile.php:321
 msgid "Use special Outer Identity for realm checks:"
 msgstr ""
 
-#: web/admin/edit_profile.php:349
+#: web/admin/edit_profile.php:338
 msgid "Installer Download Location"
 msgstr "Τοποθεσία Λήψης Πακέτου Εγκατάστασης"
 
-#: web/admin/edit_profile.php:353
+#: web/admin/edit_profile.php:342
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -1077,15 +1036,15 @@ msgstr ""
 "κάνετε λήψη των προφίλ για να τα τοποθετήσετε σε εκείνη τη σελίδα (δείτε το "
 "κουμπί 'Πίνακας συμβατότητας' στον πίνακα ελέγχου)."
 
-#: web/admin/edit_profile.php:358
+#: web/admin/edit_profile.php:348
 msgid "Redirect end users to own web page:"
 msgstr "Ανακατεύθυνση τελικών χρηστών σε δική μου ιστοσελίδα:"
 
-#: web/admin/edit_profile.php:371
+#: web/admin/edit_profile.php:361
 msgid "Supported EAP types"
 msgstr "Υποστηριζόμενοι τύποι EAP"
 
-#: web/admin/edit_profile.php:374
+#: web/admin/edit_profile.php:364
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -1100,22 +1059,22 @@ msgstr ""
 "συσκευή του χρήστη δεν μπορεί να χρησιμοποιήσει τον τύπο EAP, θα "
 "χρησιμοποιήσουμε έναν τύπο EAP που βρίσκεται χαμηλότερα στη λίστα."
 
-#: web/admin/edit_profile.php:397
+#: web/admin/edit_profile.php:391
 msgid "EAP options inherited from Global level:"
 msgstr "Οι επιλογές EAP προέρχονται από το Καθολικό Επίπεδο:"
 
 #. / option count and enumeration
 #. / Example: "(3x) Server Name"
-#: web/admin/edit_profile.php:401
+#: web/admin/edit_profile.php:395
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:429
+#: web/admin/edit_profile.php:423
 msgid "Supported EAP types for this profile"
 msgstr "Υποστηριζόμενοι τύποι EAP για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:443
+#: web/admin/edit_profile.php:437
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -1125,16 +1084,16 @@ msgstr ""
 "μετακινήσετε στην περιοχή υποστήριξης (πράσινο χρώμα). Οι προτεραιότητες "
 "ρυθμίζονται αυτόματα, ανάλογα με του που κάνατε \"drop\" τη μέθοδο."
 
-#: web/admin/edit_profile.php:451
+#: web/admin/edit_profile.php:445
 msgid "Unsupported EAP types"
 msgstr "Μη υποστηριζόμενοι τύποι EAP"
 
-#: web/admin/edit_profile.php:478
+#: web/admin/edit_profile.php:473
 msgid "Helpdesk Details for this profile"
 msgstr "Λεπτομέρειες Helpdesk για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:491 web/admin/edit_profile.php:522
-#: web/admin/edit_profile.php:554
+#: web/admin/edit_profile.php:489 web/admin/edit_profile.php:514
+#: web/admin/edit_profile.php:540
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -1151,16 +1110,16 @@ msgstr[1] ""
 "εδώ σε επίπεδο προφίλ, αυτές οι ρυθμίσεις θα αντικαταστήσουν τις ρυθμίσεις "
 "ολόκληρου του IdP."
 
-#: web/admin/edit_profile.php:510
+#: web/admin/edit_profile.php:499
 msgid "EAP Details for this profile"
 msgstr "Λεπτομέρειες EAP για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:541
+#: web/admin/edit_profile.php:524
 #, fuzzy
 msgid "Media Properties for this profile"
 msgstr "Λεπτομέρειες Helpdesk για αυτό το προφίλ"
 
-#: web/admin/edit_profile.php:573
+#: web/admin/edit_profile.php:550
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -1168,31 +1127,31 @@ msgstr ""
 "Όταν σιγουρευτείτε ότι όλα είναι σωστά, παρακαλούμε κάντε κλικ στο "
 "'Αποθήκευση δεδομένων' και θα μεταφερθείτε στη σελίδα του Πίνακα Ελέγχου IdP."
 
-#: web/admin/edit_profile_result.php:34
+#: web/admin/edit_profile_result.php:36
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
 msgstr "%s: Οδηγός προφίλ (βήμα 3 ολοκληρώθηκε)"
 
-#: web/admin/edit_profile_result.php:104
+#: web/admin/edit_profile_result.php:113
 msgid "Darn! Could not get a proper profile handle!"
 msgstr "Μαντάρα! Δεν ήταν δυνατός ο κατάλληλος χειρισμός του προφίλ!"
 
-#: web/admin/edit_profile_result.php:109
+#: web/admin/edit_profile_result.php:117
 msgid "Submitted attributes for this profile"
 msgstr "Attributes για αυτό το προφίλ που έχουν υποβληθεί"
 
-#: web/admin/edit_profile_result.php:115
+#: web/admin/edit_profile_result.php:123
 #, php-format
 msgid "Realm: <strong>%s</strong>"
 msgstr "Τομέας: <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:121
+#: web/admin/edit_profile_result.php:130
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
 msgstr ""
 "Οι Ανώνυμες Εξωτερικές Ταυτότητες δεν μπορούν να ενεργοποιηθούν: λείπει ο "
 "τομέας!"
 
-#: web/admin/edit_profile_result.php:124
+#: web/admin/edit_profile_result.php:133
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
@@ -1201,27 +1160,27 @@ msgstr ""
 "Η υποστήριξη Ανώνυμης Ταυτότητας είναι <strong>%s</strong>, η ανώνυμη "
 "εξωτερική ταυτότητα είναι <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:124 web/admin/edit_profile_result.php:136
+#: web/admin/edit_profile_result.php:133 web/admin/edit_profile_result.php:145
 msgid "ON"
 msgstr "ON"
 
-#: web/admin/edit_profile_result.php:128
+#: web/admin/edit_profile_result.php:137
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
 msgstr "Η υποστήριξη Ανώνυμης Ταυτότητας είναι <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:128
+#: web/admin/edit_profile_result.php:137
 msgid "OFF"
 msgstr "OFF"
 
-#: web/admin/edit_profile_result.php:133 web/admin/edit_profile_result.php:145
+#: web/admin/edit_profile_result.php:142 web/admin/edit_profile_result.php:154
 #, fuzzy
 msgid "Realm check username cannot be configured: realm is missing!"
 msgstr ""
 "Οι Ανώνυμες Εξωτερικές Ταυτότητες δεν μπορούν να ενεργοποιηθούν: λείπει ο "
 "τομέας!"
 
-#: web/admin/edit_profile_result.php:136
+#: web/admin/edit_profile_result.php:145
 #, fuzzy, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
@@ -1230,37 +1189,37 @@ msgstr ""
 "Η υποστήριξη Ανώνυμης Ταυτότητας είναι <strong>%s</strong>, η ανώνυμη "
 "εξωτερική ταυτότητα είναι <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:140
+#: web/admin/edit_profile_result.php:149
 msgid "No special username for realm checks is configured."
 msgstr ""
 
-#: web/admin/edit_profile_result.php:149
+#: web/admin/edit_profile_result.php:158
 #, php-format
 msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
 msgstr ""
 
-#: web/admin/edit_profile_result.php:153
+#: web/admin/edit_profile_result.php:162
 #, php-format
 msgid ""
 "Where possible, username inputs will be <strong>verified to contain an @ and "
 "end with %s</strong>%s"
 msgstr ""
 
-#: web/admin/edit_profile_result.php:167
+#: web/admin/edit_profile_result.php:174
 msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
 "Η ανακατεύθυνση δεν μπορεί να ενεργοποιηθεί - δεν καθορίσατε τοποθεσία "
 "προορισμού!"
 
-#: web/admin/edit_profile_result.php:173
+#: web/admin/edit_profile_result.php:180
 msgid "Redirection is <strong>OFF</strong>"
 msgstr "Η ανακατεύθυνση είναι <strong>OFF</strong>"
 
-#: web/admin/edit_profile_result.php:190
+#: web/admin/edit_profile_result.php:200
 msgid "Supported EAP Type: "
 msgstr "Υποστηριζόμενος τύπος EAP: "
 
-#: web/admin/edit_profile_result.php:196
+#: web/admin/edit_profile_result.php:208
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
@@ -1268,7 +1227,7 @@ msgstr ""
 "Υποστηριζόμενος τύπος EAP: <strong>%s</strong> δεν έχει τις απαιτούμενες "
 "πληροφορίες %s !"
 
-#: web/admin/edit_profile_result.php:196
+#: web/admin/edit_profile_result.php:208
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
@@ -1277,46 +1236,46 @@ msgstr ""
 "πληροφορίες που λείπουν για να μπορέσουμε να δημιουργήσουμε πακέτα "
 "εγκατάστασης για εσάς."
 
-#: web/admin/edit_profile_result.php:212
+#: web/admin/edit_profile_result.php:228
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr "Συνέχεια με την Τελειοποίηση του Πακέτου Εγκατάστασης και Λήψη"
 
-#: web/admin/edit_user.php:20 web/admin/edit_user.php:28
+#: web/admin/edit_user.php:19 web/admin/edit_user.php:27
 msgid "Editing User Attributes"
 msgstr "Επεξεργασία Attributes Χρήστη"
 
-#: web/admin/edit_user.php:32
+#: web/admin/edit_user.php:31
 msgid "Current User Attributes"
 msgstr "Τρέχοντα Attributes Χρήστη"
 
-#: web/admin/edit_user.php:41
+#: web/admin/edit_user.php:40
 msgid "Your attributes"
 msgstr "Τα attributes σας"
 
-#: web/admin/edit_user_result.php:19
+#: web/admin/edit_user_result.php:21
 msgid "User Attributes - Summary of submitted data"
 msgstr "Attributes Χρήστη - Σύνοψη δεδομένων που υποβλήθηκαν"
 
-#: web/admin/edit_user_result.php:23
+#: web/admin/edit_user_result.php:25
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
 msgstr ""
 "Έγινε κλήση αυτής της σελίδας με ανεπαρκή δεδομένα. Παρακαλούμε αναφέρετέ το "
 "ως σφάλμα."
 
-#: web/admin/edit_user_result.php:29
+#: web/admin/edit_user_result.php:31
 msgid "Submitted attributes"
 msgstr "Attributes που υποβλήθηκαν"
 
-#: web/admin/edit_user_result.php:51
+#: web/admin/edit_user_result.php:55
 msgid "Continue to user overview page"
 msgstr "Συνέχεια στη σελίδα επισκόπησης χρηστών"
 
-#: web/admin/logout_check.php:29
+#: web/admin/logout_check.php:24
 msgid "Incomplete Logout"
 msgstr "Μη ολοκληρωμένη Αποσύνδεση"
 
-#: web/admin/logout_check.php:30
+#: web/admin/logout_check.php:25
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
@@ -1355,7 +1314,7 @@ msgstr "Δεν είστε ο διαχειριστής κάποιας ομοσπ�
 msgid "Federation Properties: %s"
 msgstr "Γενικές Ιδιότητες Ιδρύματος"
 
-#: web/admin/overview_federation.php:74 web/admin/overview_idp.php:53
+#: web/admin/overview_federation.php:74
 msgid "Country"
 msgstr "Χώρα"
 
@@ -1386,82 +1345,83 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:95
+#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:97
 msgid "The invitation email was sent successfully."
 msgstr "Το email πρόσκλησης στάλθηκε με επιτυχία."
 
-#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:95
+#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:97
 msgid "The invitation email was sent."
 msgstr "Το email πρόσκλησης στάλθηκε."
 
-#: web/admin/overview_federation.php:134 web/admin/inc/manageAdmins.inc.php:97
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:107
+#: web/admin/overview_federation.php:135
+#: web/admin/inc/manageAdmins.inc.php:100 web/admin/inc/overview_js.php:52
+#: web/admin/inc/overview_js.php:107
 msgid "The invitation email could not be sent!"
 msgstr "Δεν ήταν δυνατή η αποστολή του email πρόσκλησης!"
 
-#: web/admin/overview_federation.php:136 web/admin/inc/manageAdmins.inc.php:99
+#: web/admin/overview_federation.php:138
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Σφάλμα: άγνωστος κωδικός αποτελέσματος στην πρόσκληση!;!"
 
-#: web/admin/overview_federation.php:136 web/admin/inc/manageAdmins.inc.php:99
+#: web/admin/overview_federation.php:138
 msgid "Unknown result!"
 msgstr "Άγνωστο αποτέλεσμα!"
 
-#: web/admin/overview_federation.php:141
+#: web/admin/overview_federation.php:143
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>Federation Operator manual</a>"
 msgstr ""
 
-#: web/admin/overview_federation.php:149
+#: web/admin/overview_federation.php:151
 msgid "Deployment Status"
 msgstr "Κατάσταση Ανάπτυξης"
 
-#: web/admin/overview_federation.php:150 web/admin/overview_user.php:100
-#: web/admin/inc/common.inc.php:39
+#: web/admin/overview_federation.php:152 web/admin/overview_user.php:104
+#: web/admin/inc/common.inc.php:40
 msgid "Institution Name"
 msgstr "Όνομα Ιδρύματος"
 
-#: web/admin/overview_federation.php:157
+#: web/admin/overview_federation.php:158
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "Κατάσταση Συγχρονισμού Βάσης Δεδομένων %s"
 
-#: web/admin/overview_federation.php:159 web/admin/overview_user.php:100
+#: web/admin/overview_federation.php:161 web/admin/overview_user.php:104
 msgid "Administrator Management"
 msgstr "Έλεγχος Διαχειριστών"
 
-#: web/admin/overview_federation.php:164
+#: web/admin/overview_federation.php:166
 #, fuzzy, php-format
 msgid ""
 "Your federation %s contains the following institutions: (<a href='%s'>Check "
 "their authentication server status</a>)"
 msgstr "Η ομοσπονδία σας %s περιέχει τα ακόλουθα ιδρύματα:"
 
-#: web/admin/overview_federation.php:224
+#: web/admin/overview_federation.php:226
 msgid "Manage DB Link"
 msgstr "Διαχείριση Σύνδεσης με Βάση Δεδομένων"
 
-#: web/admin/overview_federation.php:227
+#: web/admin/overview_federation.php:229
 msgid "NOT linked"
 msgstr "ΧΩΡΙΣ σύνδεση"
 
-#: web/admin/overview_federation.php:229
+#: web/admin/overview_federation.php:231
 msgid "Linked"
 msgstr "Συνδέθηκε"
 
-#: web/admin/overview_federation.php:240 web/admin/overview_user.php:136
+#: web/admin/overview_federation.php:242 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
 msgstr "Προσθήκη/Αφαίρεση Διαχειριστών"
 
-#: web/admin/overview_federation.php:252
+#: web/admin/overview_federation.php:254
 msgid "Pending invitations in your federation:"
 msgstr "Προσκλήσεις σε αναμονή για την ομοσπονδία σας:"
 
-#: web/admin/overview_federation.php:268
+#: web/admin/overview_federation.php:270
 msgid "Revoke Invitation"
 msgstr "Ανάκληση Πρόσκλησης"
 
-#: web/admin/overview_federation.php:282 web/admin/overview_user.php:162
+#: web/admin/overview_federation.php:285 web/admin/overview_user.php:165
 msgid "Register New Institution!"
 msgstr "Καταχώρηση Νέου Ιδρύματος!"
 
@@ -1478,15 +1438,15 @@ msgstr "Επισκόπηση Παρόχου Ταυτότητας"
 msgid "IdP-wide settings"
 msgstr "Ρυθμίσεις ολόκληρου IdP"
 
-#: web/admin/overview_idp.php:85
+#: web/admin/overview_idp.php:52
 msgid "Institution Download Area QR Code"
 msgstr "Περιοχή Λήψης QR Code Ιδρύματος"
 
-#: web/admin/overview_idp.php:112
+#: web/admin/overview_idp.php:82
 msgid "Edit IdP-wide settings"
 msgstr "Επεξεργασία ολόκληρου IdP"
 
-#: web/admin/overview_idp.php:117
+#: web/admin/overview_idp.php:87
 msgid ""
 "After deleting the IdP, you can not recreate it yourself - you need a new "
 "invitation token from the federation administrator!"
@@ -1494,16 +1454,16 @@ msgstr ""
 "Αφού διαγράψετε τον IdP, δεν μπορείτε να τον δημιουργήσετε εκ νέου μόνοι σας "
 "- χρειάζεστε ένα νέο κουπόνι πρόσκλησης από τον διαχειριστή της ομοσπονδίας!"
 
-#: web/admin/overview_idp.php:117
+#: web/admin/overview_idp.php:87
 #, php-format
 msgid "Do you really want to delete your IdP %s?"
 msgstr "Θέλετε πραγματικά να διαγράψετε τον IdP %s?"
 
-#: web/admin/overview_idp.php:117
+#: web/admin/overview_idp.php:87
 msgid "Delete IdP"
 msgstr "Διαγραφή IdP"
 
-#: web/admin/overview_idp.php:123
+#: web/admin/overview_idp.php:93
 #, php-format
 msgid ""
 "This action will delete all properties of your IdP and start over the "
@@ -1514,64 +1474,76 @@ msgstr ""
 "την ρύθμιση από την αρχή. Θέλετε πραγματικά να επαναφέρετε όλες τις "
 "ρυθμίσεις του %s IdP σας;"
 
-#: web/admin/overview_idp.php:123
+#: web/admin/overview_idp.php:93
 msgid "Reset all IdP settings"
 msgstr "Επαναφορά όλων των ρυθμίσεων του IdP"
 
-#: web/admin/overview_idp.php:130
+#: web/admin/overview_idp.php:100
 msgid "Available Support actions"
 msgstr "Διαθέσιμες ενέργειες Υποστήριξης"
 
-#: web/admin/overview_idp.php:135
+#: web/admin/overview_idp.php:105
 msgid "Check another realm's reachability"
 msgstr "Έλεγχος προσβασιμότητας άλλου τομέα"
 
-#: web/admin/overview_idp.php:138 web/admin/overview_idp.php:147
-#: web/admin/overview_user.php:153
+#: web/admin/overview_idp.php:108 web/admin/overview_idp.php:118
+#: web/admin/overview_user.php:156
 msgid "Go!"
 msgstr "Πάμε!"
 
-#: web/admin/overview_idp.php:144
+#: web/admin/overview_idp.php:115
 msgid "Check server status of European federations"
 msgstr "Έλεγχος κατάστασης εξυπηρετητή στις Ευρωπαϊκές ομοσπονδίες"
 
-#: web/admin/overview_idp.php:154
-msgid "Profiles for this institution"
-msgstr "Προφίλ για αυτό το ίδρυμα"
-
-#: web/admin/overview_idp.php:158
+#: web/admin/overview_idp.php:129
 msgid "There are not yet any profiles for your institution."
 msgstr "Δεν υπάρχουν ακόμη προφίλ για το ίδρυμά σας."
 
-#: web/admin/overview_idp.php:176
+#: web/admin/overview_idp.php:144
+#, php-format
+msgid ""
+"You can create up to %d users. Their credentials will carry the name <strong>"
+"%s</strong>."
+msgstr ""
+
+#: web/admin/overview_idp.php:149
+msgid "Manage User Base"
+msgstr ""
+
+#: web/admin/overview_idp.php:161
+msgid "Profiles for this institution"
+msgstr "Προφίλ για αυτό το ίδρυμα"
+
+#: web/admin/overview_idp.php:180
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Τύποι EAP</strong> (κατά σειρά προτίμησης):"
 
-#: web/admin/overview_idp.php:183 web/admin/inc/common.inc.php:112
+#: web/admin/overview_idp.php:187 web/admin/inc/common.inc.php:118
 msgid "OK"
 msgstr "OK"
 
-#: web/admin/overview_idp.php:186
+#: web/admin/overview_idp.php:190
 msgid "Information needed!"
 msgstr "Χρειάζονται πληροφορίες!"
 
-#: web/admin/overview_idp.php:200
-msgid "Option override on EAP Method level is in effect."
+#: web/admin/overview_idp.php:204
+#, fuzzy
+msgid "Options on EAP Method level are in effect."
 msgstr "Η αντικατάσταση επιλογής στο επίπεδο μεθόδου EAP είναι ενεργή"
 
-#: web/admin/overview_idp.php:209
+#: web/admin/overview_idp.php:215
 msgid "Option override on profile level is in effect."
 msgstr "Η αντικατάσταση επιλογής στο επίπεδο προφίλ είναι ενεργή."
 
-#: web/admin/overview_idp.php:211
+#: web/admin/overview_idp.php:218
 msgid "The information in this profile is incomplete."
 msgstr "Οι πληροφορίες σε αυτό το προφίλ δεν είναι ολοκληρωμένες."
 
-#: web/admin/overview_idp.php:213
+#: web/admin/overview_idp.php:221
 msgid "This profile is shown on the user download interface."
 msgstr "Αυτό το προφίλ εμφανίζεται στη διεπαφή λήψης των χρηστών."
 
-#: web/admin/overview_idp.php:215
+#: web/admin/overview_idp.php:223
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
@@ -1582,108 +1554,114 @@ msgstr ""
 "έχουμε επαρκείς πληροφορίες να εμφανίσουμε. Για να ενεργοποιηθεί το προφίλ, "
 "προσθέστε το attribute \"%s\" και επιλέξτε το αντίστοιχο στοιχείο ελέγχου."
 
-#: web/admin/overview_idp.php:218
+#: web/admin/overview_idp.php:227
 #, php-format
 msgid "Profile: %s"
 msgstr "Προφίλ: %s"
 
 #. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
-#: web/admin/overview_idp.php:224
+#: web/admin/overview_idp.php:233
 #, php-format
 msgid "Read this <a href='%s'>tip</a>."
 msgstr "Διαβάστε αυτή τη <a href='%s'>συμβουλή</a>."
 
-#: web/admin/overview_idp.php:234
+#: web/admin/overview_idp.php:244
 msgid "The realm can only be checked if you configure the realm!"
 msgstr "Ο τομέας μπορεί να ελεγχθεί μόνο αν ρυθμίσετε τον τομέα!"
 
-#: web/admin/overview_idp.php:235
+#: web/admin/overview_idp.php:245
 msgid "Check realm reachability"
 msgstr "Έλεγχος προσβασιμότητας τομέα"
 
-#: web/admin/overview_idp.php:239
+#: web/admin/overview_idp.php:250
 msgid "You have not fully configured any supported EAP types!"
 msgstr "Δε ρυθμίσατε πλήρως κανένα τύπο EAP!"
 
-#: web/admin/overview_idp.php:240
+#: web/admin/overview_idp.php:251
 msgid "Installer Fine-Tuning and Download"
 msgstr "Τελειοποίηση και Λήψη του Πακέτου Εγκατάστασης"
 
-#: web/admin/overview_idp.php:248
+#: web/admin/overview_idp.php:259
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-#: web/admin/overview_idp.php:251
+#: web/admin/overview_idp.php:262
 #, php-format
 msgid "Do you really want to delete the profile %s?"
 msgstr "Θέλετε πραγματικά να διαγράψετε το προφίλ %s;"
 
-#: web/admin/overview_idp.php:252
+#: web/admin/overview_idp.php:263
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: web/admin/overview_idp.php:261
+#: web/admin/overview_idp.php:272
 msgid "User Download Link"
 msgstr "Σύνδεσμος Λήψης Χρηστών"
 
-#: web/admin/overview_idp.php:277
+#: web/admin/overview_idp.php:289
 msgid "User Downloads"
 msgstr "Λήψεις Χρηστών"
 
-#: web/admin/overview_idp.php:293
-msgid "Add new profile ..."
+#: web/admin/overview_idp.php:311
+#, fuzzy
+msgid "Add eduroam-as-a-service profile ..."
 msgstr "Προσθήκη νέου προφίλ ..."
 
-#: web/admin/overview_installers.php:23
+#: web/admin/overview_idp.php:337
+#, fuzzy
+msgid "Add new RADIUS/EAP profile ..."
+msgstr "Προσθήκη νέου προφίλ ..."
+
+#: web/admin/overview_installers.php:24
 msgid "Device Compatibility matrix"
 msgstr "Πίνακας Συμβατότητας Συσκευής"
 
-#: web/admin/overview_installers.php:39
+#: web/admin/overview_installers.php:43
 #, php-format
 msgid "Device compatiblity matrix for %s of %s "
 msgstr "Πίνακας συμβατότητας συσκευής για %s από %s "
 
-#: web/admin/overview_installers.php:43
+#: web/admin/overview_installers.php:47
 msgid "Device"
 msgstr "Συσκευή"
 
-#: web/admin/overview_installers.php:51
+#: web/admin/overview_installers.php:55
 msgid "EAP-Type-specific options..."
 msgstr "Επιλογές ανά τύπο EAP..."
 
-#: web/admin/overview_installers.php:71
+#: web/admin/overview_installers.php:75
 msgid "Device-specific options..."
 msgstr "Επιλογές ανά συσκευή..."
 
-#: web/admin/overview_installers.php:81
+#: web/admin/overview_installers.php:86
 msgid "Download"
 msgstr "Λήψη"
 
-#: web/admin/overview_installers.php:136
+#: web/admin/overview_installers.php:145
 msgid "Legend:"
 msgstr "Υπόμνημα:"
 
-#: web/admin/overview_installers.php:138
+#: web/admin/overview_installers.php:147
 msgid "redirection is set"
 msgstr "η ανακατεύθυνση είναι ορισμένη"
 
-#: web/admin/overview_installers.php:139
+#: web/admin/overview_installers.php:148
 msgid "will be offered on download site"
 msgstr "θα προσφερθεί στη ιστοσελίδα λήψεων"
 
-#: web/admin/overview_installers.php:140
+#: web/admin/overview_installers.php:149
 msgid "configured, but not preferred EAP type"
 msgstr "ρυθμισμένο, αλλά όχι ο προτεινόμενος τύπος EAP"
 
-#: web/admin/overview_installers.php:141
+#: web/admin/overview_installers.php:150
 msgid "incomplete configuration"
 msgstr "ημιτελής ρύθμιση"
 
-#: web/admin/overview_installers.php:142
+#: web/admin/overview_installers.php:151
 msgid "not supported by CAT"
 msgstr "δεν υποστηρίζεται από το CAT"
 
-#: web/admin/overview_installers.php:146
+#: web/admin/overview_installers.php:155
 msgid "Footnotes:"
 msgstr "Υποσημειώσεις:"
 
@@ -1700,46 +1678,46 @@ msgstr "Επισκόπηση Χρηστών"
 msgid "Edit User Details"
 msgstr "Επεξεργασία Λεπτομερειών Χρήστη"
 
-#: web/admin/overview_user.php:61
+#: web/admin/overview_user.php:62
 msgid "Click here to manage your federations"
 msgstr "Κάντε κλικ εδώ για να διαχειριστείτε τις ομοσπονδίες σας"
 
-#: web/admin/overview_user.php:63
+#: web/admin/overview_user.php:65
 msgid "Click here to access the superadmin page"
 msgstr "Κάντε κλικ εδώ για την πρόσβασή σας στη σελίδα του υπερ-διαχειριστή"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:73
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
 msgstr ""
 
-#: web/admin/overview_user.php:77
+#: web/admin/overview_user.php:81
 #, php-format
 msgid "You are managing the following institution:"
 msgid_plural "You are managing the following <strong>%d</strong> institutions:"
 msgstr[0] "Διαχειρίζεστε το ακόλουθο ίδρυμα:"
 msgstr[1] "Διαχειρίζεστε τα ακόλουθα <strong>%d</strong> ιδρύματα:"
 
-#: web/admin/overview_user.php:100
+#: web/admin/overview_user.php:104
 msgid "Other admins of this institution"
 msgstr "Άλλοι διαχειριστές αυτού του ιδρύματος"
 
-#: web/admin/overview_user.php:102
+#: web/admin/overview_user.php:106
 #, php-format
 msgid "Institutions in federation %s"
 msgstr "Ιδρύματα στην ομοσπονδία %s"
 
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:135
 msgid "other user"
 msgid_plural "other users"
 msgstr[0] "άλλος χρήστης"
 msgstr[1] "άλλοι χρήστες"
 
-#: web/admin/overview_user.php:143
+#: web/admin/overview_user.php:146
 msgid "You are not managing any institutions."
 msgstr "Δε διαχειρίζεστε κανένα ίδρυμα."
 
-#: web/admin/overview_user.php:146
+#: web/admin/overview_user.php:149
 msgid ""
 "Please ask your federation administrator to invite you to become an "
 "institution administrator."
@@ -1747,7 +1725,7 @@ msgstr ""
 "Παρακαλούμε ζητήστε από το διαχειριστή της ομοσπονδίας σας να σας "
 "προσκαλέσει να γίνεται διαχειριστής ιδρύματος."
 
-#: web/admin/overview_user.php:150
+#: web/admin/overview_user.php:153
 msgid ""
 "Did you receive an invitation token to manage an institution? Please paste "
 "it here:"
@@ -1755,7 +1733,7 @@ msgstr ""
 "Λάβατε ένα κουπόνι πρόσκλησης για να διαχειριστείτε ένα ίδρυμα; Παρακαλούμε "
 "κάντε το επικόλληση εδώ:"
 
-#: web/admin/radius_tests.php:23 web/admin/radius_tests.php:24
+#: web/admin/radius_tests.php:26 web/admin/radius_tests.php:27
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
@@ -1763,7 +1741,7 @@ msgstr ""
 "Κάποιες ιδιότητες της προσπάθειας σύνδεσης ήταν ανεπαρκείς· η λίστα "
 "βρίσκεται παρακάτω."
 
-#: web/admin/radius_tests.php:25
+#: web/admin/radius_tests.php:28
 msgid "Some configuration errors were observed; the list is below."
 msgstr "Παρατηρήθηκαν μερικά σφάλματα διαμόρφωσης· η λίστα βρίσκεται παρακάτω."
 
@@ -1772,7 +1750,17 @@ msgstr "Παρατηρήθηκαν μερικά σφάλματα διαμόρφ�
 msgid "Connected to %s."
 msgstr "Συνδεδεμένος σε %s."
 
-#: web/admin/radius_tests.php:86
+#: web/admin/radius_tests.php:84 web/admin/radius_tests.php:251
+msgid ""
+"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
+"multiple round-trips was carried out, and ended in an Access-Reject as "
+"planned."
+msgstr ""
+"<strong>Eπιτυχημένη δοκιμή</strong>: μια αμφίδρομη επικοινωνία RADIUS με "
+"πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-Reject "
+"όπως ήταν αναμενόμενο."
+
+#: web/admin/radius_tests.php:88
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1784,29 +1772,19 @@ msgstr ""
 "Access-Reject όπως ήταν αναμενόμενο. Κάποιες παράμετροι της απόπειρας "
 "σύνδεσης δεν ήταν βέλτιστες· δείτε τη λίστα παρακάτω."
 
-#: web/admin/radius_tests.php:97 web/admin/radius_tests.php:241
-msgid ""
-"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
-"multiple round-trips was carried out, and ended in an Access-Reject as "
-"planned."
-msgstr ""
-"<strong>Eπιτυχημένη δοκιμή</strong>: μια αμφίδρομη επικοινωνία RADIUS με "
-"πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με Access-Reject "
-"όπως ήταν αναμενόμενο."
-
-#: web/admin/radius_tests.php:181
+#: web/admin/radius_tests.php:191
 msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Δοκιμή επιτυχής.</strong>"
 
-#: web/admin/radius_tests.php:185
+#: web/admin/radius_tests.php:195
 msgid "<strong>Test partially successful</strong>: authentication succeded."
 msgstr "<strong>Δοκιμή εν μέρει επιτυχής</strong>: επιτυχής ταυτοποίηση."
 
-#: web/admin/radius_tests.php:188
+#: web/admin/radius_tests.php:198
 msgid "<strong>Test FAILED</strong>: authentication succeded."
 msgstr "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: επιτυχής ταυτοποίηση."
 
-#: web/admin/radius_tests.php:193
+#: web/admin/radius_tests.php:203
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
@@ -1814,11 +1792,11 @@ msgstr ""
 "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: το αίτημα απορρίφθηκε. Η πιο πιθανή αιτία "
 "είναι να έχετε γράψει εσφαλμένα το Όνομα χρήστη ή/και τον Κωδικό πρόσβασης."
 
-#: web/admin/radius_tests.php:198
+#: web/admin/radius_tests.php:208
 msgid "This method cannot be tested"
 msgstr "Αυτή η μέθοδος δεν μπορεί να δοκιμασθεί"
 
-#: web/admin/radius_tests.php:202
+#: web/admin/radius_tests.php:212
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
@@ -1828,7 +1806,7 @@ msgstr ""
 "συνομιλία EAP. Είτε έχετε γράψει εσφαλμένα το Όνομα χρήστη ή υπάρχει κάποιο "
 "σοβαρό λάθος στον εξυπηρετητή σας."
 
-#: web/admin/radius_tests.php:208 web/admin/radius_tests.php:249
+#: web/admin/radius_tests.php:218 web/admin/radius_tests.php:260
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1838,7 +1816,7 @@ msgstr ""
 "μετά από %d δευτερόλεπτα. Είτε ο server δεν λειτουργεί είτε η δρομολόγηση "
 "έχει αποτύχει!"
 
-#: web/admin/radius_tests.php:213 web/admin/radius_tests.php:253
+#: web/admin/radius_tests.php:223 web/admin/radius_tests.php:264
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1847,11 +1825,11 @@ msgstr ""
 "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>: υπήρξε μια αμφίδρομη επικοινωνία RADIUS "
 "αλλά δεν ολοκληρώθηκε μετά από %d δευτερόλεπτα!"
 
-#: web/admin/radius_tests.php:218
+#: web/admin/radius_tests.php:228
 msgid "<strong>Test FAILED</strong>"
 msgstr "<strong>Η δοκιμή ΑΠΕΤΥΧΕ</strong>"
 
-#: web/admin/radius_tests.php:239
+#: web/admin/radius_tests.php:249
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1861,7 +1839,7 @@ msgstr ""
 "RADIUS με πολλές κυκλικές διαδρομές πραγματοποιήθηκε και ολοκληρώθηκε με "
 "Access-Reject όπως ήταν αναμενόμενο."
 
-#: web/admin/radius_tests.php:244
+#: web/admin/radius_tests.php:255
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1878,11 +1856,11 @@ msgstr ""
 "ξεπεράσετε αυτό το εμπόδιο). Σε κάθε άλλη περίπτωση ο εξυπηρετητής δεν έχει "
 "ρυθμιστεί σωστά ή δεν είναι προσβάσιμος."
 
-#: web/admin/radius_tests.php:257
+#: web/admin/radius_tests.php:268
 msgid "unhandled error"
 msgstr "απρόσμενο σφάλμα"
 
-#: web/admin/radius_tests.php:274 web/admin/radius_tests.php:330
+#: web/admin/radius_tests.php:285 web/admin/radius_tests.php:347
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1890,190 +1868,206 @@ msgstr ""
 "<strong>ΣΦΑΛΜΑ</strong>: ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από μία "
 "άγνωστη αρχή!"
 
-#: web/admin/radius_tests.php:274 web/admin/radius_tests.php:280
+#: web/admin/radius_tests.php:285 web/admin/radius_tests.php:291
 #, php-format
 msgid "elapsed time: %d"
 msgstr "χρόνος που έχει παρέλθει: %d"
 
-#: web/admin/radius_tests.php:335
+#: web/admin/radius_tests.php:352
 msgid "Completed."
 msgstr "Ολοκληρώθηκε."
 
-#: web/admin/radius_tests.php:354
+#: web/admin/radius_tests.php:372
 msgid "crlDistributionPoints"
 msgstr "crlDistributionPoints"
 
-#: web/admin/inc/common.inc.php:35
+#: web/admin/inc/common.inc.php:36
 msgid "Support: Web"
 msgstr "Υποστήριξη: Διαδίκτυο"
 
-#: web/admin/inc/common.inc.php:36
+#: web/admin/inc/common.inc.php:37
 msgid "Support: EAP Types"
 msgstr "Υποστήριξη: Τύποι EAP"
 
-#: web/admin/inc/common.inc.php:37
+#: web/admin/inc/common.inc.php:38
 msgid "Support: Phone"
 msgstr "Υποστήριξη: Τηλέφωνο"
 
-#: web/admin/inc/common.inc.php:38
+#: web/admin/inc/common.inc.php:39
 msgid "Support: E-Mail"
 msgstr "Υποστήριξη: E-Mail"
 
-#: web/admin/inc/common.inc.php:40 web/admin/inc/geo_widget.php:281
+#: web/admin/inc/common.inc.php:41 web/admin/inc/geo_widget.php:282
 msgid "Location"
 msgstr "Τοποθεσία"
 
-#: web/admin/inc/common.inc.php:41
+#: web/admin/inc/common.inc.php:42
 msgid "Logo URL"
 msgstr "URL λογότυπου"
 
-#: web/admin/inc/common.inc.php:42
+#: web/admin/inc/common.inc.php:43
 msgid "Logo image"
 msgstr "Εικόνα λογότυπου"
 
-#: web/admin/inc/common.inc.php:43
+#: web/admin/inc/common.inc.php:44
 msgid "Configure Wired Ethernet"
 msgstr "Ρύθμιση Ενσύρματου Ethernet"
 
-#: web/admin/inc/common.inc.php:44
+#: web/admin/inc/common.inc.php:45
 msgid "Name (CN) of Authentication Server"
 msgstr "Όνομα (CN) Εξυπηρετητή Πιστοποίησης"
 
-#: web/admin/inc/common.inc.php:45
+#: web/admin/inc/common.inc.php:46
 msgid "Enable device assessment"
 msgstr "Ενεργοποίηση εντοπισμού συσκευών"
 
-#: web/admin/inc/common.inc.php:46
+#: web/admin/inc/common.inc.php:47
 msgid "Terms of Use"
 msgstr "Όροι χρήσης"
 
-#: web/admin/inc/common.inc.php:47
+#: web/admin/inc/common.inc.php:48
 msgid "CA Certificate URL"
 msgstr "URL πιστοποιητικού CA"
 
-#: web/admin/inc/common.inc.php:48
+#: web/admin/inc/common.inc.php:49
 msgid "CA Certificate File"
 msgstr "Αρχείο πιστοποιητικού CA"
 
-#: web/admin/inc/common.inc.php:49
+#: web/admin/inc/common.inc.php:50
 msgid "Profile Display Name"
 msgstr "Εμφανιζόμενο Όνομα Προφίλ"
 
-#: web/admin/inc/common.inc.php:50
+#: web/admin/inc/common.inc.php:51
 msgid "Production-Ready"
 msgstr "Έτοιμο για παραγωγή"
 
-#: web/admin/inc/common.inc.php:51
+#: web/admin/inc/common.inc.php:52
 msgid "Extra text on downloadpage for device"
 msgstr "Επιπρόσθετο κείμενο στη σελίδα λήψεων για τη συσκευή"
 
-#: web/admin/inc/common.inc.php:52
+#: web/admin/inc/common.inc.php:53
 msgid "Redirection Target"
 msgstr "Προορισμός Ανακατεύθυνσης"
 
-#: web/admin/inc/common.inc.php:53
+#: web/admin/inc/common.inc.php:54
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Επιπρόσθετο κείμενο για τη μέθοδο EAP"
 
-#: web/admin/inc/common.inc.php:54
+#: web/admin/inc/common.inc.php:55
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Ενεργοποιήστε την επιλογή EAP-TLS User-Name"
 
-#: web/admin/inc/common.inc.php:55
+#: web/admin/inc/common.inc.php:56
 msgid "Profile Description"
 msgstr "Περιγραφή Προφίλ"
 
-#: web/admin/inc/common.inc.php:56 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/common.inc.php:57 web/admin/inc/manageAdmins.inc.php:110
 msgid "Federation Administrator"
 msgstr "Διαχειριστής Ομοσπονδίας"
 
-#: web/admin/inc/common.inc.php:57
+#: web/admin/inc/common.inc.php:58
 msgid "Real Name"
 msgstr "Πραγματικό Όνομα"
 
-#: web/admin/inc/common.inc.php:58
+#: web/admin/inc/common.inc.php:59
 msgid "E-Mail Address"
 msgstr "Διεύθυνση E-Mail"
 
-#: web/admin/inc/common.inc.php:59
+#: web/admin/inc/common.inc.php:60
 msgid "PEAP-MSCHAPv2"
 msgstr "PEAP-MSCHAPv2"
 
-#: web/admin/inc/common.inc.php:60
+#: web/admin/inc/common.inc.php:61
 msgid "TLS"
 msgstr "TLS"
 
-#: web/admin/inc/common.inc.php:61
+#: web/admin/inc/common.inc.php:62
 msgid "TTLS-PAP"
 msgstr "TTLS-PAP"
 
-#: web/admin/inc/common.inc.php:62
+#: web/admin/inc/common.inc.php:63
 msgid "TTLS-MSCHAPv2"
 msgstr "TTLS-MSCHAPv2"
 
-#: web/admin/inc/common.inc.php:63
+#: web/admin/inc/common.inc.php:64
 msgid "TTLS-GTC"
 msgstr "TTLS-GTC"
 
-#: web/admin/inc/common.inc.php:64
+#: web/admin/inc/common.inc.php:65
 msgid "FAST-GTC"
 msgstr "FAST-GTC"
 
-#: web/admin/inc/common.inc.php:65
+#: web/admin/inc/common.inc.php:66
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: web/admin/inc/common.inc.php:66
-msgid "Remove/Disable SSID"
-msgstr "Αφαίρεση/Απενεργοποίηση SSID"
-
 #: web/admin/inc/common.inc.php:67
-msgid "Custom CSS file for User Area"
+msgid "eduroam-as-a-service"
 msgstr ""
 
 #: web/admin/inc/common.inc.php:68
-#, fuzzy
-msgid "Federation Logo"
-msgstr "Ομοσπονδία"
+msgid "Remove/Disable SSID"
+msgstr "Αφαίρεση/Απενεργοποίηση SSID"
 
 #: web/admin/inc/common.inc.php:69
-msgid "Preferred Skin for User Area"
+msgid "Custom CSS file for User Area"
 msgstr ""
 
 #: web/admin/inc/common.inc.php:70
 #, fuzzy
+msgid "Federation Logo"
+msgstr "Ομοσπονδία"
+
+#: web/admin/inc/common.inc.php:71
+msgid "Preferred Skin for User Area"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:72
+#, fuzzy
 msgid "Federation Operator Name"
 msgstr "Επισκόπηση Ομοσπονδίας"
 
-#: web/admin/inc/common.inc.php:71
+#: web/admin/inc/common.inc.php:73
 msgid "Custom text in IdP Invitations"
 msgstr ""
 
+#: web/admin/inc/common.inc.php:74
+msgid "Enable Silver Bullet"
+msgstr ""
+
 #: web/admin/inc/common.inc.php:75
+msgid "Silver Bullet: Do not terminate EAP"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:76
+msgid "Silver Bullet: max users per profile"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:80
 msgid "Additional SSID"
 msgstr "Επιπρόσθετο SSID"
 
-#: web/admin/inc/common.inc.php:76
+#: web/admin/inc/common.inc.php:81
 msgid "Additional SSID (with WPA/TKIP)"
 msgstr "Επιπρόσθετο SSID (με WPA/TKIP)"
 
-#: web/admin/inc/common.inc.php:78
+#: web/admin/inc/common.inc.php:83
 msgid "SSID"
 msgstr "SSID"
 
-#: web/admin/inc/common.inc.php:79
+#: web/admin/inc/common.inc.php:84
 msgid "SSID (with WPA/TKIP)"
 msgstr "SSID (με WPA/TKIP)"
 
-#: web/admin/inc/common.inc.php:83
+#: web/admin/inc/common.inc.php:88
 msgid "Additional HS20 Consortium OI"
 msgstr "Επιπρόσθετο αναγνωριστικό OI κοινοπραξίας HS20"
 
-#: web/admin/inc/common.inc.php:84
+#: web/admin/inc/common.inc.php:90
 msgid "HS20 Consortium OI"
 msgstr "Αναγνωριστικό OI κοινοπραξίας HS20"
 
-#: web/admin/inc/common.inc.php:98
+#: web/admin/inc/common.inc.php:104
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2104,69 +2098,76 @@ msgstr ""
 "μπορεί να πιστεύουν λανθασμένα ότι συνδέονται σε ένα πολύ ασφαλές δίκτυο ενώ "
 "κάτι τέτοιο δεν ισχύει."
 
-#: web/admin/inc/common.inc.php:113
+#: web/admin/inc/common.inc.php:119
 msgid "Remark"
 msgstr "Παρατήρηση"
 
-#: web/admin/inc/common.inc.php:114
+#: web/admin/inc/common.inc.php:120
 msgid "Warning!"
 msgstr "Προειδοποίηση!"
 
-#: web/admin/inc/common.inc.php:115
+#: web/admin/inc/common.inc.php:121
 msgid "Error!"
 msgstr "Σφάλμα!"
 
-#: web/admin/inc/common.inc.php:306 web/admin/inc/common.inc.php:327
+#: web/admin/inc/common.inc.php:250 web/admin/inc/common.inc.php:273
 msgid "Error, ROWID expected."
 msgstr "Σφάλμα, αναμενόταν ROWID."
 
-#: web/admin/inc/common.inc.php:313
+#: web/admin/inc/common.inc.php:258
 msgid "There was an error processing the certificate!"
 msgstr "Παρουσιάστηκε ένα σφάλμα κατά την επεξεργασία του πιστοποιητικού!"
 
-#: web/admin/inc/common.inc.php:319
+#: web/admin/inc/common.inc.php:265
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "Αυτό είναι ένα πιστοποιητικό <strong>ΕΞΥΠΗΡΕΤΗΤΗ</strong>!"
 
-#: web/admin/inc/common.inc.php:328
+#: web/admin/inc/common.inc.php:275
 msgid "Preview of logo file"
 msgstr "Προεπισκόπηση αρχείου λογότυπου"
 
-#: web/admin/inc/common.inc.php:339
+#: web/admin/inc/common.inc.php:287
 msgid "File exists"
 msgstr "Το αρχείο υπάρχει ήδη"
 
-#: web/admin/inc/common.inc.php:339
+#: web/admin/inc/common.inc.php:287
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: web/admin/inc/common.inc.php:362 web/admin/inc/option_html.inc.php:117
+#: web/admin/inc/common.inc.php:294
+msgid "General Institution Details"
+msgstr "Γενικές Πληροφορίες Ιδρύματος"
+
+#: web/admin/inc/common.inc.php:312
+msgid "Global Helpdesk Details"
+msgstr "Λεπτομέρειες Καθολικού Helpdesk"
+
+#: web/admin/inc/common.inc.php:338 web/admin/inc/option_html.inc.php:153
 msgid "default/other languages"
 msgstr "προεπιλογή/άλλες γλώσσες"
 
 #. / Device assessment is "on"
-#: web/admin/inc/common.inc.php:392 web/admin/inc/option_html.inc.php:202
+#: web/admin/inc/common.inc.php:367 web/admin/inc/option_html.inc.php:246
 msgid "on"
 msgstr "on"
 
-#. / Device assessment is "off"
-#: web/admin/inc/common.inc.php:392 web/admin/inc/option_html.inc.php:205
+#: web/admin/inc/common.inc.php:367 web/admin/inc/option_html.inc.php:243
 msgid "off"
 msgstr "off"
 
-#: web/admin/inc/geo_widget.php:99
+#: web/admin/inc/geo_widget.php:101
 msgid "This is location "
 msgstr "Αυτή είναι η περιοχή"
 
-#: web/admin/inc/geo_widget.php:178
+#: web/admin/inc/geo_widget.php:180
 msgid "nothing entered in the address field"
 msgstr "δεν εισάγατε τίποτε στο πεδίο διεύθυνσης"
 
-#: web/admin/inc/geo_widget.php:198
+#: web/admin/inc/geo_widget.php:200
 msgid "locating"
 msgstr "γίνεται εντοπισμός"
 
-#: web/admin/inc/geo_widget.php:285
+#: web/admin/inc/geo_widget.php:286
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
@@ -2177,7 +2178,7 @@ msgstr ""
 "ακριβής είναι ο ορισμός της τοποθεσίας σας εδώ, τόσο πιο εύκολο είναι για "
 "τους χρήστες να σας βρουν."
 
-#: web/admin/inc/geo_widget.php:288
+#: web/admin/inc/geo_widget.php:289
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
@@ -2187,13 +2188,13 @@ msgstr ""
 "<li>εισάγετε τη διεύθυνσή σας στο παρακάτω πεδίο για αναζήτηση, ή</li>\n"
 "<li>χρησιμοποιήστε το κουμπί 'Εντοπίσε Με!'</li>"
 
-#: web/admin/inc/geo_widget.php:293
+#: web/admin/inc/geo_widget.php:294
 msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr ""
 "Θα χρησιμοποιήσουμε τις συντεταγμένες όπως δείχνει το σημάδι για τον "
 "γεωγραφικό εντοπισμό."
 
-#: web/admin/inc/geo_widget.php:296
+#: web/admin/inc/geo_widget.php:298
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
@@ -2202,107 +2203,59 @@ msgstr ""
 "Μπορείτε να δείτε τις ήδη ορισμένες τοποθεσίες στο πεδίο 'Γενικές "
 "Πληροφορίες'."
 
-#: web/admin/inc/geo_widget.php:298
+#: web/admin/inc/geo_widget.php:300
 msgid "Address:"
 msgstr "Διεύθυνση:"
 
-#: web/admin/inc/geo_widget.php:298
+#: web/admin/inc/geo_widget.php:300
 msgid "Find address"
 msgstr "Εύρεση διεύθυνσης"
 
-#: web/admin/inc/geo_widget.php:298
+#: web/admin/inc/geo_widget.php:300
 msgid "Locate Me!"
 msgstr "Εντόπισέ με!"
 
-#: web/admin/inc/geo_widget.php:301
+#: web/admin/inc/geo_widget.php:303
 msgid "Latitude:"
 msgstr "Γεωγραφικό πλάτος:"
 
-#: web/admin/inc/geo_widget.php:301
+#: web/admin/inc/geo_widget.php:303
 msgid "Longitude:"
 msgstr "Γεωγραφικό μήκος:"
 
-#: web/admin/inc/input_validation.inc.php:19
+#: web/admin/inc/input_validation.inc.php:20
 msgid "Input validation error: "
 msgstr "Σφάλμα επικύρωσης εισόδου:"
 
-#: web/admin/inc/input_validation.inc.php:26
-#: web/admin/inc/input_validation.inc.php:33
-#, fuzzy
-msgid "This Federation identifier is not accessible!"
-msgstr "Το αναγνωριστικό αυτού του IdP δεν είναι προσπελάσιμο!"
-
-#: web/admin/inc/input_validation.inc.php:39
-msgid "Value for IdP is not an integer!"
-msgstr "Η τιμή για τον IdP δεν είναι ακέραιος!"
-
-#: web/admin/inc/input_validation.inc.php:45
-#: web/admin/inc/input_validation.inc.php:53
-msgid "This IdP identifier is not accessible!"
-msgstr "Το αναγνωριστικό αυτού του IdP δεν είναι προσπελάσιμο!"
-
-#: web/admin/inc/input_validation.inc.php:61
-msgid "Value for profile is not an integer!"
-msgstr "Η τιμή για το προφίλ δεν είναι ακέραιος!"
-
-#: web/admin/inc/input_validation.inc.php:67
-#: web/admin/inc/input_validation.inc.php:72
-msgid "This profile is not accessible!"
-msgstr "Αυτό το προφίλ δεν είναι προσπελάσιμο!"
-
-#: web/admin/inc/input_validation.inc.php:81
-msgid "This device does not exist!"
-msgstr "Αυτή η συσκευή δεν υπάρχει!"
-
-#: web/admin/inc/input_validation.inc.php:114
+#: web/admin/inc/input_validation.inc.php:122
 msgid "Realm contains an @ sign!"
 msgstr "Ο τομέας περιέχει ένα σύμβολο @!"
 
-#: web/admin/inc/input_validation.inc.php:118
+#: web/admin/inc/input_validation.inc.php:126
 msgid "Realm begins with a . (dot)!"
 msgstr "Ο τομέας ξεκινάει με . (τελεία)!"
 
-#: web/admin/inc/input_validation.inc.php:122
+#: web/admin/inc/input_validation.inc.php:130
 msgid "Realm ends with a . (dot)!"
 msgstr "Ο τομέας τελειώνει με . (τελεία)!"
 
-#: web/admin/inc/input_validation.inc.php:126
+#: web/admin/inc/input_validation.inc.php:134
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Ο τομέας δεν περιέχει τουλάχιστον μία . (τελεία)!"
 
-#: web/admin/inc/input_validation.inc.php:130
+#: web/admin/inc/input_validation.inc.php:138
 msgid "Realm contains spaces!"
 msgstr "Ο τομέας περιέχει κενά!"
 
-#: web/admin/inc/input_validation.inc.php:139
-msgid "The user identifier is not an ASCII string!"
-msgstr "Το αναγνωριστικό χρήστη δεν είναι συμβολοσειρά ASCII!"
+#: web/admin/inc/input_validation.inc.php:142
+msgid "Realm is empty!"
+msgstr ""
 
-#: web/admin/inc/input_validation.inc.php:148
-msgid "Token is not a hexadecimal string!"
-msgstr "Το κουπόνι δεν είναι δεκαεξαδική συμβολοσειρά!"
-
-#: web/admin/inc/input_validation.inc.php:156
-msgid "Coordinate is not a numeric value!"
-msgstr "Η συντεταγμένη δεν είναι αριθμητική τιμή!"
-
-#: web/admin/inc/input_validation.inc.php:161
-msgid "Coordinate is out of bounds. Which planet are you from?"
-msgstr "Η συντεταγμένη είναι εκτός ορίων. Από ποιον πλανήτη είστε;"
-
-#: web/admin/inc/input_validation.inc.php:173
+#: web/admin/inc/input_validation.inc.php:197
 msgid "Wrong coordinate encoding!"
 msgstr "Λανθασμένη κωδικοποίηση συντεταγμένης!"
 
-#: web/admin/inc/input_validation.inc.php:180
-msgid "Invalid structure in multi-language attribute!"
-msgstr "Μη έγκυρη δομή σε πολυγλωσσικό attribute!"
-
-#: web/admin/inc/input_validation.inc.php:187
-msgid "Unknown state of boolean option!"
-msgstr "Άγνωστη κατάσταση για δυαδική επιλογή!"
-
-#: web/admin/inc/manageAdmins.inc.php:55
+#: web/admin/inc/manageAdmins.inc.php:56
 msgid ""
 "You do not have the necessary privileges to alter administrators of this "
 "institution. In fact, you shouldn't have come this far!"
@@ -2310,12 +2263,12 @@ msgstr ""
 "Δεν έχετε τα απαραίτητα δικαιώματα για να αλλάξετε τους διαχειριστές αυτού "
 "του ιδρύματος. Για την ακρίβεια, δεν θα έπρεπε να έχετε φτάσει μέχρι εδώ!"
 
-#: web/admin/inc/manageAdmins.inc.php:87
+#: web/admin/inc/manageAdmins.inc.php:89
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Διαχειριστές του IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid ""
 "You are the federation administrator of this IdP. You can invite new "
 "administrators, who can in turn appoint further administrators on their own."
@@ -2324,7 +2277,7 @@ msgstr ""
 "νέους διαχειριστές οι οποίοι με τη σειρά τους μπορούν να διορίσουν δικούς "
 "τους περαιτέρω διαχειριστές ."
 
-#: web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/inc/manageAdmins.inc.php:116
 msgid ""
 "You are an administrator of this IdP who was directly appointed by the "
 "federation administrator. You can appoint further administrators, but these "
@@ -2334,52 +2287,52 @@ msgstr ""
 "διαχειριστή ομοσπονδίας. Μπορείτε να διορίσετε περαιτέρω διαχειριστές αλλά "
 "αυτοί δεν θα μπορούν με τη σειρά τους να διορίσουν άλλους διαχειριστές."
 
-#: web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/inc/manageAdmins.inc.php:116
 msgid "Directly Appointed IdP Administrator"
 msgstr "Άμεσα Διορισμένος Διαχειριστής IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:128
 msgid "User without name"
 msgstr "Χρήστης χωρίς όνομα"
 
-#: web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/inc/manageAdmins.inc.php:137
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(αρχική πρόσκληση ως %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/inc/manageAdmins.inc.php:139
 msgid "(self-appointed)"
 msgstr "(αυτοδιορισμένος) "
 
-#: web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/inc/manageAdmins.inc.php:146
 msgid "Delete Administrator"
 msgstr "Διαγραφή Διαχειριστή"
 
-#: web/admin/inc/manageAdmins.inc.php:154
-#: web/admin/inc/manageDBLink.inc.php:161
+#: web/admin/inc/manageAdmins.inc.php:160
+#: web/admin/inc/manageDBLink.inc.php:182
 msgid "Pending invitations for this IdP"
 msgstr "Προσκλήσεις σε αναμονή για αυτόν τον IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:163
+#: web/admin/inc/manageAdmins.inc.php:170
 #, fuzzy
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Διεύθυνση email νέου διαχειριστή:"
 
-#: web/admin/inc/manageAdmins.inc.php:163
+#: web/admin/inc/manageAdmins.inc.php:170
 msgid "Invite new administrator"
 msgstr "Πρόσκληση νέου διαχειριστή"
 
-#: web/admin/inc/manageAdmins.inc.php:175
+#: web/admin/inc/manageAdmins.inc.php:184
 msgid "Take control of this institution"
 msgstr "Πάρτε τον έλεγχο αυτού του ιδρύματος"
 
-#: web/admin/inc/manageAdmins.inc.php:181
-#: web/admin/inc/manageDBLink.inc.php:172
-#: web/admin/inc/manageNewInst.inc.php:117
+#: web/admin/inc/manageAdmins.inc.php:191
+#: web/admin/inc/manageDBLink.inc.php:194
+#: web/admin/inc/manageNewInst.inc.php:121
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: web/admin/inc/manageDBLink.inc.php:42
+#: web/admin/inc/manageDBLink.inc.php:44
 #, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
@@ -2388,17 +2341,17 @@ msgstr ""
 "Δεν έχετε τα απαραίτητα δικαιώματα για τη διαχείριση της κατάστασης της "
 "σύνδεσης της ΒΔ %s για αυτό το ίδρυμα."
 
-#: web/admin/inc/manageDBLink.inc.php:64
+#: web/admin/inc/manageDBLink.inc.php:67
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
 msgstr "Κατάσταση σύνδεσης με τη βάση δεδομένων %s για τον IdP '%s'"
 
-#: web/admin/inc/manageDBLink.inc.php:71
+#: web/admin/inc/manageDBLink.inc.php:74
 #, php-format
 msgid "This institution is linked to the %s database."
 msgstr "Αυτό το ίδρυμα είναι συνδεδεμένο με τη βάση δεδομένων %s."
 
-#: web/admin/inc/manageDBLink.inc.php:72
+#: web/admin/inc/manageDBLink.inc.php:75
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
@@ -2406,35 +2359,35 @@ msgstr ""
 "Οι ακόλουθες πληροφορίες σχετικά με τον IdP είναι αποθηκευμένες στη ΒΔ %s "
 "και τη ΒΔ %s:"
 
-#: web/admin/inc/manageDBLink.inc.php:73
+#: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
 msgstr "Πληροφορίες στη <strong>Βάση Δεδομένων %s</strong>"
 
-#: web/admin/inc/manageDBLink.inc.php:86
-#: web/admin/inc/manageDBLink.inc.php:105
+#: web/admin/inc/manageDBLink.inc.php:90
+#: web/admin/inc/manageDBLink.inc.php:116
 #, php-format
 msgid "Institution Name (%s)"
 msgstr "Όνομα Ιδρύματος (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:95
+#: web/admin/inc/manageDBLink.inc.php:99
 msgid "Unnamed User"
 msgstr "Ανώνυμος Χρήστης"
 
-#: web/admin/inc/manageDBLink.inc.php:96
+#: web/admin/inc/manageDBLink.inc.php:101
 msgid "Administrator [invited as]"
 msgstr "Διαχειριστής [πρόσκληση ως]"
 
-#: web/admin/inc/manageDBLink.inc.php:107
+#: web/admin/inc/manageDBLink.inc.php:119
 msgid "Administrator email"
 msgstr "Email διαχειριστή"
 
-#: web/admin/inc/manageDBLink.inc.php:113
+#: web/admin/inc/manageDBLink.inc.php:126
 #, php-format
 msgid "This institution is not yet linked to the %s database."
 msgstr "Αυτό το ίδρυμα δεν έχει ακόμη συνδεθεί με τη βάση δεδομένων %s."
 
-#: web/admin/inc/manageDBLink.inc.php:114
+#: web/admin/inc/manageDBLink.inc.php:127
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
@@ -2442,12 +2395,12 @@ msgstr ""
 "Αυτό σημαίνει ότι τα προφίλ του δεν είναι ακόμα διαθέσιμα στη σελίδα λήψεων "
 "των χρηστών."
 
-#: web/admin/inc/manageDBLink.inc.php:115
+#: web/admin/inc/manageDBLink.inc.php:128
 #, php-format
 msgid "You can link it to the %s database below."
 msgstr "Μπορείτε να το συνδέσετε στη βάση δεδομένων %s παρακάτω."
 
-#: web/admin/inc/manageDBLink.inc.php:118
+#: web/admin/inc/manageDBLink.inc.php:131
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT "
@@ -2456,7 +2409,7 @@ msgstr ""
 "Παρακαλούμε επιλέξτε μία οντότητα από τη ΒΔ %s η οποία αντιστοιχεί σε αυτό "
 "το ίδρυμα CAT."
 
-#: web/admin/inc/manageDBLink.inc.php:120
+#: web/admin/inc/manageDBLink.inc.php:133
 #, php-format
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
@@ -2465,33 +2418,33 @@ msgstr ""
 "Κυρίως οι πολλά υποσχόμενες καταχωρήσεις (ονόματα στο CAT και στη ΒΔ %s "
 "ταιριάζουν 100%%) βρίσκονται στην κορυφή της λίστας."
 
-#: web/admin/inc/manageDBLink.inc.php:121
+#: web/admin/inc/manageDBLink.inc.php:136
 msgid "Link to this entity?"
 msgstr "Σύνδεση με αυτή την οντότητα;"
 
-#: web/admin/inc/manageDBLink.inc.php:121
+#: web/admin/inc/manageDBLink.inc.php:136
 msgid "Name of the institution"
 msgstr "Όνομα του ιδρύματος"
 
-#: web/admin/inc/manageDBLink.inc.php:121
+#: web/admin/inc/manageDBLink.inc.php:136
 msgid "Administrators"
 msgstr "Διαχειριστές"
 
-#: web/admin/inc/manageDBLink.inc.php:152
+#: web/admin/inc/manageDBLink.inc.php:172
 msgid "Create Link"
 msgstr "Δημιουργία σύνδεσης"
 
-#: web/admin/inc/manageNewInst.inc.php:41
+#: web/admin/inc/manageNewInst.inc.php:42
 #, php-format
 msgid "You do not have the necessary privileges to register new IdPs."
 msgstr "Δεν έχετε τα απαραίτητα δικαιώματα για να καταχωρείτε νέους IdP."
 
-#: web/admin/inc/manageNewInst.inc.php:48
+#: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid "%s - Register New Institution"
 msgstr "%s - Καταχώρηση Νέου Ιδρύματος"
 
-#: web/admin/inc/manageNewInst.inc.php:51
+#: web/admin/inc/manageNewInst.inc.php:52
 msgid ""
 "On this page, you can add new institutions to your federation. Please fill "
 "out the form below to send out an email invitation to the new institution's "
@@ -2501,7 +2454,7 @@ msgstr ""
 "Παρακαλούμε συμπληρώστε την παρακάτω φόρμα για να στείλετε μία πρόσκληση με "
 "email στο διαχειριστή του νέου ιδρύματος."
 
-#: web/admin/inc/manageNewInst.inc.php:53
+#: web/admin/inc/manageNewInst.inc.php:54
 #, php-format
 msgid ""
 "You can either register a known IdP (as defined in the %s database) or "
@@ -2510,7 +2463,7 @@ msgstr ""
 "Μπορείτε είτε να καταχωρήσετε έναν IdP που ήδη υπάρχει (όπως καθορίζεται στη "
 "βάση δεδομένων %s) ή να δημιουργήσετε έναν τελείως καινούριο IdP."
 
-#: web/admin/inc/manageNewInst.inc.php:54
+#: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid ""
 "The latter one is typically for institutions which are yet in a testing "
@@ -2519,7 +2472,7 @@ msgstr ""
 "Το τελευταίο είναι συνήθως για ιδρύματα που είναι ακόμα στη δοκιμαστική φάση "
 "και έτσι δεν εμφανίζονται ακόμη στη βάση δεδομένων %s."
 
-#: web/admin/inc/manageNewInst.inc.php:55
+#: web/admin/inc/manageNewInst.inc.php:56
 #, php-format
 msgid ""
 "Please keep in mind that any profiles of such new institutions will only be "
@@ -2530,59 +2483,59 @@ msgstr ""
 "στη σελίδα λήψεων των χρηστών μόνο αφού τα συνδέσετε με μία οντότητα στη "
 "βάση δεδομένων %s (αλλά κατά τα άλλα θα είναι πλήρως λειτουργικά)."
 
-#: web/admin/inc/manageNewInst.inc.php:64
+#: web/admin/inc/manageNewInst.inc.php:65
 msgid "Existing IdP:"
 msgstr "Υπάρχοντες IdP:"
 
-#: web/admin/inc/manageNewInst.inc.php:69
+#: web/admin/inc/manageNewInst.inc.php:70
 msgid "--- select IdP here ---"
 msgstr "--- επιλέξτε IdP εδώ ---"
 
-#: web/admin/inc/manageNewInst.inc.php:87
+#: web/admin/inc/manageNewInst.inc.php:88
 msgid "New IdP"
 msgstr "Νέος IdP"
 
-#: web/admin/inc/manageNewInst.inc.php:90
+#: web/admin/inc/manageNewInst.inc.php:91
 msgid "Name"
 msgstr "Όνομα"
 
-#: web/admin/inc/manageNewInst.inc.php:92
+#: web/admin/inc/manageNewInst.inc.php:93
 msgid "Federation"
 msgstr "Ομοσπονδία"
 
-#: web/admin/inc/manageNewInst.inc.php:108
+#: web/admin/inc/manageNewInst.inc.php:112
 msgid "Administrator's E-Mail:"
 msgstr "E-Mail Διαχειριστή:"
 
-#: web/admin/inc/manageNewInst.inc.php:113
+#: web/admin/inc/manageNewInst.inc.php:117
 msgid "Send invitation"
 msgstr "Αποστολή πρόσκλησης"
 
-#: web/admin/inc/option_html.inc.php:116
+#: web/admin/inc/option_html.inc.php:152
 msgid "select language"
 msgstr "επιλογή γλώσσας"
 
-#: web/admin/inc/option_html.inc.php:158
+#: web/admin/inc/option_html.inc.php:199
 msgid "(default/other languages)"
 msgstr "(προεπιλογή/άλλες γλώσσες)"
 
-#: web/admin/inc/option_html.inc.php:173
+#: web/admin/inc/option_html.inc.php:213
 msgid "Click to see location"
 msgstr "Κάντε κλικ για να δείτε την περιοχή"
 
-#: web/admin/inc/option_html.inc.php:190
+#: web/admin/inc/option_html.inc.php:230
 msgid "file content"
 msgstr "περιεχόμενο αρχείου"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/admin/inc/option_parse.inc.php:247
-#: web/admin/inc/option_parse.inc.php:251
+#: web/admin/inc/option_parse.inc.php:101
+#: web/admin/inc/option_parse.inc.php:106
 #, php-format
 msgid "%dx %s"
 msgstr "%dx %s"
 
-#: web/admin/inc/option_parse.inc.php:255
+#: web/admin/inc/option_parse.inc.php:111
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
@@ -2608,7 +2561,7 @@ msgstr "Στάλθηκε πρόσκληση σε:"
 msgid "Mail address to invite:"
 msgstr "Διεύθυνση mail για πρόσκληση:"
 
-#: web/admin/inc/sendinvite.inc.php:30
+#: web/admin/inc/sendinvite.inc.php:33
 msgid ""
 "Something's wrong... you want to create a new institution, but are not a "
 "federation admin for the federation it should be in!"
@@ -2617,7 +2570,7 @@ msgstr ""
 "διαχειριστής της ομοσπονδίας για την ομοσπονδία στην οποία πρέπει να είναι "
 "το ίδρυμα!"
 
-#: web/admin/inc/sendinvite.inc.php:68
+#: web/admin/inc/sendinvite.inc.php:75
 msgid ""
 "Something's wrong... you are a federation admin, but not for the federation "
 "the requested institution belongs to!"
@@ -2625,7 +2578,7 @@ msgstr ""
 "Κάτι πάει στραβά... είστε διαχειριστής ομοσπονδίας, αλλά όχι της ομοσπονδίας "
 "στην οποία ανήκει το ίδρυμα που ζητήθηκε!"
 
-#: web/admin/inc/sendinvite.inc.php:75
+#: web/admin/inc/sendinvite.inc.php:82
 #, php-format
 msgid ""
 "an administrator of the %s Identity Provider \"%s\" has invited you to "
@@ -2634,33 +2587,33 @@ msgstr ""
 "ένας διαχειριστής από τον %s IdP \"%s\" σας προσκάλεσε να διαχειριστείτε τον "
 "IdP μαζί του."
 
-#: web/admin/inc/sendinvite.inc.php:75 web/admin/inc/sendinvite.inc.php:87
-#: web/admin/inc/sendinvite.inc.php:111
+#: web/admin/inc/sendinvite.inc.php:82 web/admin/inc/sendinvite.inc.php:94
+#: web/admin/inc/sendinvite.inc.php:122
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Αυτή η πρόσκληση είναι έγκυρη για 24 ώρες από τώρα, δηλαδή μέχρι %s."
 
-#: web/admin/inc/sendinvite.inc.php:87
+#: web/admin/inc/sendinvite.inc.php:94
 #, php-format
 msgid "a %s operator has invited you to manage the future IdP  \"%s\" (%s)."
 msgstr ""
 "ένας χειριστής %s σας προσκάλεσε να διαχειριστείτε τον μελλοντικό IdP  \"%s"
 "\" (%s)."
 
-#: web/admin/inc/sendinvite.inc.php:111
+#: web/admin/inc/sendinvite.inc.php:122
 #, php-format
 msgid "a %s operator has invited you to manage the IdP  \"%s\"."
 msgstr "ένας χειριστής %s σας προσκάλεσε να διαχειριστείτε τον IdP  \"%s\"."
 
-#: web/admin/inc/sendinvite.inc.php:131
+#: web/admin/inc/sendinvite.inc.php:143
 msgid "Hello,"
 msgstr "Χαίρετε,"
 
-#: web/admin/inc/sendinvite.inc.php:140
+#: web/admin/inc/sendinvite.inc.php:152
 msgid "Additional message from your federation administrator:"
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:149
+#: web/admin/inc/sendinvite.inc.php:162
 msgid ""
 "To enlist as an administrator for that IdP, please click on the following "
 "link:"
@@ -2668,7 +2621,7 @@ msgstr ""
 "Για να εγγραφείτε ως διαχειριστής για αυτόν τον IdP, παρακαλούμε κάντε κλικ "
 "στον ακόλουθο σύνδεσμο:"
 
-#: web/admin/inc/sendinvite.inc.php:153
+#: web/admin/inc/sendinvite.inc.php:166
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -2677,17 +2630,17 @@ msgstr ""
 "Αν το κλικ στον σύνδεσμο δε λειτουργεί, μπορείτε επίσης να πάτε στη Διεπαφή "
 "Διαχείρισης  %s στο"
 
-#: web/admin/inc/sendinvite.inc.php:158
+#: web/admin/inc/sendinvite.inc.php:171
 msgid "and enter the invitation token"
 msgstr "και εισάγετε το κουπόνι πρόσκλησης"
 
-#: web/admin/inc/sendinvite.inc.php:161
+#: web/admin/inc/sendinvite.inc.php:174
 msgid ""
 "manually. If you reply to this mail, you will reach the federation "
 "administrators of your federation."
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:162
+#: web/admin/inc/sendinvite.inc.php:175
 #, fuzzy
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
@@ -2695,18 +2648,18 @@ msgstr ""
 "χεροκίνητα. Παρακαλούμε μην απαντάτε σε αυτό το email, είναι διεύθυνση "
 "αποστολής-μόνο."
 
-#: web/admin/inc/sendinvite.inc.php:164
+#: web/admin/inc/sendinvite.inc.php:177
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:166
+#: web/admin/inc/sendinvite.inc.php:179
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Σας ευχόμαστε να περάσετε καλά με το %s."
 
-#: web/admin/inc/sendinvite.inc.php:168
+#: web/admin/inc/sendinvite.inc.php:181
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -2717,40 +2670,109 @@ msgstr ""
 "\n"
 "Οι φίλοι σας από την Ομάδα Λειτουργίας %s"
 
-#: web/admin/inc/sendinvite.inc.php:208
+#: web/admin/inc/sendinvite.inc.php:211
 #, php-format
 msgid "%s: you have been invited to manage an IdP"
 msgstr "%s: λάβατε πρόσκληση για τη διαχείριση του IdP"
 
-#: web/admin/inc/toggleRedirect.inc.php:59
-msgid ""
-"This page needs to be called either for EAP-Types OR for devices, not both "
-"simultaneously!"
-msgstr ""
-"Η κλήση αυτής της σελίδας πρέπει να γίνεται για τύπους EAP Ή για συσκευές, "
-"όχι και τα δύο ταυτόχρονα!"
-
-#: web/admin/inc/toggleRedirect.inc.php:66
-msgid ""
-"This page needs to be called either for EAP-Types OR for devices, but none "
-"of the two were set!"
-msgstr ""
-"Η κλήση αυτής της σελίδας πρέπει να γίνεται για τύπους EAP Ή για συσκευές, "
-"αλλά δεν ορίστηκε κανένα από τα δύο!"
-
-#: web/admin/inc/toggleRedirect.inc.php:88
+#: web/admin/inc/toggleRedirect.inc.php:96
 #, php-format
 msgid "device <strong>%s</strong>"
 msgstr "συσκευή <strong>%s</strong>"
 
-#: web/admin/inc/toggleRedirect.inc.php:94
+#: web/admin/inc/toggleRedirect.inc.php:107
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
 msgstr "Τύπος EAP <strong>%s</strong>"
 
-#: web/admin/inc/toggleRedirect.inc.php:100
+#: web/admin/inc/toggleRedirect.inc.php:113
 msgid "Fine-tuning options for "
 msgstr "Επιλογές τελειοποίησης για"
+
+#~ msgid "EAP details for all users"
+#~ msgstr "Λεπτομέρειες EAP για όλους τους χρήστες"
+
+#~ msgid ""
+#~ "Most EAP methods need server-side authentication details, like the CA "
+#~ "certificate and/or server name(s) of your authentication servers. If all "
+#~ "the EAP methods you support work with the same CA and or Common Names of "
+#~ "servers, you can enter them here and they will be added as trust anchors "
+#~ "in all profiles. If the details differ per profile or per EAP-type, you "
+#~ "can also enter them in the individual profiles later."
+#~ msgstr ""
+#~ "Οι περισσότερες μέθοδοι EAP χρειάζονται λεπτομέρειες πιστοποίησης από τη "
+#~ "μεριά του εξυπηρετητή, όπως πιστοποιητικό CA ή/και όνομα(-τα) των "
+#~ "εξυπηρετητών πιστοποίησης. Αν όλες οι μέθοδοι EAP που υποστηρίζετε "
+#~ "δουλεύουν με το ίδιο CA ή/και με κοινά ονόματα εξυπηρετητών, μπορείτε να "
+#~ "τα εισάγετε εδώ και θα προστεθούν ως ενσωματώσεις εμπιστευτικότητας σε "
+#~ "όλα τα προφίλ. Αν οι λεπτομέρειες διαφέρουν ανά προφίλ ή ανά τύπο EAP, "
+#~ "μπορείτε να τα εισάγετε και ξεχωριστά στα προφίλ αργότερα."
+
+#~ msgid ""
+#~ "<strong>Note well: </strong>The server-side validation is a cornerstone "
+#~ "of %s; without it, users are subject to man-in-the-middle attacks! We "
+#~ "will not generate site installers without Trusted CA anchors and server "
+#~ "names."
+#~ msgstr ""
+#~ "<strong>Προσέξτε ιδιαίτερα: </strong>Η επαλήθευση της ταυτότητας "
+#~ "εξυπηρετητή είναι ο ακρογωνιαίος λίθος του %s· χωρίς αυτή, οι χρήστες "
+#~ "υπόκειται σε επιθέσεις man-in-the-middle! Δε θα παράγουμε πακέτα "
+#~ "εγκατάστασης χωρίς αγκυρώσεις σε Έμπιστες Αρχές Πιστοποίησης και ονόματα "
+#~ "εξυπηρετητών."
+
+#~ msgid "Global EAP Options"
+#~ msgstr "Καθολικές Επιλογές EAP"
+
+#, fuzzy
+#~ msgid "This Federation identifier is not accessible!"
+#~ msgstr "Το αναγνωριστικό αυτού του IdP δεν είναι προσπελάσιμο!"
+
+#~ msgid "Value for IdP is not an integer!"
+#~ msgstr "Η τιμή για τον IdP δεν είναι ακέραιος!"
+
+#~ msgid "This IdP identifier is not accessible!"
+#~ msgstr "Το αναγνωριστικό αυτού του IdP δεν είναι προσπελάσιμο!"
+
+#~ msgid "Value for profile is not an integer!"
+#~ msgstr "Η τιμή για το προφίλ δεν είναι ακέραιος!"
+
+#~ msgid "This profile is not accessible!"
+#~ msgstr "Αυτό το προφίλ δεν είναι προσπελάσιμο!"
+
+#~ msgid "This device does not exist!"
+#~ msgstr "Αυτή η συσκευή δεν υπάρχει!"
+
+#~ msgid "The user identifier is not an ASCII string!"
+#~ msgstr "Το αναγνωριστικό χρήστη δεν είναι συμβολοσειρά ASCII!"
+
+#~ msgid "Token is not a hexadecimal string!"
+#~ msgstr "Το κουπόνι δεν είναι δεκαεξαδική συμβολοσειρά!"
+
+#~ msgid "Coordinate is not a numeric value!"
+#~ msgstr "Η συντεταγμένη δεν είναι αριθμητική τιμή!"
+
+#~ msgid "Coordinate is out of bounds. Which planet are you from?"
+#~ msgstr "Η συντεταγμένη είναι εκτός ορίων. Από ποιον πλανήτη είστε;"
+
+#~ msgid "Invalid structure in multi-language attribute!"
+#~ msgstr "Μη έγκυρη δομή σε πολυγλωσσικό attribute!"
+
+#~ msgid "Unknown state of boolean option!"
+#~ msgstr "Άγνωστη κατάσταση για δυαδική επιλογή!"
+
+#~ msgid ""
+#~ "This page needs to be called either for EAP-Types OR for devices, not "
+#~ "both simultaneously!"
+#~ msgstr ""
+#~ "Η κλήση αυτής της σελίδας πρέπει να γίνεται για τύπους EAP Ή για "
+#~ "συσκευές, όχι και τα δύο ταυτόχρονα!"
+
+#~ msgid ""
+#~ "This page needs to be called either for EAP-Types OR for devices, but "
+#~ "none of the two were set!"
+#~ msgstr ""
+#~ "Η κλήση αυτής της σελίδας πρέπει να γίνεται για τύπους EAP Ή για "
+#~ "συσκευές, αλλά δεν ορίστηκε κανένα από τα δύο!"
 
 #~ msgid ""
 #~ "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "

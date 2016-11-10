@@ -18,7 +18,6 @@
 require_once('AbstractProfile.php');
 require_once('X509.php');
 require_once('EAP.php');
-require_once('Logging.php');
 include_once("devices/devices.php");
 
 /**
@@ -64,13 +63,22 @@ abstract class DeviceConfig extends Entity {
     public $supportedEapMethods;
 
     /**
-     * device module constructor should be defined by each module, but if it is not, then here is a default one
+     * 
+     * @param array $eapArray the list of EAP methods the device supports
+     */
+    protected function setSupportedEapMethods($eapArray) {
+        $this->supportedEapMethods = $eapArray;
+        $this->loggerInstance->debug(4, "This device (".__CLASS__.") supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+    }
+    
+    /**
+     * device module constructor should be defined by each module. 
+     * The one important thing to do is to call setSupportedEapMethods with an 
+     * array of EAP methods the device supports
      */
     public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP];
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
 
     /**
@@ -91,27 +99,40 @@ abstract class DeviceConfig extends Entity {
      * @param AbstractProfile $profile the profile object which will be passed by the caller
      * @final not to be redefined
      */
-    final public function setup(AbstractProfile $profile) {
+    final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
         if (!$profile instanceof AbstractProfile) {
             $this->loggerInstance->debug(2, "No profile has been set\n");
-            error("No profile has been set");
-            exit;
+            throw new Exception("No profile has been set");
+        }
+
+        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
+        $this->calculatePreferredEapType($eaps);
+        if (count($this->selectedEap) == 0) {
+            throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        if (!$this->selectedEap) {
-            error("No EAP type specified.");
-            exit;
+        
+        // if we are instantiating a Silverbullet profile AND have been given
+        // a token, attempt to create the client certificate NOW
+        // then, this is the only instance of the device ever which knows the
+        // cert and private key. It's not saved anywhere, so it's gone forever
+        // after code execution!
+        
+        if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
+            $this->clientCert = $profile->generateCertificate($token, $importPassword);
         }
+        
         // create temporary directory, its full path will be saved in $this->FPATH;
         $tempDir = createTemporaryDirectory('installer');
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');
         $caList = [];
+        $x509 = new X509();
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
-                $processedCert = X509::processCertificate($ca);
+                $processedCert = $x509->processCertificate($ca);
                 if ($processedCert) {
                     $caList[] = $processedCert;
                 }
@@ -129,11 +150,10 @@ abstract class DeviceConfig extends Entity {
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $this->langIndex = CAT::get_lang();
-        $olddomain = CAT::set_locale("core");
+        $olddomain = $this->languageInstance->setTextDomain("core");
         $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
         $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
-        CAT::set_locale($olddomain);
+        $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
@@ -145,18 +165,16 @@ abstract class DeviceConfig extends Entity {
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
      * @param array eap_array an array of eap methods supported by a given device
-     * @return array the best matching EAP type for the profile; the array may be empty if no match was found
      */
-    public function getPreferredEapType($eap_array) {
+    public function calculatePreferredEapType($eap_array) {
+        $this->selectedEap = [];
         foreach ($eap_array as $eap) {
             if (in_array($eap, $this->supportedEapMethods)) {
                 $this->selectedEap = $eap;
                 $this->loggerInstance->debug(4, "Selected EAP:");
                 $this->loggerInstance->debug(4, $eap);
-                return($eap);
             }
         }
-        return [];
     }
 
     /**
@@ -325,7 +343,7 @@ abstract class DeviceConfig extends Entity {
                 foreach ($caArray as $certAuthority) {
                     $fileHandle = fopen("cert-$iterator.crt", "w");
                     if (!$fileHandle) {
-                        die("problem opening the file\n");
+                        throw new Exception("problem opening the file");
                     }
                     if ($format === "pem") {
                         fwrite($fileHandle, $certAuthority['pem']);
@@ -357,7 +375,7 @@ abstract class DeviceConfig extends Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
-        $lang_pointer = CONFIG['LANGUAGES'][$this->langIndex]['latin_based'] == TRUE ? 0 : 1;
+        $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
@@ -463,7 +481,7 @@ abstract class DeviceConfig extends Entity {
             $fileHandle = fopen($fileName, "w");
             if (!$fileHandle) {
                 $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
-                die("problem opening the file\n");
+                throw new Exception("problem opening the file");
             }
             fwrite($fileHandle, $blob);
             fclose($fileHandle);
@@ -480,7 +498,7 @@ abstract class DeviceConfig extends Entity {
         $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
         if (!$fileHandle) {
-            die("problem opening the file\n");
+            throw new Exception("problem opening the file");
         }
         fwrite($fileHandle, $blob);
         fclose($fileHandle);
@@ -488,12 +506,11 @@ abstract class DeviceConfig extends Entity {
     }
 
     private function getProfileAttributes(AbstractProfile $profile) {
-        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
-        $bestMatchEap = $this->getPreferredEapType($eaps);
+        $bestMatchEap = $this->selectedEap;
         if (count($bestMatchEap) > 0) {
             $a = $profile->getCollapsedAttributes($bestMatchEap);
             $a['eap'] = $bestMatchEap;
-            $a['all_eaps'] = $eaps;
+            $a['all_eaps'] = $profile->getEapMethodsinOrderOfPreference(1);
             return($a);
         }
         error("No supported eap types found for this profile.");
@@ -602,15 +619,6 @@ abstract class DeviceConfig extends Entity {
     public $signer;
 
     /**
-     * the string referencing the language (index ot the CONFIG['LANGUAGES'] array).
-     * It is set to the current language and may be used by the device module to
-     * set its language
-     *
-     * @var string
-     */
-    public $langIndex;
-
-    /**
      * The string identifier of the device (don't show this to users)
      * @var string
      */
@@ -643,5 +651,10 @@ abstract class DeviceConfig extends Entity {
      * @var string 
      */
     public $installerBasename;
+    
+    /**
+     * stores the PKCS#12 DER representation of a client certificate for SilverBullet
+     */
+    protected $clientCert;
 
 }

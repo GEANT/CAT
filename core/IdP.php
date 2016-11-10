@@ -18,12 +18,11 @@
  */
 require_once('Helper.php');
 require_once('ProfileFactory.php');
+require_once('EntityWithDBProperties.php');
 require_once('AbstractProfile.php');
-require_once("CAT.php");
 require_once("Options.php");
 require_once("DBConnection.php");
 require_once("RADIUSTests.php");
-require_once('EntityWithDBProperties.php');
 
 define("EXTERNAL_DB_SYNCSTATE_NOT_SYNCED", 0);
 define("EXTERNAL_DB_SYNCSTATE_SYNCED", 1);
@@ -92,7 +91,7 @@ class IdP extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL];
 
-        $this->name = getLocalisedValue($this->getAttributes('general:instname'), CAT::get_lang());
+        $this->name = getLocalisedValue($this->getAttributes('general:instname'), $this->languageInstance->getLang());
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
@@ -267,7 +266,7 @@ Best regards,
             $usedarray = [];
             // extract all institutions from the country
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = '" . strtolower($this->federation) . "'");
+            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", strtolower($this->federation));
 
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
             while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
