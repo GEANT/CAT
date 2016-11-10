@@ -208,7 +208,8 @@ class Federation extends EntityWithDBProperties {
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
-        $admins = $userHandle->exec($query, "s", strtoupper($this->identifier));
+        $upperFed = strtoupper($this->identifier);
+        $admins = $userHandle->exec($query, "s", $upperFed);
 
         while ($fedAdminQuery = mysqli_fetch_object($admins)) {
             $returnarray[] = $fedAdminQuery->user_id;
