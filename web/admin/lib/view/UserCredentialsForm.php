@@ -41,14 +41,14 @@ class UserCredentialsForm implements PageElement{
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
+        $this->addTitleRow();
     }
     
     /**
      * 
-     * @param array $rowArray
      */
-    public function addTitleRow($rowArray){
-        $row = new Row($rowArray);
+    private function addTitleRow(){
+        $row = new Row(array('user' => 'User', 'token' => 'Token/Certificate details', 'expiry' => 'User Expiry/Certificate Expiry', 'action' => 'Actions'));
         $row->addAttribute('class', self::TITLEROW_CLASS);
         $this->table->addRow($row);
     }
@@ -58,7 +58,7 @@ class UserCredentialsForm implements PageElement{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array('user' => $user->getUsername(), 'token' => $user->getOneTimeTokenLink(), 'expiry' => $user->getTokenExpiry()));
+        $row = new Row(array('user' => $user->getUsername(), 'expiry' => $user->getExpiry()));
         $row->addAttribute('class', self::USERROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);
@@ -69,11 +69,10 @@ class UserCredentialsForm implements PageElement{
     /**
      * 
      * @param SilverbulletCertificate $certificate
-     * @param int $count
      */
-    public function addCertificateRow($certificate, $count){
+    public function addCertificateRow($certificate){
         $index = $this->table->size();
-        $this->table->addRowArray(array('user' => $certificate->getCertificateTitle($count), 'token' => $certificate->getSerialNumber(), 'expiry' => $certificate->getExpiry()));
+        $this->table->addRowArray(array('token' => $certificate->getCertificateDetails(), 'expiry' => $certificate->getExpiry()));
         $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE, $certificate->getIdentifier(), 'delete'));
     }
     

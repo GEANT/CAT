@@ -10,7 +10,9 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
     private $username = 'testusername';
     
-    private $profileId = 1;
+    private $profile;
+    
+    private $profileId;
     
     /**
      * 
@@ -19,6 +21,8 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     private $newUser = null;
     
     protected function setup() {
+        $this->profile = new MockProfileSilverbullet(DBConnection::handle('INST'));
+        $this->profileId = $this->profile->identifier;
         $this->newUser = new SilverbulletUser($this->profileId, $this->username);
     }
     
@@ -35,18 +39,15 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $profileId = $existingUser->getProfileId();
         $this->assertNotEmpty($profileId);
         
-        $oneTimeToken = $existingUser->getOneTimeToken();
-        $this->assertNotEmpty($oneTimeToken);
+        $userExpiry = $existingUser->getExpiry();
+        $this->assertNotEmpty($userExpiry);
         
-        $tokenExpiry = $existingUser->getTokenExpiry();
-        $this->assertNotEmpty($tokenExpiry);
-        
-        $tokenExpiryTime = strtotime($tokenExpiry);
-        $tokenExpectedTime = strtotime("+1 week");
+        $tokenExpiryTime = strtotime($userExpiry);
+        $tokenExpectedTime = time();
         $difference = abs($tokenExpiryTime - $tokenExpectedTime);
         $this->assertTrue($difference < 10000);
         
-        $list = SilverbulletUser::list($this->profileId);
+        $list = SilverbulletUser::getList($this->profileId);
         $found = false;
         foreach ($list as $user) {
             if($user->getIdentifier() == $this->newUser->getIdentifier()){
@@ -82,6 +83,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
     protected function tearDown(){
         $this->newUser->delete();
+        $this->profile->delete();
     }
     
 }

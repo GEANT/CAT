@@ -54,14 +54,11 @@ if($builder->isReady()){
     
     //Edit form data preparation
     $editBlock = new UserCredentialsForm(_('Manage institution users'));
-    $editBlock->addTitleRow(array('user' => 'User/CN', 'token' => 'One Time Token/Serial Number', 'expiry' => 'Token Expiry/Certificate Expiry', 'action' => 'Actions'));
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
-        $count = 1;
         foreach ($certificates as $certificate) {
-            $editBlock->addCertificateRow($certificate, $count);
-            $count++;
+            $editBlock->addCertificateRow($certificate);
         }
     }
     
