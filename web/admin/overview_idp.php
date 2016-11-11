@@ -274,7 +274,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             if (isset($URL['device-specific:redirect'])) {
                 $displayurl = $URL['device-specific:redirect'][0];
             } else {
-                $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://' ) . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
+                $displayurl = '//' . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             }
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
             $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));

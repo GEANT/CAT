@@ -36,7 +36,7 @@ class Device_mobileconfig_ios extends mobileconfigSuperclass {
     
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2]);
+        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_SILVERBULLET]);
     }
 
 }

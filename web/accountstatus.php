@@ -18,10 +18,12 @@ require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 require_once("web/admin/inc/input_validation.inc.php");
 require_once("Logging.php");
+require_once("Language.php");
 require_once("Helper.php");
 
 $Gui = new UserAPI();
-$Gui->set_locale("web_user");
+$languageInstance = new Language();
+$languageInstance->setTextDomain("web_user");
 $loggerInstance = new Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 
@@ -51,7 +53,7 @@ echo _("View this page in");
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
         }
-        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . _("Start page") . '</a></td></tr></table>';
+        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $languageInstance->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
         ?>
     </div> <!-- id="heading" -->
         <?php
@@ -111,8 +113,8 @@ echo _("View this page in");
             <tr>
                 <td style="padding-left:20px; text-align:left">
 <?php
-echo CONFIG['APPEARANCE']['productname'] . " - " . CAT::$VERSION;
-echo " &copy; 2011-15 G&Eacute;ANT on behalf of the GN3, GN3plus, GN4 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+echo CONFIG['APPEARANCE']['productname'] . " - " . $Gui->CAT_VERSION_STRING;
+echo $Gui->CAT_COPYRIGHT;
 ?>
                 </td>
                 <td style="padding-left:80px; text-align:right;">

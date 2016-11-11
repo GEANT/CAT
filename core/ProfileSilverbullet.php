@@ -151,7 +151,7 @@ class ProfileSilverbullet extends AbstractProfile {
         // token needs to lead us to the NRO ... (DB query for token -> profile -> inst -> federation); setting this to LU right now.
         // ... and give us an expiry date (setting expiry date to something like 2019)
         $federation = 'LU';
-        $usernameLocalPart = random_str(64);
+        $usernameLocalPart = random_str(32);
         $username = $usernameLocalPart . "@" . $this->realm;
         $validity = date_diff(date_create(), date_create("31-12-2019 23:59:59"), TRUE);
         $expiryDays = $validity->days;
@@ -160,7 +160,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $csr = openssl_csr_new(
                 [ 'O' => 'eduroam', 
                   'OU' => $federation, 
-                  'CN' => $this->instName . " - " ._("eduroam access"),
+                  'CN' => $this->instName . " - " ._("eduroam credential"),
                   'emailAddress' => $username, 
                 ],
                 $privateKey, [
@@ -178,7 +178,11 @@ class ProfileSilverbullet extends AbstractProfile {
         // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
         // serial numbers are not maintaining state because random, and could be duplicate
         // on heavy use. But this is a temporary stopgap CA only anyway, so who cares.
-        $cert = openssl_csr_sign($csr, "../config/SilverbulletClientCerts/issuingca.pem", "../config/SilverbulletClientCerts/issuingca.key", $expiryDays, [ 'config' => 'openssl.cnf', 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
+        $issuingCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/real.pem", "r");
+        $issuingCaPem = fread($issuingCaHandle, 1000000);
+        $issuingCa = openssl_x509_read($issuingCaPem);
+        $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
+        $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, [ 'digest_alg' => 'sha256' ], mt_rand(1000000, 100000000) );
         
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCert = "";
