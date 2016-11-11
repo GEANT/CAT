@@ -28,15 +28,9 @@ class SilverbulletUser extends PersistentEntity{
      *
      * @var string
      */
-    const ONETIMETOKEN = 'one_time_token';
+    const EXPIRY = 'expiry';
     
-    /**
-     *
-     * @var string
-     */
-    const TOKENEXPIRY = 'token_expiry';
-    
-    private $defaultTokenExpiry;
+    private $defaultUserExpiry;
     
     /**
      * List of certificates for user entity
@@ -55,25 +49,18 @@ class SilverbulletUser extends PersistentEntity{
         parent::__construct(self::TABLE, self::TYPE_INST);
         $this->set(self::PROFILEID, $profileId);
         $this->set(self::USERNAME, $username);
-        $this->set(self::ONETIMETOKEN, $this->generateToken());
-        //$this->set(self::TOKENEXPIRY, 'NOW() + INTERVAL 1 WEEK');
-        $this->defaultTokenExpiry = date('Y-m-d H:i:s',strtotime("+1 week"));
-        $this->set(self::TOKENEXPIRY, $this->defaultTokenExpiry);
+        //$this->set(self::EXPIRY, 'NOW() + INTERVAL 1 WEEK');
+        $this->defaultUserExpiry = date('Y-m-d H:i:s',strtotime("+1 week"));
+        //$this->set(self::EXPIRY, $this->defaultUserExpiry);
     }
     
-    public function setTokenExpiry($year, $month, $day){
+    public function setExpiry($year, $month, $day){
         $tokenExpiry = date('Y-m-d H:i:s', strtotime($year."-".$month."-".$day));
-        if($tokenExpiry > $this->defaultTokenExpiry){
-            $this->set(self::TOKENEXPIRY, $tokenExpiry);
+        if($tokenExpiry > $this->defaultUserExpiry){
+            $this->set(self::EXPIRY, $tokenExpiry);
+        }else{
+            $this->row = array();
         }
-    }
-    
-    /**
-     *
-     * @return string
-     */
-    private function generateToken(){
-        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
     }
     
     public function getProfileId(){
@@ -88,49 +75,18 @@ class SilverbulletUser extends PersistentEntity{
      * 
      * @return boolean
      */
-    public function isTokenExpired(){
-        $tokenExpiryTime = strtotime($this->get(self::TOKENEXPIRY));
+    public function isExpired(){
+        $expiryTime = strtotime($this->get(self::EXPIRY));
         $currentTime = time();
-        return $currentTime > $tokenExpiryTime;
+        return $currentTime > $expiryTime;
     }
     
     /**
      *
      * @return string
      */
-    public function getOneTimeToken(){
-        if($this->isTokenExpired()){
-            return _('User did not consume the token and it expired!');
-        }else{
-            return $this->get(self::ONETIMETOKEN);
-        }
-    }
-    
-    public function getOneTimeTokenLink($host = ''){
-        $link = "";
-        if(empty($host)){
-            if (isset($_SERVER['HTTPS'])) {
-                $link = 'https://' . $_SERVER["HTTP_HOST"];
-            } else {
-                $link = 'http://' . $_SERVER["HTTP_HOST"];
-            }
-        }else{
-            $link = $host;
-        }
-        if($this->isTokenExpired()){
-            $link = _('User did not consume the token and it expired!');
-        }else{
-            $link .= "/accountstatus.php?token=".$this->get(self::ONETIMETOKEN);
-        }
-        return $link;
-    }
-    
-    /**
-     *
-     * @return string
-     */
-    public function getTokenExpiry(){
-        return $this->get(self::TOKENEXPIRY);
+    public function getExpiry(){
+        return $this->get(self::EXPIRY);
     }
     
     /**
@@ -160,7 +116,7 @@ class SilverbulletUser extends PersistentEntity{
      */
     public function load(){
         $state = parent::load();
-        $this->certificates = SilverbulletCertificate::list($this);
+        $this->certificates = SilverbulletCertificate::getList($this);
         return $state;
     }
     
@@ -192,14 +148,14 @@ class SilverbulletUser extends PersistentEntity{
      * 
      * @return \lib\domain\SilverbulletUser []
      */
-    public static function list($profileId) {
+    public static function getList($profileId) {
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`='" . $profileId . "'");
+        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 's', $profileId);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');
             $user->row = $row;
-            $user->certificates = SilverbulletCertificate::list($user);
+            $user->certificates = SilverbulletCertificate::getList($user);
             $list[] = $user;
         }
         return $list;

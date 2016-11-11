@@ -20,11 +20,14 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
      */
     private $faultyCertificate;
     
+    private $profile;
+    
     /**
      * 
      * @var integer
      */
-    private $profileId = 1;
+    private $profileId;
+    
     
     /**
      * 
@@ -40,6 +43,9 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     private $faultyUser = null;
     
     protected function setUp(){
+        $this->profile = new MockProfileSilverbullet(DBConnection::handle('INST'));
+        $this->profileId = $this->profile->identifier;
+        
         $this->newUser = new SilverbulletUser($this->profileId, 'testusername');
         $this->newUser->save();
         
@@ -57,10 +63,13 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         $existingCertificate->load();
         $this->assertNotEmpty($existingCertificate->getIdentifier());
         
-        $expiry = $existingCertificate->get(SilverbulletCertificate::EXPIRY);
-        $this->assertEmpty($expiry);
+        $oneTimeToken = $existingCertificate->getOneTimeToken();
+        $this->assertNotEmpty($oneTimeToken);
         
-        $list = SilverbulletCertificate::list($this->newUser);
+        $expiry = $existingCertificate->get(SilverbulletCertificate::EXPIRY);
+        $this->assertNotEmpty($expiry);
+        
+        $list = SilverbulletCertificate::getList($this->newUser);
         $found = false;
         foreach ($list as $certificate) {
             if($certificate->getIdentifier() == $this->newCertificate->getIdentifier()){
@@ -69,6 +78,14 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
             }
         }
         $this->assertTrue($found);
+        
+        $this->newCertificate->setCertificateDetails('0498230984238023', 'testcommonname', "+1 week");
+        $this->assertTrue($this->newCertificate->save());
+        
+        $existingCertificate = SilverbulletCertificate::prepare($this->newCertificate->getIdentifier());
+        $existingCertificate->load();
+        $this->assertEquals('0498230984238023', $existingCertificate->getSerialNumber());
+        $this->assertEquals('testcommonname', $existingCertificate->getCommonName());
         
         $result = $this->newCertificate->delete();
         $this->assertTrue($result);
@@ -81,7 +98,7 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         $existingCertificate = SilverbulletCertificate::prepare($this->faultyCertificate->getIdentifier());
         $existingCertificate->load();
         
-        $list = SilverbulletCertificate::list($this->faultyUser);
+        $list = SilverbulletCertificate::getList($this->faultyUser);
         $found = false;
         foreach ($list as $certificate) {
             if($certificate->getIdentifier() == $this->faultyCertificate->getIdentifier()){
@@ -102,6 +119,7 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         if(!empty($this->faultyCertificate)){
             $this->faultyCertificate->delete();
         }
+        $this->profile->delete();
     }
     
 }

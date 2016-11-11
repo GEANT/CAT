@@ -111,8 +111,11 @@ class DBConnection {
             $localArray = $arguments;
             array_unshift($localArray,$types);
             call_user_func_array([$statementObject, "bind_param"], $localArray);
-            $statementObject->execute();
-            $result = $statementObject->get_result();
+            $result = $statementObject->execute();
+            $selectResult = $statementObject->get_result();
+            if($selectResult !== FALSE){
+                $result = $selectResult;
+            }
             
             $statementObject->close();
         }

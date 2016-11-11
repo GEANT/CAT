@@ -40,7 +40,16 @@ class SilverbulletCertificate extends PersistentEntity{
      *
      * @var string
      */
+    const ONETIMETOKEN = 'one_time_token';
+    
+    
+    /**
+     *
+     * @var string
+     */
     const EXPIRY = 'expiry';
+    
+    private $defaultTokenExpiry;
     
     /**
      * 
@@ -51,6 +60,10 @@ class SilverbulletCertificate extends PersistentEntity{
         if(!empty($silverbulletUser)){
             $this->set(self::PROFILEID, $silverbulletUser->getProfileId());
             $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
+            $this->set(self::ONETIMETOKEN, $this->generateToken());
+            //$this->set(self::EXPIRY, 'NOW() + INTERVAL 1 WEEK');
+            $this->defaultTokenExpiry = date('Y-m-d H:i:s',strtotime("+1 week"));
+            $this->set(self::EXPIRY, $this->defaultTokenExpiry);
         }
     }
     
@@ -92,6 +105,45 @@ class SilverbulletCertificate extends PersistentEntity{
     }
     
     /**
+     *
+     * @return string
+     */
+    public function getOneTimeToken(){
+        if($this->isExpired()){
+            return _('User did not consume the token and it expired!');
+        }else{
+            return $this->get(self::ONETIMETOKEN);
+        }
+    }
+    
+    public function getOneTimeTokenLink($host = ''){
+        $link = "";
+        if(empty($host)){
+            if (isset($_SERVER['HTTPS'])) {
+                $link = 'https://' . $_SERVER["HTTP_HOST"];
+            } else {
+                $link = 'http://' . $_SERVER["HTTP_HOST"];
+            }
+        }else{
+            $link = $host;
+        }
+        if($this->isExpired()){
+            $link = _('User did not consume the token and it expired!');
+        }else{
+            $link .= "/accountstatus.php?token=".$this->get(self::ONETIMETOKEN);
+        }
+        return $link;
+    }
+    
+    /**
+     *
+     * @return string
+     */
+    private function generateToken(){
+        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
+    }
+    
+    /**
      * 
      * @return string
      */
@@ -103,11 +155,22 @@ class SilverbulletCertificate extends PersistentEntity{
         }
     }
     
-    public function getCertificateTitle($count = ''){
+    /**
+     *
+     * @return boolean
+     */
+    public function isExpired(){
+        $expiryTime = strtotime($this->get(self::EXPIRY));
+        $currentTime = time();
+        return $currentTime > $expiryTime;
+    }
+    
+    
+    public function getCertificateDetails(){
         if(empty($this->get(self::SERIALNUMBER))||empty($this->get(self::CN))){
-            return 'cert'.$count;
+            return $this->getOneTimeTokenLink();
         }else{
-            return $this->getCommonName();
+            return _('Serial Number:').$this->getSerialNumber().' '._('CN:').$this->getCommonName();
         }
     }
     
@@ -131,9 +194,10 @@ class SilverbulletCertificate extends PersistentEntity{
      * @param SilverbulletUser $silverbulletUser
      * @return \lib\domain\SilverbulletCertificate[]
      */
-    public static function list($silverbulletUser){
+    public static function getList($silverbulletUser){
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `" . self::SILVERBULLETUSERID . "`='" . $silverbulletUser->getIdentifier() . "'");
+        $userId = $silverbulletUser->getIdentifier();
+        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", 's', $userId);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);

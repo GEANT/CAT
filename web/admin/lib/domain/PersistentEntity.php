@@ -94,68 +94,73 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
      * @see \lib\domain\Persistent::save()
      */
     public function save(){
+        $result = false;
         if(count($this->row) > 0){
-            $query = "";
             if(isset($this->row[self::ID])){
-                $query = $this->updateQuery();
+                $result = $this->executeUpdateQuery();
             }else{
-                $query = $this->insertQuery();
+                $result = $this->executeInsertQuery();
             }
-            if(!empty($query)){
-                $result = $this->databaseHandle->exec($query);
-            }
-            if($result){
-                $this->set(self::ID, $this->databaseHandle->lastID());
-            }
-            return $result;
-        }else{
-            return false;
         }
+        return $result;
     }
     
     /**
      * 
-     * @return string
+     * @return boolean|mixed
      */
-    private function insertQuery(){
+    private function executeInsertQuery(){
+        $result = false;
         $query = "INSERT INTO `".$this->table."`";
         $keyString = "(";
         $valueString = "(";
+        $types = '';
+        $arguments = array();
         foreach ($this->row as $key => $value) {
             if($keyString != "(") $keyString .= " ,";
             if($valueString != "(") $valueString .= " ,";
             $keyString .= "`" . $key . "`";
-            $valueString .= "'" . $value . "'";
+            $valueString .= "?";
+            $types .= 's';
+            $arguments [] = $value;
         }
         $keyString .= ")";
         $valueString .= ")";
         if($keyString != "()"){
             $query .= " " .$keyString . " VALUES " . $valueString;
-            return $query;
-        }else{
-            return "";
+            $result = $this->databaseHandle->exec($query, $types, ...$arguments);
+            if($result){
+                $this->set(self::ID, $this->databaseHandle->lastID());
+            }
         }
+        return $result;
     }
     
     /**
      * 
-     * @return string
+     * @return boolean|mixed
      */
-    private function updateQuery(){
+    private function executeUpdateQuery(){
+        $result = false;
         $query = "UPDATE `".$this->table."`";
         $updateString = "";
+        $types = '';
+        $arguments = array();
         foreach ($this->row as $key => $value) {
             if(!empty($updateString)) $updateString .= " ,";
-            $updateString .= "`" . $key . "`='" . $value . "'";
+            else $updateString .=" SET ";
+            $updateString .= "`" . $key . "`=?";
+            $types .= 's';
+            $arguments [] = $value;
         }
         if(!empty($updateString)){
-            $query .= " " .$updateString . " WHERE `" .self::ID. "`='".$this->get(self::ID)."'";
-            return $query;
-        }else{
-            return "";
+            $query .= " " .$updateString . " WHERE `" .self::ID. "`=?";
+            $types .= 's';
+            $arguments [] = $this->get(self::ID);
+            $result = $this->databaseHandle->exec($query, $types, ...$arguments);
         }
+        return $result;
     }
-    
     /**
      * 
      * {@inheritDoc}
@@ -163,7 +168,8 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
      */
     public function load(){
         $state = false;
-        $result = $this->databaseHandle->exec("SELECT * FROM `".$this->table."` WHERE `".self::ID."` = '" .$this->get(self::ID). "'");
+        $id = $this->get(self::ID);
+        $result = $this->databaseHandle->exec("SELECT * FROM `".$this->table."` WHERE `".self::ID."` =?", 's', $id);
         if(mysqli_num_rows($result)>0){
             $this->row = mysqli_fetch_assoc($result);
             $state = true;
@@ -177,7 +183,8 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
      * @see \lib\domain\Persistent::delete()
      */
     public function delete(){
-        return $this->databaseHandle->exec("DELETE FROM `" . $this->table . "` WHERE `".self::ID."`='".$this->get(self::ID)."'");
+        $id = $this->get(self::ID);
+        return $this->databaseHandle->exec("DELETE FROM `" . $this->table . "` WHERE `".self::ID."`=?", 's', $id);
     }
     
 }
