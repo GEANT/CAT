@@ -132,6 +132,10 @@ function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
     $name = md5(time() . rand());
     $path = ROOT;
     switch ($purpose) {
+        case 'silverbullet':
+            $path .= '/var/silverbullet';
+            break;
+        case 'logo':
         case 'installer':
             $path .= '/var/installer_cache';
             break;
