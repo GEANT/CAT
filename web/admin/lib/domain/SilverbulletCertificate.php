@@ -151,7 +151,7 @@ class SilverbulletCertificate extends PersistentEntity{
         if(empty($this->get(self::EXPIRY))){
             return "n/a";
         }else{
-            return $this->get(self::EXPIRY);
+            return date('Y-m-d', strtotime($this->get(self::EXPIRY)));
         }
     }
     

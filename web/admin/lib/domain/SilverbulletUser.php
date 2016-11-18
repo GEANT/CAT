@@ -50,12 +50,12 @@ class SilverbulletUser extends PersistentEntity{
         $this->set(self::PROFILEID, $profileId);
         $this->set(self::USERNAME, $username);
         //$this->set(self::EXPIRY, 'NOW() + INTERVAL 1 WEEK');
-        $this->defaultUserExpiry = date('Y-m-d H:i:s',strtotime("+1 week"));
+        $this->defaultUserExpiry = date('Y-m-d H:i:s',strtotime("today"));
         //$this->set(self::EXPIRY, $this->defaultUserExpiry);
     }
     
-    public function setExpiry($year, $month, $day){
-        $tokenExpiry = date('Y-m-d H:i:s', strtotime($year."-".$month."-".$day));
+    public function setExpiry($date){
+        $tokenExpiry = date('Y-m-d H:i:s', strtotime($date));
         if($tokenExpiry > $this->defaultUserExpiry){
             $this->set(self::EXPIRY, $tokenExpiry);
         }else{
@@ -86,7 +86,7 @@ class SilverbulletUser extends PersistentEntity{
      * @return string
      */
     public function getExpiry(){
-        return $this->get(self::EXPIRY);
+        return date('Y-m-d', strtotime($this->get(self::EXPIRY)));
     }
     
     /**

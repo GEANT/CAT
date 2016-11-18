@@ -13,7 +13,6 @@
     padding: 10px;
 }
 .sb-add-new-user input{
-    display:block;
     margin: 5px 0px 10px 0px;
 }
 .sb-editable-block fieldset{
@@ -24,4 +23,7 @@
     min-width: 500px;
     min-height: 150px;
     vertical-align: top;
+}
+.sb-date-container{
+    display: inline-block;
 }
