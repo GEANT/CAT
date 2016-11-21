@@ -9,8 +9,6 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     
     private $username = 'testusername';
     
-    private $instId;
-    
     private $profile;
     
     private $user = null;

@@ -24,7 +24,7 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     
     /**
      * 
-     * @var integer
+     * @var int|string
      */
     private $profileId;
     

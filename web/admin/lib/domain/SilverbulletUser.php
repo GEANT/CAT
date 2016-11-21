@@ -35,7 +35,7 @@ class SilverbulletUser extends PersistentEntity{
     /**
      * List of certificates for user entity
      * 
-     * @var SilverbulletCertificate []
+     * @var SilverbulletCertificate[]
      */
     private $certificates = array();
     
