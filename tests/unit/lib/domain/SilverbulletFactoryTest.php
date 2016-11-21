@@ -35,7 +35,14 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         $this->factory->parseRequest();
         
         $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
+        $this->assertFalse($usersAfter > $usersBefore);
+        
+        $_POST[SilverbulletFactory::PARAM_EXPIRY] = date('Y-m-d',strtotime("tomorrow"));
+        $this->factory->parseRequest();
+
+        $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
         $this->assertTrue($usersAfter > $usersBefore);
+        
     }
     
     public function testDeleteUser() {

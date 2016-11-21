@@ -5,13 +5,13 @@ class CompositeTag extends Tag {
     
     /**
      * 
-     * @var Tag []
+     * @var UnaryTag []
      */
     protected $tags = array();
     
     /**
      * 
-     * @param Tag $tag
+     * @param UnaryTag $tag
      */
     public function addTag($tag) {
         $this->tags [] = $tag;
@@ -19,7 +19,7 @@ class CompositeTag extends Tag {
     
     /**
      * 
-     * @return Tag []
+     * @return UnaryTag []
      */
     public function getTags(){
         return $this->tags;

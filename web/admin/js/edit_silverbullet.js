@@ -4,6 +4,7 @@
  */
 
 (function(){
+    /** global: silverbullet */
     var app = new silverbullet.SilverbulletApplication();
     window.onload = function() {
         app.start();

@@ -34,7 +34,7 @@ silverbullet.SilverbulletApplication.prototype.addDatePicker = function (datePic
  * 
  */
 silverbullet.SilverbulletApplication.prototype.resetDates = function (){
-    for ( var i in this.datePickers) {
+    for ( var i = 0; i < this.datePickers.length;  i++) {
         this.datePickers[i].addDefaultValue();
     }
 };
@@ -53,7 +53,7 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
     }
     var resetButton = document.getElementById('sb-reset-dates');
     var that = this;
-    resetButton.addEventListener('click', function(e) {
+    resetButton.addEventListener('click', function() {
         that.resetDates(); 
     });
 };
