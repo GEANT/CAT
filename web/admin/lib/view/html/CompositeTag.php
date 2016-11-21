@@ -5,7 +5,7 @@ class CompositeTag extends Tag {
     
     /**
      * 
-     * @var UnaryTag []
+     * @var UnaryTag[]
      */
     protected $tags = array();
     
