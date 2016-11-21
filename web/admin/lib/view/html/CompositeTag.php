@@ -19,7 +19,7 @@ class CompositeTag extends Tag {
     
     /**
      * 
-     * @return UnaryTag []
+     * @return UnaryTag[]
      */
     public function getTags(){
         return $this->tags;
