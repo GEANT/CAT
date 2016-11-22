@@ -7,6 +7,7 @@ use lib\view\html\Row;
 use lib\view\html\Table;
 use lib\domain\SilverbulletUser;
 use lib\domain\SilverbulletCertificate;
+use lib\view\html\Tag;
 
 class UserCredentialsForm implements PageElement{
     
@@ -14,6 +15,7 @@ class UserCredentialsForm implements PageElement{
     const TITLEROW_CLASS = 'sb-title-row';
     const USERROW_CLASS = 'sb-user-row';
     const ADDNEWUSER_CLASS = 'sb-add-new-user';
+    const RESET_BUTTON_ID = 'sb-reset-dates';
     
     /**
      *
@@ -23,7 +25,7 @@ class UserCredentialsForm implements PageElement{
 
     /**
      *
-     * @var PageElementDecorator
+     * @var TitledFormDecorator
      */
     private $decorator;
     
@@ -41,6 +43,8 @@ class UserCredentialsForm implements PageElement{
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
+        $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SilverbulletFactory::COMMAND_SAVE, SilverbulletFactory::COMMAND_SAVE));
+        $this->decorator->addHtmlElement(new Button(_('Reset'),'reset', '', '', 'delete', self::RESET_BUTTON_ID));
         $this->addTitleRow();
     }
     
@@ -58,10 +62,15 @@ class UserCredentialsForm implements PageElement{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array('user' => $user->getUsername(), 'expiry' => $user->getExpiry()));
+        $row = new Row(array('user' => $user->getUsername(), 'expiry' => new DatePicker(SilverbulletFactory::PARAM_EXPIRY_MULTIPLE, $user->getExpiry()) ));
         $row->addAttribute('class', self::USERROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);
+        $hiddenUserId = new Tag('input');
+        $hiddenUserId->addAttribute('type', 'hidden');
+        $hiddenUserId->addAttribute('name', SilverbulletFactory::PARAM_ID_MULTIPLE);
+        $hiddenUserId->addAttribute('value', $user->getIdentifier());
+        $this->table->addToCell($index, 'user', $hiddenUserId);
         $this->table->addToCell($index, 'action', new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->getIdentifier(), 'delete'));
         $this->table->addToCell($index, 'action', new Button(_('New Credential'),'submit', SilverbulletFactory::COMMAND_ADD_CERTIFICATE, $user->getIdentifier()));
     }
@@ -77,19 +86,18 @@ class UserCredentialsForm implements PageElement{
     }
     
     public function render(){
-        
         ?>
         <div class="<?php echo self::EDITABLEBLOCK_CLASS;?>">
             <?php $this->decorator->render();?>
             <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
                 <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
-                    <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice to create a new user:"); ?></label>
-                    <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
-                    <label for="<?php echo SilverbulletFactory::PARAM_YEAR; ?>"><?php echo _("Enter new user expiry date:"); ?></label>
+                    <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
                     <div>
-                        <input type="text" maxlength="4" style="width: 40px; display: inline;" name="<?php echo SilverbulletFactory::PARAM_YEAR; ?>"> - 
-                        <input type="text" maxlength="2" style="width: 20px; display: inline;" name="<?php echo SilverbulletFactory::PARAM_MONTH; ?>"> - 
-                        <input type="text" maxlength="2" style="width: 20px; display: inline;" name="<?php echo SilverbulletFactory::PARAM_DAY; ?>">
+                        <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
+                        <?php 
+                            $datePicker = new DatePicker(SilverbulletFactory::PARAM_EXPIRY);
+                            $datePicker->render(); 
+                        ?>
                     </div>
                     <button type="submit" ><?php echo _('Add new user'); ?></button>
                 </div>

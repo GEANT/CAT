@@ -60,14 +60,14 @@ class TitledFormDecorator extends PageElementDecorator{
                 <?php 
                     $this->element->render();
                 ?>
-            </fieldset>
-            <div>
+                <div style="padding: 20px;">
                 <?php
                     foreach ($this->elements as $element) {
                         echo "\n".$element;
                     }
                 ?>
-            </div>
+                </div>
+            </fieldset>
         </form>
         <?php
     }

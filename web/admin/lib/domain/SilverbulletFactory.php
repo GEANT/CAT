@@ -9,13 +9,15 @@ namespace lib\domain;
 class SilverbulletFactory {
     
     const COMMAND_ADD_USER = 'newuser';
-    const PARAM_YEAR = 'newuseryear';
-    const PARAM_MONTH = 'newusermonth';
-    const PARAM_DAY = 'newuserday';
-    
+    const COMMAND_SAVE = 'saveusers';
     const COMMAND_DELETE_USER = 'deleteuser';
     const COMMAND_ADD_CERTIFICATE = 'newcertificate';
     const COMMAND_REVOKE_CERTIFICATE = 'revokecertificate';
+    
+    const PARAM_EXPIRY = 'userexpiry';
+    const PARAM_EXPIRY_MULTIPLE = 'userexpiry[]';
+    const PARAM_ID = 'userid';
+    const PARAM_ID_MULTIPLE = 'userid[]';
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
@@ -44,10 +46,10 @@ class SilverbulletFactory {
     public function parseRequest(){
         if(isset($_POST[self::COMMAND_ADD_USER]) && !empty($_POST[self::COMMAND_ADD_USER])){
             $user = new SilverbulletUser($this->profile->identifier, $_POST[self::COMMAND_ADD_USER]);
-            if(isset($_POST[self::PARAM_YEAR]) && isset($_POST[self::PARAM_MONTH]) && isset($_POST[self::PARAM_DAY])){
-                $user->setExpiry($_POST[self::PARAM_YEAR], $_POST[self::PARAM_MONTH], $_POST[self::PARAM_DAY]);
+            if(isset($_POST[self::PARAM_EXPIRY]) && !empty($_POST[self::PARAM_EXPIRY])){
+                $user->setExpiry($_POST[self::PARAM_EXPIRY]);
+                $user->save();
             }
-            $user->save();
         }elseif (isset($_POST[self::COMMAND_DELETE_USER])){
             $user = SilverbulletUser::prepare($_POST[self::COMMAND_DELETE_USER]);
             $user->delete();
@@ -62,6 +64,16 @@ class SilverbulletFactory {
         }elseif (isset($_POST[self::COMMAND_REVOKE_CERTIFICATE])){
             $certificate = SilverbulletCertificate::prepare($_POST[self::COMMAND_REVOKE_CERTIFICATE]);
             $certificate->delete();
+            $this->redirectAfterSubmit();
+        }elseif (isset($_POST[self::COMMAND_SAVE])){
+            $userIds = $_POST[self::PARAM_ID];
+            $userExpiries = $_POST[self::PARAM_EXPIRY];
+            foreach ($userIds as $key => $userId) {
+                $user = SilverbulletUser::prepare($userId);
+                $user->load();
+                $user->setExpiry($userExpiries[$key]);
+                $user->save();
+            }
             $this->redirectAfterSubmit();
         }
     }

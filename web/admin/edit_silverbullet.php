@@ -76,6 +76,8 @@ $cat = $builder->createPagePrelude();
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script>
+<script type="text/javascript" src="js/silverbullet.js"></script>
+<script type="text/javascript" src="js/edit_silverbullet.js"></script>
 <?php echo $page->fetchScript(); ?>
 
 </head>

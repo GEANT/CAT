@@ -43,7 +43,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $this->assertNotEmpty($userExpiry);
         
         $tokenExpiryTime = strtotime($userExpiry);
-        $tokenExpectedTime = time();
+        $tokenExpectedTime = strtotime("today");
         $difference = abs($tokenExpiryTime - $tokenExpectedTime);
         $this->assertTrue($difference < 10000);
         
