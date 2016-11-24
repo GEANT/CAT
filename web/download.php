@@ -36,6 +36,15 @@ if ($generated_for != "admin" && $generated_for != "user") {
 
 $loggerInstance->debug(4,"download: profile:$profile_id; inst:$instId; device:$device\n");
 
+$cleanToken = NULL;
+$password = NULL;
+
+if (isset($_REQUEST['indidivualtoken']) && isset($_REQUEST['importpassword'])) {
+    $cleanToken = valid_token($_REQUEST['individualtoken']);
+    // TODO validate that token actually exists and is unused
+    $password = valid_string_db($_REQUEST['importpassword']);
+}
+
 // first block will test if the user input was valid.
 
 $p = ProfileFactory::instantiate($profile_id);
@@ -47,4 +56,4 @@ if(!$p->institution || $p->institution !== $instId) {
 
 // now we generate the installer
 
-$Gui->downloadInstaller($device,$profile_id, $generated_for);
+$Gui->downloadInstaller($device,$profile_id, $generated_for, $cleanToken, $password);

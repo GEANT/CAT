@@ -90,7 +90,15 @@ echo _("View this page in");
                     // (that profile must ACTUALLY have SilverBullet enabled! profile 1 on ticker has that...)
                     echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
                     echo "<h1>Import Password: $importPassword</h1>";
-                    $installer = $Gui->generateInstaller($operatingSystem['device'], 1, "user", $cleanToken, $importPassword);
+                    echo "<form action='download.php' method='POST'>";
+                    echo "<input type='hidden' name='profile' value='1'/>";
+                    echo "<input type='hidden' name='idp' value='1'/>";
+                    echo "<input type='hidden' name='individualtoken' value='$cleanToken'/>";
+                    echo "<input type='hidden' name='importpassword' value='$importPassword'/>";
+                    echo "<input type='hidden' name='device' value='".$operatingSystem['module']."'/>";
+                    echo "<input type='hidden' name='generatedfor' value='user'/>";
+                    echo "<button type='submit'>"._("Click here to download your installer!")."</button>";
+                    echo "</form>";
                     echo "<pre>".print_r($installer, TRUE)."</pre>";
                 } else {
                     echo "<p>We would love to issue you a login credential, but this is not possible because we could not detect your operating system.</h1>";
