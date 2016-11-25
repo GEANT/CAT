@@ -1,4 +1,7 @@
-CREATE TABLE IF NOT EXISTS `silverbullet_user` (
+DROP TABLE IF EXISTS `silverbullet_certificate`;
+DROP TABLE IF EXISTS `silverbullet_user`;
+
+CREATE TABLE `silverbullet_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `username` VARCHAR(45) NOT NULL COMMENT '',
@@ -13,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `silverbullet_user` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `silverbullet_certificate` (
+CREATE TABLE `silverbullet_certificate` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
