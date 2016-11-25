@@ -20,6 +20,7 @@ require_once("web/admin/inc/input_validation.inc.php");
 require_once("Logging.php");
 require_once("Language.php");
 require_once("Helper.php");
+require_once("ProfileSilverbullet.php");
 
 $Gui = new UserAPI();
 $languageInstance = new Language();
@@ -31,11 +32,6 @@ $operatingSystem = $Gui->detectOS();
 $loggerInstance->debug(4, print_r($operatingSystem, true));
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
-
-const TOKENSTATUS_VALID = 0;
-const TOKENSTATUS_REDEEMED = 1;
-const TOKENSTATUS_EXPIRED = 2;
-const TOKENSTATUS_INVALID = 3;
 
 ?>
 </head>
@@ -58,7 +54,7 @@ echo _("View this page in");
     </div> <!-- id="heading" -->
         <?php
         $cleanToken = FALSE;
-        $tokenStatus = TOKENSTATUS_INVALID; // default
+        $tokenStatus = SB_TOKENSTATUS_INVALID; // default
 
         if (isset($_REQUEST['token'])) {
             $cleanToken = valid_token($_REQUEST['token']);
@@ -73,26 +69,24 @@ echo _("View this page in");
         if ($cleanToken) {
             // check status of this silverbullet token according to info in DB:
             // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
-            //
-        // until that is implemented, assume it's VALID and proceed to issue certificate
-            $tokenStatus = TOKENSTATUS_VALID;
+            $tokenStatus = ProfileSilverbullet::tokenStatus($cleanToken);
         }
 
         echo "<h1>Thanks for coming to the status page.</h1>";
 
-        switch ($tokenStatus) {
-            case TOKENSTATUS_VALID:
+        switch ($tokenStatus['status']) {
+            case SB_TOKENSTATUS_VALID:
                 if ($operatingSystem) {
                     echo "<p>We will issue your login credential now.</p>";
                     echo "<p>Detected OS: " . $operatingSystem['display'] . "</p>";
+                    echo "<p>[DEBUG ONLY] Token created by profile = ".$tokenStatus['profile']." for user ".$tokenStatus['user'].", valid until ".$tokenStatus['expiry']."</p>";
                     $importPassword = random_str(6);
-                    // find out which profile the token is associated with. Until that's done, assume profile_id = 1
-                    // (that profile must ACTUALLY have SilverBullet enabled! profile 1 on ticker has that...)
+                    $profile = new ProfileSilverbullet($tokenStatus['profile']);
                     echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
                     echo "<h1>Import Password: $importPassword</h1>";
                     echo "<form action='download.php' method='POST'>";
-                    echo "<input type='hidden' name='profile' value='1'/>";
-                    echo "<input type='hidden' name='idp' value='1'/>";
+                    echo "<input type='hidden' name='profile' value='".$profile->identifier."'/>";
+                    echo "<input type='hidden' name='idp' value='".$profile->institution."'/>";
                     $_SESSION['individualtoken'] = $cleanToken;
                     $_SESSION['importpassword'] = $importPassword;
                     echo "<input type='hidden' name='device' value='".$operatingSystem['device']."'/>";
@@ -104,13 +98,17 @@ echo _("View this page in");
                     echo "<p>We would love to issue you a login credential, but this is not possible because we could not detect your operating system.</h1>";
                 }
                 break;
-            case TOKENSTATUS_REDEEMED:
-                echo "<p>We have the following information on file for your login credential: lots</p>";
+            case SB_TOKENSTATUS_REDEEMED:
+                echo "<p>We have the following information on file for your login credential:</p>";
+                echo "<table>";
+                echo "<tr><td>Username</td><td>".$tokenStatus['cert_name']."</td></tr>";
+                echo "<tr><td>Serial number</td><td>".$tokenStatus['cert_serial']."</td></tr>";
+                echo "<tr><td>Expiry</td><td>".$tokenStatus['cert_expiry']."</td></tr>";
                 break;
-            case TOKENSTATUS_EXPIRED:
-                echo "<p>You have been given this URL to retrieve your login credential, but did not pick it up in time. You cannot use it any more. Please ask your administrator to issue you a new token.</p>";
+            case SB_TOKENSTATUS_EXPIRED:
+                echo "<p>You have been given this URL to retrieve your login credential, but did not pick it up in time. It was valid until ".$tokenStatus['expiry'].". You cannot use it any more. Please ask your administrator to issue you a new token.</p>";
                 break;
-            case TOKENSTATUS_INVALID:
+            case SB_TOKENSTATUS_INVALID:
                 echo "<p>Unfortunately, we know nothing about your account.</p><p>You should either use the exact link you got during sign-up to come here, or you should visit this page with the client certificate (you may need to click Accept to a strange question in your browser for that).";
         }
         ?>
