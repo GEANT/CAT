@@ -17,6 +17,7 @@ include(dirname(dirname(__FILE__))."/config/_config.php");
 require_once("UserAPI.php");
 require_once("Logging.php");
 require_once('ProfileFactory.php');
+require_once('admin/inc/input_validation.inc.php');
 $Gui = new UserAPI();
 $loggerInstance = new Logging();
 
@@ -39,10 +40,10 @@ $loggerInstance->debug(4,"download: profile:$profile_id; inst:$instId; device:$d
 $cleanToken = NULL;
 $password = NULL;
 
-if (isset($_REQUEST['indidivualtoken']) && isset($_REQUEST['importpassword'])) {
-    $cleanToken = valid_token($_REQUEST['individualtoken']);
+if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
+    $cleanToken = valid_token($_SESSION['individualtoken']);
     // TODO validate that token actually exists and is unused
-    $password = valid_string_db($_REQUEST['importpassword']);
+    $password = valid_string_db($_SESSION['importpassword']);
 }
 
 // first block will test if the user input was valid.
