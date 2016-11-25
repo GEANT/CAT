@@ -81,7 +81,7 @@ echo _("View this page in");
                     echo "<p>Detected OS: " . $operatingSystem['display'] . "</p>";
                     echo "<p>[DEBUG ONLY] Token created by profile = ".$tokenStatus['profile']." for user ".$tokenStatus['user'].", valid until ".$tokenStatus['expiry']."</p>";
                     $importPassword = random_str(6);
-                    $profile = new ProfileSilverbullet($tokenStatus['profile']);
+                    $profile = new ProfileSilverbullet($tokenStatus['profile'], NULL);
                     echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
                     echo "<h1>Import Password: $importPassword</h1>";
                     echo "<form action='download.php' method='POST'>";
