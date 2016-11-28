@@ -17,6 +17,7 @@ include(dirname(dirname(__FILE__))."/config/_config.php");
 require_once("UserAPI.php");
 require_once("Logging.php");
 require_once('ProfileFactory.php');
+require_once('admin/inc/input_validation.inc.php');
 $Gui = new UserAPI();
 $loggerInstance = new Logging();
 
@@ -36,6 +37,15 @@ if ($generated_for != "admin" && $generated_for != "user") {
 
 $loggerInstance->debug(4,"download: profile:$profile_id; inst:$instId; device:$device\n");
 
+$cleanToken = NULL;
+$password = NULL;
+
+if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
+    $cleanToken = valid_token($_SESSION['individualtoken']);
+    // TODO validate that token actually exists and is unused
+    $password = valid_string_db($_SESSION['importpassword']);
+}
+
 // first block will test if the user input was valid.
 
 $p = ProfileFactory::instantiate($profile_id);
@@ -47,4 +57,4 @@ if(!$p->institution || $p->institution !== $instId) {
 
 // now we generate the installer
 
-$Gui->downloadInstaller($device,$profile_id, $generated_for);
+$Gui->downloadInstaller($device,$profile_id, $generated_for, $cleanToken, $password);

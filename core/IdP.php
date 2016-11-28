@@ -208,7 +208,9 @@ class IdP extends EntityWithDBProperties {
                 case "RADIUS":
                     return new ProfileRADIUS($identifier, $this);
                 case "SILVERBULLET":
-                    return new ProfileSilverbullet($identifier, $this);
+                    $theProfile = new ProfileSilverbullet($identifier, $this);
+                    $theProfile->addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1); 
+                    return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");
             }

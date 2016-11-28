@@ -435,9 +435,9 @@ class UserAPI extends CAT {
      * @param int $prof_id profile identifier
      * @return binary installerFile
      */
-    public function downloadInstaller($device, $prof_id, $generated_for = 'user') {
+    public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL) {
         $this->loggerInstance->debug(4, "downloadInstaller arguments: $device,$prof_id,$generated_for\n");
-        $output = $this->generateInstaller($device, $prof_id);
+        $output = $this->generateInstaller($device, $prof_id, $generated_for, $token, $password);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
         $this->loggerInstance->debug(4, print_r($output, true));
         if (!$output['link']) {

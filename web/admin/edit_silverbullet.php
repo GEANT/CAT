@@ -37,6 +37,26 @@ $page->appendScript('js/silverbullet.js');
 $page->appendCss('css/silverbullet.css');
 $builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
 if($builder->isReady()){
+    // this page may have been called for the first time, when the profile does not
+    // actually exist in the DB yet. If so, we will need to create it first.
+    if (!isset($_REQUEST['profile_id'])) {
+        // someone might want to trick himself into this page by sending an inst_id but
+        // not having permission for silverbullet. Sanity check that the fed in question
+        // does allow SB and that the IdP doesn't have any non-SB profiles
+        $inst = $builder->getInstitution();
+        if ($inst->profileCount() > 0) {
+            throw new Exception("We were told to create a new SB profile, but the inst in question already has at least one profile!");
+        }
+        $fed = new Federation($inst->federation);
+        $allowSb = $fed->getAttributes("fed:silverbullet");
+        if (count($allowSb) == 0) {
+            throw new Exception("We were told to create a new SB profile, but this federation does not allow SB at all!");
+        }
+        // okay, new SB profiles are allowed. Create one.
+        $newProfile = $inst->newProfile("SILVERBULLET");
+        // and modify the REQUEST_URI to add the new profile ID
+        $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI']."&profile_id=".$newProfile->identifier;
+    }
     
     $factory = new SilverbulletFactory($builder->getProfile());
     $factory->parseRequest();
