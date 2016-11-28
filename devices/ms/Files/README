@@ -1,16 +1,18 @@
 This directory contains additional files for Windows installer modules.
 
-arnes_link.inc - installer code for ArnesLink TTLS
-EAP-PWD.msi - PWD installer supplied by Aruba
-cat_bg.bmp - defualt background
+GEANTLink - GIT submodule link to the GEANTLink binary
+Aruba_Networks_EAP-pwd_x32.msi - EAP-pwd installer binary in 32 bit version
+Aruba_Networks_EAP-pwd_x64.msi - EAP-pwd installer binary in 64 bit version
+README - you are reading it
+base64.nsh - NSIS module for base64 encoding/decoding (for license, see inline)
+cat32.ico - CAT EXE icon
+cat_150.bmp - CAT header image
+cat_bg.bmp - default background
+check_wired.cmd - utility to check status of wired 802.1X subsystem
 common.inc - common NSIS code for all modules but XP
-dump_arneslink_profile.cmd - dump profile file for SSID replacement
 eap_w8.inc - W8 specific code
-GPL3.rtf - GPLv3 license text
-cat_150.bmp - CAT header
-cat32.ico - EXE icon
+geant_link.inc - NSIS code snippet for inclusion of GEANTLink
 install_wired.cmd - install wired profile
-install_arneslink_profile.cmd - replace SSID and reinstall wireless profile
 peap_tls.inc - PEAP/TLS code for Vista/W7 installers
 pwd.inc - EAP-PWD code (calling Aruba installer)
 setEAPCred.exe - user credentials installer supplied by Gareth Ayres 
