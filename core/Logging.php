@@ -45,9 +45,15 @@ class Logging {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
+        $sanityTextStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $text));
+        $sanityText = filter_var($sanityTextStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
+
         ob_start();
         print " ($level) ";
-        print_r($text);
+        if ($sanityText != $text) {
+            print "[SANITY!] ";
+        }
+        print_r($sanityText);
         $output = ob_get_clean();
 
         $this->writeToFile("debug.log", $output);
