@@ -1,7 +1,7 @@
 <?php
 namespace lib\domain;
 
-abstract  class PersistentEntity extends \Entity implements Persistent {
+abstract  class PersistentEntity extends \Entity implements PersistentInterface {
     
     /**
      * Identifier attribute
@@ -91,7 +91,7 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\domain\Persistent::save()
+     * @see \lib\domain\PersistentInterface::save()
      */
     public function save(){
         $result = false;
@@ -164,7 +164,7 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\domain\Persistent::load()
+     * @see \lib\domain\PersistentInterface::load()
      */
     public function load(){
         $state = false;
@@ -180,7 +180,7 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\domain\Persistent::delete()
+     * @see \lib\domain\PersistentInterface::delete()
      */
     public function delete(){
         $id = $this->get(self::ID);

@@ -9,7 +9,7 @@ use lib\domain\SilverbulletUser;
 use lib\domain\SilverbulletCertificate;
 use lib\view\html\Tag;
 
-class UserCredentialsForm implements PageElement{
+class UserCredentialsForm implements PageElementInterface{
     
     const EDITABLEBLOCK_CLASS = 'sb-editable-block';
     const TITLEROW_CLASS = 'sb-title-row';

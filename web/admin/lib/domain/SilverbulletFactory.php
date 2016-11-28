@@ -1,12 +1,15 @@
 <?php
 namespace lib\domain;
 
+use lib\view\MessageContainerInterface;
+use lib\domain\http\ValidatorInterface;
+
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletFactory {
+class SilverbulletFactory implements ValidatorInterface{
     
     const COMMAND_ADD_USER = 'newuser';
     const COMMAND_SAVE = 'saveusers';
@@ -40,9 +43,15 @@ class SilverbulletFactory {
      * @param \ProfileSilverbullet $profile
      */
     public function __construct($profile){
+        $_SESSION['sb-messages'] = array();
         $this->profile = $profile;
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \lib\domain\http\ValidatorInterface::parseRequest()
+     */
     public function parseRequest(){
         if(isset($_POST[self::COMMAND_ADD_USER]) && !empty($_POST[self::COMMAND_ADD_USER])){
             $user = new SilverbulletUser($this->profile->identifier, $_POST[self::COMMAND_ADD_USER]);
@@ -76,6 +85,26 @@ class SilverbulletFactory {
             }
             $this->redirectAfterSubmit();
         }
+    }
+    
+    /**
+     * 
+     * @param string $command
+     * @param unknown $message
+     */
+    private function storeMessage($command, $message){
+        $_SESSION['sb-messages'][$command][] = $message; 
+    }
+    
+    /**
+     * 
+     * @param MessageContainerInterface $messageContainer
+     * @param string $command
+     * {@inheritDoc}
+     * @see \lib\domain\http\ValidatorInterface::provideMessages()
+     */
+    public function provideMessages($messageContainer, $command){
+        $messageContainer;
     }
     
     private function redirectAfterSubmit(){

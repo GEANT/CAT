@@ -1,14 +1,14 @@
 <?php
 namespace lib\view\html;
 
-use lib\view\PageElement;
+use lib\view\PageElementInterface;
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class UnaryTag implements HtmlElement, PageElement{
+class UnaryTag implements HtmlElementInterface, PageElementInterface{
     /**
      *
      * @var string
@@ -73,7 +73,7 @@ class UnaryTag implements HtmlElement, PageElement{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\html\PageElement::render()
+     * @see \lib\view\PageElementInterface::render()
      */
     public function render(){
         echo $this->__toString();
