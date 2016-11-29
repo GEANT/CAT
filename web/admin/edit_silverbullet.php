@@ -56,6 +56,7 @@ if($builder->isReady()){
         $newProfile = $inst->newProfile("SILVERBULLET");
         // and modify the REQUEST_URI to add the new profile ID
         $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI']."&profile_id=".$newProfile->identifier;
+        $_GET['profile_id'] = $newProfile->identifier;
     }
     
     $factory = new SilverbulletFactory($builder->getProfile());
