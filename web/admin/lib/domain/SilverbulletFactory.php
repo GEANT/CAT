@@ -79,8 +79,10 @@ class SilverbulletFactory {
     }
     
     private function redirectAfterSubmit(){
-        $location = $this->addQuery($_SERVER['SCRIPT_NAME']);
-        header('Location: ' . $location );
+        if(isset($_SERVER['REQUEST_URI'])){
+            $location = $this->addQuery($_SERVER['SCRIPT_NAME']);
+            header('Location: ' . $location );
+        }
     }
     
     /**
