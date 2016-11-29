@@ -64,14 +64,13 @@ class ProfileRADIUS extends AbstractProfile {
      */
     public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object for $profileId ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
         $this->attributes = [];
 
-        $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = $profileId");
-        $this->loggerInstance->debug(4, $profile);
+        $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = ?", "i", $profileId);
         $profileQuery = mysqli_fetch_object($profile);
 
         $this->realm = $profileQuery->realm;

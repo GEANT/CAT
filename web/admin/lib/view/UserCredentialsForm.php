@@ -37,9 +37,10 @@ class UserCredentialsForm implements PageElement{
     /**
      * 
      * @param string $title
+     * @param SilverbulletFactory $factory
      */
-    public function __construct($title) {
-        $this->action = $_SERVER['REQUEST_URI'];
+    public function __construct($title, $factory) {
+        $this->action = $factory->addQuery($_SERVER['SCRIPT_NAME']);
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
