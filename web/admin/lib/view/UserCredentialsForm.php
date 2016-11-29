@@ -39,13 +39,15 @@ class UserCredentialsForm implements PageElement{
      * @param string $title
      * @param SilverbulletFactory $factory
      */
-    public function __construct($title, $factory) {
+    public function __construct($title, $factory, $isNotEmpty = false) {
         $this->action = $factory->addQuery($_SERVER['SCRIPT_NAME']);
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
-        $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SilverbulletFactory::COMMAND_SAVE, SilverbulletFactory::COMMAND_SAVE));
-        $this->decorator->addHtmlElement(new Button(_('Reset'),'reset', '', '', 'delete', self::RESET_BUTTON_ID));
+        if($isNotEmpty){
+            $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SilverbulletFactory::COMMAND_SAVE, SilverbulletFactory::COMMAND_SAVE));
+            $this->decorator->addHtmlElement(new Button(_('Reset'),'reset', '', '', 'delete', self::RESET_BUTTON_ID));
+        }
         $this->addTitleRow();
     }
     
