@@ -119,9 +119,9 @@ class SilverbulletCertificate extends PersistentEntity{
         $link = '';
         if(empty($host)){
             if (isset($_SERVER['HTTPS'])) {
-                $link = 'https://' . $_SERVER["HTTP_HOST"];
+                $link = 'https://' . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME']));
             } else {
-                $link = 'http://' . $_SERVER["HTTP_HOST"];
+                $link = 'http://' . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME']));
             }
         }else{
             $link = $host;
