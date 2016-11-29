@@ -79,11 +79,29 @@ class SilverbulletFactory {
     }
     
     private function redirectAfterSubmit(){
-        if(isset($_SERVER['REQUEST_URI'])){
-            header("Location: " . $_SERVER['REQUEST_URI'] );
-            die();
-        }
+        $location = $this->addQuery($_SERVER['SCRIPT_NAME']);
+        header('Location: ' . $location );
     }
+    
+    /**
+	 * Appends GET parameters to a clean url.
+	 * 
+	 * @param string $url
+	 * @return string
+	 */
+	public function addQuery($url){
+		$query = '';
+		if (is_array($_GET) && count($_GET)) {
+			foreach($_GET as $key => $val) {
+				if(strpos($key , '/') === false){
+					if (empty($key) || empty($val)) { continue; }
+					$query .= ($query == '') ? '?' : "&";
+					$query .= urlencode($key) . '=' . urlencode($val);
+				}
+			}
+		}
+		return $url . $query;
+	}
     
     /**
      * 
