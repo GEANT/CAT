@@ -74,7 +74,7 @@ if($builder->isReady()){
     $builder->addContentElement($infoBlock);
     
     //Edit form data preparation
-    $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory);
+    $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
