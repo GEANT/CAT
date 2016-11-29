@@ -250,16 +250,17 @@ silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarControls = func
     console.log("BUIDLING CONTROLS "+title);
     var controlsPanel = document.createElement('div');
     controlsPanel.style.paddingBottom = '20px';
+    controlsPanel.style.textAlign = 'right';
     var controlsTitle = document.createElement('p');
     controlsTitle.innerHTML = title;
     controlsTitle.style.display = 'inline';
-    controlsTitle.style.paddingRight = '20px';
+    controlsTitle.style.paddingRight = '40px';
 
     controlsPanel.appendChild(controlsTitle);
     
     var previousButton = document.createElement('button')
     previousButton.setAttribute('type', 'button');
-    previousButton.innerHTML = '<<';
+    previousButton.innerHTML = '<';
     controlsPanel.appendChild(previousButton);
     
     var currentButton = document.createElement('button')
@@ -269,7 +270,7 @@ silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarControls = func
     
     var nextButton = document.createElement('button')
     nextButton.setAttribute('type', 'button');
-    nextButton.innerHTML = '>>';
+    nextButton.innerHTML = '>';
     controlsPanel.appendChild(nextButton);
 
     calendarPanel.appendChild(controlsPanel);
