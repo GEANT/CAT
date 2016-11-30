@@ -132,7 +132,7 @@ class User extends EntityWithDBProperties {
         $mail = mailHandle();
 // who to whom?
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
-        $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
+        $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;
