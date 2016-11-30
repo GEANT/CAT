@@ -88,6 +88,9 @@ class DBConnection {
     public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
+        if ($types != NULL) {
+            debug(5, "Argument type sequence: $types, parameters are: ".print_r($arguments, true));
+        }
 
         if ($this->connection->connect_error) {
             $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection, error number".$this->connection->connect_errno.")!");
