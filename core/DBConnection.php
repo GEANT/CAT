@@ -89,11 +89,11 @@ class DBConnection {
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
         if ($types != NULL) {
-            debug(5, "Argument type sequence: $types, parameters are: ".print_r($arguments, true));
+            debug(5, "Argument type sequence: $types, parameters are: " . print_r($arguments, true));
         }
 
         if ($this->connection->connect_error) {
-            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection, error number".$this->connection->connect_errno.")!");
+            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection, error number" . $this->connection->connect_errno . ")!");
             return FALSE;
         }
         if ($types == NULL) {
@@ -105,24 +105,24 @@ class DBConnection {
             }
             $statementObject = $this->connection->stmt_init();
             $statementObject->prepare($querystring);
-            
+
             // we have a variable number of arguments packed into the ... array
             // but the function needs to be called exactly once, with a series of
             // individual arguments, not an array. The voodoo solution is to call
             // it via call_user_func_array()
-            
+
             $localArray = $arguments;
-            array_unshift($localArray,$types);
+            array_unshift($localArray, $types);
             call_user_func_array([$statementObject, "bind_param"], $localArray);
             $result = $statementObject->execute();
             $selectResult = $statementObject->get_result();
-            if($selectResult !== FALSE){
+            if ($selectResult !== FALSE) {
                 $result = $selectResult;
             }
-            
+
             $statementObject->close();
         }
-        
+
         if ($result === FALSE && $this->connection->errno) {
             $this->loggerInstance->debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
@@ -131,6 +131,9 @@ class DBConnection {
         // log exact query to audit log, if it's not a SELECT
         if (preg_match("/^SELECT/i", $querystring) == 0) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
+            if ($types != NULL) {
+                $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . print_r($arguments, true));
+            }
         }
         return $result;
     }
@@ -191,7 +194,7 @@ class DBConnection {
         $databaseCapitalised = strtoupper($database);
         $this->connection = new mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
         if ($this->connection->connect_error) {
-            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number ".$this->connection->connect_errno.").");
+            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
 
         if ($databaseCapitalised == "EXTERNAL" && CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
