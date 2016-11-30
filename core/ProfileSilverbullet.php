@@ -203,7 +203,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
         $serial = mt_rand(1000000, 100000000);
         $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
-
+        // get the SHA1 fingerprint, this will be handy for Windows installers
+        $sha1 = openssl_x509_fingerprint($cert,"sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCert = "";
         openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
@@ -215,6 +216,7 @@ class ProfileSilverbullet extends AbstractProfile {
         return [
             "certdata" => $exportedCert,
             "expiry" => $expiryDateObject->format("Y-m-d\TH:i:s\Z"),
+            "sha1" => $sha1,
         ];
     }
 
