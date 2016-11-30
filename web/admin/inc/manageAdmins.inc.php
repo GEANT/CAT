@@ -68,6 +68,7 @@ if (isset($_POST['submitbutton'])) {
             // we don't decide about that here; it's done by JS magic in the calling button
             if ($_POST['admin_id'] == $_SESSION['user']) {
                 header("Location: $dest");
+                exit;
             }
         } else {
             echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";

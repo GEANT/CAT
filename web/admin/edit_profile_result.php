@@ -31,6 +31,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     $my_profile->destroy();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
     header("Location: overview_idp.php?inst_id=$my_inst->identifier");
+    exit;
 }
 
 pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");

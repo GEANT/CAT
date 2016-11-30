@@ -32,6 +32,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     $my_inst->destroy();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
     header("Location: overview_user.php");
+    exit;
 }
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
@@ -47,6 +48,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
     $my_inst->flushAttributes();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
     header("Location: edit_idp.php?inst_id=$instId&wizard=true");
+    exit;
 }
 
 

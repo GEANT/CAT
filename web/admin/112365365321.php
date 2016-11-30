@@ -49,6 +49,7 @@ $user = new User((!in_array("I do not care about security!", CONFIG['SUPERADMINS
 
 if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     header("Location: overview_user.php");
+    exit;
 }
 
 pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before

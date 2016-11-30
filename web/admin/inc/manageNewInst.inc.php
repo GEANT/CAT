@@ -25,6 +25,7 @@ authenticate();
 
 if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE)) {
     header("Location: ../overview_federation.php");
+    exit;
 }
 
 $languageInstance = new Language();
