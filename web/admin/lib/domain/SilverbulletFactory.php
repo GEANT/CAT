@@ -78,7 +78,7 @@ class SilverbulletFactory {
                 }
                 $user->save();
             }
-            //$this->redirectAfterSubmit();
+            $this->redirectAfterSubmit();
         }
     }
     
