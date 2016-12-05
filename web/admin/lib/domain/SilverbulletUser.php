@@ -8,6 +8,10 @@ namespace lib\domain;
  */
 class SilverbulletUser extends PersistentEntity{
     
+    const LEVEL_GREEN = 0;
+    const LEVEL_YELLOW = 1;
+    const LEVEL_RED = 2;
+    
     const TABLE = 'silverbullet_user';
     
     /**
@@ -29,6 +33,12 @@ class SilverbulletUser extends PersistentEntity{
      * @var string
      */
     const EXPIRY = 'expiry';
+    
+    /**
+     * 
+     * @var string
+     */
+    const LAST_ACKNOWLEDGE = 'last_ack';
     
     private $defaultUserExpiry;
     
@@ -54,12 +64,39 @@ class SilverbulletUser extends PersistentEntity{
         //$this->set(self::EXPIRY, $this->defaultUserExpiry);
     }
     
+    /**
+     * 
+     * @param unknown $date
+     */
     public function setExpiry($date){
         $tokenExpiry = date('Y-m-d H:i:s', strtotime($date));
         if($tokenExpiry > $this->defaultUserExpiry){
             $this->set(self::EXPIRY, $tokenExpiry);
         }else{
             $this->row = array();
+        }
+    }
+    
+    /**
+     * 
+     */
+    public function makeAcknowledged(){
+        $this->set(self::LAST_ACKNOWLEDGE, date('Y-m-d H:i:s',strtotime("now")));
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getAcknowledgeLevel(){
+        $lastAcknowledge = strtotime($this->get(self::LAST_ACKNOWLEDGE));
+        $now = strtotime('now');
+        if($now - $lastAcknowledge > 47 * 7 * 24 * 3600 && $now - $lastAcknowledge < 50 * 7 * 24 * 3600){
+            return self::LEVEL_YELLOW;
+        }elseif ($now - $lastAcknowledge >= 50 * 7 * 24 * 3600){
+            return self::LEVEL_RED;
+        }else{
+            return self::LEVEL_GREEN;
         }
     }
     

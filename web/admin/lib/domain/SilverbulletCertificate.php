@@ -1,6 +1,8 @@
 <?php
 namespace lib\domain;
 
+use lib\view\html\UnaryTag;
+
 /**
  * 
  * @author Zilvinas Vaira
@@ -130,6 +132,15 @@ class SilverbulletCertificate extends PersistentEntity{
             $link = _('User did not consume the token and it expired!');
         }else{
             $link .= '/accountstatus.php?token='.$this->get(self::ONETIMETOKEN);
+            $input = new UnaryTag('input');
+            $input->addAttribute('type', 'text');
+            $input->addAttribute('readonly','readonly');
+            $input->addAttribute('value', $link);
+            $input->addAttribute('size', strlen($link)+3);
+            $input->addAttribute('style', 'color: grey;');
+            $input->addAttribute('name', 'certificate-link[]');
+            
+            $link = $input->__toString();
         }
         return $link;
     }

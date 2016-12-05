@@ -18,6 +18,7 @@ class SilverbulletFactory {
     const PARAM_EXPIRY_MULTIPLE = 'userexpiry[]';
     const PARAM_ID = 'userid';
     const PARAM_ID_MULTIPLE = 'userid[]';
+    const PARAM_ACKNOWLEDGE = 'acknowledge';
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
@@ -72,9 +73,12 @@ class SilverbulletFactory {
                 $user = SilverbulletUser::prepare($userId);
                 $user->load();
                 $user->setExpiry($userExpiries[$key]);
+                if(isset($_POST[self::PARAM_ACKNOWLEDGE]) && $_POST[self::PARAM_ACKNOWLEDGE]=='true'){
+                    $user->makeAcknowledged();
+                }
                 $user->save();
             }
-            $this->redirectAfterSubmit();
+            //$this->redirectAfterSubmit();
         }
     }
     
