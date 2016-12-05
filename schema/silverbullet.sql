@@ -5,7 +5,7 @@ CREATE TABLE `silverbullet_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `username` VARCHAR(45) NOT NULL COMMENT '',
-  `expiry` TIMESTAMP NOT NULL COMMENT '',
+  `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
   `last_ack` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '',
   PRIMARY KEY (`id`, `profile_id`)  COMMENT '',
   INDEX `fk_silverbullet_user_profile1_idx` (`profile_id` ASC)  COMMENT '',
