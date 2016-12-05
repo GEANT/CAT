@@ -27,3 +27,17 @@
 .sb-date-container{
     display: inline-block;
 }
+.sb-date-picker{
+    padding-right:35px;
+}
+.sb-date-button{
+    margin-left:-35px;
+    min-height: 20px;
+    border-left-style: solid;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 1px;
+    box-shadow: 0px 0px 0px #666666;
+}

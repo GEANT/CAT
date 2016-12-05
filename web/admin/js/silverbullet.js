@@ -12,8 +12,8 @@ var silverbullet = {};
 
 /**
  * Instantiates all views for Silverbullet application
- * @class Main Silverbullet application class
- * @constructor
+ * 
+ * @constructor Main Silverbullet application
  */
 silverbullet.SilverbulletApplication = function (){
     /**
@@ -68,8 +68,7 @@ silverbullet.views = {};
 /**
  * Provides rendering and initialization interfaces
  * 
- * @class Defines abstract Silverbullet view class
- * @constructor
+ * @constructor Defines abstract Silverbullet view class
  * @param {Node} element
  */
 silverbullet.views.ViewElement = function(element){
@@ -84,10 +83,10 @@ silverbullet.views.ViewElement = function(element){
 silverbullet.views.ViewElement.prototype.render = function (){};
 
 /**
- * Handles form elements for editing page
- * @class
- * @constructor
- * @param {HTMLElement} element
+ * Wraps text input element with date picker features
+ * 
+ * @constructor Date picker input element
+ * @param {HTMLElement} element Text input element
  */
 silverbullet.views.DatePicker = function(element){
     silverbullet.views.ViewElement.call(this, element);
@@ -98,10 +97,11 @@ silverbullet.views.DatePicker = function(element){
     this.errorElement.style.color = 'red';
     this.errorElement.style.fontWeight = 'bold';
     this.errorElement.style.display = 'inline';
-    this.popupElement = new silverbullet.views.DatePickerCalendar(element.value);
+    this.popupElement = new silverbullet.views.CalendarPanel(element.value, this);
     this.state = false;
     this.errorState = false;
     this.popupState = false;
+    this.button = this.element.parentNode.getElementsByTagName('button')[0];
 };
 silverbullet.views.DatePicker.prototype = Object.create(silverbullet.views.ViewElement.prototype);
 silverbullet.views.DatePicker.prototype.constructor = silverbullet.views.DatePicker;
@@ -172,6 +172,14 @@ silverbullet.views.DatePicker.prototype.isValid = function(){
 
 /**
  * 
+ * @param {String} fullDateValue
+ */
+silverbullet.views.DatePicker.prototype.setDateValue = function(fullDateValue){
+    this.element.value = fullDateValue;
+};
+
+/**
+ * 
  */
 silverbullet.views.DatePicker.prototype.togglePopup = function(){
     if(this.popupState){
@@ -184,6 +192,7 @@ silverbullet.views.DatePicker.prototype.togglePopup = function(){
 };
 
 /**
+ * 
  */
 silverbullet.views.DatePicker.prototype.render = function(){
     var that = this;
@@ -201,22 +210,29 @@ silverbullet.views.DatePicker.prototype.render = function(){
         //that.validateDate(that.element.value);
         //that.filterDate(that.element.value);
     });
-    this.element.addEventListener('click', function() {
+    
+    console.dir(this.button);
+    this.button.addEventListener('click', function() {
         that.togglePopup();
+    });
+    this.button.addEventListener('blur', function() {
+        if(that.popupElement.isMouseOut()){
+            that.togglePopup();
+        }
     });
 
 };
 
 /**
- * Date picker popup object
+ * Provides a panel for date picker object with month and date controls
  * 
- * @class
- * @constructor
+ * @constructor Popup calendar panel for Date picker
  * @param {String} currentDate
  */
-silverbullet.views.DatePickerCalendar = function(currentDate){
+silverbullet.views.CalendarPanel = function(currentDate, datePicker){
     silverbullet.views.ViewElement.call(this, document.createElement('div'));
     this.currentDate = currentDate;
+    this.datePicker = datePicker;
     this.element.style.position = 'absolute';
     this.element.style.zIndex = '10';
     //this.element.style.width = '300px';
@@ -225,28 +241,67 @@ silverbullet.views.DatePickerCalendar = function(currentDate){
     this.element.style.border = '1px solid grey';
     this.element.style.display = 'block';
     this.element.style.padding = '10px';
-    this.calendarPool = new silverbullet.views.DatePickerCalendarPool();
-    this.state = false;
+    this.calendarPool = new silverbullet.views.CalendarPool(datePicker);
+    this.mouseOverState = false;
     
 };
-silverbullet.views.DatePickerCalendar.prototype = Object.create(silverbullet.views.ViewElement.prototype);
-silverbullet.views.DatePickerCalendar.prototype.constructor = silverbullet.views.DatePickerCalendar;
+silverbullet.views.CalendarPanel.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.CalendarPanel.prototype.constructor = silverbullet.views.CalendarPanel;
+
+/**
+ * 
+ * @returns {Boolean}
+ */
+silverbullet.views.CalendarPanel.prototype.isMouseOut = function(){
+    return !this.mouseOverState;
+};
 
 /**
  * 
  */
-silverbullet.views.DatePickerCalendar.prototype.render = function(){
+silverbullet.views.CalendarPanel.prototype.render = function(){
+    var that = this;
     var calendarPanel = this.calendarPool.getCalendarPanel(this.currentDate);
     console.log('RENDERING '+this.currentDate);
     this.element.appendChild(calendarPanel);
+    this.element.addEventListener('mouseover', function() {
+        that.mouseOverState = true;
+    });
+    this.element.addEventListener('mouseout', function() {
+        that.mouseOverState = false;
+    });
+
 };
 
-silverbullet.views.DatePickerCalendarPool = function(){
+/**
+ * Provides single date element for calendar panel
+ * 
+ * @constructor Creates and references single date element
+ */
+silverbullet.views.CalendarDate = function () {
+    silverbullet.views.ViewElement.call(this, document.createElement('div'));
+};
+silverbullet.views.CalendarDate.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.CalendarDate.prototype.constructor = silverbullet.views.CalendarDate;
+
+/**
+ * Pool object that stores unique Calendar panels
+ * 
+ * @constructor 
+ */
+silverbullet.views.CalendarPool = function(datePicker){
     this.date = new Date();
+    this.currentDate = new Date();
+    this.selectedDate = new Date();
     this.monthElements = [];
+    this.weekDays = ["Sun", "Mon", "Tue","Wed", "Thu","Fri","Sat"];
+    this.datePicker = datePicker;
 }
 
-silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarControls = function (title, calendarPanel) {
+/**
+ * 
+ */
+silverbullet.views.CalendarPool.prototype.buildCalendarControls = function (title, calendarPanel) {
     console.log("BUIDLING CONTROLS "+title);
     var controlsPanel = document.createElement('div');
     controlsPanel.style.paddingBottom = '20px';
@@ -276,7 +331,10 @@ silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarControls = func
     calendarPanel.appendChild(controlsPanel);
 };
 
-silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarDays = function (year, month, calendarPanel) {
+/**
+ * 
+ */
+silverbullet.views.CalendarPool.prototype.buildCalendarDays = function (year, month, calendarPanel) {
     console.log("BUIDLING DAYS "+year+" "+month);
     this.date.setFullYear(year);
     this.date.setMonth(month);
@@ -297,6 +355,18 @@ silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarDays = function
     var daysElement = document.createElement('div');
     //var startMonth = this.date.getMonth();
     //var startDate = this.date.getDate();
+    for(var i = 0; i < 7; i++){
+        var dateElement = document.createElement('div');
+        dateElement.style.display = 'inline-table';
+        dateElement.style.textAlign = 'center';
+        dateElement.style.width = '30px';
+        dateElement.style.backgroundColor = '#F0F0F0';
+        dateElement.style.borderBottom = '1px solid grey';
+        dateElement.innerHTML = this.weekDays[i];
+        calendarPanel.appendChild(dateElement);
+    }
+    calendarPanel.appendChild(document.createElement('br'));
+    
     while(this.date.getMonth() < month + 1){
         var week = 0;
         for(var i = 0; i < 7; i++){
@@ -306,7 +376,30 @@ silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarDays = function
             dateElement.style.cursor = 'pointer';
             dateElement.style.textAlign = 'center';
             dateElement.style.width = '30px';
+            dateElement.style.borderBottom = '1px solid grey';
+            if(this.currentDate.toDateString() == this.date.toDateString()){
+                dateElement.style.fontWeight = 'bold';
+            }
+            if(this.selectedDate.toDateString() == this.date.toDateString()){
+                dateElement.style.backgroundColor = '#BCD7E8';
+            }
             dateElement.innerHTML = dateValue;
+            var originalColor;
+            dateElement.addEventListener('mouseover', function () {
+                originalColor = this.style.backgroundColor;
+                this.style.backgroundColor = 'lightgrey';
+	    });
+            dateElement.addEventListener('mouseout', function () {
+                this.style.backgroundColor = originalColor;
+            });
+            var that = this;
+            var fullDateValue = this.date.toDateString();
+            dateElement.addEventListener('click', function () {
+                this.style.backgroundColor = originalColor;
+                that.datePicker.setDateValue(fullDateValue);
+                that.datePicker.togglePopup();
+            });
+
             calendarPanel.appendChild(dateElement);
             this.date.setDate(dateValue + 1);
         }
@@ -315,7 +408,10 @@ silverbullet.views.DatePickerCalendarPool.prototype.buildCalendarDays = function
     calendarPanel.appendChild(daysElement)
 };
 
-silverbullet.views.DatePickerCalendarPool.prototype.addCalendarPanel = function (year, month, panel) {
+/**
+ * 
+ */
+silverbullet.views.CalendarPool.prototype.addCalendarPanel = function (year, month, panel) {
     if(typeof this.monthElements[year] == 'undefined'){
         this.monthElements[year] = [];
     }
@@ -325,9 +421,10 @@ silverbullet.views.DatePickerCalendarPool.prototype.addCalendarPanel = function 
 /**
  * 
  */
-silverbullet.views.DatePickerCalendarPool.prototype.getCalendarPanel = function (currentDate) {
+silverbullet.views.CalendarPool.prototype.getCalendarPanel = function (currentDate) {
     console.log("GET CALENDAR PANEL "+currentDate);
     var currentTimeStamp = Date.parse(currentDate);
+    this.selectedDate.setTime(currentTimeStamp);
     if(isNaN(currentTimeStamp)){
         currentTimeStamp = Date.now();
     }
