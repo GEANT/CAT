@@ -66,7 +66,7 @@ class SilverbulletUser extends PersistentEntity{
     
     /**
      * 
-     * @param unknown $date
+     * @param string $date
      */
     public function setExpiry($date){
         $tokenExpiry = date('Y-m-d H:i:s', strtotime($date));
