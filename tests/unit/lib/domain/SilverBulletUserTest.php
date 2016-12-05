@@ -24,6 +24,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $this->profile = new MockProfileSilverbullet(DBConnection::handle('INST'));
         $this->profileId = $this->profile->identifier;
         $this->newUser = new SilverbulletUser($this->profileId, $this->username);
+        $this->newUser->setExpiry('now');
     }
     
     public function testNewUser(){
