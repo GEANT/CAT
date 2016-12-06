@@ -101,6 +101,7 @@ abstract class DeviceConfig extends Entity {
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
+        $purpose = 'installer';
         if (!$profile instanceof AbstractProfile) {
             $this->loggerInstance->debug(2, "No profile has been set\n");
             throw new Exception("No profile has been set");
@@ -121,10 +122,11 @@ abstract class DeviceConfig extends Entity {
         
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
             $this->clientCert = $profile->generateCertificate($token, $importPassword);
+            $purpose = 'silverbullet';
         }
         
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $tempDir = createTemporaryDirectory('installer');
+        $tempDir = createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');
