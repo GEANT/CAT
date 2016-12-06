@@ -32,6 +32,7 @@ $operatingSystem = $Gui->detectOS();
 $loggerInstance->debug(4, print_r($operatingSystem, true));
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+echo "<link rel='stylesheet' media='screen' type='text/css' href='resources/css/cat-user.css' />";
 ?>
 </head>
 <body>
@@ -83,7 +84,8 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
             echo "<p>Detected OS: " . $operatingSystem['display'] . "</p>";
 
             $dev = new DeviceFactory($operatingSystem['device']);
-            if ( count($dev->device->calculatePreferredEapType([EAPTYPE_SILVERBULLET])) == 0 ) {
+            $matchingEap = $dev->device->calculatePreferredEapType([EAPTYPE_SILVERBULLET]);
+            if ( $matchingEap == [] ) {
                 echo "<p>Sorry, we do not currently support individual login credentials for this type of device.</p>";
                 break;
             }
