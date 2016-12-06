@@ -51,7 +51,7 @@ class Logging {
         ob_start();
         print " ($level) ";
         if ($sanityText != $text) {
-            print "[SANITY!] ";
+            print "[SANITY!] =";
         }
         print_r($sanityText);
         $output = ob_get_clean();
