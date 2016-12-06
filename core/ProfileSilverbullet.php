@@ -207,7 +207,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $sha1 = openssl_x509_fingerprint($cert,"sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCert = "";
-        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
+        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem]]);
 
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         $sqlDate = $expiryDateObject->format("Y-m-d H:i:s");
