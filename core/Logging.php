@@ -45,7 +45,7 @@ class Logging {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
-        $sanityTextStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $text));
+        $sanityTextStep1 = iconv("UTF-8", "UTF-8//TRANSLIT", $text);
         $sanityText = filter_var($sanityTextStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
 
         ob_start();
