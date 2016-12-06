@@ -197,6 +197,8 @@ class ProfileSilverbullet extends AbstractProfile {
         // it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
         // serial numbers are not maintaining state because random, and could be duplicate
         // on heavy use. But this is a temporary stopgap CA only anyway, so who cares.
+        $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
+        $rootCaPem = fread($rootCaHandle, 1000000);
         $issuingCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/real.pem", "r");
         $issuingCaPem = fread($issuingCaHandle, 1000000);
         $issuingCa = openssl_x509_read($issuingCaPem);
@@ -207,7 +209,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $sha1 = openssl_x509_fingerprint($cert,"sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCert = "";
-        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword);
+        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
 
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         $sqlDate = $expiryDateObject->format("Y-m-d H:i:s");
