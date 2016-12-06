@@ -458,8 +458,11 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
-!define TLS_FILE_NAME "cert*.p12"
+        if ($eap != EAPTYPE_SILVERBULLET) {
+            $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
+';
+        }
+        $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
 

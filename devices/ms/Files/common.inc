@@ -943,9 +943,9 @@ FunctionEnd
 ;=============================
 !ifdef TLS
 Function PFXCertificateSelect
+  !ifndef SILVERBULLET
 ;TRANSLATION
 !insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
-  !ifndef SILVERBULLET
   ${If} $PFX_install == 0
     Return
   ${EndIf}
@@ -961,16 +961,20 @@ Function PFXCertificateSelect
   Pop $Cert_file
 ;TRANSLATION
   ${NSD_CreateLabel} 0 0 100% 32u "<?php echo_nsi(_("Selected file: \$Cert_file"))?>"
+  Push "<?php echo_nsi(_("certificate password:"))?>"
   !else
   !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
   File "SB_cert.p12"
+  nsArray::Set Delete_files "SB_cert.p12"
   Push "$TEMP\SB_cert.p12"
   Pop $Cert_file
   nsDialogs::Create 1018
+  Push "<?php echo_nsi(_("import password:"))?>"
   !endif
+  Pop $R0
   !insertmacro debug_cat 3 "Vista level (Vista without Service pack): $VistaNoSP";
   ${If} $VistaNoSP == 0
-    ${NSD_CreateLabel} 0 35u 80u 12u "<?php echo_nsi(_("certificate password:"))?>"
+    ${NSD_CreateLabel} 0 35u 80u 12u $R0
     ${NSD_CreatePassword} 85u 34.5u 100u 12u ""
     Pop $Password
     ${NSD_SetFocus} $Password
@@ -984,18 +988,24 @@ Function PFXCertificateSelectLeave
       MessageBox MB_OK  "<?php echo_nsi(_("No certificate file selected"))?>"
       Call Cleanup
    ${EndIf}
+   !ifdef SILVERBULLET
+     Push "<?php echo_nsi(_("Incorrect import password$\\r$\\nenter again"))?>"
+   !else
+     Push "<?php echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
+   !endif
+   Pop $R0 
 
    ${If} $VistaNoSP == 1
      System::Call "cryptext::CryptExtAddPFX(i $HWNDPARENT, i 0, t '$Cert_file', i 1)"
    ${Else}
       ${NSD_GetText} $Password $0
-      !insertmacro debug_cat 3 'Execute: "certutil" -importpfx -user -p "password_not_recorded" "$Cert_file"'
-      nsExec::Exec '"certutil" -importpfx -user -p "$0" "$Cert_file"'
+      !insertmacro debug_cat 3 'Execute: "certutil" -importpfx -user -p "password_not_recorded" "$Cert_file" NoRoot'
+      nsExec::Exec '"certutil" -importpfx -user -p "$0" "$Cert_file" NoRoot'
       Pop $1
       !insertmacro debug_cat 3 "certutil returned $1"
 ;TRANSLATION
     ${If} $1 <> 0
-      MessageBox MB_OK  "<?php echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
+      MessageBox MB_OK  $R0
       Abort
     ${EndIf}
    ${EndIf}
@@ -1118,12 +1128,14 @@ Page custom WiredConfirm
 !endif
 ;============================
 !ifdef TLS
+!ifndef SILVERBULLET
 PageEx components
 PageCallbacks showComponents "" ""
 ;TRANSLATION
 ComponentText "<?php printf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),CONFIG['CONSORTIUM']['name'])?>" "" \
       "<?php echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
 PageExEnd
+!endif
 ;=============================
 Page custom PFXCertificateSelect PFXCertificateSelectLeave
 ;=============================
