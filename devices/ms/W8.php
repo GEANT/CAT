@@ -29,7 +29,7 @@ class Device_W8 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD]);
+        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD, EAPTYPE_SILVERBULLET]);
         $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -55,7 +55,7 @@ class Device_W8 extends WindowsCommon {
         }
 
 
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD) {
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -81,6 +81,9 @@ class Device_W8 extends WindowsCommon {
         $this->writeAdditionalDeletes($delProfiles);
         if (isset($additionalDeletes) && count($additionalDeletes)) {
             $this->writeAdditionalDeletes($additionalDeletes);
+        }
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
         if (isset($this->attributes['internal:logo_file'])) {
@@ -118,7 +121,7 @@ class Device_W8 extends WindowsCommon {
             $out .= "<p>";
         }
 
-        if ($this->selectedEap == EAPTYPE_TLS) {
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -163,7 +166,7 @@ class Device_W8 extends WindowsCommon {
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
-        if ($eap == EAPTYPE_TLS) {
+        if ($eap == EAPTYPE_TLS || $eap == EAPTYPE_SILVERBULLET) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
@@ -418,6 +421,7 @@ class Device_W8 extends WindowsCommon {
         $eapOptions = [
             PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             TLS => ['str' => 'TLS', 'exec' => 'user'],
+            EAPTYPE_SILVERBULLET => ['str' => 'TLS', 'exec' => 'user'],
             TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
@@ -428,7 +432,9 @@ class Device_W8 extends WindowsCommon {
 // $fcontents .= "!define DEBUG_CAT\n";
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
         $eapStr = $eapOptions[$eap["OUTER"]]['str'];
-
+        if ($eap == EAPTYPE_SILVERBULLET) {
+            $fcontents .= "!define SILVERBULLET\n";
+        }
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
 

@@ -945,6 +945,7 @@ FunctionEnd
 Function PFXCertificateSelect
 ;TRANSLATION
 !insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
+  !ifndef SILVERBULLET
   ${If} $PFX_install == 0
     Return
   ${EndIf}
@@ -960,6 +961,13 @@ Function PFXCertificateSelect
   Pop $Cert_file
 ;TRANSLATION
   ${NSD_CreateLabel} 0 0 100% 32u "<?php echo_nsi(_("Selected file: \$Cert_file"))?>"
+  !else
+  !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
+  File "SB_cert.p12"
+  Push "$TEMP\SB_cert.p12"
+  Pop $Cert_file
+  nsDialogs::Create 1018
+  !endif
   !insertmacro debug_cat 3 "Vista level (Vista without Service pack): $VistaNoSP";
   ${If} $VistaNoSP == 0
     ${NSD_CreateLabel} 0 35u 80u 12u "<?php echo_nsi(_("certificate password:"))?>"
@@ -994,6 +1002,7 @@ Function PFXCertificateSelectLeave
 FunctionEnd
 ;===========================
 !endif
+
 
 ; User credentials dialog
 !ifdef CRED

@@ -156,6 +156,15 @@ class WindowsCommon extends DeviceConfig {
         fclose($fileHandle);
     }
 
+    protected function writeClientP12File() {
+        if (!is_array($this->clientCert)) {
+            throw new Exception("the client block was called but there is no client certificate!");
+        }
+        $fileHandle = fopen('SB_cert.p12','w');
+        fwrite($fileHandle,$this->clientCert["certdata"]);
+        fclose($fileHandle);
+    }
+
     public $LANGS = [
         'fr' => ['nsis' => "French", 'cp' => '1252'],
         'de' => ['nsis' => "German", 'cp' => '1252'],
