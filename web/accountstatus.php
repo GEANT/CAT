@@ -84,8 +84,8 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='resources/css/
             echo "<p>Detected OS: " . $operatingSystem['display'] . "</p>";
 
             $dev = new DeviceFactory($operatingSystem['device']);
-            $matchingEap = $dev->device->calculatePreferredEapType([EAPTYPE_SILVERBULLET]);
-            if ( $matchingEap == [] ) {
+            $dev->device->calculatePreferredEapType([EAPTYPE_SILVERBULLET]);
+            if ( $dev->device->selectedEap == [] ) {
                 echo "<p>Sorry, we do not currently support individual login credentials for this type of device.</p>";
                 break;
             }
