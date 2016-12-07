@@ -182,7 +182,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $csr = openssl_csr_new(
                 ['O' => 'eduroam',
             'OU' => $federation,
-            'CN' => $this->instName . " - " . _("eduroam credential"),
+            'CN' => $username,
             'emailAddress' => $username,
                 ], $privateKey, [
             'digest_alg' => 'sha256',
