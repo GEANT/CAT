@@ -73,7 +73,7 @@ class DatePicker implements HtmlElement, PageElement{
         $div = new CompositeTag('div');
         $div->addAttribute('class', self::BLOCK_CLASS);
             $input = new UnaryTag('input');
-            $input->addAttribute('type', 'date');
+            $input->addAttribute('type', 'text');
             $input->addAttribute('maxlength', 10);
             $input->addAttribute('id', $this->id);
             $input->addAttribute('class', self::INPUT_CLASS);

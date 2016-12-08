@@ -93,7 +93,7 @@ class UserCredentialsForm implements PageElement{
             <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
                 <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
                     <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
-                    <div>
+                    <div style="margin: 5px 0px 10px 0px;">
                         <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
                         <?php 
                             $datePicker = new DatePicker(SilverbulletFactory::PARAM_EXPIRY);
