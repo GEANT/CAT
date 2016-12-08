@@ -77,9 +77,15 @@ class Logging {
             case "OWN": // ownership changes
             case "MOD": // modified existing object
             case "DEL": // deleted an object
+                $sanityMessageStep1 = iconv("UTF-8", "UTF-8//TRANSLIT", $message);
+                $sanityMessage = filter_var($sanityMessageStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
                 ob_start();
                 print " ($category) ";
-                print_r(" " . $user . ": " . $message . "\n");
+                print_r(" " . $user . ": ");
+                if ($sanityMessage != $message) {
+                    print "[SANITY!] ";
+                }
+                print_r($sanityMessage . "\n");
                 $output = ob_get_clean();
 
                 $this->writeToFile("audit-activity.log", $output);
@@ -97,10 +103,16 @@ class Logging {
      */
     public function writeSQLAudit($query) {
         // clean up text to be in one line, with no extra spaces
-        $logtext1 = preg_replace("/[\n\r]/", "", $query);
-        $logtext = preg_replace("/ +/", " ", $logtext1);
+        // also clean up non UTF-8 to sanitise possibly malicious inputs
+        $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
+        $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
+        $logTextStep3 = iconv("UTF-8", "UTF-8//TRANSLIT", $logTextStep2);
+        $sanityLogText = filter_var($logTextStep3, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
         ob_start();
-        print(" " . $logtext . "\n");
+        if ($sanityLogText != $logTextStep2) {
+           print "[SANITY!]";
+        }
+        print(" " . $sanityLogText . "\n");
         $output = ob_get_clean();
 
         $this->writeToFile("audit-SQL.log", $output);
