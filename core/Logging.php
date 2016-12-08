@@ -109,7 +109,7 @@ class Logging {
         $logTextStep3 = iconv("UTF-8", "UTF-8//TRANSLIT", $logTextStep2);
         $sanityLogText = filter_var($logTextStep3, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
         ob_start();
-        if ($sanityMessage != $message) {
+        if ($sanityLogText != $logTextStep2) {
            print "[SANITY!]";
         }
         print(" " . $sanityLogText . "\n");
