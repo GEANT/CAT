@@ -128,7 +128,7 @@ silverbullet.views.DatePicker.ELEMENT_CLASS = 'sb-date-picker';
 
 /**
  * 
- * @param {String} token
+ * @param {String} dateToken
  */
 silverbullet.views.DatePicker.prototype.validateDate = function(dateToken){
     if(this.calendarPool.parseDate(this.validationDate, dateToken)){
@@ -177,7 +177,7 @@ silverbullet.views.DatePicker.prototype.isValid = function(){
 
 /**
  * 
- * @param {String} fullDateValue
+ * @param {String} dateValue
  */
 silverbullet.views.DatePicker.prototype.setDateValue = function(dateValue){
     this.element.value = dateValue;
@@ -250,7 +250,9 @@ silverbullet.views.DatePicker.prototype.render = function(){
  * Provides a panel for date picker object with month and date controls
  * 
  * @constructor Popup calendar panel for Date picker
- * @param {String} currentDate
+ * @param {Number} year
+ * @param {Number} month
+ * @param {silverbullet.views.DatePicker} datePicker
  */
 silverbullet.views.CalendarPanel = function(year, month, datePicker){
     silverbullet.views.ViewElement.call(this, document.createElement('div'));
@@ -381,7 +383,7 @@ silverbullet.views.CalendarDate.prototype.markCurrent = function () {
 };
 
 /**
- * @param {Date} selectedDate
+ * 
  */
 silverbullet.views.CalendarDate.prototype.markSelected = function () {
     this.element.style.backgroundColor = '#BCD7E8';
@@ -516,7 +518,7 @@ silverbullet.views.CalendarPool.prototype.buildCalendarDays = function (year, mo
     //Build all day rows
     var startMonth = this.selectedDate.getMonth();
     while(startMonth != (month + 1) % 12){
-        for(var i = 0; i < 7; i++){
+        for(var j = 0; j < 7; j++){
             var calendarDate = new silverbullet.views.CalendarDate(this.selectedDate, calendarPanel);
                 calendarDate.render();
                 calendarPanel.addCalendarDate(this.selectedDate.getMonth(), this.selectedDate.getDate(), calendarDate);
@@ -617,7 +619,8 @@ silverbullet.views.CalendarPool.prototype.parseDate = function (dateObject, date
 
 /**
  * 
- * @param {String} selectedDate
+ * @param {String} selectedDateToken
+ * @param {silverbullet.views.DatePicker} datePicker
  */
 silverbullet.views.CalendarPool.prototype.getSelectedPanel = function (selectedDateToken, datePicker) {
     
@@ -693,7 +696,7 @@ silverbullet.views.CalendarPool.prototype.render = function() {
         var previousButton = document.createElement('button')
         previousButton.setAttribute('type', 'button');
         previousButton.innerHTML = '<';
-        previousButton.addEventListener('click', function(e) {
+        previousButton.addEventListener('click', function() {
             that.calendarPanel.datePicker.loadPreviousPanel();
         });
         previousButton.addEventListener('blur', function() {
@@ -706,7 +709,7 @@ silverbullet.views.CalendarPool.prototype.render = function() {
         var currentButton = document.createElement('button')
         currentButton.setAttribute('type', 'button');
         currentButton.innerHTML = '●';
-        currentButton.addEventListener('click', function(e) {
+        currentButton.addEventListener('click', function() {
             that.calendarPanel.datePicker.loadCurrentPanel();
         });
         currentButton.addEventListener('blur', function() {
@@ -719,7 +722,7 @@ silverbullet.views.CalendarPool.prototype.render = function() {
         var nextButton = document.createElement('button')
         nextButton.setAttribute('type', 'button');
         nextButton.innerHTML = '>';
-        nextButton.addEventListener('click', function(e) {
+        nextButton.addEventListener('click', function() {
             that.calendarPanel.datePicker.loadNextPanel();
         });
         nextButton.addEventListener('blur', function() {
