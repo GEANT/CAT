@@ -122,6 +122,8 @@ abstract class DeviceConfig extends Entity {
         
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
             $this->clientCert = $profile->generateCertificate($token, $importPassword);
+            // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
+            // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
         }
         

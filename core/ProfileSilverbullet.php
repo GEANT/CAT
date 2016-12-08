@@ -208,17 +208,21 @@ class ProfileSilverbullet extends AbstractProfile {
         // get the SHA1 fingerprint, this will be handy for Windows installers
         $sha1 = openssl_x509_fingerprint($cert,"sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
-        $exportedCert = "";
-        openssl_pkcs12_export($cert, $exportedCert, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
-
+        $exportedCertProt = "";
+        openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
+        $exportedCertClear = "";
+        openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         $sqlDate = $expiryDateObject->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $sqlDate, $token);
         // return PKCS#12 data stream
         return [
-            "certdata" => $exportedCert,
+            "certdata" => $exportedCertProt,
+            "certdataclear" => $exportedCertClear,
             "expiry" => $expiryDateObject->format("Y-m-d\TH:i:s\Z"),
             "sha1" => $sha1,
+            "GUID" => uuid("", $exportedCertProt),
+            'importPassword' => $importPassword,
         ];
     }
 

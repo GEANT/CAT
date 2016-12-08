@@ -79,7 +79,14 @@ class Device_Chromebook extends DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS]);
+        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS, EAPTYPE_SILVERBULLET]);
+    }
+
+    // from: http://stackoverflow.com/questions/10916284/how-to-encrypt-decrypt-data-in-php#10945097
+
+    private function pkcs7_pad($data, $size) {
+        $length = $size - strlen($data) % $size;
+        return $data . str_repeat(chr($length), $length);
     }
 
     /**
@@ -111,9 +118,19 @@ class Device_Chromebook extends DeviceConfig {
         if ($eapPrettyprint["OUTER"] == "TLS") {
             $eapPrettyprint["OUTER"] = "EAP-TLS";
         }
+
         // define EAP properties
 
-        $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
+        $eaparray = [];
+
+        // if silverbullet, we deliver the client cert inline
+
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $eaparray['ClientCertRef'] = "{" . $this->clientCert['GUID'] . "}";
+            $eaparray['ClientCertType'] = "Ref";
+        }
+
+        $eaparray["Outer"] = $eapPrettyprint["OUTER"];
         if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
             $eaparray["Inner"] = $eapPrettyprint["INNER"];
         }
@@ -167,10 +184,37 @@ class Device_Chromebook extends DeviceConfig {
             $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
             $this->loggerInstance->debug(3, $caSanitized . "\n");
         }
+        // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $jsonArray["Certificates"][] = ["GUID" => "{" . $this->clientCert['GUID'] . "}", "Type" => "Client", "PKCS12" => base64_encode($this->clientCert['certdataclear'])];
+        }
+        $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
+        $finalJson = $clearJson;
+        // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
+        if (FALSE && $this->selectedEap == EAPTYPE_SILVERBULLET) { // TODO don't encrypt yet... see if we got the internal structure right
+            $salt = random_str(12);
+            $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, 20000, 32, TRUE); // the spec is not clear: should we use SHA-1 for the PBKDF2? It only speaks of SHA-1 for the HMAC
+            $iv = openssl_random_pseudo_bytes(16, $strong);
+            $cryptoJson = openssl_encrypt($this->pkcs7_pad($clearJson, 16), 'AES-256-CBC', $encryption_key, 0, $iv);
+            $hmac = sha1($cryptoJson);
+            
+            // now, generate the container that holds all the crypto data
+            $finalArray = [
+                "Cipher" => "AES256",
+                "CipherText" => base64_encode($cryptoJson),
+                "HMAC" => $hmac,
+                "HMACMethod" => "SHA1",
+                "Salt" => $salt,
+                "Stretch" => "PBKDF2",
+                "Iterations" => 20000,
+                "IV" => base64_encode($iv),
+                "Type" => "EncryptedConfiguration",
+                ];
+            $finalJson = json_encode($finalArray);
+        }
 
-        $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $outputFile = fopen('installer_profile', 'w');
-        fwrite($outputFile, $outputJson);
+        fwrite($outputFile, $finalJson);
         fclose($outputFile);
 
         $fileName = $this->installerBasename . '.onc';
