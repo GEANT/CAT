@@ -7,7 +7,15 @@
 <?php 
 require_once("Language.php");
 $langObject = new Language();
-$langObject->setTextDomain('web_user'); ?>
+$langObject->setTextDomain('web_user');
+$idpId = $_REQUEST['idp'] ?? 0;
+if (! is_numeric($idpId)) {
+    exit;
+}
+$profileId = $_REQUEST['profile'] ?? 0;
+if (! is_numeric($profileId)) {
+    exit;
+} ?>
 var n;
 var profile;
 // var device_button_bg ="#0a698e";
@@ -333,7 +341,7 @@ function getWindowHCenter() {
     return(Math.round(windowWidth/2));
 }
 
-<?php if(isset($_REQUEST['idp']) && $_REQUEST['idp']) { 
+<?php if($idpId) { 
       print "front_page = 0;\n";
 } ?>
 
@@ -466,15 +474,8 @@ $(document).ready(function(){
   $(window).resize(set_front_page);
   resetDevices();
  <?php 
-if(isset($_REQUEST['idp']) && $_REQUEST['idp']) { 
-    if(! is_numeric($_REQUEST['idp'])) {
-        exit;
-    }
-    $p_id = (isset($_REQUEST['profile']) && $_REQUEST['profile']) ? $_REQUEST['profile'] : 0; 
-    if(! is_numeric($p_id)) {
-        exit;
-    }
-   print 'listProfiles('.$_REQUEST['idp'].','.$p_id.');';
+if ($reqiestId) {
+    print "listProfiles($idpId,$profileId);";
 }
  ?>
 
