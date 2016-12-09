@@ -78,7 +78,7 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
     
     /**
      * 
-     * @param unknown $key
+     * @param string $key
      * @return string
      */
     protected function getAttributeType($key){
@@ -122,7 +122,7 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
     public function setRow($row){
         $this->clear();
         foreach ($row as $key => $value){
-            $this->set($key, $value, $this->getAttributeType($key));
+            $this->set($key, $value);
         }
     }
     

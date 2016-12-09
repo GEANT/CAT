@@ -37,7 +37,7 @@ class Attribute {
     
     /**
      * 
-     * @var string
+     * @var string|integer|double
      */
     public $value = '';
     
