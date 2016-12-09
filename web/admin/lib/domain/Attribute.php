@@ -59,6 +59,10 @@ class Attribute {
         $this->type = $type;
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function getType(){
         return $this->type;
     }
