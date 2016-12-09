@@ -165,6 +165,9 @@ class WindowsCommon extends DeviceConfig {
         fclose($fileHandle);
     }
 
+    protected function writeTlsUserProfile() {
+    }
+
     public $LANGS = [
         'fr' => ['nsis' => "French", 'cp' => '1252'],
         'de' => ['nsis' => "German", 'cp' => '1252'],

@@ -63,20 +63,26 @@ Var Platform
 Var Netsh
 Var Msiexec
 Var main_ssid
+!ifdef SILVERBULLET
+  !define CRED
+  !define TLS_CRED
+!endif
+!ifdef GEANTLink
+  !define CRED
+  !define PASSWORD_BASED_CRED
+  Var GL_Profile_id
+!endif
+!ifdef PEAP
+  !define CRED
+  !define PASSWORD_BASED_CRED
+!endif
 !ifdef TLS
   Var Cert_file
   Var PFX_install
   Var Dialog1
-  var Password
+  Var Password
 !endif
-!ifdef GEANTLink
-!define CRED
-Var GL_Profile_id
-!endif
-!ifdef PEAP
-!define CRED
-!endif
-!ifdef CRED
+!ifdef PASSWORD_BASED_CRED
   Var UNAME_F
   Var UNAME
   Var PASS1_F
@@ -85,6 +91,10 @@ Var GL_Profile_id
   Var UNAME_B64
   Var PASS2_F
   Var PASS2
+!endif
+!ifdef TLS_CRED
+  Var tlsUname
+  Var tlsFingerprint
 !endif
 
 !include "base64.nsh"
@@ -273,6 +283,12 @@ Function .onInit
     Push 1
   !else
     Push 0
+  !endif
+  !ifdef SILVERBULLET
+    Push ${SB_USERNAME}
+    Pop $tlsUname
+    Push ${SB_FINGERPRINT}
+    Pop $tlsFingerprint
   !endif
   Pop $wired
   Push 0
@@ -676,7 +692,7 @@ FunctionEnd
 
 ; Check which wireless profiles already exist and should be deleted
 Function CheckWirelessProfiles
-  !ifdef CRED
+  !ifdef PASSWORD_BASED_CRED
   File setEAPCred.exe
   nsArray::Set Delete_files "setEAPCred.exe"
   !endif
@@ -885,10 +901,41 @@ Function InstallProfile
   ${EndIf}
 FunctionEnd
 
+
+
 ; Install credentials for wired
 Function InstallWiredCred
-    !insertmacro debug_cat 1 "installing credentials for wired"
-    DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
+  !insertmacro debug_cat 1 "installing credentials for wired"
+  DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
+  !insertmacro debug_cat 3 "Execute: $TEMP\install_wired.cmd"
+  nsExec::Exec "$TEMP\install_wired.cmd"
+FunctionEnd
+
+Function writeTlsUserProfle
+    FileOpen $9 "$TEMP\user_cred.xml" w
+    FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+<EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
+  <EapMethod>$\r$\n\
+    <eapCommon:Type>13</eapCommon:Type>$\r$\n\
+    <eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
+  </EapMethod>$\r$\n\
+  <Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:eapTls=$\"http://www.microsoft.com/provisioning/EapTlsUserPropertiesV1$\">$\r$\n\
+    <baseEap:Eap>$\r$\n\
+      <baseEap:Type>13</baseEap:Type>$\r$\n\
+      <eapTls:EapType>$\r$\n'
+
+FileWrite $9 "<eapTls:Username>$tlsUname</eapTls:Username>$\r$\n\
+        <eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
+      </eapTls:EapType>$\r$\n\
+    </baseEap:Eap>$\r$\n\
+  </Credentials>$\r$\n\
+</EapHostUserCredentials>$\r$\n"
+   FileClose $9
+   nsArray::Set Delete_files "user_cred.xml"
+FunctionEnd
+
+
+Function writePeapUserProfle
     FileOpen $9 "$TEMP\user_cred.xml" w
     FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
@@ -913,9 +960,9 @@ FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
    FileClose $9
-  !insertmacro debug_cat 3 "Execute: $TEMP\install_wired.cmd"
-  nsExec::Exec "$TEMP\install_wired.cmd"
+   nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
+
 
 ;=============================
 ; Install credentials for a wireless profile
@@ -929,10 +976,17 @@ Function InstallWirelessCred
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
 
     DetailPrint "<?php echo_nsi(_("installing credentials for profile \$R1"))?>"
+    !ifdef PEAP
     !insertmacro debug_cat 3 "Execute: $TEMP\setEAPCred.exe $\"$UNAME$\" $\"base_64_password_not_recorded$\" $\"$R1$\""
     nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS_B64$\" $\"$R1$\""
+    !endif
+    !ifdef SILVERBULLET
+      Call writeTlsUserProfle
+      !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+      nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+    !endif
     Pop $0
-    !insertmacro debug_cat 3 "setEAPCred.exe returned $0"
+    !insertmacro debug_cat 3 "credentials setting returned $0"
     StrCmp $0 0 Cont1
 ; Error Label, show error box
     IfSilent +2
@@ -963,6 +1017,9 @@ Function PFXCertificateSelect
   ${NSD_CreateLabel} 0 0 100% 32u "<?php echo_nsi(_("Selected file: \$Cert_file"))?>"
   Push "<?php echo_nsi(_("certificate password:"))?>"
   !else
+  !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
+  File "WLANSetEAPUserData32.exe"
+  File "WLANSetEAPUserData64.exe"
   !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
   File "SB_cert.p12"
   nsArray::Set Delete_files "SB_cert.p12"
@@ -1015,8 +1072,8 @@ FunctionEnd
 
 
 ; User credentials dialog
-!ifdef CRED
-Function UserCredentials
+!ifdef PASSWORD_BASED_CRED
+Function GetPasswordBasedCredentials
 ;  ${If} $get_credentials == 0
 ;    Abort
 ;  ${EndIf}
@@ -1038,41 +1095,40 @@ Function UserCredentials
 FunctionEnd
 
 ; Handle user input
-Function SaveCredentials
-${NSD_GetText} $UNAME_F $UNAME
-${NSD_GetText} $PASS1_F $PASS1
-${NSD_GetText} $PASS2_F $PASS2
-${If} "$UNAME" == ""
-  MessageBox MB_OK "<?php echo_nsi(_("Missing username"))?>"
-  Abort
-${EndIf}
+Function SavePasswordBasedCredentials
+   ${NSD_GetText} $UNAME_F $UNAME
+   ${NSD_GetText} $PASS1_F $PASS1
+   ${NSD_GetText} $PASS2_F $PASS2
+   ${If} "$UNAME" == ""
+     MessageBox MB_OK "<?php echo_nsi(_("Missing username"))?>"
+     Abort
+   ${EndIf}
 
-${If} "$PASS1" == ""
-  MessageBox MB_OK "<?php echo_nsi(_("Missing password"))?>"
-  Abort
-${EndIf}
-${If} "$PASS1" != "$PASS2"
-${NSD_SetText} $PASS1_F ""
-${NSD_SetText} $PASS2_F ""
-MessageBox MB_OK "<?php echo_nsi(_("Password missmatch"))?>"
-Abort
-${EndIf}
-${Base64_Encode} $PASS1
-Pop $PASS_B64
-${Base64_Encode} $UNAME
-Pop $UNAME_B64
-Call ShowAllButtons
+   ${If} "$PASS1" == ""
+     MessageBox MB_OK "<?php echo_nsi(_("Missing password"))?>"
+     Abort
+   ${EndIf}
+   ${If} "$PASS1" != "$PASS2"
+   ${NSD_SetText} $PASS1_F ""
+   ${NSD_SetText} $PASS2_F ""
+   MessageBox MB_OK "<?php echo_nsi(_("Password missmatch"))?>"
+   Abort
+   ${EndIf}
+   ${Base64_Encode} $PASS1
+   Pop $PASS_B64
+   ${Base64_Encode} $UNAME
+   Pop $UNAME_B64
+   Call ShowAllButtons
 FunctionEnd
+!endif ; PASSWORD_BASED_CRED
 ;=============================
+!ifdef CRED
 Function InstallUserCredentials
   Call InstallWirelessUserCredentials
   Call InstallWiredUserCredentials
 FunctionEnd
 ;=============================
 Function InstallWirelessUserCredentials
-  !ifndef CRED
-    Abort
-  !endif
   !insertmacro debug_cat 4 "Installing wireless credentials"
   ${If} $install_wireless_credentials == 0
     Goto WirelessEnd
@@ -1086,19 +1142,17 @@ FunctionEnd
 ;=============================
 
 Function InstallWiredUserCredentials
-  !ifndef CRED
-    Abort
-  !endif
   ${If} $install_wired_credentials == 0
     Goto WiredEnd
   ${EndIf}
+   Call writePeapUserProfle
    Call InstallWiredCred
 WiredEnd:
 FunctionEnd
 
-!endif
+!endif  ; CRED
 
-
+;==============================
 
 Function Cleanup
 ${If} $Debug_cat > 0
@@ -1141,8 +1195,8 @@ Page custom PFXCertificateSelect PFXCertificateSelectLeave
 ;=============================
 !endif
 ;=============================
-!ifdef CRED
-Page custom UserCredentials SaveCredentials
+!ifdef PASSWORD_BASED_CRED
+Page custom GetPasswordBasedCredentials SavePasswordBasedCredentials
 !endif
 ;=============================
 Page instfiles ShowInstfiles

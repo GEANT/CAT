@@ -458,7 +458,11 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        if ($eap != EAPTYPE_SILVERBULLET) {
+        if ($eap == EAPTYPE_SILVERBULLET) {
+            $fcontents .= '!define SB_USERNAME "'.$this->clientCert['username'].'"
+!define SB_FINGERPRINT "'.$this->clientCert['sha1'].'"
+';
+        } else {
             $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
         }
@@ -513,6 +517,9 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $result = $this->copyFile('base64.nsh');
         $result = $result && $this->copyFile('cat32.ico');
         $result = $result && $this->copyFile('cat_150.bmp');
+        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
+        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
+        $result = $result && $this->copyFile('WLANSetEAPUserData64.exe');
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
         if ($eap["OUTER"] == PWD) {
             $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
