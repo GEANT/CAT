@@ -44,6 +44,10 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
      */
     private $row = array();
     
+    /**
+     * 
+     * @var string[]
+     */
     private $types = array();
     
     /**
@@ -63,10 +67,20 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
      */
     protected abstract function validate();
     
+    /**
+     * 
+     * @param string $key
+     * @param string $type
+     */
     protected function setAttributeType($key, $type){
         $this->types[$key] = $type; 
     }
     
+    /**
+     * 
+     * @param unknown $key
+     * @return string
+     */
     protected function getAttributeType($key){
         return isset($this->types[$key]) ? $this->types[$key] : Attribute::TYPE_STRING;
     }
@@ -101,6 +115,10 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
         $this->row[$key] = $attribute;
     }
     
+    /**
+     * 
+     * @param array $row
+     */
     public function setRow($row){
         $this->clear();
         foreach ($row as $key => $value){
@@ -108,6 +126,9 @@ abstract  class PersistentEntity extends \Entity implements Persistent {
         }
     }
     
+    /**
+     * 
+     */
     public function clear(){
         $this->row = array();
     }

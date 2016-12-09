@@ -8,15 +8,43 @@ namespace lib\domain;
  */
 class Attribute {
     
+    /**
+     * 
+     * @var string
+     */
     const TYPE_STRING = 's';
+    /**
+     * 
+     * @var string
+     */
     const TYPE_INTEGER = 'i';
+    /**
+     * 
+     * @var string
+     */
     const TYPE_DOUBLE = 'd';
+    /**
+     * 
+     * @var string
+     */
     const TYPE_BLOB = 'b';
     
+    /**
+     * 
+     * @var string
+     */
     public $key = '';
     
+    /**
+     * 
+     * @var string
+     */
     public $value = '';
     
+    /**
+     * 
+     * @var string
+     */
     private $type = self::TYPE_STRING;
     
     /**
