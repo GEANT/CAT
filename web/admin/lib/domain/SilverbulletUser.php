@@ -174,7 +174,7 @@ class SilverbulletUser extends PersistentEntity{
     
     /**
      * 
-     * @param ins $userId
+     * @param integer $userId
      * @return \lib\domain\SilverbulletUser
      */
     public static function prepare($userId){
