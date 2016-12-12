@@ -217,6 +217,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $sqlDate, $token);
         // return PKCS#12 data stream
         return [
+            "username" => $username,
             "certdata" => $exportedCertProt,
             "certdataclear" => $exportedCertClear,
             "expiry" => $expiryDateObject->format("Y-m-d\TH:i:s\Z"),
