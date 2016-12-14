@@ -93,7 +93,6 @@ Var main_ssid
   Var PASS2
 !endif
 !ifdef TLS_CRED
-  Var tlsUname
   Var tlsFingerprint
 !endif
 
@@ -283,12 +282,6 @@ Function .onInit
     Push 1
   !else
     Push 0
-  !endif
-  !ifdef SILVERBULLET
-    Push ${SB_USERNAME}
-    Pop $tlsUname
-    Push ${SB_FINGERPRINT}
-    Pop $tlsFingerprint
   !endif
   Pop $wired
   Push 0
@@ -924,8 +917,7 @@ Function writeTlsUserProfle
       <baseEap:Type>13</baseEap:Type>$\r$\n\
       <eapTls:EapType>$\r$\n'
 
-FileWrite $9 "<eapTls:Username>$tlsUname</eapTls:Username>$\r$\n\
-        <eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
+FileWrite $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
   </Credentials>$\r$\n\
@@ -1056,10 +1048,18 @@ Function PFXCertificateSelectLeave
      System::Call "cryptext::CryptExtAddPFX(i $HWNDPARENT, i 0, t '$Cert_file', i 1)"
    ${Else}
       ${NSD_GetText} $Password $0
+      !ifdef W8
+      !insertmacro debug_cat 3 'Execute: powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword ; $cert.Thumbprint}  "'
+      nsExec::ExecToStack 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
+      Pop $1
+      Pop $tlsFingerprint
+      !insertmacro debug_cat 3 "PFX install returned $1"
+      !else
       !insertmacro debug_cat 3 'Execute: "certutil" -importpfx -user -p "password_not_recorded" "$Cert_file" NoRoot'
       nsExec::Exec '"certutil" -importpfx -user -p "$0" "$Cert_file" NoRoot'
       Pop $1
       !insertmacro debug_cat 3 "certutil returned $1"
+      !endif
 ;TRANSLATION
     ${If} $1 <> 0
       MessageBox MB_OK  $R0

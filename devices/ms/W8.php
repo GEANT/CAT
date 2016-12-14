@@ -458,14 +458,10 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        if ($eap == EAPTYPE_SILVERBULLET) {
-            $fcontents .= '!define SB_USERNAME "'.$this->clientCert['username'].'"
-!define SB_FINGERPRINT "'.$this->clientCert['sha1'].'"
-';
-        } else {
+        if ($eap != EAPTYPE_SILVERBULLET) {
             $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
-        }
+        } 
         $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
