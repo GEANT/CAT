@@ -59,6 +59,8 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     public function __construct($silverbulletUser) {
         parent::__construct(self::TABLE, self::TYPE_INST);
+        $this->setAttributeType(self::PROFILEID, Attribute::TYPE_INTEGER);
+        $this->setAttributeType(self::SILVERBULLETUSERID, Attribute::TYPE_INTEGER);
         if(!empty($silverbulletUser)){
             $this->set(self::PROFILEID, $silverbulletUser->getProfileId());
             $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
@@ -206,12 +208,12 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     public static function getList($silverbulletUser){
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $userId = $silverbulletUser->getIdentifier();
-        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", 's', $userId);
+        $userId = $silverbulletUser->getAttribute(self::ID);
+        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", $userId->getType(), $userId->value);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);
-            $certificate->row = $row;
+            $certificate->setRow($row);
             $list[] = $certificate;
         }
         return $list;

@@ -57,6 +57,8 @@ class SilverbulletUser extends PersistentEntity{
      */
     public function __construct($profileId, $username){
         parent::__construct(self::TABLE, self::TYPE_INST);
+        $this->setAttributeType(self::PROFILEID, Attribute::TYPE_INTEGER);
+        
         $this->set(self::PROFILEID, $profileId);
         $this->set(self::USERNAME, $username);
         //$this->set(self::EXPIRY, 'NOW() + INTERVAL 1 WEEK');
@@ -73,7 +75,7 @@ class SilverbulletUser extends PersistentEntity{
         if($tokenExpiry > $this->defaultUserExpiry){
             $this->set(self::EXPIRY, $tokenExpiry);
         }else{
-            $this->row = array();
+            $this->clear();
         }
     }
     
@@ -172,7 +174,7 @@ class SilverbulletUser extends PersistentEntity{
     
     /**
      * 
-     * @param ins $userId
+     * @param integer $userId
      * @return \lib\domain\SilverbulletUser
      */
     public static function prepare($userId){
@@ -187,11 +189,11 @@ class SilverbulletUser extends PersistentEntity{
      */
     public static function getList($profileId) {
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 's', $profileId);
+        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 'i', $profileId);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');
-            $user->row = $row;
+            $user->setRow($row);
             $user->certificates = SilverbulletCertificate::getList($user);
             $list[] = $user;
         }
