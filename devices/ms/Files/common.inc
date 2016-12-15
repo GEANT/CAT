@@ -1049,7 +1049,7 @@ Function PFXCertificateSelectLeave
    ${Else}
       ${NSD_GetText} $Password $0
       !ifdef W8
-      !insertmacro debug_cat 3 'Execute: powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword ; $cert.Thumbprint}  "'
+      !insertmacro debug_cat 3 'Execute: 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
       nsExec::ExecToStack 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
       Pop $1
       Pop $tlsFingerprint
