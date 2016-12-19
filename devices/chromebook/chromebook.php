@@ -104,6 +104,21 @@ class Device_Chromebook extends DeviceConfig {
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             $caRefs[] = "{" . $ca['uuid'] . "}";
         }
+        // define CA certificates
+        foreach ($this->attributes['internal:CAs'][0] as $ca) {
+            // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
+            $this->loggerInstance->debug(3, $ca['pem']);
+            $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            $this->loggerInstance->debug(4, $caSanitized1 . "\n");
+            // remove \n
+            $caSanitized = str_replace("\n", "", $caSanitized1);
+            $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Remove" => false, "Type" => "Authority", "X509" => $caSanitized];
+            $this->loggerInstance->debug(3, $caSanitized . "\n");
+        }
+        // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $jsonArray["Certificates"][] = ["GUID" => "[" . $this->clientCert['GUID'] . "]", "PKCS12" => base64_encode($this->clientCert['certdataclear']), "Remove" => false, "Type" => "Client"];
+        }
         // construct outer id, if anonymity is desired
         $outerId = $this->determineOuterIdString();
 
@@ -126,7 +141,7 @@ class Device_Chromebook extends DeviceConfig {
         // if silverbullet, we deliver the client cert inline
 
         if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
-            $eaparray['ClientCertRef'] = "{" . $this->clientCert['GUID'] . "}";
+            $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
             $eaparray['ClientCertType'] = "Ref";
         }
 
@@ -147,6 +162,7 @@ class Device_Chromebook extends DeviceConfig {
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "$ssid",
+                "Remove" => false,
                 "Type" => "WiFi",
                 "WiFi" => [
                     "AutoConnect" => true,
@@ -164,6 +180,7 @@ class Device_Chromebook extends DeviceConfig {
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "eduroam configuration (wired network)",
+                "Remove" => false,
                 "Type" => "Ethernet",
                 "Ethernet" => [
                     "Authentication" => "8021X",
@@ -173,21 +190,6 @@ class Device_Chromebook extends DeviceConfig {
             ];
         }
 
-        // define CA certificates
-        foreach ($this->attributes['internal:CAs'][0] as $ca) {
-            // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            $this->loggerInstance->debug(3, $ca['pem']);
-            $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            $this->loggerInstance->debug(4, $caSanitized1 . "\n");
-            // remove \n
-            $caSanitized = str_replace("\n", "", $caSanitized1);
-            $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
-            $this->loggerInstance->debug(3, $caSanitized . "\n");
-        }
-        // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
-            $jsonArray["Certificates"][] = ["GUID" => "{" . $this->clientCert['GUID'] . "}", "Type" => "Client", "PKCS12" => base64_encode($this->clientCert['certdataclear'])];
-        }
         $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $finalJson = $clearJson;
         // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
@@ -197,7 +199,7 @@ class Device_Chromebook extends DeviceConfig {
             $iv = openssl_random_pseudo_bytes(16, $strong);
             $cryptoJson = openssl_encrypt($this->pkcs7_pad($clearJson, 16), 'AES-256-CBC', $encryption_key, 0, $iv);
             $hmac = sha1($cryptoJson);
-            
+
             // now, generate the container that holds all the crypto data
             $finalArray = [
                 "Cipher" => "AES256",
@@ -209,7 +211,7 @@ class Device_Chromebook extends DeviceConfig {
                 "Iterations" => 20000,
                 "IV" => base64_encode($iv),
                 "Type" => "EncryptedConfiguration",
-                ];
+            ];
             $finalJson = json_encode($finalArray);
         }
 

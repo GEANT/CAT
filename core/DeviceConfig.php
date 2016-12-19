@@ -68,10 +68,10 @@ abstract class DeviceConfig extends Entity {
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
-        $this->loggerInstance->debug(4, "This device (".__CLASS__.") supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
-    
+
     /**
      * device module constructor should be defined by each module. 
      * The one important thing to do is to call setSupportedEapMethods with an 
@@ -113,20 +113,20 @@ abstract class DeviceConfig extends Entity {
             throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        
+
         // if we are instantiating a Silverbullet profile AND have been given
         // a token, attempt to create the client certificate NOW
         // then, this is the only instance of the device ever which knows the
         // cert and private key. It's not saved anywhere, so it's gone forever
         // after code execution!
-        
+
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
             $this->clientCert = $profile->generateCertificate($token, $importPassword);
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
         }
-        
+
         // create temporary directory, its full path will be saved in $this->FPATH;
         $tempDir = createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
@@ -547,7 +547,7 @@ abstract class DeviceConfig extends Entity {
 
     protected function determineOuterIdString() {
         $outerId = 0;
-        if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
+        if ((isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $outerId = "@" . $this->attributes['internal:realm'][0];
             if (isset($this->attributes['internal:anon_local_value'])) {
                 $outerId = $this->attributes['internal:anon_local_value'][0] . $outerId;
@@ -655,7 +655,7 @@ abstract class DeviceConfig extends Entity {
      * @var string 
      */
     public $installerBasename;
-    
+
     /**
      * stores the PKCS#12 DER representation of a client certificate for SilverBullet
      */

@@ -29,6 +29,9 @@ $loggerInstance = new Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 
 $operatingSystem = $Gui->detectOS();
+// let's be a ChromeOS.
+$operatingSystem = ['device' => 'chromeos', 'display' => 'ChromeOS', 'group' => 'chrome'];
+
 $loggerInstance->debug(4, print_r($operatingSystem, true));
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
