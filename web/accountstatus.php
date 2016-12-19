@@ -30,7 +30,7 @@ $loggerInstance->debug(4, "\n---------------------- accountstatus.php START ----
 
 $operatingSystem = $Gui->detectOS();
 // let's be a ChromeOS.
-$operatingSystem = ['device' => 'chromeos', 'display' => 'ChromeOS', 'group' => 'chrome'];
+// $operatingSystem = ['device' => 'chromeos', 'display' => 'ChromeOS', 'group' => 'chrome'];
 
 $loggerInstance->debug(4, print_r($operatingSystem, true));
 
