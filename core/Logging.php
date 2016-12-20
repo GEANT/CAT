@@ -45,15 +45,10 @@ class Logging {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
-        $sanityTextStep1 = iconv("UTF-8", "UTF-8//TRANSLIT", $text);
-        $sanityText = filter_var($sanityTextStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
-
+        
         ob_start();
         print " ($level) ";
-        if ($sanityText != $text) {
-            print "[SANITY!] =";
-        }
-        print_r($sanityText);
+        print_r($text);
         $output = ob_get_clean();
 
         $this->writeToFile("debug.log", $output);
@@ -77,15 +72,10 @@ class Logging {
             case "OWN": // ownership changes
             case "MOD": // modified existing object
             case "DEL": // deleted an object
-                $sanityMessageStep1 = iconv("UTF-8", "UTF-8//TRANSLIT", $message);
-                $sanityMessage = filter_var($sanityMessageStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
                 ob_start();
                 print " ($category) ";
                 print_r(" " . $user . ": ");
-                if ($sanityMessage != $message) {
-                    print "[SANITY!] ";
-                }
-                print_r($sanityMessage . "\n");
+                print_r($message . "\n");
                 $output = ob_get_clean();
 
                 $this->writeToFile("audit-activity.log", $output);
@@ -107,12 +97,10 @@ class Logging {
         $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
         $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
         $logTextStep3 = iconv("UTF-8", "UTF-8//TRANSLIT", $logTextStep2);
-        $sanityLogText = filter_var($logTextStep3, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
+        
         ob_start();
-        if ($sanityLogText != $logTextStep2) {
-           print "[SANITY!]";
-        }
-        print(" " . $sanityLogText . "\n");
+        
+        print(" " . $logTextStep3 . "\n");
         $output = ob_get_clean();
 
         $this->writeToFile("audit-SQL.log", $output);
