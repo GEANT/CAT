@@ -547,7 +547,7 @@ abstract class DeviceConfig extends Entity {
 
     protected function determineOuterIdString() {
         $outerId = 0;
-        if ((isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) || $this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
             $outerId = "@" . $this->attributes['internal:realm'][0];
             if (isset($this->attributes['internal:anon_local_value'])) {
                 $outerId = $this->attributes['internal:anon_local_value'][0] . $outerId;

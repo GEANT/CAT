@@ -154,7 +154,10 @@ class Device_Chromebook extends DeviceConfig {
         $eaparray["UseSystemCAs"] = false;
 
         if ($outerId) {
-            $eaparray["AnonymousIdentity"] = "$outerId";
+            $eaparray["AnonymousIdentity"] = $outerId;
+        }
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $eaparray["Identity"] = $this->clientCert["username"];
         }
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
