@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -111,7 +114,7 @@ switch ($page) {
         break;
     case 'tou':
         print ('no_title');
-        include('tou.php');
+        include(ROOT.'/web/user/tou.php');
         return;
     case 'develop':
         $out = sprintf(_("The most important need is adding new installer modules, which will configure particular devices.  CAT is making this easy for you. If you know how to create an automatic installer then fitting it into CAT should be a piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT documentation</a>."), CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['support-contact']['developer-mail'], 'doc/');
@@ -124,7 +127,7 @@ switch ($page) {
         break;
     case 'faq':
         print ('no_title');
-        include('faq.php');
+        include(ROOT.'/web/user/faq.php');
         return;
     case 'admin' :
         $out = "";

@@ -1,9 +1,13 @@
 <?php
 
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -48,6 +52,15 @@ class CAT extends Entity {
     const RELEASE_VERSION = FALSE;
     const USER_API_VERSION = 2;
 
+    /**
+     * trying to keep up with the name changes of copyright holder and consortia
+     * updating those on *one* place should change display everywhere!
+     */
+    const COPYRIGHT_HOLDER = "DANTE Ltd. and G&Eacute;ANT";
+    const COPYRIGHT_CONSORTIA = "the GN3, GN3+, GN4-1 and GN4-2 consortia";
+    const COPYRIGHT_MIN_YEAR = 2011;
+    const COPYRIGHT_MAX_YEAR = 2017;
+    
     /*
      * This is the user-displayed string; controlled by the four options above
      * It is generated in the constructor.
@@ -83,18 +96,19 @@ class CAT extends Entity {
     public function __construct() {
         parent::__construct();
         $olddomain = $this->languageInstance->setTextDomain("user");
-        $this->CAT_VERSION_STRING = _("Unreleased SVN Revision");
+        $this->CAT_VERSION_STRING = _("Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>");
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
+            $branch = "release_".CAT::VERSION_MAJOR ."_".CAT::VERSION_MINOR;
             if (CAT::VERSION_PATCH != 0) {
                 $temp_version .= "." . CAT::VERSION_PATCH;
             }
             if (CAT::VERSION_EXTRA != "") {
                 $temp_version .= "-" . CAT::VERSION_EXTRA;
             }
-            $this->CAT_VERSION_STRING = sprintf(_("Release %s"), $temp_version);
+            $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/".$branch."/Changes.md", $temp_version);
         }
-        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; 2011-16 Dante Ltd. and G&Eacute;ANT on behalf of the GN3, GN3plus, GN4-1 and GN4-2 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; ".CAT::COPYRIGHT_MIN_YEAR."-".CAT::COPYRIGHT_MAX_YEAR." ". CAT::COPYRIGHT_HOLDER." on behalf of ".CAT::COPYRIGHT_CONSORTIA."; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
         $this->languageInstance->setTextDomain($olddomain);
         
                 /* Federations are created in DB with bootstrapFederation, and listed via listFederations
