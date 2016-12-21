@@ -31,7 +31,7 @@ require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/devices/d
 $langObject = new Language();
 $langObject->setTextDomain("web_user");
 
-$skinObject = new Skinjob("TWOLN");
+$skinObject = new Skinjob("classic");
 
 $page = $_REQUEST['page'];
 
