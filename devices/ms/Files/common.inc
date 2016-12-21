@@ -1049,12 +1049,15 @@ Function PFXCertificateSelectLeave
    ${Else}
       ${NSD_GetText} $Password $0
       !ifdef W8
-      !insertmacro debug_cat 3 'Execute: 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
-      nsExec::ExecToStack 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
+;      !insertmacro debug_cat 3 'Execute: 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
+      nsExec::ExecToStack 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String \"$0\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File \"$Cert_file\" cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}"'
       Pop $1
       Pop $tlsFingerprint
       !insertmacro debug_cat 3 "PFX install returned $1"
       !else
+      nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -Command "&{$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2; try { $cert.Import(\"$Cert_file\", \"$0\", \"Exportable\") } catch { exit 1 }; $cert.Thumbprint}"'
+      Pop $1
+      Pop $tlsFingerprint
       !insertmacro debug_cat 3 'Execute: "certutil" -importpfx -user -p "password_not_recorded" "$Cert_file" NoRoot'
       nsExec::Exec '"certutil" -importpfx -user -p "$0" "$Cert_file" NoRoot'
       Pop $1

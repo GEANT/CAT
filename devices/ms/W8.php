@@ -38,6 +38,10 @@ class Device_W8 extends WindowsCommon {
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
+        $this->loggerInstance->debug(4, "EAPPPP19\n");
+$xxxx= "AAA".print_r($this,TRUE);
+//        $this->loggerInstance->debug(4, "AAA".print_r($this,TRUE));
+        $this->loggerInstance->debug(4, "$xxxx EAPPPP29\n");
 
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
@@ -120,7 +124,7 @@ class Device_W8 extends WindowsCommon {
             }
             $out .= "<p>";
         }
-
+// TODO - change this below
         if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
@@ -515,7 +519,6 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $result = $result && $this->copyFile('cat_150.bmp');
         $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
         $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
-        $result = $result && $this->copyFile('WLANSetEAPUserData64.exe');
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
         if ($eap["OUTER"] == PWD) {
             $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
