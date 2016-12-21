@@ -21,9 +21,8 @@ $langObject->setTextDomain("web_user");
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo dirname($_SERVER['SCRIPT_NAME'])?>/resources/css/cat-user.css"/>
 </head>
-<body>
+<body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
     <div id="heading">
         <?php
         print '<img src="'. dirname($_SERVER['SCRIPT_NAME']) .'/resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';

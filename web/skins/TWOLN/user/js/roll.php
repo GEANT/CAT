@@ -124,11 +124,11 @@ var fTM = 1500;
  */
 ?>
 
-var win8 = new OS('<?php echo _("MS Windows")?>', '<?php echo _("10, 8, 7, Vista") ?>',"resources/images/screenshots/sampleinstaller-win8-english-h234.png",true);
-var mac = new OS('<?php echo _("Apple OS X")?>','10.7+',"resources/images/screenshots/sampleinstaller-mac-english-h234.png",true);
-var android = new OS('<?php echo _("Android")?>','<?php echo _("4.3+") ?>',"resources/images/screenshots/sampleinstaller-android-english-h234.png",false);
-var iphone = new OS('<?php echo _("Apple iOS devices")?>','<?php echo _("iPhone, iPad, iPod touch") ?>',"resources/images/screenshots/sampleinstaller-iphone-english-h234.png",true);
-var linux = new OS('<?php echo _("Linux")?>','<?php echo _("all major distributions") ?>',"resources/images/screenshots/sampleinstaller-linux-english-h234.png",false);
+var win8 = new OS('<?php echo _("MS Windows")?>', '<?php echo _("10, 8, 7, Vista") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-win8-english-h234.png",true);
+var mac = new OS('<?php echo _("Apple OS X")?>','10.7+',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-mac-english-h234.png",true);
+var android = new OS('<?php echo _("Android")?>','<?php echo _("4.3+") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-android-english-h234.png",false);
+var iphone = new OS('<?php echo _("Apple iOS devices")?>','<?php echo _("iPhone, iPad, iPod touch") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-iphone-english-h234.png",true);
+var linux = new OS('<?php echo _("Linux")?>','<?php echo _("all major distributions") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-linux-english-h234.png",false);
 
 
 

@@ -62,7 +62,7 @@ class UserAPI extends CAT {
      */
     public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
         $this->languageInstance->setTextDomain("devices");
-        
+
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $profile = ProfileFactory::instantiate($profileId);
         $attribs = $profile->getCollapsedAttributes();
@@ -89,7 +89,7 @@ class UserAPI extends CAT {
         $installerProperties['profile'] = $profileId;
         $installerProperties['device'] = $device;
         $this->installerPath = $this->getCachedPath($device, $profile);
-        if ($this->installerPath && $token == NULL && $password == NULL ) {
+        if ($this->installerPath && $token == NULL && $password == NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
@@ -180,9 +180,9 @@ class UserAPI extends CAT {
                 continue;
             }
             $count ++;
-            
+
             $deviceProperties['device'] = $device;
-            
+
             $group = isset($deviceProperties['group']) ? $deviceProperties['group'] : 'other';
             if (!isset($returnList[$group])) {
                 $returnList[$group] = [];
@@ -522,6 +522,9 @@ class UserAPI extends CAT {
     }
 
     public function locateUser() {
+        if (CONFIG['GEOIP']['version'] != 1) {
+            return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
+        }
         $host = $_SERVER['REMOTE_ADDR'];
         $record = geoip_record_by_name($host);
         if ($record === FALSE) {
@@ -539,6 +542,9 @@ class UserAPI extends CAT {
     }
 
     public function locateUser2() {
+        if (CONFIG['GEOIP']['version'] != 2) {
+            return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
+        }
         require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
         $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
         $host = $_SERVER['REMOTE_ADDR'];

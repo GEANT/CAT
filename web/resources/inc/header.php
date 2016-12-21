@@ -9,41 +9,8 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("Helper.php");
 require_once("Language.php");
+require_once("Skinjob.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
-
-/**
- * constructs a URL to the main resources (CSS and LOGO)
- * 
- * @param string $resourcetype which type of resource do we need a URL for? CSS or LOGO?
- * @return string the URL to the resource
- * @throws Exception if something went wrong during the URL construction
- */
-
-function findResourceUrl($resourcetype) {
-    switch ($resourcetype) {
-        case "CSS":
-            $path = "/resources/css/cat.css.php";
-            break;
-        case "LOGO":
-            $path = "/resources/images/consortium_logo.png";
-            break;
-        default:
-            throw new Exception("findResourceUrl: unknown type of resource requested");
-    }
-    $url = "//" . valid_host($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
-    if ($url === FALSE) {
-        throw new Exception("We don't know our own hostname?!");
-    }
-    // we need to construct the right path to the file; we are either
-    // in the admin area or on the main index.php ...
-    if (strpos($_SERVER['PHP_SELF'], "admin/") !== FALSE) {
-        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . $path;
-    }
-    if (strpos($_SERVER['PHP_SELF'], "diag/") !== FALSE) {
-        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/")) . $path;
-    }
-    return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $path;
-}
 
 /**
  * This starts HTML in a default way. Most pages would call this.
@@ -80,7 +47,8 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
           <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
-    $cssUrl = findResourceUrl("CSS");
+    $skinObject = new Skinjob("");
+    $cssUrl = $skinObject->findResourceUrl("CSS")."cat.css.php";
 
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -118,7 +86,8 @@ function headerDiv($cap1, $language) {
                 </form>
             </div><!--langselection-->
             <?php
-            $logoUrl = findResourceUrl("LOGO");
+            $skinObject = new Skinjob("");
+            $logoUrl = $skinObject->findResourceUrl("IMAGES")."/consortium_logo.png";
             ?>
             <div class='consortium_logo'>
                 <img id='test_locate' src='<?php echo $logoUrl; ?>' alt='Consortium Logo'>

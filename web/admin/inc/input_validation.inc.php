@@ -12,6 +12,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once('Options.php');
 require_once('DBConnection.php');
 require_once('ProfileFactory.php');
+require_once('Federation.php');
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
@@ -20,10 +21,13 @@ function input_validation_error($customtext) {
     return "<p>" . _("Input validation error: ") . $customtext . "</p>";
 }
 
-function valid_Fed($input, $owner) {
+function valid_Fed($input, $owner = NULL) {
 
     $temp = new Federation($input);
-
+    if ($owner == NULL) {
+        return $temp;
+    }
+    
     foreach ($temp->listFederationAdmins() as $oneowner) {
         if ($oneowner == $owner) {
             return $temp;

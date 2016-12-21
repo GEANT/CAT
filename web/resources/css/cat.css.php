@@ -743,13 +743,6 @@ span.redirect_link a:active {
     font-style: normal;
 }
 
-.device_list button.more_info_b {
-    width: 23px; 
-    background-image:url("../images/icons/info_s.png");
-    background-repeat:no-repeat;
-    background-position: 2px 0px; 
-}
-
 .device_list td {
     vertical-align:middle;
 }

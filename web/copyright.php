@@ -18,9 +18,8 @@ require_once("resources/inc/footer.php");
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head lang="en"> 
         <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat.css.php" />
-        <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat-user.css" />
     </head>
-    <body>
+    <body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
         <div id="heading">
             <?php
             print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';

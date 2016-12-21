@@ -56,6 +56,7 @@ const CONFIG = [
         // in "About CAT" then)
         'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
         'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
+        'skins' => ["TWOLN", "example"],
     ],
 
     /**

@@ -18,15 +18,20 @@
  * the receiving end to strip this marker and not add the title by itself.
  *
  */
-include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once(dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php");
 require_once("Language.php");
 require_once("EAP.php");
-require_once(dirname(dirname(__FILE__)) . "/admin/inc/input_validation.inc.php");
-require_once(dirname(dirname(__FILE__)) . "/admin/inc/common.inc.php");
-require_once(dirname(dirname(dirname(__FILE__))) . "/devices/devices.php");
+require_once("Helper.php");
+require_once("DeviceFactory.php");
+require_once("Skinjob.php");
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/common.inc.php");
+require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/devices/devices.php");
 
 $langObject = new Language();
 $langObject->setTextDomain("web_user");
+
+$skinObject = new Skinjob("TWOLN");
 
 $page = $_REQUEST['page'];
 
@@ -58,14 +63,14 @@ switch ($page) {
                     continue;
                 }
             }
-            $out .= "<tr><td class='vendor'><img src='resources/images/vendorlogo/" . $onedevice['group'] . ".png' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
+            $out .= "<tr><td class='vendor'><img src='". (new Skinjob(""))->findResourceUrl("IMAGES")."vendorlogo/" . $onedevice['group'] . ".png' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new DeviceFactory($index);
             foreach (EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
                 if (in_array($oneeap, $device_instance->device->supportedEapMethods)) {
-                    $out .= "<img src='resources/images/icons/Quetto/check-icon.png' alt='SUPPORTED'>";
+                    $out .= "<img src='". $skinObject->findResourceUrl("IMAGES") . "icons/Quetto/check-icon.png' alt='SUPPORTED'>";
                 } else {
-                    $out .= "<img src='resources/images/icons/Quetto/no-icon.png' alt='UNSUPPOERTED'>";
+                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES") . "icons/Quetto/no-icon.png' alt='UNSUPPOERTED'>";
                 }
                 $out .= "</td>";
             }
