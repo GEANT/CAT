@@ -83,16 +83,17 @@ class CAT extends Entity {
     public function __construct() {
         parent::__construct();
         $olddomain = $this->languageInstance->setTextDomain("user");
-        $this->CAT_VERSION_STRING = _("Unreleased SVN Revision");
+        $this->CAT_VERSION_STRING = _("Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>");
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
+            $branch = "release_".CAT::VERSION_MAJOR ."_".CAT::VERSION_MINOR;
             if (CAT::VERSION_PATCH != 0) {
                 $temp_version .= "." . CAT::VERSION_PATCH;
             }
             if (CAT::VERSION_EXTRA != "") {
                 $temp_version .= "-" . CAT::VERSION_EXTRA;
             }
-            $this->CAT_VERSION_STRING = sprintf(_("Release %s"), $temp_version);
+            $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/".$branch."/Changes.md", $temp_version);
         }
         $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; 2011-16 Dante Ltd. and G&Eacute;ANT on behalf of the GN3, GN3plus, GN4-1 and GN4-2 consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
         $this->languageInstance->setTextDomain($olddomain);
