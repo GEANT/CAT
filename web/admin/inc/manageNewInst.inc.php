@@ -1,10 +1,11 @@
 <?php
-/*
- * ******************************************************************************
- * *  Copyright 2011-13 DANTE Ltd. on behalf of the GN3 and GN3plus consortia
- * ******************************************************************************
- * *  License: see the LICENSE file in the root directory of this release
- * ******************************************************************************
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
  */
 ?>
 <?php
