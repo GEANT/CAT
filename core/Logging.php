@@ -46,11 +46,8 @@ class Logging {
             return;
         }
         
-        ob_start();
-        print " ($level) ";
-        print_r($text);
-        $output = ob_get_clean();
-
+        $output = " ($level) ";
+        $output .= print_r($text, TRUE);
         $this->writeToFile("debug.log", $output);
 
         return;
