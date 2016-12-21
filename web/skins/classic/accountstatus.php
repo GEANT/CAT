@@ -81,7 +81,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='".$skinObject-
             
             echo "<p>We will issue your login credential now.</p>";
             $importPassword = random_str(6);
-            $profile = new ProfileSilverbullet($statusInfo['profile'], NULL);
+            $profile = new ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
             echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
             echo "<h1>Import Password: $importPassword</h1>";
             echo "<form action='download.php' method='POST'>";
