@@ -113,11 +113,11 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function __construct($profileId, $idpObject = NULL) {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our database handle and logging
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         // first make sure that we are operating on numeric identifiers
         if (!is_numeric($profileId)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstarctProfile constructor!");
         }
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
