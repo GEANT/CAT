@@ -32,6 +32,9 @@ $loggerInstance = new Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, print_r($operatingSystem, true));
 
+
+
+
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 echo "<link rel='stylesheet' media='screen' type='text/css' href='".$skinObject->findResourceUrl("CSS",true)."cat-user.css' />";
 ?>
@@ -54,8 +57,6 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='".$skinObject-
         ?>
     </div> <!-- id="heading" -->
     <?php
-    $cleanToken = FALSE;
-    $tokenStatus = SB_TOKENSTATUS_INVALID; // default
 
     if (!$statusInfo['token']) {
         // user came to page without a token.
@@ -97,7 +98,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='".$skinObject-
             echo "<input type='hidden' name='generatedfor' value='user'/>";
             echo "<button type='submit'>" . _("Click here to download your installer!") . "</button>";
             echo "</form>";
-            echo "<pre>" . print_r($installer, TRUE) . "</pre>";
+           echo "<pre>" . print_r($installer, TRUE) . "</pre>";
 
             break;
         case SB_TOKENSTATUS_REDEEMED:
