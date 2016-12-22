@@ -38,7 +38,6 @@ ${If} $WindowsVer == 7
 File "w7/*lan_prof*.xml"
 ${EndIf}
 !endif
-Call InstallGEANTLinkCred
 ${If} $wireless_result == 0
 Call CheckWirelessProfiles
 Call CreateWirelessProfiles
@@ -47,6 +46,7 @@ ${EndIf}
 ${If} $wired == 1
   Call CreateLanProfile
 ${EndIf}
+Call InstallGEANTLinkCred
 SendMessage $HWNDPARENT "0x408" "1" ""
 Sleep 2000
 SectionEnd
@@ -74,23 +74,28 @@ Function InstallGEANTLink
   DetailPrint "Install GEANTLink installer"
   MessageBox MB_OK  "<?php echo_nsi( _("An additional piece of software 'GEANTlink' needs to be installed. This installation requires Administrator rights; you will be prompted to give permission for that action."))?>"
   !insertmacro debug_cat 1 "Run GEANTLink installer"
-  !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink$Platform.msi"'
+  !insertmacro debug_cat 3 'Execute: msiexec.exe /i "$OUTDIR\GEANTLink$Platform.msi" REBOOT=Supress'
   ClearErrors
-  ExecWait '$Msiexec.exe /i "$TEMP\GEANTLink$Platform.msi" /qb' $0
+  ExecWait '$Msiexec.exe /i "$TEMP\GEANTLink$Platform.msi" /qb REBOOT=Supress' $0
   !insertmacro debug_cat 4 "GEANTLink returned $0"
   StrCmp $0 0 Cont2
+  ${If} $0 == 3010
+  Push 1
+  Pop $rebootRequired
+  ${Else}
   MessageBox MB_OK "<?php echo_nsi( _("Error installing GEANTLink.\$\\nEmbedded installer didn't complete succesfully."))?>"
   Quit
+  ${EndIf}
   Cont2:
+  !insertmacro debug_cat 3 'Insert key "SOFTWARE\GÉANT\GÉANTLink" "Language" "${LOCALE}"'
+  WriteRegStr HKCU "SOFTWARE\GÉANT\GÉANTLink" "Language" "${LOCALE}"
 FunctionEnd
 
 ; Install credentials
 Function InstallGEANTLinkCred
-  Push "CATinstaller"
-  Pop $GL_Profile_id
-  DetailPrint "<?php echo_nsi(_("installing credentials for \$GL_Profile_id"))?>"
-  !insertmacro debug_cat 3 "Execute: $TEMP\CredWrite.exe $\"$UNAME_B64$\" $\"base_64_password_not_recorded$\" $\"$GL_Profile_id$\""
-  nsExec::Exec "$TEMP\CredWrite.exe $\"$UNAME_B64$\" $\"$PASS_B64$\" $\"$GL_Profile_id$\""
+  DetailPrint "<?php echo_nsi(_("installing credentials for \${PROVIDERID}"))?>"
+  !insertmacro debug_cat 3 "Execute: $TEMP\CredWrite.exe $\"$UNAME_B64$\" $\"base_64_password_not_recorded$\" $\"${PROVIDERID}$\" 1"
+  nsExec::Exec "$TEMP\CredWrite.exe $\"$UNAME_B64$\" $\"$PASS_B64$\" $\"${PROVIDERID}$\" 1"
   Pop $0
   !insertmacro debug_cat 3 "CredWrite.exe returned $0"
   StrCmp $0 0 Cont1

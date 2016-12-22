@@ -514,6 +514,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
+!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -538,6 +539,9 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
             $fcontents .= '!define WIRED
 ';
         }
+        $fcontents .= '!define PROVIDERID "urn:UUID:'.$this->deviceUUID.'"
+';
+
 
         $fileHandle = fopen('main.nsh', 'w');
         fwrite($fileHandle, $fcontents);
