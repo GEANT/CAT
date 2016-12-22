@@ -21,7 +21,7 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 automatic issuance of EAP-TLS based user credentials
                 this feature is complemented by a RADIUS server for validation
                 of these credentials. Currently supported target platforms:
-                Win7+, MacOS X, macOS, iOS, ChromeOS [missing Linux, Android]
+                Win7+, MacOS X, macOS, iOS, ChromeOS, Linux [missing Android]
 - [FEATURE #11] provide a link to the ChangeLog on the front page (click on
                 version number in footer)
 
