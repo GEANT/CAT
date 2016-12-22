@@ -29,6 +29,7 @@ Var HEADLINE_FONT
         !include "WordFunc.nsh"
         !include "FileFunc.nsh"
         !include "x64.nsh"
+        !include "WinVer.nsh"
 SetCompressor bzip2
 !ifdef WIRED
    !ifdef EXECLEVEL
@@ -66,6 +67,7 @@ Var Platform
 Var Netsh
 Var Msiexec
 Var main_ssid
+Var rebootRequired
 !ifdef SILVERBULLET
   !define CRED
   !define TLS_CRED
@@ -289,6 +291,8 @@ Function .onInit
   Pop $wired
   Push 0
   Pop $force_wired
+  Push 0
+  Pop $rebootRequired
   !include "profiles.nsh"
   IntOp $profile_count $profile_count - 1
   File "wlan_test.exe"
@@ -493,68 +497,56 @@ FunctionEnd
 ;  Check for Windows Version
 ;
 Function wVersionCheck
-  Push 0
-  Pop $VistaNoSP
-  GetVersion::WindowsName
+  ${If} ${AtLeastWin10}
+     Push 8
+     Push "Windows 10"
+  ${ElseIf} ${IsWin8.1}
+     Push 8
+     Push "Windows 8.1"
+  ${ElseIf} ${IsWin8}
+     Push 8
+     Push "Windows 8"
+  ${ElseIf} ${IsWin7}
+     Push 7
+     Push "Windows 7"
+  ${ElseIf} ${IsWinVista}
+     Push 6
+     Push "Windows Vista"
+  ${Else}
+     Push 5
+     Push "Windows XP" ; this is not really nice, we actually assume that everything below Vista is XP
+  ${EndIf}
   Pop $WindowsName
-  GetVersion::WindowsVersion
-  Pop $R0
-  GetVersion::WindowsServicePackBuild
-  Pop $R1
-  ${VersionCompare} "$R0" "6.2" $R5
-!ifdef W8
-  ${If} $R5 == 2
+  Pop $WindowsVer
+  !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer"
+  ${If} ${IsWinVista}
+     ${If} ${AtLeastServicePack} 1
+        Push 0
+     ${Else}
+        Push 1
+     ${EndIf}
+  ${Else}
+     Push 0
+  ${EndIf}
+  Pop $VistaNoSP
+
+
+  !ifdef W8
+  ${If} ${AtMostWin7}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
-!ifndef ALLOW_LOW_VERSION
-    Call Cleanup
-!endif
+    !ifndef ALLOW_LOW_VERSION
+        Call Cleanup
+    !endif
   ${EndIf}
-  Push 8
-  Pop $WindowsVer
-!else
-  ${If} $R5 < 2
+  !else
+  ${If} ${AtMostWinXP}
+  ${OrIf} ${AtLeastWin8}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows Vista and Windows 7. Please download the correct installer and try again."))?>"
     Call Cleanup
   ${EndIf}
-  ${VersionCompare} "$R0" "6.0" $R5
-  ${If} $R5 < 2
-    ${If} $R1 >= 7000
-      Push 1
-      Pop $W7
-      Push 7
-      Pop $WindowsVer
-    ${ElseIf} $R1 >= 6001
-      Push 0
-      Pop $W7
-      Push 6
-      Pop $WindowsVer
-    ${Else}
-      Push 0
-      Pop $W7
-      Push 1
-      Pop $VistaNoSP
-      Push 6
-      Pop $WindowsVer
-    ${EndIf}
-  ${EndIf}
-  !insertmacro debug_cat 3 "VistaNoSP:$VistaNoSP; W7:$W7"
-
-  System::Call kernel32::GetVersion()i.s
-  Pop $R0
-  !insertmacro debug_cat 3 "Version $R0"
-  IntOp $R1 $R0 & 0xff
-  !insertmacro debug_cat 3 "Version $R1"
-  ${If} $R1 < 6
-    IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows Vista and Windows 7. Please download the correct installer and try again."))?>"
-!ifndef ALLOW_XP
-    Call Cleanup
-!endif
-  ${EndIf}
-!endif
-   !insertmacro debug_cat 3 "WindowsVer:$WindowsVer"
+  !endif
 FunctionEnd
 
 ; Check if wireless intefaces and service are running
@@ -564,13 +556,12 @@ Function Wireless_Check
   nsExec::Exec "$TEMP\wlan_test.exe"
   Pop $wireless_result
   !insertmacro debug_cat 3 "wlan_test.exe returned $wireless_result"
-  ${If} $wireless_result > 0 
+  ${If} $wireless_result > 0
      !insertmacro debug_cat 2 "Wireless problem: $wireless_result"
   ${Else}
      !insertmacro debug_cat 2 "Wireless check OK"
   ${EndIf}
 FunctionEnd
-
 
 ; If a wireless problem has been found, decide what to do
 Function NoWirelessConfirm
@@ -778,8 +769,12 @@ Call ShowAllButtons
   ${Else}
      nsDialogs::CreateControl STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 120u 32u -130u -32u "${FAREWELL_TEXT}"
   ${EndIf}
-     Pop $TEXT
-     SetCtlColors $TEXT "" 0xffffff
+  ${If} $rebootRequired == 1
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi(_("Please restart your system after installation finishes."))?>"
+  ${EndIf}
+
+  Pop $TEXT
+  SetCtlColors $TEXT "" 0xffffff
   SetCtlColors $DIALOG "" 0xffffff
   SetCtlColors $HEADLINE "" 0xffffff
 
