@@ -116,6 +116,8 @@ abstract class DeviceConfig extends Entity {
             throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
+        $this->deviceUUID = uuid('','CAT'.$profile->institution."-".$profile->identifier."-".$this->device_id);
+
 
         // if we are instantiating a Silverbullet profile AND have been given
         // a token, attempt to create the client certificate NOW
@@ -663,5 +665,11 @@ abstract class DeviceConfig extends Entity {
      * stores the PKCS#12 DER representation of a client certificate for SilverBullet
      */
     protected $clientCert;
+
+    /**
+     * stores identifier used by GEANTLink profiles
+     */
+    public static $deviceUUID;
+
 
 }
