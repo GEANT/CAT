@@ -41,11 +41,6 @@ class Device_W8 extends WindowsCommon {
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
-        $this->loggerInstance->debug(4, "EAPPPP19\n");
-$xxxx= "AAA".print_r($this,TRUE);
-//        $this->loggerInstance->debug(4, "AAA".print_r($this,TRUE));
-        $this->loggerInstance->debug(4, "$xxxx EAPPPP29\n");
-
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
@@ -454,6 +449,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
+!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
