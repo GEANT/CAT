@@ -157,7 +157,9 @@ class UserAPI extends CAT {
                 $this->installerPath = $dev->FPATH . '/' . $installer;
                 rename($iPath, $this->installerPath);
                 $profile->updateCache($device, $this->installerPath, $out['mime']);
-                rrmdir($dev->FPATH . '/tmp');
+                if (CONFIG['DEBUG_LEVEL'] < 4) {
+                   rrmdir($dev->FPATH . '/tmp');
+                }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device\n");
                 $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
             } else {
