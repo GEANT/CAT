@@ -89,7 +89,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='".$skinObject-
             $profile = new ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
             echo "<p>You will be prompted for an import password for your credential. This only happens ONCE. You do not have to write down this password. You can not re-use the installation program on a different device.</p>";
             echo "<h1>Import Password: $importPassword</h1>";
-            echo "<form action='download.php' method='POST'>";
+            echo "<form action='user/sb_download.php' method='POST'>";
             echo "<input type='hidden' name='profile' value='" . $statusInfo['profile']->identifier . "'/>";
             echo "<input type='hidden' name='idp' value='" . $statusInfo['profile']->institution . "'/>";
             $_SESSION['individualtoken'] = $cleanToken;
