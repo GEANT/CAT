@@ -9,20 +9,24 @@
  */
 ?>
 <?php 
+function escaped_echo($s) {
+   echo preg_replace('/"/','&quot;',$s);
+}
 require_once("Language.php");
 require_once("Helper.php");
 require_once("Skinjob.php");
 
 $langObject = new Language();
 $langObject->setTextDomain('web_user');
-$idpId = $_REQUEST['idp'] ?? 0;
+$idpId = empty($_REQUEST['idp']) ? 0 : $_REQUEST['idp'];
 if (! is_numeric($idpId)) {
     exit;
 }
-$profileId = $_REQUEST['profile'] ?? 0;
+$profileId = empty($_REQUEST['profile']) ? 0 : $_REQUEST['profile'];
 if (! is_numeric($profileId)) {
     exit;
-} ?>
+}
+ ?>
 var n;
 var profile;
 // var device_button_bg ="#0a698e";
@@ -38,7 +42,7 @@ var front_page = 1;
 var download_link;
 var target_element;
 var profile_list_size = <?php echo $profile_list_size ?>;
-var generation_error = "<?php echo _("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.") ?>";
+var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
 
    $.fn.redraw = function(){
   $(this).each(function(){
@@ -74,7 +78,7 @@ var generation_error = "<?php echo _("This is embarrassing. Generation of your i
     j = $.parseJSON(data);
     result = j.status;
     if(! result) {
-      alert("<?php echo _("no matching data found")?>");
+      alert("<?php escaped_echo(_("no matching data found"))?>");
       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/'?>';
     }
     j = j.data;
@@ -83,12 +87,12 @@ var generation_error = "<?php echo _("This is embarrassing. Generation of your i
     inst_name = j[0].idp_name;
     logo = j[0].logo;
     $("#inst_name").val(inst_name);
-    $("#inst_name_span").html("<?php echo _("Selected institution:")?> <strong>"+inst_name+"</strong>");
+    $("#inst_name_span").html("<?php escaped_echo(_("Selected institution:"))?> <strong>"+inst_name+"</strong>");
     $(".inst_name").text(inst_name);
     $("#user_page").show();
     $("#institution_name").show();
     if(n > profile_list_size)
-    $("#profile_list").append('<option value="0" selected style="color:red"> --<?php echo _("select")?> --</option>');
+    $("#profile_list").append('<option value="0" selected style="color:red"> --<?php escaped_echo(_("select"))?> --</option>');
     $.each(j,printP);
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
@@ -203,15 +207,15 @@ function resetDevices() {
          $("#profile_desc").text('');
        }
        if(j.local_url !== undefined && j.local_url) 
-         txt = txt+'<tr><td><?php echo _("WWW:");?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
+         txt = txt+'<tr><td><?php escaped_echo(_("WWW:"));?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
        if(j.local_email !== undefined && j.local_email) 
-         txt = txt+'<tr><td><?php echo _("email:");?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
+         txt = txt+'<tr><td><?php escaped_echo(_("email:"));?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
        if(j.local_phone !== undefined && j.local_phone) 
-         txt = txt+'<tr><td><?php echo _("tel:");?></td><td>'+j.local_phone+'</td></tr>';
+         txt = txt+'<tr><td><?php escaped_echo(_("tel:"));?></td><td>'+j.local_phone+'</td></tr>';
        if(txt) 
-         txt = "<table><tr><th colspan='2'><?php echo _("If you encounter problems, then you can obtain direct assistance from you home organisation at:"); ?></th></tr>"+txt+'</table>';
+         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems, then you can obtain direct assistance from you home organisation at:")); ?></th></tr>"+txt+'</table>';
         else 
-         txt = "<table><tr><th colspan='2'><?php echo _("If you encounter problems you should ask for help at your home institution"); ?>.</th></tr></table>";
+         txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask for help at your home institution")); ?>.</th></tr></table>";
       $("#user_info").html(txt);
       $("#user_info").show();
       resetDevices();
@@ -224,7 +228,7 @@ function resetDevices() {
           $("#g_"+v.id).addClass('alertButton');
           $("#cross_icon_"+v.id).show();
           $("#"+v.id).addClass('disabledDevice');
-          $("#download_button_header_"+v.id).html("<?php echo _("This device cannot be configured with settings provided by your institution")?>");
+          $("#download_button_header_"+v.id).html("<?php escaped_echo(_("This device cannot be configured with settings provided by your institution"))?>");
           $("#info_b_"+v.id+",#g_info_b_"+v.id).hide();
         } else  {
           if(v.status == -1)
@@ -236,7 +240,7 @@ function resetDevices() {
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
-            t = "<?php echo _("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab.")?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php echo _("Continue");?></a></span>";
+            t = "<?php escaped_echo(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php escaped_echo(_("Continue"));?></a></span>";
             i_div.html(t);
             $(".redirect_link").click(function(event) {
                i_div.hide();
@@ -244,13 +248,13 @@ function resetDevices() {
                
           });
         } else if(v.device_customtext != '0' || v.eap_customtext != '0' || v.message != '0' || v.status > 0) {
-          var continue_text = "<?php echo _("Continue");?>";
+          var continue_text = "<?php escaped_echo(_("Continue"));?>";
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
             if(v.status > 0) {
-              t = "<?php echo _("This device cannot be configured with settings provided by your institution")?>";
-              continue_text = "<?php echo _("Close");?>";
+              t = "<?php escaped_echo(_("This device cannot be configured with settings provided by your institution"))?>";
+              continue_text = "<?php escaped_echo(_("Close"));?>";
             } else {
             t = i_div.html();
             if(v.message != '0') {
@@ -481,7 +485,7 @@ $(document).ready(function(){
   $(window).resize(set_front_page);
   resetDevices();
  <?php 
-if ($reqiestId) {
+if ($profileId) {
     print "listProfiles($idpId,$profileId);";
 }
  ?>
@@ -507,25 +511,25 @@ $(".signin").DiscoJuice({
    "iconPath":"user/API.php?action=sendLogo&api_version=2&disco=1&lang=en&idp=",
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
-   "title":"<?php echo _("Home institution") ?>",
-   "subtitle":"<?php echo _("Select your <strong>institution<\/strong>") ?>",
-   "textHelp": "<?php echo _("Help, my institution is not on the list") ?>",
-   "textHelpMore": "<?php echo sprintf(_("This system relies on information supplied by local %s administrators. If your institution is not on the list, then nag them to add information to the %s database."),CONFIG['CONSORTIUM']['name'],CONFIG['APPEARANCE']['productname']); ?>",
-   "textLocateMe": "<?php echo _("Locate me more accurately using HTML5 Geo-Location") ?>",
-   "textShowProviders": "<?php echo _("Show institutions in") ?>",
-   "textAllCountries": "<?php echo _("all countries") ?>",
-   "textSearch" : "<?php echo _("or search for an institution, in example Univerity of Oslo") ?>",
-   "textShowAllCountries": "<?php echo _("show all countries") ?>",
-   "textLimited1" : "<?php echo _("Results limited to")?>",
-   "textLimited2" : "<?php echo _("entries - show more")?>",
-   "textNearby" : "<?php echo _("Nearby")?>",
-   "geoLoc_timeout" : "<?php echo _("Location timeout")?>",
-   "geoLoc_posUnavailable" : "<?php echo _("Could not get your position")?>",
-   "geoLoc_permDenied" : "<?php echo _("Your browser has denied access to your location")?>",
-   "geoLoc_unknownError" : "<?php echo _("Unknown location error")?>",
-   "geoLoc_here" : "<?php echo _("You are here:")?>",
-   "geoLoc_getting" : "<?php echo _("Getting your location...")?>",
-   "geoLoc_nearby" : "<?php echo _("Nearby providers shown on top.")?>",
+   "title":"<?php escaped_echo(_("Home institution")) ?>",
+   "subtitle":"<?php escaped_echo(_("Select your <strong>institution<\/strong>")) ?>",
+   "textHelp": "<?php escaped_echo(_("Help, my institution is not on the list")) ?>",
+   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your institution is not on the list, then nag them to add information to the %s database."),CONFIG['CONSORTIUM']['name'],CONFIG['APPEARANCE']['productname'])); ?>",
+   "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
+   "textShowProviders": "<?php escaped_echo(_("Show institutions in")) ?>",
+   "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
+   "textSearch" : "<?php escaped_echo(_("or search for an institution, in example Univerity of Oslo")) ?>",
+   "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
+   "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
+   "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",
+   "textNearby" : "<?php escaped_echo(_("Nearby"))?>",
+   "geoLoc_timeout" : "<?php escaped_echo(_("Location timeout"))?>",
+   "geoLoc_posUnavailable" : "<?php escaped_echo(_("Could not get your position"))?>",
+   "geoLoc_permDenied" : "<?php escaped_echo(_("Your browser has denied access to your location"))?>",
+   "geoLoc_unknownError" : "<?php escaped_echo(_("Unknown location error"))?>",
+   "geoLoc_here" : "<?php escaped_echo(_("You are here:"))?>",
+   "geoLoc_getting" : "<?php escaped_echo(_("Getting your location..."))?>",
+   "geoLoc_nearby" : "<?php escaped_echo(_("Nearby providers shown on top."))?>",
    "countryAPI":"user/API.php?action=locateUser&api_version=2",
    "metadata":"user/API.php?action=listAllIdentityProviders&api_version=2&lang="+lang,
    "callback": function(e) {
