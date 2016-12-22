@@ -30,7 +30,7 @@ $languageInstance = new Language();
 $languageInstance->setTextDomain("web_user");
 $loggerInstance = new Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
-$loggerInstance->debug(4, print_r($operatingSystem, true));
+$loggerInstance->debug(4, $operatingSystem, true);
 
 
 
