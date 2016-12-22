@@ -24,6 +24,8 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 Win7+, MacOS X, macOS, iOS, ChromeOS, Linux [missing Android]
 - [FEATURE #11] provide a link to the ChangeLog on the front page (click on
                 version number in footer)
+- [FEATURE #12] use API.php consistently for all installer downloads (the already
+                previously declared obsolete download.php is gone)
 
 Configuration parameter changes
 -------------------------------
