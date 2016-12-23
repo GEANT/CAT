@@ -8,7 +8,7 @@ class CompositeTagTest extends \PHPUnit_Framework_TestCase{
     
     private $tag;
     
-    protected function setup(){
+    protected function setUp(){
         $this->compositeTag = new CompositeTag('div');
         $this->tag = new Tag('p');
     }
