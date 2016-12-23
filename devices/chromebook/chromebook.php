@@ -76,6 +76,14 @@ require_once('EAP.php');
 class Device_Chromebook extends DeviceConfig {
 
     /**
+     * Number of iterations for the PBKDF2 function. 
+     * 20000 is the minimum as per ChromeOS ONC spec
+     * 500000 is the maximum as per Chromium source code
+     * https://cs.chromium.org/chromium/src/chromeos/network/onc/onc_utils.cc?sq=package:chromium&dr=CSs&rcl=1482394814&l=110
+     */
+    const PBKDF2_ITERATIONS = 20000;
+    
+    /**
      * Constructs a Device object.
      *
      * @final not to be redefined
@@ -199,22 +207,24 @@ class Device_Chromebook extends DeviceConfig {
         $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $finalJson = $clearJson;
         // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
-        if (FALSE && $this->selectedEap == EAPTYPE_SILVERBULLET) { // TODO don't encrypt yet... see if we got the internal structure right
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
             $salt = random_str(12);
-            $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, 20000, 32, TRUE); // the spec is not clear: should we use SHA-1 for the PBKDF2? It only speaks of SHA-1 for the HMAC
+            $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's AES. But that appears unsupported by PHP???
             $iv = openssl_random_pseudo_bytes(16, $strong);
-            $cryptoJson = openssl_encrypt($this->pkcs7_pad($clearJson, 16), 'AES-256-CBC', $encryption_key, 0, $iv);
-            $hmac = sha1($cryptoJson);
+            $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryption_key, OPENSSL_RAW_DATA, $iv);
+            $hmac = hash_hmac("sha1", $cryptoJson, $encryption_key, TRUE);
 
+            $this->loggerInstance->debug(4,"Clear = $clearJson\nSalt = $salt\nPW = ".$this->clientCert['importPassword']."\nb(IV) = ".base64_encode($iv)."\nb(Cipher) = ".base64_encode($cryptoJson)."\nb(HMAC) = ".base64_encode($hmac));
+            
             // now, generate the container that holds all the crypto data
             $finalArray = [
                 "Cipher" => "AES256",
-                "CipherText" => base64_encode($cryptoJson),
-                "HMAC" => $hmac,
+                "Ciphertext" => base64_encode($cryptoJson),
+                "HMAC" => base64_encode($hmac), // again by reading source code! And why?
                 "HMACMethod" => "SHA1",
-                "Salt" => $salt,
+                "Salt" => base64_encode($salt), // this is B64 encoded, but had to read Chromium source code to find out! Not in the spec!
                 "Stretch" => "PBKDF2",
-                "Iterations" => 20000,
+                "Iterations" => Device_Chromebook::PBKDF2_ITERATIONS,
                 "IV" => base64_encode($iv),
                 "Type" => "EncryptedConfiguration",
             ];
