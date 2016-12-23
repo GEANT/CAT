@@ -69,7 +69,7 @@ class CSVParser {
      * @return boolean Is file data valid
      */
     protected function validate($fileData){
-        if(empty($fileData) || empty($fileData['tmp_name']) || $fileData['error']>0){
+        if(empty($fileData) || empty($fileData['name']) || empty($fileData['tmp_name']) || $fileData['error']>0){
             $this->state = false;
         }
         

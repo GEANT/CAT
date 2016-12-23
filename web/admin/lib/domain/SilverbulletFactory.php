@@ -53,18 +53,8 @@ class SilverbulletFactory {
     public function parseRequest(){
         if(isset($_POST[self::COMMAND_ADD_USER]) && !empty($_POST[self::COMMAND_ADD_USER]) && isset($_POST[self::PARAM_EXPIRY])){
             $this->createUser($this->profile->identifier, $_POST[self::COMMAND_ADD_USER], $_POST[self::PARAM_EXPIRY]);
-        }elseif (isset($_FILES[self::COMMAND_ADD_USERS]) && !empty($_FILES[self::COMMAND_ADD_USERS]['name'])){
-            $parser = new CSVParser($_FILES[self::COMMAND_ADD_USERS], "\n", ',');
-            while($parser->hasMoreRows()){
-                $row = $parser->nextRow();
-                if(isset($row[0]) && isset($row[1])){
-                    $user = $this->createUser($this->profile->identifier, $row[0], $row[1]);
-                    $max = empty($row[2]) ? 1 : $row[2];
-                    for($i=0; $i<$max; $i++){
-                        $this->createCertificate($user);
-                    }
-                }
-            }
+        }elseif (isset($_FILES[self::COMMAND_ADD_USERS])){
+            $this->createUsersFromFile();
         }elseif (isset($_POST[self::COMMAND_DELETE_USER])){
             $user = SilverbulletUser::prepare($_POST[self::COMMAND_DELETE_USER]);
             $user->delete();
@@ -121,7 +111,26 @@ class SilverbulletFactory {
         return $certificate;
     }
     
+    /**
+     * 
+     */
+    public function createUsersFromFile(){
+        $parser = new CSVParser($_FILES[self::COMMAND_ADD_USERS], "\n", ',');
+        while($parser->hasMoreRows()){
+            $row = $parser->nextRow();
+            if(isset($row[0]) && isset($row[1])){
+                $user = $this->createUser($this->profile->identifier, $row[0], $row[1]);
+                $max = empty($row[2]) ? 1 : $row[2];
+                for($i=0; $i<$max; $i++){
+                    $this->createCertificate($user);
+                }
+            }
+        }
+    }
     
+    /**
+     * 
+     */
     private function redirectAfterSubmit(){
         if(isset($_SERVER['REQUEST_URI'])){
             $location = $this->addQuery($_SERVER['SCRIPT_NAME']);
