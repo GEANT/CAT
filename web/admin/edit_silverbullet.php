@@ -29,6 +29,9 @@ use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
 use lib\view\UserCredentialsForm;
+use lib\view\FileUploadForm;
+use lib\view\TitledBlockDecorator;
+use lib\view\PageElement;
 
 authenticate();
 
@@ -72,6 +75,11 @@ if($builder->isReady()){
     $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletFactory::STATS_ACTIVE]));
     $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletFactory::STATS_PASSIVE]));
     $builder->addContentElement($infoBlock);
+
+    //User import form preparation
+    $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of invitations (optional):'));
+    $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElement::INFOBLOCK_CLASS);
+    $builder->addContentElement($importBlock);
     
     //Edit form data preparation
     $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory, count($users) > 0);
@@ -84,6 +92,7 @@ if($builder->isReady()){
     }
     
     $builder->addContentElement($editBlock);
+    
 }
 
 

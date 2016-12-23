@@ -5,7 +5,7 @@ class ButtonTest extends \PHPUnit_Framework_TestCase{
     
     private $title;
     
-    protected function setup(){
+    protected function setUp(){
         $this->title = 'Some title';
     }
     

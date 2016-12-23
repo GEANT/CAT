@@ -19,7 +19,7 @@ class MockInstitution{
 
 class InstitutionPageBuilderTest extends \PHPUnit_Framework_TestCase{
     
-    protected function setup() {
+    protected function setUp() {
         $_SESSION['user'] = "user";
     }
     

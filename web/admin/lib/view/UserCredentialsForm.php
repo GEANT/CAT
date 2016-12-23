@@ -94,8 +94,11 @@ class UserCredentialsForm implements PageElement{
         $hiddenUserId->addAttribute('name', SilverbulletFactory::PARAM_ID_MULTIPLE);
         $hiddenUserId->addAttribute('value', $user->getIdentifier());
         $this->table->addToCell($index, 'user', $hiddenUserId);
-        $this->table->addToCell($index, 'action', new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->getIdentifier(), 'delete'));
-        $this->table->addToCell($index, 'action', new Button(_('New Credential'),'submit', SilverbulletFactory::COMMAND_ADD_CERTIFICATE, $user->getIdentifier()));
+        $action = new CompositeTag('div');
+        $action->addAttribute('style', 'min-width:150px');
+        $action->addTag(new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->getIdentifier(), 'delete'));
+        $action->addTag(new Button(_('New Credential'),'submit', SilverbulletFactory::COMMAND_ADD_CERTIFICATE, $user->getIdentifier()));
+        $this->table->addToCell($index, 'action', $action);
     }
     
     /**
