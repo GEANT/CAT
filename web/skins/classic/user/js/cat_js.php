@@ -198,7 +198,13 @@ function resetDevices() {
      $("#profile_id").val(prof);
      txt = '';
      $.post('user/API.php', {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
-       j = $.parseJSON(data).data;
+       j1 = $.parseJSON(data);
+       result = j1.status;
+       if(! result) {
+            alert("<?php escaped_echo( _("no matching data found"))?>");
+            document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/'?>';
+       }
+       j = j1.data;
        if(j.description !== undefined && j.description) {
          $("#profile_desc").text(j.description);
          $("#profile_desc").show();
