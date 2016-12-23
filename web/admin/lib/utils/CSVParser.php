@@ -28,14 +28,14 @@ class CSVParser {
      * 
      * @var string
      */
-    private $rowDelimiter;
+    protected $rowDelimiter;
 
     /**
      * Symbol that separates cells in a CSV file
      *
      * @var string
      */
-    private $tokenDelimiter;
+    protected $tokenDelimiter;
     
     /**
      * Is file data valid
