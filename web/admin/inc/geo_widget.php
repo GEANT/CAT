@@ -78,7 +78,7 @@ function geo_widget_head($inst_country, $inst_name) {
          *
          */
         function locator_magic() {
-            geocoder.geocode({'address':\"$inst_name\", 'region':\"" . strtolower($inst_country) . "\"},
+            geocoder.geocode({'address':\"".preg_replace("/\"/", "&quot;", $inst_name)."\", 'region':\"".strtolower($inst_country)."\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
                     locate_country(\"" . $cat->knownFederations[strtoupper($inst_country)] . "\");

@@ -20,7 +20,7 @@ require_once("Skinjob.php");
 require_once("IdP.php");
 require_once("admin/inc/input_validation.inc.php");
 
-if (isset($_REQUEST['idp'])) { // determine skin to use based on NROs preference
+if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preference
     $idp = valid_IdP($_REQUEST['idp']);
     $fed = valid_Fed($idp->federation);
     $fedskin = $fed->getAttributes("fed:desired_skin");

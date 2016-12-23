@@ -673,7 +673,9 @@ class UserAPI extends CAT {
      * @return array indexed by 'id', 'display', 'group'
      */
     public function detectOS() {
+        $oldDomain = $this->languageInstance->setTextDomain("devices");
         $Dev = Devices::listDevices();
+        $this->languageInstance->setTextDomain($oldDomain);
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];
             $device = $Dev[$dev_id];
