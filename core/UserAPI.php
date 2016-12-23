@@ -526,6 +526,64 @@ class UserAPI extends CAT {
         echo $blob;
     }
 
+        /**
+     * Get and prepare logo file 
+     *
+     * When called for DiscoJuice, first check if file cache exists
+     * If not then generate the file and save it in the cache
+     * @param string $fedIdentifier federation identifier
+     * @param int $width maximum width of the generated image 
+     * @param int $height  maximum height of the generated image
+     * if one of these is 0 then it is treated as no upper bound
+     *
+     */
+    public function sendFedLogo($fedIdentifier, $width = 0, $height = 0) {
+        $expiresString = '';
+        $resize = 0;
+        $logoFile = "";
+        if (($width || $height) && is_numeric($width) && is_numeric($height)) {
+            $resize = 1;
+            if ($height == 0) {
+                $height = 10000;
+            }
+            if ($width == 0) {
+                $width = 10000;
+            }
+            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
+        }
+
+        if ($resize && is_file($logoFile)) {
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $fedIdentifier\n");
+            $blob = file_get_contents($logoFile);
+            $filetype = 'image/png';
+        } else {
+            $federation = new Federation($fedIdentifier);
+            $logoAttribute = $federation->getAttributes('fed:logo_file');
+            $blob = $logoAttribute[0]['value'];
+            $info = new finfo();
+            $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
+            $offset = 60 * 60 * 24 * 30;
+            $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+            if ($resize) {
+                $filetype = 'image/png';
+                $image = new Imagick();
+                $image->readImageBlob($blob);
+                if ($image->setImageFormat('PNG')) {
+                    $image->thumbnailImage($width, $height, 1);
+                    $blob = $image->getImageBlob();
+                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $fedIdentifier\n");
+                    file_put_contents($logoFile, $blob);
+                } else {
+                    $blob = "XXXXXX";
+                }
+            }
+        }
+        header("Content-type: " . $filetype);
+        header("Cache-Control:max-age=36000, must-revalidate");
+        header($expiresString);
+        echo $blob;
+    }
+
     public function locateUser() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];

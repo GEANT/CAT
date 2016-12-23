@@ -108,7 +108,7 @@ class CAT extends Entity {
             }
             $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/".$branch."/Changes.md", $temp_version);
         }
-        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; ".CAT::COPYRIGHT_MIN_YEAR."-".CAT::COPYRIGHT_MAX_YEAR." ". CAT::COPYRIGHT_HOLDER." on behalf of ".CAT::COPYRIGHT_CONSORTIA."; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; ".CAT::COPYRIGHT_MIN_YEAR."-".CAT::COPYRIGHT_MAX_YEAR." ". CAT::COPYRIGHT_HOLDER."<br/>on behalf of ".CAT::COPYRIGHT_CONSORTIA."; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
         $this->languageInstance->setTextDomain($olddomain);
         
                 /* Federations are created in DB with bootstrapFederation, and listed via listFederations
