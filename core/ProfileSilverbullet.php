@@ -32,6 +32,11 @@ const SB_TOKENSTATUS_REDEEMED = 1;
 const SB_TOKENSTATUS_EXPIRED = 2;
 const SB_TOKENSTATUS_INVALID = 3;
 
+const SB_CERTSTATUS_NONEXISTENT = 0;
+const SB_CERTSTATUS_VALID = 1;
+const SB_CERTSTATUS_EXPIRED = 2;
+const SB_CERTSTATUS_REVOKED = 3;
+
 /**
  * This class represents an EAP Profile.
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
@@ -263,7 +268,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $$tokenvalue not found in database or database query error!\n");
-            return ["status" => SB_TOKENSTATUS_INVALID];
+            return ["status" => SB_TOKENSTATUS_INVALID,
+                    "cert_status" => SB_CERTSTATUS_NONEXISTENT, ];
         }
         // still here? then the token was found
         $details = mysqli_fetch_object($tokenrow);
@@ -273,13 +279,23 @@ class ProfileSilverbullet extends AbstractProfile {
             $delta = $now->diff($expiryObject);
             
             return ["status" => ($delta->invert == 1 ? SB_TOKENSTATUS_EXPIRED : SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
+                    "cert_status" => SB_CERTSTATUS_NONEXISTENT,
                     "profile" => $details->profile_id, 
                     "user" => $details->silverbullet_user_id, 
                     "expiry" => $expiryObject->format("Y-m-d H:i:s")];
         }
         // still here? then there is certificate data, so token was redeemed
         // add the corresponding cert details here
+        
+        $now = new DateTime();
+        $cert_expiry = new DateTime($details->expiry);
+        $delta = $now->diff($cert_expiry);
+        $certStatus = ($delta->invert == 1 ? SB_CERTSTATUS_EXPIRED : SB_CERTSTATUS_VALID);
+        
+        // TODO it could also be revoked. Check that.
+        
         return ["status" => SB_TOKENSTATUS_REDEEMED, 
+                "cert_status" => $certStatus,
                 "profile" => $details->profile_id, 
                 "user" => $details->silverbullet_user_id,
                 "cert_serial" => $details->serial_number,
@@ -287,4 +303,12 @@ class ProfileSilverbullet extends AbstractProfile {
                 "cert_expiry" => $details->expiry];
     }
 
+    public function userStatus($username) {
+        $retval = [];
+        $userrows = $this->databaseHandle->exec("SELECT one_time_token FROM silverbullet_certificate WHERE silverbullet_user_id = ? AND profile_id = ? ", "si", $username, $this->identifier);
+        while ($returnedData = mysqli_fetch_object($userrows)) {
+            $retval[] = ProfileSilverbullet::tokenStatus($returnedData->one_time_token);
+        }
+        return $retval;
+    }
 }
