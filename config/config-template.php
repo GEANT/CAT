@@ -114,6 +114,7 @@ const CONFIG = [
         'keypass' => NULL,
         'silverbullet_default_maxusers' => 200,
         'silverbullet_realm_suffix' => '.hosted.eduroam.org',
+        'nomenclature_federation' => 'National Roaming Operator',
     ],
 
     /**
