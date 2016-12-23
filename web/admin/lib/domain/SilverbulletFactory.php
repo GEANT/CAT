@@ -51,7 +51,7 @@ class SilverbulletFactory {
      * 
      */
     public function parseRequest(){
-        if(isset($_POST[self::COMMAND_ADD_USER]) && !empty($_POST[self::COMMAND_ADD_USER])){
+        if(isset($_POST[self::COMMAND_ADD_USER]) && !empty($_POST[self::COMMAND_ADD_USER]) && isset($_POST[self::PARAM_EXPIRY])){
             $this->createUser($this->profile->identifier, $_POST[self::COMMAND_ADD_USER], $_POST[self::PARAM_EXPIRY]);
         }elseif (isset($_FILES[self::COMMAND_ADD_USERS]) && !empty($_FILES[self::COMMAND_ADD_USERS]['name'])){
             $parser = new CSVParser($_FILES[self::COMMAND_ADD_USERS], "\n", ',');
