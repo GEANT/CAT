@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -45,17 +48,9 @@ class Logging {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
-        $sanityTextStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $text));
-        $sanityText = filter_var($sanityTextStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
-
-        ob_start();
-        print " ($level) ";
-        if ($sanityText != $text) {
-            print "[SANITY!] ";
-        }
-        print_r($sanityText);
-        $output = ob_get_clean();
-
+        
+        $output = " ($level) ";
+        $output .= print_r($text, TRUE);
         $this->writeToFile("debug.log", $output);
 
         return;
@@ -79,7 +74,8 @@ class Logging {
             case "DEL": // deleted an object
                 ob_start();
                 print " ($category) ";
-                print_r(" " . $user . ": " . $message . "\n");
+                print_r(" " . $user . ": ");
+                print_r($message . "\n");
                 $output = ob_get_clean();
 
                 $this->writeToFile("audit-activity.log", $output);
@@ -97,10 +93,14 @@ class Logging {
      */
     public function writeSQLAudit($query) {
         // clean up text to be in one line, with no extra spaces
-        $logtext1 = preg_replace("/[\n\r]/", "", $query);
-        $logtext = preg_replace("/ +/", " ", $logtext1);
+        // also clean up non UTF-8 to sanitise possibly malicious inputs
+        $logTextStep1 = preg_replace("/[\n\r]/", "", $query);
+        $logTextStep2 = preg_replace("/ +/", " ", $logTextStep1);
+        $logTextStep3 = iconv("UTF-8", "UTF-8//TRANSLIT", $logTextStep2);
+        
         ob_start();
-        print(" " . $logtext . "\n");
+        
+        print(" " . $logTextStep3 . "\n");
         $output = ob_get_clean();
 
         $this->writeToFile("audit-SQL.log", $output);

@@ -1,12 +1,16 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 /**
- * 404 error handler
+ * 401 and 403 error handler
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @package UserGUI
@@ -22,9 +26,8 @@ $langObject->setTextDomain("web_user");
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo dirname($_SERVER['SCRIPT_NAME'])?>/resources/css/cat-user.css"/>
 </head>
-<body>
+<body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
     <div id="heading">
         <?php
         print '<img src="'. dirname($_SERVER['SCRIPT_NAME']) .'/resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';

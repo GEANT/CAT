@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -27,6 +30,7 @@ $id = ( isset($_REQUEST['id']) ? $_REQUEST['id'] : FALSE );
 $device = ( isset($_REQUEST['device']) ? $_REQUEST['device'] : FALSE );
 $lang = ( isset($_REQUEST['lang']) ? $_REQUEST['lang'] : FALSE );
 $idp = ( isset($_REQUEST['idp']) ? $_REQUEST['idp'] : FALSE );
+$fed = ( isset($_REQUEST['fed']) ? $_REQUEST['fed'] : FALSE );
 $profile = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
 $federation = ( isset($_REQUEST['federation']) ? $_REQUEST['federation'] : FALSE );
 $disco = ( isset($_REQUEST['disco']) ? $_REQUEST['disco'] : FALSE );
@@ -110,6 +114,15 @@ switch ($action) {
         }
         $API->sendLogo($idp, $disco, $width, $height);
         break;
+    case 'sendFedLogo': // needs $id and $disco set
+        if (!$fed) {
+            $fed = $id;
+        }
+        if ($fed === FALSE) {
+            exit;
+        }
+        $API->sendFedLogo($fed, $width, $height);
+        break;        
     case 'deviceInfo': // needs $id and profile set
         if (!$device) {
             $device = $id;

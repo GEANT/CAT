@@ -1,5 +1,5 @@
 <?php
-include(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+include(dirname(dirname(dirname(dirname(dirname(dirname(__FILE__)))))) . "/config/_config.php");
 $colour1 = CONFIG['APPEARANCE']['colour1'];
 $colour2 = CONFIG['APPEARANCE']['colour2'];
 header('Content-type: text/css; charset=utf-8');

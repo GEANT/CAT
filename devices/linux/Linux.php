@@ -33,7 +33,7 @@ class Device_Linux extends DeviceConfig {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS]);
+        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS, EAPTYPE_SILVERBULLET]);
         $this->localDir = '.cat_installer';
         $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';
     }
@@ -67,7 +67,13 @@ fi
 
         $outString .= $this->printNMScript($ssids, $delSSIDs);
         $outString .= $this->writeWpaConf($ssids);
-        if ($this->selectedEap == EAPTYPE_TLS) {
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $outString .= "# save user certificate\n";
+            $outString .= 'echo "';
+            $outString .= base64_encode($this->clientCert["certdata"])
+               . '" | base64 -d ' . " > \$HOME/$this->localDir/user.p12\n";
+        }
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $outString .= $this->printP12Dialog();
         } else {
             $outString .= $this->printPasswordDialog();
@@ -408,7 +414,7 @@ network={
                 $out .= '
   domain_suffix_match="' . $this->serverName . '"';
             }
-            if ($this->selectedEap == EAPTYPE_TLS) {
+            if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
                 $out .= '
   private_key="${HOME}/' . $this->localDir . '/user.p12"
   private_key_passwd="${PASSWORD}"';
@@ -441,7 +447,9 @@ chmod 600 ' . $this->confFile . '
 
     private function printP12Dialog() {
         $out = 'function p12dialog {
-  if [ ! -z $ZENITY ] ; then
+        ';
+        if ($this->selectedEap == EAPTYPE_TLS) {
+        $out .= '  if [ ! -z $ZENITY ] ; then
     if ! cert=`$ZENITY --file-selection --file-filter="' . _("personal certificate file (p12 or pfx)") . ' | *.p12 *.P12 *.pfx *.PFX" --file-filter="All files | *" --title="' . _("personal certificate file (p12 or pfx)") . '" 2>/dev/null` ; then
        exit
     fi
@@ -473,14 +481,17 @@ chmod 600 ' . $this->confFile . '
       fi
     done
 fi
-    cp "$cert" $HOME/' . $this->localDir . '/user.p12
-    cert=$HOME/' . $this->localDir . '/user.p12
+   cp "$cert" $HOME/' . $this->localDir . '/user.p12
+';
+}
+    $cert_prompt = $this->selectedEap == EAPTYPE_TLS ? _("enter the password for the certificate file") : _("enter your import password");
+    $out .=  '   cert=$HOME/' . $this->localDir . '/user.p12
 
     PASSWORD=""
-    prompt="' . _("enter the password for the certificate file") . '"
+    prompt="' . $cert_prompt . '"
     while [ ! "$PASSWORD" ]
     do
-      if ! PASSWORD=`prompt_nonempty_string 0 "' . _("enter the password for the certificate file") . '"` ; then
+      if ! PASSWORD=`prompt_nonempty_string 0 "' . $cert_prompt . '"` ; then
         exit 1
       fi
       if openssl pkcs12 -in $cert -passin pass:"$PASSWORD" -noout 2>/dev/null; then
@@ -493,9 +504,15 @@ fi
         PASSWORD=""
       fi
     done
-      if ! USERNAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" "$USER_NAME"` ; then
+';
+        if ($this->selectedEap == EAPTYPE_TLS) {
+            $out .= '      if ! USER_NAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" "$USER_NAME"` ; then
        exit 1
-    fi
+      fi
+';
+        }
+
+$out .= '
 }  
 p12dialog
 ';
@@ -673,7 +690,7 @@ class EduroamNMConfigTool:
             $out .= '
              match_key: match_value,';
         }
-        if ($this->selectedEap == EAPTYPE_TLS) {
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),

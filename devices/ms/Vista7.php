@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -19,17 +22,13 @@
  */
 require_once('DeviceConfig.php');
 require_once('WindowsCommon.php');
-
-/**
- * 
- * @author Tomasz Wolniewicz <twoln@umk.pl>
- * @package ModuleWriting
- */
 class Device_Vista7 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_PWD, EAPTYPE_TTLS_PAP]);
+        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_PWD, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_SILVERBULLET]);
+      $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
+      $this->loggerInstance->debug(4,$this->supportedEapMethods);
         $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -54,7 +53,7 @@ class Device_Vista7 extends WindowsCommon {
             }
         }
 
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD || $this->selectedEap == EAPTYPE_TTLS_PAP) {
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -74,10 +73,13 @@ class Device_Vista7 extends WindowsCommon {
             return;
         }
         $this->loggerInstance->debug(4, "windowsProfile");
-        $this->loggerInstance->debug(4, print_r($windowsProfile, true));
+        $this->loggerInstance->debug(4, $windowsProfile);
 
         $this->writeProfilesNSH($windowsProfile, $caFiles, $setWired);
         $this->writeAdditionalDeletes($delProfiles);
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $this->writeClientP12File();
+        }
         $this->copyFiles($this->selectedEap);
         if (isset($this->attributes['internal:logo_file'])) {
             $this->combineLogo($this->attributes['internal:logo_file']);
@@ -113,7 +115,8 @@ class Device_Vista7 extends WindowsCommon {
             }
             $out .= "<p>";
         }
-        if ($this->eap == EAPTYPE_TLS) {
+// TODO - change this below
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
             return($out);
         }
@@ -144,9 +147,9 @@ class Device_Vista7 extends WindowsCommon {
         $vistaExt = '';
         $w7Ext = '';
         $eap = $this->selectedEap;
-        if ($eap != EAPTYPE_TLS && $eap != EAPTYPE_PEAP_MSCHAP2 && $eap != EAPTYPE_PWD && $eap != EAPTYPE_TTLS_PAP) {
-            $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
-            error("this method only allows TLS, PEAP, TTLS-PAP or EAP-pwd");
+        if ($eap != EAPTYPE_TLS && $eap != EAPTYPE_PEAP_MSCHAP2 && $eap != EAPTYPE_PWD && $eap != EAPTYPE_TTLS_PAP && $eap != EAPTYPE_SILVERBULLET) {
+            $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP , TTLS-MSCHAPv2 or EAP-pwd");
+            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2  or EAP-pwd");
             return;
         }
         $useAnon = $attr['internal:use_anon_outer'] [0];
@@ -158,7 +161,7 @@ class Device_Vista7 extends WindowsCommon {
         $servers = implode(';', $attr['eap:server_name']);
         $caArray = $attr['internal:CAs'][0];
         $authorId = "0";
-        if ($eap == EAPTYPE_TTLS_PAP) {
+        if ($eap == EAPTYPE_TTLS_PAP || $eap == EAPTYPE_TTLS_MSCHAP2) {
             $authorId = "67532";
             $servers = implode('</ServerName><ServerName>', $attr['eap:server_name']);
         }
@@ -174,44 +177,36 @@ class Device_Vista7 extends WindowsCommon {
 ';
 
 
-        if ($eap == EAPTYPE_TTLS_PAP) {
+        if ($eap == EAPTYPE_TTLS_PAP || $eap == EAPTYPE_TTLS_MSCHAP2) {
+            $innerMethod = 'MSCHAPv2';
+            if ($eap == EAPTYPE_TTLS_PAP) {
+                $innerMethod = 'PAP';
+            }
             $profileFileCont .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
-<EAPIdentityProvider>
-<ID>CATinstaller</ID>
+<EAPIdentityProvider ID="'.$this->deviceUUID.'" namespace="urn:UUID">
 <ProviderInfo>
-<CredentialPrompt>
-<localized-text><lang>' . $this->languageInstance->getLang() . '</lang><text>' . _("Please provide your user ID and password.") . '</text></localized-text>
-</CredentialPrompt>
-<UserNameLabel>
-<localized-text><lang>' . $this->languageInstance->getLang() . '</lang><text>' . _("Username@domain:") . '</text></localized-text>
-</UserNameLabel>
-<PasswordLabel>
-<localized-text><lang>' . $this->languageInstance->getLang() . '</lang><text>' . _("Password:") . '</text></localized-text>
-</PasswordLabel>
+<DisplayName>'.$this->translateString($attr['general:instname'][0], $this->code_page).'</DisplayName>
 </ProviderInfo>
 <AuthenticationMethods>
 <AuthenticationMethod>
 <EAPMethod>21</EAPMethod>
+<ClientSideCredential>
+<allow-save>true</allow-save>
 ';
             if ($useAnon == 1) {
-                $profileFileCont .= '<ClientSideCredential>
-';
                 if ($outerUser == '') {
                     $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
                 } else {
                     $profileFileCont .= '<AnonymousIdentity>' . $outerUser . '@' . $realm . '</AnonymousIdentity>';
                 }
-                $profileFileCont .= '
-</ClientSideCredential>
-';
             }
-            $profileFileCont .= '<ServerSideCredential>
+            $profileFileCont .= '</ClientSideCredential>
+<ServerSideCredential>
 ';
 
             foreach ($caArray as $ca) {
-
                 $profileFileCont .= '<CA><format>PEM</format><cert-data>';
                 $profileFileCont .= base64_encode($ca['der']);
                 $profileFileCont .= '</cert-data></CA>
@@ -222,7 +217,7 @@ class Device_Vista7 extends WindowsCommon {
             $profileFileCont .= '
 </ServerSideCredential>
 <InnerAuthenticationMethod>
-<NonEAPAuthMethod>PAP</NonEAPAuthMethod>
+<NonEAPAuthMethod>'.$inner_method.'</NonEAPAuthMethod>
 </InnerAuthenticationMethod>
 <VendorSpecific>
 <SessionResumption>false</SessionResumption>
@@ -233,7 +228,8 @@ class Device_Vista7 extends WindowsCommon {
 </EAPIdentityProviderList>
 </Config>
 ';
-        } elseif ($eap == EAPTYPE_TLS) {
+        } elseif ($eap == EAPTYPE_TLS || $eap == EAPTYPE_SILVERBULLET) {
+
             $profileFileCont .= '
 
 <Config xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionPropertiesV1" 
@@ -358,7 +354,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
     }
 
     /**
-     * produce PEAP, TLS and TTLS configuration files for Windows 8
+     * produce PEAP, TLS and TTLS configuration files for Vista and Windows 7
      * 
      * @param string $wlanProfileName
      * @param string $ssid
@@ -468,6 +464,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $eapOptions = [
             PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             TLS => ['str' => 'TLS', 'exec' => 'user'],
+            EAPTYPE_SILVERBULLET => ['str' => 'TLS', 'exec' => 'user'],
             TTLS => ['str' => 'GEANTLink', 'exec' => 'user'],
             PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
@@ -482,6 +479,9 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 // $fcontents .= "!define DEBUG_CAT\n";
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
         $eapStr = $eapOptions[$eap["OUTER"]]['str'];
+        if ($eap == EAPTYPE_SILVERBULLET) {
+            $fcontents .= "!define SILVERBULLET\n";
+        }
         $this->loggerInstance->debug(4, "EAP_STR=$eapStr\n");
         $this->loggerInstance->debug(4, $eap);
 
@@ -496,6 +496,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
+!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -508,8 +509,11 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
-!define TLS_FILE_NAME "cert*.p12"
+        if ($eap != EAPTYPE_SILVERBULLET) {
+           $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
+';
+        }
+           $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
 
@@ -517,6 +521,9 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
             $fcontents .= '!define WIRED
 ';
         }
+        $fcontents .= '!define PROVIDERID "urn:UUID:'.$this->deviceUUID.'"
+';
+
 
         $fileHandle = fopen('main.nsh', 'w');
         fwrite($fileHandle, $fcontents);
@@ -559,6 +566,8 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $result = $this->copyFile('cat_bg.bmp');
         $result = $result && $this->copyFile('cat32.ico');
         $result = $result && $this->copyFile('cat_150.bmp');
+        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
+        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
 
         switch ($eap["OUTER"]) {

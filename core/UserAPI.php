@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -62,7 +65,7 @@ class UserAPI extends CAT {
      */
     public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
         $this->languageInstance->setTextDomain("devices");
-        
+
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $profile = ProfileFactory::instantiate($profileId);
         $attribs = $profile->getCollapsedAttributes();
@@ -89,7 +92,7 @@ class UserAPI extends CAT {
         $installerProperties['profile'] = $profileId;
         $installerProperties['device'] = $device;
         $this->installerPath = $this->getCachedPath($device, $profile);
-        if ($this->installerPath && $token == NULL && $password == NULL ) {
+        if ($this->installerPath && $token == NULL && $password == NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
@@ -154,7 +157,9 @@ class UserAPI extends CAT {
                 $this->installerPath = $dev->FPATH . '/' . $installer;
                 rename($iPath, $this->installerPath);
                 $profile->updateCache($device, $this->installerPath, $out['mime']);
-                rrmdir($dev->FPATH . '/tmp');
+                if (CONFIG['DEBUG_LEVEL'] < 4) {
+                   rrmdir($dev->FPATH . '/tmp');
+                }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device\n");
                 $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
             } else {
@@ -180,9 +185,9 @@ class UserAPI extends CAT {
                 continue;
             }
             $count ++;
-            
+
             $deviceProperties['device'] = $device;
-            
+
             $group = isset($deviceProperties['group']) ? $deviceProperties['group'] : 'other';
             if (!isset($returnList[$group])) {
                 $returnList[$group] = [];
@@ -521,7 +526,68 @@ class UserAPI extends CAT {
         echo $blob;
     }
 
+        /**
+     * Get and prepare logo file 
+     *
+     * When called for DiscoJuice, first check if file cache exists
+     * If not then generate the file and save it in the cache
+     * @param string $fedIdentifier federation identifier
+     * @param int $width maximum width of the generated image 
+     * @param int $height  maximum height of the generated image
+     * if one of these is 0 then it is treated as no upper bound
+     *
+     */
+    public function sendFedLogo($fedIdentifier, $width = 0, $height = 0) {
+        $expiresString = '';
+        $resize = 0;
+        $logoFile = "";
+        if (($width || $height) && is_numeric($width) && is_numeric($height)) {
+            $resize = 1;
+            if ($height == 0) {
+                $height = 10000;
+            }
+            if ($width == 0) {
+                $width = 10000;
+            }
+            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
+        }
+
+        if ($resize && is_file($logoFile)) {
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $fedIdentifier\n");
+            $blob = file_get_contents($logoFile);
+            $filetype = 'image/png';
+        } else {
+            $federation = new Federation($fedIdentifier);
+            $logoAttribute = $federation->getAttributes('fed:logo_file');
+            $blob = $logoAttribute[0]['value'];
+            $info = new finfo();
+            $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
+            $offset = 60 * 60 * 24 * 30;
+            $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+            if ($resize) {
+                $filetype = 'image/png';
+                $image = new Imagick();
+                $image->readImageBlob($blob);
+                if ($image->setImageFormat('PNG')) {
+                    $image->thumbnailImage($width, $height, 1);
+                    $blob = $image->getImageBlob();
+                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $fedIdentifier\n");
+                    file_put_contents($logoFile, $blob);
+                } else {
+                    $blob = "XXXXXX";
+                }
+            }
+        }
+        header("Content-type: " . $filetype);
+        header("Cache-Control:max-age=36000, must-revalidate");
+        header($expiresString);
+        echo $blob;
+    }
+
     public function locateUser() {
+        if (CONFIG['GEOIP']['version'] != 1) {
+            return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
+        }
         $host = $_SERVER['REMOTE_ADDR'];
         $record = geoip_record_by_name($host);
         if ($record === FALSE) {
@@ -539,6 +605,9 @@ class UserAPI extends CAT {
     }
 
     public function locateUser2() {
+        if (CONFIG['GEOIP']['version'] != 2) {
+            return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
+        }
         require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
         $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
         $host = $_SERVER['REMOTE_ADDR'];
@@ -662,7 +731,9 @@ class UserAPI extends CAT {
      * @return array indexed by 'id', 'display', 'group'
      */
     public function detectOS() {
+        $oldDomain = $this->languageInstance->setTextDomain("devices");
         $Dev = Devices::listDevices();
+        $this->languageInstance->setTextDomain($oldDomain);
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];
             $device = $Dev[$dev_id];

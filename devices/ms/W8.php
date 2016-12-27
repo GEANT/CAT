@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -29,7 +32,7 @@ class Device_W8 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD]);
+        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_PWD, EAPTYPE_SILVERBULLET]);
         $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -38,7 +41,6 @@ class Device_W8 extends WindowsCommon {
         textdomain("devices");
         // create certificate files and save their names in $caFiles arrary
         $caFiles = $this->saveCertificateFiles('der');
-
         $allSSID = $this->attributes['internal:SSID'];
         $delSSIDs = $this->attributes['internal:remove_SSID'];
         $this->prepareInstallerLang();
@@ -55,7 +57,7 @@ class Device_W8 extends WindowsCommon {
         }
 
 
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD) {
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -81,6 +83,9 @@ class Device_W8 extends WindowsCommon {
         $this->writeAdditionalDeletes($delProfiles);
         if (isset($additionalDeletes) && count($additionalDeletes)) {
             $this->writeAdditionalDeletes($additionalDeletes);
+        }
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
         if (isset($this->attributes['internal:logo_file'])) {
@@ -117,8 +122,8 @@ class Device_W8 extends WindowsCommon {
             }
             $out .= "<p>";
         }
-
-        if ($this->selectedEap == EAPTYPE_TLS) {
+// TODO - change this below
+        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -163,7 +168,7 @@ class Device_W8 extends WindowsCommon {
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
-        if ($eap == EAPTYPE_TLS) {
+        if ($eap == EAPTYPE_TLS || $eap == EAPTYPE_SILVERBULLET) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
@@ -418,6 +423,7 @@ class Device_W8 extends WindowsCommon {
         $eapOptions = [
             PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             TLS => ['str' => 'TLS', 'exec' => 'user'],
+            EAPTYPE_SILVERBULLET => ['str' => 'TLS', 'exec' => 'user'],
             TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
@@ -428,7 +434,9 @@ class Device_W8 extends WindowsCommon {
 // $fcontents .= "!define DEBUG_CAT\n";
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
         $eapStr = $eapOptions[$eap["OUTER"]]['str'];
-
+        if ($eap == EAPTYPE_SILVERBULLET) {
+            $fcontents .= "!define SILVERBULLET\n";
+        }
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
 
@@ -441,6 +449,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
+!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -452,8 +461,11 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
-!define TLS_FILE_NAME "cert*.p12"
+        if ($eap != EAPTYPE_SILVERBULLET) {
+            $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
+';
+        } 
+        $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
 
@@ -504,6 +516,8 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $result = $this->copyFile('base64.nsh');
         $result = $result && $this->copyFile('cat32.ico');
         $result = $result && $this->copyFile('cat_150.bmp');
+        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
+        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
         if ($eap["OUTER"] == PWD) {
             $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);

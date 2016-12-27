@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -154,6 +157,18 @@ class WindowsCommon extends DeviceConfig {
             fwrite($fileHandle, "!insertmacro define_delete_profile \"$profile\"\n");
         }
         fclose($fileHandle);
+    }
+
+    protected function writeClientP12File() {
+        if (!is_array($this->clientCert)) {
+            throw new Exception("the client block was called but there is no client certificate!");
+        }
+        $fileHandle = fopen('SB_cert.p12','w');
+        fwrite($fileHandle,$this->clientCert["certdata"]);
+        fclose($fileHandle);
+    }
+
+    protected function writeTlsUserProfile() {
     }
 
     public $LANGS = [

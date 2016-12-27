@@ -135,6 +135,7 @@ class SilverbulletFactory {
         if(isset($_SERVER['REQUEST_URI'])){
             $location = $this->addQuery($_SERVER['SCRIPT_NAME']);
             header('Location: ' . $location );
+            exit;
         }
     }
     

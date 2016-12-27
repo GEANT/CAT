@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -31,7 +34,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     // delete the IdP and send user to enrollment
     $my_inst->destroy();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
-    header("Location:overview_user.php");
+    header("Location: overview_user.php");
+    exit;
 }
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
@@ -46,7 +50,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
     // flush all IdP attributes and send user to creation wizard
     $my_inst->flushAttributes();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
-    header("Location:edit_idp.php?inst_id=$instId&wizard=true");
+    header("Location: edit_idp.php?inst_id=$instId&wizard=true");
+    exit;
 }
 
 
