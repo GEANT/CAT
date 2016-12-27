@@ -56,24 +56,33 @@ class DatePicker implements HtmlElementInterface, PageElementInterface{
      * @see \lib\view\PageElementInterface::render()
      */
     public function render(){
-        ?>
+        echo $this;
+        
+        /*?>
         <div class=<?php echo self::BLOCK_CLASS; ?>>
             <input id="<?php echo $this->id; ?>" class="<?php echo self::INPUT_CLASS; ?>" type="date" name="<?php echo $this->name; ?>" value="<?php echo $this->format; ?>" maxlength="10">
+            <button class=<?php echo self::BUTTON_CLASS; ?>>▼</button>
         </div>
         <?php
+        */
     }
     
     public function __toString(){
         $div = new CompositeTag('div');
         $div->addAttribute('class', self::BLOCK_CLASS);
             $input = new UnaryTag('input');
-            $input->addAttribute('type', 'date');
+            $input->addAttribute('type', 'text');
             $input->addAttribute('maxlength', 10);
             $input->addAttribute('id', $this->id);
             $input->addAttribute('class', self::INPUT_CLASS);
             $input->addAttribute('name', $this->name);
             $input->addAttribute('value', $this->format);
         $div->addTag($input);
+            $button = new Tag('button');
+            $button->addText('▼');
+            $button->addAttribute('class', self::BUTTON_CLASS);
+            $button->addAttribute('type', 'button');
+        $div->addTag($button);
         return $div->__toString();
     }
     

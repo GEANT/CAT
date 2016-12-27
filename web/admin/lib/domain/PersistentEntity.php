@@ -40,9 +40,15 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
     /**
      * Record row from database
      * 
-     * @var array
+     * @var Attribute[]
      */
-    protected $row = array();
+    private $row = array();
+    
+    /**
+     * 
+     * @var string[]
+     */
+    private $types = array();
     
     /**
      * Defines table and creates database handle
@@ -52,6 +58,7 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
      */
     public function __construct($table, $databaseType = 'INST'){
         $this->table = $table;
+        $this->setAttributeType(self::ID, Attribute::TYPE_INTEGER);
         $this->databaseHandle = \DBConnection::handle($databaseType);
     }
     
@@ -61,13 +68,40 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
     protected abstract function validate();
     
     /**
+     * 
+     * @param string $key
+     * @param string $type
+     */
+    protected function setAttributeType($key, $type){
+        $this->types[$key] = $type; 
+    }
+    
+    /**
+     * 
+     * @param string $key
+     * @return string
+     */
+    protected function getAttributeType($key){
+        return isset($this->types[$key]) ? $this->types[$key] : Attribute::TYPE_STRING;
+    }
+    
+    /**
      * Retrieves attribute value from record
      * 
      * @param string $key
      * @return string
      */
     public function get($key){
-        return isset($this->row[$key]) ? $this->row[$key] : "";
+        return isset($this->row[$key]) ? $this->row[$key]->value : "";
+    }
+    
+    /**
+     * 
+     * @param string $key
+     * @return NULL|\lib\domain\Attribute
+     */
+    public function getAttribute($key){
+        return isset($this->row[$key]) ? $this->row[$key] : new Attribute('', '');
     }
     
     /**
@@ -77,7 +111,26 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
      * @param mixed $value
      */
     protected function set($key, $value){
-        $this->row[$key] = $value;
+        $attribute = new Attribute($key, $value, $this->getAttributeType($key));
+        $this->row[$key] = $attribute;
+    }
+    
+    /**
+     * 
+     * @param array $row
+     */
+    public function setRow($row){
+        $this->clear();
+        foreach ($row as $key => $value){
+            $this->set($key, $value);
+        }
+    }
+    
+    /**
+     * 
+     */
+    public function clear(){
+        $this->row = array();
     }
     
     /**
@@ -116,13 +169,13 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
         $valueString = "(";
         $types = '';
         $arguments = array();
-        foreach ($this->row as $key => $value) {
+        foreach ($this->row as $key => $attribute) {
             if($keyString != "(") $keyString .= " ,";
             if($valueString != "(") $valueString .= " ,";
             $keyString .= "`" . $key . "`";
             $valueString .= "?";
-            $types .= 's';
-            $arguments [] = $value;
+            $types .= $attribute->getType();
+            $arguments [] = $attribute->value;
         }
         $keyString .= ")";
         $valueString .= ")";
@@ -146,17 +199,18 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
         $updateString = "";
         $types = '';
         $arguments = array();
-        foreach ($this->row as $key => $value) {
+        foreach ($this->row as $key => $attribute) {
             if(!empty($updateString)) $updateString .= " ,";
             else $updateString .=" SET ";
             $updateString .= "`" . $key . "`=?";
-            $types .= 's';
-            $arguments [] = $value;
+            $types .= $attribute->getType();
+            $arguments [] = $attribute->value;
         }
         if(!empty($updateString)){
             $query .= " " .$updateString . " WHERE `" .self::ID. "`=?";
-            $types .= 's';
-            $arguments [] = $this->get(self::ID);
+            $id = $this->getAttribute(self::ID);
+            $types .= $id->getType();
+            $arguments [] = $id->value;
             $result = $this->databaseHandle->exec($query, $types, ...$arguments);
         }
         return $result;
@@ -168,10 +222,10 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
      */
     public function load(){
         $state = false;
-        $id = $this->get(self::ID);
-        $result = $this->databaseHandle->exec("SELECT * FROM `".$this->table."` WHERE `".self::ID."` =?", 's', $id);
+        $id = $this->getAttribute(self::ID);
+        $result = $this->databaseHandle->exec("SELECT * FROM `".$this->table."` WHERE `".self::ID."` =?", $id->getType(), $id->value);
         if(mysqli_num_rows($result)>0){
-            $this->row = mysqli_fetch_assoc($result);
+            $this->setRow(mysqli_fetch_assoc($result));
             $state = true;
         }
         return $state;
@@ -183,8 +237,8 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
      * @see \lib\domain\PersistentInterface::delete()
      */
     public function delete(){
-        $id = $this->get(self::ID);
-        return $this->databaseHandle->exec("DELETE FROM `" . $this->table . "` WHERE `".self::ID."`=?", 's', $id);
+        $id = $this->getAttribute(self::ID);
+        return $this->databaseHandle->exec("DELETE FROM `" . $this->table . "` WHERE `".self::ID."`=?", $id->getType(), $id->value);
     }
     
 }

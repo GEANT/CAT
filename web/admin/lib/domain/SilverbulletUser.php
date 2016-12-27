@@ -8,6 +8,10 @@ namespace lib\domain;
  */
 class SilverbulletUser extends PersistentEntity{
     
+    const LEVEL_GREEN = 0;
+    const LEVEL_YELLOW = 1;
+    const LEVEL_RED = 2;
+    
     const TABLE = 'silverbullet_user';
     
     /**
@@ -30,6 +34,12 @@ class SilverbulletUser extends PersistentEntity{
      */
     const EXPIRY = 'expiry';
     
+    /**
+     * 
+     * @var string
+     */
+    const LAST_ACKNOWLEDGE = 'last_ack';
+    
     private $defaultUserExpiry;
     
     /**
@@ -47,6 +57,8 @@ class SilverbulletUser extends PersistentEntity{
      */
     public function __construct($profileId, $username){
         parent::__construct(self::TABLE, self::TYPE_INST);
+        $this->setAttributeType(self::PROFILEID, Attribute::TYPE_INTEGER);
+        
         $this->set(self::PROFILEID, $profileId);
         $this->set(self::USERNAME, $username);
         //$this->set(self::EXPIRY, 'NOW() + INTERVAL 1 WEEK');
@@ -54,12 +66,39 @@ class SilverbulletUser extends PersistentEntity{
         //$this->set(self::EXPIRY, $this->defaultUserExpiry);
     }
     
+    /**
+     * 
+     * @param string $date
+     */
     public function setExpiry($date){
         $tokenExpiry = date('Y-m-d H:i:s', strtotime($date));
         if($tokenExpiry > $this->defaultUserExpiry){
             $this->set(self::EXPIRY, $tokenExpiry);
         }else{
-            $this->row = array();
+            $this->clear();
+        }
+    }
+    
+    /**
+     * 
+     */
+    public function makeAcknowledged(){
+        $this->set(self::LAST_ACKNOWLEDGE, date('Y-m-d H:i:s',strtotime("now")));
+    }
+    
+    /**
+     * 
+     * @return int
+     */
+    public function getAcknowledgeLevel(){
+        $lastAcknowledge = strtotime($this->get(self::LAST_ACKNOWLEDGE));
+        $now = strtotime('now');
+        if($now - $lastAcknowledge > 47 * 7 * 24 * 3600 && $now - $lastAcknowledge < 50 * 7 * 24 * 3600){
+            return self::LEVEL_YELLOW;
+        }elseif ($now - $lastAcknowledge >= 50 * 7 * 24 * 3600){
+            return self::LEVEL_RED;
+        }else{
+            return self::LEVEL_GREEN;
         }
     }
     
@@ -135,7 +174,7 @@ class SilverbulletUser extends PersistentEntity{
     
     /**
      * 
-     * @param ins $userId
+     * @param integer $userId
      * @return \lib\domain\SilverbulletUser
      */
     public static function prepare($userId){
@@ -150,11 +189,11 @@ class SilverbulletUser extends PersistentEntity{
      */
     public static function getList($profileId) {
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 's', $profileId);
+        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 'i', $profileId);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');
-            $user->row = $row;
+            $user->setRow($row);
             $user->certificates = SilverbulletCertificate::getList($user);
             $list[] = $user;
         }
