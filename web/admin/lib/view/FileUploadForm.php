@@ -3,7 +3,7 @@ namespace lib\view;
 
 use lib\domain\SilverbulletFactory;
 
-class FileUploadForm implements PageElement{
+class FileUploadForm implements PageElementInterface{
     
     /**
      * @var string
