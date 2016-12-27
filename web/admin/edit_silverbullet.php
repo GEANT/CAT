@@ -29,13 +29,13 @@ require_once("inc/auth.inc.php");
 
 use lib\domain\SilverbulletFactory;
 use lib\view\DefaultPage;
+use lib\view\FileUploadForm;
 use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
-use lib\view\UserCredentialsForm;
-use lib\view\FileUploadForm;
+use lib\view\PageElementInterface;
 use lib\view\TitledBlockDecorator;
-use lib\view\PageElement;
+use lib\view\UserCredentialsForm;
 
 authenticate();
 
@@ -82,7 +82,7 @@ if($builder->isReady()){
 
     //User import form preparation
     $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of invitations (optional):'));
-    $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElement::INFOBLOCK_CLASS);
+    $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElementInterface::INFOBLOCK_CLASS);
     $builder->addContentElement($importBlock);
     
     //Edit form data preparation

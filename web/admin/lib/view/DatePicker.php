@@ -15,6 +15,7 @@ class DatePicker implements HtmlElementInterface, PageElementInterface{
     
     const BLOCK_CLASS = 'sb-date-container';
     const INPUT_CLASS = 'sb-date-picker';
+    const BUTTON_CLASS = 'sb-date-button';
     
     /**
      * Counts DatePicker objects to generate id's
