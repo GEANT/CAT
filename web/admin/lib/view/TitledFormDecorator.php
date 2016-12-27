@@ -34,7 +34,7 @@ class TitledFormDecorator extends PageElementDecorator{
     
     /**
      * 
-     * @param PageElement $element
+     * @param PageElementInterface $element
      * @param string $class
      * @param string $title
      */

@@ -3,11 +3,11 @@ namespace lib\view;
 
 use lib\view\html\Attribute;
 
-abstract class PageElementDecorator implements PageElement{
+abstract class PageElementDecorator implements PageElementInterface{
     
     /**
      * 
-     * @var PageElement
+     * @var PageElementInterface
      */
     protected $element;
     
@@ -19,7 +19,7 @@ abstract class PageElementDecorator implements PageElement{
     
     /**
      * 
-     * @param PageElement $element
+     * @param PageElementInterface $element
      */
     public function __construct($element, $class = "") {
         $this->element = $element;

@@ -7,7 +7,7 @@ namespace lib\view\html;
  * @author Zilvinas Vaira
  *
  */
-class Attribute implements HtmlElement{
+class Attribute implements HtmlElementInterface{
     
     /**
      * 

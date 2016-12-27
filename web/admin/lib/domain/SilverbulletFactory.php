@@ -2,7 +2,7 @@
 namespace lib\domain;
 
 use lib\view\MessageContainerInterface;
-use lib\domain\http\ValidatorInterface;
+use lib\http\ValidatorInterface;
 
 use lib\utils\CSVParser;
 
