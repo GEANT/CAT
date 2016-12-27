@@ -1,25 +1,22 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 require_once("CAT.php");
+require_once("Skinjob.php");
 
 function attributionEurope() {
-    $logoBase = valid_host($_SERVER['HTTP_HOST']);
-    if ($logoBase === FALSE) {
-        throw new Exception("We don't know our own hostname?!");
-    }
-    if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE) {
-        $logoBase .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . "/resources/images";
-    } else {
-        $logoBase .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . "/resources/images";
-    }
-    $logoBase = "//" . $logoBase;
+    $skinObject = new Skinjob("");
+    $logoBase = $skinObject->findResourceUrl("IMAGES");
 
     return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>

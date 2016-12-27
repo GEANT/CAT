@@ -1,8 +1,12 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
@@ -28,6 +32,7 @@ header("Content-Type:text/html;charset=utf-8");
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
 if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) || CONFIG['DB']['enforce-external-sync'] == FALSE) {
     header("Location: ../overview_federation.php");
+    exit;
 }
 
 // if not, must operate on a proper IdP
@@ -52,6 +57,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     // someone clever pushed the button without selecting an inst?
     if (!isset($_POST['inst_link'])) {
         header("Location: ../overview_federation.php");
+        exit;
     }
     // okay, he did sumbit an inst. It's either a (string) handle from a promising 
     // candidate, or "other" as selected from the drop-down list
@@ -61,6 +67,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $my_inst->setExternalDBId(valid_string_db($_POST['inst_link_other']));
     }
     header("Location: ../overview_federation.php");
+    exit;
 }
 ?>
 <h1>

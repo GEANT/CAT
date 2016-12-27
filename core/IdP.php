@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -208,7 +211,9 @@ class IdP extends EntityWithDBProperties {
                 case "RADIUS":
                     return new ProfileRADIUS($identifier, $this);
                 case "SILVERBULLET":
-                    return new ProfileSilverbullet($identifier, $this);
+                    $theProfile = new ProfileSilverbullet($identifier, $this);
+                    $theProfile->addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1); 
+                    return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");
             }

@@ -1,3 +1,11 @@
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 @CHARSET "UTF-8";
 
 .sb-titled-cell{
@@ -6,18 +14,21 @@
 .sb-user-row{
     background:#F0F0F0;
 }
+.sb-certificate-row{
+    background:#DBEAF3;
+}
 .sb-title-row{
     background:lightgrey;
 }
 .sb-add-new-user{
-    padding: 10px;
+    padding: 10px 10px 10px 10px;
+    display: table;
 }
-.sb-add-new-user input{
-    margin: 5px 0px 10px 0px;
+.sb-editable-block{
+    position: relative;
 }
 .sb-editable-block fieldset{
     display: inline-block;
-    position: relative;
     margin: 5px;
     padding: 5px;
     min-width: 500px;
@@ -26,4 +37,20 @@
 }
 .sb-date-container{
     display: inline-block;
+    width: 185px;
+}
+.sb-date-picker{
+    padding-right:25px;
+    width: 140px;
+}
+.sb-date-button{
+    margin-left:-30px;
+    min-height: 22px;
+    border-left-style: solid;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 1px;
+    box-shadow: 0px 0px 0px #666666;
 }

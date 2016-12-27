@@ -16,5 +16,7 @@
     <testsuite name="Domain">
       <directory>unit/lib/domain</directory>
     </testsuite>
+    <testsuite name="Utils">
+    	<directory>unit/lib/utils</directory></testsuite>
   </testsuites>
 </phpunit>

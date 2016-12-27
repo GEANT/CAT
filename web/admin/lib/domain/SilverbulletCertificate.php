@@ -1,6 +1,8 @@
 <?php
 namespace lib\domain;
 
+use lib\view\html\UnaryTag;
+
 /**
  * 
  * @author Zilvinas Vaira
@@ -57,6 +59,8 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     public function __construct($silverbulletUser) {
         parent::__construct(self::TABLE, self::TYPE_INST);
+        $this->setAttributeType(self::PROFILEID, Attribute::TYPE_INTEGER);
+        $this->setAttributeType(self::SILVERBULLETUSERID, Attribute::TYPE_INTEGER);
         if(!empty($silverbulletUser)){
             $this->set(self::PROFILEID, $silverbulletUser->getProfileId());
             $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
@@ -119,9 +123,9 @@ class SilverbulletCertificate extends PersistentEntity{
         $link = '';
         if(empty($host)){
             if (isset($_SERVER['HTTPS'])) {
-                $link = 'https://' . $_SERVER["HTTP_HOST"];
+                $link = 'https://' . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME']));
             } else {
-                $link = 'http://' . $_SERVER["HTTP_HOST"];
+                $link = 'http://' . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME']));
             }
         }else{
             $link = $host;
@@ -130,6 +134,15 @@ class SilverbulletCertificate extends PersistentEntity{
             $link = _('User did not consume the token and it expired!');
         }else{
             $link .= '/accountstatus.php?token='.$this->get(self::ONETIMETOKEN);
+            $input = new UnaryTag('input');
+            $input->addAttribute('type', 'text');
+            $input->addAttribute('readonly','readonly');
+            $input->addAttribute('value', $link);
+            $input->addAttribute('size', strlen($link)+3);
+            $input->addAttribute('style', 'color: grey;');
+            $input->addAttribute('name', 'certificate-link[]');
+            
+            $link = $input->__toString();
         }
         return $link;
     }
@@ -195,12 +208,12 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     public static function getList($silverbulletUser){
         $databaseHandle = \DBConnection::handle(self::TYPE_INST);
-        $userId = $silverbulletUser->getIdentifier();
-        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", 's', $userId);
+        $userId = $silverbulletUser->getAttribute(self::ID);
+        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", $userId->getType(), $userId->value);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);
-            $certificate->row = $row;
+            $certificate->setRow($row);
             $list[] = $certificate;
         }
         return $list;

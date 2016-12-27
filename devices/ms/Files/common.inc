@@ -1,7 +1,10 @@
-; *********************************************************************************
-; * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
-; * License: see the LICENSE file in the root directory
-; ***********************************************************************************
+; ******************************************************************************
+; * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+; * and GN4-2 consortia
+; *
+; * License: see the web/copyright.php file in the file structure
+; ******************************************************************************
+;
 ; Used by Vista/W7/W8 module
 ;---------------------------------------
 
@@ -26,6 +29,7 @@ Var HEADLINE_FONT
         !include "WordFunc.nsh"
         !include "FileFunc.nsh"
         !include "x64.nsh"
+        !include "WinVer.nsh"
 SetCompressor bzip2
 !ifdef WIRED
    !ifdef EXECLEVEL
@@ -63,20 +67,27 @@ Var Platform
 Var Netsh
 Var Msiexec
 Var main_ssid
+Var rebootRequired
+!ifdef SILVERBULLET
+  !define CRED
+  !define TLS_CRED
+!endif
+!ifdef GEANTLink
+  !define CRED
+  !define PASSWORD_BASED_CRED
+  Var GL_Profile_id
+!endif
+!ifdef PEAP
+  !define CRED
+  !define PASSWORD_BASED_CRED
+!endif
 !ifdef TLS
   Var Cert_file
   Var PFX_install
   Var Dialog1
-  var Password
+  Var Password
 !endif
-!ifdef GEANTLink
-!define CRED
-Var GL_Profile_id
-!endif
-!ifdef PEAP
-!define CRED
-!endif
-!ifdef CRED
+!ifdef PASSWORD_BASED_CRED
   Var UNAME_F
   Var UNAME
   Var PASS1_F
@@ -85,6 +96,9 @@ Var GL_Profile_id
   Var UNAME_B64
   Var PASS2_F
   Var PASS2
+!endif
+!ifdef TLS_CRED
+  Var tlsFingerprint
 !endif
 
 !include "base64.nsh"
@@ -277,6 +291,8 @@ Function .onInit
   Pop $wired
   Push 0
   Pop $force_wired
+  Push 0
+  Pop $rebootRequired
   !include "profiles.nsh"
   IntOp $profile_count $profile_count - 1
   File "wlan_test.exe"
@@ -481,68 +497,56 @@ FunctionEnd
 ;  Check for Windows Version
 ;
 Function wVersionCheck
-  Push 0
-  Pop $VistaNoSP
-  GetVersion::WindowsName
+  ${If} ${AtLeastWin10}
+     Push 8
+     Push "Windows 10"
+  ${ElseIf} ${IsWin8.1}
+     Push 8
+     Push "Windows 8.1"
+  ${ElseIf} ${IsWin8}
+     Push 8
+     Push "Windows 8"
+  ${ElseIf} ${IsWin7}
+     Push 7
+     Push "Windows 7"
+  ${ElseIf} ${IsWinVista}
+     Push 6
+     Push "Windows Vista"
+  ${Else}
+     Push 5
+     Push "Windows XP" ; this is not really nice, we actually assume that everything below Vista is XP
+  ${EndIf}
   Pop $WindowsName
-  GetVersion::WindowsVersion
-  Pop $R0
-  GetVersion::WindowsServicePackBuild
-  Pop $R1
-  ${VersionCompare} "$R0" "6.2" $R5
-!ifdef W8
-  ${If} $R5 == 2
+  Pop $WindowsVer
+  !insertmacro debug_cat 3 "Detected $WindowsName:$WindowsVer"
+  ${If} ${IsWinVista}
+     ${If} ${AtLeastServicePack} 1
+        Push 0
+     ${Else}
+        Push 1
+     ${EndIf}
+  ${Else}
+     Push 0
+  ${EndIf}
+  Pop $VistaNoSP
+
+
+  !ifdef W8
+  ${If} ${AtMostWin7}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
-!ifndef ALLOW_LOW_VERSION
-    Call Cleanup
-!endif
+    !ifndef ALLOW_LOW_VERSION
+        Call Cleanup
+    !endif
   ${EndIf}
-  Push 8
-  Pop $WindowsVer
-!else
-  ${If} $R5 < 2
+  !else
+  ${If} ${AtMostWinXP}
+  ${OrIf} ${AtLeastWin8}
     IfSilent +2
     MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows Vista and Windows 7. Please download the correct installer and try again."))?>"
     Call Cleanup
   ${EndIf}
-  ${VersionCompare} "$R0" "6.0" $R5
-  ${If} $R5 < 2
-    ${If} $R1 >= 7000
-      Push 1
-      Pop $W7
-      Push 7
-      Pop $WindowsVer
-    ${ElseIf} $R1 >= 6001
-      Push 0
-      Pop $W7
-      Push 6
-      Pop $WindowsVer
-    ${Else}
-      Push 0
-      Pop $W7
-      Push 1
-      Pop $VistaNoSP
-      Push 6
-      Pop $WindowsVer
-    ${EndIf}
-  ${EndIf}
-  !insertmacro debug_cat 3 "VistaNoSP:$VistaNoSP; W7:$W7"
-
-  System::Call kernel32::GetVersion()i.s
-  Pop $R0
-  !insertmacro debug_cat 3 "Version $R0"
-  IntOp $R1 $R0 & 0xff
-  !insertmacro debug_cat 3 "Version $R1"
-  ${If} $R1 < 6
-    IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows Vista and Windows 7. Please download the correct installer and try again."))?>"
-!ifndef ALLOW_XP
-    Call Cleanup
-!endif
-  ${EndIf}
-!endif
-   !insertmacro debug_cat 3 "WindowsVer:$WindowsVer"
+  !endif
 FunctionEnd
 
 ; Check if wireless intefaces and service are running
@@ -552,13 +556,12 @@ Function Wireless_Check
   nsExec::Exec "$TEMP\wlan_test.exe"
   Pop $wireless_result
   !insertmacro debug_cat 3 "wlan_test.exe returned $wireless_result"
-  ${If} $wireless_result > 0 
+  ${If} $wireless_result > 0
      !insertmacro debug_cat 2 "Wireless problem: $wireless_result"
   ${Else}
      !insertmacro debug_cat 2 "Wireless check OK"
   ${EndIf}
 FunctionEnd
-
 
 ; If a wireless problem has been found, decide what to do
 Function NoWirelessConfirm
@@ -676,7 +679,7 @@ FunctionEnd
 
 ; Check which wireless profiles already exist and should be deleted
 Function CheckWirelessProfiles
-  !ifdef CRED
+  !ifdef PASSWORD_BASED_CRED
   File setEAPCred.exe
   nsArray::Set Delete_files "setEAPCred.exe"
   !endif
@@ -766,8 +769,12 @@ Call ShowAllButtons
   ${Else}
      nsDialogs::CreateControl STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 120u 32u -130u -32u "${FAREWELL_TEXT}"
   ${EndIf}
-     Pop $TEXT
-     SetCtlColors $TEXT "" 0xffffff
+  ${If} $rebootRequired == 1
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi(_("Please restart your system after installation finishes."))?>"
+  ${EndIf}
+
+  Pop $TEXT
+  SetCtlColors $TEXT "" 0xffffff
   SetCtlColors $DIALOG "" 0xffffff
   SetCtlColors $HEADLINE "" 0xffffff
 
@@ -885,10 +892,40 @@ Function InstallProfile
   ${EndIf}
 FunctionEnd
 
+
+
 ; Install credentials for wired
 Function InstallWiredCred
-    !insertmacro debug_cat 1 "installing credentials for wired"
-    DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
+  !insertmacro debug_cat 1 "installing credentials for wired"
+  DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
+  !insertmacro debug_cat 3 "Execute: $TEMP\install_wired.cmd"
+  nsExec::Exec "$TEMP\install_wired.cmd"
+FunctionEnd
+
+Function writeTlsUserProfle
+    FileOpen $9 "$TEMP\user_cred.xml" w
+    FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+<EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
+  <EapMethod>$\r$\n\
+    <eapCommon:Type>13</eapCommon:Type>$\r$\n\
+    <eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
+  </EapMethod>$\r$\n\
+  <Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:eapTls=$\"http://www.microsoft.com/provisioning/EapTlsUserPropertiesV1$\">$\r$\n\
+    <baseEap:Eap>$\r$\n\
+      <baseEap:Type>13</baseEap:Type>$\r$\n\
+      <eapTls:EapType>$\r$\n'
+
+FileWrite $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
+      </eapTls:EapType>$\r$\n\
+    </baseEap:Eap>$\r$\n\
+  </Credentials>$\r$\n\
+</EapHostUserCredentials>$\r$\n"
+   FileClose $9
+   nsArray::Set Delete_files "user_cred.xml"
+FunctionEnd
+
+
+Function writePeapUserProfle
     FileOpen $9 "$TEMP\user_cred.xml" w
     FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
@@ -913,9 +950,9 @@ FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
    FileClose $9
-  !insertmacro debug_cat 3 "Execute: $TEMP\install_wired.cmd"
-  nsExec::Exec "$TEMP\install_wired.cmd"
+   nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
+
 
 ;=============================
 ; Install credentials for a wireless profile
@@ -929,10 +966,17 @@ Function InstallWirelessCred
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
 
     DetailPrint "<?php echo_nsi(_("installing credentials for profile \$R1"))?>"
+    !ifdef PEAP
     !insertmacro debug_cat 3 "Execute: $TEMP\setEAPCred.exe $\"$UNAME$\" $\"base_64_password_not_recorded$\" $\"$R1$\""
     nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS_B64$\" $\"$R1$\""
+    !endif
+    !ifdef SILVERBULLET
+      Call writeTlsUserProfle
+      !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+      nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+    !endif
     Pop $0
-    !insertmacro debug_cat 3 "setEAPCred.exe returned $0"
+    !insertmacro debug_cat 3 "credentials setting returned $0"
     StrCmp $0 0 Cont1
 ; Error Label, show error box
     IfSilent +2
@@ -943,6 +987,7 @@ FunctionEnd
 ;=============================
 !ifdef TLS
 Function PFXCertificateSelect
+  !ifndef SILVERBULLET
 ;TRANSLATION
 !insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
   ${If} $PFX_install == 0
@@ -960,9 +1005,23 @@ Function PFXCertificateSelect
   Pop $Cert_file
 ;TRANSLATION
   ${NSD_CreateLabel} 0 0 100% 32u "<?php echo_nsi(_("Selected file: \$Cert_file"))?>"
+  Push "<?php echo_nsi(_("certificate password:"))?>"
+  !else
+  !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
+  File "WLANSetEAPUserData32.exe"
+  File "WLANSetEAPUserData64.exe"
+  !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
+  File "SB_cert.p12"
+  nsArray::Set Delete_files "SB_cert.p12"
+  Push "$TEMP\SB_cert.p12"
+  Pop $Cert_file
+  nsDialogs::Create 1018
+  Push "<?php echo_nsi(_("import password:"))?>"
+  !endif
+  Pop $R0
   !insertmacro debug_cat 3 "Vista level (Vista without Service pack): $VistaNoSP";
   ${If} $VistaNoSP == 0
-    ${NSD_CreateLabel} 0 35u 80u 12u "<?php echo_nsi(_("certificate password:"))?>"
+    ${NSD_CreateLabel} 0 35u 80u 12u $R0
     ${NSD_CreatePassword} 85u 34.5u 100u 12u ""
     Pop $Password
     ${NSD_SetFocus} $Password
@@ -976,18 +1035,35 @@ Function PFXCertificateSelectLeave
       MessageBox MB_OK  "<?php echo_nsi(_("No certificate file selected"))?>"
       Call Cleanup
    ${EndIf}
+   !ifdef SILVERBULLET
+     Push "<?php echo_nsi(_("Incorrect import password$\\r$\\nenter again"))?>"
+   !else
+     Push "<?php echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
+   !endif
+   Pop $R0 
 
    ${If} $VistaNoSP == 1
      System::Call "cryptext::CryptExtAddPFX(i $HWNDPARENT, i 0, t '$Cert_file', i 1)"
    ${Else}
       ${NSD_GetText} $Password $0
-      !insertmacro debug_cat 3 'Execute: "certutil" -importpfx -user -p "password_not_recorded" "$Cert_file"'
-      nsExec::Exec '"certutil" -importpfx -user -p "$0" "$Cert_file"'
+      !ifdef W8
+;      !insertmacro debug_cat 3 'Execute: 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
+      nsExec::ExecToStack 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String \"$0\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File \"$Cert_file\" cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}"'
+      Pop $1
+      Pop $tlsFingerprint
+      !insertmacro debug_cat 3 "PFX install returned $1"
+      !else
+      nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -Command "&{$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2; try { $cert.Import(\"$Cert_file\", \"$0\", \"Exportable\") } catch { exit 1 }; $cert.Thumbprint}"'
+      Pop $1
+      Pop $tlsFingerprint
+      !insertmacro debug_cat 3 'Execute: "certutil" -importpfx -user -p "password_not_recorded" "$Cert_file" NoRoot'
+      nsExec::Exec '"certutil" -importpfx -user -p "$0" "$Cert_file" NoRoot'
       Pop $1
       !insertmacro debug_cat 3 "certutil returned $1"
+      !endif
 ;TRANSLATION
     ${If} $1 <> 0
-      MessageBox MB_OK  "<?php echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
+      MessageBox MB_OK  $R0
       Abort
     ${EndIf}
    ${EndIf}
@@ -995,9 +1071,10 @@ FunctionEnd
 ;===========================
 !endif
 
+
 ; User credentials dialog
-!ifdef CRED
-Function UserCredentials
+!ifdef PASSWORD_BASED_CRED
+Function GetPasswordBasedCredentials
 ;  ${If} $get_credentials == 0
 ;    Abort
 ;  ${EndIf}
@@ -1019,41 +1096,40 @@ Function UserCredentials
 FunctionEnd
 
 ; Handle user input
-Function SaveCredentials
-${NSD_GetText} $UNAME_F $UNAME
-${NSD_GetText} $PASS1_F $PASS1
-${NSD_GetText} $PASS2_F $PASS2
-${If} "$UNAME" == ""
-  MessageBox MB_OK "<?php echo_nsi(_("Missing username"))?>"
-  Abort
-${EndIf}
+Function SavePasswordBasedCredentials
+   ${NSD_GetText} $UNAME_F $UNAME
+   ${NSD_GetText} $PASS1_F $PASS1
+   ${NSD_GetText} $PASS2_F $PASS2
+   ${If} "$UNAME" == ""
+     MessageBox MB_OK "<?php echo_nsi(_("Missing username"))?>"
+     Abort
+   ${EndIf}
 
-${If} "$PASS1" == ""
-  MessageBox MB_OK "<?php echo_nsi(_("Missing password"))?>"
-  Abort
-${EndIf}
-${If} "$PASS1" != "$PASS2"
-${NSD_SetText} $PASS1_F ""
-${NSD_SetText} $PASS2_F ""
-MessageBox MB_OK "<?php echo_nsi(_("Password missmatch"))?>"
-Abort
-${EndIf}
-${Base64_Encode} $PASS1
-Pop $PASS_B64
-${Base64_Encode} $UNAME
-Pop $UNAME_B64
-Call ShowAllButtons
+   ${If} "$PASS1" == ""
+     MessageBox MB_OK "<?php echo_nsi(_("Missing password"))?>"
+     Abort
+   ${EndIf}
+   ${If} "$PASS1" != "$PASS2"
+   ${NSD_SetText} $PASS1_F ""
+   ${NSD_SetText} $PASS2_F ""
+   MessageBox MB_OK "<?php echo_nsi(_("Password missmatch"))?>"
+   Abort
+   ${EndIf}
+   ${Base64_Encode} $PASS1
+   Pop $PASS_B64
+   ${Base64_Encode} $UNAME
+   Pop $UNAME_B64
+   Call ShowAllButtons
 FunctionEnd
+!endif ; PASSWORD_BASED_CRED
 ;=============================
+!ifdef CRED
 Function InstallUserCredentials
   Call InstallWirelessUserCredentials
   Call InstallWiredUserCredentials
 FunctionEnd
 ;=============================
 Function InstallWirelessUserCredentials
-  !ifndef CRED
-    Abort
-  !endif
   !insertmacro debug_cat 4 "Installing wireless credentials"
   ${If} $install_wireless_credentials == 0
     Goto WirelessEnd
@@ -1067,19 +1143,17 @@ FunctionEnd
 ;=============================
 
 Function InstallWiredUserCredentials
-  !ifndef CRED
-    Abort
-  !endif
   ${If} $install_wired_credentials == 0
     Goto WiredEnd
   ${EndIf}
+   Call writePeapUserProfle
    Call InstallWiredCred
 WiredEnd:
 FunctionEnd
 
-!endif
+!endif  ; CRED
 
-
+;==============================
 
 Function Cleanup
 ${If} $Debug_cat > 0
@@ -1109,19 +1183,21 @@ Page custom WiredConfirm
 !endif
 ;============================
 !ifdef TLS
+!ifndef SILVERBULLET
 PageEx components
 PageCallbacks showComponents "" ""
 ;TRANSLATION
 ComponentText "<?php printf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),CONFIG['CONSORTIUM']['name'])?>" "" \
       "<?php echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
 PageExEnd
+!endif
 ;=============================
 Page custom PFXCertificateSelect PFXCertificateSelectLeave
 ;=============================
 !endif
 ;=============================
-!ifdef CRED
-Page custom UserCredentials SaveCredentials
+!ifdef PASSWORD_BASED_CRED
+Page custom GetPasswordBasedCredentials SavePasswordBasedCredentials
 !endif
 ;=============================
 Page instfiles ShowInstfiles

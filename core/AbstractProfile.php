@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -113,11 +116,11 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function __construct($profileId, $idpObject = NULL) {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our database handle and logging
+        $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         // first make sure that we are operating on numeric identifiers
         if (!is_numeric($profileId)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstarctProfile constructor!");
         }
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");

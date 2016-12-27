@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -56,6 +59,7 @@ const CONFIG = [
         // in "About CAT" then)
         'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
         'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
+        'skins' => ["classic", "example"],
     ],
 
     /**
@@ -110,6 +114,7 @@ const CONFIG = [
         'keypass' => NULL,
         'silverbullet_default_maxusers' => 200,
         'silverbullet_realm_suffix' => '.hosted.eduroam.org',
+        'nomenclature_federation' => 'National Roaming Operator',
     ],
 
     /**
@@ -181,19 +186,23 @@ const CONFIG = [
      * @var array
      */
     'LANGUAGES' => [
+      'bg' => ['display' => 'Български',   'locale' => 'bg_BG.utf8',    'latin_based' => FALSE],
       'ca' => ['display' => 'Català',      'locale' => 'ca_ES.utf8',    'latin_based' => TRUE],
+      'cs' => ['display' => 'Čeština',     'locale' => 'cs_CZ.utf8',    'latin_based' => TRUE],
       'de' => ['display' => 'Deutsch',     'locale' => 'de_DE.utf8',    'latin_based' => TRUE],
+      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
       'en' => ['display' => 'English(GB)', 'locale' => 'en_GB.utf8',    'latin_based' => TRUE],
       'es' => ['display' => 'Español',     'locale' => 'es_ES.utf8',    'latin_based' => TRUE],
+      'fr' => ['display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE],
       'gl' => ['display' => 'Galego',      'locale' => 'gl_ES.utf8',    'latin_based' => TRUE],
       'hr' => ['display' => 'Hrvatski',    'locale' => 'hr_HR.utf8',    'latin_based' => TRUE],
       'it' => ['display' => 'Italiano',    'locale' => 'it_IT.utf8',    'latin_based' => TRUE],
+      'lt' => ['display' => 'lietuvių',    'locale' => 'lt_LT.utf8',    'latin_based' => TRUE],
       'nb' => ['display' => 'Norsk',       'locale' => 'nb_NO.utf8',    'latin_based' => TRUE],
       'pl' => ['display' => 'Polski',      'locale' => 'pl_PL.utf8',    'latin_based' => TRUE],
       'sl' => ['display' => 'Slovenščina', 'locale' => 'sl_SI.utf8',    'latin_based' => TRUE],
-      'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',    'latin_based' => TRUE],
+      'sr' => ['display' => 'Srpski',      'locale' => 'sr_RS@latin',   'latin_based' => TRUE],
       'fi' => ['display' => 'Suomi',       'locale' => 'fi_FI.utf8',    'latin_based' => TRUE],
-      'el' => ['display' => 'Ελληνικά',    'locale' => 'el_GR.utf8',    'latin_based' => FALSE],
       'hu' => ['display' => 'Magyar',      'locale' => 'hu_HU.utf8',    'latin_based' => TRUE],
       'pt' => ['display' => 'Português',   'locale' => 'pt_PT.utf8',    'latin_based' => TRUE],
 
@@ -203,14 +212,13 @@ const CONFIG = [
 // state of translation of these languages.
 //
 // these two were in for 1.0 but didn't make 1.1
-//     'sk' => array('display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE),
-//     'fr' => array('display' => 'Français',    'locale' => 'fr_FR.utf8',    'latin_based' => TRUE),
+//      'sk' => ['display' => 'Slovenčina',  'locale' => 'sk_SK.utf8',    'latin_based' => TRUE],
 //
 // and these were never complete
 //
-//      'nl' => array('display' => 'Nederlands', 'locale' => 'nl_NL.utf8',    'latin_based' => TRUE),
-//      'sv' => array('display' => 'Svenska', 'locale' => 'sv_SE.utf8',    'latin_based' => TRUE),
-//      'cy' => array('display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE),
+//      'nl' => ['display' => 'Nederlands', 'locale' => 'nl_NL.utf8',    'latin_based' => TRUE],
+//      'sv' => ['display' => 'Svenska', 'locale' => 'sv_SE.utf8',    'latin_based' => TRUE],
+//      'cy' => ['display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
     ],
 
     /**

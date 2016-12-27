@@ -1,8 +1,12 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
@@ -68,6 +72,7 @@ if (isset($_POST['submitbutton'])) {
             // we don't decide about that here; it's done by JS magic in the calling button
             if ($_POST['admin_id'] == $_SESSION['user']) {
                 header("Location: $dest");
+                exit;
             }
         } else {
             echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";

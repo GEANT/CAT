@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -18,15 +21,20 @@
  * the receiving end to strip this marker and not add the title by itself.
  *
  */
-include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once(dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php");
 require_once("Language.php");
 require_once("EAP.php");
-require_once(dirname(dirname(__FILE__)) . "/admin/inc/input_validation.inc.php");
-require_once(dirname(dirname(__FILE__)) . "/admin/inc/common.inc.php");
-require_once(dirname(dirname(dirname(__FILE__))) . "/devices/devices.php");
+require_once("Helper.php");
+require_once("DeviceFactory.php");
+require_once("Skinjob.php");
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/common.inc.php");
+require_once(dirname(dirname(dirname(dirname(dirname(__FILE__))))) . "/devices/devices.php");
 
 $langObject = new Language();
 $langObject->setTextDomain("web_user");
+
+$skinObject = new Skinjob("classic");
 
 $page = $_REQUEST['page'];
 
@@ -58,14 +66,14 @@ switch ($page) {
                     continue;
                 }
             }
-            $out .= "<tr><td class='vendor'><img src='resources/images/vendorlogo/" . $onedevice['group'] . ".png' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
+            $out .= "<tr><td class='vendor'><img src='". (new Skinjob(""))->findResourceUrl("IMAGES")."vendorlogo/" . $onedevice['group'] . ".png' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new DeviceFactory($index);
             foreach (EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
                 if (in_array($oneeap, $device_instance->device->supportedEapMethods)) {
-                    $out .= "<img src='resources/images/icons/Quetto/check-icon.png' alt='SUPPORTED'>";
+                    $out .= "<img src='". $skinObject->findResourceUrl("IMAGES") . "icons/Quetto/check-icon.png' alt='SUPPORTED'>";
                 } else {
-                    $out .= "<img src='resources/images/icons/Quetto/no-icon.png' alt='UNSUPPOERTED'>";
+                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES") . "icons/Quetto/no-icon.png' alt='UNSUPPOERTED'>";
                 }
                 $out .= "</td>";
             }
@@ -106,7 +114,7 @@ switch ($page) {
         break;
     case 'tou':
         print ('no_title');
-        include('tou.php');
+        include(ROOT.'/web/user/tou.php');
         return;
     case 'develop':
         $out = sprintf(_("The most important need is adding new installer modules, which will configure particular devices.  CAT is making this easy for you. If you know how to create an automatic installer then fitting it into CAT should be a piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT documentation</a>."), CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['support-contact']['developer-mail'], 'doc/');
@@ -119,7 +127,7 @@ switch ($page) {
         break;
     case 'faq':
         print ('no_title');
-        include('faq.php');
+        include(ROOT.'/web/user/faq.php');
         return;
     case 'admin' :
         $out = "";

@@ -1,11 +1,23 @@
-CREATE TABLE IF NOT EXISTS `silverbullet_user` (
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
+DROP TABLE IF EXISTS `silverbullet_certificate`;
+DROP TABLE IF EXISTS `silverbullet_user`;
+
+CREATE TABLE `silverbullet_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `username` VARCHAR(45) NOT NULL COMMENT '',
-  `expiry` TIMESTAMP NOT NULL COMMENT '',
+  `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
+  `last_ack` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '',
   PRIMARY KEY (`id`, `profile_id`)  COMMENT '',
   INDEX `fk_silverbullet_user_profile1_idx` (`profile_id` ASC)  COMMENT '',
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '',
+  UNIQUE INDEX `username_UNIQUE` (`profile_id` ASC, `username` ASC)  COMMENT '',
   CONSTRAINT `fk_silverbullet_user_profile1`
     FOREIGN KEY (`profile_id`)
     REFERENCES `profile` (`profile_id`)
@@ -13,13 +25,13 @@ CREATE TABLE IF NOT EXISTS `silverbullet_user` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS `silverbullet_certificate` (
+CREATE TABLE `silverbullet_certificate` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
   `one_time_token` VARCHAR(45) NOT NULL COMMENT '',
   `serial_number` BLOB NULL COMMENT '',
-  `cn` VARCHAR(45) NULL COMMENT '',
+  `cn` VARCHAR(128) NULL COMMENT '',
   `expiry` TIMESTAMP NOT NULL COMMENT '',
   PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
   INDEX `fk_silverbullet_certificate_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',

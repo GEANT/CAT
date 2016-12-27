@@ -1,12 +1,11 @@
 <?php
-/**
- * This file sets a few paths. Usually, you don't have to change anything here!
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
  *
- * @package Configuration
- */
-
-/**
- * 
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
  */
 
 require_once ("autoloader.php");

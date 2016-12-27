@@ -1,8 +1,12 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 /*
@@ -29,6 +33,9 @@ use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
 use lib\view\UserCredentialsForm;
+use lib\view\FileUploadForm;
+use lib\view\TitledBlockDecorator;
+use lib\view\PageElement;
 
 authenticate();
 
@@ -37,6 +44,27 @@ $page->appendScript('js/silverbullet.js');
 $page->appendCss('css/silverbullet.css');
 $builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
 if($builder->isReady()){
+    // this page may have been called for the first time, when the profile does not
+    // actually exist in the DB yet. If so, we will need to create it first.
+    if (!isset($_REQUEST['profile_id'])) {
+        // someone might want to trick himself into this page by sending an inst_id but
+        // not having permission for silverbullet. Sanity check that the fed in question
+        // does allow SB and that the IdP doesn't have any non-SB profiles
+        $inst = $builder->getInstitution();
+        if ($inst->profileCount() > 0) {
+            throw new Exception("We were told to create a new SB profile, but the inst in question already has at least one profile!");
+        }
+        $fed = new Federation($inst->federation);
+        $allowSb = $fed->getAttributes("fed:silverbullet");
+        if (count($allowSb) == 0) {
+            throw new Exception("We were told to create a new SB profile, but this federation does not allow SB at all!");
+        }
+        // okay, new SB profiles are allowed. Create one.
+        $newProfile = $inst->newProfile("SILVERBULLET");
+        // and modify the REQUEST_URI to add the new profile ID
+        $_SERVER['REQUEST_URI'] = $_SERVER['REQUEST_URI']."&profile_id=".$newProfile->identifier;
+        $_GET['profile_id'] = $newProfile->identifier;
+    }
     
     $factory = new SilverbulletFactory($builder->getProfile());
     $factory->parseRequest();
@@ -51,9 +79,14 @@ if($builder->isReady()){
     $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletFactory::STATS_ACTIVE]));
     $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletFactory::STATS_PASSIVE]));
     $builder->addContentElement($infoBlock);
+
+    //User import form preparation
+    $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of invitations (optional):'));
+    $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElement::INFOBLOCK_CLASS);
+    $builder->addContentElement($importBlock);
     
     //Edit form data preparation
-    $editBlock = new UserCredentialsForm(_('Manage institution users'));
+    $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
@@ -63,6 +96,7 @@ if($builder->isReady()){
     }
     
     $builder->addContentElement($editBlock);
+    
 }
 
 

@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -68,10 +71,10 @@ abstract class DeviceConfig extends Entity {
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
-        $this->loggerInstance->debug(4, "This device (".__CLASS__.") supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
         $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
     }
-    
+
     /**
      * device module constructor should be defined by each module. 
      * The one important thing to do is to call setSupportedEapMethods with an 
@@ -101,6 +104,7 @@ abstract class DeviceConfig extends Entity {
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
+        $purpose = 'installer';
         if (!$profile instanceof AbstractProfile) {
             $this->loggerInstance->debug(2, "No profile has been set\n");
             throw new Exception("No profile has been set");
@@ -112,19 +116,24 @@ abstract class DeviceConfig extends Entity {
             throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        
+        $this->deviceUUID = uuid('','CAT'.$profile->institution."-".$profile->identifier."-".$this->device_id);
+
+
         // if we are instantiating a Silverbullet profile AND have been given
         // a token, attempt to create the client certificate NOW
         // then, this is the only instance of the device ever which knows the
         // cert and private key. It's not saved anywhere, so it's gone forever
         // after code execution!
-        
+
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
             $this->clientCert = $profile->generateCertificate($token, $importPassword);
+            // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
+            // Because encrypted private keys are not supported as per spec!
+            $purpose = 'silverbullet';
         }
-        
+
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $tempDir = createTemporaryDirectory('installer');
+        $tempDir = createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');
@@ -651,10 +660,16 @@ abstract class DeviceConfig extends Entity {
      * @var string 
      */
     public $installerBasename;
-    
+
     /**
      * stores the PKCS#12 DER representation of a client certificate for SilverBullet
      */
     protected $clientCert;
+
+    /**
+     * stores identifier used by GEANTLink profiles
+     */
+    public static $deviceUUID;
+
 
 }

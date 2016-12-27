@@ -1,9 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -73,13 +76,28 @@ require_once('EAP.php');
 class Device_Chromebook extends DeviceConfig {
 
     /**
+     * Number of iterations for the PBKDF2 function. 
+     * 20000 is the minimum as per ChromeOS ONC spec
+     * 500000 is the maximum as per Chromium source code
+     * https://cs.chromium.org/chromium/src/chromeos/network/onc/onc_utils.cc?sq=package:chromium&dr=CSs&rcl=1482394814&l=110
+     */
+    const PBKDF2_ITERATIONS = 20000;
+    
+    /**
      * Constructs a Device object.
      *
      * @final not to be redefined
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS]);
+        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS, EAPTYPE_SILVERBULLET]);
+    }
+
+    // from: http://stackoverflow.com/questions/10916284/how-to-encrypt-decrypt-data-in-php#10945097
+
+    private function pkcs7_pad($data, $size) {
+        $length = $size - strlen($data) % $size;
+        return $data . str_repeat(chr($length), $length);
     }
 
     /**
@@ -97,6 +115,21 @@ class Device_Chromebook extends DeviceConfig {
         foreach ($this->attributes['internal:CAs'][0] as $ca) {
             $caRefs[] = "{" . $ca['uuid'] . "}";
         }
+        // define CA certificates
+        foreach ($this->attributes['internal:CAs'][0] as $ca) {
+            // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
+            $this->loggerInstance->debug(3, $ca['pem']);
+            $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            $this->loggerInstance->debug(4, $caSanitized1 . "\n");
+            // remove \n
+            $caSanitized = str_replace("\n", "", $caSanitized1);
+            $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Remove" => false, "Type" => "Authority", "X509" => $caSanitized];
+            $this->loggerInstance->debug(3, $caSanitized . "\n");
+        }
+        // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $jsonArray["Certificates"][] = ["GUID" => "[" . $this->clientCert['GUID'] . "]", "PKCS12" => base64_encode($this->clientCert['certdataclear']), "Remove" => false, "Type" => "Client"];
+        }
         // construct outer id, if anonymity is desired
         $outerId = $this->determineOuterIdString();
 
@@ -111,9 +144,19 @@ class Device_Chromebook extends DeviceConfig {
         if ($eapPrettyprint["OUTER"] == "TLS") {
             $eapPrettyprint["OUTER"] = "EAP-TLS";
         }
+
         // define EAP properties
 
-        $eaparray = array("Outer" => $eapPrettyprint["OUTER"]);
+        $eaparray = [];
+
+        // if silverbullet, we deliver the client cert inline
+
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
+            $eaparray['ClientCertType'] = "Ref";
+        }
+
+        $eaparray["Outer"] = $eapPrettyprint["OUTER"];
         if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
             $eaparray["Inner"] = $eapPrettyprint["INNER"];
         }
@@ -122,7 +165,10 @@ class Device_Chromebook extends DeviceConfig {
         $eaparray["UseSystemCAs"] = false;
 
         if ($outerId) {
-            $eaparray["AnonymousIdentity"] = "$outerId";
+            $eaparray["AnonymousIdentity"] = $outerId;
+        }
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $eaparray["Identity"] = $this->clientCert["username"];
         }
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
@@ -130,6 +176,7 @@ class Device_Chromebook extends DeviceConfig {
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "$ssid",
+                "Remove" => false,
                 "Type" => "WiFi",
                 "WiFi" => [
                     "AutoConnect" => true,
@@ -147,6 +194,7 @@ class Device_Chromebook extends DeviceConfig {
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "eduroam configuration (wired network)",
+                "Remove" => false,
                 "Type" => "Ethernet",
                 "Ethernet" => [
                     "Authentication" => "8021X",
@@ -156,21 +204,35 @@ class Device_Chromebook extends DeviceConfig {
             ];
         }
 
-        // define CA certificates
-        foreach ($this->attributes['internal:CAs'][0] as $ca) {
-            // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
-            $this->loggerInstance->debug(3, $ca['pem']);
-            $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
-            $this->loggerInstance->debug(4, $caSanitized1 . "\n");
-            // remove \n
-            $caSanitized = str_replace("\n", "", $caSanitized1);
-            $jsonArray["Certificates"][] = ["GUID" => "{" . $ca['uuid'] . "}", "Type" => "Authority", "X509" => $caSanitized];
-            $this->loggerInstance->debug(3, $caSanitized . "\n");
+        $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
+        $finalJson = $clearJson;
+        // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
+        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+            $salt = random_str(12);
+            $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
+            $iv = openssl_random_pseudo_bytes(16, $strong);
+            $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryption_key, OPENSSL_RAW_DATA, $iv);
+            $hmac = hash_hmac("sha1", $cryptoJson, $encryption_key, TRUE);
+
+            $this->loggerInstance->debug(4,"Clear = $clearJson\nSalt = $salt\nPW = ".$this->clientCert['importPassword']."\nb(IV) = ".base64_encode($iv)."\nb(Cipher) = ".base64_encode($cryptoJson)."\nb(HMAC) = ".base64_encode($hmac));
+            
+            // now, generate the container that holds all the crypto data
+            $finalArray = [
+                "Cipher" => "AES256",
+                "Ciphertext" => base64_encode($cryptoJson),
+                "HMAC" => base64_encode($hmac), // again by reading source code! And why?
+                "HMACMethod" => "SHA1",
+                "Salt" => base64_encode($salt), // this is B64 encoded, but had to read Chromium source code to find out! Not in the spec!
+                "Stretch" => "PBKDF2",
+                "Iterations" => Device_Chromebook::PBKDF2_ITERATIONS,
+                "IV" => base64_encode($iv),
+                "Type" => "EncryptedConfiguration",
+            ];
+            $finalJson = json_encode($finalArray);
         }
 
-        $outputJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $outputFile = fopen('installer_profile', 'w');
-        fwrite($outputFile, $outputJson);
+        fwrite($outputFile, $finalJson);
         fclose($outputFile);
 
         $fileName = $this->installerBasename . '.onc';

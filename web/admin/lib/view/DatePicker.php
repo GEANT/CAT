@@ -4,6 +4,7 @@ namespace lib\view;
 use lib\view\html\HtmlElementInterface;
 use lib\view\html\UnaryTag;
 use lib\view\html\CompositeTag;
+use lib\view\html\Tag;
 
 /**
  * 

@@ -46,11 +46,9 @@ Here are some extra configuration hints for these packages:
 	configure it as a service provider, authenticating towards an IdP of your choice. Attribute mapping is defined in config.php
 * NSIS
 
-	Version 2: needs to have the plug-ins "NsArray", "GetVersion" available
-
-	Version 3: TBD
+	needs to have the plug-in "nsArray"
 	
-	"makensis" needs to be in your $PATH and executable
+	"makensis" needs to be configured in the config/config.php file and executable
 * GeoIP
 
 	API Version 1:

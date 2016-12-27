@@ -1,8 +1,12 @@
 <?php
-/* *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- ***********************************************************************************/
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 /**
@@ -163,6 +167,21 @@ public static function listDevices() {
       ],
    ],
     
+    
+ 'apple_sierra'=>array(
+    'group' => "apple",
+    'display'=>_("Apple macOS Sierra"),
+    'match'=>'Mac OS X 10[._]12',
+    'directory'=>'apple_mobileconfig',
+    'module'=>'mobileconfig_os_x',
+    'signer'=>'mobileconfig_sign',
+    'options'=>array(
+       'sign'=>1,
+       'device_id'=>'OS_X',
+       'mime'=>'application/x-apple-aspen-config',
+      ),
+    ),
+	
 
  'apple_el_cap'=>[
     'group' => "apple",
@@ -237,7 +256,7 @@ public static function listDevices() {
  'mobileconfig'=>[
     'group' => "apple",     
     'display'=>_("Apple iOS mobile devices"),
-    'match'=>'(iPad|iPhone|iPod);.*OS [7-9]_',
+    'match'=>'(iPad|iPhone|iPod);.*OS ([7-9]|1[0-5])_',
     'directory'=>'apple_mobileconfig',
     'module'=>'mobileconfig_ios',
     'signer'=>'mobileconfig_sign',

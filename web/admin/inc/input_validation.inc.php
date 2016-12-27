@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -12,6 +15,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once('Options.php');
 require_once('DBConnection.php');
 require_once('ProfileFactory.php');
+require_once('Federation.php');
 
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
@@ -20,10 +24,13 @@ function input_validation_error($customtext) {
     return "<p>" . _("Input validation error: ") . $customtext . "</p>";
 }
 
-function valid_Fed($input, $owner) {
+function valid_Fed($input, $owner = NULL) {
 
     $temp = new Federation($input);
-
+    if ($owner == NULL) {
+        return $temp;
+    }
+    
     foreach ($temp->listFederationAdmins() as $oneowner) {
         if ($oneowner == $owner) {
             return $temp;
