@@ -1,5 +1,5 @@
 <?php
-namespace lib\domain\http;
+namespace lib\http;
 
 use lib\view\MessageContainerInterface;
 
