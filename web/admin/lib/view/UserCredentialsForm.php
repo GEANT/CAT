@@ -11,7 +11,7 @@ use lib\view\html\Tag;
 use lib\view\html\CompositeTag;
 use lib\view\html\UnaryTag;
 
-class UserCredentialsForm implements PageElement{
+class UserCredentialsForm implements PageElementInterface{
     
     const EDITABLEBLOCK_CLASS = 'sb-editable-block';
     const TITLEROW_CLASS = 'sb-title-row';

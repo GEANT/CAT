@@ -1,6 +1,9 @@
 <?php
 namespace lib\domain;
 
+use lib\view\MessageContainerInterface;
+use lib\domain\http\ValidatorInterface;
+
 use lib\utils\CSVParser;
 
 /**
@@ -8,7 +11,7 @@ use lib\utils\CSVParser;
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletFactory {
+class SilverbulletFactory implements ValidatorInterface{
     
     const COMMAND_ADD_USER = 'newuser';
     const COMMAND_ADD_USERS = 'newusers';
@@ -82,6 +85,26 @@ class SilverbulletFactory {
             }
             $this->redirectAfterSubmit();
         }
+    }
+    
+    /**
+     * 
+     * @param string $command
+     * @param unknown $message
+     */
+    private function storeMessage($command, $message){
+        $_SESSION['sb-messages'][$command][] = $message; 
+    }
+    
+    /**
+     * 
+     * @param MessageContainerInterface $messageContainer
+     * @param string $command
+     * {@inheritDoc}
+     * @see \lib\domain\http\ValidatorInterface::provideMessages()
+     */
+    public function provideMessages($messageContainer, $command){
+        $messageContainer;
     }
     
     /**

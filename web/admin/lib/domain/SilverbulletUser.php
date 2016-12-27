@@ -151,7 +151,7 @@ class SilverbulletUser extends PersistentEntity{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\domain\Persistent::load()
+     * @see \lib\domain\PersistentInterface::load()
      */
     public function load(){
         $state = parent::load();
@@ -162,7 +162,7 @@ class SilverbulletUser extends PersistentEntity{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\domain\Persistent::delete()
+     * @see \lib\domain\PersistentInterface::delete()
      */
     public function delete(){
         $state = parent::delete();
