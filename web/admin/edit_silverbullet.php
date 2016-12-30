@@ -67,7 +67,10 @@ if($builder->isReady()){
     }
     
     $factory = new SilverbulletFactory($builder->getProfile());
+    //print_r($_SESSION);
     $factory->parseRequest();
+    //print_r($_SESSION);
+    
     
     $users = $factory->createUsers();
     $stats = $factory->getUserStats();
@@ -84,7 +87,7 @@ if($builder->isReady()){
     $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of invitations (optional):'));
     $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElementInterface::INFOBLOCK_CLASS);
     $builder->addContentElement($importBlock);
-    
+
     //Edit form data preparation
     $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory, count($users) > 0);
     foreach ($users as $user) {
@@ -94,8 +97,8 @@ if($builder->isReady()){
             $editBlock->addCertificateRow($certificate);
         }
     }
-    
     $builder->addContentElement($editBlock);
+    
     
 }
 

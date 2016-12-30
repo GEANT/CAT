@@ -8,12 +8,12 @@ use lib\domain\http\ValidatorMessage;
  * @author Zilvinas Vaira
  *
  */
-interface MessageContainerInterface {
+interface MessageReceiverInterface {
     
     /**
      * 
      * @param ValidatorMessage $message
      */
-    public function addMessage($message);
+    public function receiveMessage($message);
     
 }

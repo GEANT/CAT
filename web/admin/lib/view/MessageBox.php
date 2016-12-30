@@ -6,7 +6,7 @@ use lib\view\html\CompositeTag;
 use lib\view\html\Tag;
 use lib\domain\http\ValidatorMessage;
 
-class MessageBox implements HtmlElementInterface, MessageContainerInterface{
+class MessageBox implements PageElementInterface, HtmlElementInterface, MessageReceiverInterface{
     
     private $class = '';
     
@@ -14,13 +14,14 @@ class MessageBox implements HtmlElementInterface, MessageContainerInterface{
      * 
      * @var CompositeTag
      */
-    private $box = new CompositeTag('div');
+    private $box;
     
    /**
     * 
     * @param string $class
     */
     public function __construct($class) {
+        $this->box = new CompositeTag('div');
         $this->class = $class;
         $this->box->addAttribute('class', $class);
     }
@@ -29,13 +30,20 @@ class MessageBox implements HtmlElementInterface, MessageContainerInterface{
      * 
      * @param ValidatorMessage $message
      * {@inheritDoc}
-     * @see \lib\view\MessageContainerInterface::addMessage()
+     * @see \lib\view\MessageReceiverInterface::receiveMessage()
      */
-    public function addMessage($message){
+    public function receiveMessage($message){
         $p = new Tag('p');
         $p->addAttribute('class', $message->getClass($this->class));
         $p->addText($message->getText());
         $this->box->addTag($p);
+    }
+    
+    /**
+     * 
+     */
+    public function render(){
+        echo $this->__toString();
     }
     
     /**
