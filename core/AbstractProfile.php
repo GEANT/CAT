@@ -411,8 +411,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             }
         }
         if ($generalRedirect !== NULL) { // could be index 0
-            $unserialised = unserialize($redirect[$generalRedirect]['value']);
-            return [['id' => '0', 'redirect' => $unserialised['content']]];
+            return [['id' => '0', 'redirect' => $redirect[$generalRedirect]['value']]];
         }
         $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];

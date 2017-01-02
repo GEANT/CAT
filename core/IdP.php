@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -213,7 +214,7 @@ class IdP extends EntityWithDBProperties {
                     return new ProfileRADIUS($identifier, $this);
                 case "SILVERBULLET":
                     $theProfile = new ProfileSilverbullet($identifier, $this);
-                    $theProfile->addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1); 
+                    $theProfile->addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1);
                     return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");
@@ -295,11 +296,8 @@ Best regards,
             $matchingCandidates = [];
             foreach ($mynames as $onename) {
                 foreach ($list as $listentry) {
-                    $unserialised = unserialize($onename['value']);
-                    if (($unserialised['lang'] == $listentry['lang'] || $unserialised['lang'] == "C") && $unserialised['content'] == $listentry['name']) {
-                        if (array_search($listentry['ID'], $matchingCandidates) === FALSE) {
-                            $matchingCandidates[] = $listentry['ID'];
-                        }
+                    if (($onename['lang'] == $listentry['lang'] || $onename['lang'] == "C") && $onename['value'] == $listentry['name'] && array_search($listentry['ID'], $matchingCandidates) === FALSE) {
+                        $matchingCandidates[] = $listentry['ID'];
                     }
                 }
             }

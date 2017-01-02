@@ -88,14 +88,12 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $names = $my_inst->getAttributes("general:instname");
 
         foreach ($names as $name) {
-            $thename = unserialize($name['value']);
-            if ($thename['lang'] == "C") {
+            if ($name['lang'] == "C") {
                 $language = "default/other";
             } else {
-                $language = CONFIG['LANGUAGES'][$thename['lang']]['display'];
+                $language = CONFIG['LANGUAGES'][$name['lang']]['display'] ?? "(unsupported language)";
             }
-
-            echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $language) . "</td><td>" . $thename['content'] . "</td></tr>";
+            echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $language) . "</td><td>" . $name['value'] . "</td></tr>";
         }
 
         $admins = $my_inst->owner();
