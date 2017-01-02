@@ -9,7 +9,7 @@ namespace lib\storage;
 class SessionStorage implements StorageInterface{
     
     const INDEX = 'silverbullet-storage';
-    const GLOBAL = 'global';
+    const WIDE = 'wide';
     const SCOPED = 'scoped';
     
     /**
@@ -47,7 +47,7 @@ class SessionStorage implements StorageInterface{
         }
         if(!isset($_SESSION['silverbullet-storage'])){
             $_SESSION[self::INDEX] = array();
-            $_SESSION[self::INDEX][self::GLOBAL] = array();
+            $_SESSION[self::INDEX][self::WIDE] = array();
             $_SESSION[self::INDEX][self::SCOPED] = array();
         }
         if (!empty($package)){
@@ -56,7 +56,7 @@ class SessionStorage implements StorageInterface{
             }
             $this->session = &$_SESSION[self::INDEX][self::SCOPED][$package];
         }else{
-            $this->session = &$_SESSION[self::INDEX][self::GLOBAL];
+            $this->session = &$_SESSION[self::INDEX][self::WIDE];
         }
         $this->package = $package;
     }

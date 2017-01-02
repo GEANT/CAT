@@ -33,18 +33,18 @@ class SessionStorageTest extends PHPUnit_Framework_TestCase{
         $testPutScoped2 = "testputscoped2";
         $scopedSession2 = SessionStorage::getInstance($this->package2);
         $scopedSession2->put($testPutScoped2, $testPutScoped2);
-        $this->assertEquals($_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL][$testPutGlobal], $testPutGlobal);
+        $this->assertEquals($_SESSION[SessionStorage::INDEX][SessionStorage::WIDE][$testPutGlobal], $testPutGlobal);
         $this->assertEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package1][$testPutScoped1], $testPutScoped1);
         $this->assertEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package2][$testPutScoped2], $testPutScoped2);
-        $this->assertNotEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package1][$testPutScoped1], $_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL][$testPutGlobal]);
-        $this->assertNotEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package2][$testPutScoped2], $_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL][$testPutGlobal]);
+        $this->assertNotEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package1][$testPutScoped1], $_SESSION[SessionStorage::INDEX][SessionStorage::WIDE][$testPutGlobal]);
+        $this->assertNotEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package2][$testPutScoped2], $_SESSION[SessionStorage::INDEX][SessionStorage::WIDE][$testPutGlobal]);
         $this->assertNotEquals($_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package1][$testPutScoped1], $_SESSION[SessionStorage::INDEX][SessionStorage::SCOPED][$this->package2][$testPutScoped2]);
     }
     
     public function testGet(){
         $testGetGlobal = "testgetglobal";
         $globalSession = SessionStorage::getInstance();
-        $_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL][$testGetGlobal] = $testGetGlobal;
+        $_SESSION[SessionStorage::INDEX][SessionStorage::WIDE][$testGetGlobal] = $testGetGlobal;
         
         $testGetScoped1 = "testgetscoped1";
         $scopedSession1 = SessionStorage::getInstance($this->package1);
@@ -65,10 +65,10 @@ class SessionStorageTest extends PHPUnit_Framework_TestCase{
     public function testDelete(){
         $testGetGlobal = "testgetglobal";
         $globalSession = SessionStorage::getInstance();
-        $_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL][$testGetGlobal] = $testGetGlobal;
-        $this->assertArrayHasKey($testGetGlobal, $_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL]);
+        $_SESSION[SessionStorage::INDEX][SessionStorage::WIDE][$testGetGlobal] = $testGetGlobal;
+        $this->assertArrayHasKey($testGetGlobal, $_SESSION[SessionStorage::INDEX][SessionStorage::WIDE]);
         $globalSession->delete($testGetGlobal);
-        $this->assertArrayNotHasKey($testGetGlobal, $_SESSION[SessionStorage::INDEX][SessionStorage::GLOBAL]);
+        $this->assertArrayNotHasKey($testGetGlobal, $_SESSION[SessionStorage::INDEX][SessionStorage::WIDE]);
         
         $testGetScoped1 = "testaddpackage";
         $scopedSession1 = SessionStorage::getInstance($this->package1);
