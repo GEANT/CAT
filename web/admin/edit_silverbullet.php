@@ -96,9 +96,7 @@ if($builder->isReady()){
     }
     $builder->addContentElement($editBlock);
     
-    
 }
-
 
 $cat = $builder->createPagePrelude();
 ?>
@@ -112,6 +110,7 @@ $cat = $builder->createPagePrelude();
 <script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="js/silverbullet.js"></script>
 <script type="text/javascript" src="js/edit_silverbullet.js"></script>
+
 <?php echo $page->fetchScript(); ?>
 
 </head>
