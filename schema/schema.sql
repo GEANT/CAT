@@ -155,6 +155,8 @@ CREATE TABLE `user_options` (
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);
+
 INSERT INTO `profile_option_dict` VALUES 
 ('device-specific:customtext','extra text to be displayed to the user when downloading an installer for this device','text','ML'),
 ('device-specific:redirect','URL to redirect the user to when he selects this device','string','ML'),

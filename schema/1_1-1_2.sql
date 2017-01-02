@@ -52,3 +52,5 @@ ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NUL
 ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 
 UPDATE institution SET country = UPPER(country);
+
+CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);
