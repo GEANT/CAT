@@ -1,8 +1,8 @@
 <?php
 
-namespace lib\domain\http;
+namespace lib\http;
 
-use lib\view\MessageContainerInterface;
+use lib\view\MessageReceiverInterface;
 
 /**
  * 
@@ -10,6 +10,11 @@ use lib\view\MessageContainerInterface;
  *
  */
 class ValidatorMessage {
+    
+    const INFO = 'info';
+    
+    const ERROR = 'error';
+    
     
     /**
      * 
@@ -28,13 +33,13 @@ class ValidatorMessage {
      * @param string $text
      * @param string $level
      */
-    public function __construct($text, $level = MessageContainerInterface::MESSAGE) {
+    public function __construct($text, $level = MessageReceiverInterface::INFO) {
         $this->text = $text;
         $this->level = $level;
     }
     
     public function getText(){
-        return _($this->text);
+        return $this->text;
     }
     
     public function getClass($prefix = ''){

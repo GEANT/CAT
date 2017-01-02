@@ -10,6 +10,11 @@ use lib\domain\SilverbulletCertificate;
 use lib\view\html\Tag;
 use lib\view\html\CompositeTag;
 use lib\view\html\UnaryTag;
+use lib\http\SaveUsersValidator;
+use lib\http\AddCertificateValidator;
+use lib\http\AddUserValidator;
+use lib\http\DeleteUserValidator;
+use lib\http\RevokeCertificateValidator;
 
 class UserCredentialsForm implements PageElementInterface{
     
@@ -36,6 +41,12 @@ class UserCredentialsForm implements PageElementInterface{
      * @var string
      */
     private $action;
+
+    /**
+     * 
+     * @var MessageBox
+     */
+    private $addUserMessageBox;
     
     /**
      * 
@@ -47,19 +58,28 @@ class UserCredentialsForm implements PageElementInterface{
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
+
+        $saveMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
+        $factory->distributeMessages(SaveUsersValidator::COMMAND, $saveMessageBox);
+        $factory->distributeMessages(AddCertificateValidator::COMMAND, $saveMessageBox);
+        $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
+        
+        $this->addUserMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
+        $factory->distributeMessages(AddUserValidator::COMMAND, $this->addUserMessageBox);
+        
         if($isNotEmpty){
             $div = new CompositeTag('div');
             $div->addAttribute('style', 'padding-bottom: 20px;');
                 $checkbox = new UnaryTag('input');
                 $checkbox->addAttribute('type', 'checkbox');
-                $checkbox->addAttribute('name', SilverbulletFactory::PARAM_ACKNOWLEDGE);
+                $checkbox->addAttribute('name', SaveUsersValidator::PARAM_ACKNOWLEDGE);
                 $checkbox->addAttribute('value', 'true');
             $div->addTag($checkbox);
                 $label = new Tag('label');
                 $label->addText('I have verified that all configured users are still eligible for eduroam');
             $div->addTag($label);
             $this->decorator->addHtmlElement($div);
-            $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SilverbulletFactory::COMMAND_SAVE, SilverbulletFactory::COMMAND_SAVE));
+            $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SaveUsersValidator::COMMAND, SaveUsersValidator::COMMAND));
             $this->decorator->addHtmlElement(new Button(_('Reset'),'reset', '', '', 'delete', self::RESET_BUTTON_ID));
         }
         $this->addTitleRow();
@@ -79,7 +99,7 @@ class UserCredentialsForm implements PageElementInterface{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array('user' => $user->getUsername(), 'expiry' => new DatePicker(SilverbulletFactory::PARAM_EXPIRY_MULTIPLE, $user->getExpiry()) ));
+        $row = new Row(array('user' => $user->getUsername(), 'expiry' => new DatePicker(SaveUsersValidator::PARAM_EXPIRY_MULTIPLE, $user->getExpiry()) ));
         $row->addAttribute('class', self::USERROW_CLASS);
         $acknowledgeLevel = $user->getAcknowledgeLevel();
         if($acknowledgeLevel == SilverbulletUser::LEVEL_YELLOW){
@@ -91,13 +111,13 @@ class UserCredentialsForm implements PageElementInterface{
         $this->table->addRow($row);
         $hiddenUserId = new Tag('input');
         $hiddenUserId->addAttribute('type', 'hidden');
-        $hiddenUserId->addAttribute('name', SilverbulletFactory::PARAM_ID_MULTIPLE);
+        $hiddenUserId->addAttribute('name', SaveUsersValidator::PARAM_ID_MULTIPLE);
         $hiddenUserId->addAttribute('value', $user->getIdentifier());
         $this->table->addToCell($index, 'user', $hiddenUserId);
         $action = new CompositeTag('div');
         $action->addAttribute('style', 'min-width:150px');
-        $action->addTag(new Button(_('Delete User'),'submit', SilverbulletFactory::COMMAND_DELETE_USER, $user->getIdentifier(), 'delete'));
-        $action->addTag(new Button(_('New Credential'),'submit', SilverbulletFactory::COMMAND_ADD_CERTIFICATE, $user->getIdentifier()));
+        $action->addTag(new Button(_('Delete User'),'submit', DeleteUserValidator::COMMAND, $user->getIdentifier(), 'delete'));
+        $action->addTag(new Button(_('New Credential'),'submit', AddCertificateValidator::COMMAND, $user->getIdentifier()));
         $this->table->addToCell($index, 'action', $action);
     }
     
@@ -110,7 +130,7 @@ class UserCredentialsForm implements PageElementInterface{
         $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);
-        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE, $certificate->getIdentifier(), 'delete'));
+        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', RevokeCertificateValidator::COMMAND, $certificate->getIdentifier(), 'delete'));
     }
     
     public function render(){
@@ -119,11 +139,12 @@ class UserCredentialsForm implements PageElementInterface{
             <?php $this->decorator->render();?>
             <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
                 <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
-                    <label for="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
+                    <?php $this->addUserMessageBox->render();?>
+                    <label for="<?php echo AddUserValidator::COMMAND; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
                     <div style="margin: 5px 0px 10px 0px;">
-                        <input type="text" name="<?php echo SilverbulletFactory::COMMAND_ADD_USER; ?>">
+                        <input type="text" name="<?php echo AddUserValidator::COMMAND; ?>">
                         <?php 
-                            $datePicker = new DatePicker(SilverbulletFactory::PARAM_EXPIRY);
+                            $datePicker = new DatePicker(AddUserValidator::PARAM_EXPIRY);
                             $datePicker->render(); 
                         ?>
                     </div>

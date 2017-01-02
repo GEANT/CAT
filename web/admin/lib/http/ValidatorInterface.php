@@ -1,7 +1,7 @@
 <?php
 namespace lib\http;
 
-use lib\view\MessageContainerInterface;
+use lib\view\MessageReceiverInterface;
 
 /**
  * 
@@ -11,13 +11,7 @@ use lib\view\MessageContainerInterface;
 interface ValidatorInterface {
     /**
      * 
+     * @param MessageReceiverInterface $receiver
      */
-    public function parseRequest();
-    
-    /**
-     * 
-     * @param MessageContainerInterface $messageContainer
-     * @param string $command
-     */
-    public function provideMessages($messageContainer, $command);
+    public function publishMessages($receiver);
 }

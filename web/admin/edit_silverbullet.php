@@ -84,7 +84,7 @@ if($builder->isReady()){
     $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of invitations (optional):'));
     $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElementInterface::INFOBLOCK_CLASS);
     $builder->addContentElement($importBlock);
-    
+
     //Edit form data preparation
     $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory, count($users) > 0);
     foreach ($users as $user) {
@@ -94,11 +94,9 @@ if($builder->isReady()){
             $editBlock->addCertificateRow($certificate);
         }
     }
-    
     $builder->addContentElement($editBlock);
     
 }
-
 
 $cat = $builder->createPagePrelude();
 ?>
@@ -112,6 +110,7 @@ $cat = $builder->createPagePrelude();
 <script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script>
 <script type="text/javascript" src="js/silverbullet.js"></script>
 <script type="text/javascript" src="js/edit_silverbullet.js"></script>
+
 <?php echo $page->fetchScript(); ?>
 
 </head>
