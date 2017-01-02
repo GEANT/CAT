@@ -5,9 +5,11 @@ namespace lib\view;
  * @author Zilvinas Vaira
  *
  */
-interface PageElement {
+interface PageElementInterface {
     const INFOBLOCK_CLASS = 'infobox';
     const OPTIONBLOCK_CLASS = 'option_container';
+    const MESSAGEBOX_CLASS = 'sb-message-box';
+    
     /**
      * 
      */

@@ -80,7 +80,7 @@ class Row extends Tag{
     /**
      * 
      * @param string $column
-     * @param HtmlElement $element
+     * @param HtmlElementInterface $element
      */
     public function addToCell($column, $element){
         if(!isset($this->cells[$column])){

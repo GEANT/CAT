@@ -4,6 +4,10 @@ require_once(__DIR__ . '/../../core/MockProfileSilverbullet.php');
 use lib\domain\SilverbulletFactory;
 use lib\domain\SilverbulletUser;
 use lib\domain\SilverbulletCertificate;
+use lib\http\AddUserValidator;
+use lib\http\DeleteUserValidator;
+use lib\http\AddCertificateValidator;
+use lib\http\RevokeCertificateValidator;
 
 class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     
@@ -29,13 +33,13 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     public function testNewUser() {
         $usersBefore = count(SilverbulletUser::getList($this->profile->identifier));
         
-        $_POST[SilverbulletFactory::COMMAND_ADD_USER] = $this->username;
+        $_POST[AddUserValidator::COMMAND] = $this->username;
         $this->factory->parseRequest();
         
         $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
         $this->assertFalse($usersAfter > $usersBefore);
         
-        $_POST[SilverbulletFactory::PARAM_EXPIRY] = date('Y-m-d',strtotime("tomorrow"));
+        $_POST[AddUserValidator::PARAM_EXPIRY] = date('Y-m-d',strtotime("tomorrow"));
         $this->factory->parseRequest();
 
         $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
@@ -48,7 +52,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         
         $usersBefore = count(SilverbulletUser::getList($this->profile->identifier));
         
-        $_POST[SilverbulletFactory::COMMAND_DELETE_USER] = $this->user->getIdentifier();
+        $_POST[DeleteUserValidator::COMMAND] = $this->user->getIdentifier();
         $this->factory->parseRequest();
         
         $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
@@ -61,7 +65,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
         
-        $_POST[SilverbulletFactory::COMMAND_ADD_CERTIFICATE] = $this->user->getIdentifier();
+        $_POST[AddCertificateValidator::COMMAND] = $this->user->getIdentifier();
         $this->factory->parseRequest();
         
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
@@ -76,7 +80,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
         
-        $_POST[SilverbulletFactory::COMMAND_REVOKE_CERTIFICATE] = $certificate->getIdentifier();
+        $_POST[RevokeCertificateValidator::COMMAND] = $certificate->getIdentifier();
         $this->factory->parseRequest();
     
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));

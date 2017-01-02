@@ -5,6 +5,10 @@ use lib\view\html\Attribute;
 
 class TitledFormDecorator extends PageElementDecorator{
     
+    const BEFORE = 0;
+    
+    const AFTER = 1;
+    
     /**
      * 
      * @var string
@@ -28,13 +32,13 @@ class TitledFormDecorator extends PageElementDecorator{
     
     /**
      * 
-     * @var RegularButton
+     * @var array
      */
-    private $elements = array();
+    private $elements = array( self::BEFORE => array(), self::AFTER => array());
     
     /**
      * 
-     * @param PageElement $element
+     * @param PageElementInterface $element
      * @param string $class
      * @param string $title
      */
@@ -46,8 +50,8 @@ class TitledFormDecorator extends PageElementDecorator{
         $this->charset = new Attribute('accept-charset', $charset);
     }
     
-    public function addHtmlElement($element){
-        $this->elements [] = $element;
+    public function addHtmlElement($element, $position = self::AFTER){
+        $this->elements[$position][] = $element;
     }
     
     public function render() {
@@ -57,16 +61,27 @@ class TitledFormDecorator extends PageElementDecorator{
                 <legend>
                     <strong><?php echo $this->title; ?></strong>
                 </legend>
+
+                <?php
+                    foreach ($this->elements[self::BEFORE] as $element) {
+                        echo "\n".$element;
+                    }
+                ?>
+
                 <?php 
                     $this->element->render();
                 ?>
+
+                <?php if(count($this->elements[self::AFTER]) > 0){ ?>
                 <div style="padding: 20px;">
                 <?php
-                    foreach ($this->elements as $element) {
+                    foreach ($this->elements[self::AFTER] as $element) {
                         echo "\n".$element;
                     }
                 ?>
                 </div>
+                <?php }?>
+
             </fieldset>
         </form>
         <?php

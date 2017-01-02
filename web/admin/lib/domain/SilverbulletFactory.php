@@ -1,31 +1,38 @@
 <?php
 namespace lib\domain;
 
-use lib\utils\CSVParser;
+use lib\http\AbstractCommandValidator;
+use lib\http\AddCertificateValidator;
+use lib\http\AddUsersValidator;
+use lib\http\AddUserValidator;
+use lib\http\DeleteUserValidator;
+use lib\http\RevokeCertificateValidator;
+use lib\http\SaveUsersValidator;
+use lib\storage\SessionStorage;
+use lib\view\MessageReceiverInterface;
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletFactory {
-    
-    const COMMAND_ADD_USER = 'newuser';
-    const COMMAND_ADD_USERS = 'newusers';
-    const COMMAND_SAVE = 'saveusers';
-    const COMMAND_DELETE_USER = 'deleteuser';
-    const COMMAND_ADD_CERTIFICATE = 'newcertificate';
-    const COMMAND_REVOKE_CERTIFICATE = 'revokecertificate';
-    
-    const PARAM_EXPIRY = 'userexpiry';
-    const PARAM_EXPIRY_MULTIPLE = 'userexpiry[]';
-    const PARAM_ID = 'userid';
-    const PARAM_ID_MULTIPLE = 'userid[]';
-    const PARAM_ACKNOWLEDGE = 'acknowledge';
+class SilverbulletFactory{
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
     const STATS_PASSIVE = 'passive';
+    
+    /**
+     * 
+     * @var AbstractCommandValidator[]
+     */
+    private $validators = null;
+
+    /**
+     *
+     * @var AbstractCommandValidator
+     */
+    private $validator = null;
     
     /**
      *
@@ -35,9 +42,15 @@ class SilverbulletFactory {
     
     /**
      * 
-     * @var SilverbulletUser []
+     * @var SilverbulletUser[]
      */
     private $users = array();
+    
+    /**
+     * 
+     * @var SessionStorage
+     */
+    private $session;
     
     /**
      *
@@ -45,57 +58,69 @@ class SilverbulletFactory {
      */
     public function __construct($profile){
         $this->profile = $profile;
+        $this->session = SessionStorage::getInstance('sb-messages');
+        
+        $this->validators[AddUserValidator::COMMAND] = new AddUserValidator(AddUserValidator::COMMAND, $this, $this->session);
+        $this->validators[AddUsersValidator::COMMAND] = new AddUsersValidator(AddUsersValidator::COMMAND, $this, $this->session);
+        $this->validators[DeleteUserValidator::COMMAND] = new DeleteUserValidator(DeleteUserValidator::COMMAND, $this, $this->session);
+        $this->validators[AddCertificateValidator::COMMAND] = new AddCertificateValidator(AddCertificateValidator::COMMAND, $this, $this->session);
+        $this->validators[RevokeCertificateValidator::COMMAND] = new RevokeCertificateValidator(RevokeCertificateValidator::COMMAND, $this, $this->session);
+        $this->validators[SaveUsersValidator::COMMAND] = new SaveUsersValidator(SaveUsersValidator::COMMAND, $this, $this->session);
     }
     
     /**
      * 
      */
     public function parseRequest(){
-        if(isset($_POST[self::COMMAND_ADD_USER]) && !empty($_POST[self::COMMAND_ADD_USER]) && isset($_POST[self::PARAM_EXPIRY])){
-            $this->createUser($this->profile->identifier, $_POST[self::COMMAND_ADD_USER], $_POST[self::PARAM_EXPIRY]);
-        }elseif (isset($_FILES[self::COMMAND_ADD_USERS])){
-            $this->createUsersFromFile();
-        }elseif (isset($_POST[self::COMMAND_DELETE_USER])){
-            $user = SilverbulletUser::prepare($_POST[self::COMMAND_DELETE_USER]);
-            $user->delete();
-            $this->redirectAfterSubmit();
-        }elseif (isset($_POST[self::COMMAND_ADD_CERTIFICATE])){
-            $user = SilverbulletUser::prepare($_POST[self::COMMAND_ADD_CERTIFICATE]);
-            $user->load();
-            $this->createCertificate($user);
-            $this->redirectAfterSubmit();
-        }elseif (isset($_POST[self::COMMAND_REVOKE_CERTIFICATE])){
-            $certificate = SilverbulletCertificate::prepare($_POST[self::COMMAND_REVOKE_CERTIFICATE]);
-            $certificate->delete();
-            $this->redirectAfterSubmit();
-        }elseif (isset($_POST[self::COMMAND_SAVE])){
-            $userIds = $_POST[self::PARAM_ID];
-            $userExpiries = $_POST[self::PARAM_EXPIRY];
-            foreach ($userIds as $key => $userId) {
-                $user = SilverbulletUser::prepare($userId);
-                $user->load();
-                $user->setExpiry($userExpiries[$key]);
-                if(isset($_POST[self::PARAM_ACKNOWLEDGE]) && $_POST[self::PARAM_ACKNOWLEDGE]=='true'){
-                    $user->makeAcknowledged();
-                }
-                $user->save();
-            }
-            $this->redirectAfterSubmit();
+        if(isset($_POST[AddUserValidator::COMMAND]) && isset($_POST[AddUserValidator::PARAM_EXPIRY])){
+            $this->validator = $this->validators[AddUserValidator::COMMAND];
+        }elseif (isset($_FILES[AddUsersValidator::COMMAND])){
+            $this->validator = $this->validators[AddUsersValidator::COMMAND];
+        }elseif (isset($_POST[DeleteUserValidator::COMMAND])){
+            $this->validator = $this->validators[DeleteUserValidator::COMMAND];
+        }elseif (isset($_POST[AddCertificateValidator::COMMAND])){
+            $this->validator = $this->validators[AddCertificateValidator::COMMAND];
+        }elseif (isset($_POST[RevokeCertificateValidator::COMMAND])){
+            $this->validator = $this->validators[RevokeCertificateValidator::COMMAND];
+        }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
+            $this->validator = $this->validators[SaveUsersValidator::COMMAND];
+        }
+        if($this->validator != null){
+            $this->validator->execute();
         }
     }
     
     /**
      * 
-     * @param int $profileId
+     * @param string $command
+     * @param MessageReceiverInterface $receiver
+     */
+    public function distributeMessages($command, $receiver){
+        if(isset($this->validators[$command]) && $this->validators[$command] != null){
+            $this->validators[$command]->publishMessages($receiver);
+        }
+    }
+    
+    /**
+     * 
      * @param string $username
      * @param string $expiry
      * @return \lib\domain\SilverbulletUser
      */
-    public function createUser($profileId, $username, $expiry){
-        $user = new SilverbulletUser($profileId, $username);
-        if(isset($expiry) && !empty($expiry)){
+    public function createUser($username, $expiry){
+        $user = new SilverbulletUser($this->profile->identifier, $username);
+        if(empty($username)){
+            $this->validator->storeErrorMessage(_('User name should not be empty!'));
+        }elseif(empty($expiry)){
+            $this->validator->storeErrorMessage(_('No expiry date has been provided!'));
+        }else{
             $user->setExpiry($expiry);
             $user->save();
+            if(empty($user->get(SilverbulletUser::EXPIRY))){
+                $this->validator->storeErrorMessage(_('Expiry date was incorect for') .' "'. $username .'"!');
+            }elseif(empty($user->getIdentifier())){
+                $this->validator->storeErrorMessage(_('Username') .' "'. $username .'"'. _('already exist!'));
+            }
         }
         return $user;
     }
@@ -103,35 +128,50 @@ class SilverbulletFactory {
     /**
      * 
      * @param SilverbulletUser $user
+     * @param string $command
      * @return \lib\domain\SilverbulletCertificate
      */
     public function createCertificate($user){
         $certificate = new SilverbulletCertificate($user);
         $certificate->save();
+        if(empty($certificate->getIdentifier())){
+            $this->validator->storeErrorMessage(_('Could not create certificate!'));
+        }
         return $certificate;
     }
     
     /**
-     * 
+     *
+     * @return \lib\domain\SilverbulletUser
      */
-    public function createUsersFromFile(){
-        $parser = new CSVParser($_FILES[self::COMMAND_ADD_USERS], "\n", ',');
-        while($parser->hasMoreRows()){
-            $row = $parser->nextRow();
-            if(isset($row[0]) && isset($row[1])){
-                $user = $this->createUser($this->profile->identifier, $row[0], $row[1]);
-                $max = empty($row[2]) ? 1 : $row[2];
-                for($i=0; $i<$max; $i++){
-                    $this->createCertificate($user);
-                }
+    public function createUsers(){
+        $this->users = SilverbulletUser::getList($this->profile->identifier);
+        return $this->users;
+    }
+    
+    /**
+     *
+     * @return array
+     */
+    public function getUserStats(){
+        $count[self::STATS_TOTAL] = 0;
+        $count[self::STATS_ACTIVE] = 0;
+        $count[self::STATS_PASSIVE] = 0;
+        foreach ($this->users as $user) {
+            $count[self::STATS_TOTAL]++;
+            if($user->isActive()){
+                $count[self::STATS_ACTIVE]++;
+            }else{
+                $count[self::STATS_PASSIVE]++;
             }
         }
+        return $count;
     }
     
     /**
      * 
      */
-    private function redirectAfterSubmit(){
+    public function redirectAfterSubmit(){
         if(isset($_SERVER['REQUEST_URI'])){
             $location = $this->addQuery($_SERVER['SCRIPT_NAME']);
             header('Location: ' . $location );
@@ -159,31 +199,4 @@ class SilverbulletFactory {
 		return $url . $query;
 	}
     
-    /**
-     * 
-     * @return \lib\domain\SilverbulletUser
-     */
-    public function createUsers(){
-        $this->users = SilverbulletUser::getList($this->profile->identifier);
-        return $this->users;
-    }
-    
-    /**
-     * 
-     * @return array
-     */
-    public function getUserStats(){
-        $count[self::STATS_TOTAL] = 0;
-        $count[self::STATS_ACTIVE] = 0;
-        $count[self::STATS_PASSIVE] = 0;
-        foreach ($this->users as $user) {
-            $count[self::STATS_TOTAL]++;
-            if($user->isActive()){
-                $count[self::STATS_ACTIVE]++;
-            }else{
-                $count[self::STATS_PASSIVE]++;
-            }
-        }
-        return $count;
-    }
 }

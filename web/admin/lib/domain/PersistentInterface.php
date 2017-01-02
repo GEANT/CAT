@@ -1,7 +1,7 @@
 <?php
 namespace lib\domain;
 
-interface Persistent {
+interface PersistentInterface {
     /**
      * Stores attributes into persistent storage
      * 

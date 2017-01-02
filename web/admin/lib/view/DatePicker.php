@@ -1,7 +1,7 @@
 <?php
 namespace lib\view;
 
-use lib\view\html\HtmlElement;
+use lib\view\html\HtmlElementInterface;
 use lib\view\html\UnaryTag;
 use lib\view\html\CompositeTag;
 use lib\view\html\Tag;
@@ -11,7 +11,7 @@ use lib\view\html\Tag;
  * @author Zilvinas Vaira
  *
  */
-class DatePicker implements HtmlElement, PageElement{
+class DatePicker implements HtmlElementInterface, PageElementInterface{
     
     const BLOCK_CLASS = 'sb-date-container';
     const INPUT_CLASS = 'sb-date-picker';
@@ -55,7 +55,7 @@ class DatePicker implements HtmlElement, PageElement{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\view\PageElement::render()
+     * @see \lib\view\PageElementInterface::render()
      */
     public function render(){
         echo $this;
