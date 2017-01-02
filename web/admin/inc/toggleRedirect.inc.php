@@ -16,6 +16,7 @@ require_once("IdP.php");
 require_once("AbstractProfile.php");
 require_once("Helper.php");
 require_once("CAT.php");
+require_once("EAP.php");
 require_once("Logging.php");
 
 require_once("common.inc.php");
@@ -56,20 +57,16 @@ if (isset($_POST['device'])) {
 $eaptype = NULL;
 $eap_id = 0;
 if (isset($_POST['eaptype'])) {
-    $eaptype = unserialize(stripslashes($_POST['eaptype']), [ "allowed_classes" => false ]);
-    // the POST could have sneaked in an integer instead of the expected array.
-    // be sure to double-check
-    if (!is_array($eaptype)) {
-        throw new Exception("Input must be the array representation of an EAP type");
+    $eaptypeList = EAP::listKnownEAPTypes();
+    $eaptypeSerial = [];
+    foreach ($eaptypeList as $oneType) {
+        $eaptypeSerial[] = serialize($oneType);
     }
-        
-    // is this an actual EAP type we know of?
-    $eap_id = EAP::eAPMethodArrayIdConversion($eaptype); // function throws its own Exception if unknown
-    // to make code review tools happy, double-check that it's an integer (we
-    // gave it an array, so this will always be the case
-    if (!is_numeric($eap_id)) {
-        throw new Exception("This is impossible - the integer EAP ID is not a numeric value!");
+    $eapCandidate = stripslashes($_POST['eaptype']);
+    if (!in_array($eapCandidate, $eaptypeSerial)) {
+        throw new Exception("Input must be the serialized array representation of a known EAP type");
     }
+    $eaptype = unserialize($eapCandidate);
 }
 
 // there is either one or the other. If both are set, something's fishy.
