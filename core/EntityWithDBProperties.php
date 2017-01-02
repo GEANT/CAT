@@ -161,8 +161,6 @@ abstract class EntityWithDBProperties extends Entity {
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $identifierType = (is_int($this->identifier) ? "i" : "s");
-        $escapedAttrName = $this->databaseHandle->escapeValue($attrName);
-        $escapedAttrValue = $this->databaseHandle->escapeValue($attrValue);
         $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)",$identifierType."sss",$this->identifier, $attrName, $attrLang, $attrValue);                
         $this->updateFreshness();
     }
