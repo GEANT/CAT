@@ -67,10 +67,7 @@ if($builder->isReady()){
     }
     
     $factory = new SilverbulletFactory($builder->getProfile());
-    //print_r($_SESSION);
     $factory->parseRequest();
-    //print_r($_SESSION);
-    
     
     $users = $factory->createUsers();
     $stats = $factory->getUserStats();
