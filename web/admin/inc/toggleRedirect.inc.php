@@ -63,7 +63,7 @@ if (isset($_POST['eaptype'])) {
         $eaptypeSerial[] = serialize($oneType);
     }
     $eapCandidate = stripslashes($_POST['eaptype']);
-    if (!in_array($eapCandidate, $eaptypeSerial)) {
+    if (!in_array($eapCandidate, $eaptypeSerial, true)) {
         throw new Exception("Input must be the serialized array representation of a known EAP type");
     }
     $eaptype = unserialize($eapCandidate);
