@@ -111,14 +111,9 @@ function getLocalisedValue($valueArray, $locale) {
     if (count($valueArray) > 0) {
         $returnValue = [];
         foreach ($valueArray as $val) {
-            $try = unserialize($val['value']);
-            $returnValue[$try['lang']] = $try['content'];
+            $returnValue[$val["lang"]] = $val['value'];
         }
-        if (isset($returnValue[$locale])) {
-            $out = $returnValue[$locale];
-        } elseif (isset($returnValue['C'])) {
-            $out = $returnValue['C'];
-        }
+        $out = $returnValue[$locale] ?? $returnValue['C'] ?? array_shift($returnValue);
     }
     $loggerInstance->debug(4, "getLocalisedValue:$locale:$out\n");
     return $out;

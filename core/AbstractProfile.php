@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -506,12 +507,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $temp1[] = $name;
             $level = $attribute['level'];
             $value = $attribute['value'];
+            $lang = $attribute['lang'];
             if (!isset($temp[$name][$level])) {
                 $temp[$name][$level] = [];
             }
             if ($attribute['flag'] == 'ML') {
-                $v = unserialize($value);
-                $value = [$v['lang'] => $v['content']];
+                $value = [$lang => $value];
             }
             $temp[$name][$level][] = $value;
             $flags[$name] = $attribute['flag'];
@@ -530,12 +531,13 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     }
                 }
 
-                $out[$name]['langs'] = $nameCandidate;
-                if (isset($nameCandidate[$this->languageInstance->getLang()]) || isset($nameCandidate['C'])) {
-                    $out[$name][0] = (isset($nameCandidate[$this->languageInstance->getLang()])) ? $nameCandidate[$this->languageInstance->getLang()] : $nameCandidate['C'];
+                // there is a chance that we got NOTHING. That's for device-specific redirects
+                // but not profile-level ones
+                if (count($nameCandidate) > 0) {
+                    $out[$name]['langs'] = $nameCandidate;
+                    $out[$name][0] = $nameCandidate[$this->languageInstance->getLang()] ?? $nameCandidate['C'] ?? array_shift($nameCandidate);
+                    $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
                 }
-                
-                $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
             } else {
                 $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'];
             }
@@ -550,7 +552,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * * @return boolean TRUE if enough info is set to enable installers
      */
-
     public function hasSufficientConfig() {
         $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = ?", "i", $this->identifier);
         $configQuery = mysqli_fetch_row($result);
@@ -560,7 +561,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         return TRUE;
     }
 
-   /**
+    /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
      * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
      * 
@@ -628,6 +629,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $retArray = [];
         foreach ($internalAttributes as $attName => $attValue) {
             $retArray[] = ["name" => $attName,
+                "lang" => NULL,
                 "value" => $attValue,
                 "level" => "Profile",
                 "row" => 0,

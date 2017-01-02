@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -155,35 +156,15 @@ abstract class EntityWithDBProperties extends Entity {
      * Adds an attribute for the entity instance into the database. Multiple instances of the same attribute are supported.
      *
      * @param string $attrName Name of the attribute. This must be a well-known value from the profile_option_dict table in the DB.
+     * @param string $attrLang language of the attribute. Can be NULL.
      * @param mixed $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
      */
-    public function addAttribute($attrName, $attrValue) {
-        $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
+    public function addAttribute($attrName, $attrLang, $attrValue) {
+        $identifierType = (is_int($this->identifier) ? "i" : "s");
         $escapedAttrName = $this->databaseHandle->escapeValue($attrName);
         $escapedAttrValue = $this->databaseHandle->escapeValue($attrValue);
-        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value) VALUES("
-                . $quotedIdentifier . ", '"
-                . $escapedAttrName . "', '"
-                . $escapedAttrValue
-                . "')");
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)",$identifierType."sss",$this->identifier, $attrName, $attrLang, $attrValue);                
         $this->updateFreshness();
-    }
-
-    /**
-     * files are base64-encoded and could be multi-language tagged. This function properly tears these file attributes apart
-     * @param string $optionContent a string; either base64 string or an array with a language tag and base64
-     * @return array an array with indexes lang and content. lang can be empty; content is base64-decoded
-     */
-    protected function decodeFileAttribute($optionContent) {
-        // suppress E_NOTICE on the following... we are testing *if*
-        // we have a serialized value - so not having one is fine and
-        // shouldn't throw E_NOTICE
-        if (@unserialize($optionContent) !== FALSE) { // multi-lang
-            $tempContent = unserialize($optionContent);
-            return ["lang" => $tempContent['lang'], "content" => base64_decode($tempContent['content'])];
-        }
-        // single lang, direct content
-        return ["lang" => "", "content" => base64_decode($optionContent)];
     }
 
     /**
@@ -200,16 +181,14 @@ abstract class EntityWithDBProperties extends Entity {
             return $tempAttributes;
         }
         while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
-            // decode base64 for files (respecting multi-lang)
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
             $flag = $optinfo['flag'];
-
-            if ($optinfo['type'] != "file") {
-                $tempAttributes[] = ["name" => $attributeQuery->option_name, "value" => $attributeQuery->option_value, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
-            } else {
-                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
-                $tempAttributes[] = ["name" => $attributeQuery->option_name, "value" => ($decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)), "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
+            $decoded = $attributeQuery->option_value;
+            // file attributes always get base64-decoded.
+            if ($optinfo['type'] == 'file') {
+                $decoded = base64_decode($decoded);
             }
+            $tempAttributes[] = ["name" => $attributeQuery->option_name, "lang" => $attributeQuery->option_lang, "value" => $decoded, "level" => $level, "row" => $attributeQuery->row, "flag" => $flag];
         }
         return $tempAttributes;
     }

@@ -286,8 +286,8 @@ function previewInfoFileinHTML($fileReference) {
         return _("<div>Error, ROWID expected, got $fileReference.</div>");
     }
 
-    $fileBlob = unserialize(getBlobFromDB($fileReference, FALSE));
-    $decodedFileBlob = base64_decode($fileBlob['content']);
+    $fileBlob = getBlobFromDB($fileReference, FALSE);
+    $decodedFileBlob = base64_decode($fileBlob);
     $fileinfo = new finfo();
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
 }
@@ -339,12 +339,10 @@ function infoblock($optionlist, $class, $level) {
             $content = $option['value'];
             // ... override them with multilang tags if needed
             if ($type["flag"] == "ML") {
-                $taggedarray = unserialize($option['value']);
                 $language = _("default/other languages");
-                if ($taggedarray['lang'] != 'C') {
-                    $language = CONFIG['LANGUAGES'][$taggedarray['lang']]['display'];
+                if ($option['lang'] != 'C') {
+                    $language = CONFIG['LANGUAGES'][$option['lang']]['display'] ?? "(unsupported language)";
                 }
-                $content = $taggedarray["content"];
             }
 
             switch ($type["type"]) {

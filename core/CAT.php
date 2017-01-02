@@ -442,7 +442,9 @@ class CAT extends Entity {
                         $geo[] = $at1;
                         break;
                     case 'general:instname':
-                        $names[] = ['value' => $opt[1]];
+                        $names[] = [
+                            'value' => $opt[1]
+                            ];
                         break;
                     default:
                         break;

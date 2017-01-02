@@ -45,6 +45,7 @@ CREATE TABLE `profile_option_dict` (
 CREATE TABLE `federation_option` (
   `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -55,6 +56,7 @@ CREATE TABLE `federation_option` (
 CREATE TABLE `institution_option` (
   `institution_id` int(11) NOT NULL DEFAULT '0',
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -114,6 +116,7 @@ CREATE TABLE `profile_option` (
   `eap_method_id` int(11) DEFAULT '0',
   `device_id` varchar(32) DEFAULT NULL,
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -145,6 +148,7 @@ CREATE TABLE `user_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT, 
   `user_id` varchar(255) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   KEY `rowindex` (`id`),
   KEY `foreign_key_options` (`option_name`), 

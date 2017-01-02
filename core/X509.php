@@ -83,6 +83,7 @@ class X509 {
             $authorityPem = X509::der2pem($cadata);
         }
 
+        
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);
         if ($myca == FALSE) {

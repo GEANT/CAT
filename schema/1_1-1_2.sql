@@ -45,3 +45,10 @@ ALTER TABLE `profile` ADD COLUMN `checkuser_outer` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `checkuser_value` varchar(128) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `verify_userinput_suffix` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `hint_userinput_suffix` int(1) NOT NULL DEFAULT '0';
+
+ALTER TABLE `user_options` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `federation_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+
+UPDATE institution SET country = UPPER(country);

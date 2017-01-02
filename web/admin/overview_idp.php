@@ -203,9 +203,11 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 $allcomplete = FALSE;
             }
             $attribs = $profile_list->getAttributes();
+            $justOnce = FALSE;
             foreach ($attribs as $attrib) {
-                if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name'])) {
-                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method level are in effect.") . "'>";
+                if ($attrib['level'] == "Method" && !preg_match("/^internal:/", $attrib['name']) && !$justOnce) {
+                    $justOnce = TRUE;
+                    $buffer_eaptypediv .= "<img src='../resources/images/icons/Letter-E-blue-icon.png' alt='" . _("Options on EAP Method/Device level are in effect.") . "'>";
                 }
             }
             $buffer_eaptypediv .= "<br/>";
@@ -234,7 +236,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         if (array_search(EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
             /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
-            $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://confluence.terena.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
+            $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://wiki.geant.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
         }
 
         $buffer_eaptypediv .= "</div>";
@@ -278,7 +280,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             if (isset($URL['device-specific:redirect'])) {
                 $displayurl = $URL['device-specific:redirect'][0];
             } else {
-                $displayurl = '//' . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
+                $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             }
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
             $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
