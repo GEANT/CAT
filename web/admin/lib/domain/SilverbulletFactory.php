@@ -10,6 +10,7 @@ use lib\http\RevokeCertificateValidator;
 use lib\http\SaveUsersValidator;
 use lib\storage\SessionStorage;
 use lib\view\MessageReceiverInterface;
+use lib\http\TermsOfUseValidator;
 
 /**
  * 
@@ -17,6 +18,8 @@ use lib\view\MessageReceiverInterface;
  *
  */
 class SilverbulletFactory{
+    
+    const COMMAND = 'command';
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
@@ -66,6 +69,15 @@ class SilverbulletFactory{
         $this->validators[AddCertificateValidator::COMMAND] = new AddCertificateValidator(AddCertificateValidator::COMMAND, $this, $this->session);
         $this->validators[RevokeCertificateValidator::COMMAND] = new RevokeCertificateValidator(RevokeCertificateValidator::COMMAND, $this, $this->session);
         $this->validators[SaveUsersValidator::COMMAND] = new SaveUsersValidator(SaveUsersValidator::COMMAND, $this, $this->session);
+        $this->validators[TermsOfUseValidator::COMMAND] = new TermsOfUseValidator(TermsOfUseValidator::COMMAND, $this, $this->session);
+    }
+    
+    /**
+     * 
+     * @return \lib\storage\SessionStorage
+     */
+    public function getSession(){
+        return $this->session;
     }
     
     /**
@@ -84,6 +96,10 @@ class SilverbulletFactory{
             $this->validator = $this->validators[RevokeCertificateValidator::COMMAND];
         }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
             $this->validator = $this->validators[SaveUsersValidator::COMMAND];
+        }elseif(isset($_POST[SilverbulletFactory::COMMAND])){
+            if($_POST[SilverbulletFactory::COMMAND] == TermsOfUseValidator::COMMAND){
+                $this->validator = $this->validators[TermsOfUseValidator::COMMAND];
+            }
         }
         if($this->validator != null){
             $this->validator->execute();

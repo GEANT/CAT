@@ -28,12 +28,14 @@ require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 
 use lib\domain\SilverbulletFactory;
+use lib\http\TermsOfUseValidator;
 use lib\view\DefaultPage;
 use lib\view\FileUploadForm;
 use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
 use lib\view\PageElementInterface;
+use lib\view\TermosOfUseBox;
 use lib\view\TitledBlockDecorator;
 use lib\view\UserCredentialsForm;
 
@@ -95,6 +97,16 @@ if($builder->isReady()){
         }
     }
     $builder->addContentElement($editBlock);
+    
+    //Append terms of use popup
+    $session = $factory->getSession();
+    $agreement = $session->get(TermsOfUseValidator::COMMAND);
+    if(empty($agreement) || $agreement != 'true'){
+        $termsOfUse = new TermosOfUseBox('sb-terms-of-use', $factory->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseValidator::COMMAND, TermsOfUseValidator::AGREEMENT);
+        $builder->addContentElement($termsOfUse);
+    }else{
+        $session->put(TermsOfUseValidator::COMMAND, 'false');
+    }
     
 }
 

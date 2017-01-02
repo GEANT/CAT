@@ -14,7 +14,7 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
      * 
      * @var SessionStorage
      */
-    private $session;
+    protected $session;
     
     /**
      * 

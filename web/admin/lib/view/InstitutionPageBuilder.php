@@ -39,7 +39,7 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
-     * @var PageElementInterface[]
+     * @var PageElementInterface[][]
      */
     private $contentElements = array();
     
