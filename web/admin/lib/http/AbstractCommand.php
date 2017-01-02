@@ -1,10 +1,13 @@
 <?php
 namespace lib\http;
 
-
-
 use lib\domain\SilverbulletFactory;
 
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
 abstract class AbstractCommand {
 
     /**
