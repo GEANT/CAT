@@ -128,7 +128,6 @@ class SilverbulletFactory{
     /**
      * 
      * @param SilverbulletUser $user
-     * @param string $command
      * @return \lib\domain\SilverbulletCertificate
      */
     public function createCertificate($user){

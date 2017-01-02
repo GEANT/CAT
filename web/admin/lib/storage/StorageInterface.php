@@ -11,14 +11,14 @@ interface StorageInterface {
     /**
      *
      * @param string $identifier
-     * @param object $object
+     * @param mixed $object
      */
     public function put($identifier, $object);
     
     /**
      * 
      * @param string $identifier
-     * @param object $object
+     * @param mixed $object
      */
     public function add($identifier, $object);
     

@@ -32,7 +32,7 @@ class SaveUsersValidator extends AbstractCommandValidator{
             if(isset($_POST[self::PARAM_ACKNOWLEDGE]) && $_POST[self::PARAM_ACKNOWLEDGE]=='true'){
                 $user->makeAcknowledged();
             }
-            $result = $user->save();
+            $user->save();
         }
         $this->factory->redirectAfterSubmit();
     }
