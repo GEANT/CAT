@@ -18,7 +18,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
-('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL);
+('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL);
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,

@@ -175,6 +175,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),
 ('profile:production','Profile is ready and can be displayed on download page','boolean',NULL),
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
 ('support:email','email for users to contact for local instructions','string','ML'),
 ('support:info_file','consent file displayed to the users','file','ML'),
 ('support:phone','telephone number for users to contact for local instructions','string','ML'),
