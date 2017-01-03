@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -125,16 +126,27 @@ if (isset($_REQUEST['profile_id'])) {
     $testsuite = new RADIUSTests($check_realm);
 }
 
-$host = filter_var($_REQUEST['src'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
-// check if this is a valid IP address
-if ($host === FALSE) {
-    throw new Exception("The input is not a valid IP address from acceptable IP ranges!");
-}
 
 $hostindex = $_REQUEST['hostindex'];
 if (!is_numeric($hostindex)) {
     throw new Exception("The requested host index is not numeric!");
 }
+
+$posted_host = $_REQUEST['src'];
+if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
+    $host = filter_var(CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+} else { // dynamic discovery host, potentially unvetted user input
+    // contains port number; needs to be redacted for filter_var to work
+    $hostonly1 = preg_replace('/:[0-9]*$/', "", $posted_host);
+    $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
+    $hostonly = preg_replace('/\]$/', "", $hostonly2);
+    $host = filter_var($hostonly, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    // check if this is a valid IP address
+    if ($host === FALSE) {
+        throw new Exception("The configured test host ($hostonly) is not a valid IP address from acceptable IP ranges!");
+    }
+}
+
 
 
 $returnarray = [];
