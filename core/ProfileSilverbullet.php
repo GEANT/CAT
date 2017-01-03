@@ -52,6 +52,10 @@ const SB_CERTSTATUS_REVOKED = 3;
  */
 class ProfileSilverbullet extends AbstractProfile {
 
+    /*
+     * 
+     */
+    const PRODUCTNAME = "eduroam-no-cloud-no-box-no-service";
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -115,7 +119,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
-        $this->name = _("eduroam-as-a-service");
+        $this->name = ProfileSilverbullet::PRODUCTNAME;
 
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }

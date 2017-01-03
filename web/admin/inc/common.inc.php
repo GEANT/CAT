@@ -80,7 +80,7 @@ function display_name($input) {
         _("TTLS-GTC") => EAPTYPE_TTLS_GTC,
         _("FAST-GTC") => EAPTYPE_FAST_GTC,
         _("EAP-pwd") => EAPTYPE_PWD,
-        _("eduroam-as-a-service") => EAPTYPE_SILVERBULLET,
+        ProfileSilverbullet::PRODUCTNAME => EAPTYPE_SILVERBULLET,
         _("Remove/Disable SSID") => "media:remove_SSID",
         _("Custom CSS file for User Area") => "fed:css_file",
         _("Federation Logo") => "fed:logo_file",

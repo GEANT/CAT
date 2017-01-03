@@ -133,7 +133,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
 
         // simpler message for silverbullet
         if ($eapType['INNER'] == NE_SILVERBULLET) {
-            $tagline = sprintf(_("eduroam-as-a-service configuration for IdP '%s' - provided by %s"), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
         }
 
         $outputXml .= "

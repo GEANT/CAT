@@ -142,7 +142,7 @@ if ($_POST['submitbutton'] == BUTTON_SAVE) {// not in initial wizard mode, just 
     $myfed = new Federation($my_inst->federation);
     $allow_sb = $myfed->getAttributes("fed:silverbullet");
     if (count($allow_sb) > 0) {
-        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to eduroam-as-a-service properties") . "</button></form>";
+        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
     }
     echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
 }

@@ -17,7 +17,6 @@ class TermosOfUseBox implements PageElementInterface{
     
     private $param = '';
     
-    
     public function __construct($id, $action, $command, $param) {
         $this->id = $id;
         $this->action = $action;
