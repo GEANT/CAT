@@ -26,15 +26,18 @@ require_once('../admin/inc/input_validation.inc.php');
 $API = new UserAPI();
 $loggerInstance = new Logging();
 
-$profileId = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
-$instId = ( isset($_REQUEST['idp']) ? $_REQUEST['idp'] : FALSE );
-$device = ( isset($_REQUEST['device']) ? $_REQUEST['device'] : FALSE );
-$generatedFor = ( isset($_REQUEST['generatedfor']) ? $_REQUEST['generatedfor'] : 'user' );
+$profileId = $_REQUEST['profile'] ?? FALSE;
+$instId = $_REQUEST['idp'] ?? FALSE;
+$device = $_REQUEST['device'] ?? FALSE;
+$generatedFor = $_REQUEST['generatedfor'] ?? 'user';
 
-if ($generatedFor != "admin" && $generatedFor != "user") {
-    $loggerInstance->debug(2,"Invalid downloads triggered (neither for admin nor user???)");
-    print("Invalid downloads triggered (neither for admin nor user???)");
-    exit(1);
+const VALID_GENERATOR_TARGETS = ['admin', 'user', 'silverbullet'];
+
+if (!in_array($generatedFor, VALID_GENERATOR_TARGETS)) {
+    $errorText = "Invalid downloads triggered (not a category in VALID_GENERATOR_TARGETS???)";
+    $loggerInstance->debug(2,$errorText);
+    print($errorText);
+    throw new Exception($errorText);
 }
 
 $loggerInstance->debug(4,"download: profile:$profile_id; inst:$instId; device:$device\n");

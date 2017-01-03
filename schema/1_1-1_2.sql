@@ -52,6 +52,8 @@ ALTER TABLE `federation_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL
 ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 
+ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
+
 UPDATE institution SET country = UPPER(country);
 
 CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);

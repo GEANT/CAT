@@ -119,7 +119,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         $_SESSION['individualtoken'] = $cleanToken;
                         $_SESSION['importpassword'] = $importPassword;
                         echo "<input type='hidden' name='device' value='" . $statusInfo['OS']['device'] . "'/>";
-                        echo "<input type='hidden' name='generatedfor' value='user'/>";
+                        echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
                         echo "<button class='signin signin_large' id='user_button1' type='submit' style='height:80px;'><span id='user_button'>" . sprintf(_("Click here to download your %s installer!"), CONFIG['CONSORTIUM']['name']) . "</span></button>";
                         echo "</form>";
                         echo "<pre>" . print_r($installer, TRUE) . "</pre>";

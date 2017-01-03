@@ -250,7 +250,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function incrementDownloadStats($device, $area) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
-        if ($area == "admin" || $area == "user") {
+        if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             return TRUE;
         }

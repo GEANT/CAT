@@ -137,6 +137,7 @@ CREATE TABLE `downloads` (
   `device_id` varchar(32) NOT NULL,
   `downloads_admin` int(11) NOT NULL DEFAULT '0',
   `downloads_user` int(11) NOT NULL DEFAULT '0',
+  `downloads_silverbullet` int(11) NOT NULL DEFAULT '0',
   `download_path` varchar(1024) DEFAULT NULL,
   `installer_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `lang` char(4) NOT NULL,
