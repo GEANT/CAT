@@ -68,6 +68,12 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
     resetButton.addEventListener('click', function() {
         that.resetDates(); 
     });
+    
+    var termsOfUseElement = document.getElementById('sb-terms-of-use');
+    if(termsOfUseElement){
+        var termsOfUse = new silverbullet.views.PopupMessage(termsOfUseElement);
+        termsOfUse.render();
+    }
 };
 
 /**
@@ -758,4 +764,34 @@ silverbullet.views.CalendarPool.prototype.render = function() {
 
 
 };
+
+/**
+ * Handles popup messages
+ * 
+ * @constructor
+ */
+silverbullet.views.PopupMessage = function (element) {
+    silverbullet.views.ViewElement.call(this, element);
+    this.closeButton = document.getElementById(element.id + '-close');
+};
+silverbullet.views.PopupMessage.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.PopupMessage.prototype.constructor = silverbullet.views.PopupMessage;
+
+/**
+ * 
+ */
+silverbullet.views.PopupMessage.prototype.close = function () {
+    this.element.parentNode.removeChild(this.element);
+};
+
+/**
+ * 
+ */
+silverbullet.views.PopupMessage.prototype.render = function () {
+    var that = this;
+    this.closeButton.addEventListener('click', function () {
+        that.close();
+    });
+}
+
 
