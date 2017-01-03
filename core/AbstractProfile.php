@@ -252,7 +252,18 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
-            return TRUE;
+            // get eap_type from the downloads table
+           $eapTypeQuery = DBConnection::exec(Profile::$DB_TYPE, "SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '$this->languageInstance->getLang()'");
+           if (! $eapTypeQuery || ! $eapO = mysqli_fetch_object($eapTypeQuery) ) {
+               debug(2,"Error getting EAP_type from the database\n");
+           } else {
+               if ($eapO->eap_type == NULL) {
+                   debug(2,"EAP_type not set in the database\n");
+               } else {
+                   saveDownloadDetails($this->institution,$this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
+               }
+           }
+           return TRUE;
         }
         return FALSE;
     }
