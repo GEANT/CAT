@@ -139,12 +139,15 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
     // contains port number; needs to be redacted for filter_var to work
     $hostonly1 = preg_replace('/:[0-9]*$/', "", $posted_host);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
-    $hostonly = preg_replace('/\]$/', "", $hostonly2);
-    $host = filter_var($hostonly, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
+    $hostonly = filter_var($hostonly3, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
     // check if this is a valid IP address
-    if ($host === FALSE) {
+    if ($hostonly === FALSE) {
         throw new Exception("The configured test host ($hostonly) is not a valid IP address from acceptable IP ranges!");
     }
+    // host IP address testing passed. So let's take our port number back
+    $host = $posted_host;
+    
 }
 
 
