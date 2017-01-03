@@ -156,7 +156,7 @@ class UserAPI extends CAT {
                 }
                 $this->installerPath = $dev->FPATH . '/' . $installer;
                 rename($iPath, $this->installerPath);
-                $profile->updateCache($device, $this->installerPath, $out['mime'], EAP::eAPMethodArrayIdConversion($dev->selectedEap);
+                $profile->updateCache($device, $this->installerPath, $out['mime'], EAP::eAPMethodArrayIdConversion($dev->selectedEap));
                 if (CONFIG['DEBUG_LEVEL'] < 4) {
                    rrmdir($dev->FPATH . '/tmp');
                 }
