@@ -239,7 +239,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string device the device identifier string
      * @param string path the path where the new installer can be found
      */
-    abstract public function updateCache($device, $path, $mime);
+    abstract public function updateCache($device, $path, $mime, $integerEapType);
 
     /**
      * Log a new download for our stats
