@@ -43,8 +43,9 @@ if (!$my_profile instanceof ProfileRADIUS) {
 
 $device = NULL;
 $device_key = NULL;
-if (isset($_POST['device'])) {
-    $device_key = valid_Device($_POST['device']);
+$posted_device = $_POST['device'] ?? FALSE;
+if ($posted_device) {
+    $device_key = valid_Device($posted_device);
     $devices = Devices::listDevices();
     if (isset($devices[$device_key])) {
         // we now know that $device_key is valid as well
@@ -56,17 +57,13 @@ if (isset($_POST['device'])) {
 }
 $eaptype = NULL;
 $eap_id = 0;
-if (isset($_POST['eaptype'])) {
-    $eaptypeList = EAP::listKnownEAPTypes();
-    $eaptypeSerial = [];
-    foreach ($eaptypeList as $oneType) {
-        $eaptypeSerial[] = serialize($oneType);
+$posted_eaptype = $_POST['eaptype'] ?? FALSE;
+if ($posted_eaptype) {
+    if (!is_numeric($posted_eaptype)) {
+        throw new Exception("POSTed EAP type value is not an integer!");
     }
-    $eapCandidate = stripslashes($_POST['eaptype']);
-    if (!in_array($eapCandidate, $eaptypeSerial, true)) {
-        throw new Exception("Input must be the serialized array representation of a known EAP type");
-    }
-    $eaptype = unserialize($eapCandidate);
+    // conversion routine throws an exception if the EAP type id is not known
+    $eaptype = EAP::eAPMethodArrayIdConversion($posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.
@@ -105,7 +102,6 @@ if ($device) {
     }
     $captiontext = sprintf(_("device <strong>%s</strong>"), $device['display']);
     $keyword = "device-specific";
-    $param_name = "Device";
     $extrainput = "<input type='hidden' name='device' value='" . $device_key . "'/>";
 } else {
     $attribs = [];
@@ -116,8 +112,7 @@ if ($device) {
     }
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
-    $param_name = "EapSpecific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . addslashes(serialize(EAP::eAPMethodArrayIdConversion($eap_id))) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
 }
 ?>
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>
@@ -135,7 +130,7 @@ if ($device) {
     }
     echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
     ?>
-    <button type='button' class='newoption' onclick='<?php echo "getXML(\"$param_name\")"; ?>'><?php echo _("Add new option"); ?></button>
+    <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>
     <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
