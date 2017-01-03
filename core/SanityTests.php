@@ -48,7 +48,7 @@ class SanityTest extends CAT {
 
     /* $php_needversion sets the minumum required php version */
 
-    private $php_needversion = '5.5.14';
+    private $php_needversion = '7.0.0';
 
     /* List all required NSIS modules below */
     private $NSIS_Modules = [
