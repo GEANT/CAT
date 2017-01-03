@@ -67,19 +67,19 @@ if ($posted_eaptype) {
 }
 
 // there is either one or the other. If both are set, something's fishy.
-if ($device != NULL && $eaptype != NULL) {
+if ($device != NULL && $eaptype !== NULL) {
     throw new Exception("This page needs to be called either for EAP-Types OR for devices, not both simultaneously!");
 }
 
 // if none are set, something's fishy, too.
-if ($device == NULL && $eaptype == NULL) {
+if ($device == NULL && $eaptype === NULL) {
     throw new Exception("This page needs to be called either for EAP-Types OR for devices, but none of the two were set!");
 }
 
 // if we have a pushed button, submit attributes and send user back to the compat matrix
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
-    if ($eaptype == NULL) {
+    if ($eaptype === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
         $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
     }
@@ -93,8 +93,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     exit;
 }
 
-if ($device) {
-    $attribs = [];
+$attribs = [];
+if ($device != NULL) {
     foreach ($my_profile->getAttributes() as $attrib) {
         if (isset($attrib['device']) && $attrib['device'] == $device_key) {
             $attribs[] = $attrib;
@@ -103,8 +103,7 @@ if ($device) {
     $captiontext = sprintf(_("device <strong>%s</strong>"), $device['display']);
     $keyword = "device-specific";
     $extrainput = "<input type='hidden' name='device' value='" . $device_key . "'/>";
-} else {
-    $attribs = [];
+} elseif ($eaptype !== NULL) {
     foreach ($my_profile->getAttributes() as $attrib) {
         if (isset($attrib['eapmethod']) && $attrib['eapmethod'] == $eaptype) {
             $attribs[] = $attrib;
@@ -113,6 +112,8 @@ if ($device) {
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
     $extrainput = "<input type='hidden' name='eaptype' value='" . EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
+} else {
+    throw new Exception("previous type checks make it impossible to reach this code path.");
 }
 ?>
 <p><?php echo _("Fine-tuning options for ") . $captiontext; ?></p>
