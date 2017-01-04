@@ -21,7 +21,7 @@ require_once("admin/inc/input_validation.inc.php");
 
 $cleanToken = FALSE;
 $operatingSystem = FALSE;
-$tokenStatus = SB_TOKENSTATUS_INVALID;
+$tokenStatus = \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID;
 $profile = NULL;
 $idp = NULL;
 $fed = NULL;
@@ -41,7 +41,7 @@ if ($cleanToken) {
     $tokenStatus = ProfileSilverbullet::tokenStatus($cleanToken);
 }
 
-if ($tokenStatus['status'] != SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
+if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
     $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
     $idp = new \core\IdP($profile->institution);
     $fed = valid_Fed($idp->federation);

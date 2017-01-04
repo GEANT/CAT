@@ -934,7 +934,7 @@ class RADIUSTests extends Entity {
         } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
             $returnresult = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
-            $crlcontent = downloadFile($crlUrl[1] . $crlUrl[2]);
+            $crlcontent = OutsideComm::downloadFile($crlUrl[1] . $crlUrl[2]);
             if ($crlcontent === FALSE) {
                 $returnresult = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
             }

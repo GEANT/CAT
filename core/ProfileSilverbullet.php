@@ -26,15 +26,6 @@
 
 namespace core;
 
-const SB_TOKENSTATUS_VALID = 0;
-const SB_TOKENSTATUS_REDEEMED = 1;
-const SB_TOKENSTATUS_EXPIRED = 2;
-const SB_TOKENSTATUS_INVALID = 3;
-const SB_CERTSTATUS_NONEXISTENT = 0;
-const SB_CERTSTATUS_VALID = 1;
-const SB_CERTSTATUS_EXPIRED = 2;
-const SB_CERTSTATUS_REVOKED = 3;
-
 /**
  * This class represents an EAP Profile.
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
@@ -49,10 +40,19 @@ const SB_CERTSTATUS_REVOKED = 3;
  * @package Developer
  */
 class ProfileSilverbullet extends AbstractProfile {
+
+    const SB_TOKENSTATUS_VALID = 0;
+    const SB_TOKENSTATUS_REDEEMED = 1;
+    const SB_TOKENSTATUS_EXPIRED = 2;
+    const SB_TOKENSTATUS_INVALID = 3;
+    const SB_CERTSTATUS_NONEXISTENT = 0;
+    const SB_CERTSTATUS_VALID = 1;
+    const SB_CERTSTATUS_EXPIRED = 2;
+    const SB_CERTSTATUS_REVOKED = 3;
+
     /*
      * 
      */
-
     const PRODUCTNAME = "eduroam-no-cloud-no-box-no-service";
 
     public static function random_str(
@@ -178,7 +178,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function generateCertificate($token, $importPassword) {
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
-        if ($tokenStatus['status'] != SB_TOKENSTATUS_VALID) {
+        if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
         if ($tokenStatus['profile'] != $this->identifier) {
@@ -284,8 +284,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $$tokenvalue not found in database or database query error!\n");
-            return ["status" => SB_TOKENSTATUS_INVALID,
-                "cert_status" => SB_CERTSTATUS_NONEXISTENT,];
+            return ["status" => self::SB_TOKENSTATUS_INVALID,
+                "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,];
         }
         // still here? then the token was found
         $details = mysqli_fetch_object($tokenrow);
@@ -294,8 +294,8 @@ class ProfileSilverbullet extends AbstractProfile {
             $expiryObject = new DateTime($details->expiry);
             $delta = $now->diff($expiryObject);
 
-            return ["status" => ($delta->invert == 1 ? SB_TOKENSTATUS_EXPIRED : SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
-                "cert_status" => SB_CERTSTATUS_NONEXISTENT,
+            return ["status" => ($delta->invert == 1 ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
+                "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
                 "profile" => $details->profile_id,
                 "user" => $details->silverbullet_user_id,
                 "expiry" => $expiryObject->format("Y-m-d H:i:s")];
@@ -306,11 +306,11 @@ class ProfileSilverbullet extends AbstractProfile {
         $now = new DateTime();
         $cert_expiry = new DateTime($details->expiry);
         $delta = $now->diff($cert_expiry);
-        $certStatus = ($delta->invert == 1 ? SB_CERTSTATUS_EXPIRED : SB_CERTSTATUS_VALID);
+        $certStatus = ($delta->invert == 1 ? self::SB_CERTSTATUS_EXPIRED : self::SB_CERTSTATUS_VALID);
 
         // TODO it could also be revoked. Check that.
 
-        return ["status" => SB_TOKENSTATUS_REDEEMED,
+        return ["status" => self::SB_TOKENSTATUS_REDEEMED,
             "cert_status" => $certStatus,
             "profile" => $details->profile_id,
             "user" => $details->silverbullet_user_id,

@@ -32,7 +32,7 @@ function postProcessValidAttributes($options, &$good, &$bad) {
                     if (empty($optionPayload['content'])) {
                         break;
                     }
-                    $content = downloadFile($optionPayload['content']);
+                    $content = \core\OutsideComm::downloadFile($optionPayload['content']);
                     unset($options[$index]);
                     if (check_upload_sanity("eap:ca_file", $content)) {
                         $content = base64_encode($content);
@@ -61,7 +61,7 @@ function postProcessValidAttributes($options, &$good, &$bad) {
                     if (empty($optionPayload['content'])) {
                         break;
                     }
-                    $bindata = downloadFile($optionPayload['content']);
+                    $bindata = \core\OutsideComm::downloadFile($optionPayload['content']);
                     unset($options[$index]);
                     if (check_upload_sanity("general:logo_file", $bindata)) {
                         $good[] = $name;
@@ -232,7 +232,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                         break;
                     } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
-                        $content = downloadFile("file:///" . $iterator["$objId-2"]);
+                        $content = \core\OutsideComm::downloadFile("file:///" . $iterator["$objId-2"]);
                         if (!check_upload_sanity($objValue, $content)) {
                             $bad[] = $objValue;
                             continue 2;

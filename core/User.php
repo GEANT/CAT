@@ -129,7 +129,7 @@ class User extends EntityWithDBProperties {
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
         }
-        $mail = mailHandle();
+        $mail = OutsideComm::mailHandle();
 // who to whom?
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
         $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));

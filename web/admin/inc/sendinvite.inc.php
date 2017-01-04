@@ -181,7 +181,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 
 Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
-$mail = \core\mailHandle();
+$mail = \core\OutsideComm::mailHandle();
 // who to whom?
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {

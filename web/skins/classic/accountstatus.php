@@ -59,7 +59,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
     ?>
     <div id="user_info" style='min-height: 500px;'>    
         <?php
-        if ($statusInfo['tokenstatus']['status'] == SB_TOKENSTATUS_VALID || $statusInfo['tokenstatus']['status'] == SB_TOKENSTATUS_EXPIRED || $statusInfo['tokenstatus']['status'] == SB_TOKENSTATUS_REDEEMED) {
+        if ($statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED) {
             $loggerInstance->debug(4, "IDP ID = " . $statusInfo['idp']->identifier);
             //IdP and federatiopn logo, if present
             ?>
@@ -83,7 +83,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 <?php
                 echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG['CONSORTIUM']['name']) . "</h1>";
                 switch ($statusInfo['tokenstatus']['status']) {
-                    case SB_TOKENSTATUS_VALID:
+                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
                         echo "<p>" . _("Your invitation token is valid.") . " ";
                         if (!$statusInfo["OS"]) {
                             echo _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
@@ -117,29 +117,29 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         echo "<pre>" . print_r($installer, TRUE) . "</pre>";
 
                         break;
-                    case SB_TOKENSTATUS_EXPIRED:
+                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:
                         echo "<h2>Invitation link expired</h2>";
                         echo "<p>" . sprintf(_("Unfortunately, the invitation link you just used is too old. The eduroam sign-up invitation was valid until %s. You cannot use this link any more. Please ask your administrator to issue you a new invitation link."), $statusInfo['tokenstatus']['expiry']) . "</p>";
                         echo "<p>Below is all the information about your account's other login details, if any.</p>";
 // do NOT break, display full account info instead (this was a previously valid token after all)
-                    case SB_TOKENSTATUS_REDEEMED:
+                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED:
                         echo "<h2>" . _("We have the following information on file for you:") . "</h2>";
                         $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
                         $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
                         echo "<table>";
-                        $categories = [SB_CERTSTATUS_VALID, SB_CERTSTATUS_EXPIRED, SB_CERTSTATUS_REVOKED];
+                        $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
                         foreach ($categories as $category) {
 
                             switch ($category) {
-                                case SB_CERTSTATUS_VALID:
+                                case \core\ProfileSilverbullet::SB_CERTSTATUS_VALID:
                                     $categoryText = _("Current login tokens");
                                     $color = "#000000";
                                     break;
-                                case SB_CERTSTATUS_EXPIRED:
+                                case \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
                                     $categoryText = _("Previous login tokens");
                                     $color = "#999999";
                                     break;
-                                case SB_CERTSTATUS_REVOKED:
+                                case \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
                                     $categoryText = _("Revoked login tokens");
                                     $color = "#ff0000";
                                     break;
@@ -167,7 +167,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         }
                         echo "</table>";
                         break;
-                    case SB_TOKENSTATUS_INVALID:
+                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID:
                         echo "<h2>" . _("Account information not found") . "</h2>";
                         echo "<p>" . _("The invitation link you followed does not map to any invititation we have on file.") . "</p><p>" . _("You should use the exact link you got during sign-up to come here. Alternatively, if you have a valid eduroam login token already, you can visit this page and Accept the question about logging in with a client certificate (select a certificate with a name ending in '...hosted.eduroam.org').");
                 }
