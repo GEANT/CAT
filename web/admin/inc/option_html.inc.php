@@ -82,7 +82,7 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
 
 function noPrefillText($rowid, $list, $defaultselect) {
     $retval = "";
-    $optioninfo = Options::instance();
+    $optioninfo = \core\Options::instance();
     $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";

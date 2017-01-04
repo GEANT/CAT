@@ -22,7 +22,7 @@ if (isset($_GET["class"])) {
     // XHR call: language isn't set yet ... so do it
     $languageInstance = new \core\Language();
     $languageInstance->setTextDomain("web_admin");
-    $optioninfo = Options::instance();
+    $optioninfo = \core\Options::instance();
     // add one option of the specified class
 
     $list = $optioninfo->availableOptions($_GET["class"]);
