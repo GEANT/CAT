@@ -1,15 +1,18 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
+
 namespace core;
+
 /**
  * 
  * 
@@ -35,13 +38,13 @@ require_once(dirname(__DIR__) . "/config/_config.php");
  * @package Developer
  */
 class Language {
-    
+
     /**
      * 
      * @var string
      */
     private $LANG = '';
-    
+
     /**
      * language display name for the language set by the constructor
      */
@@ -90,14 +93,14 @@ class Language {
         $langConverted = [];
         if ($hardSetLang !== 0) {
             $langConverted[] = $hardSetLang;
-        } 
-        if (! empty($_REQUEST['lang'])) {
+        }
+        if (!empty($_REQUEST['lang'])) {
             $langConverted[] = $_REQUEST['lang'];
         }
-        if (! empty($_SESSION['language'])) {
+        if (!empty($_SESSION['language'])) {
             $langConverted[] = $_SESSION['language'];
         }
-        if (! empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
             foreach ($langs as $lang) {
                 $result = [];
@@ -146,5 +149,26 @@ class Language {
      */
     public function getLang() {
         return $this->LANG;
+    }
+
+    /**
+     * pick a proper value for a given language
+     * @param array $valueArray an array of (locale,content) records
+     * @param string locale language code
+     * @return string localised value corresponding to the chosen
+     * locale or to the defalut locale C if a better mach was not available
+     */
+    function getLocalisedValue($valueArray, $locale) {
+        $loggerInstance = new Logging();
+        $out = 0;
+        if (count($valueArray) > 0) {
+            $returnValue = [];
+            foreach ($valueArray as $val) {
+                $returnValue[$val["lang"]] = $val['value'];
+            }
+            $out = $returnValue[$locale] ?? $returnValue['C'] ?? array_shift($returnValue);
+        }
+        $loggerInstance->debug(4, "getLocalisedValue:$locale:$out\n");
+        return $out;
     }
 }

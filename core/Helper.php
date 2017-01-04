@@ -42,27 +42,6 @@ function rrmdir($dir) {
 }
 
 /**
- * pick a proper value for a given language
- * @param array $valueArray an array of (locale,content) records
- * @param string locale language code
- * @return string localised value corresponding to the chosen
- * locale or to the defalut locale C if a better mach was not available
- */
-function getLocalisedValue($valueArray, $locale) {
-    $loggerInstance = new Logging();
-    $out = 0;
-    if (count($valueArray) > 0) {
-        $returnValue = [];
-        foreach ($valueArray as $val) {
-            $returnValue[$val["lang"]] = $val['value'];
-        }
-        $out = $returnValue[$locale] ?? $returnValue['C'] ?? array_shift($returnValue);
-    }
-    $loggerInstance->debug(4, "getLocalisedValue:$locale:$out\n");
-    return $out;
-}
-
-/**
  * create a temporary directory and return the location
  * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
  * @param $failIsFatal (default true) decides if a creation failure should cause an error

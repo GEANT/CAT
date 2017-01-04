@@ -131,7 +131,7 @@ class ProfileRADIUS extends AbstractProfile {
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
-        $this->name = \core\getLocalisedValue($this->getAttributes('profile:name'), $this->languageInstance->getLang()); // cannot be set per device or eap type
+        $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('profile:name'), $this->languageInstance->getLang()); // cannot be set per device or eap type
 
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }

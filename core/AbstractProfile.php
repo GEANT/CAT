@@ -437,7 +437,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $redirectUrl = 0;
             foreach ($redirect as $index => $oneRedirect) {
                 if ($oneRedirect["device"] == $deviceIndex) {
-                    $redirectUrl = \core\getLocalisedValue($oneRedirect, $locale);
+                    $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect, $locale);
                 }
             }
             $devStatus = AVAILABLE;
@@ -467,7 +467,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 }
                             }
                             if (count($customTextAttributes) > 0) {
-                                $eapCustomtext = \core\getLocalisedValue($customTextAttributes, $locale);
+                                $eapCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes, $locale);
                             }
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
@@ -479,7 +479,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 $customTextAttributes[] = $oneAttribute;
                             }
                         }
-                        $deviceCustomtext = \core\getLocalisedValue($customTextAttributes, $locale);
+                        $deviceCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes, $locale);
                     } else {
                         $devStatus = UNAVAILABLE;
                     }
