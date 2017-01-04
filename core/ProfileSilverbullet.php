@@ -110,7 +110,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $cAFile = fread($caHandle, 16000000);
             $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
         }
-        
+
         $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
 
         //TODO Introduced temporary fix to retrieve attributes from database, needs to be reviewed
