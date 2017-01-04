@@ -26,7 +26,7 @@
  */
 namespace core;
 
-require_once(dirname(__DIR__) . '/config/_config.php');
+require_once(dirname(__DIR__) . '/core/Helper.php');
 
 define("HIDDEN", -1);
 define("AVAILABLE", 0);
@@ -430,7 +430,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $redirectUrl = 0;
             foreach ($redirect as $index => $oneRedirect) {
                 if ($oneRedirect["device"] == $deviceIndex) {
-                    $redirectUrl = getLocalisedValue($oneRedirect, $locale);
+                    $redirectUrl = \core\getLocalisedValue($oneRedirect, $locale);
                 }
             }
             $devStatus = AVAILABLE;
@@ -460,7 +460,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 }
                             }
                             if (count($customTextAttributes) > 0) {
-                                $eapCustomtext = getLocalisedValue($customTextAttributes, $locale);
+                                $eapCustomtext = \core\getLocalisedValue($customTextAttributes, $locale);
                             }
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
@@ -472,7 +472,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 $customTextAttributes[] = $oneAttribute;
                             }
                         }
-                        $deviceCustomtext = getLocalisedValue($customTextAttributes, $locale);
+                        $deviceCustomtext = \core\getLocalisedValue($customTextAttributes, $locale);
                     } else {
                         $devStatus = UNAVAILABLE;
                     }

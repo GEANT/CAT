@@ -29,7 +29,7 @@ namespace core;
 if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
 }
-require_once(dirname(__DIR__) . "/config/_config.php");
+require_once(dirname(__DIR__) . "/core/Helper.php");
 
 /**
  * Define some variables which need to be globally accessible
@@ -455,7 +455,7 @@ class CAT extends Entity {
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
                 $langObject = new Language();
-                $name = getLocalisedValue($names, $langObject->getLang());
+                $name = \core\getLocalisedValue($names, $langObject->getLang());
             }
             $oneInstitutionResult['title'] = $name;
             if (count($geo) > 0) {
