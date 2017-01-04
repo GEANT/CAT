@@ -216,8 +216,8 @@ function mailHandle() {
 }
 
 function saveDownloadDetails($idpIdentifier,$profileId, $deviceId, $area, $lang, $eapType) {
-    if (Config::$PATHS['logdir']) {
-        $f = fopen(Config::$PATHS['logdir'] . "/download_details.log", "a");
+    if (CONFIG['PATHS']['logdir']) {
+        $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
         fprintf($f,"%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
         fclose($f);
     }
