@@ -146,12 +146,6 @@ class Device_Vista7 extends WindowsCommon {
     private function prepareEapConfig($attr) {
         $vistaExt = '';
         $w7Ext = '';
-        $eap = $this->selectedEap;
-        if ($eap != \core\EAP::EAPTYPE_TLS && $eap != \core\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\EAP::EAPTYPE_PWD && $eap != \core\EAP::EAPTYPE_TTLS_PAP && $eap != \core\EAP::EAPTYPE_SILVERBULLET) {
-            $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP , TTLS-MSCHAPv2 or EAP-pwd");
-            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2  or EAP-pwd");
-            return;
-        }
         $useAnon = $attr['internal:use_anon_outer'] [0];
         $realm = $attr['internal:realm'] [0];
         if ($useAnon) {
@@ -161,7 +155,7 @@ class Device_Vista7 extends WindowsCommon {
         $servers = implode(';', $attr['eap:server_name']);
         $caArray = $attr['internal:CAs'][0];
         $authorId = "0";
-        if ($eap == \core\EAP::EAPTYPE_TTLS_PAP || $eap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
             $authorId = "67532";
             $servers = implode('</ServerName><ServerName>', $attr['eap:server_name']);
         }
@@ -177,9 +171,9 @@ class Device_Vista7 extends WindowsCommon {
 ';
 
 
-        if ($eap == \core\EAP::EAPTYPE_TTLS_PAP || $eap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
             $innerMethod = 'MSCHAPv2';
-            if ($eap == \core\EAP::EAPTYPE_TTLS_PAP) {
+            if ($this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP) {
                 $innerMethod = 'PAP';
             }
             $profileFileCont .= '
@@ -228,7 +222,7 @@ class Device_Vista7 extends WindowsCommon {
 </EAPIdentityProviderList>
 </Config>
 ';
-        } elseif ($eap == \core\EAP::EAPTYPE_TLS || $eap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        } elseif ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
 
             $profileFileCont .= '
 
@@ -262,7 +256,7 @@ class Device_Vista7 extends WindowsCommon {
 </baseEap:Eap>
 </Config>
 ';
-        } elseif ($eap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
+        } elseif ($this->selectedEap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
             } else {
@@ -339,7 +333,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 </Eap>
 </Config>
 ';
-        } elseif ($eap == \core\EAP::EAPTYPE_PWD) {
+        } elseif ($this->selectedEap == \core\EAP::EAPTYPE_PWD) {
             $profileFileCont .= '<ConfigBlob></ConfigBlob>';
         }
 

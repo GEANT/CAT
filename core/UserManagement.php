@@ -46,7 +46,7 @@ class UserManagement extends Entity {
      */
     public function __construct() {
         parent::__construct();
-        $this->databaseHandle = DBConnection::handle(UserManagement::$databaseType);
+        $this->databaseHandle = DBConnection::handle(self::$databaseType);
     }
 
     /**
