@@ -39,7 +39,7 @@ class SilverbulletFactory{
     
     /**
      *
-     * @var \ProfileSilverbullet
+     * @var \core\ProfileSilverbullet
      */
     private $profile;
     
@@ -57,7 +57,7 @@ class SilverbulletFactory{
     
     /**
      *
-     * @param \ProfileSilverbullet $profile
+     * @param \core\ProfileSilverbullet $profile
      */
     public function __construct($profile){
         $this->profile = $profile;

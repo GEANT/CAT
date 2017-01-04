@@ -87,7 +87,7 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
-     * @return \ProfileSilverbullet|mixed
+     * @return \core\ProfileSilverbullet|mixed
      */
     public function getProfile(){
         $profile = null;
@@ -104,7 +104,7 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
-     * @return \IdP
+     * @return \core\IdP
      */
     public function getRealmName(){
         $realmName = 'unknown';
