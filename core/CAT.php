@@ -455,7 +455,7 @@ class CAT extends Entity {
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
                 $langObject = new Language();
-                $name = $langObject->getLocalisedValue($names, $langObject->getLang());
+                $name = $langObject->getLocalisedValue($names);
             }
             $oneInstitutionResult['title'] = $name;
             if (count($geo) > 0) {

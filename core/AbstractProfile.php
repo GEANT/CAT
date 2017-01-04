@@ -411,10 +411,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $locale for text-based attributes, either returns values for the default value, or if specified here, in the locale specified
      * @return array of device ids display names and their status
      */
-    public function listDevices($locale = NULL) {
-        if ($locale === NULL) {
-            $locale = $this->languageInstance->getLang();
-        }
+    public function listDevices() {
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
         // if it was a general one, we are done. Find out if there is one such
@@ -437,7 +434,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $redirectUrl = 0;
             foreach ($redirect as $index => $oneRedirect) {
                 if ($oneRedirect["device"] == $deviceIndex) {
-                    $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect, $locale);
+                    $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect);
                 }
             }
             $devStatus = AVAILABLE;
@@ -467,7 +464,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 }
                             }
                             if (count($customTextAttributes) > 0) {
-                                $eapCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes, $locale);
+                                $eapCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes);
                             }
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
@@ -479,7 +476,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 $customTextAttributes[] = $oneAttribute;
                             }
                         }
-                        $deviceCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes, $locale);
+                        $deviceCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes);
                     } else {
                         $devStatus = UNAVAILABLE;
                     }

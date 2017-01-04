@@ -158,7 +158,7 @@ class Language {
      * @return string localised value corresponding to the chosen
      * locale or to the defalut locale C if a better mach was not available
      */
-    function getLocalisedValue($valueArray, $locale) {
+    function getLocalisedValue($valueArray) {
         $loggerInstance = new Logging();
         $out = 0;
         if (count($valueArray) > 0) {
@@ -166,9 +166,9 @@ class Language {
             foreach ($valueArray as $val) {
                 $returnValue[$val["lang"]] = $val['value'];
             }
-            $out = $returnValue[$locale] ?? $returnValue['C'] ?? array_shift($returnValue);
+            $out = $returnValue[$this->LANG] ?? $returnValue['C'] ?? array_shift($returnValue);
         }
-        $loggerInstance->debug(4, "getLocalisedValue:$locale:$out\n");
+        $loggerInstance->debug(4, "getLocalisedValue:$this->LANG:$out\n");
         return $out;
     }
 }
