@@ -18,10 +18,7 @@
 /**
  * 
  */
-require_once('AbstractProfile.php');
-require_once('X509.php');
-require_once('EAP.php');
-include_once("devices/devices.php");
+namespace core;
 
 /**
  * This class defines the API for CAT module writers.
@@ -477,7 +474,7 @@ abstract class DeviceConfig extends Entity {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
             $mime = $finfo->buffer($blob);
             $matches = [];
             if (preg_match('/^image\/(.*)/', $mime, $matches)) {
@@ -501,7 +498,7 @@ abstract class DeviceConfig extends Entity {
     }
 
     private function saveInfoFile($blob) {
-        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
         $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");

@@ -12,11 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once('Options.php');
-require_once('DBConnection.php');
-require_once('ProfileFactory.php');
-require_once('Federation.php');
-
 // validation functions return HTML snippets. Ideally, should be called after
 // HTML <head>, for beautiful output even in these error cases
 
@@ -26,7 +21,7 @@ function input_validation_error($customtext) {
 
 function valid_Fed($input, $owner = NULL) {
 
-    $temp = new Federation($input);
+    $temp = new \core\Federation($input);
     if ($owner == NULL) {
         return $temp;
     }
@@ -44,7 +39,7 @@ function valid_IdP($input, $owner = 0) {
         throw new Exception(input_validation_error("Value for IdP is not an integer!"));
     }
 
-    $temp = new IdP($input); // constructor throws an exception if NX, game over
+    $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
 
     if ($owner !== 0) { // check if the authenticated user is allowed to see this institution
         foreach ($temp->owner() as $oneowner) {
@@ -62,7 +57,7 @@ function valid_Profile($input, $idpIdentifier = NULL) {
         throw new Exception(input_validation_error("Value for profile is not an integer!"));
     }
 
-    $temp = ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
+    $temp = \core\ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
 
     if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
         throw new Exception(input_validation_error("The profile does not belong to the IdP!"));
@@ -71,7 +66,7 @@ function valid_Profile($input, $idpIdentifier = NULL) {
 }
 
 function valid_Device($input) {
-    $devicelist = Devices::listDevices();
+    $devicelist = \devices\Devices::listDevices();
     if (!isset($devicelist[$input])) {
         throw new Exception(input_validation_error("This device does not exist!"));
     }

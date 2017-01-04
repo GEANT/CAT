@@ -20,7 +20,7 @@
 /**
  * 
  */
-require_once('mobileconfigSuperclass.php');
+namespace devices\apple_mobileconfig;
 
 /**
  * This is the main implementation class of the module
@@ -31,15 +31,15 @@ require_once('mobileconfigSuperclass.php');
  *
  * @package Developer
  */
-class Device_mobileconfig_ios extends mobileconfigSuperclass {
-    
+class Device_mobileconfig_os_x extends mobileconfigSuperclass {
+
     /**
      * this array holds the list of EAP methods supported by this device
      */
-    
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_SILVERBULLET]);
+        $this->supportedEapMethods = [\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET];
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods,true));
     }
-
 }

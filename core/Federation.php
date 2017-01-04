@@ -22,9 +22,7 @@
 /**
  * necessary includes
  */
-require_once('IdP.php');
-require_once('EntityWithDBProperties.php');
-require_once('CAT.php');
+namespace core;
 
 /**
  * This class represents an consortium federation.
@@ -52,7 +50,7 @@ class Federation extends EntityWithDBProperties {
         $dataArray = [];
 
         $handle = DBConnection::handle("INST");
-        foreach (Devices::listDevices() as $index => $deviceArray) {
+        foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
             $query = "SELECT SUM(downloads_admin) AS admin, "
                     . "SUM(downloads_user) AS user "
                     . "FROM downloads, profile, institution "

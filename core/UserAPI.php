@@ -19,19 +19,11 @@
  * This product includes GeoLite data created by MaxMind, available from
  * http://www.maxmind.com
  */
+namespace core;
 /**
  * includes required by this class
  */
-require_once("Helper.php");
-require_once("Options.php");
-require_once("CAT.php");
-require_once("User.php");
-require_once("ProfileFactory.php");
-require_once("AbstractProfile.php");
-require_once("Federation.php");
-require_once("DeviceFactory.php");
-require_once("Logging.php");
-require_once("devices/devices.php");
+require_once(dirname(__DIR__)."/config/_config.php");
 
 use GeoIp2\Database\Reader;
 
@@ -113,9 +105,9 @@ class UserAPI extends CAT {
      * @return boolean|string the string with the path to the cached copy, or FALSE if no cached copy exists
      */
     private function getCachedPath($device, $profile) {
-        $deviceList = Devices::listDevices();
+        $deviceList = \devices\Devices::listDevices();
         $deviceConfig = $deviceList[$device];
-        $noCache = (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache']) ? 1 : 0;
+        $noCache = (isset(\devices\Devices::$Options['no_cache']) && \devices\Devices::$Options['no_cache']) ? 1 : 0;
         if (isset($deviceConfig['options']['no_cache'])) {
             $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
         }
@@ -151,7 +143,7 @@ class UserAPI extends CAT {
                 if (isset($dev->options['mime'])) {
                     $out['mime'] = $dev->options['mime'];
                 } else {
-                    $info = new finfo();
+                    $info = new \finfo();
                     $out['mime'] = $info->file($iPath, FILEINFO_MIME_TYPE);
                 }
                 $this->installerPath = $dev->FPATH . '/' . $installer;
@@ -174,7 +166,7 @@ class UserAPI extends CAT {
      * interface to Devices::listDevices() 
      */
     public function listDevices($showHidden = 0) {
-        $dev = Devices::listDevices();
+        $dev = \devices\Devices::listDevices();
         $returnList = [];
         $count = 0;
         if ($showHidden !== 0 && $showHidden != 1) {
@@ -502,7 +494,7 @@ class UserAPI extends CAT {
             $idp = new IdP($idpIdentifier);
             $logoAttribute = $idp->getAttributes('general:logo_file');
             $blob = $logoAttribute[0]['value'];
-            $info = new finfo();
+            $info = new \finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
             $offset = 60 * 60 * 24 * 30;
             $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
@@ -560,7 +552,7 @@ class UserAPI extends CAT {
             $federation = new Federation($fedIdentifier);
             $logoAttribute = $federation->getAttributes('fed:logo_file');
             $blob = $logoAttribute[0]['value'];
-            $info = new finfo();
+            $info = new \finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
             $offset = 60 * 60 * 24 * 30;
             $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
@@ -732,7 +724,7 @@ class UserAPI extends CAT {
      */
     public function detectOS() {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
-        $Dev = Devices::listDevices();
+        $Dev = \devices\Devices::listDevices();
         $this->languageInstance->setTextDomain($oldDomain);
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];

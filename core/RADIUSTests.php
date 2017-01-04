@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -20,186 +21,10 @@
  * @package Developer
  * 
  */
+
+namespace core;
+
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("EAP.php");
-require_once("X509.php");
-require_once("Entity.php");
-require_once("ProfileFactory.php");
-require_once("ProfileRADIUS.php");
-
-// generic return codes
-
-/**
- * Test was executed and the result was as expected.
- */
-define("RETVAL_OK", 0);
-/**
- * Test could not be run because CAT software isn't configured for it
- */
-define("RETVAL_NOTCONFIGURED", -100);
-/**
- * Test skipped because there was nothing to be done
- */
-define("RETVAL_SKIPPED", -101);
-/**
- * test executed, and there were errors
- */
-define("RETVAL_INVALID", -103);
-
-// return codes specific to NAPTR existence checks
-/**
- * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
- */
-define("RETVAL_NONAPTR", -104);
-/**
- * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
- */
-define("RETVAL_ONLYUNRELATEDNAPTR", -105);
-
-// return codes specific to authentication checks
-/**
- * no reply at all from remote RADIUS server
- */
-define("RETVAL_NO_RESPONSE", -106);
-/**
- * auth flow stopped somewhere in the middle of a conversation
- */
-define("RETVAL_SERVER_UNFINISHED_COMM", -107);
-/**
- * a RADIUS server did not want to talk EAP with us, but at least replied with a Reject
- */
-define("RETVAL_IMMEDIATE_REJECT", -108);
-/**
- * a RADIUS server talked EAP with us, but didn't like us in the end
- */
-define("RETVAL_CONVERSATION_REJECT", -109);
-/**
- * a RADIUS server refuses connection
- */
-define("RETVAL_CONNECTION_REFUSED", -110);
-/**
- * not enough data provided to perform an authentication
- */
-define("RETVAL_INCOMPLETE_DATA", -111);
-
-/**
- * PKCS12 password does not match the certificate file
- */
-define("RETVAL_WRONG_PKCS12_PASSWORD", -112);
-
-// certificate property errors
-/**
- * The root CA certificate was sent by the EAP server.
- */
-define("CERTPROB_ROOT_INCLUDED", -200);
-/**
- * There was more than one server certificate in the EAP server's chain.
- */
-define("CERTPROB_TOO_MANY_SERVER_CERTS", -201);
-/**
- * There was no server certificate in the EAP server's chain.
- */
-define("CERTPROB_NO_SERVER_CERT", -202);
-/**
- * The/a server certificate was signed with an MD5 signature.
- */
-define("CERTPROB_MD5_SIGNATURE", -204);
-/**
- * The/a server certificate was signed with an MD5 signature.
- */
-define("CERTPROB_SHA1_SIGNATURE", -227);
-/**
- * one of the keys in the cert chain was smaller than 1024 bits
- */
-define("CERTPROB_LOW_KEY_LENGTH", -220);
-/**
- * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
- */
-define("CERTPROB_NO_TLS_WEBSERVER_OID", -205);
-/**
- * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
- */
-define("CERTPROB_NO_CDP", -206);
-/**
- * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
- */
-define("CERTPROB_NO_CDP_HTTP", -207);
-/**
- * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
- */
-define("CERTPROB_NO_CRL_AT_CDP_URL", -208);
-/**
- * certificate is not currently valid (expired/not yet valid)
- */
-define("CERTPROB_SERVER_CERT_REVOKED", -222);
-/**
- * The received server certificate is revoked.
- */
-define("CERTPROB_OUTSIDE_VALIDITY_PERIOD", -221);
-/**
- * At least one certificate is outside its validity period (not yet valid, or already expired)!
- */
-define("CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN", -225);
-/**
- * At least one certificate is outside its validity period, but this certificate does not take part in servder validation 
- */
-define("CERTPROB_TRUST_ROOT_NOT_REACHED", -209);
-/**
- * The received certificate chain did not carry the necessary intermediate CAs in the EAP conversation. Only the CAT Intermediate CA installation can complete the chain.
- */
-define("CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES", -216);
-/**
- * The received server certificate's name did not match the configured name in the profile properties.
- */
-define("CERTPROB_SERVER_NAME_MISMATCH", -210);
-/**
- * The received server certificate's name did not match the configured name in the profile properties.
- */
-define("CERTPROB_SERVER_NAME_PARTIAL_MATCH", -217);
-/**
- * One of the names in the cert was not a hostname.
- */
-define("CERTPROB_NOT_A_HOSTNAME", -218);
-/**
- * One of the names contained a wildcard character.
- */
-define("CERTPROB_WILDCARD_IN_NAME", -219);
-/**
- * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
- */
-define("CERTPROB_NO_BASICCONSTRAINTS", -211);
-/**
- * The server presented a certificate which is from an unknown authority
- */
-define("CERTPROB_UNKNOWN_CA", -212);
-/**
- * The server accepted this client certificate, but should not have
- */
-define("CERTPROB_WRONGLY_ACCEPTED", -213);
-/**
- * The server does not accept this client certificate, but should have
- */
-define("CERTPROB_WRONGLY_NOT_ACCEPTED", -214);
-/**
- * The server does accept this client certificate
- */
-define("CERTPROB_NOT_ACCEPTED", -215);
-/**
- * the CRL of a certificate could not be found
- */
-define("CERTPROB_UNABLE_TO_GET_CRL", 223);
-/**
- * no EAP method could be agreed on, certs could not be extraced
- */
-define("CERTPROB_NO_COMMON_EAP_METHOD", -224);
-/**
- * Diffie-Hellman groups need to be 1024 bit at least, starting with OS X 10.11
- */
-define("CERTPROB_DH_GROUP_TOO_SMALL", -225);
-/**
- * There is more than one CN in the certificate
- */
-define("CERTPROB_MULTIPLE_CN", -226);
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
@@ -213,6 +38,211 @@ define("CERTPROB_MULTIPLE_CN", -226);
  * @package Developer
  */
 class RADIUSTests extends Entity {
+
+    /**
+     * Test was executed and the result was as expected.
+     */
+    const RETVAL_OK = 0;
+
+    /**
+     * Test could not be run because CAT software isn't configured for it
+     */
+    const RETVAL_NOTCONFIGURED = -100;
+
+    /**
+     * Test skipped because there was nothing to be done
+     */
+    const RETVAL_SKIPPED = -101;
+
+    /**
+     * test executed, and there were errors
+     */
+    const RETVAL_INVALID = -103;
+// return codes specific to NAPTR existence checks
+    /**
+     * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
+     */
+    const RETVAL_NONAPTR = -104;
+
+    /**
+     * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
+     */
+    const RETVAL_ONLYUNRELATEDNAPTR = -105;
+// return codes specific to authentication checks
+    /**
+     * no reply at all from remote RADIUS server
+     */
+    const RETVAL_NO_RESPONSE = -106;
+
+    /**
+     * auth flow stopped somewhere in the middle of a conversation
+     */
+    const RETVAL_SERVER_UNFINISHED_COMM = -107;
+
+    /**
+     * a RADIUS server did not want to talk EAP with us, but at least replied with a Reject
+     */
+    const RETVAL_IMMEDIATE_REJECT = -108;
+
+    /**
+     * a RADIUS server talked EAP with us, but didn't like us in the end
+     */
+    const RETVAL_CONVERSATION_REJECT = -109;
+
+    /**
+     * a RADIUS server refuses connection
+     */
+    const RETVAL_CONNECTION_REFUSED = -110;
+
+    /**
+     * not enough data provided to perform an authentication
+     */
+    const RETVAL_INCOMPLETE_DATA = -111;
+
+    /**
+     * PKCS12 password does not match the certificate file
+     */
+    const RETVAL_WRONG_PKCS12_PASSWORD = -112;
+// certificate property errors
+    /**
+     * The root CA certificate was sent by the EAP server.
+     */
+    const CERTPROB_ROOT_INCLUDED = -200;
+
+    /**
+     * There was more than one server certificate in the EAP server's chain.
+     */
+    const CERTPROB_TOO_MANY_SERVER_CERTS = -201;
+
+    /**
+     * There was no server certificate in the EAP server's chain.
+     */
+    const CERTPROB_NO_SERVER_CERT = -202;
+
+    /**
+     * The/a server certificate was signed with an MD5 signature.
+     */
+    const CERTPROB_MD5_SIGNATURE = -204;
+
+    /**
+     * The/a server certificate was signed with an MD5 signature.
+     */
+    const CERTPROB_SHA1_SIGNATURE = -227;
+
+    /**
+     * one of the keys in the cert chain was smaller than 1024 bits
+     */
+    const CERTPROB_LOW_KEY_LENGTH = -220;
+
+    /**
+     * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
+     */
+    const CERTPROB_NO_TLS_WEBSERVER_OID = -205;
+
+    /**
+     * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
+     */
+    const CERTPROB_NO_CDP = -206;
+
+    /**
+     * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
+     */
+    const CERTPROB_NO_CDP_HTTP = -207;
+
+    /**
+     * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
+     */
+    const CERTPROB_NO_CRL_AT_CDP_URL = -208;
+
+    /**
+     * certificate is not currently valid (expired/not yet valid)
+     */
+    const CERTPROB_SERVER_CERT_REVOKED = -222;
+
+    /**
+     * The received server certificate is revoked.
+     */
+    const CERTPROB_OUTSIDE_VALIDITY_PERIOD = -221;
+
+    /**
+     * At least one certificate is outside its validity period (not yet valid, or already expired)!
+     */
+    const CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN = -225;
+
+    /**
+     * At least one certificate is outside its validity period, but this certificate does not take part in servder validation 
+     */
+    const CERTPROB_TRUST_ROOT_NOT_REACHED = -209;
+
+    /**
+     * The received certificate chain did not carry the necessary intermediate CAs in the EAP conversation. Only the CAT Intermediate CA installation can complete the chain.
+     */
+    const CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES = -216;
+
+    /**
+     * The received server certificate's name did not match the configured name in the profile properties.
+     */
+    const CERTPROB_SERVER_NAME_MISMATCH = -210;
+
+    /**
+     * The received server certificate's name did not match the configured name in the profile properties.
+     */
+    const CERTPROB_SERVER_NAME_PARTIAL_MATCH = -217;
+
+    /**
+     * One of the names in the cert was not a hostname.
+     */
+    const CERTPROB_NOT_A_HOSTNAME = -218;
+
+    /**
+     * One of the names contained a wildcard character.
+     */
+    const CERTPROB_WILDCARD_IN_NAME = -219;
+
+    /**
+     * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
+     */
+    const CERTPROB_NO_BASICCONSTRAINTS = -211;
+
+    /**
+     * The server presented a certificate which is from an unknown authority
+     */
+    const CERTPROB_UNKNOWN_CA = -212;
+
+    /**
+     * The server accepted this client certificate, but should not have
+     */
+    const CERTPROB_WRONGLY_ACCEPTED = -213;
+
+    /**
+     * The server does not accept this client certificate, but should have
+     */
+    const CERTPROB_WRONGLY_NOT_ACCEPTED = -214;
+
+    /**
+     * The server does accept this client certificate
+     */
+    const CERTPROB_NOT_ACCEPTED = -215;
+
+    /**
+     * the CRL of a certificate could not be found
+     */
+    const CERTPROB_UNABLE_TO_GET_CRL = 223;
+
+    /**
+     * no EAP method could be agreed on, certs could not be extraced
+     */
+    const CERTPROB_NO_COMMON_EAP_METHOD = -224;
+
+    /**
+     * Diffie-Hellman groups need to be 1024 bit at least, starting with OS X 10.11
+     */
+    const CERTPROB_DH_GROUP_TOO_SMALL = -225;
+
+    /**
+     * There is more than one CN in the certificate
+     */
+    const CERTPROB_MULTIPLE_CN = -226;
 
     /**
      * This private variable contains the realm to be checked. Is filled in the
@@ -304,13 +334,13 @@ class RADIUSTests extends Entity {
      */
     public function NAPTR() {
         if (CONFIG['RADIUSTESTS']['TLS-discoverytag'] == "") {
-            $this->NAPTR_executed = RETVAL_NOTCONFIGURED;
-            return RETVAL_NOTCONFIGURED;
+            $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
         $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
         if ($NAPTRs === FALSE || count($NAPTRs) == 0) {
-            $this->NAPTR_executed = RETVAL_NONAPTR;
-            return RETVAL_NONAPTR;
+            $this->NAPTR_executed = RADIUSTests::RETVAL_NONAPTR;
+            return RADIUSTests::RETVAL_NONAPTR;
         }
         $NAPTRs_consortium = [];
         foreach ($NAPTRs as $naptr) {
@@ -319,8 +349,8 @@ class RADIUSTests extends Entity {
             }
         }
         if (count($NAPTRs_consortium) == 0) {
-            $this->NAPTR_executed = RETVAL_ONLYUNRELATEDNAPTR;
-            return RETVAL_ONLYUNRELATEDNAPTR;
+            $this->NAPTR_executed = RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
+            return RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
         }
         $this->NAPTR_records = $NAPTRs_consortium;
         $this->NAPTR_executed = count($NAPTRs_consortium);
@@ -343,14 +373,14 @@ class RADIUSTests extends Entity {
             $this->NAPTR();
         }
         // if the NAPTR checks aren't configured, tell the caller
-        if ($this->NAPTR_executed === RETVAL_NOTCONFIGURED) {
-            $this->NAPTR_compliance_executed = RETVAL_NOTCONFIGURED;
-            return RETVAL_NOTCONFIGURED;
+        if ($this->NAPTR_executed === RADIUSTests::RETVAL_NOTCONFIGURED) {
+            $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
         // if there were no relevant NAPTR records, we are compliant :-)
         if (count($this->NAPTR_records) == 0) {
-            $this->NAPTR_compliance_executed = RETVAL_OK;
-            return RETVAL_OK;
+            $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_OK;
+            return RADIUSTests::RETVAL_OK;
         }
         $formatErrors = [];
         // format of NAPTRs is consortium specific. eduroam below; others need
@@ -368,12 +398,12 @@ class RADIUSTests extends Entity {
             }
         }
         if (count($formatErrors) == 0) {
-            $this->NAPTR_compliance_executed = RETVAL_OK;
-            return RETVAL_OK;
+            $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_OK;
+            return RADIUSTests::RETVAL_OK;
         }
         $this->errorlist = array_merge($this->errorlist, $formatErrors);
-        $this->NAPTR_compliance_executed = RETVAL_INVALID;
-        return RETVAL_INVALID;
+        $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_INVALID;
+        return RADIUSTests::RETVAL_INVALID;
     }
 
 // generic return codes
@@ -382,27 +412,27 @@ class RADIUSTests extends Entity {
         /**
          * Test was executed and the result was as expected.
          */
-        $code1 = RETVAL_OK;
+        $code1 = RADIUSTests::RETVAL_OK;
         $this->return_codes[$code1]["message"] = _("Completed");
         $this->return_codes[$code1]["severity"] = L_OK;
 
         /**
          * Test could not be run because CAT software isn't configured for it
          */
-        $code2 = RETVAL_NOTCONFIGURED;
+        $code2 = RADIUSTests::RETVAL_NOTCONFIGURED;
         $this->return_codes[$code2]["message"] = _("Product is not configured to run this check.");
         $this->return_codes[$code2]["severity"] = L_OK;
         /**
          * Test skipped because there was nothing to be done
          */
-        $code3 = RETVAL_SKIPPED;
+        $code3 = RADIUSTests::RETVAL_SKIPPED;
         $this->return_codes[$code3]["message"] = _("This check was skipped.");
         $this->return_codes[$code3]["severity"] = L_OK;
 
         /**
          * test executed, and there were errors
          */
-        $code4 = RETVAL_INVALID;
+        $code4 = RADIUSTests::RETVAL_INVALID;
         $this->return_codes[$code4]["message"] = _("There were errors during the test.");
         $this->return_codes[$code4]["severity"] = L_OK;
 
@@ -410,14 +440,14 @@ class RADIUSTests extends Entity {
         /**
          * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
          */
-        $code5 = RETVAL_NONAPTR;
+        $code5 = RADIUSTests::RETVAL_NONAPTR;
         $this->return_codes[$code5]["message"] = _("This realm has no NAPTR records.");
         $this->return_codes[$code5]["severity"] = L_OK;
 
         /**
          * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
          */
-        $code6 = RETVAL_ONLYUNRELATEDNAPTR;
+        $code6 = RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
         $this->return_codes[$code6]["message"] = _("NAPTR records were found, but all of them refer to unrelated services.");
         $this->return_codes[$code6]["severity"] = L_OK;
 
@@ -425,49 +455,49 @@ class RADIUSTests extends Entity {
         /**
          * no reply at all from remote RADIUS server
          */
-        $code7 = RETVAL_NO_RESPONSE;
+        $code7 = RADIUSTests::RETVAL_NO_RESPONSE;
         $this->return_codes[$code7]["message"] = _("There was no reply at all from the RADIUS server.");
         $this->return_codes[$code7]["severity"] = L_ERROR;
 
         /**
          * auth flow stopped somewhere in the middle of a conversation
          */
-        $code8 = RETVAL_SERVER_UNFINISHED_COMM;
+        $code8 = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
         $this->return_codes[$code8]["message"] = _("There was a bidirectional communication with the RADIUS server, but it ended halfway through.");
         $this->return_codes[$code8]["severity"] = L_ERROR;
 
         /**
          * a RADIUS server did not want to talk EAP with us, but at least replied with a Reject
          */
-        $code9 = RETVAL_IMMEDIATE_REJECT;
+        $code9 = RADIUSTests::RETVAL_IMMEDIATE_REJECT;
         $this->return_codes[$code9]["message"] = _("The RADIUS server immediately rejected the authentication request in its first reply.");
         $this->return_codes[$code9]["severity"] = L_WARN;
 
         /**
          * a RADIUS server talked EAP with us, but didn't like us in the end
          */
-        $code10 = RETVAL_CONVERSATION_REJECT;
+        $code10 = RADIUSTests::RETVAL_CONVERSATION_REJECT;
         $this->return_codes[$code10]["message"] = _("The RADIUS server rejected the authentication request after an EAP conversation.");
         $this->return_codes[$code10]["severity"] = L_WARN;
 
         /**
          * a RADIUS server refuses connection
          */
-        $code11 = RETVAL_CONNECTION_REFUSED;
+        $code11 = RADIUSTests::RETVAL_CONNECTION_REFUSED;
         $this->return_codes[$code11]["message"] = _("Connection refused");
         $this->return_codes[$code11]["severity"] = L_ERROR;
 
         /**
          * not enough data provided to perform an authentication
          */
-        $code12 = RETVAL_INCOMPLETE_DATA;
+        $code12 = RADIUSTests::RETVAL_INCOMPLETE_DATA;
         $this->return_codes[$code12]["message"] = _("Not enough data provided to perform an authentication");
         $this->return_codes[$code12]["severity"] = L_ERROR;
 
         /**
          * PKCS12 password does not match the certificate file
          */
-        $code13 = RETVAL_WRONG_PKCS12_PASSWORD;
+        $code13 = RADIUSTests::RETVAL_WRONG_PKCS12_PASSWORD;
         $this->return_codes[$code13]["message"] = _("The certificate password you provided does not match the certificate file.");
         $this->return_codes[$code13]["severity"] = L_ERROR;
 
@@ -475,192 +505,192 @@ class RADIUSTests extends Entity {
         /**
          * The root CA certificate was sent by the EAP server.
          */
-        $code14 = CERTPROB_ROOT_INCLUDED;
+        $code14 = RADIUSTests::CERTPROB_ROOT_INCLUDED;
         $this->return_codes[$code14]["message"] = _("The certificate chain includes the root CA certificate. This does not serve any useful purpose but inflates the packet exchange, possibly leading to more round-trips and thus slower authentication.");
         $this->return_codes[$code14]["severity"] = L_REMARK;
 
         /**
          * There was more than one server certificate in the EAP server's chain.
          */
-        $code15 = CERTPROB_TOO_MANY_SERVER_CERTS;
+        $code15 = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
         $this->return_codes[$code15]["message"] = _("There is more than one server certificate in the chain.");
         $this->return_codes[$code15]["severity"] = L_REMARK;
 
         /**
          * There was no server certificate in the EAP server's chain.
          */
-        $code16 = CERTPROB_NO_SERVER_CERT;
+        $code16 = RADIUSTests::CERTPROB_NO_SERVER_CERT;
         $this->return_codes[$code16]["message"] = _("There is no server certificate in the chain.");
         $this->return_codes[$code16]["severity"] = L_WARN;
 
         /**
          * A certificate was signed with an MD5 signature.
          */
-        $code17 = CERTPROB_MD5_SIGNATURE;
+        $code17 = RADIUSTests::CERTPROB_MD5_SIGNATURE;
         $this->return_codes[$code17]["message"] = _("At least one certificate in the chain is signed with the MD5 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
         $this->return_codes[$code17]["severity"] = L_WARN;
 
         /**
          * A certificate was signed with an SHA1 signature.
          */
-        $code17a = CERTPROB_SHA1_SIGNATURE;
+        $code17a = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
         $this->return_codes[$code17a]["message"] = _("At least one certificate in the chain is signed with the SHA-1 signature algorithm. Many Operating Systems, including Apple iOS, will fail to validate this certificate.");
         $this->return_codes[$code17a]["severity"] = L_WARN;
-        
+
         /**
          * Low public key length (<1024)
          */
-        $code18 = CERTPROB_LOW_KEY_LENGTH;
+        $code18 = RADIUSTests::CERTPROB_LOW_KEY_LENGTH;
         $this->return_codes[$code18]["message"] = _("At least one certificate in the chain had a public key of less than 1024 bits. Many recent operating systems consider this unacceptable and will fail to validate the server certificate.");
         $this->return_codes[$code18]["severity"] = L_WARN;
 
         /**
          * The server certificate did not contain the TLS Web Server OID, creating compat problems with many Windows versions.
          */
-        $code19 = CERTPROB_NO_TLS_WEBSERVER_OID;
+        $code19 = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
         $this->return_codes[$code19]["message"] = _("The server certificate does not have the extension 'extendedKeyUsage: TLS Web Server Authentication'. Most Microsoft Operating Systems will fail to validate this certificate.");
         $this->return_codes[$code19]["severity"] = L_WARN;
 
         /**
          * The server certificate did not include a CRL Distribution Point, creating compat problems with Windows Phone 8.
          */
-        $code20 = CERTPROB_NO_CDP;
+        $code20 = RADIUSTests::CERTPROB_NO_CDP;
         $this->return_codes[$code20]["message"] = _("The server certificate did not include a CRL Distribution Point, creating compatibility problems with Windows Phone 8.");
         $this->return_codes[$code20]["severity"] = L_REMARK;
 
         /**
          * The server certificate did a CRL Distribution Point, but not to a HTTP/HTTPS URL. Possible compat problems.
          */
-        $code21 = CERTPROB_NO_CDP_HTTP;
+        $code21 = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         $this->return_codes[$code21]["message"] = _("The server certificate's 'CRL Distribution Point' extension does not point to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this certificate. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code21]["severity"] = L_WARN;
 
         /**
          * The server certificate's CRL Distribution Point URL couldn't be accessed and/or did not contain a CRL.
          */
-        $code22 = CERTPROB_NO_CRL_AT_CDP_URL;
+        $code22 = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
         $this->return_codes[$code22]["message"] = _("The extension 'CRL Distribution Point' in the server certificate points to a non-existing location. Some Operating Systems check certificate validity by consulting the CRL and will fail to validate the certificate. Checking server certificate validity against a CRL will not be possible.");
         $this->return_codes[$code22]["severity"] = L_ERROR;
 
         /**
          * The server certificate has been revoked by its CA.
          */
-        $code23 = CERTPROB_SERVER_CERT_REVOKED;
+        $code23 = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
         $this->return_codes[$code23]["message"] = _("The server certificate was revoked by the CA!");
         $this->return_codes[$code23]["severity"] = L_ERROR;
 
         /**
          * The server certificate's names contained at least which was not a hostname.
          */
-        $code24 = CERTPROB_NOT_A_HOSTNAME;
+        $code24 = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
         $this->return_codes[$code24]["message"] = _("The certificate contained a CN or subjectAltName:DNS which does not parse as a hostname. This can be problematic on some supplicants. If the certificate also contains names which are a proper hostname, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
         $this->return_codes[$code24]["severity"] = L_REMARK;
 
         /**
          * The server certificate's names contained at least one wildcard name.
          */
-        $code25 = CERTPROB_WILDCARD_IN_NAME;
+        $code25 = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
         $this->return_codes[$code25]["message"] = _("The certificate contained a CN or subjectAltName:DNS which contains a wildcard ('*'). This can be problematic on some supplicants. If the certificate also contains names which are wildcardless, and you only use those for your supplicant configuration, then you can safely ignore this notice.");
         $this->return_codes[$code25]["severity"] = L_REMARK;
 
         /**
          * cert is not yet, or not any more, valid
          */
-        $code26 = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
+        $code26 = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         $this->return_codes[$code26]["message"] = _("At least one certificate is outside its validity period (not yet valid, or already expired)!");
         $this->return_codes[$code26]["severity"] = L_ERROR;
 
         /**
          * cert is not yet, or not any more, valid but is not taking part in server validation
          */
-        $code27 = CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
+        $code27 = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
         $this->return_codes[$code27]["message"] = sprintf(_("At least one intermediate certificate in your CAT profile is outside its validity period (not yet valid, or already expired), but this certificate was not used for server validation. Consider removing it from your %s configuration."), CONFIG['APPEARANCE']['productname']);
         $this->return_codes[$code27]["severity"] = L_REMARK;
 
         /**
          * The received certificate chain did not end in any of the trust roots configured in the profile properties.
          */
-        $code28 = CERTPROB_TRUST_ROOT_NOT_REACHED;
+        $code28 = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
         $this->return_codes[$code28]["message"] = _("The server certificate could not be verified to the root CA you configured in your profile!");
         $this->return_codes[$code28]["severity"] = L_ERROR;
 
-        $code29 = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+        $code29 = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
         $this->return_codes[$code29]["message"] = _("The certificate chain as received in EAP was not sufficient to verify the certificate to the root CA in your profile. It was verified using the intermediate CAs in your profile though. You should consider sending the required intermediate CAs inside the EAP conversation.");
         $this->return_codes[$code29]["severity"] = L_REMARK;
         /**
          * The received server certificate's name did not match the configured name in the profile properties.
          */
-        $code30 = CERTPROB_SERVER_NAME_MISMATCH;
+        $code30 = RADIUSTests::CERTPROB_SERVER_NAME_MISMATCH;
         $this->return_codes[$code30]["message"] = _("The EAP server name does not match any of the configured names in your profile!");
         $this->return_codes[$code30]["severity"] = L_ERROR;
 
         /**
          * The received server certificate's name only matched either CN or subjectAltName, but not both
          */
-        $code31 = CERTPROB_SERVER_NAME_PARTIAL_MATCH;
+        $code31 = RADIUSTests::CERTPROB_SERVER_NAME_PARTIAL_MATCH;
         $this->return_codes[$code31]["message"] = _("The configured EAP server name matches either the CN or a subjectAltName:DNS of the incoming certificate; best current practice is that the certificate should contain the name in BOTH places.");
         $this->return_codes[$code31]["severity"] = L_REMARK;
 
         /**
          * The certificate does not set any BasicConstraints; particularly no CA = TRUE|FALSE
          */
-        $code32 = CERTPROB_NO_BASICCONSTRAINTS;
+        $code32 = RADIUSTests::CERTPROB_NO_BASICCONSTRAINTS;
         $this->return_codes[$code32]["message"] = _("At least one certificate did not contain any BasicConstraints extension; which makes it unclear if it's a CA certificate or end-entity certificate. At least Mac OS X 10.8 (Mountain Lion) will not validate this certificate for EAP purposes!");
         $this->return_codes[$code32]["severity"] = L_WARN;
 
         /**
          * The server presented a certificate which is from an unknown authority
          */
-        $code33 = CERTPROB_UNKNOWN_CA;
+        $code33 = RADIUSTests::CERTPROB_UNKNOWN_CA;
         $this->return_codes[$code33]["message"] = _("The server presented a certificate from an unknown authority.");
         $this->return_codes[$code33]["severity"] = L_ERROR;
 
         /**
          * The server accepted this client certificate, but should not have
          */
-        $code34 = CERTPROB_WRONGLY_ACCEPTED;
+        $code34 = RADIUSTests::CERTPROB_WRONGLY_ACCEPTED;
         $this->return_codes[$code34]["message"] = _("The server accepted the INVALID client certificate.");
         $this->return_codes[$code34]["severity"] = L_ERROR;
 
         /**
          * The server does not accept this client certificate, but should have
          */
-        $code35 = CERTPROB_WRONGLY_NOT_ACCEPTED;
+        $code35 = RADIUSTests::CERTPROB_WRONGLY_NOT_ACCEPTED;
         $this->return_codes[$code35]["message"] = _("The server rejected the client certificate, even though it was valid.");
         $this->return_codes[$code35]["severity"] = L_ERROR;
 
         /**
          * The server does not accept this client certificate
          */
-        $code36 = CERTPROB_NOT_ACCEPTED;
+        $code36 = RADIUSTests::CERTPROB_NOT_ACCEPTED;
         $this->return_codes[$code36]["message"] = _("The server rejected the client certificate as expected.");
         $this->return_codes[$code36]["severity"] = L_OK;
 
         /**
          * the CRL of a certificate could not be found
          */
-        $code37 = CERTPROB_UNABLE_TO_GET_CRL;
+        $code37 = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
         $this->return_codes[$code37]["message"] = _("The CRL of a certificate could not be found.");
         $this->return_codes[$code37]["severity"] = L_ERROR;
 
         /**
          * the CRL of a certificate could not be found
          */
-        $code38 = CERTPROB_NO_COMMON_EAP_METHOD;
+        $code38 = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
         $this->return_codes[$code38]["message"] = _("EAP method negotiation failed!");
         $this->return_codes[$code38]["severity"] = L_ERROR;
 
         /**
          * DH group too small
          */
-        $code39 = CERTPROB_DH_GROUP_TOO_SMALL;
+        $code39 = RADIUSTests::CERTPROB_DH_GROUP_TOO_SMALL;
         $this->return_codes[$code39]["message"] = _("The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than 1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections under these circumstances!");
         $this->return_codes[$code39]["severity"] = L_WARN;
 
         /**
          * The server certificate's names contained at least which was not a hostname.
          */
-        $code40 = CERTPROB_MULTIPLE_CN;
+        $code40 = RADIUSTests::CERTPROB_MULTIPLE_CN;
         $this->return_codes[$code40]["message"] = _("The certificate contains more than one CommonName (CN) field. This is reportedly problematic on many supplicants.");
         $this->return_codes[$code40]["severity"] = L_WARN;
     }
@@ -682,9 +712,9 @@ class RADIUSTests extends Entity {
             $this->NAPTR_compliance();
         }
         // we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
-        if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RETVAL_INVALID) {
-            $this->NAPTR_SRV_executed = RETVAL_SKIPPED;
-            return RETVAL_SKIPPED;
+        if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RADIUSTests::RETVAL_INVALID) {
+            $this->NAPTR_SRV_executed = RADIUSTests::RETVAL_SKIPPED;
+            return RADIUSTests::RETVAL_SKIPPED;
         }
 
         $sRVerrors = [];
@@ -702,9 +732,9 @@ class RADIUSTests extends Entity {
         }
         $this->NAPTR_SRV_records = $sRVtargets;
         if (count($sRVerrors) > 0) {
-            $this->NAPTR_SRV_executed = RETVAL_INVALID;
+            $this->NAPTR_SRV_executed = RADIUSTests::RETVAL_INVALID;
             $this->errorlist = array_merge($this->errorlist, $sRVerrors);
-            return RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
         }
         $this->NAPTR_SRV_executed = count($sRVtargets);
         return count($sRVtargets);
@@ -717,9 +747,9 @@ class RADIUSTests extends Entity {
             $this->NAPTR_SRV();
         }
         // if previous are SKIPPED, skip this one, too
-        if ($this->NAPTR_SRV_executed == RETVAL_SKIPPED) {
-            $this->NAPTR_hostname_executed = RETVAL_SKIPPED;
-            return RETVAL_SKIPPED;
+        if ($this->NAPTR_SRV_executed == RADIUSTests::RETVAL_SKIPPED) {
+            $this->NAPTR_hostname_executed = RADIUSTests::RETVAL_SKIPPED;
+            return RADIUSTests::RETVAL_SKIPPED;
         }
         // the SRV check may have returned INVALID, but could have found a
         // a working subset of hosts anyway. We should continue checking all 
@@ -749,8 +779,8 @@ class RADIUSTests extends Entity {
 
         if (count($resolutionErrors) > 0) {
             $this->errorlist = array_merge($this->errorlist, $resolutionErrors);
-            $this->NAPTR_hostname_executed = RETVAL_INVALID;
-            return RETVAL_INVALID;
+            $this->NAPTR_hostname_executed = RADIUSTests::RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
         }
         $this->NAPTR_hostname_executed = count($this->NAPTR_hostname_records);
         return count($this->NAPTR_hostname_records);
@@ -771,11 +801,11 @@ class RADIUSTests extends Entity {
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
 
         if (!isset($servercert['full_details']['extensions'])) {
-            $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
-            $returnarray[] = CERTPROB_NO_CDP_HTTP;
+            $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
+            $returnarray[] = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else {
             if (!isset($servercert['full_details']['extensions']['extendedKeyUsage']) || !preg_match("/TLS Web Server Authentication/", $servercert['full_details']['extensions']['extendedKeyUsage'])) {
-                $returnarray[] = CERTPROB_NO_TLS_WEBSERVER_OID;
+                $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
             }
         }
         // check for wildcards
@@ -803,18 +833,18 @@ class RADIUSTests extends Entity {
         $allnames = array_unique(array_merge($commonName, $sANdns));
 
         if (preg_match("/\*/", implode($allnames))) {
-            $returnarray[] = CERTPROB_WILDCARD_IN_NAME;
+            $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
         }
 
         // is there more than one CN? None or one is okay, more is asking for trouble.
         if (count($commonName) > 1) {
-            $returnarray[] = CERTPROB_MULTIPLE_CN;
+            $returnarray[] = RADIUSTests::CERTPROB_MULTIPLE_CN;
         }
 
         // check for real hostname
         foreach ($allnames as $onename) {
             if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
-                $returnarray[] = CERTPROB_NOT_A_HOSTNAME;
+                $returnarray[] = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
             }
         }
         $servercert['incoming_server_names'] = $allnames;
@@ -833,23 +863,23 @@ class RADIUSTests extends Entity {
     private function propertyCheckIntermediate(&$intermediateCa, $serverCert = FALSE) {
         $returnarray = [];
         if (preg_match("/md5/i", $intermediateCa['full_details']['signatureTypeSN'])) {
-            $returnarray[] = CERTPROB_MD5_SIGNATURE;
+            $returnarray[] = RADIUSTests::CERTPROB_MD5_SIGNATURE;
         }
         if (preg_match("/sha1/i", $intermediateCa['full_details']['signatureTypeSN'])) {
-            $returnarray[] = CERTPROB_SHA1_SIGNATURE;
+            $returnarray[] = RADIUSTests::CERTPROB_SHA1_SIGNATURE;
         }
         $this->loggerInstance->debug(4, "CERT IS: " . print_r($intermediateCa, TRUE));
         if ($intermediateCa['basicconstraints_set'] == 0) {
-            $returnarray[] = CERTPROB_NO_BASICCONSTRAINTS;
+            $returnarray[] = RADIUSTests::CERTPROB_NO_BASICCONSTRAINTS;
         }
         if ($intermediateCa['full_details']['public_key_length'] < 1024) {
-            $returnarray[] = CERTPROB_LOW_KEY_LENGTH;
+            $returnarray[] = RADIUSTests::CERTPROB_LOW_KEY_LENGTH;
         }
         $validFrom = $intermediateCa['full_details']['validFrom_time_t'];
         $now = time();
         $validTo = $intermediateCa['full_details']['validTo_time_t'];
         if ($validFrom > $now || $validTo < $now) {
-            $returnarray[] = CERTPROB_OUTSIDE_VALIDITY_PERIOD;
+            $returnarray[] = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD;
         }
         $addCertCrlResult = $this->addCrltoCert($intermediateCa);
         if ($addCertCrlResult !== 0 && $serverCert) {
@@ -886,7 +916,7 @@ class RADIUSTests extends Entity {
         $this->loggerInstance->debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
-        return $this->UDP_login($probeindex, EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
+        return $this->UDP_login($probeindex, \core\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -900,13 +930,13 @@ class RADIUSTests extends Entity {
         $crlUrl = [];
         $returnresult = 0;
         if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
-            $returnresult = CERTPROB_NO_CDP;
+            $returnresult = RADIUSTests::CERTPROB_NO_CDP;
         } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
-            $returnresult = CERTPROB_NO_CDP_HTTP;
+            $returnresult = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
             $crlcontent = downloadFile($crlUrl[1] . $crlUrl[2]);
             if ($crlcontent === FALSE) {
-                $returnresult = CERTPROB_NO_CRL_AT_CDP_URL;
+                $returnresult = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
             }
             $crlBegin = strpos($crlcontent, "-----BEGIN X509 CRL-----");
             if ($crlBegin === FALSE) {
@@ -1053,12 +1083,12 @@ network={
             $logConfig .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
         }
         // all methods set a password, except EAP-TLS
-        if ($eaptype != EAPTYPE_TLS) {
+        if ($eaptype != \core\EAP::EAPTYPE_TLS) {
             $config .= "  password=\"$password\"\n";
             $logConfig .= "  password=\"not logged for security reasons\"\n";
         }
         // for methods with client certs, add a client cert config block
-        if ($eaptype == EAPTYPE_TLS || $eaptype == EAPTYPE_ANY) {
+        if ($eaptype == \core\EAP::EAPTYPE_TLS || $eaptype == \core\EAP::EAPTYPE_ANY) {
             $config .= "  private_key=\"./client.p12\"\n";
             $logConfig .= "  private_key=\"./client.p12\"\n";
             $config .= "  private_key_passwd=\"$password\"\n";
@@ -1090,23 +1120,23 @@ network={
 
         // calculate the main return values that this test yielded
 
-        $finalretval = RETVAL_INVALID;
+        $finalretval = RADIUSTests::RETVAL_INVALID;
         if ($accepts + $rejects == 0) { // no final response. hm.
             if ($challenges > 0) { // but there was an Access-Challenge
-                $finalretval = RETVAL_SERVER_UNFINISHED_COMM;
+                $finalretval = RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM;
             } else {
-                $finalretval = RETVAL_NO_RESPONSE;
+                $finalretval = RADIUSTests::RETVAL_NO_RESPONSE;
             }
         } else // either an accept or a reject
         // rejection without EAP is fishy
         if ($rejects > 0) {
             if ($challenges == 0) {
-                $finalretval = RETVAL_IMMEDIATE_REJECT;
+                $finalretval = RADIUSTests::RETVAL_IMMEDIATE_REJECT;
             } else { // i.e. if rejected with challenges
-                $finalretval = RETVAL_CONVERSATION_REJECT;
+                $finalretval = RADIUSTests::RETVAL_CONVERSATION_REJECT;
             }
         } else if ($accepts > 0) {
-            $finalretval = RETVAL_OK;
+            $finalretval = RADIUSTests::RETVAL_OK;
         }
 
         return $finalretval;
@@ -1155,8 +1185,8 @@ network={
      */
     public function UDP_login($probeindex, $eaptype, $innerUser, $password, $outerUser = '', $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
         if (!isset(CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
-            $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
-            return RETVAL_NOTCONFIGURED;
+            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
 
         // figure out the actual inner and outer identity to use. Inner may or
@@ -1178,7 +1208,7 @@ network={
             } elseif ($this->profile instanceof ProfileRADIUS && $this->profile->realm != "") { // hm, we can only take the realm from Profile
                 $finalOuter = $this->bestOuterLocalpart($innerUser) . "@" . $this->profile->realm;
             } else { // we have no idea what realm to send this to. Give up.
-                return RETVAL_INCOMPLETE_DATA;
+                return RADIUSTests::RETVAL_INCOMPLETE_DATA;
             }
         }
 
@@ -1199,14 +1229,14 @@ network={
         }
 
         // if we need client certs but don't have one, return
-        if (($eaptype == EAPTYPE_ANY || $eaptype == EAPTYPE_TLS) && $clientcertdata === NULL) {
-            $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
-            return RETVAL_NOTCONFIGURED;
+        if (($eaptype == \core\EAP::EAPTYPE_ANY || $eaptype == \core\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
+            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
         // if we don't have a string for outer EAP method name, give up
         if (!isset($eapText['OUTER'])) {
-            $this->UDP_reachability_executed = RETVAL_NOTCONFIGURED;
-            return RETVAL_NOTCONFIGURED;
+            $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
+            return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
         $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
         // the config intentionally does not include CA checking. We do this
@@ -1242,10 +1272,10 @@ network={
         // not setting it has no real-world effect, but Scrutinizer mocks
         $ackedmethod = FALSE;
 
-        if ($finalretval == RETVAL_CONVERSATION_REJECT) {
+        if ($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT) {
             $ackedmethod = $this->checkEAPconversationMethodAck($packetflow_orig);
             if (!$ackedmethod) {
-                $testresults['cert_oddities'][] = CERTPROB_NO_COMMON_EAP_METHOD;
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
             }
         }
 
@@ -1255,8 +1285,8 @@ network={
         // TODO: also only do this if EAP types all mismatched; we won't have a
         // cert in that case
         if (
-                $eaptype != EAPTYPE_PWD &&
-                (($finalretval == RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RETVAL_OK)
+                $eaptype != EAP::EAPTYPE_PWD &&
+                (($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RADIUSTests::RETVAL_OK)
         ) {
 
             // ALWAYS check: 
@@ -1351,13 +1381,13 @@ network={
             }
             fclose($serverFile);
             if ($numberRoot > 0 && !$totallySelfsigned) {
-                $testresults['cert_oddities'][] = CERTPROB_ROOT_INCLUDED;
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
             }
             if ($numberServer > 1) {
-                $testresults['cert_oddities'][] = CERTPROB_TOO_MANY_SERVER_CERTS;
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
             }
             if ($numberServer == 0) {
-                $testresults['cert_oddities'][] = CERTPROB_NO_SERVER_CERT;
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
             }
             // check server cert properties
             if ($numberServer > 0) {
@@ -1463,20 +1493,20 @@ network={
                     if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
                         $verifyResult = 1;
                         if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
-                            $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
                         } elseif (preg_match("/unable to get certificate CRL/", $verifyResultAllcerts[1])) {
-                            $testresults['cert_oddities'][] = CERTPROB_UNABLE_TO_GET_CRL;
+                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
                         } else {
-                            $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_NOT_REACHED;
+                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
                         }
                     } else if (!preg_match("/OK$/", $verifyResultEaponly[0])) { // case 2
                         $verifyResult = 2;
                         if (preg_match("/certificate revoked$/", $verifyResultEaponly[1])) {
-                            $testresults['cert_oddities'][] = CERTPROB_SERVER_CERT_REVOKED;
+                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
                         } elseif (preg_match("/unable to get certificate CRL/", $verifyResultEaponly[1])) {
-                            $testresults['cert_oddities'][] = CERTPROB_UNABLE_TO_GET_CRL;
+                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
                         } else {
-                            $testresults['cert_oddities'][] = CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
                         }
                     } else { // case 3
                         $verifyResult = 3;
@@ -1516,10 +1546,10 @@ network={
                 }
                 switch ($happiness) {
                     case "UNHAPPY":
-                        $testresults['cert_oddities'][] = CERTPROB_SERVER_NAME_MISMATCH;
+                        $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_MISMATCH;
                         break;
                     case "PARTIALLY":
-                        $testresults['cert_oddities'][] = CERTPROB_SERVER_NAME_PARTIAL_MATCH;
+                        $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_PARTIAL_MATCH;
                         break;
                     default: // nothing to complain about!
                         break;
@@ -1528,20 +1558,20 @@ network={
                 // TODO: dump the details in a class variable in case someone cares
             }
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesEAP);
-            if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT) && $verifyResult == 3) {
-                $key = array_search(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT);
-                $intermOdditiesCAT[$key] = CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
+            if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT) && $verifyResult == 3) {
+                $key = array_search(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT);
+                $intermOdditiesCAT[$key] = RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD_WARN;
             }
 
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesCAT);
 
             // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
-            if (in_array(CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
+            if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
                 $this->loggerInstance->debug(4, "Deleting trust chain problem report, if present.");
-                if (($key = array_search(CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
+                if (($key = array_search(RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
                     unset($testresults['cert_oddities'][$key]);
                 }
-                if (($key = array_search(CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES, $testresults['cert_oddities'])) !== false) {
+                if (($key = array_search(RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES, $testresults['cert_oddities'])) !== false) {
                     unset($testresults['cert_oddities'][$key]);
                 }
             }
@@ -1624,7 +1654,7 @@ network={
         $time_start = microtime(true);
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
-        exec(                           CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
@@ -1645,20 +1675,20 @@ network={
     private function opensslResult($host, $testtype, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
         $oldlocale = $this->languageInstance->setTextDomain('diagnostics');
 
-        $res = RETVAL_OK;
+        $res = RADIUSTests::RETVAL_OK;
         switch ($testtype) {
             case "capath":
                 if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
-                    $testresults[$host]['status'] = RETVAL_CONNECTION_REFUSED;
-                    $res = RETVAL_INVALID;
+                    $testresults[$host]['status'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
+                    $res = RADIUSTests::RETVAL_INVALID;
                 }
                 if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-                    $testresults[$host]['cert_oddity'] = CERTPROB_UNKNOWN_CA;
-                    $testresults[$host]['status'] = RETVAL_INVALID;
-                    $res = RETVAL_INVALID;
+                    $testresults[$host]['cert_oddity'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
+                    $testresults[$host]['status'] = RADIUSTests::RETVAL_INVALID;
+                    $res = RADIUSTests::RETVAL_INVALID;
                 }
                 if (preg_match('/verify return:1/', implode($opensslbabble))) {
-                    $testresults[$host]['status'] = RETVAL_OK;
+                    $testresults[$host]['status'] = RADIUSTests::RETVAL_OK;
                     $servercertStage1 = implode("\n", $opensslbabble);
                     $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercertStage1);
                     $data = openssl_x509_parse($servercert);
@@ -1689,7 +1719,7 @@ network={
                 } else {
                     $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 0;
                     if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
-                        $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'] = RETVAL_CONNECTION_REFUSED;
+                        $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
                         $resComment = _("No TLS connection established: Connection refused");
                     } elseif (preg_match('/sslv3 alert certificate expired/', $output)) {
                         $resComment = _("certificate expired");
@@ -1699,7 +1729,7 @@ network={
                         $resComment = _("bad policy");
                     } elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
                         $resComment = _("unknown authority");
-                        $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = CERTPROB_UNKNOWN_CA;
+                        $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
                     } else {
                         $resComment = _("unknown authority or no certificate policy or another problem");
                     }
@@ -1732,12 +1762,12 @@ network={
      * @return int returncode
      */
     public function TLS_clients_side_check($host) {
-        $res = RETVAL_OK;
+        $res = RADIUSTests::RETVAL_OK;
         if (!is_array(CONFIG['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) == 0) {
-            return RETVAL_SKIPPED;
+            return RADIUSTests::RETVAL_SKIPPED;
         }
         if (preg_match("/\[/", $host)) {
-            return RETVAL_INVALID;
+            return RADIUSTests::RETVAL_INVALID;
         }
         foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
@@ -1757,17 +1787,17 @@ network={
                 if ($cert['expected'] == 'PASS') {
                     if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
                         if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
-                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_NOT_ACCEPTED;
+                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = RADIUSTests::CERTPROB_NOT_ACCEPTED;
                             $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
                             break;
                         }
                     }
                 } else {
                     if ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
-                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = CERTPROB_WRONGLY_ACCEPTED;
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = RADIUSTests::CERTPROB_WRONGLY_ACCEPTED;
                     }
 
-                    if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                    if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == RADIUSTests::CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
                         $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
                         echo "koniec zabawy2<br>";
                         break;

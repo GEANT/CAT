@@ -20,16 +20,7 @@
  * @package Developer
  *
  */
-/**
- * necessary includes
- */
-require_once('Helper.php');
-require_once('IdP.php');
-require_once('EAP.php');
-require_once('X509.php');
-require_once('AbstractProfile.php');
-require_once('devices/devices.php');
-
+namespace core;
 /**
  * This class represents an EAP Profile.
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,

@@ -14,6 +14,7 @@
  *
  * @package ModuleWriting
  */
+namespace devices;
 /**
  * The Devices class holds a list of all devices the CAT knows about
  * 

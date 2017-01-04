@@ -10,7 +10,6 @@
  */
 ?>
 <?php
-
 /**
  * This file contains Federation, IdP and Profile classes.
  * These should be split into separate files later.
@@ -20,8 +19,7 @@
 /**
  * 
  */
-require_once("Entity.php");
-
+namespace core;
 /**
  * This class represents an Entity with properties stored in the DB.
  * IdPs have properties of their own, and may have one or more Profiles. The

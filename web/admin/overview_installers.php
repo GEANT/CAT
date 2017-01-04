@@ -9,21 +9,11 @@
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("Helper.php");
-require_once("Language.php");
-require_once("IdP.php");
-require_once("EAP.php");
-require_once("AbstractProfile.php");
-require_once("DeviceFactory.php");
-
+require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
-
-require_once("devices/devices.php");
 
 defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
@@ -36,7 +26,7 @@ defaultPagePrelude(_("Device Compatibility matrix"));
     productheader("ADMIN-IDP");
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
-    if (!$my_profile instanceof ProfileRADIUS) {
+    if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("Installer fine-tuning can only be called for RADIUS profiles!");
     }
     $inst_name = $my_inst->name;
@@ -53,7 +43,7 @@ defaultPagePrelude(_("Device Compatibility matrix"));
 
             <?php
             foreach ($preflist as $method) {
-                $escapedMethod = EAP::eAPMethodArrayIdConversion($method);
+                $escapedMethod = \core\EAP::eAPMethodArrayIdConversion($method);
                 echo "<th style='min-width:200px'>" . display_name($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
@@ -67,7 +57,7 @@ defaultPagePrelude(_("Device Compatibility matrix"));
         // okay, input is valid. Now create a table: columns are the EAP types supported in the profile,
         // rows are known devices
 
-        $devices = Devices::listDevices();
+        $devices = \devices\Devices::listDevices();
         $footnotes = [];
         $num_footnotes = 0;
 
@@ -80,11 +70,11 @@ defaultPagePrelude(_("Device Compatibility matrix"));
                         <button class='redirect' type='submit'>" . _("Device-specific options...") . "</button>
                         </form>
                         </td>";
-            $factory = new DeviceFactory($index);
+            $factory = new \core\DeviceFactory($index);
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $display_footnote = FALSE;
-                $langObject = new Language();
+                $langObject = new \core\Language();
                 $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='id' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>

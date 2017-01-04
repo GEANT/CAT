@@ -34,10 +34,7 @@ $Tests = [
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("User.php");
 require_once("inc/common.inc.php");
-//require_once("DBConnection.php");
-require_once("SanityTests.php");
 
 function print_test_results($test) {
     $out = '';
@@ -69,12 +66,12 @@ function print_test_results($test) {
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     require_once("inc/auth.inc.php");
     authenticate();
-    $user = new User($_SESSION['user']);
+    $user = new \core\User($_SESSION['user']);
     if (!$user->isSuperadmin()) {
         throw new Exception("Not Superadmin");
     }
 }
-$test = new SanityTest();
+$test = new \core\SanityTests();
 $test->run_tests($Tests);
 $format = empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {

@@ -20,9 +20,8 @@
 /**
  * 
  */
-require_once('DeviceConfig.php');
-require_once('Helper.php');
-
+namespace devices\apple_mobileconfig;
+require_once(dirname(dirname(__DIR__)) . '/core/Helper.php' );
 /**
  * This is the main implementation class of the module
  *
@@ -32,7 +31,7 @@ require_once('Helper.php');
  *
  * @package Developer
  */
-abstract class mobileconfigSuperclass extends DeviceConfig {
+abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     private $massagedInst;
     private $massagedProfile;
@@ -117,7 +116,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         // and also for the profile expiry
 
         $clientCertUUID = NULL;
-        if ($eapType['INNER'] == NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
             $blockinfo = $this->clientP12Block();
             $outputXml .= $blockinfo['block'];
             $clientCertUUID = $blockinfo['UUID'];
@@ -132,7 +131,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
 
         // simpler message for silverbullet
-        if ($eapType['INNER'] == NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
             $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
         }
 
@@ -149,7 +148,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . uuid('', mobileconfigSuperclass::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
+         <string>" . \core\uuid('', mobileconfigSuperclass::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         if (isset($this->attributes['support:info_file'])) {
@@ -161,7 +160,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
          </dict>
          ";
         }
-        if ($eapType['INNER'] == NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
             $outputXml .= $this->expiryBlock();
         }
         $outputXml .= "</dict></plist>";
@@ -307,7 +306,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         $retval .= "
                          </array>
                       <key>TTLSInnerAuthentication</key>
-                         <string>" . ($eapType['INNER'] == NONE ? "PAP" : "MSCHAPv2") . "</string>
+                         <string>" . ($eapType['INNER'] == \core\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>
                <key>EncryptionType</key>
                   <string>$encryptionTypeString</string>
@@ -336,7 +335,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
                      <string>System</string>
                   </array>";
         }
-        if ($eapType['INNER'] == NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
             if ($clientCertUUID === NULL) {
                 throw new Exception("Silverbullet REQUIRES a client certificate and we need to know the UUID!");
             }
@@ -345,7 +344,7 @@ abstract class mobileconfigSuperclass extends DeviceConfig {
         }
         $retval .= "
                <key>PayloadUUID</key>
-                  <string>" . uuid() . "</string>
+                  <string>" . \core\uuid() . "</string>
                <key>PayloadVersion</key>
                   <integer>1</integer>";
         if (!$wired && count($consortiumOi) == 0) {

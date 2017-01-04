@@ -11,11 +11,9 @@
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
-require_once("CAT.php");
-require_once("Skinjob.php");
 
 function attributionEurope() {
-    $skinObject = new Skinjob("");
+    $skinObject = new \core\Skinjob("");
     $logoBase = $skinObject->findResourceUrl("IMAGES");
 
     return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
@@ -24,7 +22,7 @@ function attributionEurope() {
 }
 
 function footer() {
-    $cat = new CAT();
+    $cat = new \core\CAT();
     echo "</div><!-- trick -->
           </div><!-- pagecontent -->";
     ?>

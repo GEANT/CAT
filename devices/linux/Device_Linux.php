@@ -15,11 +15,7 @@
  *
  * @package ModuleWriting
  */
-/**
- * necessary includes
- */
-require_once('DeviceConfig.php');
-
+namespace devices\linux;
 /**
  * This class creates Linux installers. It supports NetworkManager and raw
  * wpa_supplicant files.
@@ -29,11 +25,11 @@ require_once('DeviceConfig.php');
  *
  * @package ModuleWriting
  */
-class Device_Linux extends DeviceConfig {
+class Device_Linux extends \core\DeviceConfig {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS, EAPTYPE_SILVERBULLET]);
+        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET]);
         $this->localDir = '.cat_installer';
         $this->confFile = '$HOME/' . $this->localDir . '/cat_installer.conf';
     }
@@ -67,13 +63,13 @@ fi
 
         $outString .= $this->printNMScript($ssids, $delSSIDs);
         $outString .= $this->writeWpaConf($ssids);
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $outString .= "# save user certificate\n";
             $outString .= 'echo "';
             $outString .= base64_encode($this->clientCert["certdata"])
                . '" | base64 -d ' . " > \$HOME/$this->localDir/user.p12\n";
         }
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $outString .= $this->printP12Dialog();
         } else {
             $outString .= $this->printPasswordDialog();
@@ -109,7 +105,7 @@ fi
             $out .= "<p>";
         }
         $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
-        if ($this->eap == EAPTYPE_TLS) {
+        if ($this->eap == \core\EAP::EAPTYPE_TLS) {
             $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -397,7 +393,7 @@ function user_cred {
     }
 
     private function writeWpaConf($ssids) {
-        $eapMethod = EAP::eapDisplayName($this->selectedEap);
+        $eapMethod = \core\EAP::eapDisplayName($this->selectedEap);
         $out = 'function create_wpa_conf {
 cat << EOFW >> ' . $this->confFile . "\n";
         foreach (array_keys($ssids) as $ssid) {
@@ -414,7 +410,7 @@ network={
                 $out .= '
   domain_suffix_match="' . $this->serverName . '"';
             }
-            if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
+            if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
                 $out .= '
   private_key="${HOME}/' . $this->localDir . '/user.p12"
   private_key_passwd="${PASSWORD}"';
@@ -448,7 +444,7 @@ chmod 600 ' . $this->confFile . '
     private function printP12Dialog() {
         $out = 'function p12dialog {
         ';
-        if ($this->selectedEap == EAPTYPE_TLS) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS) {
         $out .= '  if [ ! -z $ZENITY ] ; then
     if ! cert=`$ZENITY --file-selection --file-filter="' . _("personal certificate file (p12 or pfx)") . ' | *.p12 *.P12 *.pfx *.PFX" --file-filter="All files | *" --title="' . _("personal certificate file (p12 or pfx)") . '" 2>/dev/null` ; then
        exit
@@ -484,7 +480,7 @@ fi
    cp "$cert" $HOME/' . $this->localDir . '/user.p12
 ';
 }
-    $cert_prompt = $this->selectedEap == EAPTYPE_TLS ? _("enter the password for the certificate file") : _("enter your import password");
+    $cert_prompt = $this->selectedEap == \core\EAP::EAPTYPE_TLS ? _("enter the password for the certificate file") : _("enter your import password");
     $out .=  '   cert=$HOME/' . $this->localDir . '/user.p12
 
     PASSWORD=""
@@ -505,7 +501,7 @@ fi
       fi
     done
 ';
-        if ($this->selectedEap == EAPTYPE_TLS) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS) {
             $out .= '      if ! USER_NAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" "$USER_NAME"` ; then
        exit 1
       fi
@@ -548,7 +544,7 @@ p12dialog
     }
 
     private function printNMScript($ssids, $delSSIDs) {
-        $eapMethod = EAP::eapDisplayName($this->selectedEap);
+        $eapMethod = \core\EAP::eapDisplayName($this->selectedEap);
         $out = 'function run_python_script {
 PASSWORD=$( echo "$PASSWORD" | sed "s/\'/\\\\\\\'/g" )
 if python << EEE1 > /dev/null 2>&1
@@ -690,7 +686,7 @@ class EduroamNMConfigTool:
             $out .= '
              match_key: match_value,';
         }
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $out .= '
             \'client-cert\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),
             \'private-key\':  dbus.ByteArray("file://{0}\0".format(self.pfx_file).encode(\'utf8\')),

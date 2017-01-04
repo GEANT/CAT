@@ -20,8 +20,9 @@
 /**
  * necessary includes
  */
+namespace core;
+
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("Logging.php");
 
 define("L_OK", 0);
 define("L_REMARK", 4);
@@ -195,7 +196,7 @@ function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsy
 
 function mailHandle() {
 // use PHPMailer to send the mail
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
+    $mail = new \PHPMailer\PHPMailer\PHPMailer();
     $mail->isSMTP();
     $mail->SMTPAuth = true;
     $mail->Port = 587;

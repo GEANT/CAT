@@ -24,12 +24,9 @@
 /**
  * necessary includes
  */
-require_once('Helper.php');
-require_once('EAP.php');
-require_once('X509.php');
-require_once('EntityWithDBProperties.php');
-require_once('IdP.php');
-require_once('devices/devices.php');
+namespace core;
+
+require_once(dirname(__DIR__) . '/config/_config.php');
 
 define("HIDDEN", -1);
 define("AVAILABLE", 0);
@@ -276,7 +273,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         // we should pretty-print the device names
         $finalarray = [];
-        $devlist = Devices::listDevices();
+        $devlist = \devices\Devices::listDevices();
         foreach ($returnarray as $devId => $count) {
             if (isset($devlist[$devId])) {
                 $finalarray[$devlist[$devId]['display']] = $count;
@@ -353,10 +350,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function isEapTypeDefinitionComplete($eaptype) {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
-            case TLS:
-            case PEAP:
-            case TTLS:
-            case FAST:
+            case \core\EAP::TLS:
+            case \core\EAP::PEAP:
+            case \core\EAP::TTLS:
+            case \core\EAP::FAST:
                 $missing = [];
                 $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
                 $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
@@ -381,7 +378,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     return TRUE;
                 }
                 return $missing;
-            case PWD:
+            case \core\EAP::PWD:
                 // well actually this EAP type has a server name; but it's optional
                 // so no reason to be picky on it
                 return true;
@@ -415,7 +412,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];
-        foreach (Devices::listDevices() as $deviceIndex => $deviceProperties) {
+        foreach (\devices\Devices::listDevices() as $deviceIndex => $deviceProperties) {
             $factory = new DeviceFactory($deviceIndex);
             $dev = $factory->device;
             // find the attribute pertaining to the specific device

@@ -16,9 +16,7 @@
  * @package UserAPI
  */
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-include_once("UserAPI.php");
-include_once("Logging.php");
-$API = new UserAPI();
+$API = new \core\UserAPI();
 
 // extract request parameters; action is mandatory
 if (!isset($_REQUEST['action'])) {
@@ -150,5 +148,5 @@ switch ($action) {
         $API->JSON_orderIdentityProviders($federation, $coordinateArray);
         break;
 }
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");

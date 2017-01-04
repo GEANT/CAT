@@ -10,14 +10,8 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("AbstractProfile.php");
-require_once("phpqrcode.php");
-
+require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
+require_once(dirname(dirname(dirname(__FILE__))) . "/core/Helper.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/common.inc.php");
@@ -56,7 +50,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
+            $uri = "data:image/png;base64," . base64_encode(\core\png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
@@ -138,7 +132,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
     if (count($profiles_for_this_idp) == 1) {
         $profile = $profiles_for_this_idp[0];
-        if ($profile instanceof ProfileSilverbullet) {
+        if ($profile instanceof \core\ProfileSilverbullet) {
             ?>
             <div style='display: table-row; margin-bottom: 20px;'>
                 <div class='profilebox' style='display: table-cell;'>
@@ -234,7 +228,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         echo $buffer_headline;
 
-        if (array_search(EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
+        if (array_search(\core\EAP::EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(\core\EAP::EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(\core\EAP::EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(\core\EAP::EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
             /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
             $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://wiki.geant.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
         }
@@ -283,7 +277,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             }
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-            $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
+            $uri = "data:image/png;base64," . base64_encode(\core\png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 
@@ -308,7 +302,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
     // a) there are not any profiles yet
     // b) federation wants this to happen
     if (count($my_inst->listProfiles()) == 0) {
-        $myfed = new Federation($my_inst->federation);
+        $myfed = new \core\Federation($my_inst->federation);
         if (count($myfed->getAttributes("fed:silverbullet")) > 0) {
             ?>
             <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
@@ -331,7 +325,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         $methods = $one_profile->getEapMethodsinOrderOfPreference();
         // silver bullet is an exclusive method; looking in the first entry of
         // the array will catch it.
-        if (count($methods) > 0 && $methods[0] == EAPTYPE_SILVERBULLET) {
+        if (count($methods) > 0 && $methods[0] == \core\EAP::EAPTYPE_SILVERBULLET) {
             $found_silverbullet = TRUE;
         }
     }

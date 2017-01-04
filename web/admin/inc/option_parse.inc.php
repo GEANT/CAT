@@ -12,8 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("Options.php");
-
 require_once("input_validation.inc.php");
 
 function cmpSequenceNumber($left, $right) {
@@ -151,7 +149,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
 
     $killlist = $pendingattributes;
 
-    $optioninfoObject = Options::instance();
+    $optioninfoObject = \core\Options::instance();
 
     // Step 1: collate option names, option values and uploaded files (by 
     // filename reference) into one array for later handling
@@ -285,7 +283,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                 continue;
             }
             switch (get_class($object)) {
-                case 'ProfileRADIUS':
+                case 'core\\ProfileRADIUS':
                     if ($device !== NULL) {
                         $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
                     } elseif ($eaptype != 0) {
@@ -294,9 +292,9 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                         $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
                     }
                     break;
-                case 'IdP':
-                case 'User':
-                case 'Federation':
+                case 'core\\IdP':
+                case 'core\\User':
+                case 'core\\Federation':
                     $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
                     break;
                 default:

@@ -17,11 +17,10 @@
  */
 error_reporting(E_ALL | E_STRICT);
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("Language.php");
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 
-$langObject = new Language();
+$langObject = new \core\Language();
 $langObject->setTextDomain("web_user");
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);

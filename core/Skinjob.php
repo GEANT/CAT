@@ -19,8 +19,7 @@
 /**
  * 
  */
-require_once("Logging.php");
-require_once("Language.php");
+namespace core;
 
 class Skinjob {
 

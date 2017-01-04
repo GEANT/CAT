@@ -20,5 +20,7 @@ $loader->register();
 // register the base directories for the namespace prefix
 // include CAT/core library
 $loader->addNamespace('core', __DIR__ . "/../core");
+// include CAT/devices library
+$loader->addNamespace('devices', __DIR__ . "/../devices");
 // include CAT/web/admin/lib library
 $loader->addNamespace('lib', __DIR__ . "/../web/admin/lib");

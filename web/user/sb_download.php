@@ -19,12 +19,9 @@
  */
 
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("UserAPI.php");
-require_once("Logging.php");
-require_once('ProfileFactory.php');
 require_once('../admin/inc/input_validation.inc.php');
-$API = new UserAPI();
-$loggerInstance = new Logging();
+$API = new \core\UserAPI();
+$loggerInstance = new \core\Logging();
 
 $profileId = $_REQUEST['profile'] ?? FALSE;
 $instId = $_REQUEST['idp'] ?? FALSE;

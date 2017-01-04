@@ -20,8 +20,8 @@
  *
  * @package ModuleWriting
  */
-require_once('DeviceConfig.php');
-require_once('XML.inc.php');
+namespace devices\xml;
+require_once(dirname(__FILE__).'/XML.inc.php');
 
 /**
  * This class implements full functionality of the generic XML device
@@ -31,7 +31,7 @@ require_once('XML.inc.php');
  * this will cause the installer to configure all EAP methods supported by 
  * the current profile and declared by the given device.
  */
-abstract class Device_XML extends DeviceConfig {
+abstract class Device_XML extends \core\DeviceConfig {
 
     public function __construct() {
         parent::__construct();
@@ -100,7 +100,7 @@ abstract class Device_XML extends DeviceConfig {
 // Generate XML
 
         $rootname = 'EAPIdentityProviderList';
-        $root = new SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"eap-metadata.xsd\"></{$rootname}>");
+        $root = new \SimpleXMLElement("<?xml version=\"1.0\" encoding=\"utf-8\" ?><{$rootname} xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"eap-metadata.xsd\"></{$rootname}>");
 
         marshalObject($root, $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
@@ -151,7 +151,7 @@ abstract class Device_XML extends DeviceConfig {
             $this->loggerInstance->debug(4, "Missing class definition for $attrName\n");
             return;
         }
-        $className = $this->AttributeNames[$attrName];
+        $className = "\devices\xml\\" . $this->AttributeNames[$attrName];
         $objs = [];
         if ($this->langScope === 'global') {
             foreach ($attributeList['langs'] as $language => $value) {
@@ -271,12 +271,12 @@ abstract class Device_XML extends DeviceConfig {
     }
 
     private function getAuthenticationMethodParams($eap) {
-        $inner = EAP::innerAuth($eap);
+        $inner = \core\EAP::innerAuth($eap);
         $outerMethod = $eap["OUTER"];
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {
             $innerauthmethod = new InnerAuthenticationMethod();
-            $typeOfInner = $inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod';
+            $typeOfInner = "\devices\xml\\" . ($inner["EAP"] ? 'EAPMethod' : 'NonEAPAuthMethod');
             $eapmethod = new $typeOfInner();
             $eaptype = new Type();
             $eaptype->setValue($inner['METHOD']);
@@ -317,10 +317,10 @@ abstract class Device_XML extends DeviceConfig {
         $cAlist = [];
         $attrCaList = $attr['internal:CAs'][0];
         foreach ($attrCaList as $ca) {
-            $ca = new CA();
-            $ca->setValue(base64_encode($ca['der']));
-            $ca->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
-            $cAlist[] = $ca;
+            $caObject = new CA();
+            $caObject->setValue(base64_encode($ca['der']));
+            $caObject->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
+            $cAlist[] = $caObject;
         }
 
         $serverids = [];

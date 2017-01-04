@@ -9,6 +9,7 @@
  */
 ?>
 <?php
+namespace core;
 
 class Logging {
 

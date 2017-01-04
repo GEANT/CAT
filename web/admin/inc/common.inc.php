@@ -12,14 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("Helper.php");
-require_once("Options.php");
-require_once("CAT.php");
-require_once("X509.php");
-require_once("EAP.php");
-require_once("DBConnection.php");
-require_once("EntityWithDBProperties.php");
-
 require_once("input_validation.inc.php");
 require_once("auth.inc.php"); // no authentication here, but we need to check if authenticated
 
@@ -73,14 +65,14 @@ function display_name($input) {
         _("Federation Administrator") => "user:fedadmin",
         _("Real Name") => "user:realname",
         _("E-Mail Address") => "user:email",
-        _("PEAP-MSCHAPv2") => EAPTYPE_PEAP_MSCHAP2,
-        _("TLS") => EAPTYPE_TLS,
-        _("TTLS-PAP") => EAPTYPE_TTLS_PAP,
-        _("TTLS-MSCHAPv2") => EAPTYPE_TTLS_MSCHAP2,
-        _("TTLS-GTC") => EAPTYPE_TTLS_GTC,
-        _("FAST-GTC") => EAPTYPE_FAST_GTC,
-        _("EAP-pwd") => EAPTYPE_PWD,
-        ProfileSilverbullet::PRODUCTNAME => EAPTYPE_SILVERBULLET,
+        _("PEAP-MSCHAPv2") => \core\EAP::EAPTYPE_PEAP_MSCHAP2,
+        _("TLS") => \core\EAP::EAPTYPE_TLS,
+        _("TTLS-PAP") => \core\EAP::EAPTYPE_TTLS_PAP,
+        _("TTLS-MSCHAPv2") => \core\EAP::EAPTYPE_TTLS_MSCHAP2,
+        _("TTLS-GTC") => \core\EAP::EAPTYPE_TTLS_GTC,
+        _("FAST-GTC") => \core\EAP::EAPTYPE_FAST_GTC,
+        _("EAP-pwd") => \core\EAP::EAPTYPE_PWD,
+        \core\ProfileSilverbullet::PRODUCTNAME => \core\EAP::EAPTYPE_SILVERBULLET,
         _("Remove/Disable SSID") => "media:remove_SSID",
         _("Custom CSS file for User Area") => "fed:css_file",
         _("Federation Logo") => "fed:logo_file",
@@ -213,7 +205,7 @@ function getBlobFromDB($ref, $checkpublic) {
         if (session_status() != PHP_SESSION_ACTIVE) {
             session_start();
         }
-        $owners = EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
+        $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
 
         $ownersCondensed = [];
 
@@ -232,7 +224,7 @@ function getBlobFromDB($ref, $checkpublic) {
     }
 
 
-    $blob = EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+    $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
     if (!$blob) {
         return FALSE;
     }
@@ -257,7 +249,7 @@ function previewCAinHTML($cAReference) {
 
     $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
 
-    $func = new X509;
+    $func = new \core\X509;
     $details = $func->processCertificate($cAblob);
     if ($details === FALSE) {
         return _("There was an error processing the certificate!");
@@ -292,7 +284,7 @@ function previewInfoFileinHTML($fileReference) {
     return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
 }
 
-function instLevelInfoBoxes(IdP $myInst) {
+function instLevelInfoBoxes(\core\IdP $myInst) {
     $idpoptions = $myInst->getAttributes();
     $retval = "";
     $retval .= "<div class='infobox'>
@@ -306,7 +298,7 @@ function instLevelInfoBoxes(IdP $myInst) {
                 </td>
                 <td>
                     <strong>";
-    $myFed = new Federation($myInst->federation);
+    $myFed = new \core\Federation($myInst->federation);
     $retval .= $myFed->name;
     $retval .= "</strong>
                 </td>
@@ -329,7 +321,7 @@ function instLevelInfoBoxes(IdP $myInst) {
 function infoblock($optionlist, $class, $level) {
     $googleMarkers = [];
     $retval = "";
-    $optioninfo = Options::instance();
+    $optioninfo = \core\Options::instance();
 
     foreach ($optionlist as $option) {
         $type = $optioninfo->optionType($option['name']);

@@ -33,17 +33,14 @@
  *
  * @package Utilities
  */
+namespace core;
 use GeoIp2\Database\Reader;
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("Helper.php");
-require_once("Logging.php");
-require_once("CAT.php");
-require_once("devices/devices.php");
-require_once("core/PHPMailer/src/PHPMailer.php");
-require_once("core/PHPMailer/src/SMTP.php");
+require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php");
+require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/SMTP.php");
 
-class SanityTest extends CAT {
+class SanityTests extends CAT {
     /* in this section set current CAT requirements */
 
     /* $php_needversion sets the minumum required php version */
@@ -588,7 +585,7 @@ class SanityTest extends CAT {
      * test devices.php for the no_cache option
      */
     private function device_cache_test() {
-        if ((!empty(Devices::$Options['no_cache'])) && Devices::$Options['no_cache']) {
+        if ((!empty(\devices\Devices::$Options['no_cache'])) && \devices\Devices::$Options['no_cache']) {
             $global_no_cache = 1;
         } else {
             $global_no_cache = 0;
@@ -597,7 +594,7 @@ class SanityTest extends CAT {
         if ($global_no_cache == 1) {
             $this->test_return(L_WARN, "Devices no_cache global option is set, this is not a good idea in a production setting\n");
         }
-        $Devs = Devices::listDevices();
+        $Devs = \devices\Devices::listDevices();
         $no_cache_dev = '';
         $no_cache_dev_count = 0;
         if ($global_no_cache) {
@@ -633,7 +630,7 @@ class SanityTest extends CAT {
             $this->test_return(L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
             return;
         }
-        $mail = new PHPMailer\PHPMailer\PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
         $mail->isSMTP();
         $mail->Port = 587;
         $mail->SMTPAuth = true;

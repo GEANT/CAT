@@ -39,9 +39,8 @@
 /**
  * 
  */
-require_once('DeviceConfig.php');
-require_once('EAP.php');
-
+namespace devices\chromebook;
+require_once(dirname(dirname(__DIR__)) . "/core/Helper.php");
 /**
  * This is the main implementation class of the module
  *
@@ -73,7 +72,7 @@ require_once('EAP.php');
  *
  * @package ModuleWriting
  */
-class Device_Chromebook extends DeviceConfig {
+class Device_Chromebook extends \core\DeviceConfig {
 
     /**
      * Number of iterations for the PBKDF2 function. 
@@ -90,7 +89,7 @@ class Device_Chromebook extends DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_TLS, EAPTYPE_SILVERBULLET]);
+        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET]);
     }
 
     // from: http://stackoverflow.com/questions/10916284/how-to-encrypt-decrypt-data-in-php#10945097
@@ -127,13 +126,13 @@ class Device_Chromebook extends DeviceConfig {
             $this->loggerInstance->debug(3, $caSanitized . "\n");
         }
         // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $jsonArray["Certificates"][] = ["GUID" => "[" . $this->clientCert['GUID'] . "]", "PKCS12" => base64_encode($this->clientCert['certdataclear']), "Remove" => false, "Type" => "Client"];
         }
         // construct outer id, if anonymity is desired
         $outerId = $this->determineOuterIdString();
 
-        $eapPrettyprint = EAP::eapDisplayName($this->selectedEap);
+        $eapPrettyprint = \core\EAP::eapDisplayName($this->selectedEap);
         // ONC has its own enums, and guess what, they don't always match
         if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
             $eapPrettyprint["INNER"] = "MSCHAPv2";
@@ -151,7 +150,7 @@ class Device_Chromebook extends DeviceConfig {
 
         // if silverbullet, we deliver the client cert inline
 
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
             $eaparray['ClientCertType'] = "Ref";
         }
@@ -167,12 +166,12 @@ class Device_Chromebook extends DeviceConfig {
         if ($outerId) {
             $eaparray["AnonymousIdentity"] = $outerId;
         }
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $eaparray["Identity"] = $this->clientCert["username"];
         }
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
-            $networkUuid = uuid('', $ssid);
+            $networkUuid = \core\uuid('', $ssid);
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "$ssid",
@@ -207,7 +206,7 @@ class Device_Chromebook extends DeviceConfig {
         $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $finalJson = $clearJson;
         // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $salt = random_str(12);
             $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
             $iv = openssl_random_pseudo_bytes(16, $strong);

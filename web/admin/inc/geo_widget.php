@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -18,10 +19,8 @@
 ?>
 <?php
 
-require_once("CAT.php");
-
 function geo_widget_head($inst_country, $inst_name) {
-    $cat = new CAT();
+    $cat = new \core\CAT();
     echo "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script type='text/javascript'>
         // some global variables;
@@ -78,7 +77,7 @@ function geo_widget_head($inst_country, $inst_name) {
          *
          */
         function locator_magic() {
-            geocoder.geocode({'address':\"".preg_replace("/\"/", "&quot;", $inst_name)."\", 'region':\"".strtolower($inst_country)."\"},
+            geocoder.geocode({'address':\"" . preg_replace("/\"/", "&quot;", $inst_name) . "\", 'region':\"" . strtolower($inst_country) . "\"},
             function(r,status) {
                 if(status != google.maps.GeocoderStatus.OK) {
                     locate_country(\"" . $cat->knownFederations[strtoupper($inst_country)] . "\");

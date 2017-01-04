@@ -17,10 +17,6 @@
  */
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("Skinjob.php");
-require_once("ProfileSilverbullet.php");
-require_once("IdP.php");
-require_once("UserAPI.php");
 require_once("admin/inc/input_validation.inc.php");
 
 $cleanToken = FALSE;
@@ -30,7 +26,7 @@ $profile = NULL;
 $idp = NULL;
 $fed = NULL;
 
-$Gui = new UserAPI();
+$Gui = new \core\UserAPI();
 $operatingSystem = $Gui->detectOS();
 // let's be a ChromeOS.
 // $operatingSystem = ['device' => 'chromeos', 'display' => 'ChromeOS', 'group' => 'chrome'];
@@ -46,15 +42,15 @@ if ($cleanToken) {
 }
 
 if ($tokenStatus['status'] != SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
-    $profile = new ProfileSilverbullet($tokenStatus['profile'], NULL);
-    $idp = new IdP($profile->institution);
+    $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
+    $idp = new \core\IdP($profile->institution);
     $fed = valid_Fed($idp->federation);
     $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 
-$skinObject = new Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+$skinObject = new \core\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
 
 $statusInfo = ["token" => $cleanToken, 
                "tokenstatus" => $tokenStatus, 

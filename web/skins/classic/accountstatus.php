@@ -16,24 +16,16 @@
  * @package UserGUI
  */
 error_reporting(E_ALL | E_STRICT);
-require_once("UserAPI.php");
+
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
 require_once("web/admin/inc/input_validation.inc.php");
-require_once("Logging.php");
-require_once("Language.php");
-require_once("Helper.php");
-require_once("ProfileSilverbullet.php");
 
-
-$languageInstance = new Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, $operatingSystem, true);
-
-
-
 
 defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", true) . "cat-user.css' />";
@@ -98,8 +90,8 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             break;
                         }
 
-                        $dev = new DeviceFactory($statusInfo['OS']['device']);
-                        $dev->device->calculatePreferredEapType([EAPTYPE_SILVERBULLET]);
+                $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
+                        $dev->device->calculatePreferredEapType([\core\EAP::EAPTYPE_SILVERBULLET]);
                         if ($dev->device->selectedEap == []) {
                             echo sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;
@@ -110,7 +102,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         echo "<p>" . _("During the installation process, you will be asked for the following import password. This only happens once during the installation. You do not have to write down this password.") . "</p>";
 
                         $importPassword = random_str(6);
-                        $profile = new ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
+                        $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
 
                         echo "<h2>" . sprintf(_("Import Password: %s"), $importPassword) . "</h2>";
                         echo "<form action='user/sb_download.php' method='POST'>";
@@ -132,7 +124,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
 // do NOT break, display full account info instead (this was a previously valid token after all)
                     case SB_TOKENSTATUS_REDEEMED:
                         echo "<h2>" . _("We have the following information on file for you:") . "</h2>";
-                        $profile = new ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
+                        $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
                         $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
                         echo "<table>";
                         $categories = [SB_CERTSTATUS_VALID, SB_CERTSTATUS_EXPIRED, SB_CERTSTATUS_REVOKED];

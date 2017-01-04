@@ -13,17 +13,16 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("RADIUSTests.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("Logging.php");
 
 
 ini_set('display_errors', '0');
-$languageInstance = new Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 
 $additional_message = [
     L_OK => '',
@@ -117,13 +116,13 @@ if ($check_realm === FALSE) {
 
 if (isset($_REQUEST['profile_id'])) {
     $my_profile = valid_Profile($_REQUEST['profile_id']);
-    if (!$my_profile instanceof ProfileRADIUS) {
+    if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
-    $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
+    $testsuite = new \core\RADIUSTests($check_realm, $my_profile->identifier);
 } else {
     $my_profile = NULL;
-    $testsuite = new RADIUSTests($check_realm);
+    $testsuite = new \core\RADIUSTests($check_realm);
 }
 
 
@@ -164,7 +163,7 @@ switch ($test_type) {
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
-            if ($eap == EAPTYPE_TLS) {
+            if ($eap == \core\EAP::EAPTYPE_TLS) {
                 $run_test = TRUE;
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
@@ -178,16 +177,16 @@ switch ($test_type) {
                                 $tls_username = $mydetails['subject']['CN'];
                                 $loggerInstance->debug(4, "PKCS12-CN=$tls_username\n");
                             } else {
-                                $testresult = RETVAL_INCOMPLETE_DATA;
+                                $testresult = \core\RADIUSTests::RETVAL_INCOMPLETE_DATA;
                                 $run_test = FALSE;
                             }
                         } else {
-                            $testresult = RETVAL_WRONG_PKCS12_PASSWORD;
+                            $testresult = \core\RADIUSTests::RETVAL_WRONG_PKCS12_PASSWORD;
                             $run_test = FALSE;
                         }
                     }
                 } else {
-                    $testresult = RETVAL_INCOMPLETE_DATA;
+                    $testresult = \core\RADIUSTests::RETVAL_INCOMPLETE_DATA;
                     $run_test = FALSE;
                 }
                 if ($run_test) {
@@ -203,7 +202,7 @@ switch ($test_type) {
 
 
             switch ($testresult) {
-                case RETVAL_OK :
+                case \core\RADIUSTests::RETVAL_OK :
                     $level = $returnarray['result'][$i]['level'];
                     switch ($level) {
                         case L_OK :
@@ -218,27 +217,27 @@ switch ($test_type) {
                             break;
                     }
                     break;
-                case RETVAL_CONVERSATION_REJECT:
+                case \core\RADIUSTests::RETVAL_CONVERSATION_REJECT:
                     $message = _("<strong>Test FAILED</strong>: the request was rejected. The most likely cause is that you have misspelt the Username and/or the Password.");
                     $level = L_ERROR;
                     break;
-                case RETVAL_NOTCONFIGURED:
+                case \core\RADIUSTests::RETVAL_NOTCONFIGURED:
                     $level = L_ERROR;
                     $message = _("This method cannot be tested");
                     break;
-                case RETVAL_IMMEDIATE_REJECT:
+                case \core\RADIUSTests::RETVAL_IMMEDIATE_REJECT:
                     $level = L_ERROR;
                     $message = _("<strong>Test FAILED</strong>: the request was rejected immediately, without EAP conversation. Either you have misspelt the Username or there is something seriously wrong with your server.");
                     unset($returnarray['result'][$i]['cert_oddities']);
                     $returnarray['result'][$i]['server'] = 0;
                     break;
-                case RETVAL_NO_RESPONSE:
+                case \core\RADIUSTests::RETVAL_NO_RESPONSE:
                     $level = L_ERROR;
                     $message = sprintf(_("<strong>Test FAILED</strong>: no reply from the RADIUS server after %d seconds. Either the responsible server is down, or routing is broken!"), $timeout);
                     unset($returnarray['result'][$i]['cert_oddities']);
                     $returnarray['result'][$i]['server'] = 0;
                     break;
-                case RETVAL_SERVER_UNFINISHED_COMM:
+                case \core\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM:
                     $returnarray['message'] = sprintf(_("<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, but it did not finish after %d seconds!"), $timeout);
                     $returnarray['level'] = L_ERROR;
                     break;
@@ -300,18 +299,18 @@ switch ($test_type) {
         // returned (e.g. IPv6 host), be prepared for that
         if (isset($testsuite->TLS_CA_checks_result[$host])) {
             $returnarray['time_millisec'] = sprintf("%d", $testsuite->TLS_CA_checks_result[$host]['time_millisec']);
-            if (isset($testsuite->TLS_CA_checks_result[$host]['cert_oddity']) && ($testsuite->TLS_CA_checks_result[$host]['cert_oddity'] == CERTPROB_UNKNOWN_CA)) {
+            if (isset($testsuite->TLS_CA_checks_result[$host]['cert_oddity']) && ($testsuite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
                 $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = L_ERROR;
             } else {
                 $returnarray['message'] = $testsuite->return_codes[$testsuite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = L_OK;
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] != RETVAL_CONNECTION_REFUSED) {
+                if ($testsuite->TLS_CA_checks_result[$host]['status'] != \core\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
                     $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 } else {
                     $returnarray['level'] = L_ERROR;
                 }
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] == RETVAL_OK) {
+                if ($testsuite->TLS_CA_checks_result[$host]['status'] == \core\RADIUSTests::RETVAL_OK) {
                     $returnarray['certdata'] = [];
                     $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
                     $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];

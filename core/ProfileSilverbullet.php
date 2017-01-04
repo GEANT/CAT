@@ -22,10 +22,7 @@
 /**
  * necessary includes
  */
-require_once('Helper.php');
-require_once('IdP.php');
-require_once('AbstractProfile.php');
-require_once('X509.php');
+namespace core;
 
 const SB_TOKENSTATUS_VALID = 0;
 const SB_TOKENSTATUS_REDEEMED = 1;
@@ -144,7 +141,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function addSupportedEapMethod($type, $preference) {
         // params are needed for proper overriding, but not used at all.
-        parent::addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1);
+        parent::addSupportedEapMethod(\core\EAP::EAPTYPE_SILVERBULLET, 1);
     }
 
     /**

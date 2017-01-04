@@ -19,11 +19,12 @@
  * @package Developer
  *
  */
+namespace core;
 /**
  * required includes
  */
-include_once("devices/devices.php");
-include_once("CAT.php");
+require_once(dirname(__DIR__)."/config/_config.php");
+
 
 /**
  * This factory instantiates a device module and makes it available in its member $device.
@@ -51,13 +52,10 @@ class DeviceFactory extends Entity {
      */
     public function __construct($blueprint) {
         parent::__construct();
-        $Dev = Devices::listDevices();
+        $Dev = \devices\Devices::listDevices();
         if (isset($Dev[$blueprint])) {
-            if ($Dev[$blueprint]['directory'] && $Dev[$blueprint]['module']) {
-                require_once("devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php");
-            }
             $this->loggerInstance->debug(4, "loaded: devices/" . $Dev[$blueprint]['directory'] . "/" . $Dev[$blueprint]['module'] . ".php\n");
-            $class_name = "Device_" . $Dev[$blueprint]['module'];
+            $class_name = "\devices\\".$Dev[$blueprint]['directory']."\Device_" . $Dev[$blueprint]['module'];
             $this->device = new $class_name();
             if (!$this->device) {
                 $this->loggerInstance->debug(2, "module loading failed");
@@ -69,7 +67,7 @@ class DeviceFactory extends Entity {
         $this->device->module_path = ROOT . '/devices/' . $Dev[$blueprint]['directory'];
         $this->device->signer = isset($Dev[$blueprint]['signer']) ? $Dev[$blueprint]['signer'] : 0;
         $this->device->device_id = $blueprint;
-        $options = Devices::$Options;
+        $options = \devices\Devices::$Options;
         if (isset($Dev[$blueprint]['options'])) {
             $Opt = $Dev[$blueprint]['options'];
             foreach ($Opt as $option => $value) {
