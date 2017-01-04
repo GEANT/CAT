@@ -1,7 +1,7 @@
 <?php
 namespace lib\domain;
 
-abstract  class PersistentEntity extends \Entity implements PersistentInterface {
+abstract  class PersistentEntity extends \core\Entity implements PersistentInterface {
     
     /**
      * Identifier attribute
@@ -26,7 +26,7 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
     
     /**
      * 
-     * @var \DBConnection
+     * @var \core\DBConnection
      */
     protected $databaseHandle;
     
