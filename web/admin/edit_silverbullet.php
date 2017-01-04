@@ -68,7 +68,8 @@ if($builder->isReady()){
         $_GET['profile_id'] = $newProfile->identifier;
     }
     
-    $factory = new SilverbulletFactory($builder->getProfile());
+    $profile = $builder->getProfile();
+    $factory = new SilverbulletFactory($profile);
     $factory->parseRequest();
     
     $users = $factory->createUsers();
@@ -99,13 +100,10 @@ if($builder->isReady()){
     $builder->addContentElement($editBlock);
     
     //Append terms of use popup
-    $session = $factory->getSession();
-    $agreement = $session->get(TermsOfUseValidator::COMMAND);
-    if(empty($agreement) || $agreement != 'true'){
+    $agreement_attributes = $profile->getAttributes("hiddenprofile:tou_accepted");
+    if(count($agreement_attributes) == 0){
         $termsOfUse = new TermosOfUseBox('sb-terms-of-use', $factory->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseValidator::COMMAND, TermsOfUseValidator::AGREEMENT);
         $builder->addContentElement($termsOfUse);
-    }else{
-        $session->put(TermsOfUseValidator::COMMAND, 'false');
     }
     
 }

@@ -110,8 +110,16 @@ class ProfileSilverbullet extends AbstractProfile {
             $cAFile = fread($caHandle, 16000000);
             $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
         }
-
+        
         $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
+
+        //TODO Introduced temporary fix to retrieve attributes from database, needs to be reviewed
+        $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
+                FROM $this->entityOptionTable
+                WHERE $this->entityIdColumn = $this->identifier
+                AND device_id IS NULL AND eap_method_id = 0
+                ORDER BY option_name", "Profile");
+        $tempArrayProfLevel = array_merge($databaseAttributes, $tempArrayProfLevel);
 
         // now, fetch and merge IdP-wide attributes
 
