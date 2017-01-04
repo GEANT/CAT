@@ -353,7 +353,7 @@ class UserAPI extends CAT {
         $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
-        } catch (Exception $fail) {
+        } catch (\Exception $fail) {
             echo $this->return_json($returnArray, 0);
             return;
         }
@@ -605,7 +605,7 @@ class UserAPI extends CAT {
         $host = $_SERVER['REMOTE_ADDR'];
         try {
             $record = $reader->city($host);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $result = ['status' => 'error', 'error' => 'Problem listing countries'];
             return($result);
         }

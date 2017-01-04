@@ -180,7 +180,7 @@ class DBConnection {
     /**
      * The connection to the DB server
      * 
-     * @var mysqli
+     * @var \mysqli
      */
     private $connection;
 

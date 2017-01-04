@@ -11,7 +11,7 @@ class InstitutionPageBuilder implements PageBuilder{
    /**
     * Particular IdP instance. If set to null means that page is entered by a mistake.
     * 
-    * @var \IdP
+    * @var \core\IdP
     */
     private $institution = null;
     
@@ -94,7 +94,7 @@ class InstitutionPageBuilder implements PageBuilder{
         if($this->isReady()){
             $profiles = $this->institution->listProfiles();
             if (count($profiles) == 1) {
-                if ($profiles[0] instanceof \ProfileSilverbullet) {
+                if ($profiles[0] instanceof \core\ProfileSilverbullet) {
                     $profile = $profiles[0];
                 }
             }

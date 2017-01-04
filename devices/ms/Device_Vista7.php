@@ -123,7 +123,7 @@ class Device_Vista7 extends WindowsCommon {
         // not EAP-TLS
         $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
 
-        if ($this->eap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
             $out .= "<p>";
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {

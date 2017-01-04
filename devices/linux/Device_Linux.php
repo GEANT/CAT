@@ -105,13 +105,14 @@ fi
             $out .= "<p>";
         }
         $out .= _("The installer will create .cat_installer sub-directory in your home directory and will copy your server certificates there.");
-        if ($this->eap == \core\EAP::EAPTYPE_TLS) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS) {
             $out .= _("In order to connect to the network you will need a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process. Your p12 file will also be copied to the .cat_installer directory.");
-        } else {
+        } elseif ($this->selectedEap != \core\EAP::EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
             $out .= "<p>";
             $out .= _("You will be requested to enter your account credentials during the installation. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
         }
+        // nothing to say if we are doing silverbullet.
         $out .= "<p>";
         return $out;
     }
