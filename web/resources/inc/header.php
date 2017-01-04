@@ -146,7 +146,7 @@ function productheader($area) {
             break;
         case "ADMIN-IDP-USERS":
             $cap1 = CONFIG['APPEARANCE']['productname_long'];
-            $cap2 = sprintf(_("Administrator Interface - %s User Management"), ProfileSilverbullet::PRODUCTNAME);
+            $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
             $advancedControls = TRUE;
             break;
         case "ADMIN":
