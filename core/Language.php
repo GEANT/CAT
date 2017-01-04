@@ -10,9 +10,7 @@
  */
 ?>
 <?php
-
 namespace core;
-
 /**
  * 
  * 
@@ -22,12 +20,6 @@ namespace core;
  *
  * @package Developer
  */
-/**
- * necessary includes
- */
-require_once("Logging.php");
-require_once(dirname(__DIR__) . "/config/_config.php");
-
 /**
  * Define some variables which need to be globally accessible
  * and some general purpose methods
@@ -154,11 +146,10 @@ class Language {
     /**
      * pick a proper value for a given language
      * @param array $valueArray an array of (locale,content) records
-     * @param string locale language code
      * @return string localised value corresponding to the chosen
      * locale or to the defalut locale C if a better mach was not available
      */
-    function getLocalisedValue($valueArray) {
+    public function getLocalisedValue($valueArray) {
         $loggerInstance = new Logging();
         $out = 0;
         if (count($valueArray) > 0) {
