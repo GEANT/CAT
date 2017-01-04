@@ -89,7 +89,7 @@ class UserAPI extends CAT {
             $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
-            $myInstaller = $this->generateNewInstaller($device, $profile, $token, $password);
+            $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
             $installerProperties['mime'] = $myInstaller['mime'];
             $installerProperties['link'] = $myInstaller['link'];
         }
@@ -131,7 +131,7 @@ class UserAPI extends CAT {
      * @param AbstractProfile $profile
      * @return array info about the new installer (mime and link)
      */
-    private function generateNewInstaller($device, $profile, $token, $password) {
+    private function generateNewInstaller($device, $profile, $generatedFor, $token, $password) {
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         $out = [];
@@ -153,7 +153,7 @@ class UserAPI extends CAT {
                    rrmdir($dev->FPATH . '/tmp');
                 }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:".EAP::eAPMethodArrayIdConversion($dev->selectedEap)."\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
+                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
                 $out['link'] = 0;
