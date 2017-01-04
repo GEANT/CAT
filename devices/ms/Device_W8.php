@@ -68,7 +68,7 @@ class Device_W8 extends WindowsCommon {
                 $this->writeLANprofile($eapConfig);
             }
         } else {
-            error("  this EAP type is not handled yet");
+            print("  this EAP type is not handled yet.\n");
             return;
         }
         $this->loggerInstance->debug(4, "windowsProfile");

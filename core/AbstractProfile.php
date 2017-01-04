@@ -24,9 +24,8 @@
 /**
  * necessary includes
  */
-namespace core;
 
-require_once(dirname(__DIR__) . '/core/Helper.php');
+namespace core;
 
 define("HIDDEN", -1);
 define("AVAILABLE", 0);
@@ -83,6 +82,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * IdP-wide attributes of the IdP this profile is attached to
      */
     protected $idpAttributes;
+
+    protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
+        if (CONFIG['PATHS']['logdir']) {
+            $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+            fprintf($f, "%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
+            fclose($f);
+        }
+    }
 
     /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
@@ -250,17 +257,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             // get eap_type from the downloads table
-           $eapTypeQuery = $this->databaseHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '".$this->languageInstance->getLang()."'");
-           if (! $eapTypeQuery || ! $eapO = mysqli_fetch_object($eapTypeQuery) ) {
-               $this->loggerInstance->debug(2,"Error getting EAP_type from the database\n");
-           } else {
-               if ($eapO->eap_type == NULL) {
-                   $this->loggerInstance->debug(2,"EAP_type not set in the database\n");
-               } else {
-                   saveDownloadDetails($this->institution,$this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
-               }
-           }
-           return TRUE;
+            $eapTypeQuery = $this->databaseHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
+            if (!$eapTypeQuery || !$eapO = mysqli_fetch_object($eapTypeQuery)) {
+                $this->loggerInstance->debug(2, "Error getting EAP_type from the database\n");
+            } else {
+                if ($eapO->eap_type == NULL) {
+                    $this->loggerInstance->debug(2, "EAP_type not set in the database\n");
+                } else {
+                    $this->saveDownloadDetails($this->institution, $this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
+                }
+            }
+            return TRUE;
         }
         return FALSE;
     }

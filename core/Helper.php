@@ -22,16 +22,10 @@
  */
 namespace core;
 
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-
 define("L_OK", 0);
 define("L_REMARK", 4);
 define("L_WARN", 32);
 define("L_ERROR", 256);
-
-function error($t) {
-    print ("$t\n");
-}
 
 /**
  * this direcory delete function has been copied from PHP documentation
@@ -160,40 +154,6 @@ function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
     return ['base' => $path, 'dir' => $tmpDir, 'name' => $name];
 }
 
-function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
-    $loggerInstance = new Logging();
-    $inputgd = imagecreatefromstring($inputpngstring);
-
-    $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
-    $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
-
-    $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
-    $sizelogo = [imagesx($logogd), imagesy($logogd)];
-    // Q level QR-codes can sustain 25% "damage"
-    // make our logo cover approx 15% of area to be sure; mind that there's a $symbolsize * $marginsymbols pixel white border around each edge
-    $totalpixels = ($sizeinput[0] - $symbolsize * $marginsymbols) * ($sizeinput[1] - $symbolsize * $marginsymbols);
-    $totallogopixels = ($sizelogo[0]) * ($sizelogo[1]);
-    $maxoccupy = $totalpixels * 0.04;
-    // find out how much we have to scale down logo to reach 10% QR estate
-    $scale = sqrt($maxoccupy / $totallogopixels);
-    $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
-    // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
-    $targetwidth = $symbolsize * round($sizelogo[0] * $scale / $symbolsize);
-    $targetheight = $symbolsize * round($sizelogo[1] * $scale / $symbolsize);
-    // paint white below the logo, in case it has transparencies (looks bad)
-    // have one symbol in each direction extra white space
-    $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
-    imagecolorallocate($whiteimage, 255, 255, 255);
-    // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
-    $targetplacementx = $symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
-    $targetplacementy = $symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
-    imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
-    imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
-    ob_start();
-    imagepng($inputgd);
-    return ob_get_clean();
-}
-
 function mailHandle() {
 // use PHPMailer to send the mail
     $mail = new \PHPMailer\PHPMailer\PHPMailer();
@@ -214,12 +174,4 @@ function mailHandle() {
             $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
         }
     return $mail;
-}
-
-function saveDownloadDetails($idpIdentifier,$profileId, $deviceId, $area, $lang, $eapType) {
-    if (CONFIG['PATHS']['logdir']) {
-        $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
-        fprintf($f,"%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
-        fclose($f);
-    }
 }

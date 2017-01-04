@@ -62,7 +62,7 @@ class DeviceFactory extends Entity {
                 throw new Exception("module loading failed");
             }
         } else {
-            error("unknown devicename:$blueprint");
+            print("unknown devicename:$blueprint\n");
         }
         $this->device->module_path = ROOT . '/devices/' . $Dev[$blueprint]['directory'];
         $this->device->signer = isset($Dev[$blueprint]['signer']) ? $Dev[$blueprint]['signer'] : 0;

@@ -11,12 +11,45 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
-require_once(dirname(dirname(dirname(__FILE__))) . "/core/Helper.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 include "inc/geo_widget.php";
+
+function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
+    $loggerInstance = new \core\Logging();
+    $inputgd = imagecreatefromstring($inputpngstring);
+
+    $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
+    $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
+
+    $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
+    $sizelogo = [imagesx($logogd), imagesy($logogd)];
+    // Q level QR-codes can sustain 25% "damage"
+    // make our logo cover approx 15% of area to be sure; mind that there's a $symbolsize * $marginsymbols pixel white border around each edge
+    $totalpixels = ($sizeinput[0] - $symbolsize * $marginsymbols) * ($sizeinput[1] - $symbolsize * $marginsymbols);
+    $totallogopixels = ($sizelogo[0]) * ($sizelogo[1]);
+    $maxoccupy = $totalpixels * 0.04;
+    // find out how much we have to scale down logo to reach 10% QR estate
+    $scale = sqrt($maxoccupy / $totallogopixels);
+    $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
+    // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
+    $targetwidth = $symbolsize * round($sizelogo[0] * $scale / $symbolsize);
+    $targetheight = $symbolsize * round($sizelogo[1] * $scale / $symbolsize);
+    // paint white below the logo, in case it has transparencies (looks bad)
+    // have one symbol in each direction extra white space
+    $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+    imagecolorallocate($whiteimage, 255, 255, 255);
+    // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
+    $targetplacementx = $symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
+    $targetplacementy = $symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
+    imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+    imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
+    ob_start();
+    imagepng($inputgd);
+    return ob_get_clean();
+}
 
 
 defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
@@ -50,7 +83,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
-            $uri = "data:image/png;base64," . base64_encode(\core\png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
+            $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
             ?>
@@ -277,7 +310,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                 $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier . "&amp;profile=" . $profile_list->identifier;
             }
             echo "<a href='$displayurl' style='white-space: nowrap; text-align: center;'>";
-            $uri = "data:image/png;base64," . base64_encode(\core\png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
+            $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
             $size = getimagesize($uri);
             echo "<img width='" . ($size[0] / 4) . "' height='" . ($size[1] / 4) . "' src='$uri' alt='QR-code'/>";
 

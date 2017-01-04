@@ -69,7 +69,7 @@ class Device_Vista7 extends WindowsCommon {
                 $this->writeLANprofile($eapConfig);
             }
         } else {
-            error("  this EAP type is not handled yet");
+            print("  this EAP type is not handled yet.\n");
             return;
         }
         $this->loggerInstance->debug(4, "windowsProfile");

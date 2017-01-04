@@ -22,7 +22,7 @@
  */
 namespace core;
 
-require_once(__DIR__ . "Helper.php");
+require_once(__DIR__ . "/Helper.php");
 
 /**
  * This class represents an EAP Profile.
