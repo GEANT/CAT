@@ -403,18 +403,15 @@ class CAT extends Entity {
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
-                     group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200)) separator '---') AS options
+                     group_concat(concat_ws('===',institution_option.option_name,LEFT(institution_option.option_value,200), institution_option.option_lang) separator '---') AS options
                      FROM institution ";
         if ($activeOnly == 1) {
-            $query .= "JOIN profile ON institution.inst_id = profile.inst_id ";
+            $query .= "JOIN v_active_inst ON institution.inst_id = v_active_inst.inst_id ";
         }
         $query .= "JOIN institution_option ON institution.inst_id = institution_option.institution_id ";
         $query .= "WHERE (institution_option.option_name = 'general:instname' 
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
-        if ($activeOnly == 1) {
-            $query .= "AND profile.showtime = 1 ";
-        }
         if ($country) {
             // escape the parameter
             $country = $handle->escapeValue($country);
@@ -442,7 +439,10 @@ class CAT extends Entity {
                         $geo[] = $at1;
                         break;
                     case 'general:instname':
-                        $names[] = ['value' => $opt[1]];
+                        $names[] = [
+                            'lang' => $opt[2],
+                            'value' => $opt[1]
+                            ];
                         break;
                     default:
                         break;

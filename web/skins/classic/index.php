@@ -119,7 +119,7 @@ include("user/js/roll.php");
 include("user/js/cat_js.php");
 ?>
     var loading_ico = new Image();
-    loading_ico.src = "<?php echo $skinObject->findResourceUrl("IMAGES",true);?>icons/loading51.gif";
+    loading_ico.src = "<?php echo $skinObject->findResourceUrl("IMAGES");?>icons/loading51.gif";
 </script>
 <?php $langObject->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
@@ -147,7 +147,7 @@ include("user/js/cat_js.php");
         ?>
     </div> <!-- id="heading" -->
     <div id="loading_ico">
-        <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $skinObject->findResourceUrl("IMAGES",true);?>icons/loading51.gif" alt="Authenticating ..."/>
+        <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $skinObject->findResourceUrl("IMAGES");?>icons/loading51.gif" alt="Authenticating ..."/>
     </div>
     <div id="info_overlay">
         <div id="info_window"></div>

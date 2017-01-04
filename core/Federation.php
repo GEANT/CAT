@@ -131,13 +131,14 @@ class Federation extends EntityWithDBProperties {
 
         parent::__construct(); // we now have access to our database handle
         // fetch attributes from DB; populates $this->attributes array
-        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = '$this->identifier' 
                                             ORDER BY option_name", "FED");
 
 
         $this->attributes[] = array("name" => "internal:country",
+            "lang" => NULL,
             "value" => $this->identifier,
             "level" => "FED",
             "row" => 0,

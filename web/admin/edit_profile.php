@@ -156,7 +156,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     $blacklisted = FALSE;
     foreach ($blacklistedDevices as $oneDevice) {
         if ($oneDevice['device'] == NULL) {
-            $blacklistedArray = unserialize($oneDevice['value']);
+            $blacklistedArray = $oneDevice['value'];
             $blacklisted = $blacklistedArray['content'];
         }
     }

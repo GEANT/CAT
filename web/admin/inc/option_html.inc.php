@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -51,7 +52,7 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
                 $optiontypearray = $optioninfo->optionType($option['name']);
                 $loggerInstance = new Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
-                $retval .= optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']));
+                $retval .= optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
             }
         }
     } else { // not editing exist, this in new: add empty list
@@ -164,11 +165,11 @@ function noPrefillText($rowid, $list, $defaultselect) {
     return $retval;
 }
 
-function prefillText($rowid, $list, $prefill, &$locationIndex, &$allLocationCount) {
+function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
     $retval = "";
     $optioninfo = Options::instance();
     $loggerInstance = new Logging();
-    $loggerInstance->debug(5, "Executed with PREFILL!\n");
+    $loggerInstance->debug(5, "Executed with PREFILL $prefill!\n");
     $retval .= "<td>";
     // prefill is always only called with a list with exactly one element.
     // if we see anything else here, get excited.
@@ -185,25 +186,13 @@ function prefillText($rowid, $list, $prefill, &$locationIndex, &$allLocationCoun
     // language tag if any
     $retval .= "<td>";
     if ($listtype["flag"] == "ML") {
-
-        if (preg_match('/^ROWID/', $prefill) == 0) { // this is direct content, not referral from DB
-            $taggedarray = unserialize($prefill);
-            if ($taggedarray === FALSE) {
-                throw new Exception("INTERNAL ERROR: unable to unserialize multilang attribute!<p>$prefill");
-            }
-            $content = $taggedarray["content"];
-        } else {
-            $taggedarray = unserialize(getBlobFromDB($prefill, FALSE));
-            $content = $prefill;
-        }
-        $language = "(" . strtoupper($taggedarray['lang']) . ")";
-        if ($taggedarray['lang'] == 'C') {
+        
+        $language = "(" . strtoupper($prefillLang) . ")";
+        if ($prefillLang == 'C') {
             $language = _("(default/other languages)");
         }
         $retval .= $language;
-        $retval .= "<input type='hidden' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect' value='" . $taggedarray["lang"] . "' style='display:block'>";
-    } else {
-        $content = $prefill;
+        $retval .= "<input type='hidden' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect' value='" . $prefillLang . "' style='display:block'>";
     }
     $retval .= "</td>";
 // attribute content
@@ -216,38 +205,38 @@ function prefillText($rowid, $list, $prefill, &$locationIndex, &$allLocationCoun
             $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
             break;
         case "file":
-            $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($content) . "'>";
+            $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($prefill) . "'>";
             switch ($value) {
                 case "eap:ca_file":
-                    $retval .= previewCAinHTML($content);
+                    $retval .= previewCAinHTML($prefill);
                     break;
                 case "general:logo_file":
                 case "fed:logo_file":
-                    $retval .= previewImageinHTML($content);
+                    $retval .= previewImageinHTML($prefill);
                     break;
                 case "support:info_file":
-                    $retval .= previewInfoFileinHTML($content);
+                    $retval .= previewInfoFileinHTML($prefill);
                     break;
                 default:
                     $retval .= _("file content");
             }
             break;
         case "string":
-            $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
+            $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
             break;
         case "integer":
-            $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
+            $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
             break;
         case "text":
-            $retval .= "<strong>$content</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"" . htmlspecialchars($content) . "\" style='display:block'>";
+            $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
             break;
         case "boolean":
             $displayOption = _("off");
-            if ($content == "on") {
+            if ($prefill == "on") {
                 /// Device assessment is "on"
                 $displayOption = _("on");
             }
-            $retval .= "<strong>$displayOption</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$content' style='display:block'>";
+            $retval .= "<strong>$displayOption</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$prefill' style='display:block'>";
             break;
         default:
             // this should never happen!
@@ -257,7 +246,7 @@ function prefillText($rowid, $list, $prefill, &$locationIndex, &$allLocationCoun
     return $retval;
 }
 
-function optiontext($defaultselect, $list, $prefill = 0) {
+function optiontext($defaultselect, $list, $prefill = 0, $prefillLang = 0) {
     $allLocationCount = 0;
     $locationIndex = 0;
     $rowid = mt_rand();
@@ -269,7 +258,7 @@ function optiontext($defaultselect, $list, $prefill = 0) {
     }
 
     if ($prefill) {
-        $retval .= prefillText($rowid, $list, $prefill, $locationIndex, $allLocationCount);
+        $retval .= prefillText($rowid, $list, $prefill, $prefillLang, $locationIndex, $allLocationCount);
     }
     $retval .= "
 

@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -107,7 +108,7 @@ class ProfileRADIUS extends AbstractProfile {
 
         // now fetch and merge profile-level attributes if not already set on deeper level
 
-        $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = $this->identifier  
                                             AND device_id IS NULL AND eap_method_id = 0
@@ -158,34 +159,23 @@ class ProfileRADIUS extends AbstractProfile {
                 throw new Exception("fetchDeviceOrEAPLevelAttributes: unexpected keyword $devicesOrEAPMethods");
         }
 
-        $allAttributes = $this->databaseHandle->exec("SELECT option_name, option_value, $queryPart as deviceormethod, row 
+        $allAttributes = $this->databaseHandle->exec("SELECT option_name, option_lang, option_value, $queryPart as deviceormethod, row 
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = $this->identifier $conditionPart");
 
         while ($attributeQuery = mysqli_fetch_object($allAttributes)) {
 
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
-            if ($optinfo['type'] != "file") {
-                $temparray[] = [
-                    "name" => $attributeQuery->option_name,
-                    "value" => $attributeQuery->option_value,
-                    "level" => "Method",
-                    "row" => $attributeQuery->row,
-                    "flag" => $optinfo['flag'],
-                    "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
-                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
-            } else {
-                $decodedAttribute = $this->decodeFileAttribute($attributeQuery->option_value);
 
-                $temparray[] = [
-                    "name" => $attributeQuery->option_name,
-                    "value" => ( $decodedAttribute['lang'] == "" ? $decodedAttribute['content'] : serialize($decodedAttribute)),
-                    "level" => "Method",
-                    "row" => $attributeQuery->row,
-                    "flag" => $optinfo['flag'],
-                    "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
-                    "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
-            }
+            $temparray[] = [
+                "name" => $attributeQuery->option_name,
+                "lang" => $attributeQuery->option_lang,
+                "value" => $attributeQuery->option_value,
+                "level" => "Method",
+                "row" => $attributeQuery->row,
+                "flag" => $optinfo['flag'],
+                "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
+                "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
         }
         return $temparray;
     }
@@ -196,12 +186,12 @@ class ProfileRADIUS extends AbstractProfile {
      * @param string device the device identifier string
      * @param string path the path where the new installer can be found
      */
-    public function updateCache($device, $path, $mime) {
+    public function updateCache($device, $path, $mime, $integerEapType) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         $escapedPath = $this->databaseHandle->escapeValue($path);
-        $this->databaseHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time) 
-                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '".$this->languageInstance->getLang()."', CURRENT_TIMESTAMP ) 
-                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP");
+        $this->databaseHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time,eap_type) 
+                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '" . $this->languageInstance->getLang() . "', CURRENT_TIMESTAMP, $integer_eap_type) 
+                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP, eap_type = $integer_eap_type");
     }
 
     /**
@@ -213,27 +203,23 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
      */
-    private function addAttributeAllLevels($attrName, $attrValue, $eapType, $device) {
-        $escapedAttrName = $this->databaseHandle->escapeValue($attrName);
-        $escapedAttrValue = $this->databaseHandle->escapeValue($attrValue);
-        $escapedDevice = ($device == NULL ? NULL : $this->databaseHandle->escapeValue($device));
-
-        $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_value, eap_method_id, device_id) 
-                          VALUES(?, ?, ?, ?, ?)";
-        $this->databaseHandle->exec($prepQuery, "issis", $this->identifier, $escapedAttrName, $escapedAttrValue, $eapType, $escapedDevice );
+    private function addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, $device) {
+        $prepQuery = "INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value, eap_method_id, device_id) 
+                          VALUES(?, ?, ?, ?, ?, ?)";
+        $this->databaseHandle->exec($prepQuery, "isssis", $this->identifier, $attrName, $attrLang, $attrValue, $eapType, $device);
         $this->updateFreshness();
     }
 
-    public function addAttributeEAPSpecific($attrName, $attrValue, $eapType) {
-        $this->addAttributeAllLevels($attrName, $attrValue, $eapType, NULL);
+    public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType) {
+        $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, NULL);
     }
 
-    public function addAttributeDeviceSpecific($attrName, $attrValue, $device) {
-        $this->addAttributeAllLevels($attrName, $attrValue, 0, $device);
+    public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device) {
+        $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, $device);
     }
 
-    public function addAttribute($attrName, $attrValue) {
-        $this->addAttributeAllLevels($attrName, $attrValue, 0, NULL);
+    public function addAttribute($attrName, $attrLang, $attrValue) {
+        $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, NULL);
     }
 
     /**

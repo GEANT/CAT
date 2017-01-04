@@ -18,7 +18,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
-('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL);
+('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL);
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,
@@ -45,3 +46,16 @@ ALTER TABLE `profile` ADD COLUMN `checkuser_outer` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `checkuser_value` varchar(128) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `verify_userinput_suffix` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `hint_userinput_suffix` int(1) NOT NULL DEFAULT '0';
+
+ALTER TABLE `user_options` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `federation_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+
+ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
+ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
+
+
+UPDATE institution SET country = UPPER(country);
+
+CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);

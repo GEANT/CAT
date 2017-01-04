@@ -129,22 +129,22 @@ class UserManagement extends Entity {
                 $cat = new CAT();
                 $externalinfo = $cat->getExternalDBEntityDetails($invitationDetails->external_db_uniquehandle);
                 foreach ($externalinfo['names'] as $instlang => $instname) {
-                    $idp->addAttribute("general:instname", serialize(['lang' => $instlang, 'content' => $instname]));
+                    $idp->addAttribute("general:instname", $instlang, $instname);
                 }
                 // see if we had a C language, and if not, pick a good candidate
                 if (!array_key_exists('C', $externalinfo['names'])) {
                     if (array_key_exists('en', $externalinfo['names'])) { // English is a good candidate
-                        $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $externalinfo['names']['en']]));
+                        $idp->addAttribute("general:instname", 'C', $externalinfo['names']['en']);
                         $bestnameguess = $externalinfo['names']['en'];
                     } else { // no idea, let's take the first language we found
-                        $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => reset($externalinfo['names'])]));
+                        $idp->addAttribute("general:instname", 'C', reset($externalinfo['names']));
                         $bestnameguess = reset($externalinfo['names']);
                     }
                 } else {
                     $bestnameguess = $externalinfo['names']['C'];
                 }
             } else {
-                $idp->addAttribute("general:instname", serialize(['lang' => 'C', 'content' => $invitationDetails->name]));
+                $idp->addAttribute("general:instname", 'C', $invitationDetails->name);
                 $bestnameguess = $invitationDetails->name;
             }
             $this->loggerInstance->writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");

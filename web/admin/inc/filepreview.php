@@ -22,19 +22,7 @@ function getImageFromDB($id) {
 
     // check if data is public for this blob call
     $blob = getBlobFromDB($id, TRUE);
-
-    // suppress E_NOTICE on the following... we are testing *if*
-    // we have a serialized value - so not having one is fine and
-    // shouldn't throw E_NOTICE
-    if (@unserialize($blob) !== FALSE) { // an array? must be lang-tagged content
-        $unserialisedBlob = unserialize($blob);
-        if (!isset($unserialisedBlob['content'])) {
-            return;
-        }
-        $finalBlob = base64_decode($unserialisedBlob['content']);
-    } else {
-        $finalBlob = base64_decode($blob);
-    }
+    $finalBlob = base64_decode($blob);
 
     if ($finalBlob === FALSE) {
         return;

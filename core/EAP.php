@@ -179,7 +179,10 @@ class EAP {
      * @return array|int
      */
     public static function eAPMethodArrayIdConversion($input) {
-        if (is_numeric($input) && isset(EAP::EAPTYPES_CONVERSION[(int)$input])) {
+        if ($input == 0) {
+            throw new Exception("Zero - How can that be?");
+        }
+        if (is_numeric($input) && isset(EAP::EAPTYPES_CONVERSION[$input])) {
             return EAP::EAPTYPES_CONVERSION[$input];
         }
         if (is_array($input)) {

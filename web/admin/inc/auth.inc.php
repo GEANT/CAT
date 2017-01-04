@@ -41,14 +41,14 @@ function authenticate() {
     $userObject = new User($user);
     if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($userObject->getAttributes('user:realname')) == 0)) {
         $name = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0];
-        $userObject->addAttribute('user:realname', $name);
+        $userObject->addAttribute('user:realname', NULL, $name);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added real name from external auth source");
         $newNameReceived = TRUE;
     }
 
     if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0]) && (count($userObject->getAttributes('user:email')) == 0)) {
         $mail = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0];
-        $userObject->addAttribute('user:email', $mail);
+        $userObject->addAttribute('user:email', NULL, $mail);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added email address from external auth source");
     }
 

@@ -53,10 +53,10 @@ defaultPagePrelude(_("Device Compatibility matrix"));
 
             <?php
             foreach ($preflist as $method) {
-                $escaped_method = htmlspecialchars(serialize($method));
+                $escapedMethod = EAP::eAPMethodArrayIdConversion($method);
                 echo "<th style='min-width:200px'>" . display_name($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                        <input type='hidden' name='eaptype' value='$escaped_method'>
+                        <input type='hidden' name='eaptype' value='$escapedMethod'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
                         </form></th>";
             }

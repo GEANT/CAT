@@ -41,7 +41,7 @@ if ($my_profile != NULL) {
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
         $check_thorough = TRUE;
-        $check_realm = $cr[0]['value'];
+        $check_realm = $checkrealm[0]['value'];
         $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";

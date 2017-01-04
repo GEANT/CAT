@@ -175,18 +175,22 @@ $dbHandle = DBConnection::handle("INST");
                 <tr>
                     <th>Device</th>
                     <th>Admin Downloads</th>
-                    <th>User Downloads</th>
+                    <th>User Downloads (classic)</th>
+                    <th>User Downloads (<?php echo ProfileSilverbullet::PRODUCTNAME;?>)</th>
+                    <th>User Downloads (total)</th>
                 </tr>
                 <?php
                 $gross_admin = 0;
                 $gross_user = 0;
+                $gross_silverbullet = 0;
                 foreach (Devices::listDevices() as $index => $device_array) {
                     echo "<tr>";
-                    $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user FROM downloads WHERE device_id = '$index'");
+                    $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user, SUM(downloads_silverbullet) as silverbullet FROM downloads WHERE device_id = '$index'");
                     while ($a = mysqli_fetch_object($admin_query)) {
-                        echo "<td>" . $device_array['display'] . "</td><td>" . $a->admin . "</td><td>" . $a->user . "</td>";
+                        echo "<td>" . $device_array['display'] . "</td><td>" . $a->admin . "</td><td>" . $a->user . "</td><td>" . $a->silverbullet . "</td><td>" . sprintf("%s",$a->user + $a->silverbullet) . "</td>";
                         $gross_admin = $gross_admin + $a->admin;
                         $gross_user = $gross_user + $a->user;
+                        $gross_silverbullet = $gross_silverbullet + $a->silverbullet;
                     }
                     echo "</tr>";
                 }
@@ -195,6 +199,8 @@ $dbHandle = DBConnection::handle("INST");
                     <td><strong>TOTAL</strong></td>
                     <td><strong><?php echo $gross_admin; ?></strong></td>
                     <td><strong><?php echo $gross_user; ?></strong></td>
+                    <td><strong><?php echo $gross_silverbullet; ?></strong></td>
+                    <td><strong><?php echo $gross_user + $gross_silverbullet; ?></strong></td>
                 </tr>
             </table>
         </fieldset>

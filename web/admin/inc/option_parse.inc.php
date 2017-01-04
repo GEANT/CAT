@@ -28,17 +28,17 @@ function cmpSequenceNumber($left, $right) {
 
 function postProcessValidAttributes($options, &$good, &$bad) {
     foreach ($options as $index => $iterateOption) {
-        foreach ($iterateOption as $name => $value) {
+        foreach ($iterateOption as $name => $optionPayload) {
             switch ($name) {
                 case "eap:ca_url": // eap:ca_url becomes eap:ca_file by downloading the file
-                    if (empty($value)) {
+                    if (empty($optionPayload['content'])) {
                         break;
                     }
-                    $content = downloadFile($value);
+                    $content = downloadFile($optionPayload['content']);
                     unset($options[$index]);
                     if (check_upload_sanity("eap:ca_file", $content)) {
                         $content = base64_encode($content);
-                        $options[] = ["eap:ca_file" => $content];
+                        $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => $content]];
                         $good[] = $name;
                     } else {
                         $bad[] = $name;
@@ -48,26 +48,26 @@ function postProcessValidAttributes($options, &$good, &$bad) {
                     // the data being processed here is always "good": 
                     // if it was eap:ca_file initially then its sanity was checked in step 1;
                     // if it was eap:ca_url then it was checked after we downloaded it
-                    if (empty($value) || preg_match('/^ROWID-/', $value)) {
+                    if (empty($optionPayload['content']) || preg_match('/^ROWID-/', $optionPayload['content'])) {
                         break;
                     }
-                    $content = base64_decode($value);
+                    $content = base64_decode($optionPayload['content']);
                     unset($options[$index]);
                     $cAFiles = X509::splitCertificate($content);
                     foreach ($cAFiles as $cAFile) {
-                        $options[] = ["eap:ca_file" => base64_encode(X509::pem2der($cAFile))];
+                        $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => base64_encode(X509::pem2der($cAFile))]];
                     }
                     $good[] = $name;
                     break;
                 case "general:logo_url": // logo URLs become logo files by downloading the file
-                    if (empty($value)) {
+                    if (empty($optionPayload['content'])) {
                         break;
                     }
-                    $bindata = downloadFile($value);
+                    $bindata = downloadFile($optionPayload['content']);
                     unset($options[$index]);
                     if (check_upload_sanity("general:logo_file", $bindata)) {
                         $good[] = $name;
-                        $options[] = ["general:logo_file" => base64_encode($bindata)];
+                        $options[] = ["general:logo_file" => ['lang' => NULL, 'content' => base64_encode($bindata)]];
                     } else {
                         $bad[] = $name;
                     }
@@ -87,7 +87,7 @@ function postProcessCoordinates($options, &$good) {
         $lat = valid_coordinate($_POST['geo_lat']);
         $lon = valid_coordinate($_POST['geo_long']);
 
-        $options[] = ["general:geo_coordinates" => serialize(["lon" => $lon, "lat" => $lat])];
+        $options[] = ["general:geo_coordinates" => ['lang' => NULL, 'content' => serialize(["lon" => $lon, "lat" => $lat])]];
         $good[] = ("general:geo_coordinates");
     }
     return $options;
@@ -169,7 +169,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
         if (preg_match('/^S[0123456789]*$/', $objId)) {
             $objValue = preg_replace('/#.*$/', '', $objValueRaw);
             $optioninfo = $optioninfoObject->optionType($objValue);
-            $lang = "";
+            $lang = NULL;
             if ($optioninfo["flag"] == "ML") {
                 if (isset($iterator["$objId-lang"])) {
                     if (!isset($multilangAttrsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
@@ -259,12 +259,8 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                 default:
                     throw new Exception("Internal Error: Unknown option type " . $objValue . "!");
             }
-            if ($lang != "" && preg_match("/^ROWID-.*-([0-9]+)/", $content) == 0) { // new value, encode as language array
-                // add the new option with lang 
-                $optionsStep1[] = ["$objValue" => serialize(["lang" => $lang, "content" => $content])];
-            } else { // just store it (could be a literal value or a ROWID reference)
-                $optionsStep1[] = ["$objValue" => $content];
-            }
+            // lang can be NULL here, if it's not a multilang attribute, or a ROWID reference. Never mind that.
+            $optionsStep1[] = ["$objValue" => ["lang" => $lang, "content" => $content]];
         }
     }
 
@@ -280,28 +276,28 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
     $options = postProcessCoordinates($optionsStep2, $good);
 
     foreach ($options as $iterateOption) {
-        foreach ($iterateOption as $name => $value) {
+        foreach ($iterateOption as $name => $optionPayload) {
             $optiontype = $optioninfoObject->optionType($name);
             // some attributes are in the DB and were only called by reference
             // keep those which are still referenced, throw the rest away
-            if ($optiontype["type"] == "file" && preg_match("/^ROWID-.*-([0-9]+)/", $value, $retval)) {
+            if ($optiontype["type"] == "file" && preg_match("/^ROWID-.*-([0-9]+)/", $optionPayload['content'], $retval)) {
                 unset($killlist[$retval[1]]);
                 continue;
             }
             switch (get_class($object)) {
                 case 'ProfileRADIUS':
                     if ($device !== NULL) {
-                        $object->addAttributeDeviceSpecific($name, $value, $device);
+                        $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
                     } elseif ($eaptype != 0) {
-                        $object->addAttributeEAPSpecific($name, $value, $eaptype);
+                        $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
                     } else {
-                        $object->addAttribute($name, $value);
+                        $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
                     }
                     break;
                 case 'IdP':
                 case 'User':
                 case 'Federation':
-                    $object->addAttribute($name, $value);
+                    $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
                     break;
                 default:
                     throw new Exception("This type of object can't have options that are parsed by this file!");

@@ -45,6 +45,7 @@ CREATE TABLE `profile_option_dict` (
 CREATE TABLE `federation_option` (
   `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -55,6 +56,7 @@ CREATE TABLE `federation_option` (
 CREATE TABLE `institution_option` (
   `institution_id` int(11) NOT NULL DEFAULT '0',
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -114,6 +116,7 @@ CREATE TABLE `profile_option` (
   `eap_method_id` int(11) DEFAULT '0',
   `device_id` varchar(32) DEFAULT NULL,
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -134,10 +137,12 @@ CREATE TABLE `downloads` (
   `device_id` varchar(32) NOT NULL,
   `downloads_admin` int(11) NOT NULL DEFAULT '0',
   `downloads_user` int(11) NOT NULL DEFAULT '0',
+  `downloads_silverbullet` int(11) NOT NULL DEFAULT '0',
   `download_path` varchar(1024) DEFAULT NULL,
   `installer_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `lang` char(4) NOT NULL,
   `mime` varchar(50) DEFAULT NULL,
+  `eap_type` int(4),
   UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -145,11 +150,14 @@ CREATE TABLE `user_options` (
   `id` int(11) NOT NULL AUTO_INCREMENT, 
   `user_id` varchar(255) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   KEY `rowindex` (`id`),
   KEY `foreign_key_options` (`option_name`), 
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);
 
 INSERT INTO `profile_option_dict` VALUES 
 ('device-specific:customtext','extra text to be displayed to the user when downloading an installer for this device','text','ML'),
@@ -169,6 +177,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),
 ('profile:production','Profile is ready and can be displayed on download page','boolean',NULL),
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
 ('support:email','email for users to contact for local instructions','string','ML'),
 ('support:info_file','consent file displayed to the users','file','ML'),
 ('support:phone','telephone number for users to contact for local instructions','string','ML'),
