@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -19,8 +20,9 @@
 /**
  * 
  */
+
 namespace core;
-require_once(dirname(__DIR__) . "/config/_config.php");
+
 /**
  * This class represents an Entity in its widest sense. Every entity can log
  * and query/change the language settings where needed.
@@ -33,6 +35,11 @@ require_once(dirname(__DIR__) . "/config/_config.php");
  * @package Developer
  */
 abstract class Entity {
+
+    const L_OK = 0;
+    const L_REMARK = 4;
+    const L_WARN = 32;
+    const L_ERROR = 256;
 
     /**
      * We occasionally log stuff (debug/audit). Have an initialised Logging
@@ -48,7 +55,7 @@ abstract class Entity {
      * @var Language
      */
     protected $languageInstance;
-    
+
     public function __construct() {
         $this->loggerInstance = new Logging();
         $this->languageInstance = new Language();

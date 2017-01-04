@@ -310,12 +310,12 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                         // level? They would be the likely explanation
                         $oneRADIUSTest = $checks[0]['instance'];
                         foreach ($all_certprobs as $certprob) {
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == L_ERROR) {
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == \core\Entity::L_ERROR) {
                                 $warning_html .= "<div class='problemdescription'>" . _("We found a problem with your Identity Provider. This may be the cause of your problems. The exact error is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
                                 $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration. We will notify the Identity Provider about the problem. Please wait until the problem is resolved. ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
                                 $certprobs_warned[] = $certprob;
                             }
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == L_WARN) {
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == \core\Entity::L_WARN) {
                                 $warning_html .= "<div class='problemdescription'>" . _("We found a minor misconfiguration of your Identity Provider. Certain devices may not work because of this. The exact warning is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] .
                                         "<br/>It is not necessarily the case that these warnings are the source of your problem; e.g. simple errors in username or password can not be ruled out.</div>";
                                 $warning_html .= "<p>Please answer some supplementary questions on the next page so that we can send a detailed problem report to your identity provider. (next page does not exist yet!)</p>";

@@ -112,10 +112,10 @@ function tooltip($input) {
 function UI_message($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
 
     $uiMessages = [
-        L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
-        L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
-        L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
-        L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
+        \core\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
+        \core\Entity::L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
+        \core\Entity::L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
+        \core\Entity::L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
     ];
 
     $retval = "";
@@ -137,19 +137,19 @@ function UI_message($level, $text = 0, $customCaption = 0, $omittabletags = FALS
 }
 
 function UI_okay($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_OK, $text, $caption, $omittabletags);
+    return UI_message(\core\Entity::L_OK, $text, $caption, $omittabletags);
 }
 
 function UI_remark($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_REMARK, $text, $caption, $omittabletags);
+    return UI_message(\core\Entity::L_REMARK, $text, $caption, $omittabletags);
 }
 
 function UI_warning($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_WARN, $text, $caption, $omittabletags);
+    return UI_message(\core\Entity::L_WARN, $text, $caption, $omittabletags);
 }
 
 function UI_error($text = 0, $caption = 0, $omittabletags = FALSE) {
-    return UI_message(L_ERROR, $text, $caption, $omittabletags);
+    return UI_message(\core\Entity::L_ERROR, $text, $caption, $omittabletags);
 }
 
 function check_upload_sanity($optiontype, $filename) {
