@@ -38,7 +38,7 @@ if (isset($_REQUEST['token'])) {
 if ($cleanToken) {
     // check status of this silverbullet token according to info in DB:
     // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
-    $tokenStatus = ProfileSilverbullet::tokenStatus($cleanToken);
+    $tokenStatus = \core\ProfileSilverbullet::tokenStatus($cleanToken);
 }
 
 if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference

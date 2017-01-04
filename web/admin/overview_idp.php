@@ -341,7 +341,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
             <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
                 <div>
                     <button type='submit' name='profile_action' value='new'>
-                        <?php echo sprintf(_("Add %s profile ..."), ProfileSilverbullet::PRODUCTNAME); ?>
+                        <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
                     </button>
                 </div>
             </form>

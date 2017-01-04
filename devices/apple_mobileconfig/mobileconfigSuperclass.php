@@ -132,7 +132,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         // simpler message for silverbullet
         if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
-            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
         }
 
         $outputXml .= "
