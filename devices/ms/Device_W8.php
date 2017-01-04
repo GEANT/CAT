@@ -418,9 +418,6 @@ class Device_W8 extends WindowsCommon {
         $eapOptions = [
             \core\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
             \core\EAP::TLS => ['str' => 'TLS', 'exec' => 'user'],
-// TODO for TW: the following line doesn't work - that constant is an array, which can't be a key for another array
-// generated a PHP Warning but doesn't seem to have any catastrophic effect?
-//            \core\EAP::EAPTYPE_SILVERBULLET => ['str' => 'TLS', 'exec' => 'user'],
             \core\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             \core\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
