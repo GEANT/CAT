@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -18,6 +19,7 @@
 /**
  * 
  */
+
 namespace core;
 
 /**
@@ -82,6 +84,26 @@ abstract class DeviceConfig extends Entity {
     }
 
     /**
+     * generates a UUID, for the devices which identify file contents by UUID
+     *
+     * @param string $prefix an extra prefix to set before the UUID
+     * @return string UUID (possibly prefixed)
+     */
+    public function uuid($prefix = '', $deterministicSource = NULL) {
+        if ($deterministicSource === NULL) {
+            $chars = md5(uniqid(mt_rand(), true));
+        } else {
+            $chars = md5($deterministicSource);
+        }
+        $uuid = substr($chars, 0, 8) . '-';
+        $uuid .= substr($chars, 8, 4) . '-';
+        $uuid .= substr($chars, 12, 4) . '-';
+        $uuid .= substr($chars, 16, 4) . '-';
+        $uuid .= substr($chars, 20, 12);
+        return $prefix . $uuid;
+    }
+
+    /**
      * Set up working environment for a device module
      *
      * Sets up the device module environment taking into account the actual profile
@@ -113,7 +135,7 @@ abstract class DeviceConfig extends Entity {
             throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        $this->deviceUUID = uuid('','CAT'.$profile->institution."-".$profile->identifier."-".$this->device_id);
+        $this->deviceUUID = uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
 
 
         // if we are instantiating a Silverbullet profile AND have been given
@@ -124,6 +146,8 @@ abstract class DeviceConfig extends Entity {
 
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
             $this->clientCert = $profile->generateCertificate($token, $importPassword);
+            // add a UUID identifier for the devices that want one
+            $this->clientCert['GUID'] = $this->uuid("", $this->clientCert['certdata']);
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
@@ -140,6 +164,8 @@ abstract class DeviceConfig extends Entity {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
                 $processedCert = $x509->processCertificate($ca);
                 if ($processedCert) {
+                    // add a UUID for convenience (some devices refer to their CAs by a UUID value)
+                    $processedCert['uuid'] = $this->uuid("", $processedCert['pem']);
                     $caList[] = $processedCert;
                 }
             }
@@ -667,6 +693,5 @@ abstract class DeviceConfig extends Entity {
      * stores identifier used by GEANTLink profiles
      */
     public $deviceUUID;
-
 
 }

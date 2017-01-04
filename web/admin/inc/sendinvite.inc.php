@@ -75,7 +75,7 @@ if (isset($_GET['inst_id'])) {
         exit(1);
     }
 
-    $prettyprintname = \core\getLocalisedValue($idp->getAttributes('general:instname'), $languageInstance->getLang());
+    $prettyprintname = $idp->name;
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));

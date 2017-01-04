@@ -148,7 +148,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
       <key>PayloadType</key>
          <string>Configuration</string>
       <key>PayloadUUID</key>
-         <string>" . \core\uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
+         <string>" . $this->uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
       <key>PayloadVersion</key>
          <integer>1</integer>";
         if (isset($this->attributes['support:info_file'])) {
@@ -344,7 +344,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         }
         $retval .= "
                <key>PayloadUUID</key>
-                  <string>" . \core\uuid() . "</string>
+                  <string>" . $this->uuid() . "</string>
                <key>PayloadVersion</key>
                   <integer>1</integer>";
         if (!$wired && count($consortiumOi) == 0) {
@@ -379,7 +379,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 	<key>PayloadType</key>
 	<string>com.apple.wifi.managed</string>
 	<key>PayloadUUID</key>
-	<string>" . uuid() . "</string>
+	<string>" . $this->uuid() . "</string>
 	<key>PayloadVersion</key>
 	<real>1</real>";
         if (get_class($this) != "Device_mobileconfig_ios_56") {
@@ -430,7 +430,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $binaryBlob = $this->clientCert["certdata"];
         $mimeBlob = base64_encode($binaryBlob);
         $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
-        $payloadUUID = uuid('', $mimeBlob);
+        $payloadUUID = $this->uuid('', $mimeBlob);
         return ["block" => "<dict>".
                   // we don't include the import password. It's displayed on screen, and should be input by the user.
                   // <key>Password</key>

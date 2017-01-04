@@ -58,41 +58,6 @@ function downloadFile($url) {
     return FALSE;
 }
 
-function random_str(
-$length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-) {
-    $str = '';
-    $max = strlen($keyspace) - 1;
-    if ($max < 1) {
-        throw new Exception('$keyspace must be at least two characters long');
-    }
-    for ($i = 0; $i < $length; ++$i) {
-        $str .= $keyspace[random_int(0, $max)];
-    }
-    return $str;
-}
-
-
-/**
- * generates a UUID
- *
- * @param string $prefix an extra prefix to set before the UUID
- * @return string UUID (possibly prefixed)
- */
-function uuid($prefix = '', $deterministicSource = NULL) {
-    if ($deterministicSource === NULL) {
-        $chars = md5(uniqid(mt_rand(), true));
-    } else {
-        $chars = md5($deterministicSource);
-    }
-    $uuid = substr($chars, 0, 8) . '-';
-    $uuid .= substr($chars, 8, 4) . '-';
-    $uuid .= substr($chars, 12, 4) . '-';
-    $uuid .= substr($chars, 16, 4) . '-';
-    $uuid .= substr($chars, 20, 12);
-    return $prefix . $uuid;
-}
-
 /**
  * pick a proper value for a given language
  * @param array $valueArray an array of (locale,content) records

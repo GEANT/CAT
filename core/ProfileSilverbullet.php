@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -22,13 +23,13 @@
 /**
  * necessary includes
  */
+
 namespace core;
 
 const SB_TOKENSTATUS_VALID = 0;
 const SB_TOKENSTATUS_REDEEMED = 1;
 const SB_TOKENSTATUS_EXPIRED = 2;
 const SB_TOKENSTATUS_INVALID = 3;
-
 const SB_CERTSTATUS_NONEXISTENT = 0;
 const SB_CERTSTATUS_VALID = 1;
 const SB_CERTSTATUS_EXPIRED = 2;
@@ -48,11 +49,26 @@ const SB_CERTSTATUS_REVOKED = 3;
  * @package Developer
  */
 class ProfileSilverbullet extends AbstractProfile {
-
     /*
      * 
      */
+
     const PRODUCTNAME = "eduroam-no-cloud-no-box-no-service";
+
+    public static function random_str(
+    $length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    ) {
+        $str = '';
+        $max = strlen($keyspace) - 1;
+        if ($max < 1) {
+            throw new Exception('$keyspace must be at least two characters long');
+        }
+        for ($i = 0; $i < $length; ++$i) {
+            $str .= $keyspace[random_int(0, $max)];
+        }
+        return $str;
+    }
+
     /**
      * Class constructor for existing profiles (use IdP::newProfile() to actually create one). Retrieves all attributes and 
      * supported EAP types from the DB and stores them in the priv_ arrays.
@@ -182,9 +198,9 @@ class ProfileSilverbullet extends AbstractProfile {
         // token leads us to the NRO, to set the OU property of the cert
         $inst = new IdP($this->institution);
         $federation = strtoupper($inst->federation);
-        $usernameLocalPart = random_str(32);
+        $usernameLocalPart = self::random_str(32);
         $username = $usernameLocalPart . "@" . $this->realm;
-        
+
         $expiryDays = $validity->days;
 
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
@@ -215,12 +231,12 @@ class ProfileSilverbullet extends AbstractProfile {
         $serial = mt_rand(1000000, 100000000);
         $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
         // get the SHA1 fingerprint, this will be handy for Windows installers
-        $sha1 = openssl_x509_fingerprint($cert,"sha1");
+        $sha1 = openssl_x509_fingerprint($cert, "sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCertProt = "";
         openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
         $exportedCertClear = "";
-        openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem , $rootCaPem ]]);
+        openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         $sqlDate = $expiryDateObject->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $sqlDate, $token);
@@ -231,7 +247,6 @@ class ProfileSilverbullet extends AbstractProfile {
             "certdataclear" => $exportedCertClear,
             "expiry" => $expiryDateObject->format("Y-m-d\TH:i:s\Z"),
             "sha1" => $sha1,
-            "GUID" => uuid("", $exportedCertProt),
             'importPassword' => $importPassword,
         ];
     }
@@ -270,7 +285,7 @@ class ProfileSilverbullet extends AbstractProfile {
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $$tokenvalue not found in database or database query error!\n");
             return ["status" => SB_TOKENSTATUS_INVALID,
-                    "cert_status" => SB_CERTSTATUS_NONEXISTENT, ];
+                "cert_status" => SB_CERTSTATUS_NONEXISTENT,];
         }
         // still here? then the token was found
         $details = mysqli_fetch_object($tokenrow);
@@ -278,30 +293,30 @@ class ProfileSilverbullet extends AbstractProfile {
             $now = new DateTime();
             $expiryObject = new DateTime($details->expiry);
             $delta = $now->diff($expiryObject);
-            
+
             return ["status" => ($delta->invert == 1 ? SB_TOKENSTATUS_EXPIRED : SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
-                    "cert_status" => SB_CERTSTATUS_NONEXISTENT,
-                    "profile" => $details->profile_id, 
-                    "user" => $details->silverbullet_user_id, 
-                    "expiry" => $expiryObject->format("Y-m-d H:i:s")];
+                "cert_status" => SB_CERTSTATUS_NONEXISTENT,
+                "profile" => $details->profile_id,
+                "user" => $details->silverbullet_user_id,
+                "expiry" => $expiryObject->format("Y-m-d H:i:s")];
         }
         // still here? then there is certificate data, so token was redeemed
         // add the corresponding cert details here
-        
+
         $now = new DateTime();
         $cert_expiry = new DateTime($details->expiry);
         $delta = $now->diff($cert_expiry);
         $certStatus = ($delta->invert == 1 ? SB_CERTSTATUS_EXPIRED : SB_CERTSTATUS_VALID);
-        
+
         // TODO it could also be revoked. Check that.
-        
-        return ["status" => SB_TOKENSTATUS_REDEEMED, 
-                "cert_status" => $certStatus,
-                "profile" => $details->profile_id, 
-                "user" => $details->silverbullet_user_id,
-                "cert_serial" => $details->serial_number,
-                "cert_name" => $details->cn,
-                "cert_expiry" => $details->expiry];
+
+        return ["status" => SB_TOKENSTATUS_REDEEMED,
+            "cert_status" => $certStatus,
+            "profile" => $details->profile_id,
+            "user" => $details->silverbullet_user_id,
+            "cert_serial" => $details->serial_number,
+            "cert_name" => $details->cn,
+            "cert_expiry" => $details->expiry];
     }
 
     public function userStatus($username) {
@@ -312,4 +327,5 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         return $retval;
     }
+
 }

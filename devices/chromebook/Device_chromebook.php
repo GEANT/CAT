@@ -171,7 +171,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         }
         // define networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
-            $networkUuid = \core\uuid('', $ssid);
+            $networkUuid = $this->uuid('', $ssid);
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "$ssid",
@@ -189,7 +189,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         }
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
-            $networkUuid = "{" . uuid('', "wired-dot1x-ethernet") . "}";
+            $networkUuid = "{" . $this->uuid('', "wired-dot1x-ethernet") . "}";
             $jsonArray["NetworkConfigurations"][] = [
                 "GUID" => $networkUuid,
                 "Name" => "eduroam configuration (wired network)",
@@ -207,7 +207,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         $finalJson = $clearJson;
         // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
         if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
-            $salt = random_str(12);
+            $salt = \core\ProfileSilverbullet::random_str(12);
             $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
             $iv = openssl_random_pseudo_bytes(16, $strong);
             $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryption_key, OPENSSL_RAW_DATA, $iv);
