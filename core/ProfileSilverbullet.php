@@ -128,7 +128,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string device the device identifier string
      * @param string path the path where the new installer can be found
      */
-    public function updateCache($device, $path, $mime) {
+    public function updateCache($device, $path, $mime, $integerEapType) {
         // params are needed for proper overriding, but not needed at all.
     }
 

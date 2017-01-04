@@ -142,6 +142,7 @@ CREATE TABLE `downloads` (
   `installer_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `lang` char(4) NOT NULL,
   `mime` varchar(50) DEFAULT NULL,
+  `eap_type` int(4),
   UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

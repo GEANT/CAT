@@ -53,6 +53,8 @@ ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NUL
 ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 
 ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
+ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
+
 
 UPDATE institution SET country = UPPER(country);
 

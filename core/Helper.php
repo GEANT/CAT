@@ -215,3 +215,11 @@ function mailHandle() {
         }
     return $mail;
 }
+
+function saveDownloadDetails($idpIdentifier,$profileId, $deviceId, $area, $lang, $eapType) {
+    if (CONFIG['PATHS']['logdir']) {
+        $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+        fprintf($f,"%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
+        fclose($f);
+    }
+}

@@ -641,14 +641,14 @@ abstract class DeviceConfig extends Entity {
      * 
      * @var string 
      */
-    public static $support_email_substitute;
+    public $support_email_substitute;
 
     /**
      * This string will be shown if no support URL was configured by the admin
      * 
      * @var string 
      */
-    public static $support_url_substitute;
+    public $support_url_substitute;
 
     /**
      * This string should be used by all installer modules to set the 
@@ -666,7 +666,7 @@ abstract class DeviceConfig extends Entity {
     /**
      * stores identifier used by GEANTLink profiles
      */
-    public static $deviceUUID;
+    public $deviceUUID;
 
 
 }

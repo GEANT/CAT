@@ -133,6 +133,7 @@ var mac = new OS('<?php echo _("Apple OS X")?>','10.7+',"<?php echo $skinObject-
 var android = new OS('<?php echo _("Android")?>','<?php echo _("4.3+") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-android-english-h234.png",false);
 var iphone = new OS('<?php echo _("Apple iOS devices")?>','<?php echo _("iPhone, iPad, iPod touch") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-iphone-english-h234.png",true);
 var linux = new OS('<?php echo _("Linux")?>','<?php echo _("all major distributions") ?>',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-linux-english-h234.png",false);
+var chromeos = new OS('<?php echo _("Chrome OS")?>','',"<?php echo $skinObject->findResourceUrl("IMAGES");?>screenshots/sampleinstaller-chromeos-english-h234.png",false);
 
 
 
@@ -143,6 +144,7 @@ function prepareAnimation() {
    Program.Add(new Picture(iphone,fTM),2000);
    Program.Add(new Picture(linux,fTM),2000);
    Program.Add(new Picture(android,fTM),2000);
+   Program.Add(new Picture(chromeos,fTM),2000);
    Program.nextStep();
    Program.Sleep(2000);
 }
