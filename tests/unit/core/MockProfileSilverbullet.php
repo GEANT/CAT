@@ -7,15 +7,13 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-require_once(__DIR__ . '../../../../core/AbstractProfile.php');
-require_once(__DIR__ . '../../../../core/ProfileSilverbullet.php');
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class MockProfileSilverbullet extends ProfileSilverbullet{
+class MockProfileSilverbullet extends \core\ProfileSilverbullet{
     
     /**
      * 
