@@ -59,7 +59,7 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
     public function __construct($table, $databaseType = 'INST'){
         $this->table = $table;
         $this->setAttributeType(self::ID, Attribute::TYPE_INTEGER);
-        $this->databaseHandle = \DBConnection::handle($databaseType);
+        $this->databaseHandle = \core\DBConnection::handle($databaseType);
     }
     
     /**
