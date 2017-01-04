@@ -135,7 +135,7 @@ abstract class DeviceConfig extends Entity {
             throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-        $this->deviceUUID = uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
+        $this->deviceUUID = $this->uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
 
 
         // if we are instantiating a Silverbullet profile AND have been given
