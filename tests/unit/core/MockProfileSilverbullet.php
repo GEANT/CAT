@@ -23,9 +23,9 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
     
     /**
      * 
-     * @param DBConnection $databaseHandle
+     * @param \core\DBConnection $databaseHandle
      */
-    public function __construct(DBConnection $databaseHandle){
+    public function __construct(\core\DBConnection $databaseHandle){
         $this->databaseHandle = $databaseHandle;
         if($this->databaseHandle->exec("INSERT INTO institution (country) VALUES('LT')")){
             $this->instId = $this->databaseHandle->lastID();
