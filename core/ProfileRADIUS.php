@@ -184,8 +184,8 @@ class ProfileRADIUS extends AbstractProfile {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         $escapedPath = $this->databaseHandle->escapeValue($path);
         $this->databaseHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time,eap_type) 
-                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '" . $this->languageInstance->getLang() . "', CURRENT_TIMESTAMP, $integer_eap_type) 
-                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP, eap_type = $integer_eap_type");
+                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '" . $this->languageInstance->getLang() . "', CURRENT_TIMESTAMP, $integerEapType) 
+                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP, eap_type = $integerEapType");
     }
 
     /**
