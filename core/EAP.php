@@ -22,7 +22,7 @@
  */
 
 namespace core;
-
+use \Exception;
 /**
  * Convenience functions for EAP types
  *

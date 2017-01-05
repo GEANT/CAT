@@ -21,6 +21,7 @@
  * necessary includes
  */
 namespace core;
+use \Exception;
 
 /**
  * this direcory delete function has been copied from PHP documentation

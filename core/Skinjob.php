@@ -20,6 +20,7 @@
  * 
  */
 namespace core;
+use \Exception;
 
 class Skinjob {
 

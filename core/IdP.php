@@ -21,6 +21,7 @@
  * 
  */
 namespace core;
+use \Exception;
 
 require_once(__DIR__."/Helper.php"); // TODO: get rid of this by wrapping all Helper functions into a class which can be auto-loaded
 

@@ -19,6 +19,7 @@
  */
 
 namespace devices\ms;
+use \Exception;
 
 /**
  * This class defines common functions needed by all Windows installers

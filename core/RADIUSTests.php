@@ -23,8 +23,7 @@
  */
 
 namespace core;
-
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
+use \Exception;
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in

@@ -24,6 +24,7 @@
  * necessary includes
  */
 namespace core;
+use \Exception;
 /**
  * This class manages user privileges and bindings to institutions
  *

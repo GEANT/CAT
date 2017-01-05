@@ -23,6 +23,7 @@
  * necessary includes
  */
 namespace core;
+use \Exception;
 
 /**
  * This class represents an consortium federation.

@@ -35,6 +35,7 @@
  */
 namespace core;
 use GeoIp2\Database\Reader;
+use \Exception;
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php");
@@ -309,7 +310,7 @@ class SanityTests extends CAT {
                 $reader = new Reader(CONFIG['GEOIP']['geoip2-path-to-db']);
                 try {
                     $record = $reader->city($host_4);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
@@ -319,7 +320,7 @@ class SanityTests extends CAT {
                 }
                 try {
                     $record = $reader->city($host_6);
-                } catch (\Exception $e) {
+                } catch (Exception $e) {
                     $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }

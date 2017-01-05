@@ -20,11 +20,8 @@
  * @package Developer
  *
  */
-/**
- * necessary includes
- */
-
 namespace core;
+use \Exception;
 
 /**
  * This class represents an EAP Profile.

@@ -20,12 +20,7 @@
  *
  */
 namespace core;
-/**
- * required includes
- */
-require_once(dirname(__DIR__)."/config/_config.php");
-
-
+use Exception;
 /**
  * This factory instantiates a device module and makes it available in its member $device.
  *

@@ -19,6 +19,7 @@
  * @package Developer
  */
 namespace core;
+use \Exception;
 
 /**
  * This class is a singleton for establishing a connection to the database

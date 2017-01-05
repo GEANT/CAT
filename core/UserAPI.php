@@ -20,12 +20,8 @@
  * http://www.maxmind.com
  */
 namespace core;
-/**
- * includes required by this class
- */
-require_once(dirname(__DIR__)."/config/_config.php");
-
 use GeoIp2\Database\Reader;
+use \Exception;
 
 /**
  * The basic methoods for the user GUI

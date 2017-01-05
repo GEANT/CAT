@@ -21,6 +21,7 @@
  */
 
 namespace core;
+use \Exception;
 
 /**
  * This class defines the API for CAT module writers.

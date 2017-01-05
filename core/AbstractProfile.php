@@ -21,11 +21,8 @@
  * @package Developer
  *
  */
-/**
- * necessary includes
- */
-
 namespace core;
+use \Exception;
 
 define("HIDDEN", -1);
 define("AVAILABLE", 0);

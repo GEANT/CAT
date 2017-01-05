@@ -21,6 +21,7 @@
  *
  */
 namespace core;
+use \Exception;
 
 require_once(__DIR__ . "/Helper.php");
 

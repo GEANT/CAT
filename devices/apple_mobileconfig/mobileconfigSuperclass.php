@@ -21,7 +21,7 @@
  * 
  */
 namespace devices\apple_mobileconfig;
-require_once(dirname(dirname(__DIR__)) . '/core/Helper.php' );
+use \Exception;
 /**
  * This is the main implementation class of the module
  *
