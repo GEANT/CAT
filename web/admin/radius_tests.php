@@ -81,7 +81,7 @@ function process_result($testsuite, $host) {
     if (isset($udpResult['incoming_server_names'][0])) {
         $ret['server'] = sprintf(_("Connected to %s."), $udpResult['incoming_server_names'][0]);
     }
-    $ret['level'] = L_OK;
+    $ret['level'] = \core\Entity::L_OK;
     $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
     if (empty($udpResult['cert_oddities'])) {
         $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");

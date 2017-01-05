@@ -136,7 +136,7 @@ class IdP extends EntityWithDBProperties {
 
     public function getAllProfileStatusOverview() {
         $allProfiles = $this->databaseHandle->exec("SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        $returnarray = ['dns' => RADIUSTests::RETVAL_SKIPPED, 'cert' => L_OK, 'reachability' => RADIUSTests::RETVAL_SKIPPED, 'TLS' => RADIUSTests::RETVAL_SKIPPED, 'checktime' => NULL];
+        $returnarray = ['dns' => RADIUSTests::RETVAL_SKIPPED, 'cert' => Entity::L_OK, 'reachability' => RADIUSTests::RETVAL_SKIPPED, 'TLS' => RADIUSTests::RETVAL_SKIPPED, 'checktime' => NULL];
         while ($statusQuery = mysqli_fetch_object($allProfiles)) {
             if ($statusQuery->status_dns < $returnarray['dns']) {
                 $returnarray['dns'] = $statusQuery->status_dns;

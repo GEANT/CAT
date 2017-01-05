@@ -86,7 +86,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
 
     $UDPErrors = false;
-    $certBiggestOddity = L_OK;
+    $certBiggestOddity = \core\Entity::L_OK;
 
     foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);

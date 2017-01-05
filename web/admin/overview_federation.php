@@ -195,7 +195,7 @@ $user = new \core\User($_SESSION['user']);
                 } else {
                     echo UI_okay(0, "DNS OK", true);
                 }
-                if ($status['cert'] != L_OK && $status['cert'] != \core\RADIUSTests::RETVAL_SKIPPED) {
+                if ($status['cert'] != \core\Entity::L_OK && $status['cert'] != \core\RADIUSTests::RETVAL_SKIPPED) {
                     echo UI_message($status['cert'], 0, "Cert Error", true);
                 } else {
                     echo UI_okay(0, "Cert OK", true);
