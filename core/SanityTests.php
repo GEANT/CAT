@@ -391,7 +391,7 @@ class SanityTests extends CAT {
      */
     private function NSISmodules_test() {
         $loggerInstance = new Logging();
-        $tmp_dir = createTemporaryDirectory('installer', 0)['dir'];
+        $tmp_dir = $this->createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
             $loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
             $this->test_return(Entity::L_ERROR, "NSIS modules test - problem with temporary directory permissions, cannot continue");
@@ -424,30 +424,30 @@ class SanityTests extends CAT {
      * test access to dowloads directories
      */
     private function directories_test() {
-        $Dir1 = createTemporaryDirectory('installer', 0);
+        $Dir1 = $this->createTemporaryDirectory('installer', 0);
         $dir1 = $Dir1['dir'];
         $base1 = $Dir1['base'];
         if ($dir1) {
             $this->test_return(Entity::L_OK, "Installer cache directory is writable.");
-            rrmdir($dir1);
+            Entity::rrmdir($dir1);
         } else {
             $this->test_return(Entity::L_ERROR, "Installer cache directory $base1 does not exist or is not writable!");
         }
-        $Dir2 = createTemporaryDirectory('test', 0);
+        $Dir2 = $this->createTemporaryDirectory('test', 0);
         $dir2 = $Dir2['dir'];
         $base2 = $Dir2['base'];
         if ($dir2) {
             $this->test_return(Entity::L_OK, "Test directory is writable.");
-            rrmdir($dir2);
+            Entity::rrmdir($dir2);
         } else {
             $this->test_return(Entity::L_ERROR, "Test directory $base2 does not exist or is not writable!");
         }
-        $Dir3 = createTemporaryDirectory('logo', 0);
+        $Dir3 = $this->createTemporaryDirectory('logo', 0);
         $dir3 = $Dir3['dir'];
         $base3 = $Dir3['base'];
         if ($dir3) {
             $this->test_return(Entity::L_OK, "Logos cache directory is writable.");
-            rrmdir($dir3);
+            Entity::rrmdir($dir3);
         } else {
             $this->test_return(Entity::L_ERROR, "Logos cache directory $base3 does not exist or is not writable!");
         }

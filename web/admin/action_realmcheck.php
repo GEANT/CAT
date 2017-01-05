@@ -10,7 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
-require_once(dirname(dirname(__DIR__)) . "/core/Helper.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");

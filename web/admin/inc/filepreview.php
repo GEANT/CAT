@@ -11,7 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/core/Helper.php");
 
 require_once("common.inc.php");
 require_once("input_validation.inc.php");

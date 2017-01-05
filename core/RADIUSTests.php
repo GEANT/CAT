@@ -1214,7 +1214,7 @@ network={
         // we will need a config blob for wpa_supplicant, in a temporary directory
         // code is copy&paste from DeviceConfig.php
 
-        $temporary = createTemporaryDirectory('test');
+        $temporary = $this->createTemporaryDirectory('test');
         $tmpDir = $temporary['dir'];
         chdir($tmpDir);
         $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");

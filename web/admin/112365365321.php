@@ -33,7 +33,6 @@ $Tests = [
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
-require_once(dirname(dirname(__DIR__)) . '/core/Helper.php');
 
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
@@ -112,7 +111,7 @@ $dbHandle = \core\DBConnection::handle("INST");
                                 if (isset($Cache[$entry])) {
                                     continue;
                                 }
-                                \core\rrmdir($downloads . '/' . $entry);
+                                \core\Entity::rrmdir($downloads . '/' . $entry);
                                 $i++;
                             }
 

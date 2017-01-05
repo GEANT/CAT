@@ -11,7 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(__DIR__))) . "/core/Helper.php");
 
 require_once("auth.inc.php");
 require_once("common.inc.php");

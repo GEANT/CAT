@@ -11,15 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Helper.php");
-require_once("Language.php");
-require_once("IdP.php");
-require_once('ProfileFactory.php');
-require_once("ProfileRADIUS.php");
-require_once("RADIUSTests.php");
-require_once("CAT.php");
-require_once("Federation.php");
-
 require_once("../admin/inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");

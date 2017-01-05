@@ -29,7 +29,6 @@ namespace core;
 if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
 }
-require_once(dirname(__DIR__) . "/core/Helper.php");
 
 /**
  * Define some variables which need to be globally accessible

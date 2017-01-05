@@ -155,7 +155,7 @@ abstract class DeviceConfig extends Entity {
         }
 
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $tempDir = createTemporaryDirectory($purpose);
+        $tempDir = $this->createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');

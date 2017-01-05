@@ -40,7 +40,6 @@
  * 
  */
 namespace devices\chromebook;
-require_once(dirname(dirname(__DIR__)) . "/core/Helper.php");
 /**
  * This is the main implementation class of the module
  *
