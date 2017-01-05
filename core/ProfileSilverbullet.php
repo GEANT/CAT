@@ -290,8 +290,8 @@ class ProfileSilverbullet extends AbstractProfile {
         // still here? then the token was found
         $details = mysqli_fetch_object($tokenrow);
         if ($details->cn == NULL && $details->serial_number == NULL) { // no cert exists yet; token is either still acive or expired
-            $now = new DateTime();
-            $expiryObject = new DateTime($details->expiry);
+            $now = new \DateTime();
+            $expiryObject = new \DateTime($details->expiry);
             $delta = $now->diff($expiryObject);
 
             return ["status" => ($delta->invert == 1 ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
@@ -303,8 +303,8 @@ class ProfileSilverbullet extends AbstractProfile {
         // still here? then there is certificate data, so token was redeemed
         // add the corresponding cert details here
 
-        $now = new DateTime();
-        $cert_expiry = new DateTime($details->expiry);
+        $now = new \DateTime();
+        $cert_expiry = new \DateTime($details->expiry);
         $delta = $now->diff($cert_expiry);
         $certStatus = ($delta->invert == 1 ? self::SB_CERTSTATUS_EXPIRED : self::SB_CERTSTATUS_VALID);
 

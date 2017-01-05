@@ -1,5 +1,5 @@
 <?php
-
+require_once(__DIR__ . '../../../../../config/config.php');
 use lib\domain\SilverbulletCertificate;
 use lib\domain\SilverbulletUser;
 
