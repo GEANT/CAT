@@ -152,6 +152,8 @@ abstract class DeviceConfig extends Entity {
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
+            // FIXME as a temporary test, revoke the cert immediately
+            // $profile->revokeCertificate($this->clientCert['serial']);
         }
 
         // create temporary directory, its full path will be saved in $this->FPATH;
