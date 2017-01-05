@@ -21,14 +21,10 @@
  * @package Developer
  *
  */
-namespace core;
-use \Exception;
 
-define("HIDDEN", -1);
-define("AVAILABLE", 0);
-define("UNAVAILABLE", 1);
-define("INCOMPLETE", 2);
-define("NOTCONFIGURED", 3);
+namespace core;
+
+use \Exception;
 
 /**
  * This class represents an EAP Profile.
@@ -44,6 +40,12 @@ define("NOTCONFIGURED", 3);
  * @package Developer
  */
 abstract class AbstractProfile extends EntityWithDBProperties {
+
+    const HIDDEN = -1;
+    const AVAILABLE = 0;
+    const UNAVAILABLE = 1;
+    const INCOMPLETE = 2;
+    const NOTCONFIGURED = 3;
 
     /**
      * DB identifier of the parent institution of this profile
@@ -434,7 +436,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect);
                 }
             }
-            $devStatus = AVAILABLE;
+            $devStatus = self::AVAILABLE;
             $message = 0;
             if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
                 $message = $deviceProperties['options']['message'];
@@ -443,7 +445,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $deviceCustomtext = 0;
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
-                    $devStatus = HIDDEN;
+                    $devStatus = self::HIDDEN;
                 } else {
                     $dev->calculatePreferredEapType($preferredEap);
                     $eap = $dev->selectedEap;
@@ -475,7 +477,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                         }
                         $deviceCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes);
                     } else {
-                        $devStatus = UNAVAILABLE;
+                        $devStatus = self::UNAVAILABLE;
                     }
                 }
             }
