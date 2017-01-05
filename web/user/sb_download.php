@@ -50,7 +50,7 @@ if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
 
 // first block will test if the user input was valid.
 
-$p = ProfileFactory::instantiate($profileId);
+$p = \core\ProfileFactory::instantiate($profileId);
 
 if(!$p->institution || $p->institution !== $instId) {
   header("HTTP/1.0 404 Not Found");
