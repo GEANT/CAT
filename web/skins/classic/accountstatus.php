@@ -19,7 +19,7 @@ error_reporting(E_ALL | E_STRICT);
 
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
-require_once("web/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(__DIR__))."/admin/inc/input_validation.inc.php");
 
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");
@@ -114,8 +114,6 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
                         echo "<button class='signin signin_large' id='user_button1' type='submit' style='height:80px;'><span id='user_button'>" . sprintf(_("Click here to download your %s installer!"), CONFIG['CONSORTIUM']['name']) . "</span></button>";
                         echo "</form>";
-                        echo "<pre>" . print_r($installer, TRUE) . "</pre>";
-
                         break;
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:
                         echo "<h2>Invitation link expired</h2>";

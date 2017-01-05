@@ -492,6 +492,9 @@ class UserAPI extends CAT {
         } else {
             $idp = new IdP($idpIdentifier);
             $logoAttribute = $idp->getAttributes('general:logo_file');
+            if (count($logoAttribute) == 0) {
+                return;
+            }
             $blob = $logoAttribute[0]['value'];
             $info = new \finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
@@ -550,6 +553,9 @@ class UserAPI extends CAT {
         } else {
             $federation = new Federation($fedIdentifier);
             $logoAttribute = $federation->getAttributes('fed:logo_file');
+            if (count($logoAttribute) == 0) {
+                return;
+            }
             $blob = $logoAttribute[0]['value'];
             $info = new \finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
