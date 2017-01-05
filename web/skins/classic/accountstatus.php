@@ -148,12 +148,13 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             $categoryText = "<tr style='color:$color;'><td colspan=3><h2>" . $categoryText;
 
                             $categoryText .= "</h2></td></tr>";
-                            $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Expiry Date") . "</th></tr>";
+                            $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>"._("Device Type")."</th><th>" . _("Serial Number") . "</th><th>" . _("Expiry Date") . "</th></tr>";
                             foreach ($userdata as $oneCredential) {
                                 if ($oneCredential['cert_status'] == $category) {
                                     $categoryCount++;
                                     $categoryText .= "<tr style='color:$color;'>";
                                     $categoryText .= "<td>" . $oneCredential['cert_name'] . "</td>";
+                                    $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
                                     $categoryText .= "<td>" . $oneCredential['cert_serial'] . "</td>";
                                     $categoryText .= "<td>" . $oneCredential['cert_expiry'] . "</td>";
                                     $categoryText .= "</tr>";

@@ -152,6 +152,11 @@ abstract class DeviceConfig extends Entity {
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
             // Because encrypted private keys are not supported as per spec!
             $purpose = 'silverbullet';
+            // let's keep a record for which device type this token was consumed
+            $dbInstance = DBConnection::handle("INST");
+            $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
+            $dbInstance->exec("UPDATE silverbullet_certificate SET device = ? WHERE one_time_token = ?", "ss", $devicename, $token);
+            
             // FIXME as a temporary test, revoke the cert immediately
             // $profile->revokeCertificate($this->clientCert['serial']);
         }

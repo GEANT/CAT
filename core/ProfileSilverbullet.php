@@ -364,7 +364,7 @@ class ProfileSilverbullet extends AbstractProfile {
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance = new Logging();
-        $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
+        $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $$tokenvalue not found in database or database query error!\n");
             return ["status" => self::SB_TOKENSTATUS_INVALID,
@@ -403,6 +403,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "cert_serial" => $details->serial_number,
             "cert_name" => $details->cn,
             "cert_expiry" => $details->expiry,
+            "device" => $details->device,
                 ];
     }
 
