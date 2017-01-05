@@ -71,7 +71,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 <p>
     <?php
     $cat = new \core\CAT();
-    if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_SYNCED) {
+    if ($my_inst->getExternalDBSyncState() == \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED) {
 
         printf(_("This institution is linked to the %s database."), CONFIG['CONSORTIUM']['name']) . "</p>";
         echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name']) . "</p>";
@@ -121,7 +121,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         echo "</table>";
         // end of right-hand side
         echo "</td></tr></table>";
-    } else if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
+    } else if ($my_inst->getExternalDBSyncState() == \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
         $temparray = [];
         printf(_("This institution is not yet linked to the %s database."), CONFIG['CONSORTIUM']['name']) . " ";
         echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";

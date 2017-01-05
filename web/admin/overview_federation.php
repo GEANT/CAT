@@ -217,12 +217,12 @@ $user = new \core\User($_SESSION['user']);
                       </td>";
                 // external DB sync, if configured as being necessary
                 if (CONFIG['DB']['enforce-external-sync']) {
-                    if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
+                    if ($idp_instance->getExternalDBSyncState() != \core\IdP::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
                         echo "<td>";
                         echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <button type='submit'>" . _("Manage DB Link") . "</button> ";
 
-                        if ($idp_instance->getExternalDBSyncState() != EXTERNAL_DB_SYNCSTATE_SYNCED) {
+                        if ($idp_instance->getExternalDBSyncState() != \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED) {
                             echo "<div class='notacceptable'>" . _("NOT linked") . "</div>";
                         } else {
                             echo "<div class='acceptable'>" . _("Linked") . "</div>";

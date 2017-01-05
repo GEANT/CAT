@@ -25,10 +25,6 @@ use \Exception;
 
 require_once(__DIR__."/Helper.php"); // TODO: get rid of this by wrapping all Helper functions into a class which can be auto-loaded
 
-define("EXTERNAL_DB_SYNCSTATE_NOT_SYNCED", 0);
-define("EXTERNAL_DB_SYNCSTATE_SYNCED", 1);
-define("EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING", 2);
-
 /**
  * This class represents an Identity Provider (IdP).
  * IdPs have properties of their own, and may have one or more Profiles. The
@@ -42,6 +38,10 @@ define("EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING", 2);
  * @package Developer
  */
 class IdP extends EntityWithDBProperties {
+
+    const EXTERNAL_DB_SYNCSTATE_NOT_SYNCED = 0;
+    const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
+    const EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING = 2;
 
     /**
      *
@@ -273,7 +273,7 @@ Best regards,
             $lowerFed = strtolower($this->federation);
             $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", $lowerFed);
 
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
@@ -308,7 +308,7 @@ Best regards,
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
-        return EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
+        return self::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
     }
 
     /**
@@ -318,7 +318,7 @@ Best regards,
      */
     public function getExternalDBId() {
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
             }
@@ -331,10 +331,10 @@ Best regards,
     public function setExternalDBId($identifier) {
         $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {
-                $this->databaseHandle->exec("UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
             }
         }
     }
