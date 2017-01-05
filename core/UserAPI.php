@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -19,7 +20,9 @@
  * This product includes GeoLite data created by MaxMind, available from
  * http://www.maxmind.com
  */
+
 namespace core;
+
 use GeoIp2\Database\Reader;
 use \Exception;
 
@@ -146,9 +149,9 @@ class UserAPI extends CAT {
                 rename($iPath, $this->installerPath);
                 $profile->updateCache($device, $this->installerPath, $out['mime'], EAP::eAPMethodArrayIdConversion($dev->selectedEap));
                 if (CONFIG['DEBUG_LEVEL'] < 4) {
-                   rrmdir($dev->FPATH . '/tmp');
+                    rrmdir($dev->FPATH . '/tmp');
                 }
-                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:".EAP::eAPMethodArrayIdConversion($dev->selectedEap)."\n");
+                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . EAP::eAPMethodArrayIdConversion($dev->selectedEap) . "\n");
                 $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
@@ -360,7 +363,7 @@ class UserAPI extends CAT {
         }
         $profiles = $idp->listProfiles(1);
         if ($sort == 1) {
-            usort($profiles, "profile_sort");
+            usort($profiles, ["UserAPI", "profile_sort"]);
         }
         foreach ($profiles as $profile) {
             $returnArray[] = [( $this->version == 1 ? 'id' : 'profile' ) => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
@@ -514,7 +517,7 @@ class UserAPI extends CAT {
         echo $blob;
     }
 
-        /**
+    /**
      * Get and prepare logo file 
      *
      * When called for DiscoJuice, first check if file cache exists
@@ -761,8 +764,8 @@ class UserAPI extends CAT {
     public $version;
     private $installerPath;
 
-}
+    private static function profile_sort($profile1, $profile2) {
+        return strcasecmp($profile1->name, $profile2->name);
+    }
 
-function profile_sort($profile1, $profile2) {
-    return strcasecmp($profile1->name, $profile2->name);
 }
