@@ -647,7 +647,7 @@ if ($error_message) {
 
                 $resultstoprint = [];
                 if (count($testsuite->NAPTR_hostname_records) > 0) {
-                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . UI_message(\core\Entity::L_ERROR, _("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(L_OK, _("All tests passed, congratulations!")) . '</table>';
+                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . UI_message(\core\Entity::L_ERROR, _("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(\core\Entity::L_OK, _("All tests passed, congratulations!")) . '</table>';
                     $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
                         /*                          if ($addr['family'] == "IPv6") {
