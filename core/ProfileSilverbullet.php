@@ -112,14 +112,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
 
         $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
-
-        //TODO Introduced temporary fix to retrieve attributes from database, needs to be reviewed
-        $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
-                FROM $this->entityOptionTable
-                WHERE $this->entityIdColumn = $this->identifier
-                AND device_id IS NULL AND eap_method_id = 0
-                ORDER BY option_name", "Profile");
-        $tempArrayProfLevel = array_merge($databaseAttributes, $tempArrayProfLevel);
+        $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $tempArrayProfLevel);
 
         // now, fetch and merge IdP-wide attributes
 
