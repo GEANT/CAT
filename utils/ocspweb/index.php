@@ -61,7 +61,7 @@ $derFile = fopen($derFilePath);
 fwrite($derFile, $ocspRequestDer);
 exec("openssl ocsp -reqin $derFilePath -req_text", $output, $retval);
 fclose($derFile);
-if ($retval != 0) {
+if ($retval !== 0) {
     throw new Exception("openssl ocsp returned a non-zero return code. The DER data is probably bogus.");
 }
 
