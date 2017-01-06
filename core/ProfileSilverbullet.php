@@ -248,7 +248,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
         // newborn cert immediately gets its "valid" OCSP response
-        $this->triggerNewOCSPStatement($serial);
+        ProfileSilverbullet::triggerNewOCSPStatement($serial);
 // return PKCS#12 data stream
         return [
             "username" => $username,
@@ -264,15 +264,17 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * triggers a new OCSP statement for the given serial number
      * 
-     * @param string $serial the serial number of the cert in question
+     * @param string $serial the serial number of the cert in question (decimal)
      * @return string DER-encoded OCSP status info (binary data!)
      */
-    private function triggerNewOCSPStatement($serial) {
+    public static function triggerNewOCSPStatement($serial) {
         // get all relevant info from DB
         $cn = "";
         $federation = NULL;
         $certstatus = "";
-        $originalStatusQuery = $this->databaseHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+        $dbHandle = DBConnection::handle("INST");
+        $logHandle = new Logging();
+        $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
         if (mysqli_num_rows($originalStatusQuery) > 0) {
             $certstatus = "V";
         }
@@ -295,7 +297,8 @@ class ProfileSilverbullet extends AbstractProfile {
         }
 
         // generate stub index.txt file
-        $tempdirArray = $this->createTemporaryDirectory("test");
+        $cat = new CAT();
+        $tempdirArray = $cat->createTemporaryDirectory("test");
         $tempdir = $tempdirArray['dir'];
         $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
         $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
@@ -305,7 +308,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         $indexfile = fopen($tempdir . "/index.txt", "w");
         $indexStatement = "$certstatus\t$expiryIndexTxt\t".($certstatus == "R" ? "$nowIndexTxt,unspecified" : "")."\t$serialHex\tunknown\t/O=" . CONFIG['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
-        $this->loggerInstance->debug(4, "index.txt contents-to-be: $indexStatement");
+        $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
         fwrite($indexfile, $indexStatement);
         fclose($indexfile);
         // index.attr is dull but needs to exist
@@ -314,7 +317,7 @@ class ProfileSilverbullet extends AbstractProfile {
         fclose($indexAttrFile);
         // call "openssl ocsp" to manufacture our own OCSP statement
         $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha256 -sha256 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -ndays 365 -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
-        $this->loggerInstance->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
+        $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
         $output = [];
         $return = 999;
         exec($execCmd, $output, $return);
@@ -325,7 +328,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $ocsp = fread($ocspFile, 1000000);
         fclose($ocspFile);
         // write the new statement into DB
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET OCSP = ? WHERE serial_number = ?", "si", $ocsp, $serial);
+        $dbHandle->exec("UPDATE silverbullet_certificate SET OCSP = ?, OCSP_timestamp = NOW() WHERE serial_number = ?", "si", $ocsp, $serial);
         return $ocsp;
     }
 
@@ -344,7 +347,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $serial);
         // 2) generate OCSP response that contains new status
-        $ocsp = $this->triggerNewOCSPStatement($serial);
+        $ocsp = ProfileSilverbullet::triggerNewOCSPStatement($serial);
         return ["OCSP" => $ocsp];
     }
 

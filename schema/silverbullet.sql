@@ -37,6 +37,7 @@ CREATE TABLE `silverbullet_certificate` (
   `revocation_status` ENUM('NOT_REVOKED', 'REVOKED') NOT NULL DEFAULT 'NOT_REVOKED',
   `revocation_time` TIMESTAMP DEFAULT '0000-00-00 00:00:00',
   `OCSP` BLOB DEFAULT NULL,
+  `OCSP_timestamp` TIMESTAMP DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
   INDEX `fk_silverbullet_certificate_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
   CONSTRAINT `fk_silverbullet_certificate_silverbullet_user1`
