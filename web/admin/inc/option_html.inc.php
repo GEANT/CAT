@@ -12,6 +12,7 @@
 <?php
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+require_once(__DIR__."/common.inc.php");
 
 function prefilledOptionTable($existingAttributes, $attributePrefix, $level) {
     $retval = "<table id='expandable_$attributePrefix" . "_options'>";
