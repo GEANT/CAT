@@ -108,7 +108,13 @@ class ProfileRADIUS extends AbstractProfile {
 
         // now fetch and merge profile-level attributes if not already set on deeper level
 
-        $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $this->addInternalAttributes($internalAttributes));
+        $tempArrayProfLevel = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
+                                            FROM $this->entityOptionTable
+                                            WHERE $this->entityIdColumn = $this->identifier  
+                                            AND device_id IS NULL AND eap_method_id = 0
+                                            ORDER BY option_name", "Profile");
+
+        $tempArrayProfLevel = array_merge($tempArrayProfLevel, $this->addInternalAttributes($internalAttributes));
 
         $attrUpToProfile = $this->levelPrecedenceAttributeJoin($attributesLowLevel, $tempArrayProfLevel, "Profile");
 
