@@ -10,23 +10,16 @@
 ?>
 <?php
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("CAT.php");
-require_once("Logging.php");
-require_once("UserManagement.php");
-require_once("Helper.php");
+require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
-require_once("core/PHPMailer/src/PHPMailer.php");
-require_once("core/PHPMailer/src/SMTP.php");
+require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/PHPMailer.php");
+require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/SMTP.php");
 
 function check_federation_privilege($country) {
-    $user_object = new User($_SESSION['user']);
+    $user_object = new \core\User($_SESSION['user']);
     $fed_privs = $user_object->getAttributes("user:fedadmin");
     // a new IdP was requested and all the required parameters are there
     foreach ($fed_privs as $onefed) {
@@ -40,13 +33,13 @@ function check_federation_privilege($country) {
 
 authenticate();
 
-$catInstance = new CAT();
-$loggerInstance = new Logging();
+$catInstance = new \core\CAT();
+$loggerInstance = new \core\Logging();
 
-$languageInstance = new Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
-$mgmt = new UserManagement;
+$mgmt = new \core\UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
 
 // check if the user is authenticated, and we have a valid mail address
@@ -60,7 +53,7 @@ $newcountry = "";
 // fed admin stuff
 // we are either inviting to co-manage an existing inst ...
 
-$user_object = new User($_SESSION['user']);
+$user_object = new \core\User($_SESSION['user']);
 $federation = FALSE;
 
 if (isset($_GET['inst_id'])) {
@@ -81,7 +74,7 @@ if (isset($_GET['inst_id'])) {
         exit(1);
     }
 
-    $prettyprintname = getLocalisedValue($idp->getAttributes('general:instname'), $languageInstance->getLang());
+    $prettyprintname = $idp->name;
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
@@ -94,7 +87,7 @@ else if (isset($_POST['creation'])) {
         $newinstname = valid_string_db($_POST['name']);
         $newcountry = valid_string_db($_POST['country']);
         $new_idp_authorized_fedadmin = check_federation_privilege($newcountry);
-        $federation = new Federation($newcountry);
+        $federation = new \core\Federation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
@@ -107,7 +100,7 @@ else if (isset($_POST['creation'])) {
         $newexternalid = valid_string_db($_POST['externals']);
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
-        $federation = new Federation($extinfo['country']);
+        $federation = new \core\Federation($extinfo['country']);
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";
         foreach ($extinfo['names'] as $lang => $name) {
@@ -187,13 +180,13 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 
 Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
-$mail = mailHandle();
+$mail = \core\OutsideComm::mailHandle();
 // who to whom?
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
-    $fed = new Federation($newcountry);
+    $fed = new \core\Federation($newcountry);
     foreach ($fed->listFederationAdmins() as $fedadmin_id) {
-        $fedadmin = new User($fedadmin_id);
+        $fedadmin = new \core\User($fedadmin_id);
         // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }
 }

@@ -34,24 +34,21 @@ $Tests = [
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("User.php");
 require_once("inc/common.inc.php");
-//require_once("DBConnection.php");
-require_once("SanityTests.php");
 
 function print_test_results($test) {
     $out = '';
     switch ($test->test_result['global']) {
-        case L_OK:
+        case \core\Entity::L_OK:
             $message = "Your configuration appears to be fine.";
             break;
-        case L_WARN:
+        case \core\Entity::L_WARN:
             $message = "There were some warnings, but your configuration should work.";
             break;
-        case L_ERROR:
+        case \core\Entity::L_ERROR:
             $message = "Your configuration appears to be broken, please fix the errors.";
             break;
-        case L_NOTICE:
+        case \core\Entity::L_NOTICE:
             $message = "Your configuration appears to be fine.";
             break;
         default:
@@ -69,12 +66,12 @@ function print_test_results($test) {
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     require_once("inc/auth.inc.php");
     authenticate();
-    $user = new User($_SESSION['user']);
+    $user = new \core\User($_SESSION['user']);
     if (!$user->isSuperadmin()) {
         throw new Exception("Not Superadmin");
     }
 }
-$test = new SanityTest();
+$test = new \core\SanityTests();
 $test->run_tests($Tests);
 $format = empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {

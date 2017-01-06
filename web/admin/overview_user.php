@@ -9,23 +9,20 @@
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+namespace core;
 
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("UserManagement.php");
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("User.php");
+require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-$instMgmt = new UserManagement();
+
+
+$instMgmt = new \core\UserManagement();
 defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
-$user = new User($_SESSION['user']);
+$user = new \core\User($_SESSION['user']);
 ?>
 <!-- JQuery --> 
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
@@ -82,7 +79,7 @@ $user = new User($_SESSION['user']);
 
     if (sizeof($hasInst) > 0) {
         // we need to run the Federation constructor
-        $cat = new CAT;
+        $cat = new \core\CAT;
         echo "<h2>" . sprintf(ngettext("You are managing the following institution:", "You are managing the following <strong>%d</strong> institutions:", sizeof($hasInst)), sizeof($hasInst)) . "</h2>";
         echo $helptext;
         $instlist = [];
@@ -92,7 +89,7 @@ $user = new User($_SESSION['user']);
         echo "<table class='user_overview'>";
 
         foreach ($hasInst as $instId) {
-            $my_inst = new IdP($instId);
+            $my_inst = new \core\IdP($instId);
             $inst_name = $my_inst->name;
             $fed_id = strtoupper($my_inst->federation);
             $my_idps[$fed_id][$instId] = strtolower($inst_name);
@@ -122,7 +119,7 @@ $user = new User($_SESSION['user']);
                 $blessedUser = FALSE;
                 foreach ($admins as $number => $username) {
                     if ($username['ID'] != $_SESSION['user']) {
-                        $coadmin = new User($username['ID']);
+                        $coadmin = new \core\User($username['ID']);
                         $coadmin_name = $coadmin->getAttributes('user:realname');
                         if (count($coadmin_name) > 0) {
                             echo $coadmin_name[0]['value'] . "<br/>";

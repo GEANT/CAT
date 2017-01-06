@@ -12,11 +12,8 @@
 function escaped_echo($s) {
    echo preg_replace('/"/','&quot;',$s);
 }
-require_once("Language.php");
-require_once("Helper.php");
-require_once("Skinjob.php");
 
-$langObject = new Language();
+$langObject = new \core\Language();
 $langObject->setTextDomain('web_user');
 $idpId = empty($_REQUEST['idp']) ? 0 : $_REQUEST['idp'];
 if (! is_numeric($idpId)) {

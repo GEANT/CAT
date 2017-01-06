@@ -17,7 +17,7 @@
  *
  * @package Developer
  */
-
+namespace core;
 /**
  * This class contains handling functions for X.509 certificates
  *
@@ -95,7 +95,7 @@ class X509 {
         }
         $md5 = openssl_digest($authorityDer, 'MD5');
         $sha1 = openssl_digest($authorityDer, 'SHA1');
-        $out = ["uuid" => uuid(), "pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
+        $out = ["pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
         $difference = array_diff($mydetails['issuer'], $mydetails['subject']);
         $out['root'] = 0; // default, unless concinved otherwise below
         if (count($difference) == 0) {

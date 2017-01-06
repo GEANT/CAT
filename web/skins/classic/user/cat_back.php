@@ -15,9 +15,7 @@
  * @package UserAPI
  */
 include(dirname(dirname(dirname(__FILE__)))."/config/_config.php");
-include_once("UserAPI.php");
-include_once("Logging.php");
-$API = new UserAPI();
+$API = new \core\UserAPI();
 
 // extract request parameters; action is mandatory
 if(!isset($_REQUEST['action'])) {
@@ -32,7 +30,7 @@ $disco   = ( isset($_REQUEST['disco'])   ? $_REQUEST['disco']   : FALSE );
 $sort    = ( isset($_REQUEST['sort'])    ? $_REQUEST['sort']    : 0 );
 $generatedfor      = ( isset($_REQUEST['generatedfor'])      ? $_REQUEST['generatedfor']      : 'user' );
     
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4,"cat_back action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
 
 switch ($action) {

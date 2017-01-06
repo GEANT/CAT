@@ -23,11 +23,8 @@
 /**
  * necessary includes
  */
-require_once('DBConnection.php');
-require_once("CAT.php");
-require_once("Federation.php");
-require_once("IdP.php");
-
+namespace core;
+use \Exception;
 /**
  * This class manages user privileges and bindings to institutions
  *
@@ -50,7 +47,7 @@ class UserManagement extends Entity {
      */
     public function __construct() {
         parent::__construct();
-        $this->databaseHandle = DBConnection::handle(UserManagement::$databaseType);
+        $this->databaseHandle = DBConnection::handle(self::$databaseType);
     }
 
     /**

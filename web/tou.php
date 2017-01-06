@@ -19,13 +19,10 @@
  * 
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("Language.php");
-require_once("Logging.php");
-require_once("CAT.php");
 require_once("resources/inc/footer.php");
-$loggerInstance = new Logging();
-$langObject = new Language();
-$cat = new CAT();
+$loggerInstance = new \core\Logging();
+$langObject = new \core\Language();
+$cat = new \core\CAT();
 $loggerInstance->debug(4, "\n----------------------------------TOU.PHP------------------------\n");
 ?>
 <!DOCTYPE html>

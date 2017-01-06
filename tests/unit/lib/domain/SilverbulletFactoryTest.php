@@ -22,7 +22,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     private $factory;
     
     protected function setUp(){
-        $this->databaseHandle = DBConnection::handle('INST');
+        $this->databaseHandle = \core\DBConnection::handle('INST');
         
         $this->profile = new MockProfileSilverbullet($this->databaseHandle);
         $this->factory = new SilverbulletFactory($this->profile);

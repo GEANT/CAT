@@ -20,16 +20,16 @@
 /**
  * necessary includes
  */
-require_once('DeviceConfig.php');
-require_once('WindowsCommon.php');
+namespace devices\ms;
+
 class Device_Vista7 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_PWD, EAPTYPE_TTLS_PAP, EAPTYPE_TTLS_MSCHAP2, EAPTYPE_SILVERBULLET]);
+        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_PWD, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_SILVERBULLET]);
       $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
       $this->loggerInstance->debug(4,$this->supportedEapMethods);
-        $this->specialities['anon_id'][serialize(EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->specialities['anon_id'][serialize(\core\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
     public function writeInstaller() {
@@ -53,7 +53,7 @@ class Device_Vista7 extends WindowsCommon {
             }
         }
 
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == EAPTYPE_PWD || $this->selectedEap == EAPTYPE_TTLS_PAP || $this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == \core\EAP::EAPTYPE_PWD || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -69,7 +69,7 @@ class Device_Vista7 extends WindowsCommon {
                 $this->writeLANprofile($eapConfig);
             }
         } else {
-            error("  this EAP type is not handled yet");
+            print("  this EAP type is not handled yet.\n");
             return;
         }
         $this->loggerInstance->debug(4, "windowsProfile");
@@ -77,7 +77,7 @@ class Device_Vista7 extends WindowsCommon {
 
         $this->writeProfilesNSH($windowsProfile, $caFiles, $setWired);
         $this->writeAdditionalDeletes($delProfiles);
-        if ($this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
@@ -116,14 +116,14 @@ class Device_Vista7 extends WindowsCommon {
             $out .= "<p>";
         }
 // TODO - change this below
-        if ($this->selectedEap == EAPTYPE_TLS || $this->selectedEap == EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
             return($out);
         }
         // not EAP-TLS
         $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
 
-        if ($this->eap == EAPTYPE_PEAP_MSCHAP2) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
             $out .= "<p>";
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
@@ -146,12 +146,6 @@ class Device_Vista7 extends WindowsCommon {
     private function prepareEapConfig($attr) {
         $vistaExt = '';
         $w7Ext = '';
-        $eap = $this->selectedEap;
-        if ($eap != EAPTYPE_TLS && $eap != EAPTYPE_PEAP_MSCHAP2 && $eap != EAPTYPE_PWD && $eap != EAPTYPE_TTLS_PAP && $eap != EAPTYPE_SILVERBULLET) {
-            $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP , TTLS-MSCHAPv2 or EAP-pwd");
-            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2  or EAP-pwd");
-            return;
-        }
         $useAnon = $attr['internal:use_anon_outer'] [0];
         $realm = $attr['internal:realm'] [0];
         if ($useAnon) {
@@ -161,7 +155,7 @@ class Device_Vista7 extends WindowsCommon {
         $servers = implode(';', $attr['eap:server_name']);
         $caArray = $attr['internal:CAs'][0];
         $authorId = "0";
-        if ($eap == EAPTYPE_TTLS_PAP || $eap == EAPTYPE_TTLS_MSCHAP2) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
             $authorId = "67532";
             $servers = implode('</ServerName><ServerName>', $attr['eap:server_name']);
         }
@@ -177,9 +171,9 @@ class Device_Vista7 extends WindowsCommon {
 ';
 
 
-        if ($eap == EAPTYPE_TTLS_PAP || $eap == EAPTYPE_TTLS_MSCHAP2) {
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
             $innerMethod = 'MSCHAPv2';
-            if ($eap == EAPTYPE_TTLS_PAP) {
+            if ($this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP) {
                 $innerMethod = 'PAP';
             }
             $profileFileCont .= '
@@ -228,7 +222,7 @@ class Device_Vista7 extends WindowsCommon {
 </EAPIdentityProviderList>
 </Config>
 ';
-        } elseif ($eap == EAPTYPE_TLS || $eap == EAPTYPE_SILVERBULLET) {
+        } elseif ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
 
             $profileFileCont .= '
 
@@ -262,7 +256,7 @@ class Device_Vista7 extends WindowsCommon {
 </baseEap:Eap>
 </Config>
 ';
-        } elseif ($eap == EAPTYPE_PEAP_MSCHAP2) {
+        } elseif ($this->selectedEap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
             } else {
@@ -339,7 +333,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 </Eap>
 </Config>
 ';
-        } elseif ($eap == EAPTYPE_PWD) {
+        } elseif ($this->selectedEap == \core\EAP::EAPTYPE_PWD) {
             $profileFileCont .= '<ConfigBlob></ConfigBlob>';
         }
 
@@ -462,11 +456,13 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         $this->loggerInstance->debug(4, "MYLANG=" . $this->lang . "\n");
 
         $eapOptions = [
-            PEAP => ['str' => 'PEAP', 'exec' => 'user'],
-            TLS => ['str' => 'TLS', 'exec' => 'user'],
-            EAPTYPE_SILVERBULLET => ['str' => 'TLS', 'exec' => 'user'],
-            TTLS => ['str' => 'GEANTLink', 'exec' => 'user'],
-            PWD => ['str' => 'PWD', 'exec' => 'user'],
+            \core\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
+            \core\EAP::TLS => ['str' => 'TLS', 'exec' => 'user'],
+// TODO for TW: the following line doesn't work - that constant is an array, which can't be a key for another array
+// generated a PHP Warning but doesn't seem to have any catastrophic effect?
+//           \core\EAP::EAPTYPE_SILVERBULLET => ['str' => 'TLS', 'exec' => 'user'],
+            \core\EAP::TTLS => ['str' => 'GEANTLink', 'exec' => 'user'],
+            \core\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
         $fcontents = '';
         if (CONFIG['NSIS_VERSION'] >= 3) {
@@ -479,7 +475,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 // $fcontents .= "!define DEBUG_CAT\n";
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
         $eapStr = $eapOptions[$eap["OUTER"]]['str'];
-        if ($eap == EAPTYPE_SILVERBULLET) {
+        if ($eap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= "!define SILVERBULLET\n";
         }
         $this->loggerInstance->debug(4, "EAP_STR=$eapStr\n");
@@ -491,9 +487,9 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
         $fcontents .= '
-Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define VERSION "' . CAT::VERSION_MAJOR . '.' . CAT::VERSION_MINOR . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
 !define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
@@ -509,7 +505,7 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        if ($eap != EAPTYPE_SILVERBULLET) {
+        if ($eap != \core\EAP::EAPTYPE_SILVERBULLET) {
            $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
         }
@@ -571,14 +567,14 @@ Caption "' . $this->translateString(sprintf(sprint_nsi(_("%s installer for %s"))
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
 
         switch ($eap["OUTER"]) {
-            case TTLS:
+            case \core\EAP::TTLS:
                 $result = $result && $this->copyFile('GEANTLink/GEANTLink32.msi', 'GEANTLink32.msi');
                 $result = $result && $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi');
                 $result = $result && $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe');
                 $result = $result && $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe');
                 $this->translateFile('geant_link.inc', 'cat.NSI', $this->codePage);
                 break;
-            case PWD:
+            case \core\EAP::PWD:
                 $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
                 $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
                 $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');

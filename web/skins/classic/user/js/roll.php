@@ -20,8 +20,8 @@
 */
 ?>
 <?php 
-require_once("Language.php");
-$langObject = new Language();
+
+$langObject = new \core\Language();
 $langObject->setTextDomain('web_user'); ?>
 
 

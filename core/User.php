@@ -21,13 +21,10 @@
 /**
  * necessary includes
  */
-require_once('DBConnection.php');
-require_once('EntityWithDBProperties.php');
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("core/PHPMailer/src/PHPMailer.php");
-require_once("core/PHPMailer/src/SMTP.php");
+namespace core;
+
+require_once(__DIR__."/PHPMailer/src/PHPMailer.php");
+require_once(__DIR__."/PHPMailer/src/SMTP.php");
 
 /**
  * This class represents a known CAT User (i.e. an institution and/or federation adiministrator).
@@ -132,7 +129,7 @@ class User extends EntityWithDBProperties {
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
         }
-        $mail = mailHandle();
+        $mail = OutsideComm::mailHandle();
 // who to whom?
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
         $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));

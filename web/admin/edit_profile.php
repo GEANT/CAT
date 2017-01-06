@@ -11,11 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("ProfileRADIUS.php");
-require_once("Helper.php");
-
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/common.inc.php");
@@ -128,7 +123,7 @@ $blacklisted = FALSE;
 if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not create a new one!
     $wizardStyle = FALSE;
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
-    if (!$my_profile instanceof ProfileRADIUS) {
+    if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page is only for editing RADIUS profiles!");
     }
 
@@ -404,7 +399,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         echo "</div></td>";
     }
 
-    $methods = EAP::listKnownEAPTypes();
+    $methods = \core\EAP::listKnownEAPTypes();
     ?>
 
     <?php

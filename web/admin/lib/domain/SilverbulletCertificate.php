@@ -207,7 +207,7 @@ class SilverbulletCertificate extends PersistentEntity{
      * @return \lib\domain\SilverbulletCertificate[]
      */
     public static function getList($silverbulletUser){
-        $databaseHandle = \DBConnection::handle(self::TYPE_INST);
+        $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $userId = $silverbulletUser->getAttribute(self::ID);
         $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", $userId->getType(), $userId->value);
         $list = array();

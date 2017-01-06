@@ -9,13 +9,7 @@
  */
 ?>
 <?php
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("Helper.php");
-require_once("Language.php");
-require_once("IdP.php");
-require_once("AbstractProfile.php");
-require_once("RADIUSTests.php");
+require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
@@ -23,7 +17,7 @@ require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 
 defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
-$langObject = new Language();
+$langObject = new \core\Language();
 $check_thorough = FALSE;
 $error_message = '';
 $my_inst = valid_IdP($_REQUEST['inst_id'], $_SESSION['user']);
@@ -34,7 +28,7 @@ if (isset($_GET['profile_id'])) {
     $my_profile = NULL;
 }
 if ($my_profile != NULL) {
-    if (!$my_profile instanceof ProfileRADIUS) {
+    if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
     }
     $checkrealm = $my_profile->getAttributes("internal:realm");
@@ -42,7 +36,7 @@ if ($my_profile != NULL) {
         // checking our own stuff. Enable thorough checks
         $check_thorough = TRUE;
         $check_realm = $checkrealm[0]['value'];
-        $testsuite = new RADIUSTests($check_realm, $my_profile->identifier);
+        $testsuite = new \core\RADIUSTests($check_realm, $my_profile->identifier);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
@@ -59,7 +53,7 @@ if ($my_profile != NULL) {
         }
     }
     if ($check_realm) {
-        $testsuite = new RADIUSTests($check_realm);
+        $testsuite = new \core\RADIUSTests($check_realm);
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
@@ -75,10 +69,10 @@ $errorstate = [];
 <script type="text/javascript" src="../external/jquery/jquery.js"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
 <script type="text/javascript">
-    var L_OK = <?php echo L_OK ?>;
-    var L_WARN = <?php echo L_WARN ?>;
-    var L_ERROR = <?php echo L_ERROR ?>;
-    var L_REMARK = <?php echo L_REMARK ?>;
+    var L_OK = <?php echo \core\Entity::L_OK ?>;
+    var L_WARN = <?php echo \core\Entity::L_WARN ?>;
+    var L_ERROR = <?php echo \core\Entity::L_ERROR ?>;
+    var L_REMARK = <?php echo \core\Entity::L_REMARK ?>;
     var icons = new Array();
     /*
      icons[L_OK] = '../resources/images/icons/Checkmark-lg-icon.png';
@@ -109,8 +103,8 @@ $errorstate = [];
     var moretext = "<?php echo _("more") . "&raquo;" ?>";
     var lesstext = "<?php echo "&laquo" ?>";
     var morealltext = "<?php echo _("Show detailed information for all tests") ?>";
-    var unknownca_code = "<?php echo CERTPROB_UNKNOWN_CA ?>";
-    var refused_code = "<?php echo RETVAL_CONNECTION_REFUSED ?>";
+    var unknownca_code = "<?php echo \core\RADIUSTests::CERTPROB_UNKNOWN_CA ?>";
+    var refused_code = "<?php echo \core\RADIUSTests::RETVAL_CONNECTION_REFUSED ?>";
     var refused_info = "<?php echo _("Connection refused") ?>";
     var global_info = new Array();
     global_info[L_OK] = "<?php echo "All tests passed." ?>";
@@ -491,15 +485,15 @@ if ($error_message) {
                 // NAPTR existence check
                 echo "<strong>" . _("DNS chekcs") . "</strong><div>";
                 $naptr = $testsuite->NAPTR();
-                if ($naptr != RETVAL_NOTCONFIGURED) {
+                if ($naptr != \core\RADIUSTests::RETVAL_NOTCONFIGURED) {
                     echo "<table>";
                     // output in friendly words
                     echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
                     switch ($naptr) {
-                        case RETVAL_NONAPTR:
+                        case \core\RADIUSTests::RETVAL_NONAPTR:
                             echo _("This realm has no NAPTR records.");
                             break;
-                        case RETVAL_ONLYUNRELATEDNAPTR:
+                        case \core\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
                             printf(_("This realm has NAPTR records, but none are associated with %s."), CONFIG['CONSORTIUM']['name']);
                             break;
                         default: // if none of the possible negative retvals, then we have matching NAPTRs
@@ -513,10 +507,10 @@ if ($error_message) {
                         echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
                         $naptr_valid = $testsuite->NAPTR_compliance();
                         switch ($naptr_valid) {
-                            case RETVAL_OK:
+                            case \core\RADIUSTests::RETVAL_OK:
                                 echo _("No issues found.");
                                 break;
-                            case RETVAL_INVALID:
+                            case \core\RADIUSTests::RETVAL_INVALID:
                                 printf(_("At least one NAPTR with invalid content found!"));
                                 break;
                         }
@@ -525,14 +519,14 @@ if ($error_message) {
 
                     // SRV resolution
 
-                    if ($naptr > 0 && $naptr_valid == RETVAL_OK) {
+                    if ($naptr > 0 && $naptr_valid == \core\RADIUSTests::RETVAL_OK) {
                         $srv = $testsuite->NAPTR_SRV();
                         echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
                         switch ($srv) {
-                            case RETVAL_SKIPPED:
+                            case \core\RADIUSTests::RETVAL_SKIPPED:
                                 echo _("This check was skipped.");
                                 break;
-                            case RETVAL_INVALID:
+                            case \core\RADIUSTests::RETVAL_INVALID:
                                 printf(_("At least one NAPTR with invalid content found!"));
                                 break;
                             default: // print number of successfully retrieved SRV targets
@@ -541,14 +535,14 @@ if ($error_message) {
                         echo "</td></tr>";
                     }
                     // IP addresses for the hosts
-                    if ($naptr > 0 && $naptr_valid == RETVAL_OK && $srv > 0) {
+                    if ($naptr > 0 && $naptr_valid == \core\RADIUSTests::RETVAL_OK && $srv > 0) {
                         $hosts = $testsuite->NAPTR_hostnames();
                         echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
                         switch ($srv) {
-                            case RETVAL_SKIPPED:
+                            case \core\RADIUSTests::RETVAL_SKIPPED:
                                 echo _("This check was skipped.");
                                 break;
-                            case RETVAL_INVALID:
+                            case \core\RADIUSTests::RETVAL_INVALID:
                                 printf(_("At least one hostname could not be resolved!"));
                                 break;
                             default: // print number of successfully retrieved SRV targets
@@ -559,10 +553,10 @@ if ($error_message) {
 
                     echo "</table><table>";
                     if (count($testsuite->listerrors()) == 0) {
-                        echo UI_message(L_OK, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
+                        echo UI_message(\core\Entity::L_OK, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
                         echo "</table>";
                     } else {
-                        echo UI_message(L_ERROR, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
+                        echo UI_message(\core\Entity::L_ERROR, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
                         echo "</table><div class='notacceptable'><table>";
                         foreach ($testsuite->listerrors() as $details) {
                             echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
@@ -653,7 +647,7 @@ if ($error_message) {
 
                 $resultstoprint = [];
                 if (count($testsuite->NAPTR_hostname_records) > 0) {
-                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . UI_message(L_ERROR, _("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(L_OK, _("All tests passed, congratulations!")) . '</table>';
+                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . UI_message(\core\Entity::L_ERROR, _("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(\core\Entity::L_OK, _("All tests passed, congratulations!")) . '</table>';
                     $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
                         /*                          if ($addr['family'] == "IPv6") {
@@ -720,12 +714,12 @@ if ($error_message) {
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
-                    if (in_array(EAPTYPE_PEAP_MSCHAP2, $prof_compl) ||
-                            in_array(EAPTYPE_TTLS_MSCHAP2, $prof_compl) ||
-                            in_array(EAPTYPE_TTLS_GTC, $prof_compl) ||
-                            in_array(EAPTYPE_FAST_GTC, $prof_compl) ||
-                            in_array(EAPTYPE_PWD, $prof_compl) ||
-                            in_array(EAPTYPE_TTLS_PAP, $prof_compl)
+                    if (in_array(\core\EAP::EAPTYPE_PEAP_MSCHAP2, $prof_compl) ||
+                            in_array(\core\EAP::EAPTYPE_TTLS_MSCHAP2, $prof_compl) ||
+                            in_array(\core\EAP::EAPTYPE_TTLS_GTC, $prof_compl) ||
+                            in_array(\core\EAP::EAPTYPE_FAST_GTC, $prof_compl) ||
+                            in_array(\core\EAP::EAPTYPE_PWD, $prof_compl) ||
+                            in_array(\core\EAP::EAPTYPE_TTLS_PAP, $prof_compl)
                     ) {
                         echo "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Real (inner) username:") . "</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";
@@ -733,7 +727,7 @@ if ($error_message) {
                         echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
                     }
                     // ask for cert + privkey if TLS-based method is active
-                    if (in_array(EAPTYPE_TLS, $prof_compl)) {
+                    if (in_array(\core\EAP::EAPTYPE_TLS, $prof_compl)) {
                         echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>

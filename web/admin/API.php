@@ -12,10 +12,6 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("UserManagement.php");
-require_once("CAT.php");
-require_once("ProfileFactory.php");
-require_once("AbstractProfile.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/option_parse.inc.php");
 require_once("inc/common.inc.php");
@@ -82,9 +78,9 @@ switch ($sanitised_action) {
             exit(1);
         }
         // alright: create the IdP, fill in attributes
-        $mgmt = new UserManagement();
-        $fed = new Federation($federation);
-        $idp = new IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
+        $mgmt = new \core\UserManagement();
+        $fed = new \core\Federation($federation);
+        $idp = new \core\IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
 
         // ensure seq. number asc. order for options (S1, S2...)
         uksort($_POST['option'], "cmpSequenceNumber");
@@ -137,25 +133,25 @@ switch ($sanitised_action) {
                                 $_POST['value'][$optindex . "-0"] <= 7) {
                             switch ($_POST['value'][$optindex . "-0"]) {
                                 case 1:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_PAP, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_TTLS_PAP, $pref);
                                     break;
                                 case 2:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_PEAP_MSCHAP2, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_PEAP_MSCHAP2, $pref);
                                     break;
                                 case 3:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TLS, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_TLS, $pref);
                                     break;
                                 case 4:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_FAST_GTC, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_FAST_GTC, $pref);
                                     break;
                                 case 5:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_GTC, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_TTLS_GTC, $pref);
                                     break;
                                 case 6:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_MSCHAP2, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_TTLS_MSCHAP2, $pref);
                                     break;
                                 case 7:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_PWD, $pref);
+                                    $newprofile->addSupportedEapMethod(\core\EAP::EAPTYPE_PWD, $pref);
                                     break;
                             }
                             $pref = $pref + 1;
@@ -190,7 +186,7 @@ switch ($sanitised_action) {
             exit(1);
         }
         $wannabeidp = valid_IdP($_POST['INST_IDENTIFIER']);
-        if (!$wannabeidp instanceof IdP) {
+        if (!$wannabeidp instanceof \core\IdP) {
             return_error(ERROR_INVALID_PARAMETER, "Parameter invalid (INST_IDENTIFIER)");
             exit(1);
         }

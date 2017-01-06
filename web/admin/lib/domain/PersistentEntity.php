@@ -1,7 +1,7 @@
 <?php
 namespace lib\domain;
 
-abstract  class PersistentEntity extends \Entity implements PersistentInterface {
+abstract  class PersistentEntity extends \core\Entity implements PersistentInterface {
     
     /**
      * Identifier attribute
@@ -26,7 +26,7 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
     
     /**
      * 
-     * @var \DBConnection
+     * @var \core\DBConnection
      */
     protected $databaseHandle;
     
@@ -59,7 +59,7 @@ abstract  class PersistentEntity extends \Entity implements PersistentInterface 
     public function __construct($table, $databaseType = 'INST'){
         $this->table = $table;
         $this->setAttributeType(self::ID, Attribute::TYPE_INTEGER);
-        $this->databaseHandle = \DBConnection::handle($databaseType);
+        $this->databaseHandle = \core\DBConnection::handle($databaseType);
     }
     
     /**

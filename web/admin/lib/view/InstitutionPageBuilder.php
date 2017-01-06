@@ -11,7 +11,7 @@ class InstitutionPageBuilder implements PageBuilder{
    /**
     * Particular IdP instance. If set to null means that page is entered by a mistake.
     * 
-    * @var \IdP
+    * @var \core\IdP
     */
     private $institution = null;
     
@@ -87,14 +87,14 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
-     * @return \ProfileSilverbullet|mixed
+     * @return \core\ProfileSilverbullet|mixed
      */
     public function getProfile(){
         $profile = null;
         if($this->isReady()){
             $profiles = $this->institution->listProfiles();
             if (count($profiles) == 1) {
-                if ($profiles[0] instanceof \ProfileSilverbullet) {
+                if ($profiles[0] instanceof \core\ProfileSilverbullet) {
                     $profile = $profiles[0];
                 }
             }
@@ -104,7 +104,7 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
-     * @return \IdP
+     * @return \core\IdP
      */
     public function getRealmName(){
         $realmName = 'unknown';
@@ -137,7 +137,7 @@ class InstitutionPageBuilder implements PageBuilder{
      * @see \lib\view\PageBuilder::renderPageHeader()
      */
     public function renderPageHeader(){
-        $langHandler = new \Language();
+        $langHandler = new \core\Language();
         productheader($this->pageType, $langHandler->getLang());
         ?>
         <h1>

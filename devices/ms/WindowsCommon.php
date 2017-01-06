@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -17,23 +18,8 @@
  * @package ModuleWriting
  */
 
-/**
- * function to escape double quotes in a special NSI-compatible way
- * 
- * @param string $in input string
- * @return string
- */
-function echo_nsi($in) {
-    echo preg_replace('/"/', '$\"', $in);
-}
-
-/**
- * @param string $input input string
- * @return string
- */
-function sprint_nsi($input) {
-    return preg_replace('/"/', '$\"', $input);
-}
+namespace devices\ms;
+use \Exception;
 
 /**
  * This class defines common functions needed by all Windows installers
@@ -41,7 +27,25 @@ function sprint_nsi($input) {
  *
  * @package ModuleWriting
  */
-class WindowsCommon extends DeviceConfig {
+class WindowsCommon extends \core\DeviceConfig {
+
+    /**
+     * function to escape double quotes in a special NSI-compatible way
+     * 
+     * @param string $in input string
+     * @return string
+     */
+    public static function echo_nsi($in) {
+        echo preg_replace('/"/', '$\"', $in);
+    }
+
+    /**
+     * @param string $input input string
+     * @return string
+     */
+    public static function sprint_nsi($input) {
+        return preg_replace('/"/', '$\"', $input);
+    }
 
     public function __construct() {
         parent::__construct();
@@ -63,10 +67,10 @@ class WindowsCommon extends DeviceConfig {
         $maxSize = 120;
 // logo wull be shited up by this much
         $vshift = 20;
-        $bgImage = new Imagick('cat_bg.bmp');
+        $bgImage = new \Imagick('cat_bg.bmp');
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
-        $logo = new Imagick($logos[0]['name']);
+        $logo = new \Imagick($logos[0]['name']);
         $logoSize = $logo->getImageGeometry();
         $max = max($logoSize);
         $this->loggerInstance->debug(4, "Logo size: ");
@@ -163,12 +167,13 @@ class WindowsCommon extends DeviceConfig {
         if (!is_array($this->clientCert)) {
             throw new Exception("the client block was called but there is no client certificate!");
         }
-        $fileHandle = fopen('SB_cert.p12','w');
-        fwrite($fileHandle,$this->clientCert["certdata"]);
+        $fileHandle = fopen('SB_cert.p12', 'w');
+        fwrite($fileHandle, $this->clientCert["certdata"]);
         fclose($fileHandle);
     }
 
     protected function writeTlsUserProfile() {
+        
     }
 
     public $LANGS = [

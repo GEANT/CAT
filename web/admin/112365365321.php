@@ -32,14 +32,10 @@ $Tests = [
 ];
 
 ini_set('display_errors', '0');
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
+
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
-require_once("CAT.php");
-require_once("User.php");
-require_once("Federation.php");
-require_once('devices/devices.php');
-require_once("DBConnection.php");
 require_once("inc/common.inc.php");
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
@@ -49,7 +45,7 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
 } else {
     $no_security = 1;
 }
-$user = new User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
+$user = new \core\User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
 
 if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     header("Location: overview_user.php");
@@ -58,7 +54,7 @@ if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not c
 
 pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
-$dbHandle = DBConnection::handle("INST");
+$dbHandle = \core\DBConnection::handle("INST");
 ?>
 <h1>By. Your. Command.</h1>
 <form action="112365365321.php" method="POST" accept-charset="UTF-8">
@@ -115,7 +111,7 @@ $dbHandle = DBConnection::handle("INST");
                                 if (isset($Cache[$entry])) {
                                     continue;
                                 }
-                                rrmdir($downloads . '/' . $entry);
+                                \core\Entity::rrmdir($downloads . '/' . $entry);
                                 $i++;
                             }
 
@@ -146,7 +142,7 @@ $dbHandle = DBConnection::handle("INST");
                     <th>Public Download</th>
                 </tr>
                 <?php
-                $cat = new CAT();
+                $cat = new \core\CAT();
                 ?>
                 <tr>
                     <td>
@@ -176,14 +172,14 @@ $dbHandle = DBConnection::handle("INST");
                     <th>Device</th>
                     <th>Admin Downloads</th>
                     <th>User Downloads (classic)</th>
-                    <th>User Downloads (<?php echo ProfileSilverbullet::PRODUCTNAME;?>)</th>
+                    <th>User Downloads (<?php echo \core\ProfileSilverbullet::PRODUCTNAME;?>)</th>
                     <th>User Downloads (total)</th>
                 </tr>
                 <?php
                 $gross_admin = 0;
                 $gross_user = 0;
                 $gross_silverbullet = 0;
-                foreach (Devices::listDevices() as $index => $device_array) {
+                foreach (\devices\Devices::listDevices() as $index => $device_array) {
                     echo "<tr>";
                     $admin_query = $dbHandle->exec("SELECT SUM(downloads_admin) AS admin, SUM(downloads_user) AS user, SUM(downloads_silverbullet) as silverbullet FROM downloads WHERE device_id = '$index'");
                     while ($a = mysqli_fetch_object($admin_query)) {

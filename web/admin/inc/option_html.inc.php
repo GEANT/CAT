@@ -12,10 +12,7 @@
 <?php
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-
-require_once("Options.php");
-require_once("common.inc.php");
-require_once("Logging.php");
+require_once(__DIR__."/common.inc.php");
 
 function prefilledOptionTable($existingAttributes, $attributePrefix, $level) {
     $retval = "<table id='expandable_$attributePrefix" . "_options'>";
@@ -43,14 +40,14 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
     // we expect the variable $class to contain the class of options
     $retval = "";
 
-    $optioninfo = Options::instance();
+    $optioninfo = \core\Options::instance();
 
     if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
         $number = 0;
         foreach ($prepopulate as $option) {
             if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
                 $optiontypearray = $optioninfo->optionType($option['name']);
-                $loggerInstance = new Logging();
+                $loggerInstance = new \core\Logging();
                 $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
                 $retval .= optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
             }
@@ -86,7 +83,7 @@ function add_option($class, $prepopulate = []) { // no GET class ? we've been ca
 
 function noPrefillText($rowid, $list, $defaultselect) {
     $retval = "";
-    $optioninfo = Options::instance();
+    $optioninfo = \core\Options::instance();
     $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
@@ -167,8 +164,8 @@ function noPrefillText($rowid, $list, $defaultselect) {
 
 function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
     $retval = "";
-    $optioninfo = Options::instance();
-    $loggerInstance = new Logging();
+    $optioninfo = \core\Options::instance();
+    $loggerInstance = new \core\Logging();
     $loggerInstance->debug(5, "Executed with PREFILL $prefill!\n");
     $retval .= "<td>";
     // prefill is always only called with a list with exactly one element.

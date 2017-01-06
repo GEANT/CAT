@@ -199,7 +199,7 @@ Andreas
                 <tr>
                     <td style="padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;">
                         <?php
-                        $cat = new CAT();
+                        $cat = new \core\CAT();
                         echo $cat->CAT_COPYRIGHT;
                         ?>
                     </td>

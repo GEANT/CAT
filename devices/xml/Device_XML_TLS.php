@@ -1,14 +1,12 @@
 <?php
+namespace devices\xml;
 
-require_once('DeviceConfig.php');
-require_once('XML.php');
-
-class Device_XML_PWD extends Device_XML {
+class Device_XML_TLS extends Device_XML {
 
     final public function __construct() {
         parent::__construct();
         $this->setSupportedEapMethods([
-            EAPTYPE_PWD,
+            \core\EAP::EAPTYPE_TLS,
         ]);
         $this->langScope = 'single';
     }

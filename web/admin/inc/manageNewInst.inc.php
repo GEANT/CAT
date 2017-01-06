@@ -11,12 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("auth.inc.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("UserManagement.php");
-
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
 
@@ -29,14 +23,14 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE)) {
     exit;
 }
 
-$languageInstance = new Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
 
 // new invitations are only permitted by federation operator himself
-$user = new User($_SESSION['user']);
-$mgmt = new UserManagement();
+$user = new \core\User($_SESSION['user']);
+$mgmt = new \core\UserManagement();
 $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
@@ -72,7 +66,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
                     <option value='FREETEXT'>" . _("--- select IdP here ---") . "</option>";
 
             foreach ($feds as $fed_value) {
-                $thefed = new Federation(strtoupper($fed_value['value']));
+                $thefed = new \core\Federation(strtoupper($fed_value['value']));
                 $temparray = [];
                 $contacts = [];
                 $entities = $thefed->listExternalEntities(TRUE);
@@ -95,7 +89,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
             <td><?php echo _("Federation"); ?>
                 <select id='country' name='country'>
                     <?php
-                    $cat = new CAT();
+                    $cat = new \core\CAT();
                     foreach ($cat->printCountryList() as $iso_code => $country) {
                         foreach ($feds as $fed_value) {
                             if (strtoupper($fed_value['value']) == strtoupper($iso_code)) {

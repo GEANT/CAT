@@ -18,7 +18,8 @@
  * 
  * @package Developer
  */
-require_once('Logging.php');
+namespace core;
+use \Exception;
 
 /**
  * This class is a singleton for establishing a connection to the database
@@ -180,7 +181,7 @@ class DBConnection {
     /**
      * The connection to the DB server
      * 
-     * @var mysqli
+     * @var \mysqli
      */
     private $connection;
 
@@ -195,7 +196,7 @@ class DBConnection {
     private function __construct($database) {
         $this->loggerInstance = new Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = new mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
+        $this->connection = new \mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
         if ($this->connection->connect_error) {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }

@@ -9,10 +9,7 @@
  */
 ?>
 <?php
-
-require_once("ProfileRADIUS.php");
-require_once("ProfileSilverbullet.php");
-
+namespace core;
 /**
  * This factory class generates either a ProfileRADIUS or a ProfileSilverbullet
  * as needed. Indication which to choose is by supported EAP types in the
@@ -31,7 +28,7 @@ class ProfileFactory {
         // switch to the other if our guess was wrong
         $attempt = new ProfileRADIUS($profileId, $idpObject);
         $methods = $attempt->getEapMethodsinOrderOfPreference();
-        if ((count($methods) == 1) && $methods[0] == EAPTYPE_SILVERBULLET) {
+        if ((count($methods) == 1) && $methods[0] == \core\EAP::EAPTYPE_SILVERBULLET) {
             return new ProfileSilverbullet($profileId, $idpObject);
         }
         return $attempt;

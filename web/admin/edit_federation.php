@@ -11,10 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("Helper.php");
-require_once("Language.php");
-
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
@@ -27,7 +23,7 @@ $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
 defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
-$langObject = new Language();
+$langObject = new \core\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>

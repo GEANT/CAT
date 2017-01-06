@@ -12,24 +12,17 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once("auth.inc.php");
-require_once("IdP.php");
-require_once("AbstractProfile.php");
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("EAP.php");
-require_once("Logging.php");
-
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
 require_once("option_html.inc.php");
 require_once("option_parse.inc.php");
 
-require_once("devices/devices.php");
+
 
 authenticate();
 
-$loggerInstance = new Logging();
-$languageInstance = new Language();
+$loggerInstance = new \core\Logging();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
@@ -37,7 +30,7 @@ $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
 
-if (!$my_profile instanceof ProfileRADIUS) {
+if (!$my_profile instanceof \core\ProfileRADIUS) {
     throw new Exception("Redirect options can only be set for RADIUS profiles!");
 }
 
@@ -46,7 +39,7 @@ $device_key = NULL;
 $posted_device = $_POST['device'] ?? FALSE;
 if ($posted_device) {
     $device_key = valid_Device($posted_device);
-    $devices = Devices::listDevices();
+    $devices = \devices\Devices::listDevices();
     if (isset($devices[$device_key])) {
         // we now know that $device_key is valid as well
         $device = $devices[$device_key];
@@ -63,7 +56,7 @@ if ($posted_eaptype) {
         throw new Exception("POSTed EAP type value is not an integer!");
     }
     // conversion routine throws an exception if the EAP type id is not known
-    $eaptype = EAP::eAPMethodArrayIdConversion($posted_eaptype);
+    $eaptype = \core\EAP::eAPMethodArrayIdConversion($posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.
@@ -111,7 +104,7 @@ if ($device != NULL) {
     }
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
     $keyword = "eap-specific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . \core\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
 } else {
     throw new Exception("previous type checks make it impossible to reach this code path.");
 }
