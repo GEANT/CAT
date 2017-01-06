@@ -1,3 +1,6 @@
+<?php
+namespace devices\ms;
+?>
 ; ******************************************************************************
 ; * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
 ; * and GN4-2 consortia
@@ -126,10 +129,10 @@ Var rebootRequired
 !define MUI_HEADERIMAGE_BITMAP "cat_150.bmp"
 !define MUI_COMPONENTSPAGE_SMALLDESC
 
-!define WELCOME_HEADER "<?php printf(sprint_nsi(_("Welcome to the %s installer")),CONFIG['CONSORTIUM']['name'])?>"
-!define FAREWELL_HEADER "<?php echo_nsi( _("Installation complete"))?>"
-!define FAREWELL_TEXT	"<?php echo_nsi( _("Network profiles have been installed."))?>$\r$\n$\n <?php echo_nsi(  _("Your system is ready."))?>"
-!define FAREWELL_FAIL	"<?php echo_nsi( _("Network installation had errors."))?>$\r$\n$\n <?php echo_nsi( _("Please contact \${SUPPORT}."))?>"
+!define WELCOME_HEADER "<?php printf(WindowsCommon::sprint_nsi(_("Welcome to the %s installer")),CONFIG['CONSORTIUM']['name'])?>"
+!define FAREWELL_HEADER "<?php WindowsCommon::echo_nsi( _("Installation complete"))?>"
+!define FAREWELL_TEXT	"<?php WindowsCommon::echo_nsi( _("Network profiles have been installed."))?>$\r$\n$\n <?php WindowsCommon::echo_nsi(  _("Your system is ready."))?>"
+!define FAREWELL_FAIL	"<?php WindowsCommon::echo_nsi( _("Network installation had errors."))?>$\r$\n$\n <?php WindowsCommon::echo_nsi( _("Please contact \${SUPPORT}."))?>"
 ;--------------------------------
 ;Languages
 !insertmacro MUI_LANGUAGE "${LANG}"
@@ -137,14 +140,14 @@ Var rebootRequired
 ;--------------------------------
 ; License file
 !ifdef LICENSE_FILE
-LicenseForceSelection checkbox "<?php echo_nsi( _("Accept"))?>"
-LicenseText "<?php echo_nsi(_("If you accept the conditions then select Accept and then click Install to continue."))?>"
+LicenseForceSelection checkbox "<?php WindowsCommon::echo_nsi( _("Accept"))?>"
+LicenseText "<?php WindowsCommon::echo_nsi(_("If you accept the conditions then select Accept and then click Install to continue."))?>"
 LicenseData ${LICENSE_FILE}
 !endif
 
 ;-----------------------------------
 
-MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
+MiscButtonText "" "" "" "<?php WindowsCommon::echo_nsi( _("Finish"))?>"
 ;----------------------------------
 ;  FUNCTIONS
 
@@ -177,7 +180,7 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
 
 !macro install_ca_cert ca_file ca_fingerprint level
    !insertmacro debug_cat 2 "locating certificate  SHA=${ca_fingerprint} Level=${level}"
-   DetailPrint "<?php echo_nsi( _("searching for certificate"))?> ${ca_file}"
+   DetailPrint "<?php WindowsCommon::echo_nsi( _("searching for certificate"))?> ${ca_file}"
    File "${ca_file}"
    nsArray::Set Delete_files "${ca_file}"
    !insertmacro debug_cat 2 "Testing machine store root"
@@ -239,13 +242,13 @@ MiscButtonText "" "" "" "<?php echo_nsi( _("Finish"))?>"
    ${EndIf}
    !insertmacro debug_cat 2 "installing certificate $TEMP\${ca_file}"
    !insertmacro debug_cat 3 "Execute: certutil -addstore -user ${level} $TEMP\${ca_file}"
-   DetailPrint "<?php echo_nsi( _("installing certificate"))?> ${ca_file}"
+   DetailPrint "<?php WindowsCommon::echo_nsi( _("installing certificate"))?> ${ca_file}"
    nsExec::Exec '"certutil" -addstore -user ${level} $TEMP\${ca_file}'
    Pop $0
    !insertmacro debug_cat 3 "certutil returned $0"
    ${If} $0 != 0
      IfSilent +2
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("could not install certificate"))?>  ${ca_file}"
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echo_nsi( _("could not install certificate"))?>  ${ca_file}"
      !insertmacro debug_cat 1 "could not install certificate ${ca_file}"
    ${EndIf}
 no_install_${ca_file}:
@@ -436,26 +439,26 @@ Function PrepareWelcomeText
   pop $R0
   ${If} $tkip_count > 0
     ${If} $aes_count > 1
-      StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profiles are preferred. Always use them if you have a choice."))?>"
+      StrCpy $R1 "$\r$\n$\n<?php WindowsCommon::echo_nsi( _("The non TKIP profiles are preferred. Always use them if you have a choice."))?>"
     ${Else}
-     StrCpy $R1 "$\r$\n$\n<?php echo_nsi( _("The non TKIP profile is preferred. Always use it if you have a choice."))?>"
+     StrCpy $R1 "$\r$\n$\n<?php WindowsCommon::echo_nsi( _("The non TKIP profile is preferred. Always use it if you have a choice."))?>"
     ${EndIf}
   ${Else}
     StrCpy $R1 ""
   ${EndIf}
   ${If} $profile_count > 0
-    StrCpy $welcome_message "<?php echo_nsi( _("This installer has been prepared for \${ORGANISATION}"))?>.$\r$\n\
-<?php echo_nsi( _("The installer will create the following wireless profiles:"))?>$\r$\n\
+    StrCpy $welcome_message "<?php WindowsCommon::echo_nsi( _("This installer has been prepared for \${ORGANISATION}"))?>.$\r$\n\
+<?php WindowsCommon::echo_nsi( _("The installer will create the following wireless profiles:"))?>$\r$\n\
 $R0.\
 $R1$\r$\n$\n\
-<?php echo_nsi( _("More information and comments:"))?>$\r$\n\
+<?php WindowsCommon::echo_nsi( _("More information and comments:"))?>$\r$\n\
    EMAIL: ${SUPPORT}$\r$\n\
    WWW: ${URL}"
 ${Else}
-StrCpy $welcome_message "<?php echo_nsi( _("This installer has been prepared for \${ORGANISATION}"))?>.$\r$\n\
-<?php echo_nsi( _("The installer will create the wireless profile:"))?> $R0.\
+StrCpy $welcome_message "<?php WindowsCommon::echo_nsi( _("This installer has been prepared for \${ORGANISATION}"))?>.$\r$\n\
+<?php WindowsCommon::echo_nsi( _("The installer will create the wireless profile:"))?> $R0.\
 $R1$\r$\n$\n\
-<?php echo_nsi( _("More information and comments:"))?>$\r$\n\
+<?php WindowsCommon::echo_nsi( _("More information and comments:"))?>$\r$\n\
    EMAIL: ${SUPPORT}$\r$\n\
    WWW: ${URL}"
 ${EndIf}
@@ -481,7 +484,7 @@ Function nsDialogsWelcome
   SendMessage $HEADLINE ${WM_SETFONT} $HEADLINE_FONT 0
 ;TRANSLATION
   nsDialogs::CreateControl STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 120u 46u -130u -32u "$welcome_message\
-$\r$\n$\r$\n<?php echo_nsi( _("Installer created with software from the GEANT project."))?>"
+$\r$\n$\r$\n<?php WindowsCommon::echo_nsi( _("Installer created with software from the GEANT project."))?>"
   Pop $TEXT
 
   SetCtlColors $DIALOG "" 0xffffff
@@ -534,7 +537,7 @@ Function wVersionCheck
   !ifdef W8
   ${If} ${AtMostWin7}
     IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
     !ifndef ALLOW_LOW_VERSION
         Call Cleanup
     !endif
@@ -543,7 +546,7 @@ Function wVersionCheck
   ${If} ${AtMostWinXP}
   ${OrIf} ${AtLeastWin8}
     IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows Vista and Windows 7. Please download the correct installer and try again."))?>"
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows Vista and Windows 7. Please download the correct installer and try again."))?>"
     Call Cleanup
   ${EndIf}
   !endif
@@ -579,18 +582,18 @@ Function NoWirelessConfirm
     ${If} $wireless_result == 1
       !insertmacro debug_cat 1 "wlan_test.exe did not find wireless configuration service"
       IfSilent +2
-      MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("Windows wireless configuration service is not enabled. The installer cannot continue."))?>"
+      MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echo_nsi( _("Windows wireless configuration service is not enabled. The installer cannot continue."))?>"
       Call Cleanup
     ${EndIf}
     ${If} $wireless_result == 2
       IfSilent +2
-      MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi( _("No wireless interfaces found. The installer cannot continue."))?>"
+      MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echo_nsi( _("No wireless interfaces found. The installer cannot continue."))?>"
       Call Cleanup
     ${EndIf}
   ${Else}
     ${If} $wireless_result > 0
        IfSilent +3
-       MessageBox MB_YESNO "<?php echo_nsi( _("No wireless interfaces found. Wireless access will not be configured. Would you like to continue and configure access on the wired interface?"))?>" IDYES wired_yes
+       MessageBox MB_YESNO "<?php WindowsCommon::echo_nsi( _("No wireless interfaces found. Wireless access will not be configured. Would you like to continue and configure access on the wired interface?"))?>" IDYES wired_yes
        Call Cleanup
        wired_yes:
        Push 1
@@ -606,7 +609,7 @@ Function WiredConfirm
     ${If} $wired == 1
       ${If} $force_wired == 0
         IfSilent wired
-        MessageBox MB_YESNO "<?php echo_nsi( _("Do you want to enable access on wired interfaces?"))?>" IDYES wired
+        MessageBox MB_YESNO "<?php WindowsCommon::echo_nsi( _("Do you want to enable access on wired interfaces?"))?>" IDYES wired
         Push 0
         Pop $wired
       ${EndIf}
@@ -641,7 +644,7 @@ FunctionEnd
 ;================================
 
 Function ShowInstfiles
-  !insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Profiles installation"))?>" " "
+  !insertmacro MUI_HEADER_TEXT "<?php WindowsCommon::echo_nsi( _("Profiles installation"))?>" " "
 FunctionEnd
 ;================================
 ;  Check if a wireless profile exist and put it on delete list
@@ -660,7 +663,7 @@ FunctionEnd
 
 Function FindProfile
   Pop $R8
-  DetailPrint "<?php echo_nsi( _("Checking for profile \$R8"))?>"
+  DetailPrint "<?php WindowsCommon::echo_nsi( _("Checking for profile \$R8"))?>"
   !insertmacro debug_cat 2 "Checking for profile $R8"
   !insertmacro debug_cat 3 "Exec: $Netsh wlan show profiles $R8"
   nsExec::Exec  '"$Netsh" wlan show profiles "$R8"'
@@ -668,7 +671,7 @@ Function FindProfile
   !insertmacro debug_cat 4 "netsh returned $0"
   ${If} $0 == 0
     !insertmacro debug_cat 1 "found profile $R8"
-    DetailPrint "<?php echo_nsi( _("found profile \$R8"))?>"
+    DetailPrint "<?php WindowsCommon::echo_nsi( _("found profile \$R8"))?>"
     Push 0
   ${Else}
     !insertmacro debug_cat 1 "profile $R8 not found"
@@ -694,10 +697,10 @@ FunctionEnd
 Function confirmUserGroup
 !ifdef USER_GROUP
 IfSilent +2
-MessageBox MB_OKCANCEL "<?php echo_nsi(_("This installer will only work properly if you are a member of \${ORGANISATION} and the user group: \${USER_GROUP}."))?>$\r$\n<?php echo_nsi(_("Click OK to continue with installation."))?>" IDOK cont
+MessageBox MB_OKCANCEL "<?php WindowsCommon::echo_nsi(_("This installer will only work properly if you are a member of \${ORGANISATION} and the user group: \${USER_GROUP}."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Click OK to continue with installation."))?>" IDOK cont
 !else 
 IfSilent +2
-MessageBox MB_OKCANCEL "<?php echo_nsi(_("This installer will only work properly if you are a member of \${ORGANISATION}."))?>$\r$\n<?php echo_nsi(_("Click OK to continue with installation."))?>" IDOK cont
+MessageBox MB_OKCANCEL "<?php WindowsCommon::echo_nsi(_("This installer will only work properly if you are a member of \${ORGANISATION}."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Click OK to continue with installation."))?>" IDOK cont
 !endif
     Call Cleanup
 cont:
@@ -705,7 +708,7 @@ FunctionEnd
 
 Function displayExternalInfo
 ;TRANSLATION
-  MessageBox MB_OK "<?php echo_nsi(_("Please read the additional information from your home institution which will be displayed in a moment."))?>"
+  MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Please read the additional information from your home institution which will be displayed in a moment."))?>"
   ExecShell "open" "${EXTERNAL_INFO}"
 FunctionEnd
 
@@ -760,7 +763,7 @@ Call ShowAllButtons
     ${If} $Symantec_installed  != 0
      !insertmacro debug_cat 3 "Symantec problem"
      IfSilent +2
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),CONFIG['CONSORTIUM']['name']) ?>"
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(WindowsCommon::sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),CONFIG['CONSORTIUM']['name']) ?>"
     Exec '"explorer" /select,"$EXEDIR\inst_cat.cmd"'
     Quit
 
@@ -770,7 +773,7 @@ Call ShowAllButtons
      nsDialogs::CreateControl STATIC ${WS_VISIBLE}|${WS_CHILD}|${WS_CLIPSIBLINGS} 0 120u 32u -130u -32u "${FAREWELL_TEXT}"
   ${EndIf}
   ${If} $rebootRequired == 1
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi(_("Please restart your system after installation finishes."))?>"
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echo_nsi(_("Please restart your system after installation finishes."))?>"
   ${EndIf}
 
   Pop $TEXT
@@ -794,7 +797,7 @@ FunctionEnd
 ;=============================
 Function CreateLanProfile
  !insertmacro debug_cat 2 "installing wired profile"
- DetailPrint "<?php echo_nsi(_("installing wired profile"))?>"
+ DetailPrint "<?php WindowsCommon::echo_nsi(_("installing wired profile"))?>"
   !insertmacro debug_cat 3 "execute: $Netsh lan add profile $TEMP\lan_prof.xml"
   nsArray::Set Commands "netsh lan add profile $TEMP\lan_prof.xml" 
   nsArray::Set Commands "del $TEMP\lan_prof.xml"
@@ -835,7 +838,7 @@ Function CreateWirelessProfiles
      call FindProfile
      Pop $0
      ${If} $0 == 0
-       DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
+       DetailPrint "<?php WindowsCommon::echo_nsi(_("deleting profile \$R1"))?>"
        !insertmacro debug_cat 1 'deleting profile "$R1"'
        !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
        nsArray::Set Commands "netsh wlan delete profile $\"$R1$\"" 
@@ -854,7 +857,7 @@ Function InstallProfile
   nsArray::Get Profile_states $R0
   Pop $R2
   ${If} $R2 == ${PROFILE_STATE_DELETE}
-    DetailPrint "<?php echo_nsi(_("deleting profile \$R1"))?>"
+    DetailPrint "<?php WindowsCommon::echo_nsi(_("deleting profile \$R1"))?>"
     !insertmacro debug_cat 3 'Execute: $Netsh wlan delete profile "$R1"'
     nsArray::Set Commands "netsh wlan delete profile $\"$R1$\""
     nsExec::Exec '"$Netsh" wlan delete profile "$R1"'
@@ -863,7 +866,7 @@ Function InstallProfile
     !insertmacro debug_cat 1 "Profile $R1 deleted"
   ${EndIf}
 ; profile installation
-  DetailPrint "<?php echo_nsi(_("installing profile \$R1"))?>"
+  DetailPrint "<?php WindowsCommon::echo_nsi(_("installing profile \$R1"))?>"
   !insertmacro debug_cat 3 "Execute: $Netsh wlan add profile $TEMP\wlan_prof-$R0.xml"
   nsArray::Set Commands "netsh wlan add profile $TEMP\wlan_prof-$R0.xml" 
   nsArray::Set Commands "del $TEMP\wlan_prof-$R0.xml"
@@ -873,7 +876,7 @@ Function InstallProfile
   ${If} $0 <> 0
     !insertmacro debug_cat 1 'Profile installation error for "$R1"'
     IfSilent +2
-    MessageBox MB_OK "<?php echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php echo_nsi(_("Please contact \${SUPPORT}."))?>"
+    MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Profile installation error for \$R1."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Please contact \${SUPPORT}."))?>"
     nsArray::Set Profile_states /key="$R0" ${PROFILE_STATE_FAIL}
     Push 1
     Pop $profile_fail
@@ -897,7 +900,7 @@ FunctionEnd
 ; Install credentials for wired
 Function InstallWiredCred
   !insertmacro debug_cat 1 "installing credentials for wired"
-  DetailPrint "<?php echo_nsi(_("installing credentials for wired"))?>"
+  DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials for wired"))?>"
   !insertmacro debug_cat 3 "Execute: $TEMP\install_wired.cmd"
   nsExec::Exec "$TEMP\install_wired.cmd"
 FunctionEnd
@@ -965,7 +968,7 @@ Function InstallWirelessCred
   ${If} $R2 <> ${PROFILE_STATE_FAIL}
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
 
-    DetailPrint "<?php echo_nsi(_("installing credentials for profile \$R1"))?>"
+    DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials for profile \$R1"))?>"
     !ifdef PEAP
     !insertmacro debug_cat 3 "Execute: $TEMP\setEAPCred.exe $\"$UNAME$\" $\"base_64_password_not_recorded$\" $\"$R1$\""
     nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS_B64$\" $\"$R1$\""
@@ -980,7 +983,7 @@ Function InstallWirelessCred
     StrCmp $0 0 Cont1
 ; Error Label, show error box
     IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION "<?php echo_nsi(_("Credentials installation problem"))?>"
+    MessageBox MB_OK|MB_ICONEXCLAMATION "<?php WindowsCommon::echo_nsi(_("Credentials installation problem"))?>"
     Cont1:
   ${EndIf}
 FunctionEnd
@@ -989,23 +992,23 @@ FunctionEnd
 Function PFXCertificateSelect
   !ifndef SILVERBULLET
 ;TRANSLATION
-!insertmacro MUI_HEADER_TEXT "<?php printf(sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php echo_nsi(_("Install personal certificate"))?>"
+!insertmacro MUI_HEADER_TEXT "<?php printf(WindowsCommon::sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php WindowsCommon::echo_nsi(_("Install personal certificate"))?>"
   ${If} $PFX_install == 0
     Return
   ${EndIf}
 ;TRANSLATION
     IfSilent +2
-  MessageBox MB_OK "<?php echo_nsi(_("Preparing to install personal certificate."))?>$\r$\n<?php echo_nsi(_("Click OK to continue"))?> "
+  MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Preparing to install personal certificate."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Click OK to continue"))?> "
   nsDialogs::Create 1018
   Pop $Dialog1
   ${If} $Dialog1 == error
     Abort
   ${EndIf}
-  nsDialogs::SelectFileDialog open "" "<?php echo_nsi(_("Certificate files (*.p12)"))?>|*.p12|<?php echo_nsi(_("Certificate files (*pfx)"))?>|*.pfx|<?php echo_nsi(_("All files"))?>|*.*"
+  nsDialogs::SelectFileDialog open "" "<?php WindowsCommon::echo_nsi(_("Certificate files (*.p12)"))?>|*.p12|<?php WindowsCommon::echo_nsi(_("Certificate files (*pfx)"))?>|*.pfx|<?php WindowsCommon::echo_nsi(_("All files"))?>|*.*"
   Pop $Cert_file
 ;TRANSLATION
-  ${NSD_CreateLabel} 0 0 100% 32u "<?php echo_nsi(_("Selected file: \$Cert_file"))?>"
-  Push "<?php echo_nsi(_("certificate password:"))?>"
+  ${NSD_CreateLabel} 0 0 100% 32u "<?php WindowsCommon::echo_nsi(_("Selected file: \$Cert_file"))?>"
+  Push "<?php WindowsCommon::echo_nsi(_("certificate password:"))?>"
   !else
   !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
   File "WLANSetEAPUserData32.exe"
@@ -1016,7 +1019,7 @@ Function PFXCertificateSelect
   Push "$TEMP\SB_cert.p12"
   Pop $Cert_file
   nsDialogs::Create 1018
-  Push "<?php echo_nsi(_("import password:"))?>"
+  Push "<?php WindowsCommon::echo_nsi(_("import password:"))?>"
   !endif
   Pop $R0
   !insertmacro debug_cat 3 "Vista level (Vista without Service pack): $VistaNoSP";
@@ -1032,13 +1035,13 @@ FunctionEnd
 
 Function PFXCertificateSelectLeave
    ${If} $Cert_file == ""
-      MessageBox MB_OK  "<?php echo_nsi(_("No certificate file selected"))?>"
+      MessageBox MB_OK  "<?php WindowsCommon::echo_nsi(_("No certificate file selected"))?>"
       Call Cleanup
    ${EndIf}
    !ifdef SILVERBULLET
-     Push "<?php echo_nsi(_("Incorrect import password$\\r$\\nenter again"))?>"
+     Push "<?php WindowsCommon::echo_nsi(_("Incorrect import password$\\r$\\nenter again"))?>"
    !else
-     Push "<?php echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
+     Push "<?php WindowsCommon::echo_nsi(_("Incorrect certificate password$\\r$\\nenter again"))?>"
    !endif
    Pop $R0 
 
@@ -1079,17 +1082,17 @@ Function GetPasswordBasedCredentials
 ;    Abort
 ;  ${EndIf}
   call ShowNextCancelButtons
-  !insertmacro MUI_HEADER_TEXT "<?php echo_nsi(_("User credentials"))?>" " "
+  !insertmacro MUI_HEADER_TEXT "<?php WindowsCommon::echo_nsi(_("User credentials"))?>" " "
         nsDialogs::Create 1018
         Pop $0
 
-        ${NSD_CreateLabel} 10 36u 60u 12u "<?php echo_nsi(_("Username:"))?>"
+        ${NSD_CreateLabel} 10 36u 60u 12u "<?php WindowsCommon::echo_nsi(_("Username:"))?>"
         ${NSD_CreateText} 67u 35u 80u 12u "$UNAME"
         Pop $UNAME_F
-        ${NSD_CreateLabel} 10 51u 60u 12u "<?php echo_nsi(_("Password:"))?>"
+        ${NSD_CreateLabel} 10 51u 60u 12u "<?php WindowsCommon::echo_nsi(_("Password:"))?>"
         ${NSD_CreatePassword} 67u 50u 80u 12u "$PASS1"
         Pop $PASS1_F
-        ${NSD_CreateLabel} 10 66u 60u 22u "<?php echo_nsi(_("Repeat password:"))?>"
+        ${NSD_CreateLabel} 10 66u 60u 22u "<?php WindowsCommon::echo_nsi(_("Repeat password:"))?>"
         ${NSD_CreatePassword} 67u 65u 80u 12u "$PASS2"
         Pop $PASS2_F
         nsDialogs::Show
@@ -1101,18 +1104,18 @@ Function SavePasswordBasedCredentials
    ${NSD_GetText} $PASS1_F $PASS1
    ${NSD_GetText} $PASS2_F $PASS2
    ${If} "$UNAME" == ""
-     MessageBox MB_OK "<?php echo_nsi(_("Missing username"))?>"
+     MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Missing username"))?>"
      Abort
    ${EndIf}
 
    ${If} "$PASS1" == ""
-     MessageBox MB_OK "<?php echo_nsi(_("Missing password"))?>"
+     MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Missing password"))?>"
      Abort
    ${EndIf}
    ${If} "$PASS1" != "$PASS2"
    ${NSD_SetText} $PASS1_F ""
    ${NSD_SetText} $PASS2_F ""
-   MessageBox MB_OK "<?php echo_nsi(_("Password missmatch"))?>"
+   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Password missmatch"))?>"
    Abort
    ${EndIf}
    ${Base64_Encode} $PASS1
@@ -1187,8 +1190,8 @@ Page custom WiredConfirm
 PageEx components
 PageCallbacks showComponents "" ""
 ;TRANSLATION
-ComponentText "<?php printf(sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),CONFIG['CONSORTIUM']['name'])?>" "" \
-      "<?php echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
+ComponentText "<?php printf(WindowsCommon::sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),CONFIG['CONSORTIUM']['name'])?>" "" \
+      "<?php WindowsCommon::echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
 PageExEnd
 !endif
 ;=============================
@@ -1208,7 +1211,7 @@ Page custom Finish Cleanup
 Section "-start"
 SectionIn RO
 
-!insertmacro MUI_HEADER_TEXT "<?php echo_nsi( _("Installation"))?>" "<?php echo_nsi( _("Checking for existing wireless profiles"))?>"
+!insertmacro MUI_HEADER_TEXT "<?php WindowsCommon::echo_nsi( _("Installation"))?>" "<?php WindowsCommon::echo_nsi( _("Checking for existing wireless profiles"))?>"
 !ifndef PWD
 !include "certs.nsh"
 !endif

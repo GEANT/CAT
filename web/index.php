@@ -16,8 +16,6 @@
  * @package Core
  */
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("Skinjob.php");
-require_once("IdP.php");
 require_once("admin/inc/input_validation.inc.php");
 
 if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preference
@@ -28,7 +26,7 @@ if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preferenc
 // ... unless overwritten by direct GET/POST parameter in the request
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 
-$skinObject = new Skinjob( $_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+$skinObject = new \core\Skinjob( $_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
 
 // and now, serve actual data
 include("skins/".$skinObject->skin."/index.php");

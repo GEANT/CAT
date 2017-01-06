@@ -11,11 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Logging.php");
-require_once("IdP.php");
-require_once("ProfileFactory.php");
-require_once("ProfileRADIUS.php");
-
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
@@ -26,7 +21,7 @@ require_once('inc/auth.inc.php');
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     authenticate();
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -48,7 +43,7 @@ $my_profile = NULL;
 
 if (isset($_GET['profile_id'])) {
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
-    if (!$my_profile instanceof ProfileRADIUS) {
+    if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page should only be called to submit RADIUS Profile information!");
     }
 }
@@ -106,7 +101,7 @@ if (isset($_POST['redirect'])) {
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     // maybe we were asked to edit an existing profile? check for that...
-    if ($my_profile instanceof AbstractProfile) {
+    if ($my_profile instanceof \core\AbstractProfile) {
         $profile = $my_profile;
     } else {
         $profile = $my_inst->newProfile("RADIUS");
@@ -114,7 +109,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     }
 }
 
-if (!$profile instanceof ProfileRADIUS) {
+if (!$profile instanceof \core\ProfileRADIUS) {
     echo _("Darn! Could not get a proper profile handle!");
     exit(1);
 }
@@ -189,12 +184,12 @@ if (!$profile instanceof ProfileRADIUS) {
 
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
 
-    $profile = ProfileFactory::instantiate($profile->identifier);
-    if (!$profile instanceof ProfileRADIUS) {
+    $profile = \core\ProfileFactory::instantiate($profile->identifier);
+    if (!$profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
     }
 
-    foreach (EAP::listKnownEAPTypes() as $a) {
+    foreach (\core\EAP::listKnownEAPTypes() as $a) {
         if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && is_numeric($_POST[display_name($a) . "-priority"])) {
             $priority = (int)$_POST[display_name($a) . "-priority"];
             // add EAP type to profile as requested, but ...
@@ -216,9 +211,9 @@ if (!$profile instanceof ProfileRADIUS) {
         }
     }
     // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-    $reloadedProfile = ProfileFactory::instantiate($profile->identifier);
+    $reloadedProfile = \core\ProfileFactory::instantiate($profile->identifier);
     // this can't possibly be another type of Profile, but to make code analysers happy:
-    if (!$profile instanceof ProfileRADIUS) {
+    if (!$profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
     }
     $reloadedProfile->prepShowtime();

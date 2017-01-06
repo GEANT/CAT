@@ -12,18 +12,12 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once("auth.inc.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("Logging.php");
-require_once("UserManagement.php");
-
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
 
 authenticate();
 
-$languageInstance = new Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
@@ -37,8 +31,8 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) |
 
 // if not, must operate on a proper IdP
 $my_inst = valid_IdP($_GET['inst_id']);
-$user = new User($_SESSION['user']);
-$mgmt = new UserManagement();
+$user = new \core\User($_SESSION['user']);
+$mgmt = new \core\UserManagement();
 
 // DB link administrationis only permitted by federation operator himself
 $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
@@ -76,8 +70,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 <hr/>
 <p>
     <?php
-    $cat = new CAT();
-    if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_SYNCED) {
+    $cat = new \core\CAT();
+    if ($my_inst->getExternalDBSyncState() == \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED) {
 
         printf(_("This institution is linked to the %s database."), CONFIG['CONSORTIUM']['name']) . "</p>";
         echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name']) . "</p>";
@@ -99,7 +93,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         $admins = $my_inst->owner();
 
         foreach ($admins as $admin) {
-            $user = new User($admin['ID']);
+            $user = new \core\User($admin['ID']);
             $username = $user->getAttributes("user:realname");
             if (count($username) == 0) {
                 $username[0]['value'] = _("Unnamed User");
@@ -127,7 +121,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
         echo "</table>";
         // end of right-hand side
         echo "</td></tr></table>";
-    } else if ($my_inst->getExternalDBSyncState() == EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
+    } else if ($my_inst->getExternalDBSyncState() == \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
         $temparray = [];
         printf(_("This institution is not yet linked to the %s database."), CONFIG['CONSORTIUM']['name']) . " ";
         echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
@@ -156,7 +150,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
             }
         }
         // we might have been wrong in our guess...
-        $fed = new Federation(strtoupper($my_inst->federation));
+        $fed = new \core\Federation(strtoupper($my_inst->federation));
         $unmappedentities = $fed->listExternalEntities(TRUE);
         // only display the "other" options if there is at least one
         $buffer = "";
@@ -182,7 +176,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
 <br/>
 <?php
 $pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";

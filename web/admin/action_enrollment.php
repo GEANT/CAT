@@ -11,18 +11,12 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("UserManagement.php");
-require_once("Logging.php");
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
-$usermgmt = new UserManagement();
+$usermgmt = new \core\UserManagement();
 $mode = "TOKEN";
 
 $checkval = $usermgmt->checkTokenValidity($_GET['token']);
@@ -47,10 +41,10 @@ if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTI
     exit(1);
 } else { // token is valid. Get meta-info and create inst
     // TODO get invitation level and mail, store it as property
-    $loggerInstance = new Logging();
+    $loggerInstance = new \core\Logging();
     if ($mode == "SELFSERVICE") {
-        $fed = new Federation($federation);
-        $newidp = new IdP($fed->newIdP($_SESSION['user'], "FED", $mode));
+        $fed = new \core\Federation($federation);
+        $newidp = new \core\IdP($fed->newIdP($_SESSION['user'], "FED", $mode));
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - $mode registration");
     } else {
         $newidp = $usermgmt->createIdPFromToken($_GET['token'], $_SESSION['user']);

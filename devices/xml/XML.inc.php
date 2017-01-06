@@ -18,8 +18,7 @@
  *
  * @package ModuleWriting
  */
-require_once("EAP.php");
-
+namespace devices\xml;
 /**
  * base class extended by every element
  */
@@ -42,17 +41,17 @@ class XMLElement {
      */
     public static $authMethodElements = [
         'server' => [
-            TLS => ['CA', 'ServerID'],
-            FAST => ['CA', 'ServerID'],
-            PEAP => ['CA', 'ServerID'],
-            TTLS => ['CA', 'ServerID'],
-            PWD => [],
+            \core\EAP::TLS => ['CA', 'ServerID'],
+            \core\EAP::FAST => ['CA', 'ServerID'],
+            \core\EAP::PEAP => ['CA', 'ServerID'],
+            \core\EAP::TTLS => ['CA', 'ServerID'],
+            \core\EAP::PWD => [],
         ],
         'client' => [
-            TLS => ['UserName', 'Password', 'ClientCertificate'],
-            MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
-            GTC => ['UserName', 'OneTimeToken'],
-            NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
+            \core\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
+            \core\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
+            \core\EAP::GTC => ['UserName', 'OneTimeToken'],
+            \core\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
         ]
     ];
 
@@ -207,7 +206,7 @@ class ClientSideCredential extends XMLElement {
             $element = XMLElement::$authMethodElements['client'][$this->EAPType];
             $objectVars = get_object_vars($this);
             $outputArray = [];
-            $loggerInstance = new Logging();
+            $loggerInstance = new \core\Logging();
             $loggerInstance->debug(4, "EEE:" . $this->EAPType . ":\n");
             $loggerInstance->debug(4, $element);
             foreach ($objectVars as $name => $value) {
@@ -340,13 +339,16 @@ function SimpleXMLElement_append($key, $value) {
  */
 function marshalObject($node, $object) {
     $val = '';
-    $className = get_class($object);
+    $qualClassName = get_class($object);
+    // remove namespace qualifier
+    $pos = strrpos($qualClassName, '\\');
+    $className =  substr($qualClassName, $pos + 1);
     $name = preg_replace("/_/", "-", $className);
     if ($object->getValue()) {
         $val = $object->getValue();
     }
     $simplexmlelement = NULL;
-    if ($val instanceof SimpleXMLElement) {
+    if ($val instanceof \SimpleXMLElement) {
         $simplexmlelement = $val;
         $val = '';
     }

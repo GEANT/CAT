@@ -1,7 +1,7 @@
 <?php
-require_once('DeviceConfig.php');
+namespace devices\redirect_dev;
 
-class Device_RedirectDev extends DeviceConfig {
+class Device_RedirectDev extends \core\DeviceConfig {
    /**
     * Constructs a Device object.
     *
@@ -9,7 +9,7 @@ class Device_RedirectDev extends DeviceConfig {
     */
     final public function __construct() {
         parent::__construct();
-      $this->setSupportedEapMethods([EAPTYPE_NONE]);
+      $this->setSupportedEapMethods([\core\EAP::EAPTYPE_NONE]);
       $this->loggerInstance->debug(4,"RedirectEx called");
     }
     public function writeDeviceInfo() {

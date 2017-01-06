@@ -39,7 +39,7 @@
 /**
  * 
  */
-require_once('DeviceConfig.php');
+namespace devices\test_module;
 
 /**
  * This is the main implementation class of the module
@@ -72,7 +72,7 @@ require_once('DeviceConfig.php');
  *
  * @package ModuleWriting
  */
-class Device_TestModule extends DeviceConfig {
+class Device_TestModule extends \core\DeviceConfig {
 
     /**
      * Constructs a Device object.
@@ -84,7 +84,7 @@ class Device_TestModule extends DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods(EAP::listKnownEAPTypes());
+        $this->setSupportedEapMethods(\core\EAP::listKnownEAPTypes());
     }
 
     /**

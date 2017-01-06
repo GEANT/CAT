@@ -11,15 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Helper.php");
-require_once("Language.php");
-require_once("IdP.php");
-require_once('ProfileFactory.php');
-require_once("ProfileRADIUS.php");
-require_once("RADIUSTests.php");
-require_once("CAT.php");
-require_once("Federation.php");
-
 require_once("../admin/inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
 require_once("../resources/inc/footer.php");
@@ -32,7 +23,7 @@ productheader("USER");
 <p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
 <p><?php
     echo _("Please follow the instructions below.");
-    $global = new Federation();
+    $global = new \core\Federation();
     ?></p><hr/>
 
 <?php if (empty($_POST['realm']) && empty($_POST['norealm']) && empty($_POST['problemscope'])) { ?> <!-- COND-BLOCK-1 -->
@@ -137,7 +128,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
                     }
 
                     $current_locale = setlocale(LC_ALL, 0);
-                    $langObject = new Language();
+                    $langObject = new \core\Language();
                     setlocale(LC_ALL, CONFIG['LANGUAGES'][$langObject->locale]);
                     array_multisort($name, SORT_ASC, SORT_LOCALE_STRING, $displaylist);
                     setlocale(LC_ALL, $current_locale);
@@ -168,16 +159,16 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $checks = [];
     foreach ($listofrealms as $realm) {
         $sanitised_realm = trim(valid_string_db($realm));
-        $cat = new CAT();
+        $cat = new \core\CAT();
         if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
             $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => ProfileFactory::instantiate($profile_id)];
+            $checks[] = ["realm" => $realm, "instance" => new \core\RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => ProfileFactory::instantiate($profile_id)];
             echo "Debugging CAT Profile $profile_id for $sanitised_realm<br/>";
         } else if (!empty($cat->getExternalDBEntityDetails(0, $realm))) {
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "EXT_DB"];
+            $checks[] = ["realm" => $realm, "instance" => new \core\RADIUSTests($sanitised_realm), "class" => "EXT_DB"];
             echo "Debugging non-CAT but existing realm $sanitised_realm<br/>";
         } else {
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "ALIEN"];
+            $checks[] = ["realm" => $realm, "instance" => new \core\RADIUSTests($sanitised_realm), "class" => "ALIEN"];
             echo "Debugging non-existing realm $sanitised_realm<br/>";
         }
     }
@@ -190,7 +181,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     foreach ($checks as $check) {
         foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
             $checkresult[$number] = $check['instance']->UDP_reachability($number, TRUE, TRUE);
-            if ($checkresult[$number] == RETVAL_CONVERSATION_REJECT) { // great
+            if ($checkresult[$number] == \core\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // great
                 // only emit a warning in case of ALIEN - NRO did not populate DB!
                 if ($check['class'] == "ALIEN") {
                     $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "REACHABLE", "FROM" => $probe['display_name'], "DETAIL" => "REALM_NOT_IN_DB"];
@@ -198,16 +189,16 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                     $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "REACHABLE", "FROM" => $probe['display_name'], "DETAIL" => ""];
                 }
                 continue;
-            } else if ($checkresult[$number] == RETVAL_NO_RESPONSE || $checkresult[$number] == RETVAL_IMMEDIATE_REJECT) {
+            } else if ($checkresult[$number] == \core\RADIUSTests::RETVAL_NO_RESPONSE || $checkresult[$number] == \core\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
                 // this could be harmless/undetectable if it's an NPS that won't talk to us
                 // but if the get results with smaller packets and/or Operator-Name omitted
                 // then there is a smoking gun!
                 $checkresult[$number] = $check['instance']->UDP_reachability($number, FALSE, FALSE);
-                if ($checkresult[$number] == RETVAL_CONVERSATION_REJECT) { // so now things work?!
+                if ($checkresult[$number] == \core\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // so now things work?!
                     // either a packet size or Operator-Name problem!
-                    if ($check['instance']->UDP_reachability($number, TRUE, FALSE) != RETVAL_CONVERSATION_REJECT)
+                    if ($check['instance']->UDP_reachability($number, TRUE, FALSE) != \core\RADIUSTests::RETVAL_CONVERSATION_REJECT)
                         $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "OPERATOR-NAME", "FROM" => $probe['display_name'], "DETAIL" => ""];
-                    if ($check['instance']->UDP_reachability($number, FALSE, TRUE) != RETVAL_CONVERSATION_REJECT)
+                    if ($check['instance']->UDP_reachability($number, FALSE, TRUE) != \core\RADIUSTests::RETVAL_CONVERSATION_REJECT)
                         $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "PACKETSIZE", "FROM" => $probe['display_name'], "DETAIL" => ""];
                 } else { // still no response or immediate reject
                     // if this is a CAT realm with anon ID set, we can't be seeing an NPS ignorance problem
@@ -310,12 +301,12 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                         // level? They would be the likely explanation
                         $oneRADIUSTest = $checks[0]['instance'];
                         foreach ($all_certprobs as $certprob) {
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == L_ERROR) {
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == \core\Entity::L_ERROR) {
                                 $warning_html .= "<div class='problemdescription'>" . _("We found a problem with your Identity Provider. This may be the cause of your problems. The exact error is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
                                 $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration. We will notify the Identity Provider about the problem. Please wait until the problem is resolved. ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
                                 $certprobs_warned[] = $certprob;
                             }
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == L_WARN) {
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == \core\Entity::L_WARN) {
                                 $warning_html .= "<div class='problemdescription'>" . _("We found a minor misconfiguration of your Identity Provider. Certain devices may not work because of this. The exact warning is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] .
                                         "<br/>It is not necessarily the case that these warnings are the source of your problem; e.g. simple errors in username or password can not be ruled out.</div>";
                                 $warning_html .= "<p>Please answer some supplementary questions on the next page so that we can send a detailed problem report to your identity provider. (next page does not exist yet!)</p>";

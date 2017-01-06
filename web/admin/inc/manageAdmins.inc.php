@@ -12,18 +12,12 @@
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
 require_once("auth.inc.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("Language.php");
-require_once("Logging.php");
-require_once("UserManagement.php");
-
 require_once("common.inc.php");
 require_once("input_validation.inc.php");
 
 authenticate();
 
-$languageInstance = new Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
@@ -39,8 +33,8 @@ if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_
 }
 
 $my_inst = valid_IdP($_GET['inst_id']);
-$user = new User($_SESSION['user']);
-$mgmt = new UserManagement();
+$user = new \core\User($_SESSION['user']);
+$mgmt = new \core\UserManagement();
 
 // either the operation is done by federation operator himself
 $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
@@ -66,7 +60,7 @@ if (!$isFedAdmin && !$is_admin_with_blessing) {
 if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == BUTTON_DELETE) {
         if (isset($_POST['admin_id'])) {
-            $ownermgmt = new UserManagement();
+            $ownermgmt = new \core\UserManagement();
             $ownermgmt->removeAdminFromIdP($my_inst, $_POST['admin_id']);
             // if the user deleted himself, go back to overview page. Otherwise, just stay here and display the remaining owners
             // we don't decide about that here; it's done by JS magic in the calling button
@@ -80,7 +74,7 @@ if (isset($_POST['submitbutton'])) {
         }
     } elseif ($_POST['submitbutton'] == BUTTON_TAKECONTROL) {
         if ($isFedAdmin) {
-            $ownermgmt = new UserManagement();
+            $ownermgmt = new \core\UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
         } else {
             echo "Fatal Error: you wanted to take control over an institution, but are not a federation operator!";
@@ -125,7 +119,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
 <table>
     <?php
     foreach ($my_inst->owner() as $oneowner) {
-        $ownerinfo = new User($oneowner['ID']);
+        $ownerinfo = new \core\User($oneowner['ID']);
         $ownername = $ownerinfo->getAttributes("user:realname");
         if (count($ownername) > 0) {
             $prettyprint = $ownername[0]['value'];
@@ -159,7 +153,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
 <br/>
 <?php
 $pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";

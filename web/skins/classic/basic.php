@@ -18,14 +18,8 @@
  * @package UserGUI
  * 
  */
-require_once("CAT.php");
-require_once("UserAPI.php");
-require_once('ProfileFactory.php');
-require_once('AbstractProfile.php');
-require_once("Logging.php");
-require_once("Language.php");
 
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "basic.php\n");
 $loggerInstance->debug(4, $_POST);
 
@@ -33,7 +27,7 @@ $loggerInstance->debug(4, $_POST);
  * SimpleGUI defines extensions of the GUI class used only in the simple interface
  * this class does not define its own constructor.
  */
-class SimpleGUI extends UserAPI {
+class SimpleGUI extends \core\UserAPI {
     /**
      *  create the SimpleGUI object calling CAT constructor first
      *
@@ -74,7 +68,7 @@ class SimpleGUI extends UserAPI {
         if (!in_array($country, $federations)) {
             $country = array_shift($federations);
         }
-        $this->country = new Federation($country);
+        $this->country = new \core\Federation($country);
         $this->args['country'] = $this->country->identifier;
         $this->page = 1;
 
@@ -87,13 +81,13 @@ class SimpleGUI extends UserAPI {
         if (isset($_REQUEST['idp']) && $_REQUEST['idp']) {
             $this->page = 2;
             try {
-                $this->idp = new IdP($_REQUEST['idp']);
+                $this->idp = new \core\IdP($_REQUEST['idp']);
             } catch (Exception $fail) {
                 $this->page = 1;
                 $this->languageInstance->setTextDomain("web_user");
                 return;
             }
-            $countryTemp = new Federation($this->idp->federation);
+            $countryTemp = new \core\Federation($this->idp->federation);
             if (strtoupper($this->country->identifier) !== strtoupper($countryTemp->identifier)) {
                 unset($this->idp);
                 $this->page = 1;
@@ -152,7 +146,7 @@ class SimpleGUI extends UserAPI {
         $out .= '<select name="idp" onchange="submit_form(this)">';
         if (!empty($instList)) {
             if (!isset($this->idp)) {
-                $this->idp = new Idp($instList[0]['idp']);
+                $this->idp = new \core\IdP($instList[0]['idp']);
             }
             $idpId = $this->idp->identifier;
         }
@@ -398,7 +392,7 @@ $loggerInstance->debug(4, "\n----------------------------------SIMPLE.PHP-------
 ?>
 <!DOCTYPE html>
 <?php
-$langObject = new Language();
+$langObject = new \core\Language();
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
     <head lang="<?php echo $langObject->getLang() ?>"> 
@@ -446,7 +440,7 @@ $langObject = new Language();
               $Gui->page = 2;
               }
              */
-            $langObject = new Language();
+            $langObject = new \core\Language();
             print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . $langObject->getLang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
             print $Gui->langSelection();
             if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {

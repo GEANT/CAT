@@ -20,7 +20,7 @@
 /**
  * necessary includes
  */
-require_once('Entity.php');
+namespace core;
 
 /**
  * The Options class contains convenience functions around option handling. It is implemented as a singleton to prevent
@@ -85,7 +85,7 @@ class Options {
         $this->typeDb = [];
         $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
-        $handle = DBConnection::handle(Options::$databaseType);
+        $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         while ($optionDataQuery = mysqli_fetch_object($options)) {
             $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];

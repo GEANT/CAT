@@ -12,11 +12,6 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("Logging.php");
-
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
@@ -25,7 +20,7 @@ require_once("inc/option_parse.inc.php");
 
 require_once("inc/auth.inc.php");
 
-$loggerInstance = new Logging();
+$loggerInstance = new \core\Logging();
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
     authenticate();
@@ -139,10 +134,10 @@ if ($_POST['submitbutton'] == BUTTON_SAVE) {// not in initial wizard mode, just 
     echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
 } else { // does federation want us to offer Silver Bullet?
     // if so, show both buttons; if not, just the normal EAP profile button
-    $myfed = new Federation($my_inst->federation);
+    $myfed = new \core\Federation($my_inst->federation);
     $allow_sb = $myfed->getAttributes("fed:silverbullet");
     if (count($allow_sb) > 0) {
-        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
+        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
     }
     echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
 }

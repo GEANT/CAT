@@ -10,10 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-
-require_once("Helper.php");
-require_once("Language.php");
-require_once("Skinjob.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
 /**
@@ -42,7 +38,7 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
         authenticate();
     }
-    $langObject = new Language();
+    $langObject = new \core\Language();
     $langObject->setTextDomain("web_admin");
     $ourlocale = $langObject->getLang();
     header("Content-Type:text/html;charset=utf-8");
@@ -51,7 +47,7 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
           <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
-    $skinObject = new Skinjob("");
+    $skinObject = new \core\Skinjob("");
     $cssUrl = $skinObject->findResourceUrl("CSS")."cat.css.php";
 
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
@@ -90,7 +86,7 @@ function headerDiv($cap1, $language) {
                 </form>
             </div><!--langselection-->
             <?php
-            $skinObject = new Skinjob("");
+            $skinObject = new \core\Skinjob("");
             $logoUrl = $skinObject->findResourceUrl("IMAGES")."/consortium_logo.png";
             ?>
             <div class='consortium_logo'>
@@ -136,7 +132,7 @@ function sidebar($advancedControls) {
  * @param string $area the area we are in
  */
 function productheader($area) {
-    $langObject = new Language();
+    $langObject = new \core\Language();
     $language = $langObject->getLang();
     // this <div is closing in footer, keep it in PHP for Netbeans syntax
     // highlighting to work
@@ -150,7 +146,7 @@ function productheader($area) {
             break;
         case "ADMIN-IDP-USERS":
             $cap1 = CONFIG['APPEARANCE']['productname_long'];
-            $cap2 = sprintf(_("Administrator Interface - %s User Management"), ProfileSilverbullet::PRODUCTNAME);
+            $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
             $advancedControls = TRUE;
             break;
         case "ADMIN":

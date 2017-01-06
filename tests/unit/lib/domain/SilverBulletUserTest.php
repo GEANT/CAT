@@ -1,7 +1,4 @@
 <?php
-require_once(__DIR__ . '../../../../../core/EntityWithDBProperties.php');
-require_once(__DIR__ . '../../../../../core/DBConnection.php');
-require_once(__DIR__ . '../../../../../core/User.php');
 
 use lib\domain\SilverbulletUser;
 use lib\domain\SilverbulletCertificate;
@@ -21,7 +18,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     private $newUser = null;
     
     protected function setUp() {
-        $this->profile = new MockProfileSilverbullet(DBConnection::handle('INST'));
+        $this->profile = new MockProfileSilverbullet(\core\DBConnection::handle('INST'));
         $this->profileId = $this->profile->identifier;
         $this->newUser = new SilverbulletUser($this->profileId, $this->username);
         $this->newUser->setExpiry('now');

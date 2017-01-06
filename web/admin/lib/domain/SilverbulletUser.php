@@ -188,7 +188,7 @@ class SilverbulletUser extends PersistentEntity{
      * @return \lib\domain\SilverbulletUser []
      */
     public static function getList($profileId) {
-        $databaseHandle = \DBConnection::handle(self::TYPE_INST);
+        $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 'i', $profileId);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {

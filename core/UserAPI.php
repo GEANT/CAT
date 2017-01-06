@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -19,21 +20,11 @@
  * This product includes GeoLite data created by MaxMind, available from
  * http://www.maxmind.com
  */
-/**
- * includes required by this class
- */
-require_once("Helper.php");
-require_once("Options.php");
-require_once("CAT.php");
-require_once("User.php");
-require_once("ProfileFactory.php");
-require_once("AbstractProfile.php");
-require_once("Federation.php");
-require_once("DeviceFactory.php");
-require_once("Logging.php");
-require_once("devices/devices.php");
+
+namespace core;
 
 use GeoIp2\Database\Reader;
+use \Exception;
 
 /**
  * The basic methoods for the user GUI
@@ -97,7 +88,7 @@ class UserAPI extends CAT {
             $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
-            $myInstaller = $this->generateNewInstaller($device, $profile, $token, $password);
+            $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
             $installerProperties['mime'] = $myInstaller['mime'];
             $installerProperties['link'] = $myInstaller['link'];
         }
@@ -113,9 +104,9 @@ class UserAPI extends CAT {
      * @return boolean|string the string with the path to the cached copy, or FALSE if no cached copy exists
      */
     private function getCachedPath($device, $profile) {
-        $deviceList = Devices::listDevices();
+        $deviceList = \devices\Devices::listDevices();
         $deviceConfig = $deviceList[$device];
-        $noCache = (isset(Devices::$Options['no_cache']) && Devices::$Options['no_cache']) ? 1 : 0;
+        $noCache = (isset(\devices\Devices::$Options['no_cache']) && \devices\Devices::$Options['no_cache']) ? 1 : 0;
         if (isset($deviceConfig['options']['no_cache'])) {
             $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
         }
@@ -139,7 +130,7 @@ class UserAPI extends CAT {
      * @param AbstractProfile $profile
      * @return array info about the new installer (mime and link)
      */
-    private function generateNewInstaller($device, $profile, $token, $password) {
+    private function generateNewInstaller($device, $profile, $generatedFor, $token, $password) {
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         $out = [];
@@ -151,17 +142,17 @@ class UserAPI extends CAT {
                 if (isset($dev->options['mime'])) {
                     $out['mime'] = $dev->options['mime'];
                 } else {
-                    $info = new finfo();
+                    $info = new \finfo();
                     $out['mime'] = $info->file($iPath, FILEINFO_MIME_TYPE);
                 }
                 $this->installerPath = $dev->FPATH . '/' . $installer;
                 rename($iPath, $this->installerPath);
                 $profile->updateCache($device, $this->installerPath, $out['mime'], EAP::eAPMethodArrayIdConversion($dev->selectedEap));
                 if (CONFIG['DEBUG_LEVEL'] < 4) {
-                   rrmdir($dev->FPATH . '/tmp');
+                    Entity::rrmdir($dev->FPATH . '/tmp');
                 }
-                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:".EAP::eAPMethodArrayIdConversion($dev->selectedEap)."\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generated_for";
+                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . EAP::eAPMethodArrayIdConversion($dev->selectedEap) . "\n");
+                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
                 $out['link'] = 0;
@@ -174,7 +165,7 @@ class UserAPI extends CAT {
      * interface to Devices::listDevices() 
      */
     public function listDevices($showHidden = 0) {
-        $dev = Devices::listDevices();
+        $dev = \devices\Devices::listDevices();
         $returnList = [];
         $count = 0;
         if ($showHidden !== 0 && $showHidden != 1) {
@@ -361,7 +352,7 @@ class UserAPI extends CAT {
         $returnArray = [];
         try {
             $idp = new IdP($idpIdentifier);
-        } catch (Exception $fail) {
+        } catch (\Exception $fail) {
             echo $this->return_json($returnArray, 0);
             return;
         }
@@ -372,7 +363,7 @@ class UserAPI extends CAT {
         }
         $profiles = $idp->listProfiles(1);
         if ($sort == 1) {
-            usort($profiles, "profile_sort");
+            usort($profiles, ["UserAPI", "profile_sort"]);
         }
         foreach ($profiles as $profile) {
             $returnArray[] = [( $this->version == 1 ? 'id' : 'profile' ) => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
@@ -501,8 +492,11 @@ class UserAPI extends CAT {
         } else {
             $idp = new IdP($idpIdentifier);
             $logoAttribute = $idp->getAttributes('general:logo_file');
+            if (count($logoAttribute) == 0) {
+                return;
+            }
             $blob = $logoAttribute[0]['value'];
-            $info = new finfo();
+            $info = new \finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
             $offset = 60 * 60 * 24 * 30;
             $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
@@ -526,7 +520,7 @@ class UserAPI extends CAT {
         echo $blob;
     }
 
-        /**
+    /**
      * Get and prepare logo file 
      *
      * When called for DiscoJuice, first check if file cache exists
@@ -559,8 +553,11 @@ class UserAPI extends CAT {
         } else {
             $federation = new Federation($fedIdentifier);
             $logoAttribute = $federation->getAttributes('fed:logo_file');
+            if (count($logoAttribute) == 0) {
+                return;
+            }
             $blob = $logoAttribute[0]['value'];
-            $info = new finfo();
+            $info = new \finfo();
             $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
             $offset = 60 * 60 * 24 * 30;
             $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
@@ -613,7 +610,7 @@ class UserAPI extends CAT {
         $host = $_SERVER['REMOTE_ADDR'];
         try {
             $record = $reader->city($host);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $result = ['status' => 'error', 'error' => 'Problem listing countries'];
             return($result);
         }
@@ -732,7 +729,7 @@ class UserAPI extends CAT {
      */
     public function detectOS() {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
-        $Dev = Devices::listDevices();
+        $Dev = \devices\Devices::listDevices();
         $this->languageInstance->setTextDomain($oldDomain);
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];
@@ -773,8 +770,8 @@ class UserAPI extends CAT {
     public $version;
     private $installerPath;
 
-}
+    private static function profile_sort($profile1, $profile2) {
+        return strcasecmp($profile1->name, $profile2->name);
+    }
 
-function profile_sort($profile1, $profile2) {
-    return strcasecmp($profile1->name, $profile2->name);
 }

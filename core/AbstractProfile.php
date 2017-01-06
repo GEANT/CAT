@@ -21,21 +21,10 @@
  * @package Developer
  *
  */
-/**
- * necessary includes
- */
-require_once('Helper.php');
-require_once('EAP.php');
-require_once('X509.php');
-require_once('EntityWithDBProperties.php');
-require_once('IdP.php');
-require_once('devices/devices.php');
 
-define("HIDDEN", -1);
-define("AVAILABLE", 0);
-define("UNAVAILABLE", 1);
-define("INCOMPLETE", 2);
-define("NOTCONFIGURED", 3);
+namespace core;
+
+use \Exception;
 
 /**
  * This class represents an EAP Profile.
@@ -51,6 +40,12 @@ define("NOTCONFIGURED", 3);
  * @package Developer
  */
 abstract class AbstractProfile extends EntityWithDBProperties {
+
+    const HIDDEN = -1;
+    const AVAILABLE = 0;
+    const UNAVAILABLE = 1;
+    const INCOMPLETE = 2;
+    const NOTCONFIGURED = 3;
 
     /**
      * DB identifier of the parent institution of this profile
@@ -86,6 +81,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * IdP-wide attributes of the IdP this profile is attached to
      */
     protected $idpAttributes;
+
+    protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
+        if (CONFIG['PATHS']['logdir']) {
+            $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+            fprintf($f, "%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
+            fclose($f);
+        }
+    }
 
     /**
      * each profile has supported EAP methods, so get this from DB, Silver Bullet has one
@@ -253,17 +256,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
             $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
             // get eap_type from the downloads table
-           $eapTypeQuery = $this->databaseHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '".$this->languageInstance->getLang()."'");
-           if (! $eapTypeQuery || ! $eapO = mysqli_fetch_object($eapTypeQuery) ) {
-               $this->loggerInstance->debug(2,"Error getting EAP_type from the database\n");
-           } else {
-               if ($eapO->eap_type == NULL) {
-                   $this->loggerInstance->debug(2,"EAP_type not set in the database\n");
-               } else {
-                   saveDownloadDetails($this->institution,$this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
-               }
-           }
-           return TRUE;
+            $eapTypeQuery = $this->databaseHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
+            if (!$eapTypeQuery || !$eapO = mysqli_fetch_object($eapTypeQuery)) {
+                $this->loggerInstance->debug(2, "Error getting EAP_type from the database\n");
+            } else {
+                if ($eapO->eap_type == NULL) {
+                    $this->loggerInstance->debug(2, "EAP_type not set in the database\n");
+                } else {
+                    $this->saveDownloadDetails($this->institution, $this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
+                }
+            }
+            return TRUE;
         }
         return FALSE;
     }
@@ -287,7 +290,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         // we should pretty-print the device names
         $finalarray = [];
-        $devlist = Devices::listDevices();
+        $devlist = \devices\Devices::listDevices();
         foreach ($returnarray as $devId => $count) {
             if (isset($devlist[$devId])) {
                 $finalarray[$devlist[$devId]['display']] = $count;
@@ -364,10 +367,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function isEapTypeDefinitionComplete($eaptype) {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
-            case TLS:
-            case PEAP:
-            case TTLS:
-            case FAST:
+            case \core\EAP::TLS:
+            case \core\EAP::PEAP:
+            case \core\EAP::TTLS:
+            case \core\EAP::FAST:
                 $missing = [];
                 $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
                 $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
@@ -392,7 +395,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     return TRUE;
                 }
                 return $missing;
-            case PWD:
+            case \core\EAP::PWD:
                 // well actually this EAP type has a server name; but it's optional
                 // so no reason to be picky on it
                 return true;
@@ -407,10 +410,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $locale for text-based attributes, either returns values for the default value, or if specified here, in the locale specified
      * @return array of device ids display names and their status
      */
-    public function listDevices($locale = NULL) {
-        if ($locale === NULL) {
-            $locale = $this->languageInstance->getLang();
-        }
+    public function listDevices() {
         $returnarray = [];
         $redirect = $this->getAttributes("device-specific:redirect"); // this might return per-device ones or the general one
         // if it was a general one, we are done. Find out if there is one such
@@ -426,17 +426,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         $preferredEap = $this->getEapMethodsinOrderOfPreference(1);
         $eAPOptions = [];
-        foreach (Devices::listDevices() as $deviceIndex => $deviceProperties) {
+        foreach (\devices\Devices::listDevices() as $deviceIndex => $deviceProperties) {
             $factory = new DeviceFactory($deviceIndex);
             $dev = $factory->device;
             // find the attribute pertaining to the specific device
             $redirectUrl = 0;
             foreach ($redirect as $index => $oneRedirect) {
                 if ($oneRedirect["device"] == $deviceIndex) {
-                    $redirectUrl = getLocalisedValue($oneRedirect, $locale);
+                    $redirectUrl = $this->languageInstance->getLocalisedValue($oneRedirect);
                 }
             }
-            $devStatus = AVAILABLE;
+            $devStatus = self::AVAILABLE;
             $message = 0;
             if (isset($deviceProperties['options']) && isset($deviceProperties['options']['message']) && $deviceProperties['options']['message']) {
                 $message = $deviceProperties['options']['message'];
@@ -445,7 +445,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $deviceCustomtext = 0;
             if ($redirectUrl === 0) {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
-                    $devStatus = HIDDEN;
+                    $devStatus = self::HIDDEN;
                 } else {
                     $dev->calculatePreferredEapType($preferredEap);
                     $eap = $dev->selectedEap;
@@ -463,7 +463,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 }
                             }
                             if (count($customTextAttributes) > 0) {
-                                $eapCustomtext = getLocalisedValue($customTextAttributes, $locale);
+                                $eapCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes);
                             }
                             $eAPOptions["eap-specific:customtext"][serialize($eap)] = $eapCustomtext;
                         }
@@ -475,9 +475,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                 $customTextAttributes[] = $oneAttribute;
                             }
                         }
-                        $deviceCustomtext = getLocalisedValue($customTextAttributes, $locale);
+                        $deviceCustomtext = $this->languageInstance->getLocalisedValue($customTextAttributes);
                     } else {
-                        $devStatus = UNAVAILABLE;
+                        $devStatus = self::UNAVAILABLE;
                     }
                 }
             }

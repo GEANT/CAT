@@ -16,16 +16,11 @@
  * @package UserGUI
  */
 error_reporting(E_ALL | E_STRICT);
-require_once("UserAPI.php");
 require_once(ROOT."/web/resources/inc/header.php");
 require_once(ROOT."/web/resources/inc/footer.php");
-require_once("CAT.php");
-require_once("Logging.php");
-require_once("Helper.php");
-require_once("Skinjob.php");
-$Gui = new UserAPI();
-$loggerInstance = new Logging();
-$langObject = new Language();
+$Gui = new \core\UserAPI();
+$loggerInstance = new \core\Logging();
+$langObject = new \core\Language();
 $langObject->setTextDomain("web_user");
 $loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
 

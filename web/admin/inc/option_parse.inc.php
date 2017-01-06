@@ -12,8 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("Options.php");
-
 require_once("input_validation.inc.php");
 
 function cmpSequenceNumber($left, $right) {
@@ -34,7 +32,7 @@ function postProcessValidAttributes($options, &$good, &$bad) {
                     if (empty($optionPayload['content'])) {
                         break;
                     }
-                    $content = downloadFile($optionPayload['content']);
+                    $content = \core\OutsideComm::downloadFile($optionPayload['content']);
                     unset($options[$index]);
                     if (check_upload_sanity("eap:ca_file", $content)) {
                         $content = base64_encode($content);
@@ -63,7 +61,7 @@ function postProcessValidAttributes($options, &$good, &$bad) {
                     if (empty($optionPayload['content'])) {
                         break;
                     }
-                    $bindata = downloadFile($optionPayload['content']);
+                    $bindata = \core\OutsideComm::downloadFile($optionPayload['content']);
                     unset($options[$index]);
                     if (check_upload_sanity("general:logo_file", $bindata)) {
                         $good[] = $name;
@@ -151,7 +149,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
 
     $killlist = $pendingattributes;
 
-    $optioninfoObject = Options::instance();
+    $optioninfoObject = \core\Options::instance();
 
     // Step 1: collate option names, option values and uploaded files (by 
     // filename reference) into one array for later handling
@@ -234,7 +232,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                         break;
                     } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
-                        $content = downloadFile("file:///" . $iterator["$objId-2"]);
+                        $content = \core\OutsideComm::downloadFile("file:///" . $iterator["$objId-2"]);
                         if (!check_upload_sanity($objValue, $content)) {
                             $bad[] = $objValue;
                             continue 2;
@@ -285,7 +283,7 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                 continue;
             }
             switch (get_class($object)) {
-                case 'ProfileRADIUS':
+                case 'core\\ProfileRADIUS':
                     if ($device !== NULL) {
                         $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
                     } elseif ($eaptype != 0) {
@@ -294,9 +292,9 @@ function processSubmittedFields($object, $postArray, $filesArray, $pendingattrib
                         $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
                     }
                     break;
-                case 'IdP':
-                case 'User':
-                case 'Federation':
+                case 'core\\IdP':
+                case 'core\\User':
+                case 'core\\Federation':
                     $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
                     break;
                 default:

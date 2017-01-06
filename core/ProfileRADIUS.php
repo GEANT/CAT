@@ -20,15 +20,8 @@
  * @package Developer
  *
  */
-/**
- * necessary includes
- */
-require_once('Helper.php');
-require_once('IdP.php');
-require_once('EAP.php');
-require_once('X509.php');
-require_once('AbstractProfile.php');
-require_once('devices/devices.php');
+namespace core;
+use \Exception;
 
 /**
  * This class represents an EAP Profile.
@@ -137,7 +130,7 @@ class ProfileRADIUS extends AbstractProfile {
 
         $this->privEaptypes = $this->fetchEAPMethods();
 
-        $this->name = getLocalisedValue($this->getAttributes('profile:name'), $this->languageInstance->getLang()); // cannot be set per device or eap type
+        $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('profile:name')); // cannot be set per device or eap type
 
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
@@ -190,8 +183,8 @@ class ProfileRADIUS extends AbstractProfile {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
         $escapedPath = $this->databaseHandle->escapeValue($path);
         $this->databaseHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time,eap_type) 
-                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '" . $this->languageInstance->getLang() . "', CURRENT_TIMESTAMP, $integer_eap_type) 
-                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP, eap_type = $integer_eap_type");
+                                        VALUES ($this->identifier, '$escapedDevice', '$escapedPath', '$mime', '" . $this->languageInstance->getLang() . "', CURRENT_TIMESTAMP, $integerEapType) 
+                                        ON DUPLICATE KEY UPDATE download_path = '$escapedPath', mime = '$mime', installer_time = CURRENT_TIMESTAMP, eap_type = $integerEapType");
     }
 
     /**

@@ -9,11 +9,8 @@
  */
 ?>
 <?php
-
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-require_once("User.php");
-require_once("Logging.php");
 
 function isAuthenticated() {
     $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
@@ -21,7 +18,7 @@ function isAuthenticated() {
 }
 
 function authenticate() {
-    $loggerInstance = new Logging();
+    $loggerInstance = new \core\Logging();
     $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
     $authSimple->requireAuth();
 
@@ -38,7 +35,7 @@ function authenticate() {
     $_SESSION['user'] = $user;
     $newNameReceived = FALSE;
 
-    $userObject = new User($user);
+    $userObject = new \core\User($user);
     if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($userObject->getAttributes('user:realname')) == 0)) {
         $name = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0];
         $userObject->addAttribute('user:realname', NULL, $name);

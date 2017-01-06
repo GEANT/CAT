@@ -19,8 +19,8 @@
 /**
  * 
  */
-require_once("Logging.php");
-require_once("Language.php");
+namespace core;
+use \Exception;
 
 class Skinjob {
 

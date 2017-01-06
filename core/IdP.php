@@ -20,17 +20,8 @@
 /**
  * 
  */
-require_once('Helper.php');
-require_once('ProfileFactory.php');
-require_once('EntityWithDBProperties.php');
-require_once('AbstractProfile.php');
-require_once("Options.php");
-require_once("DBConnection.php");
-require_once("RADIUSTests.php");
-
-define("EXTERNAL_DB_SYNCSTATE_NOT_SYNCED", 0);
-define("EXTERNAL_DB_SYNCSTATE_SYNCED", 1);
-define("EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING", 2);
+namespace core;
+use \Exception;
 
 /**
  * This class represents an Identity Provider (IdP).
@@ -45,6 +36,10 @@ define("EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING", 2);
  * @package Developer
  */
 class IdP extends EntityWithDBProperties {
+
+    const EXTERNAL_DB_SYNCSTATE_NOT_SYNCED = 0;
+    const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
+    const EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING = 2;
 
     /**
      *
@@ -96,7 +91,7 @@ class IdP extends EntityWithDBProperties {
             "row" => 0,
             "flag" => NULL];
 
-        $this->name = getLocalisedValue($this->getAttributes('general:instname'), $this->languageInstance->getLang());
+        $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
@@ -139,7 +134,7 @@ class IdP extends EntityWithDBProperties {
 
     public function getAllProfileStatusOverview() {
         $allProfiles = $this->databaseHandle->exec("SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        $returnarray = ['dns' => RETVAL_SKIPPED, 'cert' => L_OK, 'reachability' => RETVAL_SKIPPED, 'TLS' => RETVAL_SKIPPED, 'checktime' => NULL];
+        $returnarray = ['dns' => RADIUSTests::RETVAL_SKIPPED, 'cert' => Entity::L_OK, 'reachability' => RADIUSTests::RETVAL_SKIPPED, 'TLS' => RADIUSTests::RETVAL_SKIPPED, 'checktime' => NULL];
         while ($statusQuery = mysqli_fetch_object($allProfiles)) {
             if ($statusQuery->status_dns < $returnarray['dns']) {
                 $returnarray['dns'] = $statusQuery->status_dns;
@@ -214,7 +209,7 @@ class IdP extends EntityWithDBProperties {
                     return new ProfileRADIUS($identifier, $this);
                 case "SILVERBULLET":
                     $theProfile = new ProfileSilverbullet($identifier, $this);
-                    $theProfile->addSupportedEapMethod(EAPTYPE_SILVERBULLET, 1);
+                    $theProfile->addSupportedEapMethod(\core\EAP::EAPTYPE_SILVERBULLET, 1);
                     return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");
@@ -273,9 +268,10 @@ Best regards,
             $usedarray = [];
             // extract all institutions from the country
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", strtolower($this->federation));
+            $lowerFed = strtolower($this->federation);
+            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", $lowerFed);
 
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
@@ -310,7 +306,7 @@ Best regards,
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
-        return EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
+        return self::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
     }
 
     /**
@@ -320,7 +316,7 @@ Best regards,
      */
     public function getExternalDBId() {
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
             }
@@ -333,10 +329,10 @@ Best regards,
     public function setExternalDBId($identifier) {
         $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {
-                $this->databaseHandle->exec("UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
             }
         }
     }

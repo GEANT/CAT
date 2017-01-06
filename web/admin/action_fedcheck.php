@@ -11,12 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("IdP.php");
-require_once("Profile.php");
-require_once("RADIUSTests.php");
-
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
@@ -24,7 +18,7 @@ require_once("../resources/inc/footer.php");
 
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
-    $dbHandle = DBConnection::handle("INST");
+    $dbHandle = \core\DBConnection::handle("INST");
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
@@ -36,26 +30,26 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         // update database with the findings
 
         $dbHandle->exec("UPDATE profile SET "
-                . "status_dns = " . RETVAL_SKIPPED . ", "
-                . "status_cert = " . RETVAL_SKIPPED . ", "
-                . "status_reachability = " . RETVAL_SKIPPED . ", "
-                . "status_TLS = " . RETVAL_SKIPPED . ", "
+                . "status_dns = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_cert = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_reachability = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_TLS = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
                 . "last_status_check = NOW() "
                 . "WHERE profile_id = " . $profile->identifier);
 
         return $tabletext;
     }
-    $testsuite = new RADIUSTests($realm, $profile->identifier);
+    $testsuite = new \core\RADIUSTests($realm, $profile->identifier);
 
     // NAPTR existence check
     $tabletext .= "<td>";
     $naptr = $testsuite->NAPTR();
-    if ($naptr != RETVAL_NOTCONFIGURED)
+    if ($naptr != \core\RADIUSTests::RETVAL_NOTCONFIGURED)
         switch ($naptr) {
-            case RETVAL_NONAPTR:
+            case \core\RADIUSTests::RETVAL_NONAPTR:
                 $tabletext .= _("No NAPTR records");
                 break;
-            case RETVAL_ONLYUNRELATEDNAPTR:
+            case \core\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
                 $tabletext .= sprintf(_("No associated NAPTR records"));
                 break;
             default: // if none of the possible negative retvals, then we have matching NAPTRs
@@ -69,17 +63,17 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     if ($naptr > 0) {
         $naptrValid = $testsuite->NAPTR_compliance();
         switch ($naptrValid) {
-            case RETVAL_INVALID:
+            case \core\RADIUSTests::RETVAL_INVALID:
                 $NAPTR_issues = true;
                 break;
-            case RETVAL_OK:
+            case \core\RADIUSTests::RETVAL_OK:
                 $srv = $testsuite->NAPTR_SRV();
-                if ($srv == RETVAL_INVALID) {
+                if ($srv == \core\RADIUSTests::RETVAL_INVALID) {
                     $NAPTR_issues = true;
                 }
                 if ($srv > 0) {
                     $hosts = $testsuite->NAPTR_hostnames();
-                    if ($hosts == RETVAL_INVALID)
+                    if ($hosts == \core\RADIUSTests::RETVAL_INVALID)
                         $NAPTR_issues = true;
                 }
                 break;
@@ -92,7 +86,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
 
     $UDPErrors = false;
-    $certBiggestOddity = L_OK;
+    $certBiggestOddity = \core\Entity::L_OK;
 
     foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);
@@ -125,7 +119,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     if ($naptr > 0 && count($testsuite->NAPTR_hostname_records) > 0) {
         foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
             $retval = $testsuite->TLS_clients_side_check($addr);
-            if ($retval != RETVAL_OK && $retval != RETVAL_SKIPPED)
+            if ($retval != \core\RADIUSTests::RETVAL_OK && $retval != \core\RADIUSTests::RETVAL_SKIPPED)
                 $dynamicErrors = true;
         }
     }
@@ -137,10 +131,10 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     $tabletext .= "</td></tr>";
 
     $dbHandle->exec("UPDATE profile SET "
-            . "status_dns = " . ($NAPTR_issues ? RETVAL_INVALID : RETVAL_OK) . ", "
+            . "status_dns = " . ($NAPTR_issues ? \core\RADIUSTests::RETVAL_INVALID : \core\RADIUSTests::RETVAL_OK) . ", "
             . "status_cert = " . ($certBiggestOddity) . ", "
-            . "status_reachability = " . ($UDPErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
-            . "status_TLS = " . ($dynamicErrors ? RETVAL_INVALID : RETVAL_OK) . ", "
+            . "status_reachability = " . ($UDPErrors ? \core\RADIUSTests::RETVAL_INVALID : \core\RADIUSTests::RETVAL_OK) . ", "
+            . "status_TLS = " . ($dynamicErrors ? \core\RADIUSTests::RETVAL_INVALID : \core\RADIUSTests::RETVAL_OK) . ", "
             . "last_status_check = NOW() "
             . "WHERE profile_id = " . $profile->identifier);
 

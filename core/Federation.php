@@ -22,9 +22,8 @@
 /**
  * necessary includes
  */
-require_once('IdP.php');
-require_once('EntityWithDBProperties.php');
-require_once('CAT.php');
+namespace core;
+use \Exception;
 
 /**
  * This class represents an consortium federation.
@@ -52,7 +51,7 @@ class Federation extends EntityWithDBProperties {
         $dataArray = [];
 
         $handle = DBConnection::handle("INST");
-        foreach (Devices::listDevices() as $index => $deviceArray) {
+        foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
             $query = "SELECT SUM(downloads_admin) AS admin, "
                     . "SUM(downloads_user) AS user "
                     . "FROM downloads, profile, institution "
@@ -233,7 +232,7 @@ class Federation extends EntityWithDBProperties {
             $externals = $externalHandle->exec($query, "s", $this->identifier);
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
-                                                                                                     AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+                                                                                                     AND external_db_syncstate = " . IdP::EXTERNAL_DB_SYNCSTATE_SYNCED);
             $pendingInvite = $this->databaseHandle->exec("SELECT DISTINCT external_db_uniquehandle FROM invitations 
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 

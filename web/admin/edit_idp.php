@@ -11,11 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("Language.php");
-
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
@@ -78,7 +73,7 @@ geo_widget_head($my_inst->federation, $inst_name)
 </head>
 <body onload='load(1)'>
     <?php 
-    $langObject = new Language();
+    $langObject = new \core\Language();
     productheader("ADMIN-IDP"); ?>
 
     <h1>
@@ -97,7 +92,7 @@ geo_widget_head($my_inst->federation, $inst_name)
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-                        $fed = new Federation($my_inst->federation);
+                        $fed = new \core\Federation($my_inst->federation);
                         echo $fed->name;
                         ?></strong></td>
             </tr>

@@ -19,12 +19,9 @@
  */
 
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("UserAPI.php");
-require_once("Logging.php");
-require_once('ProfileFactory.php');
 require_once('../admin/inc/input_validation.inc.php');
-$API = new UserAPI();
-$loggerInstance = new Logging();
+$API = new \core\UserAPI();
+$loggerInstance = new \core\Logging();
 
 $profileId = $_REQUEST['profile'] ?? FALSE;
 $instId = $_REQUEST['idp'] ?? FALSE;
@@ -53,7 +50,7 @@ if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
 
 // first block will test if the user input was valid.
 
-$p = ProfileFactory::instantiate($profileId);
+$p = \core\ProfileFactory::instantiate($profileId);
 
 if(!$p->institution || $p->institution !== $instId) {
   header("HTTP/1.0 404 Not Found");

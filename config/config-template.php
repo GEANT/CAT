@@ -114,6 +114,8 @@ const CONFIG = [
         'keypass' => NULL,
         'silverbullet_default_maxusers' => 200,
         'silverbullet_realm_suffix' => '.hosted.eduroam.org',
+        'silverbullet_CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
+      # 'silverbullet_CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
         'nomenclature_federation' => 'National Roaming Operator',
     ],
 

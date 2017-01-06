@@ -11,18 +11,14 @@
 // please run this as a cron job every hour
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("CAT.php");
-require_once("Federation.php");
-require_once("UserManagement.php");
-require_once("User.php");
 
 // iterate through all federations and see if there are recently expired 
 // invitations for any of them
 
-$mgmt_object = new UserManagement();
+$mgmt_object = new \core\UserManagement();
 $invitation_list = $mgmt_object->listRecentlyExpiredInvitations();
 
-$cat = new CAT();
+$cat = new \core\CAT();
 
 foreach ($cat->knownFederations as $federation => $federation_name) {
     // construct list of invitations in this federation
@@ -44,7 +40,7 @@ foreach ($cat->knownFederations as $federation => $federation_name) {
         return;
     }
 
-    $this_fed = new Federation(reset($thisfedlist)["country"]);
+    $this_fed = new \core\Federation(reset($thisfedlist)["country"]);
     $admins = $this_fed->listFederationAdmins();
     $mailtext = "Hello,
 

@@ -14,11 +14,6 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("CAT.php");
-
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("../resources/inc/header.php");
@@ -56,7 +51,7 @@ if($builder->isReady()){
         if ($inst->profileCount() > 0) {
             throw new Exception("We were told to create a new SB profile, but the inst in question already has at least one profile!");
         }
-        $fed = new Federation($inst->federation);
+        $fed = new \core\Federation($inst->federation);
         $allowSb = $fed->getAttributes("fed:silverbullet");
         if (count($allowSb) == 0) {
             throw new Exception("We were told to create a new SB profile, but this federation does not allow SB at all!");
@@ -84,7 +79,7 @@ if($builder->isReady()){
     $builder->addContentElement($infoBlock);
 
     //User import form preparation
-    $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of invitations (optional):'));
+    $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
     $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElementInterface::INFOBLOCK_CLASS);
     $builder->addContentElement($importBlock);
 

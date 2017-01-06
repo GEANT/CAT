@@ -1,12 +1,12 @@
 <?php
 
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -23,10 +23,12 @@
 /**
  * necessary includes
  */
-session_start();
-require_once("Helper.php");
-require_once("Federation.php");
-require_once(dirname(__DIR__) . "/config/_config.php");
+
+namespace core;
+
+if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 /**
  * Define some variables which need to be globally accessible
@@ -60,15 +62,16 @@ class CAT extends Entity {
     const COPYRIGHT_CONSORTIA = "the GN3, GN3+, GN4-1 and GN4-2 consortia";
     const COPYRIGHT_MIN_YEAR = 2011;
     const COPYRIGHT_MAX_YEAR = 2017;
-    
+
     /*
      * This is the user-displayed string; controlled by the four options above
      * It is generated in the constructor.
      * 
      * @var string
      */
+
     public $CAT_VERSION_STRING;
-    
+
     /*
      * The entire copyright line, generated in constructor
      */
@@ -82,7 +85,7 @@ class CAT extends Entity {
      * @var array of all known federations
      */
     public $knownFederations;
-    
+
     /**
      * the default database to query in this class.
      */
@@ -99,19 +102,19 @@ class CAT extends Entity {
         $this->CAT_VERSION_STRING = _("Unreleased <a href='https://github.com/GEANT/CAT/tree/master/Changes.md'>Git Revision</a>");
         if (CAT::RELEASE_VERSION) {
             $temp_version = "CAT-" . CAT::VERSION_MAJOR . "." . CAT::VERSION_MINOR;
-            $branch = "release_".CAT::VERSION_MAJOR ."_".CAT::VERSION_MINOR;
+            $branch = "release_" . CAT::VERSION_MAJOR . "_" . CAT::VERSION_MINOR;
             if (CAT::VERSION_PATCH != 0) {
                 $temp_version .= "." . CAT::VERSION_PATCH;
             }
             if (CAT::VERSION_EXTRA != "") {
                 $temp_version .= "-" . CAT::VERSION_EXTRA;
             }
-            $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/".$branch."/Changes.md", $temp_version);
+            $this->CAT_VERSION_STRING = sprintf(_("Release <a href='%s'>%s</a>"), "https://github.com/GEANT/CAT/tree/" . $branch . "/Changes.md", $temp_version);
         }
-        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; ".CAT::COPYRIGHT_MIN_YEAR."-".CAT::COPYRIGHT_MAX_YEAR." ". CAT::COPYRIGHT_HOLDER."<br/>on behalf of ".CAT::COPYRIGHT_CONSORTIA."; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+        $this->CAT_COPYRIGHT = CONFIG['APPEARANCE']['productname'] . " - " . $this->CAT_VERSION_STRING . " &copy; " . CAT::COPYRIGHT_MIN_YEAR . "-" . CAT::COPYRIGHT_MAX_YEAR . " " . CAT::COPYRIGHT_HOLDER . "<br/>on behalf of " . CAT::COPYRIGHT_CONSORTIA . "; and others <a href='copyright.php'>Full Copyright and Licenses</a>";
         $this->languageInstance->setTextDomain($olddomain);
-        
-                /* Federations are created in DB with bootstrapFederation, and listed via listFederations
+
+        /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = $this->languageInstance->setTextDomain('core');
 
@@ -367,7 +370,6 @@ class CAT extends Entity {
         ];
 
         $this->languageInstance->setTextDomain($oldlocale);
-
     }
 
     /**
@@ -392,7 +394,7 @@ class CAT extends Entity {
         return $dbresult->instcount;
     }
 
-        /**
+    /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
      * @param int $activeOnly if and set to non-zero will
@@ -442,7 +444,7 @@ class CAT extends Entity {
                         $names[] = [
                             'lang' => $opt[2],
                             'value' => $opt[1]
-                            ];
+                        ];
                         break;
                     default:
                         break;
@@ -452,7 +454,7 @@ class CAT extends Entity {
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
                 $langObject = new Language();
-                $name = getLocalisedValue($names, $langObject->getLang());
+                $name = $langObject->getLocalisedValue($names);
             }
             $oneInstitutionResult['title'] = $name;
             if (count($geo) > 0) {
@@ -488,8 +490,8 @@ class CAT extends Entity {
         $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
     }
-    
-        public function getExternalDBEntityDetails($externalId, $realm = NULL) {
+
+    public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
@@ -517,4 +519,5 @@ class CAT extends Entity {
         }
         return $list;
     }
+
 }
