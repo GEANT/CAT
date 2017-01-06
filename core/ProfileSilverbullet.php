@@ -176,6 +176,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return array
      */
     public function generateCertificate($token, $importPassword) {
+        $cert = "";
+        $serial = FALSE;
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
@@ -183,20 +185,20 @@ class ProfileSilverbullet extends AbstractProfile {
         if ($tokenStatus['profile'] != $this->identifier) {
             throw new Exception("Attempt to generate a SilverBullet installer, but the profile ID (constructor) and the profile from token do not match!");
         }
-// SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
+        // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
         $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $tokenStatus['user']);
         if (!$userrow || $userrow->num_rows != 1) {
             throw new Exception("Despite a valid token, the corresponding user was not found in database or database query error!");
         }
         $expiryObject = mysqli_fetch_object($userrow);
-        $this->loggerInstance->debug(5, "EXP: ".$expiryObject->expiry."\n");
+        $this->loggerInstance->debug(5, "EXP: " . $expiryObject->expiry . "\n");
         $expiryDateObject = date_create_from_format("Y-m-d H:i:s", $expiryObject->expiry);
-        $this->loggerInstance->debug(5, $expiryDateObject->format("Y-m-d H:i:s")."\n");
+        $this->loggerInstance->debug(5, $expiryDateObject->format("Y-m-d H:i:s") . "\n");
         $validity = date_diff(date_create(), $expiryDateObject);
         if ($validity->invert == 1) { // negative! That should not be possible
             throw new Exception("Attempt to generate a certificate for a user which is already expired!");
         }
-// token leads us to the NRO, to set the OU property of the cert
+        // token leads us to the NRO, to set the OU property of the cert
         $inst = new IdP($this->institution);
         $federation = strtoupper($inst->federation);
         $usernameLocalPart = self::random_str(32);
@@ -216,35 +218,50 @@ class ProfileSilverbullet extends AbstractProfile {
                 ]
         );
 
-// HTTP POST the CSR to the CA with the $expiryDays as parameter
-// on successful execution, gets back a PEM file which is the certificate (in JSON, structure TBD)
-// $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
-// as that is still TODO, generate a slightly stubby implementation of a CA right here
-// it can do all we have in the spec for eaas, but cannot generate CRL/OCSP
-// serial numbers are not maintaining state because random, and could be duplicate
-// on heavy use. But this is a temporary stopgap CA only anyway, so who cares.
-        $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
-        $rootCaPem = fread($rootCaHandle, 1000000);
-        $issuingCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/real.pem", "r");
-        $issuingCaPem = fread($issuingCaHandle, 1000000);
-        $issuingCa = openssl_x509_read($issuingCaPem);
-        $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
-        $serial = mt_rand(1000000, 100000000);
-        $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
-// get the SHA1 fingerprint, this will be handy for Windows installers
+        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+            /* HTTP POST the CSR to the CA with the $expiryDays as parameter
+             * on successful execution, gets back a PEM file which is the
+             * certificate (structure TBD)
+             * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
+             *
+             * The result of this if clause has to be a certificate in PHP's 
+             * "openssl_object" style (like the one that openssl_csr_sign would 
+             * produce), to be stored in the variable $cert; we also need the
+             * serial - which can be extracted from the received cert and has
+             * to be stored in $serial.
+             */
+            throw new Exception("External silverbullet CA is not implemented yet!");
+        } else { // embedded CA
+            $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
+            $rootCaPem = fread($rootCaHandle, 1000000);
+            $issuingCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/real.pem", "r");
+            $issuingCaPem = fread($issuingCaHandle, 1000000);
+            $issuingCa = openssl_x509_read($issuingCaPem);
+            $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
+            $nonDupSerialFound = FALSE;
+            while (!$nonDupSerialFound) {
+                $serial = mt_rand(1000000000, 100000000000);
+                $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+                if (mysqli_num_rows($dupeQuery) == 0) {
+                    $nonDupSerialFound = TRUE;
+                }
+            }
+            $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
+        }
+        // get the SHA1 fingerprint, this will be handy for Windows installers
         $sha1 = openssl_x509_fingerprint($cert, "sha1");
-// with the cert, our private key and import password, make a PKCS#12 container out of it
+        // with the cert, our private key and import password, make a PKCS#12 container out of it
         $exportedCertProt = "";
         openssl_pkcs12_export($cert, $exportedCertProt, $privateKey, $importPassword, ['extracerts' => [$issuingCaPem /* , $rootCaPem */]]);
         $exportedCertClear = "";
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
-// store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
+        // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         // we need the *real* expiry date, not just the day-approximation
         $x509 = new X509();
         $certString = "";
         openssl_x509_export($cert, $certString);
         $parsedCert = $x509->processCertificate($certString);
-        $this->loggerInstance->debug(5,"CERTINFO: " . print_r($parsedCert['full_details'],true));
+        $this->loggerInstance->debug(5, "CERTINFO: " . print_r($parsedCert['full_details'], true));
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
         // newborn cert immediately gets its "valid" OCSP response
@@ -268,65 +285,78 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return string DER-encoded OCSP status info (binary data!)
      */
     public static function triggerNewOCSPStatement($serial) {
-        // get all relevant info from DB
-        $cn = "";
-        $federation = NULL;
-        $certstatus = "";
-        $dbHandle = DBConnection::handle("INST");
-        $logHandle = new Logging();
-        $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
-        if (mysqli_num_rows($originalStatusQuery) > 0) {
-            $certstatus = "V";
-        }
-        while ($runner = mysqli_fetch_object($originalStatusQuery)) { // there can be only one row
-            if ($runner->revocation_status == "REVOKED") {
-                // already revoked, simply return canned OCSP response
-                $certstatus = "R";
+        $ocsp = ""; // the statement
+        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+            /* HTTP POST the serial to the CA. The CA knows about the state of
+             * the certificate.
+             *
+             * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/ocsp/", ["serial" => $serial ] );
+             *
+             * The result of this if clause has to be a DER-encoded OCSP statement
+             * to be stored in the variable $ocsp
+             */
+            throw new Exception("External silverbullet CA is not implemented yet!");
+        } else { // embedded CA
+            // get all relevant info from DB
+            $cn = "";
+            $federation = NULL;
+            $certstatus = "";
+            $dbHandle = DBConnection::handle("INST");
+            $logHandle = new Logging();
+            $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+            if (mysqli_num_rows($originalStatusQuery) > 0) {
+                $certstatus = "V";
             }
-            $originalExpiry = date_create_from_format("Y-m-d H:i:s", $runner->expiry);
-            $validity = date_diff(date_create(), $originalExpiry);
-            if ($validity->invert == 1) {
-                // negative! Cert is already expired, no need to revoke. 
-                // No need to return anything really, but do return the last known OCSP statement to prevent special case
-                $certstatus = "E";
+            while ($runner = mysqli_fetch_object($originalStatusQuery)) { // there can be only one row
+                if ($runner->revocation_status == "REVOKED") {
+                    // already revoked, simply return canned OCSP response
+                    $certstatus = "R";
+                }
+                $originalExpiry = date_create_from_format("Y-m-d H:i:s", $runner->expiry);
+                $validity = date_diff(date_create(), $originalExpiry);
+                if ($validity->invert == 1) {
+                    // negative! Cert is already expired, no need to revoke. 
+                    // No need to return anything really, but do return the last known OCSP statement to prevent special case
+                    $certstatus = "E";
+                }
+                $cn = $runner->cn;
+                $profile = new ProfileSilverbullet($runner->profile_id);
+                $inst = new IdP($profile->institution);
+                $federation = strtoupper($inst->federation);
             }
-            $cn = $runner->cn;
-            $profile = new ProfileSilverbullet($runner->profile_id);
-            $inst = new IdP($profile->institution);
-            $federation = strtoupper($inst->federation);
-        }
 
-        // generate stub index.txt file
-        $cat = new CAT();
-        $tempdirArray = $cat->createTemporaryDirectory("test");
-        $tempdir = $tempdirArray['dir'];
-        $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
-        $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
-        $serialHex = strtoupper(dechex($serial));
-        if (strlen($serialHex) % 2 == 1) {
-            $serialHex = "0" . $serialHex;
+            // generate stub index.txt file
+            $cat = new CAT();
+            $tempdirArray = $cat->createTemporaryDirectory("test");
+            $tempdir = $tempdirArray['dir'];
+            $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
+            $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
+            $serialHex = strtoupper(dechex($serial));
+            if (strlen($serialHex) % 2 == 1) {
+                $serialHex = "0" . $serialHex;
+            }
+            $indexfile = fopen($tempdir . "/index.txt", "w");
+            $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
+            $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
+            fwrite($indexfile, $indexStatement);
+            fclose($indexfile);
+            // index.attr is dull but needs to exist
+            $indexAttrFile = fopen($tempdir . "/index.txt.attr", "w");
+            fwrite($indexAttrFile, "unique_subject = yes\n");
+            fclose($indexAttrFile);
+            // call "openssl ocsp" to manufacture our own OCSP statement
+            $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha256 -sha256 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -ndays 365 -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+            $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
+            $output = [];
+            $return = 999;
+            exec($execCmd, $output, $return);
+            if ($return != 0) {
+                throw new Exception("Non-zero return value from openssl ocsp!");
+            }
+            $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
+            $ocsp = fread($ocspFile, 1000000);
+            fclose($ocspFile);
         }
-        $indexfile = fopen($tempdir . "/index.txt", "w");
-        $indexStatement = "$certstatus\t$expiryIndexTxt\t".($certstatus == "R" ? "$nowIndexTxt,unspecified" : "")."\t$serialHex\tunknown\t/O=" . CONFIG['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
-        $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
-        fwrite($indexfile, $indexStatement);
-        fclose($indexfile);
-        // index.attr is dull but needs to exist
-        $indexAttrFile = fopen($tempdir . "/index.txt.attr", "w");
-        fwrite($indexAttrFile, "unique_subject = yes\n");
-        fclose($indexAttrFile);
-        // call "openssl ocsp" to manufacture our own OCSP statement
-        $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha256 -sha256 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -ndays 365 -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
-        $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
-        $output = [];
-        $return = 999;
-        exec($execCmd, $output, $return);
-        if ($return != 0) {
-            throw new Exception("Non-zero return value from openssl ocsp!");
-        }
-        $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
-        $ocsp = fread($ocspFile, 1000000);
-        fclose($ocspFile);
         // write the new statement into DB
         $dbHandle->exec("UPDATE silverbullet_certificate SET OCSP = ?, OCSP_timestamp = NOW() WHERE serial_number = ?", "si", $ocsp, $serial);
         return $ocsp;
@@ -338,15 +368,17 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return array with revocation information
      */
     public function revokeCertificate($serial) {
-// this is a stub, as we do not have a proper CA yet
-// it will again be replaced with a HTTP POST of the revocation request
-// and will get an updated CRL and OCSP statement back, in JSON
-// $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
+
 
 // TODO for now, just mark as revoked in the certificates table (and use the stub OCSP updater)
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
+        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+            // send revocation request to CA.
+            // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
+            throw new Exception("External silverbullet CA is not implemented yet!");
+        }
+        // regardless if embedded or not, always keep local state in our own DB
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $serial);
-        // 2) generate OCSP response that contains new status
         $ocsp = ProfileSilverbullet::triggerNewOCSPStatement($serial);
         return ["OCSP" => $ocsp];
     }
@@ -397,7 +429,7 @@ class ProfileSilverbullet extends AbstractProfile {
         if ($certStatus == self::SB_CERTSTATUS_VALID && $details->revocation_status == "REVOKED") {
             $certStatus = self::SB_CERTSTATUS_REVOKED;
         }
-        
+
 
         return ["status" => self::SB_TOKENSTATUS_REDEEMED,
             "cert_status" => $certStatus,
@@ -407,7 +439,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "cert_name" => $details->cn,
             "cert_expiry" => $details->expiry,
             "device" => $details->device,
-                ];
+        ];
     }
 
     public function userStatus($username) {
