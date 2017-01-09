@@ -7,8 +7,7 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-?>
-<?php
+
 namespace core;
 /**
  * This factory class generates either a ProfileRADIUS or a ProfileSilverbullet

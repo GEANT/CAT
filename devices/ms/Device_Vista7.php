@@ -7,8 +7,6 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-?>
-<?php
 
 /**
  * This file creates MS Windows Vista and MS Windows 7 installers

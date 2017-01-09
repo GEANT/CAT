@@ -7,8 +7,7 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-?>
-<?php
+
 /**
  * This file contains the Devices class.
  *
