@@ -122,6 +122,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
 
         $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
+        $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $tempArrayProfLevel);
 
 // now, fetch and merge IdP-wide attributes
 
