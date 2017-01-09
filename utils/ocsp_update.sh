@@ -8,6 +8,9 @@ TARGETUSER="statements"
 TARGETDIR="/var/www/html/ticker/statements/"
 SSH_KEY="/root/.ssh/id_ed25519"
 
-php ./ocsp_update.php
-scp -i $SSH_KEY ./temp_ocsp/* $TARGETUSER@$TARGETHOST:$TARGETDIR
-rm -R ./temp_ocsp
+script="$0"
+basename="$(dirname $script)"
+
+php $basename/ocsp_update.php
+scp -i $SSH_KEY $basename/temp_ocsp/* $TARGETUSER@$TARGETHOST:$TARGETDIR
+rm -R $basename/temp_ocsp
