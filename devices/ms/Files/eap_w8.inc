@@ -44,32 +44,3 @@ Delete "$TEMP\${CA_CERT}"
 !endif
 SectionEnd
 ;==========================
-
-
-;----------------------------
-; Functions which need to defined after sections
-!ifdef TLS
-Function .onSelChange
-  SectionGetFlags ${cert} $PFX_install
-FunctionEnd
-
-Function showComponents
-  !ifdef TLS_CERT_STRING
-  FileOpen $9 check_pfx.cmd w
-  FileWrite $9 '@certutil -user -store my | find "${TLS_CERT_STRING}"'
-  FileClose $9
-  nsExec::Exec "$TEMP\check_pfx.cmd"
-  !else
-  Push 1
-  !endif
-  Pop $PFX_install
-  ${If} $PFX_install == 0
-    SectionSetFlags ${cert} 0
-  ${Else}
-    SectionSetFlags ${cert} 1
-  ${EndIf}
-
-;TRANSLATION
-  !insertmacro MUI_HEADER_TEXT "<?php echo _("Information about components")?>" " "
-FunctionEnd
-!endif

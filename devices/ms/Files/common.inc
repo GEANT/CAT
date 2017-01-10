@@ -71,10 +71,6 @@ Var Netsh
 Var Msiexec
 Var main_ssid
 Var rebootRequired
-!ifdef SILVERBULLET
-  !define CRED
-  !define TLS_CRED
-!endif
 !ifdef GEANTLink
   !define CRED
   !define PASSWORD_BASED_CRED
@@ -85,10 +81,11 @@ Var rebootRequired
   !define PASSWORD_BASED_CRED
 !endif
 !ifdef TLS
+  !define CRED
   Var Cert_file
-  Var PFX_install
   Var Dialog1
   Var Password
+  Var tlsFingerprint
 !endif
 !ifdef PASSWORD_BASED_CRED
   Var UNAME_F
@@ -99,9 +96,6 @@ Var rebootRequired
   Var UNAME_B64
   Var PASS2_F
   Var PASS2
-!endif
-!ifdef TLS_CRED
-  Var tlsFingerprint
 !endif
 
 !include "base64.nsh"
@@ -906,6 +900,8 @@ Function InstallWiredCred
 FunctionEnd
 
 Function writeTlsUserProfle
+    DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials TLS"))?>"
+    !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
     FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
@@ -973,7 +969,7 @@ Function InstallWirelessCred
     !insertmacro debug_cat 3 "Execute: $TEMP\setEAPCred.exe $\"$UNAME$\" $\"base_64_password_not_recorded$\" $\"$R1$\""
     nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS_B64$\" $\"$R1$\""
     !endif
-    !ifdef SILVERBULLET
+    !ifdef TLS
       Call writeTlsUserProfle
       !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
       nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
@@ -993,9 +989,6 @@ Function PFXCertificateSelect
   !ifndef SILVERBULLET
 ;TRANSLATION
 !insertmacro MUI_HEADER_TEXT "<?php printf(WindowsCommon::sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php WindowsCommon::echo_nsi(_("Install personal certificate"))?>"
-  ${If} $PFX_install == 0
-    Return
-  ${EndIf}
 ;TRANSLATION
     IfSilent +2
   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Preparing to install personal certificate."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Click OK to continue"))?> "
@@ -1050,11 +1043,11 @@ Function PFXCertificateSelectLeave
    ${Else}
       ${NSD_GetText} $Password $0
       !ifdef W8
-;      !insertmacro debug_cat 3 'Execute: 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}  "'
-      nsExec::ExecToStack 'powershell -Command "&{$securePassword = ConvertTo-SecureString -String \"$0\" -Force -AsPlainText ; try { $cert = Import-PfxCertificate -File \"$Cert_file\" cert:\CurrentUser\My -Password $securePassword} catch { exit 1 } ; $cert.Thumbprint}"'
+      !insertmacro debug_cat 3 'Execute: powershell -Command "&{$$securePassword = ConvertTo-SecureString -String $\"$0$\" -Force -AsPlainText ; try { $$cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $$securePassword} catch { exit 1 } ; $$cert.Thumbprint}  "'
+      nsExec::ExecToStack 'powershell -Command "&{$$securePassword = ConvertTo-SecureString -String \"$0\" -Force -AsPlainText ; try { $$cert = Import-PfxCertificate -File \"$Cert_file\" cert:\CurrentUser\My -Password $$securePassword} catch { exit 1 } ; $$cert.Thumbprint}"'
       Pop $1
       Pop $tlsFingerprint
-      !insertmacro debug_cat 3 "PFX install returned $1"
+      !insertmacro debug_cat 3 "PFX install returned $1; fingerprint: $tlsFingerprint"
       !else
       nsExec::ExecToStack 'powershell -InputFormat None -ExecutionPolicy Bypass -Command "&{$cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2; try { $cert.Import(\"$Cert_file\", \"$0\", \"Exportable\") } catch { exit 1 }; $cert.Thumbprint}"'
       Pop $1
@@ -1186,14 +1179,6 @@ Page custom WiredConfirm
 !endif
 ;============================
 !ifdef TLS
-!ifndef SILVERBULLET
-PageEx components
-PageCallbacks showComponents "" ""
-;TRANSLATION
-ComponentText "<?php printf(WindowsCommon::sprint_nsi(_("In order to install/update %s access all selected steps need to be performed. Click Continue to proceed")),CONFIG['CONSORTIUM']['name'])?>" "" \
-      "<?php WindowsCommon::echo_nsi(_("If an option is not selected by default, then it is either not available or optional."))?>"
-PageExEnd
-!endif
 ;=============================
 Page custom PFXCertificateSelect PFXCertificateSelectLeave
 ;=============================
