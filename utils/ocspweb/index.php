@@ -34,8 +34,8 @@
 
 error_reporting(E_ALL);
 
-const OUR_NAME_HASH = "EBB151A467CD64D0E6F8F5E8D8CE9F6FADA54332";
-const OUR_KEY_HASH = "156B722D8BFD915157148BBE30E46C2C8B9810CC";
+const OUR_NAME_HASH = "DCEB2C72264239201A4A5DF547C78268A1CB33A2";
+const OUR_KEY_HASH = "BC8DDD42F7B3B458E8ECEE403D21D404CEB9F2D0";
 
 function instantDeath($message) {
 	error_log($message);
@@ -55,7 +55,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 	}
         break;
     case 'POST':
-        if ($_SERVER['CONTENT-TYPE'] != 'application/ocsp-request') {
+        if ($_SERVER['CONTENT_TYPE'] != 'application/ocsp-request') {
             instantDeath("For request method POST, the Content-Type must be application/ocsp-request.");
         }
         $ocspRequestDer = file_get_contents("php://input");
@@ -71,7 +71,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
 $output = [];
 $retval = 999;
 $derFilePath = tempnam(realpath(sys_get_temp_dir()), "ocsp_");
-$derFile = fopen($derFilePath);
+$derFile = fopen($derFilePath,"w");
 fwrite($derFile, $ocspRequestDer);
 exec("openssl ocsp -reqin $derFilePath -req_text", $output, $retval);
 fclose($derFile);
@@ -103,12 +103,13 @@ if (!$nameHash || !$keyHash || !$serialHex) {
  * back (if we have it).
  */
 if ($nameHash != OUR_NAME_HASH || $keyHash != OUR_KEY_HASH) {
-    instantDeath("The request is about a different Issuer name / public key.");
+    instantDeath("The request is about a different Issuer name / public key. Expected vs. actual name hash: ".OUR_NAME_HASH." / $nameHash, ".OUR_KEY_HASH." / $keyHash");
 }
-$response = fopen(__DIR__."/statements/".$serialHex.".der");
+error_log("base64-encoded request: ".base64_encode($ocspRequestDer));
+$response = fopen(__DIR__."/statements/".$serialHex.".der", "r");
 if (!$response) {
     
-    $response = fopen(__DIR__."/statements/UNAUTHORIZED.der");
+    $response = fopen(__DIR__."/statements/UNAUTHORIZED.der", "r");
     error_log("Serving OCSP UNAUTHORIZED response (no statement for serial number found)!");
     if (!$response) {
         instantDeath("Unable to open our canned UNAUTHORIZED response!");
@@ -122,6 +123,7 @@ if (!$response) {
 
 $responseContent = fread($response, 1000000);
 fclose($response);
+error_log("base64-encoded response: ".base64_encode($responseContent));
 header('Content-Type: application/ocsp-response');
 header('Content-Length: '.strlen($responseContent));
 echo $responseContent;
