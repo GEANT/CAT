@@ -503,7 +503,6 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         $result = $this->copyFile('wlan_test.exe');
         $result = $this->copyFile('check_wired.cmd');
         $result = $this->copyFile('install_wired.cmd');
-        $result = $this->copyFile('setEAPCred.exe');
         $result = $this->copyFile('cat_bg.bmp');
         $result = $this->copyFile('base64.nsh');
         $result = $result && $this->copyFile('cat32.ico');
