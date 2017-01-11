@@ -55,7 +55,6 @@ Var profile_count
 Var aes_count
 Var tkip_count
 Var welcome_message
-;Var get_credentials
 Var install_wireless_credentials
 Var install_wired_credentials
 Var VistaNoSP
@@ -274,8 +273,6 @@ Function .onInit
   Pop $aes_count
   Push 0
   Pop $tkip_count
-;  Push 0
-;  Pop $get_credentials
   Push 0
   Pop $install_wireless_credentials
   Push 0
@@ -801,9 +798,6 @@ Function CreateLanProfile
   nsExec::Exec '"$Netsh" lan add profile $TEMP\lan_prof.xml'
   Pop $0
   !insertmacro debug_cat 4 "netsh returned $0"
-;  ${If} $0 == 0
-;    Push 1
-;    Pop $get_credentials
      !insertmacro debug_cat 1 "Wired profile created"
     Push 1
     Pop $install_wired_credentials
@@ -1075,9 +1069,6 @@ FunctionEnd
 ; User credentials dialog
 !ifdef PASSWORD_BASED_CRED
 Function GetPasswordBasedCredentials
-;  ${If} $get_credentials == 0
-;    Abort
-;  ${EndIf}
   call ShowNextCancelButtons
   !insertmacro MUI_HEADER_TEXT "<?php WindowsCommon::echo_nsi(_("User credentials"))?>" " "
         nsDialogs::Create 1018
