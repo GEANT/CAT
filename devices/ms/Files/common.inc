@@ -676,9 +676,12 @@ FunctionEnd
 
 ; Check which wireless profiles already exist and should be deleted
 Function CheckWirelessProfiles
-  !ifdef PASSWORD_BASED_CRED
-  File setEAPCred.exe
-  nsArray::Set Delete_files "setEAPCred.exe"
+  !ifdef CRED
+  !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
+  File "WLANSetEAPUserData32.exe"
+  File "WLANSetEAPUserData64.exe"
+  nsArray::Set Delete_files "WLANSetEAPUserData32.exe"
+  nsArray::Set Delete_files "WLANSetEAPUserData64.exe"
   !endif
   ${ForEach} $R9 0 $profile_count + 1
     Push $R9
@@ -965,16 +968,18 @@ Function InstallWirelessCred
     !insertmacro debug_cat 1 "installing credentials for profile $R1"
 
     DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials for profile \$R1"))?>"
-    !ifdef PEAP
-    !insertmacro debug_cat 3 "Execute: $TEMP\setEAPCred.exe $\"$UNAME$\" $\"base_64_password_not_recorded$\" $\"$R1$\""
-    nsExec::Exec "$TEMP\setEAPCred.exe $\"$UNAME$\" $\"$PASS_B64$\" $\"$R1$\""
-    !endif
     !ifdef TLS
       Call writeTlsUserProfle
-      !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
-      nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
     !endif
+    !ifdef PEAP
+      Call writePeapUserProfle
+    !endif
+    !insertmacro debug_cat 3 "Execute: $TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
+    nsExec::Exec "$TEMP\WLANSetEAPUserData$Platform.exe $\"$R1$\" 0 $TEMP\user_cred.xml"
     Pop $0
+    ${If} $Debug_cat == 0
+       Delete "$TEMP\user_cred.xml"
+    ${EndIf}
     !insertmacro debug_cat 3 "credentials setting returned $0"
     StrCmp $0 0 Cont1
 ; Error Label, show error box
@@ -1003,9 +1008,6 @@ Function PFXCertificateSelect
   ${NSD_CreateLabel} 0 0 100% 32u "<?php WindowsCommon::echo_nsi(_("Selected file: \$Cert_file"))?>"
   Push "<?php WindowsCommon::echo_nsi(_("certificate password:"))?>"
   !else
-  !insertmacro debug_cat 4 "Unpacking WLANSetEAPUserData"
-  File "WLANSetEAPUserData32.exe"
-  File "WLANSetEAPUserData64.exe"
   !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
   File "SB_cert.p12"
   nsArray::Set Delete_files "SB_cert.p12"
