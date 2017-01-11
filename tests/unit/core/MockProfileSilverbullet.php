@@ -33,6 +33,7 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
         if($this->databaseHandle->exec("INSERT INTO profile (inst_id, realm) VALUES($this->instId, 'test.realm.tst')")){
             $this->identifier = $this->databaseHandle->lastID();
         }
+        $this->attributes = array(array('name' => 'hiddenprofile:tou_accepted'));
     }
     
     public function delete(){

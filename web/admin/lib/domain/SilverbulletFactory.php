@@ -82,25 +82,39 @@ class SilverbulletFactory{
     
     /**
      * 
+     * @return \ProfileSilverbullet
+     */
+    public function getProfile(){
+        return $this->profile;
+    }
+    
+    /**
+     * 
      */
     public function parseRequest(){
-        if(isset($_POST[AddUserValidator::COMMAND]) && isset($_POST[AddUserValidator::PARAM_EXPIRY])){
-            $this->validator = $this->validators[AddUserValidator::COMMAND];
-        }elseif (isset($_FILES[AddUsersValidator::COMMAND])){
-            $this->validator = $this->validators[AddUsersValidator::COMMAND];
-        }elseif (isset($_POST[DeleteUserValidator::COMMAND])){
-            $this->validator = $this->validators[DeleteUserValidator::COMMAND];
-        }elseif (isset($_POST[AddCertificateValidator::COMMAND])){
-            $this->validator = $this->validators[AddCertificateValidator::COMMAND];
-        }elseif (isset($_POST[RevokeCertificateValidator::COMMAND])){
-            $this->validator = $this->validators[RevokeCertificateValidator::COMMAND];
-        }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
-            $this->validator = $this->validators[SaveUsersValidator::COMMAND];
-        }elseif(isset($_POST[SilverbulletFactory::COMMAND])){
-            if($_POST[SilverbulletFactory::COMMAND] == TermsOfUseValidator::COMMAND){
-                $this->validator = $this->validators[TermsOfUseValidator::COMMAND];
+        $agreement_attributes = $this->profile->getAttributes("hiddenprofile:tou_accepted");
+        if(count($agreement_attributes) > 0){
+            if(isset($_POST[AddUserValidator::COMMAND]) && isset($_POST[AddUserValidator::PARAM_EXPIRY])){
+                $this->validator = $this->validators[AddUserValidator::COMMAND];
+            }elseif (isset($_FILES[AddUsersValidator::COMMAND])){
+                $this->validator = $this->validators[AddUsersValidator::COMMAND];
+            }elseif (isset($_POST[DeleteUserValidator::COMMAND])){
+                $this->validator = $this->validators[DeleteUserValidator::COMMAND];
+            }elseif (isset($_POST[AddCertificateValidator::COMMAND])){
+                $this->validator = $this->validators[AddCertificateValidator::COMMAND];
+            }elseif (isset($_POST[RevokeCertificateValidator::COMMAND])){
+                $this->validator = $this->validators[RevokeCertificateValidator::COMMAND];
+            }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
+                $this->validator = $this->validators[SaveUsersValidator::COMMAND];
+            }
+        }else{
+            if(isset($_POST[SilverbulletFactory::COMMAND])){
+                if($_POST[SilverbulletFactory::COMMAND] == TermsOfUseValidator::COMMAND){
+                    $this->validator = $this->validators[TermsOfUseValidator::COMMAND];
+                }
             }
         }
+        
         if($this->validator != null){
             $this->validator->execute();
         }

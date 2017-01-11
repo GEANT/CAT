@@ -791,6 +791,8 @@ silverbullet.views.PopupMessage.prototype.render = function () {
     var that = this;
     this.closeButton.addEventListener('click', function () {
         that.close();
+        var currentLocation = window.location.toString();
+        window.location = currentLocation.replace("edit_silverbullet.php", "overview_idp.php");
     });
 }
 
