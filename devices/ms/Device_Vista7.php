@@ -7,8 +7,6 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-?>
-<?php
 
 /**
  * This file creates MS Windows Vista and MS Windows 7 installers
@@ -557,7 +555,6 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         $result = $this->copyFile('wlan_test.exe');
         $result = $this->copyFile('check_wired.cmd');
         $result = $this->copyFile('install_wired.cmd');
-        $result = $this->copyFile('setEAPCred.exe');
         $result = $this->copyFile('base64.nsh');
         $result = $this->copyFile('cat_bg.bmp');
         $result = $result && $this->copyFile('cat32.ico');

@@ -4,9 +4,13 @@
 # are propagated to the web server timely.
 
 TARGETHOST="ocsp-test.hosted.eduroam.org"
-TARGETUSER="root"
-TARGETDIR="/var/www/htdocs/ticker/statements/"
+TARGETUSER="statements"
+TARGETDIR="/var/www/html/ticker/statements/"
+SSH_KEY="/root/.ssh/id_ed25519"
 
-php ./ocsp_update.php
-scp ./temp_ocsp/* $TARGETUSER@$TARGETHOST:$TARGETDIR
-rm -R ./temp_ocsp
+script="$0"
+basename="$(dirname $script)"
+
+php $basename/ocsp_update.php
+scp -i $SSH_KEY $basename/temp_ocsp/* $TARGETUSER@$TARGETHOST:$TARGETDIR
+rm -R $basename/temp_ocsp

@@ -7,8 +7,6 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-?>
-<?php
 
 /**
  * This file contains the installer for iOS devices and Apple 10.7 Lion

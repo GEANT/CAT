@@ -17,9 +17,10 @@
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 
 $dbLink = \core\DBConnection::handle("INST");
-$allSerials = $dbLink->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp < DATE_SUB(NOW(), WEEK, 1)");
+$allSerials = $dbLink->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp < DATE_SUB(NOW(), INTERVAL 1 WEEK)");
 
 while ($serialRow = mysqli_fetch_object($allSerials)) {
+#    echo "Updating OCSP statement for serial number $serialRow->serial_number\n";
     core\ProfileSilverbullet::triggerNewOCSPStatement($serialRow->serial_number);
 }
 
@@ -32,9 +33,10 @@ while ($serialRow = mysqli_fetch_object($allSerials)) {
 $tempdir = __DIR__."/temp_ocsp";
 mkdir($tempdir);
 
-$allStatements = $dbLink->exec("SELECT serial_number,OCSP FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp > DATE_SUB(NOW(), WEEK, 2)");
+$allStatements = $dbLink->exec("SELECT serial_number,OCSP FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp > DATE_SUB(NOW(), INTERVAL 8 DAY)");
 
 while ($statementRow = mysqli_fetch_object($allStatements)) {
+#    echo "Writing OCSP statement for serial number $statementRow->serial_number\n";
     $filename = strtoupper(dechex($statementRow->serial_number)).".der";
     if (strlen($filename) % 2 == 1) {
         $filename = "0" . $filename;

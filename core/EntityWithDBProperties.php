@@ -8,8 +8,7 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
-?>
-<?php
+
 /**
  * This file contains Federation, IdP and Profile classes.
  * These should be split into separate files later.

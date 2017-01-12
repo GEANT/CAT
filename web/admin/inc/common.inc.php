@@ -169,7 +169,8 @@ function check_upload_sanity($optiontype, $filename) {
             return TRUE;
         case "eap:ca_file":
             // echo "Checking $optiontype with file $filename";
-            $cert = X509::processCertificate($filename);
+            $func = new \core\X509;
+            $cert = $func->processCertificate($filename);
             if ($cert) {
                 return TRUE;
             }

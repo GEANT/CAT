@@ -8,6 +8,7 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
 /**
  * This file contains a number of functions for talking to the outside world
  * @author Stefan Winter <stefan.winter@restena.lu>

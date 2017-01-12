@@ -26,6 +26,10 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 version number in footer)
 - [FEATURE #12] use API.php consistently for all installer downloads (the already
                 previously declared obsolete download.php is gone)
+- [FEATURE #13] TLS support in Windows has been reworked, now it always requires personal cert
+                installation then then sets this cert as user credentials, no more problems with
+                multiple user certificates
+- [FEATURE #14] PEAP credenials setting has been changed to use the new WLANSetEAPUserData utility
 
 Configuration parameter changes
 -------------------------------

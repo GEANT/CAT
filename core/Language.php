@@ -8,9 +8,7 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
-?>
-<?php
-namespace core;
+
 /**
  * 
  * 
@@ -20,15 +18,8 @@ namespace core;
  *
  * @package Developer
  */
-/**
- * Define some variables which need to be globally accessible
- * and some general purpose methods
- *
- * @author Stefan Winter <stefan.winter@restena.lu>
- * @author Tomasz Wolniewicz <twoln@umk.pl>
- *
- * @package Developer
- */
+namespace core;
+
 class Language {
 
     /**
