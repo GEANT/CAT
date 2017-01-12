@@ -200,9 +200,15 @@ class ProfileSilverbullet extends AbstractProfile {
         // token leads us to the NRO, to set the OU property of the cert
         $inst = new IdP($this->institution);
         $federation = strtoupper($inst->federation);
-        $usernameLocalPart = self::random_str(32);
-        $username = $usernameLocalPart . "@" . $this->realm;
-
+        $usernameIsUnique = FALSE;
+        while ($usernameIsUnique === FALSE) {
+            $usernameLocalPart = self::random_str(64 - 1 - strlen($this->realm));
+            $username = $usernameLocalPart . "@" . $this->realm;
+            $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
+            if (mysqli_num_rows($uniquenessQuery) == 0) {
+                $usernameIsUnique = TRUE;
+            }
+        }
         $expiryDays = $validity->days;
 
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
