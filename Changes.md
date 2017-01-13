@@ -36,6 +36,7 @@ Configuration parameter changes
 
 - [ADDED] CONSORTIUM['silverbullet_default_maxusers']
 - [ADDED] CONSORTIUM['silverbullet_realm_suffix']
+- [ADDED] CONSORTIUM['silverbullet_server_suffix']
 - [ADDED] CONSORTIUM['nomenclature_federation']
 - [ADDED] APPEARANCE['skins']
 
