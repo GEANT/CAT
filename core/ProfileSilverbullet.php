@@ -201,6 +201,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $inst = new IdP($this->institution);
         $federation = strtoupper($inst->federation);
         $usernameIsUnique = FALSE;
+        $username = "";
         while ($usernameIsUnique === FALSE) {
             $usernameLocalPart = self::random_str(64 - 1 - strlen($this->realm));
             $username = $usernameLocalPart . "@" . $this->realm;

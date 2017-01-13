@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -17,7 +18,9 @@
 /**
  * 
  */
+
 namespace core;
+
 use \Exception;
 
 class Skinjob {
@@ -72,14 +75,12 @@ class Skinjob {
         }
         // we need to construct the right path to the file; we are either
         // in the admin area or on the main index.php ...
-        if (strpos($_SERVER['PHP_SELF'], "admin/") !== FALSE) {
-            return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/")) . $extrapath . $path;
-        }
-        if (strpos($_SERVER['PHP_SELF'], "diag/") !== FALSE) {
-            return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/")) . $extrapath . $path;
-        }
-        if (strpos($_SERVER['PHP_SELF'], "skins/") !== FALSE) {
-            return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/skins/")) . $extrapath . $path;
+        $KNOWN_SUFFIXES = ["admin/", "diag/", "skins/", "user/"];
+
+        foreach ($KNOWN_SUFFIXES as $suffix) {
+            if (strpos($_SERVER['PHP_SELF'], $suffix) !== FALSE) {
+                return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path;
+            }
         }
         return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path;
     }
