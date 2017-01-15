@@ -179,15 +179,23 @@ class SilverbulletCertificate extends PersistentEntity{
     
     
     public function getCertificateDetails(){
-        if(empty($this->get(self::SERIALNUMBER))||empty($this->get(self::CN))){
-            return $this->getOneTimeTokenLink();
-        }else{
+        if($this->isGenerated()){
             return _('Serial Number:').$this->getSerialNumber().' '._('CN:').$this->getCommonName();
+        }else{
+            return $this->getOneTimeTokenLink();
         }
     }
     
     protected function validate(){
         //TODO Implement type handling for SilverbulletCertificate
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isGenerated(){
+        return !empty($this->get(self::SERIALNUMBER))&&!empty($this->get(self::CN));
     }
     
     /**

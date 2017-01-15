@@ -29,7 +29,7 @@ class SilverbulletFactory{
      * 
      * @var AbstractCommandValidator[]
      */
-    private $validators = null;
+    protected $validators = null;
 
     /**
      *
@@ -53,7 +53,7 @@ class SilverbulletFactory{
      * 
      * @var SessionStorage
      */
-    private $session;
+    protected $session;
     
     /**
      *
@@ -82,7 +82,7 @@ class SilverbulletFactory{
     
     /**
      * 
-     * @return \ProfileSilverbullet
+     * @return \core\ProfileSilverbullet
      */
     public function getProfile(){
         return $this->profile;
