@@ -500,8 +500,8 @@ fi
       fi
     done
 ';
-        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS) {
-            $out .= '      if ! USER_NAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" "$USER_NAME"` ; then
+        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS && isset($this->attributes['eap-specific:tls_use_other_id']) && $this->attributes['eap-specific:tls_use_other_id'][0] == 'on') {
+            $out .= '      if ! USER_NAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" ""` ; then
        exit 1
       fi
 ';
