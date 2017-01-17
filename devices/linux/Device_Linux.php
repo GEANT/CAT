@@ -505,6 +505,13 @@ fi
        exit 1
       fi
 ';
+        } else {
+            $out .= '      if [ -z "$USER_NAME" ] ; then
+             if ! USER_NAME=`prompt_nonempty_string 1 "' . _("enter your userid") . '" ""` ; then
+                 exit 1
+             fi
+      fi
+';
         }
 
 $out .= '
