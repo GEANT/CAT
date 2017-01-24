@@ -112,6 +112,30 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         $this->assertEmpty($this->faultyCertificate->getIdentifier());
     }
     
+    public function testSetRevoked(){
+        $this->newCertificate->save();
+        $this->assertNotEmpty($this->newCertificate->getIdentifier());
+        
+        $this->newCertificate->setRevoked(true);
+        $this->newCertificate->save();
+        
+        $existingCertificate = SilverbulletCertificate::prepare($this->newCertificate->getIdentifier());
+        $existingCertificate->load();
+        $this->assertEquals(SilverbulletCertificate::REVOKED, $existingCertificate->get(SilverbulletCertificate::REVOCATION_STATUS));
+
+        $revocationTime = strtotime($existingCertificate->get(SilverbulletCertificate::REVOCATION_TIME));
+        $revocationExpectedTime = strtotime("now");
+        $difference = abs($revocationTime - $revocationExpectedTime);
+        $this->assertTrue($difference < 10000);
+        
+        $this->newCertificate->setRevoked(false);
+        $this->newCertificate->save();
+        
+        $existingCertificate = SilverbulletCertificate::prepare($this->newCertificate->getIdentifier());
+        $existingCertificate->load();
+        $this->assertEquals(SilverbulletCertificate::NOT_REVOKED, $existingCertificate->get(SilverbulletCertificate::REVOCATION_STATUS));
+    }
+    
     protected function tearDown(){
         $this->newUser->delete();
         if(!empty($this->faultyCertificate)){

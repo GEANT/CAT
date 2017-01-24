@@ -61,7 +61,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
     public function testInactiveUser(){
         $this->newUser->save();
-        $this->assertFalse($this->newUser->isActive());
+        $this->assertFalse($this->newUser->hasCertificates());
     }
     
     public function testActiveUser(){
@@ -73,10 +73,35 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         
         $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
         $existingUser->load();
-        $this->assertTrue($existingUser->isActive());
+        $this->assertTrue($existingUser->hasCertificates());
         
         $certificates = $existingUser->getCertificates();
         $this->assertEquals(2, count($certificates));
+    }
+    
+    public function testSetDeactivated(){
+        $this->newUser->save();
+        $this->assertNotEmpty($this->newUser->getIdentifier());
+        
+        $this->newUser->setDeactivated(true, $this->profile);
+        $this->newUser->save();
+        
+        $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
+        $existingUser->load();
+        $this->assertEquals(SilverbulletUser::INACTIVE, $existingUser->get(SilverbulletUser::DEACTIVATION_STATUS));
+        $this->assertFalse($existingUser->hasCertificates());
+    
+        $deactivationTime = strtotime($existingUser->get(SilverbulletUser::DEACTIVATION_TIME));
+        $deactivationExpectedTime = strtotime("now");
+        $difference = abs($deactivationTime - $deactivationExpectedTime);
+        $this->assertTrue($difference < 10000);
+    
+        $this->newUser->setDeactivated(false, $this->profile);
+        $this->newUser->save();
+        
+        $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
+        $existingUser->load();
+        $this->assertEquals(SilverbulletUser::ACTIVE, $existingUser->get(SilverbulletUser::DEACTIVATION_STATUS));
     }
     
     protected function tearDown(){

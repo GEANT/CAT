@@ -13,7 +13,8 @@ class MockRevokeCertificateValidator extends RevokeCertificateValidator{
     
     public function execute(){
         $certificate = SilverbulletCertificate::prepare($_POST[self::COMMAND]);
-        $certificate->delete();
+        $certificate->setRevoked(true);
+        $certificate->save();
     }
     
 }
@@ -65,7 +66,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         
     }
     
-    public function testDeleteUser() {
+    public function testDeactivateUser() {
         $this->user->save();
         
         $usersBefore = count(SilverbulletUser::getList($this->profile->identifier));

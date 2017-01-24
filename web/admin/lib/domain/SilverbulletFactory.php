@@ -188,7 +188,7 @@ class SilverbulletFactory{
         $count[self::STATS_PASSIVE] = 0;
         foreach ($this->users as $user) {
             $count[self::STATS_TOTAL]++;
-            if($user->isActive()){
+            if($user->hasCertificates()){
                 $count[self::STATS_ACTIVE]++;
             }else{
                 $count[self::STATS_PASSIVE]++;
