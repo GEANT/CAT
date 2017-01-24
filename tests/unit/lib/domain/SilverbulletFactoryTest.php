@@ -1,13 +1,32 @@
 <?php
 require_once(__DIR__ . '/../../core/MockProfileSilverbullet.php');
 
+use lib\domain\SilverbulletCertificate;
 use lib\domain\SilverbulletFactory;
 use lib\domain\SilverbulletUser;
-use lib\domain\SilverbulletCertificate;
+use lib\http\AddCertificateValidator;
 use lib\http\AddUserValidator;
 use lib\http\DeleteUserValidator;
-use lib\http\AddCertificateValidator;
 use lib\http\RevokeCertificateValidator;
+
+class MockRevokeCertificateValidator extends RevokeCertificateValidator{
+    
+    public function execute(){
+        $certificate = SilverbulletCertificate::prepare($_POST[self::COMMAND]);
+        $certificate->setRevoked(true);
+        $certificate->save();
+    }
+    
+}
+
+class MockSilverbulletFactory extends SilverbulletFactory{
+    
+    public function __construct($profile){
+        parent::__construct($profile);
+        $this->validators[RevokeCertificateValidator::COMMAND] = new MockRevokeCertificateValidator(RevokeCertificateValidator::COMMAND, $this, $this->session);
+    }
+    
+}
 
 class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
     
@@ -25,7 +44,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         $this->databaseHandle = \core\DBConnection::handle('INST');
         
         $this->profile = new MockProfileSilverbullet($this->databaseHandle);
-        $this->factory = new SilverbulletFactory($this->profile);
+        $this->factory = new MockSilverbulletFactory($this->profile);
         
         $this->user = new SilverbulletUser($this->profile->identifier, $this->username);
     }
@@ -47,7 +66,7 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         
     }
     
-    public function testDeleteUser() {
+    public function testDeactivateUser() {
         $this->user->save();
         
         $usersBefore = count(SilverbulletUser::getList($this->profile->identifier));

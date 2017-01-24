@@ -15,6 +15,8 @@ CREATE TABLE `silverbullet_user` (
   `username` VARCHAR(45) NOT NULL COMMENT '',
   `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
   `last_ack` TIMESTAMP NOT NULL DEFAULT NOW() COMMENT '',
+  `deactivation_status` ENUM('ACTIVE', 'INACTIVE') NOT NULL DEFAULT 'ACTIVE',
+  `deactivation_time` TIMESTAMP DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`, `profile_id`)  COMMENT '',
   INDEX `fk_silverbullet_user_profile1_idx` (`profile_id` ASC)  COMMENT '',
   UNIQUE INDEX `username_UNIQUE` (`profile_id` ASC, `username` ASC)  COMMENT '',

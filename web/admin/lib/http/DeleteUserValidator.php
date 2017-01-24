@@ -9,7 +9,11 @@ class DeleteUserValidator extends AbstractCommandValidator{
 
     public function execute(){
         $user = SilverbulletUser::prepare($_POST[self::COMMAND]);
-        $user->delete();
+        $user->load();
+        
+        $user->setDeactivated(true, $this->factory->getProfile());
+        $user->save();
+        
         $this->factory->redirectAfterSubmit();
     }
 

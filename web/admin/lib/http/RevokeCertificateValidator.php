@@ -14,7 +14,12 @@ class RevokeCertificateValidator extends AbstractCommandValidator{
      */
     public function execute(){
         $certificate = SilverbulletCertificate::prepare($_POST[self::COMMAND]);
-        $certificate->delete();
+        $certificate->setRevoked(true);
+        $certificate->save();
+        if($certificate->isGenerated()){
+            $profile = $this->factory->getProfile();
+            $profile->revokeCertificate($certificate->getSerialNumber());
+        }
         $this->factory->redirectAfterSubmit();
     }
 

@@ -29,7 +29,7 @@ class SilverbulletFactory{
      * 
      * @var AbstractCommandValidator[]
      */
-    private $validators = null;
+    protected $validators = null;
 
     /**
      *
@@ -53,7 +53,7 @@ class SilverbulletFactory{
      * 
      * @var SessionStorage
      */
-    private $session;
+    protected $session;
     
     /**
      *
@@ -82,7 +82,7 @@ class SilverbulletFactory{
     
     /**
      * 
-     * @return \ProfileSilverbullet
+     * @return \core\ProfileSilverbullet
      */
     public function getProfile(){
         return $this->profile;
@@ -188,7 +188,7 @@ class SilverbulletFactory{
         $count[self::STATS_PASSIVE] = 0;
         foreach ($this->users as $user) {
             $count[self::STATS_TOTAL]++;
-            if($user->isActive()){
+            if($user->hasCertificates()){
                 $count[self::STATS_ACTIVE]++;
             }else{
                 $count[self::STATS_PASSIVE]++;

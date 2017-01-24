@@ -40,6 +40,31 @@ class SilverbulletUser extends PersistentEntity{
      */
     const LAST_ACKNOWLEDGE = 'last_ack';
     
+    /**
+     *
+     * @var string
+     */
+    const DEACTIVATION_STATUS = 'deactivation_status';
+    
+    /**
+     *
+     * @var string
+     */
+    const DEACTIVATION_TIME = 'deactivation_time';
+    
+    /**
+     *
+     * @var string
+     */
+    const INACTIVE = 'INACTIVE';
+    
+    /**
+     *
+     * @var string
+     */
+    const ACTIVE = 'ACTIVE';
+    
+    
     private $defaultUserExpiry;
     
     /**
@@ -140,12 +165,28 @@ class SilverbulletUser extends PersistentEntity{
      * 
      * @return boolean
      */
-    public function isActive(){
+    public function hasCertificates(){
         return count($this->certificates) > 0;
     }
     
     protected function validate(){
         //TODO Implement type handling for SilverbulletUser
+    }
+    
+    /**
+     * 
+     * @param boolean $isDeactivated
+     */
+    public function setDeactivated($isDeactivated, $profile){
+        $this->set(self::DEACTIVATION_STATUS, $isDeactivated ? self::INACTIVE : self::ACTIVE);
+        $this->set(self::DEACTIVATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
+        foreach ($this->certificates as $certificate) {
+            $certificate->setRevoked(true);
+            $certificate->save();
+            if($isDeactivated && $certificate->isGenerated()){
+                $profile->revokeCertificate($certificate->getSerialNumber());
+            }
+        }
     }
     
     /**
@@ -189,7 +230,8 @@ class SilverbulletUser extends PersistentEntity{
      */
     public static function getList($profileId) {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=?", 'i', $profileId);
+        $deactivationStatus = new Attribute(self::DEACTIVATION_STATUS, self::ACTIVE);
+        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=? AND `".self::DEACTIVATION_STATUS."`=?", 'i'.$deactivationStatus->getType(), $profileId, $deactivationStatus->value);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');

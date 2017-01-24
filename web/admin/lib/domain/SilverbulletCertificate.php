@@ -51,6 +51,30 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     const EXPIRY = 'expiry';
     
+    /**
+     *
+     * @var string
+     */
+    const REVOCATION_STATUS = 'revocation_status';
+
+    /**
+     *
+     * @var string
+     */
+    const REVOCATION_TIME = 'revocation_time';
+    
+    /**
+     * 
+     * @var string
+     */
+    const NOT_REVOKED = 'NOT_REVOKED';
+    
+    /**
+     * 
+     * @var string
+     */
+    const REVOKED = 'REVOKED';
+    
     private $defaultTokenExpiry;
     
     /**
@@ -179,16 +203,34 @@ class SilverbulletCertificate extends PersistentEntity{
     
     
     public function getCertificateDetails(){
-        if(empty($this->get(self::SERIALNUMBER))||empty($this->get(self::CN))){
-            return $this->getOneTimeTokenLink();
-        }else{
+        if($this->isGenerated()){
             return _('Serial Number:').$this->getSerialNumber().' '._('CN:').$this->getCommonName();
+        }else{
+            return $this->getOneTimeTokenLink();
         }
     }
     
     protected function validate(){
         //TODO Implement type handling for SilverbulletCertificate
     }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isGenerated(){
+        return !empty($this->get(self::SERIALNUMBER))&&!empty($this->get(self::CN));
+    }
+    
+    /**
+     *
+     * @param boolean $isRevoked
+     */
+    public function setRevoked($isRevoked){
+        $this->set(self::REVOCATION_STATUS, $isRevoked ? self::REVOKED : self::NOT_REVOKED);
+        $this->set(self::REVOCATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
+    }
+    
     
     /**
      * 
@@ -209,7 +251,8 @@ class SilverbulletCertificate extends PersistentEntity{
     public static function getList($silverbulletUser){
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $userId = $silverbulletUser->getAttribute(self::ID);
-        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=?", $userId->getType(), $userId->value);
+        $revocationStatus = new Attribute(self::REVOCATION_STATUS, self::NOT_REVOKED);
+        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=? AND `".self::REVOCATION_STATUS."`=?", $userId->getType() . $revocationStatus->getType(), $userId->value, $revocationStatus->value);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);
