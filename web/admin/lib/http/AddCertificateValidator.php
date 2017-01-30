@@ -13,7 +13,7 @@ class AddCertificateValidator extends AbstractCommandValidator{
      * @see \lib\http\AbstractCommand::execute()
      */
     public function execute(){
-        $userId = $this->filter($_POST[self::COMMAND]);
+        $userId = $this->parseInt($_POST[self::COMMAND]);
         $user = SilverbulletUser::prepare($userId);
         $user->load();
         $this->factory->createCertificate($user);

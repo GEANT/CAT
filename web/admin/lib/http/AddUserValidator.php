@@ -9,8 +9,8 @@ class AddUserValidator extends AbstractCommandValidator{
     
     public function execute(){
         if(isset($_POST[self::PARAM_NAME]) && isset($_POST[self::PARAM_EXPIRY])){
-            $name = $this->filter($_POST[self::PARAM_NAME]);
-            $expiry = $this->filter($_POST[self::PARAM_EXPIRY]);
+            $name = $this->parseString($_POST[self::PARAM_NAME]);
+            $expiry = $this->parseString($_POST[self::PARAM_EXPIRY]);
             $user = $this->factory->createUser($name, $expiry);
             if(!empty($user->getIdentifier())){
                 $this->storeInfoMessage(_('User was added successfully!'));

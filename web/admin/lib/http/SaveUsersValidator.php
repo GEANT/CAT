@@ -20,8 +20,8 @@ class SaveUsersValidator extends AbstractCommandValidator{
      */
     public function execute(){
         if(isset($_POST[self::PARAM_ID]) && isset($_POST[self::PARAM_EXPIRY])){
-            $userIds = $this->filter($_POST[self::PARAM_ID]);
-            $userExpiries = $this->filter($_POST[self::PARAM_EXPIRY]);
+            $userIds = $this->parseArray($_POST[self::PARAM_ID]);
+            $userExpiries = $this->parseArray($_POST[self::PARAM_EXPIRY]);
             foreach ($userIds as $key => $userId) {
                 $user = SilverbulletUser::prepare($userId);
                 $user->load();
