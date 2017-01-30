@@ -64,7 +64,7 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
     protected function parseArray($values){
         $r = array();
         foreach ($values as $key => $value) {
-            $r[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+            $r[$key] = $this->parseString($value);
         }
         return $r;
     }
