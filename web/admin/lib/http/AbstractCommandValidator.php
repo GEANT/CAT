@@ -23,7 +23,7 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
      * @param SilverbulletFactory $factory
      */
     public function __construct($command, $factory){
-        parent::__construct($this->filter($command), $factory);
+        parent::__construct($command, $factory);
         $this->session = $factory->getSession();
     }
     
@@ -57,7 +57,15 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
     }
     
     protected function filter($value){
-        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        if(is_array($value)){
+            $r = array();
+            foreach ($value as $k => $v) {
+                $r[$k] = htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+            }
+            return $r;
+        }else{
+            return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+        }
     }
     
 }

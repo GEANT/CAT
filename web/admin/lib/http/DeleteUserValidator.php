@@ -10,10 +10,12 @@ class DeleteUserValidator extends AbstractCommandValidator{
     const PARAM_CONFIRMATION = 'confirmation';
 
     public function execute(){
-        $user = SilverbulletUser::prepare($_POST[self::COMMAND]);
+        $userId = $this->filter($_POST[self::COMMAND]);
+        $user = SilverbulletUser::prepare($userId);
         $user->load();
         if(isset($_POST[self::PARAM_CONFIRMATION])){
-            if($_POST[self::PARAM_CONFIRMATION]=='true'){
+            $confirmation = $this->filter($_POST[self::PARAM_CONFIRMATION]);
+            if($confirmation=='true'){
                 $user->setDeactivated(true, $this->factory->getProfile());
                 $user->save();
             }else{
