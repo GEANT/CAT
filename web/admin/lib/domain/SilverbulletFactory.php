@@ -157,7 +157,7 @@ class SilverbulletFactory{
     /**
      * Factory method creates validator object based on strign command token
      * 
-     * @param unknown $commandToken
+     * @param string $commandToken
      * @return \lib\http\AbstractCommandValidator
      */
     private function doCreateValidator($commandToken){

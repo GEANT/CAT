@@ -15,10 +15,9 @@ class YesNoDialogBox extends AbstractDialogBox{
     
     private $controls = array(array('name'=>'', 'value'=>''), array('name'=>'confirm', 'value'=>'yes'));
 
-    public function __construct($id, $action, $title, $text, $command) {
+    public function __construct($id, $action, $title, $text) {
         parent::__construct($id, $action, $title);
         $this->text = $text;
-        $this->command = $command;
     }
     
     public function setYesControl($name, $value){

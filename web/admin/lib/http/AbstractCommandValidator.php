@@ -21,7 +21,6 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
      * 
      * @param string $command
      * @param SilverbulletFactory $factory
-     * @param SessionStorage $session
      */
     public function __construct($command, $factory){
         parent::__construct($command, $factory);

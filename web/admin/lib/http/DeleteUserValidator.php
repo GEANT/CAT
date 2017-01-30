@@ -26,7 +26,7 @@ class DeleteUserValidator extends AbstractCommandValidator{
             $builder = $this->factory->getBuilder();
             $dialogBox = new YesNoDialogBox('sb-popup-message', $this->factory->addQuery($_SERVER['SCRIPT_NAME']), _('Delete User'), "Are you sure you want to delete user '".$user->getUsername()."' and revoke all user certificates?", SaveUsersValidator::COMMAND);
             $dialogBox->addParameter('command', SaveUsersValidator::COMMAND);
-            $dialogBox->addParameter(self::COMMAND, $_POST[self::COMMAND]);
+            $dialogBox->addParameter(self::COMMAND, $user->getIdentifier());
             $dialogBox->setYesControl(self::PARAM_CONFIRMATION, 'true');
             $dialogBox->setNoControl(self::PARAM_CONFIRMATION, 'false');
             $builder->addContentElement($dialogBox);
