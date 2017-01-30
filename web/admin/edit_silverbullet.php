@@ -30,7 +30,7 @@ use lib\view\InfoBlockTable;
 use lib\view\InstitutionPageBuilder;
 use lib\view\PageBuilder;
 use lib\view\PageElementInterface;
-use lib\view\TermosOfUseBox;
+use lib\view\TermsOfUseBox;
 use lib\view\TitledBlockDecorator;
 use lib\view\UserCredentialsForm;
 
@@ -64,7 +64,7 @@ if($builder->isReady()){
     }
     
     $profile = $builder->getProfile();
-    $factory = new SilverbulletFactory($profile);
+    $factory = new SilverbulletFactory($builder);
     $factory->parseRequest();
     
     $users = $factory->createUsers();
@@ -95,9 +95,8 @@ if($builder->isReady()){
     $builder->addContentElement($editBlock);
     
     //Append terms of use popup
-    $agreement_attributes = $profile->getAttributes("hiddenprofile:tou_accepted");
-    if(count($agreement_attributes) == 0){
-        $termsOfUse = new TermosOfUseBox('sb-terms-of-use', $factory->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseValidator::COMMAND, TermsOfUseValidator::AGREEMENT);
+    if(!$factory->isAgreementSigned()){
+        $termsOfUse = new TermsOfUseBox('sb-popup-message', $factory->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseValidator::COMMAND, TermsOfUseValidator::AGREEMENT);
         $builder->addContentElement($termsOfUse);
     }
     

@@ -53,6 +53,7 @@ silverbullet.SilverbulletApplication.prototype.resetDates = function (){
  */
 silverbullet.SilverbulletApplication.prototype.start = function(){
     
+    //Create and render Calendar drop down element
     var calendarPool = new silverbullet.views.CalendarPool();
     calendarPool.render();
     
@@ -63,16 +64,19 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
         datePicker.render();
         this.addDatePicker(datePicker);
     }
+    
+    //Bind reset button action
     var resetButton = document.getElementById('sb-reset-dates');
     var that = this;
     resetButton.addEventListener('click', function() {
         that.resetDates(); 
     });
     
-    var termsOfUseElement = document.getElementById('sb-terms-of-use');
-    if(termsOfUseElement){
-        var termsOfUse = new silverbullet.views.PopupMessage(termsOfUseElement);
-        termsOfUse.render();
+    //Create and render Popup message if any
+    var popupMessageElement = document.getElementById('sb-popup-message');
+    if(popupMessageElement){
+        var popupMessage = new silverbullet.views.PopupMessage(popupMessageElement);
+        popupMessage.render();
     }
 };
 
@@ -772,7 +776,8 @@ silverbullet.views.CalendarPool.prototype.render = function() {
  */
 silverbullet.views.PopupMessage = function (element) {
     silverbullet.views.ViewElement.call(this, element);
-    this.closeButton = document.getElementById(element.id + '-close');
+    this.redirectButtons = document.getElementsByClassName(element.id + '-redirect');
+    this.closeButtons = document.getElementsByClassName(element.id + '-close');
 };
 silverbullet.views.PopupMessage.prototype = Object.create(silverbullet.views.ViewElement.prototype);
 silverbullet.views.PopupMessage.prototype.constructor = silverbullet.views.PopupMessage;
@@ -787,13 +792,47 @@ silverbullet.views.PopupMessage.prototype.close = function () {
 /**
  * 
  */
+silverbullet.views.PopupMessage.prototype.positionToCenter = function () {
+    if(this.element.children.length > 0){
+        var msgbox = this.element.children[1];
+        if(msgbox.children.length > 0){
+            var msglayout = msgbox.children[0];
+            if(msglayout.children.length > 0){
+                var graybox = msglayout.children[0];
+                var top = window.innerHeight/2 - graybox.offsetHeight/2;
+                msglayout.style.top = top + 'px';
+                graybox.style.top = top + 'px';
+            }
+        }
+    }
+}
+
+/**
+ * 
+ */
 silverbullet.views.PopupMessage.prototype.render = function () {
     var that = this;
-    this.closeButton.addEventListener('click', function () {
-        that.close();
-        var currentLocation = window.location.toString();
-        window.location = currentLocation.replace("edit_silverbullet.php", "overview_idp.php");
-    });
+    
+    this.positionToCenter();
+    
+    for(var i=0; i<this.closeButtons.length; i++){
+        this.closeButtons[i].addEventListener('click', function () {
+            that.close();
+        });
+    }
+    
+    for(var i=0; i<this.redirectButtons.length; i++){
+        this.redirectButtons[i].addEventListener('click', function () {
+            that.close();
+            var currentLocation = window.location.toString();
+            window.location = currentLocation.replace("edit_silverbullet.php", "overview_idp.php");
+        });
+    }
+    
+    window.addEventListener('resize', function() {
+        that.positionToCenter();
+    })
+    
 }
 
 

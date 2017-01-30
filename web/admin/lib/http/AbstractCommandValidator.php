@@ -2,6 +2,7 @@
 namespace lib\http;
 
 use lib\storage\SessionStorage;
+use lib\domain\SilverbulletFactory;
 
 /**
  * 
@@ -19,11 +20,12 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
     /**
      * 
      * @param string $command
+     * @param SilverbulletFactory $factory
      * @param SessionStorage $session
      */
-    public function __construct($command, $factory, $session){
+    public function __construct($command, $factory){
         parent::__construct($command, $factory);
-        $this->session = $session;
+        $this->session = $factory->getSession();
     }
     
     /**
