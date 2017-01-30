@@ -112,7 +112,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
-            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'],
+            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_server_suffix'],
         ];
         $x509 = new X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
@@ -200,9 +200,16 @@ class ProfileSilverbullet extends AbstractProfile {
         // token leads us to the NRO, to set the OU property of the cert
         $inst = new IdP($this->institution);
         $federation = strtoupper($inst->federation);
-        $usernameLocalPart = self::random_str(32);
-        $username = $usernameLocalPart . "@" . $this->realm;
-
+        $usernameIsUnique = FALSE;
+        $username = "";
+        while ($usernameIsUnique === FALSE) {
+            $usernameLocalPart = self::random_str(64 - 1 - strlen($this->realm));
+            $username = $usernameLocalPart . "@" . $this->realm;
+            $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
+            if (mysqli_num_rows($uniquenessQuery) == 0) {
+                $usernameIsUnique = TRUE;
+            }
+        }
         $expiryDays = $validity->days;
 
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);

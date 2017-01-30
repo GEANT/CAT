@@ -73,7 +73,6 @@ Var rebootRequired
 !ifdef GEANTLink
   !define CRED
   !define PASSWORD_BASED_CRED
-  Var GL_Profile_id
 !endif
 !ifdef PEAP
   !define CRED
@@ -83,10 +82,9 @@ Var rebootRequired
   !define CRED
   Var Cert_file
   Var Dialog1
-  Var Password
   Var tlsFingerprint
 !endif
-!ifdef PASSWORD_BASED_CRED
+!ifdef CRED
   Var UNAME_F
   Var UNAME
   Var PASS1_F
@@ -911,6 +909,9 @@ Function writeTlsUserProfle
       <baseEap:Type>13</baseEap:Type>$\r$\n\
       <eapTls:EapType>$\r$\n'
 
+!ifdef PFX_USERNAME
+   FileWrite $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
+!endif
 FileWrite $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
@@ -999,24 +1000,42 @@ Function PFXCertificateSelect
   nsDialogs::SelectFileDialog open "" "<?php WindowsCommon::echo_nsi(_("Certificate files (*.p12)"))?>|*.p12|<?php WindowsCommon::echo_nsi(_("Certificate files (*pfx)"))?>|*.pfx|<?php WindowsCommon::echo_nsi(_("All files"))?>|*.*"
   Pop $Cert_file
 ;TRANSLATION
+  <?php $certPasswordLabel = WindowsCommon::sprint_nsi(_("certificate password:"));
+        $certPasswordLenght = strlen($certPasswordLabel);
+        $certUsernameLabel = WindowsCommon::sprint_nsi(_("Username:"));
+        $certUsernameLength = strlen($certUsernameLabel);
+        $labelLength = max($certPasswordLenght,$certUsernameLength);
+  ?>
   ${NSD_CreateLabel} 0 0 100% 32u "<?php WindowsCommon::echo_nsi(_("Selected file: \$Cert_file"))?>"
-  Push "<?php WindowsCommon::echo_nsi(_("certificate password:"))?>"
   !else
+  <?php $certPasswordLabel = WindowsCommon::sprint_nsi(_("import password:"));
+        $certPasswordLenght = strlen($certPasswordLabel);
+  ?>
   !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
   File "SB_cert.p12"
   nsArray::Set Delete_files "SB_cert.p12"
   Push "$TEMP\SB_cert.p12"
   Pop $Cert_file
   nsDialogs::Create 1018
-  Push "<?php WindowsCommon::echo_nsi(_("import password:"))?>"
   !endif
-  Pop $R0
   !insertmacro debug_cat 3 "Vista level (Vista without Service pack): $VistaNoSP";
   ${If} $VistaNoSP == 0
-    ${NSD_CreateLabel} 0 35u 80u 12u $R0
-    ${NSD_CreatePassword} 85u 34.5u 100u 12u ""
-    Pop $Password
-    ${NSD_SetFocus} $Password
+    !ifdef PFX_USERNAME
+       !define LABEL_LENGTH "<?php echo($labelLength*3.5)?>u"
+       !define TEXT_START "<?php echo($labelLength*3.5 +5)?>u"
+    !else
+       !define LABEL_LENGTH "<?php echo($certPasswordLenght*3.5)?>u"
+       !define TEXT_START "<?php echo($certPasswordLenght*3.5 +5)?>u"
+    !endif
+    ${NSD_CreateLabel} 0 35u ${LABEL_LENGTH} 12u "<?php echo $certPasswordLabel?>"
+    ${NSD_CreatePassword} ${TEXT_START} 34.5u 120u 12u ""
+    Pop $PASS1_F
+    ${NSD_SetFocus} $PASS1_F
+    !ifdef PFX_USERNAME
+       ${NSD_CreateLabel} 0 60u ${LABEL_LENGTH} 12u "<?php echo $certUsernameLabel?>"
+       ${NSD_CreateText} ${TEXT_START} 60u 120u 12u ""
+       Pop $UNAME_F
+    !endif
   ${EndIf}
   nsDialogs::Show
 FunctionEnd
@@ -1037,7 +1056,7 @@ Function PFXCertificateSelectLeave
    ${If} $VistaNoSP == 1
      System::Call "cryptext::CryptExtAddPFX(i $HWNDPARENT, i 0, t '$Cert_file', i 1)"
    ${Else}
-      ${NSD_GetText} $Password $0
+      ${NSD_GetText} $PASS1_F $0
       !ifdef W8
       !insertmacro debug_cat 3 'Execute: powershell -Command "&{$$securePassword = ConvertTo-SecureString -String $\"password_not_recorded$\" -Force -AsPlainText ; try { $$cert = Import-PfxCertificate -File .\SB_cert.p12 cert:\CurrentUser\My -Password $$securePassword} catch { exit 1 } ; $$cert.Thumbprint}  "'
       nsExec::ExecToStack 'powershell -Command "&{$$securePassword = ConvertTo-SecureString -String \"$0\" -Force -AsPlainText ; try { $$cert = Import-PfxCertificate -File \"$Cert_file\" cert:\CurrentUser\My -Password $$securePassword} catch { exit 1 } ; $$cert.Thumbprint}"'

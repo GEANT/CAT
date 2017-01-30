@@ -189,6 +189,7 @@ class Device_W8 extends WindowsCommon {
 ';
             if (isset($attr['eap-specific:tls_use_other_id']) && $attr['eap-specific:tls_use_other_id'][0] == 'on') {
                 $profileFileCont .= '<eapTls:DifferentUsername>true</eapTls:DifferentUsername>';
+                $this->tlsOtherUsername = 1;
             } else {
                 $profileFileCont .= '<eapTls:DifferentUsername>false</eapTls:DifferentUsername>';
             }
@@ -424,6 +425,9 @@ class Device_W8 extends WindowsCommon {
 // $fcontents .= "!define ALLOW_XP\n";
 // Uncomment the line below if you want this module to produce debugging messages on the client
 // $fcontents .= "!define DEBUG_CAT\n";
+        if ($this->tlsOtherUsername == 1) {
+            $fcontents .= "!define PFX_USERNAME\n";
+        }
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
         $eapStr = $eapOptions[$eap["OUTER"]]['str'];
         if ($eap == \core\EAP::EAPTYPE_SILVERBULLET) {
@@ -521,5 +525,6 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         $this->loggerInstance->debug(4, "copyFiles end\n");
         return($result);
     }
+    private $tlsOtherUsername = 0;
 
 }

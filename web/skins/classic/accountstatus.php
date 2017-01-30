@@ -19,7 +19,8 @@ error_reporting(E_ALL | E_STRICT);
 
 require_once("resources/inc/header.php");
 require_once("resources/inc/footer.php");
-require_once(dirname(dirname(__DIR__))."/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(__DIR__)) . "/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");
@@ -65,12 +66,12 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             ?>
             <table style='position: absolute; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
                 <tr>
-                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE");?>user/API.php?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier;?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE");?>user/API.php?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation);?>' alt='Federation Logo'/></td>
+                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
+                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
                 </tr>
                 <tr>
                     <td><?php echo $statusInfo['idp']->name; ?></td>
-                    <td><?php echo sprintf(_("%s %s in %s"),CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['nomenclature_federation'],$statusInfo['fed']->name);?></td>
+                    <td><?php echo sprintf(_("%s %s in %s"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['nomenclature_federation'], $statusInfo['fed']->name); ?></td>
                 </tr>
             </table>
             <?php
@@ -82,6 +83,13 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             <span style="max-width: 700px;">
                 <?php
                 echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG['CONSORTIUM']['name']) . "</h1>";
+                $errorCode = $_REQUEST['errorcode'] ?? "";
+                switch ($errorCode) {
+                    case "GENERATOR_CONSUMED":
+                        echo UI_error(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
+                        break;
+                    default:
+                }
                 switch ($statusInfo['tokenstatus']['status']) {
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
                         echo "<p>" . _("Your invitation token is valid.") . " ";
@@ -90,7 +98,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             break;
                         }
 
-                $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
+                        $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
                         $dev->device->calculatePreferredEapType([\core\EAP::EAPTYPE_SILVERBULLET]);
                         if ($dev->device->selectedEap == []) {
                             echo sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
@@ -148,7 +156,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             $categoryText = "<tr style='color:$color;'><td colspan=3><h2>" . $categoryText;
 
                             $categoryText .= "</h2></td></tr>";
-                            $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>"._("Device Type")."</th><th>" . _("Serial Number") . "</th><th>" . _("Expiry Date") . "</th></tr>";
+                            $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Expiry Date") . "</th></tr>";
                             foreach ($userdata as $oneCredential) {
                                 if ($oneCredential['cert_status'] == $category) {
                                     $categoryCount++;

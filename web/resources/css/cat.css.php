@@ -19,6 +19,7 @@ html {
 
 body {
     background: <?php echo $colour1;?>;
+    color: #000000;
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:11px;
     height: 100%;
