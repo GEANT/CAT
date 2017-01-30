@@ -164,7 +164,7 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
      */
     private function executeInsertQuery(){
         $result = false;
-        $query = "INSERT INTO `".$this->table."`";
+        $query = "INSERT INTO `" . $this->databaseHandle->escapeValue($this->table) . "`";
         $keyString = "(";
         $valueString = "(";
         $types = '';
@@ -195,7 +195,7 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
      */
     private function executeUpdateQuery(){
         $result = false;
-        $query = "UPDATE `".$this->table."`";
+        $query = "UPDATE `" . $this->databaseHandle->escapeValue($this->table) . "`";
         $updateString = "";
         $types = '';
         $arguments = array();
@@ -223,7 +223,7 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
     public function load(){
         $state = false;
         $id = $this->getAttribute(self::ID);
-        $result = $this->databaseHandle->exec("SELECT * FROM `".$this->table."` WHERE `".self::ID."` =?", $id->getType(), $id->value);
+        $result = $this->databaseHandle->exec("SELECT * FROM `" . $this->databaseHandle->escapeValue($this->table) . "` WHERE `".self::ID."` =?", $id->getType(), $id->value);
         if(mysqli_num_rows($result)>0){
             $this->setRow(mysqli_fetch_assoc($result));
             $state = true;
@@ -238,7 +238,7 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
      */
     public function delete(){
         $id = $this->getAttribute(self::ID);
-        return $this->databaseHandle->exec("DELETE FROM `" . $this->table . "` WHERE `".self::ID."`=?", $id->getType(), $id->value);
+        return $this->databaseHandle->exec("DELETE FROM `" . $this->databaseHandle->escapeValue($this->table) . "` WHERE `".self::ID."`=?", $id->getType(), $id->value);
     }
     
 }
