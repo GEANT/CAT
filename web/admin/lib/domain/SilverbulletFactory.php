@@ -11,6 +11,7 @@ use lib\http\SaveUsersValidator;
 use lib\storage\SessionStorage;
 use lib\view\MessageReceiverInterface;
 use lib\http\TermsOfUseValidator;
+use lib\http\DefaultValidator;
 
 /**
  * 
@@ -36,6 +37,12 @@ class SilverbulletFactory{
      * @var AbstractCommandValidator
      */
     private $validator = null;
+
+    /**
+     *
+     * @var \lib\view\InstitutionPageBuilder
+     */
+    private $builder;
     
     /**
      *
@@ -56,23 +63,18 @@ class SilverbulletFactory{
     protected $session;
     
     /**
-     *
-     * @param \core\ProfileSilverbullet $profile
+     * Creates Silverbullet factory object prepares builder, profile ans session objects
+     * 
+     * @param \lib\view\InstitutionPageBuilder $builder
      */
-    public function __construct($profile){
-        $this->profile = $profile;
+    public function __construct($builder){
+        $this->builder = $builder;
+        $this->profile = $builder->getProfile();
         $this->session = SessionStorage::getInstance('sb-messages');
-        
-        $this->validators[AddUserValidator::COMMAND] = new AddUserValidator(AddUserValidator::COMMAND, $this, $this->session);
-        $this->validators[AddUsersValidator::COMMAND] = new AddUsersValidator(AddUsersValidator::COMMAND, $this, $this->session);
-        $this->validators[DeleteUserValidator::COMMAND] = new DeleteUserValidator(DeleteUserValidator::COMMAND, $this, $this->session);
-        $this->validators[AddCertificateValidator::COMMAND] = new AddCertificateValidator(AddCertificateValidator::COMMAND, $this, $this->session);
-        $this->validators[RevokeCertificateValidator::COMMAND] = new RevokeCertificateValidator(RevokeCertificateValidator::COMMAND, $this, $this->session);
-        $this->validators[SaveUsersValidator::COMMAND] = new SaveUsersValidator(SaveUsersValidator::COMMAND, $this, $this->session);
-        $this->validators[TermsOfUseValidator::COMMAND] = new TermsOfUseValidator(TermsOfUseValidator::COMMAND, $this, $this->session);
     }
     
     /**
+     * Provides access to session storage object
      * 
      * @return \lib\storage\SessionStorage
      */
@@ -81,57 +83,122 @@ class SilverbulletFactory{
     }
     
     /**
+     * Retrievies present user profile
      * 
      * @return \core\ProfileSilverbullet
      */
     public function getProfile(){
         return $this->profile;
     }
+
+    /**
+     * Retrieves present page builder object
+     * 
+     * @return \lib\view\InstitutionPageBuilder
+     */
+    public function getBuilder(){
+        return $this->builder;
+    }
     
     /**
+     * Checks wether user signed the agreement or not
+     * 
+     * @return boolean
+     */
+    public function isAgreementSigned(){
+        $agreement_attributes = $this->profile->getAttributes("hiddenprofile:tou_accepted");
+        return count($agreement_attributes) > 0;
+    }
+    
+    /**
+     * Marks agreement as signed inside the database
+     */
+    public function signAgreement(){
+        $this->profile->addAttribute("hiddenprofile:tou_accepted",NULL,TRUE);
+    }
+    
+    /**
+     * Finds and executes required validator based on request data
      * 
      */
     public function parseRequest(){
-        $agreement_attributes = $this->profile->getAttributes("hiddenprofile:tou_accepted");
-        if(count($agreement_attributes) > 0){
-            if(isset($_POST[AddUserValidator::COMMAND]) && isset($_POST[AddUserValidator::PARAM_EXPIRY])){
-                $this->validator = $this->validators[AddUserValidator::COMMAND];
-            }elseif (isset($_FILES[AddUsersValidator::COMMAND])){
-                $this->validator = $this->validators[AddUsersValidator::COMMAND];
-            }elseif (isset($_POST[DeleteUserValidator::COMMAND])){
-                $this->validator = $this->validators[DeleteUserValidator::COMMAND];
-            }elseif (isset($_POST[AddCertificateValidator::COMMAND])){
-                $this->validator = $this->validators[AddCertificateValidator::COMMAND];
-            }elseif (isset($_POST[RevokeCertificateValidator::COMMAND])){
-                $this->validator = $this->validators[RevokeCertificateValidator::COMMAND];
-            }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
-                $this->validator = $this->validators[SaveUsersValidator::COMMAND];
-            }
-        }else{
-            if(isset($_POST[SilverbulletFactory::COMMAND])){
-                if($_POST[SilverbulletFactory::COMMAND] == TermsOfUseValidator::COMMAND){
-                    $this->validator = $this->validators[TermsOfUseValidator::COMMAND];
+        $commandToken = '';
+        if(isset($_POST[SilverbulletFactory::COMMAND])){
+            $commandToken = $_POST[SilverbulletFactory::COMMAND];
+            if($commandToken == SaveUsersValidator::COMMAND){
+                if(isset($_POST[DeleteUserValidator::COMMAND])){
+                    $commandToken = DeleteUserValidator::COMMAND;
+                }elseif(isset($_POST[AddCertificateValidator::COMMAND])){
+                    $commandToken = AddCertificateValidator::COMMAND;
+                }elseif (isset($_POST[RevokeCertificateValidator::COMMAND])){
+                    $commandToken = RevokeCertificateValidator::COMMAND;
+                }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
+                    $commandToken = SaveUsersValidator::COMMAND;
                 }
             }
         }
-        
-        if($this->validator != null){
-            $this->validator->execute();
+        $this->validator = $this->createValidator($commandToken);
+        $this->validator->execute();
+    }
+    
+    /**
+     * Retrieves existing validator from object pool based on string command token or creates a new one by usig factory method
+     * 
+     * @param string $commandToken
+     * @return \lib\http\AbstractCommandValidator
+     */
+    public function createValidator($commandToken){
+        if(!isset($this->validators[$commandToken]) || $this->validators[$commandToken] == null){
+            $this->validators[$commandToken] = $this->doCreateValidator($commandToken);
+        }
+        return $this->validators[$commandToken];
+    }
+    
+    /**
+     * Factory method creates validator object based on strign command token
+     * 
+     * @param string $commandToken
+     * @return \lib\http\AbstractCommandValidator
+     */
+    private function doCreateValidator($commandToken){
+        if($this->isAgreementSigned()){
+            if($commandToken == AddUserValidator::COMMAND){
+                return new AddUserValidator($commandToken, $this);
+            }elseif ($commandToken == AddUsersValidator::COMMAND){
+                return new AddUsersValidator($commandToken, $this);
+            }elseif ($commandToken == DeleteUserValidator::COMMAND){
+                return new DeleteUserValidator($commandToken, $this);
+            }elseif ($commandToken == AddCertificateValidator::COMMAND){
+                return new AddCertificateValidator($commandToken, $this);
+            }elseif ($commandToken == RevokeCertificateValidator::COMMAND){
+                return new RevokeCertificateValidator($commandToken, $this);
+            }elseif ($commandToken == SaveUsersValidator::COMMAND){
+                return new SaveUsersValidator($commandToken, $this);
+            }else{
+                return new DefaultValidator($commandToken, $this);
+            }
+        }else{
+            if($commandToken == TermsOfUseValidator::COMMAND){
+                return new TermsOfUseValidator($commandToken, $this);
+            }else{
+                return new DefaultValidator($commandToken, $this);
+            }
         }
     }
     
     /**
+     * Distributes messages from particular validator to a requested receiver
      * 
      * @param string $command
      * @param MessageReceiverInterface $receiver
      */
     public function distributeMessages($command, $receiver){
-        if(isset($this->validators[$command]) && $this->validators[$command] != null){
-            $this->validators[$command]->publishMessages($receiver);
-        }
+        $validator = $this->createValidator($command);
+        $validator->publishMessages($receiver);
     }
     
     /**
+     * Factory method that creates Silverbullet user object stores it to database
      * 
      * @param string $username
      * @param string $expiry
@@ -156,6 +223,7 @@ class SilverbulletFactory{
     }
     
     /**
+     * Factory method that creates Silverbullet certificate object and stores it to database
      * 
      * @param SilverbulletUser $user
      * @return \lib\domain\SilverbulletCertificate
@@ -170,7 +238,8 @@ class SilverbulletFactory{
     }
     
     /**
-     *
+     * Factory method that retrieves Silverbullet users from database and creates theyr objects
+     * 
      * @return \lib\domain\SilverbulletUser
      */
     public function createUsers(){
@@ -179,7 +248,8 @@ class SilverbulletFactory{
     }
     
     /**
-     *
+     * Calculates and retrieves user statistics array
+     * 
      * @return array
      */
     public function getUserStats(){
@@ -198,7 +268,7 @@ class SilverbulletFactory{
     }
     
     /**
-     * 
+     * Redirects page to itself in order to prevent acidental form resubmition
      */
     public function redirectAfterSubmit(){
         if(isset($_SERVER['REQUEST_URI'])){
@@ -209,7 +279,7 @@ class SilverbulletFactory{
     }
     
     /**
-	 * Appends GET parameters to a clean url.
+	 * Appends present GET parameters to a clean url
 	 * 
 	 * @param string $url
 	 * @return string

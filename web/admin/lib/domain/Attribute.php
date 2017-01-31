@@ -54,8 +54,8 @@ class Attribute {
      * @param string $type
      */
     public function __construct($key, $value, $type = 's') {
-        $this->key = $key;
-        $this->value = $value;
+        $this->key = htmlspecialchars($key, ENT_QUOTES, 'UTF-8');
+        $this->value = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         $this->type = $type;
     }
     

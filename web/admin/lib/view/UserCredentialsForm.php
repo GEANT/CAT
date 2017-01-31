@@ -59,9 +59,16 @@ class UserCredentialsForm implements PageElementInterface{
         $this->table->addAttribute("cellpadding", 5);
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
 
+        $hiddenCommand = new UnaryTag('input');
+        $hiddenCommand->addAttribute('type', 'hidden');
+        $hiddenCommand->addAttribute('name', 'command');
+        $hiddenCommand->addAttribute('value', SaveUsersValidator::COMMAND);
+        $this->decorator->addHtmlElement($hiddenCommand, TitledFormDecorator::BEFORE);
+        
         $saveMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
         $factory->distributeMessages(SaveUsersValidator::COMMAND, $saveMessageBox);
         $factory->distributeMessages(AddCertificateValidator::COMMAND, $saveMessageBox);
+        $factory->distributeMessages(DeleteUserValidator::COMMAND, $saveMessageBox);
         $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
         
         $this->addUserMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
@@ -140,15 +147,15 @@ class UserCredentialsForm implements PageElementInterface{
             <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
                 <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
                     <?php $this->addUserMessageBox->render();?>
-                    <label for="<?php echo AddUserValidator::COMMAND; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
+                    <label for="<?php echo AddUserValidator::PARAM_NAME; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
                     <div style="margin: 5px 0px 10px 0px;">
-                        <input type="text" name="<?php echo AddUserValidator::COMMAND; ?>">
+                        <input type="text" name="<?php echo AddUserValidator::PARAM_NAME; ?>">
                         <?php 
                             $datePicker = new DatePicker(AddUserValidator::PARAM_EXPIRY);
                             $datePicker->render(); 
                         ?>
                     </div>
-                    <button type="submit" ><?php echo _('Add new user'); ?></button>
+                    <button type="submit" name="command" value="<?php echo AddUserValidator::COMMAND; ?>"><?php echo _('Add new user'); ?></button>
                 </div>
             </form>
         </div>

@@ -45,7 +45,7 @@ class FileUploadForm implements PageElementInterface{
                     <div style="margin: 5px 0px 10px 0px;">
                         <input type="file" name="<?php echo AddUsersValidator::COMMAND; ?>">
                     </div>
-                    <button type="submit" ><?php echo _('Import users'); ?></button>
+                    <button type="submit" name="command" value="<?php echo AddUsersValidator::COMMAND; ?>" ><?php echo _('Import users'); ?></button>
                 </div>
             </form>
         </div>

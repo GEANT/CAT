@@ -231,7 +231,8 @@ class SilverbulletUser extends PersistentEntity{
     public static function getList($profileId) {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $deactivationStatus = new Attribute(self::DEACTIVATION_STATUS, self::ACTIVE);
-        $result = $databaseHandle->exec("SELECT * FROM `" . self::TABLE . "` WHERE `".self::PROFILEID."`=? AND `".self::DEACTIVATION_STATUS."`=?", 'i'.$deactivationStatus->getType(), $profileId, $deactivationStatus->value);
+        $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=?", self::TABLE, self::PROFILEID, self::DEACTIVATION_STATUS);
+        $result = $databaseHandle->exec($query, 'i'.$deactivationStatus->getType(), $profileId, $deactivationStatus->value);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');
