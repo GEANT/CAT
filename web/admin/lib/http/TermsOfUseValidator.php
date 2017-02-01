@@ -19,8 +19,7 @@ class TermsOfUseValidator extends AbstractCommandValidator{
      */
     public function execute(){
         if(isset($_POST[self::AGREEMENT])){
-            $profile = $this->factory->getProfile();
-            $profile->addAttribute("hiddenprofile:tou_accepted",NULL,TRUE);
+            $this->factory->signAgreement();
         }
         $this->factory->redirectAfterSubmit();
     }

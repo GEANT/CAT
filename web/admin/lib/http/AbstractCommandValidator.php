@@ -2,6 +2,7 @@
 namespace lib\http;
 
 use lib\storage\SessionStorage;
+use lib\domain\SilverbulletFactory;
 
 /**
  * 
@@ -19,11 +20,11 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
     /**
      * 
      * @param string $command
-     * @param SessionStorage $session
+     * @param SilverbulletFactory $factory
      */
-    public function __construct($command, $factory, $session){
-        parent::__construct($command, $factory);
-        $this->session = $session;
+    public function __construct($command, $factory){
+        parent::__construct($this->parseString($command), $factory);
+        $this->session = $factory->getSession();
     }
     
     /**
@@ -53,6 +54,37 @@ abstract class AbstractCommandValidator extends AbstractCommand implements Valid
             $receiver->receiveMessage($message);
         }
         $this->session->delete($this->command);
+    }
+    
+    /**
+     * 
+     * @param string[] $values
+     * @return string[]
+     */
+    protected function parseArray($values){
+        $r = array();
+        foreach ($values as $key => $value) {
+            $r[$key] = $this->parseString($value);
+        }
+        return $r;
+    }
+
+    /**
+     * 
+     * @param string $value
+     * @return string
+     */
+    protected function parseString($value){
+        return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    }
+    
+    /**
+     * 
+     * @param string $value
+     * @return number
+     */
+    protected function parseInt($value){
+        return intval($this->parseString($value));
     }
     
 }

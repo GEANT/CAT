@@ -252,7 +252,8 @@ class SilverbulletCertificate extends PersistentEntity{
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $userId = $silverbulletUser->getAttribute(self::ID);
         $revocationStatus = new Attribute(self::REVOCATION_STATUS, self::NOT_REVOKED);
-        $result = $databaseHandle->exec("SELECT * FROM `".self::TABLE."` WHERE `".self::SILVERBULLETUSERID."`=? AND `".self::REVOCATION_STATUS."`=?", $userId->getType() . $revocationStatus->getType(), $userId->value, $revocationStatus->value);
+        $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=?", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS);
+        $result = $databaseHandle->exec($query, $userId->getType() . $revocationStatus->getType(), $userId->value, $revocationStatus->value);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);
