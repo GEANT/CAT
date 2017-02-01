@@ -987,6 +987,23 @@ class RADIUSTests extends Entity {
         return $retarray;
     }
 
+   /**
+     * this function checks if the ETLRs sent back an Access-Reject because there appeared to
+     * be a timeout further downstream
+     * 
+     * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @return boolean returns TRUE if ETLR Reject logic was detected; FALSE if not
+     */
+    private function checkRejectInsteadOfIgnore($inputarray) {
+        foreach ($inputarray as $lineid => $line) {
+            if (preg_match("/Attribute 18 (Reply-Message)/", $line) && preg_match("/Reject instead of Ignore at eduroam.org/", $inputarray[$lineid + 1])) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    }
+
+    
     /**
      * this function checks if there was a "Retry allowed" MSCHAPv2 error message in the conversation
      * 
@@ -1253,8 +1270,19 @@ network={
         $time_stop = microtime(true);
         $this->loggerInstance->debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
         $packetflow = $this->filterPackettype($packetflow_orig);
+        // when MS-CHAPv2 allows retry, we never formally get a reject (just a 
+        // Challenge that PW was wrong but and we should try a different one; 
+        // but that effectively is a reject
+        // so change the flow results to take that into account
         if ($packetflow[count($packetflow) - 1] == 11 && $this->checkMschap691RetryAllowed($packetflow_orig)) {
             $packetflow[count($packetflow) - 1] = 3;
+        }
+        // also, the ETLRs sometimes send a reject when the server is not 
+        // responding. This should not be considered a real reject; it's a middle
+        // box unduly altering the end-to-end result. Do not consider this final
+        // Reject if it comes from ETLR
+        if ($packetflow[count($packetflow) - 1] == 3 && $this->checkRejectInsteadOfIgnore($packetflow_orig)) {
+            array_pop($packetflow);
         }
         $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
         $testresults['time_millisec'] = ($time_stop - $time_start) * 1000;
