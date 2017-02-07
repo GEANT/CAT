@@ -50,7 +50,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /*
      * 
      */
-    const PRODUCTNAME = "eduroam-no-cloud-no-box-no-service";
+    const PRODUCTNAME = "Managed IdP";
 
     public static function random_str(
     $length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
