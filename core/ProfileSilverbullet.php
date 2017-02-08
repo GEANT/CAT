@@ -53,7 +53,7 @@ class ProfileSilverbullet extends AbstractProfile {
     const PRODUCTNAME = "Managed IdP";
 
     public static function random_str(
-    $length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ) {
         $str = '';
         $max = strlen($keyspace) - 1;
