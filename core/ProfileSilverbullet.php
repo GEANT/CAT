@@ -240,8 +240,7 @@ class ProfileSilverbullet extends AbstractProfile {
         } else { // embedded CA
             $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
             $rootCaPem = fread($rootCaHandle, 1000000);
-            $issuingCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/real.pem", "r");
-            $issuingCaPem = fread($issuingCaHandle, 1000000);
+            $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
             $issuingCa = openssl_x509_read($issuingCaPem);
             $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
             $nonDupSerialFound = FALSE;
