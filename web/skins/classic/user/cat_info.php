@@ -99,7 +99,7 @@ switch ($page) {
                         . "<li><b>googleapis.l.google.com</b></li>"
                         . "<li><b>apis.google.com</b></li>"
                         . "<li><b>gstatic.com</b></li>"
-                        . "<li><b>www.google-analystics.com</b></li>"
+                        . "<li><b>www.google-analytics.com</b></li>"
                         . "<li><b>wallet.google.com</b></li>"
                         . "<li><b>plus.google.com</b></li>"
                         . "<li><b>checkout.google.com</b></li>"
