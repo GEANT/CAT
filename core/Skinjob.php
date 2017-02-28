@@ -38,6 +38,7 @@ class Skinjob {
             $selectedSkin = CONFIG['APPEARANCE']['skins'][0];
         }
         $this->skin = $selectedSkin;
+        $_SESSION['skin'] = $selectedSkin;
     }
 
     /**
