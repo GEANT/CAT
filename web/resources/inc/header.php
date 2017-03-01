@@ -48,7 +48,7 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
     $skinObject = new \core\Skinjob("");
-    $cssUrl = $skinObject->findResourceUrl("CSS")."cat.css.php";
+    $cssUrl = $skinObject->findResourceUrl("CSS", TRUE)."cat.css.php";
 
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
