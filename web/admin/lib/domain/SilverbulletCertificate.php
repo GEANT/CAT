@@ -2,6 +2,7 @@
 namespace lib\domain;
 
 use lib\view\html\UnaryTag;
+use core\ProfileSilverbullet;
 
 /**
  * 
@@ -231,6 +232,18 @@ class SilverbulletCertificate extends PersistentEntity{
         $this->set(self::REVOCATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
     }
     
+    /**
+     * 
+     * @param ProfileSilverbullet $profile
+     */
+    public function revoke($profile){
+        if($this->isGenerated()){
+            $profile->revokeCertificate($this->getSerialNumber());
+        }else{
+            $this->setRevoked(true);
+            $this->save();
+        }
+    }
     
     /**
      * 

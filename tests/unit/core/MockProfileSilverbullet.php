@@ -23,6 +23,12 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
     
     /**
      * 
+     * @var array
+     */
+    private $generatedCertificates = array();
+    
+    /**
+     * 
      * @param \core\DBConnection $databaseHandle
      */
     public function __construct(\core\DBConnection $databaseHandle){
@@ -39,5 +45,21 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
     public function delete(){
         $this->databaseHandle->exec("DELETE FROM `institution` WHERE `inst_id`='" . $this->instId . "'");
         $this->databaseHandle->exec("DELETE FROM `profile` WHERE `profile_id`='" . $this->identifier . "'");
+    }
+    
+    public function generateCertificate($serial, $cn){
+        $this->generatedCertificates[$serial] = $cn;
+    }
+    
+    public function revokeCertificate($serial){
+        if(isset($this->generatedCertificates[$serial])){
+            unset($this->generatedCertificates[$serial]);
+            $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
+            $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $serial);
+        }
+    }
+    
+    public function isGeneratedCertificate($serial, $cn){
+        return isset($this->generatedCertificates[$serial]) && $this->generatedCertificates[$serial]==$cn;
     }
 }

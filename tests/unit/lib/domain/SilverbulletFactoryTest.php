@@ -111,6 +111,34 @@ class SilverbulletFactoryTest extends PHPUnit_Framework_TestCase{
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
         $this->assertTrue($certificatesBefore > $certificatesAfter);
     }
+
+    public function testRevokeGeneratedCertificate() {
+        $serial = '29837498273948';
+        $cn = 'testCommonName';
+        $expiry = date('Y-m-d',strtotime("tomorrow"));
+        
+        $this->user->save();
+
+        $certificate = new SilverbulletCertificate($this->user);
+        $certificate->save();
+        
+        $this->profile->generateCertificate($serial, $cn);
+        $certificate->setCertificateDetails($serial, $cn, $expiry);
+        $certificate->save();
+    
+        $this->assertTrue($this->profile->isGeneratedCertificate($serial, $cn));
+        
+        $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
+    
+        $_POST['command'] = SaveUsersValidator::COMMAND;
+        $_POST[RevokeCertificateValidator::COMMAND] = $certificate->getIdentifier();
+        $this->factory->parseRequest();
+    
+        $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
+        $this->assertTrue($certificatesBefore > $certificatesAfter);
+        $this->assertFalse($this->profile->isGeneratedCertificate($serial, $cn));
+        
+    }
     
     protected function tearDown(){
         $this->user->delete();

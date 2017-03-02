@@ -180,11 +180,9 @@ class SilverbulletUser extends PersistentEntity{
     public function setDeactivated($isDeactivated, $profile){
         $this->set(self::DEACTIVATION_STATUS, $isDeactivated ? self::INACTIVE : self::ACTIVE);
         $this->set(self::DEACTIVATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
-        foreach ($this->certificates as $certificate) {
-            $certificate->setRevoked(true);
-            $certificate->save();
-            if($isDeactivated && $certificate->isGenerated()){
-                $profile->revokeCertificate($certificate->getSerialNumber());
+        if($isDeactivated){
+            foreach ($this->certificates as $certificate) {
+                $certificate->revoke($profile);
             }
         }
     }
