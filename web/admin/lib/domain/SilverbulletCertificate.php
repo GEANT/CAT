@@ -76,6 +76,10 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     const REVOKED = 'REVOKED';
     
+    /**
+     * 
+     * @var string
+     */
     private $defaultTokenExpiry;
     
     /**
@@ -224,7 +228,7 @@ class SilverbulletCertificate extends PersistentEntity{
     }
     
     /**
-     *
+     * 
      * @param boolean $isRevoked
      */
     public function setRevoked($isRevoked){
@@ -233,6 +237,7 @@ class SilverbulletCertificate extends PersistentEntity{
     }
     
     /**
+     * Revokes invitation or revokes certificate and its actual instance 
      * 
      * @param ProfileSilverbullet $profile
      */
