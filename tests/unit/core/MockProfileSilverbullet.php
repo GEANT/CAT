@@ -49,6 +49,7 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
         $this->databaseHandle->exec("DELETE FROM `institution` WHERE `inst_id`='" . $this->instId . "'");
         $this->databaseHandle->exec("DELETE FROM `profile` WHERE `profile_id`='" . $this->identifier . "'");
     }
+    
     /**
      * 
      * {@inheritDoc}
