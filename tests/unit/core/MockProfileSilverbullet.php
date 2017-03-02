@@ -42,15 +42,27 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
         $this->attributes = array(array('name' => 'hiddenprofile:tou_accepted'));
     }
     
+    /**
+     * 
+     */
     public function delete(){
         $this->databaseHandle->exec("DELETE FROM `institution` WHERE `inst_id`='" . $this->instId . "'");
         $this->databaseHandle->exec("DELETE FROM `profile` WHERE `profile_id`='" . $this->identifier . "'");
     }
-    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \core\ProfileSilverbullet::generateCertificate()
+     */
     public function generateCertificate($serial, $cn){
         $this->generatedCertificates[$serial] = $cn;
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \core\ProfileSilverbullet::revokeCertificate()
+     */
     public function revokeCertificate($serial){
         if(isset($this->generatedCertificates[$serial])){
             unset($this->generatedCertificates[$serial]);
@@ -59,6 +71,12 @@ class MockProfileSilverbullet extends \core\ProfileSilverbullet{
         }
     }
     
+    /**
+     * 
+     * @param string $serial
+     * @param string $cn
+     * @return boolean
+     */
     public function isGeneratedCertificate($serial, $cn){
         return isset($this->generatedCertificates[$serial]) && $this->generatedCertificates[$serial]==$cn;
     }
