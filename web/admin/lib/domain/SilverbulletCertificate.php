@@ -2,6 +2,7 @@
 namespace lib\domain;
 
 use lib\view\html\UnaryTag;
+use core\ProfileSilverbullet;
 
 /**
  * 
@@ -75,6 +76,10 @@ class SilverbulletCertificate extends PersistentEntity{
      */
     const REVOKED = 'REVOKED';
     
+    /**
+     * 
+     * @var string
+     */
     private $defaultTokenExpiry;
     
     /**
@@ -223,7 +228,7 @@ class SilverbulletCertificate extends PersistentEntity{
     }
     
     /**
-     *
+     * 
      * @param boolean $isRevoked
      */
     public function setRevoked($isRevoked){
@@ -231,6 +236,19 @@ class SilverbulletCertificate extends PersistentEntity{
         $this->set(self::REVOCATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
     }
     
+    /**
+     * Revokes invitation or revokes certificate and its actual instance 
+     * 
+     * @param ProfileSilverbullet $profile
+     */
+    public function revoke($profile){
+        if($this->isGenerated()){
+            $profile->revokeCertificate($this->getSerialNumber());
+        }else{
+            $this->setRevoked(true);
+            $this->save();
+        }
+    }
     
     /**
      * 

@@ -80,11 +80,30 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     }
     
     public function testSetDeactivated(){
+        $serial = '29837498273948';
+        $cn = 'testCommonName';
+        $expiry = date('Y-m-d',strtotime("tomorrow"));
+        
+        //Testing new user deactivation
         $this->newUser->save();
         $this->assertNotEmpty($this->newUser->getIdentifier());
+
+        $certificate = new SilverbulletCertificate($this->newUser);
+        $certificate->save();
+        $certificateGenerated = new SilverbulletCertificate($this->newUser);
+        $this->profile->generateCertificate($serial, $cn);
+        $certificateGenerated->setCertificateDetails($serial, $cn, $expiry);
+        $certificateGenerated->save();
+
+        $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
+        $existingUser->load();
+        $this->assertEquals(SilverbulletUser::ACTIVE, $existingUser->get(SilverbulletUser::DEACTIVATION_STATUS));
+        $this->assertTrue($existingUser->hasCertificates());
         
-        $this->newUser->setDeactivated(true, $this->profile);
-        $this->newUser->save();
+        $existingUser->setDeactivated(true, $this->profile);
+        $existingUser->save();
+        
+        $this->assertFalse($this->profile->isGeneratedCertificate($serial, $cn));
         
         $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
         $existingUser->load();
@@ -95,7 +114,8 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $deactivationExpectedTime = strtotime("now");
         $difference = abs($deactivationTime - $deactivationExpectedTime);
         $this->assertTrue($difference < 10000);
-    
+
+        //Testing new user activation
         $this->newUser->setDeactivated(false, $this->profile);
         $this->newUser->save();
         
