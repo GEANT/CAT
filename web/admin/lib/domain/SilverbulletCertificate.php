@@ -209,7 +209,7 @@ class SilverbulletCertificate extends PersistentEntity{
     
     public function getCertificateDetails(){
         if($this->isGenerated()){
-            return _('Serial Number:').$this->getSerialNumber().' '._('CN:').$this->getCommonName();
+            return _('Serial Number:').dechex($this->getSerialNumber()).' '._('CN:').$this->getCommonName();
         }else{
             return $this->getOneTimeTokenLink();
         }
