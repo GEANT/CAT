@@ -290,6 +290,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return string DER-encoded OCSP status info (binary data!)
      */
     public static function triggerNewOCSPStatement($serial) {
+        $logHandle = new Logging();
+        $logHandle->debug(2,"Triggering new OCSP statement for serial $serial.\n");
         $ocsp = ""; // the statement
         if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
             /* HTTP POST the serial to the CA. The CA knows about the state of
@@ -307,7 +309,6 @@ class ProfileSilverbullet extends AbstractProfile {
             $federation = NULL;
             $certstatus = "";
             $dbHandle = DBConnection::handle("INST");
-            $logHandle = new Logging();
             $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
             if (mysqli_num_rows($originalStatusQuery) > 0) {
                 $certstatus = "V";
@@ -384,6 +385,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         // regardless if embedded or not, always keep local state in our own DB
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $serial);
+        $this->loggerInstance->debug(2,"Certificate revocation status updated, about to call triggerNewOCSPStatement($serial).\n");
         $ocsp = ProfileSilverbullet::triggerNewOCSPStatement($serial);
         return ["OCSP" => $ocsp];
     }
