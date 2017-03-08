@@ -102,7 +102,7 @@ class SimpleGUI extends \core\UserAPI {
             }
             $this->page = 3;
             try {
-                $this->profile = ProfileFactory::instantiate($_REQUEST['profile']);
+                $this->profile = \core\ProfileFactory::instantiate($_REQUEST['profile']);
             } catch (Exception $fail) {
                 $this->page = 2;
                 $this->languageInstance->setTextDomain("web_user");
@@ -207,6 +207,10 @@ class SimpleGUI extends \core\UserAPI {
         $message = '';
         if (!$deviceName) {
             $message = $unsupportedMessage;
+        }
+        if ($attributes['silverbullet']) {
+            $out = _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.");
+            return $out;
         }
         $out = _("Choose an installer to download") . '<br>';
         $out .= '<select name="device" onchange="set_device(this)">';
