@@ -102,7 +102,7 @@ class SimpleGUI extends \core\UserAPI {
             }
             $this->page = 3;
             try {
-                $this->profile = ProfileFactory::instantiate($_REQUEST['profile']);
+                $this->profile = \core\ProfileFactory::instantiate($_REQUEST['profile']);
             } catch (Exception $fail) {
                 $this->page = 2;
                 $this->languageInstance->setTextDomain("web_user");
