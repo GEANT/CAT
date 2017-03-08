@@ -208,6 +208,10 @@ class SimpleGUI extends \core\UserAPI {
         if (!$deviceName) {
             $message = $unsupportedMessage;
         }
+        if ($attributes['silverbullet']) {
+            $out = _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.");
+            return $out;
+        }
         $out = _("Choose an installer to download") . '<br>';
         $out .= '<select name="device" onchange="set_device(this)">';
         $iterator = 0;

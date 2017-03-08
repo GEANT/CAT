@@ -250,6 +250,9 @@ include("user/js/cat_js.php");
                         <a href="javascript:back_to_downloads()"><strong><?php echo _("Back to downloads") ?></strong></a>
                     </p>
                 </div> <!-- id="user_welcomer_page" -->
+                <div id="silverbullet">
+                <?php echo _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link."); ?>
+                </div>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
                     <?php echo _("Your local administrator has specified a redirect to a local support page.<br>
                             When you click <b>Continue</b> this support page will be opened in a new window/tab."); ?>
