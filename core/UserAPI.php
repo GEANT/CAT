@@ -216,6 +216,7 @@ class UserAPI extends CAT {
         $profile = ProfileFactory::instantiate($profId);
         $attribs = $profile->getCollapsedAttributes();
         $returnArray = [];
+        $returnArray['silverbullet'] = $profile instanceof ProfileSilverbullet ? 1 : 0;
         if (isset($attribs['support:email'])) {
             $returnArray['local_email'] = $attribs['support:email'][0];
         }
