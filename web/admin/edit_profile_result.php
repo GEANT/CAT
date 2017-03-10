@@ -87,7 +87,7 @@ $verify = FALSE;
 $hint = FALSE;
 $redirect = FALSE;
 if (isset($_POST['verify_support'])) {
-    $verify = valid_boolean($_POST['checkuser_support']);
+    $verify = valid_boolean($_POST['verify_support']);
 }
 if (isset($_POST['hint_support'])) {
     $hint = valid_boolean($_POST['hint_support']);
