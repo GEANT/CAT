@@ -13,7 +13,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/input_validation.inc.php");
 
 function attributionEurope() {
-    $skinObject = new \core\Skinjob("");
+    $skinObject = new \web\lib\user\Skinjob("");
     $logoBase = $skinObject->findResourceUrl("IMAGES");
 
     return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
