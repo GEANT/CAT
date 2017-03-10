@@ -18,7 +18,6 @@
 /**
  * 
  */
-
 namespace web\lib\user;
 
 use \Exception;

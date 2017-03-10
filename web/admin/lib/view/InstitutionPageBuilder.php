@@ -129,7 +129,8 @@ class InstitutionPageBuilder implements PageBuilder{
      * @return CAT 
      */
     public function createPagePrelude(){
-        return defaultPagePrelude($this->pageTitle);
+        $deco = new \web\lib\admin\PageDecoration();
+        echo $deco->defaultPagePrelude($this->pageTitle);
     }
     
     /**
@@ -138,7 +139,8 @@ class InstitutionPageBuilder implements PageBuilder{
      */
     public function renderPageHeader(){
         $langHandler = new \core\Language();
-        productheader($this->pageType, $langHandler->getLang());
+        $deco = new \web\lib\admin\PageDecoration();
+        echo $deco->productheader($this->pageType, $langHandler->getLang());
         ?>
         <h1>
             <?php echo $this->headerTitle; ?>
@@ -151,7 +153,8 @@ class InstitutionPageBuilder implements PageBuilder{
      * @see \lib\view\PageBuilder::renderPageFooter()
      */
     public function renderPageFooter(){
-        footer();
+        $deco = new \web\lib\admin\PageDecoration();
+        echo $deco->footer();
     }
     
     /**

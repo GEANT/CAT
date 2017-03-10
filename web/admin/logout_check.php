@@ -13,8 +13,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
 
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
+$deco = new \web\lib\admin\PageDecoration();
 
 $state = SimpleSAML_Auth_State::loadState((string) $_REQUEST['LogoutState'], 'MyLogoutState');
 $ls = $state['saml:sp:LogoutStatus']; /* Only works for SAML SP */
@@ -24,7 +23,7 @@ if ($ls['Code'] === 'urn:oasis:names:tc:SAML:2.0:status:Success' && !isset($ls['
     header("Location: $url");
 } else {
     /* Logout failed. Tell the user to close the browser. */
-    pageheader(_("Incomplete Logout"), "ADMIN", FALSE);
+    echo $deco->pageheader(_("Incomplete Logout"), "ADMIN", FALSE);
     echo "<p>" . _("We were unable to log you out of all your sessions. To be completely sure that you are logged out, you need to close your web browser.") . "</p>";
-    footer();
+    echo $deco->footer();
 }

@@ -12,12 +12,13 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("../admin/inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 
 // no authentication - this is for John Doe
-defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
-productheader("USER");
+
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
+echo $deco->productheader("USER");
 ?>
 <h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
 <p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
@@ -350,4 +351,4 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     }
     echo $warning_html;
 }
-footer();
+echo $deco->footer();

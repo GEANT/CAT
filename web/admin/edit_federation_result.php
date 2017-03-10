@@ -14,13 +14,13 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_parse.inc.php");
 
 require_once("inc/auth.inc.php");
 
-pageheader(sprintf(_("%s: Federation Customisation (submission completed)"), CONFIG['APPEARANCE']['productname']), "FEDERATION");
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->pageheader(sprintf(_("%s: Federation Customisation (submission completed)"), CONFIG['APPEARANCE']['productname']), "FEDERATION");
 $my_fed = valid_Fed($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
     if (( $_POST['submitbutton'] == BUTTON_SAVE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go
@@ -43,4 +43,4 @@ if (isset($_POST['submitbutton'])) {
         echo "<br/><form method='post' action='overview_federation.php' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
     }
 }
-footer();
+echo $deco->footer();

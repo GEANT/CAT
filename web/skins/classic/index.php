@@ -16,9 +16,7 @@
  * @package UserGUI
  */
 error_reporting(E_ALL | E_STRICT);
-require_once(ROOT."/web/resources/inc/header.php");
-require_once(ROOT."/web/resources/inc/footer.php");
-//$Gui = new \core\UserAPI();
+
 $Gui->langObject->setTextDomain("web_user");
 $Gui->loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
 
@@ -60,7 +58,8 @@ class Menu {
 
 }
 
-defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+$deco = new \web\lib\admin\PageDecoration();
+echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
 
 
@@ -350,7 +349,8 @@ include("user/js/cat_js.php");
                 <td style="padding-left:80px; text-align:right;">
                     <?php
                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo attributionEurope();
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                     } else {
                         echo "&nbsp;";
                     }

@@ -19,7 +19,6 @@
  * 
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("resources/inc/footer.php");
 $loggerInstance = new \core\Logging();
 $langObject = new \core\Language();
 $cat = new \core\CAT();
@@ -60,7 +59,8 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
                 <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
                     <?php
                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo attributionEurope();
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                     } else {
                         echo "&nbsp;";
                     }

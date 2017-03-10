@@ -17,8 +17,6 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-require_once("resources/inc/header.php");
-require_once("resources/inc/footer.php");
 require_once(dirname(dirname(__DIR__)) . "/admin/inc/input_validation.inc.php");
 require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 
@@ -28,7 +26,7 @@ $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, $operatingSystem, true);
 
-defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", true) . "cat-user.css' />";
 ?>
 </head>
@@ -193,7 +191,8 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 <td style="padding-left:80px; text-align:right;">
                     <?php
                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo attributionEurope();
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                     } else {
                         echo "&nbsp;";
                     }

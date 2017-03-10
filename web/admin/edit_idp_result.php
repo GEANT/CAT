@@ -14,13 +14,12 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_parse.inc.php");
 
 require_once("inc/auth.inc.php");
 
 $loggerInstance = new \core\Logging();
+$deco = new \web\lib\admin\PageDecoration();
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
     authenticate();
@@ -50,18 +49,18 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
 }
 
 
-pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
     // this page doesn't make sense without POST values
-    footer();
+    echo $deco->footer();
     exit(0);
 }
 
 if ($_POST['submitbutton'] != BUTTON_SAVE && $_POST['submitbutton'] != BUTTON_CONTINUE) {
     // unexpected button value
-    footer();
+    echo $deco->footer();
     exit(0);
 }
 
@@ -141,4 +140,4 @@ if ($_POST['submitbutton'] == BUTTON_SAVE) {// not in initial wizard mode, just 
     }
     echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
 }
-footer();
+echo $deco->footer();

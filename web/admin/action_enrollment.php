@@ -11,8 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
@@ -27,8 +25,10 @@ if (CONFIG['CONSORTIUM']['selfservice_registration'] !== NULL && $_GET['token'] 
     $checkval = "OK-NEW";
 }
 
+$deco = new \web\lib\admin\PageDecoration();
+
 if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTING")) {
-    pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
+    echo $deco->pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
     echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     if ($checkval == "FAIL-ALREADYCONSUMED") {
         echo "<p>" . _("Sorry... this token has already been used to create an institution. If you got it from a mailing list, probably someone else used it before you.") . "</p>";
@@ -37,7 +37,7 @@ if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTI
     } else {
         echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";
     }
-    footer();
+    echo $deco->footer();
     exit(1);
 } else { // token is valid. Get meta-info and create inst
     // TODO get invitation level and mail, store it as property

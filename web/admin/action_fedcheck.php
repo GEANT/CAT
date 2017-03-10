@@ -13,8 +13,6 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
@@ -152,7 +150,9 @@ function rowdescription() {
             . "</tr>";
 }
 
-defaultPagePrelude(_("Authentication Server Status for all known federation members"));
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(_("Authentication Server Status for all known federation members"));
 
 // check authorisation of user; this check immediately dies if not authorised
 
@@ -190,7 +190,6 @@ if (count($profiles_confready) > 0) {
     <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to federation overview"); ?></button>
 </form>
 
-<?php footer() ?>
+<?php echo $deco->footer() ?>
 
 </body>
-

@@ -11,8 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 include "inc/geo_widget.php";
@@ -51,8 +49,9 @@ function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsy
     return ob_get_clean();
 }
 
+$deco = new \web\lib\admin\PageDecoration();
 
-defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
 
 // let's check if the inst handle actually exists in the DB
 $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -68,7 +67,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 </head>
 <body  onload='load(0)'>
     <?php
-    productheader("ADMIN-IDP");
+    echo $deco->productheader("ADMIN-IDP");
 
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
@@ -373,5 +372,5 @@ geo_widget_head($my_inst->federation, $my_inst->name);
         </form>
         <?php
     }
-    footer();
+    echo $deco->footer();
     

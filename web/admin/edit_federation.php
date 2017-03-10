@@ -13,16 +13,16 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_html.inc.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
+$deco = new \web\lib\admin\PageDecoration();
+
 $my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
-defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
+echo $deco->defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
 $langObject = new \core\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -32,7 +32,7 @@ $langObject = new \core\Language();
 </head>
 <body>
 
-    <?php productheader("FEDERATION"); ?>
+    <?php echo $deco->productheader("FEDERATION"); ?>
 
     <h1>
         <?php
@@ -65,5 +65,5 @@ $langObject = new \core\Language();
     </fieldset>
     <?php
     echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
-    footer();
+    echo $deco->footer();
     
