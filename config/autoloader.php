@@ -8,7 +8,7 @@
  *******************************************************************************
  */
 
-require_once (__DIR__ . "/../core/autoloader/Psr4Autoloader.php");
+require_once (__DIR__ . "/../core/Psr4Autoloader.php");
 use core\autoloader\Psr4Autoloader;
 
 // instantiate the loader
@@ -24,3 +24,5 @@ $loader->addNamespace('core', __DIR__ . "/../core");
 $loader->addNamespace('devices', __DIR__ . "/../devices");
 // include CAT/web/admin/lib library
 $loader->addNamespace('lib', __DIR__ . "/../web/admin/lib");
+// include CAT/web library
+$loader->addNamespace('web', __DIR__ . "/../web");

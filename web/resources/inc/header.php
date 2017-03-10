@@ -47,8 +47,8 @@ function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
           <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
-    $skinObject = new \core\Skinjob("");
-    $cssUrl = $skinObject->findResourceUrl("CSS", TRUE)."cat.css.php";
+    $skinObject = new \web\lib\user\Skinjob("");
+    $cssUrl = $skinObject->findResourceUrl("CSS", FALSE)."cat.css.php";
 
     echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
     echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -86,7 +86,7 @@ function headerDiv($cap1, $language) {
                 </form>
             </div><!--langselection-->
             <?php
-            $skinObject = new \core\Skinjob("");
+            $skinObject = new \web\lib\user\Skinjob("");
             $logoUrl = $skinObject->findResourceUrl("IMAGES")."/consortium_logo.png";
             ?>
             <div class='consortium_logo'>

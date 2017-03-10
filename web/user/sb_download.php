@@ -62,6 +62,6 @@ if (!$p->institution || $p->institution !== $instId) {
 try {
     $API->downloadInstaller($device, $profileId, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
-    $skinObject = new \core\Skinjob("");
+    $skinObject = new \web\lib\user\Skinjob("");
     header("Location: " . $skinObject->findResourceUrl("BASE") . "/accountstatus.php?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
 }
