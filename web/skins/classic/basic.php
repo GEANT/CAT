@@ -401,7 +401,7 @@ $langObject = new \core\Language();
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
     <head lang="<?php echo $langObject->getLang() ?>"> 
         <title><?php echo CONFIG['APPEARANCE']['productname_long']; ?></title>
-        <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $skinObject->findResourceUrl("CSS", true); ?>cat-basic.css.php" />
+        <link rel="stylesheet" media="screen" type="text/css" href="<?php echo $skinObject->findResourceUrl("CSS", "cat-basic.css.php"); ?>" />
         <meta charset="utf-8" /> 
         <script type="text/javascript">
             var redirects = new Array();
@@ -436,7 +436,7 @@ $langObject = new \core\Language();
         ?>
         <?php print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>'; ?>
         <form name="my_form" method="POST" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" accept-charset='UTF-8'>
-            <img src="<?php echo $skinObject->findResourceUrl("IMAGES"); ?>consortium_logo.png" style="width: 20%; padding-right:20px; padding-top:0px; float:right" alt="logo" />
+            <img src="<?php echo $skinObject->findResourceUrl("IMAGES", "consortium_logo.png"); ?>" style="width: 20%; padding-right:20px; padding-top:0px; float:right" alt="logo" />
             <?php
             /*
               if($Gui->page == 0) {

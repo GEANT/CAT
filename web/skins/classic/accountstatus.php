@@ -27,13 +27,13 @@ $loggerInstance->debug(4, "\n---------------------- accountstatus.php START ----
 $loggerInstance->debug(4, $operatingSystem, true);
 
 echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
-echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", true) . "cat-user.css' />";
+echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", "cat-user.css")."' />";
 ?>
 </head>
 <body>
     <div id="heading">
         <?php
-        print '<img src="' . $skinObject->findResourceUrl("IMAGES") . 'consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<img src="' . $skinObject->findResourceUrl("IMAGES", "consortium_logo.png").'" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
         print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
         print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
@@ -64,8 +64,8 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             ?>
             <table style='position: absolute; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
                 <tr>
-                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
+                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE","user/API.php"); ?>?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
+                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE","user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
                 </tr>
                 <tr>
                     <td><?php echo $statusInfo['idp']->name; ?></td>

@@ -63,5 +63,5 @@ try {
     $API->downloadInstaller($device, $profileId, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob("");
-    header("Location: " . $skinObject->findResourceUrl("BASE") . "/accountstatus.php?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
+    header("Location: " . $skinObject->findResourceUrl("BASE","/accountstatus.php") . "?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
 }

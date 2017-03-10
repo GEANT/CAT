@@ -41,14 +41,17 @@ class Skinjob {
     }
 
     /**
-     * constructs a URL to the main resources (CSS and LOGO)
+     * constructs a URL to the main resources directories. Searches for the file
+     * first in the current skin's resource dir, then falls back to the global
+     * resources dir, or returns FALSE if the requested file could not be found
+     * at either location.
      * 
      * @param string $resourcetype which type of resource do we need a URL for?
-     * @param bool $skinspecific is this a resource in the skin's own dir or a global one?
-     * @return string the URL to the resource
+     * @param string $filename the name of the file being searched.
+     * @return string|boolean the URL to the resource, or FALSE if this file does not exist
      * @throws Exception if something went wrong during the URL construction
      */
-    public function findResourceUrl($resourcetype, $skinspecific = FALSE) {
+    public function findResourceUrl($resourcetype, $filename) {
         switch ($resourcetype) {
             case "CSS":
                 $path = "/resources/css/";
@@ -65,10 +68,16 @@ class Skinjob {
             default:
                 throw new Exception("findResourceUrl: unknown type of resource requested");
         }
-        $extrapath = "";
-        if ($skinspecific) {
+        
+        // does the file exist in the current skin's directory? Has precedence
+        if (file_exists(__DIR__."/../../skins/".$this->skin.$path.$filename)) {
             $extrapath = "/skins/" . $this->skin;
+        } elseif (file_exists(__DIR__."/../../".$path.$filename)) {
+            $extrapath = "";
+        } else {
+            return FALSE;
         }
+        
         $url = "//" . valid_host($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
         if ($url === FALSE) {
             throw new Exception("We don't know our own hostname?!");
@@ -79,10 +88,10 @@ class Skinjob {
 
         foreach ($KNOWN_SUFFIXES as $suffix) {
             if (strpos($_SERVER['PHP_SELF'], $suffix) !== FALSE) {
-                return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path;
+                return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path . $filename;
             }
         }
-        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path;
+        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path . $filename;
     }
 
 }

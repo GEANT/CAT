@@ -317,7 +317,7 @@ function resetDevices() {
   }
 
   function infoCAT(k,title) {
-      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE", true);?>user/cat_info.php', {page: k, lang: lang}, function(data) {
+      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/cat_info.php");?>', {page: k, lang: lang}, function(data) {
     if(data.substring(0,8) == 'no_title') {
        data = data.substring(8,data.length);
     } else {
@@ -336,7 +336,7 @@ function resetDevices() {
    $("#loading_ico").css('left',x+'px');
    $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
    $("#loading_ico").show();
-   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE");?>admin/overview_user.php?lang="+lang);
+   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE","admin/overview_user.php");?>?lang="+lang);
 }
 
 
