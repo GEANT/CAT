@@ -16,7 +16,7 @@ class Table extends Tag{
     private $columns = array();
     /**
      * 
-     * @var Row []
+     * @var Row[]
      */
     private $rows = array();
     

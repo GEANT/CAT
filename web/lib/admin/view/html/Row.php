@@ -10,7 +10,7 @@ class Row extends Tag{
     
     /**
      * 
-     * @var CompositeTag
+     * @var CompositeTag[]
      */
     private $cells = array();
     
@@ -49,10 +49,18 @@ class Row extends Tag{
         }
     }
     
+    /**
+     * 
+     * @return number
+     */
     public function size(){
         return count($this->cells);
     }
     
+    /**
+     * 
+     * @return \web\lib\admin\view\html\CompositeTag[]
+     */
     public function getCells(){
         return $this->cells;
     }
