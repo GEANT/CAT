@@ -3,7 +3,7 @@ namespace lib\http;
 
 use lib\domain\SilverbulletUser;
 
-class AddCertificateValidator extends AbstractCommandValidator{
+class AddCertificateCommand extends AbstractCommand{
 
     const COMMAND = 'newcertificate';
 
@@ -16,8 +16,8 @@ class AddCertificateValidator extends AbstractCommandValidator{
         $userId = $this->parseInt($_POST[self::COMMAND]);
         $user = SilverbulletUser::prepare($userId);
         $user->load();
-        $this->factory->createCertificate($user);
-        $this->factory->redirectAfterSubmit();
+        $this->controller->createCertificate($user);
+        $this->controller->redirectAfterSubmit();
     }
 
 }

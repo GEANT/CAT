@@ -169,10 +169,6 @@ class SilverbulletUser extends PersistentEntity{
         return count($this->certificates) > 0;
     }
     
-    protected function validate(){
-        //TODO Implement type handling for SilverbulletUser
-    }
-    
     /**
      * 
      * @param boolean $isDeactivated

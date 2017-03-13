@@ -1,7 +1,7 @@
 <?php
 namespace lib\view;
 
-use lib\domain\http\ValidatorMessage;
+use lib\domain\http\Message;
 
 /**
  * 
@@ -12,7 +12,7 @@ interface MessageReceiverInterface {
     
     /**
      * 
-     * @param ValidatorMessage $message
+     * @param Message $message
      */
     public function receiveMessage($message);
     

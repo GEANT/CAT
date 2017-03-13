@@ -6,7 +6,7 @@ namespace lib\http;
  * @author Zilvinas Vaira
  *
  */
-class TermsOfUseValidator extends AbstractCommandValidator{
+class TermsOfUseCommand extends AbstractCommand{
 
     const COMMAND = 'termsofuse';
     
@@ -19,9 +19,9 @@ class TermsOfUseValidator extends AbstractCommandValidator{
      */
     public function execute(){
         if(isset($_POST[self::AGREEMENT])){
-            $this->factory->signAgreement();
+            $this->controller->signAgreement();
         }
-        $this->factory->redirectAfterSubmit();
+        $this->controller->redirectAfterSubmit();
     }
 
 }

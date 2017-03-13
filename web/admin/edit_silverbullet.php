@@ -20,8 +20,8 @@ require_once("inc/option_html.inc.php");
 require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 
-use lib\domain\SilverbulletFactory;
-use lib\http\TermsOfUseValidator;
+use lib\http\SilverbulletController;
+use lib\http\TermsOfUseCommand;
 use lib\view\DefaultPage;
 use lib\view\FileUploadForm;
 use lib\view\InfoBlockTable;
@@ -35,7 +35,14 @@ use lib\view\UserCredentialsForm;
 authenticate();
 
 $page = new DefaultPage(_('Managing institution users'));
+// Load global scripts
+$page->appendScript('js/option_expand.js');
+$page->appendScript('../external/jquery/jquery.js');
+$page->appendScript('../external/jquery/jquery-migrate-1.2.1.js');
+// Load Silverbullet scripts
 $page->appendScript('js/silverbullet.js');
+$page->appendScript('js/edit_silverbullet.js');
+// Load Silverbullet CSS
 $page->appendCss('css/silverbullet.css');
 $builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
 if($builder->isReady()){
@@ -61,28 +68,27 @@ if($builder->isReady()){
         $_GET['profile_id'] = $newProfile->identifier;
     }
     
-    $profile = $builder->getProfile();
-    $factory = new SilverbulletFactory($builder);
-    $factory->parseRequest();
+    $controller = new SilverbulletController($builder);
+    $controller->parseRequest();
     
-    $users = $factory->createUsers();
-    $stats = $factory->getUserStats();
+    $users = $controller->createUsers();
+    $stats = $controller->getUserStats();
     
     //Info block data preparation
     $infoBlock = new InfoBlockTable( _('Current institution users'));
     $infoBlock->addRow(array('The assigned realm', $builder->getRealmName()));
-    $infoBlock->addRow(array('The total number of active users which are allowed for this profile', $stats[SilverbulletFactory::STATS_TOTAL]));
-    $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletFactory::STATS_ACTIVE]));
-    $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletFactory::STATS_PASSIVE]));
+    $infoBlock->addRow(array('The total number of active users which are allowed for this profile', $stats[SilverbulletController::STATS_TOTAL]));
+    $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletController::STATS_ACTIVE]));
+    $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletController::STATS_PASSIVE]));
     $builder->addContentElement($infoBlock);
 
     //User import form preparation
-    $importForm = new FileUploadForm($factory, _('Comma separated values in should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
+    $importForm = new FileUploadForm($controller, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
     $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElementInterface::INFOBLOCK_CLASS);
     $builder->addContentElement($importBlock);
 
     //Edit form data preparation
-    $editBlock = new UserCredentialsForm(_('Manage institution users'), $factory, count($users) > 0);
+    $editBlock = new UserCredentialsForm(_('Manage institution users'), $controller, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
@@ -93,8 +99,8 @@ if($builder->isReady()){
     $builder->addContentElement($editBlock);
     
     //Append terms of use popup
-    if(!$factory->isAgreementSigned()){
-        $termsOfUse = new TermsOfUseBox('sb-popup-message', $factory->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseValidator::COMMAND, TermsOfUseValidator::AGREEMENT);
+    if(!$controller->isAgreementSigned()){
+        $termsOfUse = new TermsOfUseBox('sb-popup-message', $controller->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
         $builder->addContentElement($termsOfUse);
     }
     
@@ -106,12 +112,6 @@ $cat = $builder->createPagePrelude();
 <?php echo $page->fetchMeta(); ?>
 
 <?php echo $page->fetchCss(); ?>
-
-<script src="js/option_expand.js" type="text/javascript"></script>
-<script type="text/javascript" src="../external/jquery/jquery.js"></script> 
-<script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="js/silverbullet.js"></script>
-<script type="text/javascript" src="js/edit_silverbullet.js"></script>
 
 <?php echo $page->fetchScript(); ?>
 

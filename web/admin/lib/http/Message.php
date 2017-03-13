@@ -9,12 +9,11 @@ use lib\view\MessageReceiverInterface;
  * @author Zilvinas Vaira
  *
  */
-class ValidatorMessage {
+class Message {
     
     const INFO = 'info';
     
     const ERROR = 'error';
-    
     
     /**
      * 

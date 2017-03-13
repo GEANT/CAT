@@ -215,10 +215,6 @@ class SilverbulletCertificate extends PersistentEntity{
         }
     }
     
-    protected function validate(){
-        //TODO Implement type handling for SilverbulletCertificate
-    }
-    
     /**
      * 
      * @return boolean

@@ -3,7 +3,7 @@ namespace lib\http;
 
 use lib\domain\SilverbulletUser;
 
-class SaveUsersValidator extends AbstractCommandValidator{
+class SaveUsersCommand extends AbstractCommand{
 
     const COMMAND = 'saveusers';
 
@@ -36,7 +36,7 @@ class SaveUsersValidator extends AbstractCommandValidator{
                 $user->save();
             }
         }
-        $this->factory->redirectAfterSubmit();
+        $this->controller->redirectAfterSubmit();
     }
 
 }

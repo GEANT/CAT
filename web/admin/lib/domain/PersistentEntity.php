@@ -63,11 +63,6 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
     }
     
     /**
-     * @todo Need to implement attribute type handling for database
-     */
-    protected abstract function validate();
-    
-    /**
      * 
      * @param string $key
      * @param string $type

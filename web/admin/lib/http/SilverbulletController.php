@@ -1,24 +1,17 @@
 <?php
-namespace lib\domain;
+namespace lib\http;
 
-use lib\http\AbstractCommandValidator;
-use lib\http\AddCertificateValidator;
-use lib\http\AddUsersValidator;
-use lib\http\AddUserValidator;
-use lib\http\DeleteUserValidator;
-use lib\http\RevokeCertificateValidator;
-use lib\http\SaveUsersValidator;
 use lib\storage\SessionStorage;
 use lib\view\MessageReceiverInterface;
-use lib\http\TermsOfUseValidator;
-use lib\http\DefaultValidator;
+use lib\domain\SilverbulletUser;
+use lib\domain\SilverbulletCertificate;
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletFactory{
+class SilverbulletController{
     
     const COMMAND = 'command';
     
@@ -28,15 +21,15 @@ class SilverbulletFactory{
     
     /**
      * 
-     * @var AbstractCommandValidator[]
+     * @var AbstractCommand[]
      */
-    protected $validators = null;
+    protected $commands = null;
 
     /**
      *
-     * @var AbstractCommandValidator
+     * @var AbstractCommand
      */
-    private $validator = null;
+    private $currentCommand = null;
 
     /**
      *
@@ -63,7 +56,7 @@ class SilverbulletFactory{
     protected $session;
     
     /**
-     * Creates Silverbullet factory object prepares builder, profile ans session objects
+     * Creates Silverbullet front controller object prepares builder, profile ans session objects
      * 
      * @param \lib\view\InstitutionPageBuilder $builder
      */
@@ -118,83 +111,83 @@ class SilverbulletFactory{
     }
     
     /**
-     * Finds and executes required validator based on request data
+     * Finds and executes required command based on request data
      * 
      */
     public function parseRequest(){
         $commandToken = '';
-        if(isset($_POST[SilverbulletFactory::COMMAND])){
-            $commandToken = $_POST[SilverbulletFactory::COMMAND];
-            if($commandToken == SaveUsersValidator::COMMAND){
-                if(isset($_POST[DeleteUserValidator::COMMAND])){
-                    $commandToken = DeleteUserValidator::COMMAND;
-                }elseif(isset($_POST[AddCertificateValidator::COMMAND])){
-                    $commandToken = AddCertificateValidator::COMMAND;
-                }elseif (isset($_POST[RevokeCertificateValidator::COMMAND])){
-                    $commandToken = RevokeCertificateValidator::COMMAND;
-                }elseif (isset($_POST[SaveUsersValidator::COMMAND])){
-                    $commandToken = SaveUsersValidator::COMMAND;
+        if(isset($_POST[SilverbulletController::COMMAND])){
+            $commandToken = $_POST[SilverbulletController::COMMAND];
+            if($commandToken == SaveUsersCommand::COMMAND){
+                if(isset($_POST[DeleteUserCommand::COMMAND])){
+                    $commandToken = DeleteUserCommand::COMMAND;
+                }elseif(isset($_POST[AddCertificateCommand::COMMAND])){
+                    $commandToken = AddCertificateCommand::COMMAND;
+                }elseif (isset($_POST[RevokeCertificateCommand::COMMAND])){
+                    $commandToken = RevokeCertificateCommand::COMMAND;
+                }elseif (isset($_POST[SaveUsersCommand::COMMAND])){
+                    $commandToken = SaveUsersCommand::COMMAND;
                 }
             }
         }
-        $this->validator = $this->createValidator($commandToken);
-        $this->validator->execute();
+        $this->currentCommand = $this->createCommand($commandToken);
+        $this->currentCommand->execute();
     }
     
     /**
-     * Retrieves existing validator from object pool based on string command token or creates a new one by usig factory method
+     * Retrieves existing command from object pool based on string command token or creates a new one by usig factory method
      * 
      * @param string $commandToken
-     * @return \lib\http\AbstractCommandValidator
+     * @return \lib\http\AbstractCommand
      */
-    public function createValidator($commandToken){
-        if(!isset($this->validators[$commandToken]) || $this->validators[$commandToken] == null){
-            $this->validators[$commandToken] = $this->doCreateValidator($commandToken);
+    public function createCommand($commandToken){
+        if(!isset($this->commands[$commandToken]) || $this->commands[$commandToken] == null){
+            $this->commands[$commandToken] = $this->doCreateCommand($commandToken);
         }
-        return $this->validators[$commandToken];
+        return $this->commands[$commandToken];
     }
     
     /**
-     * Factory method creates validator object based on strign command token
+     * Factory method creates command object based on strign command token
      * 
      * @param string $commandToken
-     * @return \lib\http\AbstractCommandValidator
+     * @return \lib\http\AbstractCommand
      */
-    private function doCreateValidator($commandToken){
+    private function doCreateCommand($commandToken){
         if($this->isAgreementSigned()){
-            if($commandToken == AddUserValidator::COMMAND){
-                return new AddUserValidator($commandToken, $this);
-            }elseif ($commandToken == AddUsersValidator::COMMAND){
-                return new AddUsersValidator($commandToken, $this);
-            }elseif ($commandToken == DeleteUserValidator::COMMAND){
-                return new DeleteUserValidator($commandToken, $this);
-            }elseif ($commandToken == AddCertificateValidator::COMMAND){
-                return new AddCertificateValidator($commandToken, $this);
-            }elseif ($commandToken == RevokeCertificateValidator::COMMAND){
-                return new RevokeCertificateValidator($commandToken, $this);
-            }elseif ($commandToken == SaveUsersValidator::COMMAND){
-                return new SaveUsersValidator($commandToken, $this);
+            if($commandToken == AddUserCommand::COMMAND){
+                return new AddUserCommand($commandToken, $this);
+            }elseif ($commandToken == AddUsersCommand::COMMAND){
+                return new AddUsersCommand($commandToken, $this);
+            }elseif ($commandToken == DeleteUserCommand::COMMAND){
+                return new DeleteUserCommand($commandToken, $this);
+            }elseif ($commandToken == AddCertificateCommand::COMMAND){
+                return new AddCertificateCommand($commandToken, $this);
+            }elseif ($commandToken == RevokeCertificateCommand::COMMAND){
+                return new RevokeCertificateCommand($commandToken, $this);
+            }elseif ($commandToken == SaveUsersCommand::COMMAND){
+                return new SaveUsersCommand($commandToken, $this);
             }else{
-                return new DefaultValidator($commandToken, $this);
+                return new DefaultCommand($commandToken, $this);
             }
         }else{
-            if($commandToken == TermsOfUseValidator::COMMAND){
-                return new TermsOfUseValidator($commandToken, $this);
+            if($commandToken == TermsOfUseCommand::COMMAND){
+                return new TermsOfUseCommand($commandToken, $this);
             }else{
-                return new DefaultValidator($commandToken, $this);
+                return new DefaultCommand($commandToken, $this);
             }
         }
     }
     
     /**
-     * Distributes messages from particular validator to a requested receiver
+     * Distributes messages from particular invoker to a requested receiver
      * 
-     * @param string $command
+     * @param string $commandToken
      * @param MessageReceiverInterface $receiver
      */
-    public function distributeMessages($command, $receiver){
-        $validator = $this->createValidator($command);
-        $validator->publishMessages($receiver);
+    public function distributeMessages($commandToken, $receiver){
+        $command = $this->createCommand($commandToken);
+        $command->publishMessages($receiver);
     }
     
     /**
@@ -207,16 +200,16 @@ class SilverbulletFactory{
     public function createUser($username, $expiry){
         $user = new SilverbulletUser($this->profile->identifier, $username);
         if(empty($username)){
-            $this->validator->storeErrorMessage(_('User name should not be empty!'));
+            $this->currentCommand->storeErrorMessage(_('User name should not be empty!'));
         }elseif(empty($expiry)){
-            $this->validator->storeErrorMessage(_('No expiry date has been provided!'));
+            $this->currentCommand->storeErrorMessage(_('No expiry date has been provided!'));
         }else{
             $user->setExpiry($expiry);
             $user->save();
             if(empty($user->get(SilverbulletUser::EXPIRY))){
-                $this->validator->storeErrorMessage(_('Expiry date was incorect for') .' "'. $username .'"!');
+                $this->currentCommand->storeErrorMessage(_('Expiry date was incorect for') .' "'. $username .'"!');
             }elseif(empty($user->getIdentifier())){
-                $this->validator->storeErrorMessage(_('Username') .' "'. $username .'"'. _('already exist!'));
+                $this->currentCommand->storeErrorMessage(_('Username') .' "'. $username .'"'. _('already exist!'));
             }
         }
         return $user;
@@ -232,7 +225,7 @@ class SilverbulletFactory{
         $certificate = new SilverbulletCertificate($user);
         $certificate->save();
         if(empty($certificate->getIdentifier())){
-            $this->validator->storeErrorMessage(_('Could not create certificate!'));
+            $this->currentCommand->storeErrorMessage(_('Could not create certificate!'));
         }
         return $certificate;
     }

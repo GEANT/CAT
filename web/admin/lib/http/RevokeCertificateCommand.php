@@ -3,7 +3,7 @@ namespace lib\http;
 
 use lib\domain\SilverbulletCertificate;
 
-class RevokeCertificateValidator extends AbstractCommandValidator{
+class RevokeCertificateCommand extends AbstractCommand{
 
     const COMMAND = 'revokecertificate';
 
@@ -13,7 +13,7 @@ class RevokeCertificateValidator extends AbstractCommandValidator{
      * @see \lib\http\AbstractCommand::execute()
      */
     public function execute(){
-        $profile = $this->factory->getProfile();
+        $profile = $this->controller->getProfile();
         $certificateId = $this->parseInt($_POST[self::COMMAND]);
         
         $certificate = SilverbulletCertificate::prepare($certificateId);
@@ -21,7 +21,7 @@ class RevokeCertificateValidator extends AbstractCommandValidator{
         
         $certificate->revoke($profile);
         
-        $this->factory->redirectAfterSubmit();
+        $this->controller->redirectAfterSubmit();
     }
 
 }

@@ -3,7 +3,7 @@ namespace lib\http;
 
 use lib\utils\CSVParser;
 
-class AddUsersValidator extends AbstractCommandValidator{
+class AddUsersCommand extends AbstractCommand{
 
     const COMMAND = 'newusers';
 
@@ -22,11 +22,11 @@ class AddUsersValidator extends AbstractCommandValidator{
         while($parser->hasMoreRows()){
             $row = $parser->nextRow();
             if(isset($row[0]) && isset($row[1])){
-                $user = $this->factory->createUser($row[0], $row[1]);
+                $user = $this->controller->createUser($row[0], $row[1]);
                 $max = empty($row[2]) ? 1 : $row[2];
                 if(!empty($user->getIdentifier())){
                     for($i=0; $i<$max; $i++){
-                        $this->factory->createCertificate($user);
+                        $this->controller->createCertificate($user);
                         $invitationsCount++;
                     }
                     $userCount++;

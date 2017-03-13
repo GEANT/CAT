@@ -4,7 +4,7 @@ namespace lib\http;
 use lib\domain\SilverbulletUser;
 use lib\view\YesNoDialogBox;
 
-class DeleteUserValidator extends AbstractCommandValidator{
+class DeleteUserCommand extends AbstractCommand{
 
     const COMMAND = 'deleteuser';
     const PARAM_CONFIRMATION = 'confirmation';
@@ -16,18 +16,18 @@ class DeleteUserValidator extends AbstractCommandValidator{
         if(isset($_POST[self::PARAM_CONFIRMATION])){
             $confirmation = $this->parseString($_POST[self::PARAM_CONFIRMATION]);
             if($confirmation=='true'){
-                $user->setDeactivated(true, $this->factory->getProfile());
+                $user->setDeactivated(true, $this->controller->getProfile());
                 $user->save();
             }else{
                 $this->storeInfoMessage("User '".$user->getUsername()."' deletion has been canceled!");
             }
 
-            $this->factory->redirectAfterSubmit();
+            $this->controller->redirectAfterSubmit();
         }else{
             //Append terms of use popup
-            $builder = $this->factory->getBuilder();
-            $dialogBox = new YesNoDialogBox('sb-popup-message', $this->factory->addQuery($_SERVER['SCRIPT_NAME']), _('Delete User'), "Are you sure you want to delete user '".$user->getUsername()."' and revoke all user certificates?");
-            $dialogBox->addParameter('command', SaveUsersValidator::COMMAND);
+            $builder = $this->controller->getBuilder();
+            $dialogBox = new YesNoDialogBox('sb-popup-message', $this->controller->addQuery($_SERVER['SCRIPT_NAME']), _('Delete User'), "Are you sure you want to delete user '".$user->getUsername()."' and revoke all user certificates?");
+            $dialogBox->addParameter('command', SaveUsersCommand::COMMAND);
             $dialogBox->addParameter(self::COMMAND, $user->getIdentifier());
             $dialogBox->setYesControl(self::PARAM_CONFIRMATION, 'true');
             $dialogBox->setNoControl(self::PARAM_CONFIRMATION, 'false');

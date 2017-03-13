@@ -4,7 +4,7 @@ namespace lib\view;
 use lib\view\html\HtmlElementInterface;
 use lib\view\html\CompositeTag;
 use lib\view\html\Tag;
-use lib\domain\http\ValidatorMessage;
+use lib\domain\http\Message;
 
 class MessageBox implements PageElementInterface, HtmlElementInterface, MessageReceiverInterface{
     
@@ -28,7 +28,7 @@ class MessageBox implements PageElementInterface, HtmlElementInterface, MessageR
     
     /**
      * 
-     * @param ValidatorMessage $message
+     * @param Message $message
      * {@inheritDoc}
      * @see \lib\view\MessageReceiverInterface::receiveMessage()
      */

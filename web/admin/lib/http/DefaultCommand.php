@@ -1,7 +1,7 @@
 <?php
 namespace lib\http;
 
-class DefaultValidator extends AbstractCommandValidator{
+class DefaultCommand extends AbstractCommand{
 
     /**
      *
