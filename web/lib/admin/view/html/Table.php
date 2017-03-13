@@ -41,7 +41,7 @@ class Table extends Tag{
      * 
      * @param int $row
      * @param string $column
-     * @param HtmlElementInterface $element
+     * @param UnaryTag $element
      */
     public function addToCell($row, $column, $element){
         if(!in_array($column, $this->columns)){

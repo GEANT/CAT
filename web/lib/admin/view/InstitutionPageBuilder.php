@@ -1,10 +1,12 @@
 <?php
 namespace web\lib\admin\view;
+use web\lib\admin\PageDecoration;
+
 /**
  * Class that can be used to layout any administrator page that manages things for particular IdP.
  * 
  * @author Zilvinas Vaira
- * @package web\admin\lib
+ * @package web\lib\admin\view
  */
 class InstitutionPageBuilder implements PageBuilder{
     
@@ -38,6 +40,13 @@ class InstitutionPageBuilder implements PageBuilder{
     private $pageType = "";
     
     /**
+     * Provides a set of global page elements such as prelude, header and footer.
+     * 
+     * @var PageDecoration
+     */
+    private $decoration;
+    
+    /**
      * 
      * @var PageElementInterface[][]
      */
@@ -50,12 +59,13 @@ class InstitutionPageBuilder implements PageBuilder{
     private $contentIndex = 0;
     
     /**
-     * Initiates contents of a page.
+     * Initiates basic building blocks for a page and validates Idp.
      * 
      * @param Page $page Common title slug that identifies main feature of the page.
      * @param string $pageType Page type identifier.
      */
     public function __construct($page, $pageType){
+        $this->decoration = new PageDecoration();
         if(isset($_GET['inst_id'])){
             try {
                 $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
@@ -124,13 +134,11 @@ class InstitutionPageBuilder implements PageBuilder{
     }
     
     /**
-     * Factory method that creates CAT instance and prints page beginning elements. 
+     * Prints page beginning elements. 
      * 
-     * @return CAT 
      */
     public function createPagePrelude(){
-        $deco = new \web\lib\admin\PageDecoration();
-        echo $deco->defaultPagePrelude($this->pageTitle);
+        echo $this->decoration->defaultPagePrelude($this->pageTitle);
     }
     
     /**
@@ -139,8 +147,7 @@ class InstitutionPageBuilder implements PageBuilder{
      */
     public function renderPageHeader(){
         $langHandler = new \core\Language();
-        $deco = new \web\lib\admin\PageDecoration();
-        echo $deco->productheader($this->pageType, $langHandler->getLang());
+        echo $this->decoration->productheader($this->pageType, $langHandler->getLang());
         ?>
         <h1>
             <?php echo $this->headerTitle; ?>
@@ -153,8 +160,7 @@ class InstitutionPageBuilder implements PageBuilder{
      * @see \web\lib\admin\view\PageBuilder::renderPageFooter()
      */
     public function renderPageFooter(){
-        $deco = new \web\lib\admin\PageDecoration();
-        echo $deco->footer();
+        echo $this->decoration->footer();
     }
     
     /**
