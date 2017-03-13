@@ -34,7 +34,7 @@ class SilverbulletController{
 
     /**
      *
-     * @var \lib\view\InstitutionPageBuilder
+     * @var InstitutionPageBuilder
      */
     private $builder;
     
@@ -88,7 +88,7 @@ class SilverbulletController{
     /**
      * Retrieves present page builder object
      * 
-     * @return \lib\view\InstitutionPageBuilder
+     * @return InstitutionPageBuilder
      */
     public function getBuilder(){
         return $this->builder;
