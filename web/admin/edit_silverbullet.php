@@ -106,7 +106,7 @@ if($builder->isReady()){
     
 }
 
-$cat = $builder->createPagePrelude();
+$builder->createPagePrelude();
 ?>
 
 <?php echo $page->fetchMeta(); ?>
