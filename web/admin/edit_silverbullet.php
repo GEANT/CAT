@@ -20,17 +20,17 @@ require_once("inc/option_html.inc.php");
 require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 
-use lib\http\SilverbulletController;
-use lib\http\TermsOfUseCommand;
-use lib\view\DefaultPage;
-use lib\view\FileUploadForm;
-use lib\view\InfoBlockTable;
-use lib\view\InstitutionPageBuilder;
-use lib\view\PageBuilder;
-use lib\view\PageElementInterface;
-use lib\view\TermsOfUseBox;
-use lib\view\TitledBlockDecorator;
-use lib\view\UserCredentialsForm;
+use web\lib\admin\http\SilverbulletController;
+use web\lib\admin\http\TermsOfUseCommand;
+use web\lib\admin\view\DefaultPage;
+use web\lib\admin\view\FileUploadForm;
+use web\lib\admin\view\InfoBlockTable;
+use web\lib\admin\view\InstitutionPageBuilder;
+use web\lib\admin\view\PageBuilder;
+use web\lib\admin\view\PageElementInterface;
+use web\lib\admin\view\TermsOfUseBox;
+use web\lib\admin\view\TitledBlockDecorator;
+use web\lib\admin\view\UserCredentialsForm;
 
 authenticate();
 
