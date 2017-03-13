@@ -26,6 +26,7 @@ $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, $operatingSystem, true);
 
+$deco = new \web\lib\admin\PageDecoration();
 echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", "cat-user.css")."' />";
 ?>
