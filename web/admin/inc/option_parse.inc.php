@@ -51,9 +51,10 @@ function postProcessValidAttributes($options, &$good, &$bad) {
                     }
                     $content = base64_decode($optionPayload['content']);
                     unset($options[$index]);
-                    $cAFiles = X509::splitCertificate($content);
+                    $x509 = new \core\X509();
+                    $cAFiles = $x509->splitCertificate($content);
                     foreach ($cAFiles as $cAFile) {
-                        $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => base64_encode(X509::pem2der($cAFile))]];
+                        $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => base64_encode($x509->pem2der($cAFile))]];
                     }
                     $good[] = $name;
                     break;

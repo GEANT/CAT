@@ -13,18 +13,17 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_parse.inc.php");
 
 $loggerInstance = new \core\Logging();
+$deco = new \web\lib\admin\PageDecoration();
 
-pageheader(_("User Attributes - Summary of submitted data"), "USERMGMT");
+echo $deco->pageheader(_("User Attributes - Summary of submitted data"), "USERMGMT");
 
 $user = new \core\User($_SESSION['user']);
 if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != BUTTON_SAVE) { // what are we supposed to do?
     echo "<p>" . _("The page was called with insufficient data. Please report this as an error.") . "</p>";
-    footer();
+    echo $deco->footer();
     exit(0);
 }
 ?>
@@ -57,4 +56,4 @@ if (isset($_POST['option'])) {
     </button>
 </form>
 <?php
-footer();
+echo $deco->footer();

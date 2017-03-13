@@ -28,7 +28,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/common.i
 $langObject = new \core\Language();
 $langObject->setTextDomain("web_user");
 
-$skinObject = new \core\Skinjob("classic");
+$skinObject = new \web\lib\user\Skinjob("classic");
 
 $page = $_REQUEST['page'];
 
@@ -60,14 +60,14 @@ switch ($page) {
                     continue;
                 }
             }
-            $out .= "<tr><td class='vendor'><img src='". (new \core\Skinjob(""))->findResourceUrl("IMAGES")."vendorlogo/" . $onedevice['group'] . ".png' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
+            $out .= "<tr><td class='vendor'><img src='". (new \web\lib\user\Skinjob(""))->findResourceUrl("IMAGES","vendorlogo/". $onedevice['group'] . ".png")."' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new \core\DeviceFactory($index);
             foreach (EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
                 if (in_array($oneeap, $device_instance->device->supportedEapMethods)) {
-                    $out .= "<img src='". $skinObject->findResourceUrl("IMAGES") . "icons/Quetto/check-icon.png' alt='SUPPORTED'>";
+                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES","icons/Quetto/check-icon.png") . "' alt='SUPPORTED'>";
                 } else {
-                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES") . "icons/Quetto/no-icon.png' alt='UNSUPPOERTED'>";
+                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES","icons/Quetto/no-icon.png") . "' alt='UNSUPPORTED'>";
                 }
                 $out .= "</td>";
             }

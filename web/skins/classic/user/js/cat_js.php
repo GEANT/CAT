@@ -26,7 +26,6 @@ if (! is_numeric($profileId)) {
  ?>
 var n;
 var profile;
-// var device_button_bg ="#0a698e";
 var generateTimer;
 var pageWidth = 0;
 var headerHeight = 0;
@@ -59,6 +58,7 @@ var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation o
     var j ;
     target_element = 'user_page';
     $('#welcome').hide();
+    $("#silverbullet").hide();
     $('#user_welcome').hide();
     $("#idp_logo").hide();
     $("#inst_id").val(inst_id);
@@ -71,7 +71,6 @@ var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation o
     $("#profile_redirect").hide();
     i_s = selected_profile;
       $.post('user/API.php', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
-//alert(data);
     j = $.parseJSON(data);
     result = j.status;
     if(! result) {
@@ -108,7 +107,6 @@ var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation o
      if(n > 1 && selected_profile) {
        $('#profile_list option[value='+selected_profile+']').attr("selected",true);
        showProfile(selected_profile);
-       $("#devices").show();
      }
       });
    }
@@ -117,7 +115,6 @@ function printP(i,v) {
      $("#profiles").hide();
      $("#profile_list").append('<option value="'+v.profile+'" selected>'+v.display+'</option>');
      showProfile(v.profile);
-     $("#devices").show();
   } else {
      $("#profile_list").append('<option value="'+v.profile+'">'+v.display+'</option>');
   }
@@ -183,9 +180,10 @@ function resetDevices() {
 
    function showProfile(prof){
      $("#profile_redirect").hide();
+     $("#silverbullet").hide();
+       $("#devices").hide();
      if(prof == 0) {
        $("#user_info").hide();
-       $("#devices").hide();
        return;
      }
      var j, txt ;
@@ -221,6 +219,11 @@ function resetDevices() {
          txt = "<table><tr><th colspan='2'><?php escaped_echo(_("If you encounter problems you should ask for help at your home institution")); ?>.</th></tr></table>";
       $("#user_info").html(txt);
       $("#user_info").show();
+      if(j.silverbullet) {
+           $("#devices").hide();
+           $("#silverbullet").show();
+           return;
+       }
       resetDevices();
       $.each(j.devices,function(i,v) {
       // test if we have a global profile redirect
@@ -314,7 +317,7 @@ function resetDevices() {
   }
 
   function infoCAT(k,title) {
-      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE", true);?>user/cat_info.php', {page: k, lang: lang}, function(data) {
+      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/cat_info.php");?>', {page: k, lang: lang}, function(data) {
     if(data.substring(0,8) == 'no_title') {
        data = data.substring(8,data.length);
     } else {
@@ -333,7 +336,7 @@ function resetDevices() {
    $("#loading_ico").css('left',x+'px');
    $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
    $("#loading_ico").show();
-   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE");?>admin/overview_user.php?lang="+lang);
+   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE","admin/overview_user.php");?>?lang="+lang);
 }
 
 
@@ -379,7 +382,6 @@ function processDownload(data) {
      generateTimer = 0;
      
   var j;
-//alert(data);
   try {
     j = $.parseJSON(data).data;
   }

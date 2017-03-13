@@ -14,3 +14,11 @@ button {
     background-repeat:no-repeat;
     background-position: 2px 0px; 
 }
+
+#silverbullet {
+    display: none;
+    padding: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    
+}

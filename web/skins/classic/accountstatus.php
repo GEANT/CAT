@@ -17,8 +17,6 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-require_once("resources/inc/header.php");
-require_once("resources/inc/footer.php");
 require_once(dirname(dirname(__DIR__)) . "/admin/inc/input_validation.inc.php");
 require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 
@@ -28,14 +26,14 @@ $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, $operatingSystem, true);
 
-defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
-echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", true) . "cat-user.css' />";
+echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", "cat-user.css")."' />";
 ?>
 </head>
 <body>
     <div id="heading">
         <?php
-        print '<img src="' . $skinObject->findResourceUrl("IMAGES") . 'consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<img src="' . $skinObject->findResourceUrl("IMAGES", "consortium_logo.png").'" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
         print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
         print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
@@ -66,8 +64,8 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             ?>
             <table style='position: absolute; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
                 <tr>
-                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
+                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE","user/API.php"); ?>?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
+                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE","user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
                 </tr>
                 <tr>
                     <td><?php echo $statusInfo['idp']->name; ?></td>
@@ -193,7 +191,8 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 <td style="padding-left:80px; text-align:right;">
                     <?php
                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo attributionEurope();
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                     } else {
                         echo "&nbsp;";
                     }

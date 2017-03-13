@@ -11,12 +11,12 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -24,7 +24,7 @@ $user = new \core\User($_SESSION['user']);
 </head>
 <body>
     <?php
-    productheader("FEDERATION");
+    echo $deco->productheader("FEDERATION");
     ?>
     <h1>
         <?php echo _("Federation Overview"); ?>
@@ -52,7 +52,7 @@ $user = new \core\User($_SESSION['user']);
 
     if (!$user->isFederationAdmin()) {
         echo "<p>" . _("You are not a federation manager.") . "</p>";
-        footer();
+        echo $deco->footer();
         exit(0);
     }
 
@@ -284,5 +284,5 @@ $user = new \core\User($_SESSION['user']);
     </form>
     <br/>
     <?php
-    footer();
+    echo $deco->footer();
     

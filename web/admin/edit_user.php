@@ -13,18 +13,17 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_html.inc.php");
 
-defaultPagePrelude(_("Editing User Attributes"));
+$deco = new \web\lib\admin\PageDecoration();
+echo $deco->defaultPagePrelude(_("Editing User Attributes"));
 $user = new \core\User($_SESSION['user']);
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 </head>
 <body>
-    <?php productheader("USERMGMT"); ?>
+    <?php echo $deco->productheader("USERMGMT"); ?>
     <h1>
         <?php _("Editing User Attributes"); ?>
     </h1>
@@ -56,5 +55,5 @@ $user = new \core\User($_SESSION['user']);
         </div>
     </form>
     <?php
-    footer();
+    echo $deco->footer();
     

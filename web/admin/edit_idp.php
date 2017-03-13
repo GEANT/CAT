@@ -13,12 +13,12 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_html.inc.php");
 require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 authenticate();
+
+$deco = new \web\lib\admin\PageDecoration();
 
 // how do we determine if we should go into wizard mode? It's all in the URL
 if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
@@ -31,9 +31,9 @@ $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
 } else {
-    defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
@@ -74,7 +74,7 @@ geo_widget_head($my_inst->federation, $inst_name)
 <body onload='load(1)'>
     <?php 
     $langObject = new \core\Language();
-    productheader("ADMIN-IDP"); ?>
+    echo $deco->productheader("ADMIN-IDP"); ?>
 
     <h1>
         <?php
@@ -199,5 +199,5 @@ geo_widget_head($my_inst->federation, $inst_name)
     } else {
         echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
     }
-    footer();
+    echo $deco->footer();
     

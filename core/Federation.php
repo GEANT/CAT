@@ -280,8 +280,12 @@ class Federation extends EntityWithDBProperties {
                 }
                 $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
             }
+            usort($returnarray, array($this, "usort_institution"));
         }
         return $returnarray;
     }
 
+    private function usort_institution($a, $b) {
+        return strcasecmp($a["name"], $b["name"]);
+    }
 }

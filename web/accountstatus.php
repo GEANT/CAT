@@ -50,7 +50,7 @@ if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID)
 // ... unless overwritten by direct GET/POST parameter in the request
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 
-$skinObject = new \core\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+$skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
 
 $statusInfo = ["token" => $cleanToken, 
                "tokenstatus" => $tokenStatus, 

@@ -16,9 +16,7 @@
  * @package UserGUI
  */
 error_reporting(E_ALL | E_STRICT);
-require_once(ROOT."/web/resources/inc/header.php");
-require_once(ROOT."/web/resources/inc/footer.php");
-//$Gui = new \core\UserAPI();
+
 $Gui->langObject->setTextDomain("web_user");
 $Gui->loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
 
@@ -60,7 +58,8 @@ class Menu {
 
 }
 
-defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+$deco = new \web\lib\admin\PageDecoration();
+echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
 
 
@@ -85,11 +84,11 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 <!--[if IE 10]>
 <script type="text/javascript">ie_version=10;</script>
 <![endif]-->
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS",true);?>cat-user.css" />
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
 <!-- JQuery --> 
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL");?>jquery/jquery.js"></script> 
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL");?>jquery/jquery-migrate-1.2.1.js"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL");?>jquery/jquery-ui.js"></script> 
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js");?>"></script> 
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate-1.2.1.js");?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js");?>"></script> 
 <!-- JQuery --> 
 <script type="text/javascript">
     var recognisedOS = '';
@@ -112,20 +111,20 @@ include("user/js/roll.php");
 include("user/js/cat_js.php");
 ?>
     var loading_ico = new Image();
-    loading_ico.src = "<?php echo $Gui->skinObject->findResourceUrl("IMAGES");?>icons/loading51.gif";
+    loading_ico.src = "<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif");?>";
 </script>
 <?php $Gui->langObject->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL");?>discojuice/discojuice.js"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","discojuice/discojuice.js");?>"></script>
 <script type="text/javascript">
     var lang = "<?php echo($Gui->langObject->getLang()) ?>";
 </script>
-<link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL");?>discojuice/css/discojuice.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","discojuice/css/discojuice.css");?>" />
 </head>
 <body>
     <div id="heading">
         <?php
-        print '<img src="'. $Gui->skinObject->findResourceUrl("IMAGES").'consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<img src="'. $Gui->skinObject->findResourceUrl("IMAGES","consortium_logo.png").'" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
         print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
         print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
@@ -140,7 +139,7 @@ include("user/js/cat_js.php");
         ?>
     </div> <!-- id="heading" -->
     <div id="loading_ico">
-        <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES");?>icons/loading51.gif" alt="Authenticating ..."/>
+        <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif");?>" alt="Authenticating ..."/>
     </div>
     <div id="info_overlay">
         <div id="info_window"></div>
@@ -170,12 +169,12 @@ include("user/js/cat_js.php");
                         </td>
                         <td style="vertical-align: top; height:280px; background: #fff; padding-left: 20px; padding-right: 20px">
                             <div id="main_menu_info" style="display:none">
-                                <img id="main_menu_close" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES");?>icons/button_cancel.png" ALT="Close"  style="float:right"/>
+                                <img id="main_menu_close" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png");?>" ALT="Close"  style="float:right"/>
                                 <div id="main_menu_content"></div>
                             </div>
                             <table style="background: #fff; width:100%; padding-top: 5px">
                                 <tr>
-                                    <td id="slides" style="background: #fff url(<?php echo $Gui->skinObject->findResourceUrl("IMAGES",true);?>gradient-bg.png) repeat-x; height:272px; border-radius: 16px; width: 100%; padding-left:20px;">
+                                    <td id="slides" style="background: #fff url(<?php echo $Gui->skinObject->findResourceUrl("IMAGES","gradient-bg.png");?>) repeat-x; height:272px; border-radius: 16px; width: 100%; padding-left:20px;">
                                         <div>
                                             <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG['CONSORTIUM']['name']) ?></span>
                                             <span id="line2"></span>
@@ -190,7 +189,7 @@ include("user/js/cat_js.php");
                                             </span>
                                         </div>
                                         <div id = "img_roll">
-                                            <img id="img_roll_0" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES",true);?>empty.png" alt="Rollover 0"/> <img id="img_roll_1" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES",true);?>empty.png" alt="Rollover 1"/></div>
+                                            <img id="img_roll_0" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","empty.png");?>" alt="Rollover 0"/> <img id="img_roll_1" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","empty.png");?>" alt="Rollover 1"/></div>
                                     </td>
                                 </tr>
                             </table>
@@ -214,7 +213,7 @@ include("user/js/cat_js.php");
                     </button>
                 </div>
                 <div> <!-- IdP logo, if present -->
-                    <img id="idp_logo" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES",true);?>empty.png" alt="IdP Logo"/>
+                    <img id="idp_logo" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","empty.png");?>" alt="IdP Logo"/>
                 </div>
                 <div id="profiles"> <!-- this is the profile selection filled during run time -->
                     <div id="profiles_h" class="sub_h">
@@ -250,6 +249,9 @@ include("user/js/cat_js.php");
                         <a href="javascript:back_to_downloads()"><strong><?php echo _("Back to downloads") ?></strong></a>
                     </p>
                 </div> <!-- id="user_welcomer_page" -->
+                <div id="silverbullet">
+                <?php echo _("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link."); ?>
+                </div>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
                     <?php echo _("Your local administrator has specified a redirect to a local support page.<br>
                             When you click <b>Continue</b> this support page will be opened in a new window/tab."); ?>
@@ -268,10 +270,10 @@ include("user/js/cat_js.php");
                                     <td>
                                         <button style='height:70px; width:450px; padding-bottom:0px;
                                                 position:relative; 
-                                                background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES");?>vendorlogo/<?php echo $operatingSystem['group'] ?>.png");
+                                                background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES","vendorlogo/".$operatingSystem['group'].".png");?>");
                                                 background-repeat:no-repeat;
                                                 background-position: 10px 10px;' id='g_<?php echo $operatingSystem['device'] ?>'>
-                                            <img id='cross_icon_<?php echo $operatingSystem['device'] ?>' src='<?php echo $Gui->skinObject->findResourceUrl("IMAGES");?>icons/delete_32.png' 
+                                            <img id='cross_icon_<?php echo $operatingSystem['device'] ?>' src='<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/delete_32.png");?>' 
                                                  style='position:absolute; left:16px; top:25px; opacity:0.9; display:none; '>
                                             <div class='download_button_text' 
                                                  style='font-size:12px; top:5px; height: 30px'
@@ -288,7 +290,7 @@ include("user/js/cat_js.php");
                                         <button class='more_info_b' 
                                                 style='height:70px; width:70px; 
                                                 position:relative;
-                                                background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES",true);?>icons/info_b.png");
+                                                background-image:url("<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/info_b.png");?>");
                                                 background-repeat:no-repeat;
                                                 background-position: 2px 7px;' 
                                                 id='g_info_b_<?php echo $operatingSystem['device'] ?>'>
@@ -310,7 +312,7 @@ include("user/js/cat_js.php");
                                 foreach ($Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
                                     $groupIndex = count($deviceGroup);
                                     $deviceIndex = 0;
-                                    print '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="'. $Gui->skinObject->findResourceUrl("IMAGES").'vendorlogo/' . $group . '.png" alt="' . $group . ' Device"></td>';
+                                    print '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="'. $Gui->skinObject->findResourceUrl("IMAGES","vendorlogo/$group.png").'" alt="' . $group . ' Device"></td>';
                                     foreach ($deviceGroup as $d => $D) {
                                         if ($deviceIndex) {
                                             print '<tr>';
@@ -347,7 +349,8 @@ include("user/js/cat_js.php");
                 <td style="padding-left:80px; text-align:right;">
                     <?php
                     if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo attributionEurope();
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                     } else {
                         echo "&nbsp;";
                     }

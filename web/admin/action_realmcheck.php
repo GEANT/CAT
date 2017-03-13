@@ -13,10 +13,10 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 
-defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
 $langObject = new \core\Language();
 $check_thorough = FALSE;
 $error_message = '';
@@ -462,7 +462,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
     }
 </script>
 <?php
-productheader("ADMIN");
+echo $deco->productheader("ADMIN");
 print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
 if ($error_message) {
     print "<p>$error_message</p>";
@@ -771,7 +771,7 @@ if (!$check_thorough) {
 }
 ?>
         </script>
-        <?php footer() ?>
+        <?php echo $deco->footer() ?>
 
         </body>
 

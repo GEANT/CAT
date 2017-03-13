@@ -11,15 +11,13 @@ namespace core;
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
-
-
 $instMgmt = new \core\UserManagement();
-defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
 ?>
 <!-- JQuery --> 
@@ -31,7 +29,7 @@ $user = new \core\User($_SESSION['user']);
 </head>
 <body>
     <?php
-    productheader("ADMIN");
+    echo $deco->productheader("ADMIN");
     ?>
     <h1>
         <?php echo _("User Overview"); ?>
@@ -169,5 +167,5 @@ $user = new \core\User($_SESSION['user']);
     }
     ?>
     <?php
-    footer();
+    echo $deco->footer();
     

@@ -16,8 +16,6 @@
  * @package UserGUI
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("CAT.php");
-require_once("resources/inc/footer.php");
 
 ?>
 <!DOCTYPE html>
@@ -206,7 +204,8 @@ Andreas
                     <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
                         <?php
                         if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
-                            echo attributionEurope();
+                            $deco = new \web\lib\admin\PageDecoration();
+                            echo $deco->attributionEurope();
                         } else {
                             echo "&nbsp;";
                         }

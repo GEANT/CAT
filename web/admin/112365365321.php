@@ -33,9 +33,6 @@ $Tests = [
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
-
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/common.inc.php");
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
@@ -52,7 +49,9 @@ if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not c
     exit;
 }
 
-pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
 $dbHandle = \core\DBConnection::handle("INST");
 ?>
@@ -203,4 +202,4 @@ $dbHandle = \core\DBConnection::handle("INST");
     <?php } ?>
 </form>
 <?php
-footer();
+echo $deco->footer();

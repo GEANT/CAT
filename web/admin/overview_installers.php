@@ -12,10 +12,10 @@
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 
-defaultPagePrelude(_("Device Compatibility matrix"));
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -23,7 +23,7 @@ defaultPagePrelude(_("Device Compatibility matrix"));
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP");
+    echo $deco->productheader("ADMIN-IDP");
     $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
@@ -160,5 +160,5 @@ defaultPagePrelude(_("Device Compatibility matrix"));
         </button>
     </form>
     <?php
-    footer();
+    echo $deco->footer();
     

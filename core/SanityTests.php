@@ -57,7 +57,7 @@ class SanityTests extends CAT {
     ];
 
     /* set $profile_option_ct to the number of rows returned by "SELECT * FROM profile_option_dict" */
-    private $profile_option_ct = 32;
+    private $profile_option_ct = 33;
     /* set $view_admin_ct to the number of rows returned by "desc view_admin" */
     private $view_admin_ct = 8;
 
@@ -388,10 +388,9 @@ class SanityTests extends CAT {
      * test if all required NSIS modules are available
      */
     private function NSISmodules_test() {
-        $loggerInstance = new Logging();
         $tmp_dir = $this->createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
-            $loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
+            $this->loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
             $this->test_return(Entity::L_ERROR, "NSIS modules test - problem with temporary directory permissions, cannot continue");
             return;
         }

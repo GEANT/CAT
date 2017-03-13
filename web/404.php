@@ -17,12 +17,12 @@
  */
 error_reporting(E_ALL | E_STRICT);
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("resources/inc/header.php");
-require_once("resources/inc/footer.php");
 $langObject = new \core\Language();
 $langObject->setTextDomain("web_user");
 
-defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
 </head>
 <body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
@@ -49,4 +49,4 @@ defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
         <p><?php echo sprintf(_("staring at you. Your mistake? Our error? Who knows! Maybe you should go back to the <a href='%s'>Start Page</a>."), dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang());?></p>
     </div> <!-- id="main_body" -->
 
-        <?php footer();
+        <?php echo $deco->footer();

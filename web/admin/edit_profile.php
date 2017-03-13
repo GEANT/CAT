@@ -11,13 +11,13 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
 
-defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
+$deco = new \web\lib\admin\PageDecoration();
+
+echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
@@ -165,7 +165,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 </head>
 <body>
     <?php
-    productheader("ADMIN-IDP");
+    echo $deco->productheader("ADMIN-IDP");
     ?>
     <h1>
         <?php
@@ -550,4 +550,4 @@ if ($wizardStyle) {
     echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
 }
 echo "<p><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
-footer();
+echo $deco->footer();

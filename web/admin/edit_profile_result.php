@@ -13,11 +13,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
 require_once("inc/option_parse.inc.php");
 
-require_once('inc/auth.inc.php');
+require
+_once('inc/auth.inc.php');
+$deco = new \web\lib\admin\PageDecoration();
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
@@ -33,7 +33,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     exit;
 }
 
-pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
 
 // check if profile exists and belongs to IdP
 
@@ -87,7 +87,7 @@ $verify = FALSE;
 $hint = FALSE;
 $redirect = FALSE;
 if (isset($_POST['verify_support'])) {
-    $verify = valid_boolean($_POST['checkuser_support']);
+    $verify = valid_boolean($_POST['verify_support']);
 }
 if (isset($_POST['hint_support'])) {
     $hint = valid_boolean($_POST['hint_support']);
@@ -229,4 +229,4 @@ if (count($reloadedProfile->getEapMethodsinOrderOfPreference(1)) > 0) {
         <button type='submit'>" . _("Continue to Installer Fine-Tuning and Download") . "</button>
     </form>";
 }
-footer();
+echo $deco->footer();
