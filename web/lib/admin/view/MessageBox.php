@@ -30,7 +30,7 @@ class MessageBox implements PageElementInterface, HtmlElementInterface, MessageR
      * 
      * @param Message $message
      * {@inheritDoc}
-     * @see \lib\view\MessageReceiverInterface::receiveMessage()
+     * @see MessageReceiverInterface::receiveMessage()
      */
     public function receiveMessage($message){
         $p = new Tag('p');
@@ -49,7 +49,7 @@ class MessageBox implements PageElementInterface, HtmlElementInterface, MessageR
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\view\html\HtmlElementInterface::__toString()
+     * @see HtmlElementInterface::__toString()
      */
     public function __toString(){
         if($this->box->size() > 0){

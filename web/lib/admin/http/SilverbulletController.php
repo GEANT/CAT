@@ -5,6 +5,7 @@ use web\lib\admin\storage\SessionStorage;
 use web\lib\admin\view\MessageReceiverInterface;
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\view\InstitutionPageBuilder;
 
 /**
  * 
@@ -33,7 +34,7 @@ class SilverbulletController{
 
     /**
      *
-     * @var \lib\view\InstitutionPageBuilder
+     * @var InstitutionPageBuilder
      */
     private $builder;
     
@@ -58,7 +59,7 @@ class SilverbulletController{
     /**
      * Creates Silverbullet front controller object prepares builder, profile ans session objects
      * 
-     * @param \lib\view\InstitutionPageBuilder $builder
+     * @param InstitutionPageBuilder $builder
      */
     public function __construct($builder){
         $this->builder = $builder;
@@ -87,7 +88,7 @@ class SilverbulletController{
     /**
      * Retrieves present page builder object
      * 
-     * @return \lib\view\InstitutionPageBuilder
+     * @return InstitutionPageBuilder
      */
     public function getBuilder(){
         return $this->builder;

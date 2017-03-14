@@ -17,7 +17,7 @@ class UnaryTag implements HtmlElementInterface, PageElementInterface{
     
     /**
      *
-     * @var Attribute []
+     * @var Attribute[]
      */
     private $attributes = array();
     
