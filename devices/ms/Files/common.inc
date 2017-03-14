@@ -1184,7 +1184,9 @@ FunctionEnd
 ; ---- PAGES ----------------------------
 
 Page custom nsDialogsWelcome
+!ifndef SILVERBULLET
 Page custom confirmUserGroup
+!endif
 ;============================
 Page custom WiredConfirm
 ;============================
