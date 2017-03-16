@@ -236,6 +236,20 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $retval .= "<string>$oiValue</string>";
         }
         $retval .= "</array>";
+        // this is an undocmented value found on the net. Does it do something useful?
+        $retval .= "<key>_UsingHotspot20</key>
+                <true/>
+                ";
+        // do we need to set NAIRealmName ? In Rel 1, probably yes, in Rel 2, 
+        // no because ConsortiumOI is enough.
+        // but which release is OS X doing? And what should we fill in, given
+        // that we have thousands of realms? Try just eduroam.org
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam") {
+        $retval .= "<key>NAIRealmNames</key>
+                <array>
+                    <string>eduroam.org</string>
+                </array>";
+        }
         return $retval;
     }
 
