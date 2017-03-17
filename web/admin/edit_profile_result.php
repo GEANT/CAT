@@ -15,8 +15,7 @@ require_once("inc/common.inc.php");
 require_once("inc/input_validation.inc.php");
 require_once("inc/option_parse.inc.php");
 
-require
-_once('inc/auth.inc.php');
+require_once('inc/auth.inc.php');
 $deco = new \web\lib\admin\PageDecoration();
 
 // deletion sets its own header-location  - treat with priority before calling default auth
