@@ -36,6 +36,10 @@ class UserCredentialsForm implements PageElementInterface{
      */
     private $table;
     
+    /**
+     * 
+     * @var number
+     */
     private $userRowIndex = 0;
 
     /**
@@ -105,10 +109,6 @@ class UserCredentialsForm implements PageElementInterface{
     private function addTitleRow(){
         $row = new Row(array(self::USER_COLUMN => 'User', self::TOKEN_COLUMN => 'Token/Certificate details', self::EXPIRY_COLUMN => 'User Expiry/Certificate Expiry', self::ACTION_COLUMN => 'Actions'));
         $row->addAttribute('class', self::TITLEROW_CLASS);
-        //$row->addCellAttribute(self::USER_COLUMN, 'style', 'width: 700px;');
-        //$row->addCellAttribute(self::TOKEN_COLUMN, 'style', 'width: 700px; overflow: auto;');
-        //$row->addCellAttribute(self::EXPIRY_COLUMN, 'style', 'width: 700px;');
-        //$row->addCellAttribute(self::ACTION_COLUMN, 'style', 'width: 700px;');
         $this->table->addRow($row);
     }
     
@@ -149,7 +149,6 @@ class UserCredentialsForm implements PageElementInterface{
             $tags = $cell->getTags();
 
             //Introduce wraper div with fixed width
-            $wrapper;
             if(count($tags)>0){
                 $wrapper = $tags[0];
             }else{

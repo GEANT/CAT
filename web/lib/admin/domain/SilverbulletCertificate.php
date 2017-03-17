@@ -283,8 +283,6 @@ class SilverbulletCertificate extends PersistentEntity{
     public static function getList($silverbulletUser, $searchAttribute = null){
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $userId = $silverbulletUser->getAttribute(self::ID);
-        $query = '';
-        $result = null;
         if($searchAttribute != null){
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY, $searchAttribute->key);
             $result = $databaseHandle->exec($query, $userId->getType().$searchAttribute->getType(), $userId->value, $searchAttribute->value);

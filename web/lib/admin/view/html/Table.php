@@ -36,6 +36,20 @@ class Table extends Tag{
     public function size(){
         return count($this->rows);
     }
+
+    /**
+     * 
+     * @param int $row
+     * @param string $column
+     */
+    private function createRow($row, $column){
+        if(!in_array($column, $this->columns)){
+            $this->columns [] = $column;
+        }
+        if(!isset($this->rows[$row])){
+            $this->rows [$row] = new Row();
+        }
+    }
     
     /**
      * 
@@ -44,12 +58,7 @@ class Table extends Tag{
      * @param UnaryTag $element
      */
     public function addToCell($row, $column, $element){
-        if(!in_array($column, $this->columns)){
-            $this->columns [] = $column;
-        }
-        if(!isset($this->rows[$row])){
-            $this->rows [$row] = new Row();
-        }
+        $this->createRow($row, $column);
         $this->rows[$row]->addToCell($column, $element);
     }
     
@@ -60,12 +69,7 @@ class Table extends Tag{
      * @return \web\lib\admin\view\html\CompositeTag
      */
     public function getCell($row, $column){
-        if(!in_array($column, $this->columns)){
-            $this->columns [] = $column;
-        }
-        if(!isset($this->rows[$row])){
-            $this->rows [$row] = new Row();
-        }
+        $this->createRow($row, $column);
         return $this->rows[$row]->getCell($column);
     }
     
