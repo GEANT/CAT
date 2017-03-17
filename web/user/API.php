@@ -125,7 +125,7 @@ switch ($action) {
         if (!$device) {
             $device = $id;
         }
-        if ($id === FALSE || $profile === FALSE) {
+        if ($device === FALSE || $profile === FALSE) {
             exit;
         }
         $API->deviceInfo($device, $profile);
