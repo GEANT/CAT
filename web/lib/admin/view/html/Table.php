@@ -55,6 +55,22 @@ class Table extends Tag{
     
     /**
      * 
+     * @param int $row
+     * @param string $column
+     * @return \web\lib\admin\view\html\CompositeTag
+     */
+    public function getCell($row, $column){
+        if(!in_array($column, $this->columns)){
+            $this->columns [] = $column;
+        }
+        if(!isset($this->rows[$row])){
+            $this->rows [$row] = new Row();
+        }
+        return $this->rows[$row]->getCell($column);
+    }
+    
+    /**
+     * 
      * @param array $row
      */
     public function addRowArray($cells){

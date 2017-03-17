@@ -51,6 +51,12 @@ class SilverbulletCertificate extends PersistentEntity{
      * @var string
      */
     const EXPIRY = 'expiry';
+
+    /**
+     *
+     * @var string
+     */
+    const DEVICE = 'device';
     
     /**
      *
@@ -209,7 +215,10 @@ class SilverbulletCertificate extends PersistentEntity{
     
     public function getCertificateDetails(){
         if($this->isGenerated()){
-            return _('Serial Number:').dechex($this->getSerialNumber()).' '._('CN:').$this->getCommonName();
+            return _('Device:').$this->get(self::DEVICE).'<br> '
+                  ._('Serial Number:').dechex($this->getSerialNumber()).'<br> '
+                  ._('CN:').$this->getCommonName().'<br> '
+                  ._('Expiry:').$this->getExpiry();
         }else{
             return $this->getOneTimeTokenLink();
         }
@@ -230,6 +239,14 @@ class SilverbulletCertificate extends PersistentEntity{
     public function setRevoked($isRevoked){
         $this->set(self::REVOCATION_STATUS, $isRevoked ? self::REVOKED : self::NOT_REVOKED);
         $this->set(self::REVOCATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isRevoked(){
+        return $this->get(self::REVOCATION_STATUS) == self::REVOKED;
     }
     
     /**
@@ -260,14 +277,22 @@ class SilverbulletCertificate extends PersistentEntity{
     /**
      * 
      * @param SilverbulletUser $silverbulletUser
+     * @param Attribute $searchAttribute
      * @return \web\lib\admin\domain\SilverbulletCertificate[]
      */
-    public static function getList($silverbulletUser){
+    public static function getList($silverbulletUser, $searchAttribute = null){
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $userId = $silverbulletUser->getAttribute(self::ID);
-        $revocationStatus = new Attribute(self::REVOCATION_STATUS, self::NOT_REVOKED);
-        $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=?", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS);
-        $result = $databaseHandle->exec($query, $userId->getType() . $revocationStatus->getType(), $userId->value, $revocationStatus->value);
+        $query = '';
+        $result = null;
+        if($searchAttribute != null){
+            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY, $searchAttribute->key);
+            $result = $databaseHandle->exec($query, $userId->getType().$searchAttribute->getType(), $userId->value, $searchAttribute->value);
+        }else{
+            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY);
+            $result = $databaseHandle->exec($query, $userId->getType(), $userId->value);
+        }
+        
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);

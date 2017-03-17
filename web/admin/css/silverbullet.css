@@ -17,6 +17,11 @@
 .sb-certificate-row{
     background:#DBEAF3;
 }
+.sb-certificate-summary{
+    width:150px;
+    display:inline-table;
+    margin:3px;
+}
 .sb-title-row{
     background:lightgrey;
 }
@@ -26,6 +31,9 @@
 }
 .sb-editable-block{
     position: relative;
+}
+.sb-editable-block td{
+    vertical-align: top;
 }
 .sb-editable-block fieldset{
     display: inline-block;

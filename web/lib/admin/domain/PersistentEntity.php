@@ -1,7 +1,7 @@
 <?php
 namespace web\lib\admin\domain;
 
-abstract  class PersistentEntity extends \core\Entity implements PersistentInterface {
+abstract class PersistentEntity extends \core\Entity implements PersistentInterface {
     
     /**
      * Identifier attribute
@@ -215,7 +215,7 @@ abstract  class PersistentEntity extends \core\Entity implements PersistentInter
      * {@inheritDoc}
      * @see \web\lib\admin\domain\PersistentInterface::load()
      */
-    public function load(){
+    public function load($searchAttribute = null){
         $state = false;
         $id = $this->getAttribute(self::ID);
         $query = sprintf("SELECT * FROM `%s` WHERE `%s` =?", $this->table, self::ID);

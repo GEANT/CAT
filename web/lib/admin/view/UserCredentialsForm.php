@@ -25,11 +25,18 @@ class UserCredentialsForm implements PageElementInterface{
     const ADDNEWUSER_CLASS = 'sb-add-new-user';
     const RESET_BUTTON_ID = 'sb-reset-dates';
     
+    const USER_COLUMN = 'user';
+    const TOKEN_COLUMN = 'token';
+    const EXPIRY_COLUMN = 'expiry';
+    const ACTION_COLUMN = 'action';
+    
     /**
      *
      * @var Table
      */
     private $table;
+    
+    private $userRowIndex = 0;
 
     /**
      *
@@ -96,8 +103,12 @@ class UserCredentialsForm implements PageElementInterface{
      * 
      */
     private function addTitleRow(){
-        $row = new Row(array('user' => 'User', 'token' => 'Token/Certificate details', 'expiry' => 'User Expiry/Certificate Expiry', 'action' => 'Actions'));
+        $row = new Row(array(self::USER_COLUMN => 'User', self::TOKEN_COLUMN => 'Token/Certificate details', self::EXPIRY_COLUMN => 'User Expiry/Certificate Expiry', self::ACTION_COLUMN => 'Actions'));
         $row->addAttribute('class', self::TITLEROW_CLASS);
+        //$row->addCellAttribute(self::USER_COLUMN, 'style', 'width: 700px;');
+        //$row->addCellAttribute(self::TOKEN_COLUMN, 'style', 'width: 700px; overflow: auto;');
+        //$row->addCellAttribute(self::EXPIRY_COLUMN, 'style', 'width: 700px;');
+        //$row->addCellAttribute(self::ACTION_COLUMN, 'style', 'width: 700px;');
         $this->table->addRow($row);
     }
     
@@ -106,7 +117,7 @@ class UserCredentialsForm implements PageElementInterface{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array('user' => $user->getUsername(), 'expiry' => new DatePicker(SaveUsersCommand::PARAM_EXPIRY_MULTIPLE, $user->getExpiry()) ));
+        $row = new Row(array(self::USER_COLUMN => $user->getUsername(), self::EXPIRY_COLUMN => new DatePicker(SaveUsersCommand::PARAM_EXPIRY_MULTIPLE, $user->getExpiry()) ));
         $row->addAttribute('class', self::USERROW_CLASS);
         $acknowledgeLevel = $user->getAcknowledgeLevel();
         if($acknowledgeLevel == SilverbulletUser::LEVEL_YELLOW){
@@ -114,18 +125,18 @@ class UserCredentialsForm implements PageElementInterface{
         }elseif ($acknowledgeLevel == SilverbulletUser::LEVEL_RED){
             $row->addAttribute('style', 'background-color:#F0C0C0;');
         }
-        $index = $this->table->size();
+        $this->userRowIndex = $this->table->size();
         $this->table->addRow($row);
         $hiddenUserId = new Tag('input');
         $hiddenUserId->addAttribute('type', 'hidden');
         $hiddenUserId->addAttribute('name', SaveUsersCommand::PARAM_ID_MULTIPLE);
         $hiddenUserId->addAttribute('value', $user->getIdentifier());
-        $this->table->addToCell($index, 'user', $hiddenUserId);
+        $this->table->addToCell($this->userRowIndex, self::USER_COLUMN, $hiddenUserId);
         $action = new CompositeTag('div');
         $action->addAttribute('style', 'min-width:150px');
         $action->addTag(new Button(_('Delete User'),'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete'));
         $action->addTag(new Button(_('New Credential'),'submit', AddCertificateCommand::COMMAND, $user->getIdentifier()));
-        $this->table->addToCell($index, 'action', $action);
+        $this->table->addToCell($this->userRowIndex, self::ACTION_COLUMN, $action);
     }
     
     /**
@@ -133,11 +144,56 @@ class UserCredentialsForm implements PageElementInterface{
      * @param SilverbulletCertificate $certificate
      */
     public function addCertificateRow($certificate){
-        $row = new Row(array('token' => $certificate->getCertificateDetails(), 'expiry' => $certificate->getExpiry()));
-        $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
-        $index = $this->table->size();
-        $this->table->addRow($row);
-        $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
+        if($certificate->isGenerated()){
+            $cell = $this->table->getCell($this->userRowIndex, self::TOKEN_COLUMN);
+            $tags = $cell->getTags();
+
+            //Introduce wraper div with fixed width
+            $wrapper;
+            if(count($tags)>0){
+                $wrapper = $tags[0];
+            }else{
+                $wrapper = new CompositeTag('div');
+                $wrapper->addAttribute('style', 'width: 700px;');
+                $this->table->addToCell($this->userRowIndex, self::TOKEN_COLUMN, $wrapper);
+            }
+            
+            //Create certificate box
+            $certificateBox = new CompositeTag('div');
+            $certificateBox->addAttribute('class', 'sb-certificate-summary ca-summary');
+                
+            //Create certificate details div
+            $certificateDetails = new Tag('div');
+            $certificateDetails->addText($certificate->getCertificateDetails());
+            $certificateBox->addTag($certificateDetails);
+
+            //Create button container div
+            $buttonContainer = new Tag('div');
+            if($certificate->isRevoked()){
+                $certificateBox->addAttribute('style', 'background-color:#F0C0C0;');
+                $buttonContainer->addAttribute('style', 'text-align:center;padding: 8px;');
+                $buttonContainer->addText(_("REVOKED"));
+            }elseif ($certificate->isExpired()){
+                $certificateBox->addAttribute('style', 'background-color:lightgrey;');
+                $buttonContainer->addAttribute('style', 'text-align:center;padding: 8px;');
+                $buttonContainer->addText(_("EXPIRED"));
+            }else{
+                $buttonContainer->addAttribute('style', 'text-align:right;padding-top: 5px;');
+                $buttonContainer->addText(new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
+            }
+            $certificateBox->addTag($buttonContainer);
+            
+            $wrapper->addTag($certificateBox);
+            
+        }else{
+            if(!$certificate->isRevoked()){
+                $row = new Row(array('token' => $certificate->getCertificateDetails(), 'expiry' => $certificate->getExpiry()));
+                $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
+                $index = $this->table->size();
+                $this->table->addRow($row);
+                $this->table->addToCell($index, 'action', new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
+             }
+        }
     }
     
     public function render(){

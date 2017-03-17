@@ -2,6 +2,7 @@
 
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\domain\Attribute;
 
 class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
@@ -106,7 +107,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse($this->profile->isGeneratedCertificate($serial, $cn));
         
         $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
-        $existingUser->load();
+        $existingUser->load(new Attribute(SilverbulletCertificate::REVOCATION_STATUS, SilverbulletCertificate::NOT_REVOKED));
         $this->assertEquals(SilverbulletUser::INACTIVE, $existingUser->get(SilverbulletUser::DEACTIVATION_STATUS));
         $this->assertFalse($existingUser->hasCertificates());
     

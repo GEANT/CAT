@@ -96,6 +96,18 @@ class Row extends Tag{
         }
         $this->cells[$column]->addTag($element);
     }
+
+    /**
+     * 
+     * @param string $column
+     * @return \web\lib\admin\view\html\CompositeTag
+     */
+    public function getCell($column){
+        if(!isset($this->cells[$column])){
+            $this->cells[$column] = new CompositeTag('td');
+        }
+        return $this->cells[$column];
+    }
     
     /**
      * 
