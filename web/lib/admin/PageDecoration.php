@@ -91,7 +91,7 @@ class PageDecoration {
      */
     public function pageheader($pagetitle, $area, $authRequired = TRUE) {
         $retval = "";
-        defaultPagePrelude($pagetitle, $authRequired);
+        $retval .= $this->defaultPagePrelude($pagetitle, $authRequired);
         $retval .= "</head></body>";
         $retval .= $this->productheader($area);
         return $retval;
@@ -176,7 +176,7 @@ class PageDecoration {
      * @param string $pagetitle Title of the page to display
      * @param boolean $authRequired does the user need to be autenticated to access this page?
      */
-    function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
+    public function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         if ($authRequired === TRUE) {
             require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
             authenticate();
