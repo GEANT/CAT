@@ -221,7 +221,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                <key>ServiceProviderRoamingEnabled</key>
                <true/>
                <key>DisplayedOperatorName</key>
-               <string>" . CONFIG['CONSORTIUM']['name'] . "</string>";
+               <string>" . CONFIG['CONSORTIUM']['name'] . " via Passpoint</string>";
         // if we don't know the realm, omit the entire DomainName key
         if (isset($this->attributes['internal:realm'])) {
             $retval .= "<key>DomainName</key>
