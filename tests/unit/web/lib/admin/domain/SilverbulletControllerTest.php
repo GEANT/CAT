@@ -10,6 +10,7 @@ use web\lib\admin\http\DeleteUserCommand;
 use web\lib\admin\http\RevokeCertificateCommand;
 use web\lib\admin\view\InstitutionPageBuilder;
 use web\lib\admin\http\SaveUsersCommand;
+use web\lib\admin\domain\Attribute;
 
 if ( !isset( $_SESSION ) ) $_SESSION = array();
 
@@ -109,7 +110,7 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $_POST[RevokeCertificateCommand::COMMAND] = $certificate->getIdentifier();
         $this->factory->parseRequest();
     
-        $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
+        $certificatesAfter = count(SilverbulletCertificate::getList($this->user, new Attribute(SilverbulletCertificate::REVOCATION_STATUS, SilverbulletCertificate::NOT_REVOKED)));
         $this->assertTrue($certificatesBefore > $certificatesAfter);
     }
 
@@ -129,13 +130,13 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
     
         $this->assertTrue($this->profile->isGeneratedCertificate($serial, $cn));
         
-        $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
+        $certificatesBefore = count(SilverbulletCertificate::getList($this->user, new Attribute(SilverbulletCertificate::REVOCATION_STATUS, SilverbulletCertificate::NOT_REVOKED)));
     
         $_POST['command'] = SaveUsersCommand::COMMAND;
         $_POST[RevokeCertificateCommand::COMMAND] = $certificate->getIdentifier();
         $this->factory->parseRequest();
     
-        $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
+        $certificatesAfter = count(SilverbulletCertificate::getList($this->user, new Attribute(SilverbulletCertificate::REVOCATION_STATUS, SilverbulletCertificate::NOT_REVOKED)));
         $this->assertTrue($certificatesBefore > $certificatesAfter);
         $this->assertFalse($this->profile->isGeneratedCertificate($serial, $cn));
         

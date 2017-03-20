@@ -188,9 +188,9 @@ class SilverbulletUser extends PersistentEntity{
      * {@inheritDoc}
      * @see \web\lib\admin\domain\PersistentInterface::load()
      */
-    public function load(){
+    public function load($searchAttribute = null){
         $state = parent::load();
-        $this->certificates = SilverbulletCertificate::getList($this);
+        $this->certificates = SilverbulletCertificate::getList($this, $searchAttribute);
         return $state;
     }
     

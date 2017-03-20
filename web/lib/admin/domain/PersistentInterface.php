@@ -10,10 +10,10 @@ interface PersistentInterface {
     public function save();
     /**
      * Loads attributes from persistent storage
-     * 
+     * @param Attribute $searchAttribute
      * @return boolean
      */
-    public function load();
+    public function load($searchAttribute = null);
     /**
      * Removes attributes from persistent storage
      * 
