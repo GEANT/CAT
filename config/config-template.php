@@ -93,6 +93,11 @@ const CONFIG = [
      *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
      *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
      *             if left empty, realms would end in the federation name only
+     *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
+     *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
+     *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
+     *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
+     *             value steers where to get certificates from
      * @var array
      */
     'CONSORTIUM' => [
@@ -115,6 +120,7 @@ const CONFIG = [
         'silverbullet_default_maxusers' => 200,
         'silverbullet_realm_suffix' => '.hosted.eduroam.org',
         'silverbullet_server_suffix' => '.hosted.eduroam.org',
+        'silverbullet_gracetime' => 90,
         'silverbullet_CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
       # 'silverbullet_CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
         'nomenclature_federation' => 'National Roaming Operator',
