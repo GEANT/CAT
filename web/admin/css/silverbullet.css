@@ -14,13 +14,24 @@
 .sb-user-row{
     background:#F0F0F0;
 }
+.sb-user-buttons{
+    min-width:230px;
+}
+.sb-user-buttons button{
+    margin-bottom:6px;
+}
 .sb-certificate-row{
     background:#DBEAF3;
 }
 .sb-certificate-summary{
-    width:150px;
+    width:270px;
     display:inline-table;
+    overflow: hidden;
     margin:3px;
+}
+.sb-certificate-details{
+    width:260px;
+    word-wrap: break-word;
 }
 .sb-title-row{
     background:lightgrey;
@@ -45,7 +56,7 @@
 }
 .sb-date-container{
     display: inline-block;
-    width: 185px;
+    width: 187px;
 }
 .sb-date-picker{
     padding-right:25px;

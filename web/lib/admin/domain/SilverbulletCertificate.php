@@ -146,6 +146,22 @@ class SilverbulletCertificate extends PersistentEntity{
      *
      * @return string
      */
+    public function getShortCommonName(){
+        $commonName = $this->getCommonName();
+        $delimiter = '@';
+        $parts = explode($delimiter, $commonName);
+        if(isset($parts[0])){
+            return $parts[0].$delimiter.'…';
+        }else{
+            return '';
+        }
+    }
+    
+    
+    /**
+     *
+     * @return string
+     */
     public function getOneTimeToken(){
         if($this->isExpired()){
             return _('User did not consume the token and it expired!');
@@ -217,7 +233,7 @@ class SilverbulletCertificate extends PersistentEntity{
         if($this->isGenerated()){
             return _('Device:').$this->get(self::DEVICE).'<br> '
                   ._('Serial Number:').dechex($this->getSerialNumber()).'<br> '
-                  ._('CN:').$this->getCommonName().'<br> '
+                  ._('CN:').$this->getShortCommonName().'<br> '
                   ._('Expiry:').$this->getExpiry();
         }else{
             return $this->getOneTimeTokenLink();

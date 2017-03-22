@@ -68,6 +68,7 @@ class UserCredentialsForm implements PageElementInterface{
         $this->action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
+        $this->table->addAttribute("style", "max-width:1920px;");
         $this->decorator = new TitledFormDecorator($this->table, $title, $this->action);
 
         $hiddenCommand = new UnaryTag('input');
@@ -133,8 +134,8 @@ class UserCredentialsForm implements PageElementInterface{
         $hiddenUserId->addAttribute('value', $user->getIdentifier());
         $this->table->addToCell($this->userRowIndex, self::USER_COLUMN, $hiddenUserId);
         $action = new CompositeTag('div');
-        $action->addAttribute('style', 'min-width:150px');
-        $action->addTag(new Button(_('Delete User'),'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete'));
+        $action->addAttribute('class', 'sb-user-buttons');
+        $action->addTag(new Button(_('Deactivate User'),'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete'));
         $action->addTag(new Button(_('New Credential'),'submit', AddCertificateCommand::COMMAND, $user->getIdentifier()));
         $this->table->addToCell($this->userRowIndex, self::ACTION_COLUMN, $action);
     }
@@ -145,24 +146,14 @@ class UserCredentialsForm implements PageElementInterface{
      */
     public function addCertificateRow($certificate){
         if($certificate->isGenerated()){
-            $cell = $this->table->getCell($this->userRowIndex, self::TOKEN_COLUMN);
-            $tags = $cell->getTags();
 
-            //Introduce wraper div with fixed width
-            if(count($tags)>0){
-                $wrapper = $tags[0];
-            }else{
-                $wrapper = new CompositeTag('div');
-                $wrapper->addAttribute('style', 'width: 700px;');
-                $this->table->addToCell($this->userRowIndex, self::TOKEN_COLUMN, $wrapper);
-            }
-            
             //Create certificate box
             $certificateBox = new CompositeTag('div');
             $certificateBox->addAttribute('class', 'sb-certificate-summary ca-summary');
                 
             //Create certificate details div
             $certificateDetails = new Tag('div');
+            $certificateDetails->addAttribute('class', 'sb-certificate-details');
             $certificateDetails->addText($certificate->getCertificateDetails());
             $certificateBox->addTag($certificateDetails);
 
@@ -170,19 +161,18 @@ class UserCredentialsForm implements PageElementInterface{
             $buttonContainer = new Tag('div');
             if($certificate->isRevoked()){
                 $certificateBox->addAttribute('style', 'background-color:#F0C0C0;');
-                $buttonContainer->addAttribute('style', 'text-align:center;padding: 8px;');
+                $buttonContainer->addAttribute('style', 'height:22px; margin-top:7px; text-align:center;');
                 $buttonContainer->addText(_("REVOKED"));
             }elseif ($certificate->isExpired()){
                 $certificateBox->addAttribute('style', 'background-color:lightgrey;');
-                $buttonContainer->addAttribute('style', 'text-align:center;padding: 8px;');
+                $buttonContainer->addAttribute('style', 'height:22px; margin-top:7px; text-align:center;');
                 $buttonContainer->addText(_("EXPIRED"));
             }else{
                 $buttonContainer->addAttribute('style', 'text-align:right;padding-top: 5px;');
                 $buttonContainer->addText(new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
             }
             $certificateBox->addTag($buttonContainer);
-            
-            $wrapper->addTag($certificateBox);
+            $this->table->addToCell($this->userRowIndex, self::TOKEN_COLUMN, $certificateBox);
             
         }else{
             if(!$certificate->isRevoked()){
