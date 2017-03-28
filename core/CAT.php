@@ -496,7 +496,7 @@ class CAT extends Entity {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";
             }
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
+            $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, UPPER(country) AS country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
             // split names and contacts into proper pairs
             while ($externalEntityQuery = mysqli_fetch_object($infoList)) {
                 $names = explode('#', $externalEntityQuery->collapsed_name);
