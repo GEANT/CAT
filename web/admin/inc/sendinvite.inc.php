@@ -101,6 +101,7 @@ else if (isset($_POST['creation'])) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
         $federation = new \core\Federation($extinfo['country']);
+        $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";
         foreach ($extinfo['names'] as $lang => $name) {
