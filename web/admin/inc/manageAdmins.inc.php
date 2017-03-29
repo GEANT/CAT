@@ -93,7 +93,18 @@ if (isset($_GET['invitation'])) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
     switch ($_GET['invitation']) {
         case "SUCCESS":
-            echo UI_remark(_("The invitation email was sent successfully."), _("The invitation email was sent."));
+            $cryptText = "";
+            switch ($_GET['transportsecurity']) {
+            case "ENCRYPTED":
+                $cryptText = _("and <b>encrypted</b> to the mail domain");
+                break;
+            case "CLEAR":
+                $cryptText = _("but <b>in clear text</b> to the mail domain");
+                break;
+            default:
+                throw new Exception("Error: unknown encryption status of invitation!?!");
+            }
+            echo UI_remark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
             break;
         case "FAILURE":
             echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
