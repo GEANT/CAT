@@ -1,4 +1,5 @@
 <?php
+use core\IdP;
 use web\lib\admin\view\DefaultPage;
 use web\lib\admin\view\InstitutionPageBuilder;
 use web\lib\admin\view\PageBuilder;
@@ -6,13 +7,16 @@ use web\lib\admin\view\PageBuilder;
 class MockValidateInstitutionPageBuilder extends InstitutionPageBuilder{
     
     protected function validateInstitution(){
-        try {
-            $this->institution = $this->valid_IdP($_GET['inst_id'], $_SESSION['user']);
-        } catch (\Exception $e) {
-            $this->headerTitle = $e->getMessage();
-        }
+        $this->institution = $this->valid_IdP($_GET['inst_id'], $_SESSION['user']);
     }
     
+    /**
+     * 
+     * @param unknown $input
+     * @param unknown $owner
+     * @throws Exception
+     * @return mixed
+     */
     private function valid_IdP($input, $owner){
         if ($input == 1){
             return new MockInstitution();

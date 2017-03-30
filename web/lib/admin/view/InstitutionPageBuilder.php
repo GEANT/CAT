@@ -67,7 +67,12 @@ class InstitutionPageBuilder implements PageBuilder{
     public function __construct($page, $pageType){
         $this->decoration = new PageDecoration();
         if(isset($_GET['inst_id'])){
-            $this->validateInstitution();
+            try {
+                $this->validateInstitution();
+            } catch (\Exception $e) {
+                $this->headerTitle = $e->getMessage();
+            }
+            
             if($this->isReady()){
                 $this->pageType = $pageType;
                 $this->pageTitle = sprintf(_("%s: %s '%s'"), CONFIG['APPEARANCE']['productname'], $page->getTitle(), $this->institution->name);
@@ -80,11 +85,7 @@ class InstitutionPageBuilder implements PageBuilder{
      * 
      */
     protected function validateInstitution(){
-        try {
-            $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-        } catch (\Exception $e) {
-            $this->headerTitle = $e->getMessage();
-        }
+        $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     }
     
     /**
