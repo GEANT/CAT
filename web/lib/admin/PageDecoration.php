@@ -191,7 +191,6 @@ class PageDecoration {
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
-        $cutoffPosition = 0;
         if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
         } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
@@ -216,7 +215,6 @@ class PageDecoration {
         // we may need to jump up one dir if we are either in admin/ or accountstatus/
         // (accountstatus courtesy of my good mood. It's userspace not admin space so
         // it shouldn't be using this function any more.)
-        $cutoffPosition = 0;
         if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
         } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
