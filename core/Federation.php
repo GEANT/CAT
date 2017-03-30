@@ -45,12 +45,14 @@ class Federation extends EntityWithDBProperties {
     private function downloadStatsCore() {
         $grossAdmin = 0;
         $grossUser = 0;
+        $grossSilverbullet = 0;
 
         $dataArray = [];
 
         $handle = DBConnection::handle("INST");
         foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
             $query = "SELECT SUM(downloads_admin) AS admin, "
+                    . "SUM(downloads_silverbullet) AS silverbullet, "
                     . "SUM(downloads_user) AS user "
                     . "FROM downloads, profile, institution "
                     . "WHERE device_id = ? AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id "
@@ -59,12 +61,13 @@ class Federation extends EntityWithDBProperties {
             $numberQuery = $handle->exec($query, "ss", $index, $this->identifier);
 
             while ($queryResult = mysqli_fetch_object($numberQuery)) {
-                $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
+                $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "SILVERBULLET" => ($queryResult->silverbullet === NULL ? "0" : $queryResult->silverbullet), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
                 $grossAdmin = $grossAdmin + $queryResult->admin;
+                $grossSilverbullet = $grossSilverbullet + $queryResult->silverbullet;
                 $grossUser = $grossUser + $queryResult->user;
             }
         }
-        $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "USER" => $grossUser];
+        $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "SILVERBULLET" => $grossSilverbullet, "USER" => $grossUser];
         return $dataArray;
     }
 
@@ -82,9 +85,9 @@ class Federation extends EntityWithDBProperties {
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "<tr><td>$device</td><td>" . $numbers['ADMIN'] . "</td><td>" . $numbers['USER'] . "</td></tr>";
+                    $retstring .= "<tr><td>$device</td><td>" . $numbers['ADMIN'] . "</td><td>" . $numbers['SILVERBULLET'] . "</td><td>" . $numbers['USER'] . "</td></tr>";
                 }
-                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>" . $data['TOTAL']['ADMIN'] . "</strong></td><td><strong>" . $data['TOTAL']['USER'] . "</strong></td></tr>";
+                $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>" . $data['TOTAL']['ADMIN'] . "</strong></td><td><strong>" . $data['TOTAL']['SILVERBULLET'] . "</strong></td><td><strong>" . $data['TOTAL']['USER'] . "</strong></td></tr>";
                 break;
             case "XML":
                 $retstring .= "<federation id='$this->identifier' ts='" . date("Y-m-d") . "T" . date("H:i:s") . "'>\n";
@@ -92,9 +95,9 @@ class Federation extends EntityWithDBProperties {
                     if ($device == "TOTAL") {
                         continue;
                     }
-                    $retstring .= "  <device name='" . $device . "'>\n    <downloads group='admin'>" . $numbers['ADMIN'] . "</downloads>\n    <downloads group='user'>" . $numbers['USER'] . "</downloads>\n  </device>";
+                    $retstring .= "  <device name='" . $device . "'>\n    <downloads group='admin'>" . $numbers['ADMIN'] . "</downloads>\n    <downloads group='managed_idp'>" . $numbers['SILVERBULLET'] . "</downloads>\n    <downloads group='user'>" . $numbers['USER'] . "</downloads>\n  </device>";
                 }
-                $retstring .= "<total>\n  <downloads group='admin'>" . $data['TOTAL']['ADMIN'] . "</downloads>\n  <downloads group='user'>" . $data['TOTAL']['USER'] . "</downloads>\n</total>\n";
+                $retstring .= "<total>\n  <downloads group='admin'>" . $data['TOTAL']['ADMIN'] . "</downloads>\n  <downloads group='managed_idp'>" . $data['TOTAL']['SILVERBULLET'] . "</downloads>\n  <downloads group='user'>" . $data['TOTAL']['USER'] . "</downloads>\n</total>\n";
                 $retstring .= "</federation>";
                 break;
             default:

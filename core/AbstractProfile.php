@@ -275,8 +275,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return mixed user downloads of this profile; if device is given, returns the counter as int, otherwise an array with devicename => counter
      */
     public function getUserDownloadStats($device = NULL) {
+        $columnName = "downloads_user";
+        if ($this instanceof \core\ProfileSilverbullet) {
+            $columnName = "downloads_silverbullet";
+        }
         $returnarray = [];
-        $numbers = $this->databaseHandle->exec("SELECT device_id, SUM(downloads_user) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
+        $numbers = $this->databaseHandle->exec("SELECT device_id, SUM($columnName) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
         while ($statsQuery = mysqli_fetch_object($numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }

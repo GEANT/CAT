@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -179,6 +179,16 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                         <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                     </form>
                 </div>
+
+                <div style='width:20px;'></div>
+                <div style='display: table-cell; min-width:200px;'><p><strong><?php echo _("User Downloads"); ?></strong></p><table>
+                            <?php
+                            $stats = $profile->getUserDownloadStats();
+                            foreach ($stats as $dev => $count) {
+                                echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
+                            }
+                            ?>
+                    </table></div>
             </div>
             <?php
             // unset variable so that no other profiles are displayed, if any
@@ -203,7 +213,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         $has_overrides = FALSE;
         foreach ($attribs as $attrib) {
-            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description)/", $attrib['name'])) {
+            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
                 $has_overrides = TRUE;
             }
         }
