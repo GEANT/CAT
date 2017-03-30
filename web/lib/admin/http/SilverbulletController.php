@@ -248,6 +248,7 @@ class SilverbulletController{
      */
     public function getUserStats(){
         $silverbulletMaxUsers = $this->profile->getAttributes("internal:silverbullet_maxusers");
+        $count = array();
         $count[self::STATS_TOTAL] = isset($silverbulletMaxUsers[0]['value']) ? $silverbulletMaxUsers[0]['value'] : -1;
         $count[self::STATS_ACTIVE] = 0;
         $count[self::STATS_PASSIVE] = 0;
