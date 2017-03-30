@@ -112,7 +112,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
 
                         echo "<h2>" . sprintf(_("Import Password: %s"), $importPassword) . "</h2>";
-                        echo "<form action='user/sb_download.php' method='POST'>";
+                        echo "<form action='../user/sb_download.php' method='POST'>";
                         echo "<input type='hidden' name='profile' value='" . $statusInfo['profile']->identifier . "'/>";
                         echo "<input type='hidden' name='idp' value='" . $statusInfo['profile']->institution . "'/>";
                         $_SESSION['individualtoken'] = $cleanToken;
