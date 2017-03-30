@@ -1,3 +1,2 @@
-SSLCACertificateFile ./ClientCAs.pem
 SSLVerifyClient optional
 SSLVerifyDepth 2

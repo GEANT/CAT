@@ -423,7 +423,8 @@ class ProfileSilverbullet extends AbstractProfile {
                 "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
                 "profile" => $details->profile_id,
                 "user" => $details->silverbullet_user_id,
-                "expiry" => $expiryObject->format("Y-m-d H:i:s")];
+                "expiry" => $expiryObject->format("Y-m-d H:i:s"),
+                "value" => $tokenvalue];
         }
 // still here? then there is certificate data, so token was redeemed
 // add the corresponding cert details here
@@ -449,6 +450,20 @@ class ProfileSilverbullet extends AbstractProfile {
         ];
     }
 
+    /**
+     * For a given certificate username, find the profile and username in CAT
+     * this needs to be static because we do not have a known profile instance
+     * 
+     * @param type $certUsername a username from CN or sAN:email
+     */
+    public static function findUserIdFromCert($certUsername) {
+        $dbHandle = \core\DBConnection::handle("INST");
+        $userrows = $dbHandle->exec("SELECT silverbullet_user_id AS user_id, profile_id AS profile FROM silverbullet_certificate WHERE cn = ?", "s", $certUsername);
+        while ($returnedData = mysqli_fetch_object($userrows)) { // only one
+            return ["profile" => $returnedData->profile, "user" => $returnedData->user_id];
+        }
+    }
+    
     public function userStatus($username) {
         $retval = [];
         $userrows = $this->databaseHandle->exec("SELECT one_time_token FROM silverbullet_certificate WHERE silverbullet_user_id = ? AND profile_id = ? ", "si", $username, $this->identifier);
