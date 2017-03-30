@@ -16,12 +16,13 @@
  * @package Core
  */
 
-require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+require_once("../admin/inc/input_validation.inc.php");
 
 $cleanToken = FALSE;
 $operatingSystem = FALSE;
-$tokenStatus = \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID;
+$tokenStatus = ["status" => \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID,
+                "cert_status" => \core\ProfileSilverbullet::SB_CERTSTATUS_NONEXISTENT,];
 $profile = NULL;
 $idp = NULL;
 $fed = NULL;
@@ -61,4 +62,4 @@ $statusInfo = ["token" => $cleanToken,
     ];
 
 // and now, serve actual data
-include("skins/" . $skinObject->skin . "/accountstatus.php");
+include("../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php");

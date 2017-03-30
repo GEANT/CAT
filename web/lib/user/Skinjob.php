@@ -84,7 +84,7 @@ class Skinjob {
         }
         // we need to construct the right path to the file; we are either
         // in the admin area or on the main index.php ...
-        $KNOWN_SUFFIXES = ["admin/", "diag/", "skins/", "user/"];
+        $KNOWN_SUFFIXES = ["admin/", "diag/", "skins/", "user/", "accountstatus/"];
 
         foreach ($KNOWN_SUFFIXES as $suffix) {
             if (strpos($_SERVER['PHP_SELF'], $suffix) !== FALSE) {

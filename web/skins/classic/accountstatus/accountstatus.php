@@ -17,8 +17,8 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-require_once(dirname(dirname(__DIR__)) . "/admin/inc/input_validation.inc.php");
-require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
+require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/common.inc.php");
 
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");

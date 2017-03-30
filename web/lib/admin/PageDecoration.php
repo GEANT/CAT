@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\admin;
+include_once dirname(dirname(__DIR__)).'/admin/inc/input_validation.inc.php';
 
 class PageDecoration {
 
@@ -190,7 +191,16 @@ class PageDecoration {
           <head lang='$ourlocale'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 
-        $cssUrl = "//" . valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")) )."/resources/css/cat.css.php";
+        $cutoffPosition = 0;
+        if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
+        } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
+        } else {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
+        }
+
+        $cssUrl = "//" . \valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
         
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -203,7 +213,19 @@ class PageDecoration {
      * @return string HTML code with GEANT Org and EU attribution as required for FP7 / H2020 projects
      */
     public function attributionEurope() {
-        $logoBase = "//" . valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")))."/resources/images";
+        // we may need to jump up one dir if we are either in admin/ or accountstatus/
+        // (accountstatus courtesy of my good mood. It's userspace not admin space so
+        // it shouldn't be using this function any more.)
+        $cutoffPosition = 0;
+        if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
+        } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
+        } else {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
+        }
+        
+        $logoBase = "//" . valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
 
         return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
