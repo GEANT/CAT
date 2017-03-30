@@ -10,7 +10,7 @@
  */
 
 namespace web\lib\admin;
-include_once dirname(dirname(__DIR__)).'/admin/inc/input_validation.inc.php';
+require_once(dirname(dirname(__DIR__)).'/admin/inc/input_validation.inc.php');
 
 class PageDecoration {
 
