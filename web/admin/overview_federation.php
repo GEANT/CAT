@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -126,7 +126,18 @@ $user = new \core\User($_SESSION['user']);
         echo "<div class='ca-summary' style='position:relative;'><table>";
         switch ($_GET['invitation']) {
             case "SUCCESS":
-                echo UI_remark(_("The invitation email was sent successfully."), _("The invitation email was sent."));
+                $cryptText = "";
+                switch ($_GET['transportsecurity']) {
+                    case "ENCRYPTED":
+                        $cryptText = _("and <b>encrypted</b> to the mail domain");
+                        break;
+                    case "CLEAR":
+                        $cryptText = _("but <b>in clear text</b> to the mail domain");
+                        break;
+                    default:
+                        throw new Exception("Error: unknown encryption status of invitation!?!");
+                }
+                echo UI_remark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
                 break;
             case "FAILURE":
                 echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));

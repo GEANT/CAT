@@ -474,12 +474,11 @@ class CAT extends Entity {
         $handle = DBConnection::handle(CAT::DB_TYPE);
         $returnArray = []; // in if -> the while might never be executed, so initialise
         if ($activeOnly) {
-            $federations = $handle->exec("SELECT DISTINCT LOWER(institution.country) AS country FROM institution JOIN profile
+            $federations = $handle->exec("SELECT DISTINCT UPPER(institution.country) AS country FROM institution JOIN profile
                           ON institution.inst_id = profile.inst_id WHERE profile.showtime = 1 ORDER BY country");
             while ($activeFederations = mysqli_fetch_object($federations)) {
-                $fedIdentifier = $activeFederations->country;
-                $capFedName = strtoupper($fedIdentifier);
-                $returnArray[$capFedName] = isset($this->knownFederations[$capFedName]) ? $this->knownFederations[$capFedName] : $capFedName;
+                $fedIdentifier = $activeFederations->country; // UPPER() has capitalised this for us
+                $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier] : $fedIdentifier;
             }
         } else {
             $returnArray = $this->knownFederations;
@@ -511,7 +510,7 @@ class CAT extends Entity {
                     $email2 = explode(',', $email1[1]);
                     $list['admins'][] = ["email" => $email2[0]];
                 }
-                $list['country'] = $externalEntityQuery->country;
+                $list['country'] = strtoupper($externalEntityQuery->country);
                 $list['realmlist'] = $externalEntityQuery->realmlist;
             }
         }

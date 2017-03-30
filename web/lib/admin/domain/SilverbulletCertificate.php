@@ -184,7 +184,7 @@ class SilverbulletCertificate extends PersistentEntity{
         if($this->isExpired()){
             $link = _('User did not consume the token and it expired!');
         }else{
-            $link .= '/accountstatus.php?token='.$this->get(self::ONETIMETOKEN);
+            $link .= '/accountstatus/accountstatus.php?token='.$this->get(self::ONETIMETOKEN);
             $input = new UnaryTag('input');
             $input->addAttribute('type', 'text');
             $input->addAttribute('readonly','readonly');

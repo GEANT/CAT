@@ -17,7 +17,7 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 - [FEATURE #8]  also check for SHA-1 signatures and warn if found
 - [FEATURE #9]  implement skin selection system. For details read 
                 https://wiki.geant.org/display/H2eduroam/Changing+the+end-user+UI%3A+programming+your+own+skin
-- [FEATURE #10] eduroam-as-a-Service (working title): basic user IdM system and
+- [FEATURE #10] Managed IdP: basic user IdM system and
                 automatic issuance of EAP-TLS based user credentials
                 this feature is complemented by a RADIUS server for validation
                 of these credentials. Currently supported target platforms:
@@ -34,11 +34,17 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 Configuration parameter changes
 -------------------------------
 
-- [ADDED] CONSORTIUM['silverbullet_default_maxusers']
-- [ADDED] CONSORTIUM['silverbullet_realm_suffix']
-- [ADDED] CONSORTIUM['silverbullet_server_suffix']
-- [ADDED] CONSORTIUM['nomenclature_federation']
-- [ADDED] APPEARANCE['skins']
+- [ADDED]    CONSORTIUM['silverbullet_default_maxusers']
+- [ADDED]    CONSORTIUM['silverbullet_realm_suffix']
+- [ADDED]    CONSORTIUM['silverbullet_server_suffix']
+- [ADDED]    CONSORTIUM['silverbullet_gracetime']
+- [ADDED]    CONSORTIUM['nomenclature_federation']
+- [ADDED]    APPEARANCE['skins']
+- [EXTERNAL] for Managed IdP client cert auth for the accountstatus page:
+             Apache: SSLCACertificateFile ... file with PEMs of client cert issuers ...
+             Apache: SSLOptions StdEnvVars
+             Apache: AllowOverride AuthConfig (for directory web/accountstatus/ )
+
 
 Changes in previous versions
 ============================

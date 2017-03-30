@@ -101,6 +101,7 @@ else if (isset($_POST['creation'])) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
         $federation = new \core\Federation($extinfo['country']);
+        $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";
         foreach ($extinfo['names'] as $lang => $name) {
@@ -199,9 +200,14 @@ if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['
 // first split multiple into one if needed
 $recipients = explode(", ", $newmailaddress);
 
+$secStatus = TRUE;
+
 // fill the destinations in PHPMailer API
 foreach ($recipients as $recipient) {
     $mail->addAddress($recipient);
+    if (\core\OutsideComm::mailAddressValidSecure($recipient) < \core\OutsideComm::MAILDOMAIN_STARTTLS) {
+        $secStatus = FALSE;
+    }
 }
 
 // what do we want to say?
@@ -213,6 +219,7 @@ $sent = $mail->send();
 // invalidate the token immediately if the mail could not be sent!
 if (!$sent) {
     $mgmt->invalidateToken($newtoken);
+    header("Location: $redirect_destination" . "invitation=FAILURE");
 }
-$status = ($sent ? "SUCCESS" : "FAILURE");
-header("Location: $redirect_destination" . "invitation=$status");
+
+header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=".($secStatus ? "ENCRYPTED" : "CLEAR"));

@@ -144,5 +144,4 @@ class User extends EntityWithDBProperties {
     public function updateFreshness() {
         // User is always fresh
     }
-
 }

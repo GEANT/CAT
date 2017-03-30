@@ -1,0 +1,2 @@
+SSLVerifyClient optional
+SSLVerifyDepth 2

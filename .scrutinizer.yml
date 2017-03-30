@@ -10,6 +10,7 @@ build:
             - mysql -h 127.0.0.1 -u root -e 'create database cat'
             - mysql -h 127.0.0.1 -u root cat < schema/schema.sql
             - mysql -h 127.0.0.1 -u root cat < schema/silverbullet.sql
+            - mysql -h 127.0.0.1 -u root cat < schema/cat_integration_scrutinizer.sql
             - | 
               echo "<?php const CONFIG = 
               [
@@ -36,6 +37,98 @@ build:
               'DEBUG_LEVEL' => 5, 
               'NSIS_VERSION' => 2, 
               'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config.php
+            - |
+              echo "
+              -----BEGIN CERTIFICATE-----
+              MIIGXjCCBEagAwIBAgIJAO9pbGGmiAY9MA0GCSqGSIb3DQEBDQUAMIG6MRMwEQYK
+              CZImiZPyLGQBGRYDb3JnMRkwFwYKCZImiZPyLGQBGRYJMXgtY29uZmlnMTgwNgYD
+              VQQKEy9FbnRlcnByaXNlIE5ldHdvcmsgQ29uZmlndXJhdGlvbiBBc3Npc3RhbnQg
+              VG9vbDEmMCQGA1UECxMdU2NydXRpbml6ZXIgSW50ZWdyYXRpb24gVGVzdHMxJjAk
+              BgNVBAMTHUNsaWVudCBDZXJ0aWZpY2F0ZSBJc3N1aW5nIENBMCAXDTE3MDMzMDEx
+              MDExMloYDzIwNzIwMTAxMTEwMTEyWjCBujETMBEGCgmSJomT8ixkARkWA29yZzEZ
+              MBcGCgmSJomT8ixkARkWCTF4LWNvbmZpZzE4MDYGA1UEChMvRW50ZXJwcmlzZSBO
+              ZXR3b3JrIENvbmZpZ3VyYXRpb24gQXNzaXN0YW50IFRvb2wxJjAkBgNVBAsTHVNj
+              cnV0aW5pemVyIEludGVncmF0aW9uIFRlc3RzMSYwJAYDVQQDEx1DbGllbnQgQ2Vy
+              dGlmaWNhdGUgSXNzdWluZyBDQTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoC
+              ggIBAM/hHQ9Yq+HDRovc/joBpl86D1RoVgNCb9tJ1OEFv0lbqQc9jdKVOfJxjPSl
+              UyZqFp3mp8j9eUN8Xcxw7AJtSoUVurHa/coTVUMssvQfkDQz9zTaWjyslQREpIe9
+              ufbY1baULt43hfYGB82f7yvNOAjSmzLuKDd9jMDbQqlo1W92GiyA/hiVxya/hni+
+              55zVmNrm/9du0zG9esJLv66r/N0AQUdVDdZE2k3ZhXwqobg6ym+kyQIxJSpBsgn2
+              Wyp5hJnJI3C9XhTlpN6nUE2CSkQhBbgdHQsERdzgWBrmDZunyS3kfQfI/eQXzeew
+              Nz6BlXeUjnCUNIso6S9YbNswz+WNHGjWJ7HdG2pwH9R4W2KUp8xCnhXpmJKgsnSK
+              HF1I4NQuuIcHW4Shtie6vPAVLBO3OkmpbEYHu1Q8Cv62pdpiyZLMNISUXv4ceDu2
+              iPrpqX7gU/MIdPxCdtZD1SJQeEAFd2ETyV2stXpzmh/9VvNTnvno05iNFw1XzjPc
+              5HEcGaChF45X7sEt+gVVPhLTk7qxO5v0z4BfXX0jASexg/NHBJHir2K6B8oU5+re
+              6jOrWW+QlA3Vx+yV1HO7WCpWHLqTfEh6xx635Q4sGl/a28Svra2Nr7xiwY+9tjUN
+              tLSkQfgXpCtFR+/pn1CezFiKCOE2d6o7lFc1z05Oa30w96qBAgMBAAGjYzBhMB0G
+              A1UdDgQWBBRoxvvluZf6wA/ewBxSEYLPdzMTPjAfBgNVHSMEGDAWgBRoxvvluZf6
+              wA/ewBxSEYLPdzMTPjAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBhjAN
+              BgkqhkiG9w0BAQ0FAAOCAgEAtzvQrN1/SKqw4VHRn2pHSOFOQiw06isPw4mqK2zZ
+              w/8olsB8sp0lLak7GE6GykDFTimTMz/WxoKxZld/IR2H69wDeDRjXz8HqWt9gkjw
+              E9QZ16AvZKBNVLQfS4UEpj99S9Sk91WIulCFivKfNE5V/9UJmADD9j+hWkKM1AWj
+              wbF96orjFVvjapGV1QN8ZYgZxeZXLiJ90DeQI7VDwdvCfh84PIK4cZW+9eVk4gBi
+              SVWxxLT9vf/+M1XIiumF/oM3+8vnghDpYOGjyz6mMfPm+t0xoRLOeoPg2F58dNLw
+              z1kbwDww2uMW5QikJuRCw6Gdh7GIxwBYtB9rANw/FnvpIQyZZHluVRKDr2FvO5+a
+              jPN4PDY3qr5Ou5gO51aRG7kQ5AVXAXlrlGhoiO8KmE3nV8yTMr30uNucu04RbehM
+              ZqdZdD/Fr2WqUX8fDA6DpGFuQh8AullVKEi4FuKXOtWItULj8E9S5vfedIdFoGLw
+              VhrI1wUlDuaB0n9luIZJyhWAJ+CACPLyUCUccwJijV1kSkoQfd4BN+EVik1OEVoA
+              hJq0/cRNFwGunljrIwYwkbB4NIrl60GWi4l8Y9K3GKUkT6Zvc8IyBS6YR91BVFxh
+              HPDMtGU/bPQ12hAigmtchTB6VHVQpSNExpFkoBkwjUrWuqUK44rCTixrZIR8qeeo
+              le8=
+              -----END CERTIFICATE-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.pem
+            - |
+              echo "
+              -----BEGIN RSA PRIVATE KEY-----
+              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
+              -----END RSA PRIVATE KEY-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.key
             - cp /home/scrutinizer/build/devices/Devices-template.php /home/scrutinizer/build/devices/Devices.php
 
 tools:
