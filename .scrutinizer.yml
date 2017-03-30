@@ -37,7 +37,8 @@ build:
               'DEBUG_LEVEL' => 5, 
               'NSIS_VERSION' => 2, 
               'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config.php
-            - echo "
+            - |
+              echo "
               -----BEGIN CERTIFICATE-----
               MIIGXjCCBEagAwIBAgIJAO9pbGGmiAY9MA0GCSqGSIb3DQEBDQUAMIG6MRMwEQYK
               CZImiZPyLGQBGRYDb3JnMRkwFwYKCZImiZPyLGQBGRYJMXgtY29uZmlnMTgwNgYD
@@ -75,7 +76,8 @@ build:
               HPDMtGU/bPQ12hAigmtchTB6VHVQpSNExpFkoBkwjUrWuqUK44rCTixrZIR8qeeo
               le8=
               -----END CERTIFICATE-----" >/home/scrutinizer/build/config/SilverbulletClientCerts/real.pem
-            - echo "
+            - |
+              echo "
               -----BEGIN RSA PRIVATE KEY-----
               MIIJKAIBAAKCAgEAz+EdD1ir4cNGi9z+OgGmXzoPVGhWA0Jv20nU4QW/SVupBz2N
               0pU58nGM9KVTJmoWneanyP15Q3xdzHDsAm1KhRW6sdr9yhNVQyyy9B+QNDP3NNpa
