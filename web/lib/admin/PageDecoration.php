@@ -51,7 +51,7 @@ class PageDecoration {
      */
     private function headerDiv($cap1, $language) {
 
-        $place = parse_url($_SERVER['REQUEST_URI']);
+        $place = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         $retval = "<div class='header'>
             <div id='header_toprow'>
@@ -59,7 +59,7 @@ class PageDecoration {
                     <h1>$cap1</h1>
                 </div><!--header_captions-->
                 <div id='langselection' style='padding-top:20px; padding-left:10px;'>
-                    <form action='" . $place['path'] . "' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
+                    <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
