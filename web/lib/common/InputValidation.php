@@ -11,12 +11,30 @@
 
 namespace web\lib\common;
 
+/**
+ * performs validation of user inputs
+ */
 class InputValidation {
 
+    /**
+     * returns a simple HTML <p> element with basic explanations about what was
+     * wrong with the input
+     * 
+     * @param string $customtext explanation provided by the validator function
+     * @return string
+     */
     private function input_validation_error($customtext) {
         return "<p>" . _("Input validation error: ") . $customtext . "</p>";
     }
 
+    /**
+     * Is this a known Federation? Optionally, also check if the authenticated
+     * user is a federation admin of that federation
+     * @param string $input the ISO code of the federation
+     * @param string|NULL $owner the authenticated username, optional
+     * @return \core\Federation
+     * @throws Exception
+     */
     public function Federation($input, $owner = NULL) {
 
         $temp = new \core\Federation($input);
@@ -32,14 +50,22 @@ class InputValidation {
         throw new Exception(input_validation_error("User is not federation administrator!"));
     }
 
-    public function IdP($input, $owner = 0) {
+    /**
+     * Is this a known IdP? Optionally, also check if the authenticated
+     * user is an admin of that IdP
+     * @param int $input the numeric ID of the IdP in the system
+     * @param string|NULL $owner the authenticated username, optional
+     * @return \core\IdP
+     * @throws Exception
+     */
+    public function IdP($input, $owner = NULL) {
         if (!is_numeric($input)) {
             throw new Exception(input_validation_error("Value for IdP is not an integer!"));
         }
 
         $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
 
-        if ($owner !== 0) { // check if the authenticated user is allowed to see this institution
+        if ($owner !== NULL) { // check if the authenticated user is allowed to see this institution
             foreach ($temp->owner() as $oneowner) {
                 if ($oneowner['ID'] == $owner) {
                     return $temp;
