@@ -457,14 +457,14 @@ class UserAPI extends CAT {
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param int $idpIdentifier IdP identifier
+     * @param \core\IdP $idpInstance IdP instance
      * @param int $disco flag turning on image generation for DiscoJuice
      * @param int $width maximum width of the generated image 
      * @param int $height  maximum height of the generated image
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendLogo($idpIdentifier, $disco = FALSE, $width = 0, $height = 0) {
+    public function sendLogo(\core\IdP $idpInstance, $disco = FALSE, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
@@ -476,21 +476,20 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpIdentifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
         } elseif ($disco == 1) {
             $width = 120;
             $height = 40;
             $resize = 1;
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpIdentifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
         }
 
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $idpIdentifier\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: ".$idpInstance->identifier."\n");
             $blob = file_get_contents($logoFile);
             $filetype = 'image/png';
         } else {
-            $idp = new IdP($idpIdentifier);
-            $logoAttribute = $idp->getAttributes('general:logo_file');
+            $logoAttribute = $idpInstance->getAttributes('general:logo_file');
             if (count($logoAttribute) == 0) {
                 return;
             }
@@ -506,7 +505,7 @@ class UserAPI extends CAT {
                 if ($image->setImageFormat('PNG')) {
                     $image->thumbnailImage($width, $height, 1);
                     $blob = $image->getImageBlob();
-                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $idpIdentifier\n");
+                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: ".$idpInstance->identifier."\n");
                     file_put_contents($logoFile, $blob);
                 } else {
                     $blob = "XXXXXX";

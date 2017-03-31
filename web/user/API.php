@@ -24,20 +24,20 @@ if (!isset($_REQUEST['action'])) {
 }
 
 $action = $_REQUEST['action'];
-$id = ( isset($_REQUEST['id']) ? $_REQUEST['id'] : FALSE );
-$device = ( isset($_REQUEST['device']) ? $_REQUEST['device'] : FALSE );
-$lang = ( isset($_REQUEST['lang']) ? $_REQUEST['lang'] : FALSE );
-$idp = ( isset($_REQUEST['idp']) ? $_REQUEST['idp'] : FALSE );
-$fed = ( isset($_REQUEST['fed']) ? $_REQUEST['fed'] : FALSE );
-$profile = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
-$federation = ( isset($_REQUEST['federation']) ? $_REQUEST['federation'] : FALSE );
-$disco = ( isset($_REQUEST['disco']) ? $_REQUEST['disco'] : FALSE );
-$width = ( isset($_REQUEST['width']) ? $_REQUEST['width'] : 0 );
-$height = ( isset($_REQUEST['height']) ? $_REQUEST['height'] : 0 );
-$sort = ( isset($_REQUEST['sort']) ? $_REQUEST['sort'] : 0 );
-$location = ( isset($_REQUEST['location']) ? $_REQUEST['location'] : 0 );
-$api_version = ( isset($_REQUEST['api_version']) ? $_REQUEST['api_version'] : 1 );
-$generatedfor = ( isset($_REQUEST['generatedfor']) ? $_REQUEST['generatedfor'] : 'user' );
+$id = $_REQUEST['id'] ?? FALSE;
+$device = $_REQUEST['device'] ?? FALSE;
+$lang = $_REQUEST['lang'] ?? FALSE;
+$idp = $_REQUEST['idp'] ?? FALSE;
+$fed = $_REQUEST['fed'] ?? FALSE;
+$profile = $_REQUEST['profile'] ?? FALSE;
+$federation = $_REQUEST['federation'] ?? FALSE;
+$disco = $_REQUEST['disco'] ?? FALSE;
+$width = $_REQUEST['width'] ?? 0;
+$height = $_REQUEST['height'] ?? 0;
+$sort = $_REQUEST['sort'] ?? 0;
+$location = $_REQUEST['location'] ?? 0;
+$api_version = $_REQUEST['api_version'] ?? 1;
+$generatedfor = $_REQUEST['generatedfor'] ?? 'user';
 
 /* in order to provide bacwards compatibility, both $id and new named arguments are supported.
   Support for $id will be removed in the futute
@@ -110,7 +110,8 @@ switch ($action) {
         if ($idp === FALSE) {
             exit;
         }
-        $API->sendLogo($idp, $disco, $width, $height);
+        $validator = new \web\lib\common\InputValidation();
+        $API->sendLogo($validator->IdP($idp), $disco, $width, $height);
         break;
     case 'sendFedLogo': // needs $id and $disco set
         if (!$fed) {

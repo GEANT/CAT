@@ -23,13 +23,13 @@ if(!isset($_REQUEST['action'])) {
 }
 
 $action  = $_REQUEST['action'];
-$id      = ( isset($_REQUEST['id'])      ? $_REQUEST['id']      : FALSE );
-$lang    = ( isset($_REQUEST['lang'])    ? $_REQUEST['lang']    : FALSE );
-$profile = ( isset($_REQUEST['profile']) ? $_REQUEST['profile'] : FALSE );
-$disco   = ( isset($_REQUEST['disco'])   ? $_REQUEST['disco']   : FALSE );
-$sort    = ( isset($_REQUEST['sort'])    ? $_REQUEST['sort']    : 0 );
-$generatedfor      = ( isset($_REQUEST['generatedfor'])      ? $_REQUEST['generatedfor']      : 'user' );
-    
+$id      = $_REQUEST['id'] ?? FALSE;
+$lang    = $_REQUEST['lang'] ?? FALSE;
+$profile = $_REQUEST['profile'] ?? FALSE;
+$disco   = $_REQUEST['disco'] ?? FALSE;
+$sort    = $_REQUEST['sort'] ?? FALSE;
+$generatedfor = $_REQUEST['generatedfor'] ?? 'user';
+
 $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4,"cat_back action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
 
@@ -77,7 +77,9 @@ switch ($action) {
         if ($id === FALSE) {
             exit;
         }
-        $API->sendLogo($id, $disco);
+        // refers to an *IdP* ID, so let's make sure this is really an IdP
+        $validator = new \web\lib\common\InputValidation();
+        $API->sendLogo($validator->IdP($id), $disco);
     case 'deviceInfo': // needs $id and profile set
         if ($id === FALSE || $profile === FALSE) {
             exit;
