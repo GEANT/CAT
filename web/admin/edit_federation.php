@@ -12,14 +12,14 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
-$my_fed = valid_Fed($_POST['fed_id'], $_SESSION['user']);
+$my_fed = $validator->Federation($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));

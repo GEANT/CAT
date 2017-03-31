@@ -12,13 +12,13 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
 require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
 // how do we determine if we should go into wizard mode? It's all in the URL
 if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
@@ -26,7 +26,7 @@ if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
 } else {
     $wizardStyle = FALSE;
 }
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 

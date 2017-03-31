@@ -11,14 +11,14 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("../admin/inc/input_validation.inc.php");
-
 // no authentication - this is for John Doe
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
 echo $deco->productheader("USER");
+
 ?>
 <h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
 <p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
@@ -64,7 +64,8 @@ echo $deco->productheader("USER");
 // need to ask more subtle
 
 function mainpage_url() {
-    $main_url = valid_host($_SERVER['HTTP_HOST']);
+    $validator = new \web\lib\common\InputValidation();
+    $main_url = $validator->hostname($_SERVER['HTTP_HOST']);
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
         $main_url = "https://" . $main_url;
     else
@@ -159,7 +160,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $listofrealms = explode(',', $_POST['realm']);
     $checks = [];
     foreach ($listofrealms as $realm) {
-        $sanitised_realm = trim(valid_string_db($realm));
+        $sanitised_realm = trim($validator->string($realm));
         $cat = new \core\CAT();
         if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
             $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);

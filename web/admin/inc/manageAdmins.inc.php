@@ -13,7 +13,6 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
-require_once("input_validation.inc.php");
 
 authenticate();
 
@@ -21,6 +20,8 @@ $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
+
+$validator = new \web\lib\common\InputValidation();
 
 // where did the user come from? Save this...
 // the user can come only from overview_user or overview_federation
@@ -32,7 +33,7 @@ if (isset($_SERVER['HTTP_REFERER']) && ($_SERVER['HTTP_REFERER'] != "") && preg_
     $dest = "../overview_user.php";
 }
 
-$my_inst = valid_IdP($_GET['inst_id']);
+$my_inst = $validator->IdP($_GET['inst_id']);
 $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
 

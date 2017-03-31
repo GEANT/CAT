@@ -12,18 +12,18 @@
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
 $langObject = new \core\Language();
 $check_thorough = FALSE;
 $error_message = '';
-$my_inst = valid_IdP($_REQUEST['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_REQUEST['inst_id'], $_SESSION['user']);
 
 if (isset($_GET['profile_id'])) {
-    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
 } else {
     $my_profile = NULL;
 }
@@ -42,7 +42,7 @@ if ($my_profile != NULL) {
     }
 } else { // someone else's realm... only shallow checks
     if (!empty($_REQUEST['realm'])) {
-        if ($check_realm = valid_Realm($_REQUEST['realm'])) {
+        if ($check_realm = $validator->realm($_REQUEST['realm'])) {
             $_SESSION['check_realm'] = $check_realm;
         }
     } else {

@@ -12,11 +12,10 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
-require_once("inc/option_parse.inc.php");
 
 $loggerInstance = new \core\Logging();
 $deco = new \web\lib\admin\PageDecoration();
+$optionParser = new \web\lib\admin\OptionParser();
 
 echo $deco->pageheader(_("User Attributes - Summary of submitted data"), "USERMGMT");
 
@@ -44,7 +43,7 @@ if (isset($_POST['option'])) {
 ?>
 <table>
     <?php
-    $killlist = processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
+    $killlist = $optionParser->processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
     $user->commitFlushAttributes($killlist);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "User attributes changed");
     ?>

@@ -12,7 +12,8 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
+
+$validator = new \web\lib\common\InputValidation();
 
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
@@ -156,7 +157,7 @@ echo $deco->defaultPagePrelude(_("Authentication Server Status for all known fed
 
 // check authorisation of user; this check immediately dies if not authorised
 
-$fed = valid_Fed($_GET['fed'], $_SESSION['user']);
+$fed = $validator->Federation($_GET['fed'], $_SESSION['user']);
 $allIDPs = $fed->listIdentityProviders();
 
 $profiles_showtime = [];

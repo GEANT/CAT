@@ -12,7 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("input_validation.inc.php");
 require_once("auth.inc.php"); // no authentication here, but we need to check if authenticated
 
 define("BUTTON_CLOSE", 0);
@@ -191,8 +190,8 @@ function check_upload_sanity($optiontype, $filename) {
 }
 
 function getBlobFromDB($ref, $checkpublic) {
-
-    $reference = valid_DB_reference($ref);
+    $validator = new \web\lib\common\InputValidation();
+    $reference = $validator->databaseReference($ref);
 
     if ($reference == FALSE) {
         return;

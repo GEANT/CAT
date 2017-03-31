@@ -17,11 +17,12 @@
  */
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("admin/inc/input_validation.inc.php");
+
+$validator = new \web\lib\common\InputValidation();
 
 if (isset($_REQUEST['idp'])) { // determine skin to use based on NROs preference
-    $idp = valid_IdP($_REQUEST['idp']);
-    $fed = valid_Fed($idp->federation);
+    $idp = $validator->IdP($_REQUEST['idp']);
+    $fed = $validator->Federation($idp->federation);
     $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request

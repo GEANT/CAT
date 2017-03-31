@@ -11,9 +11,9 @@
 <?php
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
@@ -24,8 +24,8 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 <body>
     <?php
     echo $deco->productheader("ADMIN-IDP");
-    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("Installer fine-tuning can only be called for RADIUS profiles!");
     }

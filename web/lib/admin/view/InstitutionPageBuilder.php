@@ -68,7 +68,8 @@ class InstitutionPageBuilder implements PageBuilder{
         $this->decoration = new PageDecoration();
         if(isset($_GET['inst_id'])){
             try {
-                $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+                $validator = new \web\lib\common\InputValidation();
+                $this->institution = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
             } catch (\Exception $e) {
                 $this->headerTitle = $e->getMessage();
             }

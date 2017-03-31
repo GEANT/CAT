@@ -1,87 +1,85 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
-?>
-<?php
 
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
+namespace web\lib\common;
 
-// validation functions return HTML snippets. Ideally, should be called after
-// HTML <head>, for beautiful output even in these error cases
+class InputValidation {
 
-function input_validation_error($customtext) {
-    return "<p>" . _("Input validation error: ") . $customtext . "</p>";
-}
-
-function valid_Fed($input, $owner = NULL) {
-
-    $temp = new \core\Federation($input);
-    if ($owner == NULL) {
-        return $temp;
+    private function input_validation_error($customtext) {
+        return "<p>" . _("Input validation error: ") . $customtext . "</p>";
     }
-    
-    foreach ($temp->listFederationAdmins() as $oneowner) {
-        if ($oneowner == $owner) {
+
+    public function Federation($input, $owner = NULL) {
+
+        $temp = new \core\Federation($input);
+        if ($owner == NULL) {
             return $temp;
         }
-    }
-    throw new Exception(input_validation_error("User is not federation administrator!"));
-}
 
-function valid_IdP($input, $owner = 0) {
-    if (!is_numeric($input)) {
-        throw new Exception(input_validation_error("Value for IdP is not an integer!"));
-    }
-
-    $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
-
-    if ($owner !== 0) { // check if the authenticated user is allowed to see this institution
-        foreach ($temp->owner() as $oneowner) {
-            if ($oneowner['ID'] == $owner) {
+        foreach ($temp->listFederationAdmins() as $oneowner) {
+            if ($oneowner == $owner) {
                 return $temp;
             }
         }
-        throw new Exception(input_validation_error("This IdP identifier is not accessible!"));
-    }
-    return $temp;
-}
-
-function valid_Profile($input, $idpIdentifier = NULL) {
-    if (!is_numeric($input)) {
-        throw new Exception(input_validation_error("Value for profile is not an integer!"));
+        throw new Exception(input_validation_error("User is not federation administrator!"));
     }
 
-    $temp = \core\ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
+    public function IdP($input, $owner = 0) {
+        if (!is_numeric($input)) {
+            throw new Exception(input_validation_error("Value for IdP is not an integer!"));
+        }
 
-    if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
-        throw new Exception(input_validation_error("The profile does not belong to the IdP!"));
+        $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
+
+        if ($owner !== 0) { // check if the authenticated user is allowed to see this institution
+            foreach ($temp->owner() as $oneowner) {
+                if ($oneowner['ID'] == $owner) {
+                    return $temp;
+                }
+            }
+            throw new Exception(input_validation_error("This IdP identifier is not accessible!"));
+        }
+        return $temp;
     }
-    return $temp;
-}
 
-function valid_Device($input) {
-    $devicelist = \devices\Devices::listDevices();
-    if (!isset($devicelist[$input])) {
-        throw new Exception(input_validation_error("This device does not exist!"));
+    public function Profile($input, $idpIdentifier = NULL) {
+        if (!is_numeric($input)) {
+            throw new Exception(input_validation_error("Value for profile is not an integer!"));
+        }
+
+        $temp = \core\ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
+
+        if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
+            throw new Exception(input_validation_error("The profile does not belong to the IdP!"));
+        }
+        return $temp;
     }
-    return $input;
-}
 
-/**
- * 
- * @param string $input a string to be made SQL-safe
- * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
- * @return string the massaged string
- */
-function valid_string_db($input, $allowWhitespace = FALSE) {
+    public function Device($input) {
+        $devicelist = \devices\Devices::listDevices();
+        if (!isset($devicelist[$input])) {
+            throw new Exception(input_validation_error("This device does not exist!"));
+        }
+        return $input;
+    }
+
+    /**
+     * 
+     * @param string $input a string to be made SQL-safe
+     * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
+     * @return string the massaged string
+     */
+    public function string($input, $allowWhitespace = FALSE) {
     // always chop out invalid characters, and surrounding whitespace
-    $retvalStep1 = trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
+    $retvalStep1 =  trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
     // if some funny person wants to inject markup tags, remove them
     $retval = filter_var($retvalStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
     // unless explicitly wanted, take away intermediate disturbing whitespace
@@ -98,14 +96,14 @@ function valid_string_db($input, $allowWhitespace = FALSE) {
     return $afterWhitespace;
 }
 
-function valid_integer($input) {
+public function integer($input) {
     if (is_numeric($input)) {
         return $input;
     }
     return FALSE;
 }
 
-function valid_consortium_oi($input) {
+public function consortium_oi($input) {
     $shallow = valid_string_db($input);
     if (strlen($shallow) != 6 && strlen($shallow) != 10) {
         return FALSE;
@@ -116,7 +114,7 @@ function valid_consortium_oi($input) {
     return $shallow;
 }
 
-function valid_Realm($input) {
+public function realm($input) {
     // basic string checks
     $check = valid_string_db($input);
     // bark on invalid constructs
@@ -147,7 +145,7 @@ function valid_Realm($input) {
     return $check;
 }
 
-function valid_user($input) {
+public function User($input) {
     $retval = $input;
     if ($input != "" && !ctype_print($input)) {
         throw new Exception(input_validation_error("The user identifier is not an ASCII string!"));
@@ -155,7 +153,7 @@ function valid_user($input) {
     return $retval;
 }
 
-function valid_token($input) {
+public function token($input) {
     $retval = $input;
     if ($input != "" && preg_match('/[^0-9a-fA-F]/', $input) != 0) {
         throw new Exception(input_validation_error("Token is not a hexadecimal string!"));
@@ -169,8 +167,8 @@ function valid_token($input) {
  * @return string returns back the input if all is good; throws an Exception if out of bounds or not numeric
  * @throws Exception
  */
-function valid_coordinate($input) {
-    $oldlocale = setlocale(LC_NUMERIC,0);
+public function coordinate($input) {
+    $oldlocale = setlocale(LC_NUMERIC, 0);
     setlocale(LC_NUMERIC, "en_GB");
     if (!is_numeric($input)) {
         throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
@@ -189,21 +187,14 @@ function valid_coordinate($input) {
  * @return string returns $input if checks have passed; throws an Exception if something's wrong
  * @throws Exception
  */
-function valid_coord_serialized($input) {
-    $tentative = unserialize($input, [ "allowed_classes" => false ]);
+public function coordSerialized($input) {
+    $tentative = unserialize($input, ["allowed_classes" => false]);
     if (is_array($tentative)) {
         if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat'])) {
             return $input;
         }
     }
     throw new Exception(input_validation_error(_("Wrong coordinate encoding!")));
-}
-
-function valid_multilang($content) {
-    if (!is_array($content) || !isset($content["lang"]) || !isset($content["content"])) {
-        throw new Exception(input_validation_error("Invalid structure in multi-language attribute!"));
-    }
-    return TRUE;
 }
 
 /**
@@ -214,14 +205,14 @@ function valid_multilang($content) {
  * @return string echoes back the input if good, throws an Exception otherwise
  * @throws Exception
  */
-function valid_boolean($input) {
+public function boolean($input) {
     if ($input != "on") {
         throw new Exception(input_validation_error("Unknown state of boolean option!"));
     }
     return $input;
 }
 
-function valid_DB_reference($input) {
+public function databaseReference($input) {
     $rowindexmatch = [];
 
     if (preg_match("/IdP/", $input)) {
@@ -241,7 +232,7 @@ function valid_DB_reference($input) {
     return ["table" => $table, "rowindex" => $rowindex];
 }
 
-function valid_host($input) {
+public function hostname($input) {
     // is it a valid IP address (IPv4 or IPv6)?
     if (filter_var($input, FILTER_VALIDATE_IP)) {
         return $input;
@@ -252,4 +243,6 @@ function valid_host($input) {
     }
     // if we get here, it's bogus
     return FALSE;
+}
+
 }
