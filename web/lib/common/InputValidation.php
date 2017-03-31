@@ -141,7 +141,7 @@ class InputValidation {
 /**
  * Is this an integer, or a string that represents an integer?
  * @param string|int $input
- * @return string|int|boolean returns the input, or FALSE if it is not an integer-like value
+ * @return false|string|int returns the input, or FALSE if it is not an integer-like value
  */
 public function integer($input) {
     if (is_numeric($input)) {
@@ -154,7 +154,7 @@ public function integer($input) {
  * Checks if the input is the hex representation of a Consortium OI (i.e. three
  * or five bytes)
  * @param string $input
- * @return string|boolean returns the input, or FALSE on validation failure
+ * @return false|string returns the input, or FALSE on validation failure
  */
 public function consortium_oi($input) {
     $shallow = $this->string($input);
@@ -170,7 +170,7 @@ public function consortium_oi($input) {
 /**
  * Is the input an NAI realm? Throws HTML error and returns FALSE if not.
  * @param string $input the input to check
- * @return string|boolean returns the realm, or FALSE if it was malformed
+ * @return false|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
     // basic string checks
@@ -288,7 +288,7 @@ public function boolean($input) {
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
  * @param string $input the reference to check
- * @return array|boolean the reference split up into "table" and "rowindex", or FALSE
+ * @return false|array the reference split up into "table" and "rowindex", or FALSE
  */
 public function databaseReference($input) {
     $rowindexmatch = [];
@@ -313,7 +313,7 @@ public function databaseReference($input) {
 /**
  * is this a valid hostname?
  * @param string $input
- * @return string|boolean echoes the hostname, or FALSE if bogus
+ * @return false|string echoes the hostname, or FALSE if bogus
  */
 public function hostname($input) {
     // is it a valid IP address (IPv4 or IPv6)?
