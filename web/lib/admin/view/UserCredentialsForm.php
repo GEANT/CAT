@@ -1,4 +1,5 @@
 <?php
+
 namespace web\lib\admin\view;
 
 use web\lib\admin\http\SilverbulletController;
@@ -24,7 +25,6 @@ class UserCredentialsForm implements PageElementInterface{
     const CERTIFICATEROW_CLASS = 'sb-certificate-row';
     const ADDNEWUSER_CLASS = 'sb-add-new-user';
     const RESET_BUTTON_ID = 'sb-reset-dates';
-    
     const USER_COLUMN = 'user';
     const TOKEN_COLUMN = 'token';
     const EXPIRY_COLUMN = 'expiry';
@@ -61,8 +61,21 @@ class UserCredentialsForm implements PageElementInterface{
     
     /**
      * 
-     * @param string $title
-     * @param SilverbulletController $controller
+     * @var CompositeTag
+     */
+    private $acknowledgeNotice;
+
+    /**
+     * Provides smallest period of days left until one or more users need to be acknowledged.
+     * 
+     * @var number Should be a number from 0 to maximum alloved period (e.g. 365 days).
+     */
+    private $acknowledgeDays;
+    
+    /**
+     *
+     * @param string $title            
+     * @param SilverbulletController $controller            
      */
     public function __construct($title, $controller, $isNotEmpty = false) {
         $this->action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
@@ -86,9 +99,12 @@ class UserCredentialsForm implements PageElementInterface{
         $this->addUserMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
         $controller->distributeMessages(AddUserCommand::COMMAND, $this->addUserMessageBox);
         
+        $this->acknowledgeDays = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
         if($isNotEmpty){
             $div = new CompositeTag('div');
             $div->addAttribute('style', 'padding-bottom: 20px;');
+            $this->acknowledgeNotice = new Tag ('p');
+            $div->addTag($this->acknowledgeNotice);
                 $checkbox = new UnaryTag('input');
                 $checkbox->addAttribute('type', 'checkbox');
                 $checkbox->addAttribute('name', SaveUsersCommand::PARAM_ACKNOWLEDGE);
@@ -99,7 +115,7 @@ class UserCredentialsForm implements PageElementInterface{
             $div->addTag($label);
             $this->decorator->addHtmlElement($div);
             $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SaveUsersCommand::COMMAND, SaveUsersCommand::COMMAND));
-            $this->decorator->addHtmlElement(new Button(_('Reset'),'reset', '', '', 'delete', self::RESET_BUTTON_ID));
+            //$this->decorator->addHtmlElement ( new Button ( _ ( 'Reset' ), 'reset', '', '', 'delete', self::RESET_BUTTON_ID ) );
         }
         $this->addTitleRow();
     }
@@ -118,14 +134,21 @@ class UserCredentialsForm implements PageElementInterface{
      * @param SilverbulletUser $user
      */
     public function addUserRow($user){
-        $row = new Row(array(self::USER_COLUMN => $user->getUsername(), self::EXPIRY_COLUMN => new DatePicker(SaveUsersCommand::PARAM_EXPIRY_MULTIPLE, $user->getExpiry()) ));
+        $row = new Row(array(self::USER_COLUMN => $user->getUsername(), self::EXPIRY_COLUMN => new DatePicker(SaveUsersCommand::PARAM_EXPIRY_MULTIPLE, $user->getExpiry())));
         $row->addAttribute('class', self::USERROW_CLASS);
+        
         $acknowledgeLevel = $user->getAcknowledgeLevel();
         if($acknowledgeLevel == SilverbulletUser::LEVEL_YELLOW){
             $row->addAttribute('style', 'background-color:#F0EAC0;');
         }elseif ($acknowledgeLevel == SilverbulletUser::LEVEL_RED){
             $row->addAttribute('style', 'background-color:#F0C0C0;');
         }
+        
+        $acknowledgeDays = $user->getAcknowledgeDays();
+        if($acknowledgeDays < $this->acknowledgeDays){
+            $this->acknowledgeDays = $acknowledgeDays;
+        }
+        
         $this->userRowIndex = $this->table->size();
         $this->table->addRow($row);
         $hiddenUserId = new Tag('input');
@@ -185,7 +208,12 @@ class UserCredentialsForm implements PageElementInterface{
         }
     }
     
-    public function render(){
+    public function render() {
+        
+        $this->acknowledgeNotice->addText ( _ ( 'You need to acknowledge that the created accounts are still valid within the next '.$this->acknowledgeDays.' days.'
+                .' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
+                .' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.' ) );
+        
         ?>
         <div class="<?php echo self::EDITABLEBLOCK_CLASS;?>">
             <?php $this->decorator->render();?>

@@ -247,11 +247,12 @@ class SilverbulletController{
      * @return array
      */
     public function getUserStats(){
-        $count[self::STATS_TOTAL] = 0;
+        $silverbulletMaxUsers = $this->profile->getAttributes("internal:silverbullet_maxusers");
+        $count = array();
+        $count[self::STATS_TOTAL] = isset($silverbulletMaxUsers[0]['value']) ? $silverbulletMaxUsers[0]['value'] : -1;
         $count[self::STATS_ACTIVE] = 0;
         $count[self::STATS_PASSIVE] = 0;
         foreach ($this->users as $user) {
-            $count[self::STATS_TOTAL]++;
             if($user->hasCertificates()){
                 $count[self::STATS_ACTIVE]++;
             }else{

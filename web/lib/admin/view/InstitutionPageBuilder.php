@@ -15,7 +15,7 @@ class InstitutionPageBuilder implements PageBuilder{
     * 
     * @var \core\IdP
     */
-    private $institution = null;
+    protected $institution = null;
     
     /**
      * Complete page title text.
@@ -68,17 +68,24 @@ class InstitutionPageBuilder implements PageBuilder{
         $this->decoration = new PageDecoration();
         if(isset($_GET['inst_id'])){
             try {
-                $validator = new \web\lib\common\InputValidation();
-                $this->institution = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+                $this->validateInstitution();
             } catch (\Exception $e) {
                 $this->headerTitle = $e->getMessage();
             }
+            
             if($this->isReady()){
                 $this->pageType = $pageType;
                 $this->pageTitle = sprintf(_("%s: %s '%s'"), CONFIG['APPEARANCE']['productname'], $page->getTitle(), $this->institution->name);
                 $this->headerTitle = sprintf(_("%s information for '%s'"), $page->getTitle(), $this->institution->name);
             }
         }
+    }
+    
+    /**
+     * 
+     */
+    protected function validateInstitution(){
+        $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
     }
     
     /**
