@@ -233,7 +233,7 @@ class Federation extends EntityWithDBProperties {
             $externals = $externalHandle->exec($query, "s", $this->identifier);
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 
-                                                                                                     AND external_db_syncstate = " . IdP::EXTERNAL_DB_SYNCSTATE_SYNCED);
+                                                                                                     AND external_db_syncstate = ?", "i", IdP::EXTERNAL_DB_SYNCSTATE_SYNCED);
             $pendingInvite = $this->databaseHandle->exec("SELECT DISTINCT external_db_uniquehandle FROM invitations 
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 
