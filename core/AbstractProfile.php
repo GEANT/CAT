@@ -409,7 +409,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * list all devices marking their availabiblity and possible redirects
      *
-     * @param string $locale for text-based attributes, either returns values for the default value, or if specified here, in the locale specified
      * @return array of device ids display names and their status
      */
     public function listDevices() {

@@ -75,13 +75,13 @@ $derFile = fopen($derFilePath,"w");
 fwrite($derFile, $ocspRequestDer);
 exec("openssl ocsp -reqin $derFilePath -req_text", $output, $retval);
 fclose($derFile);
-if ($retval !== 0) {
+if ($retval !== 0 || $output === NULL) {
     instantDeath("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: ".base64_encode($ocspRequestDer));
 }
 
-$nameHash = FALSE;
-$keyHash = FALSE;
-$serialHex = FALSE;
+$nameHash = "";
+$keyHash = "";
+$serialHex = "";
 foreach ($output as $oneLine) {
     $matchBuffer = [];
     if (preg_match('/Issuer Name Hash: (.*)$/', $oneLine, $matchBuffer)) {
@@ -94,7 +94,7 @@ foreach ($output as $oneLine) {
         $serialHex = $matchBuffer[1];
     }
 }
-if (!$nameHash || !$keyHash || !$serialHex) {
+if (strlen($serialHex) == 0 || strlen($keyHash) == 0 || strlen($serialHex) == 0) {
     instantDeath("Unable to extract all of issuer hash, key hash, serial number from the request.");
 }
 /*
