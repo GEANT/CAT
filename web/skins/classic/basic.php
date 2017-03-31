@@ -68,7 +68,8 @@ class SimpleGUI extends \core\UserAPI {
         if (!in_array($country, $federations)) {
             $country = array_shift($federations);
         }
-        $this->country = new \core\Federation($country);
+        $validator = new \web\lib\common\InputValidation();
+        $this->country = $validator->Federation($country);
         $this->args['country'] = $this->country->identifier;
         $this->page = 1;
 
