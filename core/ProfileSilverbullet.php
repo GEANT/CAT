@@ -176,7 +176,6 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function generateCertificate($token, $importPassword) {
         $cert = "";
-        $serial = FALSE;
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
@@ -289,7 +288,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * triggers a new OCSP statement for the given serial number
      * 
-     * @param string $serial the serial number of the cert in question (decimal)
+     * @param int $serial the serial number of the cert in question (decimal)
      * @return string DER-encoded OCSP status info (binary data!)
      */
     public static function triggerNewOCSPStatement($serial) {
