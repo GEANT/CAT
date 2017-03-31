@@ -452,6 +452,20 @@ class UserAPI extends CAT {
         readfile($file);
     }
 
+    private function resizeImage($inputImage, $destFile, $width, $height) {
+        $filetype = 'image/png';
+        $image = new Imagick();
+        $image->readImageBlob($inputImage);
+        if ($image->setImageFormat('PNG')) {
+            $image->thumbnailImage($width, $height, 1);
+            $blob = $image->getImageBlob();
+            $this->loggerInstance->debug(4, "Writing cached logo $destFile for IdP/Federation: " . $idpInstance->identifier . "\n");
+            file_put_contents($destFile, $blob);
+        } else {
+            $blob = "XXXXXX";
+        }
+    }
+
     /**
      * Get and prepare logo file 
      *
@@ -485,7 +499,7 @@ class UserAPI extends CAT {
         }
 
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: ".$idpInstance->identifier."\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idpInstance->identifier . "\n");
             $blob = file_get_contents($logoFile);
             $filetype = 'image/png';
         } else {
@@ -499,17 +513,7 @@ class UserAPI extends CAT {
             $offset = 60 * 60 * 24 * 30;
             $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
             if ($resize) {
-                $filetype = 'image/png';
-                $image = new Imagick();
-                $image->readImageBlob($blob);
-                if ($image->setImageFormat('PNG')) {
-                    $image->thumbnailImage($width, $height, 1);
-                    $blob = $image->getImageBlob();
-                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: ".$idpInstance->identifier."\n");
-                    file_put_contents($logoFile, $blob);
-                } else {
-                    $blob = "XXXXXX";
-                }
+                $this->resizeImage($blob, $logoFile, $width, $height);
             }
         }
         header("Content-type: " . $filetype);
@@ -560,17 +564,7 @@ class UserAPI extends CAT {
             $offset = 60 * 60 * 24 * 30;
             $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
             if ($resize) {
-                $filetype = 'image/png';
-                $image = new Imagick();
-                $image->readImageBlob($blob);
-                if ($image->setImageFormat('PNG')) {
-                    $image->thumbnailImage($width, $height, 1);
-                    $blob = $image->getImageBlob();
-                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $fedIdentifier\n");
-                    file_put_contents($logoFile, $blob);
-                } else {
-                    $blob = "XXXXXX";
-                }
+                $this->resizeImage($blob, $logoFile, $width, $height);
             }
         }
         header("Content-type: " . $filetype);
