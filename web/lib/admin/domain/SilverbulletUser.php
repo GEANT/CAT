@@ -11,6 +11,8 @@ class SilverbulletUser extends PersistentEntity{
     const LEVEL_GREEN = 0;
     const LEVEL_YELLOW = 1;
     const LEVEL_RED = 2;
+    const MAX_ACKNOWLEDGE = 365;
+    
     
     const TABLE = 'silverbullet_user';
     
@@ -112,19 +114,33 @@ class SilverbulletUser extends PersistentEntity{
     }
     
     /**
+     * Calculates last acknowledge warning level.
      * 
-     * @return int
+     * @return int One of the following constants LEVEL_GREEN, LEVEL_YELLOW, LEVEL_RED.
      */
     public function getAcknowledgeLevel(){
-        $lastAcknowledge = strtotime($this->get(self::LAST_ACKNOWLEDGE));
-        $now = strtotime('now');
-        if($now - $lastAcknowledge > 47 * 7 * 24 * 3600 && $now - $lastAcknowledge < 50 * 7 * 24 * 3600){
+        $max = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
+        $days = $this->getAcknowledgeDays();
+        if($days <= $max * 0.2 && $days > $max * 0.1){
             return self::LEVEL_YELLOW;
-        }elseif ($now - $lastAcknowledge >= 50 * 7 * 24 * 3600){
+        }elseif ($days <= $max * 0.1){
             return self::LEVEL_RED;
         }else{
             return self::LEVEL_GREEN;
         }
+    }
+    
+    /**
+     * Retrieves number of days left until user needs to be acknowledged.
+     * 
+     * @return number Number of days from 0 to maximum period.
+     */
+    public function getAcknowledgeDays(){
+        $max = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
+        $lastAcknowledge = strtotime($this->get(self::LAST_ACKNOWLEDGE));
+        $now = strtotime('now');
+        $days = $max - ceil(($now - $lastAcknowledge) / (24 * 3600));
+        return $days > 0 ? $days : 0;
     }
     
     public function getProfileId(){
