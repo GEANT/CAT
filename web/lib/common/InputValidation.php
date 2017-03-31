@@ -203,6 +203,13 @@ public function realm($input) {
     return $check;
 }
 
+/**
+ * could this be a valid username? Only checks correct form, not if the user
+ * actually exists in the system.
+ * @param string $input
+ * @return string echoes back the input string, or throws an Exception if bogus
+ * @throws Exception
+ */
 public function User($input) {
     $retval = $input;
     if ($input != "" && !ctype_print($input)) {
@@ -211,6 +218,13 @@ public function User($input) {
     return $retval;
 }
 
+/**
+ * could this be a valid token? Only checks correct form, not if the token
+ * actually exists in the system.
+ * @param string $input
+ * @return string echoes back the input string, or throws an Exception if bogus
+ * @throws Exception
+ */
 public function token($input) {
     $retval = $input;
     if ($input != "" && preg_match('/[^0-9a-fA-F]/', $input) != 0) {
@@ -270,6 +284,12 @@ public function boolean($input) {
     return $input;
 }
 
+/**
+ * Is this a valid database reference? Has the form <tablename>-<rowID> and there
+ * needs to be actual data at that place
+ * @param string $input the reference to check
+ * @return array|boolean the reference split up into "table" and "rowindex", or FALSE
+ */
 public function databaseReference($input) {
     $rowindexmatch = [];
 
@@ -290,6 +310,11 @@ public function databaseReference($input) {
     return ["table" => $table, "rowindex" => $rowindex];
 }
 
+/**
+ * is this a valid hostname?
+ * @param string $input
+ * @return string|boolean echoes the hostname, or FALSE if bogus
+ */
 public function hostname($input) {
     // is it a valid IP address (IPv4 or IPv6)?
     if (filter_var($input, FILTER_VALIDATE_IP)) {
