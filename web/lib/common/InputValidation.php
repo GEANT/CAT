@@ -104,7 +104,7 @@ public function integer($input) {
 }
 
 public function consortium_oi($input) {
-    $shallow = valid_string_db($input);
+    $shallow = $this->string($input);
     if (strlen($shallow) != 6 && strlen($shallow) != 10) {
         return FALSE;
     }
@@ -116,7 +116,7 @@ public function consortium_oi($input) {
 
 public function realm($input) {
     // basic string checks
-    $check = valid_string_db($input);
+    $check = $this->string($input);
     // bark on invalid constructs
     if (preg_match("/@/", $check) == 1) {
         echo input_validation_error(_("Realm contains an @ sign!"));
@@ -190,7 +190,7 @@ public function coordinate($input) {
 public function coordSerialized($input) {
     $tentative = unserialize($input, ["allowed_classes" => false]);
     if (is_array($tentative)) {
-        if (isset($tentative['lon']) && isset($tentative['lat']) && valid_coordinate($tentative['lon']) && valid_coordinate($tentative['lat'])) {
+        if (isset($tentative['lon']) && isset($tentative['lat']) && $this->coordinate($tentative['lon']) && $this->coordinate($tentative['lat'])) {
             return $input;
         }
     }
