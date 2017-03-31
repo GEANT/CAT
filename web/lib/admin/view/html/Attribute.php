@@ -32,7 +32,7 @@ class Attribute implements HtmlElementInterface{
     }
     
     public function __toString(){
-        if(!empty($this->name) && !empty($this->value)){
+        if(!empty($this->name) && $this->value!=''){
             return ' ' . $this->name . '="' . $this->value . '"';
         }else{
             return '';
