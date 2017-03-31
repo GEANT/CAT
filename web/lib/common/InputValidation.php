@@ -38,7 +38,7 @@ class InputValidation {
     public function Federation($input, $owner = NULL) {
 
         $temp = new \core\Federation($input);
-        if ($owner == NULL) {
+        if ($owner === NULL) {
             return $temp;
         }
 
@@ -76,6 +76,16 @@ class InputValidation {
         return $temp;
     }
 
+    /**
+     * Checks if the input refers to a known Profile. Optionally also takes an
+     * IdP identifier and then checks if the Profile belongs to the refernced 
+     * IdP
+     * 
+     * @param int $input the numeric ID of the Profile in the system
+     * @param int|NULL $idpIdentifier the numeric ID of the IdP in the system, optional
+     * @return \core\AbstractProfile
+     * @throws Exception
+     */
     public function Profile($input, $idpIdentifier = NULL) {
         if (!is_numeric($input)) {
             throw new Exception(input_validation_error("Value for profile is not an integer!"));
@@ -89,6 +99,12 @@ class InputValidation {
         return $temp;
     }
 
+    /**
+     * Checks if this is a device known to the system
+     * @param string $input the name of the device (index in the Devices.php array)
+     * @return string returns the same string on success, throws an Exception on failure
+     * @throws Exception
+     */
     public function Device($input) {
         $devicelist = \devices\Devices::listDevices();
         if (!isset($devicelist[$input])) {
@@ -122,6 +138,11 @@ class InputValidation {
     return $afterWhitespace;
 }
 
+/**
+ * Is this an integer, or a string that represents an integer?
+ * @param string|int $input
+ * @return string|int|boolean returns the input, or FALSE if it is not an integer-like value
+ */
 public function integer($input) {
     if (is_numeric($input)) {
         return $input;
@@ -129,6 +150,12 @@ public function integer($input) {
     return FALSE;
 }
 
+/**
+ * Checks if the input is the hex representation of a Consortium OI (i.e. three
+ * or five bytes)
+ * @param string $input
+ * @return string|boolean returns the input, or FALSE on validation failure
+ */
 public function consortium_oi($input) {
     $shallow = $this->string($input);
     if (strlen($shallow) != 6 && strlen($shallow) != 10) {
@@ -140,6 +167,11 @@ public function consortium_oi($input) {
     return $shallow;
 }
 
+/**
+ * Is the input an NAI realm? Throws HTML error and returns FALSE if not.
+ * @param string $input the input to check
+ * @return string|boolean returns the realm, or FALSE if it was malformed
+ */
 public function realm($input) {
     // basic string checks
     $check = $this->string($input);
