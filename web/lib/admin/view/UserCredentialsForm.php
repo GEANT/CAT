@@ -16,6 +16,7 @@ use web\lib\admin\http\AddCertificateCommand;
 use web\lib\admin\http\AddUserCommand;
 use web\lib\admin\http\DeleteUserCommand;
 use web\lib\admin\http\RevokeCertificateCommand;
+use web\lib\admin\http\UpdateUserCommand;
 
 class UserCredentialsForm implements PageElementInterface{
     
@@ -35,6 +36,12 @@ class UserCredentialsForm implements PageElementInterface{
      * @var Table
      */
     private $table;
+
+    /**
+     *
+     * @var number
+     */
+    private $userIndex = 0;
     
     /**
      * 
@@ -115,7 +122,6 @@ class UserCredentialsForm implements PageElementInterface{
             $div->addTag($label);
             $this->decorator->addHtmlElement($div);
             $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SaveUsersCommand::COMMAND, SaveUsersCommand::COMMAND));
-            //$this->decorator->addHtmlElement ( new Button ( _ ( 'Reset' ), 'reset', '', '', 'delete', self::RESET_BUTTON_ID ) );
         }
         $this->addTitleRow();
     }
@@ -151,16 +157,23 @@ class UserCredentialsForm implements PageElementInterface{
         
         $this->userRowIndex = $this->table->size();
         $this->table->addRow($row);
+        
         $hiddenUserId = new Tag('input');
         $hiddenUserId->addAttribute('type', 'hidden');
         $hiddenUserId->addAttribute('name', SaveUsersCommand::PARAM_ID_MULTIPLE);
         $hiddenUserId->addAttribute('value', $user->getIdentifier());
         $this->table->addToCell($this->userRowIndex, self::USER_COLUMN, $hiddenUserId);
+
+        $updateButton = new Button(_('Update'), 'submit', UpdateUserCommand::COMMAND, $this->userIndex);
+        //$resetButton = new Button ( _ ( 'Reset' ), 'reset', '', '', 'delete', self::RESET_BUTTON_ID );
+        $this->table->addToCell($this->userRowIndex, self::EXPIRY_COLUMN, $updateButton);
+        
         $action = new CompositeTag('div');
         $action->addAttribute('class', 'sb-user-buttons');
-        $action->addTag(new Button(_('Deactivate User'),'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete'));
-        $action->addTag(new Button(_('New Credential'),'submit', AddCertificateCommand::COMMAND, $user->getIdentifier()));
+        $action->addTag(new Button(_('Deactivate User'), 'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete'));
+        $action->addTag(new Button(_('New Credential'), 'submit', AddCertificateCommand::COMMAND, $user->getIdentifier()));
         $this->table->addToCell($this->userRowIndex, self::ACTION_COLUMN, $action);
+        $this->userIndex++;
     }
     
     /**

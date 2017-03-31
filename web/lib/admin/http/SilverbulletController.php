@@ -124,6 +124,8 @@ class SilverbulletController{
                     $commandToken = DeleteUserCommand::COMMAND;
                 }elseif(isset($_POST[AddCertificateCommand::COMMAND])){
                     $commandToken = AddCertificateCommand::COMMAND;
+                }elseif(isset($_POST[UpdateUserCommand::COMMAND])){
+                    $commandToken = UpdateUserCommand::COMMAND;
                 }elseif (isset($_POST[RevokeCertificateCommand::COMMAND])){
                     $commandToken = RevokeCertificateCommand::COMMAND;
                 }elseif (isset($_POST[SaveUsersCommand::COMMAND])){
@@ -164,6 +166,8 @@ class SilverbulletController{
                 return new DeleteUserCommand($commandToken, $this);
             }elseif ($commandToken == AddCertificateCommand::COMMAND){
                 return new AddCertificateCommand($commandToken, $this);
+            }elseif ($commandToken == UpdateUserCommand::COMMAND){
+                return new UpdateUserCommand($commandToken, $this);
             }elseif ($commandToken == RevokeCertificateCommand::COMMAND){
                 return new RevokeCertificateCommand($commandToken, $this);
             }elseif ($commandToken == SaveUsersCommand::COMMAND){

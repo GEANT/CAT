@@ -15,7 +15,8 @@
     background:#F0F0F0;
 }
 .sb-user-buttons{
-    min-width:230px;
+    margin-top: 2px;
+    min-width:120px;
 }
 .sb-user-buttons button{
     margin-bottom:6px;
@@ -57,6 +58,8 @@
 .sb-date-container{
     display: inline-block;
     width: 187px;
+    margin-top:2px;
+    margin-bottom:3px;
 }
 .sb-date-picker{
     padding-right:25px;
