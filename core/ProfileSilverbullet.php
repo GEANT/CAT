@@ -308,6 +308,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $cn = "";
             $federation = NULL;
             $certstatus = "";
+            $originalExpiry = "2000-01-01 00:00:00";
             $dbHandle = DBConnection::handle("INST");
             $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
             if (mysqli_num_rows($originalStatusQuery) > 0) {
@@ -356,7 +357,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $output = [];
             $return = 999;
             exec($execCmd, $output, $return);
-            if ($return != 0) {
+            if ($return !== 0) {
                 throw new Exception("Non-zero return value from openssl ocsp!");
             }
             $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
