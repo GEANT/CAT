@@ -14,13 +14,14 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 
 ini_set('display_errors', '0');
+$loggerInstance = new \core\Logging();
+$validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
-$loggerInstance = new \core\Logging();
+
 
 $additional_message = [
     \core\Entity::L_OK => '',
@@ -106,14 +107,14 @@ if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
 
 $test_type = $_REQUEST['test_type'];
 
-$check_realm = valid_Realm($_REQUEST['realm']);
+$check_realm = $validator->realm($_REQUEST['realm']);
 
 if ($check_realm === FALSE) {
     throw new Exception("Invalid realm was submitted!");
 }
 
 if (isset($_REQUEST['profile_id'])) {
-    $my_profile = valid_Profile($_REQUEST['profile_id']);
+    $my_profile = $validator->Profile($_REQUEST['profile_id']);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
@@ -156,8 +157,8 @@ switch ($test_type) {
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $eaps = $my_profile->getEapMethodsinOrderOfPreference(1);
-        $user_name = valid_user(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
-        $outer_user_name = valid_user(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
+        $user_name = $validator->User(isset($_REQUEST['username']) && $_REQUEST['username'] ? $_REQUEST['username'] : "");
+        $outer_user_name = $validator->User(isset($_REQUEST['outer_username']) && $_REQUEST['outer_username'] ? $_REQUEST['outer_username'] : $user_name);
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
@@ -167,7 +168,7 @@ switch ($test_type) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
                     $privkey_pass = isset($_REQUEST['privkey_pass']) && $_REQUEST['privkey_pass'] ? $_REQUEST['privkey_pass'] : ""; //!!
                     if (isset($_REQUEST['tls_username']) && $_REQUEST['tls_username']) {
-                        $tls_username = valid_user($_REQUEST['tls_username']);
+                        $tls_username = $validator->User($_REQUEST['tls_username']);
                     } else {
                         if (openssl_pkcs12_read($clientcertdata, $certs, $privkey_pass)) {
                             $mydetails = openssl_x509_parse($certs['cert']);

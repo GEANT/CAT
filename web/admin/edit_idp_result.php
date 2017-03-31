@@ -13,17 +13,16 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
-require_once("inc/option_parse.inc.php");
-
 require_once("inc/auth.inc.php");
 
 $loggerInstance = new \core\Logging();
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
+$optionParser = new \web\lib\admin\OptionParser();
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
     authenticate();
-    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     // delete the IdP and send user to enrollment
     $my_inst->destroy();
@@ -34,7 +33,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
     authenticate();
-    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     //
     $profiles = $my_inst->listProfiles();
@@ -50,7 +49,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
 
 
 echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
     // this page doesn't make sense without POST values
@@ -69,7 +68,7 @@ echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h
 $remaining_attribs = $my_inst->beginflushAttributes();
 
 echo "<table>";
-$killlist = processSubmittedFields($my_inst, $_POST, $_FILES, $remaining_attribs);
+$killlist = $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES, $remaining_attribs);
 echo "</table>";
 $my_inst->commitFlushAttributes($killlist);
 // delete cached logo, if present
@@ -82,7 +81,7 @@ $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identif
 
 // re-instantiate ourselves... profiles need fresh data
 
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 // check if we have any SSID at all.
 

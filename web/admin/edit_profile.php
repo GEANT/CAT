@@ -12,10 +12,10 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
@@ -109,7 +109,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), 
 <!-- EAP sorting code end -->
 <?php
 // initialize inputs
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 $anonLocal = "anonymous";
 $useAnon = FALSE;
 $checkuserOuter = FALSE;
@@ -122,7 +122,7 @@ $blacklisted = FALSE;
 
 if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not create a new one!
     $wizardStyle = FALSE;
-    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page is only for editing RADIUS profiles!");
     }

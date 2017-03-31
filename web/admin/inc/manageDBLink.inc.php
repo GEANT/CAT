@@ -13,7 +13,6 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
-require_once("input_validation.inc.php");
 
 authenticate();
 
@@ -21,6 +20,8 @@ $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
+
+$validator = new \web\lib\common\InputValidation();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
@@ -30,7 +31,7 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE ) |
 }
 
 // if not, must operate on a proper IdP
-$my_inst = valid_IdP($_GET['inst_id']);
+$my_inst = $validator->IdP($_GET['inst_id']);
 $user = new \core\User($_SESSION['user']);
 $mgmt = new \core\UserManagement();
 
@@ -56,9 +57,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     // okay, he did sumbit an inst. It's either a (string) handle from a promising 
     // candidate, or "other" as selected from the drop-down list
     if ($_POST['inst_link'] != "other") {
-        $my_inst->setExternalDBId(valid_string_db($_POST['inst_link']));
+        $my_inst->setExternalDBId($validator->string($_POST['inst_link']));
     } elseif (isset($_POST['inst_link_other'])) {
-        $my_inst->setExternalDBId(valid_string_db($_POST['inst_link_other']));
+        $my_inst->setExternalDBId($validator->string($_POST['inst_link_other']));
     }
     header("Location: ../overview_federation.php");
     exit;

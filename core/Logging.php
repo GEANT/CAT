@@ -11,6 +11,8 @@
 namespace core;
 use \Exception;
 
+require_once(dirname(__DIR__)."/config/_config.php");
+
 class Logging {
 
     /**

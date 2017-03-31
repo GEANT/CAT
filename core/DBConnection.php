@@ -19,6 +19,8 @@
 namespace core;
 use \Exception;
 
+require_once(dirname(__DIR__)."/config/_config.php");
+
 /**
  * This class is a singleton for establishing a connection to the database
  *

@@ -11,7 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/input_validation.inc.php");
 require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
@@ -94,20 +93,21 @@ $user = new \core\User($_SESSION['user']);
                 <!-- idp stats -->
                 <tr>
                     <th style='text-align:left;'> <?php echo _("IdPs Total"); ?></th>
-                    <th colspan='2'> <?php echo _("Public Download") ?></th>
+                    <th colspan='3'> <?php echo _("Public Download") ?></th>
                 </tr>
                 <tr>
                     <td> <?php echo count($thefed->listIdentityProviders(0)); ?></td>
-                    <td colspan='2'> <?php echo count($thefed->listIdentityProviders(1)); ?>
+                    <td colspan='3'> <?php echo count($thefed->listIdentityProviders(1)); ?>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan='3'><hr></td>
+                    <td colspan='4'><hr></td>
                 </tr>    
                 <!-- download stats -->
                 <tr>
                     <th style='text-align:left;'> <?php echo _("Downloads"); ?></th>
                     <th style='text-align:left;'> <?php echo _("Admin"); ?></th>
+                    <th style='text-align:left;'> <?php echo \core\ProfileSilverbullet::PRODUCTNAME ?></th>
                     <th style='text-align:left;'> <?php echo _("User"); ?></th>
                 </tr>
                 <?php echo $thefed->downloadStats("table"); ?>

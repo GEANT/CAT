@@ -18,7 +18,6 @@
  * @package Core
  */
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("../admin/inc/input_validation.inc.php");
 
 $cleanToken = FALSE;
 $operatingSystem = FALSE;
@@ -28,13 +27,14 @@ $profile = NULL;
 $idp = NULL;
 $fed = NULL;
 
+$validator = new \web\lib\common\InputValidation();
 $Gui = new \core\UserAPI();
 $operatingSystem = $Gui->detectOS();
 // let's be a ChromeOS.
 // $operatingSystem = ['device' => 'chromeos', 'display' => 'ChromeOS', 'group' => 'chrome'];
 
 if (isset($_REQUEST['token'])) {
-    $cleanToken = valid_token($_REQUEST['token']);
+    $cleanToken = $validator->token($_REQUEST['token']);
     if ($cleanToken) {
         // check status of this silverbullet token according to info in DB:
         // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
@@ -55,7 +55,7 @@ if (isset($_REQUEST['token'])) {
 if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
     $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
     $idp = new \core\IdP($profile->institution);
-    $fed = valid_Fed($idp->federation);
+    $fed = $validator->Federation($idp->federation);
     $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request

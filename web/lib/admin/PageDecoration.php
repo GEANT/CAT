@@ -10,10 +10,14 @@
  */
 
 namespace web\lib\admin;
-require_once(dirname(dirname(__DIR__)).'/admin/inc/input_validation.inc.php');
 
 class PageDecoration {
 
+    private $validator;
+    
+    public function __construct() {
+        $this->validator = new \web\lib\common\InputValidation();
+    }
     /**
      * Our (very modest and light) sidebar. authenticated admins get more options, like logout
      * @param boolean $advancedControls
@@ -47,7 +51,7 @@ class PageDecoration {
      */
     private function headerDiv($cap1, $language) {
 
-        $place = parse_url($_SERVER['REQUEST_URI']);
+        $place = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
         $retval = "<div class='header'>
             <div id='header_toprow'>
@@ -55,7 +59,7 @@ class PageDecoration {
                     <h1>$cap1</h1>
                 </div><!--header_captions-->
                 <div id='langselection' style='padding-top:20px; padding-left:10px;'>
-                    <form action='" . $place['path'] . "' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
+                    <form action='$place' method='GET' accept-charset='UTF-8'>" . _("View this page in") . "&nbsp;
                         <select id='lang' name='lang' onchange='this.form.submit()'>";
 
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
@@ -71,7 +75,7 @@ class PageDecoration {
         $retval .= "</form>
                 </div><!--langselection-->";
 
-        $logoUrl = "//" . valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")))."/resources/images/consortium_logo.png";        
+        $logoUrl = "//" . $this->validator->hostname($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")))."/resources/images/consortium_logo.png";        
         $retval .= "<div class='consortium_logo'>
                     <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
                 </div> <!-- consortium_logo -->
@@ -199,7 +203,7 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
 
-        $cssUrl = "//" . \valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
+        $cssUrl = "//" . $this->validator->hostname($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
         
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -223,7 +227,7 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
         
-        $logoBase = "//" . valid_host($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
+        $logoBase = "//" . $this->validator->hostname($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
 
         return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>

@@ -73,7 +73,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param int $profileId identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject) {
+    public function __construct($profileId, $idpObject = NULL) {
         parent::__construct($profileId, $idpObject);
         $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
@@ -176,7 +176,6 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function generateCertificate($token, $importPassword) {
         $cert = "";
-        $serial = FALSE;
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
@@ -224,35 +223,38 @@ class ProfileSilverbullet extends AbstractProfile {
                 ]
         );
 
-        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
-            /* HTTP POST the CSR to the CA with the $expiryDays as parameter
-             * on successful execution, gets back a PEM file which is the
-             * certificate (structure TBD)
-             * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
-             *
-             * The result of this if clause has to be a certificate in PHP's 
-             * "openssl_object" style (like the one that openssl_csr_sign would 
-             * produce), to be stored in the variable $cert; we also need the
-             * serial - which can be extracted from the received cert and has
-             * to be stored in $serial.
-             */
-            throw new Exception("External silverbullet CA is not implemented yet!");
-        } else { // embedded CA
-            $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
-            $rootCaPem = fread($rootCaHandle, 1000000);
-            $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
-            $issuingCa = openssl_x509_read($issuingCaPem);
-            $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
-            $nonDupSerialFound = FALSE;
-            while (!$nonDupSerialFound) {
-                $serial = mt_rand(1000000000, 100000000000);
-                $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
-                if (mysqli_num_rows($dupeQuery) == 0) {
-                    $nonDupSerialFound = TRUE;
-                }
-            }
-            $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
+        switch (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+            case "embedded":
+                $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
+                $rootCaPem = fread($rootCaHandle, 1000000);
+                $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
+                $issuingCa = openssl_x509_read($issuingCaPem);
+                $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
+                $nonDupSerialFound = FALSE;
+                do {
+                    $serial = mt_rand(1000000000, 100000000000);
+                    $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+                    if (mysqli_num_rows($dupeQuery) == 0) {
+                        $nonDupSerialFound = TRUE;
+                    }
+                } while (!$nonDupSerialFound);
+                $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
+                break;
+            default:
+                /* HTTP POST the CSR to the CA with the $expiryDays as parameter
+                 * on successful execution, gets back a PEM file which is the
+                 * certificate (structure TBD)
+                 * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
+                 *
+                 * The result of this if clause has to be a certificate in PHP's 
+                 * "openssl_object" style (like the one that openssl_csr_sign would 
+                 * produce), to be stored in the variable $cert; we also need the
+                 * serial - which can be extracted from the received cert and has
+                 * to be stored in $serial.
+                 */
+                throw new Exception("External silverbullet CA is not implemented yet!");
         }
+
         // get the SHA1 fingerprint, this will be handy for Windows installers
         $sha1 = openssl_x509_fingerprint($cert, "sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
@@ -286,12 +288,12 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * triggers a new OCSP statement for the given serial number
      * 
-     * @param string $serial the serial number of the cert in question (decimal)
+     * @param int $serial the serial number of the cert in question (decimal)
      * @return string DER-encoded OCSP status info (binary data!)
      */
     public static function triggerNewOCSPStatement($serial) {
         $logHandle = new Logging();
-        $logHandle->debug(2,"Triggering new OCSP statement for serial $serial.\n");
+        $logHandle->debug(2, "Triggering new OCSP statement for serial $serial.\n");
         $ocsp = ""; // the statement
         if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
             /* HTTP POST the serial to the CA. The CA knows about the state of
@@ -308,6 +310,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $cn = "";
             $federation = NULL;
             $certstatus = "";
+            $originalExpiry = "2000-01-01 00:00:00";
             $dbHandle = DBConnection::handle("INST");
             $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
             if (mysqli_num_rows($originalStatusQuery) > 0) {
@@ -356,7 +359,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $output = [];
             $return = 999;
             exec($execCmd, $output, $return);
-            if ($return != 0) {
+            if ($return !== 0) {
                 throw new Exception("Non-zero return value from openssl ocsp!");
             }
             $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
@@ -370,7 +373,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     /**
      * revokes a certificate
-     * @param string $serial the serial number of the cert to revoke (decimal!)
+     * @param int $serial the serial number of the cert to revoke (decimal!)
      * @return array with revocation information
      */
     public function revokeCertificate($serial) {
@@ -385,7 +388,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         // regardless if embedded or not, always keep local state in our own DB
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET revocation_status = 'REVOKED', revocation_time = ? WHERE serial_number = ?", "si", $nowSql, $serial);
-        $this->loggerInstance->debug(2,"Certificate revocation status updated, about to call triggerNewOCSPStatement($serial).\n");
+        $this->loggerInstance->debug(2, "Certificate revocation status updated, about to call triggerNewOCSPStatement($serial).\n");
         $ocsp = ProfileSilverbullet::triggerNewOCSPStatement($serial);
         return ["OCSP" => $ocsp];
     }
@@ -463,7 +466,7 @@ class ProfileSilverbullet extends AbstractProfile {
             return ["profile" => $returnedData->profile, "user" => $returnedData->user_id];
         }
     }
-    
+
     public function userStatus($username) {
         $retval = [];
         $userrows = $this->databaseHandle->exec("SELECT one_time_token FROM silverbullet_certificate WHERE silverbullet_user_id = ? AND profile_id = ? ", "si", $username, $this->identifier);

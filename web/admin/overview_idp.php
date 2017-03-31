@@ -1,19 +1,17 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
-include "inc/geo_widget.php";
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $loggerInstance = new \core\Logging();
@@ -50,19 +48,21 @@ function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsy
 }
 
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Dashboard"), CONFIG['APPEARANCE']['productname']));
 
 // let's check if the inst handle actually exists in the DB
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 // delete stored realm
 
 if (isset($_SESSION['check_realm'])) {
     unset($_SESSION['check_realm']);
 }
+$widget = new \web\lib\admin\GeoWidget();
 
-geo_widget_head($my_inst->federation, $my_inst->name);
+$widget->insertInHead($my_inst->federation, $my_inst->name);
 ?>
 </head>
 <body  onload='load(0)'>
@@ -179,6 +179,16 @@ geo_widget_head($my_inst->federation, $my_inst->name);
                         <button type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
                     </form>
                 </div>
+
+                <div style='width:20px;'></div>
+                <div style='display: table-cell; min-width:200px;'><p><strong><?php echo _("User Downloads"); ?></strong></p><table>
+                            <?php
+                            $stats = $profile->getUserDownloadStats();
+                            foreach ($stats as $dev => $count) {
+                                echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
+                            }
+                            ?>
+                    </table></div>
             </div>
             <?php
             // unset variable so that no other profiles are displayed, if any
@@ -203,7 +213,7 @@ geo_widget_head($my_inst->federation, $my_inst->name);
 
         $has_overrides = FALSE;
         foreach ($attribs as $attrib) {
-            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description)/", $attrib['name'])) {
+            if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {
                 $has_overrides = TRUE;
             }
         }

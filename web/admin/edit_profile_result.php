@@ -12,19 +12,19 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
-require_once("inc/option_parse.inc.php");
-
 require_once('inc/auth.inc.php');
+
 $deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
+$optionParser = new \web\lib\admin\OptionParser();
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
 $loggerInstance = new \core\Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     authenticate();
-    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
-    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
     $profile_id = $my_profile->identifier;
     $my_profile->destroy();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "Profile $profile_id");
@@ -36,12 +36,12 @@ echo $deco->pageheader(sprintf(_("%s: Profile wizard (step 3 completed)"), CONFI
 
 // check if profile exists and belongs to IdP
 
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 $my_profile = NULL;
 
 if (isset($_GET['profile_id'])) {
-    $my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+    $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page should only be called to submit RADIUS Profile information!");
     }
@@ -52,17 +52,17 @@ if (isset($_GET['profile_id'])) {
 
 $realm = FALSE;
 if (isset($_POST['realm']) && $_POST['realm'] != "") {
-    $realm = valid_Realm($_POST['realm']);
+    $realm = $validator->realm($_POST['realm']);
 }
 
 $anon = FALSE;
 if (isset($_POST['anon_support'])) {
-    $anon = valid_boolean($_POST['anon_support']);
+    $anon = $validator->boolean($_POST['anon_support']);
 }
 
 $anonLocal = "anonymous";
 if (isset($_POST['anon_local'])) {
-    $anonLocal = valid_string_db($_POST['anon_local']);
+    $anonLocal = $validator->string($_POST['anon_local']);
 } elseif ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
     $local = $my_profile->getAttributes("internal:anon_local_value");
     if (isset($local[0])) {
@@ -72,12 +72,12 @@ if (isset($_POST['anon_local'])) {
 
 $checkuser = FALSE;
 if (isset($_POST['checkuser_support'])) {
-    $checkuser = valid_boolean($_POST['checkuser_support']);
+    $checkuser = $validator->boolean($_POST['checkuser_support']);
 }
 
 $checkuser_name = "anonymous";
 if (isset($_POST['checkuser_local'])) {
-    $checkuser_name = valid_string_db($_POST['checkuser_local']);
+    $checkuser_name = $validator->string($_POST['checkuser_local']);
 } elseif ($my_profile !== NULL) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
     $checkuser_name = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
 }
@@ -86,13 +86,13 @@ $verify = FALSE;
 $hint = FALSE;
 $redirect = FALSE;
 if (isset($_POST['verify_support'])) {
-    $verify = valid_boolean($_POST['verify_support']);
+    $verify = $validator->boolean($_POST['verify_support']);
 }
 if (isset($_POST['hint_support'])) {
-    $hint = valid_boolean($_POST['hint_support']);
+    $hint = $validator->boolean($_POST['hint_support']);
 }
 if (isset($_POST['redirect'])) {
-    $redirect = valid_boolean($_POST['redirect']);
+    $redirect = $validator->boolean($_POST['redirect']);
 }
 
 // did the user submit info? If so, submit to DB and go on to the 'dashboard' or 'next profile' page.
@@ -165,7 +165,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
     }
 
     $remaining_attribs = $profile->beginflushAttributes();
-    $killlist = processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
+    $killlist = $optionParser->processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
     $profile->commitFlushAttributes($killlist);
 
     if ($redirect !== FALSE) {

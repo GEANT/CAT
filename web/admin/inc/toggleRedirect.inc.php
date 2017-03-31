@@ -13,22 +13,20 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
-require_once("input_validation.inc.php");
 require_once("option_html.inc.php");
-require_once("option_parse.inc.php");
-
-
 
 authenticate();
 
 $loggerInstance = new \core\Logging();
+$optionParser = new \web\lib\admin\OptionParser();
+$validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
-$my_profile = valid_Profile($_GET['profile_id'], $my_inst->identifier);
+$my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
 
 if (!$my_profile instanceof \core\ProfileRADIUS) {
     throw new Exception("Redirect options can only be set for RADIUS profiles!");
@@ -38,7 +36,7 @@ $device = NULL;
 $device_key = NULL;
 $posted_device = $_POST['device'] ?? FALSE;
 if ($posted_device) {
-    $device_key = valid_Device($posted_device);
+    $device_key = $validator->Device($posted_device);
     $devices = \devices\Devices::listDevices();
     if (isset($devices[$device_key])) {
         // we now know that $device_key is valid as well
@@ -74,11 +72,11 @@ if ($device == NULL && $eaptype === NULL) {
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
     if ($eaptype === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
-        $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
+        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
     }
     if ($device == NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eap_id, "");
-        $killlist = processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
+        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
     }
     $my_inst->commitFlushAttributes($killlist);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");

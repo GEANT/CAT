@@ -234,15 +234,15 @@ Best regards,
             return $token;
         } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
             // what country are we talking about?
-            $newname = $this->databaseHandle->escapeValue(valid_string_db($instIdentifier));
+            $newname = $this->databaseHandle->escapeValue($instIdentifier);
             $cat = new CAT();
             $extinfo = $cat->getExternalDBEntityDetails($externalId);
-            $externalhandle = $this->databaseHandle->escapeValue(valid_string_db($externalId));
+            $externalhandle = $this->databaseHandle->escapeValue($externalId);
             $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
             return $token;
         } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            $newname = $this->databaseHandle->escapeValue(valid_string_db($instIdentifier));
-            $newcountry = $this->databaseHandle->escapeValue(valid_string_db($country));
+            $newname = $this->databaseHandle->escapeValue($instIdentifier);
+            $newcountry = $this->databaseHandle->escapeValue($country);
             $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $newcountry . "')");
             return $token;
         }

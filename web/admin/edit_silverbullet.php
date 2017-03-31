@@ -15,9 +15,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
 require_once("inc/option_html.inc.php");
-require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 
 use web\lib\admin\http\SilverbulletController;

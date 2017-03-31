@@ -14,7 +14,6 @@ require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
-require_once("input_validation.inc.php");
 require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/PHPMailer.php");
 require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/SMTP.php");
 
@@ -35,7 +34,7 @@ authenticate();
 
 $catInstance = new \core\CAT();
 $loggerInstance = new \core\Logging();
-
+$validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
@@ -47,7 +46,7 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     exit(1);
 }
 
-$newmailaddress = valid_string_db($_POST['mailaddr']);
+$newmailaddress = $validator->string($_POST['mailaddr']);
 $newcountry = "";
 
 // fed admin stuff
@@ -57,7 +56,7 @@ $user_object = new \core\User($_SESSION['user']);
 $federation = FALSE;
 
 if (isset($_GET['inst_id'])) {
-    $idp = valid_IdP($_GET['inst_id']);
+    $idp = $validator->IdP($_GET['inst_id']);
     // is the user admin of this IdP?
     $is_owner = FALSE;
     $owners = $idp->owner();
@@ -84,8 +83,8 @@ if (isset($_GET['inst_id'])) {
 else if (isset($_POST['creation'])) {
     if ($_POST['creation'] == "new" && isset($_POST['name']) && isset($_POST['country'])) {
         // run an input check and conversion of the raw inputs... just in case
-        $newinstname = valid_string_db($_POST['name']);
-        $newcountry = valid_string_db($_POST['country']);
+        $newinstname = $validator->string($_POST['name']);
+        $newcountry = $validator->string($_POST['country']);
         $new_idp_authorized_fedadmin = check_federation_privilege($newcountry);
         $federation = new \core\Federation($newcountry);
         $prettyprintname = $newinstname;
@@ -97,7 +96,7 @@ else if (isset($_POST['creation'])) {
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     } elseif ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
         // a real external DB entry was submitted and all the required parameters are there
-        $newexternalid = valid_string_db($_POST['externals']);
+        $newexternalid = $this->validator->string($_POST['externals']);
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
         $federation = new \core\Federation($extinfo['country']);

@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(dirname(__DIR__)).'/../../../../web/admin/inc/input_validation.inc.php');
+
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\domain\SilverbulletUser;
 

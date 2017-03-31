@@ -11,9 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("inc/input_validation.inc.php");
-require_once("inc/option_parse.inc.php");
 require_once("inc/common.inc.php");
 
 // no SAML auth on this page. The API key authenticates the entity
@@ -29,12 +26,26 @@ define("ERROR_INVALID_ACTION", 7);
 $checkval = "FAIL";
 $mode = "API";
 
+$validator = new \web\lib\common\InputValidation();
+$optionParser = new \web\lib\admin\OptionParser();
+
 function return_error($code, $description) {
     echo "<CAT-API-Response>\n";
     echo "  <error>\n    <code>" . $code . "</code>\n    <description>$description</description>\n  </error>\n";
     echo "</CAT-API-Response>\n";
 }
 
+function cmpSequenceNumber($left, $right) {
+        $pat = "/^S([0-9]+)(-.*)?$/";
+        $rep = "$1";
+        $leftNum = (int) preg_replace($pat, $rep, $left);
+        $rightNum = (int) preg_replace($pat, $rep, $right);
+        return ($left != $leftNum && $right != $rightNum) ?
+                $leftNum - $rightNum :
+                strcmp($left, $right);
+    }
+
+    
 echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
 
 if (!isset(CONFIG['CONSORTIUM']['registration_API_keys']) || count(CONFIG['CONSORTIUM']['registration_API_keys']) == 0) {
@@ -67,7 +78,7 @@ if (!isset($_POST['ACTION'])) {
     exit(1);
 }
 
-$sanitised_action = valid_string_db($_POST['ACTION']);
+$sanitised_action = $validator->string($_POST['ACTION']);
 
 switch ($sanitised_action) {
     case 'NEWINST':
@@ -80,10 +91,10 @@ switch ($sanitised_action) {
         // alright: create the IdP, fill in attributes
         $mgmt = new \core\UserManagement();
         $fed = new \core\Federation($federation);
-        $idp = new \core\IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
+        $idp = new \core\IdP($fed->newIdP("PENDING", "API", $validator->string($_POST['NEWINST_PRIMARYADMIN'])));
 
         // ensure seq. number asc. order for options (S1, S2...)
-        uksort($_POST['option'], "cmpSequenceNumber");
+        uksort($_POST['option'], ["cmpSequenceNumber"]);
 
         $instWideOptions = $_POST;
         foreach ($instWideOptions['option'] as $optindex => $optname) {
@@ -92,7 +103,7 @@ switch ($sanitised_action) {
             }
         }
         // now process all inst-wide options    
-        processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, 0, TRUE);
+        $optionParser->processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, 0, TRUE);
         // same thing for profile options
         $profileWideOptions = $_POST;
         foreach ($profileWideOptions['option'] as $optindex => $optname) {
@@ -112,16 +123,16 @@ switch ($sanitised_action) {
                 switch ($optname) {
                     case "profile-api:anon":
                         if (isset($_POST['value'][$optindex . "-0"])) {
-                            $theanonid = valid_string_db($_POST['value'][$optindex . "-0"]);
+                            $theanonid = $validator->string($_POST['value'][$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:realm":
-                        if (isset($_POST['value'][$optindex . "-0"]) && valid_Realm($_POST['value'][$optindex . "-0"])) {
+                        if (isset($_POST['value'][$optindex . "-0"]) && $validator->realm($_POST['value'][$optindex . "-0"])) {
                             $therealm = $_POST['value'][$optindex . "-0"];
                         }
                         break;
                     case "profile-api:useanon":
-                        if (isset($_POST['value'][$optindex . "-3"]) && valid_boolean($_POST['value'][$optindex . "-3"]) == "on") {
+                        if (isset($_POST['value'][$optindex . "-3"]) && $validator->boolean($_POST['value'][$optindex . "-3"]) == "on") {
                             $useAnon = TRUE;
                         }
                         break;
@@ -172,7 +183,7 @@ switch ($sanitised_action) {
             $profile->prepShowtime();
         }
         // generate the token
-        $newtoken = $mgmt->createToken(true, valid_string_db($_POST['NEWINST_PRIMARYADMIN']), $idp);
+        $newtoken = $mgmt->createToken(true, $validator->string($_POST['NEWINST_PRIMARYADMIN']), $idp);
         // and send it back to the caller
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
         echo "<CAT-API-Response>\n";
@@ -185,7 +196,7 @@ switch ($sanitised_action) {
             return_error(ERROR_MISSING_PARAMETER, "Parameter missing (INST_IDENTIFIER)");
             exit(1);
         }
-        $wannabeidp = valid_IdP($_POST['INST_IDENTIFIER']);
+        $wannabeidp = $validator->IdP($_POST['INST_IDENTIFIER']);
         if (!$wannabeidp instanceof \core\IdP) {
             return_error(ERROR_INVALID_PARAMETER, "Parameter invalid (INST_IDENTIFIER)");
             exit(1);

@@ -452,22 +452,43 @@ class UserAPI extends CAT {
         readfile($file);
     }
 
+    private function processImage($inputImage, $destFile, $width, $height, $resize) {
+        $info = new \finfo();
+        $filetype = $info->buffer($inputImage, FILEINFO_MIME_TYPE);
+        $offset = 60 * 60 * 24 * 30;
+        $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+        $blob = $inputImage;
+
+        if ($resize) {
+            $image = new Imagick();
+            $image->readImageBlob($inputImage);
+            $image->setImageFormat('PNG');
+            $image->thumbnailImage($width, $height, 1);
+            $blob = $image->getImageBlob();
+            $this->loggerInstance->debug(4, "Writing cached logo $destFile for IdP/Federation.\n");
+            file_put_contents($destFile, $blob);
+        }
+        
+        return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
+    }
+
     /**
      * Get and prepare logo file 
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param int $idpIdentifier IdP identifier
+     * @param \core\IdP $idpInstance IdP instance
      * @param int $disco flag turning on image generation for DiscoJuice
      * @param int $width maximum width of the generated image 
      * @param int $height  maximum height of the generated image
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendLogo($idpIdentifier, $disco = FALSE, $width = 0, $height = 0) {
+    public function sendLogo(\core\IdP $idpInstance, $disco = FALSE, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
+        $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = 1;
             if ($height == 0) {
@@ -476,42 +497,26 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpIdentifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
         } elseif ($disco == 1) {
             $width = 120;
             $height = 40;
             $resize = 1;
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpIdentifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
         }
 
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $idpIdentifier\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idpInstance->identifier . "\n");
             $blob = file_get_contents($logoFile);
-            $filetype = 'image/png';
         } else {
-            $idp = new IdP($idpIdentifier);
-            $logoAttribute = $idp->getAttributes('general:logo_file');
+            $logoAttribute = $idpInstance->getAttributes('general:logo_file');
             if (count($logoAttribute) == 0) {
                 return;
             }
-            $blob = $logoAttribute[0]['value'];
-            $info = new \finfo();
-            $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
-            $offset = 60 * 60 * 24 * 30;
-            $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
-            if ($resize) {
-                $filetype = 'image/png';
-                $image = new Imagick();
-                $image->readImageBlob($blob);
-                if ($image->setImageFormat('PNG')) {
-                    $image->thumbnailImage($width, $height, 1);
-                    $blob = $image->getImageBlob();
-                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $idpIdentifier\n");
-                    file_put_contents($logoFile, $blob);
-                } else {
-                    $blob = "XXXXXX";
-                }
-            }
+            $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
+            $filetype = $meta['filetype'];
+            $expiresString = $meta['expires'];
+            $blob = $meta['blob'];
         }
         header("Content-type: " . $filetype);
         header("Cache-Control:max-age=36000, must-revalidate");
@@ -555,24 +560,10 @@ class UserAPI extends CAT {
             if (count($logoAttribute) == 0) {
                 return;
             }
-            $blob = $logoAttribute[0]['value'];
-            $info = new \finfo();
-            $filetype = $info->buffer($blob, FILEINFO_MIME_TYPE);
-            $offset = 60 * 60 * 24 * 30;
-            $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
-            if ($resize) {
-                $filetype = 'image/png';
-                $image = new Imagick();
-                $image->readImageBlob($blob);
-                if ($image->setImageFormat('PNG')) {
-                    $image->thumbnailImage($width, $height, 1);
-                    $blob = $image->getImageBlob();
-                    $this->loggerInstance->debug(4, "Writing cached logo $logoFile for: $fedIdentifier\n");
-                    file_put_contents($logoFile, $blob);
-                } else {
-                    $blob = "XXXXXX";
-                }
-            }
+            $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
+            $filetype = $meta['filetype'];
+            $expiresString = $meta['expires'];
+            $blob = $meta['blob'];
         }
         header("Content-type: " . $filetype);
         header("Cache-Control:max-age=36000, must-revalidate");

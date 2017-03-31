@@ -20,9 +20,9 @@
  * @package UserGUI
  */
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once('../admin/inc/input_validation.inc.php');
 $API = new \core\UserAPI();
 $loggerInstance = new \core\Logging();
+$validator = new \web\lib\common\InputValidation();
 
 $profileId = $_REQUEST['profile'] ?? FALSE;
 $instId = $_REQUEST['idp'] ?? FALSE;
@@ -44,9 +44,9 @@ $cleanToken = NULL;
 $password = NULL;
 
 if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
-    $cleanToken = valid_token($_SESSION['individualtoken']);
+    $cleanToken = $validator->token($_SESSION['individualtoken']);
     // TODO validate that token actually exists and is unused
-    $password = valid_string_db($_SESSION['importpassword']);
+    $password = $validator->string($_SESSION['importpassword']);
 }
 
 // first block will test if the user input was valid.

@@ -12,10 +12,11 @@ namespace web\lib\user;
 
 class Gui extends \core\UserAPI {
     public function __construct() {
+        $validator = new \web\lib\common\InputValidation();
         parent::__construct();
         if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preference
-            $idp = valid_IdP($_REQUEST['idp']);
-            $fed = valid_Fed($idp->federation);
+            $idp = $validator->IdP($_REQUEST['idp']);
+            $fed = $validator->Federation($idp->federation);
             $fedskin = $fed->getAttributes("fed:desired_skin");
         }
         $this->skinObject = new \web\lib\user\Skinjob( $_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
