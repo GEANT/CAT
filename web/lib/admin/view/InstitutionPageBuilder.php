@@ -85,7 +85,8 @@ class InstitutionPageBuilder implements PageBuilder{
      * 
      */
     protected function validateInstitution(){
-        $this->institution = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+        $validator = new \web\lib\common\InputValidation();
+        $this->institution = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     }
     
     /**
