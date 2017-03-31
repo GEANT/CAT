@@ -8,6 +8,9 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
+namespace web\lib\admin;
+
 ?>
 <?php
 
@@ -19,9 +22,11 @@
 ?>
 <?php
 
-function geo_widget_head($inst_country, $inst_name) {
-    $cat = new \core\CAT();
-    echo "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+class GeoWidget {
+
+    public function insertInHead($inst_country, $inst_name) {
+        $cat = new \core\CAT();
+        echo "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script type='text/javascript'>
         // some global variables;
         var center_lat=49.6114885608729;
@@ -279,31 +284,33 @@ function geo_widget_head($inst_country, $inst_name) {
                 locator_magic();
         }
     </script>";
-}
+    }
 
-function geo_widget_body($wizard, $additional) {
-    echo "<fieldset class='option_container'>
+    public function insertInBody($wizard, $additional) {
+        echo "<fieldset class='option_container'>
         <legend><strong>" . _("Location") . "</strong></legend>";
 
-    if ($wizard) {
-        echo "<p>" .
-        _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
-        "</p>
+        if ($wizard) {
+            echo "<p>" .
+            _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
+            "</p>
                      <ul>" .
-        _("<li>Drag the marker in the map to your place, or</li>
+            _("<li>Drag the marker in the map to your place, or</li>
 <li>enter your street address in the field below for lookup, or</li>
 <li>use the 'Locate Me!' button</li>") .
-        "</ul>
+            "</ul>
                      <strong>" .
-        _("We will use the coordinates as indicated by the marker for geolocation.") .
-        "</strong>";
-    }
-    if ($additional) {
-        echo _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
-    }
-    echo "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+            _("We will use the coordinates as indicated by the marker for geolocation.") .
+            "</strong>";
+        }
+        if ($additional) {
+            echo _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
+        }
+        echo "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
 
-    echo"            <div class='googlemap' id='map'></div>";
-    echo "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
-    echo "        </fieldset>";
+        echo"            <div class='googlemap' id='map'></div>";
+        echo "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
+        echo "        </fieldset>";
+    }
+
 }

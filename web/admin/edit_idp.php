@@ -13,7 +13,6 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 require_once("inc/option_html.inc.php");
-require_once("inc/geo_widget.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
@@ -49,7 +48,9 @@ foreach ($idpoptions as $optionname => $optionvalue) {
         $additional = TRUE;
     }
 }
-geo_widget_head($my_inst->federation, $inst_name)
+$widget = new \web\lib\admin\GeoWidget();
+
+$widget->insertInHead($my_inst->federation, $inst_name);
 ?>
 <script>
     $(document).ready(function () {
@@ -125,7 +126,7 @@ geo_widget_head($my_inst->federation, $inst_name)
         <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    geo_widget_body($wizardStyle, $additional);
+    $widget->insertInBody($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>

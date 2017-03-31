@@ -12,7 +12,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
 require_once("inc/common.inc.php");
-include "inc/geo_widget.php";
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $loggerInstance = new \core\Logging();
@@ -61,8 +60,9 @@ $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 if (isset($_SESSION['check_realm'])) {
     unset($_SESSION['check_realm']);
 }
+$widget = new \web\lib\admin\GeoWidget();
 
-geo_widget_head($my_inst->federation, $my_inst->name);
+$widget->insertInHead($my_inst->federation, $my_inst->name);
 ?>
 </head>
 <body  onload='load(0)'>
