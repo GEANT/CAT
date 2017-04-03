@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -19,10 +20,11 @@
 /**
  * necessary includes
  */
+
 namespace core;
 
-require_once(__DIR__."/PHPMailer/src/PHPMailer.php");
-require_once(__DIR__."/PHPMailer/src/SMTP.php");
+require_once(__DIR__ . "/PHPMailer/src/PHPMailer.php");
+require_once(__DIR__ . "/PHPMailer/src/SMTP.php");
 
 /**
  * This class represents a known CAT User (i.e. an institution and/or federation adiministrator).
@@ -144,4 +146,87 @@ class User extends EntityWithDBProperties {
     public function updateFreshness() {
         // User is always fresh
     }
+
+    const PROVIDER_STRINGS = [
+        "eduPersonTargetedID" => "eduGAIN",
+        "facebook_targetedID" => "Facebook",
+        "google_eppn" => "Google",
+        "linkedin_targetedID" => "LinkedIn",
+        "twitter_targetedID" => "Twitter",
+        "openid" => "Google (defunct)",
+        ];
+    
+    /**
+     * Some users apparently forget which eduGAIN/social ID they originally used
+     * to log into CAT. We can try to help them: if they tell us the email
+     * address by which they received the invitation token, then we can see if
+     * any CAT IdPs are associated to an account which originally came in via
+     * that email address. We then see which pretty-print auth provider name
+     * was used
+     * 
+     * @param string $mail
+     * @return false|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
+     */
+    public static function findLoginIdPByEmail($mail) {
+        $listOfProviders = [];
+        $realmail = filter_var($mail, FILTER_VALIDATE_EMAIL);
+        if ($realmail === FALSE) {
+            return FALSE;
+        }
+        $dbHandle = \core\DBConnection::handle("INST");
+        $query = $dbHandle->exec("SELECT user_id FROM ownership WHERE orig_mail = ?", "s", $realmail);
+        while ($oneRow = mysqli_fetch_object($query)) {
+            echo "Input Identity: ";
+            print_r($oneRow->user_id);
+            echo "<br/>";
+            $matches = [];
+            $finding = preg_match("/^(eduPersonTargetedID|facebook_targetedID|google_eppn|linkedin_targetedID|twitter_targetedID|openid):(.*)/", $oneRow->user_id, $matches);
+            if ($finding === 0 | $finding === FALSE) {
+                return FALSE;
+            }
+            
+            $providerStrings = array_keys(User::PROVIDER_STRINGS);
+            switch ($matches[1]) {
+                case $providerStrings[0]: // eduGAIN needs to find the exact IdP behind it
+                    $moreMatches = [];
+                    $exactIdP = preg_match("/.*!(.*)$/", $matches[2], $moreMatches);
+                    if ($exactIdP === 0 || $exactIdP === FALSE) {
+                        return FALSE;
+                    }
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP " . $moreMatches[1], $listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP " . $moreMatches[1];
+                    }
+                    break;
+                case $providerStrings[1]:
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[1]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[1]];
+                    }
+                    break;
+                case $providerStrings[2]:
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[2]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[2]];
+                    }
+                    break;
+                case $providerStrings[3]:
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[3]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[3]];
+                    }
+                    break;
+                case $providerStrings[4]:
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[4]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[4]];
+                    }
+                    break;
+                case $providerStrings[5]:
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[5]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[5]];
+                    }
+                    break;
+                default:
+                    return FALSE;
+            }
+        }
+        return $listOfProviders;
+    }
+
 }
