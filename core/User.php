@@ -180,7 +180,14 @@ class User extends EntityWithDBProperties {
             print_r($oneRow->user_id);
             echo "<br/>";
             $matches = [];
-            $finding = preg_match("/^(eduPersonTargetedID|facebook_targetedID|google_eppn|linkedin_targetedID|twitter_targetedID|openid):(.*)/", $oneRow->user_id, $matches);
+            $lookFor = "";
+            foreach (User::PROVIDER_STRINGS as $name => $prettyname) {
+                if ($lookFor != "") {
+                    $lookFor .= "|";
+                }
+                $lookFor .= "$name";
+            }
+            $finding = preg_match("/^(".$lookFor."):(.*)/", $oneRow->user_id, $matches);
             if ($finding === 0 | $finding === FALSE) {
                 return FALSE;
             }
