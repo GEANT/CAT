@@ -176,9 +176,6 @@ class User extends EntityWithDBProperties {
         $dbHandle = \core\DBConnection::handle("INST");
         $query = $dbHandle->exec("SELECT user_id FROM ownership WHERE orig_mail = ?", "s", $realmail);
         while ($oneRow = mysqli_fetch_object($query)) {
-            echo "Input Identity: ";
-            print_r($oneRow->user_id);
-            echo "<br/>";
             $matches = [];
             $lookFor = "";
             foreach (User::PROVIDER_STRINGS as $name => $prettyname) {
