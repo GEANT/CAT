@@ -188,7 +188,7 @@ class User extends EntityWithDBProperties {
                 $lookFor .= "$name";
             }
             $finding = preg_match("/^(".$lookFor."):(.*)/", $oneRow->user_id, $matches);
-            if ($finding === 0 | $finding === FALSE) {
+            if ($finding === 0 || $finding === FALSE) {
                 return FALSE;
             }
             
