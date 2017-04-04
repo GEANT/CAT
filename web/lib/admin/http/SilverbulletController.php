@@ -257,7 +257,7 @@ class SilverbulletController{
         $count[self::STATS_ACTIVE] = 0;
         $count[self::STATS_PASSIVE] = 0;
         foreach ($this->users as $user) {
-            if($user->hasCertificates()){
+            if($user->hasActiveCertificates()){
                 $count[self::STATS_ACTIVE]++;
             }else{
                 $count[self::STATS_PASSIVE]++;

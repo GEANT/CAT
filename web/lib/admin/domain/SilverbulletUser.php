@@ -94,8 +94,9 @@ class SilverbulletUser extends PersistentEntity{
     }
     
     /**
+     * Accepts any string date value representation and prepares it to be stored.
      * 
-     * @param string $date
+     * @param string $date Takes any string value that can passed to strtotime() function.
      */
     public function setExpiry($date){
         $tokenExpiry = date('Y-m-d H:i:s', strtotime($date));
@@ -186,17 +187,42 @@ class SilverbulletUser extends PersistentEntity{
     }
     
     /**
+     *
+     * @return boolean
+     */
+    public function hasActiveCertificates(){
+        $count = 0;
+        foreach ($this->certificates as $certificate) {
+            if(!$certificate->isExpired() && !$certificate->isRevoked()){
+                $count++;
+            }
+        }
+        return $count > 0;
+    }
+    
+    
+    /**
      * 
      * @param boolean $isDeactivated
      */
     public function setDeactivated($isDeactivated, $profile){
         $this->set(self::DEACTIVATION_STATUS, $isDeactivated ? self::INACTIVE : self::ACTIVE);
-        $this->set(self::DEACTIVATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
         if($isDeactivated){
+            $this->set(self::DEACTIVATION_TIME, date('Y-m-d H:i:s', strtotime("now")));
             foreach ($this->certificates as $certificate) {
                 $certificate->revoke($profile);
             }
+        }else{
+            $this->set(self::DEACTIVATION_TIME, '0000-00-00 00:00:00');
         }
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isDeactivated(){
+        return $this->get(self::DEACTIVATION_STATUS) == self::INACTIVE;
     }
     
     /**
@@ -240,9 +266,8 @@ class SilverbulletUser extends PersistentEntity{
      */
     public static function getList($profileId) {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
-        $deactivationStatus = new Attribute(self::DEACTIVATION_STATUS, self::ACTIVE);
-        $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=?", self::TABLE, self::PROFILEID, self::DEACTIVATION_STATUS);
-        $result = $databaseHandle->exec($query, 'i'.$deactivationStatus->getType(), $profileId, $deactivationStatus->value);
+        $query = sprintf("SELECT * FROM `%s` WHERE `%s`=?", self::TABLE, self::PROFILEID);
+        $result = $databaseHandle->exec($query, 'i', $profileId);
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $user = new SilverbulletUser(null, '');

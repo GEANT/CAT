@@ -170,7 +170,11 @@ class UserCredentialsForm implements PageElementInterface{
         
         $action = new CompositeTag('div');
         $action->addAttribute('class', 'sb-user-buttons');
-        $action->addTag(new Button(_('Deactivate User'), 'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete'));
+            $deactivationButton = new Button(_('Deactivate User'), 'submit', DeleteUserCommand::COMMAND, $user->getIdentifier(), 'delete');
+            if($user->isDeactivated()){
+                $deactivationButton->addAttribute('disabled', 'disabled'); 
+            }
+        $action->addTag($deactivationButton);
         $action->addTag(new Button(_('New Credential'), 'submit', AddCertificateCommand::COMMAND, $user->getIdentifier()));
         $this->table->addToCell($this->userRowIndex, self::ACTION_COLUMN, $action);
         $this->userIndex++;

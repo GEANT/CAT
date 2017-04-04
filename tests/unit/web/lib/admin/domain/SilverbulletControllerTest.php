@@ -66,26 +66,51 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $this->assertTrue($usersAfter > $usersBefore);
         
     }
+
+    private function countActiveUsers($users){
+        $count = 0;
+        foreach ($users as $user) {
+            if(!$user->isDeactivated()){
+                $count++;
+            }
+        }
+        return $count;
+    }
     
     public function testDeactivateUser() {
         $this->user->save();
         
-        $usersBefore = count(SilverbulletUser::getList($this->profile->identifier));
+        $usersBefore = $this->countActiveUsers(SilverbulletUser::getList($this->profile->identifier));
         
         $_POST['command'] = SaveUsersCommand::COMMAND;
         $_POST[DeleteUserCommand::COMMAND] = $this->user->getIdentifier();
         $this->factory->parseRequest();
-        $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
+        $usersAfter = $this->countActiveUsers(SilverbulletUser::getList($this->profile->identifier));
         $this->assertFalse($usersBefore > $usersAfter);
         
         $_POST[DeleteUserCommand::PARAM_CONFIRMATION] = 'true';
         $this->factory->parseRequest();
-        $usersAfter = count(SilverbulletUser::getList($this->profile->identifier));
+        $usersAfter = $this->countActiveUsers(SilverbulletUser::getList($this->profile->identifier));
         
         $this->assertTrue($usersBefore > $usersAfter);
     }
+
+    public function testFailedNewCertificate() {
+        $this->user->save();
+    
+        $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
+    
+        $_POST['command'] = SaveUsersCommand::COMMAND;
+        $_POST[AddCertificateCommand::COMMAND] = $this->user->getIdentifier();
+        $this->factory->parseRequest();
+    
+        $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
+    
+        $this->assertFalse($certificatesAfter > $certificatesBefore);
+    }
     
     public function testNewCertificate() {
+        $this->user->setExpiry('+1 week');
         $this->user->save();
         
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
