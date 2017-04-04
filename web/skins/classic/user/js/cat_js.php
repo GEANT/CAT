@@ -339,7 +339,6 @@ function resetDevices() {
    window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE","admin/overview_user.php");?>?lang="+lang);
 }
 
-
 /* Get horizontal center of the Browser Window */
 
 function getWindowHCenter() {
