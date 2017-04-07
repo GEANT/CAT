@@ -253,7 +253,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     private $serial;
 
-    private function eapBlock($eaptype, $realm, $cAUUIDList, $serverList) {
+    private function eapBlock($eapType, $realm, $cAUUIDList, $serverList) {
                 $retval = "<key>EAPClientConfiguration</key>
                   <dict>
                       <key>AcceptEAPTypes</key>
