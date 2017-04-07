@@ -59,6 +59,40 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         return htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $input))), ENT_XML1, 'UTF-8');
     }
     
+    private function generalPayload() {
+        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+
+        $eapType = $this->selectedEap;
+        // simpler message for silverbullet
+        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
+            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+        }
+
+        return "</array>
+      <key>PayloadDescription</key>
+         <string>$tagline</string>
+      <key>PayloadDisplayName</key>
+         <string>" . CONFIG['CONSORTIUM']['name'] . "</string>
+      <key>PayloadIdentifier</key>
+         <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
+      <key>PayloadOrganization</key>
+         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['general:instname'][0]), ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
+      <key>PayloadType</key>
+         <string>Configuration</string>
+      <key>PayloadUUID</key>
+         <string>" . $this->uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
+      <key>PayloadVersion</key>
+         <integer>1</integer>";
+    }
+    
+    const FILE_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"
+\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>";
+    
+    const FILE_END = "</dict></plist>";
+    
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
@@ -86,12 +120,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $this->loggerInstance->debug(4, "mobileconfig Module Installer start\n");
         $eapType = $this->selectedEap;
         
-        $outputXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
-<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"
-\"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
-<plist version=\"1.0\">
-   <dict>
-      <key>PayloadContent</key>
+        $outputXml = self::FILE_START;
+        $outputXml .= "<key>PayloadContent</key>
          <array>";
 
         // did the admin want wired config?
@@ -117,36 +147,14 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                 $this->attributes['internal:consortia'], 
                 $this->attributes['eap:server_name'], 
                 $this->listCAUuids($this->attributes['internal:CAs'][0]), 
-                $eapType, 
+                $this->selectedEap,
                 $includeWired, 
                 $clientCertUUID, 
                 $this->determineOuterIdString());
 
         
-
-        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
-
-        // simpler message for silverbullet
-        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
-            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
-        }
-
-        $outputXml .= "
-         </array>
-      <key>PayloadDescription</key>
-         <string>$tagline</string>
-      <key>PayloadDisplayName</key>
-         <string>" . CONFIG['CONSORTIUM']['name'] . "</string>
-      <key>PayloadIdentifier</key>
-         <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
-      <key>PayloadOrganization</key>
-         <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['general:instname'][0]), ENT_XML1, 'UTF-8') . ( $this->attributes['internal:profile_count'][0] > 1 ? " (" . htmlspecialchars(iconv("UTF-8", "UTF-8//IGNORE", $this->attributes['profile:name'][0]), ENT_XML1, 'UTF-8') . ")" : "") . "</string>
-      <key>PayloadType</key>
-         <string>Configuration</string>
-      <key>PayloadUUID</key>
-         <string>" . $this->uuid('', self::$iPhonePayloadPrefix . $this->massagedConsortium . $this->massagedCountry . $this->massagedInst . $this->massagedProfile) . "</string>
-      <key>PayloadVersion</key>
-         <integer>1</integer>";
+        $outputXml .= $this->generalPayload();
+        
         if (isset($this->attributes['support:info_file'])) {
             $outputXml .= "
       <key>ConsentText</key>
@@ -159,7 +167,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
             $outputXml .= $this->expiryBlock();
         }
-        $outputXml .= "</dict></plist>";
+        $outputXml .= self::FILE_END;
 
         $xmlFile = fopen('installer_profile', 'w');
         fwrite($xmlFile, $outputXml);
