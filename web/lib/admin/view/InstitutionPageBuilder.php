@@ -1,6 +1,7 @@
 <?php
 namespace web\lib\admin\view;
 use web\lib\admin\PageDecoration;
+use web\lib\common\InputValidation;
 
 /**
  * Class that can be used to layout any administrator page that manages things for particular IdP.
@@ -47,6 +48,13 @@ class InstitutionPageBuilder implements PageBuilder{
     private $decoration;
     
     /**
+     * Provides global validation services.
+     * 
+     * @var InputValidation
+     */
+    private $validation;
+    
+    /**
      * 
      * @var PageElementInterface[][]
      */
@@ -66,6 +74,7 @@ class InstitutionPageBuilder implements PageBuilder{
      */
     public function __construct($page, $pageType){
         $this->decoration = new PageDecoration();
+        $this->validation = new InputValidation();
         if(isset($_GET['inst_id'])){
             try {
                 $this->validateInstitution();
@@ -85,8 +94,7 @@ class InstitutionPageBuilder implements PageBuilder{
      * 
      */
     protected function validateInstitution(){
-        $validator = new \web\lib\common\InputValidation();
-        $this->institution = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
+        $this->institution = $this->validation->IdP($_GET['inst_id'], $_SESSION['user']);
     }
     
     /**
