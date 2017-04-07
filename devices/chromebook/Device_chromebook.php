@@ -200,14 +200,14 @@ class Device_Chromebook extends \core\DeviceConfig {
             $salt = \core\ProfileSilverbullet::random_str(12);
             $encryptionKey = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
             $strong = FALSE; // should become TRUE if strong crypto is available like it should.
-            $iv = openssl_random_pseudo_bytes(16, $strong);
+            $initVector = openssl_random_pseudo_bytes(16, $strong);
             if ($strong === FALSE) {
                 $this->loggerInstance->debug(1, "WARNING: OpenSSL reports that a random value was generated with a weak cryptographic algorithm (Device_chromebook::writeInstaller()). You should investigate the reason for this!");
             }
-            $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryptionKey, OPENSSL_RAW_DATA, $iv);
+            $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryptionKey, OPENSSL_RAW_DATA, $initVector);
             $hmac = hash_hmac("sha1", $cryptoJson, $encryptionKey, TRUE);
 
-            $this->loggerInstance->debug(4,"Clear = $clearJson\nSalt = $salt\nPW = ".$this->clientCert['importPassword']."\nb(IV) = ".base64_encode($iv)."\nb(Cipher) = ".base64_encode($cryptoJson)."\nb(HMAC) = ".base64_encode($hmac));
+            $this->loggerInstance->debug(4,"Clear = $clearJson\nSalt = $salt\nPW = ".$this->clientCert['importPassword']."\nb(IV) = ".base64_encode($initVector)."\nb(Cipher) = ".base64_encode($cryptoJson)."\nb(HMAC) = ".base64_encode($hmac));
             
             // now, generate the container that holds all the crypto data
             $finalArray = [
@@ -218,7 +218,7 @@ class Device_Chromebook extends \core\DeviceConfig {
                 "Salt" => base64_encode($salt), // this is B64 encoded, but had to read Chromium source code to find out! Not in the spec!
                 "Stretch" => "PBKDF2",
                 "Iterations" => Device_Chromebook::PBKDF2_ITERATIONS,
-                "IV" => base64_encode($iv),
+                "IV" => base64_encode($initVector),
                 "Type" => "EncryptedConfiguration",
             ];
             $finalJson = json_encode($finalArray);
