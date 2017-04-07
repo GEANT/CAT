@@ -200,6 +200,9 @@ class Device_Chromebook extends \core\DeviceConfig {
             $salt = \core\ProfileSilverbullet::random_str(12);
             $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
             $iv = openssl_random_pseudo_bytes(16, $strong);
+            if ($strong === FALSE) {
+                $this->loggerInstance->debug(1, "WARNING: OpenSSL reports that a random value was generated with a weak cryptographic algorithm (Device_chromebook::writeInstaller()). You should investigate the reason for this!");
+            }
             $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryption_key, OPENSSL_RAW_DATA, $iv);
             $hmac = hash_hmac("sha1", $cryptoJson, $encryption_key, TRUE);
 
