@@ -40,8 +40,17 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     public function __construct() {
         parent::__construct();
+        $this->massagedInst       = massageName($instName);
+        $this->massagedProfile    = massageName($profileName);
+        $this->massagedCountry    = massageName($this->attributes['internal:country'][0]);
+        $this->massagedConsortium = massageName(CONFIG['CONSORTIUM']['name']);
+        $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
     }
 
+    private function massageName($input) {
+        return htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $input))), ENT_XML1, 'UTF-8');
+    }
+    
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
@@ -82,21 +91,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $profileName = $this->attributes['profile:name'][0];
         }
 
-        $this->massagedInst = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $instName))), ENT_XML1, 'UTF-8');
-        $this->massagedProfile = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $profileName))), ENT_XML1, 'UTF-8');
-        $this->massagedCountry = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $this->attributes['internal:country'][0]))), ENT_XML1, 'UTF-8');
-        $this->massagedConsortium = htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', CONFIG['CONSORTIUM']['name']))), ENT_XML1, 'UTF-8');
-        $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
-
-        $outerId = $this->determineOuterIdString();
-
-        $ssidList = $this->attributes['internal:SSID'];
-        $consortiumOIList = $this->attributes['internal:consortia'];
-        $serverNames = $this->attributes['eap:server_name'];
-        $cAUUIDs = $this->listCAUuids($this->attributes['internal:CAs'][0]);
         $eapType = $this->selectedEap;
-        $outputXml = "";
-        $outputXml .= "<?xml version=\"1.0\" encoding=\"utf-8\"?>
+        
+        $outputXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"
 \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
@@ -122,7 +119,15 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
         
-        $outputXml .= $this->allNetworkBlocks($ssidList, $consortiumOIList, $serverNames, $cAUUIDs, $eapType, $includeWired, $clientCertUUID, $outerId);
+        $outputXml .= $this->allNetworkBlocks(
+                $this->attributes['internal:SSID'], 
+                $this->attributes['internal:consortia'], 
+                $this->attributes['eap:server_name'], 
+                $this->listCAUuids($this->attributes['internal:CAs'][0]), 
+                $eapType, 
+                $includeWired, 
+                $clientCertUUID, 
+                $this->determineOuterIdString());
 
         
 
