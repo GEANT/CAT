@@ -31,6 +31,8 @@ use \Exception;
  */
 abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
+    private $instName;
+    private $profileName;
     private $massagedInst;
     private $massagedProfile;
     private $massagedCountry;
@@ -40,10 +42,16 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     public function __construct() {
         parent::__construct();
-        $this->massagedInst       = massageName($instName);
-        $this->massagedProfile    = massageName($profileName);
-        $this->massagedCountry    = massageName($this->attributes['internal:country'][0]);
-        $this->massagedConsortium = massageName(CONFIG['CONSORTIUM']['name']);
+        // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
+        // also escape htmlspecialchars
+        // not all names and profiles have a name, so be prepared
+        $this->instName = $this->attributes['general:instname'][0] ?? _("Unnamed Institution");
+        $this->profileName = $this->attributes['profile:name'][0] ?? _("Unnamed Profile");
+
+        $this->massagedInst       = $this->massageName($this->instName);
+        $this->massagedProfile    = $this->massageName($this->profileName);
+        $this->massagedCountry    = $this->massageName($this->attributes['internal:country'][0]);
+        $this->massagedConsortium = $this->massageName(CONFIG['CONSORTIUM']['name']);
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
     }
 
@@ -76,21 +84,6 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         textdomain("devices");
 
         $this->loggerInstance->debug(4, "mobileconfig Module Installer start\n");
-
-        // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
-        // also escape htmlspecialchars
-        // not all names and profiles have a name, so be prepared
-        $instName = _("Unnamed Institution");
-        if (!empty($this->attributes['general:instname'][0])) {
-            $instName = $this->attributes['general:instname'][0];
-        }
-
-        $profileName = _("Unnamed Profile");
-
-        if (!empty($this->attributes['profile:name'][0])) {
-            $profileName = $this->attributes['profile:name'][0];
-        }
-
         $eapType = $this->selectedEap;
         
         $outputXml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
@@ -131,11 +124,11 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         
 
-        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
 
         // simpler message for silverbullet
         if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
-            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
         }
 
         $outputXml .= "
@@ -260,6 +253,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     private $serial;
 
+    private function eapBlock() {
+        
+    }
+    
     private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $clientCertUUID, $realm = 0) {
         $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
 
