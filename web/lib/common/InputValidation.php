@@ -288,6 +288,11 @@ public function boolean($input) {
     return $input;
 }
 
+const TABLEMAPPING = [
+    "IdP" => "institution_option",
+    "Profile" => "profile_option",
+    "FED" => "federation_option",
+];
 /**
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
@@ -295,23 +300,11 @@ public function boolean($input) {
  * @return false|array the reference split up into "table" and "rowindex", or FALSE
  */
 public function databaseReference($input) {
-    $rowindexmatch = [];
-
-    if (preg_match("/IdP/", $input)) {
-        $table = "institution_option";
-    } elseif (preg_match("/Profile/", $input)) {
-        $table = "profile_option";
-    } elseif (preg_match("/FED/", $input)) {
-        $table = "federation_option";
-    } else {
+    $pregMatches = [];
+    if (preg_match("/^(IdP|Profile|FED)-([0-9]+)$/", $input, $pregMatches) === FALSE) {
         return FALSE;
     }
-    if (preg_match("/.*-([0-9]*)/", $input, $rowindexmatch)) {
-        $rowindex = $rowindexmatch[1];
-    } else {
-        return FALSE;
-    }
-    return ["table" => $table, "rowindex" => $rowindex];
+    return ["table" => self::TABLEMAPPING[$pregMatches[1]], "rowindex" => $pregMatches[2]];
 }
 
 /**
