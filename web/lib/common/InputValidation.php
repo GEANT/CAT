@@ -23,7 +23,7 @@ class InputValidation {
      * @param string $customtext explanation provided by the validator function
      * @return string
      */
-    private function input_validation_error($customtext) {
+    private function inputValidationError($customtext) {
         return "<p>" . _("Input validation error: ") . $customtext . "</p>";
     }
 
@@ -38,7 +38,7 @@ class InputValidation {
     public function Federation($input, $owner = NULL) {
         $cat = new \core\CAT();
         if (!array_key_exists($input,$cat->knownFederations)) {
-            throw new Exception(input_validation_error("This federation does not exist!"));
+            throw new Exception($this->inputValidationError("This federation does not exist!"));
         }
         
         $temp = new \core\Federation($input);
@@ -51,7 +51,7 @@ class InputValidation {
                 return $temp;
             }
         }
-        throw new Exception(input_validation_error("User is not federation administrator!"));
+        throw new Exception($this->inputValidationError("User is not federation administrator!"));
     }
 
     /**
@@ -64,7 +64,7 @@ class InputValidation {
      */
     public function IdP($input, $owner = NULL) {
         if (!is_numeric($input)) {
-            throw new Exception(input_validation_error("Value for IdP is not an integer!"));
+            throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
         }
 
         $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
@@ -75,7 +75,7 @@ class InputValidation {
                     return $temp;
                 }
             }
-            throw new Exception(input_validation_error("This IdP identifier is not accessible!"));
+            throw new Exception($this->inputValidationError("This IdP identifier is not accessible!"));
         }
         return $temp;
     }
@@ -92,13 +92,13 @@ class InputValidation {
      */
     public function Profile($input, $idpIdentifier = NULL) {
         if (!is_numeric($input)) {
-            throw new Exception(input_validation_error("Value for profile is not an integer!"));
+            throw new Exception($this->inputValidationError("Value for profile is not an integer!"));
         }
 
         $temp = \core\ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
 
         if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
-            throw new Exception(input_validation_error("The profile does not belong to the IdP!"));
+            throw new Exception($this->inputValidationError("The profile does not belong to the IdP!"));
         }
         return $temp;
     }
@@ -112,7 +112,7 @@ class InputValidation {
     public function Device($input) {
         $devicelist = \devices\Devices::listDevices();
         if (!isset($devicelist[$input])) {
-            throw new Exception(input_validation_error("This device does not exist!"));
+            throw new Exception($this->inputValidationError("This device does not exist!"));
         }
         return $input;
     }
@@ -181,27 +181,27 @@ public function realm($input) {
     $check = $this->string($input);
     // bark on invalid constructs
     if (preg_match("/@/", $check) == 1) {
-        echo input_validation_error(_("Realm contains an @ sign!"));
+        echo $this->inputValidationError(_("Realm contains an @ sign!"));
         return FALSE;
     }
     if (preg_match("/^\./", $check) == 1) {
-        echo input_validation_error(_("Realm begins with a . (dot)!"));
+        echo $this->inputValidationError(_("Realm begins with a . (dot)!"));
         return FALSE;
     }
     if (preg_match("/\.$/", $check) == 1) {
-        echo input_validation_error(_("Realm ends with a . (dot)!"));
+        echo $this->inputValidationError(_("Realm ends with a . (dot)!"));
         return FALSE;
     }
     if (preg_match("/\./", $check) == 0) {
-        echo input_validation_error(_("Realm does not contain at least one . (dot)!"));
+        echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
         return FALSE;
     }
     if (preg_match("/ /", $check) == 1) {
-        echo input_validation_error(_("Realm contains spaces!"));
+        echo $this->inputValidationError(_("Realm contains spaces!"));
         return FALSE;
     }
     if (strlen($input) == 0) {
-        echo input_validation_error(_("Realm is empty!"));
+        echo $this->inputValidationError(_("Realm is empty!"));
         return FALSE;
     }
     return $check;
@@ -217,7 +217,7 @@ public function realm($input) {
 public function User($input) {
     $retval = $input;
     if ($input != "" && !ctype_print($input)) {
-        throw new Exception(input_validation_error("The user identifier is not an ASCII string!"));
+        throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
     return $retval;
 }
@@ -232,7 +232,7 @@ public function User($input) {
 public function token($input) {
     $retval = $input;
     if ($input != "" && preg_match('/[^0-9a-fA-F]/', $input) != 0) {
-        throw new Exception(input_validation_error("Token is not a hexadecimal string!"));
+        throw new Exception($this->inputValidationError("Token is not a hexadecimal string!"));
     }
     return $retval;
 }
@@ -247,12 +247,12 @@ public function coordinate($input) {
     $oldlocale = setlocale(LC_NUMERIC, 0);
     setlocale(LC_NUMERIC, "en_GB");
     if (!is_numeric($input)) {
-        throw new Exception(input_validation_error("Coordinate is not a numeric value!"));
+        throw new Exception($this->inputValidationError("Coordinate is not a numeric value!"));
     }
     setlocale(LC_NUMERIC, $oldlocale);
     // lat and lon are always in the range of [-180;+180]
     if ($input < -180 || $input > 180) {
-        throw new Exception(input_validation_error("Coordinate is out of bounds. Which planet are you from?"));
+        throw new Exception($this->inputValidationError("Coordinate is out of bounds. Which planet are you from?"));
     }
     return $input;
 }
@@ -270,7 +270,7 @@ public function coordSerialized($input) {
             return $input;
         }
     }
-    throw new Exception(input_validation_error(_("Wrong coordinate encoding!")));
+    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding!")));
 }
 
 /**
@@ -283,7 +283,7 @@ public function coordSerialized($input) {
  */
 public function boolean($input) {
     if ($input != "on") {
-        throw new Exception(input_validation_error("Unknown state of boolean option!"));
+        throw new Exception($this->inputValidationError("Unknown state of boolean option!"));
     }
     return $input;
 }
