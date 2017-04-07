@@ -253,35 +253,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     private $serial;
 
-    private function eapBlock() {
-        
-    }
-    
-    private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $clientCertUUID, $realm = 0) {
-        $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
-
-        $payloadIdentifier = "wifi." . $this->serial;
-        $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
-        $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG['CONSORTIUM']['name'], $escapedSSID);
-        $encryptionTypeString = "WPA";
-
-        if ($wired) { // override the above defaults for wired interfaces
-            $payloadIdentifier = "firstactiveethernet";
-            $payloadShortName = _("Wired Network");
-            $payloadName = sprintf(_("%s configuration for wired network"), CONFIG['CONSORTIUM']['name']);
-            $encryptionTypeString = "any";
-        }
-
-        if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
-            $payloadIdentifier = "hs20";
-            $payloadShortName = _("Hotspot 2.0 Settings");
-            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG['CONSORTIUM']['name']);
-            $encryptionTypeString = "WPA";
-        }
-
-        $retval = "
-            <dict>
-               <key>EAPClientConfiguration</key>
+    private function eapBlock($eaptype, $realm, $cAUUIDList, $serverList) {
+                $retval = "<key>EAPClientConfiguration</key>
                   <dict>
                       <key>AcceptEAPTypes</key>
                          <array>
@@ -321,8 +294,35 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                          </array>
                       <key>TTLSInnerAuthentication</key>
                          <string>" . ($eapType['INNER'] == \core\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
-                   </dict>
-               <key>EncryptionType</key>
+                   </dict>";
+        return $retval;
+    }
+    
+    private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $clientCertUUID, $realm = 0) {
+        $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
+
+        $payloadIdentifier = "wifi." . $this->serial;
+        $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
+        $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG['CONSORTIUM']['name'], $escapedSSID);
+        $encryptionTypeString = "WPA";
+
+        if ($wired) { // override the above defaults for wired interfaces
+            $payloadIdentifier = "firstactiveethernet";
+            $payloadShortName = _("Wired Network");
+            $payloadName = sprintf(_("%s configuration for wired network"), CONFIG['CONSORTIUM']['name']);
+            $encryptionTypeString = "any";
+        }
+
+        if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
+            $payloadIdentifier = "hs20";
+            $payloadShortName = _("Hotspot 2.0 Settings");
+            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG['CONSORTIUM']['name']);
+            $encryptionTypeString = "WPA";
+        }
+
+        $retval = "<dict>";
+        $retval .= $this->eapBlock($eapType, $realm, $cAUUIDList, $serverList);
+        $retval .= "<key>EncryptionType</key>
                   <string>$encryptionTypeString</string>
                <key>HIDDEN_NETWORK</key>
                   <true />
