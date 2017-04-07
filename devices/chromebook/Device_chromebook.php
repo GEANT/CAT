@@ -170,7 +170,7 @@ class Device_Chromebook extends \core\DeviceConfig {
 
         // if silverbullet, we deliver the client cert inline
 
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
             $eaparray['ClientCertType'] = "Ref";
         }
@@ -186,7 +186,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         if ($outerId) {
             $eaparray["AnonymousIdentity"] = $outerId;
         }
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $eaparray["Identity"] = $this->clientCert["username"];
         }
         return $eaparray;
