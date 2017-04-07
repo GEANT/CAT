@@ -154,9 +154,6 @@ abstract class DeviceConfig extends Entity {
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
             $dbInstance->exec("UPDATE silverbullet_certificate SET device = ? WHERE one_time_token = ?", "ss", $devicename, $token);
-            
-            // FIXME as a temporary test, revoke the cert immediately
-            // $profile->revokeCertificate($this->clientCert['serial']);
         }
 
         // create temporary directory, its full path will be saved in $this->FPATH;
