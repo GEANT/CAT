@@ -228,7 +228,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         }
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
-            $jsonArray["NetworkConfigurations"][] = wiredBlock($eaparray);
+            $jsonArray["NetworkConfigurations"][] = $this->wiredBlock($eaparray);
         }
 
         $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
