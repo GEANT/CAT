@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -16,7 +16,6 @@
  * @package UserGUI
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
@@ -203,12 +202,8 @@ Andreas
                     </td>
                     <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
                         <?php
-                        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
-                            $deco = new \web\lib\admin\PageDecoration();
-                            echo $deco->attributionEurope();
-                        } else {
-                            echo "&nbsp;";
-                        }
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                         ?>
                     </td>
                 </tr>

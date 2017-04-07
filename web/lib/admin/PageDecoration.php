@@ -216,9 +216,11 @@ class PageDecoration {
      * @return string HTML code with GEANT Org and EU attribution as required for FP7 / H2020 projects
      */
     public function attributionEurope() {
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
         // we may need to jump up one dir if we are either in admin/ or accountstatus/
         // (accountstatus courtesy of my good mood. It's userspace not admin space so
         // it shouldn't be using this function any more.)
+        
         if (strrpos($_SERVER['PHP_SELF'], "admin/")) {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
         } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
@@ -232,6 +234,8 @@ class PageDecoration {
         return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
               <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
+        }
+        return "&nbsp";
     }
 
     /**
