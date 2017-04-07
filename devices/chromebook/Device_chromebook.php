@@ -88,14 +88,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         parent::__construct();
         $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET]);
     }
-
-    // from: http://stackoverflow.com/questions/10916284/how-to-encrypt-decrypt-data-in-php#10945097
-
-    private function pkcs7_pad($data, $size) {
-        $length = $size - strlen($data) % $size;
-        return $data . str_repeat(chr($length), $length);
-    }
-
+    
     /**
      * prepare a ONC file
      *
