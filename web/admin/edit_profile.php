@@ -12,7 +12,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/option_html.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
@@ -181,6 +180,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($my_profile !== NULL ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
+    $optionDisplay = new \web\lib\admin\OptionDisplay($profile_options, "Profile");
     ?>
     <fieldset class="option_container">
         <legend>
@@ -203,7 +203,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }
 
-        echo prefilledOptionTable($profile_options, "profile", "Profile");
+        echo $optionDisplay->prefilledOptionTable("profile");
         ?>
         <button type='button' class='newoption' onclick='getXML("profile")'><?php echo _("Add new option"); ?></button>
         <table>
@@ -491,7 +491,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </p>
     <?php
-    echo prefilledOptionTable($profile_options, "support", "Profile");
+    echo $optionDisplay->prefilledOptionTable("support");
     ?>
     <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button>
 </fieldset>
@@ -516,7 +516,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </p>
     <?php
-    echo prefilledOptionTable($profile_options, "eap", "Profile");
+    echo $optionDisplay->prefilledOptionTable("eap");
     ?>
     <button type='button' class='newoption' onclick='getXML("eap")'><?php echo _("Add new option"); ?></button>
 </fieldset>
@@ -542,7 +542,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </p>
     <?php
-    echo prefilledOptionTable($profile_options, "media", "Profile");
+    echo $optionDisplay->prefilledOptionTable("media");
     ?>
     <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 <?php

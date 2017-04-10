@@ -12,7 +12,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/option_html.inc.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
@@ -59,7 +58,8 @@ $langObject = new \core\Language();
     <fieldset class="option_container">
         <legend><strong><?php echo _("Federation Properties"); ?></strong></legend>
         <?php
-        echo prefilledOptionTable($fed_options, "fed", "FED");
+        $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, "FED");
+        echo $optionDisplay->prefilledOptionTable("fed");
         ?>
         <button type='button' class='newoption' onclick='getXML("fed")'><?php echo _("Add new option"); ?></button>
     </fieldset>

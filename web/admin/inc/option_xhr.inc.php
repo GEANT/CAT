@@ -12,7 +12,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("option_html.inc.php");
 
 if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
@@ -56,5 +55,6 @@ if (isset($_GET["class"])) {
             throw new Exception("Unknown type of option!");
     }
 
-    echo optiontext(0, $list);
+$optionDisplay = new \web\lib\admin\OptionDisplay();
+    echo $optionDisplay->optiontext(0, $list);
 }

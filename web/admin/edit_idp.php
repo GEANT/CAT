@@ -12,7 +12,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/option_html.inc.php");
 require_once("inc/auth.inc.php");
 authenticate();
 
@@ -108,6 +107,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         echo "<p>" .
         _("Hello, newcomer. Your institution is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users.") . "</p>";
     }
+    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
@@ -121,7 +121,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
 
             echo "</ul>";
         }
-        echo prefilledOptionTable($idpoptions, "general", "IdP");
+        echo $optionDisplay->prefilledOptionTable("general");
         ?>
         <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
@@ -177,7 +177,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
             . "</li>";
             echo "</ul>";
         }
-        echo prefilledOptionTable($idpoptions, "media", "IdP");
+        echo $optionDisplay->prefilledOptionTable("media");
         ?>
         <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 
@@ -190,7 +190,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         <p>" .
             _("If you enter a value here, it will be added to the site installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all (shame on you!), you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
         }
-        echo prefilledOptionTable($idpoptions, "support", "IdP");
+        echo $optionDisplay->prefilledOptionTable("support");
         ?>
 
         <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button></fieldset>

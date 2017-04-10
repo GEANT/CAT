@@ -13,7 +13,6 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 
 require_once("auth.inc.php");
 require_once("common.inc.php");
-require_once("option_html.inc.php");
 
 authenticate();
 
@@ -120,7 +119,8 @@ if ($device != NULL) {
             $interesting_attribs[] = $attrib;
         }
     }
-    echo prefilledOptionTable($interesting_attribs, $keyword, "Method");
+    $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, "Method");
+    echo $optionDisplay->prefilledOptionTable($keyword);
     ?>
     <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
