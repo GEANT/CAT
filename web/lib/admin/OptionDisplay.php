@@ -195,6 +195,10 @@ class OptionDisplay {
         return $retval;
     }
 
+    const TYPECODE_STRING = 0;
+    const TYPECODE_INTEGER = 4;
+    const TYPECODE_TEXT = 1;
+    
     private function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
         $retval = "";
         $optioninfo = \core\Options::instance();
@@ -252,13 +256,14 @@ class OptionDisplay {
                 }
                 break;
             case "string":
-                $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-0]' id='S" . $rowid . "-input-string' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
-                break;
+                $intCode = self::TYPECODE_STRING;
+                // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "integer":
-                $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-4]' id='S" . $rowid . "-input-integer' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
-                break;
+                $intCode = self::TYPECODE_INTEGER;
+                // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "text":
-                $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
+                $intCode = self::TYPECODE_TEXT;
+                $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-".$listtype["type"]."' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
                 break;
             case "boolean":
                 $displayOption = _("off");

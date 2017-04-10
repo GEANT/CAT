@@ -300,8 +300,8 @@ class GeoWidget {
     /**
      * generates HTML code to display a geo widget. Needs preceding code in <head>,
      * see above.
-     * @param type $wizard Are we in wizard mode? Be more talkative then.
-     * @param type $additional is this about an additional (non-first) location?
+     * @param boolean $wizard Are we in wizard mode? Be more talkative then.
+     * @param boolean $additional is this about an additional (non-first) location?
      * @return string the HTML code
      */
     public function insertInBody($wizard, $additional) {

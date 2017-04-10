@@ -55,6 +55,6 @@ if (isset($_GET["class"])) {
             throw new Exception("Unknown type of option!");
     }
 
-$optionDisplay = new \web\lib\admin\OptionDisplay();
+$optionDisplay = new \web\lib\admin\OptionDisplay($list, $_GET['class']);
     echo $optionDisplay->optiontext(0, $list);
 }
