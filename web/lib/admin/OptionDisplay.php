@@ -198,6 +198,7 @@ class OptionDisplay {
     const TYPECODE_STRING = 0;
     const TYPECODE_INTEGER = 4;
     const TYPECODE_TEXT = 1;
+    const TYPECODE_BOOLEAN = 3;
     
     private function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
         $retval = "";
@@ -231,6 +232,8 @@ class OptionDisplay {
         $retval .= "</td>";
 // attribute content
         $retval .= "<td>";
+        $intCode = 0;
+        $displayedVariant = "";
         switch ($listtype["type"]) {
             case "coordinates":
                 $allLocationCount++;
@@ -263,15 +266,15 @@ class OptionDisplay {
                 // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "text":
                 $intCode = self::TYPECODE_TEXT;
-                $retval .= "<strong>$prefill</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-".$listtype["type"]."' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
-                break;
+                $displayedVariant = $prefill; // for all three types, value tag and actual display are identical
             case "boolean":
-                $displayOption = _("off");
+                $intCode = self::TYPECODE_BOOLEAN;
+                $displayedVariant = _("off");
                 if ($prefill == "on") {
                     /// Device assessment is "on"
-                    $displayOption = _("on");
+                    $displayedVariant = _("on");
                 }
-                $retval .= "<strong>$displayOption</strong><input type='hidden' name='value[S$rowid-3]' id='S" . $rowid . "-input-boolean' value='$prefill' style='display:block'>";
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-".$listtype["type"]."' value=\"" . htmlspecialchars($prefill). "\" style='display:block'>";
                 break;
             default:
                 // this should never happen!
