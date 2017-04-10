@@ -50,7 +50,7 @@ foreach ($idpoptions as $optionname => $optionvalue) {
 }
 $widget = new \web\lib\admin\GeoWidget();
 
-$widget->insertInHead($my_inst->federation, $inst_name);
+echo $widget->insertInHead($my_inst->federation, $inst_name);
 ?>
 <script>
     $(document).ready(function () {
@@ -126,7 +126,7 @@ $widget->insertInHead($my_inst->federation, $inst_name);
         <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    $widget->insertInBody($wizardStyle, $additional);
+    echo $widget->insertInBody($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>

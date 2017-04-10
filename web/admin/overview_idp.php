@@ -62,7 +62,7 @@ if (isset($_SESSION['check_realm'])) {
 }
 $widget = new \web\lib\admin\GeoWidget();
 
-$widget->insertInHead($my_inst->federation, $my_inst->name);
+echo $widget->insertInHead($my_inst->federation, $my_inst->name);
 ?>
 </head>
 <body  onload='load(0)'>
