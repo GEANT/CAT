@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -37,7 +38,9 @@
 /**
  * 
  */
+
 namespace devices\chromebook;
+
 /**
  * This is the main implementation class of the module
  *
@@ -78,7 +81,7 @@ class Device_Chromebook extends \core\DeviceConfig {
      * https://cs.chromium.org/chromium/src/chromeos/network/onc/onc_utils.cc?sq=package:chromium&dr=CSs&rcl=1482394814&l=110
      */
     const PBKDF2_ITERATIONS = 20000;
-    
+
     /**
      * Constructs a Device object.
      *
@@ -89,13 +92,105 @@ class Device_Chromebook extends \core\DeviceConfig {
         $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET]);
     }
 
-    // from: http://stackoverflow.com/questions/10916284/how-to-encrypt-decrypt-data-in-php#10945097
+    private function encryptConfig($clearJson, $password) {
+        $salt = \core\ProfileSilverbullet::random_str(12);
+        $encryptionKey = hash_pbkdf2("sha1", $password, $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
+        $strong = FALSE; // should become TRUE if strong crypto is available like it should.
+        $initVector = openssl_random_pseudo_bytes(16, $strong);
+        if ($strong === FALSE) {
+            $this->loggerInstance->debug(1, "WARNING: OpenSSL reports that a random value was generated with a weak cryptographic algorithm (Device_chromebook::writeInstaller()). You should investigate the reason for this!");
+        }
+        $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryptionKey, OPENSSL_RAW_DATA, $initVector);
+        $hmac = hash_hmac("sha1", $cryptoJson, $encryptionKey, TRUE);
 
-    private function pkcs7_pad($data, $size) {
-        $length = $size - strlen($data) % $size;
-        return $data . str_repeat(chr($length), $length);
+        $this->loggerInstance->debug(4, "Clear = $clearJson\nSalt = $salt\nPW = " . $password . "\nb(IV) = " . base64_encode($initVector) . "\nb(Cipher) = " . base64_encode($cryptoJson) . "\nb(HMAC) = " . base64_encode($hmac));
+
+        // now, generate the container that holds all the crypto data
+        $finalArray = [
+            "Cipher" => "AES256",
+            "Ciphertext" => base64_encode($cryptoJson),
+            "HMAC" => base64_encode($hmac), // again by reading source code! And why?
+            "HMACMethod" => "SHA1",
+            "Salt" => base64_encode($salt), // this is B64 encoded, but had to read Chromium source code to find out! Not in the spec!
+            "Stretch" => "PBKDF2",
+            "Iterations" => Device_Chromebook::PBKDF2_ITERATIONS,
+            "IV" => base64_encode($initVector),
+            "Type" => "EncryptedConfiguration",
+        ];
+        return json_encode($finalArray);
     }
 
+    private function wifiBlock($ssid, $eapdetails) {
+        return [
+                "GUID" => $this->uuid('', $ssid),
+                "Name" => "$ssid",
+                "Remove" => false,
+                "Type" => "WiFi",
+                "WiFi" => [
+                    "AutoConnect" => true,
+                    "EAP" => $eapdetails,
+                    "HiddenSSID" => false,
+                    "SSID" => $ssid,
+                    "Security" => "WPA-EAP",
+                ],
+                "ProxySettings" => ["Type" => "WPAD"],
+            ];
+    }
+    
+    private function wiredBlock($eapdetails) {
+        return [
+                "GUID" => $this->uuid('', "wired-dot1x-ethernet") . "}",
+                "Name" => "eduroam configuration (wired network)",
+                "Remove" => false,
+                "Type" => "Ethernet",
+                "Ethernet" => [
+                    "Authentication" => "8021X",
+                    "EAP" => $eapdetails,
+                ],
+                "ProxySettings" => ["Type" => "WPAD"],
+            ];
+    }
+    
+    private function eapBlock($selectedEap, $outerId, $caRefs) {
+        $eapPrettyprint = \core\EAP::eapDisplayName($selectedEap);
+        // ONC has its own enums, and guess what, they don't always match
+        if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
+            $eapPrettyprint["INNER"] = "MSCHAPv2";
+        }
+        if ($eapPrettyprint["OUTER"] == "TTLS") {
+            $eapPrettyprint["OUTER"] = "EAP-TTLS";
+        }
+        if ($eapPrettyprint["OUTER"] == "TLS") {
+            $eapPrettyprint["OUTER"] = "EAP-TLS";
+        }
+
+        // define EAP properties
+
+        $eaparray = [];
+
+        // if silverbullet, we deliver the client cert inline
+
+        if ($selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+            $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
+            $eaparray['ClientCertType'] = "Ref";
+        }
+
+        $eaparray["Outer"] = $eapPrettyprint["OUTER"];
+        if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
+            $eaparray["Inner"] = $eapPrettyprint["INNER"];
+        }
+        $eaparray["SaveCredentials"] = true;
+        $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
+        $eaparray["UseSystemCAs"] = false;
+
+        if ($outerId) {
+            $eaparray["AnonymousIdentity"] = $outerId;
+        }
+        if ($selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+            $eaparray["Identity"] = $this->clientCert["username"];
+        }
+        return $eaparray;
+    }
     /**
      * prepare a ONC file
      *
@@ -126,105 +221,21 @@ class Device_Chromebook extends \core\DeviceConfig {
         if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
             $jsonArray["Certificates"][] = ["GUID" => "[" . $this->clientCert['GUID'] . "]", "PKCS12" => base64_encode($this->clientCert['certdataclear']), "Remove" => false, "Type" => "Client"];
         }
-        // construct outer id, if anonymity is desired
-        $outerId = $this->determineOuterIdString();
-
-        $eapPrettyprint = \core\EAP::eapDisplayName($this->selectedEap);
-        // ONC has its own enums, and guess what, they don't always match
-        if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
-            $eapPrettyprint["INNER"] = "MSCHAPv2";
-        }
-        if ($eapPrettyprint["OUTER"] == "TTLS") {
-            $eapPrettyprint["OUTER"] = "EAP-TTLS";
-        }
-        if ($eapPrettyprint["OUTER"] == "TLS") {
-            $eapPrettyprint["OUTER"] = "EAP-TLS";
-        }
-
-        // define EAP properties
-
-        $eaparray = [];
-
-        // if silverbullet, we deliver the client cert inline
-
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
-            $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
-            $eaparray['ClientCertType'] = "Ref";
-        }
-
-        $eaparray["Outer"] = $eapPrettyprint["OUTER"];
-        if ($eapPrettyprint["INNER"] == "MSCHAPv2") {
-            $eaparray["Inner"] = $eapPrettyprint["INNER"];
-        }
-        $eaparray["SaveCredentials"] = true;
-        $eaparray["ServerCARefs"] = $caRefs; // maybe takes just one CA?
-        $eaparray["UseSystemCAs"] = false;
-
-        if ($outerId) {
-            $eaparray["AnonymousIdentity"] = $outerId;
-        }
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
-            $eaparray["Identity"] = $this->clientCert["username"];
-        }
-        // define networks
+        $eaparray = $this->eapBlock($this->selectedEap, $this->determineOuterIdString(), $caRefs);
+        // define Wi-Fi networks
         foreach ($this->attributes['internal:SSID'] as $ssid => $cryptolevel) {
-            $networkUuid = $this->uuid('', $ssid);
-            $jsonArray["NetworkConfigurations"][] = [
-                "GUID" => $networkUuid,
-                "Name" => "$ssid",
-                "Remove" => false,
-                "Type" => "WiFi",
-                "WiFi" => [
-                    "AutoConnect" => true,
-                    "EAP" => $eaparray,
-                    "HiddenSSID" => false,
-                    "SSID" => $ssid,
-                    "Security" => "WPA-EAP",
-                ],
-                "ProxySettings" => ["Type" => "WPAD"],
-            ];
+            $jsonArray["NetworkConfigurations"][] = $this->wifiBlock($ssid, $eaparray);
         }
         // are we also configuring wired?
         if (isset($this->attributes['media:wired'])) {
-            $networkUuid = "{" . $this->uuid('', "wired-dot1x-ethernet") . "}";
-            $jsonArray["NetworkConfigurations"][] = [
-                "GUID" => $networkUuid,
-                "Name" => "eduroam configuration (wired network)",
-                "Remove" => false,
-                "Type" => "Ethernet",
-                "Ethernet" => [
-                    "Authentication" => "8021X",
-                    "EAP" => $eaparray,
-                ],
-                "ProxySettings" => ["Type" => "WPAD"],
-            ];
+            $jsonArray["NetworkConfigurations"][] = $this->wiredBlock($eaparray);
         }
 
         $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $finalJson = $clearJson;
         // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
         if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
-            $salt = \core\ProfileSilverbullet::random_str(12);
-            $encryption_key = hash_pbkdf2("sha1", $this->clientCert['importPassword'], $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
-            $iv = openssl_random_pseudo_bytes(16, $strong);
-            $cryptoJson = openssl_encrypt($clearJson, 'AES-256-CBC', $encryption_key, OPENSSL_RAW_DATA, $iv);
-            $hmac = hash_hmac("sha1", $cryptoJson, $encryption_key, TRUE);
-
-            $this->loggerInstance->debug(4,"Clear = $clearJson\nSalt = $salt\nPW = ".$this->clientCert['importPassword']."\nb(IV) = ".base64_encode($iv)."\nb(Cipher) = ".base64_encode($cryptoJson)."\nb(HMAC) = ".base64_encode($hmac));
-            
-            // now, generate the container that holds all the crypto data
-            $finalArray = [
-                "Cipher" => "AES256",
-                "Ciphertext" => base64_encode($cryptoJson),
-                "HMAC" => base64_encode($hmac), // again by reading source code! And why?
-                "HMACMethod" => "SHA1",
-                "Salt" => base64_encode($salt), // this is B64 encoded, but had to read Chromium source code to find out! Not in the spec!
-                "Stretch" => "PBKDF2",
-                "Iterations" => Device_Chromebook::PBKDF2_ITERATIONS,
-                "IV" => base64_encode($iv),
-                "Type" => "EncryptedConfiguration",
-            ];
-            $finalJson = json_encode($finalArray);
+            $finalJson = $this->encryptConfig($clearJson, $this->clientCert['importPassword']);
         }
 
         $outputFile = fopen('installer_profile', 'w');

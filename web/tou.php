@@ -51,23 +51,19 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
             ?>
         </div>
         <div>
-        <table style='width:100%'>
-            <tr>
-                <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
-                    <?php echo $cat->CAT_COPYRIGHT; ?>
-                </td>
-                <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
-                    <?php
-                    if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            <table style='width:100%'>
+                <tr>
+                    <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
+                        <?php echo $cat->CAT_COPYRIGHT; ?>
+                    </td>
+                    <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
+                        <?php
                         $deco = new \web\lib\admin\PageDecoration();
                         echo $deco->attributionEurope();
-                    } else {
-                        echo "&nbsp;";
-                    }
-                    ?>
-                </td>
-            </tr>
-        </table>
+                        ?>
+                    </td>
+                </tr>
+            </table>
         </div>
     </body>
 </html>
