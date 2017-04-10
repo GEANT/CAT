@@ -12,7 +12,7 @@
 namespace web\lib\admin;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once(__DIR__ . "/common.inc.php");
+require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 
 /**
  * We need to display previously set options in various forms. This class covers
@@ -271,7 +271,7 @@ class OptionDisplay {
                 $displayedVariant = $prefill; // for all three types, value tag and actual display are identical
             case "boolean":
                 $intCode = self::TYPECODE_BOOLEAN;
-                if ($displayedVariant != "") { // a fall-through has set this before
+                if ($displayedVariant == "") { // a fall-through has set this before
                     $displayedVariant = _("off");
                     if ($prefill == "on") {
                         /// Device assessment is "on"
