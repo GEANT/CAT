@@ -8,6 +8,7 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
 namespace web\lib\admin;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
@@ -19,18 +20,19 @@ require_once(__DIR__ . "/common.inc.php");
  * OptionParser.
  */
 class OptionDisplay {
-    
+
     /**
      *
      * @var array
      */
     private $listOfOptions;
+
     /**
      *
      * @var string
      */
     private $level;
-    
+
     /**
      * Which attributes are we talking about?
      * @param array $options the options of interest
@@ -199,7 +201,7 @@ class OptionDisplay {
     const TYPECODE_INTEGER = 4;
     const TYPECODE_TEXT = 1;
     const TYPECODE_BOOLEAN = 3;
-    
+
     private function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
         $retval = "";
         $optioninfo = \core\Options::instance();
@@ -260,21 +262,23 @@ class OptionDisplay {
                 break;
             case "string":
                 $intCode = self::TYPECODE_STRING;
-                // fall-thorugh is intentional; mostly identical HTML code for the three types
+            // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "integer":
                 $intCode = self::TYPECODE_INTEGER;
-                // fall-thorugh is intentional; mostly identical HTML code for the three types
+            // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "text":
                 $intCode = self::TYPECODE_TEXT;
                 $displayedVariant = $prefill; // for all three types, value tag and actual display are identical
             case "boolean":
                 $intCode = self::TYPECODE_BOOLEAN;
-                $displayedVariant = _("off");
-                if ($prefill == "on") {
-                    /// Device assessment is "on"
-                    $displayedVariant = _("on");
+                if ($displayedVariant != "") { // a fall-through has set this before
+                    $displayedVariant = _("off");
+                    if ($prefill == "on") {
+                        /// Device assessment is "on"
+                        $displayedVariant = _("on");
+                    }
                 }
-                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-".$listtype["type"]."' value=\"" . htmlspecialchars($prefill). "\" style='display:block'>";
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
                 break;
             default:
                 // this should never happen!
