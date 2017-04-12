@@ -46,8 +46,11 @@ class InputValidation {
         if  (!in_array(strtoupper($postInput), $fedIdentifiers)) {
             throw new Exception($this->inputValidationError("This federation does not exist!"));
         }
+        // totally circular, but this hopefully *finally* make Scrutinizer happier
+        $correctIndex = array_search(strtoupper($postInput), $fedIdentifiers);
+        $postFed = $fedIdentifiers[$correctIndex];
         
-        $temp = new \core\Federation($postInput);
+        $temp = new \core\Federation($postFed);
         if ($owner === NULL) {
             return $temp;
         }
