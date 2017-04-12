@@ -197,7 +197,7 @@ $user = new \core\User($_SESSION['user']);
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
                 echo "<td>";
-                echo ($idp_instance->isOneProfileConfigured() ? "C" : "" ) . " " . ($idp_instance->isOneProfileShowtime() ? "V" : "" );
+                echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "" ) . " " . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "" );
                 echo "</td>";
                 // get the coarse status overview
                 $status = $idp_instance->getAllProfileStatusOverview();

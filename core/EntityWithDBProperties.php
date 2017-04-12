@@ -257,7 +257,7 @@ abstract class EntityWithDBProperties extends Entity {
                 }
                 $inst = new IdP($blobinst);
                 // if at least one of the profiles belonging to the inst is public, the data is public
-                if ($inst->isOneProfileShowtime()) { // public data
+                if ($inst->maxProfileStatus() == IdP::PROFILES_SHOWTIME) { // public data
                     return FALSE;
                 }
                 // okay, so it's NOT public. return the owner
