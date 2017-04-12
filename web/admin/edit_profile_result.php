@@ -76,12 +76,15 @@ if (isset($_POST['checkuser_support'])) {
     $checkuser = $validator->boolean($_POST['checkuser_support']);
 }
 
-$checkuser_name = "anonymous";
+$checkuser_name1 = "anonymous";
 if (isset($_POST['checkuser_local'])) {
-    $checkuser_name = $validator->string($_POST['checkuser_local']);
+    $checkuser_name1 = $validator->string($_POST['checkuser_local']);
 } elseif ($my_profile !== NULL) { // get the old value from profile settings. People don't appreciate "forgetting" it when unchecking
-    $checkuser_name = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
+    $checkuser_name1 = $my_profile->getAttributes("internal:checkuser_value")[0]['value'];
 }
+// it's a RADIUS username; and it's displayed later on. Be sure it contains no
+// "interesting" HTML characters before further processing
+$checkuser_name = htmlentities($checkuser_name1);
 
 $verify = FALSE;
 $hint = FALSE;
