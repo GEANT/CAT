@@ -86,7 +86,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 $errorCode = $_REQUEST['errorcode'] ?? "";
                 switch ($errorCode) {
                     case "GENERATOR_CONSUMED":
-                        echo $uiElements->BoxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
+                        echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
                         break;
                     default:
                 }

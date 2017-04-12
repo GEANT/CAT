@@ -117,13 +117,13 @@ if (count($ssids) > 0) {
     foreach ($ssids as $names) {
         $printedlist = $printedlist . "$names ";
     }
-    echo $uiElements->BoxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+    echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
 }
 if (count($wired_support) > 0) {
-    echo $uiElements->BoxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+    echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
 }
 if (count($ssids) == 0 && count($wired_support) == 0) {
-    echo $uiElements->BoxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+    echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
 }
 echo "</table>";
 

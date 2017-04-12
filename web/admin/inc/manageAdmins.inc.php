@@ -106,10 +106,10 @@ if (isset($_GET['invitation'])) {
             default:
                 throw new Exception("Error: unknown encryption status of invitation!?!");
             }
-            echo $uiElements->BoxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+            echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
             break;
         case "FAILURE":
-            echo $uiElements->BoxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+            echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
             break;
         default:
             throw new Exception("Error: unknown result code of invitation!?!");
@@ -119,13 +119,13 @@ if (isset($_GET['invitation'])) {
 
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->BoxRemark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
+    echo $uiElements->boxRemark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
     echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->BoxRemark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
+    echo $uiElements->boxRemark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
     echo "</table></div>";
 }
 ?>

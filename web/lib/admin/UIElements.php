@@ -218,7 +218,7 @@ class UIElements {
         return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
     }
 
-    public function BoxFlexible($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
+    public function boxFlexible($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
 
         $uiMessages = [
             \core\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
@@ -245,20 +245,20 @@ class UIElements {
         return $retval;
     }
 
-    public function BoxOkay($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->BoxFlexible(\core\Entity::L_OK, $text, $caption, $omittabletags);
+    public function boxOkay($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\Entity::L_OK, $text, $caption, $omittabletags);
     }
 
-    public function BoxRemark($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->BoxFlexible(\core\Entity::L_REMARK, $text, $caption, $omittabletags);
+    public function boxRemark($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\Entity::L_REMARK, $text, $caption, $omittabletags);
     }
 
-    public function BoxWarning($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->BoxFlexible(\core\Entity::L_WARN, $text, $caption, $omittabletags);
+    public function boxWarning($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\Entity::L_WARN, $text, $caption, $omittabletags);
     }
 
-    public function BoxError($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->BoxFlexible(\core\Entity::L_ERROR, $text, $caption, $omittabletags);
+    public function boxError($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->boxFlexible(\core\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
 }

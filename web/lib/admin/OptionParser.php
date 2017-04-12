@@ -101,17 +101,17 @@ class OptionParser {
         foreach ($listGood as $name => $count) {
             /// number of times attribute is present, and its name
             /// Example: "5x Support E-Mail"
-            $retval .= $this->uiElements->BoxOkay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->boxOkay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list all atributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
-            $retval .= $this->uiElements->BoxError(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
             if ($isitsetornot == FALSE) {
-                $retval .= $this->uiElements->BoxWarning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), $uiElements->displayName($attribName)));
+                $retval .= $this->uiElements->boxWarning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), $uiElements->displayName($attribName)));
             }
         }
         return $retval;

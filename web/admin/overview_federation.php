@@ -138,13 +138,13 @@ $user = new \core\User($_SESSION['user']);
                     default:
                         throw new Exception("Error: unknown encryption status of invitation!?!");
                 }
-                echo $uiElements->BoxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+                echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
                 break;
             case "FAILURE":
-                echo $uiElements->BoxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+                echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
                 break;
             default:
-                echo $uiElements->BoxError(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
+                echo $uiElements->boxError(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
         }
         echo "</table></div>";
     }
@@ -203,24 +203,24 @@ $user = new \core\User($_SESSION['user']);
                 $status = $idp_instance->getAllProfileStatusOverview();
                 echo "<td>";
                 if ($status['dns'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo $uiElements->BoxError(0, "DNS Error", true);
+                    echo $uiElements->boxError(0, "DNS Error", true);
                 } else {
-                    echo $uiElements->BoxOkay(0, "DNS OK", true);
+                    echo $uiElements->boxOkay(0, "DNS OK", true);
                 }
                 if ($status['cert'] != \core\Entity::L_OK && $status['cert'] != \core\RADIUSTests::RETVAL_SKIPPED) {
-                    echo $uiElements->BoxFlexible($status['cert'], 0, "Cert Error", true);
+                    echo $uiElements->boxFlexible($status['cert'], 0, "Cert Error", true);
                 } else {
-                    echo $uiElements->BoxOkay(0, "Cert OK", true);
+                    echo $uiElements->boxOkay(0, "Cert OK", true);
                 }
                 if ($status['reachability'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo $uiElements->BoxError(0, "Reachability Error", true);
+                    echo $uiElements->boxError(0, "Reachability Error", true);
                 } else {
-                    echo $uiElements->BoxOkay(0, "Reachability OK", true);
+                    echo $uiElements->boxOkay(0, "Reachability OK", true);
                 }
                 if ($status['TLS'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo $uiElements->BoxError(0, "RADIUS/TLS Error", true);
+                    echo $uiElements->boxError(0, "RADIUS/TLS Error", true);
                 } else {
-                    echo $uiElements->BoxOkay(0, "RADIUS/TLS OK", true);
+                    echo $uiElements->boxOkay(0, "RADIUS/TLS OK", true);
                 }
                 echo "</td>";
                 // name

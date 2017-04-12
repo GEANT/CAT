@@ -256,15 +256,15 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $sufficient_config = $profile_list->hasSufficientConfig();
         $showtime = $profile_list->isShowtime();
         if ($has_overrides) {
-            $buffer_headline .= $uiElements->BoxRemark("", _("Option override on profile level is in effect."), TRUE);
+            $buffer_headline .= $uiElements->boxRemark("", _("Option override on profile level is in effect."), TRUE);
         }
         if (!$allcomplete) {
-            $buffer_headline .= $uiElements->BoxError("", _("The information in this profile is incomplete."), TRUE);
+            $buffer_headline .= $uiElements->boxError("", _("The information in this profile is incomplete."), TRUE);
         }
         if ($showtime) {
-            $buffer_headline .= $uiElements->BoxOkay("", _("This profile is shown on the user download interface."), TRUE);
+            $buffer_headline .= $uiElements->boxOkay("", _("This profile is shown on the user download interface."), TRUE);
         } else if ($sufficient_config) {
-            $buffer_headline .= $uiElements->BoxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+            $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
         $buffer_headline .= "</div>";
 

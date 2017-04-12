@@ -118,7 +118,7 @@ $dbHandle = \core\DBConnection::handle("INST");
 
                             closedir($handle);
                         }
-                        echo "<div class='ca-summary'><table>" . $uiElements->BoxRemark(sprintf("Deleted %d cache directories.", $i), "Cache deleted") . "</table></div>";
+                        echo "<div class='ca-summary'><table>" . $uiElements->boxRemark(sprintf("Deleted %d cache directories.", $i), "Cache deleted") . "</table></div>";
                         break;
 
                     default:
