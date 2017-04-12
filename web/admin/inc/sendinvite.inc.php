@@ -11,26 +11,12 @@
 <?php
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
-
-require_once("auth.inc.php");
 require_once("common.inc.php");
 require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/PHPMailer.php");
 require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/SMTP.php");
 
-function check_federation_privilege($country) {
-    $user_object = new \core\User($_SESSION['user']);
-    $fed_privs = $user_object->getAttributes("user:fedadmin");
-    // a new IdP was requested and all the required parameters are there
-    foreach ($fed_privs as $onefed) {
-        if (strtolower($onefed['value']) == strtolower($country)) {
-            return TRUE;
-        }
-    }
-    echo "<p>" . _("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!") . "</p>";
-    exit(1);
-}
-
-authenticate();
+$auth = new \web\lib\admin\Authentication();
+$auth->authenticate();
 
 $catInstance = new \core\CAT();
 $loggerInstance = new \core\Logging();
@@ -52,7 +38,7 @@ $newcountry = "";
 // fed admin stuff
 // we are either inviting to co-manage an existing inst ...
 
-$user_object = new \core\User($_SESSION['user']);
+$userObject = new \core\User($_SESSION['user']);
 $federation = FALSE;
 
 if (isset($_GET['inst_id'])) {
@@ -66,7 +52,7 @@ if (isset($_GET['inst_id'])) {
         }
     }
     // check if he is (also) federation admin for the federation this IdP is in. His invitations have more blessing then.
-    $fedadmin = $user_object->isFederationAdmin($idp->federation);
+    $fedadmin = $userObject->isFederationAdmin($idp->federation);
     // check if he is either one, if not, complain
     if (!$is_owner && !$fedadmin) {
         echo "<p>" . _("Something's wrong... you are a federation admin, but not for the federation the requested institution belongs to!") . "</p>";
@@ -85,7 +71,10 @@ else if (isset($_POST['creation'])) {
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
-        $new_idp_authorized_fedadmin = check_federation_privilege($newcountry);
+        $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
+        if ($new_idp_authorized_fedadmin !== TRUE) {
+            throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
+        }
         $federation = new \core\Federation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
@@ -98,7 +87,10 @@ else if (isset($_POST['creation'])) {
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = $this->validator->string($_POST['externals']);
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
-        $new_idp_authorized_fedadmin = check_federation_privilege($extinfo['country']);
+        $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
+        if ($new_idp_authorized_fedadmin !== TRUE) {
+            throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
+        }
         $federation = new \core\Federation($extinfo['country']);
         $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list

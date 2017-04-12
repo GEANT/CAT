@@ -22,11 +22,22 @@ namespace web\lib\admin;
 ?>
 <?php
 
+/**
+ * helper class which defines Google Maps geo widgets and their integration into
+ * the admin-side UI.
+ */
 class GeoWidget {
 
+    /**
+     * generates JavaScript code to be embedded in <head> of pages which need a
+     * GeoWidget.
+     * @param string $inst_country two-digit country identifier where the IdP is in
+     * @param string $inst_name name of institution
+     * @return string the code for <head>
+     */
     public function insertInHead($inst_country, $inst_name) {
         $cat = new \core\CAT();
-        echo "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+        return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
     <script type='text/javascript'>
         // some global variables;
         var center_lat=49.6114885608729;
@@ -286,12 +297,19 @@ class GeoWidget {
     </script>";
     }
 
+    /**
+     * generates HTML code to display a geo widget. Needs preceding code in <head>,
+     * see above.
+     * @param boolean $wizard Are we in wizard mode? Be more talkative then.
+     * @param boolean $additional is this about an additional (non-first) location?
+     * @return string the HTML code
+     */
     public function insertInBody($wizard, $additional) {
-        echo "<fieldset class='option_container'>
+        $retval = "<fieldset class='option_container'>
         <legend><strong>" . _("Location") . "</strong></legend>";
 
         if ($wizard) {
-            echo "<p>" .
+            $retval .= "<p>" .
             _("The user download interface (see <a href='../'>here</a>), uses geolocation to suggest possibly matching IdPs to the user. The more precise you define the location here, the easier your users will find you.") .
             "</p>
                      <ul>" .
@@ -304,13 +322,15 @@ class GeoWidget {
             "</strong>";
         }
         if ($additional) {
-            echo _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
+            $retval .= _("You can enter an <strong>additional</strong> location here. You can see the already defined locations in the 'General Information' field.");
         }
-        echo "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
+        $retval .= "<p>" . _("Address:") . " <input name='address' id='address' /><button type='button' onclick='getAddressLocation()'>" . _("Find address") . "</button> <button type='button' onclick='locateMe()'>" . _("Locate Me!") . "</button></p>";
 
-        echo"            <div class='googlemap' id='map'></div>";
-        echo "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
-        echo "        </fieldset>";
+        $retval .= "            <div class='googlemap' id='map'></div>";
+        $retval .= "<br/>" . _("Latitude:") . " <input style='width:80px' name='geo_lat' id='geo_lat' readonly>" . _("Longitude:") . " <input name='geo_long' id='geo_long' style='width:80px' readonly>";
+        $retval .= "        </fieldset>";
+        
+        return $retval;
     }
 
 }

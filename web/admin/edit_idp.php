@@ -12,12 +12,12 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/option_html.inc.php");
-require_once("inc/auth.inc.php");
-authenticate();
-
+$auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new \web\lib\admin\UIElements();
+
+$auth->authenticate();
 
 // how do we determine if we should go into wizard mode? It's all in the URL
 if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
@@ -50,7 +50,7 @@ foreach ($idpoptions as $optionname => $optionvalue) {
 }
 $widget = new \web\lib\admin\GeoWidget();
 
-$widget->insertInHead($my_inst->federation, $inst_name);
+echo $widget->insertInHead($my_inst->federation, $inst_name);
 ?>
 <script>
     $(document).ready(function () {
@@ -97,7 +97,7 @@ $widget->insertInHead($my_inst->federation, $inst_name);
                         echo $fed->name;
                         ?></strong></td>
             </tr>
-            <?php echo infoblock($idpoptions, "general", "IdP"); ?>
+            <?php echo $uiElements->infoblock($idpoptions, "general", "IdP"); ?>
         </table>
     </div>
     <?php
@@ -108,6 +108,7 @@ $widget->insertInHead($my_inst->federation, $inst_name);
         echo "<p>" .
         _("Hello, newcomer. Your institution is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users.") . "</p>";
     }
+    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
@@ -121,12 +122,12 @@ $widget->insertInHead($my_inst->federation, $inst_name);
 
             echo "</ul>";
         }
-        echo prefilledOptionTable($idpoptions, "general", "IdP");
+        echo $optionDisplay->prefilledOptionTable("general");
         ?>
         <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    $widget->insertInBody($wizardStyle, $additional);
+    echo $widget->insertInBody($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>
@@ -147,7 +148,7 @@ $widget->insertInHead($my_inst->federation, $inst_name);
                 if (CONFIG['CONSORTIUM']['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 }
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), $uiElements->displayName("media:SSID"), $uiElements->displayName("media:SSID_with_legacy"));
             } else {
                 echo _("Please configure which SSIDs should be configured in the installers.");
             }
@@ -164,7 +165,7 @@ $widget->insertInHead($my_inst->federation, $inst_name);
                 $consortiumlist = substr($consortiumlist, 2);
                 echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), display_name("media:consortium_OI"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), $uiElements->displayName("media:consortium_OI"));
             } else {
                 echo _("Please configure which Consortium OIs should be configured in the installers.");
             }
@@ -177,7 +178,7 @@ $widget->insertInHead($my_inst->federation, $inst_name);
             . "</li>";
             echo "</ul>";
         }
-        echo prefilledOptionTable($idpoptions, "media", "IdP");
+        echo $optionDisplay->prefilledOptionTable("media");
         ?>
         <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 
@@ -190,15 +191,15 @@ $widget->insertInHead($my_inst->federation, $inst_name);
         <p>" .
             _("If you enter a value here, it will be added to the site installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all (shame on you!), you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
         }
-        echo prefilledOptionTable($idpoptions, "support", "IdP");
+        echo $optionDisplay->prefilledOptionTable("support");
         ?>
 
         <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($wizardStyle) {
-        echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
+        echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
     } else {
-        echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
+        echo "<div><button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
     }
     echo $deco->footer();
     

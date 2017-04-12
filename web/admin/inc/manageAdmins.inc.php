@@ -10,14 +10,15 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-
-require_once("auth.inc.php");
 require_once("common.inc.php");
 
-authenticate();
-
+$auth = new \web\lib\admin\Authentication();
 $languageInstance = new \core\Language();
+$uiElements = new web\lib\admin\UIElements();
+
+$auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
+
 
 header("Content-Type:text/html;charset=utf-8");
 
@@ -59,7 +60,7 @@ if (!$isFedAdmin && !$is_admin_with_blessing) {
 // okay... we are indeed entitled to "do stuff"
 
 if (isset($_POST['submitbutton'])) {
-    if ($_POST['submitbutton'] == BUTTON_DELETE) {
+    if ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE) {
         if (isset($_POST['admin_id'])) {
             $ownermgmt = new \core\UserManagement();
             $ownermgmt->removeAdminFromIdP($my_inst, $_POST['admin_id']);
@@ -73,7 +74,7 @@ if (isset($_POST['submitbutton'])) {
             echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";
             exit(1);
         }
-    } elseif ($_POST['submitbutton'] == BUTTON_TAKECONTROL) {
+    } elseif ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_TAKECONTROL) {
         if ($isFedAdmin) {
             $ownermgmt = new \core\UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
@@ -105,10 +106,10 @@ if (isset($_GET['invitation'])) {
             default:
                 throw new Exception("Error: unknown encryption status of invitation!?!");
             }
-            echo UI_remark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+            echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
             break;
         case "FAILURE":
-            echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+            echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
             break;
         default:
             throw new Exception("Error: unknown result code of invitation!?!");
@@ -118,13 +119,13 @@ if (isset($_GET['invitation'])) {
 
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo UI_remark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
+    echo $uiElements->boxRemark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
     echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo UI_remark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
+    echo $uiElements->boxRemark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
     echo "</table></div>";
 }
 ?>
@@ -154,7 +155,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
               <td>
                 <form action='inc/manageAdmins.inc.php?inst_id=" . $my_inst->identifier . "' method='post' " . ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ) . " accept-charset='UTF-8'>
                 <input type='hidden' name='admin_id' value='" . $oneowner['ID'] . "'></input>
-                <button type='submit' name='submitbutton' class='delete' value='" . BUTTON_DELETE . "'>" . _("Delete Administrator") . "</button>
+                <button type='submit' name='submitbutton' class='delete' value='" . web\lib\admin\FormElements::BUTTON_DELETE . "'>" . _("Delete Administrator") . "</button>
                 </form>
               </td>
             </tr>";
@@ -178,7 +179,7 @@ if (count($pending_invites) > 0) {
 ?>
 <br/>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
+    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
 <?php
@@ -192,12 +193,12 @@ if ($isFedAdmin) {
 
     if (!$is_admin_himself) {
         echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='" . BUTTON_TAKECONTROL . "'>" . _("Take control of this institution") . "</button>
+    <button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_TAKECONTROL . "'>" . _("Take control of this institution") . "</button>
 </form>";
     }
 }
 ?>
 <hr/>
 <form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>' onclick='removeMsgbox(); return false;'><?php echo _("Close"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox(); return false;'><?php echo _("Close"); ?></button>
 </form>

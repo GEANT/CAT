@@ -73,10 +73,10 @@ abstract class EntityWithDBProperties extends Entity {
 
     /**
      * the unique identifier of this entity instance
-     * Federations are identified by their TLD -> string
+     * Federations are identified by their TLD -> string (override the member)
      * everything else has an integer row name in the DB -> int
      * 
-     * @var int,string identifier of the entity instance
+     * @var int identifier of the entity instance
      */
     public $identifier;
 
@@ -257,7 +257,7 @@ abstract class EntityWithDBProperties extends Entity {
                 }
                 $inst = new IdP($blobinst);
                 // if at least one of the profiles belonging to the inst is public, the data is public
-                if ($inst->isOneProfileShowtime()) { // public data
+                if ($inst->maxProfileStatus() == IdP::PROFILES_SHOWTIME) { // public data
                     return FALSE;
                 }
                 // okay, so it's NOT public. return the owner

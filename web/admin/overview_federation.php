@@ -14,6 +14,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
@@ -32,7 +33,7 @@ $user = new \core\User($_SESSION['user']);
     <div class="infobox">
         <h2><?php echo _("Your Personal Information"); ?></h2>
         <table>
-            <?php echo infoblock($user->getAttributes(), "user", "User"); ?>
+            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
                     <?php echo "" . _("Unique Identifier") ?>
@@ -78,7 +79,7 @@ $user = new \core\User($_SESSION['user']);
                     </td>
                 </tr>
                 <?php
-                echo infoblock($thefed->getAttributes(), "fed", "FED");
+                echo $uiElements->infoblock($thefed->getAttributes(), "fed", "FED");
                 ?>
                 <tr>
                     <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
@@ -117,7 +118,7 @@ $user = new \core\User($_SESSION['user']);
     }
 
     if (isset($_POST['submitbutton']) &&
-            $_POST['submitbutton'] == BUTTON_DELETE &&
+            $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE &&
             isset($_POST['invitation_id'])) {
         $mgmt->invalidateToken($_POST['invitation_id']);
     }
@@ -137,13 +138,13 @@ $user = new \core\User($_SESSION['user']);
                     default:
                         throw new Exception("Error: unknown encryption status of invitation!?!");
                 }
-                echo UI_remark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
+                echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
                 break;
             case "FAILURE":
-                echo UI_error(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
+                echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
                 break;
             default:
-                echo UI_error(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
+                echo $uiElements->boxError(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
         }
         echo "</table></div>";
     }
@@ -196,30 +197,30 @@ $user = new \core\User($_SESSION['user']);
                 // deployment status; need to dive into profiles for this
                 // show happy eyeballs if at least one profile is configured/showtime                    
                 echo "<td>";
-                echo ($idp_instance->isOneProfileConfigured() ? "C" : "" ) . " " . ($idp_instance->isOneProfileShowtime() ? "V" : "" );
+                echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "" ) . " " . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "" );
                 echo "</td>";
                 // get the coarse status overview
                 $status = $idp_instance->getAllProfileStatusOverview();
                 echo "<td>";
                 if ($status['dns'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo UI_error(0, "DNS Error", true);
+                    echo $uiElements->boxError(0, "DNS Error", true);
                 } else {
-                    echo UI_okay(0, "DNS OK", true);
+                    echo $uiElements->boxOkay(0, "DNS OK", true);
                 }
                 if ($status['cert'] != \core\Entity::L_OK && $status['cert'] != \core\RADIUSTests::RETVAL_SKIPPED) {
-                    echo UI_message($status['cert'], 0, "Cert Error", true);
+                    echo $uiElements->boxFlexible($status['cert'], 0, "Cert Error", true);
                 } else {
-                    echo UI_okay(0, "Cert OK", true);
+                    echo $uiElements->boxOkay(0, "Cert OK", true);
                 }
                 if ($status['reachability'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo UI_error(0, "Reachability Error", true);
+                    echo $uiElements->boxError(0, "Reachability Error", true);
                 } else {
-                    echo UI_okay(0, "Reachability OK", true);
+                    echo $uiElements->boxOkay(0, "Reachability OK", true);
                 }
                 if ($status['TLS'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo UI_error(0, "RADIUS/TLS Error", true);
+                    echo $uiElements->boxError(0, "RADIUS/TLS Error", true);
                 } else {
-                    echo UI_okay(0, "RADIUS/TLS OK", true);
+                    echo $uiElements->boxOkay(0, "RADIUS/TLS OK", true);
                 }
                 echo "</td>";
                 // name
@@ -275,7 +276,7 @@ $user = new \core\User($_SESSION['user']);
                                     <td colspan=2>";
                         echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
-                                <button class='delete' type='submit' name='submitbutton' value='" . BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
+                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
                               </form>";
                         echo "      </td>
                                  </tr>";

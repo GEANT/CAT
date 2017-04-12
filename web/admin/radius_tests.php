@@ -18,6 +18,7 @@ require_once("inc/common.inc.php");
 ini_set('display_errors', '0');
 $loggerInstance = new \core\Logging();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
@@ -196,7 +197,7 @@ switch ($test_type) {
                 $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password, $outer_user_name);
             }
             $returnarray['result'][$i] = process_result($testsuite, $hostindex);
-            $returnarray['result'][$i]['eap'] = display_name($eap);
+            $returnarray['result'][$i]['eap'] = $uiElements->displayName($eap);
             $returnarray['returncode'][$i] = $testresult;
 
 
@@ -361,12 +362,12 @@ switch ($test_type) {
         $returnarray['time_millisec'] = sprintf("%d", $testsuite->UDP_reachability_result[$host]['time_millisec']);
 
         if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-            $printedres .= UI_error(_("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure);
+            $printedres .= $uiElements->boxError(_("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure);
             $my_ip_addrs[$key]["status"] = "FAILED";
             $goterror = 1;
         }
         if (preg_match('/verify return:1/', implode($opensslbabble))) {
-            $printedres .= UI_okay(_("Completed.") . $measure);
+            $printedres .= $uiElements->boxOkay(_("Completed.") . $measure);
             $printedres .= "<tr><td></td><td><div class=\"more\">";
             $my_ip_addrs[$key]["status"] = "OK";
             $servercertRaw = implode("\n", $opensslbabble);

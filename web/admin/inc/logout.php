@@ -10,6 +10,6 @@
 ?>
 <?php
 
-require_once("auth.inc.php");
+$auth = new \web\lib\admin\Authentication();
 
-deauthenticate();
+$auth->deauthenticate();

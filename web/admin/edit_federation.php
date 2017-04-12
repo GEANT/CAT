@@ -12,12 +12,12 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/option_html.inc.php");
-require_once("inc/auth.inc.php");
-authenticate();
-
+$auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
+
+$auth->authenticate();
 
 $my_fed = $validator->Federation($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
@@ -49,7 +49,7 @@ $langObject = new \core\Language();
                         echo $my_fed->name;
                         ?></strong></td>
             </tr>
-            <?php echo infoblock($fed_options, "fed", "FED"); ?>
+            <?php echo $uiElements->infoblock($fed_options, "fed", "FED"); ?>
         </table>
     </div>
     <?php
@@ -59,11 +59,12 @@ $langObject = new \core\Language();
     <fieldset class="option_container">
         <legend><strong><?php echo _("Federation Properties"); ?></strong></legend>
         <?php
-        echo prefilledOptionTable($fed_options, "fed", "FED");
+        $optionDisplay = new \web\lib\admin\OptionDisplay($fed_options, "FED");
+        echo $optionDisplay->prefilledOptionTable("fed");
         ?>
         <button type='button' class='newoption' onclick='getXML("fed")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
+    echo "<div><button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
     echo $deco->footer();
     

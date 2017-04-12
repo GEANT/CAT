@@ -54,18 +54,19 @@ function print_test_results($test) {
         default:
             throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
     }
-    $out .= UI_message($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
+    $uiElements = new web\lib\admin\UIElements();
+    $out .= $uiElements->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
     foreach ($test->out as $testValue) {
         foreach ($testValue as $o) {
-            $out .= UI_message($o['level'], $o['message']);
+            $out .= $uiElements->boxFlexible($o['level'], $o['message']);
         }
     }
     return($out);
 }
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-    require_once("inc/auth.inc.php");
-    authenticate();
+    $auth = new \web\lib\admin\Authentication();
+    $auth->authenticate();
     $user = new \core\User($_SESSION['user']);
     if (!$user->isSuperadmin()) {
         throw new Exception("Not Superadmin");

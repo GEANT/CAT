@@ -114,20 +114,16 @@ class IdP extends EntityWithDBProperties {
         return $returnarray;
     }
 
-    public function isOneProfileConfigured() {
-        $allProfiles = $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        if (mysqli_num_rows($allProfiles) > 0) {
-            return TRUE;
+    const PROFILES_INCOMPLETE = 0;
+    const PROFILES_CONFIGURED = 1;
+    const PROFILES_SHOWTIME = 2;
+    
+    public function maxProfileStatus() {
+        $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
+        while ($res = mysqli_fetch_object($allProfiles)) {
+            return $res->maxlevel;
         }
-        return FALSE;
-    }
-
-    public function isOneProfileShowtime() {
-        $allProfiles = $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND showtime = 1");
-        if (mysqli_num_rows($allProfiles) > 0) {
-            return TRUE;
-        }
-        return FALSE;
+        return self::PROFILES_INCOMPLETE;
     }
 
     public function getAllProfileStatusOverview() {

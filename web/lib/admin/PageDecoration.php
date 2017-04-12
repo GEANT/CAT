@@ -183,8 +183,8 @@ class PageDecoration {
      */
     public function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         if ($authRequired === TRUE) {
-            require_once(dirname(dirname(dirname(__FILE__))) . "/admin/inc/auth.inc.php");
-            authenticate();
+            $auth = new \web\lib\admin\Authentication();
+            $auth->authenticate();
         }
         $langObject = new \core\Language();
         $langObject->setTextDomain("web_admin");

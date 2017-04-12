@@ -11,18 +11,19 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
 require_once("inc/common.inc.php");
-require_once("inc/auth.inc.php");
 
+$auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 
+$auth->authenticate();
+
 echo $deco->pageheader(sprintf(_("%s: Federation Customisation (submission completed)"), CONFIG['APPEARANCE']['productname']), "FEDERATION");
 $my_fed = $validator->Federation($_GET['fed_id'], $_SESSION['user']);
 if (isset($_POST['submitbutton'])) {
-    if (( $_POST['submitbutton'] == BUTTON_SAVE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go
+    if (( $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go
         $fed_name = $my_fed->name;
         echo "<h1>" . sprintf(_("Submitted attributes for federation '%s'"), $fed_name) . "</h1>";
         $remaining_attribs = $my_fed->beginflushAttributes();

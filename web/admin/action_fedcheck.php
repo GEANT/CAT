@@ -18,6 +18,7 @@ $validator = new \web\lib\common\InputValidation();
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dbHandle = \core\DBConnection::handle("INST");
+    $uiElements = new web\lib\admin\UIElements();
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
@@ -79,9 +80,9 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         }
     }
     if ($NAPTR_issues) {
-        $tabletext .= UI_error(0, 0, true);
+        $tabletext .= $uiElements->boxError(0, 0, true);
     } else {
-        $tabletext .= UI_okay(0, 0, true);
+        $tabletext .= $uiElements->boxOkay(0, 0, true);
     }
 
     $UDPErrors = false;
@@ -102,13 +103,15 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
 
     $tabletext .= "</td><td>";
-    $tabletext .= UI_message($certBiggestOddity, 0, 0, true);
+
+    $uiElements = new web\lib\admin\UIElements();
+    $tabletext .= $uiElements->boxFlexible($certBiggestOddity, 0, 0, true);
 
     $tabletext .= "</td><td>";
     if (!$UDPErrors) {
-        $tabletext .= UI_okay(0, 0, true);
+        $tabletext .= $uiElements->boxOkay(0, 0, true);
     } else {
-        $tabletext .= UI_error(0, 0, true);
+        $tabletext .= $uiElements->boxError(0, 0, true);
     }
 
     $tabletext .= "</td><td>";
@@ -123,9 +126,9 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         }
     }
     if (!$dynamicErrors) {
-        $tabletext .= UI_okay(0, 0, true);
+        $tabletext .= $uiElements->boxOkay(0, 0, true);
     } else {
-        $tabletext .= UI_error(0, 0, true);
+        $tabletext .= $uiElements->boxError(0, 0, true);
     }
     $tabletext .= "</td></tr>";
 
@@ -188,7 +191,7 @@ if (count($profiles_confready) > 0) {
 }
 ?>
 <form method='post' action='overview_federation.php' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to federation overview"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo _("Return to federation overview"); ?></button>
 </form>
 
 <?php echo $deco->footer() ?>

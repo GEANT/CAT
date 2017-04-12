@@ -26,6 +26,8 @@ $loggerInstance->debug(4, "\n---------------------- accountstatus.php START ----
 $loggerInstance->debug(4, $operatingSystem, true);
 
 $deco = new \web\lib\admin\PageDecoration();
+$uiElements = new web\lib\admin\UIElements();
+
 echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", "cat-user.css") . "' />";
 ?>
@@ -84,7 +86,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 $errorCode = $_REQUEST['errorcode'] ?? "";
                 switch ($errorCode) {
                     case "GENERATOR_CONSUMED":
-                        echo UI_error(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
+                        echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
                         break;
                     default:
                 }
@@ -190,7 +192,6 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 </td>
                 <td style="padding-left:80px; text-align:right;">
                     <?php
-                    $deco = new \web\lib\admin\PageDecoration();
                     echo $deco->attributionEurope();
                     ?>
                 </td>

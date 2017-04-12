@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -13,15 +14,15 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/auth.inc.php");
 
+$auth = new \web\lib\admin\Authentication();
 $loggerInstance = new \core\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
-    authenticate();
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
+    $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     // delete the IdP and send user to enrollment
@@ -31,8 +32,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
     exit;
 }
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
-    authenticate();
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
+    $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     //
@@ -57,7 +58,7 @@ if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_
     exit(0);
 }
 
-if ($_POST['submitbutton'] != BUTTON_SAVE && $_POST['submitbutton'] != BUTTON_CONTINUE) {
+if ($_POST['submitbutton'] != web\lib\admin\FormElements::BUTTON_SAVE && $_POST['submitbutton'] != web\lib\admin\FormElements::BUTTON_CONTINUE) {
     // unexpected button value
     echo $deco->footer();
     exit(0);
@@ -110,25 +111,26 @@ if (count($custom_ssids_wpa2) > 0) {
 }
 
 echo "<table>";
+$uiElements = new web\lib\admin\UIElements();
 if (count($ssids) > 0) {
     $printedlist = "";
     foreach ($ssids as $names) {
         $printedlist = $printedlist . "$names ";
     }
-    echo UI_okay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+    echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
 }
 if (count($wired_support) > 0) {
-    echo UI_okay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+    echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
 }
 if (count($ssids) == 0 && count($wired_support) == 0) {
-    echo UI_warning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+    echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
 }
 echo "</table>";
 
 foreach ($my_inst->listProfiles() as $index => $profile) {
     $profile->prepShowtime();
 }
-if ($_POST['submitbutton'] == BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
+if ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
     echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
 } else { // does federation want us to offer Silver Bullet?
     // if so, show both buttons; if not, just the normal EAP profile button

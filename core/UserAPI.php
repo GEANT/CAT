@@ -61,9 +61,8 @@ class UserAPI extends CAT {
         // test if the profile is production-ready and if not if the authenticated user is an owner
         if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
             $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer fir profile: $profileId\n");
-            require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-            $authSource = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-            if (!$authSource->isAuthenticated()) {
+            $auth = new \web\lib\admin\Authentication();
+            if (!$auth->isAuthenticated()) {
                 $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
                 header("HTTP/1.0 403 Not Authorized");
                 return;

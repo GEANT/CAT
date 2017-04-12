@@ -11,8 +11,9 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("inc/auth.inc.php");
-authenticate();
+
+$auth = new \web\lib\admin\Authentication();
+$auth->authenticate();
 
 $usermgmt = new \core\UserManagement();
 $mode = "TOKEN";

@@ -12,9 +12,9 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/option_html.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(_("Editing User Attributes"));
 $user = new \core\User($_SESSION['user']);
@@ -32,7 +32,7 @@ $user = new \core\User($_SESSION['user']);
             <?php echo _("Current User Attributes"); ?>
         </h2>
         <table>
-            <?php echo infoblock($user->getAttributes(), "user", "User"); ?>
+            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
         </table>
     </div>
     <form enctype='multipart/form-data' action='edit_user_result.php' method='post' accept-charset='UTF-8'>
@@ -40,13 +40,16 @@ $user = new \core\User($_SESSION['user']);
             <legend>
                 <strong><?php echo _("Your attributes"); ?></strong>
             </legend>
-            <?php echo prefilledOptionTable($user->getAttributes(), "user", "User"); ?>
+            <?php 
+            $optionDisplay = new \web\lib\admin\OptionDisplay($user->getAttributes(), "User");
+            echo prefilledOptionTable("user"); 
+            ?>
             <button type='button' class='newoption' onclick='getXML("user")'>
                 <?php echo _("Add new option"); ?>
             </button>
         </fieldset>
         <div>
-            <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE; ?>'>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'>
                 <?php echo _("Save data"); ?>
             </button>
             <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = "overview_user.php"'>
