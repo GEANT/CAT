@@ -15,7 +15,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/auth.inc.php");
 
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
@@ -29,7 +28,8 @@ use web\lib\admin\view\TermsOfUseBox;
 use web\lib\admin\view\TitledBlockDecorator;
 use web\lib\admin\view\UserCredentialsForm;
 
-authenticate();
+$auth = new web\lib\admin\Authentication();
+$auth->authenticate();
 
 $page = new DefaultPage(_('Managing institution users'));
 // Load global scripts

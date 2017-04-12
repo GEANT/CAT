@@ -10,10 +10,10 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-
 require_once("common.inc.php");
 
-authenticate();
+$auth = new web\lib\admin\Authentication();
+$auth->authenticate();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 

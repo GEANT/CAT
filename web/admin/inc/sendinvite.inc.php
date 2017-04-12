@@ -11,8 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
-
-require_once("auth.inc.php");
 require_once("common.inc.php");
 require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/PHPMailer.php");
 require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/SMTP.php");
@@ -30,7 +28,8 @@ function check_federation_privilege($country) {
     exit(1);
 }
 
-authenticate();
+$auth = new web\lib\admin\Authentication();
+$auth->authenticate();
 
 $catInstance = new \core\CAT();
 $loggerInstance = new \core\Logging();

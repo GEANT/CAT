@@ -12,8 +12,9 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once('inc/auth.inc.php');
 
+
+$auth = new web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
@@ -22,7 +23,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 
 $loggerInstance = new \core\Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
-    authenticate();
+    $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
     $profile_id = $my_profile->identifier;

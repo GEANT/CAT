@@ -13,15 +13,15 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
-require_once("inc/auth.inc.php");
 
+$auth = new web\lib\admin\Authentication();
 $loggerInstance = new \core\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
-    authenticate();
+    $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     // delete the IdP and send user to enrollment
@@ -32,7 +32,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && 
 }
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
-    authenticate();
+    $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     //

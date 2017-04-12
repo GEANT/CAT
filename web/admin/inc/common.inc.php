@@ -12,8 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("auth.inc.php"); // no authentication here, but we need to check if authenticated
-
 define("BUTTON_CLOSE", 0);
 define("BUTTON_CONTINUE", 1);
 define("BUTTON_DELETE", 2);
@@ -210,7 +208,8 @@ function getBlobFromDB($ref, $checkpublic) {
         $ownersCondensed = [];
 
         if ($owners !== FALSE) { // restricted datam see if we're authenticated and owners of the data
-            if (!isAuthenticated()) {
+            $auth = new web\lib\admin\Authentication();
+            if (!$auth->isAuthenticated()) {
                 return FALSE; // admin-only, but we are not an admin
             }
             foreach ($owners as $oneowner) {

@@ -64,8 +64,8 @@ function print_test_results($test) {
 }
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-    require_once("inc/auth.inc.php");
-    authenticate();
+    $auth = new web\lib\admin\Authentication();
+    $auth->authenticate();
     $user = new \core\User($_SESSION['user']);
     if (!$user->isSuperadmin()) {
         throw new Exception("Not Superadmin");

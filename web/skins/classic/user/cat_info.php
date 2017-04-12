@@ -125,10 +125,8 @@ switch ($page) {
         return;
     case 'admin' :
         $out = "";
-        require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-
-        $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-        if ($as->isAuthenticated()) {
+        $auth = new web\lib\admin\Authentication();
+        if ($auth->isAuthenticated()) {
             $out .= '<script type="text/javascript">goAdmin()</script>';
         } else {
             if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {

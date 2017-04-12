@@ -36,8 +36,8 @@ require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
 require_once("inc/common.inc.php");
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-    require_once("inc/auth.inc.php");
-    authenticate();
+    $auth = new web\lib\admin\Authentication();
+    $auth->authenticate();
     $no_security = 0;
 } else {
     $no_security = 1;
