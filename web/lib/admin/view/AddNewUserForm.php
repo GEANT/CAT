@@ -9,26 +9,9 @@ use web\lib\admin\http\SilverbulletController;
  * @author Zilvinas Vaira
  *
  */
-class AddNewUserForm implements TabbedElementInterface{
+class AddNewUserForm extends AbstractForm implements TabbedElementInterface{
     
     const ADDNEWUSER_CLASS = 'sb-add-new-user';
-    
-    /**
-     * @var string
-     */
-    private $action;
-
-    /**
-     *
-     * @var string
-     */
-    private $description;
-    
-    /**
-     *
-     * @var MessageBox
-     */
-    private $addUserMessageBox;
     
     /**
      * 
@@ -36,18 +19,8 @@ class AddNewUserForm implements TabbedElementInterface{
      * @param string $description
      */
     public function __construct($controller, $description) {
-        $this->action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
-        $this->description = $description;
-        $this->addUserMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
-        $controller->distributeMessages(AddUserCommand::COMMAND, $this->addUserMessageBox);
-    }
-    
-    /**
-     * 
-     * @return boolean
-     */
-    public function isActive(){
-        return $this->addUserMessageBox->hasMessages();
+        parent::__construct($controller, $description);
+        $controller->distributeMessages(AddUserCommand::COMMAND, $this->messageBox);
     }
     
     /**
@@ -59,7 +32,7 @@ class AddNewUserForm implements TabbedElementInterface{
         ?>
         <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
             <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
-                <?php $this->addUserMessageBox->render();?>
+                <?php $this->messageBox->render();?>
                 <label for="<?php echo AddUserCommand::PARAM_NAME; ?>"><?php echo $this->description; ?></label>
                 <div style="margin: 5px 0px 10px 0px;">
                     <input type="text" name="<?php echo AddUserCommand::PARAM_NAME; ?>">

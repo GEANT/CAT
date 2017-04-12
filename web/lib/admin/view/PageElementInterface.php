@@ -6,6 +6,7 @@ namespace web\lib\admin\view;
  *
  */
 interface PageElementInterface {
+    
     const INFOBLOCK_CLASS = 'infobox';
     const OPTIONBLOCK_CLASS = 'option_container';
     const MESSAGEBOX_CLASS = 'sb-message-box';
