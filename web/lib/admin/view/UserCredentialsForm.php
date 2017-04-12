@@ -77,6 +77,12 @@ class UserCredentialsForm implements PageElementInterface{
     private $acknowledgeDays;
     
     /**
+     * 
+     * @var string
+     */
+    private $acknowledgeText;
+    
+    /**
      *
      * @param string $title            
      * @param SilverbulletController $controller  
@@ -103,11 +109,11 @@ class UserCredentialsForm implements PageElementInterface{
         
         
         $this->acknowledgeDays = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
+        $this->acknowledgeText = $acknowledgeText;
         if($isAcknowledgeEnabled){
             $div = new CompositeTag('div');
             $div->addAttribute('style', 'padding-bottom: 20px;');
             $this->acknowledgeNotice = new Tag ('p');
-            $this->acknowledgeNotice->addText(sprintf($acknowledgeText, $this->acknowledgeDays));
             $div->addTag($this->acknowledgeNotice);
             $checkbox = new UnaryTag('input');
             $checkbox->addAttribute('type', 'checkbox');
@@ -229,6 +235,9 @@ class UserCredentialsForm implements PageElementInterface{
      * @see \web\lib\admin\view\PageElementInterface::render()
      */
     public function render() {
+        if($this->acknowledgeNotice!=null){
+            $this->acknowledgeNotice->addText(sprintf($this->acknowledgeText, $this->acknowledgeDays));
+        }
         ?>
         <div class="<?php echo self::EDITABLEBLOCK_CLASS;?>">
             <?php $this->decorator->render(); ?>
