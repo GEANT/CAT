@@ -176,8 +176,7 @@ $mail = \core\OutsideComm::mailHandle();
 // who to whom?
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
-    $fed = new \core\Federation($newcountry);
-    foreach ($fed->listFederationAdmins() as $fedadmin_id) {
+    foreach ($federation->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new \core\User($fedadmin_id);
         // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }
