@@ -32,11 +32,11 @@ class AddUsersCommand extends AbstractCommand{
                     $userCount++;
                 }
             }else{
-                 $this->storeErrorMessage(_('Username or expiry date missing for') . ' ' . ($userCount + 1) . ' ' . _(' record!'));
+                 $this->storeErrorMessage(sprintf(_('Username or expiry date missing for %s record!'), $userCount + 1));
             }
         }
         if($userCount>0){
-            $this->storeInfoMessage($userCount .' '. _('total users were imported and') .' '. $invitationsCount .' '. _('invitations created!'));
+            $this->storeInfoMessage(sprintf(_('%s total users were imported and %s invitations created!'), $userCount, $invitationsCount));
         }
     }
 

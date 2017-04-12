@@ -7,8 +7,7 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
-?>
-<?php
+
 /*
  * Class autoloader invocation, should be included prior to any other code at the entry points to the application
  */
@@ -20,26 +19,29 @@ require_once("inc/auth.inc.php");
 
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
+use web\lib\admin\view\AddNewUserForm;
 use web\lib\admin\view\DefaultPage;
 use web\lib\admin\view\FileUploadForm;
 use web\lib\admin\view\InfoBlockTable;
 use web\lib\admin\view\InstitutionPageBuilder;
 use web\lib\admin\view\PageBuilder;
-use web\lib\admin\view\PageElementInterface;
+use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
-use web\lib\admin\view\TitledBlockDecorator;
 use web\lib\admin\view\UserCredentialsForm;
 
 authenticate();
 
-$page = new DefaultPage(_('Managing institution users'));
+$page = new DefaultPage(_('Managing institution users'), '1.2');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
+$page->appendScript('../external/jquery/jquery-ui.js');
 $page->appendScript('../external/jquery/jquery-migrate-1.2.1.js');
 // Load Silverbullet scripts
 $page->appendScript('js/silverbullet.js');
 $page->appendScript('js/edit_silverbullet.js');
+// Load global CSS
+$page->appendCss('../external/jquery/jquery-ui.css');
 // Load Silverbullet CSS
 $page->appendCss('css/silverbullet.css');
 $builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
@@ -80,13 +82,11 @@ if($builder->isReady()){
     $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletController::STATS_PASSIVE]));
     $builder->addContentElement($infoBlock);
 
-    //User import form preparation
-    $importForm = new FileUploadForm($controller, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
-    $importBlock = new TitledBlockDecorator($importForm, _('Import users from CSV file'), PageElementInterface::INFOBLOCK_CLASS);
-    $builder->addContentElement($importBlock);
-
     //Edit form data preparation
-    $editBlock = new UserCredentialsForm(_('Manage institution users'), $controller, count($users) > 0);
+    $acknowledgeText = _ ( 'You need to acknowledge that the created accounts are still valid within the next %s days.'
+                .' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
+                .' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.' );
+    $editBlock = new UserCredentialsForm(_('Manage institution users'), $controller, $acknowledgeText, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
@@ -96,7 +96,16 @@ if($builder->isReady()){
     }
     $builder->addContentElement($editBlock);
     
-    //Append terms of use popup
+    //Add new user and user import forms preparation
+    $newUserFrom = new AddNewUserForm($controller, _("Please enter a username of your choice and user expiry date to create a new user:"));
+    $importForm = new FileUploadForm($controller, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
+    //Creating tabbed box and adding forms
+    $tabbedBox = new TabbedPanelsBox($controller);
+    $tabbedBox->addTabbedPanel(_('Add new user'), $newUserFrom);
+    $tabbedBox->addTabbedPanel(_('Import users from CSV file'), $importForm);
+    $builder->addContentElement($tabbedBox);
+    
+    //Appending terms of use popup
     if(!$controller->isAgreementSigned()){
         $termsOfUse = new TermsOfUseBox('sb-popup-message', $controller->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
         $builder->addContentElement($termsOfUse);

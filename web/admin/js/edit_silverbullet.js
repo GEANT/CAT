@@ -17,5 +17,7 @@
     var app = new silverbullet.SilverbulletApplication();
     window.onload = function() {
         app.start();
+        var active = $( "#tabs" ).attr("active");
+        $( "#tabs" ).tabs({ active: active });
     };
 })();
