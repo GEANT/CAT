@@ -14,6 +14,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
@@ -32,7 +33,7 @@ $user = new \core\User($_SESSION['user']);
     <div class="infobox">
         <h2><?php echo _("Your Personal Information"); ?></h2>
         <table>
-            <?php echo infoblock($user->getAttributes(), "user", "User"); ?>
+            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
                     <?php echo "" . _("Unique Identifier") ?>
@@ -78,7 +79,7 @@ $user = new \core\User($_SESSION['user']);
                     </td>
                 </tr>
                 <?php
-                echo infoblock($thefed->getAttributes(), "fed", "FED");
+                echo $uiElements->infoblock($thefed->getAttributes(), "fed", "FED");
                 ?>
                 <tr>
                     <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>

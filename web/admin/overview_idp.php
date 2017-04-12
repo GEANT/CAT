@@ -78,7 +78,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     <div>
         <h2><?php echo _("IdP-wide settings"); ?></h2>
         <?php
-        echo instLevelInfoBoxes($my_inst);
+        echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
         <div class='infobox' style='text-align:center;'>
             <h2><?php echo _("Institution Download Area QR Code"); ?></h2>

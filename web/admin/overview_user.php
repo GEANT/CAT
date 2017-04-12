@@ -15,6 +15,7 @@ require_once("inc/common.inc.php");
 
 $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
+$uiElements = new \web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: User Management"), CONFIG['APPEARANCE']['productname']));
 $user = new \core\User($_SESSION['user']);
@@ -36,7 +37,7 @@ $user = new \core\User($_SESSION['user']);
     <div class="infobox">
         <h2><?php echo _("Your Personal Information"); ?></h2>
         <table>
-            <?php echo infoblock($user->getAttributes(), "user", "User"); ?>
+            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
                     <?php echo "" . _("Unique Identifier") ?>

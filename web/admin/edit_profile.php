@@ -10,7 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
 require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
@@ -177,7 +176,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         ?>
     </h1>
     <?php
-    echo instLevelInfoBoxes($my_inst);
+    echo $uiElements->instLevelInfoBoxes($my_inst);
 
     echo "<form enctype='multipart/form-data' action='edit_profile_result.php?inst_id=$my_inst->identifier" . ($my_profile !== NULL ? "&amp;profile_id=" . $my_profile->identifier : "") . "' method='post' accept-charset='UTF-8'>
                 <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
@@ -393,6 +392,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             foreach ($eapoptionsNames as $optionname => $count) {
                 /// option count and enumeration
                 /// Example: "(3x) Server Name"
+                $uiElements = new web\lib\admin\UIElements();
                 printf(_("(%dx) %s") . "<br />", $count, $uiElements->displayName($optionname));
             }
         }

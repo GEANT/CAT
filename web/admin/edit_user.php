@@ -14,6 +14,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(_("Editing User Attributes"));
 $user = new \core\User($_SESSION['user']);
@@ -31,7 +32,7 @@ $user = new \core\User($_SESSION['user']);
             <?php echo _("Current User Attributes"); ?>
         </h2>
         <table>
-            <?php echo infoblock($user->getAttributes(), "user", "User"); ?>
+            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
         </table>
     </div>
     <form enctype='multipart/form-data' action='edit_user_result.php' method='post' accept-charset='UTF-8'>

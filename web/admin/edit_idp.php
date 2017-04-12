@@ -97,7 +97,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
                         echo $fed->name;
                         ?></strong></td>
             </tr>
-            <?php echo infoblock($idpoptions, "general", "IdP"); ?>
+            <?php echo $uiElements->infoblock($idpoptions, "general", "IdP"); ?>
         </table>
     </div>
     <?php

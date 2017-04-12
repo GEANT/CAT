@@ -13,10 +13,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 $auth = new web\lib\admin\Authentication();
-$auth->authenticate();
-
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
+
+$auth->authenticate();
 
 $my_fed = $validator->Federation($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
@@ -48,7 +49,7 @@ $langObject = new \core\Language();
                         echo $my_fed->name;
                         ?></strong></td>
             </tr>
-            <?php echo infoblock($fed_options, "fed", "FED"); ?>
+            <?php echo $uiElements->infoblock($fed_options, "fed", "FED"); ?>
         </table>
     </div>
     <?php
