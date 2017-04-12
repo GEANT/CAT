@@ -36,7 +36,7 @@ class InputValidation {
      * @throws Exception
      */
     public function Federation($input, $owner = NULL) {
-        $postInput = filter_var($input, FILTER_SANITIZE_STRING);
+        $postInput = $this->string($input);
         $cat = new \core\CAT();
         if (!array_key_exists($postInput,$cat->knownFederations)) {
             throw new Exception($this->inputValidationError("This federation does not exist!"));
