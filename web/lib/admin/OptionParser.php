@@ -19,7 +19,7 @@ class OptionParser {
     private $validator;
     private $uiElements;
     
-    function __construct() {
+    public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
         $this->uiElements = new UIElements();
     }
