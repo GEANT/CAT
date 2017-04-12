@@ -1,7 +1,7 @@
 <?php
 namespace web\lib\admin\view;
 
-abstract class AbstractForm implements PageElementInterface{
+abstract class AbstractForm implements TabbedElementInterface{
     
     /**
      * @var string

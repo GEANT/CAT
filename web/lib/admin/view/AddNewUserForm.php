@@ -9,7 +9,7 @@ use web\lib\admin\http\SilverbulletController;
  * @author Zilvinas Vaira
  *
  */
-class AddNewUserForm extends AbstractForm implements TabbedElementInterface{
+class AddNewUserForm extends AbstractForm{
     
     const ADDNEWUSER_CLASS = 'sb-add-new-user';
     
