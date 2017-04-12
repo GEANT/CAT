@@ -73,10 +73,10 @@ abstract class EntityWithDBProperties extends Entity {
 
     /**
      * the unique identifier of this entity instance
-     * Federations are identified by their TLD -> string
+     * Federations are identified by their TLD -> string (override the member)
      * everything else has an integer row name in the DB -> int
      * 
-     * @var int|string identifier of the entity instance
+     * @var int identifier of the entity instance
      */
     public $identifier;
 

@@ -42,6 +42,12 @@ use \Exception;
  */
 class Federation extends EntityWithDBProperties {
 
+    /**
+     *
+     * @var string Federations are identified by string, not integer
+     */
+    public $identifier;
+    
     private function downloadStatsCore() {
         $grossAdmin = 0;
         $grossUser = 0;
