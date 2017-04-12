@@ -116,10 +116,12 @@ class InputValidation {
      */
     public function Device($input) {
         $devicelist = \devices\Devices::listDevices();
+        $keyArray = array_keys($devicelist);
         if (!isset($devicelist[$input])) {
             throw new Exception($this->inputValidationError("This device does not exist!"));
         }
-        return $input;
+        $correctIndex = array_search($input, $keyArray);
+        return $keyArray[$correctIndex];
     }
 
     /**
