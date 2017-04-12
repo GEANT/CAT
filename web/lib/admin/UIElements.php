@@ -214,7 +214,7 @@ class UIElements {
 
         $fileBlob = getBlobFromDB($fileReference, FALSE);
         $decodedFileBlob = base64_decode($fileBlob);
-        $fileinfo = new finfo();
+        $fileinfo = new \finfo();
         return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
     }
 
