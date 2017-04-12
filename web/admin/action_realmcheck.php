@@ -753,7 +753,7 @@ if ($error_message) {
         }
         ?>
         <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to dashboard"); ?></button>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo _("Return to dashboard"); ?></button>
         </form>
         <script>
 

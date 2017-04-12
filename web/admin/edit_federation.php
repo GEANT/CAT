@@ -64,6 +64,6 @@ $langObject = new \core\Language();
         <button type='button' class='newoption' onclick='getXML("fed")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
+    echo "<div><button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
     echo $deco->footer();
     

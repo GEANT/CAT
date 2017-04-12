@@ -17,7 +17,7 @@ $auth->authenticate();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_CLOSE)) {
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_CLOSE)) {
     header("Location: ../overview_federation.php");
     exit;
 }
@@ -109,9 +109,9 @@ if (CONFIG['DB']['enforce-external-sync']) {
         </tr>
     </table>
     <hr/>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Send invitation"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'><?php echo _("Send invitation"); ?></button>
 </form>
 <br/>
 <form action='inc/manageNewInst.inc.php' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Close"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo _("Close"); ?></button>
 </form>

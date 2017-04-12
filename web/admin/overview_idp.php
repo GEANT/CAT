@@ -13,6 +13,8 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
 require_once("inc/common.inc.php");
 
+$uiElements = new web\lib\admin\UIElements();
+
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $loggerInstance = new \core\Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
@@ -109,18 +111,18 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         <tr>
             <td>
                 <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button type='submit' name='submitbutton' value='<?php echo BUTTON_EDIT; ?>'><?php echo _("Edit IdP-wide settings"); ?></button>
+                    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_EDIT; ?>'><?php echo _("Edit IdP-wide settings"); ?></button>
                 </form>
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
                 </form>
 
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your IdP and start over the configuration from scratch. Do you really want to reset all settings of your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Reset all IdP settings"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your IdP and start over the configuration from scratch. Do you really want to reset all settings of your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Reset all IdP settings"); ?></button>
                 </form>
 
             </td>
@@ -221,7 +223,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $typelist = $profile_list->getEapMethodsinOrderOfPreference();
         $allcomplete = TRUE;
         foreach ($typelist as $eaptype) {
-            $buffer_eaptypediv .= display_name($eaptype);
+            $buffer_eaptypediv .= $uiElements->displayName($eaptype);
             $completeness = $profile_list->isEapTypeDefinitionComplete($eaptype);
             if ($completeness === true) {
                 $buffer_eaptypediv .= " <div class='acceptable'>" . _("OK") . "</div>";
@@ -231,7 +233,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                 if (is_array($completeness)) {
                     $buffer_eaptypediv .= "<ul style='margin:1px'>";
                     foreach ($completeness as $missing_attrib) {
-                        $buffer_eaptypediv .= "<li>" . display_name($missing_attrib) . "</li>";
+                        $buffer_eaptypediv .= "<li>" . $uiElements->displayName($missing_attrib) . "</li>";
                     }
                     $buffer_eaptypediv .= "</ul>";
                 }
@@ -262,7 +264,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         if ($showtime) {
             $buffer_headline .= UI_okay("", _("This profile is shown on the user download interface."), TRUE);
         } else if ($sufficient_config) {
-            $buffer_headline .= UI_warning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), display_name("profile:production")), TRUE);
+            $buffer_headline .= UI_warning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
         $buffer_headline .= "</div>";
 
@@ -301,7 +303,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                                <button type='submit' name='profile_action' value='edit'>" . _("Edit") . "</button>
                           </form>
                           <form action='edit_profile_result.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
-                               <button class='delete' type='submit' name='submitbutton' value='" . BUTTON_DELETE . "' onclick=\"return confirm('" . sprintf(_("Do you really want to delete the profile %s?"), $profile_name) . "')\">
+                               <button class='delete' type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_DELETE . "' onclick=\"return confirm('" . sprintf(_("Do you really want to delete the profile %s?"), $profile_name) . "')\">
                                    " . _("Delete") . "
                                </button>
                            </form>

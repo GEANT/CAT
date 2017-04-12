@@ -188,7 +188,7 @@ if (count($profiles_confready) > 0) {
 }
 ?>
 <form method='post' action='overview_federation.php' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'><?php echo _("Return to federation overview"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo _("Return to federation overview"); ?></button>
 </form>
 
 <?php echo $deco->footer() ?>

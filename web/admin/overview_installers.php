@@ -14,6 +14,7 @@ require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
@@ -41,10 +42,10 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             <th></th>
             <th><?php echo _("Device"); ?></th>
 
-            <?php
+            <?php            
             foreach ($preflist as $method) {
                 $escapedMethod = \core\EAP::eAPMethodArrayIdConversion($method);
-                echo "<th style='min-width:200px'>" . display_name($method) . "<br/>
+                echo "<th style='min-width:200px'>" . $uiElements->displayName($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
@@ -155,7 +156,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
     }
     ?>
     <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
-        <button type='submit' name='submitbutton' value='<?php echo BUTTON_CLOSE; ?>'>
+        <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'>
             <?php echo _("Return to dashboard"); ?>
         </button>
     </form>

@@ -15,6 +15,7 @@ require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
@@ -392,7 +393,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             foreach ($eapoptionsNames as $optionname => $count) {
                 /// option count and enumeration
                 /// Example: "(3x) Server Name"
-                printf(_("(%dx) %s") . "<br />", $count, display_name($optionname));
+                printf(_("(%dx) %s") . "<br />", $count, $uiElements->displayName($optionname));
             }
         }
 
@@ -406,10 +407,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 // new EAP sorting code  
 
     foreach ($methods as $a) {
-        $display = display_name($a);
+        $display = $uiElements->displayName($a);
         $enabled = FALSE;
         foreach ($prefill_methods as $prio => $value) {
-            if (display_name($a) == display_name($value)) {
+            if ($uiElements->displayName($a) == $uiElements->displayName($value)) {
                 $enabled = TRUE;
                 $countactive = $prio + 1;
             }
@@ -427,8 +428,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                         <?php
                         $D = [];
                         foreach ($prefill_methods as $prio => $value) {
-                            print '<li>' . display_name($value) . "</li>\n";
-                            $D[display_name($value)] = $prio;
+                            print '<li>' . $uiElements->displayName($value) . "</li>\n";
+                            $D[$uiElements->displayName($value)] = $prio;
                         }
                         ?>
                     </ol>
@@ -448,9 +449,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                     <ol id="sortable2" class="eapmethods">
                         <?php
                         foreach ($methods as $a) {
-                            $display = display_name($a);
-                            if (!isset($D[display_name($a)])) {
-                                print '<li class="eap1">' . display_name($a) . "</li>\n";
+                            $display = $uiElements->displayName($a);
+                            if (!isset($D[$uiElements->displayName($a)])) {
+                                print '<li class="eap1">' . $uiElements->displayName($a) . "</li>\n";
                             }
                         }
                         ?>
@@ -461,7 +462,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     </div>
     <?php
     foreach ($methods as $a) {
-        $display = display_name($a);
+        $display = $uiElements->displayName($a);
         $v = isset($D[$display]) ? $D[$display] : '';
         print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
         print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';
@@ -483,7 +484,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if (count($has_support_options) > 0) {
             $text = "<ul>";
             foreach ($has_support_options as $key => $value) {
-                $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
             }
             $text .= "</ul>";
             printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
@@ -508,7 +509,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if (count($has_eap_options) > 0) {
             $text = "<ul>";
             foreach ($has_eap_options as $key => $value) {
-                $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
             }
             $text .= "</ul>";
             printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_eap_options)), $text);
@@ -534,7 +535,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         if (count($has_support_options) > 0) {
             $text = "<ul>";
             foreach ($has_support_options as $key => $value) {
-                $text .= "<li><strong>" . display_name($key) . "</strong></li>";
+                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
             }
             $text .= "</ul>";
             printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
@@ -549,5 +550,5 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 if ($wizardStyle) {
     echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
 }
-echo "<p><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
+echo "<p><button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button><button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></p></form>";
 echo $deco->footer();

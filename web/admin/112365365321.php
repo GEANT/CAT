@@ -62,11 +62,11 @@ $dbHandle = \core\DBConnection::handle("INST");
             <strong>Configuration Check</strong>
         </legend>
         <?php
-        if (isset($_POST['admin_action']) && ($_POST['admin_action'] == BUTTON_SANITY_TESTS)) {
+        if (isset($_POST['admin_action']) && ($_POST['admin_action'] == web\lib\admin\FormElements::BUTTON_SANITY_TESTS)) {
             include("sanity_tests.php");
         }
         ?>
-        <button type="submit" name="admin_action" value="<?php echo BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
+        <button type="submit" name="admin_action" value="<?php echo web\lib\admin\FormElements::BUTTON_SANITY_TESTS; ?>">Run configuration check</button>
     </fieldset>
     <?php
     if ($no_security) {
@@ -80,11 +80,11 @@ $dbHandle = \core\DBConnection::handle("INST");
             <?php
             if (isset($_POST['admin_action'])) {
                 switch ($_POST['admin_action']) {
-                    case BUTTON_PURGECACHE:
+                    case web\lib\admin\FormElements::BUTTON_PURGECACHE:
                         $result = $dbHandle->exec("UPDATE downloads SET download_path = NULL");
                     // we do NOT break here - after the DB deletion comes the normal
                     // filesystem cleanup
-                    case BUTTON_DELETE:
+                    case web\lib\admin\FormElements::BUTTON_DELETE:
                         $downloads = dirname(dirname(dirname(__FILE__))) . "/var/installer_cache";
                         $tm = time();
                         $i = 0;
@@ -125,9 +125,9 @@ $dbHandle = \core\DBConnection::handle("INST");
             }
             ?>
             <p>Use this button to delete old temporary directories inside 'downloads'. Cached installers which are still valid will not be deleted.</p>
-            <button type="submit" name="admin_action" value="<?php echo BUTTON_DELETE; ?>">Delete OBSOLETE download directories</button>
+            <button type="submit" name="admin_action" value="<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>">Delete OBSOLETE download directories</button>
             <p>Use this button to delete all directories inside 'downloads', including valid cached installers. Usually, this is only necessary when updating the product or one of the device modules.</p>
-            <button type="submit" name="admin_action" value="<?php echo BUTTON_PURGECACHE; ?>">Delete ALL download directories</button>
+            <button type="submit" name="admin_action" value="<?php echo web\lib\admin\FormElements::BUTTON_PURGECACHE; ?>">Delete ALL download directories</button>
         </fieldset>
 
         <fieldset class="option_container">

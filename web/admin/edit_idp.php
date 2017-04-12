@@ -13,10 +13,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 $auth = new web\lib\admin\Authentication();
-$auth->authenticate();
-
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new \web\lib\admin\UIElements();
+
+$auth->authenticate();
 
 // how do we determine if we should go into wizard mode? It's all in the URL
 if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
@@ -147,7 +148,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
                 if (CONFIG['CONSORTIUM']['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 }
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), $uiElements->displayName("media:SSID"), $uiElements->displayName("media:SSID_with_legacy"));
             } else {
                 echo _("Please configure which SSIDs should be configured in the installers.");
             }
@@ -164,7 +165,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
                 $consortiumlist = substr($consortiumlist, 2);
                 echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), display_name("media:consortium_OI"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), $uiElements->displayName("media:consortium_OI"));
             } else {
                 echo _("Please configure which Consortium OIs should be configured in the installers.");
             }
@@ -196,9 +197,9 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($wizardStyle) {
-        echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
+        echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
     } else {
-        echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
+        echo "<div><button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
     }
     echo $deco->footer();
     

@@ -22,7 +22,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 // deletion sets its own header-location  - treat with priority before calling default auth
 
 $loggerInstance = new \core\Logging();
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
@@ -99,7 +99,7 @@ if (isset($_POST['redirect'])) {
 // did the user submit info? If so, submit to DB and go on to the 'dashboard' or 'next profile' page.
 // if not, what is he doing on this page anyway!
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
     // maybe we were asked to edit an existing profile? check for that...
     if ($my_profile instanceof \core\AbstractProfile) {
         $profile = $my_profile;
@@ -190,23 +190,23 @@ if (!$profile instanceof \core\ProfileRADIUS) {
     }
 
     foreach (\core\EAP::listKnownEAPTypes() as $a) {
-        if (isset($_POST[display_name($a)]) && isset($_POST[display_name($a) . "-priority"]) && is_numeric($_POST[display_name($a) . "-priority"])) {
-            $priority = (int)$_POST[display_name($a) . "-priority"];
+        if (isset($_POST[$uiElements->displayName($a)]) && isset($_POST[$uiElements->displayName($a) . "-priority"]) && is_numeric($_POST[$uiElements->displayName($a) . "-priority"])) {
+            $priority = (int)$_POST[$uiElements->displayName($a) . "-priority"];
             // add EAP type to profile as requested, but ...
             $profile->addSupportedEapMethod($a, $priority);
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
             // see if we can enable the EAP type, or if info is missing
             $eapcompleteness = $profile->isEapTypeDefinitionComplete($a);
             if ($eapcompleteness === true) {
-                echo UI_okay(_("Supported EAP Type: ") . "<strong>" . display_name($a) . "</strong>");
+                echo UI_okay(_("Supported EAP Type: ") . "<strong>" . $uiElements->displayName($a) . "</strong>");
             } else {
                 $warntext = "";
                 if (is_array($eapcompleteness)) {
                     foreach ($eapcompleteness as $item) {
-                        $warntext .= "<strong>" . display_name($item) . "</strong> ";
+                        $warntext .= "<strong>" . $uiElements->displayName($item) . "</strong> ";
                     }
                 }
-                echo UI_warning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), display_name($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
+                echo UI_warning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $uiElements->displayName($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
             }
         }
     }

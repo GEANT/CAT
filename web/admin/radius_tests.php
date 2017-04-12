@@ -18,6 +18,7 @@ require_once("inc/common.inc.php");
 ini_set('display_errors', '0');
 $loggerInstance = new \core\Logging();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
 $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_admin");
 
@@ -196,7 +197,7 @@ switch ($test_type) {
                 $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password, $outer_user_name);
             }
             $returnarray['result'][$i] = process_result($testsuite, $hostindex);
-            $returnarray['result'][$i]['eap'] = display_name($eap);
+            $returnarray['result'][$i]['eap'] = $uiElements->displayName($eap);
             $returnarray['returncode'][$i] = $testresult;
 
 

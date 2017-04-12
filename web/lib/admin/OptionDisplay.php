@@ -164,6 +164,7 @@ class OptionDisplay {
 
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
+        $uiElements = new UIElements();
         foreach ($list as $value) {
             $listtype = $optioninfo->optionType($value);
             $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
@@ -171,7 +172,7 @@ class OptionDisplay {
                 $retval .= "selected='selected'";
                 $activelisttype = $listtype;
             }
-            $retval .= ">" . display_name($value) . "</option>";
+            $retval .= ">" . $uiElements->displayName($value) . "</option>";
             $iterator++;
         }
         if (!isset($activelisttype)) {
@@ -215,8 +216,9 @@ class OptionDisplay {
         }
         $value = $list[0];
 
+        $uiElements = new UIElements();
         $listtype = $optioninfo->optionType($value);
-        $retval .= display_name($value);
+        $retval .= $uiElements->displayName($value);
         $retval .= tooltip($value);
         $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 

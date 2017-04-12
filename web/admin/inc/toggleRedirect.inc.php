@@ -13,12 +13,13 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once("common.inc.php");
 
 $auth = new web\lib\admin\Authentication();
-$auth->authenticate();
-
 $loggerInstance = new \core\Logging();
 $optionParser = new \web\lib\admin\OptionParser();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\Language();
+$uiElements = new web\lib\admin\UIElements();
+
+$auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
@@ -67,7 +68,7 @@ if ($device == NULL && $eaptype === NULL) {
 
 // if we have a pushed button, submit attributes and send user back to the compat matrix
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_SAVE) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
     if ($eaptype === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
         $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
@@ -98,7 +99,7 @@ if ($device != NULL) {
             $attribs[] = $attrib;
         }
     }
-    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), display_name($eaptype));
+    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $uiElements->displayName($eaptype));
     $keyword = "eap-specific";
     $extrainput = "<input type='hidden' name='eaptype' value='" . \core\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
 } else {
@@ -124,5 +125,5 @@ if ($device != NULL) {
     <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>
-    <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
+    <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
 </form>

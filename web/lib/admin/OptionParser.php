@@ -95,20 +95,21 @@ class OptionParser {
         // don't do your own table - only the <tr>s here
         // list all attributes that were set correctly
         $listGood = array_count_values($good);
+        $uiElements = new UIElements();
         foreach ($listGood as $name => $count) {
             /// number of times attribute is present, and its name
             /// Example: "5x Support E-Mail"
-            $retval .= UI_okay(sprintf(_("%dx %s"), $count, display_name($name)));
+            $retval .= UI_okay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list all atributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
-            $retval .= UI_error(sprintf(_("%dx %s"), $count, display_name($name)));
+            $retval .= UI_error(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
             if ($isitsetornot == FALSE) {
-                $retval .= UI_warning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), display_name($attribName)));
+                $retval .= UI_warning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), $uiElements->displayName($attribName)));
             }
         }
         return $retval;
