@@ -100,7 +100,7 @@ if($builder->isReady()){
     $newUserFrom = new AddNewUserForm($controller, _("Please enter a username of your choice and user expiry date to create a new user:"));
     $importForm = new FileUploadForm($controller, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
     //Creating tabbed box and adding forms
-    $tabbedBox = new TabbedPanelsBox($controller);
+    $tabbedBox = new TabbedPanelsBox();
     $tabbedBox->addTabbedPanel(_('Add new user'), $newUserFrom);
     $tabbedBox->addTabbedPanel(_('Import users from CSV file'), $importForm);
     $builder->addContentElement($tabbedBox);
