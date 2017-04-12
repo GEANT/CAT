@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -173,9 +173,11 @@ if (!$profile instanceof \core\ProfileRADIUS) {
     if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
             echo $uiElements->BoxError(_("Redirection can't be activated - you did not specify a target location!"));
+        } elseif (!preg_match("/^(http|https):\/\//", $_POST['redirect_target'])) {
+            echo $uiElements->BoxError(_("Redirection can't be activated - the target needs to be a complete URL staring with http:// or https:// !"));
         } else {
             $profile->addAttribute("device-specific:redirect", 'C', $_POST['redirect_target']);
-            echo $uiElements->BoxOkay(sprintf("Redirection set to <strong>%s</strong>", $_POST['redirect_target']));
+            echo $uiElements->BoxOkay(sprintf("Redirection set to <strong>%s</strong>", htmlspecialchars($_POST['redirect_target'])));
         }
     } else {
         echo $uiElements->BoxOkay(_("Redirection is <strong>OFF</strong>"));
@@ -192,7 +194,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
 
     foreach (\core\EAP::listKnownEAPTypes() as $a) {
         if (isset($_POST[$uiElements->displayName($a)]) && isset($_POST[$uiElements->displayName($a) . "-priority"]) && is_numeric($_POST[$uiElements->displayName($a) . "-priority"])) {
-            $priority = (int)$_POST[$uiElements->displayName($a) . "-priority"];
+            $priority = (int) $_POST[$uiElements->displayName($a) . "-priority"];
             // add EAP type to profile as requested, but ...
             $profile->addSupportedEapMethod($a, $priority);
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
