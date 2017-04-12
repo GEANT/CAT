@@ -211,7 +211,11 @@ public function realm($input) {
         echo $this->inputValidationError(_("Realm is empty!"));
         return FALSE;
     }
-    return $check;
+    // none of the special HTML entities should be here. In case someone wants
+    // to mount a CSS attack by providing something that matches the realm constructs
+    // below but has interesting stuff between, mangle the input so that these
+    // characters do not do any harm.
+    return htmlentities($check, ENT_QUOTES);
 }
 
 /**
