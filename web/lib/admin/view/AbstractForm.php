@@ -1,6 +1,11 @@
 <?php
 namespace web\lib\admin\view;
 
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
 abstract class AbstractForm implements TabbedElementInterface{
     
     /**
