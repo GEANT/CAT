@@ -75,7 +75,7 @@ else if (isset($_POST['creation'])) {
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
         }
-        $federation = new \core\Federation($newcountry);
+        $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
@@ -91,7 +91,7 @@ else if (isset($_POST['creation'])) {
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
         }
-        $federation = new \core\Federation($extinfo['country']);
+        $federation = $validator->Federation($extinfo['country']);
         $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";

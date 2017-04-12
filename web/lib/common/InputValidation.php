@@ -36,18 +36,14 @@ class InputValidation {
      * @throws Exception
      */
     public function Federation($input, $owner = NULL) {
-        $postInput = $this->string($input);
+        
         $cat = new \core\CAT();
-        if (!array_key_exists($postInput,$cat->knownFederations)) {
-            throw new Exception($this->inputValidationError("This federation does not exist!"));
-        }
-        // maybe scrutinizer likes in_array more? Really want to get rid of those sec warnings
         $fedIdentifiers = array_keys($cat->knownFederations);
-        if  (!in_array(strtoupper($postInput), $fedIdentifiers)) {
+        if  (!in_array(strtoupper($input), $fedIdentifiers)) {
             throw new Exception($this->inputValidationError("This federation does not exist!"));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
-        $correctIndex = array_search(strtoupper($postInput), $fedIdentifiers);
+        $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
         $postFed = $fedIdentifiers[$correctIndex];
         
         $temp = new \core\Federation($postFed);
