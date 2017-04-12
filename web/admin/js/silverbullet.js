@@ -65,13 +65,6 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
         this.addDatePicker(datePicker);
     }
     
-    //Bind reset button action
-    var resetButton = document.getElementById('sb-reset-dates');
-    var that = this;
-    resetButton.addEventListener('click', function() {
-        that.resetDates(); 
-    });
-    
     //Create and render Popup message if any
     var popupMessageElement = document.getElementById('sb-popup-message');
     if(popupMessageElement){

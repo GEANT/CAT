@@ -17,7 +17,7 @@ class AddCertificateCommand extends AbstractCommand{
         $user = SilverbulletUser::prepare($userId);
         $user->load();
         if($user->isExpired()){
-            $this->storeErrorMessage(_("User '".$user->getUsername()."' has expired. In order to generate credentials please extend the expiry date!"));
+            $this->storeErrorMessage(sprintf(_("User '%s' has expired. In order to generate credentials please extend the expiry date!"), $user->getUsername()));
         }else{
             $this->controller->createCertificate($user);
             if($user->isDeactivated()){

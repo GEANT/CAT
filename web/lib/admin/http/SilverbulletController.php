@@ -212,9 +212,9 @@ class SilverbulletController{
             $user->setExpiry($expiry);
             $user->save();
             if(empty($user->get(SilverbulletUser::EXPIRY))){
-                $this->currentCommand->storeErrorMessage(_('Expiry date was incorect for') .' "'. $username .'"!');
+                $this->currentCommand->storeErrorMessage(sprintf(_("Expiry date was incorect for '%s'!"), $username));
             }elseif(empty($user->getIdentifier())){
-                $this->currentCommand->storeErrorMessage(_('Username') .' "'. $username .'"'. _('already exist!'));
+                $this->currentCommand->storeErrorMessage(sprintf(_("Username '%s' already exist!"), $username));
             }
         }
         return $user;

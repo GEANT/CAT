@@ -13,10 +13,22 @@ class DefaultPage implements Page{
     
     private $title = "";
     
+    private $version = "";
+    
     private $blocks = array();
     
-    public function __construct($title = "Unknown Page") {
+    public function __construct($title = "Unknown Page", $version = "1.0") {
         $this->setTitle($title);
+        $this->version = $version;
+    }
+    
+    /**
+     * 
+     * @param string $url
+     * @return string
+     */
+    private function  decorateVersion($url){
+        return $url.'?v='.$this->version;
     }
     
     public function setTitle($title){
@@ -50,7 +62,7 @@ class DefaultPage implements Page{
     public function appendScript($url){
         $script = new Tag('script');
         $script->addAttribute('type', 'text/javascript');
-        $script->addAttribute('src', $url);
+        $script->addAttribute('src', $this->decorateVersion($url));
         $this->append('script', $script);
     }
     
@@ -62,7 +74,7 @@ class DefaultPage implements Page{
         $css = new UnaryTag('link');
         $css->addAttribute('rel', 'stylesheet');
         $css->addAttribute('type', 'text/css');
-        $css->addAttribute('href', $url);
+        $css->addAttribute('href', $this->decorateVersion($url));
         $this->append('css', $css);
     }
     
