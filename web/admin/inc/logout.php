@@ -10,6 +10,6 @@
 ?>
 <?php
 
-$auth = new web\lib\admin\Authentication();
+$auth = new \web\lib\admin\Authentication();
 
 $auth->deauthenticate();

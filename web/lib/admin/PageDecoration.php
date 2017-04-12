@@ -183,7 +183,7 @@ class PageDecoration {
      */
     public function defaultPagePrelude($pagetitle, $authRequired = TRUE) {
         if ($authRequired === TRUE) {
-            $auth = new web\lib\admin\Authentication();
+            $auth = new \web\lib\admin\Authentication();
             $auth->authenticate();
         }
         $langObject = new \core\Language();

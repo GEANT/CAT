@@ -126,7 +126,7 @@ switch ($page) {
         return;
     case 'admin' :
         $out = "";
-        $auth = new web\lib\admin\Authentication();
+        $auth = new \web\lib\admin\Authentication();
         if ($auth->isAuthenticated()) {
             $out .= '<script type="text/javascript">goAdmin()</script>';
         } else {

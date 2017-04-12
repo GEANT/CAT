@@ -17,13 +17,13 @@ require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
 class Authentication {
 
     public function isAuthenticated() {
-        $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         return $authSimple->isAuthenticated();
     }
 
     public function authenticate() {
         $loggerInstance = new \core\Logging();
-        $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         $authSimple->requireAuth();
 
         $admininfo = $authSimple->getAttributes();
@@ -63,7 +63,7 @@ class Authentication {
 
     public function deauthenticate() {
 
-        $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $as = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
 
         $url = "//" . $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
 

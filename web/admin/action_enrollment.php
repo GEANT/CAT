@@ -12,7 +12,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-$auth = new web\lib\admin\Authentication();
+$auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
 $usermgmt = new \core\UserManagement();

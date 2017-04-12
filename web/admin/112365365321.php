@@ -38,7 +38,7 @@ require_once("inc/common.inc.php");
 $uiElements = new web\lib\admin\UIElements();
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-    $auth = new web\lib\admin\Authentication();
+    $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
     $no_security = 0;
 } else {

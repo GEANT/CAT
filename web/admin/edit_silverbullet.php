@@ -27,7 +27,7 @@ use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
 use web\lib\admin\view\UserCredentialsForm;
 
-$auth = new web\lib\admin\Authentication();
+$auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
 $page = new DefaultPage(_('Managing institution users'), '1.2');
