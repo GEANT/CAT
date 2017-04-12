@@ -17,9 +17,11 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 class OptionParser {
 
     private $validator;
+    private $uiElements;
     
     function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
+        $this->uiElements = new UIElements();
     }
     
     private function postProcessValidAttributes($options, &$good, &$bad) {
@@ -99,17 +101,17 @@ class OptionParser {
         foreach ($listGood as $name => $count) {
             /// number of times attribute is present, and its name
             /// Example: "5x Support E-Mail"
-            $retval .= UI_okay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->BoxOkay(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list all atributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
-            $retval .= UI_error(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->BoxError(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
             if ($isitsetornot == FALSE) {
-                $retval .= UI_warning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), $uiElements->displayName($attribName)));
+                $retval .= $this->uiElements->BoxWarning(sprintf(_("You did not set a 'default language' value for %s. This means we can only display this string for installers which are <strong>exactly</strong> in the language you configured. For the sake of all other languages, you may want to edit the profile again and populate the 'default/other' language field."), $uiElements->displayName($attribName)));
             }
         }
         return $retval;

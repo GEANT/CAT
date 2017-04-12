@@ -117,41 +117,42 @@ if (!$profile instanceof \core\ProfileRADIUS) {
 <h1><?php echo _("Submitted attributes for this profile"); ?></h1>
 <table>
     <?php
+    $uiElements = new web\lib\admin\UIElements();
     // set realm info, if submitted
     if ($realm !== FALSE) {
         $profile->setRealm($anonLocal . "@" . $realm);
-        echo UI_okay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
+        echo $uiElements->BoxOkay(sprintf(_("Realm: <strong>%s</strong>"), $realm));
     } else {
         $profile->setRealm("");
     }
     // set anon ID, if submitted
     if ($anon !== FALSE) {
         if ($realm === FALSE) {
-            echo UI_error(_("Anonymous Outer Identities cannot be turned on: realm is missing!"));
+            echo $uiElements->BoxError(_("Anonymous Outer Identities cannot be turned on: realm is missing!"));
         } else {
             $profile->setAnonymousIDSupport(true);
-            echo UI_okay(sprintf(_("Anonymous Identity support is <strong>%s</strong>, the anonymous outer identity is <strong>%s</strong>"), _("ON"), $profile->realm));
+            echo $uiElements->BoxOkay(sprintf(_("Anonymous Identity support is <strong>%s</strong>, the anonymous outer identity is <strong>%s</strong>"), _("ON"), $profile->realm));
         }
     } else {
         $profile->setAnonymousIDSupport(false);
-        echo UI_okay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
+        echo $uiElements->BoxOkay(sprintf(_("Anonymous Identity support is <strong>%s</strong>"), _("OFF")));
     }
 
     if ($checkuser !== FALSE) {
         if ($realm === FALSE) {
-            echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
+            echo $uiElements->BoxError(_("Realm check username cannot be configured: realm is missing!"));
         } else {
             $profile->setRealmcheckUser(true, $checkuser_name);
-            echo UI_okay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name . "@" . $realm));
+            echo $uiElements->BoxOkay(sprintf(_("Special username for realm check is <strong>%s</strong>, the value is <strong>%s</strong>"), _("ON"), $checkuser_name . "@" . $realm));
         }
     } else {
         $profile->setRealmCheckUser(false);
-        echo UI_okay(_("No special username for realm checks is configured."));
+        echo $uiElements->BoxOkay(_("No special username for realm checks is configured."));
     }
 
     if ($verify !== FALSE) {
         if ($realm === FALSE) {
-            echo UI_error(_("Realm check username cannot be configured: realm is missing!"));
+            echo $uiElements->BoxError(_("Realm check username cannot be configured: realm is missing!"));
         } else {
             $profile->setInputVerificationPreference($verify, $hint);
             if ($hint !== FALSE) {
@@ -159,7 +160,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
             } else {
                 $extratext = ".";
             }
-            echo UI_okay(sprintf(_("Where possible, username inputs will be <strong>verified to contain an @ and end with %s</strong>%s"), $realm, $extratext));
+            echo $uiElements->BoxOkay(sprintf(_("Where possible, username inputs will be <strong>verified to contain an @ and end with %s</strong>%s"), $realm, $extratext));
         }
     } else {
         $profile->setInputVerificationPreference(false, false);
@@ -171,13 +172,13 @@ if (!$profile instanceof \core\ProfileRADIUS) {
 
     if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
-            echo UI_error(_("Redirection can't be activated - you did not specify a target location!"));
+            echo $uiElements->BoxError(_("Redirection can't be activated - you did not specify a target location!"));
         } else {
             $profile->addAttribute("device-specific:redirect", 'C', $_POST['redirect_target']);
-            echo UI_okay(sprintf("Redirection set to <strong>%s</strong>", $_POST['redirect_target']));
+            echo $uiElements->BoxOkay(sprintf("Redirection set to <strong>%s</strong>", $_POST['redirect_target']));
         }
     } else {
-        echo UI_okay(_("Redirection is <strong>OFF</strong>"));
+        echo $uiElements->BoxOkay(_("Redirection is <strong>OFF</strong>"));
     }
 
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - attributes changed");
@@ -198,7 +199,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
             // see if we can enable the EAP type, or if info is missing
             $eapcompleteness = $profile->isEapTypeDefinitionComplete($a);
             if ($eapcompleteness === true) {
-                echo UI_okay(_("Supported EAP Type: ") . "<strong>" . $uiElements->displayName($a) . "</strong>");
+                echo $uiElements->BoxOkay(_("Supported EAP Type: ") . "<strong>" . $uiElements->displayName($a) . "</strong>");
             } else {
                 $warntext = "";
                 if (is_array($eapcompleteness)) {
@@ -206,7 +207,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
                         $warntext .= "<strong>" . $uiElements->displayName($item) . "</strong> ";
                     }
                 }
-                echo UI_warning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $uiElements->displayName($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
+                echo $uiElements->BoxWarning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $uiElements->displayName($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
             }
         }
     }

@@ -35,6 +35,8 @@ ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
 require_once("inc/common.inc.php");
 
+$uiElements = new web\lib\admin\UIElements();
+
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     $auth = new web\lib\admin\Authentication();
     $auth->authenticate();
@@ -116,7 +118,7 @@ $dbHandle = \core\DBConnection::handle("INST");
 
                             closedir($handle);
                         }
-                        echo "<div class='ca-summary'><table>" . UI_remark(sprintf("Deleted %d cache directories.", $i), "Cache deleted") . "</table></div>";
+                        echo "<div class='ca-summary'><table>" . $uiElements->BoxRemark(sprintf("Deleted %d cache directories.", $i), "Cache deleted") . "</table></div>";
                         break;
 
                     default:

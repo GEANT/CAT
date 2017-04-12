@@ -18,6 +18,7 @@ $validator = new \web\lib\common\InputValidation();
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dbHandle = \core\DBConnection::handle("INST");
+    $uiElements = new web\lib\admin\UIElements();
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
@@ -79,9 +80,9 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         }
     }
     if ($NAPTR_issues) {
-        $tabletext .= UI_error(0, 0, true);
+        $tabletext .= $uiElements->BoxError(0, 0, true);
     } else {
-        $tabletext .= UI_okay(0, 0, true);
+        $tabletext .= $uiElements->BoxOkay(0, 0, true);
     }
 
     $UDPErrors = false;
@@ -102,13 +103,15 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
 
     $tabletext .= "</td><td>";
-    $tabletext .= UI_message($certBiggestOddity, 0, 0, true);
+
+    $uiElements = new web\lib\admin\UIElements();
+    $tabletext .= $uiElements->BoxFlexible($certBiggestOddity, 0, 0, true);
 
     $tabletext .= "</td><td>";
     if (!$UDPErrors) {
-        $tabletext .= UI_okay(0, 0, true);
+        $tabletext .= $uiElements->BoxOkay(0, 0, true);
     } else {
-        $tabletext .= UI_error(0, 0, true);
+        $tabletext .= $uiElements->BoxError(0, 0, true);
     }
 
     $tabletext .= "</td><td>";
@@ -123,9 +126,9 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         }
     }
     if (!$dynamicErrors) {
-        $tabletext .= UI_okay(0, 0, true);
+        $tabletext .= $uiElements->BoxOkay(0, 0, true);
     } else {
-        $tabletext .= UI_error(0, 0, true);
+        $tabletext .= $uiElements->BoxError(0, 0, true);
     }
     $tabletext .= "</td></tr>";
 

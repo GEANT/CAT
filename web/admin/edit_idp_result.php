@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -110,18 +111,19 @@ if (count($custom_ssids_wpa2) > 0) {
 }
 
 echo "<table>";
+$uiElements = new web\lib\admin\UIElements();
 if (count($ssids) > 0) {
     $printedlist = "";
     foreach ($ssids as $names) {
         $printedlist = $printedlist . "$names ";
     }
-    echo UI_okay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+    echo $uiElements->BoxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
 }
 if (count($wired_support) > 0) {
-    echo UI_okay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+    echo $uiElements->BoxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
 }
 if (count($ssids) == 0 && count($wired_support) == 0) {
-    echo UI_warning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+    echo $uiElements->BoxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
 }
 echo "</table>";
 

@@ -247,16 +247,17 @@ class OptionDisplay {
                 break;
             case "file":
                 $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($prefill) . "'>";
+                $uiElements = new UIElements();
                 switch ($value) {
                     case "eap:ca_file":
-                        $retval .= previewCAinHTML($prefill);
+                        $retval .= $uiElements->previewCAinHTML($prefill);
                         break;
                     case "general:logo_file":
                     case "fed:logo_file":
-                        $retval .= previewImageinHTML($prefill);
+                        $retval .= $uiElements->previewImageinHTML($prefill);
                         break;
                     case "support:info_file":
-                        $retval .= previewInfoFileinHTML($prefill);
+                        $retval .= $uiElements->previewInfoFileinHTML($prefill);
                         break;
                     default:
                         $retval .= _("file content");

@@ -54,10 +54,11 @@ function print_test_results($test) {
         default:
             throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
     }
-    $out .= UI_message($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
+    $uiElements = new web\lib\admin\UIElements();
+    $out .= $uiElements->BoxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
     foreach ($test->out as $testValue) {
         foreach ($testValue as $o) {
-            $out .= UI_message($o['level'], $o['message']);
+            $out .= $uiElements->BoxFlexible($o['level'], $o['message']);
         }
     }
     return($out);

@@ -110,13 +110,13 @@ class UIElements {
                         switch ($option['name']) {
                             case "general:logo_file":
                             case "fed:logo_file":
-                                $retval .= previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
+                                $retval .= $this->previewImageinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
                             case "eap:ca_file":
-                                $retval .= previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
+                                $retval .= $this->previewCAinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
                             case "support:info_file":
-                                $retval .= previewInfoFileinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
+                                $retval .= $this->previewInfoFileinHTML('ROWID-' . $option['level'] . '-' . $option['row']);
                                 break;
                             default:
                         }
@@ -142,7 +142,7 @@ class UIElements {
         return $retval;
     }
 
-    function instLevelInfoBoxes(\core\IdP $myInst) {
+    public function instLevelInfoBoxes(\core\IdP $myInst) {
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
         <h2>" . _("General Institution Details") . "</h2>
@@ -173,6 +173,92 @@ class UIElements {
         </div>";
         }
         return $retval;
+    }
+
+    public function previewCAinHTML($cAReference) {
+        $found = preg_match("/^ROWID-.*/", $cAReference);
+        if (!$found) {
+            return "<div>" . _("Error, ROWID expected.") . "</div>";
+        }
+
+        $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
+
+        $func = new \core\X509;
+        $details = $func->processCertificate($cAblob);
+        if ($details === FALSE) {
+            return _("There was an error processing the certificate!");
+        }
+
+        $details['name'] = preg_replace('/(.)\/(.)/', "$1<br/>$2", $details['name']);
+        $details['name'] = preg_replace('/\//', "", $details['name']);
+        $certstatus = ( $details['root'] == 1 ? "R" : "I");
+        if ($details['ca'] == 0 && $details['root'] != 1) {
+            return "<div class='ca-summary' style='background-color:red'><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:maroon;  border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>S</div></div>" . _("This is a <strong>SERVER</strong> certificate!") . "<br/>" . $details['name'] . "</div>";
+        }
+        return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
+    }
+
+    public function previewImageinHTML($imageReference) {
+        $found = preg_match("/^ROWID-.*/", $imageReference);
+        if (!$found) {
+            return "<div>" . _("Error, ROWID expected.") . "</div>";
+        }
+        return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
+    }
+
+    public function previewInfoFileinHTML($fileReference) {
+        $found = preg_match("/^ROWID-.*/", $fileReference);
+        if (!$found) {
+            return _("<div>Error, ROWID expected, got $fileReference.</div>");
+        }
+
+        $fileBlob = getBlobFromDB($fileReference, FALSE);
+        $decodedFileBlob = base64_decode($fileBlob);
+        $fileinfo = new finfo();
+        return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+    }
+
+    public function BoxFlexible($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
+
+        $uiMessages = [
+            \core\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
+            \core\Entity::L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
+            \core\Entity::L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
+            \core\Entity::L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
+        ];
+
+        $retval = "";
+        if (!$omittabletags) {
+            $retval .= "<tr><td>";
+        }
+        $caption = ($customCaption !== 0 ? $customCaption : $uiMessages[$level]['text']);
+        $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
+        if (!$omittabletags) {
+            $retval .= "</td><td>";
+        }
+        if ($text !== 0) {
+            $retval .= $text;
+        }
+        if (!$omittabletags) {
+            $retval .= "</td></tr>";
+        }
+        return $retval;
+    }
+
+    public function BoxOkay($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->BoxFlexible(\core\Entity::L_OK, $text, $caption, $omittabletags);
+    }
+
+    public function BoxRemark($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->BoxFlexible(\core\Entity::L_REMARK, $text, $caption, $omittabletags);
+    }
+
+    public function BoxWarning($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->BoxFlexible(\core\Entity::L_WARN, $text, $caption, $omittabletags);
+    }
+
+    public function BoxError($text = 0, $caption = 0, $omittabletags = FALSE) {
+        return $this->BoxFlexible(\core\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
 }

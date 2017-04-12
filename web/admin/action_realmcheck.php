@@ -15,6 +15,7 @@ require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
 $langObject = new \core\Language();
@@ -553,10 +554,10 @@ if ($error_message) {
 
                     echo "</table><table>";
                     if (count($testsuite->listerrors()) == 0) {
-                        echo UI_message(\core\Entity::L_OK, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
+                        echo $uiElements->BoxOkay(sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
                         echo "</table>";
                     } else {
-                        echo UI_message(\core\Entity::L_ERROR, sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
+                        echo $uiElements->BoxError(sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
                         echo "</table><div class='notacceptable'><table>";
                         foreach ($testsuite->listerrors() as $details) {
                             echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
@@ -647,7 +648,7 @@ if ($error_message) {
 
                 $resultstoprint = [];
                 if (count($testsuite->NAPTR_hostname_records) > 0) {
-                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . UI_message(\core\Entity::L_ERROR, _("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . UI_message(\core\Entity::L_OK, _("All tests passed, congratulations!")) . '</table>';
+                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . $uiElements->BoxError(_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . $uiElements->BoxOkay(_("All tests passed, congratulations!")) . '</table>';
                     $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
                         /*                          if ($addr['family'] == "IPv6") {

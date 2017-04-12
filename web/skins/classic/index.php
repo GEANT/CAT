@@ -348,7 +348,6 @@ include("user/js/cat_js.php");
                 </td>
                 <td style="padding-left:80px; text-align:right;">
                     <?php
-                    $deco = new \web\lib\admin\PageDecoration();
                     echo $deco->attributionEurope();
                     ?>
                 </td>

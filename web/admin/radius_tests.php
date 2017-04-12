@@ -362,12 +362,12 @@ switch ($test_type) {
         $returnarray['time_millisec'] = sprintf("%d", $testsuite->UDP_reachability_result[$host]['time_millisec']);
 
         if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-            $printedres .= UI_error(_("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure);
+            $printedres .= $uiElements->BoxError(_("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure);
             $my_ip_addrs[$key]["status"] = "FAILED";
             $goterror = 1;
         }
         if (preg_match('/verify return:1/', implode($opensslbabble))) {
-            $printedres .= UI_okay(_("Completed.") . $measure);
+            $printedres .= $uiElements->BoxOkay(_("Completed.") . $measure);
             $printedres .= "<tr><td></td><td><div class=\"more\">";
             $my_ip_addrs[$key]["status"] = "OK";
             $servercertRaw = implode("\n", $opensslbabble);
