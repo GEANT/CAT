@@ -36,7 +36,7 @@ class UpdateUserCommand extends AbstractCommand{
         $user->setExpiry($userExpiry);
         $username = $user->getUsername();
         if(empty($user->get(SilverbulletUser::EXPIRY))){
-            $this->storeErrorMessage(_('Expiry date was incorrect for') .' "'. $username .'"!');
+            $this->storeErrorMessage(sprintf(_("Expiry date was incorrect for '%s'!"), $username));
         }
         $user->save();
         

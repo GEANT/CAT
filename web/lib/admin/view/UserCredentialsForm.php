@@ -2,29 +2,32 @@
 
 namespace web\lib\admin\view;
 
-use web\lib\admin\http\SilverbulletController;
-use web\lib\admin\view\html\Button;
-use web\lib\admin\view\html\Row;
-use web\lib\admin\view\html\Table;
-use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\domain\SilverbulletCertificate;
-use web\lib\admin\view\html\Tag;
-use web\lib\admin\view\html\CompositeTag;
-use web\lib\admin\view\html\UnaryTag;
-use web\lib\admin\http\SaveUsersCommand;
+use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\http\AddCertificateCommand;
-use web\lib\admin\http\AddUserCommand;
 use web\lib\admin\http\DeleteUserCommand;
 use web\lib\admin\http\RevokeCertificateCommand;
+use web\lib\admin\http\SaveUsersCommand;
+use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\UpdateUserCommand;
+use web\lib\admin\view\html\Button;
+use web\lib\admin\view\html\CompositeTag;
+use web\lib\admin\view\html\Row;
+use web\lib\admin\view\html\Table;
+use web\lib\admin\view\html\Tag;
+use web\lib\admin\view\html\UnaryTag;
 
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
 class UserCredentialsForm implements PageElementInterface{
     
     const EDITABLEBLOCK_CLASS = 'sb-editable-block';
     const TITLEROW_CLASS = 'sb-title-row';
     const USERROW_CLASS = 'sb-user-row';
     const CERTIFICATEROW_CLASS = 'sb-certificate-row';
-    const ADDNEWUSER_CLASS = 'sb-add-new-user';
     const RESET_BUTTON_ID = 'sb-reset-dates';
     const USER_COLUMN = 'user';
     const TOKEN_COLUMN = 'token';
@@ -62,12 +65,6 @@ class UserCredentialsForm implements PageElementInterface{
 
     /**
      * 
-     * @var MessageBox
-     */
-    private $addUserMessageBox;
-    
-    /**
-     * 
      * @var CompositeTag
      */
     private $acknowledgeNotice;
@@ -82,9 +79,10 @@ class UserCredentialsForm implements PageElementInterface{
     /**
      *
      * @param string $title            
-     * @param SilverbulletController $controller            
+     * @param SilverbulletController $controller  
+     * @param string $acknowledgeText          
      */
-    public function __construct($title, $controller, $isNotEmpty = false) {
+    public function __construct($title, $controller, $acknowledgeText, $isAcknowledgeEnabled = false) {
         $this->action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
@@ -103,26 +101,26 @@ class UserCredentialsForm implements PageElementInterface{
         $controller->distributeMessages(DeleteUserCommand::COMMAND, $saveMessageBox);
         $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
         
-        $this->addUserMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
-        $controller->distributeMessages(AddUserCommand::COMMAND, $this->addUserMessageBox);
         
         $this->acknowledgeDays = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
-        if($isNotEmpty){
+        if($isAcknowledgeEnabled){
             $div = new CompositeTag('div');
             $div->addAttribute('style', 'padding-bottom: 20px;');
             $this->acknowledgeNotice = new Tag ('p');
+            $this->acknowledgeNotice->addText(sprintf($acknowledgeText, $this->acknowledgeDays));
             $div->addTag($this->acknowledgeNotice);
-                $checkbox = new UnaryTag('input');
-                $checkbox->addAttribute('type', 'checkbox');
-                $checkbox->addAttribute('name', SaveUsersCommand::PARAM_ACKNOWLEDGE);
-                $checkbox->addAttribute('value', 'true');
+            $checkbox = new UnaryTag('input');
+            $checkbox->addAttribute('type', 'checkbox');
+            $checkbox->addAttribute('name', SaveUsersCommand::PARAM_ACKNOWLEDGE);
+            $checkbox->addAttribute('value', 'true');
             $div->addTag($checkbox);
-                $label = new Tag('label');
-                $label->addText('I have verified that all configured users are still eligible for eduroam');
+            $label = new Tag('label');
+            $label->addText('I have verified that all configured users are still eligible for eduroam');
             $div->addTag($label);
             $this->decorator->addHtmlElement($div);
             $this->decorator->addHtmlElement(new Button(_('Save'),'submit', SaveUsersCommand::COMMAND, SaveUsersCommand::COMMAND));
         }
+        
         $this->addTitleRow();
     }
     
@@ -225,29 +223,15 @@ class UserCredentialsForm implements PageElementInterface{
         }
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\PageElementInterface::render()
+     */
     public function render() {
-        
-        $this->acknowledgeNotice->addText ( _ ( 'You need to acknowledge that the created accounts are still valid within the next '.$this->acknowledgeDays.' days.'
-                .' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
-                .' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.' ) );
-        
         ?>
         <div class="<?php echo self::EDITABLEBLOCK_CLASS;?>">
-            <?php $this->decorator->render();?>
-            <form method="post" action="<?php echo $this->action;?>" accept-charset="utf-8">
-                <div class="<?php echo self::ADDNEWUSER_CLASS; ?>">
-                    <?php $this->addUserMessageBox->render();?>
-                    <label for="<?php echo AddUserCommand::PARAM_NAME; ?>"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
-                    <div style="margin: 5px 0px 10px 0px;">
-                        <input type="text" name="<?php echo AddUserCommand::PARAM_NAME; ?>">
-                        <?php 
-                            $datePicker = new DatePicker(AddUserCommand::PARAM_EXPIRY);
-                            $datePicker->render(); 
-                        ?>
-                    </div>
-                    <button type="submit" name="command" value="<?php echo AddUserCommand::COMMAND; ?>"><?php echo _('Add new user'); ?></button>
-                </div>
-            </form>
+            <?php $this->decorator->render(); ?>
         </div>
         <?php
     }

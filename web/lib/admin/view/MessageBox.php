@@ -28,6 +28,15 @@ class MessageBox implements PageElementInterface, HtmlElementInterface, MessageR
     
     /**
      * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\MessageReceiverInterface::hasMessages()
+     */
+    public function hasMessages(){
+        return $this->box->size() > 0;
+    }
+    
+    /**
+     * 
      * @param Message $message
      * {@inheritDoc}
      * @see MessageReceiverInterface::receiveMessage()
@@ -52,7 +61,7 @@ class MessageBox implements PageElementInterface, HtmlElementInterface, MessageR
      * @see HtmlElementInterface::__toString()
      */
     public function __toString(){
-        if($this->box->size() > 0){
+        if($this->hasMessages()){
             return $this->box->__toString();
         }else{
             return '';

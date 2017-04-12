@@ -11,6 +11,11 @@ use web\lib\admin\http\Message;
 interface MessageReceiverInterface {
     
     /**
+     * @return boolean
+     */
+    public function hasMessages();
+    
+    /**
      * 
      * @param Message $message
      */
