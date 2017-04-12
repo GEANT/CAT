@@ -1,7 +1,12 @@
 <?php
 namespace web\lib\admin\view;
 
-abstract class AbstractForm implements PageElementInterface{
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
+abstract class AbstractForm implements TabbedElementInterface{
     
     /**
      * @var string
