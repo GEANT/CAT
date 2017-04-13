@@ -230,14 +230,14 @@ abstract class Device_XML extends \core\DeviceConfig {
                 $location = [];
                 foreach ($attrCoordinates as $a) {
                     $providerlocation = new ProviderLocation();
-                    $b = unserialize($a);
+                    $b = json_decode($a, true);
                     $providerlocation->setProperty('Longitude', $b['lon']);
                     $providerlocation->setProperty('Latitude', $b['lat']);
                     $location[] = $providerlocation;
                 }
             } else {
                 $providerlocation = new ProviderLocation();
-                $b = unserialize($attrCoordinates[0]);
+                $b = json_decode($attrCoordinates[0], true);
                 $providerlocation->setProperty('Longitude', $b['lon']);
                 $providerlocation->setProperty('Latitude', $b['lat']);
                 $location = $providerlocation;

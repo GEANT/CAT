@@ -274,14 +274,14 @@ public function coordinate($input) {
  * @return string returns $input if checks have passed; throws an Exception if something's wrong
  * @throws Exception
  */
-public function coordSerialized($input) {
-    $tentative = unserialize($input, ["allowed_classes" => false]);
+public function coordJsonEncoded($input) {
+    $tentative = json_decode($input, true);
     if (is_array($tentative)) {
         if (isset($tentative['lon']) && isset($tentative['lat']) && $this->coordinate($tentative['lon']) && $this->coordinate($tentative['lat'])) {
             return $input;
         }
     }
-    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding!")));
+    throw new Exception($this->inputValidationError(_("Wrong coordinate encoding (1.2 uses JSON, not serialize!")));
 }
 
 /**

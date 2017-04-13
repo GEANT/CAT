@@ -34,16 +34,18 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 Configuration parameter changes
 -------------------------------
 
-- [ADDED]    CONSORTIUM['silverbullet_default_maxusers']
-- [ADDED]    CONSORTIUM['silverbullet_realm_suffix']
-- [ADDED]    CONSORTIUM['silverbullet_server_suffix']
-- [ADDED]    CONSORTIUM['silverbullet_gracetime']
-- [ADDED]    CONSORTIUM['nomenclature_federation']
-- [ADDED]    APPEARANCE['skins']
-- [EXTERNAL] for Managed IdP client cert auth for the accountstatus page:
-             Apache: SSLCACertificateFile ... file with PEMs of client cert issuers ...
-             Apache: SSLOptions StdEnvVars
-             Apache: AllowOverride AuthConfig (for directory web/accountstatus/ )
+- [ADDED]     CONSORTIUM['silverbullet_default_maxusers']
+- [ADDED]     CONSORTIUM['silverbullet_realm_suffix']
+- [ADDED]     CONSORTIUM['silverbullet_server_suffix']
+- [ADDED]     CONSORTIUM['silverbullet_gracetime']
+- [ADDED]     CONSORTIUM['nomenclature_federation']
+- [ADDED]     APPEARANCE['skins']
+- [EXTERNAL]  for Managed IdP client cert auth for the accountstatus page:
+              Apache: SSLCACertificateFile ... file with PEMs of client cert issuers ...
+              Apache: SSLOptions StdEnvVars
+              Apache: AllowOverride AuthConfig (for directory web/accountstatus/ )
+- [ADMIN API] coordinates are now to be sent as a json_encode("lon" => x, "lat" => y)
+              (previously PHP serialize() style)
 
 
 Changes in previous versions

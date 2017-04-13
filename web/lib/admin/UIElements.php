@@ -103,7 +103,7 @@ class UIElements {
 
                 switch ($type["type"]) {
                     case "coordinates":
-                        $coords = unserialize($option['value']);
+                        $coords = json_decode($option['value'], true);
                         $googleMarkers[] = $coords;
                         break;
                     case "file":
