@@ -328,8 +328,20 @@ public function hostname($input) {
     if (filter_var($input, FILTER_VALIDATE_IP)) {
         return $input;
     }
-    // if not, it must be a host name. Use email validation by prefixing with a local part
-    if (filter_var("stefan@" . $input, FILTER_VALIDATE_EMAIL)) {
+    if ($this->email("stefan@" . $input) !== FALSE) {
+        return $input;
+    }
+    return FALSE;
+}
+
+/**
+ * is this a valid email address?
+ * @param string $input
+ * @return false|string echoes the mail address, or FALSE if bogus
+ */
+public function email($input) {
+    
+    if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
         return $input;
     }
     // if we get here, it's bogus

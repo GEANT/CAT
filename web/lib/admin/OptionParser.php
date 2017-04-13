@@ -106,7 +106,7 @@ class OptionParser {
         // list all atributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
-            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), (int)$count, $uiElements->displayName($name)));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {

@@ -32,7 +32,7 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     exit(1);
 }
 
-$newmailaddress = $validator->string($_POST['mailaddr']);
+$newmailaddress = $validator->email($_POST['mailaddr']);
 $newcountry = "";
 
 // fed admin stuff
