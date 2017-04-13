@@ -29,10 +29,13 @@ $new_idp_authorized_fedadmin = FALSE;
 
 // check if the user is authenticated, and we have a valid mail address
 if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
-    exit(1);
+    throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
 $newmailaddress = $validator->email($_POST['mailaddr']);
+if ($newmailaddress === FALSE) {
+    throw new Exception("sendinvite: The supplied value for email address is not a valid mail address!");
+}
 $newcountry = "";
 
 // fed admin stuff
