@@ -388,6 +388,7 @@ class SimpleGUI extends \core\UserAPI {
     public $profile;
     public $args;
     public $profileCount;
+    public $page;
 
 }
 

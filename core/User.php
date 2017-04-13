@@ -202,28 +202,12 @@ class User extends EntityWithDBProperties {
                     }
                     break;
                 case $providerStrings[1]:
-                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[1]],$listOfProviders)) {
-                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[1]];
-                    }
-                    break;
                 case $providerStrings[2]:
-                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[2]],$listOfProviders)) {
-                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[2]];
-                    }
-                    break;
                 case $providerStrings[3]:
-                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[3]],$listOfProviders)) {
-                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[3]];
-                    }
-                    break;
                 case $providerStrings[4]:
-                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[4]],$listOfProviders)) {
-                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[4]];
-                    }
-                    break;
                 case $providerStrings[5]:
-                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[5]],$listOfProviders)) {
-                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[5]];
+                    if (!in_array(User::PROVIDER_STRINGS[$matches[1]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$matches[1]];
                     }
                     break;
                 default:

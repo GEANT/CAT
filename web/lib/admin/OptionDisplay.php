@@ -243,7 +243,7 @@ class OptionDisplay {
                 $allLocationCount++;
                 $locationIndex = $allLocationCount;
                 $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
-                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-text' value='$prefill'>$link";
+                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-".self::TYPECODE_TEXT."]' id='S$rowid-input-text' value='$prefill'>$link";
                 break;
             case "file":
                 $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($prefill) . "'>";
