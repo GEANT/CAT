@@ -74,12 +74,12 @@ class UIElements {
             $passpointOiText => "media:consortium_OI",
         ];
 
-        $find = array_search($input, $displayNames);
+        $find = array_keys($displayNames, $input, TRUE);
 
-        if ($find === FALSE) { // this is an error! throw an Exception
+        if (count($find) == 0) { // this is an error! throw an Exception
             throw new Exception("The translation of an option name was requested, but the option is not known to the system: ". htmlentities($input));
         }
-        return $find;
+        return $find[0];
     }
 
     public function infoblock($optionlist, $class, $level) {
