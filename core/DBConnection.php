@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -16,10 +17,12 @@
  * 
  * @package Developer
  */
+
 namespace core;
+
 use \Exception;
 
-require_once(dirname(__DIR__)."/config/_config.php");
+require_once(dirname(__DIR__) . "/config/_config.php");
 
 /**
  * This class is a singleton for establishing a connection to the database
@@ -38,28 +41,17 @@ class DBConnection {
      * @return DBConnection the (only) instance of this class
      */
     public static function handle($database) {
-        switch (strtoupper($database)) {
+        $theDb = strtoupper($database);
+        switch ($theDb) {
             case "INST":
-                if (!isset(self::$instanceInst)) {
-                    $class = __CLASS__;
-                    self::$instanceInst = new $class($database);
-                    DBConnection::$instanceInst->databaseInstance = strtoupper($database);
-                }
-                return self::$instanceInst;
             case "USER":
-                if (!isset(self::$instanceUser)) {
-                    $class = __CLASS__;
-                    self::$instanceUser = new $class($database);
-                    DBConnection::$instanceUser->databaseInstance = strtoupper($database);
-                }
-                return self::$instanceUser;
             case "EXTERNAL":
-                if (!isset(self::$instanceExternal)) {
+                if (!isset(self::${"instance" . $theDb})) {
                     $class = __CLASS__;
-                    self::$instanceExternal = new $class($database);
-                    DBConnection::$instanceExternal->databaseInstance = strtoupper($database);
+                    self::${"instance" . $theDb} = new $class($database);
+                    DBConnection::${"instance" . $theDb}->databaseInstance = $theDb;
                 }
-                return self::$instanceExternal;
+                return self::${"instance" . $theDb};
             default:
                 throw new Exception("This type of database (" . strtoupper($database) . ") is not known!");
         }
@@ -155,21 +147,21 @@ class DBConnection {
      * 
      * @var DBConnection 
      */
-    private static $instanceUser;
+    private static $instanceUSER;
 
     /**
      * Holds the singleton instance reference to INST database
      * 
      * @var DBConnection 
      */
-    private static $instanceInst;
+    private static $instanceINST;
 
     /**
      * Holds the singleton instance reference to EXTERNAL database
      * 
      * @var DBConnection 
      */
-    private static $instanceExternal;
+    private static $instanceEXTERNAL;
 
     /**
      * after instantiation, keep state of which DB *this one* talks to
