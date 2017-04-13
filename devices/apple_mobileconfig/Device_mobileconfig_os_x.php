@@ -36,6 +36,6 @@ class Device_mobileconfig_os_x extends mobileconfigSuperclass {
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods = [\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET];
+        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET]);
     }
 }
