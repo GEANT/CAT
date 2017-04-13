@@ -53,6 +53,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $this->massagedCountry    = $this->massageName($this->attributes['internal:country'][0]);
         $this->massagedConsortium = $this->massageName(CONFIG['CONSORTIUM']['name']);
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
+        
+        // that's what all variants support. Sub-classes can change it.
+        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_SILVERBULLET]);
     }
 
     private function massageName($input) {

@@ -31,13 +31,4 @@ namespace devices\apple_mobileconfig;
  */
 class Device_mobileconfig_ios extends mobileconfigSuperclass {
     
-    /**
-     * this array holds the list of EAP methods supported by this device
-     */
-    
-    final public function __construct() {
-        parent::__construct();
-        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_SILVERBULLET]);
-    }
-
 }
