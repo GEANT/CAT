@@ -440,7 +440,8 @@ class UserAPI extends CAT {
             header("HTTP/1.0 404 Not Found");
             return;
         }
-        $profile = ProfileFactory::instantiate($prof_id);
+        $validator = new \web\lib\common\InputValidation();
+        $profile = $validator->Profile($prof_id);
         $profile->incrementDownloadStats($device, $generated_for);
         $file = $this->installerPath;
         $filetype = $output['mime'];
