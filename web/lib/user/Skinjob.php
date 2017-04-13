@@ -92,10 +92,10 @@ class Skinjob {
 
         foreach ($KNOWN_SUFFIXES as $suffix) {
             if (strpos($_SERVER['PHP_SELF'], $suffix) !== FALSE) {
-                return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path . $filename;
+                return htmlspecialchars($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path . $filename, ENT_QUOTES);
             }
         }
-        return htmlentities($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path . $filename, ENT_QUOTES);
+        return htmlspecialchars($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path . $filename, ENT_QUOTES);
     }
 
 }
