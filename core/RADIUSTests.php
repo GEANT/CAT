@@ -1267,7 +1267,7 @@ network={
         $packetflow_orig = [];
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
-        if ($packflow_orig === NULL) {
+        if ($packetflow_orig === NULL) {
             throw new Exception("The output of an exec() call really can't be NULL!");
         }
         $time_stop = microtime(true);
