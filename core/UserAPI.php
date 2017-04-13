@@ -54,9 +54,9 @@ class UserAPI extends CAT {
      */
     public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
         $this->languageInstance->setTextDomain("devices");
-
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
-        $profile = ProfileFactory::instantiate($profileId);
+        $validator = new \web\lib\common\InputValidation();
+        $profile = $validator->Profile($profileId);
         $attribs = $profile->getCollapsedAttributes();
         // test if the profile is production-ready and if not if the authenticated user is an owner
         if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
