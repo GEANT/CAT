@@ -236,14 +236,14 @@ class OptionDisplay {
         $retval .= "</td>";
 // attribute content
         $retval .= "<td>";
-        $intCode = 0;
+        $intCode = -1;
         $displayedVariant = "";
         switch ($listtype["type"]) {
             case "coordinates":
                 $allLocationCount++;
                 $locationIndex = $allLocationCount;
                 $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
-                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-".self::TYPECODE_TEXT."]' id='S$rowid-input-text' value='$prefill'>$link";
+                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . self::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$prefill'>$link";
                 break;
             case "file":
                 $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($prefill) . "'>";
@@ -264,16 +264,24 @@ class OptionDisplay {
                 }
                 break;
             case "string":
-                $intCode = self::TYPECODE_STRING;
+                if ($intCode == -1) {
+                    $intCode = self::TYPECODE_STRING;
+                }
             // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "integer":
-                $intCode = self::TYPECODE_INTEGER;
+                if ($intCode == -1) {
+                    $intCode = self::TYPECODE_INTEGER;
+                }
             // fall-thorugh is intentional; mostly identical HTML code for the three types
             case "text":
-                $intCode = self::TYPECODE_TEXT;
+                if ($intCode == -1) {
+                    $intCode = self::TYPECODE_TEXT;
+                }
                 $displayedVariant = $prefill; // for all three types, value tag and actual display are identical
             case "boolean":
-                $intCode = self::TYPECODE_BOOLEAN;
+                if ($intCode == -1) {
+                    $intCode = self::TYPECODE_BOOLEAN;
+                }
                 if ($displayedVariant == "") { // a fall-through has set this before
                     $displayedVariant = _("off");
                     if ($prefill == "on") {
