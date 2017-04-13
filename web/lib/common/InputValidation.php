@@ -329,7 +329,9 @@ public function hostname($input) {
         return $input;
     }
     if ($this->email("stefan@" . $input) !== FALSE) {
-        return $input;
+        // if it's a host then it does not contain rubbish of course. But just to
+        // be sure, run htmlspecialchars around it
+        return htmlspecialchars($input);
     }
     return FALSE;
 }
