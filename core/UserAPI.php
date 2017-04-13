@@ -187,8 +187,9 @@ class UserAPI extends CAT {
 
     public function deviceInfo($device, $profileId) {
         $this->languageInstance->setTextDomain("devices");
+        $validator = new \web\lib\common\InputValidation();
         $out = 0;
-        $profile = ProfileFactory::instantiate($profileId);
+        $profile = $validator->Profile($profileId);
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         if (isset($dev)) {
@@ -212,7 +213,8 @@ class UserAPI extends CAT {
      */
     public function profileAttributes($profId) {
         $this->languageInstance->setTextDomain("devices");
-        $profile = ProfileFactory::instantiate($profId);
+        $validator = new \web\lib\common\InputValidation();
+        $profile = $validator->Profile($profId);
         $attribs = $profile->getCollapsedAttributes();
         $returnArray = [];
         $returnArray['silverbullet'] = $profile instanceof ProfileSilverbullet ? 1 : 0;
