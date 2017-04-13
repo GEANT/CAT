@@ -30,8 +30,6 @@ $fed = NULL;
 $validator = new \web\lib\common\InputValidation();
 $Gui = new \core\UserAPI();
 $operatingSystem = $Gui->detectOS();
-// let's be a ChromeOS.
-// $operatingSystem = ['device' => 'chromeos', 'display' => 'ChromeOS', 'group' => 'chrome'];
 
 if (isset($_REQUEST['token'])) {
     $cleanToken = $validator->token($_REQUEST['token']);

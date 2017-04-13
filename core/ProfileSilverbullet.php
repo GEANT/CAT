@@ -232,7 +232,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
                 $nonDupSerialFound = FALSE;
                 do {
-                    $serial = mt_rand(1000000000, 100000000000);
+                    $serial = random_int(1000000000, 100000000000);
                     $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
                     if (mysqli_num_rows($dupeQuery) == 0) {
                         $nonDupSerialFound = TRUE;

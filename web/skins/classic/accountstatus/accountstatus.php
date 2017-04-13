@@ -49,15 +49,6 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
         echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $languageInstance->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
         ?>
     </div> <!-- id="heading" -->
-    <?php
-    if (!$statusInfo['token']) {
-        // user came to page without a token.
-        // use client cert Apache Voodoo to find out the certificate serial number
-        // of the user, then the token belonging to that cert, and then use the
-        // token info for the normal status page display
-        // $cleanToken = "123abc";
-    }
-    ?>
     <div id="user_info" style='min-height: 500px;'>    
         <?php
         if ($statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED) {

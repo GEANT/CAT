@@ -121,7 +121,7 @@ switch ($action) {
             exit;
         }
         $validator = new \web\lib\common\InputValidation();
-        $API->sendFedLogo($validator->Federation($fed), $width, $height);
+        $API->sendFedLogo($validator->Federation($fed)->identifier, $width, $height);
         break;        
     case 'deviceInfo': // needs $id and profile set
         if (!$device) {
