@@ -324,16 +324,11 @@ public function databaseReference($input) {
  * @return false|string echoes the hostname, or FALSE if bogus
  */
 public function hostname($input) {
-    // is it a valid IP address (IPv4 or IPv6)?
-    if (filter_var($input, FILTER_VALIDATE_IP)) {
-        // if it's a verified IP address then it does not contain rubbish of course. But just to
-        // be sure, run htmlspecialchars around it
-        return htmlspecialchars($input);
-    }
-    if ($this->email("stefan@" . $input) !== FALSE) {
-        // if it's a host then it does not contain rubbish of course. But just to
-        // be sure, run htmlspecialchars around it
-        return htmlspecialchars($input);
+    // is it a valid IP address (IPv4 or IPv6), or a hostname?
+    if (filter_var($input, FILTER_VALIDATE_IP) || $this->email("stefan@" . $input) !== FALSE) {
+        // if it's a verified IP address or hostname then it does not contain
+        // rubbish of course. But just to be sure, run htmlspecialchars around it
+        return htmlspecialchars($input, ENT_QUOTES);
     }
     return FALSE;
 }
