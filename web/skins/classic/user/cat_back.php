@@ -1,37 +1,49 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
-<?php 
+<?php
+
 /**
  * AJAX backend for the user GUI
  *
  * @package UserAPI
  */
-include(dirname(dirname(dirname(__FILE__)))."/config/_config.php");
+include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $API = new \core\UserAPI();
+$validator = new web\lib\common\InputValidation();
 
 // extract request parameters; action is mandatory
-if(!isset($_REQUEST['action'])) {
-   exit;
+if (!isset($_REQUEST['action'])) {
+    exit;
 }
 
-$action  = $_REQUEST['action'];
-$id      = $_REQUEST['id'] ?? FALSE;
-$lang    = $_REQUEST['lang'] ?? FALSE;
-$profile = $_REQUEST['profile'] ?? FALSE;
-$disco   = $_REQUEST['disco'] ?? FALSE;
-$sort    = $_REQUEST['sort'] ?? FALSE;
+$action = $validator->string($_REQUEST['action']);
+$id = $_REQUEST['id'] ?? FALSE;
+$lang = FALSE;
+if (isset($_REQUEST['lang'])) {
+    $lang = $validator->supportedLanguage($langRaw);
+}
+$profile = FALSE;
+if (isset($_REQUEST['profile'])) {
+    $profile = $validator->Profile($_REQUEST['profile']);
+}
+$disco = FALSE;
+if (isset($_REQUEST['disco'])) {
+    $disco = (int)$_REQUEST['disco'];
+}
+$sort = $_REQUEST['sort'] ?? FALSE;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
 
 $loggerInstance = new \core\Logging();
-$loggerInstance->debug(4,"cat_back action: ".$action.':'.$id.':'.$lang.':'.$profile.':'.$disco."\n");
+$loggerInstance->debug(4, "cat_back action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");
 
 switch ($action) {
     case 'listLanguages':
@@ -50,7 +62,7 @@ switch ($action) {
         if ($id === FALSE) {
             exit;
         }
-        $API->JSON_listProfiles($id,$sort);
+        $API->JSON_listProfiles($id, $sort);
         break;
     case 'listDevices':
         $API->JSON_listDevices($id);
@@ -62,13 +74,13 @@ switch ($action) {
         $API->JSON_generateInstaller($id, $profile);
         break;
     case 'downloadInstaller': // needs $id and $profile set optional $generatedfor
-        if ($id === FALSE || $profile === FALSE) { 
+        if ($id === FALSE || $profile === FALSE) {
             exit;
         }
-        $API->downloadInstaller($id, $profile,$generatedfor);
+        $API->downloadInstaller($id, $profile, $generatedfor);
         break;
     case 'profileAttributes': // needs $id set
-        if ($id === FALSE) { 
+        if ($id === FALSE) {
             exit;
         }
         $API->JSON_profileAttributes($id);
