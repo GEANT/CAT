@@ -17,26 +17,67 @@
  */
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $API = new \core\UserAPI();
+$validator = new web\lib\common\InputValidation();
 
 // extract request parameters; action is mandatory
 if (!isset($_REQUEST['action'])) {
     exit;
 }
-
 $action = $_REQUEST['action'];
+
+const LISTOFACTIONS = [
+    'listLanguages',
+    'listCountries',
+    'listIdentityProviders',
+    'listAllIdentityProviders',
+    'listProfiles', // needs $idp set - abort if not
+    'listDevices',
+    'generateInstaller', // needs $id and $profile set
+    'downloadInstaller', // needs $id and $profile set optional $generatedfor
+    'profileAttributes', // needs $id set
+    'sendLogo', // needs $id and $disco set
+    'sendFedLogo', // needs $id and $disco set
+    'deviceInfo', // needs $id and profile set
+    'locateUser',
+    'detectOS',
+    'orderIdentityProviders',
+];
+
+// make sure this is a known action
+$action = LISTOFACTIONS[array_search($_REQUEST['action'], LISTOFACTIONS)];
+if ($action === FALSE) {
+    exit;
+}
+
+$idp = FALSE;
+$lang = FALSE;
+$fed = FALSE;
+$profile = FALSE;
+$federation = FALSE;
+
 $id = $_REQUEST['id'] ?? FALSE;
 $device = $_REQUEST['device'] ?? FALSE;
-$lang = $_REQUEST['lang'] ?? FALSE;
-$idp = $_REQUEST['idp'] ?? FALSE;
-$fed = $_REQUEST['fed'] ?? FALSE;
-$profile = $_REQUEST['profile'] ?? FALSE;
-$federation = $_REQUEST['federation'] ?? FALSE;
-$disco = $_REQUEST['disco'] ?? FALSE;
-$width = $_REQUEST['width'] ?? 0;
-$height = $_REQUEST['height'] ?? 0;
-$sort = $_REQUEST['sort'] ?? 0;
+if (isset($_REQUEST['lang'])) {
+    $lang = $validator->supportedLanguage($_REQUEST['lang']);
+}
+if (isset($_REQUEST['idp'])) {
+    $idp = $validator->IdP($_REQUEST['idp'])->identifier;
+}
+if (isset($_REQUEST['fed'])) {
+    $fed = $validator->Federation(strtoupper($_REQUEST['fed']));
+}
+if (isset($_REQUEST['profile'])) {
+    $profile = $validator->Profile($_REQUEST['profile']);
+}
+if (isset($_REQUEST['federation'])) {
+    $federation = $validator->Federation(strtoupper($_REQUEST['federation']));
+}
+$disco    = (int)$_REQUEST['disco'] ?? FALSE;
+$width    = (int)$_REQUEST['width'] ?? 0;
+$height   = (int)$_REQUEST['height'] ?? 0;
+$sort     = (int)$_REQUEST['sort'] ?? 0;
 $location = $_REQUEST['location'] ?? 0;
-$api_version = $_REQUEST['api_version'] ?? 1;
+$api_version = (int)$_REQUEST['api_version'] ?? 1;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
 
 /* in order to provide bacwards compatibility, both $id and new named arguments are supported.

@@ -345,6 +345,7 @@ class UserAPI extends CAT {
      * Produce a list of profiles available for a given IdP
      *
      * @param int $idpIdentifier the IdP identifier
+     * @param int $sort should the result set be sorted? 0 = no, 1 = yes
      * @return string JSON encoded data
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {

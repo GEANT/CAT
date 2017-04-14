@@ -46,6 +46,7 @@ Configuration parameter changes
               Apache: AllowOverride AuthConfig (for directory web/accountstatus/ )
 - [ADMIN API] coordinates are now to be sent as a json_encode("lon" => x, "lat" => y)
               (previously PHP serialize() style)
+- [USER API]  version 1 of the API is discontinued effective immediately
 
 
 Changes in previous versions
