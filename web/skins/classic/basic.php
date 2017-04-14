@@ -21,7 +21,6 @@
 
 $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "basic.php\n");
-$loggerInstance->debug(4, $_POST);
 
 /**
  * SimpleGUI defines extensions of the GUI class used only in the simple interface
@@ -431,11 +430,6 @@ $langObject = new \core\Language();
         </script>
     </head>
     <body style="">
-
-        <?php
-        $loggerInstance->debug(4, "SERVER\n");
-        $loggerInstance->debug(4, $_SERVER);
-        ?>
         <?php print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>'; ?>
         <form name="my_form" method="POST" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" accept-charset='UTF-8'>
             <img src="<?php echo $skinObject->findResourceUrl("IMAGES", "consortium_logo.png"); ?>" style="width: 20%; padding-right:20px; padding-top:0px; float:right" alt="logo" />
