@@ -353,7 +353,7 @@ public function supportedLanguage($input) {
     }
     // otherwise, use the inversion trick to convince Scrutinizer that this is
     // a vetted value
-    return array_search(CONFIG['LANGUAGES'][$input], CONFIG['LANGAUGES']);
+    return array_search(CONFIG['LANGUAGES'][$input], CONFIG['LANGUAGES']);
 }
 
 }
