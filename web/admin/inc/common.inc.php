@@ -35,10 +35,10 @@ function check_upload_sanity($optiontype, $filename) {
         case "fed:logo_file":
         case "internal:logo_from_url":
             // we check logo_file with ImageMagick
-            $image = new Imagick();
+            $image = new \Imagick();
             try {
                 $image->readImageBlob($filename);
-            } catch (ImagickException $exception) {
+            } catch (\ImagickException $exception) {
                 echo "Error" . $exception->getMessage();
                 return FALSE;
             }

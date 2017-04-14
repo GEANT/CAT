@@ -463,7 +463,7 @@ class UserAPI extends CAT {
         $blob = $inputImage;
 
         if ($resize) {
-            $image = new Imagick();
+            $image = new \Imagick();
             $image->readImageBlob($inputImage);
             $image->setImageFormat('PNG');
             $image->thumbnailImage($width, $height, 1);
