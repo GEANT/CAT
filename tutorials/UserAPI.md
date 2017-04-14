@@ -1,6 +1,7 @@
 Using CAT access API
 ======================
 Author: Tomasz Wolinewicz, twoln@umk.pl
+
 We document how you can access CAT data without using the provided GUIs
 
 Introduction
@@ -24,7 +25,7 @@ The old behaviour is still supported for backwards compatibility, but may be rem
 Also for backwards compatibility, by default API rund in version 1 mode, you van specify version 2 behaviour
 by setting api_version to value 2,
 
-This documentation is for varsion 2 of the API.
+This documentation is for version 2 of the API.
 
 Most calls require an additional argument as well, where you need to provide
 an internal CAT identifier of the object that you require. The values of these identifiers
@@ -56,27 +57,27 @@ Actions in detail
 -----------------
 
 * listLanguages
-  - mandatory arguments
-    none
-  - optional arguments
-    none
-  - data
-    Array of triples: {"lang", "display", "locale"}.
+  - mandatory arguments:
+    + none
+  - optional arguments:
+    + none
+  - data:
+    + Array of triples: {"lang", "display", "locale"}.
 
 * listCountries
-  - mandatory arguments
-    none
-  - optional arguments
-    lang
-  - data
-    Array of tuples: {"federation", "display"}.
+  - mandatory arguments:
+    + none
+  - optional arguments:
+    + lang
+  - data:
+    + Array of tuples: {"federation", "display"}.
 * listAllIdentityProviders
-  - mandatory arguments
-    none
-  - optional arguments
-    lang
-  - data
-      The main purpose of this action is to provide listing for DiscoJusce, therefore
+  - mandatory arguments:
+    + none
+  - optional arguments:
+    + lang
+  - data:
+    + The main purpose of this action is to provide listing for DiscoJusce, therefore
       the structure of the result is talored to DJ needs.
       The result is an array of tuples {"entityID","title","country","geo","icon","idp"}.
       <emphasis>geo</emphasis> and <emphasis>icon</emphasis> are optional. <emphasis>idp</emphasis>
@@ -84,61 +85,60 @@ Actions in detail
       <emphasis>geo</emphasis> can be either a {"lon", "lat"} touple or an array of such tupples.
 
 * listIdentityProviders
-  - mandatory arguments
-    federation - the identifier of a country to be listed.
-  - optional arguments
-    lang
-  - data
-    Array of tuples: {"idp", "display"}.
+  - mandatory arguments:
+    + federation - the identifier of a country to be listed.
+  - optional arguments:
+    + lang
+  - data:
+    + Array of tuples: {"idp", "display"}.
 
 * listProfiles
-    - mandatory arguments
-      idp - the identifier of an IdP
-    - optional arguments
-      lang
-      sort - if equal to 1 sort profiles by name (case-ignore)
-    - data
-      Array of tuples: {"profile", "display", "idp_name", "logo"}.
+    - mandatory arguments:
+      + idp - the identifier of an IdP
+    - optional arguments:
+      + lang
+      + sort - if equal to 1 sort profiles by name (case-ignore)
+    - data:
+      + Array of tuples: {"profile", "display", "idp_name", "logo"}.
       <emphasis>logo</emphasis> can be <emphasis>0</emphasis> or <emphasis>1</emphasis> and
       shows if logo is available.
 
 * profileAttributes
-    
-    - mandatory arguments
-      profile - the identifier of the profile to be shown
-    - optional arguments
-      lang
-    - data
-      Array of tuples: {"local_email","local_phone","local_url","description","devices"}.
+    - mandatory arguments:
+      + profile - the identifier of the profile to be shown
+    - optional arguments:
+      + lang
+    - data:
+      + Array of tuples: {"local_email","local_phone","local_url","description","devices"}.
       All <emphasis>local_</emphasis> entries  and <emphasis>description</emphasis> are optional.
       <emphasis>devices</emphasis> is an array of touples {"id","display","status","redirect",
       "eap_customtext","device_customtext"}.
 * listDevices
-    - mandatory arguments
-      profile - the identifier of the profile for which the devices will be listed
-    - optional arguments
-      lang
-    - data
-    array of touples {"device","display","status","redirect", "eap_customtext","device_customtext"}.
+    - mandatory arguments:
+      + profile - the identifier of the profile for which the devices will be listed
+    - optional arguments:
+      + lang
+    - data:
+      + array of touples {"device","display","status","redirect", "eap_customtext","device_customtext"}.
 * generateInstaller
-    - mandatory arguments
-      device - identifier of the device; profile - identifier of the profile
-    - optional arguments
-      lang
-    - data
-      array of touples {"profile","device","link", "mime"}.
+    - mandatory arguments:
+      + device - identifier of the device; profile - identifier of the profile
+    - optional arguments:
+      + lang
+    - data:
+      + array of touples {"profile","device","link", "mime"}.
 * downloadInstaller
-    - mandatory arguments
-      device - identifier of the device; profile - identifier of the profile
-    - optional arguments
-      lang
-      generatedfor - either 'user' or 'admin' - defaults to user
-    - data
-      installer file
+    - mandatory arguments:
+      + device - identifier of the device; profile - identifier of the profile
+    - optional arguments:
+      + lang
+      + generatedfor - either 'user' or 'admin' - defaults to user
+    - data:
+      + installer file
 * sendLogo
-    - mandatory arguments
-      idp - the identifier of the identity provider
-    - optional arguments
-      lang
-    - data
-      logo image
+    - mandatory arguments:
+      + idp - the identifier of the identity provider
+    - optional arguments:
+      + lang
+    - data:
+      + logo image
