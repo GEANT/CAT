@@ -73,9 +73,9 @@ if (isset($_REQUEST['federation'])) {
     $federation = $validator->Federation(strtoupper($_REQUEST['federation']));
 }
 $disco    = (int)$_REQUEST['disco'] ?? FALSE;
-$width    = (int)$_REQUEST['width'] ?? 0;
-$height   = (int)$_REQUEST['height'] ?? 0;
-$sort     = (int)$_REQUEST['sort'] ?? 0;
+$width    = (int)($_REQUEST['width'] ?? 0);
+$height   = (int)($_REQUEST['height'] ?? 0);
+$sort     = (int)($_REQUEST['sort'] ?? 0);
 $location = $_REQUEST['location'] ?? 0;
 $api_version = (int)$_REQUEST['api_version'] ?? 1;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
