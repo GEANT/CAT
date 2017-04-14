@@ -20,12 +20,31 @@ include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $API = new \core\UserAPI();
 $validator = new web\lib\common\InputValidation();
 
+const LISTOFACTIONS = [
+    'listLanguages',
+    'listCountries',
+    'listIdentityProviders',
+    'listAllIdentityProviders',
+    'listProfiles', // needs $id set - abort if not
+    'listDevices',
+    'generateInstaller', // needs $id and $profile set
+    'downloadInstaller', // needs $id and $profile set optional $generatedfor
+    'profileAttributes', // needs $id set
+    'sendLogo', // needs $id and $disco set
+    'deviceInfo', // needs $id and profile set
+    'locateUser',
+    'ssss',
+];
 // extract request parameters; action is mandatory
 if (!isset($_REQUEST['action'])) {
     exit;
 }
+// make sure this is a known action
+$action = LISTOFACTIONS[array_search($_REQUEST['action'], LISTOFACTIONS)];
+if ($action === FALSE) {
+    exit;
+}
 
-$action = $validator->string($_REQUEST['action']);
 $id = $_REQUEST['id'] ?? FALSE;
 $lang = FALSE;
 if (isset($_REQUEST['lang'])) {
@@ -37,7 +56,7 @@ if (isset($_REQUEST['profile'])) {
 }
 $disco = FALSE;
 if (isset($_REQUEST['disco'])) {
-    $disco = (int)$_REQUEST['disco'];
+    $disco = (int) $_REQUEST['disco'];
 }
 $sort = $_REQUEST['sort'] ?? FALSE;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
