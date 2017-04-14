@@ -54,6 +54,7 @@ $lang = FALSE;
 $fed = FALSE;
 $profile = FALSE;
 $federation = FALSE;
+$disco = FALSE;
 
 $id = $_REQUEST['id'] ?? FALSE;
 $device = $_REQUEST['device'] ?? FALSE;
@@ -72,7 +73,10 @@ if (isset($_REQUEST['profile'])) {
 if (isset($_REQUEST['federation'])) {
     $federation = $validator->Federation(strtoupper($_REQUEST['federation']));
 }
-$disco    = (int)$_REQUEST['disco'] ?? FALSE;
+if (isset($_REQUEST['disco'])){
+    $disco    = (int)$_REQUEST['disco'];
+}
+
 $width    = (int)($_REQUEST['width'] ?? 0);
 $height   = (int)($_REQUEST['height'] ?? 0);
 $sort     = (int)($_REQUEST['sort'] ?? 0);
