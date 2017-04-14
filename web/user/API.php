@@ -67,7 +67,7 @@ if (isset($_REQUEST['fed'])) {
     $fed = $validator->Federation(strtoupper($_REQUEST['fed']));
 }
 if (isset($_REQUEST['profile'])) {
-    $profile = $validator->Profile($_REQUEST['profile']);
+    $profile = $validator->Profile($_REQUEST['profile'])->identifier;
 }
 if (isset($_REQUEST['federation'])) {
     $federation = $validator->Federation(strtoupper($_REQUEST['federation']));
