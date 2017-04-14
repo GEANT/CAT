@@ -955,7 +955,6 @@ class RADIUSTests extends Entity {
     private function redact($stringToRedact, $inputarray) {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($stringToRedact);
-        $this->loggerInstance->debug(5, $hex[2]);
         $spaced = "";
         for ($i = 1; $i < strlen($hex); $i++) {
             if ($i % 2 == 1 && $i != strlen($hex)) {
@@ -964,7 +963,6 @@ class RADIUSTests extends Entity {
                 $spaced .= $hex[$i];
             }
         }
-        $this->loggerInstance->debug(5, $hex . " HEX " . $spaced);
         return preg_replace("/$spaced/", " HEX ENCODED PASSWORD REDACTED ", $temparray);
     }
 
