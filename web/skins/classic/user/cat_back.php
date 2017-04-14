@@ -33,7 +33,7 @@ if (isset($_REQUEST['lang'])) {
 }
 $profile = FALSE;
 if (isset($_REQUEST['profile'])) {
-    $profile = $validator->Profile($_REQUEST['profile']);
+    $profile = $validator->Profile($_REQUEST['profile'])->identifier;
 }
 $disco = FALSE;
 if (isset($_REQUEST['disco'])) {
