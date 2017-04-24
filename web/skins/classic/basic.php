@@ -21,7 +21,6 @@
 
 $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "basic.php\n");
-$loggerInstance->debug(4, $_POST);
 
 /**
  * SimpleGUI defines extensions of the GUI class used only in the simple interface
@@ -35,6 +34,7 @@ class SimpleGUI extends \core\UserAPI {
      */
     public function __construct() {
         parent::__construct();
+        $validator = new \web\lib\common\InputValidation();
         $this->args = [];
         $this->page = 0;
         $this->languageInstance->setTextDomain('core');
@@ -68,7 +68,6 @@ class SimpleGUI extends \core\UserAPI {
         if (!in_array($country, $federations)) {
             $country = array_shift($federations);
         }
-        $validator = new \web\lib\common\InputValidation();
         $this->country = $validator->Federation($country);
         $this->args['country'] = $this->country->identifier;
         $this->page = 1;
@@ -82,7 +81,7 @@ class SimpleGUI extends \core\UserAPI {
         if (isset($_REQUEST['idp']) && $_REQUEST['idp']) {
             $this->page = 2;
             try {
-                $this->idp = new \core\IdP($_REQUEST['idp']);
+                $this->idp = $validator->IdP($_REQUEST['idp']);
             } catch (Exception $fail) {
                 $this->page = 1;
                 $this->languageInstance->setTextDomain("web_user");
@@ -95,7 +94,7 @@ class SimpleGUI extends \core\UserAPI {
                 $this->languageInstance->setTextDomain("web_user");
                 return;
             }
-            $this->args['idp'] = $_REQUEST['idp'];
+            $this->args['idp'] = $this->idp->identifier;
             $this->profileCount = $this->idp->profileCount();
             if (!isset($_REQUEST['profile'])) {
                 $this->languageInstance->setTextDomain("web_user");
@@ -103,7 +102,7 @@ class SimpleGUI extends \core\UserAPI {
             }
             $this->page = 3;
             try {
-                $this->profile = \core\ProfileFactory::instantiate($_REQUEST['profile']);
+                $this->profile = $validator->Profile($_REQUEST['profile']);
             } catch (Exception $fail) {
                 $this->page = 2;
                 $this->languageInstance->setTextDomain("web_user");
@@ -115,9 +114,9 @@ class SimpleGUI extends \core\UserAPI {
                 $this->languageInstance->setTextDomain("web_user");
                 return;
             }
-            $this->args['profile'] = $_REQUEST['profile'];
+            $this->args['profile'] = $this->profile->identifier;
             if (isset($_REQUEST['device'])) {
-                $this->args['device'] = $_REQUEST['device'];
+                $this->args['device'] = $validator->Device($_REQUEST['device']);
             }
         }
         $this->languageInstance->setTextDomain("web_user");
@@ -388,6 +387,7 @@ class SimpleGUI extends \core\UserAPI {
     public $profile;
     public $args;
     public $profileCount;
+    public $page;
 
 }
 
@@ -430,11 +430,6 @@ $langObject = new \core\Language();
         </script>
     </head>
     <body style="">
-
-        <?php
-        $loggerInstance->debug(4, "SERVER\n");
-        $loggerInstance->debug(4, $_SERVER);
-        ?>
         <?php print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>'; ?>
         <form name="my_form" method="POST" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>" accept-charset='UTF-8'>
             <img src="<?php echo $skinObject->findResourceUrl("IMAGES", "consortium_logo.png"); ?>" style="width: 20%; padding-right:20px; padding-top:0px; float:right" alt="logo" />

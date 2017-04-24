@@ -232,7 +232,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
                 $nonDupSerialFound = FALSE;
                 do {
-                    $serial = mt_rand(1000000000, 100000000000);
+                    $serial = random_int(1000000000, 100000000000);
                     $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
                     if (mysqli_num_rows($dupeQuery) == 0) {
                         $nonDupSerialFound = TRUE;
@@ -409,7 +409,7 @@ class ProfileSilverbullet extends AbstractProfile {
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance = new Logging();
-        $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
+        $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device, one_time_token FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $$tokenvalue not found in database or database query error!\n");
             return ["status" => self::SB_TOKENSTATUS_INVALID,
@@ -427,7 +427,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 "profile" => $details->profile_id,
                 "user" => $details->silverbullet_user_id,
                 "expiry" => $expiryObject->format("Y-m-d H:i:s"),
-                "value" => $tokenvalue];
+                "value" => $details->one_time_token];
         }
 // still here? then there is certificate data, so token was redeemed
 // add the corresponding cert details here

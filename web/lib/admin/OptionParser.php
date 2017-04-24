@@ -86,7 +86,7 @@ class OptionParser {
             $lat = $this->validator->coordinate($_POST['geo_lat']);
             $lon = $this->validator->coordinate($_POST['geo_long']);
 
-            $options[] = ["general:geo_coordinates" => ['lang' => NULL, 'content' => serialize(["lon" => $lon, "lat" => $lat])]];
+            $options[] = ["general:geo_coordinates" => ['lang' => NULL, 'content' => json_encode(["lon" => $lon, "lat" => $lat])]];
             $good[] = ("general:geo_coordinates");
         }
         return $options;
@@ -106,7 +106,7 @@ class OptionParser {
         // list all atributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
-            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), $count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), (int)$count, $uiElements->displayName($name)));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
@@ -222,7 +222,7 @@ class OptionParser {
                         continue 2;
                     case "coordinates":
                         if (!empty($iterator["$objId-1"])) {
-                            $content = $this->validator->coordSerialized($iterator["$objId-1"]);
+                            $content = $this->validator->coordJsonEncoded($iterator["$objId-1"]);
                             break;
                         }
                         continue 2;

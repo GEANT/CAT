@@ -130,7 +130,7 @@ class Psr4Autoloader
 
             // try to load a mapped file for the prefix and relative class
             $mapped_file = $this->loadMappedFile($prefix, $relative_class);
-            if ($mapped_file) {
+            if ($mapped_file !== FALSE) {
                 return $mapped_file;
             }
 

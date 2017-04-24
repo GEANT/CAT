@@ -51,7 +51,7 @@ if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
 
 // first block will test if the user input was valid.
 
-$p = \core\ProfileFactory::instantiate($profileId);
+$p = $validator->Profile($profileId);
 
 if (!$p->institution || $p->institution !== $instId) {
     header("HTTP/1.0 404 Not Found");
@@ -63,5 +63,10 @@ try {
     $API->downloadInstaller($device, $profileId, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob("");
-    header("Location: " . $skinObject->findResourceUrl("BASE","/accountstatus.php") . "?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
+    // find our account status page, and bail out if this doesn't work
+    $accountPageUrl = $skinObject->findResourceUrl("BASE","/accountstatus.php");
+    if ($accountPageUrl === FALSE) {
+        throw new Exception("Unable to find our accountstatus.php page.");
+    }
+    header("Location: $accountPageUrl?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
 }

@@ -955,7 +955,6 @@ class RADIUSTests extends Entity {
     private function redact($stringToRedact, $inputarray) {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($stringToRedact);
-        $this->loggerInstance->debug(5, $hex[2]);
         $spaced = "";
         for ($i = 1; $i < strlen($hex); $i++) {
             if ($i % 2 == 1 && $i != strlen($hex)) {
@@ -964,7 +963,6 @@ class RADIUSTests extends Entity {
                 $spaced .= $hex[$i];
             }
         }
-        $this->loggerInstance->debug(5, $hex . " HEX " . $spaced);
         return preg_replace("/$spaced/", " HEX ENCODED PASSWORD REDACTED ", $temparray);
     }
 
@@ -1267,6 +1265,9 @@ network={
         $packetflow_orig = [];
         $time_start = microtime(true);
         exec($cmdline, $packetflow_orig);
+        if ($packetflow_orig === NULL) {
+            throw new Exception("The output of an exec() call really can't be NULL!");
+        }
         $time_stop = microtime(true);
         $this->loggerInstance->debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
         $packetflow = $this->filterPackettype($packetflow_orig);
@@ -1680,6 +1681,9 @@ network={
         $opensslbabble = [];
         $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
         exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        if ($opensslbabble === NULL) {
+            throw new Exception("The output of an exec() call really can't be NULL!");
+        }
         $time_stop = microtime(true);
         $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
         $testresults['returncode'] = $result;
@@ -1777,7 +1781,6 @@ network={
             $this->TLS_CA_checks_result[$host] = [];
         }
         $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
-        // this does not make any sense - which "$f" should this be? fputs($f, serialize($this->TLS_CA_checks_result) . "\n");
         return $this->opensslResult($host, 'capath', $opensslbabble, $this->TLS_CA_checks_result);
     }
 

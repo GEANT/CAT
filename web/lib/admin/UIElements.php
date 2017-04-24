@@ -43,6 +43,7 @@ class UIElements {
             _("CA Certificate File") => "eap:ca_file",
             _("Profile Display Name") => "profile:name",
             _("Production-Ready") => "profile:production",
+            _("Admin Accepted Terms of Use") => 'hiddenprofile:tou_accepted',
             _("Extra text on downloadpage for device") => "device-specific:customtext",
             _("Redirection Target") => "device-specific:redirect",
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
@@ -73,12 +74,12 @@ class UIElements {
             $passpointOiText => "media:consortium_OI",
         ];
 
-        $find = array_search($input, $displayNames);
+        $find = array_keys($displayNames, $input, TRUE);
 
-        if ($find === FALSE) { // sending back the original if we didn't find a better name
-            $find = $input;
+        if (count($find) == 0) { // this is an error! throw an Exception
+            throw new Exception("The translation of an option name was requested, but the option is not known to the system: ". htmlentities($input));
         }
-        return $find;
+        return $find[0];
     }
 
     public function infoblock($optionlist, $class, $level) {
@@ -102,7 +103,7 @@ class UIElements {
 
                 switch ($type["type"]) {
                     case "coordinates":
-                        $coords = unserialize($option['value']);
+                        $coords = json_decode($option['value'], true);
                         $googleMarkers[] = $coords;
                         break;
                     case "file":

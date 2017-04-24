@@ -65,11 +65,7 @@ echo $deco->productheader("USER");
 
 function mainpage_url() {
     $validator = new \web\lib\common\InputValidation();
-    $main_url = $validator->hostname($_SERVER['HTTP_HOST']);
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
-        $main_url = "https://" . $main_url;
-    else
-        $main_url = "http://" . $main_url;
+    $main_url = "//" . $validator->hostname($_SERVER['HTTP_HOST']);
     $main_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/"));
     return $main_url;
 }

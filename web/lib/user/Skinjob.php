@@ -33,11 +33,14 @@ class Skinjob {
 
     public function __construct($selectedSkin) {
         // input may have been garbage. Sanity-check and fall back to default skin if needed
-        if (!in_array($selectedSkin, CONFIG['APPEARANCE']['skins'])) {
-            $selectedSkin = CONFIG['APPEARANCE']['skins'][0];
+        $actualSkin = CONFIG['APPEARANCE']['skins'][0];
+        if (in_array($selectedSkin, CONFIG['APPEARANCE']['skins'])) {
+            $correctIndex = array_search($selectedSkin, CONFIG['APPEARANCE']['skins']);
+        $actualSkin = CONFIG['APPEARANCE']['skins'][$correctIndex];
         }
-        $this->skin = $selectedSkin;
-        $_SESSION['skin'] = $selectedSkin;
+        
+        $this->skin = $actualSkin;
+        $_SESSION['skin'] = $actualSkin;
     }
 
     /**
@@ -89,10 +92,10 @@ class Skinjob {
 
         foreach ($KNOWN_SUFFIXES as $suffix) {
             if (strpos($_SERVER['PHP_SELF'], $suffix) !== FALSE) {
-                return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path . $filename;
+                return htmlspecialchars($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path . $filename, ENT_QUOTES);
             }
         }
-        return $url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path . $filename;
+        return htmlspecialchars($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path . $filename, ENT_QUOTES);
     }
 
 }

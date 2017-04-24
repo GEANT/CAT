@@ -54,9 +54,9 @@ class UserAPI extends CAT {
      */
     public function generateInstaller($device, $profileId, $generatedFor = "user", $token = NULL, $password = NULL) {
         $this->languageInstance->setTextDomain("devices");
-
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
-        $profile = ProfileFactory::instantiate($profileId);
+        $validator = new \web\lib\common\InputValidation();
+        $profile = $validator->Profile($profileId);
         $attribs = $profile->getCollapsedAttributes();
         // test if the profile is production-ready and if not if the authenticated user is an owner
         if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
@@ -187,8 +187,9 @@ class UserAPI extends CAT {
 
     public function deviceInfo($device, $profileId) {
         $this->languageInstance->setTextDomain("devices");
+        $validator = new \web\lib\common\InputValidation();
         $out = 0;
-        $profile = ProfileFactory::instantiate($profileId);
+        $profile = $validator->Profile($profileId);
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         if (isset($dev)) {
@@ -212,7 +213,8 @@ class UserAPI extends CAT {
      */
     public function profileAttributes($profId) {
         $this->languageInstance->setTextDomain("devices");
-        $profile = ProfileFactory::instantiate($profId);
+        $validator = new \web\lib\common\InputValidation();
+        $profile = $validator->Profile($profId);
         $attribs = $profile->getCollapsedAttributes();
         $returnArray = [];
         $returnArray['silverbullet'] = $profile instanceof ProfileSilverbullet ? 1 : 0;
@@ -343,6 +345,7 @@ class UserAPI extends CAT {
      * Produce a list of profiles available for a given IdP
      *
      * @param int $idpIdentifier the IdP identifier
+     * @param int $sort should the result set be sorted? 0 = no, 1 = yes
      * @return string JSON encoded data
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {
@@ -438,7 +441,8 @@ class UserAPI extends CAT {
             header("HTTP/1.0 404 Not Found");
             return;
         }
-        $profile = ProfileFactory::instantiate($prof_id);
+        $validator = new \web\lib\common\InputValidation();
+        $profile = $validator->Profile($prof_id);
         $profile->incrementDownloadStats($device, $generated_for);
         $file = $this->installerPath;
         $filetype = $output['mime'];
@@ -459,7 +463,7 @@ class UserAPI extends CAT {
         $blob = $inputImage;
 
         if ($resize) {
-            $image = new Imagick();
+            $image = new \Imagick();
             $image->readImageBlob($inputImage);
             $image->setImageFormat('PNG');
             $image->thumbnailImage($width, $height, 1);

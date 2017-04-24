@@ -58,6 +58,28 @@ foreach (TREATMENT_TABLES as $tableIndex => $tableName) {
     }
 }
 
+// coordinates were previously stored as serialize() but are now json_encode()
+// convert all stored coordinate pairs to the new way
+
+$affectedPayloads = $dbInstance->exec("SELECT row, option_value FROM institution_option WHERE option_name = 'general:geo_coordinates'");
+if ($affectedPayloads === FALSE) {
+    echo "[FAIL] Unknown error querying update status for option general:geo_coordinates in table institution_option.\n";
+}
+while ($oneAffectedPayload = mysqli_fetch_object($affectedPayloads)) {
+    $decoded = unserialize($oneAffectedPayload->option_value);
+    if ($decoded === FALSE || !isset($decoded["lon"]) || !isset($decoded['lat'])) {
+        echo "[WARN] Please check row " . $oneAffectedPayload->row . " of table institution_option - this entry did not successfully unserialize() even though it is a coordinate!\n";
+    }
+    $newstyle = json_encode(["lon" => $decoded["lon"], "lat" => $decoded["lat"]]);
+    $rewrittenPayload = $dbInstance->exec("UPDATE institution_option SET option_value = ? WHERE row = " . $oneAffectedPayload->row, "s", $newstyle);
+    if ($rewrittenPayload !== FALSE) {
+        echo "[ OK ] " . $oneAffectedPayload->option_value . " ---> $newstyle\n";
+        continue;
+    }
+    echo "[FAIL] Unknown error executing the payload update for row " . $oneAffectedPayload->row . " of table institution_option.\n";
+}
+
+
 // moving EAP options from IdP to Profile(s)
 
 $eap_options = ['eap:ca_file', 'eap:server_name'];

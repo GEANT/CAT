@@ -250,7 +250,7 @@ class SanityTests extends CAT {
             $this->test_return(Entity::L_ERROR, "PHP extension <strong>OpenSSL</strong> not found!");
         }
 
-        if (class_exists('Imagick')) {
+        if (class_exists('\Imagick')) {
             $this->test_return(Entity::L_OK, "PHP extension <strong>Imagick</strong> is installed.");
         } else {
             $this->test_return(Entity::L_ERROR, "PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");

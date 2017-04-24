@@ -61,5 +61,3 @@ if ($handle = opendir($downloads)) {
     }
     closedir($handle);
 }
-
-?>

@@ -29,10 +29,13 @@ $new_idp_authorized_fedadmin = FALSE;
 
 // check if the user is authenticated, and we have a valid mail address
 if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
-    exit(1);
+    throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
-$newmailaddress = $validator->string($_POST['mailaddr']);
+$newmailaddress = $validator->email($_POST['mailaddr']);
+if ($newmailaddress === FALSE) {
+    throw new Exception("sendinvite: The supplied value for email address is not a valid mail address!");
+}
 $newcountry = "";
 
 // fed admin stuff
@@ -75,7 +78,7 @@ else if (isset($_POST['creation'])) {
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
         }
-        $federation = new \core\Federation($newcountry);
+        $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
@@ -91,7 +94,7 @@ else if (isset($_POST['creation'])) {
         if ($new_idp_authorized_fedadmin !== TRUE) {
             throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
         }
-        $federation = new \core\Federation($extinfo['country']);
+        $federation = $validator->Federation($extinfo['country']);
         $newcountry = $extinfo['country'];
         // see if the inst name is defined in the currently set language; if not, pick its English name; if N/A, pick the last in the list
         $prettyprintname = "";
@@ -176,8 +179,7 @@ $mail = \core\OutsideComm::mailHandle();
 // who to whom?
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
-    $fed = new \core\Federation($newcountry);
-    foreach ($fed->listFederationAdmins() as $fedadmin_id) {
+    foreach ($federation->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new \core\User($fedadmin_id);
         // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
     }

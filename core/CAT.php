@@ -435,7 +435,7 @@ class CAT extends Entity {
                         $oneInstitutionResult['icon'] = $queryResult->inst_id;
                         break;
                     case 'general:geo_coordinates':
-                        $at1 = unserialize($opt[1]);
+                        $at1 = json_decode($opt[1], true);
                         $geo[] = $at1;
                         break;
                     case 'general:instname':
