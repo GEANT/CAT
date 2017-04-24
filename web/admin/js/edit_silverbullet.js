@@ -17,6 +17,8 @@
     var app = new silverbullet.SilverbulletApplication();
     window.onload = function() {
         app.start();
+        
+        //Check which tab should be active
         var active = $( "#tabs" ).attr("active");
         $( "#tabs" ).tabs({ active: active });
     };
