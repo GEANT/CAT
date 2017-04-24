@@ -30,7 +30,7 @@ use web\lib\admin\view\UserCredentialsForm;
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultPage(_('Managing institution users'), '1.2');
+$page = new DefaultPage(_('Managing institution users'), '1.2.1');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');

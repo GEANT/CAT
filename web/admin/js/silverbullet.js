@@ -71,6 +71,13 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
         var popupMessage = new silverbullet.views.PopupMessage(popupMessageElement);
         popupMessage.render();
     }
+    
+    //Create all copy to clipboard elements
+    var clipboardElements = document.getElementsByClassName(silverbullet.views.ClipboardElement.ELEMENT_CLASS);
+    for (var i = 0; i < clipboardElements.length; i++) {
+        var clipboardElement = new silverbullet.views.ClipboardElement(clipboardElements[i]);
+        clipboardElement.render();
+    }
 };
 
 /**
@@ -798,7 +805,7 @@ silverbullet.views.PopupMessage.prototype.positionToCenter = function () {
             }
         }
     }
-}
+};
 
 /**
  * 
@@ -826,6 +833,52 @@ silverbullet.views.PopupMessage.prototype.render = function () {
         that.positionToCenter();
     })
     
-}
+};
 
+/**
+ * Finds and enables all elements that need copy to clipboard function
+ * 
+ * @constructor
+ */
+silverbullet.views.ClipboardElement = function (element) {
+    silverbullet.views.ViewElement.call(this, element);
+    this.copyButton = $(this.element);
+    this.originalBackgroundColor = this.copyButton.css('background-color');
+    this.originalColor = this.copyButton.css('color');
+    this.copyInput = null;
+    this.element = this.copyButton.parent();
+    if(this.element){
+        this.copyInput = this.element.find('input');
+    }
+};
+silverbullet.views.ClipboardElement.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.ClipboardElement.prototype.constructor = silverbullet.views.ClipboardElement;
+silverbullet.views.ClipboardElement.ELEMENT_CLASS = 'sb-copy-to-clipboard';
+
+/**
+ * 
+ */
+silverbullet.views.ClipboardElement.prototype.animate = function () {
+    this.copyButton.css('background-color', this.originalBackgroundColor);
+    this.copyButton.css('color', this.originalColor);
+    this.copyInput.blur();
+};
+
+/**
+ * 
+ */
+silverbullet.views.ClipboardElement.prototype.render = function () {
+    var that = this;
+    if(this.copyInput){
+        this.copyButton.on('click', function() {
+            that.copyButton.css('background-color', that.originalColor);
+            that.copyButton.css('color', that.originalBackgroundColor);
+            that.copyInput.select();
+            document.execCommand("copy");
+            setTimeout(function() {
+                that.animate();
+            }, 100);
+        });
+    }
+};
 
