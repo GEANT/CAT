@@ -69,5 +69,14 @@ $statusInfo = ["token" => $cleanToken,
     "fed" => $fed,
 ];
 
+const KNOWN_ERRORCODES = ["GENERATOR_CONSUMED"];
+
+switch ($_REQUEST['errorcode']) {
+    case KNOWN_ERRORCODES[0]:
+        $statusInfo['errorcode'] = KNOWN_ERRORCODES[0];
+    default:
+        $statusInfo['errorcode'] = NULL;
+}
+
 // and now, serve actual data
 include("../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php");
