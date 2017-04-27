@@ -167,7 +167,7 @@ class OptionParser {
         foreach ($iterator as $objId => $objValueRaw) {
 // pick those without dash - they indicate a new value        
             if (preg_match('/^S[0123456789]*$/', $objId)) {
-                $objValue = preg_replace('/#.*$/', '', $objValueRaw);
+                $objValue = $this->validator->OptionName(preg_replace('/#.*$/', '', $objValueRaw));
                 $optioninfo = $optioninfoObject->optionType($objValue);
                 $lang = NULL;
                 if ($optioninfo["flag"] == "ML") {

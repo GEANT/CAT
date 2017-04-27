@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\common;
+
 use \Exception;
 
 /**
@@ -37,16 +38,16 @@ class InputValidation {
      * @throws Exception
      */
     public function Federation($input, $owner = NULL) {
-        
+
         $cat = new \core\CAT();
         $fedIdentifiers = array_keys($cat->knownFederations);
-        if  (!in_array(strtoupper($input), $fedIdentifiers)) {
+        if (!in_array(strtoupper($input), $fedIdentifiers)) {
             throw new Exception($this->inputValidationError("This federation does not exist!"));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
         $postFed = $fedIdentifiers[$correctIndex];
-        
+
         $temp = new \core\Federation($postFed);
         if ($owner === NULL) {
             return $temp;
@@ -305,6 +306,7 @@ const TABLEMAPPING = [
     "Profile" => "profile_option",
     "FED" => "federation_option",
 ];
+
 /**
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
@@ -340,7 +342,7 @@ public function hostname($input) {
  * @return false|string echoes the mail address, or FALSE if bogus
  */
 public function email($input) {
-    
+
     if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
         return $input;
     }
@@ -355,6 +357,17 @@ public function supportedLanguage($input) {
     // otherwise, use the inversion trick to convince Scrutinizer that this is
     // a vetted value
     return array_search(CONFIG['LANGUAGES'][$input], CONFIG['LANGUAGES']);
+}
+
+/**
+ * Makes sure we are not receiving a bogus option name. The called function throws
+ * an assertion if the name is not known.
+ * @param string $input
+ * @return string
+ */
+public function OptionName($input) {
+    $object = new \core\Options();
+    return $object->assertValidOptionName($input);
 }
 
 }
