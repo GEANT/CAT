@@ -23,7 +23,7 @@ $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");
 $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
-$loggerInstance->debug(4, $operatingSystem, true);
+$loggerInstance->debug(4, $operatingSystem);
 
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
