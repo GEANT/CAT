@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\common;
+use \Exception;
 
 /**
  * performs validation of user inputs
