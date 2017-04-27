@@ -196,6 +196,9 @@ if (!$profile instanceof \core\ProfileRADIUS) {
     }
 
     foreach (\core\EAP::listKnownEAPTypes() as $a) {
+        if ($a == \core\EAP::EAPTYPE_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
+            continue;
+        }
         if (isset($_POST[$uiElements->displayName($a)]) && isset($_POST[$uiElements->displayName($a) . "-priority"]) && is_numeric($_POST[$uiElements->displayName($a) . "-priority"])) {
             $priority = (int) $_POST[$uiElements->displayName($a) . "-priority"];
             // add EAP type to profile as requested, but ...
