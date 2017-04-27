@@ -490,7 +490,7 @@ foreach ($optionsAlreadySet as $optionNames) {
     }
     if (preg_match("/^media:/", $optionNames)) {
         $has_media_options[$$optionNames] = "SET";
-        $support_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
+        $media_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
     }
 }
 ?>
@@ -499,7 +499,7 @@ foreach ($optionsAlreadySet as $optionNames) {
     <p>
         <?php
         if (count($has_support_options) > 0) {
-            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), "<ul>" . $text . "</ul>");
+            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), "<ul>" . $support_text . "</ul>");
         }
         ?>
     </p>
@@ -520,7 +520,7 @@ foreach ($optionsAlreadySet as $optionNames) {
     <p>
         <?php
         if (count($has_media_options) > 0) {
-            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), "<ul>" . $text . "</ul>");
+            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), "<ul>" . $media_text . "</ul>");
         }
         ?>
     </p>
