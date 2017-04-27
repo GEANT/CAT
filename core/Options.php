@@ -30,7 +30,7 @@ namespace core;
  *
  * @package Developer
  */
-class Options extends Entity {
+class Options {
 
     /**
      * database which this class queries by default
