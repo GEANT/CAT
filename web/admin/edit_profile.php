@@ -501,24 +501,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 </fieldset>
 <fieldset class="option_container" id="eap_override">
     <legend><strong><?php echo _("EAP Details for this profile"); ?></strong></legend>
-    <p>
-        <?php
-        $has_eap_options = [];
-        foreach ($idp_options as $idp_option) {
-            if (preg_match("/^eap:/", $idp_option['name'])) {
-                $has_eap_options[$idp_option['name']] = "SET";
-            }
-        }
-        if (count($has_eap_options) > 0) {
-            $text = "<ul>";
-            foreach ($has_eap_options as $key => $value) {
-                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
-            }
-            $text .= "</ul>";
-            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_eap_options)), $text);
-        }
-        ?>
-    </p>
     <?php
     echo $optionDisplay->prefilledOptionTable("eap");
     ?>
