@@ -61,7 +61,7 @@ abstract class Entity {
     }
 
     public function __destruct() {
-        $this->loggerInstance->debug(5,"--- KILL Destructing class ". get_class($this)." .\n");
+        (new Logging())->debug(5,"--- KILL Destructing class ". get_class($this)." .\n");
     }
     
     /**
