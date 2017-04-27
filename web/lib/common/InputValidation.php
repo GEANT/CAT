@@ -102,7 +102,7 @@ class InputValidation {
             throw new Exception($this->inputValidationError("Value for profile is not an integer!"));
         }
 
-        $temp = \core\ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
+        $temp = \core\ProfileFactory::instantiate((int) $input); // constructor throws an exception if NX, game over
 
         if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
             throw new Exception($this->inputValidationError("The profile does not belong to the IdP!"));
@@ -186,33 +186,34 @@ public function consortium_oi($input) {
  * @return false|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
-    // basic string checks
-    $check = $this->string($input);
-    // bark on invalid constructs
-    if (preg_match("/@/", $check) == 1) {
-        echo $this->inputValidationError(_("Realm contains an @ sign!"));
-        return FALSE;
-    }
-    if (preg_match("/^\./", $check) == 1) {
-        echo $this->inputValidationError(_("Realm begins with a . (dot)!"));
-        return FALSE;
-    }
-    if (preg_match("/\.$/", $check) == 1) {
-        echo $this->inputValidationError(_("Realm ends with a . (dot)!"));
-        return FALSE;
-    }
-    if (preg_match("/\./", $check) == 0) {
-        echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
-        return FALSE;
-    }
-    if (preg_match("/ /", $check) == 1) {
-        echo $this->inputValidationError(_("Realm contains spaces!"));
-        return FALSE;
-    }
     if (strlen($input) == 0) {
         echo $this->inputValidationError(_("Realm is empty!"));
         return FALSE;
     }
+
+    // basic string checks
+    $check = $this->string($input);
+    // list of things to check, and the error they produce
+    $pregCheck = [
+        "/@/" => _("Realm contains an @ sign!"),
+        "/^\./" => _("Realm begins with a . (dot)!"),
+        "/\.$/" => _("Realm ends with a . (dot)!"),
+        "/ /" => _("Realm contains spaces!"),
+    ];
+
+    // bark on invalid constructs
+    foreach ($pregCheck as $search => $error) {
+        if (preg_match($search, $check) == 1) {
+            echo $this->inputValidationError($error);
+            return FALSE;
+        }
+    }
+
+    if (preg_match("/\./", $check) == 0) {
+        echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
+        return FALSE;
+    }
+
     // none of the special HTML entities should be here. In case someone wants
     // to mount a CSS attack by providing something that matches the realm constructs
     // below but has interesting stuff between, mangle the input so that these
