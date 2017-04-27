@@ -128,12 +128,16 @@ class UserAPI extends CAT {
      * @return array info about the new installer (mime and link)
      */
     private function generateNewInstaller($device, $profile, $generatedFor, $token, $password) {
+        $this->loggerInstance->debug(5, "generateNewInstaller() - Enter");
         $factory = new DeviceFactory($device);
+        $this->loggerInstance->debug(5, "generateNewInstaller() - created Device");
         $dev = $factory->device;
         $out = [];
         if (isset($dev)) {
             $dev->setup($profile, $token, $password);
+            $this->loggerInstance->debug(5, "generateNewInstaller() - Device setup done");
             $installer = $dev->writeInstaller();
+            $this->loggerInstance->debug(5, "generateNewInstaller() - writeInstaller complete");
             $iPath = $dev->FPATH . '/tmp/' . $installer;
             if ($iPath && is_file($iPath)) {
                 if (isset($dev->options['mime'])) {

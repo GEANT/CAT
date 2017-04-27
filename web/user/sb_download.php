@@ -60,7 +60,7 @@ if (!$p->institution || $p->institution !== $instId) {
 
 // now we generate the installer
 try {
-    $API->downloadInstaller($device, $profileId, $generatedFor, $cleanToken, $password);
+    $API->downloadInstaller($device, $p->identifier, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob("");
     // find our account status page, and bail out if this doesn't work
