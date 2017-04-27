@@ -53,6 +53,13 @@ class Logging {
         }
         
         $output = " ($level) ";
+        if ($level > 3) {
+            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $file = str_replace(ROOT, "", $backtrace[1]['file']);
+            $function = $backtrace[1]['function'] ?? "no function";
+            $line = $backtrace[1]['line'];
+            $output .= " [$file / $function / $line] ";
+        }
         $output .= print_r($text, TRUE);
         $this->writeToFile("debug.log", $output);
 
