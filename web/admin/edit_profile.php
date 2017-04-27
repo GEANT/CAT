@@ -449,6 +449,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                     <ol id="sortable2" class="eapmethods">
                         <?php
                         foreach ($methods as $a) {
+                            if ($a == \core\EAP::EAPTYPE_SILVERBULLET) {
+                                continue;
+                            }
                             $display = $uiElements->displayName($a);
                             if (!isset($D[$uiElements->displayName($a)])) {
                                 print '<li class="eap1">' . $uiElements->displayName($a) . "</li>\n";
