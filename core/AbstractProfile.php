@@ -121,7 +121,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->loggerInstance->debug(3, "--- BEGIN Constructing new AbstractProfile object ... ---\n");
         // first make sure that we are operating on numeric identifiers
         if (!is_numeric($profileId)) {
-            throw new Exception("Non-numeric Profile identifier was passed to AbstarctProfile constructor!");
+            throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
         }
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
