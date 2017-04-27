@@ -486,11 +486,11 @@ $media_text = "";
 foreach ($optionsAlreadySet as $optionNames) {
     if (preg_match("/^support:/", $optionNames)) {
         $has_support_options[$optionNames] = "SET";
-        $support_text .= "<li><strong>" . displayName($optionNames) . "</strong></li>";
+        $support_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
     }
     if (preg_match("/^media:/", $optionNames)) {
         $has_media_options[$$optionNames] = "SET";
-        $support_text .= "<li><strong>" . displayName($optionNames) . "</strong></li>";
+        $support_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
     }
 }
 ?>
