@@ -56,7 +56,7 @@ abstract class Entity {
 
     public function __construct() {
         $this->loggerInstance = new Logging();
-        $this->loggerInstance->debug(5,"--- BEGIN constructing class ". get_class($this)." .\n");
+        $this->loggerInstance->debug(3, "--- BEGIN constructing class ". get_class($this)." .\n");
         $this->languageInstance = new Language();
     }
 
