@@ -47,6 +47,11 @@ class Options extends Entity {
     private static $instance;
 
     /**
+     * 
+     */
+    private $loggerInstance;
+
+    /**
      * This private variable contains the list of all known options and their properties (i.e. flags).
      * 
      * @var array all known options
@@ -77,8 +82,9 @@ class Options extends Entity {
      *  Option class constructor; retrieves information about the known options from the database.
      */
     private function __construct() {
-        parent::__construct();
         $this->typeDb = [];
+        $this->loggerInstance = new Logging();
+        $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         while ($optionDataQuery = mysqli_fetch_object($options)) {
