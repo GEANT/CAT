@@ -70,10 +70,11 @@ $statusInfo = ["token" => $cleanToken,
 ];
 
 const KNOWN_ERRORCODES = ["GENERATOR_CONSUMED"];
-
-switch ($_REQUEST['errorcode']) {
+$errorcode = $_REQUEST['errorcode'] ?? "";
+switch ($errorcode) {
     case KNOWN_ERRORCODES[0]:
         $statusInfo['errorcode'] = KNOWN_ERRORCODES[0];
+        break;
     default:
         $statusInfo['errorcode'] = NULL;
 }
