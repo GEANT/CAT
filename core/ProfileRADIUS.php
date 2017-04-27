@@ -59,7 +59,6 @@ class ProfileRADIUS extends AbstractProfile {
      */
     public function __construct($profileId, $idpObject) {
         parent::__construct($profileId, $idpObject);
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object for $profileId ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";

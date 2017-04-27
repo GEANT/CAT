@@ -75,7 +75,6 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function __construct($profileId, $idpObject = NULL) {
         parent::__construct($profileId, $idpObject);
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";

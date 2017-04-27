@@ -60,7 +60,6 @@ class IdP extends EntityWithDBProperties {
     public function __construct($instId) {
         $this->databaseType = "INST";
         parent::__construct(); // now databaseHandle and logging is available
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         if (!is_numeric($instId)) {

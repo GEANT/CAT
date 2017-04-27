@@ -30,7 +30,7 @@ namespace core;
  *
  * @package Developer
  */
-class Options {
+class Options extends Entity {
 
     /**
      * database which this class queries by default
@@ -45,11 +45,6 @@ class Options {
      * @var Options
      */
     private static $instance;
-
-    /**
-     * 
-     */
-    private $loggerInstance;
 
     /**
      * This private variable contains the list of all known options and their properties (i.e. flags).
@@ -82,9 +77,8 @@ class Options {
      *  Option class constructor; retrieves information about the known options from the database.
      */
     private function __construct() {
+        parent::__construct();
         $this->typeDb = [];
-        $this->loggerInstance = new Logging();
-        $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         while ($optionDataQuery = mysqli_fetch_object($options)) {
