@@ -160,13 +160,13 @@ switch ($action) {
         break;
     case 'sendFedLogo': // needs $id and $disco set
         if (!$fed) {
-            $fed = $id;
+            $fed = $validator->Federation($id);
         }
-        if ($fed === FALSE) {
+        if (!$fed instanceof \core\Federation) {
             exit;
         }
         $validator = new \web\lib\common\InputValidation();
-        $API->sendFedLogo($validator->Federation($fed)->identifier, $width, $height);
+        $API->sendFedLogo($fed->identifier, $width, $height);
         break;        
     case 'deviceInfo': // needs $id and profile set
         if (!$device) {
