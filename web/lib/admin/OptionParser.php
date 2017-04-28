@@ -8,7 +8,9 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
 namespace web\lib\admin;
+
 ?>
 <?php
 
@@ -18,19 +20,19 @@ class OptionParser {
 
     private $validator;
     private $uiElements;
-    
+
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
         $this->uiElements = new UIElements();
     }
-    
+
     private function postProcessValidAttributes($options, &$good, &$bad) {
         foreach ($options as $index => $iterateOption) {
             foreach ($iterateOption as $name => $optionPayload) {
                 switch ($name) {
                     case "eap:ca_url": // eap:ca_url becomes eap:ca_file by downloading the file
                         $finalOptionname = "eap:ca_file";
-                        // intentional fall-through, treatment identical to logo_url
+                    // intentional fall-through, treatment identical to logo_url
                     case "general:logo_url": // logo URLs become logo files by downloading the file
                         $finalOptionname = $finalOptionname ?? "general:logo_file";
                         if (empty($optionPayload['content'])) {
@@ -96,7 +98,7 @@ class OptionParser {
         // list all atributes that had errors
         $listBad = array_count_values($bad);
         foreach ($listBad as $name => $count) {
-            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), (int)$count, $uiElements->displayName($name)));
+            $retval .= $this->uiElements->boxError(sprintf(_("%dx %s"), (int) $count, $uiElements->displayName($name)));
         }
         // list multilang without default
         foreach ($mlAttribsWithC as $attribName => $isitsetornot) {
@@ -107,6 +109,14 @@ class OptionParser {
         return $retval;
     }
 
+    /**
+     * Incoming data is in $_POST and possibly in $_FILES. Collate values into 
+     * one array according to our name and numbering scheme.
+     * 
+     * @param array $postArray _POST
+     * @param array $filesArray _FILES
+     * @return array
+     */
     private function collateOptionArrays($postArray, $filesArray) {
 
         $optionarray = $postArray['option'] ?? [];
@@ -116,6 +126,51 @@ class OptionParser {
         $iterator = array_merge($optionarray, $valuearray, $filesarray);
 
         return $iterator;
+    }
+
+    /**
+     * The very end of the processing: clean input data gets sent to the database
+     * for storage
+     * 
+     * @param mixed $object for which object are the options
+     * @param array $options the options to store
+     * @param array $pendingattributes list of attributes which are already stored but may need to be deleted
+     * @return array list of attributes which were previously stored but are to be deleted now
+     * @throws Exception
+     */
+    private function sendOptionsToDatabase($object, $options, $pendingattributes) {
+        $optioninfoObject = \core\Options::instance();
+        $retval = [];
+        foreach ($options as $iterateOption) {
+            foreach ($iterateOption as $name => $optionPayload) {
+                $optiontype = $optioninfoObject->optionType($name);
+                // some attributes are in the DB and were only called by reference
+                // keep those which are still referenced, throw the rest away
+                if ($optiontype["type"] == "file" && preg_match("/^ROWID-.*-([0-9]+)/", $optionPayload['content'], $retval)) {
+                    unset($pendingattributes[$retval[1]]);
+                    continue;
+                }
+                switch (get_class($object)) {
+                    case 'core\\ProfileRADIUS':
+                        if ($device !== NULL) {
+                            $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
+                        } elseif ($eaptype != 0) {
+                            $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
+                        } else {
+                            $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
+                        }
+                        break;
+                    case 'core\\IdP':
+                    case 'core\\User':
+                    case 'core\\Federation':
+                        $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
+                        break;
+                    default:
+                        throw new Exception("This type of object can't have options that are parsed by this file!");
+                }
+            }
+        }
+        return $pendingattributes;
     }
 
     /**
@@ -138,8 +193,6 @@ class OptionParser {
         $multilangAttrsWithC = [];
         $good = [];
         $bad = [];
-
-        $killlist = $pendingattributes;
 
         $optioninfoObject = \core\Options::instance();
 
@@ -183,20 +236,20 @@ class OptionParser {
                 // except validator function to call and where in POST the
                 // content is
                 $validators = [
-                    "text"        => ["function" => "string",           "field" => 1, "extraarg" => [TRUE]],
+                    "text" => ["function" => "string", "field" => 1, "extraarg" => [TRUE]],
                     "coordinates" => ["function" => "coordJsonEncoded", "field" => 1, "extraarg" => []],
-                    "boolean"     => ["function" => "boolean",          "field" => 3, "extraarg" => []],
-                    "integer"     => ["function" => "integer",          "field" => 4, "extraarg" => []],
+                    "boolean" => ["function" => "boolean", "field" => 3, "extraarg" => []],
+                    "integer" => ["function" => "integer", "field" => 4, "extraarg" => []],
                 ];
-                
+
                 switch ($optioninfo["type"]) {
                     case "text":
                     case "coordinates":
                     case "boolean":
                     case "integer":
-                        $varName = "$objId-".$validators[$optioninfo['type']]['field'];
+                        $varName = "$objId-" . $validators[$optioninfo['type']]['field'];
                         if (!empty($iterator[$varName])) {
-                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']],array_merge([$iterator[$varName]],$validators[$optioninfo['type']]['extraarg']));
+                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$iterator[$varName]], $validators[$optioninfo['type']]['extraarg']));
                             break;
                         }
                         continue 2;
@@ -260,35 +313,10 @@ class OptionParser {
 
         $options = $this->postProcessCoordinates($optionsStep2, $good);
 
-        foreach ($options as $iterateOption) {
-            foreach ($iterateOption as $name => $optionPayload) {
-                $optiontype = $optioninfoObject->optionType($name);
-                // some attributes are in the DB and were only called by reference
-                // keep those which are still referenced, throw the rest away
-                if ($optiontype["type"] == "file" && preg_match("/^ROWID-.*-([0-9]+)/", $optionPayload['content'], $retval)) {
-                    unset($killlist[$retval[1]]);
-                    continue;
-                }
-                switch (get_class($object)) {
-                    case 'core\\ProfileRADIUS':
-                        if ($device !== NULL) {
-                            $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
-                        } elseif ($eaptype != 0) {
-                            $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
-                        } else {
-                            $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
-                        }
-                        break;
-                    case 'core\\IdP':
-                    case 'core\\User':
-                    case 'core\\Federation':
-                        $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
-                        break;
-                    default:
-                        throw new Exception("This type of object can't have options that are parsed by this file!");
-                }
-            }
-        }
+        // now, push all the received options to the database. Keep mind of the
+        // list of database entries that are to be deleted.
+
+        $killlist = $this->sendOptionsToDatabase($object, $options, $pendingattributes);
 
         if ($silent === FALSE) {
             echo $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
