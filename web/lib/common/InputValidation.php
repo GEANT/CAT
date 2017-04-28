@@ -233,7 +233,8 @@ public function User($input) {
     if ($input != "" && !ctype_print($input)) {
         throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
-    return $retval;
+    
+    return $this->string($retval);
 }
 
 /**
