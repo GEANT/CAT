@@ -577,9 +577,6 @@ if ($error_message) {
               ';
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
                         $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
-
-                        /* if($addr['family'] == "IPv6")
-                          continue; */
                         print "
                             running_ajax_dyn++;
                             $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
@@ -625,10 +622,8 @@ if ($error_message) {
 <td id='src$hostindex' colspan=2>
 " . _("testing...") . "
 </td>
-</tr>" .
-//server_cert('udp-'.$hostindex) .
-                            "</table>
-";
+</tr>
+</table>";
                 }
                 ?>
             </fieldset>
@@ -651,10 +646,6 @@ if ($error_message) {
                     $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . $uiElements->boxError(_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . $uiElements->boxOkay(_("All tests passed, congratulations!")) . '</table>';
                     $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
-                        /*                          if ($addr['family'] == "IPv6") {
-                          $resultstoprint[] = '<strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . "</strong><ul style='list-style-type: none;'><li>" . _('Due to OpenSSL limitations, it is not possible to check IPv6 addresses at this time.') . '</li></ul>';
-                          continue;
-                          } */
                         $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
                         $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
                         $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
@@ -670,11 +661,6 @@ if ($error_message) {
                     }
                     $clientstest = [];
                     foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
-                        //$clientsres = $testsuite->TLS_client_side_tests();
-                        /*                          if ($addr['family'] == 'IPv6') {
-                          $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p>' .  "<ul style='list-style-type: none;'><li>" . _('Due to OpenSSL limitations, it is not possible to check IPv6 addresses at this time.') . '</li></ul>';
-                          continue;
-                          } */
                         $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
                         $clientstest[] = "<span id='clientresults$hostindex$clinx'><table style='width:100%'>
 <tr>
