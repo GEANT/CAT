@@ -134,9 +134,16 @@ class InputValidation {
      */
     public function string($input, $allowWhitespace = FALSE) {
     // always chop out invalid characters, and surrounding whitespace
-    $retvalStep1 =  trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
+    $retvalStep0 =  iconv("UTF-8", "UTF-8//TRANSLIT", $input);
+    if ($retvalStep0 === FALSE) {
+        throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
+    }
+    $retvalStep1 = trim($retvalStep0);
     // if some funny person wants to inject markup tags, remove them
     $retval = filter_var($retvalStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
+    if ($retval === FALSE) {
+        throw new Exception("filter_var failure for string sanitisation.");
+    }
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
     if ($allowWhitespace === FALSE) {
@@ -233,7 +240,7 @@ public function User($input) {
     if ($input != "" && !ctype_print($input)) {
         throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
-    
+
     return $this->string($retval);
 }
 
