@@ -345,7 +345,7 @@ public function hostname($input) {
  */
 public function email($input) {
 
-    if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+    if (filter_var($this->string($input), FILTER_VALIDATE_EMAIL)) {
         return $input;
     }
     // if we get here, it's bogus
