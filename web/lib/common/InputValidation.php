@@ -367,7 +367,7 @@ public function supportedLanguage($input) {
  * @return string
  */
 public function OptionName($input) {
-    $object = new \core\Options();
+    $object = \core\Options::instance();
     return $object->assertValidOptionName($input);
 }
 

@@ -179,7 +179,27 @@ class OptionParser {
                     }
                 }
 
+                // many of the cases below condense due to identical treatment
+                // except validator function to call and where in POST the
+                // content is
+                $validators = [
+                    "text"        => ["function" => "string",           "field" => 1, "extraarg" => [TRUE]],
+                    "coordinates" => ["function" => "coordJsonEncoded", "field" => 1, "extraarg" => []],
+                    "boolean"     => ["function" => "boolean",          "field" => 3, "extraarg" => []],
+                    "integer"     => ["function" => "integer",          "field" => 4, "extraarg" => []],
+                ];
+                
                 switch ($optioninfo["type"]) {
+                    case "text":
+                    case "coordinates":
+                    case "boolean":
+                    case "integer":
+                        $varName = "$objId-".$validators[$optioninfo['type']]['field'];
+                        if (!empty($iterator[$varName])) {
+                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']],array_merge([$iterator[$varName]],$validators[$optioninfo['type']]['extraarg']));
+                            break;
+                        }
+                        continue 2;
                     case "string":
                         if (!empty($iterator["$objId-0"])) {
                             switch ($objValue) {
@@ -204,18 +224,6 @@ class OptionParser {
                             break;
                         }
                         continue 2;
-                    case "text":
-                        if (!empty($iterator["$objId-1"])) {
-                            $content = $this->validator->string($iterator["$objId-1"], TRUE);
-                            break;
-                        }
-                        continue 2;
-                    case "coordinates":
-                        if (!empty($iterator["$objId-1"])) {
-                            $content = $this->validator->coordJsonEncoded($iterator["$objId-1"]);
-                            break;
-                        }
-                        continue 2;
                     case "file":
 // echo "In file processing ...<br/>";
                         if (!empty($iterator["$objId-1"])) { // was already in, by ROWID reference, extract
@@ -230,19 +238,6 @@ class OptionParser {
                                 continue 2;
                             }
                             $content = base64_encode($content);
-                            break;
-                        }
-                        continue 2;
-
-                    case "boolean":
-                        if (!empty($iterator["$objId-3"])) {
-                            $content = $this->validator->boolean($iterator["$objId-3"]);
-                            break;
-                        }
-                        continue 2;
-                    case "integer":
-                        if (!empty($iterator["$objId-4"])) {
-                            $content = $this->validator->integer($iterator["$objId-4"]);
                             break;
                         }
                         continue 2;
