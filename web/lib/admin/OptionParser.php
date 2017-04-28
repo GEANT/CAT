@@ -74,16 +74,23 @@ class OptionParser {
         return $options;
     }
 
-    private function postProcessCoordinates($options, &$good) {
-        if (!empty($_POST['geo_long']) && !empty($_POST['geo_lat'])) {
+    /**
+     * extracts a coordinate pair from _POST (if any) and returns it in our 
+     * standard attribute notation
+     * 
+     * @param array $postArray
+     * @param array $good
+     * @return array
+     */
+    private function postProcessCoordinates($postArray, &$good) {
+        if (!empty($postArray['geo_long']) && !empty($postArray['geo_lat'])) {
 
-            $lat = $this->validator->coordinate($_POST['geo_lat']);
-            $lon = $this->validator->coordinate($_POST['geo_long']);
-
-            $options[] = ["general:geo_coordinates" => ['lang' => NULL, 'content' => json_encode(["lon" => $lon, "lat" => $lat])]];
+            $lat = $this->validator->coordinate($postArray['geo_lat']);
+            $lon = $this->validator->coordinate($postArray['geo_long']);
             $good[] = ("general:geo_coordinates");
+            return ["general:geo_coordinates" => ['lang' => NULL, 'content' => json_encode(["lon" => $lon, "lat" => $lat])]];
         }
-        return $options;
+        return [];
     }
 
     private function displaySummaryInUI($good, $bad, $mlAttribsWithC) {
@@ -322,7 +329,7 @@ class OptionParser {
         // Step 4: coordinates do not follow the usual POST array as they are 
         // two values forming one attribute; extract those two as an extra step
 
-        $options = $this->postProcessCoordinates($optionsStep2, $good);
+        $options = array_merge($optionsStep2, $this->postProcessCoordinates($postArray, $good));
 
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
