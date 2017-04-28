@@ -29,15 +29,18 @@ class OptionParser {
             foreach ($iterateOption as $name => $optionPayload) {
                 switch ($name) {
                     case "eap:ca_url": // eap:ca_url becomes eap:ca_file by downloading the file
+                        $finalOptionname = "eap:ca_file";
+                        // intentional fall-through, treatment identical to logo_url
+                    case "general:logo_url": // logo URLs become logo files by downloading the file
+                        $finalOptionname = $finalOptionname ?? "general:logo_file";
                         if (empty($optionPayload['content'])) {
                             break;
                         }
-                        $content = \core\OutsideComm::downloadFile($optionPayload['content']);
+                        $bindata = \core\OutsideComm::downloadFile($optionPayload['content']);
                         unset($options[$index]);
-                        if (check_upload_sanity("eap:ca_file", $content)) {
-                            $content = base64_encode($content);
-                            $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => $content]];
+                        if (check_upload_sanity($finalOptionname, $bindata)) {
                             $good[] = $name;
+                            $options[] = [$finalOptionname => ['lang' => NULL, 'content' => base64_encode($bindata)]];
                         } else {
                             $bad[] = $name;
                         }
@@ -57,19 +60,6 @@ class OptionParser {
                             $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => base64_encode($x509->pem2der($cAFile))]];
                         }
                         $good[] = $name;
-                        break;
-                    case "general:logo_url": // logo URLs become logo files by downloading the file
-                        if (empty($optionPayload['content'])) {
-                            break;
-                        }
-                        $bindata = \core\OutsideComm::downloadFile($optionPayload['content']);
-                        unset($options[$index]);
-                        if (check_upload_sanity("general:logo_file", $bindata)) {
-                            $good[] = $name;
-                            $options[] = ["general:logo_file" => ['lang' => NULL, 'content' => base64_encode($bindata)]];
-                        } else {
-                            $bad[] = $name;
-                        }
                         break;
                     default:
                         $good[] = $name; // all other options were checked and are sane in step 1 already
