@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -18,14 +18,13 @@ $validator = new \web\lib\common\InputValidation();
 
 echo $deco->defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
 echo $deco->productheader("USER");
-
 ?>
 <h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
 <p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
 <p><?php
-    echo _("Please follow the instructions below.");
-    $global = new \core\Federation();
-    ?></p><hr/>
+echo _("Please follow the instructions below.");
+$global = new \core\Federation();
+?></p><hr/>
 
 <?php if (empty($_POST['realm']) && empty($_POST['norealm']) && empty($_POST['problemscope'])) { ?> <!-- COND-BLOCK-1 -->
     <form action="action_userdiag.php" method="POST">
@@ -63,18 +62,13 @@ echo $deco->productheader("USER");
 // otherwise, maybe an IdP problem. We still need his realm to investigate, but
 // need to ask more subtle
 
-function mainpage_url() {
-    $validator = new \web\lib\common\InputValidation();
-    $main_url = "//" . $validator->hostname($_SERVER['HTTP_HOST']);
-    $main_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/"));
-    return $main_url;
-}
-
 function username_format_lecture() {
+    $skinjob = new \web\lib\user\Skinjob();
+    $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
     $retval = "<div class='problemdescription'><p>" . _("Roaming with eduroam requires a username in the format 'localname@realm'. Many Identity Providers also require that same format also when using the network locally.") . "</p>";
     $retval .= "<p>" . _("Exceptions to that format requirement apply only when an Idenity Provider forces the use of an anonymous outer identity using specially prepared configuration profiles or extensive manual instructions.") . "</p>";
     $retval .= "<p>" . _("Since you do not know the realm that is used by your Identity Provider, the first step is to double-check the correct username format.") . "</p></div>";
-    $retval .= "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your Identity Provider - it will, among others, set up the correct username format. If you do not find your Identity Provider there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], mainpage_url()) . "</p></div>";
+    $retval .= "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your Identity Provider - it will, among others, set up the correct username format. If you do not find your Identity Provider there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], $basepath) . "</p></div>";
     return $retval;
 }
 
@@ -85,9 +79,16 @@ if ((empty($_POST['norealm']) && empty($_POST['realm'])) XOR empty($_POST['probl
 if (!empty($_POST['norealm']) && !empty($_POST['realm'])) {
     echo _("You have indicated a realm in your username AND that your username does not contain the '@' character. This is contradictory. Please <a href='.'>start again</a>.");
 }
+const KNOWN_SCOPES = ["always" => "always", "always-roaming" => "always-roaming", "deviceprob" => "deviceprob", "sometimes-roaming" => "sometimes-roaming", "sometimes" => "sometimes"];
 
 if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST['completion'])) {
-    switch ($_POST['problemscope']) {
+// wash clean the input
+    $scope = array_key(KNOWN_SCOPES, $_POST['problemscope']);
+    if (count($scope) == 0) {
+        throw new Exception("Unknown problem scope");
+    }
+
+    switch ($scope) {
         case "always":
             // username and/or password incorrect. Point to installer and helpdesk. Finish.
             echo "<h2>" . _("It is very likely that you have a problem with your username or your password.") . "</h2>";
@@ -101,9 +102,11 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
             echo username_format_lecture();
             break;
         case "deviceprob":
+            $skinjob = new \web\lib\user\Skinjob();
+            $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
             echo "<h2>" . _("It is very likely that the configuration of the non-working device is incorrect.") . "</h2>";
             echo "<div class='problemdescription'><p>" . _("A proper configuration for eduroam requires more than a username and password. Some settings such as a required 'anonymous outer identity' can prevent the device from working.") . "</p></div>";
-            echo "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your device and Identity Provider. If you do not find your Identity Provider or device there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], mainpage_url()) . "</p></div>";
+            echo "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your device and Identity Provider. If you do not find your Identity Provider or device there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], $basepath) . "</p></div>";
         case "sometimes-roaming":
         case "sometimes":
             // a real problem maybe. But the user is clueless about his realm.
@@ -113,7 +116,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
             <p><?php echo _("The following questions help us narrow down the problem"); ?></p>
             <form action = 'action_userdiag.php' method='POST'>
                 <input type='hidden' name='completion' id='completion' value='NOREALM-1'/>
-                <input type='hidden' name='problemscope' id='problemscope' value='<?php echo $_POST['problemscope']; ?>'/>
+                <input type='hidden' name='problemscope' id='problemscope' value='<?php echo $scope; ?>'/>
                 <h2><?php echo _("Q3: We need to find out which organisation has issued your eduroam login. It can usually be identified by its realm, but since you do not have this information, please select country and institution name from the lists below:"); ?></h2>
                 <select style='display:block' name='realm' id='realm'>
                     <option id='NONE' value='dropdown-unknown-selected'>My institution is not in this list!</option>
@@ -264,11 +267,6 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
         foreach ($resultset as $result)
             $all_certprobs = array_merge($all_certprobs, $result['cert_oddities']);
     }
-    echo "<pre>";
-    print_r($realmproblems);
-    print_r($all_certprobs);
-    print_r($_POST['problemscope']);
-    echo "</pre>";
 
 // now we have something to say...
 // infrastructure problems are always a problem, regardless how often they affect
