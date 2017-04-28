@@ -21,6 +21,7 @@
  */
 
 namespace core;
+
 use \Exception;
 
 /**
@@ -365,30 +366,30 @@ class RADIUSTests extends Entity {
      * @return int one of two RETVALs above
      */
     public function NAPTR_compliance() {
-        // did we query DNS for the NAPTRs yet? If not, do so now.
+// did we query DNS for the NAPTRs yet? If not, do so now.
         if ($this->NAPTR_executed === FALSE) {
             $this->NAPTR();
         }
-        // if the NAPTR checks aren't configured, tell the caller
+// if the NAPTR checks aren't configured, tell the caller
         if ($this->NAPTR_executed === RADIUSTests::RETVAL_NOTCONFIGURED) {
             $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
-        // if there were no relevant NAPTR records, we are compliant :-)
+// if there were no relevant NAPTR records, we are compliant :-)
         if (count($this->NAPTR_records) == 0) {
             $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_OK;
             return RADIUSTests::RETVAL_OK;
         }
         $formatErrors = [];
-        // format of NAPTRs is consortium specific. eduroam below; others need
-        // their own code
+// format of NAPTRs is consortium specific. eduroam below; others need
+// their own code
         if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             foreach ($this->NAPTR_records as $edupointer) {
-                // must be "s" type for SRV
+// must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
                     $formatErrors[] = ["TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']];
                 }
-                // no regex
+// no regex
                 if ($edupointer["regex"] != "") {
                     $formatErrors[] = ["TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']];
                 }
@@ -703,12 +704,12 @@ class RADIUSTests extends Entity {
      * @return int one of the RETVALs above or the number of SRV records which were resolved
      */
     public function NAPTR_SRV() {
-        // see if preceding checks have been run, and run them if not
-        // compliance check will cascade NAPTR check on its own
+// see if preceding checks have been run, and run them if not
+// compliance check will cascade NAPTR check on its own
         if ($this->NAPTR_compliance_executed === FALSE) {
             $this->NAPTR_compliance();
         }
-        // we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
+// we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
         if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RADIUSTests::RETVAL_INVALID) {
             $this->NAPTR_SRV_executed = RADIUSTests::RETVAL_SKIPPED;
             return RADIUSTests::RETVAL_SKIPPED;
@@ -738,19 +739,19 @@ class RADIUSTests extends Entity {
     }
 
     public function NAPTR_hostnames() {
-        // make sure the previous tests have been run before we go on
-        // preceeding tests will cascade automatically if needed
+// make sure the previous tests have been run before we go on
+// preceeding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed === FALSE) {
             $this->NAPTR_SRV();
         }
-        // if previous are SKIPPED, skip this one, too
+// if previous are SKIPPED, skip this one, too
         if ($this->NAPTR_SRV_executed == RADIUSTests::RETVAL_SKIPPED) {
             $this->NAPTR_hostname_executed = RADIUSTests::RETVAL_SKIPPED;
             return RADIUSTests::RETVAL_SKIPPED;
         }
-        // the SRV check may have returned INVALID, but could have found a
-        // a working subset of hosts anyway. We should continue checking all 
-        // dicovered names.
+// the SRV check may have returned INVALID, but could have found a
+// a working subset of hosts anyway. We should continue checking all 
+// dicovered names.
 
         $ipAddrs = [];
         $resolutionErrors = [];
@@ -793,8 +794,8 @@ class RADIUSTests extends Entity {
      */
     private function propertyCheckServercert(&$servercert) {
         $this->loggerInstance->debug(5, "SERVER CERT IS: " . print_r($servercert, TRUE));
-        // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
-        // so call that function and memorise the outcome
+// we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
+// so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
 
         if (!isset($servercert['full_details']['extensions'])) {
@@ -805,7 +806,7 @@ class RADIUSTests extends Entity {
                 $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
             }
         }
-        // check for wildcards
+// check for wildcards
         $commonName = [];
         if (isset($servercert['full_details']['subject']['CN'])) {
             if (is_array($servercert['full_details']['subject']['CN'])) {
@@ -833,12 +834,12 @@ class RADIUSTests extends Entity {
             $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
         }
 
-        // is there more than one CN? None or one is okay, more is asking for trouble.
+// is there more than one CN? None or one is okay, more is asking for trouble.
         if (count($commonName) > 1) {
             $returnarray[] = RADIUSTests::CERTPROB_MULTIPLE_CN;
         }
 
-        // check for real hostname
+// check for real hostname
         foreach ($allnames as $onename) {
             if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
                 $returnarray[] = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
@@ -907,8 +908,8 @@ class RADIUSTests extends Entity {
      * @return int returncode
      */
     public function UDP_reachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
-        // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
-        // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
+// for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
+// the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcerthandle = fopen(dirname(__FILE__) . "/clientcert.p12", "r");
         $this->loggerInstance->debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
@@ -985,49 +986,45 @@ class RADIUSTests extends Entity {
         return $retarray;
     }
 
-   /**
-     * this function checks if the ETLRs sent back an Access-Reject because there appeared to
-     * be a timeout further downstream
+    const LINEPARSE_CHECK_REJECTIGNORE = 1;
+    const LINEPARSE_CHECK_691 = 2;
+    const LINEPARSE_EAPACK = 3;
+
+    /**
+     * this function checks for various special conditions which can be found 
+     * only by parsing eapol_test output line by line. Checks currently 
+     * implemented are:
+     * * if the ETLRs sent back an Access-Reject because there appeared to
+     *   be a timeout further downstream
+     * * did the server send an MSCHAP Error 691 - Retry Allowed in a Challenge
+     *   instead of an outright reject?
+     * * was an EAP method ever acknowledged by both sides during the EAP
+     *   conversation
      * 
      * @param array $inputarray array of strings (outputs of eapol_test command)
+     * @param int $desiredCheck which test should be run (see constants above)
      * @return boolean returns TRUE if ETLR Reject logic was detected; FALSE if not
      */
-    private function checkRejectInsteadOfIgnore($inputarray) {
+    private function checkLineparse($inputarray, $desiredCheck) {
         foreach ($inputarray as $lineid => $line) {
-            if (preg_match("/Attribute 18 (Reply-Message)/", $line) && preg_match("/Reject instead of Ignore at eduroam.org/", $inputarray[$lineid + 1])) {
-                return TRUE;
-            }
-        }
-        return FALSE;
-    }
-
-    
-    /**
-     * this function checks if there was a "Retry allowed" MSCHAPv2 error message in the conversation
-     * 
-     * @param array $inputarray array of strings (outputs of eapol_test command)
-     * @return boolean returns TRUE if method was ACKed; false if only NAKs in the flow
-     */
-    private function checkMschap691RetryAllowed($inputarray) {
-        foreach ($inputarray as $lineid => $line) {
-            if (preg_match("/MSCHAPV2: error 691/", $line) && preg_match("/MSCHAPV2: retry is allowed/", $inputarray[$lineid + 1])) {
-                return TRUE;
-            }
-        }
-        return FALSE;
-    }
-
-    /**
-     * this function assumes that there was an EAP conversation; calling it on other packet flows gets undefined results
-     * it checks if the flow contained at least one method proposition which was not NAKed
-     * 
-     * @param array $inputarray array of strings (outputs of eapol_test command)
-     * @return boolean returns TRUE if method was ACKed; false if only NAKs in the flow
-     */
-    private function checkEAPconversationMethodAck($inputarray) {
-        foreach ($inputarray as $line) {
-            if (preg_match("/CTRL-EVENT-EAP-PROPOSED-METHOD/", $line) && !preg_match("/NAK$/", $line)) {
-                return TRUE;
+            switch ($desiredCheck) {
+                case self::LINEPARSE_CHECK_REJECTIGNORE:
+                    if (preg_match("/Attribute 18 (Reply-Message)/", $line) && preg_match("/Reject instead of Ignore at eduroam.org/", $inputarray[$lineid + 1])) {
+                        return TRUE;
+                    }
+                    break;
+                case self::LINEPARSE_CHECK_691:
+                    if (preg_match("/MSCHAPV2: error 691/", $line) && preg_match("/MSCHAPV2: retry is allowed/", $inputarray[$lineid + 1])) {
+                        return TRUE;
+                    }
+                    break;
+                case self::LINEPARSE_EAPACK:
+                    if (preg_match("/CTRL-EVENT-EAP-PROPOSED-METHOD/", $line) && !preg_match("/NAK$/", $line)) {
+                        return TRUE;
+                    }
+                    break;
+                default:
+                    throw new Exception("This lineparse test does not exist.");
             }
         }
         return FALSE;
@@ -1049,22 +1046,22 @@ class RADIUSTests extends Entity {
             $foo = $this->profile;
             $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
             $this->loggerInstance->debug(3, "calculating local part with explicit Profile\n");
-            // did the admin specify a special outer ID for realm checks?
-            // take this with precedence
+// did the admin specify a special outer ID for realm checks?
+// take this with precedence
             $isCheckuserSet = $foo->getAttributes('internal:checkuser_outer')[0]['value'];
             if ($isCheckuserSet) {
                 $anonIdentity = $foo->getAttributes('internal:checkuser_value')[0]['value'];
             }
-            // if none, take the configured anon outer ID
+// if none, take the configured anon outer ID
             elseif ($useAnonOuter == TRUE && $foo->realm == $this->realm) {
                 $anonIdentity = $foo->getAttributes("internal:anon_local_value")[0]['value'];
             }
         } elseif (preg_match("/(.*)@.*/", $innerUser, $matches)) {
-            // otherwise, use the local part of inner ID if provided
+// otherwise, use the local part of inner ID if provided
 
             $anonIdentity = $matches[1];
         }
-        // if we couldn't gather any intelligible information, use the empty string
+// if we couldn't gather any intelligible information, use the empty string
         return $anonIdentity;
     }
 
@@ -1086,20 +1083,20 @@ network={
   pairwise=CCMP
   group=CCMP
   ';
-        // phase 1
+// phase 1
         $config .= 'eap=' . $eapText['OUTER'] . "\n";
         $logConfig = $config;
-        // phase 2 if applicable; all inner methods have passwords
+// phase 2 if applicable; all inner methods have passwords
         if (isset($eapText['INNER']) && $eapText['INNER'] != "") {
             $config .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
             $logConfig .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
         }
-        // all methods set a password, except EAP-TLS
+// all methods set a password, except EAP-TLS
         if ($eaptype != \core\EAP::EAPTYPE_TLS) {
             $config .= "  password=\"$password\"\n";
             $logConfig .= "  password=\"not logged for security reasons\"\n";
         }
-        // for methods with client certs, add a client cert config block
+// for methods with client certs, add a client cert config block
         if ($eaptype == \core\EAP::EAPTYPE_TLS || $eaptype == \core\EAP::EAPTYPE_ANY) {
             $config .= "  private_key=\"./client.p12\"\n";
             $logConfig .= "  private_key=\"./client.p12\"\n";
@@ -1107,13 +1104,13 @@ network={
             $logConfig .= "  private_key_passwd=\"not logged for security reasons\"\n";
         }
 
-        // inner identity
+// inner identity
         $config .= '  identity="' . $inner . "\"\n";
         $logConfig .= '  identity="' . $inner . "\"\n";
-        // outer identity, may be equal
+// outer identity, may be equal
         $config .= '  anonymous_identity="' . $outer . "\"\n";
         $logConfig .= '  anonymous_identity="' . $outer . "\"\n";
-        // done
+// done
         $config .= "}";
         $logConfig .= "}";
 
@@ -1130,7 +1127,7 @@ network={
             $testresults['packetflow_sane'] = FALSE;
         }
 
-        // calculate the main return values that this test yielded
+// calculate the main return values that this test yielded
 
         $finalretval = RADIUSTests::RETVAL_INVALID;
         if ($accepts + $rejects == 0) { // no final response. hm.
@@ -1140,7 +1137,7 @@ network={
                 $finalretval = RADIUSTests::RETVAL_NO_RESPONSE;
             }
         } else // either an accept or a reject
-        // rejection without EAP is fishy
+// rejection without EAP is fishy
         if ($rejects > 0) {
             if ($challenges == 0) {
                 $finalretval = RADIUSTests::RETVAL_IMMEDIATE_REJECT;
@@ -1201,14 +1198,14 @@ network={
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
 
-        // figure out the actual inner and outer identity to use. Inner may or
-        // may not have a realm; if it has, the realm of inner and outer do not
-        // necessarily match
-        // if we weren't told a realm for outer and there is nothing in inner, consider the outer_user a realm only, and prefix with local part
-        // inner: take whatever we got (it may or may not contain a realm identifier)
+// figure out the actual inner and outer identity to use. Inner may or
+// may not have a realm; if it has, the realm of inner and outer do not
+// necessarily match
+// if we weren't told a realm for outer and there is nothing in inner, consider the outer_user a realm only, and prefix with local part
+// inner: take whatever we got (it may or may not contain a realm identifier)
         $finalInner = $innerUser;
 
-        // outer: if we've been given a full realm spec, take it as-is
+// outer: if we've been given a full realm spec, take it as-is
         if (preg_match("/@/", $outerUser)) {
             $finalOuter = $outerUser;
         } elseif ($outerUser != "") {// make our own guess: we've been given an explicit realm for outer
@@ -1224,8 +1221,8 @@ network={
             }
         }
 
-        // we will need a config blob for wpa_supplicant, in a temporary directory
-        // code is copy&paste from DeviceConfig.php
+// we will need a config blob for wpa_supplicant, in a temporary directory
+// code is copy&paste from DeviceConfig.php
 
         $temporary = $this->createTemporaryDirectory('test');
         $tmpDir = $temporary['dir'];
@@ -1240,19 +1237,19 @@ network={
             fclose($clientcertfile);
         }
 
-        // if we need client certs but don't have one, return
+// if we need client certs but don't have one, return
         if (($eaptype == \core\EAP::EAPTYPE_ANY || $eaptype == \core\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
-        // if we don't have a string for outer EAP method name, give up
+// if we don't have a string for outer EAP method name, give up
         if (!isset($eapText['OUTER'])) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
         $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
-        // the config intentionally does not include CA checking. We do this
-        // ourselves after getting the chain with -o.
+// the config intentionally does not include CA checking. We do this
+// ourselves after getting the chain with -o.
         $wpaSupplicantConfig = fopen($tmpDir . "/udp_login_test.conf", "w");
         fwrite($wpaSupplicantConfig, $theconfigs[0]);
         fclose($wpaSupplicantConfig);
@@ -1271,18 +1268,18 @@ network={
         $time_stop = microtime(true);
         $this->loggerInstance->debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
         $packetflow = $this->filterPackettype($packetflow_orig);
-        // when MS-CHAPv2 allows retry, we never formally get a reject (just a 
-        // Challenge that PW was wrong but and we should try a different one; 
-        // but that effectively is a reject
-        // so change the flow results to take that into account
-        if ($packetflow[count($packetflow) - 1] == 11 && $this->checkMschap691RetryAllowed($packetflow_orig)) {
+// when MS-CHAPv2 allows retry, we never formally get a reject (just a 
+// Challenge that PW was wrong but and we should try a different one; 
+// but that effectively is a reject
+// so change the flow results to take that into account
+        if ($packetflow[count($packetflow) - 1] == 11 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_691)) {
             $packetflow[count($packetflow) - 1] = 3;
         }
-        // also, the ETLRs sometimes send a reject when the server is not 
-        // responding. This should not be considered a real reject; it's a middle
-        // box unduly altering the end-to-end result. Do not consider this final
-        // Reject if it comes from ETLR
-        if ($packetflow[count($packetflow) - 1] == 3 && $this->checkRejectInsteadOfIgnore($packetflow_orig)) {
+// also, the ETLRs sometimes send a reject when the server is not 
+// responding. This should not be considered a real reject; it's a middle
+// box unduly altering the end-to-end result. Do not consider this final
+// Reject if it comes from ETLR
+        if ($packetflow[count($packetflow) - 1] == 3 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_REJECTIGNORE)) {
             array_pop($packetflow);
         }
         $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
@@ -1291,48 +1288,48 @@ network={
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
 
-        // calculate packet counts and see what the overall flow was
+// calculate packet counts and see what the overall flow was
         $finalretval = $this->packetCountEvaluation($testresults, $packetcount);
 
-        // only to make sure we've defined this in all code paths
-        // not setting it has no real-world effect, but Scrutinizer mocks
+// only to make sure we've defined this in all code paths
+// not setting it has no real-world effect, but Scrutinizer mocks
         $ackedmethod = FALSE;
 
         if ($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT) {
-            $ackedmethod = $this->checkEAPconversationMethodAck($packetflow_orig);
+            $ackedmethod = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
             if (!$ackedmethod) {
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
             }
         }
 
 
-        // now let's look at the server cert+chain
-        // if we got a cert at all
-        // TODO: also only do this if EAP types all mismatched; we won't have a
-        // cert in that case
+// now let's look at the server cert+chain
+// if we got a cert at all
+// TODO: also only do this if EAP types all mismatched; we won't have a
+// cert in that case
         if (
                 $eaptype != EAP::EAPTYPE_PWD &&
                 (($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RADIUSTests::RETVAL_OK)
         ) {
 
-            // ALWAYS check: 
-            // 1) it is unnecessary to include the root CA itself (adding it has
-            //    detrimental effects on performance)
-            // 2) TLS Web Server OID presence (Windows OSes need that)
-            // 3) MD5 signature algorithm (iOS barks if so)
-            // 4) CDP URL (Windows Phone 8 barks if not present)
-            // 5) there should be exactly one server cert in the chain
-            // FOR OWN REALMS check:
-            // 1) does the incoming chain have a root in one of the configured roots
-            //    if not, this is a signficant configuration error
-            // return this with one or more of the CERTPROB_ constants (see defs)
-            // TRUST_ROOT_NOT_REACHED
-            // TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
-            // then check the presented names
+// ALWAYS check: 
+// 1) it is unnecessary to include the root CA itself (adding it has
+//    detrimental effects on performance)
+// 2) TLS Web Server OID presence (Windows OSes need that)
+// 3) MD5 signature algorithm (iOS barks if so)
+// 4) CDP URL (Windows Phone 8 barks if not present)
+// 5) there should be exactly one server cert in the chain
+// FOR OWN REALMS check:
+// 1) does the incoming chain have a root in one of the configured roots
+//    if not, this is a signficant configuration error
+// return this with one or more of the CERTPROB_ constants (see defs)
+// TRUST_ROOT_NOT_REACHED
+// TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
+// then check the presented names
             $x509 = new X509();
-            // $eap_certarray holds all certs received in EAP conversation
+// $eap_certarray holds all certs received in EAP conversation
             $eapCertarray = $x509->splitCertificate(fread(fopen($tmpDir . "/serverchain.pem", "r"), "1000000"));
-            // we want no root cert, and exactly one server cert
+// we want no root cert, and exactly one server cert
             $numberRoot = 0;
             $numberServer = 0;
             $eapIntermediates = 0;
@@ -1340,9 +1337,9 @@ network={
             $servercert = FALSE;
             $totallySelfsigned = FALSE;
 
-            // Write the root CAs into a trusted root CA dir
-            // and intermediate and first server cert into a PEM file
-            // for later chain validation
+// Write the root CAs into a trusted root CA dir
+// and intermediate and first server cert into a PEM file
+// for later chain validation
 
             if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
                 throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
@@ -1361,11 +1358,11 @@ network={
                 if ($cert == FALSE) {
                     continue;
                 }
-                // consider the certificate a server cert 
-                // a) if it is not a CA and is not a self-signed root
-                // b) if it is a CA, and self-signed, and it is the only cert in
-                //    the incoming cert chain
-                //    (meaning the self-signed is itself the server cert)
+// consider the certificate a server cert 
+// a) if it is not a CA and is not a self-signed root
+// b) if it is a CA, and self-signed, and it is the only cert in
+//    the incoming cert chain
+//    (meaning the self-signed is itself the server cert)
                 if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertarray) == 1)) {
                     if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertarray) == 1) {
                         $totallySelfsigned = TRUE;
@@ -1379,9 +1376,9 @@ network={
                 } else
                 if ($cert['root'] == 1) {
                     $numberRoot++;
-                    // do not save the root CA, it serves no purpose
-                    // chain checks need to be against the UPLOADED CA of the
-                    // IdP/profile, not against an EAP-discovered CA
+// do not save the root CA, it serves no purpose
+// chain checks need to be against the UPLOADED CA of the
+// IdP/profile, not against an EAP-discovered CA
                 } else {
                     $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
                     $intermediateFileEAP = fopen($tmpDir . "/root-ca-eaponly/incomingintermediate$eapIntermediates.pem", "w");
@@ -1415,7 +1412,7 @@ network={
             if ($numberServer == 0) {
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
             }
-            // check server cert properties
+// check server cert properties
             if ($numberServer > 0) {
                 if ($servercert === FALSE) {
                     throw new Exception("We incremented the numberServer counter and added a certificate. Now it's gone?!");
@@ -1424,17 +1421,17 @@ network={
                 $testresults['incoming_server_names'] = $servercert['incoming_server_names'];
             }
 
-            // check intermediate ca cert properties
-            // check trust chain for completeness
-            // works only for thorough checks, not shallow, so:
+// check intermediate ca cert properties
+// check trust chain for completeness
+// works only for thorough checks, not shallow, so:
             $intermOdditiesCAT = [];
             $verifyResult = 0;
             if ($this->profile) {
                 $configuredRootCt = 0;
                 $myProfile = $this->profile;
-                // $ca_store contains certificates configured in the CAT profile
+// $ca_store contains certificates configured in the CAT profile
                 $cAstore = $myProfile->getAttributes("eap:ca_file");
-                // make a copy of the EAP-received chain and add the configured intermediates, if any
+// make a copy of the EAP-received chain and add the configured intermediates, if any
                 foreach ($cAstore as $oneCA) {
                     $x509 = new X509();
                     $decoded = $x509->processCertificate($oneCA['value']);
@@ -1481,16 +1478,16 @@ network={
                     fclose($cRLfile2);
                 }
 
-                // save all intermediate certificate CRLs to separate files in root-ca directory
-                // now c_rehash the root CA directory ...
+// save all intermediate certificate CRLs to separate files in root-ca directory
+// now c_rehash the root CA directory ...
                 system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
                 system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
 
-                // ... and run the verification test
+// ... and run the verification test
                 $verifyResultEaponly = [];
                 $verifyResultAllcerts = [];
-                // the error log will complain if we run this test against an empty file of certs
-                // so test if there's something PEMy in the file at all
+// the error log will complain if we run this test against an empty file of certs
+// so test if there's something PEMy in the file at all
                 if (filesize("$tmpDir/incomingserver.pem") > 10) {
                     exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
                     $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
@@ -1501,20 +1498,20 @@ network={
                 }
 
 
-                // now we do certificate verification against the collected parents
-                // this is done first for the server and then for each of the intermediate CAs
-                // any oddities observed will 
-                // openssl should havd returned exactly one line of output,
-                // and it should have ended with the string "OK", anything else is fishy
-                // The result can also be an empty array - this means there were no
-                // certificates to check. Don't complain about chain validation errors
-                // in that case.
-                // we have the following test result possibilities:
-                // 1. test against allcerts failed
-                // 2. test against allcerts succeded, but against eaponly failed - warn admin
-                // 3. test against eaponly succeded, in this case critical errors about expired certs
-                //    need to be changed to notices, since these certs obviously do tot participate
-                //    in server certificate validation.
+// now we do certificate verification against the collected parents
+// this is done first for the server and then for each of the intermediate CAs
+// any oddities observed will 
+// openssl should havd returned exactly one line of output,
+// and it should have ended with the string "OK", anything else is fishy
+// The result can also be an empty array - this means there were no
+// certificates to check. Don't complain about chain validation errors
+// in that case.
+// we have the following test result possibilities:
+// 1. test against allcerts failed
+// 2. test against allcerts succeded, but against eaponly failed - warn admin
+// 3. test against eaponly succeded, in this case critical errors about expired certs
+//    need to be changed to notices, since these certs obviously do tot participate
+//    in server certificate validation.
                 if (count($verifyResultAllcerts) > 0) {
                     if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
                         $verifyResult = 1;
@@ -1539,23 +1536,23 @@ network={
                     }
                 }
 
-                // check the incoming hostname (both Subject:CN and subjectAltName:DNS
-                // against what is configured in the profile; it's a significant error
-                // if there is no match!
-                // FAIL if none of the configured names show up in the server cert
-                // WARN if the configured name is only in either CN or sAN:DNS
+// check the incoming hostname (both Subject:CN and subjectAltName:DNS
+// against what is configured in the profile; it's a significant error
+// if there is no match!
+// FAIL if none of the configured names show up in the server cert
+// WARN if the configured name is only in either CN or sAN:DNS
                 $confnames = $myProfile->getAttributes("eap:server_name");
                 $expectedNames = [];
                 foreach ($confnames as $tuple) {
                     $expectedNames[] = $tuple['value'];
                 }
 
-                // Strategy for checks: we are TOTALLY happy if any one of the
-                // configured names shows up in both the CN and a sAN
-                // This is the primary check.
-                // If that was not the case, we are PARTIALLY happy if any one of
-                // the configured names was in either of the CN or sAN lists.
-                // we are UNHAPPY if no names match!
+// Strategy for checks: we are TOTALLY happy if any one of the
+// configured names shows up in both the CN and a sAN
+// This is the primary check.
+// If that was not the case, we are PARTIALLY happy if any one of
+// the configured names was in either of the CN or sAN lists.
+// we are UNHAPPY if no names match!
                 $happiness = "UNHAPPY";
                 foreach ($expectedNames as $expectedName) {
                     $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
@@ -1566,7 +1563,7 @@ network={
                     } else {
                         if (array_search($expectedName, $servercert['CN']) !== FALSE || array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
                             $happiness = "PARTIALLY";
-                            // keep trying with other expected names! We could be happier!
+// keep trying with other expected names! We could be happier!
                         }
                     }
                 }
@@ -1581,7 +1578,7 @@ network={
                         break;
                 }
 
-                // TODO: dump the details in a class variable in case someone cares
+// TODO: dump the details in a class variable in case someone cares
             }
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesEAP);
             if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT) && $verifyResult == 3) {
@@ -1591,7 +1588,7 @@ network={
 
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesCAT);
 
-            // mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
+// mention trust chain failure only if no expired cert was in the chain; otherwise path validation will trivially fail
             if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $testresults['cert_oddities'])) {
                 $this->loggerInstance->debug(4, "Deleting trust chain problem report, if present.");
                 if (($key = array_search(RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED, $testresults['cert_oddities'])) !== false) {
@@ -1671,10 +1668,10 @@ network={
      * @return array result of openssl s_client ...
      */
     private function openssl_s_client($host, $arg, &$testresults) {
-        // we got the IP address either from DNS (guaranteeing well-formedness)
-        // or from filter_var'ed user input. So it is always safe as an argument
-        // but code analysers want this more explicit, so here is this extra
-        // call to escapeshellarg()
+// we got the IP address either from DNS (guaranteeing well-formedness)
+// or from filter_var'ed user input. So it is always safe as an argument
+// but code analysers want this more explicit, so here is this extra
+// call to escapeshellarg()
         $escapedHost = escapeshellarg($host);
         $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
         $time_start = microtime(true);
