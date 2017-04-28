@@ -144,10 +144,12 @@ class OptionParser {
      * @param mixed $object for which object are the options
      * @param array $options the options to store
      * @param array $pendingattributes list of attributes which are already stored but may need to be deleted
+     * @param string $device when the $object is Profile, this indicates device-specific attributes
+     * @param int $eaptype when the $object is Profile, this indicates eap-specific attributes
      * @return array list of attributes which were previously stored but are to be deleted now
      * @throws Exception
      */
-    private function sendOptionsToDatabase($object, $options, $pendingattributes) {
+    private function sendOptionsToDatabase($object, $options, $pendingattributes, $device, $eaptype) {
         $retval = [];
         foreach ($options as $iterateOption) {
             foreach ($iterateOption as $name => $optionPayload) {
@@ -334,7 +336,7 @@ class OptionParser {
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
 
-        $killlist = $this->sendOptionsToDatabase($object, $options, $pendingattributes);
+        $killlist = $this->sendOptionsToDatabase($object, $options, $pendingattributes, $device, $eaptype);
 
         // Step 6: if we are in interactive HTML mode, give feedback about what 
         // we did. Reasons not to do this is if we working from inside an overlay
