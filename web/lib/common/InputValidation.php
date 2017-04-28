@@ -155,7 +155,7 @@ class InputValidation {
     if (is_array($afterWhitespace)) {
         throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
     }
-    return $afterWhitespace;
+    return (string)$afterWhitespace;
 }
 
 /**

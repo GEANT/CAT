@@ -237,7 +237,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
                 $nonDupSerialFound = FALSE;
                 do {
-                    $serial = (int)random_int(1000000000, 100000000000);
+                    $serial = random_int(1000000000, 100000000000);
                     $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
                     if (mysqli_num_rows($dupeQuery) == 0) {
                         $nonDupSerialFound = TRUE;
@@ -280,7 +280,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
         // newborn cert immediately gets its "valid" OCSP response
-        ProfileSilverbullet::triggerNewOCSPStatement($serial);
+        ProfileSilverbullet::triggerNewOCSPStatement((int)$serial);
 // return PKCS#12 data stream
         return [
             "username" => $username,
