@@ -56,9 +56,14 @@ abstract class Entity {
 
     public function __construct() {
         $this->loggerInstance = new Logging();
+        $this->loggerInstance->debug(3, "--- BEGIN constructing class ". get_class($this)." .\n");
         $this->languageInstance = new Language();
     }
 
+    public function __destruct() {
+        (new Logging())->debug(5,"--- KILL Destructing class ". get_class($this)." .\n");
+    }
+    
     /**
      * create a temporary directory and return the location
      * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory

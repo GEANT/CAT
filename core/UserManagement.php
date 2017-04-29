@@ -55,6 +55,11 @@ class UserManagement extends Entity {
      */
     private static $databaseType = "INST";
 
+    const TOKENSTATUS_OK_NEW = 1;
+    const TOKENSTATUS_OK_EXISTING = 2;
+    const TOKENSTATUS_FAIL_ALREADYCONSUMED = -1;
+    const TOKENSTATUS_FAIL_EXPIRED = -2;
+    const TOKENSTATUS_FAIL_NONEXISTING = -3;
     /**
      * Checks if a given invitation token exists and is valid in the invitations database
      * returns a string with the following values:
@@ -66,7 +71,7 @@ class UserManagement extends Entity {
      * FAIL-EXPIRED the token exists, but has expired
      * 
      * @param string $token
-     * @return string
+     * @return int
      */
     public function checkTokenValidity($token) {
         $escapedToken = $this->databaseHandle->escapeValue($token);
@@ -76,20 +81,20 @@ class UserManagement extends Entity {
 
         if ($tokenCheck = mysqli_fetch_object($check)) {
             if ($tokenCheck->cat_institution_id === NULL) {
-                return "OK-NEW";
+                return self::TOKENSTATUS_OK_NEW;
             }
-            return "OK-EXISTING";
+            return self::TOKENSTATUS_OK_EXISTING;
         }
         // if we haven't returned from the function yet, it is an invalid token... 
         // be a little verbose what's wrong with it
         $checkReason = $this->databaseHandle->exec("SELECT invite_token, used FROM invitations WHERE invite_token = '$escapedToken'");
         if ($invalidTokenCheck = mysqli_fetch_object($checkReason)) {
             if ($invalidTokenCheck->used == 1) {
-                return "FAIL-ALREADYCONSUMED";
+                return self::TOKENSTATUS_FAIL_ALREADYCONSUMED;
             }
-            return "FAIL-EXPIRED";
+            return self::TOKENSTATUS_FAIL_EXPIRED;
         }
-        return "FAIL-NONEXISTINGTOKEN";
+        return self::TOKENSTATUS_FAIL_NONEXISTING;
     }
 
     /**
@@ -101,23 +106,21 @@ class UserManagement extends Entity {
      * @param string $owner Persistent User ID who becomes the administrator of the institution
      * @return IdP 
      */
-    public function createIdPFromToken($token, $owner) {
-        $escapedToken = $this->databaseHandle->escapeValue($token);
-        $escapedOwner = $this->databaseHandle->escapeValue($owner);
+    public function createIdPFromToken($token, string $owner) {
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
         $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
                              FROM invitations 
-                             WHERE invite_token = '$escapedToken' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
+                             WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
         if ($invitationDetails = mysqli_fetch_object($instinfo)) {
             if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
-                $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES('$escapedOwner', $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ");
-                $this->loggerInstance->writeAudit($escapedOwner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ", "s", $owner);
+                $this->loggerInstance->writeAudit($owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
                 return new IdP($invitationDetails->cat_institution_id);
             }
             // create new IdP
             $fed = new Federation($invitationDetails->country);
-            $idp = new IdP($fed->newIdP($escapedOwner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
+            $idp = new IdP($fed->newIdP($owner, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail));
 
             if ($invitationDetails->external_db_uniquehandle != NULL) {
                 $idp->setExternalDBId($invitationDetails->external_db_uniquehandle);
@@ -142,7 +145,7 @@ class UserManagement extends Entity {
                 $idp->addAttribute("general:instname", 'C', $invitationDetails->name);
                 $bestnameguess = $invitationDetails->name;
             }
-            $this->loggerInstance->writeAudit($escapedOwner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
+            $this->loggerInstance->writeAudit($owner, "NEW", "IdP " . $idp->identifier . " - created from invitation");
 
             $admins = $fed->listFederationAdmins();
 

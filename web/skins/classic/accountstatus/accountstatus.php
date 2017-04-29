@@ -23,7 +23,7 @@ $languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");
 $loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
-$loggerInstance->debug(4, $operatingSystem, true);
+$loggerInstance->debug(4, $operatingSystem);
 
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
@@ -74,11 +74,11 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             <span style="max-width: 700px;">
                 <?php
                 echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG['CONSORTIUM']['name']) . "</h1>";
-                $errorCode = $_REQUEST['errorcode'] ?? "";
-                switch ($errorCode) {
+                switch ($statusInfo['errorcode']) {
                     case "GENERATOR_CONSUMED":
                         echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
                         break;
+                    case NULL:
                     default:
                 }
                 switch ($statusInfo['tokenstatus']['status']) {

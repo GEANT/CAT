@@ -143,6 +143,7 @@ abstract class DeviceConfig extends Entity {
         // cert and private key. It's not saved anywhere, so it's gone forever
         // after code execution!
 
+        $this->loggerInstance->debug(5, "DeviceConfig->setup() - preliminaries done.\n");
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
             $this->clientCert = $profile->generateCertificate($token, $importPassword);
             // add a UUID identifier for the devices that want one
@@ -155,7 +156,7 @@ abstract class DeviceConfig extends Entity {
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
             $dbInstance->exec("UPDATE silverbullet_certificate SET device = ? WHERE one_time_token = ?", "ss", $devicename, $token);
         }
-
+        $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;
         $tempDir = $this->createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];

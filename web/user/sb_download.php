@@ -38,7 +38,7 @@ if (!in_array($generatedFor, VALID_GENERATOR_TARGETS)) {
     throw new Exception($errorText);
 }
 
-$loggerInstance->debug(4, "download: profile:$profile_id; inst:$instId; device:$device\n");
+$loggerInstance->debug(4, "download: profile:$profileId; inst:$instId; device:$device\n");
 
 $cleanToken = NULL;
 $password = NULL;
@@ -60,11 +60,11 @@ if (!$p->institution || $p->institution !== $instId) {
 
 // now we generate the installer
 try {
-    $API->downloadInstaller($device, $profileId, $generatedFor, $cleanToken, $password);
+    $API->downloadInstaller($device, $p->identifier, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob("");
     // find our account status page, and bail out if this doesn't work
-    $accountPageUrl = $skinObject->findResourceUrl("BASE","/accountstatus.php");
+    $accountPageUrl = "../accountstatus/accountstatus.php";
     if ($accountPageUrl === FALSE) {
         throw new Exception("Unable to find our accountstatus.php page.");
     }

@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -53,21 +54,18 @@ switch ($page) {
         $out .= "</tr>";
         foreach (Devices::listDevices() as $index => $onedevice) {
             if (isset($onedevice['options'])) {
-                if (isset($onedevice['options']['hidden']) && ($onedevice['options']['hidden'] == 1)) {
-                    continue;
-                }
-                if (isset($onedevice['options']['redirect']) && ($onedevice['options']['redirect'] == 1)) {
+                if ((isset($onedevice['options']['hidden']) && ($onedevice['options']['hidden'] == 1)) || (isset($onedevice['options']['redirect']) && ($onedevice['options']['redirect'] == 1))) {
                     continue;
                 }
             }
-            $out .= "<tr><td class='vendor'><img src='". (new \web\lib\user\Skinjob(""))->findResourceUrl("IMAGES","vendorlogo/". $onedevice['group'] . ".png")."' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
+            $out .= "<tr><td class='vendor'><img src='" . (new \web\lib\user\Skinjob(""))->findResourceUrl("IMAGES", "vendorlogo/" . $onedevice['group'] . ".png") . "' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new \core\DeviceFactory($index);
             foreach (EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
                 if (in_array($oneeap, $device_instance->device->supportedEapMethods)) {
-                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES","icons/Quetto/check-icon.png") . "' alt='SUPPORTED'>";
+                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES", "icons/Quetto/check-icon.png") . "' alt='SUPPORTED'>";
                 } else {
-                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES","icons/Quetto/no-icon.png") . "' alt='UNSUPPORTED'>";
+                    $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES", "icons/Quetto/no-icon.png") . "' alt='UNSUPPORTED'>";
                 }
                 $out .= "</td>";
             }
@@ -109,7 +107,7 @@ switch ($page) {
         break;
     case 'tou':
         print ('no_title');
-        include(ROOT.'/web/user/tou.php');
+        include(ROOT . '/web/user/tou.php');
         return;
     case 'develop':
         $out = sprintf(_("The most important need is adding new installer modules, which will configure particular devices.  CAT is making this easy for you. If you know how to create an automatic installer then fitting it into CAT should be a piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT documentation</a>."), CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['support-contact']['developer-mail'], 'doc/');
@@ -122,7 +120,7 @@ switch ($page) {
         break;
     case 'faq':
         print ('no_title');
-        include(ROOT.'/web/user/faq.php');
+        include(ROOT . '/web/user/faq.php');
         return;
     case 'admin' :
         $out = "";
@@ -136,8 +134,8 @@ switch ($page) {
                 $out .= _("Please authenticate yourself and login");
             }
             $out .= "<p><button onclick='goAdmin(); return(false);'>" . _("Login") . "</button>";
-            $out .= "<br/><br/><p>"._("Did you forget with which Identity Provider you logged in to the system? We can try to find out if you specify the email address with which you were invited to the system in the box below. This may not work if you were invited from a third-party website via the AdminAPI.")."</p>";
-            $out .= "<input id='mail' name='mail' type='text'/><button onclick='window.location.replace(\"remindIdP.php?mail=stefan.winter@restena.lu\"; return false;'>"._("Get IdP Reminder")."</button>";
+            $out .= "<br/><br/><p>" . _("Did you forget with which Identity Provider you logged in to the system? We can try to find out if you specify the email address with which you were invited to the system in the box below. This may not work if you were invited from a third-party website via the AdminAPI.") . "</p>";
+            $out .= "<input id='mail' name='mail' type='text'/><button onclick='window.location.replace(\"remindIdP.php?mail=stefan.winter@restena.lu\"; return false;'>" . _("Get IdP Reminder") . "</button>";
         }
         break;
     default:

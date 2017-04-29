@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -282,12 +282,12 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                     echo ($verify != FALSE ? "checked" : "" );
                     echo ($realm == "" ? "disabled" : "" );
                     ?> name='verify_support' onclick='
-                                if (this.form.elements["verify_support"].checked !== true) {
-                                    this.form.elements["hint_support"].setAttribute("disabled", "disabled");
-                                } else {
-                                    this.form.elements["hint_support"].removeAttribute("disabled");
-                                }
-                                ;'/>
+                            if (this.form.elements["verify_support"].checked !== true) {
+                                this.form.elements["hint_support"].setAttribute("disabled", "disabled");
+                            } else {
+                                this.form.elements["hint_support"].removeAttribute("disabled");
+                            }
+                            ;'/>
                     <span id='hint_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
                         <?php echo _("Prefill user input with realm suffix:"); ?>
                     </span>
@@ -449,6 +449,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                     <ol id="sortable2" class="eapmethods">
                         <?php
                         foreach ($methods as $a) {
+                            if ($a == \core\EAP::EAPTYPE_SILVERBULLET) {
+                                continue;
+                            }
                             $display = $uiElements->displayName($a);
                             if (!isset($D[$uiElements->displayName($a)])) {
                                 print '<li class="eap1">' . $uiElements->displayName($a) . "</li>\n";
@@ -470,83 +473,48 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     ?>
     <br style="clear:both;" />
 </fieldset>
-<fieldset class="option_container" id="helpdesk_override">
-    <legend><strong><?php echo _("Helpdesk Details for this profile"); ?></strong></legend>
-    <p>
-        <?php
-        $idp_options = $my_inst->getAttributes();
-        $has_support_options = [];
-        foreach ($idp_options as $idp_option) {
-            if (preg_match("/^support:/", $idp_option['name'])) {
-                $has_support_options[$idp_option['name']] = "SET";
-            }
-        }
-        if (count($has_support_options) > 0) {
-            $text = "<ul>";
-            foreach ($has_support_options as $key => $value) {
-                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
-            }
-            $text .= "</ul>";
-            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
-        }
-        ?>
-    </p>
-    <?php
-    echo $optionDisplay->prefilledOptionTable("support");
-    ?>
-    <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button>
-</fieldset>
-<fieldset class="option_container" id="eap_override">
-    <legend><strong><?php echo _("EAP Details for this profile"); ?></strong></legend>
-    <p>
-        <?php
-        $has_eap_options = [];
-        foreach ($idp_options as $idp_option) {
-            if (preg_match("/^eap:/", $idp_option['name'])) {
-                $has_eap_options[$idp_option['name']] = "SET";
-            }
-        }
-        if (count($has_eap_options) > 0) {
-            $text = "<ul>";
-            foreach ($has_eap_options as $key => $value) {
-                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
-            }
-            $text .= "</ul>";
-            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_eap_options)), $text);
-        }
-        ?>
-    </p>
-    <?php
-    echo $optionDisplay->prefilledOptionTable("eap");
-    ?>
-    <button type='button' class='newoption' onclick='getXML("eap")'><?php echo _("Add new option"); ?></button>
-</fieldset>
-<fieldset class="option_container" id='media_override'>
-    <legend><strong><?php echo _("Media Properties for this profile"); ?></strong></legend>
-    <p>
-        <?php
-        $idp_options = $my_inst->getAttributes();
-        $has_support_options = [];
-        foreach ($idp_options as $idp_option) {
-            if (preg_match("/^media:/", $idp_option['name'])) {
-                $has_support_options[$idp_option['name']] = "SET";
-            }
-        }
-        if (count($has_support_options) > 0) {
-            $text = "<ul>";
-            foreach ($has_support_options as $key => $value) {
-                $text .= "<li><strong>" . $uiElements->displayName($key) . "</strong></li>";
-            }
-            $text .= "</ul>";
-            printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count($has_support_options)), $text);
-        }
-        ?>
-    </p>
-    <?php
-    echo $optionDisplay->prefilledOptionTable("media");
-    ?>
-    <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 <?php
+$idp_options = $my_inst->getAttributes();
+
+$optionsAlreadySet = array_column($idp_options, "name");
+
+$has_support_options = [];
+$has_media_options = [];
+$has_eap_options = [];
+$support_text = "";
+$media_text = "";
+$eap_text = "";
+
+foreach ($optionsAlreadySet as $optionNames) {
+    if (preg_match("/^support:/", $optionNames)) {
+        $has_support_options[$optionNames] = "SET";
+        $support_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
+    }
+    if (preg_match("/^media:/", $optionNames)) {
+        $has_media_options[$$optionNames] = "SET";
+        $media_text .= "<li><strong>" . $uiElements->displayName($optionNames) . "</strong></li>";
+    }
+}
+$fields = [
+    "support" => _("Helpdesk Details for this profile"),
+    "eap" => _("EAP Details for this profile"),
+    "media" => _("Media Properties for this profile")];
+
+foreach ($fields as $name => $description) {
+    echo "<fieldset class='option_container' id='" . $name . "_override'>
+    <legend><strong>$description</strong></legend>
+    <p>";
+
+    if (count(${"has_" . $name . "_options"}) > 0) {
+        printf(ngettext("The option %s is already defined IdP-wide. If you set it here on profile level, this setting will override the IdP-wide one.", "The options %s are already defined IdP-wide. If you set them here on profile level, these settings will override the IdP-wide ones.", count(${"has_" . $name . "_options"})), "<ul>" . ${$name . "_text"} . "</ul>");
+    }
+
+    echo "</p>";
+    echo $optionDisplay->prefilledOptionTable($name);
+    echo "<button type='button' class='newoption' onclick='getXML(\"$name\")'>" . _("Add new option") . "</button>";
+    echo "</fieldset>";
+}
+
 if ($wizardStyle) {
     echo "<p>" . _("When you are sure that everything is correct, please click on 'Save data' and you will be taken to your IdP Dashboard page.") . "</p>";
 }

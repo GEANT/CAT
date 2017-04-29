@@ -138,4 +138,23 @@ class Options {
         throw new Exception("Metadata about an option was requested, but the option name does not exist in the system: " . htmlentities($optionname));
     }
 
+    /**
+     * This function is mostly useless. It takes an (unvetted) string, sees if
+     * it is a valid option name, and then returns the array key of the typeDb
+     * instead of the unvetted string. This makes Scrutinizer happy.
+     * 
+     * @param string $unvettedName the input name
+     * @return string the name echoed back, but from trusted source
+     * 
+     */
+    public function assertValidOptionName($unvettedName) {
+        $listOfOptions = array_keys($this->typeDb);
+        foreach ($listOfOptions as $name) {
+            if ($name == $unvettedName) {
+                return $name;
+            }
+        }
+        throw new Exception("Unknown option name encountered.");
+    }
+
 }

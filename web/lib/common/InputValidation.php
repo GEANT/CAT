@@ -11,6 +11,8 @@
 
 namespace web\lib\common;
 
+use \Exception;
+
 /**
  * performs validation of user inputs
  */
@@ -36,16 +38,16 @@ class InputValidation {
      * @throws Exception
      */
     public function Federation($input, $owner = NULL) {
-        
+
         $cat = new \core\CAT();
         $fedIdentifiers = array_keys($cat->knownFederations);
-        if  (!in_array(strtoupper($input), $fedIdentifiers)) {
+        if (!in_array(strtoupper($input), $fedIdentifiers)) {
             throw new Exception($this->inputValidationError("This federation does not exist!"));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
         $postFed = $fedIdentifiers[$correctIndex];
-        
+
         $temp = new \core\Federation($postFed);
         if ($owner === NULL) {
             return $temp;
@@ -100,7 +102,7 @@ class InputValidation {
             throw new Exception($this->inputValidationError("Value for profile is not an integer!"));
         }
 
-        $temp = \core\ProfileFactory::instantiate($input); // constructor throws an exception if NX, game over
+        $temp = \core\ProfileFactory::instantiate((int) $input); // constructor throws an exception if NX, game over
 
         if ($idpIdentifier !== NULL && $temp->institution != $idpIdentifier) {
             throw new Exception($this->inputValidationError("The profile does not belong to the IdP!"));
@@ -132,9 +134,16 @@ class InputValidation {
      */
     public function string($input, $allowWhitespace = FALSE) {
     // always chop out invalid characters, and surrounding whitespace
-    $retvalStep1 =  trim(iconv("UTF-8", "UTF-8//TRANSLIT", $input));
+    $retvalStep0 =  iconv("UTF-8", "UTF-8//TRANSLIT", $input);
+    if ($retvalStep0 === FALSE) {
+        throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
+    }
+    $retvalStep1 = trim($retvalStep0);
     // if some funny person wants to inject markup tags, remove them
     $retval = filter_var($retvalStep1, FILTER_SANITIZE_STRING, ["flags" => FILTER_FLAG_NO_ENCODE_QUOTES]);
+    if ($retval === FALSE) {
+        throw new Exception("filter_var failure for string sanitisation.");
+    }
     // unless explicitly wanted, take away intermediate disturbing whitespace
     // a simple "space" is NOT disturbing :-)
     if ($allowWhitespace === FALSE) {
@@ -146,7 +155,7 @@ class InputValidation {
     if (is_array($afterWhitespace)) {
         throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
     }
-    return $afterWhitespace;
+    return (string)$afterWhitespace;
 }
 
 /**
@@ -184,33 +193,34 @@ public function consortium_oi($input) {
  * @return false|string returns the realm, or FALSE if it was malformed
  */
 public function realm($input) {
-    // basic string checks
-    $check = $this->string($input);
-    // bark on invalid constructs
-    if (preg_match("/@/", $check) == 1) {
-        echo $this->inputValidationError(_("Realm contains an @ sign!"));
-        return FALSE;
-    }
-    if (preg_match("/^\./", $check) == 1) {
-        echo $this->inputValidationError(_("Realm begins with a . (dot)!"));
-        return FALSE;
-    }
-    if (preg_match("/\.$/", $check) == 1) {
-        echo $this->inputValidationError(_("Realm ends with a . (dot)!"));
-        return FALSE;
-    }
-    if (preg_match("/\./", $check) == 0) {
-        echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
-        return FALSE;
-    }
-    if (preg_match("/ /", $check) == 1) {
-        echo $this->inputValidationError(_("Realm contains spaces!"));
-        return FALSE;
-    }
     if (strlen($input) == 0) {
         echo $this->inputValidationError(_("Realm is empty!"));
         return FALSE;
     }
+
+    // basic string checks
+    $check = $this->string($input);
+    // list of things to check, and the error they produce
+    $pregCheck = [
+        "/@/" => _("Realm contains an @ sign!"),
+        "/^\./" => _("Realm begins with a . (dot)!"),
+        "/\.$/" => _("Realm ends with a . (dot)!"),
+        "/ /" => _("Realm contains spaces!"),
+    ];
+
+    // bark on invalid constructs
+    foreach ($pregCheck as $search => $error) {
+        if (preg_match($search, $check) == 1) {
+            echo $this->inputValidationError($error);
+            return FALSE;
+        }
+    }
+
+    if (preg_match("/\./", $check) == 0) {
+        echo $this->inputValidationError(_("Realm does not contain at least one . (dot)!"));
+        return FALSE;
+    }
+
     // none of the special HTML entities should be here. In case someone wants
     // to mount a CSS attack by providing something that matches the realm constructs
     // below but has interesting stuff between, mangle the input so that these
@@ -230,7 +240,8 @@ public function User($input) {
     if ($input != "" && !ctype_print($input)) {
         throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
-    return $retval;
+
+    return $this->string($retval);
 }
 
 /**
@@ -304,6 +315,7 @@ const TABLEMAPPING = [
     "Profile" => "profile_option",
     "FED" => "federation_option",
 ];
+
 /**
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
@@ -339,8 +351,8 @@ public function hostname($input) {
  * @return false|string echoes the mail address, or FALSE if bogus
  */
 public function email($input) {
-    
-    if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
+
+    if (filter_var($this->string($input), FILTER_VALIDATE_EMAIL)) {
         return $input;
     }
     // if we get here, it's bogus
@@ -354,6 +366,17 @@ public function supportedLanguage($input) {
     // otherwise, use the inversion trick to convince Scrutinizer that this is
     // a vetted value
     return array_search(CONFIG['LANGUAGES'][$input], CONFIG['LANGUAGES']);
+}
+
+/**
+ * Makes sure we are not receiving a bogus option name. The called function throws
+ * an assertion if the name is not known.
+ * @param string $input
+ * @return string
+ */
+public function OptionName($input) {
+    $object = \core\Options::instance();
+    return $object->assertValidOptionName($input);
 }
 
 }

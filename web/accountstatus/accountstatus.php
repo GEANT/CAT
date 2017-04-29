@@ -53,7 +53,7 @@ if (isset($_REQUEST['token'])) {
 if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) { // determine skin to use based on NROs preference
     $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
     $idp = new \core\IdP($profile->institution);
-    $fed = $validator->Federation($idp->federation);
+    $fed = $validator->Federation(strtoupper($idp->federation));
     $fedskin = $fed->getAttributes("fed:desired_skin");
 }
 // ... unless overwritten by direct GET/POST parameter in the request
@@ -68,6 +68,16 @@ $statusInfo = ["token" => $cleanToken,
     "idp" => $idp,
     "fed" => $fed,
 ];
+
+const KNOWN_ERRORCODES = ["GENERATOR_CONSUMED"];
+$errorcode = $_REQUEST['errorcode'] ?? "";
+switch ($errorcode) {
+    case KNOWN_ERRORCODES[0]:
+        $statusInfo['errorcode'] = KNOWN_ERRORCODES[0];
+        break;
+    default:
+        $statusInfo['errorcode'] = NULL;
+}
 
 // and now, serve actual data
 include("../skins/" . $skinObject->skin . "/accountstatus/accountstatus.php");

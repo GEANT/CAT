@@ -75,7 +75,6 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function __construct($profileId, $idpObject = NULL) {
         parent::__construct($profileId, $idpObject);
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new Profile object ... ---\n");
 
         $this->entityOptionTable = "profile_option";
         $this->entityIdColumn = "profile_id";
@@ -176,7 +175,10 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function generateCertificate($token, $importPassword) {
         $cert = "";
+        $this->loggerInstance->debug(5, "generateCertificate() - starting.\n");
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
+        $this->loggerInstance->debug(5, "tokenStatus: done, got ".$tokenStatus['status'].", ".$tokenStatus['cert_status'].", ".$tokenStatus['profile'].", ".$tokenStatus['user'].", ".$tokenStatus['expiry'].", ".$tokenStatus['value']."\n");
+        $this->loggerInstance->debug(5, "generateCertificate() - token status is ".$tokenStatus['status']);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
@@ -211,6 +213,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         $expiryDays = $validity->days;
 
+        $this->loggerInstance->debug(5, "generateCertificate: generating private key.\n");
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         $csr = openssl_csr_new(
                 ['O' => CONFIG['CONSORTIUM']['name'],
@@ -223,7 +226,9 @@ class ProfileSilverbullet extends AbstractProfile {
                 ]
         );
 
-        switch (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+        $this->loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
+        
+        switch (CONFIG['CONSORTIUM']['silverbullet_CA']['type']) {
             case "embedded":
                 $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
                 $rootCaPem = fread($rootCaHandle, 1000000);
@@ -238,6 +243,7 @@ class ProfileSilverbullet extends AbstractProfile {
                         $nonDupSerialFound = TRUE;
                     }
                 } while (!$nonDupSerialFound);
+                $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
                 $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
                 break;
             default:
@@ -255,6 +261,8 @@ class ProfileSilverbullet extends AbstractProfile {
                 throw new Exception("External silverbullet CA is not implemented yet!");
         }
 
+        $this->loggerInstance->debug(5, "generateCertificate: post-processing certificate.\n");
+        
         // get the SHA1 fingerprint, this will be handy for Windows installers
         $sha1 = openssl_x509_fingerprint($cert, "sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
@@ -272,7 +280,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
         $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
         // newborn cert immediately gets its "valid" OCSP response
-        ProfileSilverbullet::triggerNewOCSPStatement($serial);
+        ProfileSilverbullet::triggerNewOCSPStatement((int)$serial);
 // return PKCS#12 data stream
         return [
             "username" => $username,
@@ -411,7 +419,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $loggerInstance = new Logging();
         $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device, one_time_token FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
-            $loggerInstance->debug(2, "Token  $$tokenvalue not found in database or database query error!\n");
+            $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
             return ["status" => self::SB_TOKENSTATUS_INVALID,
                 "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,];
         }
@@ -421,13 +429,18 @@ class ProfileSilverbullet extends AbstractProfile {
             $now = new \DateTime();
             $expiryObject = new \DateTime($details->expiry);
             $delta = $now->diff($expiryObject);
+            $loggerInstance->debug(5, "ProfileSilverbullet::tokenStatus() - at token validation level, no certificate exists.\n");
 
-            return ["status" => ($delta->invert == 1 ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
+            $retArray = ["status" => ($delta->invert == 1 ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
                 "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
                 "profile" => $details->profile_id,
                 "user" => $details->silverbullet_user_id,
                 "expiry" => $expiryObject->format("Y-m-d H:i:s"),
                 "value" => $details->one_time_token];
+            
+            $loggerInstance->debug(5, "tokenStatus: done, returning ".$retArray['status'].", ".$retArray['cert_status'].", ".$retArray['profile'].", ".$retArray['user'].", ".$retArray['expiry'].", ".$retArray['value']."\n");
+            
+            return $retArray;
         }
 // still here? then there is certificate data, so token was redeemed
 // add the corresponding cert details here

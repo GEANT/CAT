@@ -31,12 +31,7 @@ class Logging {
      * @param string $message what to write into the file
      */
     private function writeToFile($filename, $message) {
-        $file = fopen(CONFIG['PATHS']['logdir'] . "/$filename", "a");
-        if ($file === FALSE) {
-            throw new Exception("Unable to open debug file " . CONFIG['PATHS']['logdir'] . "/$filename for writing!");
-        }
-        fwrite($file, sprintf("%-015s", microtime(TRUE)) . $message);
-        fclose($file);
+        file_put_contents(CONFIG['PATHS']['logdir'] . "/$filename", sprintf("%-015s", microtime(TRUE)) . $message, FILE_APPEND);
     }
 
     /**
@@ -53,6 +48,14 @@ class Logging {
         }
         
         $output = " ($level) ";
+        if ($level > 3) {
+            $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $orig_file = $backtrace[1]['file'] ?? "no file";
+            $file = str_replace(ROOT, "", $orig_file);
+            $function = $backtrace[1]['function'] ?? "no function";
+            $line = $backtrace[1]['line'] ?? "no line";
+            $output .= " [$file / $function / $line] ";
+        }
         $output .= print_r($text, TRUE);
         $this->writeToFile("debug.log", $output);
 
