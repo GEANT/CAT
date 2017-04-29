@@ -9,8 +9,10 @@ interface PageElementInterface {
     
     const INFOBLOCK_CLASS = 'infobox';
     const OPTIONBLOCK_CLASS = 'option_container';
-    const MESSAGEBOX_CLASS = 'sb-message-box';
     const TABS_CLASS = 'tabs';
+    const MESSAGEBOX_CLASS = 'sb-message-box';
+    const MESSAGEPOPUP_CLASS = 'sb-popup-message';
+    const COMPOSE_EMAIL_CLASS = 'sb-compose-email';
     
     /**
      * 

@@ -18,11 +18,13 @@ require_once("inc/common.inc.php");
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
 use web\lib\admin\view\AddNewUserForm;
+use web\lib\admin\view\ComposeEmailBox;
 use web\lib\admin\view\DefaultPage;
 use web\lib\admin\view\FileUploadForm;
 use web\lib\admin\view\InfoBlockTable;
 use web\lib\admin\view\InstitutionPageBuilder;
 use web\lib\admin\view\PageBuilder;
+use web\lib\admin\view\PageElementInterface;
 use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
 use web\lib\admin\view\UserCredentialsForm;
@@ -105,28 +107,28 @@ if($builder->isReady()){
     $builder->addContentElement($tabbedBox);
     
     //Appending terms of use popup
+    $action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
     if(!$controller->isAgreementSigned()){
-        $termsOfUse = new TermsOfUseBox('sb-popup-message', $controller->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
+        $termsOfUse = new TermsOfUseBox(PageElementInterface::MESSAGEPOPUP_CLASS, $action, TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
         $builder->addContentElement($termsOfUse);
     }
     
+    //Adding compose email popup template
+    $composeEmail = new ComposeEmailBox(PageElementInterface::COMPOSE_EMAIL_CLASS, $action, _('Compose Email'), _('Choose how you want to send the message.'), false);
+    $builder->addContentElement($composeEmail);
 }
 
 $builder->createPagePrelude();
+$page->fetchMeta()->render();
+$page->fetchCss()->render();
+$page->fetchScript()->render();
+
 ?>
-
-<?php echo $page->fetchMeta(); ?>
-
-<?php echo $page->fetchCss(); ?>
-
-<?php echo $page->fetchScript(); ?>
-
 </head>
 <body>
-    
-    <?php $builder->renderPageHeader(); ?>
-    
-    <?php $builder->renderPageContent(); ?>
-    
-    <?php $builder->renderPageFooter();
+<?php
+
+$builder->renderPageHeader();
+$builder->renderPageContent();
+$builder->renderPageFooter();
 

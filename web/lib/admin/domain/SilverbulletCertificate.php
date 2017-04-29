@@ -3,6 +3,7 @@ namespace web\lib\admin\domain;
 
 use web\lib\admin\view\html\UnaryTag;
 use core\ProfileSilverbullet;
+use web\lib\admin\view\UserCredentialsForm;
 
 /**
  * 
@@ -187,6 +188,7 @@ class SilverbulletCertificate extends PersistentEntity{
             $link .= '/accountstatus/accountstatus.php?token='.$this->get(self::ONETIMETOKEN);
             $input = new UnaryTag('input');
             $input->addAttribute('type', 'text');
+            $input->addAttribute('class', UserCredentialsForm::INVITATION_TOKEN_CLASS);
             $input->addAttribute('readonly','readonly');
             $input->addAttribute('value', $link);
             $input->addAttribute('size', strlen($link)+3);

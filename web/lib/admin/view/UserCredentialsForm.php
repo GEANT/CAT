@@ -28,7 +28,7 @@ class UserCredentialsForm implements PageElementInterface{
     const TITLEROW_CLASS = 'sb-title-row';
     const USERROW_CLASS = 'sb-user-row';
     const CERTIFICATEROW_CLASS = 'sb-certificate-row';
-    const COPY_TO_CLIPBOARD_CLASS = 'sb-copy-to-clipboard';
+    const INVITATION_TOKEN_CLASS = 'sb-invitation-token';
     const RESET_BUTTON_ID = 'sb-reset-dates';
     const USER_COLUMN = 'user';
     const TOKEN_COLUMN = 'token';
@@ -226,8 +226,8 @@ class UserCredentialsForm implements PageElementInterface{
                 $index = $this->table->size();
                 $this->table->addRow($row);
                 if(!$certificate->isExpired()){
-                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::COPY_TO_CLIPBOARD_CLASS));
-                    //$this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::COPY_TO_CLIPBOARD_CLASS));
+                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
+                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
                 }
                 $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
              }

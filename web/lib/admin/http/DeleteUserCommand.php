@@ -3,6 +3,7 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\view\YesNoDialogBox;
+use web\lib\admin\view\PageElementInterface;
 
 class DeleteUserCommand extends AbstractCommand{
 
@@ -26,7 +27,7 @@ class DeleteUserCommand extends AbstractCommand{
         }else{
             //Append terms of use popup
             $builder = $this->controller->getBuilder();
-            $dialogBox = new YesNoDialogBox('sb-popup-message', $this->controller->addQuery($_SERVER['SCRIPT_NAME']), _('Deactivate User'), "Are you sure you want to deactivate user '".$user->getUsername()."' and revoke all user certificates?");
+            $dialogBox = new YesNoDialogBox(PageElementInterface::MESSAGEPOPUP_CLASS, $this->controller->addQuery($_SERVER['SCRIPT_NAME']), _('Deactivate User'), "Are you sure you want to deactivate user '".$user->getUsername()."' and revoke all user certificates?");
             $dialogBox->addParameter('command', SaveUsersCommand::COMMAND);
             $dialogBox->addParameter(self::COMMAND, $user->getIdentifier());
             $dialogBox->setYesControl(self::PARAM_CONFIRMATION, 'true');
