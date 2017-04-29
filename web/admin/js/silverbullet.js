@@ -66,17 +66,23 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
     }
     
     //Create and render Popup message if any
-    var popupMessageElement = document.getElementById('sb-popup-message');
+    var popupMessageElement = document.getElementById(silverbullet.views.PopupMessage.ELEMENT_CLASS);
     if(popupMessageElement){
         var popupMessage = new silverbullet.views.PopupMessage(popupMessageElement);
         popupMessage.render();
     }
     
     //Create all copy to clipboard elements
-    var clipboardElements = document.getElementsByClassName(silverbullet.views.ClipboardElement.ELEMENT_CLASS);
-    for (var i = 0; i < clipboardElements.length; i++) {
-        var clipboardElement = new silverbullet.views.ClipboardElement(clipboardElements[i]);
-        clipboardElement.render();
+    var composeEmailPopupElement = document.getElementById(silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS);
+    if(composeEmailPopupElement){
+        var composeEmailPopup = new silverbullet.views.PopupMessage(composeEmailPopupElement, false);
+        var composeEmailPanel = new silverbullet.views.ComposeEmailPanel(composeEmailPopup);
+        composeEmailPanel.render();
+        var clipboardElements = document.getElementsByClassName(silverbullet.views.TokenProvider.ELEMENT_CLASS);
+        for (var i = 0; i < clipboardElements.length; i++) {
+            var clipboardElement = new silverbullet.views.TokenProvider(clipboardElements[i], composeEmailPanel);
+            clipboardElement.render();
+        }
     }
 };
 
@@ -774,19 +780,28 @@ silverbullet.views.CalendarPool.prototype.render = function() {
  * 
  * @constructor
  */
-silverbullet.views.PopupMessage = function (element) {
+silverbullet.views.PopupMessage = function (element, isDisposable = true) {
     silverbullet.views.ViewElement.call(this, element);
+    this.isDisposable = isDisposable;
     this.redirectButtons = document.getElementsByClassName(element.id + '-redirect');
     this.closeButtons = document.getElementsByClassName(element.id + '-close');
 };
 silverbullet.views.PopupMessage.prototype = Object.create(silverbullet.views.ViewElement.prototype);
 silverbullet.views.PopupMessage.prototype.constructor = silverbullet.views.PopupMessage;
+silverbullet.views.PopupMessage.ELEMENT_CLASS = 'sb-popup-message';
 
 /**
  * 
  */
 silverbullet.views.PopupMessage.prototype.close = function () {
     this.element.parentNode.removeChild(this.element);
+};
+
+/**
+ * 
+ */
+silverbullet.views.PopupMessage.prototype.hide = function () {
+    this.element.style.display = 'none';
 };
 
 /**
@@ -817,7 +832,11 @@ silverbullet.views.PopupMessage.prototype.render = function () {
     
     for(var i=0; i<this.closeButtons.length; i++){
         this.closeButtons[i].addEventListener('click', function () {
-            that.close();
+            if(that.isDisposable){
+                that.close();
+            }else{
+                that.hide();
+            }
         });
     }
     
@@ -836,29 +855,34 @@ silverbullet.views.PopupMessage.prototype.render = function () {
 };
 
 /**
- * Finds and enables all elements that need copy to clipboard function
+ * Finds and enables all invitation token input elements that need copy to clipboard and compose mail features.
  * 
  * @constructor
  */
-silverbullet.views.ClipboardElement = function (element) {
+silverbullet.views.TokenProvider = function (element, panel) {
     silverbullet.views.ViewElement.call(this, element);
-    this.copyButton = $(this.element);
-    this.originalBackgroundColor = this.copyButton.css('background-color');
-    this.originalColor = this.copyButton.css('color');
-    this.copyInput = null;
-    this.element = this.copyButton.parent();
+    this.copyInput = $(this.element);
+    this.element = this.copyInput.parent();
+    this.copyButton = null;
+    this.composeButton = null;
+    this.panel = panel;
     if(this.element){
-        this.copyInput = this.element.find('input');
+        var query = '.' + silverbullet.views.TokenProvider.ELEMENT_CLASS;
+        this.copyButton = this.element.find(query + '-copy');
+        this.originalBackgroundColor = this.copyButton.css('background-color');
+        this.originalColor = this.copyButton.css('color');
+        this.composeButton = this.element.find(query+'-compose');
+        console.log(this.composeButton);
     }
 };
-silverbullet.views.ClipboardElement.prototype = Object.create(silverbullet.views.ViewElement.prototype);
-silverbullet.views.ClipboardElement.prototype.constructor = silverbullet.views.ClipboardElement;
-silverbullet.views.ClipboardElement.ELEMENT_CLASS = 'sb-copy-to-clipboard';
+silverbullet.views.TokenProvider.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.TokenProvider.prototype.constructor = silverbullet.views.TokenProvider;
+silverbullet.views.TokenProvider.ELEMENT_CLASS = 'sb-invitation-token';
 
 /**
  * 
  */
-silverbullet.views.ClipboardElement.prototype.animate = function () {
+silverbullet.views.TokenProvider.prototype.animate = function () {
     this.copyButton.css('background-color', this.originalBackgroundColor);
     this.copyButton.css('color', this.originalColor);
     this.copyInput.blur();
@@ -867,7 +891,7 @@ silverbullet.views.ClipboardElement.prototype.animate = function () {
 /**
  * 
  */
-silverbullet.views.ClipboardElement.prototype.render = function () {
+silverbullet.views.TokenProvider.prototype.render = function () {
     var that = this;
     if(this.copyInput){
         this.copyButton.on('click', function() {
@@ -880,5 +904,54 @@ silverbullet.views.ClipboardElement.prototype.render = function () {
             }, 100);
         });
     }
+    if(this.composeButton){
+        this.composeButton.on('click', function() {
+            that.panel.show();
+            that.panel.setInvitationLink(that.copyInput.val());
+        })
+    }
+};
+
+/**
+ * Generates compose email dialog panel. Panel needs to be wraped inside Popup Message.
+ * 
+ * @constructor
+ */
+silverbullet.views.ComposeEmailPanel = function (popup) {
+    this.popup = popup;
+    this.link = '';
+    if(this.popup){
+        silverbullet.views.ViewElement.call(this, popup.element);
+    }
+};
+silverbullet.views.ComposeEmailPanel.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.ComposeEmailPanel.prototype.constructor = silverbullet.views.ComposeEmailPanel;
+silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS = 'sb-compose-email';
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.setInvitationLink = function (link) {
+    this.link = link;
+};
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.show = function () {
+    this.element.style.display = "block";
+    this.popup.positionToCenter();
+};
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.render = function () {
+    var that = this;
+    this.popup.render();
+    this.element.addEventListener('click', function(e) {
+        console.log("Sending link " + that.link);
+    });
+    
 };
 
