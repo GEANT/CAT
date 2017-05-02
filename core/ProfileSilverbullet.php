@@ -154,7 +154,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function addSupportedEapMethod($type, $preference) {
 // params are needed for proper overriding, but not used at all.
-        parent::addSupportedEapMethod(\core\EAP::EAPTYPE_SILVERBULLET, 1);
+        parent::addSupportedEapMethod(\core\common\EAP::EAPTYPE_SILVERBULLET, 1);
     }
 
     /**

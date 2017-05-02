@@ -195,8 +195,8 @@ if (!$profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
     }
 
-    foreach (\core\EAP::listKnownEAPTypes() as $a) {
-        if ($a == \core\EAP::EAPTYPE_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
+    foreach (\core\common\EAP::listKnownEAPTypes() as $a) {
+        if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
             continue;
         }
         if (isset($_POST[$uiElements->displayName($a)]) && isset($_POST[$uiElements->displayName($a) . "-priority"]) && is_numeric($_POST[$uiElements->displayName($a) . "-priority"])) {

@@ -82,7 +82,7 @@ class Device_TestModule extends \core\DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods(\core\EAP::listKnownEAPTypes());
+        $this->setSupportedEapMethods(\core\common\EAP::listKnownEAPTypes());
     }
 
     /**

@@ -39,17 +39,17 @@ class XMLElement {
      */
     public static $authMethodElements = [
         'server' => [
-            \core\EAP::TLS => ['CA', 'ServerID'],
-            \core\EAP::FAST => ['CA', 'ServerID'],
-            \core\EAP::PEAP => ['CA', 'ServerID'],
-            \core\EAP::TTLS => ['CA', 'ServerID'],
-            \core\EAP::PWD => [],
+            \core\common\EAP::TLS => ['CA', 'ServerID'],
+            \core\common\EAP::FAST => ['CA', 'ServerID'],
+            \core\common\EAP::PEAP => ['CA', 'ServerID'],
+            \core\common\EAP::TTLS => ['CA', 'ServerID'],
+            \core\common\EAP::PWD => [],
         ],
         'client' => [
-            \core\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
-            \core\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
-            \core\EAP::GTC => ['UserName', 'OneTimeToken'],
-            \core\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
+            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
+            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
         ]
     ];
 

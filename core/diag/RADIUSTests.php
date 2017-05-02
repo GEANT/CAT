@@ -916,7 +916,7 @@ class RADIUSTests extends \core\common\Entity {
         $this->loggerInstance->debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
         $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
         fclose($clientcerthandle);
-        return $this->UDP_login($probeindex, \core\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
+        return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -1076,7 +1076,7 @@ class RADIUSTests extends \core\common\Entity {
      * @return string[] [0] is the actual config for wpa_supplicant, [1] is a redacted version for logs
      */
     private function wpaSupplicantConfig(array $eaptype, string $inner, string $outer, string $password) {
-        $eapText = EAP::eapDisplayName($eaptype);
+        $eapText = \core\common\EAP::eapDisplayName($eaptype);
         $config = '
 network={
   ssid="' . CONFIG['APPEARANCE']['productname'] . ' testing"
@@ -1094,12 +1094,12 @@ network={
             $logConfig .= '  phase2="auth=' . $eapText['INNER'] . "\"\n";
         }
 // all methods set a password, except EAP-TLS
-        if ($eaptype != \core\EAP::EAPTYPE_TLS) {
+        if ($eaptype != \core\common\EAP::EAPTYPE_TLS) {
             $config .= "  password=\"$password\"\n";
             $logConfig .= "  password=\"not logged for security reasons\"\n";
         }
 // for methods with client certs, add a client cert config block
-        if ($eaptype == \core\EAP::EAPTYPE_TLS || $eaptype == \core\EAP::EAPTYPE_ANY) {
+        if ($eaptype == \core\common\EAP::EAPTYPE_TLS || $eaptype == \core\common\EAP::EAPTYPE_ANY) {
             $config .= "  private_key=\"./client.p12\"\n";
             $logConfig .= "  private_key=\"./client.p12\"\n";
             $config .= "  private_key_passwd=\"$password\"\n";
@@ -1231,7 +1231,7 @@ network={
         chdir($tmpDir);
         $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
 
-        $eapText = EAP::eapDisplayName($eaptype);
+        $eapText = \core\common\EAP::eapDisplayName($eaptype);
 
         if ($clientcertdata !== NULL) {
             $clientcertfile = fopen($tmpDir . "/client.p12", "w");
@@ -1240,7 +1240,7 @@ network={
         }
 
 // if we need client certs but don't have one, return
-        if (($eaptype == \core\EAP::EAPTYPE_ANY || $eaptype == \core\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
+        if (($eaptype == \core\common\EAP::EAPTYPE_ANY || $eaptype == \core\common\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
@@ -1310,7 +1310,7 @@ network={
 // TODO: also only do this if EAP types all mismatched; we won't have a
 // cert in that case
         if (
-                $eaptype != EAP::EAPTYPE_PWD &&
+                $eaptype != \core\common\EAP::EAPTYPE_PWD &&
                 (($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RADIUSTests::RETVAL_OK)
         ) {
 

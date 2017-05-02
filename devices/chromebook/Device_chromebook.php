@@ -89,7 +89,7 @@ class Device_Chromebook extends \core\DeviceConfig {
      */
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_SILVERBULLET]);
+        $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
 
     private function encryptConfig($clearJson, $password) {
@@ -152,7 +152,7 @@ class Device_Chromebook extends \core\DeviceConfig {
     }
     
     private function eapBlock($selectedEap, $outerId, $caRefs) {
-        $eapPrettyprint = \core\EAP::eapDisplayName($selectedEap);
+        $eapPrettyprint = \core\common\EAP::eapDisplayName($selectedEap);
         // ONC has its own enums, and guess what, they don't always match
         if ($eapPrettyprint["INNER"] == "MSCHAPV2") {
             $eapPrettyprint["INNER"] = "MSCHAPv2";
@@ -170,7 +170,7 @@ class Device_Chromebook extends \core\DeviceConfig {
 
         // if silverbullet, we deliver the client cert inline
 
-        if ($selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $eaparray['ClientCertRef'] = "[" . $this->clientCert['GUID'] . "]";
             $eaparray['ClientCertType'] = "Ref";
         }
@@ -186,7 +186,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         if ($outerId) {
             $eaparray["AnonymousIdentity"] = $outerId;
         }
-        if ($selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $eaparray["Identity"] = $this->clientCert["username"];
         }
         return $eaparray;
@@ -218,7 +218,7 @@ class Device_Chromebook extends \core\DeviceConfig {
             $this->loggerInstance->debug(3, $caSanitized . "\n");
         }
         // if we are doing silverbullet, include the unencrypted(!) P12 as a client certificate
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $jsonArray["Certificates"][] = ["GUID" => "[" . $this->clientCert['GUID'] . "]", "PKCS12" => base64_encode($this->clientCert['certdataclear']), "Remove" => false, "Type" => "Client"];
         }
         $eaparray = $this->eapBlock($this->selectedEap, $this->determineOuterIdString(), $caRefs);
@@ -234,7 +234,7 @@ class Device_Chromebook extends \core\DeviceConfig {
         $clearJson = json_encode($jsonArray, JSON_PRETTY_PRINT);
         $finalJson = $clearJson;
         // if we are doing silverbullet we should also encrypt the entire structure(!) with the import password and embed it into a EncryptedConfiguration
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $finalJson = $this->encryptConfig($clearJson, $this->clientCert['importPassword']);
         }
 

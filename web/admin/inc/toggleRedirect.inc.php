@@ -53,7 +53,7 @@ if ($posted_eaptype) {
         throw new Exception("POSTed EAP type value is not an integer!");
     }
     // conversion routine throws an exception if the EAP type id is not known
-    $eaptype = \core\EAP::eAPMethodArrayIdConversion($posted_eaptype);
+    $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.
@@ -101,7 +101,7 @@ if ($device != NULL) {
     }
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $uiElements->displayName($eaptype));
     $keyword = "eap-specific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . \core\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . \core\common\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
 } else {
     throw new Exception("previous type checks make it impossible to reach this code path.");
 }

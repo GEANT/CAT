@@ -11,8 +11,6 @@
 <?php
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
@@ -463,7 +461,7 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
     }
 </script>
 <?php
-echo $deco->productheader("ADMIN");
+echo $deco->productheader("DIAG");
 print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
 if ($error_message) {
     print "<p>$error_message</p>";
@@ -701,12 +699,12 @@ if ($error_message) {
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
-                    if (in_array(\core\EAP::EAPTYPE_PEAP_MSCHAP2, $prof_compl) ||
-                            in_array(\core\EAP::EAPTYPE_TTLS_MSCHAP2, $prof_compl) ||
-                            in_array(\core\EAP::EAPTYPE_TTLS_GTC, $prof_compl) ||
-                            in_array(\core\EAP::EAPTYPE_FAST_GTC, $prof_compl) ||
-                            in_array(\core\EAP::EAPTYPE_PWD, $prof_compl) ||
-                            in_array(\core\EAP::EAPTYPE_TTLS_PAP, $prof_compl)
+                    if (in_array(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, $prof_compl) ||
+                            in_array(\core\common\EAP::EAPTYPE_TTLS_MSCHAP2, $prof_compl) ||
+                            in_array(\core\common\EAP::EAPTYPE_TTLS_GTC, $prof_compl) ||
+                            in_array(\core\common\EAP::EAPTYPE_FAST_GTC, $prof_compl) ||
+                            in_array(\core\common\EAP::EAPTYPE_PWD, $prof_compl) ||
+                            in_array(\core\common\EAP::EAPTYPE_TTLS_PAP, $prof_compl)
                     ) {
                         echo "<tr><td colspan='2'><strong>" . _("Password-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Real (inner) username:") . "</td><td><input type='text' id='username' class='mandatory' name='username'/></td></tr>";
@@ -714,7 +712,7 @@ if ($error_message) {
                         echo "<tr><td>" . _("Password:") . "</td><td><input type='text' id='password' class='mandatory' name='password'/></td></tr>";
                     }
                     // ask for cert + privkey if TLS-based method is active
-                    if (in_array(\core\EAP::EAPTYPE_TLS, $prof_compl)) {
+                    if (in_array(\core\common\EAP::EAPTYPE_TLS, $prof_compl)) {
                         echo "<tr><td colspan='2'><strong>" . _("Certificate-based EAP types") . "</strong></td></tr>
                         <tr><td>" . _("Certificate file (.p12 or .pfx):") . "</td><td><input type='file' id='cert' accept='application/x-pkcs12' name='cert'/></td></tr>
                         <tr><td>" . _("Certificate password, if any:") . "</td><td><input type='text' id='privkey' name='privkey_pass'/></td></tr>

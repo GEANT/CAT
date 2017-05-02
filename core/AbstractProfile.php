@@ -99,7 +99,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                                         ORDER by preference");
         $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
+            $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
         $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
@@ -334,7 +334,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function addSupportedEapMethod($type, $preference) {
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
-                . EAP::eAPMethodArrayIdConversion($type) . ", "
+                . \core\common\EAP::eAPMethodArrayIdConversion($type) . ", "
                 . $preference . ")");
         $this->updateFreshness();
     }
@@ -368,10 +368,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function isEapTypeDefinitionComplete($eaptype) {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
-            case \core\EAP::TLS:
-            case \core\EAP::PEAP:
-            case \core\EAP::TTLS:
-            case \core\EAP::FAST:
+            case \core\common\EAP::TLS:
+            case \core\common\EAP::PEAP:
+            case \core\common\EAP::TTLS:
+            case \core\common\EAP::FAST:
                 $missing = [];
                 $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
                 $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
@@ -396,7 +396,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     return TRUE;
                 }
                 return $missing;
-            case \core\EAP::PWD:
+            case \core\common\EAP::PWD:
                 // well actually this EAP type has a server name; but it's optional
                 // so no reason to be picky on it
                 return true;

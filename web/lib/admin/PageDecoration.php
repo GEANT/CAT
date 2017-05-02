@@ -34,7 +34,7 @@ class PageDecoration {
               <a href='inc/logout.php'>" . _("Logout") . "</a> ";
         }
         $startPageUrl = "../";
-        if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE) {
+        if (strpos($_SERVER['PHP_SELF'], "admin/") === FALSE && strpos($_SERVER['PHP_SELF'], "diag/") === FALSE) {
             $startPageUrl = dirname($_SERVER['SCRIPT_NAME']) . "/";
         }
 
@@ -150,6 +150,11 @@ class PageDecoration {
                 $cap2 = _("CIC");
                 $advancedControls = TRUE;
                 break;
+            case "DIAG":
+                $cap1 = CONFIG['APPEARANCE']['productname_long'];
+                $cap2 = _("Diagnostics");
+                $advancedControls = TRUE;
+                break;
             default:
                 $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = "It is an error if you ever see this string.";
@@ -199,7 +204,10 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
         } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
-        } else {
+        } elseif (strrpos($_SERVER['PHP_SELF'], "diag/")) {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "diag/");
+        }
+            else {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
 
@@ -225,6 +233,8 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "admin/");
         } elseif (strrpos($_SERVER['PHP_SELF'], "accountstatus/")) {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "accountstatus/");
+        } elseif (strrpos($_SERVER['PHP_SELF'], "diag/")) {
+            $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "diag/");
         } else {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }

@@ -25,8 +25,8 @@ class Device_W8 extends WindowsCommon {
 
     final public function __construct() {
         parent::__construct();
-        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_TLS, \core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_PWD, \core\EAP::EAPTYPE_SILVERBULLET]);
-        $this->specialities['anon_id'][serialize(\core\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_PWD, \core\common\EAP::EAPTYPE_SILVERBULLET]);
+        $this->specialities['anon_id'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
     public function writeInstaller() {
@@ -50,7 +50,7 @@ class Device_W8 extends WindowsCommon {
         }
 
 
-        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\EAP::EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == \core\EAP::EAPTYPE_PWD || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_PWD || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -77,7 +77,7 @@ class Device_W8 extends WindowsCommon {
         if (isset($additionalDeletes) && count($additionalDeletes)) {
             $this->writeAdditionalDeletes($additionalDeletes);
         }
-        if ($this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
@@ -116,7 +116,7 @@ class Device_W8 extends WindowsCommon {
             $out .= "<p>";
         }
 // TODO - change this below
-        if ($this->selectedEap == \core\EAP::EAPTYPE_TLS || $this->selectedEap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
         } else {
             $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
@@ -161,7 +161,7 @@ class Device_W8 extends WindowsCommon {
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
 ';
-        if ($eap == \core\EAP::EAPTYPE_TLS || $eap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($eap == \core\common\EAP::EAPTYPE_TLS || $eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
@@ -198,7 +198,7 @@ class Device_W8 extends WindowsCommon {
 </baseEap:Eap>
 </Config>
 ';
-        } elseif ($eap == \core\EAP::EAPTYPE_PEAP_MSCHAP2) {
+        } elseif ($eap == \core\common\EAP::EAPTYPE_PEAP_MSCHAP2) {
             if (isset($attr['eap:enable_nea']) && $attr['eap:enable_nea'][0] == 'on') {
                 $nea = 'true';
             } else {
@@ -253,7 +253,7 @@ class Device_W8 extends WindowsCommon {
 </Eap>
 </Config>
 ';
-        } elseif ($eap == \core\EAP::EAPTYPE_TTLS_PAP || $eap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
+        } elseif ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP || $eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">311</AuthorId>
 </EapMethod>
 ';
@@ -272,10 +272,10 @@ class Device_W8 extends WindowsCommon {
 </ServerValidation>
 <Phase2Authentication>
 ';
-            if ($eap == \core\EAP::EAPTYPE_TTLS_PAP) {
+            if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP) {
                 $w8Ext .= '<PAPAuthentication /> ';
             }
-            if ($eap == \core\EAP::EAPTYPE_TTLS_MSCHAP2) {
+            if ($eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
                 $w8Ext .= '<MSCHAPv2Authentication>
 <UseWinlogonCredentials>false</UseWinlogonCredentials>
 </MSCHAPv2Authentication>
@@ -302,7 +302,7 @@ class Device_W8 extends WindowsCommon {
 </EapTtls>
 </Config>
 ';
-        } elseif ($eap == \core\EAP::EAPTYPE_PWD) {
+        } elseif ($eap == \core\common\EAP::EAPTYPE_PWD) {
             $profileFileCont .= '<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</AuthorId>
 </EapMethod>
 ';
@@ -415,10 +415,10 @@ class Device_W8 extends WindowsCommon {
         }
 
         $eapOptions = [
-            \core\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
-            \core\EAP::TLS => ['str' => 'TLS', 'exec' => 'user'],
-            \core\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
-            \core\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
+            \core\common\EAP::PEAP => ['str' => 'PEAP', 'exec' => 'user'],
+            \core\common\EAP::TLS => ['str' => 'TLS', 'exec' => 'user'],
+            \core\common\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
+            \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
 
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)
@@ -430,7 +430,7 @@ class Device_W8 extends WindowsCommon {
         }
         $execLevel = $eapOptions[$eap["OUTER"]]['exec'];
         $eapStr = $eapOptions[$eap["OUTER"]]['str'];
-        if ($eap == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= "!define SILVERBULLET\n";
         }
         $fcontents .= '!define ' . $eapStr;
@@ -457,7 +457,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 !ifdef TLS
 ';
 //TODO this must be changed with a new option
-        if ($eap != \core\EAP::EAPTYPE_SILVERBULLET) {
+        if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
         } 
@@ -514,7 +514,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
         $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
-        if ($eap["OUTER"] == \core\EAP::PWD) {
+        if ($eap["OUTER"] == \core\common\EAP::PWD) {
             $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
             $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
             $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
