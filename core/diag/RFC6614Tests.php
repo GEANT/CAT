@@ -162,14 +162,11 @@ class RFC6614Tests extends AbstractTest {
      * This function parses openssl s_client result
      * 
      * @param string $host IP:port
-     * @param string $testtype capath or clients
      * @param array $opensslbabble openssl command output
      * @param array $testresults by-reference: pointer to results array we write into
-     * @param string $type type of certificate
-     * @param int $resultArrayKey results array key
      * @return int return code
      */
-    private function opensslCAResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
+    private function opensslCAResult($host, $opensslbabble, &$testresults) {
         $res = RADIUSTests::RETVAL_OK;
         if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
             $testresults[$host]['status'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
@@ -210,7 +207,6 @@ class RFC6614Tests extends AbstractTest {
      * This function parses openssl s_client result
      * 
      * @param string $host IP:port
-     * @param string $testtype capath or clients
      * @param array $opensslbabble openssl command output
      * @param array $testresults by-reference: pointer to results array we write into
      * @param string $type type of certificate

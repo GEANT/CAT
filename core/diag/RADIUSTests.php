@@ -49,6 +49,14 @@ class RADIUSTests extends AbstractTest {
     private $UDP_reachability_executed;
     private $errorlist;
 
+    /**
+     * This private variable contains the realm to be checked. Is filled in the
+     * class constructor.
+     * 
+     * @var string
+     */
+    private $realm;
+
     
     public $UDP_reachability_result;
     

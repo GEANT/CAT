@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -121,9 +121,11 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     if ($naptr > 0 && count($rfc7585suite->NAPTR_hostname_records) > 0) {
         foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
-            $retval = $testsuite->TLS_clients_side_check($addr);
-            if ($retval != \core\diag\RADIUSTests::RETVAL_OK && $retval != \core\diag\RADIUSTests::RETVAL_SKIPPED)
+            $rfc6614suite = new \core\diag\RFC6614Tests([$addr]);
+            $retval = $rfc6614suite->TLS_clients_side_check($addr);
+            if ($retval != \core\diag\RADIUSTests::RETVAL_OK && $retval != \core\diag\RADIUSTests::RETVAL_SKIPPED) {
                 $dynamicErrors = true;
+            }
         }
     }
     if (!$dynamicErrors) {

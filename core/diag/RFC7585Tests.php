@@ -35,6 +35,7 @@ class RFC7585Tests extends AbstractTest {
     private $NAPTR_hostname_executed;
     private $NAPTR_records;
     private $NAPTR_SRV_records;
+    private $errorlist;
     public $NAPTR_hostname_records;
 
     // return codes specific to NAPTR existence checks
