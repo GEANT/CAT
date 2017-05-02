@@ -16,8 +16,9 @@ use \Exception;
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 /**
- * Test suite to verify that an EAP setup is actually working as advertised in
- * the real world. Can only be used if CONFIG['RADIUSTESTS'] is configured.
+ * Test suite to verify that a given NAI realm has NAPTR records according to
+ * consortium-agreed criteria
+ * Can only be used if CONFIG['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -28,210 +29,270 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
  */
 class RFC6614Tests extends AbstractTest {
 
-    private $NAPTR_executed;
-    private $NAPTR_compliance_executed;
-    private $NAPTR_SRV_executed;
-    private $NAPTR_hostname_executed;
-    private $NAPTR_records;
-    private $NAPTR_SRV_records;
-    public $NAPTR_hostname_records;
+    private $TLS_certkeys = [];
+    private $candidateIPs;
+    public $TLS_CA_checks_result;
+    public $TLS_clients_checks_result;
 
-    /**
-     * This private variable contains the realm to be checked. Is filled in the
-     * class constructor.
-     * 
-     * @var string
-     */
-    private $realm;
-
-    public function __construct($realm) {
+    public function __construct($listOfIPs) {
         parent::__construct();
-
-        $this->realm = $realm;
-        $this->NAPTR_executed = FALSE;
-        $this->NAPTR_compliance_executed = FALSE;
-        $this->NAPTR_SRV_executed = FALSE;
-        $this->NAPTR_hostname_executed = FALSE;
-        $this->NAPTR_records = [];
-        $this->NAPTR_SRV_records = [];
-        $this->NAPTR_hostname_records = [];
-        $this->errorlist = [];
+        $this->TLS_certkeys = [
+            'eduPKI' => _('eduPKI'),
+            'NCU' => _('Nicolaus Copernicus University'),
+            'ACCREDITED' => _('accredited'),
+            'NONACCREDITED' => _('non-accredited'),
+            'CORRECT' => _('correct certificate'),
+            'WRONGPOLICY' => _('certificate with wrong policy OID'),
+            'EXPIRED' => _('expired certificate'),
+            'REVOKED' => _('revoked certificate'),
+            'PASS' => _('pass'),
+            'FAIL' => _('fail'),
+            'non-eduPKI-accredited' => _("eduroam-accredited CA (now only for tests)"),
+        ];
+        $this->TLS_CA_checks_result = [];
+        $this->TLS_clients_checks_result = [];
+        
+        $this->candidateIPs = $listOfIPs;
     }
 
     /**
-     * Tests if this realm exists in DNS and has NAPTR records matching the
-     * configured consortium NAPTR target.
-     * 
-     * possible RETVALs:
-     * - RETVAL_NOTCONFIGURED; needs CONFIG['RADIUSTESTS']['TLS-discoverytag']
-     * - RETVAL_ONLYUNRELATEDNAPTR
-     * - RETVAL_NONAPTR
-     * 
-     * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
+     * run all checks on all candidates
      */
-    public function NAPTR() {
-        if (CONFIG['RADIUSTESTS']['TLS-discoverytag'] == "") {
-            $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
-            return RADIUSTests::RETVAL_NOTCONFIGURED;
+    public function allChecks() {
+        foreach ($this->candidateIPs as $oneIP) {
+            $this->cApathCheck($oneIP);
+            $this->TLS_clients_side_check($oneIP);
         }
-        $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
-        if ($NAPTRs === FALSE || count($NAPTRs) == 0) {
-            $this->NAPTR_executed = RADIUSTests::RETVAL_NONAPTR;
-            return RADIUSTests::RETVAL_NONAPTR;
+    }
+    
+    /**
+     * This function executes openssl s_clientends command to check if a server accept a CA
+     * @param string $host IP:port
+     * @return int returncode
+     */
+    public function cApathCheck($host) {
+        if (!isset($this->TLS_CA_checks_result[$host])) {
+            $this->TLS_CA_checks_result[$host] = [];
         }
-        $NAPTRs_consortium = [];
-        foreach ($NAPTRs as $naptr) {
-            if ($naptr["services"] == CONFIG['RADIUSTESTS']['TLS-discoverytag']) {
-                $NAPTRs_consortium[] = $naptr;
-            }
-        }
-        if (count($NAPTRs_consortium) == 0) {
-            $this->NAPTR_executed = RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
-            return RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
-        }
-        $this->NAPTR_records = $NAPTRs_consortium;
-        $this->NAPTR_executed = count($NAPTRs_consortium);
-        return count($NAPTRs_consortium);
+        $opensslbabble = $this->openssl_s_client($host, '', $this->TLS_CA_checks_result[$host]);
+        return $this->opensslCAResult($host, $opensslbabble, $this->TLS_CA_checks_result);
     }
 
     /**
-     * Tests if all the dicovered NAPTR entries conform to the consortium's requirements
-     * 
-     * possible RETVALs:
-     * - RETVAL_NOTCONFIGURED; needs CONFIG['RADIUSTESTS']['TLS-discoverytag']
-     * - RETVAL_INVALID (at least one format error)
-     * - RETVAL_OK (all fine)
-
-     * @return int one of two RETVALs above
+     * This function executes openssl s_client command to check if a server accept a client certificate
+     * @param string $host IP:port
+     * @return int returncode
      */
-    public function NAPTR_compliance() {
-// did we query DNS for the NAPTRs yet? If not, do so now.
-        if ($this->NAPTR_executed === FALSE) {
-            $this->NAPTR();
-        }
-// if the NAPTR checks aren't configured, tell the caller
-        if ($this->NAPTR_executed === RADIUSTests::RETVAL_NOTCONFIGURED) {
-            $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
-            return RADIUSTests::RETVAL_NOTCONFIGURED;
-        }
-// if there were no relevant NAPTR records, we are compliant :-)
-        if (count($this->NAPTR_records) == 0) {
-            $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_OK;
-            return RADIUSTests::RETVAL_OK;
-        }
-        $formatErrors = [];
-// format of NAPTRs is consortium specific. eduroam below; others need
-// their own code
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
-            foreach ($this->NAPTR_records as $edupointer) {
-// must be "s" type for SRV
-                if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
-                    $formatErrors[] = ["TYPE" => "NAPTR-FLAG", "TARGET" => $edupointer['flag']];
-                }
-// no regex
-                if ($edupointer["regex"] != "") {
-                    $formatErrors[] = ["TYPE" => "NAPTR-REGEX", "TARGET" => $edupointer['regex']];
-                }
-            }
-        }
-        if (count($formatErrors) == 0) {
-            $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_OK;
-            return RADIUSTests::RETVAL_OK;
-        }
-        $this->errorlist = array_merge($this->errorlist, $formatErrors);
-        $this->NAPTR_compliance_executed = RADIUSTests::RETVAL_INVALID;
-        return RADIUSTests::RETVAL_INVALID;
-    }
-
-    /**
-     * Tests if NAPTR records can be resolved to SRVs. Will only run if NAPTR
-     * checks completed without error.
-     *
-     * possible RETVALs:
-     * - RETVAL_INVALID
-     * - RETVAL_SKIPPED
-     * 
-     * @return int one of the RETVALs above or the number of SRV records which were resolved
-     */
-    public function NAPTR_SRV() {
-// see if preceding checks have been run, and run them if not
-// compliance check will cascade NAPTR check on its own
-        if ($this->NAPTR_compliance_executed === FALSE) {
-            $this->NAPTR_compliance();
-        }
-// we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
-        if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RADIUSTests::RETVAL_INVALID) {
-            $this->NAPTR_SRV_executed = RADIUSTests::RETVAL_SKIPPED;
+    public function TLS_clients_side_check($host) {
+        $res = RADIUSTests::RETVAL_OK;
+        if (!is_array(CONFIG['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;
         }
-
-        $sRVerrors = [];
-        $sRVtargets = [];
-
-        foreach ($this->NAPTR_records as $edupointer) {
-            $tempResult = dns_get_record($edupointer["replacement"], DNS_SRV);
-            if ($tempResult === FALSE || count($tempResult) == 0) {
-                $sRVerrors[] = ["TYPE" => "SRV_NOT_RESOLVING", "TARGET" => $edupointer['replacement']];
-            } else {
-                foreach ($tempResult as $res) {
-                    $sRVtargets[] = ["hostname" => $res["target"], "port" => $res["port"]];
-                }
-            }
-        }
-        $this->NAPTR_SRV_records = $sRVtargets;
-        if (count($sRVerrors) > 0) {
-            $this->NAPTR_SRV_executed = RADIUSTests::RETVAL_INVALID;
-            $this->errorlist = array_merge($this->errorlist, $sRVerrors);
+        if (preg_match("/\[/", $host)) {
             return RADIUSTests::RETVAL_INVALID;
         }
-        $this->NAPTR_SRV_executed = count($sRVtargets);
-        return count($sRVtargets);
-    }
+        foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
+            $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['issuer'] = $tlsclient['issuerCA'];
+            foreach ($tlsclient['certificates'] as $k => $cert) {
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['status'] = $cert['status'];
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['message'] = $this->TLS_certkeys[$cert['status']];
+                $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['expected'] = $cert['expected'];
+                $add = ' -cert ' . ROOT . '/config/cli-certs/' . $cert['public'] . ' -key ' . ROOT . '/config/cli-certs/' . $cert['private'];
+                if (!isset($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k])) {
+                    $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k] = [];
+                }
+                $opensslbabble = $this->openssl_s_client($host, $add, $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]);
+                $res = $this->opensslClientsResult($host, $opensslbabble, $this->TLS_clients_checks_result, $type, $k);
+                if ($cert['expected'] == 'PASS') {
+                    if (!$this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
+                        if (($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = RADIUSTests::CERTPROB_NOT_ACCEPTED;
+                            $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
+                            break;
+                        }
+                    }
+                } else {
+                    if ($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['connected']) {
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['returncode'] = RADIUSTests::CERTPROB_WRONGLY_ACCEPTED;
+                    }
 
-    public function NAPTR_hostnames() {
-// make sure the previous tests have been run before we go on
-// preceeding tests will cascade automatically if needed
-        if ($this->NAPTR_SRV_executed === FALSE) {
-            $this->NAPTR_SRV();
-        }
-// if previous are SKIPPED, skip this one, too
-        if ($this->NAPTR_SRV_executed == RADIUSTests::RETVAL_SKIPPED) {
-            $this->NAPTR_hostname_executed = RADIUSTests::RETVAL_SKIPPED;
-            return RADIUSTests::RETVAL_SKIPPED;
-        }
-// the SRV check may have returned INVALID, but could have found a
-// a working subset of hosts anyway. We should continue checking all 
-// dicovered names.
-
-        $ipAddrs = [];
-        $resolutionErrors = [];
-
-        foreach ($this->NAPTR_SRV_records as $server) {
-            $hostResolutionIPv6 = dns_get_record($server["hostname"], DNS_AAAA);
-            $hostResolutionIPv4 = dns_get_record($server["hostname"], DNS_A);
-            $hostResolution = array_merge($hostResolutionIPv6, $hostResolutionIPv4);
-            if ($hostResolution === FALSE || count($hostResolution) == 0) {
-                $resolutionErrors[] = ["TYPE" => "HOST_NO_ADDRESS", "TARGET" => $server['hostname']];
-            } else {
-                foreach ($hostResolution as $address) {
-                    if (isset($address["ip"])) {
-                        $ipAddrs[] = ["family" => "IPv4", "IP" => $address["ip"], "port" => $server["port"], "status" => ""];
-                    } else {
-                        $ipAddrs[] = ["family" => "IPv6", "IP" => $address["ipv6"], "port" => $server["port"], "status" => ""];
+                    if (($this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['reason'] == RADIUSTests::CERTPROB_UNKNOWN_CA) && ($tlsclient['status'] == 'ACCREDITED') && ($cert['status'] == 'CORRECT')) {
+                        $this->TLS_clients_checks_result[$host]['ca'][$type]['certificate'][$k]['finalerror'] = 1;
+                        echo "koniec zabawy2<br>";
+                        break;
                     }
                 }
             }
         }
+        return $res;
+    }
 
-        $this->NAPTR_hostname_records = $ipAddrs;
-
-        if (count($resolutionErrors) > 0) {
-            $this->errorlist = array_merge($this->errorlist, $resolutionErrors);
-            $this->NAPTR_hostname_executed = RADIUSTests::RETVAL_INVALID;
-            return RADIUSTests::RETVAL_INVALID;
+    /**
+     * This function executes openssl s_client command
+     * 
+     * @param string $host IP address
+     * @param string $arg arguments to add to the openssl command 
+     * @param array $testresults by-reference: the testresults array we are writing into
+     * @return array result of openssl s_client ...
+     */
+    private function openssl_s_client($host, $arg, &$testresults) {
+// we got the IP address either from DNS (guaranteeing well-formedness)
+// or from filter_var'ed user input. So it is always safe as an argument
+// but code analysers want this more explicit, so here is this extra
+// call to escapeshellarg()
+        $escapedHost = escapeshellarg($host);
+        $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1\n");
+        $time_start = microtime(true);
+        $opensslbabble = [];
+        $result = 999; // likely to become zero by openssl; don't want to initialise to zero, could cover up exec failures
+        exec(CONFIG['PATHS']['openssl'] . " s_client -connect " . $escapedHost . " -tls1 -CApath " . ROOT . "/config/ca-certs/ $arg 2>&1", $opensslbabble, $result);
+        if ($opensslbabble === NULL) {
+            throw new Exception("The output of an exec() call really can't be NULL!");
         }
-        $this->NAPTR_hostname_executed = count($this->NAPTR_hostname_records);
-        return count($this->NAPTR_hostname_records);
+        $time_stop = microtime(true);
+        $testresults['time_millisec'] = floor(($time_stop - $time_start) * 1000);
+        $testresults['returncode'] = $result;
+        return $opensslbabble;
+    }
+
+    /**
+     * This function parses openssl s_client result
+     * 
+     * @param string $host IP:port
+     * @param string $testtype capath or clients
+     * @param array $opensslbabble openssl command output
+     * @param array $testresults by-reference: pointer to results array we write into
+     * @param string $type type of certificate
+     * @param int $resultArrayKey results array key
+     * @return int return code
+     */
+    private function opensslCAResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
+        $res = RADIUSTests::RETVAL_OK;
+        if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
+            $testresults[$host]['status'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
+            $res = RADIUSTests::RETVAL_INVALID;
+        }
+        if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
+            $testresults[$host]['cert_oddity'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
+            $testresults[$host]['status'] = RADIUSTests::RETVAL_INVALID;
+            $res = RADIUSTests::RETVAL_INVALID;
+        }
+        if (preg_match('/verify return:1/', implode($opensslbabble))) {
+            $testresults[$host]['status'] = RADIUSTests::RETVAL_OK;
+            $servercertStage1 = implode("\n", $opensslbabble);
+            $servercert = preg_replace("/.*(-----BEGIN CERTIFICATE-----.*-----END CERTIFICATE-----\n).*/s", "$1", $servercertStage1);
+            $data = openssl_x509_parse($servercert);
+            $testresults[$host]['certdata']['subject'] = $data['name'];
+            $testresults[$host]['certdata']['issuer'] = $this->getCertificateIssuer($data);
+            if (($altname = $this->getCertificatePropertyField($data, 'subjectAltName'))) {
+                $testresults[$host]['certdata']['extensions']['subjectaltname'] = $altname;
+            }
+            $oids = $this->propertyCheckPolicy($data);
+            if (!empty($oids)) {
+                foreach ($oids as $resultArrayKey => $o) {
+                    $testresults[$host]['certdata']['extensions']['policyoid'][] = " $o ($resultArrayKey)";
+                }
+            }
+            if (($crl = $this->getCertificatePropertyField($data, 'crlDistributionPoints'))) {
+                $testresults[$host]['certdata']['extensions']['crlDistributionPoint'] = $crl;
+            }
+            if (($ocsp = $this->getCertificatePropertyField($data, 'authorityInfoAccess'))) {
+                $testresults[$host]['certdata']['extensions']['authorityInfoAccess'] = $ocsp;
+            }
+        }
+        return $res;
+    }
+
+    /**
+     * This function parses openssl s_client result
+     * 
+     * @param string $host IP:port
+     * @param string $testtype capath or clients
+     * @param array $opensslbabble openssl command output
+     * @param array $testresults by-reference: pointer to results array we write into
+     * @param string $type type of certificate
+     * @param int $resultArrayKey results array key
+     * @return int return code
+     */
+    private function opensslClientsResult($host, $opensslbabble, &$testresults, $type = '', $resultArrayKey = 0) {
+        $res = RADIUSTests::RETVAL_OK;
+        $ret = $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'];
+        $output = implode($opensslbabble);
+        if ($ret == 0) {
+            $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 1;
+        } else {
+            $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['connected'] = 0;
+            if (preg_match('/connect: Connection refused/', implode($opensslbabble))) {
+                $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['returncode'] = RADIUSTests::RETVAL_CONNECTION_REFUSED;
+                $resComment = _("No TLS connection established: Connection refused");
+            } elseif (preg_match('/sslv3 alert certificate expired/', $output)) {
+                $resComment = _("certificate expired");
+            } elseif (preg_match('/sslv3 alert certificate revoked/', $output)) {
+                $resComment = _("certificate was revoked");
+            } elseif (preg_match('/SSL alert number 46/', $output)) {
+                $resComment = _("bad policy");
+            } elseif (preg_match('/tlsv1 alert unknown ca/', $output)) {
+                $resComment = _("unknown authority");
+                $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['reason'] = RADIUSTests::CERTPROB_UNKNOWN_CA;
+            } else {
+                $resComment = _("unknown authority or no certificate policy or another problem");
+            }
+            $testresults[$host]['ca'][$type]['certificate'][$resultArrayKey]['resultcomment'] = $resComment;
+        }
+        return $res;
+    }
+
+        /**
+     * This function parses a X.509 cert and returns all certificatePolicies OIDs
+     * 
+     * @param array $cert (returned from openssl_x509_parse) 
+     * @return array of OIDs
+     */
+    private function propertyCheckPolicy($cert) {
+        $oids = [];
+        if ($cert['extensions']['certificatePolicies']) {
+            foreach (CONFIG['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
+                if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
+                    $oids[$key] = $oid;
+                }
+            }
+        }
+        return $oids;
+    }
+        /**
+     * This function parses a X.509 cert and returns the value of $field
+     * 
+     * @param array $cert (returned from openssl_x509_parse) 
+     * @return string value of the issuer field or ''
+     */
+    private function getCertificateIssuer($cert) {
+        $issuer = '';
+        foreach ($cert['issuer'] as $key => $val) {
+            if (is_array($val)) {
+                foreach ($val as $v) {
+                    $issuer .= "/$key=$v";
+                }
+            } else {
+                $issuer .= "/$key=$val";
+            }
+        }
+        return $issuer;
+    }
+    /**
+     * This function parses a X.509 cert and returns the value of $field
+     * 
+     * @param array $cert (returned from openssl_x509_parse) 
+     * @param string $field 
+     * @return string value of the extention named $field or ''
+     */
+    private function getCertificatePropertyField($cert, $field) {
+        if ($cert['extensions'][$field]) {
+            return $cert['extensions'][$field];
+        }
+        return '';
     }
 
 }

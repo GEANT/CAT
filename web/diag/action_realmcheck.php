@@ -36,7 +36,7 @@ if ($my_profile != NULL) {
         $check_thorough = TRUE;
         $check_realm = $checkrealm[0]['value'];
         $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->identifier);
-        $rfc6614suite = new \core\diag\RFC6614Tests($check_realm);
+        $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
@@ -484,16 +484,16 @@ if ($error_message) {
                 <?php
                 // NAPTR existence check
                 echo "<strong>" . _("DNS chekcs") . "</strong><div>";
-                $naptr = $rfc6614suite->NAPTR();
+                $naptr = $rfc7585suite->NAPTR();
                 if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
                     echo "<table>";
                     // output in friendly words
                     echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
                     switch ($naptr) {
-                        case \core\diag\RADIUSTests::RETVAL_NONAPTR:
+                        case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
                             echo _("This realm has no NAPTR records.");
                             break;
-                        case \core\diag\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
+                        case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
                             printf(_("This realm has NAPTR records, but none are associated with %s."), CONFIG['CONSORTIUM']['name']);
                             break;
                         default: // if none of the possible negative retvals, then we have matching NAPTRs
@@ -505,7 +505,7 @@ if ($error_message) {
 
                     if ($naptr > 0) {
                         echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
-                        $naptr_valid = $rfc6614suite->NAPTR_compliance();
+                        $naptr_valid = $rfc7585suite->NAPTR_compliance();
                         switch ($naptr_valid) {
                             case \core\diag\RADIUSTests::RETVAL_OK:
                                 echo _("No issues found.");
@@ -520,7 +520,7 @@ if ($error_message) {
                     // SRV resolution
 
                     if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
-                        $srv = $rfc6614suite->NAPTR_SRV();
+                        $srv = $rfc7585suite->NAPTR_SRV();
                         echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
                         switch ($srv) {
                             case \core\diag\RADIUSTests::RETVAL_SKIPPED:
@@ -536,7 +536,7 @@ if ($error_message) {
                     }
                     // IP addresses for the hosts
                     if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
-                        $hosts = $rfc6614suite->NAPTR_hostnames();
+                        $hosts = $rfc7585suite->NAPTR_hostnames();
                         echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
                         switch ($srv) {
                             case \core\diag\RADIUSTests::RETVAL_SKIPPED:
@@ -574,7 +574,7 @@ if ($error_message) {
                  global_level_dyn = L_OK;
                  $("#dynamic_tests").show();
               ';
-                    foreach ($rfc6614suite->NAPTR_hostname_records as $hostindex => $addr) {
+                    foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                         $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                         print "
                             running_ajax_dyn++;
@@ -641,10 +641,10 @@ if ($error_message) {
                 <legend><strong>" . _("DYNAMIC connectivity tests") . "</strong></legend>";
 
                 $resultstoprint = [];
-                if (count($rfc6614suite->NAPTR_hostname_records) > 0) {
+                if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
                     $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . $uiElements->boxError(_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . $uiElements->boxOkay(_("All tests passed, congratulations!")) . '</table>';
                     $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
-                    foreach ($rfc6614suite->NAPTR_hostname_records as $hostindex => $addr) {
+                    foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                         $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
                         $resultstoprint[] = '<p><strong>' . $bracketaddr . ' TCP/' . $addr['port'] . '</strong>';
                         $resultstoprint[] = '<ul style="list-style-type: none;" class="caresult"><li>';
@@ -659,7 +659,7 @@ if ($error_message) {
                         $resultstoprint[] = '</li></ul>';
                     }
                     $clientstest = [];
-                    foreach ($rfc6614suite->NAPTR_hostname_records as $hostindex => $addr) {
+                    foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                         $clientstest[] = '<p><strong>' . $addr['IP'] . ' TCP/' . $addr['port'] . '</strong></p><ol>';
                         $clientstest[] = "<span id='clientresults$hostindex$clinx'><table style='width:100%'>
 <tr>

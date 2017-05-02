@@ -287,40 +287,41 @@ switch ($test_type) {
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        $testresult = $testsuite->cApathCheck($host);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $testresult = $rfc6614suite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         // the host member of the array may not be set if RETVAL_SKIPPED was
         // returned (e.g. IPv6 host), be prepared for that
-        if (isset($testsuite->TLS_CA_checks_result[$host])) {
-            $returnarray['time_millisec'] = sprintf("%d", $testsuite->TLS_CA_checks_result[$host]['time_millisec']);
-            if (isset($testsuite->TLS_CA_checks_result[$host]['cert_oddity']) && ($testsuite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
-                $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+        if (isset($rfc6614suite->TLS_CA_checks_result[$host])) {
+            $returnarray['time_millisec'] = sprintf("%d", $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']);
+            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
+                $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = \core\common\Entity::L_ERROR;
             } else {
-                $returnarray['message'] = $testsuite->return_codes[$testsuite->TLS_CA_checks_result[$host]['status']]["message"];
+                $returnarray['message'] = $rfc6614suite->return_codes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = \core\common\Entity::L_OK;
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
-                    $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+                if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
+                    $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 } else {
                     $returnarray['level'] = \core\common\Entity::L_ERROR;
                 }
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] == \core\diag\RADIUSTests::RETVAL_OK) {
+                if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] == \core\diag\RADIUSTests::RETVAL_OK) {
                     $returnarray['certdata'] = [];
-                    $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
-                    $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];
+                    $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
+                    $returnarray['certdata']['issuer'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['issuer'];
                     $returnarray['certdata']['extensions'] = [];
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
-                        $returnarray['certdata']['extensions']['subjectaltname'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
+                        $returnarray['certdata']['extensions']['subjectaltname'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
                     }
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
-                        $returnarray['certdata']['extensions']['policies'] = join(' ', $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
+                        $returnarray['certdata']['extensions']['policies'] = join(' ', $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
                     }
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
-                        $returnarray['certdata']['extensions']['crldistributionpoints'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
+                        $returnarray['certdata']['extensions']['crldistributionpoints'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
                     }
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
-                        $returnarray['certdata']['extensions']['authorityinfoaccess'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
+                        $returnarray['certdata']['extensions']['authorityinfoaccess'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
                     }
                 }
                 $returnarray['cert_oddities'] = [];
@@ -329,14 +330,15 @@ switch ($test_type) {
         $returnarray['result'] = $testresult;
         break;
     case 'clients':
-        $testresult = $testsuite->TLS_clients_side_check($host);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $testresult = $rfc6614suite->TLS_clients_side_check($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         $k = 0;
         // the host member of the array may not exist if RETVAL_SKIPPED came out
         // (e.g. no client cert to test with). Be prepared for that
-        if (isset($testsuite->TLS_clients_checks_result[$host])) {
-            foreach ($testsuite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
+        if (isset($rfc6614suite->TLS_clients_checks_result[$host])) {
+            foreach ($rfc6614suite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
                 foreach ($cli as $key => $val) {
                     $returnarray['ca'][$k][$key] = $val;
                 }

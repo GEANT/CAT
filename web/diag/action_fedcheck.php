@@ -40,16 +40,17 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         return $tabletext;
     }
     $testsuite = new \core\diag\RADIUSTests($realm, $profile->identifier);
+    $rfc7585suite = new \core\diag\RFC7585Tests($realm);
 
     // NAPTR existence check
     $tabletext .= "<td>";
-    $naptr = $testsuite->NAPTR();
+    $naptr = $rfc7585suite->NAPTR();
     if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED)
         switch ($naptr) {
-            case \core\diag\RADIUSTests::RETVAL_NONAPTR:
+            case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
                 $tabletext .= _("No NAPTR records");
                 break;
-            case \core\diag\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
+            case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
                 $tabletext .= sprintf(_("No associated NAPTR records"));
                 break;
             default: // if none of the possible negative retvals, then we have matching NAPTRs
@@ -61,18 +62,18 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     $NAPTR_issues = false;
 
     if ($naptr > 0) {
-        $naptrValid = $testsuite->NAPTR_compliance();
+        $naptrValid = $rfc7585suite->NAPTR_compliance();
         switch ($naptrValid) {
             case \core\diag\RADIUSTests::RETVAL_INVALID:
                 $NAPTR_issues = true;
                 break;
             case \core\diag\RADIUSTests::RETVAL_OK:
-                $srv = $testsuite->NAPTR_SRV();
+                $srv = $rfc7585suite->NAPTR_SRV();
                 if ($srv == \core\diag\RADIUSTests::RETVAL_INVALID) {
                     $NAPTR_issues = true;
                 }
                 if ($srv > 0) {
-                    $hosts = $testsuite->NAPTR_hostnames();
+                    $hosts = $rfc7585suite->NAPTR_hostnames();
                     if ($hosts == \core\diag\RADIUSTests::RETVAL_INVALID)
                         $NAPTR_issues = true;
                 }
@@ -118,8 +119,8 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dynamicErrors = false;
 
-    if ($naptr > 0 && count($testsuite->NAPTR_hostname_records) > 0) {
-        foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
+    if ($naptr > 0 && count($rfc7585suite->NAPTR_hostname_records) > 0) {
+        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
             $retval = $testsuite->TLS_clients_side_check($addr);
             if ($retval != \core\diag\RADIUSTests::RETVAL_OK && $retval != \core\diag\RADIUSTests::RETVAL_SKIPPED)
                 $dynamicErrors = true;

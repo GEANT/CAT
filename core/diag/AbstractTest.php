@@ -35,16 +35,6 @@ class AbstractTest extends \core\common\Entity {
      * test executed, and there were errors
      */
     const RETVAL_INVALID = -103;
-// return codes specific to NAPTR existence checks
-    /**
-     * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
-     */
-    const RETVAL_NONAPTR = -104;
-
-    /**
-     * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
-     */
-    const RETVAL_ONLYUNRELATEDNAPTR = -105;
 // return codes specific to authentication checks
     /**
      * no reply at all from remote RADIUS server
@@ -251,21 +241,6 @@ class AbstractTest extends \core\common\Entity {
         $code4 = RADIUSTests::RETVAL_INVALID;
         $this->return_codes[$code4]["message"] = _("There were errors during the test.");
         $this->return_codes[$code4]["severity"] = \core\common\Entity::L_OK;
-
-// return codes specific to NAPTR existence checks
-        /**
-         * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
-         */
-        $code5 = RADIUSTests::RETVAL_NONAPTR;
-        $this->return_codes[$code5]["message"] = _("This realm has no NAPTR records.");
-        $this->return_codes[$code5]["severity"] = \core\common\Entity::L_OK;
-
-        /**
-         * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
-         */
-        $code6 = RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
-        $this->return_codes[$code6]["message"] = _("NAPTR records were found, but all of them refer to unrelated services.");
-        $this->return_codes[$code6]["severity"] = \core\common\Entity::L_OK;
 
 // return codes specific to authentication checks
         /**
