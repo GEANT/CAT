@@ -157,7 +157,7 @@ $user = new \core\User($_SESSION['user']);
     ?>
     <table class='user_overview' style='border:0px;'>
         <tr>
-            <th colspan="2"><?php echo _("Deployment Status"); ?></th>
+            <th><?php echo _("Deployment Status"); ?></th>
             <th><?php echo _("Institution Name"); ?></th>
 
             <?php
