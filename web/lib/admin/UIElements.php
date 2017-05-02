@@ -184,7 +184,7 @@ class UIElements {
 
         $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
 
-        $func = new \core\X509;
+        $func = new \core\common\X509;
         $details = $func->processCertificate($cAblob);
         if ($details === FALSE) {
             return _("There was an error processing the certificate!");

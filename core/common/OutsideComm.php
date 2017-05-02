@@ -17,7 +17,7 @@
  * @package Developer
  */
 
-namespace core;
+namespace core\common;
 
 class OutsideComm {
 

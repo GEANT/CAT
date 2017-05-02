@@ -378,7 +378,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
                 if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
                     foreach ($caOption as $oneCa) {
-                        $x509 = new X509();
+                        $x509 = new \core\common\X509();
                         $caParsed = $x509->processCertificate($oneCa['value']);
                         if ($caParsed['root'] == 1) {
                             return true;

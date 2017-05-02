@@ -934,7 +934,7 @@ class RADIUSTests extends \core\common\Entity {
         } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
             $returnresult = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
-            $crlcontent = OutsideComm::downloadFile($crlUrl[1] . $crlUrl[2]);
+            $crlcontent = \core\common\OutsideComm::downloadFile($crlUrl[1] . $crlUrl[2]);
             if ($crlcontent === FALSE) {
                 $returnresult = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
             }
@@ -1328,7 +1328,7 @@ network={
 // TRUST_ROOT_NOT_REACHED
 // TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES
 // then check the presented names
-            $x509 = new X509();
+            $x509 = new \core\common\X509();
 // $eap_certarray holds all certs received in EAP conversation
             $eapCertarray = $x509->splitCertificate(fread(fopen($tmpDir . "/serverchain.pem", "r"), "1000000"));
 // we want no root cert, and exactly one server cert
@@ -1435,7 +1435,7 @@ network={
                 $cAstore = $myProfile->getAttributes("eap:ca_file");
 // make a copy of the EAP-received chain and add the configured intermediates, if any
                 foreach ($cAstore as $oneCA) {
-                    $x509 = new X509();
+                    $x509 = new \core\common\X509();
                     $decoded = $x509->processCertificate($oneCA['value']);
                     if ($decoded === FALSE) {
                         throw new Exception("Unable to parse a certificate that came right from our database and has previously passed all input validation. How can that be!");

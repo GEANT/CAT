@@ -40,7 +40,7 @@ class OptionParser {
                         if (empty($optionPayload['content'])) {
                             break;
                         }
-                        $bindata = \core\OutsideComm::downloadFile($optionPayload['content']);
+                        $bindata = \core\common\OutsideComm::downloadFile($optionPayload['content']);
                         unset($options[$index]);
                         if (check_upload_sanity($finalOptionname, $bindata)) {
                             $good[] = $name;
@@ -58,7 +58,7 @@ class OptionParser {
                         }
                         $content = base64_decode($optionPayload['content']);
                         unset($options[$index]);
-                        $x509 = new \core\X509();
+                        $x509 = new \core\common\X509();
                         $cAFiles = $x509->splitCertificate($content);
                         foreach ($cAFiles as $cAFile) {
                             $options[] = ["eap:ca_file" => ['lang' => NULL, 'content' => base64_encode($x509->pem2der($cAFile))]];
@@ -263,7 +263,7 @@ class OptionParser {
                             break;
                         } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
-                            $rawContent = \core\OutsideComm::downloadFile("file:///" . $iterator["$objId-2"]);
+                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $iterator["$objId-2"]);
                             if (!check_upload_sanity($objValue, $rawContent)) {
                                 $bad[] = $objValue;
                                 continue 2;

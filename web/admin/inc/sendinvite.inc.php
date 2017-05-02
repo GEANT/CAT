@@ -175,7 +175,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 
 Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
-$mail = \core\OutsideComm::mailHandle();
+$mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
@@ -198,7 +198,7 @@ $secStatus = TRUE;
 // fill the destinations in PHPMailer API
 foreach ($recipients as $recipient) {
     $mail->addAddress($recipient);
-    if (\core\OutsideComm::mailAddressValidSecure($recipient) < \core\OutsideComm::MAILDOMAIN_STARTTLS) {
+    if (\core\common\OutsideComm::mailAddressValidSecure($recipient) < \core\common\OutsideComm::MAILDOMAIN_STARTTLS) {
         $secStatus = FALSE;
     }
 }

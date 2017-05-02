@@ -15,7 +15,7 @@
  *
  * @package Developer
  */
-namespace core;
+namespace core\common;
 /**
  * This class contains handling functions for X.509 certificates
  *

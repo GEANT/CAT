@@ -113,7 +113,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $silverbulletAttributes = [
             "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_server_suffix'],
         ];
-        $x509 = new X509();
+        $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
         if ($caHandle !== FALSE) {
             $cAFile = fread($caHandle, 16000000);
@@ -272,7 +272,7 @@ class ProfileSilverbullet extends AbstractProfile {
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         // we need the *real* expiry date, not just the day-approximation
-        $x509 = new X509();
+        $x509 = new \core\common\X509();
         $certString = "";
         openssl_x509_export($cert, $certString);
         $parsedCert = $x509->processCertificate($certString);
