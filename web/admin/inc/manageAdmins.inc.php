@@ -13,7 +13,7 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $uiElements = new web\lib\admin\UIElements();
 
 $auth->authenticate();
@@ -166,7 +166,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
 <br/>
 <?php
 $pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";

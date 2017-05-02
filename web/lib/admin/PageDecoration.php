@@ -108,7 +108,7 @@ class PageDecoration {
      * @param string $area the area we are in
      */
     public function productheader($area) {
-        $langObject = new \core\Language();
+        $langObject = new \core\common\Language();
         $language = $langObject->getLang();
         // this <div is closing in footer, keep it in PHP for Netbeans syntax
         // highlighting to work
@@ -186,7 +186,7 @@ class PageDecoration {
             $auth = new \web\lib\admin\Authentication();
             $auth->authenticate();
         }
-        $langObject = new \core\Language();
+        $langObject = new \core\common\Language();
         $langObject->setTextDomain("web_admin");
         $ourlocale = $langObject->getLang();
         header("Content-Type:text/html;charset=utf-8");

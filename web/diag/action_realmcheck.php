@@ -18,7 +18,7 @@ $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
-$langObject = new \core\Language();
+$langObject = new \core\common\Language();
 $check_thorough = FALSE;
 $error_message = '';
 $my_inst = $validator->IdP($_REQUEST['inst_id'], $_SESSION['user']);
@@ -37,7 +37,7 @@ if ($my_profile != NULL) {
         // checking our own stuff. Enable thorough checks
         $check_thorough = TRUE;
         $check_realm = $checkrealm[0]['value'];
-        $testsuite = new \core\RADIUSTests($check_realm, $my_profile->identifier);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->identifier);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
@@ -54,7 +54,7 @@ if ($my_profile != NULL) {
         }
     }
     if ($check_realm) {
-        $testsuite = new \core\RADIUSTests($check_realm);
+        $testsuite = new \core\diag\RADIUSTests($check_realm);
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
@@ -70,10 +70,10 @@ $errorstate = [];
 <script type="text/javascript" src="../external/jquery/jquery.js"></script>
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script>
 <script type="text/javascript">
-    var L_OK = <?php echo \core\Entity::L_OK ?>;
-    var L_WARN = <?php echo \core\Entity::L_WARN ?>;
-    var L_ERROR = <?php echo \core\Entity::L_ERROR ?>;
-    var L_REMARK = <?php echo \core\Entity::L_REMARK ?>;
+    var L_OK = <?php echo \core\common\Entity::L_OK ?>;
+    var L_WARN = <?php echo \core\common\Entity::L_WARN ?>;
+    var L_ERROR = <?php echo \core\common\Entity::L_ERROR ?>;
+    var L_REMARK = <?php echo \core\common\Entity::L_REMARK ?>;
     var icons = new Array();
     /*
      icons[L_OK] = '../resources/images/icons/Checkmark-lg-icon.png';
@@ -104,8 +104,8 @@ $errorstate = [];
     var moretext = "<?php echo _("more") . "&raquo;" ?>";
     var lesstext = "<?php echo "&laquo" ?>";
     var morealltext = "<?php echo _("Show detailed information for all tests") ?>";
-    var unknownca_code = "<?php echo \core\RADIUSTests::CERTPROB_UNKNOWN_CA ?>";
-    var refused_code = "<?php echo \core\RADIUSTests::RETVAL_CONNECTION_REFUSED ?>";
+    var unknownca_code = "<?php echo \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA ?>";
+    var refused_code = "<?php echo \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED ?>";
     var refused_info = "<?php echo _("Connection refused") ?>";
     var global_info = new Array();
     global_info[L_OK] = "<?php echo "All tests passed." ?>";
@@ -486,15 +486,15 @@ if ($error_message) {
                 // NAPTR existence check
                 echo "<strong>" . _("DNS chekcs") . "</strong><div>";
                 $naptr = $testsuite->NAPTR();
-                if ($naptr != \core\RADIUSTests::RETVAL_NOTCONFIGURED) {
+                if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
                     echo "<table>";
                     // output in friendly words
                     echo "<tr><td>" . _("Checking NAPTR existence:") . "</td><td>";
                     switch ($naptr) {
-                        case \core\RADIUSTests::RETVAL_NONAPTR:
+                        case \core\diag\RADIUSTests::RETVAL_NONAPTR:
                             echo _("This realm has no NAPTR records.");
                             break;
-                        case \core\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
+                        case \core\diag\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
                             printf(_("This realm has NAPTR records, but none are associated with %s."), CONFIG['CONSORTIUM']['name']);
                             break;
                         default: // if none of the possible negative retvals, then we have matching NAPTRs
@@ -508,10 +508,10 @@ if ($error_message) {
                         echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
                         $naptr_valid = $testsuite->NAPTR_compliance();
                         switch ($naptr_valid) {
-                            case \core\RADIUSTests::RETVAL_OK:
+                            case \core\diag\RADIUSTests::RETVAL_OK:
                                 echo _("No issues found.");
                                 break;
-                            case \core\RADIUSTests::RETVAL_INVALID:
+                            case \core\diag\RADIUSTests::RETVAL_INVALID:
                                 printf(_("At least one NAPTR with invalid content found!"));
                                 break;
                         }
@@ -520,14 +520,14 @@ if ($error_message) {
 
                     // SRV resolution
 
-                    if ($naptr > 0 && $naptr_valid == \core\RADIUSTests::RETVAL_OK) {
+                    if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
                         $srv = $testsuite->NAPTR_SRV();
                         echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
                         switch ($srv) {
-                            case \core\RADIUSTests::RETVAL_SKIPPED:
+                            case \core\diag\RADIUSTests::RETVAL_SKIPPED:
                                 echo _("This check was skipped.");
                                 break;
-                            case \core\RADIUSTests::RETVAL_INVALID:
+                            case \core\diag\RADIUSTests::RETVAL_INVALID:
                                 printf(_("At least one NAPTR with invalid content found!"));
                                 break;
                             default: // print number of successfully retrieved SRV targets
@@ -536,14 +536,14 @@ if ($error_message) {
                         echo "</td></tr>";
                     }
                     // IP addresses for the hosts
-                    if ($naptr > 0 && $naptr_valid == \core\RADIUSTests::RETVAL_OK && $srv > 0) {
+                    if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
                         $hosts = $testsuite->NAPTR_hostnames();
                         echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
                         switch ($srv) {
-                            case \core\RADIUSTests::RETVAL_SKIPPED:
+                            case \core\diag\RADIUSTests::RETVAL_SKIPPED:
                                 echo _("This check was skipped.");
                                 break;
-                            case \core\RADIUSTests::RETVAL_INVALID:
+                            case \core\diag\RADIUSTests::RETVAL_INVALID:
                                 printf(_("At least one hostname could not be resolved!"));
                                 break;
                             default: // print number of successfully retrieved SRV targets

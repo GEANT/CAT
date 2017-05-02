@@ -19,7 +19,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
 
 if (isset($_GET["class"])) {
     // XHR call: language isn't set yet ... so do it
-    $languageInstance = new \core\Language();
+    $languageInstance = new \core\common\Language();
     $languageInstance->setTextDomain("web_admin");
     $optioninfo = \core\Options::instance();
     // add one option of the specified class

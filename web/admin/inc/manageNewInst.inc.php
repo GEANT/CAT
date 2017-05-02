@@ -22,7 +22,7 @@ if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\Fo
     exit;
 }
 
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");

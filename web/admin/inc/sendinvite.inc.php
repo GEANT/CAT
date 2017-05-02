@@ -19,9 +19,9 @@ $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
 $catInstance = new \core\CAT();
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
 $mgmt = new \core\UserManagement;

@@ -41,7 +41,7 @@ if ($handle = opendir($downloads)) {
         if (isset($Cache[$entry])) {
             continue;
         }
-       \core\Entity::rrmdir($downloads . '/' . $entry);
+       \core\common\Entity::rrmdir($downloads . '/' . $entry);
         print "$entry\n";
     }
     closedir($handle);
@@ -56,7 +56,7 @@ if ($handle = opendir($downloads)) {
         if ($ftime < 3600) {
             continue;
         }
-       \core\Entity::rrmdir($downloads . '/' . $entry);
+       \core\common\Entity::rrmdir($downloads . '/' . $entry);
         print "$entry\n";
     }
     closedir($handle);

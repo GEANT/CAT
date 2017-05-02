@@ -18,7 +18,7 @@
  *
  * @package Developer
  */
-namespace core;
+namespace core\common;
 
 class Language {
 
@@ -51,7 +51,7 @@ class Language {
      * @return string previous seting so that you can restore it later
      */
     public function setTextDomain($domain) {
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         $olddomain = textdomain(NULL);
         $loggerInstance->debug(4, "set_locale($domain)\n");
         $loggerInstance->debug(4, ROOT . "\n");
@@ -121,7 +121,7 @@ class Language {
         }
         putenv("LC_ALL=" . $theLocale);
         $_SESSION['language'] = $langIndex;
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         $loggerInstance->debug(4, "selected lang:$langIndex:$theLocale\n");
         $loggerInstance->debug(4, print_r($langConverted, true));
         return([$langIndex, $theLocale]);
@@ -141,7 +141,7 @@ class Language {
      * locale or to the defalut locale C if a better mach was not available
      */
     public function getLocalisedValue($valueArray) {
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         $out = 0;
         if (count($valueArray) > 0) {
             $returnValue = [];

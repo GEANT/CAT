@@ -16,7 +16,7 @@ require_once("inc/common.inc.php");
 $uiElements = new web\lib\admin\UIElements();
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
-    $loggerInstance = new \core\Logging();
+    $loggerInstance = new \core\common\Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
 
     $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");

@@ -178,7 +178,7 @@ class DBConnection {
     private $connection;
 
     /**
-     * @var Logging
+     * @var \core\common\Logging
      */
     private $loggerInstance;
 
@@ -186,7 +186,7 @@ class DBConnection {
      * Class constructor. Cannot be called directly; use handle()
      */
     private function __construct($database) {
-        $this->loggerInstance = new Logging();
+        $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
         $this->connection = new \mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
         if ($this->connection->connect_error) {

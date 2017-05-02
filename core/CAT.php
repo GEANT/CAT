@@ -37,7 +37,7 @@ if (session_status() != PHP_SESSION_ACTIVE) {
  *
  * @package Developer
  */
-class CAT extends Entity {
+class CAT extends \core\common\Entity {
 
     /**
      * which version is this?
@@ -451,7 +451,7 @@ class CAT extends Entity {
 
             $name = _("Unnamed Entity");
             if (count($names) != 0) {
-                $langObject = new Language();
+                $langObject = new \core\common\Language();
                 $name = $langObject->getLocalisedValue($names);
             }
             $oneInstitutionResult['title'] = $name;

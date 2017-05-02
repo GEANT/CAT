@@ -19,7 +19,7 @@
  * 
  */
 
-namespace core;
+namespace core\common;
 
 /**
  * This class represents an Entity in its widest sense. Every entity can log

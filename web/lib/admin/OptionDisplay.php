@@ -82,7 +82,7 @@ class OptionDisplay {
             foreach ($prepopulate as $option) {
                 if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
                     $optiontypearray = $optioninfo->optionType($option['name']);
-                    $loggerInstance = new \core\Logging();
+                    $loggerInstance = new \core\common\Logging();
                     $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
                     $retval .= $this->optiontext($number, [$option['name']], ($optiontypearray["type"] == "file" ? 'ROWID-' . $option['level'] . '-' . $option['row'] : $option['value']), $option['lang']);
                 }
@@ -206,7 +206,7 @@ class OptionDisplay {
     private function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
         $retval = "";
         $optioninfo = \core\Options::instance();
-        $loggerInstance = new \core\Logging();
+        $loggerInstance = new \core\common\Logging();
         $loggerInstance->debug(5, "Executed with PREFILL $prefill!\n");
         $retval .= "<td>";
         // prefill is always only called with a list with exactly one element.

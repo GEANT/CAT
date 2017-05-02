@@ -83,7 +83,7 @@ class Options {
      */
     private function __construct() {
         $this->typeDb = [];
-        $this->loggerInstance = new Logging();
+        $this->loggerInstance = new \core\common\Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
         $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");

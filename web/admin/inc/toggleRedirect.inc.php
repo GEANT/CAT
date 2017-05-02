@@ -13,10 +13,10 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $optionParser = new \web\lib\admin\OptionParser();
 $validator = new \web\lib\common\InputValidation();
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $uiElements = new web\lib\admin\UIElements();
 
 $auth->authenticate();

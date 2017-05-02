@@ -300,7 +300,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return string DER-encoded OCSP status info (binary data!)
      */
     public static function triggerNewOCSPStatement($serial) {
-        $logHandle = new Logging();
+        $logHandle = new \core\common\Logging();
         $logHandle->debug(2, "Triggering new OCSP statement for serial $serial.\n");
         $ocsp = ""; // the statement
         if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
@@ -416,7 +416,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device, one_time_token FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");

@@ -199,30 +199,6 @@ $user = new \core\User($_SESSION['user']);
                 echo "<td>";
                 echo ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_CONFIGURED ? "C" : "" ) . " " . ($idp_instance->maxProfileStatus() >= \core\IdP::PROFILES_SHOWTIME ? "V" : "" );
                 echo "</td>";
-                // get the coarse status overview
-                $status = $idp_instance->getAllProfileStatusOverview();
-                echo "<td>";
-                if ($status['dns'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo $uiElements->boxError(0, "DNS Error", true);
-                } else {
-                    echo $uiElements->boxOkay(0, "DNS OK", true);
-                }
-                if ($status['cert'] != \core\Entity::L_OK && $status['cert'] != \core\RADIUSTests::RETVAL_SKIPPED) {
-                    echo $uiElements->boxFlexible($status['cert'], 0, "Cert Error", true);
-                } else {
-                    echo $uiElements->boxOkay(0, "Cert OK", true);
-                }
-                if ($status['reachability'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo $uiElements->boxError(0, "Reachability Error", true);
-                } else {
-                    echo $uiElements->boxOkay(0, "Reachability OK", true);
-                }
-                if ($status['TLS'] == \core\RADIUSTests::RETVAL_INVALID) {
-                    echo $uiElements->boxError(0, "RADIUS/TLS Error", true);
-                } else {
-                    echo $uiElements->boxOkay(0, "RADIUS/TLS OK", true);
-                }
-                echo "</td>";
                 // name
                 echo "<td>
                          <input type='hidden' name='inst' value='" . $index . "'>" . $idp_instance->name . "

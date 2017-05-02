@@ -61,7 +61,7 @@ if (isset($_REQUEST['disco'])) {
 $sort = $_REQUEST['sort'] ?? FALSE;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
 
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "cat_back action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");
 
 switch ($action) {

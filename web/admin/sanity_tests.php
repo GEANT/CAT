@@ -39,16 +39,16 @@ require_once("inc/common.inc.php");
 function print_test_results($test) {
     $out = '';
     switch ($test->test_result['global']) {
-        case \core\Entity::L_OK:
+        case \core\common\Entity::L_OK:
             $message = "Your configuration appears to be fine.";
             break;
-        case \core\Entity::L_WARN:
+        case \core\common\Entity::L_WARN:
             $message = "There were some warnings, but your configuration should work.";
             break;
-        case \core\Entity::L_ERROR:
+        case \core\common\Entity::L_ERROR:
             $message = "Your configuration appears to be broken, please fix the errors.";
             break;
-        case \core\Entity::L_NOTICE:
+        case \core\common\Entity::L_NOTICE:
             $message = "Your configuration appears to be fine.";
             break;
         default:

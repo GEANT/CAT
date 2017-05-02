@@ -21,7 +21,7 @@
  */
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $API = new \core\UserAPI();
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 
 $profileId = $_REQUEST['profile'] ?? FALSE;

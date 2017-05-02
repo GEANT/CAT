@@ -19,9 +19,9 @@ error_reporting(E_ALL | E_STRICT);
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/common.inc.php");
 
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, $operatingSystem);
 

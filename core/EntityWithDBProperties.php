@@ -31,7 +31,7 @@ namespace core;
  *
  * @package Developer
  */
-abstract class EntityWithDBProperties extends Entity {
+abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * This variable gets initialised with the known IdP attributes in the constructor. It never gets updated until the object

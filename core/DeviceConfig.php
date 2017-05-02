@@ -43,7 +43,7 @@ use \Exception;
  * @package ModuleWriting
  * @abstract
  */
-abstract class DeviceConfig extends Entity {
+abstract class DeviceConfig extends \core\common\Entity {
 
     /**
      * stores the path to the temporary working directory for a module instance

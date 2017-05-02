@@ -16,7 +16,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("inc/common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();

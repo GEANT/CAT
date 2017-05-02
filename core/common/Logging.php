@@ -8,7 +8,7 @@
  *******************************************************************************
  */
 
-namespace core;
+namespace core\common;
 use \Exception;
 
 require_once(dirname(__DIR__)."/config/_config.php");

@@ -22,7 +22,7 @@ namespace core;
 class OutsideComm {
 
     public static function downloadFile($url) {
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         if (!preg_match("/:\/\//", $url)) {
             $loggerInstance->debug(3, "The specified string does not seem to be a URL!");
             return FALSE;
@@ -68,7 +68,7 @@ class OutsideComm {
     const MAILDOMAIN_STARTTLS = 2;
 
     public static function mailAddressValidSecure($address) {
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         if (!filter_var($address, FILTER_VALIDATE_EMAIL)) {
             $loggerInstance->debug(4, "OutsideComm::mailAddressValidSecure: invalid mail address.");
             return OutsideComm::MAILDOMAIN_INVALID;

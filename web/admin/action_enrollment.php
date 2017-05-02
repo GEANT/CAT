@@ -67,7 +67,7 @@ if ($checkval < 0) {
 // TODO get invitation level and mail, store it as property
 
 $user = $validator->User($_GET['user']);
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 switch ($token) {
     case "SELF-REGISTER":
         $fed = new \core\Federation($federation);

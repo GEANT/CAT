@@ -21,7 +21,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
