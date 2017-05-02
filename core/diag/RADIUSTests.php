@@ -310,8 +310,8 @@ class RADIUSTests extends \core\common\Entity {
         $this->errorlist = [];
         $this->initialiseErrors();
         if ($profileId !== 0) {
-            $this->profile = ProfileFactory::instantiate($profileId);
-            if (!$this->profile instanceof ProfileRADIUS) {
+            $this->profile = \core\ProfileFactory::instantiate($profileId);
+            if (!$this->profile instanceof \core\ProfileRADIUS) {
                 throw new Exception("The profile is not a ProfileRADIUS! We can only check those!");
             }
         } else {
@@ -1044,7 +1044,7 @@ class RADIUSTests extends \core\common\Entity {
     private function bestOuterLocalpart($innerUser) {
         $matches = [];
         $anonIdentity = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
-        if ($this->profile instanceof ProfileRADIUS) { // take profile's anon ID (special one for realm checks or generic one) if known
+        if ($this->profile instanceof \core\ProfileRADIUS) { // take profile's anon ID (special one for realm checks or generic one) if known
             $foo = $this->profile;
             $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
             $this->loggerInstance->debug(3, "calculating local part with explicit Profile\n");
@@ -1216,7 +1216,7 @@ network={
             $matches = [];
             if (preg_match("/.*(@.*)/", $innerUser, $matches)) {
                 $finalOuter = $this->bestOuterLocalpart($innerUser) . $matches[1];
-            } elseif ($this->profile instanceof ProfileRADIUS && $this->profile->realm != "") { // hm, we can only take the realm from Profile
+            } elseif ($this->profile instanceof \core\ProfileRADIUS && $this->profile->realm != "") { // hm, we can only take the realm from Profile
                 $finalOuter = $this->bestOuterLocalpart($innerUser) . "@" . $this->profile->realm;
             } else { // we have no idea what realm to send this to. Give up.
                 return RADIUSTests::RETVAL_INCOMPLETE_DATA;
