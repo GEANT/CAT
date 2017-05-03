@@ -40,6 +40,8 @@ class AjaxController extends AbstractController{
     protected function doCreateCommand($commandToken) {
         if($commandToken == ValidateEmailAddress::COMMAND){
             return new ValidateEmailAddress($commandToken, $this);
+        }elseif($commandToken == SendTokenByEmail::COMMAND) {
+            return new SendTokenByEmail($commandToken, $this);
         }else {
             return new DefaultCommand($commandToken);
         }
