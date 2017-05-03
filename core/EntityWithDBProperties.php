@@ -240,7 +240,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
                     return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
                 }
                 $profile = ProfileFactory::instantiate($blobprofile);
-                if ($profile->isShowtime() == TRUE) { // public data
+                if ($profile->readinessLevel() == AbstractProfile::READINESS_LEVEL_SHOWTIME) { // public data
                     return FALSE;
                 }
                 // okay, so it's NOT public. return the owner

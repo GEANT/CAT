@@ -169,13 +169,19 @@ $allIDPs = $fed->listIdentityProviders();
 $profiles_showtime = [];
 $profiles_readyconf = [];
 
-foreach ($allIDPs as $index => $oneidp)
-    foreach ($oneidp['instance']->listProfiles() as $profile)
-        if ($profile->isShowtime()) {
-            $profiles_showtime[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
-        } else if ($profile->readyForShowtime()) {
-            $profiles_confready[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
+foreach ($allIDPs as $index => $oneidp) {
+    foreach ($oneidp['instance']->listProfiles() as $profile) {
+        $ready = $profile->readinessLevel();
+        switch ($ready) {
+            case core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                $profiles_showtime[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
+                break;
+            case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
+                $profiles_confready[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
+                break;
         }
+    }
+}
 
 if (count($profiles_showtime) > 0) {
     echo "<h2>" . _("Profiles marked as visible (V)") . "</h2>" . "<table>";

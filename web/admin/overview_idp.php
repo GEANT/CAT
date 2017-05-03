@@ -253,19 +253,21 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $buffer_headline = "<h2 style='overflow:auto;'>";
 
         $buffer_headline .= "<div style='float:right;'>";
-        $sufficient_config = $profile_list->hasSufficientConfig();
-        $showtime = $profile_list->isShowtime();
+        $readiness = $profile_list->readinessLevel();
         if ($has_overrides) {
             $buffer_headline .= $uiElements->boxRemark("", _("Option override on profile level is in effect."), TRUE);
         }
         if (!$allcomplete) {
             $buffer_headline .= $uiElements->boxError("", _("The information in this profile is incomplete."), TRUE);
         }
-        if ($showtime) {
-            $buffer_headline .= $uiElements->boxOkay("", _("This profile is shown on the user download interface."), TRUE);
-        } else if ($sufficient_config) {
-            $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+        switch ($readiness) {
+            case core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                $buffer_headline .= $uiElements->boxOkay("", _("This profile is shown on the user download interface."), TRUE);
+                break;
+            case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
+                $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
+        
         $buffer_headline .= "</div>";
 
         $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
@@ -312,7 +314,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         echo "</div>";
 // dummy width to keep a little distance
         echo "<div style='width:20px;'></div>";
-        if ($profile_list->isShowtime()) {
+        if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
             echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
             $URL = $profile_list->getCollapsedAttributes();
             if (isset($URL['device-specific:redirect'])) {

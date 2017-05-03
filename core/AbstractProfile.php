@@ -555,6 +555,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         return($out);
     }
 
+    const READINESS_LEVEL_NOTREADY = 0;
+    const READINESS_LEVEL_SUFFICIENTCONFIG = 1;
+    const READINESS_LEVEL_SHOWTIME = 2;
+    
     /**
      * Does the profile contain enough information to generate installers with
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
@@ -562,22 +566,26 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * * @return boolean TRUE if enough info is set to enable installers
      */
-    public function hasSufficientConfig() {
-        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = ?", "i", $this->identifier);
+    public function readinessLevel() {
+        $result = $this->databaseHandle->exec("SELECT sufficient_config, showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
         $configQuery = mysqli_fetch_row($result);
         if ($configQuery[0] == "0") {
-            return FALSE;
+            return self::READINESS_LEVEL_NOTREADY;
         }
-        return TRUE;
+        // at least fully configured, if not showtime!
+        if ($configQuery[1] == "0") {
+            return self::READINESS_LEVEL_SUFFICIENTCONFIG;
+        }
+        return self::READINESS_LEVEL_SHOWTIME;
     }
-
+    
     /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
      * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
      * 
      * @return boolean TRUE if enough information for showtime is set; FALSE if not
      */
-    public function readyForShowtime() {
+    private function readyForShowtime() {
         $properConfig = FALSE;
         $attribs = $this->getCollapsedAttributes();
         // do we have enough to go live? Check if any of the configured EAP methods is completely configured ...
@@ -619,19 +627,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             return;
         }
         $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = ?", "i", $this->identifier);
-    }
-
-    /**
-     * Checks if the profile is shown (showable) to end users
-     * @return boolean TRUE if profile is shown; FALSE if not
-     */
-    public function isShowtime() {
-        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
-        $resultRow = mysqli_fetch_row($result);
-        if ($resultRow[0] == "0") {
-            return FALSE;
-        }
-        return TRUE;
     }
 
     protected function addInternalAttributes($internalAttributes) {
