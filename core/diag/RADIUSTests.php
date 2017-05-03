@@ -478,10 +478,7 @@ network={
         return $cmdline;
     }
 
-    private function thoroughChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
-        $catIntermediates = 0;
-        $configuredRootCt = 0;
-        $verifyResult = 0;
+    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
 
         // collect CA certificates, both the incoming EAP chain and from CAT config
         // Write the root CAs into a trusted root CA dir
@@ -497,7 +494,6 @@ network={
 
 // make a copy of the EAP-received chain and add the configured intermediates, if any
         $catIntermediates = [];
-        $catIntermediateCRLs = [];
         $catRoots = [];
         foreach ($this->expectedCABundle as $oneCA) {
             $x509 = new \core\common\X509();
@@ -574,47 +570,48 @@ network={
 // 3. test against eaponly succeded, in this case critical errors about expired certs
 //    need to be changed to notices, since these certs obviously do tot participate
 //    in server certificate validation.
-        if (count($verifyResultAllcerts) > 0) {
-            if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
-                $verifyResult = 1;
-                if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
-                } elseif (preg_match("/unable to get certificate CRL/", $verifyResultAllcerts[1])) {
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
-                } else {
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
-                }
-            } else if (!preg_match("/OK$/", $verifyResultEaponly[0])) { // case 2
-                $verifyResult = 2;
-                if (preg_match("/certificate revoked$/", $verifyResultEaponly[1])) {
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
-                } elseif (preg_match("/unable to get certificate CRL/", $verifyResultEaponly[1])) {
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
-                } else {
-                    $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
-                }
-            } else { // case 3
-                $verifyResult = 3;
-            }
+        if (count($verifyResultAllcerts) == 0 || count($verifyResultEaponly) == 0) {
+            throw new Exception("No output at all from openssl?");
         }
+        if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
+            if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
+            } elseif (preg_match("/unable to get certificate CRL/", $verifyResultAllcerts[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
+            } else {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
+            }
+            return 1;
+        }
+        if (!preg_match("/OK$/", $verifyResultEaponly[0])) { // case 2
+            if (preg_match("/certificate revoked$/", $verifyResultEaponly[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
+            } elseif (preg_match("/unable to get certificate CRL/", $verifyResultEaponly[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
+            } else {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+            }
+            return 2;
+        }
+        return 3;
+    }
 
-// check the incoming hostname (both Subject:CN and subjectAltName:DNS
-// against what is configured in the profile; it's a significant error
-// if there is no match!
-// FAIL if none of the configured names show up in the server cert
-// WARN if the configured name is only in either CN or sAN:DNS
-
-        $expectedNames = $this->expectedServerNames;
-
-
-// Strategy for checks: we are TOTALLY happy if any one of the
-// configured names shows up in both the CN and a sAN
-// This is the primary check.
-// If that was not the case, we are PARTIALLY happy if any one of
-// the configured names was in either of the CN or sAN lists.
-// we are UNHAPPY if no names match!
+    private function thoroughNameChecks($servercert, &$testresults) {
+        // check the incoming hostname (both Subject:CN and subjectAltName:DNS
+        // against what is configured in the profile; it's a significant error
+        // if there is no match!
+        // FAIL if none of the configured names show up in the server cert
+        // WARN if the configured name is only in either CN or sAN:DNS
+        
+        // Strategy for checks: we are TOTALLY happy if any one of the
+        // configured names shows up in both the CN and a sAN
+        // This is the primary check.
+        // If that was not the case, we are PARTIALLY happy if any one of
+        // the configured names was in either of the CN or sAN lists.
+        // we are UNHAPPY if no names match!
+        
         $happiness = "UNHAPPY";
-        foreach ($expectedNames as $expectedName) {
+        foreach ($this->expectedServerNames as $expectedName) {
             $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
             if (array_search($expectedName, $servercert['CN']) !== FALSE && array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
                 $this->loggerInstance->debug(4, "Totally happy!");
@@ -630,14 +627,13 @@ network={
         switch ($happiness) {
             case "UNHAPPY":
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_MISMATCH;
-                break;
+                return;
             case "PARTIALLY":
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_PARTIAL_MATCH;
-                break;
+                return;
             default: // nothing to complain about!
-                break;
+                return;
         }
-        return $verifyResult;
     }
 
     private function executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag) {
@@ -853,7 +849,8 @@ network={
             $verifyResult = 0;
 
             if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
-                $verifyResult = $this->thoroughChecks($testresults, $intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs);
+                $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs);
+                $this->thoroughNameChecks($servercert, $testresults);
             }
 
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesEAP);
