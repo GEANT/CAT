@@ -6,7 +6,7 @@ namespace web\lib\admin\http;
  * @author Zilvinas Vaira
  *
  */
-class TermsOfUseCommand extends AbstractCommand{
+class TermsOfUseCommand extends AbstractSilverbulletCommand{
 
     const COMMAND = 'termsofuse';
     

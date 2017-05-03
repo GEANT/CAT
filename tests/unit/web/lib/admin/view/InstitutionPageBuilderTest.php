@@ -2,7 +2,7 @@
 use core\IdP;
 use web\lib\admin\view\DefaultPage;
 use web\lib\admin\view\InstitutionPageBuilder;
-use web\lib\admin\view\PageBuilder;
+use web\lib\admin\view\AbstractPageBuilder;
 
 class MockValidateInstitutionPageBuilder extends InstitutionPageBuilder{
     
@@ -39,17 +39,17 @@ class InstitutionPageBuilderTest extends \PHPUnit_Framework_TestCase{
     
     public function testConstructorSuccess(){
         $_GET['inst_id']=1;
-        $builder = new MockValidateInstitutionPageBuilder(new DefaultPage("Testing Page"), PageBuilder::ADMIN_IDP_USERS);
+        $builder = new MockValidateInstitutionPageBuilder(new DefaultPage("Testing Page"), AbstractPageBuilder::ADMIN_IDP_USERS);
         $this->assertTrue($builder->isReady());
     }
     
     public function testConstructorFailure(){
         $_GET['inst_id']=-1;
-        $builder = new MockValidateInstitutionPageBuilder(new DefaultPage("Testing Page"), PageBuilder::ADMIN_IDP_USERS);
+        $builder = new MockValidateInstitutionPageBuilder(new DefaultPage("Testing Page"), AbstractPageBuilder::ADMIN_IDP_USERS);
         $this->assertFalse($builder->isReady());
         
         unset($_GET['inst_id']);
-        $builder = new MockValidateInstitutionPageBuilder(new DefaultPage("Testing Page"), PageBuilder::ADMIN_IDP_USERS);
+        $builder = new MockValidateInstitutionPageBuilder(new DefaultPage("Testing Page"), AbstractPageBuilder::ADMIN_IDP_USERS);
         $this->assertFalse($builder->isReady());
     }
     

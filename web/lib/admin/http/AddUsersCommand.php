@@ -3,7 +3,7 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\utils\CSVParser;
 
-class AddUsersCommand extends AbstractCommand{
+class AddUsersCommand extends AbstractSilverbulletCommand{
 
     const COMMAND = 'newusers';
 

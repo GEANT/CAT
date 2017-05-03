@@ -3,7 +3,7 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletCertificate;
 
-class RevokeCertificateCommand extends AbstractCommand{
+class RevokeCertificateCommand extends AbstractSilverbulletCommand{
 
     const COMMAND = 'revokecertificate';
 

@@ -2,21 +2,26 @@
 namespace web\lib\admin\view;
 
 /**
+ * Defines a composite of page elements which can also be an element of other composite.
  * 
  * @author Zilvinas Vaira
- *
+ * 
  */
-class PageElementGroup {
+class PageElementGroup implements PageElementInterface{
     
     /**
+     * List of contained elements. Default value is empty array.
      * 
      * @var PageElementInterface[]
      */
-    private $elements = array();
+    protected $elements = array();
     
     /**
+     * Adds an element to the list.
      * 
-     * @param PageElementInterface $element
+     * @param PageElementInterface $element Element must implement page element interface. Use page element adapter if HTML element needs to be added. Null element helps to avoid null pointer exceptions.
+     * @see PageElementAdapter
+     * @see PageElementNull
      */
     public function addElement($element) {
         $this->elements[] = $element;
@@ -24,6 +29,8 @@ class PageElementGroup {
     
     /**
      * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\PageElementInterface::render()
      */
     public function render() {
         foreach ($this->elements as $element) {

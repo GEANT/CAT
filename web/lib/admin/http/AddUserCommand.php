@@ -1,7 +1,7 @@
 <?php
 namespace web\lib\admin\http;
 
-class AddUserCommand extends AbstractCommand{
+class AddUserCommand extends AbstractSilverbulletCommand {
     
     const COMMAND = 'newuser';
     const PARAM_NAME = 'username';

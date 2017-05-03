@@ -3,7 +3,7 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletUser;
 
-class AddCertificateCommand extends AbstractCommand{
+class AddCertificateCommand extends AbstractSilverbulletCommand{
 
     const COMMAND = 'newcertificate';
 

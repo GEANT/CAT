@@ -3,7 +3,7 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletUser;
 
-class SaveUsersCommand extends AbstractCommand{
+class SaveUsersCommand extends AbstractSilverbulletCommand{
 
     const COMMAND = 'saveusers';
 

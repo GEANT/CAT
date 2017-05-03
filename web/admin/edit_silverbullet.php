@@ -19,11 +19,10 @@ use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
 use web\lib\admin\view\AddNewUserForm;
 use web\lib\admin\view\ComposeEmailBox;
-use web\lib\admin\view\DefaultPage;
+use web\lib\admin\view\DefaultHtmlPage;
 use web\lib\admin\view\FileUploadForm;
 use web\lib\admin\view\InfoBlockTable;
 use web\lib\admin\view\InstitutionPageBuilder;
-use web\lib\admin\view\PageBuilder;
 use web\lib\admin\view\PageElementInterface;
 use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
@@ -32,7 +31,7 @@ use web\lib\admin\view\UserCredentialsForm;
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultPage(_('Managing institution users'), '1.2.1');
+$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.2.1');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
@@ -45,7 +44,10 @@ $page->appendScript('js/edit_silverbullet.js');
 $page->appendCss('../external/jquery/jquery-ui.css');
 // Load Silverbullet CSS
 $page->appendCss('css/silverbullet.css');
-$builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
+
+$builder = new InstitutionPageBuilder($page);
+$builder->buildPagePrelude();
+$builder->buildPageHeader();
 if($builder->isReady()){
     // this page may have been called for the first time, when the profile does not
     // actually exist in the DB yet. If so, we will need to create it first.
@@ -117,8 +119,10 @@ if($builder->isReady()){
     $composeEmail = new ComposeEmailBox(PageElementInterface::COMPOSE_EMAIL_CLASS, $action, _('Compose Email'), _('Choose how you want to send the message.'), false);
     $builder->addContentElement($composeEmail);
 }
+$builder->buildPageFooter();
 
-$builder->createPagePrelude();
+$page->fetchPrelude()->render();
+
 $page->fetchMeta()->render();
 $page->fetchCss()->render();
 $page->fetchScript()->render();
@@ -128,7 +132,4 @@ $page->fetchScript()->render();
 <body>
 <?php
 
-$builder->renderPageHeader();
-$builder->renderPageContent();
-$builder->renderPageFooter();
-
+$page->render();

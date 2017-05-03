@@ -5,7 +5,7 @@ use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\view\YesNoDialogBox;
 use web\lib\admin\view\PageElementInterface;
 
-class DeleteUserCommand extends AbstractCommand{
+class DeleteUserCommand extends AbstractSilverbulletCommand{
 
     const COMMAND = 'deleteuser';
     const PARAM_CONFIRMATION = 'confirmation';

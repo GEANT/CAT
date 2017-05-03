@@ -12,19 +12,15 @@ require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php
 require_once("common.inc.php");
 
 use web\lib\admin\Authentication;
-use web\lib\admin\view\AjaxPage;
-use web\lib\admin\view\InstitutionPageBuilder;
+use web\lib\admin\view\DefaultAjaxPage;
+use web\lib\admin\http\AjaxController;
 
 $auth = new Authentication();
 $auth->authenticate();
 
-$ajaxPage = new AjaxPage();
+$ajaxPage = new DefaultAjaxPage();
 
-$builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
+$controller = new AjaxController($ajaxPage);
+$controller->parseRequest();
 
-if($builder->isReady()){
-    
-}
-
-$builder->renderPageContent();
-
+$ajaxPage->render();

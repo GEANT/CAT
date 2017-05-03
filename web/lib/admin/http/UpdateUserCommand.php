@@ -9,7 +9,7 @@ use web\lib\admin\domain\SilverbulletUser;
  * @author Zilvinas Vaira
  *
  */
-class UpdateUserCommand extends AbstractCommand{
+class UpdateUserCommand extends AbstractSilverbulletCommand{
 
     /**
      * Update command identifier.

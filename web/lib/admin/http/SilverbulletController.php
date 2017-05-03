@@ -1,31 +1,23 @@
 <?php
 namespace web\lib\admin\http;
 
-use web\lib\admin\storage\SessionStorage;
-use web\lib\admin\view\MessageReceiverInterface;
-use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\domain\SilverbulletUser;
+use web\lib\admin\storage\SessionStorage;
 use web\lib\admin\view\InstitutionPageBuilder;
+use web\lib\admin\view\MessageReceiverInterface;
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletController{
-    
-    const COMMAND = 'command';
+class SilverbulletController extends AbstractController{
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
     const STATS_PASSIVE = 'passive';
     
-    /**
-     * 
-     * @var AbstractCommand[]
-     */
-    protected $commands = null;
-
     /**
      *
      * @var AbstractCommand
@@ -54,7 +46,7 @@ class SilverbulletController{
      * 
      * @var SessionStorage
      */
-    protected $session;
+    private $session;
     
     /**
      * Creates Silverbullet front controller object prepares builder, profile ans session objects
@@ -112,8 +104,9 @@ class SilverbulletController{
     }
     
     /**
-     * Finds and executes required command based on request data
      * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\ControllerInterface::parseRequest()
      */
     public function parseRequest(){
         $commandToken = '';
@@ -138,10 +131,9 @@ class SilverbulletController{
     }
     
     /**
-     * Retrieves existing command from object pool based on string command token or creates a new one by usig factory method
      * 
-     * @param string $commandToken
-     * @return \lib\http\AbstractCommand
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\AbstractController::createCommand()
      */
     public function createCommand($commandToken){
         if(!isset($this->commands[$commandToken]) || $this->commands[$commandToken] == null){
@@ -151,12 +143,11 @@ class SilverbulletController{
     }
     
     /**
-     * Factory method creates command object based on strign command token
      * 
-     * @param string $commandToken
-     * @return \lib\http\AbstractCommand
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\AbstractController::doCreateCommand()
      */
-    private function doCreateCommand($commandToken){
+    protected function doCreateCommand($commandToken){
         if($this->isAgreementSigned()){
             if($commandToken == AddUserCommand::COMMAND){
                 return new AddUserCommand($commandToken, $this);
@@ -173,13 +164,13 @@ class SilverbulletController{
             }elseif ($commandToken == SaveUsersCommand::COMMAND){
                 return new SaveUsersCommand($commandToken, $this);
             }else{
-                return new DefaultCommand($commandToken, $this);
+                return new DefaultCommand($commandToken);
             }
         }else{
             if($commandToken == TermsOfUseCommand::COMMAND){
-                return new TermsOfUseCommand($commandToken, $this);
+                return new TermsOfUseCommand($commandToken);
             }else{
-                return new DefaultCommand($commandToken, $this);
+                return new DefaultCommand($commandToken);
             }
         }
     }
