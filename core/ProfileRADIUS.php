@@ -159,7 +159,7 @@ class ProfileRADIUS extends AbstractProfile {
                 "row" => $attributeQuery->row,
                 "flag" => $optinfo['flag'],
                 "device" => ($devicesOrEAPMethods == "DEVICES" ? $attributeQuery->deviceormethod : NULL),
-                "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
+                "eapmethod" => ($devicesOrEAPMethods == "DEVICES" ? 0 : \core\common\EAP::eAPMethodArrayIdConversion($attributeQuery->deviceormethod))];
         }
         return $temparray;
     }

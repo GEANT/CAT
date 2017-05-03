@@ -13,7 +13,7 @@ function escaped_echo($s) {
    echo preg_replace('/"/','&quot;',$s);
 }
 
-$langObject = new \core\Language();
+$langObject = new \core\common\Language();
 $langObject->setTextDomain('web_user');
 $idpId = empty($_REQUEST['idp']) ? 0 : $_REQUEST['idp'];
 if (! is_numeric($idpId)) {

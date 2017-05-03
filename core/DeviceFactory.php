@@ -28,7 +28,7 @@ use Exception;
  * @package Developer
  *
  */
-class DeviceFactory extends Entity {
+class DeviceFactory extends \core\common\Entity {
 
     /**
      * Contains the produced device instance

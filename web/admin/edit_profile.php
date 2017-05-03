@@ -400,7 +400,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         echo "</div></td>";
     }
 
-    $methods = \core\EAP::listKnownEAPTypes();
+    $methods = \core\common\EAP::listKnownEAPTypes();
     ?>
 
     <?php
@@ -449,7 +449,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                     <ol id="sortable2" class="eapmethods">
                         <?php
                         foreach ($methods as $a) {
-                            if ($a == \core\EAP::EAPTYPE_SILVERBULLET) {
+                            if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
                                 continue;
                             }
                             $display = $uiElements->displayName($a);

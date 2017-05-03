@@ -113,7 +113,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $silverbulletAttributes = [
             "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_server_suffix'],
         ];
-        $x509 = new X509();
+        $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
         if ($caHandle !== FALSE) {
             $cAFile = fread($caHandle, 16000000);
@@ -154,7 +154,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function addSupportedEapMethod($type, $preference) {
 // params are needed for proper overriding, but not used at all.
-        parent::addSupportedEapMethod(\core\EAP::EAPTYPE_SILVERBULLET, 1);
+        parent::addSupportedEapMethod(\core\common\EAP::EAPTYPE_SILVERBULLET, 1);
     }
 
     /**
@@ -272,7 +272,7 @@ class ProfileSilverbullet extends AbstractProfile {
         openssl_pkcs12_export($cert, $exportedCertClear, $privateKey, "", ['extracerts' => [$issuingCaPem, $rootCaPem]]);
         // store resulting cert CN and expiry date in separate columns into DB - do not store the cert data itself as it contains the private key!
         // we need the *real* expiry date, not just the day-approximation
-        $x509 = new X509();
+        $x509 = new \core\common\X509();
         $certString = "";
         openssl_x509_export($cert, $certString);
         $parsedCert = $x509->processCertificate($certString);
@@ -300,7 +300,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @return string DER-encoded OCSP status info (binary data!)
      */
     public static function triggerNewOCSPStatement($serial) {
-        $logHandle = new Logging();
+        $logHandle = new \core\common\Logging();
         $logHandle->debug(2, "Triggering new OCSP statement for serial $serial.\n");
         $ocsp = ""; // the statement
         if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
@@ -416,7 +416,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
-        $loggerInstance = new Logging();
+        $loggerInstance = new \core\common\Logging();
         $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device, one_time_token FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");

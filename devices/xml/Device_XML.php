@@ -269,7 +269,7 @@ abstract class Device_XML extends \core\DeviceConfig {
     }
 
     private function getAuthenticationMethodParams($eap) {
-        $inner = \core\EAP::innerAuth($eap);
+        $inner = \core\common\EAP::innerAuth($eap);
         $outerMethod = $eap["OUTER"];
 
         if (isset($inner["METHOD"]) && $inner["METHOD"]) {

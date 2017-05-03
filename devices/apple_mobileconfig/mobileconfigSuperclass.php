@@ -55,7 +55,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
         
         // that's what all variants support. Sub-classes can change it.
-        $this->setSupportedEapMethods([\core\EAP::EAPTYPE_PEAP_MSCHAP2, \core\EAP::EAPTYPE_TTLS_PAP, \core\EAP::EAPTYPE_TTLS_MSCHAP2, \core\EAP::EAPTYPE_SILVERBULLET]);
+        $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
 
     private function massageName($input) {
@@ -67,7 +67,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         $eapType = $this->selectedEap;
         // simpler message for silverbullet
-        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
         }
 
@@ -137,7 +137,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         // and also for the profile expiry
 
         $clientCertUUID = NULL;
-        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             $blockinfo = $this->clientP12Block();
             $outputXml .= $blockinfo['block'];
             $clientCertUUID = $blockinfo['UUID'];
@@ -167,7 +167,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
          </dict>
          ";
         }
-        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             $outputXml .= $this->expiryBlock();
         }
         $outputXml .= self::FILE_END;
@@ -304,7 +304,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "
                          </array>
                       <key>TTLSInnerAuthentication</key>
-                         <string>" . ($eapType['INNER'] == \core\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
+                         <string>" . ($eapType['INNER'] == \core\common\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>";
         return $retval;
     }
@@ -360,7 +360,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                      <string>System</string>
                   </array>";
         }
-        if ($eapType['INNER'] == \core\EAP::NE_SILVERBULLET) {
+        if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             if ($clientCertUUID === NULL) {
                 throw new Exception("Silverbullet REQUIRES a client certificate and we need to know the UUID!");
             }

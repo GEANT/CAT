@@ -19,7 +19,7 @@
  * 
  */
 
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "basic.php\n");
 
 /**
@@ -397,7 +397,7 @@ $loggerInstance->debug(4, "\n----------------------------------SIMPLE.PHP-------
 ?>
 <!DOCTYPE html>
 <?php
-$langObject = new \core\Language();
+$langObject = new \core\common\Language();
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
     <head lang="<?php echo $langObject->getLang() ?>"> 
@@ -440,7 +440,7 @@ $langObject = new \core\Language();
               $Gui->page = 2;
               }
              */
-            $langObject = new \core\Language();
+            $langObject = new \core\common\Language();
             print '<h1><a href="' . $_SERVER['SCRIPT_NAME'] . '?lang=' . $langObject->getLang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
             print $Gui->langSelection();
             if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {

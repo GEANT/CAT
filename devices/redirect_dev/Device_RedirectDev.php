@@ -18,7 +18,7 @@ class Device_RedirectDev extends \core\DeviceConfig {
     */
     final public function __construct() {
         parent::__construct();
-      $this->setSupportedEapMethods([\core\EAP::EAPTYPE_NONE]);
+      $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_NONE]);
       $this->loggerInstance->debug(4,"RedirectEx called");
     }
     public function writeDeviceInfo() {

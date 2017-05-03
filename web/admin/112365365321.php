@@ -112,7 +112,7 @@ $dbHandle = \core\DBConnection::handle("INST");
                                 if (isset($Cache[$entry])) {
                                     continue;
                                 }
-                                \core\Entity::rrmdir($downloads . '/' . $entry);
+                                \core\common\Entity::rrmdir($downloads . '/' . $entry);
                                 $i++;
                             }
 

@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -19,9 +20,9 @@ $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
 $catInstance = new \core\CAT();
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
 $mgmt = new \core\UserManagement;
@@ -175,13 +176,17 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
 
 Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
 
-$mail = \core\OutsideComm::mailHandle();
+$mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
 $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
     foreach ($federation->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new \core\User($fedadmin_id);
-        // $mail->addReplyTo($fedadmin->getAttributes("user:email")['value'], $fedadmin->getAttributes("user:realname")['value']);
+        $mailaddr = $fedadmin->getAttributes("user:email")['value'];
+        $name = $fedadmin->getAttributes("user:realname")['value'] ?? "Federation Administrator";
+        if ($mailaddr) {
+            $mail->addReplyTo($mailaddr, $name);
+        }
     }
 }
 if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['invitation-bcc-mail'] !== NULL) {
@@ -198,7 +203,7 @@ $secStatus = TRUE;
 // fill the destinations in PHPMailer API
 foreach ($recipients as $recipient) {
     $mail->addAddress($recipient);
-    if (\core\OutsideComm::mailAddressValidSecure($recipient) < \core\OutsideComm::MAILDOMAIN_STARTTLS) {
+    if (\core\common\OutsideComm::mailAddressValidSecure($recipient) < \core\common\OutsideComm::MAILDOMAIN_STARTTLS) {
         $secStatus = FALSE;
     }
 }
@@ -215,4 +220,4 @@ if (!$sent) {
     header("Location: $redirect_destination" . "invitation=FAILURE");
 }
 
-header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=".($secStatus ? "ENCRYPTED" : "CLEAR"));
+header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=" . ($secStatus ? "ENCRYPTED" : "CLEAR"));

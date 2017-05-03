@@ -125,29 +125,6 @@ class IdP extends EntityWithDBProperties {
         return self::PROFILES_INCOMPLETE;
     }
 
-    public function getAllProfileStatusOverview() {
-        $allProfiles = $this->databaseHandle->exec("SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        $returnarray = ['dns' => RADIUSTests::RETVAL_SKIPPED, 'cert' => Entity::L_OK, 'reachability' => RADIUSTests::RETVAL_SKIPPED, 'TLS' => RADIUSTests::RETVAL_SKIPPED, 'checktime' => NULL];
-        while ($statusQuery = mysqli_fetch_object($allProfiles)) {
-            if ($statusQuery->status_dns < $returnarray['dns']) {
-                $returnarray['dns'] = $statusQuery->status_dns;
-            }
-            if ($statusQuery->status_reachability < $returnarray['reachability']) {
-                $returnarray['reachability'] = $statusQuery->status_reachability;
-            }
-            if ($statusQuery->status_TLS < $returnarray['TLS']) {
-                $returnarray['TLS'] = $statusQuery->status_TLS;
-            }
-            if ($statusQuery->status_cert < $returnarray['cert']) {
-                $returnarray['cert'] = $statusQuery->status_cert;
-            }
-            if ($statusQuery->last_status_check > $returnarray['checktime']) {
-                $returnarray['checktime'] = $statusQuery->last_status_check;
-            }
-        }
-        return $returnarray;
-    }
-
     /** This function retrieves an array of authorised users which can
      * manipulate this institution.
      * 
@@ -202,7 +179,7 @@ class IdP extends EntityWithDBProperties {
                     return new ProfileRADIUS($identifier, $this);
                 case "SILVERBULLET":
                     $theProfile = new ProfileSilverbullet($identifier, $this);
-                    $theProfile->addSupportedEapMethod(\core\EAP::EAPTYPE_SILVERBULLET, 1);
+                    $theProfile->addSupportedEapMethod(\core\common\EAP::EAPTYPE_SILVERBULLET, 1);
                     return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");

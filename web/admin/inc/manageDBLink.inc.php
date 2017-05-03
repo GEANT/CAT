@@ -15,7 +15,7 @@ require_once("common.inc.php");
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
 header("Content-Type:text/html;charset=utf-8");
@@ -176,7 +176,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
 <br/>
 <?php
 $pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
 if (count($pending_invites) > 0) {
     echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";

@@ -31,7 +31,7 @@ use \Exception;
  * 
  * @package Developer
  */
-class UserManagement extends Entity {
+class UserManagement extends \core\common\Entity {
 
     /**
      * our handle to the INST database

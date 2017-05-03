@@ -33,7 +33,7 @@ if (isset($_POST['submitbutton'])) {
         echo "</table>";
         $my_fed->commitFlushAttributes($killlist);
 
-        $loggerInstance = new \core\Logging();
+        $loggerInstance = new \core\common\Logging();
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->name . " - attributes changed");
 
         // re-instantiate ourselves... profiles need fresh data

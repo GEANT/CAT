@@ -16,7 +16,7 @@ require_once("inc/common.inc.php");
 $uiElements = new web\lib\admin\UIElements();
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
-    $loggerInstance = new \core\Logging();
+    $loggerInstance = new \core\common\Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
 
     $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
@@ -135,7 +135,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
-                        <td><form method='post' action='action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
+                        <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
                               <input type='text' name='realm' id='realm'>
                               <button type='submit'>" . _("Go!") . "</button>
                             </form>
@@ -253,26 +253,28 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $buffer_headline = "<h2 style='overflow:auto;'>";
 
         $buffer_headline .= "<div style='float:right;'>";
-        $sufficient_config = $profile_list->hasSufficientConfig();
-        $showtime = $profile_list->isShowtime();
+        $readiness = $profile_list->readinessLevel();
         if ($has_overrides) {
             $buffer_headline .= $uiElements->boxRemark("", _("Option override on profile level is in effect."), TRUE);
         }
         if (!$allcomplete) {
             $buffer_headline .= $uiElements->boxError("", _("The information in this profile is incomplete."), TRUE);
         }
-        if ($showtime) {
-            $buffer_headline .= $uiElements->boxOkay("", _("This profile is shown on the user download interface."), TRUE);
-        } else if ($sufficient_config) {
-            $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
+        switch ($readiness) {
+            case core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                $buffer_headline .= $uiElements->boxOkay("", _("This profile is shown on the user download interface."), TRUE);
+                break;
+            case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
+                $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
+        
         $buffer_headline .= "</div>";
 
         $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
         echo $buffer_headline;
 
-        if (array_search(\core\EAP::EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(\core\EAP::EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(\core\EAP::EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(\core\EAP::EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
+        if (array_search(\core\common\EAP::EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(\core\common\EAP::EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(\core\common\EAP::EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
             /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
             $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://wiki.geant.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
         }
@@ -284,7 +286,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
         if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "")) {
-            echo "<form action='action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+            echo "<form action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>
@@ -312,7 +314,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         echo "</div>";
 // dummy width to keep a little distance
         echo "<div style='width:20px;'></div>";
-        if ($profile_list->isShowtime()) {
+        if ($readiness == core\AbstractProfile::READINESS_LEVEL_SHOWTIME) {
             echo "<div style='display: table-cell; text-align:center;'><p><strong>" . _("User Download Link") . "</strong></p>";
             $URL = $profile_list->getCollapsedAttributes();
             if (isset($URL['device-specific:redirect'])) {
@@ -369,7 +371,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $methods = $one_profile->getEapMethodsinOrderOfPreference();
         // silver bullet is an exclusive method; looking in the first entry of
         // the array will catch it.
-        if (count($methods) > 0 && $methods[0] == \core\EAP::EAPTYPE_SILVERBULLET) {
+        if (count($methods) > 0 && $methods[0] == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $found_silverbullet = TRUE;
         }
     }

@@ -19,9 +19,9 @@ error_reporting(E_ALL | E_STRICT);
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/common.inc.php");
 
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
 $loggerInstance->debug(4, $operatingSystem);
 
@@ -90,7 +90,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         }
 
                         $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
-                        $dev->device->calculatePreferredEapType([\core\EAP::EAPTYPE_SILVERBULLET]);
+                        $dev->device->calculatePreferredEapType([\core\common\EAP::EAPTYPE_SILVERBULLET]);
                         if ($dev->device->selectedEap == []) {
                             echo sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;

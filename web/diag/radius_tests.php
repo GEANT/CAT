@@ -8,27 +8,22 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
-?>
-<?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
-ini_set('display_errors', '0');
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
-$languageInstance = new \core\Language();
+$languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
 
 
 $additional_message = [
-    \core\Entity::L_OK => '',
-    \core\Entity::L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
-    \core\Entity::L_WARN => _("Some properties of the connection attempt were sub-optimal; the list is below."),
-    \core\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
+    \core\common\Entity::L_OK => '',
+    \core\common\Entity::L_REMARK => _("Some properties of the connection attempt were sub-optimal; the list is below."),
+    \core\common\Entity::L_WARN => _("Some properties of the connection attempt were sub-optimal; the list is below."),
+    \core\common\Entity::L_ERROR => _("Some configuration errors were observed; the list is below."),
 ];
 
 function disp_name($eap) {
@@ -81,7 +76,7 @@ function process_result($testsuite, $host) {
     if (isset($udpResult['incoming_server_names'][0])) {
         $ret['server'] = sprintf(_("Connected to %s."), $udpResult['incoming_server_names'][0]);
     }
-    $ret['level'] = \core\Entity::L_OK;
+    $ret['level'] = \core\common\Entity::L_OK;
     $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
     if (empty($udpResult['cert_oddities'])) {
         $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
@@ -119,10 +114,10 @@ if (isset($_REQUEST['profile_id'])) {
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
-    $testsuite = new \core\RADIUSTests($check_realm, $my_profile->identifier);
+    $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->identifier);
 } else {
     $my_profile = NULL;
-    $testsuite = new \core\RADIUSTests($check_realm);
+    $testsuite = new \core\diag\RADIUSTests($check_realm);
 }
 
 
@@ -163,7 +158,7 @@ switch ($test_type) {
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
-            if ($eap == \core\EAP::EAPTYPE_TLS) {
+            if ($eap == \core\common\EAP::EAPTYPE_TLS) {
                 $run_test = TRUE;
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
@@ -177,16 +172,16 @@ switch ($test_type) {
                                 $tls_username = $mydetails['subject']['CN'];
                                 $loggerInstance->debug(4, "PKCS12-CN=$tls_username\n");
                             } else {
-                                $testresult = \core\RADIUSTests::RETVAL_INCOMPLETE_DATA;
+                                $testresult = \core\diag\RADIUSTests::RETVAL_INCOMPLETE_DATA;
                                 $run_test = FALSE;
                             }
                         } else {
-                            $testresult = \core\RADIUSTests::RETVAL_WRONG_PKCS12_PASSWORD;
+                            $testresult = \core\diag\RADIUSTests::RETVAL_WRONG_PKCS12_PASSWORD;
                             $run_test = FALSE;
                         }
                     }
                 } else {
-                    $testresult = \core\RADIUSTests::RETVAL_INCOMPLETE_DATA;
+                    $testresult = \core\diag\RADIUSTests::RETVAL_INCOMPLETE_DATA;
                     $run_test = FALSE;
                 }
                 if ($run_test) {
@@ -202,47 +197,47 @@ switch ($test_type) {
 
 
             switch ($testresult) {
-                case \core\RADIUSTests::RETVAL_OK :
+                case \core\diag\RADIUSTests::RETVAL_OK :
                     $level = $returnarray['result'][$i]['level'];
                     switch ($level) {
-                        case \core\Entity::L_OK :
+                        case \core\common\Entity::L_OK :
                             $message = _("<strong>Test successful.</strong>");
                             break;
-                        case \core\Entity::L_REMARK :
-                        case \core\Entity::L_WARN :
+                        case \core\common\Entity::L_REMARK :
+                        case \core\common\Entity::L_WARN :
                             $message = _("<strong>Test partially successful</strong>: authentication succeded.") . ' ' . $additional_message[$level];
                             break;
-                        case \core\Entity::L_ERROR :
+                        case \core\common\Entity::L_ERROR :
                             $message = _("<strong>Test FAILED</strong>: authentication succeded.") . ' ' . $additional_message[$level];
                             break;
                     }
                     break;
-                case \core\RADIUSTests::RETVAL_CONVERSATION_REJECT:
+                case \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT:
                     $message = _("<strong>Test FAILED</strong>: the request was rejected. The most likely cause is that you have misspelt the Username and/or the Password.");
-                    $level = \core\Entity::L_ERROR;
+                    $level = \core\common\Entity::L_ERROR;
                     break;
-                case \core\RADIUSTests::RETVAL_NOTCONFIGURED:
-                    $level = \core\Entity::L_ERROR;
+                case \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED:
+                    $level = \core\common\Entity::L_ERROR;
                     $message = _("This method cannot be tested");
                     break;
-                case \core\RADIUSTests::RETVAL_IMMEDIATE_REJECT:
-                    $level = \core\Entity::L_ERROR;
+                case \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT:
+                    $level = \core\common\Entity::L_ERROR;
                     $message = _("<strong>Test FAILED</strong>: the request was rejected immediately, without EAP conversation. Either you have misspelt the Username or there is something seriously wrong with your server.");
                     unset($returnarray['result'][$i]['cert_oddities']);
                     $returnarray['result'][$i]['server'] = 0;
                     break;
-                case \core\RADIUSTests::RETVAL_NO_RESPONSE:
-                    $level = \core\Entity::L_ERROR;
+                case \core\diag\RADIUSTests::RETVAL_NO_RESPONSE:
+                    $level = \core\common\Entity::L_ERROR;
                     $message = sprintf(_("<strong>Test FAILED</strong>: no reply from the RADIUS server after %d seconds. Either the responsible server is down, or routing is broken!"), $timeout);
                     unset($returnarray['result'][$i]['cert_oddities']);
                     $returnarray['result'][$i]['server'] = 0;
                     break;
-                case \core\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM:
+                case \core\diag\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM:
                     $returnarray['message'] = sprintf(_("<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, but it did not finish after %d seconds!"), $timeout);
-                    $returnarray['level'] = \core\Entity::L_ERROR;
+                    $returnarray['level'] = \core\common\Entity::L_ERROR;
                     break;
                 default:
-                    $level = isset($testsuite->return_codes[$testresult]['severity']) ? $testsuite->return_codes[$testresult]['severity'] : \core\Entity::L_ERROR;
+                    $level = isset($testsuite->return_codes[$testresult]['severity']) ? $testsuite->return_codes[$testresult]['severity'] : \core\common\Entity::L_ERROR;
                     $message = isset($testsuite->return_codes[$testresult]['message']) ? $testsuite->return_codes[$testresult]['message'] : _("<strong>Test FAILED</strong>");
                     $returnarray['result'][$i]['server'] = 0;
                     break;
@@ -261,30 +256,30 @@ switch ($test_type) {
         $returnarray['returncode'][$i] = $testresult;
         // a failed check may not have gotten any certificate, be prepared for that
         switch ($testresult) {
-            case \core\RADIUSTests::RETVAL_CONVERSATION_REJECT:
+            case \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT:
                 $level = $returnarray['result'][$i]['level'];
-                if ($level > \core\Entity::L_OK) {
+                if ($level > \core\common\Entity::L_OK) {
                     $message = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.") . ' ' . $additional_message[$level];
                 } else {
                     $message = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
                 }
                 break;
-            case \core\RADIUSTests::RETVAL_IMMEDIATE_REJECT:
+            case \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT:
                 $message = _("<strong>Test FAILED</strong>: the request was rejected immediately, without EAP conversation. This is not necessarily an error: if the RADIUS server enforces that outer identities correspond to an existing username, then this result is expected (Note: you could configure a valid outer identity in your profile settings to get past this hurdle). In all other cases, the server appears misconfigured or it is unreachable.");
-                $level = \core\Entity::L_WARN;
+                $level = \core\common\Entity::L_WARN;
                 break;
-            case \core\RADIUSTests::RETVAL_NO_RESPONSE:
+            case \core\diag\RADIUSTests::RETVAL_NO_RESPONSE:
                 $returnarray['result'][$i]['server'] = 0;
                 $message = sprintf(_("<strong>Test FAILED</strong>: no reply from the RADIUS server after %d seconds. Either the responsible server is down, or routing is broken!"), $timeout);
-                $level = \core\Entity::L_ERROR;
+                $level = \core\common\Entity::L_ERROR;
                 break;
-            case \core\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM:
+            case \core\diag\RADIUSTests::RETVAL_SERVER_UNFINISHED_COMM:
                 $message = sprintf(_("<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, but it did not finish after %d seconds!"), $timeout);
-                $level = \core\Entity::L_ERROR;
+                $level = \core\common\Entity::L_ERROR;
                 break;
             default:
                 $message = _("unhandled error");
-                $level = \core\Entity::L_ERROR;
+                $level = \core\common\Entity::L_ERROR;
                 break;
         }
         $loggerInstance->debug(4, "SERVER=" . $returnarray['result'][$i]['server'] . "\n");
@@ -292,40 +287,41 @@ switch ($test_type) {
         $returnarray['result'][$i]['message'] = $message;
         break;
     case 'capath':
-        $testresult = $testsuite->cApathCheck($host);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $testresult = $rfc6614suite->cApathCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         // the host member of the array may not be set if RETVAL_SKIPPED was
         // returned (e.g. IPv6 host), be prepared for that
-        if (isset($testsuite->TLS_CA_checks_result[$host])) {
-            $returnarray['time_millisec'] = sprintf("%d", $testsuite->TLS_CA_checks_result[$host]['time_millisec']);
-            if (isset($testsuite->TLS_CA_checks_result[$host]['cert_oddity']) && ($testsuite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
-                $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
-                $returnarray['level'] = \core\Entity::L_ERROR;
+        if (isset($rfc6614suite->TLS_CA_checks_result[$host])) {
+            $returnarray['time_millisec'] = sprintf("%d", $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']);
+            if (isset($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity']) && ($rfc6614suite->TLS_CA_checks_result[$host]['cert_oddity'] == \core\diag\RADIUSTests::CERTPROB_UNKNOWN_CA)) {
+                $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+                $returnarray['level'] = \core\common\Entity::L_ERROR;
             } else {
-                $returnarray['message'] = $testsuite->return_codes[$testsuite->TLS_CA_checks_result[$host]['status']]["message"];
-                $returnarray['level'] = \core\Entity::L_OK;
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] != \core\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
-                    $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $testsuite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
+                $returnarray['message'] = $rfc6614suite->return_codes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
+                $returnarray['level'] = \core\common\Entity::L_OK;
+                if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
+                    $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 } else {
-                    $returnarray['level'] = \core\Entity::L_ERROR;
+                    $returnarray['level'] = \core\common\Entity::L_ERROR;
                 }
-                if ($testsuite->TLS_CA_checks_result[$host]['status'] == \core\RADIUSTests::RETVAL_OK) {
+                if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] == \core\diag\RADIUSTests::RETVAL_OK) {
                     $returnarray['certdata'] = [];
-                    $returnarray['certdata']['subject'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['subject'];
-                    $returnarray['certdata']['issuer'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['issuer'];
+                    $returnarray['certdata']['subject'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['subject'];
+                    $returnarray['certdata']['issuer'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['issuer'];
                     $returnarray['certdata']['extensions'] = [];
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
-                        $returnarray['certdata']['extensions']['subjectaltname'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'])) {
+                        $returnarray['certdata']['extensions']['subjectaltname'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['subjectaltname'];
                     }
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
-                        $returnarray['certdata']['extensions']['policies'] = join(' ', $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid'])) {
+                        $returnarray['certdata']['extensions']['policies'] = join(' ', $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['policyoid']);
                     }
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
-                        $returnarray['certdata']['extensions']['crldistributionpoints'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'])) {
+                        $returnarray['certdata']['extensions']['crldistributionpoints'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['crlDistributionPoint'];
                     }
-                    if (isset($testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
-                        $returnarray['certdata']['extensions']['authorityinfoaccess'] = $testsuite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
+                    if (isset($rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'])) {
+                        $returnarray['certdata']['extensions']['authorityinfoaccess'] = $rfc6614suite->TLS_CA_checks_result[$host]['certdata']['extensions']['authorityInfoAccess'];
                     }
                 }
                 $returnarray['cert_oddities'] = [];
@@ -334,14 +330,15 @@ switch ($test_type) {
         $returnarray['result'] = $testresult;
         break;
     case 'clients':
-        $testresult = $testsuite->TLS_clients_side_check($host);
+        $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
+        $testresult = $rfc6614suite->TLS_clients_side_check($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         $k = 0;
         // the host member of the array may not exist if RETVAL_SKIPPED came out
         // (e.g. no client cert to test with). Be prepared for that
-        if (isset($testsuite->TLS_clients_checks_result[$host])) {
-            foreach ($testsuite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
+        if (isset($rfc6614suite->TLS_clients_checks_result[$host])) {
+            foreach ($rfc6614suite->TLS_clients_checks_result[$host]['ca'] as $type => $cli) {
                 foreach ($cli as $key => $val) {
                     $returnarray['ca'][$k][$key] = $val;
                 }

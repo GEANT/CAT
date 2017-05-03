@@ -74,7 +74,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
 </head>
 <body onload='load(1)'>
     <?php 
-    $langObject = new \core\Language();
+    $langObject = new \core\common\Language();
     echo $deco->productheader("ADMIN-IDP"); ?>
 
     <h1>

@@ -43,7 +43,7 @@ use \Exception;
  * @package ModuleWriting
  * @abstract
  */
-abstract class DeviceConfig extends Entity {
+abstract class DeviceConfig extends \core\common\Entity {
 
     /**
      * stores the path to the temporary working directory for a module instance
@@ -163,7 +163,7 @@ abstract class DeviceConfig extends Entity {
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');
         $caList = [];
-        $x509 = new X509();
+        $x509 = new \core\common\X509();
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
                 $processedCert = $x509->processCertificate($ca);
@@ -617,7 +617,7 @@ abstract class DeviceConfig extends Entity {
      * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
      * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
      *
-     * @see X509::processCertificate()
+     * @see \core\common\X509::processCertificate()
      * @var array $attributes
      */
     public $attributes;

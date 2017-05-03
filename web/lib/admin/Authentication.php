@@ -22,7 +22,7 @@ class Authentication {
     }
 
     public function authenticate() {
-        $loggerInstance = new \core\Logging();
+        $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         $authSimple->requireAuth();
 

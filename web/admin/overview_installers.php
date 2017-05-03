@@ -44,7 +44,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
             <?php            
             foreach ($preflist as $method) {
-                $escapedMethod = \core\EAP::eAPMethodArrayIdConversion($method);
+                $escapedMethod = \core\common\EAP::eAPMethodArrayIdConversion($method);
                 echo "<th style='min-width:200px'>" . $uiElements->displayName($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
@@ -75,7 +75,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             $defaultisset = FALSE;
             foreach ($preflist as $method) {
                 $display_footnote = FALSE;
-                $langObject = new \core\Language();
+                $langObject = new \core\common\Language();
                 $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
                                        <input type='hidden' name='id' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>

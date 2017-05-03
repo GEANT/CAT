@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -30,26 +30,27 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
         // update database with the findings
 
         $dbHandle->exec("UPDATE profile SET "
-                . "status_dns = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
-                . "status_cert = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
-                . "status_reachability = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
-                . "status_TLS = " . \core\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_dns = " . \core\diag\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_cert = " . \core\diag\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_reachability = " . \core\diag\RADIUSTests::RETVAL_SKIPPED . ", "
+                . "status_TLS = " . \core\diag\RADIUSTests::RETVAL_SKIPPED . ", "
                 . "last_status_check = NOW() "
                 . "WHERE profile_id = " . $profile->identifier);
 
         return $tabletext;
     }
-    $testsuite = new \core\RADIUSTests($realm, $profile->identifier);
+    $testsuite = new \core\diag\RADIUSTests($realm, $profile->identifier);
+    $rfc7585suite = new \core\diag\RFC7585Tests($realm);
 
     // NAPTR existence check
     $tabletext .= "<td>";
-    $naptr = $testsuite->NAPTR();
-    if ($naptr != \core\RADIUSTests::RETVAL_NOTCONFIGURED)
+    $naptr = $rfc7585suite->NAPTR();
+    if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED)
         switch ($naptr) {
-            case \core\RADIUSTests::RETVAL_NONAPTR:
+            case \core\diag\RFC7585Tests::RETVAL_NONAPTR:
                 $tabletext .= _("No NAPTR records");
                 break;
-            case \core\RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR:
+            case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
                 $tabletext .= sprintf(_("No associated NAPTR records"));
                 break;
             default: // if none of the possible negative retvals, then we have matching NAPTRs
@@ -61,19 +62,19 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     $NAPTR_issues = false;
 
     if ($naptr > 0) {
-        $naptrValid = $testsuite->NAPTR_compliance();
+        $naptrValid = $rfc7585suite->NAPTR_compliance();
         switch ($naptrValid) {
-            case \core\RADIUSTests::RETVAL_INVALID:
+            case \core\diag\RADIUSTests::RETVAL_INVALID:
                 $NAPTR_issues = true;
                 break;
-            case \core\RADIUSTests::RETVAL_OK:
-                $srv = $testsuite->NAPTR_SRV();
-                if ($srv == \core\RADIUSTests::RETVAL_INVALID) {
+            case \core\diag\RADIUSTests::RETVAL_OK:
+                $srv = $rfc7585suite->NAPTR_SRV();
+                if ($srv == \core\diag\RADIUSTests::RETVAL_INVALID) {
                     $NAPTR_issues = true;
                 }
                 if ($srv > 0) {
-                    $hosts = $testsuite->NAPTR_hostnames();
-                    if ($hosts == \core\RADIUSTests::RETVAL_INVALID)
+                    $hosts = $rfc7585suite->NAPTR_hostnames();
+                    if ($hosts == \core\diag\RADIUSTests::RETVAL_INVALID)
                         $NAPTR_issues = true;
                 }
                 break;
@@ -86,7 +87,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     }
 
     $UDPErrors = false;
-    $certBiggestOddity = \core\Entity::L_OK;
+    $certBiggestOddity = \core\common\Entity::L_OK;
 
     foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);
@@ -118,11 +119,13 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dynamicErrors = false;
 
-    if ($naptr > 0 && count($testsuite->NAPTR_hostname_records) > 0) {
-        foreach ($testsuite->NAPTR_hostname_records as $hostindex => $addr) {
-            $retval = $testsuite->TLS_clients_side_check($addr);
-            if ($retval != \core\RADIUSTests::RETVAL_OK && $retval != \core\RADIUSTests::RETVAL_SKIPPED)
+    if ($naptr > 0 && count($rfc7585suite->NAPTR_hostname_records) > 0) {
+        foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
+            $rfc6614suite = new \core\diag\RFC6614Tests([$addr]);
+            $retval = $rfc6614suite->TLS_clients_side_check($addr);
+            if ($retval != \core\diag\RADIUSTests::RETVAL_OK && $retval != \core\diag\RADIUSTests::RETVAL_SKIPPED) {
                 $dynamicErrors = true;
+            }
         }
     }
     if (!$dynamicErrors) {
@@ -133,10 +136,10 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
     $tabletext .= "</td></tr>";
 
     $dbHandle->exec("UPDATE profile SET "
-            . "status_dns = " . ($NAPTR_issues ? \core\RADIUSTests::RETVAL_INVALID : \core\RADIUSTests::RETVAL_OK) . ", "
+            . "status_dns = " . ($NAPTR_issues ? \core\diag\RADIUSTests::RETVAL_INVALID : \core\diag\RADIUSTests::RETVAL_OK) . ", "
             . "status_cert = " . ($certBiggestOddity) . ", "
-            . "status_reachability = " . ($UDPErrors ? \core\RADIUSTests::RETVAL_INVALID : \core\RADIUSTests::RETVAL_OK) . ", "
-            . "status_TLS = " . ($dynamicErrors ? \core\RADIUSTests::RETVAL_INVALID : \core\RADIUSTests::RETVAL_OK) . ", "
+            . "status_reachability = " . ($UDPErrors ? \core\diag\RADIUSTests::RETVAL_INVALID : \core\diag\RADIUSTests::RETVAL_OK) . ", "
+            . "status_TLS = " . ($dynamicErrors ? \core\diag\RADIUSTests::RETVAL_INVALID : \core\diag\RADIUSTests::RETVAL_OK) . ", "
             . "last_status_check = NOW() "
             . "WHERE profile_id = " . $profile->identifier);
 
@@ -166,13 +169,19 @@ $allIDPs = $fed->listIdentityProviders();
 $profiles_showtime = [];
 $profiles_readyconf = [];
 
-foreach ($allIDPs as $index => $oneidp)
-    foreach ($oneidp['instance']->listProfiles() as $profile)
-        if ($profile->isShowtime()) {
-            $profiles_showtime[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
-        } else if ($profile->readyForShowtime()) {
-            $profiles_confready[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
+foreach ($allIDPs as $index => $oneidp) {
+    foreach ($oneidp['instance']->listProfiles() as $profile) {
+        $ready = $profile->readinessLevel();
+        switch ($ready) {
+            case core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                $profiles_showtime[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
+                break;
+            case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
+                $profiles_confready[] = ['idp' => $oneidp['instance'], 'profile' => $profile];
+                break;
         }
+    }
+}
 
 if (count($profiles_showtime) > 0) {
     echo "<h2>" . _("Profiles marked as visible (V)") . "</h2>" . "<table>";

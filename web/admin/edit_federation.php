@@ -23,7 +23,7 @@ $my_fed = $validator->Federation($_POST['fed_id'], $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing Federation '%s'"), CONFIG['APPEARANCE']['productname'], $my_fed->name));
-$langObject = new \core\Language();
+$langObject = new \core\common\Language();
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>

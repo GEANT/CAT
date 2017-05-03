@@ -21,7 +21,7 @@
 ?>
 <?php 
 
-$langObject = new \core\Language();
+$langObject = new \core\common\Language();
 $langObject->setTextDomain('web_user'); ?>
 
 

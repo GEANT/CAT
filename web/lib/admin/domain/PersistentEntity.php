@@ -1,7 +1,7 @@
 <?php
 namespace web\lib\admin\domain;
 
-abstract class PersistentEntity extends \core\Entity implements PersistentInterface {
+abstract class PersistentEntity extends \core\common\Entity implements PersistentInterface {
     
     /**
      * Identifier attribute

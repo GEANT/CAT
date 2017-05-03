@@ -52,14 +52,14 @@ class UIElements {
             _("Federation Administrator") => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",
-            _("PEAP-MSCHAPv2") => \core\EAP::EAPTYPE_PEAP_MSCHAP2,
-            _("TLS") => \core\EAP::EAPTYPE_TLS,
-            _("TTLS-PAP") => \core\EAP::EAPTYPE_TTLS_PAP,
-            _("TTLS-MSCHAPv2") => \core\EAP::EAPTYPE_TTLS_MSCHAP2,
-            _("TTLS-GTC") => \core\EAP::EAPTYPE_TTLS_GTC,
-            _("FAST-GTC") => \core\EAP::EAPTYPE_FAST_GTC,
-            _("EAP-pwd") => \core\EAP::EAPTYPE_PWD,
-            \core\ProfileSilverbullet::PRODUCTNAME => \core\EAP::EAPTYPE_SILVERBULLET,
+            _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
+            _("TLS") => \core\common\EAP::EAPTYPE_TLS,
+            _("TTLS-PAP") => \core\common\EAP::EAPTYPE_TTLS_PAP,
+            _("TTLS-MSCHAPv2") => \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
+            _("TTLS-GTC") => \core\common\EAP::EAPTYPE_TTLS_GTC,
+            _("FAST-GTC") => \core\common\EAP::EAPTYPE_FAST_GTC,
+            _("EAP-pwd") => \core\common\EAP::EAPTYPE_PWD,
+            \core\ProfileSilverbullet::PRODUCTNAME => \core\common\EAP::EAPTYPE_SILVERBULLET,
             _("Remove/Disable SSID") => "media:remove_SSID",
             _("Custom CSS file for User Area") => "fed:css_file",
             _("Federation Logo") => "fed:logo_file",
@@ -184,7 +184,7 @@ class UIElements {
 
         $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
 
-        $func = new \core\X509;
+        $func = new \core\common\X509;
         $details = $func->processCertificate($cAblob);
         if ($details === FALSE) {
             return _("There was an error processing the certificate!");
@@ -222,10 +222,10 @@ class UIElements {
     public function boxFlexible($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
 
         $uiMessages = [
-            \core\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
-            \core\Entity::L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
-            \core\Entity::L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
-            \core\Entity::L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
+            \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
+            \core\common\Entity::L_REMARK => ['icon' => '../resources/images/icons/Quetto/info-icon.png', 'text' => _("Remark")],
+            \core\common\Entity::L_WARN => ['icon' => '../resources/images/icons/Quetto/danger-icon.png', 'text' => _("Warning!")],
+            \core\common\Entity::L_ERROR => ['icon' => '../resources/images/icons/Quetto/no-icon.png', 'text' => _("Error!")],
         ];
 
         $retval = "";
@@ -247,19 +247,19 @@ class UIElements {
     }
 
     public function boxOkay($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->boxFlexible(\core\Entity::L_OK, $text, $caption, $omittabletags);
+        return $this->boxFlexible(\core\common\Entity::L_OK, $text, $caption, $omittabletags);
     }
 
     public function boxRemark($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->boxFlexible(\core\Entity::L_REMARK, $text, $caption, $omittabletags);
+        return $this->boxFlexible(\core\common\Entity::L_REMARK, $text, $caption, $omittabletags);
     }
 
     public function boxWarning($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->boxFlexible(\core\Entity::L_WARN, $text, $caption, $omittabletags);
+        return $this->boxFlexible(\core\common\Entity::L_WARN, $text, $caption, $omittabletags);
     }
 
     public function boxError($text = 0, $caption = 0, $omittabletags = FALSE) {
-        return $this->boxFlexible(\core\Entity::L_ERROR, $text, $caption, $omittabletags);
+        return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
 }

@@ -21,7 +21,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
@@ -195,8 +195,8 @@ if (!$profile instanceof \core\ProfileRADIUS) {
         throw new Exception("This page handles RADIUS Profiles only. For some reason, a different type of Profile was requested.");
     }
 
-    foreach (\core\EAP::listKnownEAPTypes() as $a) {
-        if ($a == \core\EAP::EAPTYPE_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
+    foreach (\core\common\EAP::listKnownEAPTypes() as $a) {
+        if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
             continue;
         }
         if (isset($_POST[$uiElements->displayName($a)]) && isset($_POST[$uiElements->displayName($a) . "-priority"]) && is_numeric($_POST[$uiElements->displayName($a) . "-priority"])) {

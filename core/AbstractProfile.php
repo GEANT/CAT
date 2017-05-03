@@ -99,7 +99,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                                         ORDER by preference");
         $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
+            $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
         $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
@@ -334,7 +334,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function addSupportedEapMethod($type, $preference) {
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
-                . EAP::eAPMethodArrayIdConversion($type) . ", "
+                . \core\common\EAP::eAPMethodArrayIdConversion($type) . ", "
                 . $preference . ")");
         $this->updateFreshness();
     }
@@ -368,17 +368,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function isEapTypeDefinitionComplete($eaptype) {
         // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
         switch ($eaptype['OUTER']) {
-            case \core\EAP::TLS:
-            case \core\EAP::PEAP:
-            case \core\EAP::TTLS:
-            case \core\EAP::FAST:
+            case \core\common\EAP::TLS:
+            case \core\common\EAP::PEAP:
+            case \core\common\EAP::TTLS:
+            case \core\common\EAP::FAST:
                 $missing = [];
                 $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
                 $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
 
                 if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
                     foreach ($caOption as $oneCa) {
-                        $x509 = new X509();
+                        $x509 = new \core\common\X509();
                         $caParsed = $x509->processCertificate($oneCa['value']);
                         if ($caParsed['root'] == 1) {
                             return true;
@@ -396,7 +396,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     return TRUE;
                 }
                 return $missing;
-            case \core\EAP::PWD:
+            case \core\common\EAP::PWD:
                 // well actually this EAP type has a server name; but it's optional
                 // so no reason to be picky on it
                 return true;
@@ -555,6 +555,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         return($out);
     }
 
+    const READINESS_LEVEL_NOTREADY = 0;
+    const READINESS_LEVEL_SUFFICIENTCONFIG = 1;
+    const READINESS_LEVEL_SHOWTIME = 2;
+    
     /**
      * Does the profile contain enough information to generate installers with
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
@@ -562,22 +566,26 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * * @return boolean TRUE if enough info is set to enable installers
      */
-    public function hasSufficientConfig() {
-        $result = $this->databaseHandle->exec("SELECT sufficient_config FROM profile WHERE profile_id = ?", "i", $this->identifier);
+    public function readinessLevel() {
+        $result = $this->databaseHandle->exec("SELECT sufficient_config, showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
         $configQuery = mysqli_fetch_row($result);
         if ($configQuery[0] == "0") {
-            return FALSE;
+            return self::READINESS_LEVEL_NOTREADY;
         }
-        return TRUE;
+        // at least fully configured, if not showtime!
+        if ($configQuery[1] == "0") {
+            return self::READINESS_LEVEL_SUFFICIENTCONFIG;
+        }
+        return self::READINESS_LEVEL_SHOWTIME;
     }
-
+    
     /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
      * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.
      * 
      * @return boolean TRUE if enough information for showtime is set; FALSE if not
      */
-    public function readyForShowtime() {
+    private function readyForShowtime() {
         $properConfig = FALSE;
         $attribs = $this->getCollapsedAttributes();
         // do we have enough to go live? Check if any of the configured EAP methods is completely configured ...
@@ -619,19 +627,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             return;
         }
         $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = ?", "i", $this->identifier);
-    }
-
-    /**
-     * Checks if the profile is shown (showable) to end users
-     * @return boolean TRUE if profile is shown; FALSE if not
-     */
-    public function isShowtime() {
-        $result = $this->databaseHandle->exec("SELECT showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
-        $resultRow = mysqli_fetch_row($result);
-        if ($resultRow[0] == "0") {
-            return FALSE;
-        }
-        return TRUE;
     }
 
     protected function addInternalAttributes($internalAttributes) {

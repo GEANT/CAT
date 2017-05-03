@@ -19,8 +19,8 @@
  * 
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-$loggerInstance = new \core\Logging();
-$langObject = new \core\Language();
+$loggerInstance = new \core\common\Logging();
+$langObject = new \core\common\Language();
 $cat = new \core\CAT();
 $loggerInstance->debug(4, "\n----------------------------------TOU.PHP------------------------\n");
 ?>

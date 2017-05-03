@@ -19,7 +19,7 @@
  * 
  */
 
-namespace core;
+namespace core\common;
 use \Exception;
 /**
  * Convenience functions for EAP types
@@ -64,47 +64,47 @@ class EAP {
     /**
      * PEAP-MSCHAPv2: Outer EAP Type = 25, Inner EAP Type = 26
      */
-    const EAPTYPE_PEAP_MSCHAP2 = ["OUTER" => \core\EAP::PEAP, "INNER" => \core\EAP::MSCHAP2];
+    const EAPTYPE_PEAP_MSCHAP2 = ["OUTER" => EAP::PEAP, "INNER" => EAP::MSCHAP2];
 
     /**
      * EAP-TLS: Outer EAP Type = 13, no inner EAP
      */
-    const EAPTYPE_TLS = ["OUTER" => \core\EAP::TLS, "INNER" => \core\EAP::NONE];
+    const EAPTYPE_TLS = ["OUTER" => EAP::TLS, "INNER" => EAP::NONE];
 
     /**
      * EAP-TLS: Outer EAP Type = 13, no inner EAP
      */
-    const EAPTYPE_SILVERBULLET = ["OUTER" => \core\EAP::TLS, "INNER" => \core\EAP::NE_SILVERBULLET];
+    const EAPTYPE_SILVERBULLET = ["OUTER" => EAP::TLS, "INNER" => EAP::NE_SILVERBULLET];
 
     /**
      * TTLS-PAP: Outer EAP type = 21, no inner EAP, inner non-EAP = 1
      */
-    const EAPTYPE_TTLS_PAP = ["OUTER" => \core\EAP::TTLS, "INNER" => \core\EAP::NONE];
+    const EAPTYPE_TTLS_PAP = ["OUTER" => EAP::TTLS, "INNER" => EAP::NONE];
 
     /**
      * TTLS-MSCHAP-v2: Outer EAP type = 21, no inner EAP, inner non-EAP = 3
      */
-    const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => \core\EAP::TTLS, "INNER" => \core\EAP::MSCHAP2];
+    const EAPTYPE_TTLS_MSCHAP2 = ["OUTER" => EAP::TTLS, "INNER" => EAP::MSCHAP2];
 
     /**
      * TTLS-GTC: Outer EAP type = 21, Inner EAP Type = 6
      */
-    const EAPTYPE_TTLS_GTC = ["OUTER" => \core\EAP::TTLS, "INNER" => \core\EAP::GTC];
+    const EAPTYPE_TTLS_GTC = ["OUTER" => EAP::TTLS, "INNER" => EAP::GTC];
 
     /**
      * EAP-FAST (GTC): Outer EAP type = 43, Inner EAP Type = 6
      */
-    const EAPTYPE_FAST_GTC = ["OUTER" => \core\EAP::FAST, "INNER" => \core\EAP::GTC];
+    const EAPTYPE_FAST_GTC = ["OUTER" => EAP::FAST, "INNER" => EAP::GTC];
 
     /**
      * PWD: Outer EAP type = 52, no inner EAP
      */
-    const EAPTYPE_PWD = ["OUTER" => \core\EAP::PWD, "INNER" => \core\EAP::NONE];
+    const EAPTYPE_PWD = ["OUTER" => EAP::PWD, "INNER" => EAP::NONE];
 
     /**
      * NULL: no outer EAP, no inner EAP
      */
-    const EAPTYPE_NONE = ["OUTER" => \core\EAP::NONE, "INNER" => \core\EAP::NONE];
+    const EAPTYPE_NONE = ["OUTER" => EAP::NONE, "INNER" => EAP::NONE];
 
     /**
      *  ANY: not really an EAP method, but the term to use when needing to express "any EAP method we know"
@@ -115,14 +115,14 @@ class EAP {
      * conversion table between array and integer representations
      */
     const EAPTYPES_CONVERSION = [
-        \core\EAP::INTEGER_FAST_GTC => \core\EAP::EAPTYPE_FAST_GTC,
-        \core\EAP::INTEGER_PEAP_MSCHAPv2 => \core\EAP::EAPTYPE_PEAP_MSCHAP2,
-        \core\EAP::INTEGER_EAP_pwd => \core\EAP::EAPTYPE_PWD,
-        \core\EAP::INTEGER_TLS => \core\EAP::EAPTYPE_TLS,
-        \core\EAP::INTEGER_TTLS_GTC => \core\EAP::EAPTYPE_TTLS_GTC,
-        \core\EAP::INTEGER_TTLS_MSCHAPv2 => \core\EAP::EAPTYPE_TTLS_MSCHAP2,
-        \core\EAP::INTEGER_TTLS_PAP => \core\EAP::EAPTYPE_TTLS_PAP,
-        \core\EAP::INTEGER_SILVERBULLET => \core\EAP::EAPTYPE_SILVERBULLET,
+        EAP::INTEGER_FAST_GTC => EAP::EAPTYPE_FAST_GTC,
+        EAP::INTEGER_PEAP_MSCHAPv2 => EAP::EAPTYPE_PEAP_MSCHAP2,
+        EAP::INTEGER_EAP_pwd => EAP::EAPTYPE_PWD,
+        EAP::INTEGER_TLS => EAP::EAPTYPE_TLS,
+        EAP::INTEGER_TTLS_GTC => EAP::EAPTYPE_TTLS_GTC,
+        EAP::INTEGER_TTLS_MSCHAPv2 => EAP::EAPTYPE_TTLS_MSCHAP2,
+        EAP::INTEGER_TTLS_PAP => EAP::EAPTYPE_TTLS_PAP,
+        EAP::INTEGER_SILVERBULLET => EAP::EAPTYPE_SILVERBULLET,
     ];
 
     /**
@@ -133,16 +133,16 @@ class EAP {
      */
     public static function eapDisplayName($eap) {
         $eapDisplayName = [];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_PEAP_MSCHAP2)] = ["OUTER" => 'PEAP', "INNER" => 'MSCHAPV2'];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_TLS)] = ["OUTER" => 'TLS', "INNER" => ''];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_TTLS_PAP)] = ["OUTER" => 'TTLS', "INNER" => 'PAP'];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_TTLS_MSCHAP2)] = ["OUTER" => 'TTLS', "INNER" => 'MSCHAPV2'];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_TTLS_GTC)] = ["OUTER" => 'TTLS', "INNER" => 'GTC'];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_FAST_GTC)] = ["OUTER" => 'FAST', "INNER" => 'GTC'];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_PWD)] = ["OUTER" => 'PWD', "INNER" => ''];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_NONE)] = ["OUTER" => '', "INNER" => ''];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_SILVERBULLET)] = ["OUTER" => 'TLS', "INNER" => 'SILVERBULLET'];
-        $eapDisplayName[serialize(\core\EAP::EAPTYPE_ANY)] = ["OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_PEAP_MSCHAP2)] = ["OUTER" => 'PEAP', "INNER" => 'MSCHAPV2'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_TLS)] = ["OUTER" => 'TLS', "INNER" => ''];
+        $eapDisplayName[serialize(EAP::EAPTYPE_TTLS_PAP)] = ["OUTER" => 'TTLS', "INNER" => 'PAP'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_TTLS_MSCHAP2)] = ["OUTER" => 'TTLS', "INNER" => 'MSCHAPV2'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_TTLS_GTC)] = ["OUTER" => 'TTLS', "INNER" => 'GTC'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_FAST_GTC)] = ["OUTER" => 'FAST', "INNER" => 'GTC'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_PWD)] = ["OUTER" => 'PWD', "INNER" => ''];
+        $eapDisplayName[serialize(EAP::EAPTYPE_NONE)] = ["OUTER" => '', "INNER" => ''];
+        $eapDisplayName[serialize(EAP::EAPTYPE_SILVERBULLET)] = ["OUTER" => 'TLS', "INNER" => 'SILVERBULLET'];
+        $eapDisplayName[serialize(EAP::EAPTYPE_ANY)] = ["OUTER" => 'PEAP TTLS TLS', "INNER" => 'MSCHAPV2 PAP GTC'];
         return($eapDisplayName[serialize($eap)]);
     }
 
@@ -156,11 +156,11 @@ class EAP {
         // there is none
         $out['EAP'] = 0;
         switch ($eap) {
-            case \core\EAP::EAPTYPE_TTLS_PAP:
-                $out['METHOD'] = \core\EAP::NE_PAP;
+            case EAP::EAPTYPE_TTLS_PAP:
+                $out['METHOD'] = EAP::NE_PAP;
                 break;
-            case \core\EAP::EAPTYPE_TTLS_MSCHAP2:
-                $out['METHOD'] = \core\EAP::NE_MSCHAP2;
+            case EAP::EAPTYPE_TTLS_MSCHAP2:
+                $out['METHOD'] = EAP::NE_MSCHAP2;
         }
         return $out;
     }

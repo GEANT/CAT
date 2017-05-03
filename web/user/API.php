@@ -195,5 +195,5 @@ switch ($action) {
         $API->JSON_orderIdentityProviders($federation, $coordinateArray);
         break;
 }
-$loggerInstance = new \core\Logging();
+$loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");

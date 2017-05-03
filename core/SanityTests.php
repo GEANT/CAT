@@ -81,7 +81,7 @@ class SanityTests extends CAT {
         $m_name = $test . '_test';
         $this->test_result[$test] = 0;
         if (!method_exists($this, $m_name)) {
-            $this->test_return(Entity::L_ERROR, "Configuration error, no test configured for <strong>$test</strong>.");
+            $this->test_return(\core\common\Entity::L_ERROR, "Configuration error, no test configured for <strong>$test</strong>.");
             return;
         }
         $this->$m_name();
@@ -102,7 +102,7 @@ class SanityTests extends CAT {
             if (preg_match('/(.+)=>(.+)/', $testName, $matchArray)) {
                 $tst = $matchArray[1];
                 $subtst = $matchArray[2];
-                if ($this->test_result[$tst] < Entity::L_ERROR) {
+                if ($this->test_result[$tst] < \core\common\Entity::L_ERROR) {
                     $this->test($subtst);
                 }
             } else {
@@ -163,9 +163,9 @@ class SanityTests extends CAT {
      */
     private function php_test() {
         if (version_compare(phpversion(), $this->php_needversion, '>=')) {
-            $this->test_return(Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
+            $this->test_return(\core\common\Entity::L_OK, "<strong>PHP</strong> is sufficiently recent. You are running " . phpversion() . ".");
         } else {
-            $this->test_return(Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->php_needversion, but you only have " . phpversion() . ".");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->php_needversion, but you only have " . phpversion() . ".");
         }
     }
 
@@ -174,9 +174,9 @@ class SanityTests extends CAT {
      */
     private function ssp_test() {
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
-            $this->test_return(Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
-            $this->test_return(Entity::L_OK, "<strong>simpleSAMLphp</strong> autoloader found.");
+            $this->test_return(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> autoloader found.");
         }
     }
 
@@ -185,7 +185,7 @@ class SanityTests extends CAT {
      */
     private function security_test() {
         if (in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-            $this->test_return(Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config.php 'Superadmins'!");
+            $this->test_return(\core\common\Entity::L_WARN, "You do not care about security. This page should be made accessible to the CAT admin only! See config.php 'Superadmins'!");
         }
     }
 
@@ -194,9 +194,9 @@ class SanityTests extends CAT {
      */
     private function zip_test() {
         if (exec("which zip") != "") {
-            $this->test_return(Entity::L_OK, "<strong>zip</strong> binary found.");
+            $this->test_return(\core\common\Entity::L_OK, "<strong>zip</strong> binary found.");
         } else {
-            $this->test_return(Entity::L_ERROR, "<strong>zip</strong> not found in your \$PATH!");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>zip</strong> not found in your \$PATH!");
         }
     }
 
@@ -208,12 +208,12 @@ class SanityTests extends CAT {
         if ($retval == 255) {
             $o = preg_grep('/-o<server cert/', $out);
             if (count($o) > 0) {
-                $this->test_return(Entity::L_OK, "<strong>eapol_test</strong> script found.");
+                $this->test_return(\core\common\Entity::L_OK, "<strong>eapol_test</strong> script found.");
             } else {
-                $this->test_return(Entity::L_ERROR, "<strong>eapol_test</strong> found, but is too old!");
+                $this->test_return(\core\common\Entity::L_ERROR, "<strong>eapol_test</strong> found, but is too old!");
             }
         } else {
-            $this->test_return(Entity::L_ERROR, "<strong>eapol_test</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>eapol_test</strong> not found!");
         }
     }
 
@@ -222,9 +222,9 @@ class SanityTests extends CAT {
      */
     private function logdir_test() {
         if (fopen(CONFIG['PATHS']['logdir'] . "/debug.log", "a") == FALSE) {
-            $this->test_return(Entity::L_WARN, "Log files in <strong>" . CONFIG['PATHS']['logdir'] . "</strong> are not writable!");
+            $this->test_return(\core\common\Entity::L_WARN, "Log files in <strong>" . CONFIG['PATHS']['logdir'] . "</strong> are not writable!");
         } else {
-            $this->test_return(Entity::L_OK, "Log directory is writable.");
+            $this->test_return(\core\common\Entity::L_OK, "Log directory is writable.");
         }
     }
 
@@ -233,39 +233,39 @@ class SanityTests extends CAT {
      */
     private function phpModules_test() {
         if (function_exists('idn_to_ascii')) {
-            $this->test_return(Entity::L_OK, "PHP can handle internationalisation.");
+            $this->test_return(\core\common\Entity::L_OK, "PHP can handle internationalisation.");
         } else {
-            $this->test_return(Entity::L_ERROR, "PHP can <strong>NOT</strong> handle internationalisation (idn_to_ascii() from php7.0-intl).");
+            $this->test_return(\core\common\Entity::L_ERROR, "PHP can <strong>NOT</strong> handle internationalisation (idn_to_ascii() from php7.0-intl).");
         }
 
         if (function_exists('gettext')) {
-            $this->test_return(Entity::L_OK, "PHP extension <strong>GNU Gettext</strong> is installed.");
+            $this->test_return(\core\common\Entity::L_OK, "PHP extension <strong>GNU Gettext</strong> is installed.");
         } else {
-            $this->test_return(Entity::L_ERROR, "PHP extension <strong>GNU Gettext</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GNU Gettext</strong> not found!");
         }
 
         if (function_exists('openssl_sign')) {
-            $this->test_return(Entity::L_OK, "PHP extension <strong>OpenSSL</strong> is installed.");
+            $this->test_return(\core\common\Entity::L_OK, "PHP extension <strong>OpenSSL</strong> is installed.");
         } else {
-            $this->test_return(Entity::L_ERROR, "PHP extension <strong>OpenSSL</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>OpenSSL</strong> not found!");
         }
 
         if (class_exists('\Imagick')) {
-            $this->test_return(Entity::L_OK, "PHP extension <strong>Imagick</strong> is installed.");
+            $this->test_return(\core\common\Entity::L_OK, "PHP extension <strong>Imagick</strong> is installed.");
         } else {
-            $this->test_return(Entity::L_ERROR, "PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
+            $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>Imagick</strong> not found! Get it from your distribution or <a href='http://pecl.php.net/package/imagick'>here</a>.");
         }
 
         if (function_exists('ImageCreate')) {
-            $this->test_return(Entity::L_OK, "PHP extension <strong>GD</strong> is installed.");
+            $this->test_return(\core\common\Entity::L_OK, "PHP extension <strong>GD</strong> is installed.");
         } else {
-            $this->test_return(Entity::L_ERROR, "PHP extension <strong>GD</strong> not found!</a>.");
+            $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GD</strong> not found!</a>.");
         }
 
         if (function_exists('mysqli_connect')) {
-            $this->test_return(Entity::L_OK, "PHP extension <strong>MySQL</strong> is installed.");
+            $this->test_return(\core\common\Entity::L_OK, "PHP extension <strong>MySQL</strong> is installed.");
         } else {
-            $this->test_return(Entity::L_ERROR, "PHP extension <strong>MySQL</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>MySQL</strong> not found!");
         }
     }
 
@@ -277,31 +277,31 @@ class SanityTests extends CAT {
         $host_6 = '2001:610:188:444::50';
         switch (CONFIG['GEOIP']['version']) {
             case 0:
-                $this->test_return(Entity::L_REMARK, "As set in the config, no geolocation service will be used");
+                $this->test_return(\core\common\Entity::L_REMARK, "As set in the config, no geolocation service will be used");
                 break;
             case 1:
                 if (!function_exists('geoip_record_by_name')) {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a> or better install GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) not found! Get it from your distribution or <a href='http://pecl.php.net/package/geoip'>here</a> or better install GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                     return;
                 }
                 $record = geoip_record_by_name($host_4);
                 if ($record === FALSE) {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
                 if ($record['city'] != 'Utrecht') {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP</strong> (legacy) found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
-                $this->test_return(Entity::L_REMARK, "PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We stronly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+                $this->test_return(\core\common\Entity::L_REMARK, "PHP extension <strong>GeoIP</strong> (legacy) is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly. We stronly advise to replace the legacy GeoIP with GeoIP2 from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                 break;
             case 2:
                 if (!is_file(CONFIG['GEOIP']['geoip2-path-to-autoloader'])) {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> not found! Get it from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> not found! Get it from <a href='https://github.com/maxmind/GeoIP2-php'>here</a>.");
                     return;
                 }
                 if (!is_file(CONFIG['GEOIP']['geoip2-path-to-db'])) {
-                    $this->test_return(Entity::L_ERROR, "<strong>GeoIP2 database</strong> not found! See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "<strong>GeoIP2 database</strong> not found! See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
                 require_once CONFIG['GEOIP']['geoip2-path-to-autoloader'];
@@ -309,27 +309,27 @@ class SanityTests extends CAT {
                 try {
                     $record = $reader->city($host_4);
                 } catch (Exception $e) {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
                 if ($record->city->name != 'Utrecht') {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
                 try {
                     $record = $reader->city($host_6);
                 } catch (Exception $e) {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
                 if ($record->city->name != 'Utrecht') {
-                    $this->test_return(Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                    $this->test_return(\core\common\Entity::L_ERROR, "PHP extension <strong>GeoIP2</strong> found but not working properly with IPv6, perhaps you need to download the databases. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                     return;
                 }
-                $this->test_return(Entity::L_OK, "PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
+                $this->test_return(\core\common\Entity::L_OK, "PHP extension <strong>GeoIP2</strong> is installed and working. See utils/GeoIP-update.sh in the CAT distribution and use it tu update the GeoIP database regularly.");
                 break;
             default:
-                $this->test_return(Entity::L_ERROR, 'Check CONFIG[\'GEOIP\'][\'version\'], it must be set to either 1 or 2');
+                $this->test_return(\core\common\Entity::L_ERROR, 'Check CONFIG[\'GEOIP\'][\'version\'], it must be set to either 1 or 2');
                 break;
         }
     }
@@ -342,12 +342,12 @@ class SanityTests extends CAT {
         if ($A['exec'] != "") {
             $t = exec($A['exec'] . ' version');
             if ($A['exec_is'] == "EXPLICIT") {
-                $this->test_return(Entity::L_OK, "<strong>$t</strong> was found and is configured explicitly in your config.");
+                $this->test_return(\core\common\Entity::L_OK, "<strong>$t</strong> was found and is configured explicitly in your config.");
             } else {
-                $this->test_return(Entity::L_WARN, "<strong>$t</strong> was found, but is not configured with an absolute path in your config.");
+                $this->test_return(\core\common\Entity::L_WARN, "<strong>$t</strong> was found, but is not configured with an absolute path in your config.");
             }
         } else {
-            $this->test_return(Entity::L_ERROR, "<strong>openssl</strong> was not found on your system!");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>openssl</strong> was not found on your system!");
         }
     }
 
@@ -356,31 +356,31 @@ class SanityTests extends CAT {
      */
     private function makensis_test() {
         if (!is_numeric(CONFIG['NSIS_VERSION'])) {
-            $this->test_return(Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
+            $this->test_return(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
         }
         if (CONFIG['NSIS_VERSION'] < 2) {
-            $this->test_return(Entity::L_ERROR, "NSIS_VERSION needs to be at least 2!");
+            $this->test_return(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be at least 2!");
             return;
         }
         $A = $this->get_exec_path('makensis');
         if ($A['exec'] != "") {
             $t = exec($A['exec'] . ' -VERSION');
             if ($A['exec_is'] == "EXPLICIT") {
-                $this->test_return(Entity::L_OK, "<strong>makensis $t</strong> was found and is configured explicitly in your config.");
+                $this->test_return(\core\common\Entity::L_OK, "<strong>makensis $t</strong> was found and is configured explicitly in your config.");
             } else {
-                $this->test_return(Entity::L_WARN, "<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
+                $this->test_return(\core\common\Entity::L_WARN, "<strong>makensis $t</strong> was found, but is not configured with an absolute path in your config.");
             }
             exec($A['exec'] . ' -HELP', $t);
             $t1 = count(preg_grep('/INPUTCHARSET/', $t));
             if ($t1 == 1 && CONFIG['NSIS_VERSION'] == 2) {
-                $this->test_return(Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
+                $this->test_return(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
             if ($t1 == 0 && CONFIG['NSIS_VERSION'] >= 3) {
-                $this->test_return(Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
+                $this->test_return(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
         } else {
-            $this->test_return(Entity::L_ERROR, "<strong>makensis</strong> was not found on your system!");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>makensis</strong> was not found on your system!");
         }
     }
 
@@ -391,7 +391,7 @@ class SanityTests extends CAT {
         $tmp_dir = $this->createTemporaryDirectory('installer', 0)['dir'];
         if (!chdir($tmp_dir)) {
             $this->loggerInstance->debug(2, "Cannot chdir to $tmp_dir\n");
-            $this->test_return(Entity::L_ERROR, "NSIS modules test - problem with temporary directory permissions, cannot continue");
+            $this->test_return(\core\common\Entity::L_ERROR, "NSIS modules test - problem with temporary directory permissions, cannot continue");
             return;
         }
         $exe = 'tt.exe';
@@ -410,9 +410,9 @@ class SanityTests extends CAT {
         }
         foreach ($NSIS_Module_status as $module => $status) {
             if ($status == 1) {
-                $this->test_return(Entity::L_OK, "NSIS module <strong>$module</strong> was found.");
+                $this->test_return(\core\common\Entity::L_OK, "NSIS module <strong>$module</strong> was found.");
             } else {
-                $this->test_return(Entity::L_ERROR, "NSIS module <strong>$module</strong> was not found or is not working correctly.");
+                $this->test_return(\core\common\Entity::L_ERROR, "NSIS module <strong>$module</strong> was not found or is not working correctly.");
             }
         }
     }
@@ -425,28 +425,28 @@ class SanityTests extends CAT {
         $dir1 = $Dir1['dir'];
         $base1 = $Dir1['base'];
         if ($dir1) {
-            $this->test_return(Entity::L_OK, "Installer cache directory is writable.");
-            Entity::rrmdir($dir1);
+            $this->test_return(\core\common\Entity::L_OK, "Installer cache directory is writable.");
+            \core\common\Entity::rrmdir($dir1);
         } else {
-            $this->test_return(Entity::L_ERROR, "Installer cache directory $base1 does not exist or is not writable!");
+            $this->test_return(\core\common\Entity::L_ERROR, "Installer cache directory $base1 does not exist or is not writable!");
         }
         $Dir2 = $this->createTemporaryDirectory('test', 0);
         $dir2 = $Dir2['dir'];
         $base2 = $Dir2['base'];
         if ($dir2) {
-            $this->test_return(Entity::L_OK, "Test directory is writable.");
-            Entity::rrmdir($dir2);
+            $this->test_return(\core\common\Entity::L_OK, "Test directory is writable.");
+            \core\common\Entity::rrmdir($dir2);
         } else {
-            $this->test_return(Entity::L_ERROR, "Test directory $base2 does not exist or is not writable!");
+            $this->test_return(\core\common\Entity::L_ERROR, "Test directory $base2 does not exist or is not writable!");
         }
         $Dir3 = $this->createTemporaryDirectory('logo', 0);
         $dir3 = $Dir3['dir'];
         $base3 = $Dir3['base'];
         if ($dir3) {
-            $this->test_return(Entity::L_OK, "Logos cache directory is writable.");
-            Entity::rrmdir($dir3);
+            $this->test_return(\core\common\Entity::L_OK, "Logos cache directory is writable.");
+            \core\common\Entity::rrmdir($dir3);
         } else {
-            $this->test_return(Entity::L_ERROR, "Logos cache directory $base3 does not exist or is not writable!");
+            $this->test_return(\core\common\Entity::L_ERROR, "Logos cache directory $base3 does not exist or is not writable!");
         }
     }
 
@@ -462,9 +462,9 @@ class SanityTests extends CAT {
             }
         }
         if ($allthere == "") {
-            $this->test_return(Entity::L_OK, "All of your configured locales are available on your system.");
+            $this->test_return(\core\common\Entity::L_OK, "All of your configured locales are available on your system.");
         } else {
-            $this->test_return(Entity::L_WARN, "Some of your configured locales (<strong>$allthere</strong>) are not installed and will not be displayed correctly!");
+            $this->test_return(\core\common\Entity::L_WARN, "Some of your configured locales (<strong>$allthere</strong>) are not installed and will not be displayed correctly!");
         }
     }
 
@@ -529,9 +529,9 @@ class SanityTests extends CAT {
             }
         }
         if ($defaultvalues != "") {
-            $this->test_return(Entity::L_WARN, "Your configuration in config/config.php contains unchanged default values or links to inexistent files: <strong>$defaultvalues</strong>!");
+            $this->test_return(\core\common\Entity::L_WARN, "Your configuration in config/config.php contains unchanged default values or links to inexistent files: <strong>$defaultvalues</strong>!");
         } else {
-            $this->test_return(Entity::L_OK, "Your configuration does not contain any unchanged defaults, which is a good sign.");
+            $this->test_return(\core\common\Entity::L_OK, "Your configuration does not contain any unchanged defaults, which is a good sign.");
         }
     }
 
@@ -542,38 +542,38 @@ class SanityTests extends CAT {
         $databaseName1 = 'INST';
         $db1 = mysqli_connect(CONFIG['DB'][$databaseName1]['host'], CONFIG['DB'][$databaseName1]['user'], CONFIG['DB'][$databaseName1]['pass'], CONFIG['DB'][$databaseName1]['db']);
         if (!$db1) {
-            $this->test_return(Entity::L_ERROR, "Connection to the  $databaseName1 database failed");
+            $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName1 database failed");
         } else {
             $r = mysqli_query($db1, 'select * from profile_option_dict');
             if ($r->num_rows == $this->profile_option_ct) {
-                $this->test_return(Entity::L_OK, "The $databaseName1 database appears to be OK.");
+                $this->test_return(\core\common\Entity::L_OK, "The $databaseName1 database appears to be OK.");
             } else {
-                $this->test_return(Entity::L_ERROR, "The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
+                $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName1 database is reacheable but probably not updated to this version of CAT.");
             }
         }
         $databaseName2 = 'USER';
         $db2 = mysqli_connect(CONFIG['DB'][$databaseName2]['host'], CONFIG['DB'][$databaseName2]['user'], CONFIG['DB'][$databaseName2]['pass'], CONFIG['DB'][$databaseName2]['db']);
         if (!$db2) {
-            $this->test_return(Entity::L_ERROR, "Connection to the  $databaseName2 database failed");
+            $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName2 database failed");
         } else {
             $r = mysqli_query($db2, 'desc view_admin');
             if ($r->num_rows == $this->view_admin_ct) {
-                $this->test_return(Entity::L_OK, "The $databaseName2 database appears to be OK.");
+                $this->test_return(\core\common\Entity::L_OK, "The $databaseName2 database appears to be OK.");
             } else {
-                $this->test_return(Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
+                $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName2 is reacheable but there is something wrong with the schema");
             }
         }
         $databaseName3 = 'EXTERNAL';
         if (!empty(CONFIG['DB'][$databaseName3])) {
             $db3 = mysqli_connect(CONFIG['DB'][$databaseName3]['host'], CONFIG['DB'][$databaseName3]['user'], CONFIG['DB'][$databaseName3]['pass'], CONFIG['DB'][$databaseName3]['db']);
             if (!$db3) {
-                $this->test_return(Entity::L_ERROR, "Connection to the  $databaseName3 database failed");
+                $this->test_return(\core\common\Entity::L_ERROR, "Connection to the  $databaseName3 database failed");
             } else {
                 $r = mysqli_query($db3, 'desc view_admin');
                 if ($r->num_rows == $this->view_admin_ct) {
-                    $this->test_return(Entity::L_OK, "The $databaseName3 database appears to be OK.");
+                    $this->test_return(\core\common\Entity::L_OK, "The $databaseName3 database appears to be OK.");
                 } else {
-                    $this->test_return(Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
+                    $this->test_return(\core\common\Entity::L_ERROR, "The $databaseName3 is reacheable but there is something wrong with the schema");
                 }
             }
         }
@@ -613,10 +613,10 @@ class SanityTests extends CAT {
 
 
         if ($no_cache_dev_count > 1) {
-            $this->test_return(Entity::L_WARN, "The following devices will not be cached: $no_cache_dev");
+            $this->test_return(\core\common\Entity::L_WARN, "The following devices will not be cached: $no_cache_dev");
         }
         if ($no_cache_dev_count == 1) {
-            $this->test_return(Entity::L_WARN, "The following device will not be cached: $no_cache_dev");
+            $this->test_return(\core\common\Entity::L_WARN, "The following device will not be cached: $no_cache_dev");
         }
     }
 
@@ -646,9 +646,9 @@ class SanityTests extends CAT {
         $mail->Body = "Testing CAT mailing\n";
         $sent = $mail->send();
         if ($sent) {
-            $this->test_return(Entity::L_OK, "mailer settings appear to be working, check " . CONFIG['APPEARANCE']['abuse-mail'] . " mailbox if the message was receiced.");
+            $this->test_return(\core\common\Entity::L_OK, "mailer settings appear to be working, check " . CONFIG['APPEARANCE']['abuse-mail'] . " mailbox if the message was receiced.");
         } else {
-            $this->test_return(Entity::L_ERROR, "mailer settings failed, check the Config::MAILSETTINGS");
+            $this->test_return(\core\common\Entity::L_ERROR, "mailer settings failed, check the Config::MAILSETTINGS");
         }
     }
 
