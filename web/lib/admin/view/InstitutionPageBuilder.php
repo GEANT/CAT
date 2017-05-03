@@ -151,15 +151,14 @@ class InstitutionPageBuilder {
     /**
      * Builds page content header elements.
      */
-    public function buildPageHeader(){
-        $langHandler = new Language();
-        $productHeader = new PageElementAdapter();
-        $productHeader->addText($this->decoration->productheader($this->page->getType(), $langHandler->getLang()));
-        $this->page->appendContent($productHeader) ;
-
-        $pageHeading = new Tag('h1');
-        $pageHeading->addText($this->headerTitle);
-        $this->page->appendContent(new PageElementAdapter($pageHeading));
+    public function renderPageHeader(){
+        $langHandler = new \core\common\Language();
+        echo $this->decoration->productheader($this->pageType, $langHandler->getLang());
+        ?>
+        <h1>
+            <?php echo $this->headerTitle; ?>
+        </h1>
+        <?php
     }
     
     /**
