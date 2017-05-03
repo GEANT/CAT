@@ -104,6 +104,8 @@ class ProfileSilverbullet extends AbstractProfile {
             "internal:profile_count" => $this->idpNumberOfProfiles,
             "internal:realm" => preg_replace('/^.*@/', '', $this->realm),
             "internal:use_anon_outer" => FALSE,
+            "internal:checkuser_outer" => TRUE,
+            "internal:checkuser_value" => "anonymous",
             "internal:anon_local_value" => $localValueIfAny,
             "internal:silverbullet_maxusers" => $tempMaxUsers,
             "profile:production" => "on",
