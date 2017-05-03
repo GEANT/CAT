@@ -179,10 +179,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         return FALSE;
     }
 
+    /**
+     * Constructs the outer ID which should be used during realm tests. Obviously
+     * can only do something useful if the realm is known to the system.
+     * 
+     * @return string the outer ID to use for realm check operations
+     * @thorws Exception
+     */
         public function getRealmCheckOuterUsername() {
         $realm = $this->getAttributes("internal:realm")[0]['value'] ?? FALSE;
-        if ($realm == FALSE) {
-            return FALSE;
+        if ($realm == FALSE) { // we can't really return anything useful here
+            throw new Exception("Unable to construct a realmcheck username if the admin did not tell us the realm. You shouldn't have called this function in this context.");
         }
         if (count($this->getAttributes("internal:checkuser_outer")) > 0) {
             // we are supposed to use a specific outer username for checks, 
