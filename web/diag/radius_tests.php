@@ -114,10 +114,10 @@ if (isset($_REQUEST['profile_id'])) {
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
-    $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->identifier);
+    $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($my_profile->getEapMethodsinOrderOfPreference(1)), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()['eap:ca_file']);
 } else {
     $my_profile = NULL;
-    $testsuite = new \core\diag\RADIUSTests($check_realm);
+    $testsuite = new \core\diag\RADIUSTests($check_realm, "@".$check_realm);
 }
 
 
@@ -186,10 +186,10 @@ switch ($test_type) {
                 }
                 if ($run_test) {
                     $loggerInstance->debug(4, "TLS-USERNAME=$tls_username\n");
-                    $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass, '', TRUE, TRUE, $clientcertdata);
+                    $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
                 }
             } else {
-                $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password, $outer_user_name);
+                $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password);
             }
             $returnarray['result'][$i] = process_result($testsuite, $hostindex);
             $returnarray['result'][$i]['eap'] = $uiElements->displayName($eap);

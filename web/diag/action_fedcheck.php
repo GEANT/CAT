@@ -39,7 +39,7 @@ function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
         return $tabletext;
     }
-    $testsuite = new \core\diag\RADIUSTests($realm, $profile->identifier);
+    $testsuite = new \core\diag\RADIUSTests($realm, $profile->getRealmCheckOuterUsername());
     $rfc7585suite = new \core\diag\RFC7585Tests($realm);
 
     // NAPTR existence check
