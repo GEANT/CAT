@@ -478,9 +478,11 @@ network={
         return $cmdline;
     }
 
-    private function thoroughChecks(&$testresults, &$intermOdditiesCAT) {
+    private function thoroughChecks(&$testresults, &$intermOdditiesCAT, $tmpDir) {
+        $catIntermediates = 0;
         $configuredRootCt = 0;
         $verifyResult = 0;
+
 // make a copy of the EAP-received chain and add the configured intermediates, if any
         foreach ($this->expectedCABundle as $oneCA) {
             $x509 = new \core\common\X509();
@@ -512,9 +514,6 @@ network={
                     $catIntermediates++;
                 }
             }
-        }
-        if ($numberServer > 0) {
-            $this->loggerInstance->debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
         }
         $checkstring = "";
         if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
@@ -762,7 +761,6 @@ network={
             $numberRoot = 0;
             $numberServer = 0;
             $eapIntermediates = 0;
-            $catIntermediates = 0;
             $servercert = FALSE;
             $totallySelfsigned = FALSE;
 
@@ -798,9 +796,11 @@ network={
                         $cert['full_details']['type'] = 'totally_selfsigned';
                     }
                     $numberServer++;
+
                     $servercert = $cert;
                     if ($numberServer == 1) {
                         fwrite($serverFile, $certPem . "\n");
+                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
                     }
                 } else
                 if ($cert['root'] == 1) {
@@ -857,7 +857,7 @@ network={
             $verifyResult = 0;
 
             if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
-                $verifyResult = $this->thoroughChecks($testresults, $intermOdditiesCAT);
+                $verifyResult = $this->thoroughChecks($testresults, $intermOdditiesCAT, $tmpDir);
             }
 
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesEAP);
