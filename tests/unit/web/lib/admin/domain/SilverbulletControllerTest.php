@@ -11,6 +11,7 @@ use web\lib\admin\http\RevokeCertificateCommand;
 use web\lib\admin\view\InstitutionPageBuilder;
 use web\lib\admin\http\SaveUsersCommand;
 use web\lib\admin\domain\Attribute;
+use web\lib\admin\view\DefaultHtmlPage;
 
 if ( !isset( $_SESSION ) ) $_SESSION = array();
 
@@ -19,6 +20,7 @@ class MockInstitutionPageBuilder extends InstitutionPageBuilder{
     private $profile;
     
     public function __construct($profile){
+        parent::__construct(new DefaultHtmlPage("Test Page"));
         $this->profile = $profile; 
     }
     

@@ -19,7 +19,7 @@ class SendTokenByEmail extends AbstractAjaxCommand{
      * 
      * @var PHPMailer
      */
-    private $mail = null;
+    protected $mail = null;
     
     public function __construct($command, $controller){
         parent::__construct($command, $controller);

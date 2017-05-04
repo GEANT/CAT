@@ -12,7 +12,7 @@ use web\lib\admin\view\html\CompositeTag;
  */
 class DefaultAjaxPage extends AbstractPage{
     
-    private $response = null;
+    protected $response = null;
     
     /**
      * 

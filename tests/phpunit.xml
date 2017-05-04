@@ -20,5 +20,7 @@
       <directory>unit/web/lib/admin/utils</directory></testsuite>
     <testsuite name="Storage">
       <directory>unit/web/lib/admin/storage</directory></testsuite>
+    <testsuite name="Http">
+      <directory>unit/web/lib/admin/http</directory></testsuite>
   </testsuites>
 </phpunit>
