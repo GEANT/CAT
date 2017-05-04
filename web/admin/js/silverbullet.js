@@ -872,7 +872,6 @@ silverbullet.views.TokenProvider = function (element, panel) {
         this.originalBackgroundColor = this.copyButton.css('background-color');
         this.originalColor = this.copyButton.css('color');
         this.composeButton = this.element.find(query+'-compose');
-        console.log(this.composeButton);
     }
 };
 silverbullet.views.TokenProvider.prototype = Object.create(silverbullet.views.ViewElement.prototype);
@@ -906,8 +905,8 @@ silverbullet.views.TokenProvider.prototype.render = function () {
     }
     if(this.composeButton){
         this.composeButton.on('click', function() {
-            that.panel.show();
             that.panel.setInvitationLink(that.copyInput.val());
+            that.panel.show();
         })
     }
 };
@@ -920,13 +919,36 @@ silverbullet.views.TokenProvider.prototype.render = function () {
 silverbullet.views.ComposeEmailPanel = function (popup) {
     this.popup = popup;
     this.link = '';
+    this.emailClientButton = null;
+    this.emailCATButton = null;
+    this.emailTextInput = null;
+    this.containerElement = null;
+    this.subject = '';
+    this.body = '';
+    this.bodyElement = document.createElement('input');
+    this.bodyElement.setAttribute('type', 'hidden');
+    this.bodyElement.setAttribute('name', 'body');
+    this.subjectElement = document.createElement('input');
+    this.subjectElement.setAttribute('type', 'hidden');
+    this.subjectElement.setAttribute('name', 'subject');
+    this.errorElement = document.createElement('p');
+    this.errorElement.style.color = "red";
+    this.ajaxBusy = false;
+    this.ajaxBuffer = null;
     if(this.popup){
-        silverbullet.views.ViewElement.call(this, popup.element);
+        silverbullet.views.ViewElement.call(this, $(popup.element));
+        var query = '#' + silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS;
+        this.emailClientButton = this.element.find(query + '-client');
+        this.emailCATButton = this.element.find(query + '-cat');
+        this.emailTextInput = this.element.find(query + '-email');
+        this.containerElement = this.emailClientButton.parent();
     }
 };
 silverbullet.views.ComposeEmailPanel.prototype = Object.create(silverbullet.views.ViewElement.prototype);
 silverbullet.views.ComposeEmailPanel.prototype.constructor = silverbullet.views.ComposeEmailPanel;
 silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS = 'sb-compose-email';
+silverbullet.views.ComposeEmailPanel.COMMAND_VALIDATE_EMAIL = 'validateemailaddress';
+silverbullet.views.ComposeEmailPanel.COMMAND_SEND_TOKEN = 'sendtokenbyemail';
 
 /**
  * 
@@ -939,8 +961,132 @@ silverbullet.views.ComposeEmailPanel.prototype.setInvitationLink = function (lin
  * 
  */
 silverbullet.views.ComposeEmailPanel.prototype.show = function () {
-    this.element.style.display = "block";
+    var that = this;
+    this.init();
+    this.element.css('display',"block");
+    this.emailTextInput.val('');
     this.popup.positionToCenter();
+    $.ajax({
+        method: "POST",
+        url: "inc/silverbullet.inc.php",
+        data: {command: silverbullet.views.ComposeEmailPanel.COMMAND_SEND_TOKEN, tokenlink: this.link}
+    }).done(function(data) {
+        var email = $(data).find('email');
+        that.subject = email.attr('subject');
+        that.body = email.text();
+        that.subjectElement.setAttribute('value', that.subject);
+        that.bodyElement.setAttribute('value', that.body);
+        if(that.containerElement.find(that.subjectElement).length==0){
+            that.containerElement.append(that.subjectElement);
+            that.containerElement.append(that.bodyElement);
+        }
+    }).fail(function() {
+        that.errorElement.textContent = "Failed to compose message body and subject!";
+    });
+};
+
+/**
+ * @param {String} text
+ * @param {String} color
+ */
+silverbullet.views.ComposeEmailPanel.prototype.showMessage = function (text, color) {
+    this.errorElement.style.color = color;
+    this.errorElement.textContent = text;
+    if(!this.errorElement.parentNode){
+        this.containerElement.append(this.errorElement);
+    }
+};
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.init = function (){
+    this.ajaxBusy = false;
+    if(this.errorElement.parentNode){
+        this.errorElement.parentNode.removeChild(this.errorElement);
+    }
+    this.emailTextInput.prop('disabled', false);
+    this.emailCATButton.prop('disabled', true);
+};
+
+/**
+ * @param {silverbullet.views.EmailValidationCommand} command
+ */
+silverbullet.views.ComposeEmailPanel.prototype.repeat = function (command){
+    this.ajaxBusy = false;
+    this.emailTextInput.prop('disabled', false);
+    this.emailCATButton.prop('disabled', true);
+    this.cleanAjaxBuffer(command);
+};
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.start = function (){
+    this.ajaxBusy = true;
+    this.emailTextInput.prop('disabled', false);
+    this.emailCATButton.prop('disabled', true);
+};
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.block = function (){
+    this.ajaxBusy = true;
+    this.emailTextInput.prop('disabled', true);
+    this.emailCATButton.prop('disabled', true);
+};
+
+/**
+ * 
+ */
+silverbullet.views.ComposeEmailPanel.prototype.unblock = function (){
+    this.ajaxBusy = true;
+    this.emailTextInput.prop('disabled', false);
+    this.emailTextInput.select();
+    var length = this.emailTextInput.val().length;
+    this.emailTextInput[0].selectionStart = length;
+    this.emailTextInput[0].selectionEnd = length;
+};
+
+/**
+ * @param {silverbullet.views.EmailValidationCommand} command
+ */
+silverbullet.views.ComposeEmailPanel.prototype.complete = function (command){
+    this.ajaxBusy = false;
+    if(this.errorElement.parentNode){
+        this.errorElement.parentNode.removeChild(this.errorElement);
+    }
+    this.emailTextInput.prop('disabled', false);
+    this.emailCATButton.prop('disabled', false);
+    this.cleanAjaxBuffer(command);
+};
+
+/**
+ * @param {silverbullet.views.EmailValidationCommand} command
+ */
+silverbullet.views.ComposeEmailPanel.prototype.cleanAjaxBuffer = function (command){
+    if(this.ajaxBuffer){
+        if(this.ajaxBuffer.address != command.address){
+            var command = this.ajaxBuffer;
+            this.ajaxBuffer = null;
+            this.receive(command);
+        }else{
+            this.ajaxBuffer = null;
+        }
+    }
+};
+
+/**
+ * 
+ * @param {silverbullet.views.EmailValidationCommand} command
+ */
+silverbullet.views.ComposeEmailPanel.prototype.receive = function (command) {
+    if(!this.ajaxBusy){
+        command.execute();
+    }else{
+        this.ajaxBuffer = command;
+    }
 };
 
 /**
@@ -949,9 +1095,109 @@ silverbullet.views.ComposeEmailPanel.prototype.show = function () {
 silverbullet.views.ComposeEmailPanel.prototype.render = function () {
     var that = this;
     this.popup.render();
-    this.element.addEventListener('click', function(e) {
-        console.log("Sending link " + that.link);
+    this.emailClientButton.on('click', function(e) {
+        var mailto = "mailto:";
+        var address = that.emailTextInput.val();
+        if(address!=""){
+            mailto += address;
+        }
+        if(that.subject && that.body){
+            mailto += "?subject=" + that.subject + "&body=" + encodeURI(that.body);
+        }
+        window.location.href = mailto;
     });
+    this.emailTextInput.on('keyup', function(e) {
+        var address = that.emailTextInput.val();
+        if(address.indexOf('@') > 0){
+            if((e.which==8 || (e.which>45 && e.which<91) || (e.which>93 && e.which<112) || (e.which>185 && e.which<193) || (e.which>218 && e.which<223))){
+                that.receive(new silverbullet.views.EmailValidationCommand(address, that));
+            }
+        }else{
+            that.init();
+        }    
+    });
+    this.emailTextInput.on('input', function(e) {
+        var address = that.emailTextInput.val();
+        if(address.indexOf('@') > 0){
+            that.receive(new silverbullet.views.EmailValidationCommand(address, that));
+        }else{
+            that.init();
+        }    
+    });
+    
     
 };
 
+/**
+ * 
+ * @constructor
+ * @param {String} address
+ * @param {silverbullet.views.ComposeEmailPanel} datePicker
+
+ */
+silverbullet.views.EmailValidationCommand = function (address, panel) {
+    this.address = address;
+    this.buttonElement = panel.emailCATButton;
+    this.panel = panel;
+    this.interval = -1;
+    this.blocked = false;
+};
+
+/**
+ * 
+ */
+silverbullet.views.EmailValidationCommand.prototype.clear = function(){
+    if(this.interval > 0){
+        clearInterval(this.interval);
+        this.interval = -1;
+        if(this.blocked){
+            this.blocked = false;
+            this.panel.unblock();
+        }
+    }
+};
+
+/**
+ * 
+ */
+silverbullet.views.EmailValidationCommand.prototype.execute = function () {
+    var that = this;
+    this.panel.start();
+    
+    var validationMessage = "Validating email '" + this.address + "'";
+    this.interval = setInterval(function() {
+        that.panel.block();
+        validationMessage += ".";
+        that.panel.showMessage(validationMessage, 'green');
+    }, 1000);
+    
+    $.ajax({
+        method: "POST",
+        url: "inc/silverbullet.inc.php",
+        data: {command: silverbullet.views.ComposeEmailPanel.COMMAND_VALIDATE_EMAIL, address: encodeURI(that.address)}
+    }).done(function(data) {
+        that.clear();
+        
+        var email = $(data).find('email');
+        var isValid = email.attr('isValid');
+        var message = email.text();
+
+        if(isValid=='true'){
+            that.panel.complete(that);
+            if(message.trim() == ''){
+                that.panel.showMessage("Email address '" + that.address + "' is valid!", 'green');
+            }
+        }else{
+            that.panel.repeat(that);
+        }
+        if(message.trim() != ''){
+            that.panel.showMessage(message, 'red');
+        }
+        
+    }).fail(function() {
+        that.clear();
+        that.panel.repeat(that);
+        that.panel.showMessage("Failed to validate email address '" + that.address + "'!", 'red');
+    });
+    
+};

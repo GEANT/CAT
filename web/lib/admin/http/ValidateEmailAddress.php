@@ -21,11 +21,11 @@ class ValidateEmailAddress extends AbstractAjaxCommand{
      * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
-        if(isset($_GET[self::PARAM_ADDRESS])){
+        if(isset($_POST[self::PARAM_ADDRESS])){
             $page = $this->controller->getPage();
-            $address = $this->parseString($_GET[self::PARAM_ADDRESS]);
+            $address = $this->parseString($_POST[self::PARAM_ADDRESS]);
             $result = OutsideComm::mailAddressValidSecure($address);
-            $message = $this->chooseMessage($result);
+            $message = $this->chooseMessage($result, $address);
             $tokenTag = new Tag('email');
             $tokenTag->addAttribute('address', $address);
             $tokenTag->addAttribute('isValid', ($result > 0) ? 'true' : 'false');
@@ -38,11 +38,12 @@ class ValidateEmailAddress extends AbstractAjaxCommand{
      * Chooses message based on returned constant value.
      * 
      * @param mixed $result Should be a number, but validation method signature indicates mixed value.
+     * @param string $address
      * @return string
      */
-    private function chooseMessage($result){
-        $errorMessage = _("Email address validation failed. Sending is not possible!");
-        $warningMessage = _("The invitation token is possibly going over the internet without transport encryption and can be intercepted by random third parties! Please consider sending the invitation token via a more secure transport!");
+    private function chooseMessage($result, $address){
+        $errorMessage = sprintf(_("Email address '%s' validation failed. Sending is not possible!"), $address);
+        $warningMessage = sprintf(_("The invitation token is possibly going over the internet without transport encryption and can be intercepted by random third parties for email '%s'! Please consider sending the invitation token via a more secure transport!"), $address);
         switch ($result) {
             case OutsideComm::MAILDOMAIN_NO_STARTTLS:
                 return $warningMessage;

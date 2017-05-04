@@ -34,16 +34,16 @@ class SendTokenByEmailTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse(strpos($renderedResponse, 'status="true"'));
         $this->assertEmpty($mail->getAllRecipientAddresses());
         
-        $_GET[MockSendTokenByEmail::PARAM_TOKENLINK] = 'testtokenlinkstring';
-        $_GET[ValidateEmailAddress::PARAM_ADDRESS] = 'test@emailaddress.com';
+        $_POST[MockSendTokenByEmail::PARAM_TOKENLINK] = 'testtokenlinkstring';
+        $_POST[ValidateEmailAddress::PARAM_ADDRESS] = 'test@emailaddress.com';
 
         $this->command->execute();
         $this->assertEmpty($mail->ErrorInfo);
 
         $renderedResponse = $response->__toString();
         $this->assertTrue(strpos($renderedResponse, 'status="true"')!==false);
-        $this->assertTrue(strpos($mail->Body, $_GET[MockSendTokenByEmail::PARAM_TOKENLINK])!==false);
+        $this->assertTrue(strpos($mail->Body, $_POST[MockSendTokenByEmail::PARAM_TOKENLINK])!==false);
         $this->assertNotEmpty($mail->getAllRecipientAddresses());
-        $this->assertArrayHasKey($_GET[ValidateEmailAddress::PARAM_ADDRESS], $mail->getAllRecipientAddresses());
+        $this->assertArrayHasKey($_POST[ValidateEmailAddress::PARAM_ADDRESS], $mail->getAllRecipientAddresses());
     }
 }

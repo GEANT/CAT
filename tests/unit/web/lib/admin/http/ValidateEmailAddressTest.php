@@ -33,12 +33,12 @@ class ValidateEmailAddressTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse(strpos($renderedResponse, '<email'));
         $this->assertFalse(strpos($renderedResponse, 'isValid="true"'));
 
-        $_GET[ValidateEmailAddress::PARAM_ADDRESS] = 'test@em@ailaddress.com';
+        $_POST[ValidateEmailAddress::PARAM_ADDRESS] = 'test@em@ailaddress.com';
 
         $this->command->execute();
         $renderedResponse = $response->__toString();
         $this->assertTrue(strpos($renderedResponse, '<email')!==false);
-        $this->assertTrue(strpos($renderedResponse, 'address="'.$_GET[ValidateEmailAddress::PARAM_ADDRESS].'"')!==false);
+        $this->assertTrue(strpos($renderedResponse, 'address="'.$_POST[ValidateEmailAddress::PARAM_ADDRESS].'"')!==false);
         $this->assertFalse(strpos($renderedResponse, 'isValid="true"'));
         
     }

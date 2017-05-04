@@ -14,6 +14,7 @@ class SendTokenByEmail extends AbstractAjaxCommand{
     
     const COMMAND = "sendtokenbyemail";
     const PARAM_TOKENLINK = "tokenlink";
+    const PARAM_CONFIRM_SEND = 'confirmsend';
     
     /**
      * 
@@ -32,25 +33,29 @@ class SendTokenByEmail extends AbstractAjaxCommand{
      * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute() {
-        if(isset($_GET[self::PARAM_TOKENLINK]) && isset($_GET[ValidateEmailAddress::PARAM_ADDRESS])){
+        if(isset($_POST[self::PARAM_TOKENLINK])){
             $page = $this->controller->getPage();
-            $invitationToken = $this->parseString($_GET[self::PARAM_TOKENLINK]);
-            $address = $this->parseString($_GET[ValidateEmailAddress::PARAM_ADDRESS]);
-            
-            $this->mail->addAddress($address);
-            $this->mail->Subject  = _("New certificate at CAT");
-            $this->mail->Body     = sprintf(_("Hi!\n\nYou have new certificate issued at CAT please follow the link to download the certificate file '%s'.\n\nRegards,\n CAT Team"), $invitationToken);
-            
+            $invitationToken = $this->parseString($_POST[self::PARAM_TOKENLINK]);
+
             $tokenTag = new Tag('email');
-            $tokenTag->addAttribute('address', $address);
+            $this->mail->Subject  = _("New certificate at CAT!");
+            $tokenTag->addAttribute('subject', $this->mail->Subject);
+            $this->mail->Body = sprintf(_("Hi!\n\nYou have new certificate issued at CAT please follow the link to download the certificate file '%s'.\n\nRegards,\nCAT Team"), $invitationToken);
+            $tokenTag->addText($this->mail->Body);
             
-            if($this->mail->send()) {
-                $tokenTag->addAttribute('status', 'true');
-                $tokenTag->addText(_("Message has been sent."));
-            } else {
-                $tokenTag->addAttribute('status', 'false');
-                $tokenTag->addText(sprintf(_("Message was not sent. Mailer error: '%s'."), $this->mail->ErrorInfo));
+            if(isset($_POST[ValidateEmailAddress::PARAM_ADDRESS])){
+                $address = $this->parseString($_POST[ValidateEmailAddress::PARAM_ADDRESS]);
+                $this->mail->addAddress($address);
+                $tokenTag->addAttribute('address', $address);
+                if($this->mail->send()) {
+                    $tokenTag->addAttribute('status', 'true');
+                    $tokenTag->addText(_("Message has been sent."));
+                } else {
+                    $tokenTag->addAttribute('status', 'false');
+                    $tokenTag->addText(sprintf(_("Message was not sent. Mailer error: '%s'."), $this->mail->ErrorInfo));
+                }
             }
+            
             $page->appendResponse($tokenTag);
         }
     }

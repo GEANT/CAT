@@ -54,8 +54,8 @@ class AjaxController extends AbstractController{
      */
     public function parseRequest(){
         $commandToken = '';
-        if(isset($_GET[AjaxController::COMMAND])){
-            $commandToken = $_GET[AjaxController::COMMAND];
+        if(isset($_REQUEST[AjaxController::COMMAND])){
+            $commandToken = $_REQUEST[AjaxController::COMMAND];
         }
         $this->currentCommand = $this->createCommand($commandToken);
         $this->currentCommand->execute();
