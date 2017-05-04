@@ -24,7 +24,7 @@ namespace core\diag;
 
 use \Exception;
 
-require_once(dirname(dirname(__DIR__))."/config/_config.php");
+require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
@@ -38,14 +38,11 @@ require_once(dirname(dirname(__DIR__))."/config/_config.php");
  * @package Developer
  */
 class RADIUSTests extends AbstractTest {
-    
-    private $profile;
 
     /**
      * The variables below maintain state of the result of previous checks.
      * 
      */
-    
     private $UDP_reachability_executed;
     private $errorlist;
 
@@ -56,36 +53,67 @@ class RADIUSTests extends AbstractTest {
      * @var string
      */
     private $realm;
-
-    
+    private $outerUsernameForChecks;
+    private $expectedCABundle;
+    private $expectedServerNames;
+    private $supportedEapTypes;
+    private $opMode;
     public $UDP_reachability_result;
-    
+
+    const RADIUS_TEST_OPERATION_MODE_SHALLOW = 1;
+    const RADIUS_TEST_OPERATION_MODE_THOROUGH = 2;
+
     /**
      * Constructor for the EAPTests class. The single mandatory parameter is the
      * realm for which the tests are to be carried out.
      * 
      * @param string $realm
-     * @param int $profileId
+     * @param string $outerUsernameForChecks
+     * @param array $supportedEapTypes (array of integer representations of EAP types)
+     * @param array $expectedServerNames (array of strings)
+     * @param array $expectedCABundle (array of PEM blocks)
      */
-    public function __construct($realm, $profileId = 0) {
+    public function __construct($realm, $outerUsernameForChecks, $supportedEapTypes = [], $expectedServerNames = [], $expectedCABundle = []) {
         parent::__construct();
         $oldlocale = $this->languageInstance->setTextDomain('diagnostics');
 
         $this->realm = $realm;
-        $this->UDP_reachability_result = [];
-        
-        
-        $this->errorlist = [];
-        
-        if ($profileId !== 0) {
-            $this->profile = \core\ProfileFactory::instantiate($profileId);
-            if (!$this->profile instanceof \core\ProfileRADIUS) {
-                throw new Exception("The profile is not a ProfileRADIUS! We can only check those!");
+        $this->outerUsernameForChecks = $outerUsernameForChecks;
+        $this->expectedCABundle = $expectedCABundle;
+        $this->expectedServerNames = $expectedServerNames;
+        $this->supportedEapTypes = $supportedEapTypes;
+
+        $this->opMode = self::RADIUS_TEST_OPERATION_MODE_SHALLOW;
+
+        if (in_array(\core\common\EAP::INTEGER_TLS, $supportedEapTypes) ||
+                in_array(\core\common\EAP::INTEGER_SILVERBULLET, $supportedEapTypes) ||
+                in_array(\core\common\EAP::INTEGER_TTLS_GTC, $supportedEapTypes) ||
+                in_array(\core\common\EAP::INTEGER_TTLS_MSCHAPv2, $supportedEapTypes) ||
+                in_array(\core\common\EAP::INTEGER_TTLS_PAP, $supportedEapTypes) ||
+                in_array(\core\common\EAP::INTEGER_PEAP_MSCHAPv2, $supportedEapTypes) ||
+                in_array(\core\common\EAP::INTEGER_FAST_GTC, $supportedEapTypes)) {
+            // we need to have info about at least one CA cert and server names
+            if (count($this->expectedCABundle) == 0 || count($this->expectedServerNames) == 0) {
+                Throw new Exception("Thorough checks for an EAP type needing CA+server names were requested, but the required parameters were not given.");
+            } else {
+                $this->opMode = self::RADIUS_TEST_OPERATION_MODE_THOROUGH;
             }
-        } else {
-            $this->profile = FALSE;
         }
 
+        if (in_array(\core\common\EAP::INTEGER_EAP_pwd, $supportedEapTypes)) {
+            if (count($this->expectedServerNames) == 0) {
+                Throw new Exception("Thorough checks for an EAP type needing server names were requested, but the required parameter was not given.");
+            } else {
+                $this->opMode = self::RADIUS_TEST_OPERATION_MODE_THOROUGH;
+            }
+        }
+
+        $this->loggerInstance->debug(4, "RADIUSTests is in opMode " . $this->opMode . ", parameters were: $realm, $outerUsernameForChecks, " . print_r($supportedEapTypes, true));
+        $this->loggerInstance->debug(4, print_r($expectedServerNames, true));
+        $this->loggerInstance->debug(4, print_r($expectedCABundle, true));
+
+        $this->UDP_reachability_result = [];
+        $this->errorlist = [];
         $this->languageInstance->setTextDomain($oldlocale);
     }
 
@@ -213,13 +241,15 @@ class RADIUSTests extends AbstractTest {
      * @return int returncode
      */
     public function UDP_reachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
-// for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
-// the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
-        $clientcerthandle = fopen(dirname(__FILE__) . "/clientcert.p12", "r");
-        $this->loggerInstance->debug(4, "Tried to get a useless client cert from" . dirname(__FILE__) . "/clientcert.p12");
-        $clientcert = fread($clientcerthandle, filesize(dirname(__FILE__) . "/clientcert.p12"));
-        fclose($clientcerthandle);
-        return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, "eaplab", '', $opnameCheck, $frag, $clientcert);
+        // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
+        // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
+        $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
+        // if we are in thorough opMode, use our knowledge for a more clever check
+        // otherwise guess
+        if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
+            return $this->UDP_login($probeindex, \core\common\EAP::eAPMethodArrayIdConversion($this->supportedEapTypes[0]), $this->outerUsernameForChecks, '', $opnameCheck, $frag, $clientcert);
+        }
+        return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, '', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -336,41 +366,6 @@ class RADIUSTests extends AbstractTest {
     }
 
     /**
-     * Which outer ID should we use? Calculate the local part of it.
-     * Not trivial: there is 
-     * - the inner username (only if no outer ID defined
-     * - the outer username for installer rollout (preferred over inner)
-     * - the outer username dedicated for our tests (preferred over outer-installer)
-     * @param string $innerUser
-     * @return string the best-match string
-     */
-    private function bestOuterLocalpart($innerUser) {
-        $matches = [];
-        $anonIdentity = ""; // our default of last resort. Will check if servers choke on the IETF-recommended anon ID format.
-        if ($this->profile instanceof \core\ProfileRADIUS) { // take profile's anon ID (special one for realm checks or generic one) if known
-            $foo = $this->profile;
-            $useAnonOuter = $foo->getAttributes("internal:use_anon_outer")[0]['value'];
-            $this->loggerInstance->debug(3, "calculating local part with explicit Profile\n");
-// did the admin specify a special outer ID for realm checks?
-// take this with precedence
-            $isCheckuserSet = $foo->getAttributes('internal:checkuser_outer')[0]['value'];
-            if ($isCheckuserSet) {
-                $anonIdentity = $foo->getAttributes('internal:checkuser_value')[0]['value'];
-            }
-// if none, take the configured anon outer ID
-            elseif ($useAnonOuter == TRUE && $foo->realm == $this->realm) {
-                $anonIdentity = $foo->getAttributes("internal:anon_local_value")[0]['value'];
-            }
-        } elseif (preg_match("/(.*)@.*/", $innerUser, $matches)) {
-// otherwise, use the local part of inner ID if provided
-
-            $anonIdentity = $matches[1];
-        }
-// if we couldn't gather any intelligible information, use the empty string
-        return $anonIdentity;
-    }
-
-    /**
      * 
      * @param array $eaptype array representation of the EAP type
      * @param string $inner inner username
@@ -483,6 +478,190 @@ network={
         return $cmdline;
     }
 
+    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
+
+        // collect CA certificates, both the incoming EAP chain and from CAT config
+        // Write the root CAs into a trusted root CA dir
+        // and intermediate and first server cert into a PEM file
+        // for later chain validation
+
+        if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
+            throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
+        }
+        if (!mkdir($tmpDir . "/root-ca-eaponly/", 0700, true)) {
+            throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-eaponly/\n");
+        }
+
+// make a copy of the EAP-received chain and add the configured intermediates, if any
+        $catIntermediates = [];
+        $catRoots = [];
+        foreach ($this->expectedCABundle as $oneCA) {
+            $x509 = new \core\common\X509();
+            $decoded = $x509->processCertificate($oneCA);
+            if ($decoded === FALSE) {
+                throw new Exception("Unable to parse an expected CA certificate.");
+            }
+            if ($decoded['ca'] == 1) {
+                if ($decoded['root'] == 1) { // save CAT roots to the root directory
+                    file_put_contents($tmpDir . "/root-ca-eaponly/configuredroot" . count($catRoots) . ".pem", $decoded['pem']);
+                    file_put_contents($tmpDir . "/root-ca-allcerts/configuredroot" . count($catRoots) . ".pem", $decoded['pem']);
+                    $catRoots[] = $decoded['pem'];
+                } else { // save the intermediates to allcerts directory
+                    file_put_contents($tmpDir . "/root-ca-allcerts/cat-intermediate" . count($catIntermediates) . ".pem", $decoded['pem']);
+                    $intermOdditiesCAT = array_merge($intermOdditiesCAT, $this->propertyCheckIntermediate($decoded));
+                    if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
+                        $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+                        file_put_contents($tmpDir . "/root-ca-allcerts/crl_cat$catIntermediates.pem", $decoded['CRL'][0]);
+                    }
+                    $catIntermediates[] = $decoded['pem'];
+                }
+            }
+        }
+        // save all intermediate certificates and CRLs to separate files in 
+        // both root-ca directories
+        foreach ($eapIntermediates as $index => $onePem) {
+            file_put_contents($tmpDir . "/root-ca-eaponly/intermediate$index.pem", $onePem);
+            file_put_contents($tmpDir . "/root-ca-allcerts/intermediate$index.pem", $onePem);
+        }
+        foreach ($eapIntermediateCRLs as $index => $onePem) {
+            file_put_contents($tmpDir . "/root-ca-eaponly/intermediateCRL$index.pem", $onePem);
+            file_put_contents($tmpDir . "/root-ca-allcerts/intermediateCRL$index.pem", $onePem);
+        }
+
+        $checkstring = "";
+        if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
+            $this->loggerInstance->debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
+            $checkstring = "-crl_check_all";
+            file_put_contents($tmpDir . "/root-ca-eaponly/crl-server.pem", $servercert['CRL'][0]);
+            file_put_contents($tmpDir . "/root-ca-allcerts/crl-server.pem", $servercert['CRL'][0]);
+        }
+
+
+// now c_rehash the root CA directory ...
+        system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
+        system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+
+// ... and run the verification test
+        $verifyResultEaponly = [];
+        $verifyResultAllcerts = [];
+// the error log will complain if we run this test against an empty file of certs
+// so test if there's something PEMy in the file at all
+        if (filesize("$tmpDir/incomingserver.pem") > 10) {
+            exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
+            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
+            $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
+            exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
+            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
+            $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
+        }
+
+
+// now we do certificate verification against the collected parents
+// this is done first for the server and then for each of the intermediate CAs
+// any oddities observed will 
+// openssl should havd returned exactly one line of output,
+// and it should have ended with the string "OK", anything else is fishy
+// The result can also be an empty array - this means there were no
+// certificates to check. Don't complain about chain validation errors
+// in that case.
+// we have the following test result possibilities:
+// 1. test against allcerts failed
+// 2. test against allcerts succeded, but against eaponly failed - warn admin
+// 3. test against eaponly succeded, in this case critical errors about expired certs
+//    need to be changed to notices, since these certs obviously do tot participate
+//    in server certificate validation.
+        if (count($verifyResultAllcerts) == 0 || count($verifyResultEaponly) == 0) {
+            throw new Exception("No output at all from openssl?");
+        }
+        if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
+            if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
+            } elseif (preg_match("/unable to get certificate CRL/", $verifyResultAllcerts[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
+            } else {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
+            }
+            return 1;
+        }
+        if (!preg_match("/OK$/", $verifyResultEaponly[0])) { // case 2
+            if (preg_match("/certificate revoked$/", $verifyResultEaponly[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
+            } elseif (preg_match("/unable to get certificate CRL/", $verifyResultEaponly[1])) {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
+            } else {
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
+            }
+            return 2;
+        }
+        return 3;
+    }
+
+    private function thoroughNameChecks($servercert, &$testresults) {
+        // check the incoming hostname (both Subject:CN and subjectAltName:DNS
+        // against what is configured in the profile; it's a significant error
+        // if there is no match!
+        // FAIL if none of the configured names show up in the server cert
+        // WARN if the configured name is only in either CN or sAN:DNS
+        
+        // Strategy for checks: we are TOTALLY happy if any one of the
+        // configured names shows up in both the CN and a sAN
+        // This is the primary check.
+        // If that was not the case, we are PARTIALLY happy if any one of
+        // the configured names was in either of the CN or sAN lists.
+        // we are UNHAPPY if no names match!
+        
+        $happiness = "UNHAPPY";
+        foreach ($this->expectedServerNames as $expectedName) {
+            $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
+            if (array_search($expectedName, $servercert['CN']) !== FALSE && array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
+                $this->loggerInstance->debug(4, "Totally happy!");
+                $happiness = "TOTALLY";
+                break;
+            } else {
+                if (array_search($expectedName, $servercert['CN']) !== FALSE || array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
+                    $happiness = "PARTIALLY";
+// keep trying with other expected names! We could be happier!
+                }
+            }
+        }
+        switch ($happiness) {
+            case "UNHAPPY":
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_MISMATCH;
+                return;
+            case "PARTIALLY":
+                $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_PARTIAL_MATCH;
+                return;
+            default: // nothing to complain about!
+                return;
+        }
+    }
+
+    private function executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag) {
+        $finalInner = $innerUser;
+        $finalOuter = $this->outerUsernameForChecks;
+
+        $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
+        // the config intentionally does not include CA checking. We do this
+        // ourselves after getting the chain with -o.
+        file_put_contents($tmpDir . "/udp_login_test.conf", $theconfigs[0]);
+
+        $cmdline = $this->eapolTestConfig($probeindex, $opnameCheck, $frag);
+        $this->loggerInstance->debug(4, "Shallow reachability check cmdline: $cmdline\n");
+        $this->loggerInstance->debug(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
+        $time_start = microtime(true);
+        $pflow = [];
+        exec($cmdline, $pflow);
+        if ($pflow === NULL) {
+            throw new Exception("The output of an exec() call really can't be NULL!");
+        }
+        $time_stop = microtime(true);
+        $this->loggerInstance->debug(5, print_r($this->redact($password, $pflow), TRUE));
+        return [
+            "time" => ($time_stop - $time_start) * 1000,
+            "output" => $pflow,
+        ];
+    }
+
     /**
      * The big Guy. This performs an actual login with EAP and records how far 
      * it got and what oddities were observed along the way
@@ -490,89 +669,50 @@ network={
      * @param array $eaptype EAP type to use for connection
      * @param string $innerUser inner username to try
      * @param string $password password to try
-     * @param string $outerUser outer username to set
      * @param boolean $opnameCheck whether or not we check with Operator-Name set
      * @param boolean $frag whether or not we check with an oversized packet forcing fragmentation
      * @param string $clientcertdata client certificate credential to try
      * @return int overall return code of the login test
      * @throws Exception
      */
-    public function UDP_login($probeindex, $eaptype, $innerUser, $password, $outerUser = '', $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+    public function UDP_login($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+
+        /** preliminaries */
+        $eapText = \core\common\EAP::eapDisplayName($eaptype);
+        // no host to send probes to? Nothing to do then
         if (!isset(CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
-
-// figure out the actual inner and outer identity to use. Inner may or
-// may not have a realm; if it has, the realm of inner and outer do not
-// necessarily match
-// if we weren't told a realm for outer and there is nothing in inner, consider the outer_user a realm only, and prefix with local part
-// inner: take whatever we got (it may or may not contain a realm identifier)
-        $finalInner = $innerUser;
-
-// outer: if we've been given a full realm spec, take it as-is
-        if (preg_match("/@/", $outerUser)) {
-            $finalOuter = $outerUser;
-        } elseif ($outerUser != "") {// make our own guess: we've been given an explicit realm for outer
-            $finalOuter = $this->bestOuterLocalpart($innerUser) . $outerUser;
-        } else { // nothing. Use the realm from inner ID if it has one
-            $matches = [];
-            if (preg_match("/.*(@.*)/", $innerUser, $matches)) {
-                $finalOuter = $this->bestOuterLocalpart($innerUser) . $matches[1];
-            } elseif ($this->profile instanceof \core\ProfileRADIUS && $this->profile->realm != "") { // hm, we can only take the realm from Profile
-                $finalOuter = $this->bestOuterLocalpart($innerUser) . "@" . $this->profile->realm;
-            } else { // we have no idea what realm to send this to. Give up.
-                return RADIUSTests::RETVAL_INCOMPLETE_DATA;
-            }
-        }
-
-// we will need a config blob for wpa_supplicant, in a temporary directory
-// code is copy&paste from DeviceConfig.php
-
-        $temporary = $this->createTemporaryDirectory('test');
-        $tmpDir = $temporary['dir'];
-        chdir($tmpDir);
-        $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
-
-        $eapText = \core\common\EAP::eapDisplayName($eaptype);
-
-        if ($clientcertdata !== NULL) {
-            $clientcertfile = fopen($tmpDir . "/client.p12", "w");
-            fwrite($clientcertfile, $clientcertdata);
-            fclose($clientcertfile);
-        }
-
-// if we need client certs but don't have one, return
+        // if we need client certs but don't have one, return
         if (($eaptype == \core\common\EAP::EAPTYPE_ANY || $eaptype == \core\common\EAP::EAPTYPE_TLS) && $clientcertdata === NULL) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
-// if we don't have a string for outer EAP method name, give up
+        // if we don't have a string for outer EAP method name, give up
         if (!isset($eapText['OUTER'])) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
-        $theconfigs = $this->wpaSupplicantConfig($eaptype, $finalInner, $finalOuter, $password);
-// the config intentionally does not include CA checking. We do this
-// ourselves after getting the chain with -o.
-        $wpaSupplicantConfig = fopen($tmpDir . "/udp_login_test.conf", "w");
-        fwrite($wpaSupplicantConfig, $theconfigs[0]);
-        fclose($wpaSupplicantConfig);
-
-        $testresults = [];
-        $testresults['cert_oddities'] = [];
-        $cmdline = $this->eapolTestConfig($probeindex, $opnameCheck, $frag);
-        $this->loggerInstance->debug(4, "Shallow reachability check cmdline: $cmdline\n");
-        $this->loggerInstance->debug(4, "Shallow reachability check config: $tmpDir\n" . $theconfigs[1] . "\n");
-        $packetflow_orig = [];
-        $time_start = microtime(true);
-        exec($cmdline, $packetflow_orig);
-        if ($packetflow_orig === NULL) {
-            throw new Exception("The output of an exec() call really can't be NULL!");
+        // we will need a config blob for wpa_supplicant, in a temporary directory
+        $temporary = $this->createTemporaryDirectory('test');
+        $tmpDir = $temporary['dir'];
+        chdir($tmpDir);
+        $this->loggerInstance->debug(4, "temp dir: $tmpDir\n");
+        if ($clientcertdata !== NULL) {
+            file_put_contents($tmpDir . "/client.p12", $clientcertdata);
         }
-        $time_stop = microtime(true);
-        $this->loggerInstance->debug(5, print_r($this->redact($password, $packetflow_orig), TRUE));
+
+        /** execute RADIUS/EAP converation */
+        $testresults = [];
+        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
+
+        $testresults['time_millisec'] = $runtime_results['time'];
+        $packetflow_orig = $runtime_results['output'];
+
         $packetflow = $this->filterPackettype($packetflow_orig);
+
+
 // when MS-CHAPv2 allows retry, we never formally get a reject (just a 
 // Challenge that PW was wrong but and we should try a different one; 
 // but that effectively is a reject
@@ -588,7 +728,6 @@ network={
             array_pop($packetflow);
         }
         $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
-        $testresults['time_millisec'] = ($time_stop - $time_start) * 1000;
         $packetcount = array_count_values($packetflow);
         $testresults['packetcount'] = $packetcount;
         $testresults['packetflow'] = $packetflow;
@@ -599,7 +738,7 @@ network={
 // only to make sure we've defined this in all code paths
 // not setting it has no real-world effect, but Scrutinizer mocks
         $ackedmethod = FALSE;
-
+        $testresults['cert_oddities'] = [];
         if ($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT) {
             $ackedmethod = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
             if (!$ackedmethod) {
@@ -608,14 +747,14 @@ network={
         }
 
 
-// now let's look at the server cert+chain
-// if we got a cert at all
-// TODO: also only do this if EAP types all mismatched; we won't have a
-// cert in that case
+        // now let's look at the server cert+chain, if we got a cert at all
+        // that's not the case if we do EAP-pwd or could not negotiate an EAP method at
+        // all
         if (
                 $eaptype != \core\common\EAP::EAPTYPE_PWD &&
                 (($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RADIUSTests::RETVAL_OK)
         ) {
+
 
 // ALWAYS check: 
 // 1) it is unnecessary to include the root CA itself (adding it has
@@ -637,22 +776,10 @@ network={
 // we want no root cert, and exactly one server cert
             $numberRoot = 0;
             $numberServer = 0;
-            $eapIntermediates = 0;
-            $catIntermediates = 0;
+            $eapIntermediates = [];
+            $eapIntermediateCRLs = [];
             $servercert = FALSE;
             $totallySelfsigned = FALSE;
-
-// Write the root CAs into a trusted root CA dir
-// and intermediate and first server cert into a PEM file
-// for later chain validation
-
-            if (!mkdir($tmpDir . "/root-ca-allcerts/", 0700, true)) {
-                throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-allcerts/\n");
-            }
-            if (!mkdir($tmpDir . "/root-ca-eaponly/", 0700, true)) {
-                throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-eaponly/\n");
-            }
-
             $intermOdditiesEAP = [];
 
             $testresults['certdata'] = [];
@@ -674,9 +801,11 @@ network={
                         $cert['full_details']['type'] = 'totally_selfsigned';
                     }
                     $numberServer++;
+
                     $servercert = $cert;
                     if ($numberServer == 1) {
                         fwrite($serverFile, $certPem . "\n");
+                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
                     }
                 } else
                 if ($cert['root'] == 1) {
@@ -686,24 +815,11 @@ network={
 // IdP/profile, not against an EAP-discovered CA
                 } else {
                     $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
-                    $intermediateFileEAP = fopen($tmpDir . "/root-ca-eaponly/incomingintermediate$eapIntermediates.pem", "w");
-                    fwrite($intermediateFileEAP, $certPem . "\n");
-                    fclose($intermediateFileEAP);
-                    $intermediateFileAll = fopen($tmpDir . "/root-ca-allcerts/incomingintermediate$eapIntermediates.pem", "w");
-                    fwrite($intermediateFileAll, $certPem . "\n");
-                    fclose($intermediateFileAll);
-
+                    $eapIntermediates[] = $certPem;
 
                     if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
-                        $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                        $cRLFileEAP = fopen($tmpDir . "/root-ca-eaponly/crl$eapIntermediates.pem", "w"); // this is where the root CAs go
-                        fwrite($cRLFileEAP, $cert['CRL'][0]);
-                        fclose($cRLFileEAP);
-                        $cRLFileAll = fopen($tmpDir . "/root-ca-allcerts/crl$eapIntermediates.pem", "w"); // this is where the root CAs go
-                        fwrite($cRLFileAll, $cert['CRL'][0]);
-                        fclose($cRLFileAll);
+                        $eapIntermediateCRLs[] = $cert['CRL'][0];
                     }
-                    $eapIntermediates++;
                 }
                 $testresults['certdata'][] = $cert['full_details'];
             }
@@ -731,160 +847,12 @@ network={
 // works only for thorough checks, not shallow, so:
             $intermOdditiesCAT = [];
             $verifyResult = 0;
-            if ($this->profile) {
-                $configuredRootCt = 0;
-                $myProfile = $this->profile;
-// $ca_store contains certificates configured in the CAT profile
-                $cAstore = $myProfile->getAttributes("eap:ca_file");
-// make a copy of the EAP-received chain and add the configured intermediates, if any
-                foreach ($cAstore as $oneCA) {
-                    $x509 = new \core\common\X509();
-                    $decoded = $x509->processCertificate($oneCA['value']);
-                    if ($decoded === FALSE) {
-                        throw new Exception("Unable to parse a certificate that came right from our database and has previously passed all input validation. How can that be!");
-                    }
-                    if ($decoded['ca'] == 1) {
-                        if ($decoded['root'] == 1) { // save CAT roots to the root directory
-                            $rootCAEAP = fopen($tmpDir . "/root-ca-eaponly/configuredroot$configuredRootCt.pem", "w"); // this is where the root CAs go
-                            fwrite($rootCAEAP, $decoded['pem']);
-                            fclose($rootCAEAP);
-                            $rootCAAll = fopen($tmpDir . "/root-ca-allcerts/configuredroot$configuredRootCt.pem", "w"); // this is where the root CAs go
-                            fwrite($rootCAAll, $decoded['pem']);
-                            fclose($rootCAAll);
-                            $configuredRootCt = $configuredRootCt + 1;
-                        } else { // save the intermadiates to allcerts directory
-                            $intermediateFile = fopen($tmpDir . "/root-ca-allcerts/cat-intermediate$catIntermediates.pem", "w");
-                            fwrite($intermediateFile, $decoded['pem']);
-                            fclose($intermediateFile);
 
-                            $intermOdditiesCAT = array_merge($intermOdditiesCAT, $this->propertyCheckIntermediate($decoded));
-                            if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
-                                $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                                $cRLfile = fopen($tmpDir . "/root-ca-allcerts/crl_cat$catIntermediates.pem", "w"); // this is where the root CAs go
-                                fwrite($cRLfile, $decoded['CRL'][0]);
-                                fclose($cRLfile);
-                            }
-                            $catIntermediates++;
-                        }
-                    }
-                }
-                if ($numberServer > 0) {
-                    $this->loggerInstance->debug(4, "This is the server certificate, with CRL content if applicable: " . print_r($servercert, true));
-                }
-                $checkstring = "";
-                if (isset($servercert['CRL']) && isset($servercert['CRL'][0])) {
-                    $this->loggerInstance->debug(4, "got a server CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                    $checkstring = "-crl_check_all";
-                    $cRLfile1 = fopen($tmpDir . "/root-ca-eaponly/crl-server.pem", "w"); // this is where the root CAs go
-                    fwrite($cRLfile1, $servercert['CRL'][0]);
-                    fclose($cRLfile1);
-                    $cRLfile2 = fopen($tmpDir . "/root-ca-allcerts/crl-server.pem", "w"); // this is where the root CAs go
-                    fwrite($cRLfile2, $servercert['CRL'][0]);
-                    fclose($cRLfile2);
-                }
-
-// save all intermediate certificate CRLs to separate files in root-ca directory
-// now c_rehash the root CA directory ...
-                system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
-                system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
-
-// ... and run the verification test
-                $verifyResultEaponly = [];
-                $verifyResultAllcerts = [];
-// the error log will complain if we run this test against an empty file of certs
-// so test if there's something PEMy in the file at all
-                if (filesize("$tmpDir/incomingserver.pem") > 10) {
-                    exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-                    $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
-                    $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
-                    exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-                    $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
-                    $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
-                }
-
-
-// now we do certificate verification against the collected parents
-// this is done first for the server and then for each of the intermediate CAs
-// any oddities observed will 
-// openssl should havd returned exactly one line of output,
-// and it should have ended with the string "OK", anything else is fishy
-// The result can also be an empty array - this means there were no
-// certificates to check. Don't complain about chain validation errors
-// in that case.
-// we have the following test result possibilities:
-// 1. test against allcerts failed
-// 2. test against allcerts succeded, but against eaponly failed - warn admin
-// 3. test against eaponly succeded, in this case critical errors about expired certs
-//    need to be changed to notices, since these certs obviously do tot participate
-//    in server certificate validation.
-                if (count($verifyResultAllcerts) > 0) {
-                    if (!preg_match("/OK$/", $verifyResultAllcerts[0])) { // case 1
-                        $verifyResult = 1;
-                        if (preg_match("/certificate revoked$/", $verifyResultAllcerts[1])) {
-                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
-                        } elseif (preg_match("/unable to get certificate CRL/", $verifyResultAllcerts[1])) {
-                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
-                        } else {
-                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_NOT_REACHED;
-                        }
-                    } else if (!preg_match("/OK$/", $verifyResultEaponly[0])) { // case 2
-                        $verifyResult = 2;
-                        if (preg_match("/certificate revoked$/", $verifyResultEaponly[1])) {
-                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_CERT_REVOKED;
-                        } elseif (preg_match("/unable to get certificate CRL/", $verifyResultEaponly[1])) {
-                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_UNABLE_TO_GET_CRL;
-                        } else {
-                            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TRUST_ROOT_REACHED_ONLY_WITH_OOB_INTERMEDIATES;
-                        }
-                    } else { // case 3
-                        $verifyResult = 3;
-                    }
-                }
-
-// check the incoming hostname (both Subject:CN and subjectAltName:DNS
-// against what is configured in the profile; it's a significant error
-// if there is no match!
-// FAIL if none of the configured names show up in the server cert
-// WARN if the configured name is only in either CN or sAN:DNS
-                $confnames = $myProfile->getAttributes("eap:server_name");
-                $expectedNames = [];
-                foreach ($confnames as $tuple) {
-                    $expectedNames[] = $tuple['value'];
-                }
-
-// Strategy for checks: we are TOTALLY happy if any one of the
-// configured names shows up in both the CN and a sAN
-// This is the primary check.
-// If that was not the case, we are PARTIALLY happy if any one of
-// the configured names was in either of the CN or sAN lists.
-// we are UNHAPPY if no names match!
-                $happiness = "UNHAPPY";
-                foreach ($expectedNames as $expectedName) {
-                    $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
-                    if (array_search($expectedName, $servercert['CN']) !== FALSE && array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
-                        $this->loggerInstance->debug(4, "Totally happy!");
-                        $happiness = "TOTALLY";
-                        break;
-                    } else {
-                        if (array_search($expectedName, $servercert['CN']) !== FALSE || array_search($expectedName, $servercert['sAN_DNS']) !== FALSE) {
-                            $happiness = "PARTIALLY";
-// keep trying with other expected names! We could be happier!
-                        }
-                    }
-                }
-                switch ($happiness) {
-                    case "UNHAPPY":
-                        $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_MISMATCH;
-                        break;
-                    case "PARTIALLY":
-                        $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_SERVER_NAME_PARTIAL_MATCH;
-                        break;
-                    default: // nothing to complain about!
-                        break;
-                }
-
-// TODO: dump the details in a class variable in case someone cares
+            if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
+                $verifyResult = $this->thoroughChainChecks($testresults, $intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs);
+                $this->thoroughNameChecks($servercert, $testresults);
             }
+
             $testresults['cert_oddities'] = array_merge($testresults['cert_oddities'], $intermOdditiesEAP);
             if (in_array(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT) && $verifyResult == 3) {
                 $key = array_search(RADIUSTests::CERTPROB_OUTSIDE_VALIDITY_PERIOD, $intermOdditiesCAT);
@@ -911,4 +879,5 @@ network={
         $this->UDP_reachability_executed = $finalretval;
         return $finalretval;
     }
+
 }

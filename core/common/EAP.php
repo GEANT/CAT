@@ -196,4 +196,11 @@ class EAP {
         throw new Exception("Unable to map EAP method array to EAP method int or vice versa: $input!");
     }
 
+    public static function multiConversion($inputArray) {
+        $out = [];
+        foreach ($inputArray as $oneMember) {
+            $out[] = EAP::eAPMethodArrayIdConversion($oneMember);
+        }
+        return $out;
+    }
 }

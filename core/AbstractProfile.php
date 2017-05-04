@@ -180,6 +180,33 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     }
 
     /**
+     * Constructs the outer ID which should be used during realm tests. Obviously
+     * can only do something useful if the realm is known to the system.
+     * 
+     * @return string the outer ID to use for realm check operations
+     * @thorws Exception
+     */
+        public function getRealmCheckOuterUsername() {
+        $realm = $this->getAttributes("internal:realm")[0]['value'] ?? FALSE;
+        if ($realm == FALSE) { // we can't really return anything useful here
+            throw new Exception("Unable to construct a realmcheck username if the admin did not tell us the realm. You shouldn't have called this function in this context.");
+        }
+        if (count($this->getAttributes("internal:checkuser_outer")) > 0) {
+            // we are supposed to use a specific outer username for checks, 
+            // which is different from the outer username we put into installers
+            return $this->getAttributes("internal:checkuser_value")[0]['value'] . "@" . $realm;
+        }
+        if (count($this->getAttributes("internal:use_anon_outer")) > 0) {
+            // no special check username, but there is an anon outer ID for
+            // installers - so let's use that one
+            return $this->getAttributes("internal:anon_local_value")[0]['value'] . "@" . $realm;
+        }
+        // okay, no guidance on outer IDs at all - but we need *something* to
+        // test with for the RealmChecks. So:
+        return "@".$realm;
+    }
+
+    /**
      * update the last_changed timestamp for this profile
      */
     public function updateFreshness() {
