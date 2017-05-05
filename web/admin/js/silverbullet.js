@@ -1091,7 +1091,7 @@ silverbullet.views.ComposeEmailPanel.prototype.receive = function (command) {
 silverbullet.views.ComposeEmailPanel.prototype.render = function () {
     var that = this;
     this.popup.render();
-    this.emailClientButton.on('click', function(e) {
+    this.emailClientButton.on('click', function() {
         var mailto = "mailto:";
         var address = that.emailTextInput.val();
         if(address!=""){
@@ -1112,7 +1112,7 @@ silverbullet.views.ComposeEmailPanel.prototype.render = function () {
             that.init();
         }    
     });
-    this.emailTextInput.on('input', function(e) {
+    this.emailTextInput.on('input', function() {
         var address = that.emailTextInput.val();
         if(address.indexOf('@') > 0){
             that.receive(new silverbullet.views.EmailValidationCommand(address, that));
@@ -1128,7 +1128,7 @@ silverbullet.views.ComposeEmailPanel.prototype.render = function () {
  * 
  * @constructor
  * @param {String} address
- * @param {silverbullet.views.ComposeEmailPanel} datePicker
+ * @param {silverbullet.views.ComposeEmailPanel} panel
 
  */
 silverbullet.views.EmailValidationCommand = function (address, panel) {

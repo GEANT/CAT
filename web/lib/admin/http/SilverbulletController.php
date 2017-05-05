@@ -28,7 +28,7 @@ class SilverbulletController extends AbstractController implements MessageDistri
     /**
      * 
      * {@inheritDoc}
-     * @see \web\lib\admin\http\ControllerInterface::parseRequest()
+     * @see \web\lib\admin\http\AbstractController::parseRequest()
      */
     public function parseRequest(){
         $commandToken = '';

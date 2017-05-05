@@ -1,6 +1,8 @@
 <?php
 namespace web\lib\admin\http;
 
+use web\lib\admin\storage\SessionStorage;
+
 /**
  * 
  * 

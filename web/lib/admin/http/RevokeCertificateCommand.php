@@ -29,9 +29,9 @@ class RevokeCertificateCommand extends AbstractInvokerCommand{
     }
     
     /**
-     *
+     * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         $profile = $this->context->getProfile();

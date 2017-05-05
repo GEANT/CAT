@@ -31,7 +31,7 @@ class AddCertificateCommand extends AbstractInvokerCommand{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         $userId = $this->parseInt($_POST[self::COMMAND]);

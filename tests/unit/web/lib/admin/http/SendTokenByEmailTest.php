@@ -24,12 +24,6 @@ class SendTokenByEmailTest extends PHPUnit_Framework_TestCase{
      */
     private $command;
     
-    /**
-     * 
-     * @var DefaultHtmlPage
-     */
-    private $page;
-    
     protected function setUp() {
         $builder = new MockEmptyPageBuilder(new DefaultHtmlPage("Test Page"));
         $context = new SilverbulletContext($builder);

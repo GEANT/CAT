@@ -1,9 +1,10 @@
 <?php
 namespace web\lib\admin\http;
 
-use web\lib\admin\view\InstitutionPageBuilder;
-use web\lib\admin\domain\SilverbulletUser;
+use core\ProfileSilverbullet;
 use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\domain\SilverbulletUser;
+use web\lib\admin\view\InstitutionPageBuilder;
 
 /**
  * 
@@ -30,7 +31,7 @@ class SilverbulletContext extends DefaultContext{
     
     /**
      *
-     * @var \core\ProfileSilverbullet
+     * @var ProfileSilverbullet
      */
     private $profile;
     
@@ -53,7 +54,7 @@ class SilverbulletContext extends DefaultContext{
     /**
      * Retrievies present user profile
      *
-     * @return \core\ProfileSilverbullet
+     * @return ProfileSilverbullet
      */
     public function getProfile(){
         return $this->profile;
@@ -98,7 +99,7 @@ class SilverbulletContext extends DefaultContext{
      *
      * @param string $username
      * @param string $expiry
-     * @return \web\lib\admin\domain\SilverbulletUser
+     * @return SilverbulletUser
      */
     public function createUser($username, $expiry){
         $user = new SilverbulletUser($this->profile->identifier, $username);
@@ -122,7 +123,7 @@ class SilverbulletContext extends DefaultContext{
      * Factory method that creates Silverbullet certificate object and stores it to database
      *
      * @param SilverbulletUser $user
-     * @return \web\lib\admin\domain\SilverbulletCertificate
+     * @return SilverbulletCertificate
      */
     public function createCertificate($user){
         $certificate = new SilverbulletCertificate($user);
@@ -136,7 +137,7 @@ class SilverbulletContext extends DefaultContext{
     /**
      * Factory method that retrieves Silverbullet users from database and creates theyr objects
      *
-     * @return \web\lib\admin\domain\SilverbulletUser
+     * @return SilverbulletUser
      */
     public function createUsers(){
         $this->users = SilverbulletUser::getList($this->profile->identifier);

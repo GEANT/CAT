@@ -12,7 +12,7 @@ class DefaultCommand extends AbstractCommand{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         

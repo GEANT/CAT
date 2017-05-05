@@ -29,9 +29,9 @@ class AddUsersCommand extends AbstractInvokerCommand{
     }
     
     /**
-     *
+     * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         $parser = new CSVParser($_FILES[self::COMMAND], "\n", ',');

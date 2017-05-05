@@ -21,7 +21,7 @@ abstract class AbstractController {
      * Retrieves existing command from object pool based on string command token or creates a new one by usig factory method.
      *
      * @param string $commandToken
-     * @return \lib\http\AbstractCommand
+     * @return AbstractCommand
      */
     public function createCommand($commandToken){
         if(!isset($this->commands[$commandToken]) || $this->commands[$commandToken] == null){
@@ -34,7 +34,7 @@ abstract class AbstractController {
      * Factory method creates command object based on strign command token
      *
      * @param string $commandToken
-     * @return \lib\http\AbstractCommand
+     * @return AbstractCommand
      */
     protected abstract function doCreateCommand($commandToken);
     

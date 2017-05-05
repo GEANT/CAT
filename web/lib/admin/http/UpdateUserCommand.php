@@ -37,7 +37,7 @@ class UpdateUserCommand extends AbstractInvokerCommand{
     /**
      * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         $userIndex = $this->parseInt($_POST[self::COMMAND]);

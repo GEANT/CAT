@@ -50,8 +50,8 @@ class SilverbulletAjaxController extends AbstractController{
         if(isset($_REQUEST[SilverbulletAjaxController::COMMAND])){
             $commandToken = $_REQUEST[SilverbulletAjaxController::COMMAND];
         }
-        $this->currentCommand = $this->createCommand($commandToken);
-        $this->currentCommand->execute();
+        $currentCommand = $this->createCommand($commandToken);
+        $currentCommand->execute();
     }
     
 }

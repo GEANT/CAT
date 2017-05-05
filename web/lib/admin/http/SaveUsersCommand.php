@@ -35,9 +35,9 @@ class SaveUsersCommand extends AbstractInvokerCommand{
     }
     
     /**
-     *
+     * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         if(isset($_POST[self::PARAM_ID]) && isset($_POST[self::PARAM_EXPIRY])){
