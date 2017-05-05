@@ -5,6 +5,11 @@ use web\lib\admin\view\html\HtmlElementInterface;
 use web\lib\admin\view\DefaultAjaxPage;
 use web\lib\admin\view\AbstractPage;
 
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
 abstract class AbstractAjaxCommand extends AbstractCommand{
     
     /**
