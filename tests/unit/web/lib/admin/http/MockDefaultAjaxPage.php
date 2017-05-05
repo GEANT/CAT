@@ -2,13 +2,31 @@
 
 use web\lib\admin\view\DefaultAjaxPage;
 use web\lib\admin\view\html\CompositeTag;
-use web\lib\admin\view\PageElementAdapter;
 
 class MockDefaultAjaxPage extends DefaultAjaxPage{
     
+    /**
+     * 
+     * @var CompositeTag
+     */
+    private $response;
+    
+    /**
+     *
+     */
     public function __construct() {
         $this->response = new CompositeTag('response');
-        $this->append('content', new PageElementAdapter($this->response));
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\AbstractPage::appendHtmlElement()
+     */
+    public function appendHtmlElement($name, $element){
+        if($name==DefaultAjaxPage::SECTION_RESPONSE){
+            $this->response->addTag($element);
+        }
     }
     
     /**

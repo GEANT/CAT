@@ -27,11 +27,11 @@ abstract class AbstractForm implements TabbedElementInterface{
     
     /**
      *
-     * @param SilverbulletController $controller
+     * @param string $action
      * @param string $description
      */
-    public function __construct($controller, $description) {
-        $this->action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
+    public function __construct($action, $description) {
+        $this->action = $action;
         $this->description = $description;
         $this->messageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
     }

@@ -13,14 +13,15 @@ require_once("common.inc.php");
 
 use web\lib\admin\Authentication;
 use web\lib\admin\view\DefaultAjaxPage;
-use web\lib\admin\http\AjaxController;
+use web\lib\admin\http\SilverbulletAjaxController;
+use web\lib\admin\http\DefaultContext;
 
 $auth = new Authentication();
 $auth->authenticate();
 
 $ajaxPage = new DefaultAjaxPage();
-
-$controller = new AjaxController($ajaxPage);
+$context = new DefaultContext($ajaxPage);
+$controller = new SilverbulletAjaxController($context);
 $controller->parseRequest();
 
 $ajaxPage->render();

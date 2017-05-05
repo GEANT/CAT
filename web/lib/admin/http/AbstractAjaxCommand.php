@@ -1,26 +1,34 @@
 <?php
 namespace web\lib\admin\http;
 
-/**
- * 
- * @author Zilvinas Vaira
- *
- */
-abstract class AbstractAjaxCommand extends AbstractCommand {
+use web\lib\admin\view\html\HtmlElementInterface;
+use web\lib\admin\view\DefaultAjaxPage;
+use web\lib\admin\view\AbstractPage;
+
+abstract class AbstractAjaxCommand extends AbstractCommand{
     
     /**
      *
-     * @var AjaxController
+     * @var AbstractPage
      */
-    protected $controller;
+    protected $page = null;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param DefaultContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken);
+        $this->page = $context->getPage();
+    }
     
     /**
      * 
-     * @param string $command
-     * @param AjaxController $controller
+     * @param HtmlElementInterface $element
      */
-    public function __construct($command, $controller) {
-        parent::__construct($command);
-        $this->controller = $controller;
+    public function publish($element){
+        $this->page->appendHtmlElement(DefaultAjaxPage::SECTION_RESPONSE, $element);
     }
+    
 }

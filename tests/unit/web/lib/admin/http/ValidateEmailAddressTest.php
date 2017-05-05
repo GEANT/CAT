@@ -1,10 +1,9 @@
 <?php
 require_once 'MockDefaultAjaxPage.php';
 require_once 'MockPHPMailer.php';
-require_once 'MockSendTokenByEmail.php';
 
+use web\lib\admin\http\DefaultContext;
 use web\lib\admin\http\ValidateEmailAddress;
-use web\lib\admin\http\AjaxController;
 
 class ValidateEmailAddressTest extends PHPUnit_Framework_TestCase{
 
@@ -22,7 +21,7 @@ class ValidateEmailAddressTest extends PHPUnit_Framework_TestCase{
 
     protected function setUp() {
         $this->page = new MockDefaultAjaxPage();
-        $this->command = new ValidateEmailAddress(ValidateEmailAddress::COMMAND, new AjaxController($this->page));
+        $this->command = new ValidateEmailAddress(ValidateEmailAddress::COMMAND, new DefaultContext($this->page));
     }
 
     public function testExecute(){

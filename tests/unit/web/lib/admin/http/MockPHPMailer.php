@@ -4,10 +4,18 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class MockPHPMailer extends PHPMailer{
     
+    /**
+     * 
+     */
     public function __construct() {
         parent::__construct();
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \PHPMailer\PHPMailer\PHPMailer::send()
+     */
     public function send(){
         if($this->Subject && $this->Body && count($this->to)>0){
             return true;

@@ -37,10 +37,19 @@ class Message {
         $this->level = $level;
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function getText(){
         return $this->text;
     }
     
+    /**
+     * 
+     * @param string $prefix
+     * @return string
+     */
     public function getClass($prefix = ''){
         return $prefix . '-' . $this->level;
     }

@@ -12,6 +12,7 @@ use web\lib\admin\view\InstitutionPageBuilder;
 use web\lib\admin\http\SaveUsersCommand;
 use web\lib\admin\domain\Attribute;
 use web\lib\admin\view\DefaultHtmlPage;
+use web\lib\admin\http\SilverbulletContext;
 
 if ( !isset( $_SESSION ) ) $_SESSION = array();
 
@@ -47,7 +48,8 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         
         $this->profile = new MockProfileSilverbullet($this->databaseHandle);
         $builder = new MockInstitutionPageBuilder($this->profile);
-        $this->factory = new SilverbulletController($builder);
+        $context = new SilverbulletContext($builder);
+        $this->factory = new SilverbulletController($context);
         $this->user = new SilverbulletUser($this->profile->identifier, $this->username);
     }
     

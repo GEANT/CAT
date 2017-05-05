@@ -82,3 +82,7 @@
 .sb-message-box-error{
     color: red;
 }
+.sb-message-box-info{
+    color: green;
+}
+

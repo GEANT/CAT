@@ -7,14 +7,8 @@ namespace web\lib\admin\http;
  * @author Zilvinas Vaira
  *
  */
-abstract class AbstractSilverbulletCommand extends AbstractCommand implements MessageInvokerInterface{
+abstract class AbstractInvokerCommand extends AbstractCommand implements MessageInvokerInterface{
 
-    /**
-     *
-     * @var SilverbulletController
-     */
-    protected $controller;
-    
     /**
      *
      * @var SessionStorage
@@ -23,13 +17,12 @@ abstract class AbstractSilverbulletCommand extends AbstractCommand implements Me
     
     /**
      *
-     * @param string $command
-     * @param SilverbulletController $controller
+     * @param string $commandToken
+     * @param DefaultContext $context
      */
-    public function __construct($command, $controller) {
-        parent::__construct($command);
-        $this->controller = $controller;
-        $this->session = $controller->getSession();
+    public function __construct($commandToken, $context) {
+        parent::__construct($commandToken);
+        $this->session = $context->getSession();
     }
     
     /**
@@ -38,7 +31,7 @@ abstract class AbstractSilverbulletCommand extends AbstractCommand implements Me
      * @see \lib\http\MessageInvokerInterface::storeErrorMessage()
      */
     public function storeErrorMessage($text){
-        $this->session->add($this->command, new Message($text, Message::ERROR));
+        $this->session->add($this->commandToken, new Message($text, Message::ERROR));
     }
     
     /**
@@ -47,7 +40,7 @@ abstract class AbstractSilverbulletCommand extends AbstractCommand implements Me
      * @see \lib\http\MessageInvokerInterface::storeInfoMessage()
      */
     public function storeInfoMessage($text){
-        $this->session->add($this->command, new Message($text, Message::INFO));
+        $this->session->add($this->commandToken, new Message($text, Message::INFO));
     }
     
     /**
@@ -56,11 +49,11 @@ abstract class AbstractSilverbulletCommand extends AbstractCommand implements Me
      * @see \lib\http\MessageInvokerInterface::publishMessages()
      */
     public function publishMessages($receiver){
-        $messages = $this->session->get($this->command);
+        $messages = $this->session->get($this->commandToken);
         foreach ($messages as $message) {
             $receiver->receiveMessage($message);
         }
-        $this->session->delete($this->command);
+        $this->session->delete($this->commandToken);
     }
     
 }

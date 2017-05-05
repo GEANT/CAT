@@ -1,35 +1,28 @@
 <?php
 namespace web\lib\admin\http;
 
-use web\lib\admin\view\DefaultAjaxPage;
+
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-class AjaxController extends AbstractController{
-    
+class SilverbulletAjaxController extends AbstractController{
+
     /**
      * 
-     * @var DefaultAjaxPage
+     * @var DefaultContext
      */
-    private $page = null;
+    private $context = null;
     
     /**
-     * 
-     * @param DefaultAjaxPage $page
+     * Creates Silverbullet Ajax front controller object and prepares commands and common rules how the commands are executed.
+     *
+     * @param DefaultContext $context Requires default context object.
      */
-    public function __construct($page){
-        $this->page = $page;
-    }
-    
-    /**
-     * 
-     * @return \web\lib\admin\view\DefaultAjaxPage
-     */
-    public function getPage(){
-        return $this->page;
+    public function __construct($context){
+        $this->context = $context;
     }
     
     /**
@@ -39,9 +32,9 @@ class AjaxController extends AbstractController{
      */
     protected function doCreateCommand($commandToken) {
         if($commandToken == ValidateEmailAddress::COMMAND){
-            return new ValidateEmailAddress($commandToken, $this);
-        }elseif($commandToken == SendTokenByEmail::COMMAND) {
-            return new SendTokenByEmail($commandToken, $this);
+            return new ValidateEmailAddress($commandToken, $this->context);
+        }elseif($commandToken == GetTokenEmailDetails::COMMAND) {
+            return new GetTokenEmailDetails($commandToken, $this->context);
         }else {
             return new DefaultCommand($commandToken);
         }
@@ -54,8 +47,8 @@ class AjaxController extends AbstractController{
      */
     public function parseRequest(){
         $commandToken = '';
-        if(isset($_REQUEST[AjaxController::COMMAND])){
-            $commandToken = $_REQUEST[AjaxController::COMMAND];
+        if(isset($_REQUEST[SilverbulletAjaxController::COMMAND])){
+            $commandToken = $_REQUEST[SilverbulletAjaxController::COMMAND];
         }
         $this->currentCommand = $this->createCommand($commandToken);
         $this->currentCommand->execute();

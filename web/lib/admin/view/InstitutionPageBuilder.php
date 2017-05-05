@@ -23,7 +23,7 @@ class InstitutionPageBuilder {
     
     /**
      * 
-     * @var HtmlPageInterface
+     * @var DefaultHtmlPage
      */
     protected $page = null;
     
@@ -51,7 +51,7 @@ class InstitutionPageBuilder {
     /**
      * Initiates basic building blocks for a page and validates Idp.
      * 
-     * @param HtmlPageInterface $page Common title slug that identifies main feature of the page.
+     * @param DefaultHtmlPage $page
      */
     public function __construct($page){
         $this->page = $page;
@@ -70,6 +70,14 @@ class InstitutionPageBuilder {
                 $this->headerTitle = sprintf(_("%s information for '%s'"), $page->getTitle(), $this->institution->name);
             }
         }
+    }
+    
+    /**
+     * 
+     * @return \web\lib\admin\view\DefaultHtmlPage
+     */
+    public function getPage(){
+        return $this->page;
     }
     
     /**

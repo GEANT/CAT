@@ -2,7 +2,7 @@
 namespace web\lib\admin\view;
 
 use web\lib\admin\http\AddUsersCommand;
-use web\lib\admin\http\SilverbulletController;
+use web\lib\admin\http\MessageDistributor;
 
 /**
  * 
@@ -12,13 +12,14 @@ use web\lib\admin\http\SilverbulletController;
 class FileUploadForm extends AbstractForm{
     
     /**
-     * 
-     * @param SilverbulletController $controller
+     *
+     * @param MessageDistributor $distributor
+     * @param string $action
      * @param string $description
      */
-    public function __construct($controller, $description) {
-        parent::__construct($controller, $description);
-        $controller->distributeMessages(AddUsersCommand::COMMAND, $this->messageBox);
+    public function __construct($distributor, $action, $description) {
+        parent::__construct($action, $description);
+        $distributor->distributeMessages(AddUsersCommand::COMMAND, $this->messageBox);
     }
     
     /**

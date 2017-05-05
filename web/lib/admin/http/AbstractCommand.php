@@ -14,28 +14,32 @@ abstract class AbstractCommand {
      *
      * @var string
      */
-    protected $command;
+    protected $commandToken;
     
 
     /**
      *
-     * @param string $command
+     * @param string $commandToken
      */
-    public function __construct($command){
-        $this->command = $command;
+    public function __construct($commandToken){
+        $this->commandToken = $commandToken;
     }
     
     /**
      *
-     * @param string $command
+     * @param string $commandToken
      * @return boolean
      */
-    public function isCommand($command){
-        return ($this->command == $command);
+    public function isCommand($commandToken){
+        return ($this->commandToken == $commandToken);
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function getCommand(){
-        return $this->command;
+        return $this->commandToken;
     }
     
     /**
@@ -69,6 +73,9 @@ abstract class AbstractCommand {
         return intval($this->parseString($value));
     }
     
+    /**
+     * 
+     */
     public abstract function execute();
     
 }

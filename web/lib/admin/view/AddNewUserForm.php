@@ -2,7 +2,7 @@
 namespace web\lib\admin\view;
 
 use web\lib\admin\http\AddUserCommand;
-use web\lib\admin\http\SilverbulletController;
+use web\lib\admin\http\MessageDistributor;
 
 /**
  * 
@@ -15,12 +15,13 @@ class AddNewUserForm extends AbstractForm{
     
     /**
      * 
-     * @param SilverbulletController $controller
+     * @param MessageDistributor $distributor
+     * @param string $action
      * @param string $description
      */
-    public function __construct($controller, $description) {
-        parent::__construct($controller, $description);
-        $controller->distributeMessages(AddUserCommand::COMMAND, $this->messageBox);
+    public function __construct($distributor, $action, $description) {
+        parent::__construct($action, $description);
+        $distributor->distributeMessages(AddUserCommand::COMMAND, $this->messageBox);
     }
     
     /**

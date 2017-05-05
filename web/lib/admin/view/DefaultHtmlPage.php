@@ -10,8 +10,25 @@ use web\lib\admin\view\html\UnaryTag;
  * @author Zilvinas Vaira
  *
  */
-class DefaultHtmlPage extends AbstractPage implements HtmlPageInterface{
+class DefaultHtmlPage extends AbstractPage{
     
+    /**
+     * Manage users base page type.
+     *
+     * @var string
+     */
+    const ADMIN_IDP_USERS = 'ADMIN-IDP-USERS';
+    
+    const SECTION_SCRIPT = 'script';
+    const SECTION_CSS = 'css';
+    const SECTION_META = 'meta';
+    const SECTION_PRELUDE = 'prelude';
+    const SECTION_CONTENT = 'content';
+    
+    /**
+     * 
+     * @var string
+     */
     private $type = "";
     
     /**
@@ -31,6 +48,7 @@ class DefaultHtmlPage extends AbstractPage implements HtmlPageInterface{
     /**
      * Instantiates HTML page object. Defines page title and page version.
      * 
+     * @param string $type Page type token.
      * @param string $title HTML page title.
      * @param string $version Page version is used as an argument when loading source files for CSS and JavaScript. It allows to avoid caching.
      */
@@ -52,140 +70,140 @@ class DefaultHtmlPage extends AbstractPage implements HtmlPageInterface{
     }
     
     /**
+     * Sets page type token.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::setType()
+     * @param string $type 
      */
     public function setType($type){
         $this->type = $type;
     }
     
     /**
+     * Retrieves page type token.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::getType()
+     * @return string
      */
     public function getType(){
         return $this->type;
     }
     
     /**
+     * Allows to change page title.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::setTitle()
+     * @param string $title Page title.
      */
     public function setTitle($title){
         $this->title = $title;
     }
     
     /**
+     * Every HTML page has title.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::getTitle()
+     * @return string
      */
     public function getTitle(){
         return $this->title;
     }
 
     /**
+     * Appends page element to 'prelude' page elements section.
      *
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::appendPrelude()
+     * @param PageElementInterface $element Any page element.
      */
     public function appendPrelude($element){
-        $this->append('prelude', $element);
+        $this->append(self::SECTION_PRELUDE, $element);
     }
     
     /**
+     * Retrieves 'prelude' section page elements.
      *
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::fetchPrelude()
+     * @return PageElementInterface
      */
     public function fetchPrelude(){
-        return $this->fetch('prelude');
+        return $this->fetch(self::SECTION_PRELUDE);
     }
     
     /**
+     * Appends page element to 'content' page elements section.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::appendContent()
+     * @param PageElementInterface $element Any page element.
      */
     public function appendContent($element){
-        $this->append('content', $element);
+        $this->append(self::SECTION_CONTENT, $element);
     }
     
     /**
+     * Retrieves 'content' section page elements.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::fetchContent()
+     * @return PageElementInterface
      */
     public function fetchContent(){
-        return $this->fetch('content');
+        return $this->fetch(self::SECTION_CONTENT);
     }
     
     /**
+     * Appends JavaScript source file element to a 'script' page section.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::appendScript()
+     * @param string $url Path to a JavaScript file.
      */
     public function appendScript($url){
         $script = new Tag('script');
         $script->addAttribute('type', 'text/javascript');
         $script->addAttribute('src', $this->decorateVersion($url));
-        $this->append('script', new PageElementAdapter($script));
+        $this->appendHtmlElement(self::SECTION_SCRIPT, $script);
     }
     
     /**
+     * Retrieves 'script' section page element.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::fetchScript()
+     * @return PageElementInterface
      */
     public function fetchScript(){
-        return $this->fetch('script');
+        return $this->fetch(self::SECTION_SCRIPT);
     }
     
     /**
+     * Appends CSS source file element to a 'css' page section.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::appendCss()
+     * @param string $url Path to a CSS file.
      */
     public function appendCss($url){
         $css = new UnaryTag('link');
         $css->addAttribute('rel', 'stylesheet');
         $css->addAttribute('type', 'text/css');
         $css->addAttribute('href', $this->decorateVersion($url));
-        $this->append('css', new PageElementAdapter($css));
+        $this->appendHtmlElement(self::SECTION_CSS, $css);
     }
     
     /**
+     * Retrieves 'css' section page element.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::fetchCss()
+     * @return PageElementInterface
      */
     public function fetchCss(){
-        return $this->fetch('css');
+        return $this->fetch(self::SECTION_CSS);
     }
     
     /**
+     * Appends meta element to a 'meta' page section.
      * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::appendMeta()
+     * @param string[] $attributes Associative list of attributes for meta element.
      */
     public function appendMeta($attributes = array()){
         $meta = new Tag('meta');
         foreach ($attributes as $name => $value) {
             $meta->addAttribute($name, $value);
         }
-        $this->append('meta', new PageElementAdapter($meta));
+        $this->appendHtmlElement(self::SECTION_META, $meta);
     }
     
     /**
-     * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\HtmlPageInterface::fetchMeta()
+     * Retrieves 'meta' section page element.
+     *
+     * @return PageElementInterface
      */
     public function fetchMeta(){
-        return $this->fetch('meta');
+        return $this->fetch(self::SECTION_META);
     }
     
     /**
@@ -194,7 +212,7 @@ class DefaultHtmlPage extends AbstractPage implements HtmlPageInterface{
      * @see \web\lib\admin\view\PageElementInterface::render()
      */
     public function render(){
-        $content = $this->fetch('content');
+        $content = $this->fetch(self::SECTION_CONTENT);
         $content->render();
     }
 }

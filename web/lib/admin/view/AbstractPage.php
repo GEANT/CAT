@@ -1,6 +1,8 @@
 <?php
 namespace web\lib\admin\view;
 
+use web\lib\admin\view\html\HtmlElementInterface;
+
 /**
  * Represents abstract page which can be composed of page elements. These elements can be divided into named sections.
  * 
@@ -24,7 +26,7 @@ abstract class AbstractPage implements PageElementInterface{
     protected $blocks = array();
 
     /**
-     * Listo of page element group sections. An associative array that stores group of elements per section.
+     * List of page element group sections. An associative array that stores group of elements per section.
      *
      * @var PageElementGroup[]
      */
@@ -58,6 +60,16 @@ abstract class AbstractPage implements PageElementInterface{
     }
     
     /**
+     * Append() overload for HTML elements.
+     * 
+     * @param string $name
+     * @param HtmlElementInterface $element
+     */
+    public function appendHtmlElement($name, $element){
+        $this->append($name, new PageElementAdapter($element));
+    }
+    
+    /**
      * Assigns single page element to a section. Unsets element group if there was one.
      * 
      * @param string $name Section name.
@@ -68,6 +80,16 @@ abstract class AbstractPage implements PageElementInterface{
         if(isset($this->groups [$name])){
             unset($this->groups[$name]);
         }
+    }
+
+    /**
+     * Assign() overload for HTML elements.
+     * 
+     * @param string $name
+     * @param HtmlElementInterface $element
+     */
+    public function assignHtmlElement($name, $element){
+        $this->assign($name, new PageElementAdapter($element));
     }
     
     /**

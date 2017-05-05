@@ -3,7 +3,12 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletUser;
 
-class SaveUsersCommand extends AbstractSilverbulletCommand{
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
+class SaveUsersCommand extends AbstractInvokerCommand{
 
     const COMMAND = 'saveusers';
 
@@ -12,6 +17,22 @@ class SaveUsersCommand extends AbstractSilverbulletCommand{
     const PARAM_ID = 'userid';
     const PARAM_ID_MULTIPLE = 'userid[]';
     const PARAM_ACKNOWLEDGE = 'acknowledge';
+    
+    /**
+     *
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
     
     /**
      *
@@ -30,7 +51,7 @@ class SaveUsersCommand extends AbstractSilverbulletCommand{
                 $user->save();
             }
         }
-        $this->controller->redirectAfterSubmit();
+        $this->context->redirectAfterSubmit();
     }
 
 }

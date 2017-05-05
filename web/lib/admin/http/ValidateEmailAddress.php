@@ -17,12 +17,20 @@ class ValidateEmailAddress extends AbstractAjaxCommand{
     
     /**
      * 
+     * @param string $commandToken
+     * @param DefaultContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+    }
+    
+    /**
+     * 
      * {@inheritDoc}
      * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         if(isset($_POST[self::PARAM_ADDRESS])){
-            $page = $this->controller->getPage();
             $address = $this->parseString($_POST[self::PARAM_ADDRESS]);
             $result = OutsideComm::mailAddressValidSecure($address);
             $message = $this->chooseMessage($result, $address);
@@ -30,7 +38,8 @@ class ValidateEmailAddress extends AbstractAjaxCommand{
             $tokenTag->addAttribute('address', $address);
             $tokenTag->addAttribute('isValid', ($result > 0) ? 'true' : 'false');
             $tokenTag->addText($message);
-            $page->appendResponse($tokenTag);
+            
+            $this->publish($tokenTag);
         }
     }
     

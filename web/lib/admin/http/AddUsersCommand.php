@@ -3,10 +3,31 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\utils\CSVParser;
 
-class AddUsersCommand extends AbstractSilverbulletCommand{
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
+class AddUsersCommand extends AbstractInvokerCommand{
 
     const COMMAND = 'newusers';
 
+    /**
+     *
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
+    
     /**
      *
      * {@inheritDoc}
@@ -22,11 +43,11 @@ class AddUsersCommand extends AbstractSilverbulletCommand{
         while($parser->hasMoreRows()){
             $row = $parser->nextRow();
             if(isset($row[0]) && isset($row[1])){
-                $user = $this->controller->createUser($row[0], $row[1]);
+                $user = $this->context->createUser($row[0], $row[1]);
                 $max = empty($row[2]) ? 1 : $row[2];
                 if(!empty($user->getIdentifier())){
                     for($i=0; $i<$max; $i++){
-                        $this->controller->createCertificate($user);
+                        $this->context->createCertificate($user);
                         $invitationsCount++;
                     }
                     $userCount++;

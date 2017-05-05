@@ -1,13 +1,19 @@
 <?php
 
 use web\lib\admin\http\SendTokenByEmail;
+use web\lib\admin\http\SilverbulletContext;
 
 class MockSendTokenByEmail extends SendTokenByEmail{
     
-    public function __construct($command, $controller){
-        $this->command = $command;
-        $this->controller = $controller;
+    /**
+     * 
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
         $this->mail = new MockPHPMailer();
+        $this->context = $context;
     }
     
     /**

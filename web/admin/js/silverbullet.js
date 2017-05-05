@@ -925,12 +925,9 @@ silverbullet.views.ComposeEmailPanel = function (popup) {
     this.containerElement = null;
     this.subject = '';
     this.body = '';
-    this.bodyElement = document.createElement('input');
-    this.bodyElement.setAttribute('type', 'hidden');
-    this.bodyElement.setAttribute('name', 'body');
-    this.subjectElement = document.createElement('input');
-    this.subjectElement.setAttribute('type', 'hidden');
-    this.subjectElement.setAttribute('name', 'subject');
+    this.tokenElement = document.createElement('input');
+    this.tokenElement.setAttribute('type', 'hidden');
+    this.tokenElement.setAttribute('name', 'tokenlink');
     this.errorElement = document.createElement('p');
     this.errorElement.style.color = "red";
     this.ajaxBusy = false;
@@ -948,7 +945,7 @@ silverbullet.views.ComposeEmailPanel.prototype = Object.create(silverbullet.view
 silverbullet.views.ComposeEmailPanel.prototype.constructor = silverbullet.views.ComposeEmailPanel;
 silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS = 'sb-compose-email';
 silverbullet.views.ComposeEmailPanel.COMMAND_VALIDATE_EMAIL = 'validateemailaddress';
-silverbullet.views.ComposeEmailPanel.COMMAND_SEND_TOKEN = 'sendtokenbyemail';
+silverbullet.views.ComposeEmailPanel.COMMAND_GET_DETAILS = 'gettokenemaildetails';
 
 /**
  * 
@@ -966,20 +963,19 @@ silverbullet.views.ComposeEmailPanel.prototype.show = function () {
     this.element.css('display',"block");
     this.emailTextInput.val('');
     this.popup.positionToCenter();
+    
+    that.tokenElement.setAttribute('value', that.link);
+    if(that.containerElement.find(that.tokenElement).length==0){
+        that.containerElement.append(that.tokenElement);
+    }
     $.ajax({
         method: "POST",
         url: "inc/silverbullet.inc.php",
-        data: {command: silverbullet.views.ComposeEmailPanel.COMMAND_SEND_TOKEN, tokenlink: this.link}
+        data: {command: silverbullet.views.ComposeEmailPanel.COMMAND_GET_DETAILS, tokenlink: that.link}
     }).done(function(data) {
         var email = $(data).find('email');
         that.subject = email.attr('subject');
         that.body = email.text();
-        that.subjectElement.setAttribute('value', that.subject);
-        that.bodyElement.setAttribute('value', that.body);
-        if(that.containerElement.find(that.subjectElement).length==0){
-            that.containerElement.append(that.subjectElement);
-            that.containerElement.append(that.bodyElement);
-        }
     }).fail(function() {
         that.errorElement.textContent = "Failed to compose message body and subject!";
     });
