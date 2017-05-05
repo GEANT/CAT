@@ -23,7 +23,7 @@ class SendTokenByEmail extends AbstractInvokerCommand{
      * 
      * @var GetTokenEmailDetails
      */
-    private $detailsCommand = null;
+    protected $detailsCommand = null;
     
     /**
      *
