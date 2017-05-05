@@ -49,7 +49,6 @@ class SilverbulletController extends AbstractController implements MessageDistri
             }
         }
         $currentCommand = $this->createCommand($commandToken);
-        $this->context->setCurrentCommand($currentCommand);
         $currentCommand->execute();
     }
     

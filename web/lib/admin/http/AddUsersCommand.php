@@ -43,11 +43,11 @@ class AddUsersCommand extends AbstractInvokerCommand{
         while($parser->hasMoreRows()){
             $row = $parser->nextRow();
             if(isset($row[0]) && isset($row[1])){
-                $user = $this->context->createUser($row[0], $row[1]);
+                $user = $this->context->createUser($row[0], $row[1], $this);
                 $max = empty($row[2]) ? 1 : $row[2];
                 if(!empty($user->getIdentifier())){
                     for($i=0; $i<$max; $i++){
-                        $this->context->createCertificate($user);
+                        $this->context->createCertificate($user, $this);
                         $invitationsCount++;
                     }
                     $userCount++;

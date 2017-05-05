@@ -36,12 +36,6 @@ class SilverbulletContext extends DefaultContext{
     private $profile;
     
     /**
-     *
-     * @var AbstractInvokerCommand
-     */
-    private $currentCommand = null;
-    
-    /**
      * 
      * @param InstitutionPageBuilder $builder
      */
@@ -70,14 +64,6 @@ class SilverbulletContext extends DefaultContext{
     }
     
     /**
-     * 
-     * @param AbstractInvokerCommand $currentCommand
-     */
-    public function setCurrentCommand($currentCommand){
-        $this->currentCommand = $currentCommand;
-    }
-    
-    /**
      * Checks wether user signed the agreement or not
      *
      * @return boolean
@@ -99,21 +85,22 @@ class SilverbulletContext extends DefaultContext{
      *
      * @param string $username
      * @param string $expiry
+     * @param AbstractInvokerCommand $command
      * @return SilverbulletUser
      */
-    public function createUser($username, $expiry){
+    public function createUser($username, $expiry, $command){
         $user = new SilverbulletUser($this->profile->identifier, $username);
         if(empty($username)){
-            $this->currentCommand->storeErrorMessage(_('User name should not be empty!'));
+            $command->storeErrorMessage(_('User name should not be empty!'));
         }elseif(empty($expiry)){
-            $this->currentCommand->storeErrorMessage(_('No expiry date has been provided!'));
+            $command->storeErrorMessage(_('No expiry date has been provided!'));
         }else{
             $user->setExpiry($expiry);
             $user->save();
             if(empty($user->get(SilverbulletUser::EXPIRY))){
-                $this->currentCommand->storeErrorMessage(sprintf(_("Expiry date was incorect for '%s'!"), $username));
+                $command->storeErrorMessage(sprintf(_("Expiry date was incorect for '%s'!"), $username));
             }elseif(empty($user->getIdentifier())){
-                $this->currentCommand->storeErrorMessage(sprintf(_("Username '%s' already exist!"), $username));
+                $command->storeErrorMessage(sprintf(_("Username '%s' already exist!"), $username));
             }
         }
         return $user;
@@ -123,13 +110,14 @@ class SilverbulletContext extends DefaultContext{
      * Factory method that creates Silverbullet certificate object and stores it to database
      *
      * @param SilverbulletUser $user
+     * @param AbstractInvokerCommand $command
      * @return SilverbulletCertificate
      */
-    public function createCertificate($user){
+    public function createCertificate($user, $command){
         $certificate = new SilverbulletCertificate($user);
         $certificate->save();
         if(empty($certificate->getIdentifier())){
-            $this->currentCommand->storeErrorMessage(_('Could not create certificate!'));
+            $command->storeErrorMessage(_('Could not create certificate!'));
         }
         return $certificate;
     }
