@@ -37,7 +37,7 @@ class SilverbulletContext extends DefaultContext{
     
     /**
      *
-     * @var AbstractCommand
+     * @var AbstractInvokerCommand
      */
     private $currentCommand = null;
     
@@ -71,7 +71,7 @@ class SilverbulletContext extends DefaultContext{
     
     /**
      * 
-     * @param AbstractCommand $currentCommand
+     * @param AbstractInvokerCommand $currentCommand
      */
     public function setCurrentCommand($currentCommand){
         $this->currentCommand = $currentCommand;
