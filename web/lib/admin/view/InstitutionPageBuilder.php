@@ -1,6 +1,5 @@
 <?php
 namespace web\lib\admin\view;
-use core\common\Language;
 use core\IdP;
 use web\lib\admin\PageDecoration;
 use web\lib\admin\view\html\Tag;
@@ -160,9 +159,8 @@ class InstitutionPageBuilder {
      * Builds page content header elements.
      */
     public function buildPageHeader(){
-        $langHandler = new Language();
         $productHeader = new PageElementAdapter();
-        $productHeader->addText($this->decoration->productheader($this->page->getType(), $langHandler->getLang()));
+        $productHeader->addText($this->decoration->productheader($this->page->getType()));
         $this->page->appendContent($productHeader) ;
     
         $pageHeading = new Tag('h1');
