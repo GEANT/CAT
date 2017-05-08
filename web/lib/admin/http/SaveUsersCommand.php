@@ -3,7 +3,12 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletUser;
 
-class SaveUsersCommand extends AbstractCommand{
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
+class SaveUsersCommand extends AbstractInvokerCommand{
 
     const COMMAND = 'saveusers';
 
@@ -15,8 +20,24 @@ class SaveUsersCommand extends AbstractCommand{
     
     /**
      *
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
+    
+    /**
+     * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         if(isset($_POST[self::PARAM_ID]) && isset($_POST[self::PARAM_EXPIRY])){
@@ -30,7 +51,7 @@ class SaveUsersCommand extends AbstractCommand{
                 $user->save();
             }
         }
-        $this->controller->redirectAfterSubmit();
+        $this->context->redirectAfterSubmit();
     }
 
 }

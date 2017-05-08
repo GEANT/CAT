@@ -18,19 +18,21 @@ require_once("inc/common.inc.php");
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
 use web\lib\admin\view\AddNewUserForm;
-use web\lib\admin\view\DefaultPage;
+use web\lib\admin\view\ComposeEmailBox;
+use web\lib\admin\view\DefaultHtmlPage;
 use web\lib\admin\view\FileUploadForm;
 use web\lib\admin\view\InfoBlockTable;
 use web\lib\admin\view\InstitutionPageBuilder;
-use web\lib\admin\view\PageBuilder;
+use web\lib\admin\view\PageElementInterface;
 use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
 use web\lib\admin\view\UserCredentialsForm;
+use web\lib\admin\http\SilverbulletContext;
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultPage(_('Managing institution users'), '1.2.1');
+$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.2.2');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
@@ -43,7 +45,10 @@ $page->appendScript('js/edit_silverbullet.js');
 $page->appendCss('../external/jquery/jquery-ui.css');
 // Load Silverbullet CSS
 $page->appendCss('css/silverbullet.css');
-$builder = new InstitutionPageBuilder($page, PageBuilder::ADMIN_IDP_USERS);
+
+$builder = new InstitutionPageBuilder($page);
+$builder->buildPagePrelude();
+$builder->buildPageHeader();
 if($builder->isReady()){
     // this page may have been called for the first time, when the profile does not
     // actually exist in the DB yet. If so, we will need to create it first.
@@ -67,25 +72,27 @@ if($builder->isReady()){
         $_GET['profile_id'] = $newProfile->identifier;
     }
     
-    $controller = new SilverbulletController($builder);
+    $context = new SilverbulletContext($builder);
+    $controller = new SilverbulletController($context);
     $controller->parseRequest();
     
-    $users = $controller->createUsers();
-    $stats = $controller->getUserStats();
+    $users = $context->createUsers();
+    $stats = $context->getUserStats();
+    $action = $context->addQuery($_SERVER['SCRIPT_NAME']);
     
     //Info block data preparation
     $infoBlock = new InfoBlockTable( _('Current institution users'));
     $infoBlock->addRow(array('The assigned realm', $builder->getRealmName()));
-    $infoBlock->addRow(array('The total number of active users which are allowed for this profile', $stats[SilverbulletController::STATS_TOTAL]));
-    $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletController::STATS_ACTIVE]));
-    $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletController::STATS_PASSIVE]));
+    $infoBlock->addRow(array('The total number of active users which are allowed for this profile', $stats[SilverbulletContext::STATS_TOTAL]));
+    $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletContext::STATS_ACTIVE]));
+    $infoBlock->addRow(array('The current number of configured inactive users', $stats[SilverbulletContext::STATS_PASSIVE]));
     $builder->addContentElement($infoBlock);
 
     //Edit form data preparation
     $acknowledgeText = _ ( 'You need to acknowledge that the created accounts are still valid within the next %s days.'
                 .' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                 .' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.' );
-    $editBlock = new UserCredentialsForm(_('Manage institution users'), $controller, $acknowledgeText, count($users) > 0);
+    $editBlock = new UserCredentialsForm($controller, $action, _('Manage institution users'), $acknowledgeText, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
@@ -96,8 +103,8 @@ if($builder->isReady()){
     $builder->addContentElement($editBlock);
     
     //Add new user and user import forms preparation
-    $newUserFrom = new AddNewUserForm($controller, _("Please enter a username of your choice and user expiry date to create a new user:"));
-    $importForm = new FileUploadForm($controller, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
+    $newUserFrom = new AddNewUserForm($controller, $action, _("Please enter a username of your choice and user expiry date to create a new user:"));
+    $importForm = new FileUploadForm($controller, $action, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
     //Creating tabbed box and adding forms
     $tabbedBox = new TabbedPanelsBox();
     $tabbedBox->addTabbedPanel(_('Add new user'), $newUserFrom);
@@ -105,28 +112,26 @@ if($builder->isReady()){
     $builder->addContentElement($tabbedBox);
     
     //Appending terms of use popup
-    if(!$controller->isAgreementSigned()){
-        $termsOfUse = new TermsOfUseBox('sb-popup-message', $controller->addQuery($_SERVER['SCRIPT_NAME']), TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
+    if(!$context->isAgreementSigned()){
+        $termsOfUse = new TermsOfUseBox(PageElementInterface::MESSAGEPOPUP_CLASS, $action, TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
         $builder->addContentElement($termsOfUse);
     }
     
+    //Adding compose email popup template
+    $composeEmail = new ComposeEmailBox(PageElementInterface::COMPOSE_EMAIL_CLASS, $action, _('Compose Email'), _('Choose how you want to send the message.'), false);
+    $builder->addContentElement($composeEmail);
 }
+$builder->buildPageFooter();
 
-$builder->createPagePrelude();
+$page->fetchPrelude()->render();
+
+$page->fetchMeta()->render();
+$page->fetchCss()->render();
+$page->fetchScript()->render();
+
 ?>
-
-<?php echo $page->fetchMeta(); ?>
-
-<?php echo $page->fetchCss(); ?>
-
-<?php echo $page->fetchScript(); ?>
-
 </head>
 <body>
-    
-    <?php $builder->renderPageHeader(); ?>
-    
-    <?php $builder->renderPageContent(); ?>
-    
-    <?php $builder->renderPageFooter();
+<?php
 
+$page->render();

@@ -1,6 +1,8 @@
 <?php
 namespace web\lib\admin\view;
+use core\IdP;
 use web\lib\admin\PageDecoration;
+use web\lib\admin\view\html\Tag;
 use web\lib\common\InputValidation;
 
 /**
@@ -9,7 +11,7 @@ use web\lib\common\InputValidation;
  * @author Zilvinas Vaira
  * @package web\lib\admin\view
  */
-class InstitutionPageBuilder implements PageBuilder{
+class InstitutionPageBuilder {
     
    /**
     * Particular IdP instance. If set to null means that page is entered by a mistake.
@@ -19,26 +21,17 @@ class InstitutionPageBuilder implements PageBuilder{
     protected $institution = null;
     
     /**
-     * Complete page title text.
      * 
-     * @var string
+     * @var DefaultHtmlPage
      */
-    private $pageTitle = "Unknown Page";
+    protected $page = null;
+    
     /**
      * Complete header title text.
      * 
      * @var string
      */
     private $headerTitle = "Unknown Page";
-    
-    /**
-     * Page type identifier.
-     * 
-     * @todo Page type behaviour could be handled by particular page object instead.
-     * @see PageBuilder for constants with type values.
-     * @var string
-     */
-    private $pageType = "";
     
     /**
      * Provides a set of global page elements such as prelude, header and footer.
@@ -55,24 +48,12 @@ class InstitutionPageBuilder implements PageBuilder{
     private $validation;
     
     /**
-     * 
-     * @var PageElementInterface[][]
-     */
-    private $contentElements = array();
-    
-    /**
-     * 
-     * @var integer
-     */
-    private $contentIndex = 0;
-    
-    /**
      * Initiates basic building blocks for a page and validates Idp.
      * 
-     * @param Page $page Common title slug that identifies main feature of the page.
-     * @param string $pageType Page type identifier.
+     * @param DefaultHtmlPage $page
      */
-    public function __construct($page, $pageType){
+    public function __construct($page){
+        $this->page = $page;
         $this->decoration = new PageDecoration();
         $this->validation = new InputValidation();
         if(isset($_GET['inst_id'])){
@@ -83,8 +64,8 @@ class InstitutionPageBuilder implements PageBuilder{
             }
             
             if($this->isReady()){
-                $this->pageType = $pageType;
-                $this->pageTitle = sprintf(_("%s: %s '%s'"), CONFIG['APPEARANCE']['productname'], $page->getTitle(), $this->institution->name);
+                $pageTitle = sprintf(_("%s: %s '%s'"), CONFIG['APPEARANCE']['productname'], $page->getTitle(), $this->institution->name);
+                $this->page->setTitle($pageTitle);
                 $this->headerTitle = sprintf(_("%s information for '%s'"), $page->getTitle(), $this->institution->name);
             }
         }
@@ -92,12 +73,22 @@ class InstitutionPageBuilder implements PageBuilder{
     
     /**
      * 
+     * @return \web\lib\admin\view\DefaultHtmlPage
+     */
+    public function getPage(){
+        return $this->page;
+    }
+    
+    /**
+     * Validates and retrieves institution.
      */
     protected function validateInstitution(){
         $this->institution = $this->validation->IdP($_GET['inst_id'], $_SESSION['user']);
     }
     
     /**
+     * Returns true if institution is setup.
+     * 
      * @return boolean
      */
     public function isReady(){
@@ -105,6 +96,7 @@ class InstitutionPageBuilder implements PageBuilder{
     }
     
     /**
+     * Retrieves institution istance.
      * 
      * @return IdP
      */
@@ -113,6 +105,7 @@ class InstitutionPageBuilder implements PageBuilder{
     }
     
     /**
+     * Retrieves silverbullet profile instance.
      * 
      * @return \core\ProfileSilverbullet|mixed
      */
@@ -130,8 +123,9 @@ class InstitutionPageBuilder implements PageBuilder{
     }
     
     /**
+     * Retrieves realm name.
      * 
-     * @return \core\IdP
+     * @return string
      */
     public function getRealmName(){
         $realmName = 'unknown';
@@ -141,56 +135,46 @@ class InstitutionPageBuilder implements PageBuilder{
         }
         return $realmName;
     }
-    
-    public function addContentElement($element){
-        $this->contentElements [$this->contentIndex] [] = $element;
-    }
-    
-    public function addContentSeparator(){
-        $this->contentIndex++; 
-    }
-    
-    /**
-     * Prints page beginning elements. 
-     * 
-     */
-    public function createPagePrelude(){
-        echo $this->decoration->defaultPagePrelude($this->pageTitle);
-    }
-    
-    /**
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\PageBuilder::renderPageHeader()
-     */
-    public function renderPageHeader(){
-        $langHandler = new \core\common\Language();
-        echo $this->decoration->productheader($this->pageType, $langHandler->getLang());
-        ?>
-        <h1>
-            <?php echo $this->headerTitle; ?>
-        </h1>
-        <?php
-    }
-    
-    /**
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\PageBuilder::renderPageFooter()
-     */
-    public function renderPageFooter(){
-        echo $this->decoration->footer();
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\view\PageBuilder::renderContent()
-     */
-    public function renderPageContent(){
-        foreach ($this->contentElements as $inlineElements) {
-            foreach ($inlineElements as $element) {
-                $element->render();
-            }
-        }
-    }
 
+    /**
+     * Adds content element to page.
+     * 
+     * @param PageElementInterface $element
+     */
+    public function addContentElement($element){
+        $this->page->appendContent($element);
+    }
+    
+    /**
+     * Builds page beginning elements. 
+     * 
+     */
+    public function buildPagePrelude(){
+        $pagePrelude = new PageElementAdapter();
+        $pagePrelude->addText($this->decoration->defaultPagePrelude($this->page->getTitle()));
+        $this->page->appendPrelude($pagePrelude);
+    }
+    
+    /**
+     * Builds page content header elements.
+     */
+    public function buildPageHeader(){
+        $productHeader = new PageElementAdapter();
+        $productHeader->addText($this->decoration->productheader($this->page->getType()));
+        $this->page->appendContent($productHeader) ;
+    
+        $pageHeading = new Tag('h1');
+        $pageHeading->addText($this->headerTitle);
+        $this->page->appendContent(new PageElementAdapter($pageHeading));
+    }
+    
+    /**
+     * Builds page content footer elements.
+     */
+    public function buildPageFooter(){
+        $pageFooter = new PageElementAdapter();
+        $pageFooter->addText( $this->decoration->footer());
+        $this->page->appendContent($pageFooter);
+    }
+    
 }

@@ -1,17 +1,43 @@
 <?php
 namespace web\lib\admin\http;
 
-class AddUserCommand extends AbstractCommand{
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
+class AddUserCommand extends AbstractInvokerCommand {
     
     const COMMAND = 'newuser';
     const PARAM_NAME = 'username';
     const PARAM_EXPIRY = 'userexpiry';
     
+    /**
+     *
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\AbstractCommand::execute()
+     */
     public function execute(){
         if(isset($_POST[self::PARAM_NAME]) && isset($_POST[self::PARAM_EXPIRY])){
             $name = $this->parseString($_POST[self::PARAM_NAME]);
             $expiry = $this->parseString($_POST[self::PARAM_EXPIRY]);
-            $user = $this->controller->createUser($name, $expiry);
+            $user = $this->context->createUser($name, $expiry, $this);
             if(!empty($user->getIdentifier())){
                 $this->storeInfoMessage(_('User was added successfully!'));
             }

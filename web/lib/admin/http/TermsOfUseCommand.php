@@ -6,22 +6,38 @@ namespace web\lib\admin\http;
  * @author Zilvinas Vaira
  *
  */
-class TermsOfUseCommand extends AbstractCommand{
+class TermsOfUseCommand extends AbstractInvokerCommand{
 
     const COMMAND = 'termsofuse';
     
     const AGREEMENT = 'agreement';
 
     /**
+     *
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
+    
+    /**
      * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         if(isset($_POST[self::AGREEMENT])){
-            $this->controller->signAgreement();
+            $this->context->signAgreement();
         }
-        $this->controller->redirectAfterSubmit();
+        $this->context->redirectAfterSubmit();
     }
 
 }

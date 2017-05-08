@@ -3,14 +3,35 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\domain\SilverbulletUser;
 
-class AddCertificateCommand extends AbstractCommand{
+/**
+ * 
+ * @author Zilvinas Vaira
+ *
+ */
+class AddCertificateCommand extends AbstractInvokerCommand{
 
     const COMMAND = 'newcertificate';
 
     /**
      * 
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     * 
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
+    
+    /**
+     * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         $userId = $this->parseInt($_POST[self::COMMAND]);
@@ -19,13 +40,13 @@ class AddCertificateCommand extends AbstractCommand{
         if($user->isExpired()){
             $this->storeErrorMessage(sprintf(_("User '%s' has expired. In order to generate credentials please extend the expiry date!"), $user->getUsername()));
         }else{
-            $this->controller->createCertificate($user);
+            $this->context->createCertificate($user, $this);
             if($user->isDeactivated()){
-                $user->setDeactivated(false, $this->controller->getProfile());
+                $user->setDeactivated(false, $this->context->getProfile());
                 $user->save();
             }
         }
-        $this->controller->redirectAfterSubmit();
+        $this->context->redirectAfterSubmit();
     }
 
 }

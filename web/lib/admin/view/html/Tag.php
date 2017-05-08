@@ -25,7 +25,7 @@ class Tag extends UnaryTag{
     protected function composeInnerString(){
         $innerString = "";
         if(!empty($this->text)){
-            $innerString = "\n\t" . $this->tab . $this->text;
+            $innerString = $this->text;
         }
         return $innerString;
     }
@@ -39,7 +39,7 @@ class Tag extends UnaryTag{
         $tagString = "";
         $innerString = $this->composeInnerString();
         if(!empty($innerString)){
-            $tagString = "\n".$this->tab."<" . $this->name . $attributeString . ">" . $innerString . "\n".$this->tab."</" . $this->name . ">";
+            $tagString = "\n".$this->tab."<" . $this->name . $attributeString . ">" . $innerString . "</" . $this->name . ">";
         }else{
             $tagString = "\n".$this->tab."<" . $this->name . $attributeString . "></" . $this->name . ">";
         }

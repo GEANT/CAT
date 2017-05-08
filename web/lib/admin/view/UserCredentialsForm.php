@@ -6,9 +6,9 @@ use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\http\AddCertificateCommand;
 use web\lib\admin\http\DeleteUserCommand;
+use web\lib\admin\http\MessageDistributor;
 use web\lib\admin\http\RevokeCertificateCommand;
 use web\lib\admin\http\SaveUsersCommand;
-use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\UpdateUserCommand;
 use web\lib\admin\view\html\Button;
 use web\lib\admin\view\html\CompositeTag;
@@ -16,6 +16,7 @@ use web\lib\admin\view\html\Row;
 use web\lib\admin\view\html\Table;
 use web\lib\admin\view\html\Tag;
 use web\lib\admin\view\html\UnaryTag;
+use web\lib\admin\http\SendTokenByEmail;
 
 /**
  * 
@@ -28,7 +29,7 @@ class UserCredentialsForm implements PageElementInterface{
     const TITLEROW_CLASS = 'sb-title-row';
     const USERROW_CLASS = 'sb-user-row';
     const CERTIFICATEROW_CLASS = 'sb-certificate-row';
-    const COPY_TO_CLIPBOARD_CLASS = 'sb-copy-to-clipboard';
+    const INVITATION_TOKEN_CLASS = 'sb-invitation-token';
     const RESET_BUTTON_ID = 'sb-reset-dates';
     const USER_COLUMN = 'user';
     const TOKEN_COLUMN = 'token';
@@ -84,13 +85,15 @@ class UserCredentialsForm implements PageElementInterface{
     private $acknowledgeText;
     
     /**
-     *
-     * @param string $title            
-     * @param SilverbulletController $controller  
-     * @param string $acknowledgeText          
+     * 
+     * @param MessageDistributor $distributor
+     * @param string $action
+     * @param string $title
+     * @param string $acknowledgeText
+     * @param boolean $isAcknowledgeEnabled
      */
-    public function __construct($title, $controller, $acknowledgeText, $isAcknowledgeEnabled = false) {
-        $this->action = $controller->addQuery($_SERVER['SCRIPT_NAME']);
+    public function __construct($distributor, $action, $title, $acknowledgeText, $isAcknowledgeEnabled = false) {
+        $this->action = $action;
         $this->table = new Table();
         $this->table->addAttribute("cellpadding", 5);
         $this->table->addAttribute("style", "max-width:1920px;");
@@ -103,9 +106,10 @@ class UserCredentialsForm implements PageElementInterface{
         $this->decorator->addHtmlElement($hiddenCommand, TitledFormDecorator::BEFORE);
         
         $saveMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
-        $controller->distributeMessages(SaveUsersCommand::COMMAND, $saveMessageBox);
-        $controller->distributeMessages(AddCertificateCommand::COMMAND, $saveMessageBox);
-        $controller->distributeMessages(DeleteUserCommand::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(SaveUsersCommand::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(AddCertificateCommand::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(DeleteUserCommand::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(SendTokenByEmail::COMMAND, $saveMessageBox);
         $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
         
         
@@ -226,8 +230,8 @@ class UserCredentialsForm implements PageElementInterface{
                 $index = $this->table->size();
                 $this->table->addRow($row);
                 if(!$certificate->isExpired()){
-                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::COPY_TO_CLIPBOARD_CLASS));
-                    //$this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::COPY_TO_CLIPBOARD_CLASS));
+                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
+                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
                 }
                 $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
              }

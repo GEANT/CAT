@@ -58,6 +58,11 @@ class UnaryTag implements HtmlElementInterface, PageElementInterface{
         return "\n" . $this->tab . "<".$this->name.$attributeString.">";
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\html\HtmlElementInterface::__toString()
+     */
     public function __toString(){
         $attributeString = "";
         foreach ($this->attributes as $attribute) {

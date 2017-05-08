@@ -1,87 +1,45 @@
 <?php
 namespace web\lib\admin\http;
 
-use web\lib\admin\storage\SessionStorage;
-use web\lib\admin\http\SilverbulletController;
+
 
 /**
  * 
  * @author Zilvinas Vaira
  *
  */
-abstract class AbstractCommand implements MessageInvokerInterface{
+abstract class AbstractCommand {
     
     /**
      *
      * @var string
      */
-    protected $command;
+    protected $commandToken;
     
-    /**
-     *
-     * @var SilverbulletController
-     */
-    protected $controller;
-    
-    /**
-     * 
-     * @var SessionStorage
-     */
-    protected $session;
 
     /**
      *
-     * @param string $command
-     * @param SilverbulletController $controller
+     * @param string $commandToken
      */
-    public function __construct($command, $controller){
-        $this->command = $command;
-        $this->controller = $controller;
-        $this->session = $controller->getSession();
+    public function __construct($commandToken){
+        $this->commandToken = $commandToken;
     }
     
     /**
      *
-     * @param string $command
+     * @param string $commandToken
      * @return boolean
      */
-    public function isCommand($command){
-        return ($this->command == $command);
+    public function isCommand($commandToken){
+        return ($this->commandToken == $commandToken);
     }
     
+    /**
+     * 
+     * @return string
+     */
     public function getCommand(){
-        return $this->command;
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \lib\http\MessageInvokerInterface::storeErrorMessage()
-     */
-    public function storeErrorMessage($text){
-        $this->session->add($this->command, new Message($text, Message::ERROR));
-    }
-
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \lib\http\MessageInvokerInterface::storeInfoMessage()
-     */
-    public function storeInfoMessage($text){
-        $this->session->add($this->command, new Message($text, Message::INFO));
-    }
-    
-    /**
-     *
-     * {@inheritDoc}
-     * @see \lib\http\MessageInvokerInterface::publishMessages()
-     */
-    public function publishMessages($receiver){
-        $messages = $this->session->get($this->command);
-        foreach ($messages as $message) {
-            $receiver->receiveMessage($message);
-        }
-        $this->session->delete($this->command);
+        return $this->commandToken;
     }
     
     /**
@@ -115,6 +73,9 @@ abstract class AbstractCommand implements MessageInvokerInterface{
         return intval($this->parseString($value));
     }
     
+    /**
+     * 
+     */
     public abstract function execute();
     
 }

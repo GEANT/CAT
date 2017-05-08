@@ -10,7 +10,7 @@ use web\lib\admin\view\PageElementInterface;
  *        
  */
 abstract class AbstractDialogBox implements PageElementInterface {
-
+    
     protected $id = '';
     
     protected $action = '';
@@ -19,12 +19,24 @@ abstract class AbstractDialogBox implements PageElementInterface {
     
     protected $closeButtonClass = '';
     
+    protected $disabledStyle = '';
+    
     protected $params = array ();
     
-    public function __construct($id, $action, $title){
+    /**
+     * 
+     * @param string $id
+     * @param string $action
+     * @param string $title
+     * @param boolean $isVisible
+     */
+    public function __construct($id, $action, $title, $isVisible = true){
         $this->id = $id;
         $this->action = $action;
         $this->title = $title;
+        if(!$isVisible){
+            $this->disabledStyle = 'style="display:none;"';
+        }
         $this->setCloseButtonClass('close');
     }
     
@@ -38,7 +50,7 @@ abstract class AbstractDialogBox implements PageElementInterface {
     
     public function render() {
         ?>
-        <div id="<?php echo $this->id; ?>">
+        <div id="<?php echo $this->id; ?>" <?php echo $this->disabledStyle; ?>>
             <div id="overlay"></div>
             <div id="msgbox">
                 <div style="top: 100px;">

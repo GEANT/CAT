@@ -9,7 +9,7 @@ use web\lib\admin\domain\SilverbulletUser;
  * @author Zilvinas Vaira
  *
  */
-class UpdateUserCommand extends AbstractCommand{
+class UpdateUserCommand extends AbstractInvokerCommand{
 
     /**
      * Update command identifier.
@@ -19,9 +19,25 @@ class UpdateUserCommand extends AbstractCommand{
     const COMMAND = 'updateuser';
     
     /**
+     *
+     * @var SilverbulletContext
+     */
+    private $context;
+    
+    /**
+     *
+     * @param string $commandToken
+     * @param SilverbulletContext $context
+     */
+    public function __construct($commandToken, $context){
+        parent::__construct($commandToken, $context);
+        $this->context = $context;
+    }
+    
+    /**
      * 
      * {@inheritDoc}
-     * @see \lib\http\AbstractCommand::execute()
+     * @see \web\lib\admin\http\AbstractCommand::execute()
      */
     public function execute(){
         $userIndex = $this->parseInt($_POST[self::COMMAND]);
@@ -40,7 +56,7 @@ class UpdateUserCommand extends AbstractCommand{
         }
         $user->save();
         
-        $this->controller->redirectAfterSubmit();
+        $this->context->redirectAfterSubmit();
     }
 
 }
