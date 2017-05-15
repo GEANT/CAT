@@ -180,7 +180,7 @@ class SilverbulletCertificate extends PersistentEntity {
             }
             $link .= $_SERVER['SERVER_NAME'];
             $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
-            if ($relPath[strlen($relPath)] == '/') {
+            if ($relPath[strlen($relPath) -1] == '/') {
                 $relPath = substr($relPath, 0, strlen($relPath) - 1);
             }
             $link = $link . $relPath;
