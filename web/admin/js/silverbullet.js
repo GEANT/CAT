@@ -1087,6 +1087,30 @@ silverbullet.views.ComposeEmailPanel.prototype.receive = function (command) {
 
 /**
  * 
+ * @param {String} address
+ * @param {Function} filter Optional value, should be a callback that receives event parameter and validates pressed key.
+ * @param {KeyboardEvent} e Optional value, event object.
+ */
+silverbullet.views.ComposeEmailPanel.prototype.validateEmail = function(address, filter, e){
+    if(address.indexOf('@') > 0){
+        var parts = address.split('@');
+        if(filter){
+            if(!filter(e)){
+                return;
+            }
+        }
+        if(parts[1] && parts[1].indexOf('.') > 0){
+            this.receive(new silverbullet.views.EmailValidationCommand(address, this));
+        }else{
+            this.init();
+        }
+    }else{
+        this.init();
+    }    
+};
+
+/**
+ * 
  */
 silverbullet.views.ComposeEmailPanel.prototype.render = function () {
     var that = this;
@@ -1104,21 +1128,13 @@ silverbullet.views.ComposeEmailPanel.prototype.render = function () {
     });
     this.emailTextInput.on('keyup', function(e) {
         var address = that.emailTextInput.val();
-        if(address.indexOf('@') > 0){
-            if((e.which==8 || (e.which>45 && e.which<91) || (e.which>93 && e.which<112) || (e.which>185 && e.which<193) || (e.which>218 && e.which<223))){
-                that.receive(new silverbullet.views.EmailValidationCommand(address, that));
-            }
-        }else{
-            that.init();
-        }    
+        that.validateEmail(address, function(e){
+            return (e.which==8 || (e.which>45 && e.which<91) || (e.which>93 && e.which<112) || (e.which>185 && e.which<193) || (e.which>218 && e.which<223));
+        }, e);
     });
     this.emailTextInput.on('input', function() {
         var address = that.emailTextInput.val();
-        if(address.indexOf('@') > 0){
-            that.receive(new silverbullet.views.EmailValidationCommand(address, that));
-        }else{
-            that.init();
-        }    
+        that.validateEmail(address);
     });
     
     
@@ -1182,12 +1198,16 @@ silverbullet.views.EmailValidationCommand.prototype.execute = function () {
             that.panel.complete(that);
             if(message.trim() == ''){
                 that.panel.showMessage("Email address '" + that.address + "' is valid!", 'green');
+            }else{
+                that.panel.showMessage(message, 'GoldenRod'); //#DAA520
             }
         }else{
             that.panel.repeat(that);
-        }
-        if(message.trim() != ''){
-            that.panel.showMessage(message, 'red');
+            if(message.trim() != ''){
+                that.panel.showMessage(message, 'red'); 
+            }else{
+                that.panel.showMessage("Email address '" + that.address + "' is not valid!", 'red');
+            }
         }
         
     }).fail(function() {
