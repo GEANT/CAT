@@ -52,7 +52,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
             $out .= "<th style='min-width: 80px;'>" . $uiElements->displayName($oneeap) . "</th>";
         }
         $out .= "</tr>";
-        foreach (Devices::listDevices() as $index => $onedevice) {
+        foreach (\devices\Devices::listDevices() as $index => $onedevice) {
             if (isset($onedevice['options'])) {
                 if ((isset($onedevice['options']['hidden']) && ($onedevice['options']['hidden'] == 1)) || (isset($onedevice['options']['redirect']) && ($onedevice['options']['redirect'] == 1))) {
                     continue;
