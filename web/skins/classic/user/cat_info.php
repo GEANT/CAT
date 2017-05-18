@@ -48,7 +48,7 @@ switch ($page) {
         $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), CONFIG['APPEARANCE']['productname']) . "</p>";
         $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
         $uiElements = new web\lib\admin\UIElements();
-        foreach (EAP::listKnownEAPTypes() as $oneeap) {
+foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
             $out .= "<th style='min-width: 80px;'>" . $uiElements->displayName($oneeap) . "</th>";
         }
         $out .= "</tr>";
@@ -60,7 +60,7 @@ switch ($page) {
             }
             $out .= "<tr><td class='vendor'><img src='" . (new \web\lib\user\Skinjob(""))->findResourceUrl("IMAGES", "vendorlogo/" . $onedevice['group'] . ".png") . "' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new \core\DeviceFactory($index);
-            foreach (EAP::listKnownEAPTypes() as $oneeap) {
+            foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
                 if (in_array($oneeap, $device_instance->device->supportedEapMethods)) {
                     $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES", "icons/Quetto/check-icon.png") . "' alt='SUPPORTED'>";
