@@ -1181,7 +1181,7 @@ silverbullet.views.EmailValidationCommand.prototype.execute = function () {
         if(isValid=='true'){
             that.panel.complete(that);
             if(message.trim() == ''){
-                that.panel.showMessage("Email address '" + that.address + "' is valid!", 'green');
+                that.panel.showMessage("The mail domain is valid and emails will be transmitted securely.", 'green');
             }
         }else{
             that.panel.repeat(that);
