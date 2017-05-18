@@ -16,9 +16,12 @@ build:
               [
               'APPEARANCE' => [ 
               'productname' => 'CAT', 
+              'productname_long' => 'Configuration Assistant Tool',
               'defaultlocale' => 'en',
               ], 
-              'CONSORTIUM' => [], 
+              'CONSORTIUM' => [
+              'name' => 'eduroam',
+              ], 
               'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
               'AUTHENTICATION' => [], 
               'GEOIP' => [], 
