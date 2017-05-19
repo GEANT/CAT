@@ -44,7 +44,9 @@ class SanityTests extends CAT {
 
     /* $php_needversion sets the minumum required php version */
 
-    private $php_needversion = '7.0.0';
+    // because of bug:
+    // Fixed bug #74005 (mail.add_x_header causes RFC-breaking lone line feed).
+    private $php_needversion = '7.0.17';
 
     /* List all required NSIS modules below */
     private $NSIS_Modules = [
