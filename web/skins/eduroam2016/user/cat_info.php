@@ -28,8 +28,6 @@ $Gui = new \web\lib\user\Gui();
 
 $Gui->langObject->setTextDomain("web_user");
 
-$skinObject = new \web\lib\user\Skinjob("classic");
-
 $page = $_REQUEST['page'];
 $subpage= $_REQUEST['subpage'];
 switch ($page) {
