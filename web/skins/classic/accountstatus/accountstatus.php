@@ -96,14 +96,15 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             break;
                         }
 
-                        echo sprintf(_("You can now create an installation program with personalised %s login information."), CONFIG['CONSORTIUM']['name']) . "</p>";
-                        echo "<p>" . sprintf(_("The installation program is <b>strictly personal</b>, to be used <b>only on the device</b> you are currently using (%s), and it is <b>not permitted to share</b> this information with anyone. When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator."), $statusInfo['OS']['display']) . "</p>";
-                        echo "<p>" . _("During the installation process, you will be asked for the following import password. This only happens once during the installation. You do not have to write down this password.") . "</p>";
+                        echo sprintf(_("You can now download a personalised  %s installation program."), CONFIG['CONSORTIUM']['name']);
+                        echo sprintf(_("The installation program is<br/><span style='font-size: 30px;'>strictly personal</span>, to be used<br/><span style='font-size: 30px;'>only on this device (%s)</span>, and it is<br/><span style='font-size: 30px;'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
+                        echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
+                        echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p>";
 
-                        $importPassword = \core\ProfileSilverbullet::random_str(6);
+                        $importPassword = \core\ProfileSilverbullet::random_str(4, "0123456789");
                         $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
 
-                        echo "<h2>" . sprintf(_("Import Password: %s"), $importPassword) . "</h2>";
+                        echo "<h2>" . sprintf(_("Import PIN: %s"), $importPassword) . "</h2>";
                         echo "<form action='../user/sb_download.php' method='POST'>";
                         echo "<input type='hidden' name='profile' value='" . $statusInfo['profile']->identifier . "'/>";
                         echo "<input type='hidden' name='idp' value='" . $statusInfo['profile']->institution . "'/>";
