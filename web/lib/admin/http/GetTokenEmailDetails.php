@@ -3,6 +3,8 @@ namespace web\lib\admin\http;
 
 use web\lib\admin\view\html\Tag;
 
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/config/_config.php");
+
 /**
  * 
  * @author Zilvinas Vaira
@@ -24,8 +26,10 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
      */
     public function __construct($commandToken, $context){
         parent::__construct($commandToken, $context);
-        $this->subject = _("New certificate at CAT!");
-        $this->body = _("Hi!\n\nYou have new certificate issued at CAT please follow the link to download the certificate file '%s'.\n\nRegards,\nCAT Team");
+        $this->subject = sprintf(_("Your %s access is ready"), CONFIG['CONSORTIUM']['name']);
+        $this->body = sprintf(_("Hello!\n\nA new %s access credential has been created for you by your network administrator.\n\nPlease follow the following link with the device you want to enable for eduroam to get a custom %s installation program just for you:"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']);
+        $this->body .= "\n%s\n\n"; // gets replaced with the token value by getBody()
+        $this->body .= sprintf(_("Regards,\n\n%s"), CONFIG['APPEARANCE']['productname_long']);
     }
     
     /**

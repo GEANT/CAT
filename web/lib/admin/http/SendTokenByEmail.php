@@ -4,6 +4,8 @@ namespace web\lib\admin\http;
 use core\common\OutsideComm;
 use PHPMailer\PHPMailer\PHPMailer;
 
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/config/_config.php");
+
 /**
  * 
  * @author Zilvinas Vaira
@@ -54,6 +56,7 @@ class SendTokenByEmail extends AbstractInvokerCommand{
             $invitationToken = $this->parseString($_POST[GetTokenEmailDetails::PARAM_TOKENLINK]);
             $address = $this->parseString($_POST[ValidateEmailAddress::PARAM_ADDRESS]);
             
+            $this->mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
             $this->mail->Subject  = $this->detailsCommand->getSubject();
             $this->mail->Body = $this->detailsCommand->getBody($invitationToken);
             

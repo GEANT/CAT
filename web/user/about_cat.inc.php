@@ -22,28 +22,9 @@
  * the receiving end to strip this marker and not add the title by itself.
  *
  */
-require_once(dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/common.inc.php");
-
-$langObject = new \core\common\Language();
-$langObject->setTextDomain("web_user");
 
 $skinObject = new \web\lib\user\Skinjob("classic");
 
-$page = $_REQUEST['page'];
-
-switch ($page) {
-    case 'consortium':
-        $out = '<script type="text/javascript">document.location.href="' . CONFIG['CONSORTIUM']['homepage'] . '"</script>';
-        break;
-    case 'about_consortium':
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam") {
-            $out = sprintf(_("eduroam is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all eduroam hotspots on the planet. There are several million eduroam users already, enjoying free internet access on more than 6.000 hotspots! Visit <a href='http://www.eduroam.org'>the eduroam homepage</a> for more details."));
-        } else {
-            $out = "";
-        }
-        break;
-    case 'about':
         $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one institution will not work for users of another one, therefore if your institution is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your institution configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'], CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname']);
         $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), CONFIG['APPEARANCE']['productname']) . "</p>";
         $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
@@ -104,41 +85,5 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                         . "<li><b>checkout.google.com</b></li>"
                         . "</ul>"
         ));
-        break;
-    case 'tou':
-        print ('no_title');
-        include(ROOT . '/web/user/tou.php');
-        return;
-    case 'develop':
-        $out = sprintf(_("The most important need is adding new installer modules, which will configure particular devices.  CAT is making this easy for you. If you know how to create an automatic installer then fitting it into CAT should be a piece of cake. You should start by contacting us at <a href='mailto:%s'>%s</a>, but please also take a look at <a href='%s'>CAT documentation</a>."), CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['support-contact']['developer-mail'], 'doc/');
-        break;
-    case 'report':
-        $out = sprintf(_("Please send a problem report to <a href='%s'>%s</a>. Some screen dumps are very welcome."), CONFIG['APPEARANCE']['support-contact']['url'], CONFIG['APPEARANCE']['support-contact']['display']);
-        if (!empty(CONFIG['APPEARANCE']['abuse-mail'])) {
-            $out .= sprintf(_("<br/><br/>If you are a copyright holder and believe that content on this website infringes on your copyright, or find any other inappropriate content, please notify us at <a href='mailto:%s'>%s</a>."), CONFIG['APPEARANCE']['abuse-mail'], CONFIG['APPEARANCE']['abuse-mail']);
-        }
-        break;
-    case 'faq':
-        print ('no_title');
-        include(ROOT . '/web/user/faq.php');
-        return;
-    case 'admin' :
-        $out = "";
-        $auth = new \web\lib\admin\Authentication();
-        if ($auth->isAuthenticated()) {
-            $out .= '<script type="text/javascript">goAdmin()</script>';
-        } else {
-            if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
-                $out .= sprintf(_("You must have received an invitation from your national %s operator before being able to manage your institution. If that is the case, please continue and log in."), CONFIG['CONSORTIUM']['name']);
-            } else {
-                $out .= _("Please authenticate yourself and login");
-            }
-            $out .= "<p><button onclick='goAdmin(); return(false);'>" . _("Login") . "</button>";
-            $out .= "<br/><br/><p>" . _("Did you forget with which Identity Provider you logged in to the system? We can try to find out if you specify the email address with which you were invited to the system in the box below. This may not work if you were invited from a third-party website via the AdminAPI.") . "</p>";
-            $out .= "<input id='mail' name='mail' type='text'/><button onclick='window.location.replace(\"remindIdP.php?mail=stefan.winter@restena.lu\"; return false;'>" . _("Get IdP Reminder") . "</button>";
-        }
-        break;
-    default:
-        break;
-}
-print $out;
+
+?>

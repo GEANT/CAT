@@ -88,7 +88,7 @@ class OptionParser {
             $lat = $this->validator->coordinate($postArray['geo_lat']);
             $lon = $this->validator->coordinate($postArray['geo_long']);
             $good[] = ("general:geo_coordinates");
-            return ["general:geo_coordinates" => ['lang' => NULL, 'content' => json_encode(["lon" => $lon, "lat" => $lat])]];
+            return [0 => ["general:geo_coordinates" => ['lang' => NULL, 'content' => json_encode(["lon" => $lon, "lat" => $lat])]]];
         }
         return [];
     }

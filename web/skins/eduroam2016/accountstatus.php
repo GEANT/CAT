@@ -17,25 +17,25 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/common.inc.php");
+require_once("resources/inc/header.php");
+require_once("resources/inc/footer.php");
+require_once(dirname(dirname(__DIR__)) . "/admin/inc/input_validation.inc.php");
+require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 
-$languageInstance = new \core\common\Language();
+$languageInstance = new \core\Language();
 $languageInstance->setTextDomain("web_user");
-$loggerInstance = new \core\common\Logging();
+$loggerInstance = new \core\Logging();
 $loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
-$loggerInstance->debug(4, $operatingSystem);
+$loggerInstance->debug(4, $operatingSystem, true);
 
-$deco = new \web\lib\admin\PageDecoration();
-$uiElements = new web\lib\admin\UIElements();
-
-echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
-echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", "cat-user.css") . "' />";
+defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
+echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", true) . "cat-user.css' />";
 ?>
 </head>
 <body>
     <div id="heading">
         <?php
-        print '<img src="' . $skinObject->findResourceUrl("IMAGES", "consortium_logo.png") . '" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
+        print '<img src="' . $skinObject->findResourceUrl("IMAGES") . 'consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
         print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
         print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
 <h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
@@ -49,16 +49,25 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
         echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $languageInstance->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
         ?>
     </div> <!-- id="heading" -->
+    <?php
+    if (!$statusInfo['token']) {
+        // user came to page without a token.
+        // use client cert Apache Voodoo to find out the certificate serial number
+        // of the user, then the token belonging to that cert, and then use the
+        // token info for the normal status page display
+        // $cleanToken = "123abc";
+    }
+    ?>
     <div id="user_info" style='min-height: 500px;'>    
         <?php
         if ($statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED) {
             $loggerInstance->debug(4, "IDP ID = " . $statusInfo['idp']->identifier);
             //IdP and federatiopn logo, if present
             ?>
-            <table style='float: right; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
+            <table style='position: absolute; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
                 <tr>
-                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
+                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
+                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
                 </tr>
                 <tr>
                     <td><?php echo $statusInfo['idp']->name; ?></td>
@@ -74,11 +83,11 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             <span style="max-width: 700px;">
                 <?php
                 echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG['CONSORTIUM']['name']) . "</h1>";
-                switch ($statusInfo['errorcode']) {
+                $errorCode = $_REQUEST['errorcode'] ?? "";
+                switch ($errorCode) {
                     case "GENERATOR_CONSUMED":
-                        echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
+                        echo UI_error(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
                         break;
-                    case NULL:
                     default:
                 }
                 switch ($statusInfo['tokenstatus']['status']) {
@@ -90,22 +99,21 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         }
 
                         $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
-                        $dev->device->calculatePreferredEapType([\core\common\EAP::EAPTYPE_SILVERBULLET]);
+                        $dev->device->calculatePreferredEapType([\core\EAP::EAPTYPE_SILVERBULLET]);
                         if ($dev->device->selectedEap == []) {
                             echo sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;
                         }
 
-                        echo sprintf(_("You can now download a personalised  %s installation program."), CONFIG['CONSORTIUM']['name']);
-                        echo sprintf(_("The installation program is<br/><span style='font-size: 30px;'>strictly personal</span>, to be used<br/><span style='font-size: 30px;'>only on this device (%s)</span>, and it is<br/><span style='font-size: 30px;'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
-                        echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
-                        echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p>";
+                        echo sprintf(_("You can now create an installation program with personalised %s login information."), CONFIG['CONSORTIUM']['name']) . "</p>";
+                        echo "<p>" . sprintf(_("The installation program is <b>strictly personal</b>, to be used <b>only on the device</b> you are currently using (%s), and it is <b>not permitted to share</b> this information with anyone. When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator."), $statusInfo['OS']['display']) . "</p>";
+                        echo "<p>" . _("During the installation process, you will be asked for the following import password. This only happens once during the installation. You do not have to write down this password.") . "</p>";
 
-                        $importPassword = \core\ProfileSilverbullet::random_str(4, "0123456789");
+                        $importPassword = \core\ProfileSilverbullet::random_str(6);
                         $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
 
-                        echo "<h2>" . sprintf(_("Import PIN: %s"), $importPassword) . "</h2>";
-                        echo "<form action='../user/sb_download.php' method='POST'>";
+                        echo "<h2>" . sprintf(_("Import Password: %s"), $importPassword) . "</h2>";
+                        echo "<form action='user/sb_download.php' method='POST'>";
                         echo "<input type='hidden' name='profile' value='" . $statusInfo['profile']->identifier . "'/>";
                         echo "<input type='hidden' name='idp' value='" . $statusInfo['profile']->institution . "'/>";
                         $_SESSION['individualtoken'] = $cleanToken;
@@ -184,7 +192,11 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                 </td>
                 <td style="padding-left:80px; text-align:right;">
                     <?php
-                    echo $deco->attributionEurope();
+                    if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+                        echo attributionEurope();
+                    } else {
+                        echo "&nbsp;";
+                    }
                     ?>
                 </td>
             </tr>

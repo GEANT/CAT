@@ -21,6 +21,7 @@
  */
 
 namespace core;
+use \Exception;
 
 /**
  * The Options class contains convenience functions around option handling. It is implemented as a singleton to prevent
