@@ -20,8 +20,6 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
 
     private $body = '';
     
-    private $image = '';
-    
     /**
      *
      * @param string $commandToken
