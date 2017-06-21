@@ -232,6 +232,7 @@ class UserCredentialsForm implements PageElementInterface{
                 if(!$certificate->isExpired()){
                     $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
                     $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
+                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Generate QR code...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-qrcode'));
                 }
                 $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
              }

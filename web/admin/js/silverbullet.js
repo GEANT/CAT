@@ -72,18 +72,23 @@ silverbullet.SilverbulletApplication.prototype.start = function(){
         popupMessage.render();
     }
     
-    //Create all copy to clipboard elements
+    //Prepare compose email panel, prepare qr code panel and create all copy to clipboard elements
     var composeEmailPopupElement = document.getElementById(silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS);
-    if(composeEmailPopupElement){
+    var qrCodePopupElement = document.getElementById(silverbullet.views.QrCodePanel.ELEMENT_CLASS);
+    if(composeEmailPopupElement && qrCodePopupElement){
         var composeEmailPopup = new silverbullet.views.PopupMessage(composeEmailPopupElement, false);
         var composeEmailPanel = new silverbullet.views.ComposeEmailPanel(composeEmailPopup);
         composeEmailPanel.render();
+        var qrCodePopup = new silverbullet.views.PopupMessage(qrCodePopupElement, false);
+        var qrCodePanel = new silverbullet.views.QrCodePanel(qrCodePopup);
+        qrCodePanel.render();
         var clipboardElements = document.getElementsByClassName(silverbullet.views.TokenProvider.ELEMENT_CLASS);
         for (var i = 0; i < clipboardElements.length; i++) {
-            var clipboardElement = new silverbullet.views.TokenProvider(clipboardElements[i], composeEmailPanel);
+            var clipboardElement = new silverbullet.views.TokenProvider(clipboardElements[i], composeEmailPanel, qrCodePanel);
             clipboardElement.render();
         }
     }
+    
 };
 
 /**
@@ -859,19 +864,22 @@ silverbullet.views.PopupMessage.prototype.render = function () {
  * 
  * @constructor
  */
-silverbullet.views.TokenProvider = function (element, panel) {
+silverbullet.views.TokenProvider = function (element, emailPanel, qrcodePanel) {
     silverbullet.views.ViewElement.call(this, element);
     this.copyInput = $(this.element);
     this.element = this.copyInput.parent();
     this.copyButton = null;
     this.composeButton = null;
-    this.panel = panel;
+    this.qrcodeButton = null;
+    this.emailPanel = emailPanel;
+    this.qrcodePanel = qrcodePanel;
     if(this.element){
         var query = '.' + silverbullet.views.TokenProvider.ELEMENT_CLASS;
         this.copyButton = this.element.find(query + '-copy');
         this.originalBackgroundColor = this.copyButton.css('background-color');
         this.originalColor = this.copyButton.css('color');
         this.composeButton = this.element.find(query+'-compose');
+        this.qrcodeButton = this.element.find(query+'-qrcode');
     }
 };
 silverbullet.views.TokenProvider.prototype = Object.create(silverbullet.views.ViewElement.prototype);
@@ -905,10 +913,17 @@ silverbullet.views.TokenProvider.prototype.render = function () {
     }
     if(this.composeButton){
         this.composeButton.on('click', function() {
-            that.panel.setInvitationLink(that.copyInput.val());
-            that.panel.show();
+            that.emailPanel.setInvitationLink(that.copyInput.val());
+            that.emailPanel.show();
         })
     }
+    if(this.qrcodeButton){
+        this.qrcodeButton.on('click', function() {
+            that.qrcodePanel.setInvitationLink(that.copyInput.val());
+            that.qrcodePanel.show();
+        })
+    }
+
 };
 
 /**
@@ -1141,16 +1156,17 @@ silverbullet.views.ComposeEmailPanel.prototype.render = function () {
 };
 
 /**
+ * Performs email validation. Can be placed in a buffer or queue while performing.
  * 
  * @constructor
  * @param {String} address
- * @param {silverbullet.views.ComposeEmailPanel} panel
+ * @param {silverbullet.views.ComposeEmailPanel} emailPanel
 
  */
-silverbullet.views.EmailValidationCommand = function (address, panel) {
+silverbullet.views.EmailValidationCommand = function (address, emailPanel) {
     this.address = address;
-    this.buttonElement = panel.emailCATButton;
-    this.panel = panel;
+    this.buttonElement = emailPanel.emailCATButton;
+    this.emailPanel = emailPanel;
     this.interval = -1;
     this.blocked = false;
 };
@@ -1164,7 +1180,7 @@ silverbullet.views.EmailValidationCommand.prototype.clear = function(){
         this.interval = -1;
         if(this.blocked){
             this.blocked = false;
-            this.panel.unblock();
+            this.emailPanel.unblock();
         }
     }
 };
@@ -1174,13 +1190,13 @@ silverbullet.views.EmailValidationCommand.prototype.clear = function(){
  */
 silverbullet.views.EmailValidationCommand.prototype.execute = function () {
     var that = this;
-    this.panel.start();
+    this.emailPanel.start();
     
     var validationMessage = "Validating email '" + this.address + "'";
     this.interval = setInterval(function() {
-        that.panel.block();
+        that.emailPanel.block();
         validationMessage += ".";
-        that.panel.showMessage(validationMessage, 'green');
+        that.emailPanel.showMessage(validationMessage, 'green');
     }, 1000);
     
     $.ajax({
@@ -1195,25 +1211,104 @@ silverbullet.views.EmailValidationCommand.prototype.execute = function () {
         var message = email.text();
 
         if(isValid=='true'){
-            that.panel.complete(that);
+            that.emailPanel.complete(that);
             if(message.trim() == ''){
-                that.panel.showMessage("The mail domain is valid and emails will be transmitted securely.", 'green');
+                that.emailPanel.showMessage("The mail domain is valid and emails will be transmitted securely.", 'green');
             }else{
-                that.panel.showMessage(message, 'GoldenRod'); //#DAA520
+                that.emailPanel.showMessage(message, 'GoldenRod'); //#DAA520
             }
         }else{
-            that.panel.repeat(that);
+            that.emailPanel.repeat(that);
             if(message.trim() != ''){
-                that.panel.showMessage(message, 'red'); 
+                that.emailPanel.showMessage(message, 'red'); 
             }else{
-                that.panel.showMessage("Email address '" + that.address + "' is not valid!", 'red');
+                that.emailPanel.showMessage("Email address '" + that.address + "' is not valid!", 'red');
             }
         }
         
     }).fail(function() {
         that.clear();
-        that.panel.repeat(that);
-        that.panel.showMessage("Failed to validate email address '" + that.address + "'!", 'red');
+        that.emailPanel.repeat(that);
+        that.emailPanel.showMessage("Failed to validate email address '" + that.address + "'!", 'red');
     });
     
 };
+
+/**
+ * Generates QR code image panel. Panel needs to be wraped inside Popup Message.
+ * 
+ * @constructor
+ */
+silverbullet.views.QrCodePanel = function (popup) {
+    this.popup = popup;
+    this.link = '';
+    if(this.popup){
+        silverbullet.views.ViewElement.call(this, $(popup.element));
+        var query = '#' + silverbullet.views.QrCodePanel.ELEMENT_CLASS;
+        this.imageElement = this.element.find(query + '-image');
+        var containerElement = this.imageElement.parent();
+        var errorElement = document.createElement('p');
+        errorElement.style.color = "red";
+        errorElement.style.fontWeight = "bold";
+        this.errorElement = $(errorElement);
+        containerElement.append(this.errorElement);
+        this.errorElement.hide();
+        this.grayboxElement = containerElement.parent();
+
+    }
+};
+silverbullet.views.QrCodePanel.prototype = Object.create(silverbullet.views.ViewElement.prototype);
+silverbullet.views.QrCodePanel.prototype.constructor = silverbullet.views.QrCodePanel;
+silverbullet.views.QrCodePanel.ELEMENT_CLASS = 'sb-qr-code';
+
+/**
+ * Sets invitiation link to be converted to QR image.
+ * @param {String} link
+ */
+silverbullet.views.QrCodePanel.prototype.setInvitationLink = function (link) {
+    this.link = link;
+};
+
+/**
+ * Retrieves QR image from server and shows it inside a popup.
+ */
+silverbullet.views.QrCodePanel.prototype.show = function () {
+    var that = this;
+    $.ajax({
+        method: "POST",
+        url: "inc/silverbullet.inc.php",
+        data: {command: silverbullet.views.ComposeEmailPanel.COMMAND_GET_DETAILS, tokenlink: that.link}
+    }).done(function(data) {
+        var email = $(data).find('email');
+        that.imageElement.attr('src', email.attr('image'));
+        that.imageElement.css('float',"none");
+        that.imageElement.css('cursor',"default");
+        that.imageElement.show();
+        that.errorElement.hide();
+        that.doShow();
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        that.imageElement.hide();
+        that.errorElement.text("Could not generate QR code image!");
+        that.errorElement.show();
+        that.doShow();
+    });
+
+}
+
+/**
+ * Calculates popup size and shows popup.
+ */
+silverbullet.views.QrCodePanel.prototype.doShow = function () {
+    var grayboxWidth = parseInt(this.imageElement.attr('width')) + 20;
+    this.grayboxElement.css('width', grayboxWidth + 'px');
+    this.element.css('display',"block");
+    this.popup.positionToCenter();
+}
+
+/**
+ * Renders popup events only.
+ */
+silverbullet.views.QrCodePanel.prototype.render = function () {
+    this.popup.render();
+};
+
