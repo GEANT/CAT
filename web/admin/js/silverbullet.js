@@ -1286,7 +1286,7 @@ silverbullet.views.QrCodePanel.prototype.show = function () {
         that.imageElement.show();
         that.errorElement.hide();
         that.doShow();
-    }).fail(function(jqXHR, textStatus, errorThrown) {
+    }).fail(function() {
         that.imageElement.hide();
         that.errorElement.text("Could not generate QR code image!");
         that.errorElement.show();

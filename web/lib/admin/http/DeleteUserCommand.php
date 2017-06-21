@@ -56,7 +56,7 @@ class DeleteUserCommand extends AbstractInvokerCommand{
             $builder = $this->context->getBuilder();
             $dialogTitle = _('Deactivate User');
             $dialogText = sprintf(_("Are you sure you want to deactivate user '%s' and revoke all user certificates?"), $user->getUsername());
-            $dialogBox = new YesNoDialogBox($this->context->addQuery($_SERVER['SCRIPT_NAME']), $dialogText);
+            $dialogBox = new YesNoDialogBox(PageElementInterface::MESSAGEPOPUP_CLASS, $this->context->addQuery($_SERVER['SCRIPT_NAME']), $dialogText);
             $dialogBox->addParameter('command', SaveUsersCommand::COMMAND);
             $dialogBox->addParameter(self::COMMAND, $user->getIdentifier());
             $dialogBox->setYesControl(self::PARAM_CONFIRMATION, 'true');
