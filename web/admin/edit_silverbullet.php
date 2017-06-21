@@ -15,24 +15,27 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 require_once("inc/common.inc.php");
 
+use web\lib\admin\http\SilverbulletContext;
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
 use web\lib\admin\view\AddNewUserForm;
 use web\lib\admin\view\ComposeEmailBox;
 use web\lib\admin\view\DefaultHtmlPage;
 use web\lib\admin\view\FileUploadForm;
+use web\lib\admin\view\html\UnaryTag;
 use web\lib\admin\view\InfoBlockTable;
 use web\lib\admin\view\InstitutionPageBuilder;
+use web\lib\admin\view\PageElementAdapter;
 use web\lib\admin\view\PageElementInterface;
+use web\lib\admin\view\PopupMessageContainer;
 use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
 use web\lib\admin\view\UserCredentialsForm;
-use web\lib\admin\http\SilverbulletContext;
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.2.6');
+$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.3.0');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
@@ -113,13 +116,25 @@ if($builder->isReady()){
     
     //Appending terms of use popup
     if(!$context->isAgreementSigned()){
-        $termsOfUse = new TermsOfUseBox(PageElementInterface::MESSAGEPOPUP_CLASS, $action, TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
-        $builder->addContentElement($termsOfUse);
+        $termsOfUse = new TermsOfUseBox($action, TermsOfUseCommand::COMMAND, TermsOfUseCommand::AGREEMENT);
+        $termsOfUsePopup = new PopupMessageContainer($termsOfUse, PageElementInterface::MESSAGEPOPUP_CLASS, \core\ProfileSilverbullet::PRODUCTNAME . " - " . _('Terms of Use'));
+        $termsOfUsePopup->setCloseButtonClass('redirect');
+        $builder->addContentElement($termsOfUsePopup);
     }
     
-    //Adding compose email popup template
-    $composeEmail = new ComposeEmailBox(PageElementInterface::COMPOSE_EMAIL_CLASS, $action, _('Compose Email'), _('Choose how you want to send the message.'), false);
-    $builder->addContentElement($composeEmail);
+    //Adding hidden compose email popup template
+    $composeEmail = new ComposeEmailBox($action, _('Choose how you want to send the message.'));
+    $builder->addContentElement(new PopupMessageContainer($composeEmail, PageElementInterface::COMPOSE_EMAIL_CLASS, _('Compose Email'), false));
+    
+    //Adding hidden QR code popup template
+    $qrCodeImage = new UnaryTag("img");
+    $qrCodeImage->addAttribute("id", PageElementInterface::INVITATION_QR_CODE_CLASS."-image");
+    $qrCodeImage->addAttribute("alt", _('Invitation QR Code'));
+    $qrCodeImage->addAttribute("width", 400);
+    $qrCodeImage->addAttribute("height", 400);
+    $invitationQrCode = new PopupMessageContainer(new PageElementAdapter($qrCodeImage), PageElementInterface::INVITATION_QR_CODE_CLASS, _('Invitation QR Code'), false);
+    $builder->addContentElement($invitationQrCode);
+    
 }
 $builder->buildPageFooter();
 

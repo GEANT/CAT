@@ -4,6 +4,7 @@ namespace web\lib\admin\http;
 use web\lib\admin\view\html\Tag;
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/config/_config.php");
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/core/phpqrcode.php");
 
 /**
  * 
@@ -18,6 +19,8 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
     private $subject = '';
 
     private $body = '';
+    
+    private $image = '';
     
     /**
      *
@@ -61,6 +64,8 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
 
             $tokenTag = new Tag('email');
             $tokenTag->addAttribute('subject', $this->getSubject());
+            $bytestream = \QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12);
+            $tokenTag->addAttribute('image', "data:image/png;base64," . base64_encode($bytestream));
             $tokenTag->addText($this->getBody($invitationToken));
             
             $this->publish($tokenTag);

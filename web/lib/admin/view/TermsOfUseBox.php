@@ -11,13 +11,23 @@ class TermsOfUseBox extends AbstractDialogBox{
     private $command = '';
     private $parameter = '';
     
-    public function __construct($id, $action, $command, $parameter) {
-        parent::__construct($id, $action, \core\ProfileSilverbullet::PRODUCTNAME . " - " . _('Terms of Use'));
+    /**
+     * 
+     * @param string $action
+     * @param string $command
+     * @param string $parameter
+     */
+    public function __construct($action, $command, $parameter) {
+        parent::__construct($action);
         $this->command = $command;
         $this->parameter = $parameter;
-        $this->setCloseButtonClass('redirect');
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\AbstractDialogBox::renderContent()
+     */
     public function renderContent(){
         ?>
         <hr>
@@ -50,6 +60,11 @@ class TermsOfUseBox extends AbstractDialogBox{
         <?php
     }
     
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\AbstractDialogBox::renderControls()
+     */
     public function renderControls(){
         ?>
         <div style="position: relative; padding-bottom: 5px;">

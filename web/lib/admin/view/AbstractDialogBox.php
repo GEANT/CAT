@@ -11,67 +11,38 @@ use web\lib\admin\view\PageElementInterface;
  */
 abstract class AbstractDialogBox implements PageElementInterface {
     
-    protected $id = '';
-    
     protected $action = '';
-    
-    protected $title = '';
-    
-    protected $closeButtonClass = '';
-    
-    protected $disabledStyle = '';
     
     protected $params = array ();
     
     /**
      * 
-     * @param string $id
      * @param string $action
-     * @param string $title
-     * @param boolean $isVisible
      */
-    public function __construct($id, $action, $title, $isVisible = true){
-        $this->id = $id;
+    public function __construct($action){
         $this->action = $action;
-        $this->title = $title;
-        if(!$isVisible){
-            $this->disabledStyle = 'style="display:none;"';
-        }
-        $this->setCloseButtonClass('close');
     }
     
     public function addParameter($key, $value) {
         $this->params [$key] = $value;
     }
     
-    public function setCloseButtonClass($token){
-        $this->closeButtonClass = $this->id . '-' . $token;
-    }
-    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\view\PageElementInterface::render()
+     */
     public function render() {
+        $this->renderContent();
         ?>
-        <div id="<?php echo $this->id; ?>" <?php echo $this->disabledStyle; ?>>
-            <div id="overlay"></div>
-            <div id="msgbox">
-                <div style="top: 100px;">
-                    <div class="graybox">
-                        <img class="<?php echo $this->closeButtonClass; ?>" src="../resources/images/icons/button_cancel.png" alt="cancel">
-                        <h1><?php echo $this->title; ?></h1>
-                        <div style="position: relative;">
-                            <?php $this->renderContent(); ?>
-                        </div>
-                        <form action="<?php echo $this->action; ?>" method="post" accept-charset="UTF-8">
-                        <?php 
-                        foreach ($this->params as $key => $value) {
-                           ?><input type="hidden" name="<?php echo $key; ?>" value="<?php echo $value; ?>"><?php
-                        }
-                        $this->renderControls(); 
-                        ?>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <form action="<?php echo $this->action; ?>" method="post" accept-charset="UTF-8">
+        <?php 
+            foreach ($this->params as $key => $value) {
+                ?><input type="hidden" name="<?php echo $key; ?>" value="<?php echo $value; ?>"><?php
+            }
+            $this->renderControls(); 
+        ?>
+        </form>
         <?php
     }
     

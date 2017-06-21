@@ -16,14 +16,11 @@ abstract class AbstractTextDialogBox extends AbstractDialogBox{
     
     /**
      * 
-     * @param string $id
      * @param string $action
-     * @param string $title
      * @param string $text
-     * @param boolean $isVisible
      */
-    public function __construct($id, $action, $title, $text, $isVisible = true) {
-        parent::__construct($id, $action, $title, $isVisible);
+    public function __construct($action, $text) {
+        parent::__construct($action);
         $this->text = $text;
     }
     
