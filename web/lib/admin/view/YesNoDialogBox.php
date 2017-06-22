@@ -11,12 +11,25 @@ class YesNoDialogBox extends AbstractTextDialogBox{
     const NO = 0;
     const YES = 1;
     
+    private $id = '';
+    
     /**
      * 
      * @var array
      */
     private $controls = array(array('name'=>'', 'value'=>''), array('name'=>'confirm', 'value'=>'yes'));
 
+    /**
+     * 
+     * @param string $id
+     * @param string $action
+     * @param string $text
+     */
+    public function __construct($id, $action, $text){
+        parent::__construct($action, $text);
+        $this->id = $id;
+    }
+    
     /**
      * 
      * @param string $name
