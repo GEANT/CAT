@@ -130,4 +130,61 @@ class OutsideComm {
         return $retval;
     }
 
+    const SMS_SENT = 100;
+    const SMS_NOTSENT = 101;
+    const SMS_FRAGEMENTSLOST = 102;
+
+    /**
+     * Send SMS invitations to end users
+     * 
+     * @param string $number the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
+     * @param string $content the text to send
+     * @throws Exception
+     */
+    public static function sendSMS($number, $content) {
+        $loggerInstance = new \core\common\Logging();
+        switch (CONFIG['SMSSETTINGS']['provider']) {
+            case 'Nexmo':
+                // taken from https://docs.nexmo.com/messaging/sms-api
+                $url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
+                                [
+                                    'api_key' => CONFIG['SMSSETTINGS']['username'],
+                                    'api_secret' => CONFIG['SMSSETTINGS']['password'],
+                                    'to' => $number,
+                                    'from' => CONFIG['APPEARANCE']['productname'],
+                                    'text' => $content,
+                                ]
+                );
+
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec($ch);
+
+                $decoded_response = json_decode($response, true);
+                $messageCount = $decoded_response['message-count'];
+
+                if ($messageCount == 0) {
+                    $loggerInstance->debug(2, 'Problem with SMS invitation: no message was sent!');
+                    return OutsideComm::SMS_NOTSENT;
+                }
+                $loggerInstance->debug(2, 'Total of ' . $messageCount . ' messages were attempted to send.');
+
+                $totalFailures = 0;
+                foreach ($decoded_response['messages'] as $message) {
+                    if ($message['status'] == 0) {
+                        $loggerInstance->debug(2, $message['message-id']. ": Success");
+                    } else {
+                        $loggerInstance->debug(2, $message['message-id']. ": Failed (failure code = ".$message['status'].")");
+                        $totalFailures++;
+                    }
+                }
+                if ($messageCount == count($decoded_response['messages']) && $totalFailures == 0) {
+                    return OutsideComm::SMS_SENT;
+                }
+                return OutsideComm::SMS_FRAGEMENTSLOST;
+            default:
+                throw new Exception("Unknown SMS Gateway provider!");
+        }
+    }
+
 }
