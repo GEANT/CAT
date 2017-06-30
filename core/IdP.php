@@ -95,7 +95,7 @@ class IdP extends EntityWithDBProperties {
     /**
      * This function retrieves all registered profiles for this IdP from the database
      *
-     * @return array List of Profiles of this IdP
+     * @return array<AbstractProfile> List of Profiles of this IdP
      * @param int $activeOnly if and set to non-zero will
      * cause listing of only those institutions which have some valid profiles defined.
      */

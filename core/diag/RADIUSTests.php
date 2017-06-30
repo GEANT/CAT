@@ -117,6 +117,26 @@ class RADIUSTests extends AbstractTest {
         $this->languageInstance->setTextDomain($oldlocale);
     }
 
+    private function printDN($distinguishedName) {
+        $out = '';
+        foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // to give an example: "CN" => "some.host.example" 
+            if (!is_array($nameValue)) { // single-valued: just a string
+                $nameValue = ["$nameValue"]; // convert it to a multi-value attrib with just one value :-) for unified processing later on
+            }
+            foreach ($nameValue as $oneValue) {
+                if ($out) {
+                    $out .= ',';
+                }
+                $out .= "$nameType=$oneValue";
+            }
+        }
+        return($out);
+    }
+
+    private function printTm($time) {
+        return(gmdate(\DateTime::COOKIE, $time));
+    }
+
     /**
      * This function parses a X.509 server cert and checks if it finds client device incompatibilities
      * 
@@ -247,9 +267,9 @@ class RADIUSTests extends AbstractTest {
         // if we are in thorough opMode, use our knowledge for a more clever check
         // otherwise guess
         if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
-            return $this->UDP_login($probeindex, \core\common\EAP::eAPMethodArrayIdConversion($this->supportedEapTypes[0]), $this->outerUsernameForChecks, '', $opnameCheck, $frag, $clientcert);
+            return $this->UDP_login($probeindex, \core\common\EAP::eAPMethodArrayIdConversion($this->supportedEapTypes[0]), $this->outerUsernameForChecks, 'eaplab', $opnameCheck, $frag, $clientcert);
         }
-        return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, '', $opnameCheck, $frag, $clientcert);
+        return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, 'eaplab', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -418,15 +438,17 @@ network={
     }
 
     private function packetCountEvaluation(&$testresults, $packetcount) {
-        $reqs = (isset($packetcount[1]) ? $packetcount[1] : 0);
-        $accepts = (isset($packetcount[2]) ? $packetcount[2] : 0);
-        $rejects = (isset($packetcount[3]) ? $packetcount[3] : 0);
-        $challenges = (isset($packetcount[11]) ? $packetcount[11] : 0);
+        $reqs = $packetcount[1] ?? 0;
+        $accepts = $packetcount[2] ?? 0;
+        $rejects = $packetcount[3]?? 0;
+        $challenges = $packetcount[11] ?? 0;
         $testresults['packetflow_sane'] = TRUE;
         if ($reqs - $accepts - $rejects - $challenges != 0 || $accepts > 1 || $rejects > 1) {
             $testresults['packetflow_sane'] = FALSE;
         }
 
+        $this->loggerInstance->debug(5, "XYZ: Counting req, acc, rej, chal: $reqs, $accepts, $rejects, $challenges");
+        
 // calculate the main return values that this test yielded
 
         $finalretval = RADIUSTests::RETVAL_INVALID;
@@ -511,7 +533,7 @@ network={
                     $intermOdditiesCAT = array_merge($intermOdditiesCAT, $this->propertyCheckIntermediate($decoded));
                     if (isset($decoded['CRL']) && isset($decoded['CRL'][0])) {
                         $this->loggerInstance->debug(4, "got an intermediate CRL; adding them to the chain checks. (Remember: checking end-entity cert only, not the whole chain");
-                        file_put_contents($tmpDir . "/root-ca-allcerts/crl_cat$catIntermediates.pem", $decoded['CRL'][0]);
+                        file_put_contents($tmpDir . "/root-ca-allcerts/crl_cat" . count($catIntermediates) . ".pem", $decoded['CRL'][0]);
                     }
                     $catIntermediates[] = $decoded['pem'];
                 }
@@ -602,14 +624,13 @@ network={
         // if there is no match!
         // FAIL if none of the configured names show up in the server cert
         // WARN if the configured name is only in either CN or sAN:DNS
-        
         // Strategy for checks: we are TOTALLY happy if any one of the
         // configured names shows up in both the CN and a sAN
         // This is the primary check.
         // If that was not the case, we are PARTIALLY happy if any one of
         // the configured names was in either of the CN or sAN lists.
         // we are UNHAPPY if no names match!
-        
+
         $happiness = "UNHAPPY";
         foreach ($this->expectedServerNames as $expectedName) {
             $this->loggerInstance->debug(4, "Managing expectations for $expectedName: " . print_r($servercert['CN'], TRUE) . print_r($servercert['sAN_DNS'], TRUE));
@@ -878,6 +899,52 @@ network={
         $this->UDP_reachability_result[$probeindex] = $testresults;
         $this->UDP_reachability_executed = $finalretval;
         return $finalretval;
+    }
+
+    public function consolidateUdpResult($host) {
+        $ret = [];
+        $serverCert = [];
+        $udpResult = $this->UDP_reachability_result[$host];
+        if (isset($udpResult['certdata']) && count($udpResult['certdata'])) {
+            foreach ($udpResult['certdata'] as $certdata) {
+                if ($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned') {
+                    continue;
+                }
+                $serverCert = [
+                    'subject' => $this->printDN($certdata['subject']),
+                    'issuer' => $this->printDN($certdata['issuer']),
+                    'validFrom' => $this->printTm($certdata['validFrom_time_t']),
+                    'validTo' => $this->printTm($certdata['validTo_time_t']),
+                    'serialNumber' => $certdata['serialNumber'] . sprintf(" (0x%X)", $certdata['serialNumber']),
+                    'sha1' => $certdata['sha1'],
+                    'extensions' => $certdata['extensions']
+                ];
+            }
+        }
+        $ret['server_cert'] = $serverCert;
+        $ret['server'] = 0;
+        if (isset($udpResult['incoming_server_names'][0])) {
+            $ret['server'] = sprintf(_("Connected to %s."), $udpResult['incoming_server_names'][0]);
+        }
+        $ret['level'] = \core\common\Entity::L_OK;
+        $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
+        if (empty($udpResult['cert_oddities'])) {
+            $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
+            return $ret;
+        }
+
+        $ret['message'] = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned. Some properties of the connection attempt were sub-optimal; the list is below.");
+        $ret['cert_oddities'] = [];
+        foreach ($udpResult['cert_oddities'] as $oddity) {
+            $o = [];
+            $o['code'] = $oddity;
+            $o['message'] = isset($this->return_codes[$oddity]["message"]) && $this->return_codes[$oddity]["message"] ? $this->return_codes[$oddity]["message"] : $oddity;
+            $o['level'] = $this->return_codes[$oddity]["severity"];
+            $ret['level'] = max($ret['level'], $this->return_codes[$oddity]["severity"]);
+            $ret['cert_oddities'][] = $o;
+        }
+
+        return $ret;
     }
 
 }
