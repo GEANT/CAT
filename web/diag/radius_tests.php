@@ -31,72 +31,6 @@ function disp_name($eap) {
     return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
 }
 
-function printDN($distinguishedName) {
-    $out = '';
-    foreach (array_reverse($distinguishedName) as $nameType => $nameValue) { // to give an example: "CN" => "some.host.example" 
-        if (!is_array($nameValue)) { // single-valued: just a string
-            $nameValue = ["$nameValue"]; // convert it to a multi-value attrib with just one value :-) for unified processing later on
-        }
-        foreach ($nameValue as $oneValue) {
-            if ($out) {
-                $out .= ',';
-            }
-            $out .= "$nameType=$oneValue";
-        }
-    }
-    return($out);
-}
-
-function printTm($time) {
-    return(gmdate(DateTime::COOKIE, $time));
-}
-
-function process_result($testsuite, $host) {
-    $ret = [];
-    $serverCert = [];
-    $udpResult = $testsuite->UDP_reachability_result[$host];
-    if (isset($udpResult['certdata']) && count($udpResult['certdata'])) {
-        foreach ($udpResult['certdata'] as $certdata) {
-            if ($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned') {
-                continue;
-            }
-            $serverCert = [
-                'subject' => printDN($certdata['subject']),
-                'issuer' => printDN($certdata['issuer']),
-                'validFrom' => printTm($certdata['validFrom_time_t']),
-                'validTo' => printTm($certdata['validTo_time_t']),
-                'serialNumber' => $certdata['serialNumber'] . sprintf(" (0x%X)", $certdata['serialNumber']),
-                'sha1' => $certdata['sha1'],
-                'extensions' => $certdata['extensions']
-            ];
-        }
-    }
-    $ret['server_cert'] = $serverCert;
-    $ret['server'] = 0;
-    if (isset($udpResult['incoming_server_names'][0])) {
-        $ret['server'] = sprintf(_("Connected to %s."), $udpResult['incoming_server_names'][0]);
-    }
-    $ret['level'] = \core\common\Entity::L_OK;
-    $ret['time_millisec'] = sprintf("%d", $udpResult['time_millisec']);
-    if (empty($udpResult['cert_oddities'])) {
-        $ret['message'] = _("<strong>Test successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned.");
-        return $ret;
-    }
-
-    $ret['message'] = _("<strong>Test partially successful</strong>: a bidirectional RADIUS conversation with multiple round-trips was carried out, and ended in an Access-Reject as planned. Some properties of the connection attempt were sub-optimal; the list is below.");
-    $ret['cert_oddities'] = [];
-    foreach ($udpResult['cert_oddities'] as $oddity) {
-        $o = [];
-        $o['code'] = $oddity;
-        $o['message'] = isset($testsuite->return_codes[$oddity]["message"]) && $testsuite->return_codes[$oddity]["message"] ? $testsuite->return_codes[$oddity]["message"] : $oddity;
-        $o['level'] = $testsuite->return_codes[$oddity]["severity"];
-        $ret['level'] = max($ret['level'], $testsuite->return_codes[$oddity]["severity"]);
-        $ret['cert_oddities'][] = $o;
-    }
-
-    return $ret;
-}
-
 if (!isset($_REQUEST['test_type']) || !$_REQUEST['test_type']) {
     throw new Exception("No test type specified!");
 }
@@ -191,7 +125,7 @@ switch ($test_type) {
             } else {
                 $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password);
             }
-            $returnarray['result'][$i] = process_result($testsuite, $hostindex);
+            $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
             $returnarray['result'][$i]['eap'] = $uiElements->displayName($eap);
             $returnarray['returncode'][$i] = $testresult;
 
@@ -251,7 +185,7 @@ switch ($test_type) {
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
         $testresult = $testsuite->UDP_reachability($hostindex);
-        $returnarray['result'][$i] = process_result($testsuite, $hostindex);
+        $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
         $returnarray['result'][$i]['eap'] = 'ALL';
         $returnarray['returncode'][$i] = $testresult;
         // a failed check may not have gotten any certificate, be prepared for that

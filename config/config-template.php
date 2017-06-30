@@ -191,6 +191,15 @@ const CONFIG = [
     ],
     
     /**
+     * Configures SMS gateway settings
+     */
+    'SMSSETTINGS' => [
+        'provider' => 'Nexmo',
+        'username' => '...',
+        'password' => '...',
+    ],
+    
+    /**
      * List of all supported languages in CAT. Comment some if you want to disable them
      * @var array
      */

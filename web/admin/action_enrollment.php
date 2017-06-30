@@ -66,7 +66,7 @@ if ($checkval < 0) {
 // token is valid. Get meta-info and create inst
 // TODO get invitation level and mail, store it as property
 
-$user = $validator->User($_GET['user']);
+$user = $validator->User($_SESSION['user']);
 $loggerInstance = new \core\common\Logging();
 switch ($token) {
     case "SELF-REGISTER":

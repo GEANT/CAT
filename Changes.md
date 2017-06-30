@@ -40,6 +40,9 @@ Configuration parameter changes
 - [ADDED]     CONSORTIUM['silverbullet_gracetime']
 - [ADDED]     CONSORTIUM['nomenclature_federation']
 - [ADDED]     APPEARANCE['skins']
+- [ADDED]     SMSSETTINGS['provider'] (only supported value: Nexmo)
+- [ADDED]     SMSSETTINGS['username']
+- [ADDED]     SMSSETTINGS['password']
 - [EXTERNAL]  for Managed IdP client cert auth for the accountstatus page:
               Apache: SSLCACertificateFile ... file with PEMs of client cert issuers ...
               Apache: SSLOptions StdEnvVars
