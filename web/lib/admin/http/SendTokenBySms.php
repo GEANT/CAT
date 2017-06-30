@@ -17,12 +17,6 @@ class SendTokenBySms extends AbstractInvokerCommand{
     
     /**
      * 
-     * @var PHPMailer
-     */
-    //protected $phone = null;
-    
-    /**
-     * 
      * @var GetTokenEmailDetails
      */
     protected $detailsCommand = null;

@@ -23,8 +23,9 @@
 
 namespace core;
 
-require_once(__DIR__ . "/PHPMailer/src/PHPMailer.php");
-require_once(__DIR__ . "/PHPMailer/src/SMTP.php");
+//require_once(__DIR__ . "/PHPMailer/src/PHPMailer.php");
+//require_once(__DIR__ . "/PHPMailer/src/Exception.php");
+//require_once(__DIR__ . "/PHPMailer/src/SMTP.php");
 
 /**
  * This class represents a known CAT User (i.e. an institution and/or federation adiministrator).
