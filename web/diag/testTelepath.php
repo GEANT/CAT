@@ -11,8 +11,9 @@
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 $telepath = new \core\diag\Telepath($_GET['realm'], $_GET['visited']);
+$validator = new \web\lib\common\InputValidation();
 
 echo "<pre>";
-echo "Testing ".$_GET['realm']." in ".$_GET['visited'];
+echo "Testing ".$validator->realm($_GET['realm'])." in ".$validator->string($_GET['visited']);
 print_r($telepath->magic());
 echo "</pre>";

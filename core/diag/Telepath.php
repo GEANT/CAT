@@ -91,7 +91,7 @@ class Telepath {
         // this is NULL if the realm is not known in either DB
         // if so, let's try a regex to extract the ccTLD if any
         $matches = [];
-        if ($this->idPFederation == NULL && preg_match("/\.(..)$/", $realm, $matches)) {
+        if ($this->idPFederation === NULL && preg_match("/\.(..)$/", $realm, $matches)) {
             $this->idPFederation = strtoupper($matches[1]);
         }
         $this->logHandle = new \core\common\Logging();
@@ -172,7 +172,7 @@ class Telepath {
             }
             if ($bestProfile != FALSE) { // still nothing? then there's only a very incomplete profile definition, and we can't work with that. Fall back to shallow
                 $this->additionalFindings[Telepath::INFRA_IdP_RADIUS][] = ["Profile" => $bestProfile->identifier];
-                $testsuite = new RADIUSTests($this->realm, $profileObject->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($profileObject->getEapMethodsinOrderOfPreference(1)), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
+                $testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($profileObject->getEapMethodsinOrderOfPreference(1)), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
             } else {
                 $this->additionalFindings[Telepath::INFRA_IdP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
                 $testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);
