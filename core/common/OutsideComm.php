@@ -105,6 +105,7 @@ class OutsideComm {
         $retval = OutsideComm::MAILDOMAIN_NO_CONNECT;
         $allWithStarttls = TRUE;
         foreach ($ipAddrs as $oneip) {
+            $loggerInstance->debug(5, "OutsideComm::mailAddressValidSecure: connecting to $oneip.");
             $smtp = new \PHPMailer\PHPMailer\SMTP;
             if ($smtp->connect($oneip, 25)) {
                 // host reached! so at least it's not a NO_CONNECT
@@ -120,6 +121,7 @@ class OutsideComm {
             } else {
                 // no connect: then we can't claim all targets have STARTTLS
                 $allWithStarttls = FALSE;
+                $loggerInstance->debug(5, "OutsideComm::mailAddressValidSecure: failed $oneip.");
             }
         }
         // did the state $allWithStarttls survive? Then up the response to
