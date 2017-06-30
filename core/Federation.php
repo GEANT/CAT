@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -20,7 +21,9 @@
 /**
  * necessary includes
  */
+
 namespace core;
+
 use \Exception;
 
 /**
@@ -41,7 +44,7 @@ use \Exception;
  * @package Developer
  */
 class Federation extends EntityWithDBProperties {
-    
+
     private function downloadStatsCore() {
         $grossAdmin = 0;
         $grossUser = 0;
@@ -289,7 +292,65 @@ class Federation extends EntityWithDBProperties {
         return $returnarray;
     }
 
+    const UNKNOWN_IDP = -1;
+    const AMBIGUOUS_IDP = -2;
+
+    /**
+     * If we are running diagnostics, our input from the user is the realm. We
+     * need to find out which IdP this realm belongs to.
+     * @param string $realm the realm to search for
+     * @return IdP|int either the ID of the IdP in the system, or UNKNOWN_IDP or AMBIGUOUS_IDP
+     */
+    public static function determineIdPIdByRealm($realm) {
+        $candidatesCat = [];
+        $candidatesExternalDb = [];
+        $country = NULL;
+        $dbHandle = DBConnection::handle("INST");
+        
+        $realmSearchStringCat = "%@$realm";
+        $realmSearchStringDb1 = "$realm";
+        $realmSearchStringDb2 = "%,$realm";
+        $realmSearchStringDb3 = "$realm,%";
+        $realmSearchStringDb4 = "%,$realm,%";
+        
+        $candidateCatQuery = $dbHandle->exec("SELECT inst_id FROM profile WHERE realm LIKE ?", "s", $realmSearchStringCat);
+        while ($row = mysqli_fetch_object($candidateCatQuery)) {
+            if (!in_array($row->inst_id, $candidatesCat)) {
+                $candidatesCat[] = $row->inst_id;
+                $idpObject = new IdP($row->inst_id);
+                $country = strtoupper($idpObject->federation);
+            }
+        }
+        if (count($candidatesCat) <= 0) {
+            $candidatesCat = [Federation::UNKNOWN_IDP];
+        }
+        if (count($candidatesCat) > 1) {
+            $candidatesCat = [Federation::AMBIGUOUS_IDP];
+        }
+
+        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
+            $externalHandle = DBConnection::handle("EXTERNAL");
+            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
+            while ($row = mysqli_fetch_object($candidateExternalQuery)) {
+                if (!in_array($row->inst_id, $candidatesExternalDb)) {
+                    $candidatesExternalDb[] = $row->id_institution;
+                    $country = strtoupper($row->country);
+                }
+            }
+        }
+        if (count($candidatesExternalDb) <= 0) {
+            $candidatesExternalDb = [Federation::UNKNOWN_IDP];
+        }
+        if (count($candidatesExternalDb) > 1) {
+            $candidatesExternalDb = [Federation::AMBIGUOUS_IDP];
+        }
+
+
+        return ["CAT" => array_pop($candidatesCat), "EXTERNAL" => array_pop($candidatesExternalDb), "FEDERATION" => $country];
+    }
+
     private function usort_institution($a, $b) {
         return strcasecmp($a["name"], $b["name"]);
     }
+
 }
