@@ -65,7 +65,7 @@ class PopupMessageContainer implements PageElementInterface{
                     <div class="graybox">
                         <img class="<?php echo $this->closeButtonClass; ?>" src="../resources/images/icons/button_cancel.png" alt="cancel">
                         <h1><?php echo $this->title; ?></h1>
-                        <div style="position: relative;">
+                        <div class="containerbox" style="position: relative;">
                             <?php $this->pageElement->render(); ?>
                         </div>
                     </div>
