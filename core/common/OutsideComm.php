@@ -183,7 +183,7 @@ class OutsideComm {
                 }
                 return OutsideComm::SMS_FRAGEMENTSLOST;
             default:
-                throw new Exception("Unknown SMS Gateway provider!");
+                throw new \Exception("Unknown SMS Gateway provider!");
         }
     }
 

@@ -2,7 +2,6 @@
 namespace web\lib\admin\http;
 
 use core\common\OutsideComm;
-use PHPMailer\PHPMailer\PHPMailer;
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/config/_config.php");
 
@@ -41,9 +40,37 @@ class SendTokenBySms extends AbstractInvokerCommand{
      */
     public function __construct($commandToken, $context){
         parent::__construct($commandToken, $context);
-        //$this->mail = OutsideComm::mailHandle();
         $this->detailsCommand = new GetTokenEmailDetails(GetTokenEmailDetails::COMMAND, $context);
         $this->context = $context;
+    }
+    
+    /**
+     * 
+     * @param string $phone
+     * @param string $content
+     */
+    private function sendSMS($phone, $content){
+        $error = "";
+        $result = -1;
+        try {
+            $result = OutsideComm::sendSMS($phone, $content);
+        } catch (\Exception $e) {
+            $error = $e->getMessage();
+        }
+        switch ($result) {
+            case OutsideComm::SMS_SENT:
+                $this->storeInfoMessage(sprintf(_("SMS message has been sent successfuly to '%s'!"), $phone));
+                break;
+            case OutsideComm::SMS_FRAGEMENTSLOST:
+                $this->storeErrorMessage(sprintf(_("Part of the SMS message to '%s' was lost. Sender error: '%s'."), $phone, $result));
+                break;
+            case OutsideComm::SMS_NOTSENT:
+                $this->storeErrorMessage(sprintf(_("SMS message could not be sent to '%s'. Sender error: '%s'."), $phone, $result));
+                break;
+            default:
+                $this->storeErrorMessage(sprintf(_("SMS message could not be sent to '%s'. Sender error: '%s'"), $phone, $error));
+                break;
+        }
     }
     
     /**
@@ -55,18 +82,17 @@ class SendTokenBySms extends AbstractInvokerCommand{
         if(isset($_POST[GetTokenEmailDetails::PARAM_TOKENLINK]) && isset($_POST[SendTokenBySms::PARAM_PHONE])){
             
             $invitationToken = $this->parseString($_POST[GetTokenEmailDetails::PARAM_TOKENLINK]);
-            $phone = $this->parseString($_POST[ValidateEmailAddress::PARAM_PHONE]);
+            $phone = $this->parseString($_POST[SendTokenBySms::PARAM_PHONE]);
+            $content = sprintf(
+                _("Your %s access is ready! Please click on the link at the end to continue! (On Android, be sure to install the %s app from %s before doing that) %s"), 
+                CONFIG['CONSORTIUM']['name'],
+                "eduroam CAT",
+                "https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat",
+                $invitationToken
+            );
             
-            $this->mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
-            $this->mail->Subject  = $this->detailsCommand->getSubject();
-            $this->mail->Body = $this->detailsCommand->getBody($invitationToken);
+            $this->sendSMS($phone, $content);
             
-            $this->mail->addAddress($address);
-            if($this->mail->send()) {
-                $this->storeInfoMessage(sprintf(_("Email message has been sent successfuly to '%s'!"), $address));
-            } else {
-                $this->storeErrorMessage(sprintf(_("Email message could not be sent to '%s'. Mailer error: '%s'."), $address, $this->mail->ErrorInfo));
-            }
             $this->context->redirectAfterSubmit();
         }
     }

@@ -881,7 +881,7 @@ silverbullet.views.PopupMessage.prototype.resize = function (width) {
  * @param {jQuery} jqElement
  */
 silverbullet.views.PopupMessage.prototype.append = function (jqElement) {
-    if(this.containerJQElement.find(this.tokenElement).length==0){
+    if(this.containerJQElement.find(jqElement).length==0){
         this.containerJQElement.append(jqElement);
     }
 };
@@ -1003,6 +1003,7 @@ silverbullet.views.TokenProvider.prototype.render = function () {
     }
     if(this.smsJQButton){
         this.smsJQButton.on('click', function() {
+            that.smsPanel.setInvitationLink(that.tokenJQInput.val());
             that.smsPanel.show();
         })
     }
@@ -1049,6 +1050,15 @@ silverbullet.views.TokenReceiverPanel.COMMAND_GET_DETAILS = 'gettokenemaildetail
  */
 silverbullet.views.TokenReceiverPanel.prototype.setInvitationLink = function (link) {
     this.link = link;
+};
+
+/**
+ * Display a panel.
+ * 
+ * @abstract
+ */
+silverbullet.views.TokenReceiverPanel.prototype.show = function () {
+    throw new Error('must be implemented by subclass!');
 };
 
 /**
@@ -1124,13 +1134,17 @@ silverbullet.views.ComposeEmailPanel.ELEMENT_CLASS = 'sb-compose-email';
  */
 silverbullet.views.ComposeEmailPanel.prototype.show = function () {
     var that = this;
+    var containerJQElement = this.emailClientButton.parent();
     this.init();
     this.emailTextInput.val('');
     this.popup.show();
-    this.popup.resize(this.emailClientButton.parent().width());
+    this.popup.resize(containerJQElement.width());
     
     this.tokenElement.setAttribute('value', this.link);
-    this.popup.append(this.tokenElement);
+    this.emailClientButton.parent().append(this.tokenElement);
+    if(containerJQElement.find(this.tokenElement).length==0){
+        containerJQElement.append(this.tokenElement);
+    }
     
     $.ajax({
         method: "POST",
@@ -1440,13 +1454,18 @@ silverbullet.views.SmsPanel = function (popup) {
     
     /** @member {jQuery} */
     this.phoneJQElement = null;
-    /** @member {jQuery} */
-    this.buttonJQElement = null;
+    
+    /**
+     * Hidden token element
+     * @member {Element}
+     */
+    this.tokenElement = document.createElement('input');
+    this.tokenElement.setAttribute('type', 'hidden');
+    this.tokenElement.setAttribute('name', 'tokenlink');
     
     if(this.popup){
         var query = '#' + silverbullet.views.SmsPanel.ELEMENT_CLASS;
         this.phoneJQElement = $(this.element).find(query + '-phone');
-        this.buttonJQElement = $(this.element).find(query + '-send');
     }
 };
 silverbullet.views.SmsPanel.prototype = Object.create(silverbullet.views.TokenReceiverPanel.prototype);
@@ -1457,62 +1476,20 @@ silverbullet.views.SmsPanel.ELEMENT_CLASS = 'sb-send-sms';
  * Calculates popup size and shows popup.
  */
 silverbullet.views.SmsPanel.prototype.show = function () {
+    var containerJQElement = this.phoneJQElement.parent();
     this.popup.show();
-    this.popup.resize(this.buttonJQElement.parent().width());
+    this.popup.resize(containerJQElement.width());
+    
+    this.tokenElement.setAttribute('value', this.link);
+    if(containerJQElement.find(this.tokenElement).length==0){
+        containerJQElement.append(this.tokenElement);
+    }
 };
 
 /**
  * Renders popup events only.
  */
 silverbullet.views.SmsPanel.prototype.render = function () {
-    var that = this;
     this.popup.render();
-    
-    this.buttonJQElement.on('click', function() {
-        var mailto = "mailto:";
-        var address = that.emailTextInput.val();
-        if(address!=""){
-            mailto += address;
-        }
-        if(that.subject && that.body){
-            mailto += "?subject=" + that.subject + "&body=" + encodeURI(that.body);
-        }
-        window.location.href = mailto;
-    });
-
-
-    $.ajax({
-        method: "POST",
-        url: "inc/silverbullet.inc.php",
-        data: {command: silverbullet.views.TokenReceiverPanel.COMMAND_VALIDATE_EMAIL, address: encodeURI(that.address)}
-    }).done(function(data) {
-        that.clear();
-        
-        var jqEmail = $(data).find('email');
-        var isValid = jqEmail.attr('isValid');
-        var message = jqEmail.text();
-
-        if(isValid=='true'){
-            that.emailPanel.complete(that);
-            if(message.trim() == ''){
-                that.emailPanel.showError("The mail domain is valid and emails will be transmitted securely.", 'green');
-            }else{
-                that.emailPanel.showError(message, 'GoldenRod'); //#DAA520
-            }
-        }else{
-            that.emailPanel.repeat(that);
-            if(message.trim() != ''){
-                that.emailPanel.showError(message); 
-            }else{
-                that.emailPanel.showError("Email address '" + that.address + "' is not valid!");
-            }
-        }
-        
-    }).fail(function() {
-        that.clear();
-        that.emailPanel.repeat(that);
-        that.emailPanel.showError("Failed to validate email address '" + that.address + "'!");
-    });
-    
 };
 

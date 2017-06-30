@@ -75,6 +75,8 @@ class SilverbulletController extends AbstractController implements MessageDistri
                 return new SaveUsersCommand($commandToken, $this->context);
             }elseif ($commandToken == SendTokenByEmail::COMMAND){
                 return new SendTokenByEmail($commandToken, $this->context);
+            }elseif ($commandToken == SendTokenBySms::COMMAND){
+                return new SendTokenBySms($commandToken, $this->context);
             }else{
                 return new DefaultCommand($commandToken);
             }

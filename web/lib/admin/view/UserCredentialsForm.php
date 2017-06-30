@@ -17,6 +17,7 @@ use web\lib\admin\view\html\Table;
 use web\lib\admin\view\html\Tag;
 use web\lib\admin\view\html\UnaryTag;
 use web\lib\admin\http\SendTokenByEmail;
+use web\lib\admin\http\SendTokenBySms;
 
 /**
  * 
@@ -110,8 +111,8 @@ class UserCredentialsForm implements PageElementInterface{
         $distributor->distributeMessages(AddCertificateCommand::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(DeleteUserCommand::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(SendTokenByEmail::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(SendTokenBySms::COMMAND, $saveMessageBox);
         $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
-        
         
         $this->acknowledgeDays = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
         $this->acknowledgeText = $acknowledgeText;
