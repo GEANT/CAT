@@ -31,11 +31,12 @@ use web\lib\admin\view\PopupMessageContainer;
 use web\lib\admin\view\TabbedPanelsBox;
 use web\lib\admin\view\TermsOfUseBox;
 use web\lib\admin\view\UserCredentialsForm;
+use web\lib\admin\view\SendSmsBox;
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.3.0');
+$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.3.2');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
@@ -125,6 +126,10 @@ if($builder->isReady()){
     //Adding hidden compose email popup template
     $composeEmail = new ComposeEmailBox($action, _('Choose how you want to send the message.'));
     $builder->addContentElement(new PopupMessageContainer($composeEmail, PageElementInterface::COMPOSE_EMAIL_CLASS, _('Compose Email'), false));
+
+    //Adding hidden send in SMS popup template
+    $sendSms = new SendSmsBox($action, _('Send invitation token in SMS message.'));
+    $builder->addContentElement(new PopupMessageContainer($sendSms, PageElementInterface::SEND_SMS_CLASS, _('Send in SMS'), false));
     
     //Adding hidden QR code popup template
     $qrCodeImage = new UnaryTag("img");

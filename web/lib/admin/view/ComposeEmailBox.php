@@ -18,13 +18,13 @@ class ComposeEmailBox extends AbstractTextDialogBox {
      */
     protected function renderControls(){
         ?>
-        <div style="position: relative; padding-bottom: 5px;">
+        <div style="position: relative; padding-bottom: 10px; width: 450px;">
              <label>Send email using client aplication:</label>
              <button type="button" id="sb-compose-email-client">Send mail with client</button>
              <p>OR</p>
              <label>Enter user email: </label>
-             <input type="text" id="sb-compose-email-email" name="<?php echo ValidateEmailAddress::PARAM_ADDRESS; ?>">
-             <button type="submit" id="sb-compose-email-cat" name="command" value="<?php echo SendTokenByEmail::COMMAND; ?>" disabled="disabled">Send mail with CAT</button>
+             <input type="text" id="<?php echo PageElementInterface::COMPOSE_EMAIL_CLASS; ?>-email" name="<?php echo ValidateEmailAddress::PARAM_ADDRESS; ?>">
+             <button type="submit" id="<?php echo PageElementInterface::COMPOSE_EMAIL_CLASS; ?>-cat" name="command" value="<?php echo SendTokenByEmail::COMMAND; ?>" disabled="disabled">Send mail with CAT</button>
         </div>
         <?php
     }

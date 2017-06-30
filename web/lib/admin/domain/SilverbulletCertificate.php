@@ -196,8 +196,7 @@ class SilverbulletCertificate extends PersistentEntity {
             $input->addAttribute('class', UserCredentialsForm::INVITATION_TOKEN_CLASS);
             $input->addAttribute('readonly', 'readonly');
             $input->addAttribute('value', $link);
-            $input->addAttribute('size', strlen($link) + 3);
-            $input->addAttribute('style', 'color: grey;');
+            $input->addAttribute('style', 'color: grey;min-width:150px;width:50%');
             $input->addAttribute('name', 'certificate-link[]');
 
             $link = $input->__toString();

@@ -15,6 +15,8 @@ interface PageElementInterface {
     const MESSAGEPOPUP_CLASS = 'sb-popup-message';
     const COMPOSE_EMAIL_CLASS = 'sb-compose-email';
     const INVITATION_QR_CODE_CLASS = 'sb-qr-code';
+    const SEND_SMS_CLASS = 'sb-send-sms';
+    
     
     /**
      * Rendering mainly involves generating string content and producing its output. This can be produced simply by echoing generated string element or by enclosing and starting php tags (later this could be upgraded to use HTML element templates instead).

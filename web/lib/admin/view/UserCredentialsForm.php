@@ -17,6 +17,7 @@ use web\lib\admin\view\html\Table;
 use web\lib\admin\view\html\Tag;
 use web\lib\admin\view\html\UnaryTag;
 use web\lib\admin\http\SendTokenByEmail;
+use web\lib\admin\http\SendTokenBySms;
 
 /**
  * 
@@ -110,8 +111,8 @@ class UserCredentialsForm implements PageElementInterface{
         $distributor->distributeMessages(AddCertificateCommand::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(DeleteUserCommand::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(SendTokenByEmail::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(SendTokenBySms::COMMAND, $saveMessageBox);
         $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
-        
         
         $this->acknowledgeDays = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
         $this->acknowledgeText = $acknowledgeText;
@@ -232,6 +233,7 @@ class UserCredentialsForm implements PageElementInterface{
                 if(!$certificate->isExpired()){
                     $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
                     $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
+                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Send in SMS...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-sms'));
                     $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Generate QR code...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-qrcode'));
                 }
                 $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
