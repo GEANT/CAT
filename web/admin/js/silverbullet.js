@@ -1477,6 +1477,7 @@ silverbullet.views.SmsPanel.ELEMENT_CLASS = 'sb-send-sms';
  */
 silverbullet.views.SmsPanel.prototype.show = function () {
     var containerJQElement = this.phoneJQElement.parent();
+    this.phoneJQElement.val("");
     this.popup.show();
     this.popup.resize(containerJQElement.width());
     
@@ -1487,7 +1488,7 @@ silverbullet.views.SmsPanel.prototype.show = function () {
 };
 
 /**
- * Renders popup events only.
+ * Renders popup events only and attaches phone number value filter.
  */
 silverbullet.views.SmsPanel.prototype.render = function () {
     var that = this;
