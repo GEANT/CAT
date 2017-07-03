@@ -5,6 +5,7 @@ use core\common\OutsideComm;
 use PHPMailer\PHPMailer\PHPMailer;
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/config/_config.php");
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/core/phpqrcode.php");
 
 /**
  * 
