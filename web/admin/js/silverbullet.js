@@ -1477,6 +1477,7 @@ silverbullet.views.SmsPanel.ELEMENT_CLASS = 'sb-send-sms';
  */
 silverbullet.views.SmsPanel.prototype.show = function () {
     var containerJQElement = this.phoneJQElement.parent();
+    this.phoneJQElement.val("");
     this.popup.show();
     this.popup.resize(containerJQElement.width());
     
@@ -1487,9 +1488,24 @@ silverbullet.views.SmsPanel.prototype.show = function () {
 };
 
 /**
- * Renders popup events only.
+ * Renders popup events only and attaches phone number value filter.
  */
 silverbullet.views.SmsPanel.prototype.render = function () {
+    var that = this;
     this.popup.render();
+    this.phoneJQElement.on("keyup, input", function(e) {
+        var value = that.phoneJQElement.val();
+        var nonNumbers =/\D/g;
+        if(nonNumbers.test(value)){
+            var start = that.phoneJQElement[0].selectionStart;
+            var end = that.phoneJQElement[0].selectionEnd;
+            var length = value.length; 
+            value = value.replace(nonNumbers, "");
+            var delta = value.length - length;
+            that.phoneJQElement.val(value);
+            that.phoneJQElement[0].selectionStart = start + delta;
+            that.phoneJQElement[0].selectionEnd = end + delta;
+        }
+    })
 };
 

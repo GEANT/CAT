@@ -5,6 +5,7 @@ use core\common\OutsideComm;
 use PHPMailer\PHPMailer\PHPMailer;
 
 require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/config/_config.php");
+require_once(dirname(dirname(dirname(dirname(__DIR__)))) . "/core/phpqrcode.php");
 
 /**
  * 
@@ -59,6 +60,8 @@ class SendTokenByEmail extends AbstractInvokerCommand{
             $this->mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
             $this->mail->Subject  = $this->detailsCommand->getSubject();
             $this->mail->Body = $this->detailsCommand->getBody($invitationToken);
+            $bytestream = \QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12);
+            $this->mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
             
             $this->mail->addAddress($address);
             if($this->mail->send()) {
