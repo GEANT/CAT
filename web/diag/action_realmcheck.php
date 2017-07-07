@@ -11,6 +11,8 @@
 <?php
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
+$loggerInstance = new \core\common\Logging();
+
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
@@ -189,7 +191,7 @@ $errorstate = [];
 
     function clients(data, status) {
         var srefused = 0;
-//show_debug(data);
+        show_debug(data);
         cliinfo = '<ol>';
         for (var key in data.ca) {
             srefused = 0;
@@ -265,7 +267,7 @@ $errorstate = [];
     }
 
     function capath(data, status) {
-//show_debug(data);
+        show_debug(data);
         $("#srcca" + data.hostindex).html('');
         var newhtml = '<p>' + data.message + '</p>';
         var more = '';
@@ -315,7 +317,7 @@ $errorstate = [];
 
 
     function udp(data, status) {
-//show_debug(JSON.stringify(data));
+        show_debug(JSON.stringify(data));
         var v = data.result[0];
         $("#src" + data.hostindex + "_img").attr('src', icons[v.level]);
         if (v.server !== 0) {
@@ -364,13 +366,12 @@ $errorstate = [];
     }
 
     function udp_login(data, status) {
-//show_debug(data);
-
+        show_debug(data);
         $("#live_src" + data.hostindex + "_img").hide();
         $.each(data.result, function (i, v) {
             var o = '<table><tr><td colspan=2>';
             var cert_data = '';
-            if (v.server !== '0') {
+            if (v.server !== 0) {
                 o = o + '<strong>' + v.server + '</strong><p>';
                 cert_data = "<tr><td>&nbsp;</td><td><p><strong><?php echo _("Server certificate details:") ?></strong><dl class='udp_login'>";
                 $.each(server_cert, function (l, s) {
@@ -456,6 +457,8 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
     }
 
     function show_debug(text) {
+        // comment out the line below if you want to see deboug output from tests
+        return;
         var t = $("#debug_out").html();
         $("#debug_out").html(t + "<p>" + JSON.stringify(text));
         $("#debug_out").show();

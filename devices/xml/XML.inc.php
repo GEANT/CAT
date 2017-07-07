@@ -43,7 +43,7 @@ class XMLElement {
             \core\common\EAP::FAST => ['CA', 'ServerID'],
             \core\common\EAP::PEAP => ['CA', 'ServerID'],
             \core\common\EAP::TTLS => ['CA', 'ServerID'],
-            \core\common\EAP::PWD => [],
+            \core\common\EAP::PWD => ['ServerID'],
         ],
         'client' => [
             \core\common\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],

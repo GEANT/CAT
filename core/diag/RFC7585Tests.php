@@ -103,8 +103,8 @@ class RFC7585Tests extends AbstractTest {
         }
         $NAPTRs = dns_get_record($this->realm . ".", DNS_NAPTR);
         if ($NAPTRs === FALSE || count($NAPTRs) == 0) {
-            $this->NAPTR_executed = RADIUSTests::RETVAL_NONAPTR;
-            return RADIUSTests::RETVAL_NONAPTR;
+            $this->NAPTR_executed = RFC7585Tests::RETVAL_NONAPTR;
+            return RFC7585Tests::RETVAL_NONAPTR;
         }
         $NAPTRs_consortium = [];
         foreach ($NAPTRs as $naptr) {
@@ -113,8 +113,8 @@ class RFC7585Tests extends AbstractTest {
             }
         }
         if (count($NAPTRs_consortium) == 0) {
-            $this->NAPTR_executed = RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
-            return RADIUSTests::RETVAL_ONLYUNRELATEDNAPTR;
+            $this->NAPTR_executed = RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR;
+            return RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR;
         }
         $this->NAPTR_records = $NAPTRs_consortium;
         $this->NAPTR_executed = count($NAPTRs_consortium);
