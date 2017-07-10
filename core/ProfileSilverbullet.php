@@ -22,6 +22,9 @@
 namespace core;
 
 use \Exception;
+use web\lib\admin\domain\SilverbulletInvitation;
+use web\lib\admin\domain\Attribute;
+use web\lib\admin\domain\SilverbulletCertificate;
 
 /**
  * This class represents an EAP Profile.
@@ -280,7 +283,21 @@ class ProfileSilverbullet extends AbstractProfile {
         $parsedCert = $x509->processCertificate($certString);
         $this->loggerInstance->debug(5, "CERTINFO: " . print_r($parsedCert['full_details'], true));
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
-        $this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
+        
+        //$this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
+        /* Using Silverbullet domain objects instead of direct database queries.
+         * Finds invitation by its token attribute, creates new certificate, sets values and stores it to database.
+         * There are two failures (theoreticaly) possible: no record has been found for given token or more than one record has been found for given token.
+         */
+        $invitations = SilverbulletInvitation::getList(null, new Attribute(SilverbulletInvitation::TOKEN, $token));
+        $certificateId = null;
+        if(count($invitations) > 0){
+            $certificate = new SilverbulletCertificate($invitations[0]);
+            $certificate->setCertificateDetails($serial, $username, $realExpiryDate);
+            $certificate->save();
+            $certificateId = $certificate->getIdentifier();
+        }
+        
         // newborn cert immediately gets its "valid" OCSP response
         ProfileSilverbullet::triggerNewOCSPStatement((int)$serial);
 // return PKCS#12 data stream
@@ -292,6 +309,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "sha1" => $sha1,
             'importPassword' => $importPassword,
             'serial' => $serial,
+            'certificateId' => $certificateId
         ];
     }
 

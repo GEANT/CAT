@@ -37,12 +37,14 @@ class SilverbulletController extends AbstractController implements MessageDistri
             if($commandToken == SaveUsersCommand::COMMAND){
                 if(isset($_POST[DeleteUserCommand::COMMAND])){
                     $commandToken = DeleteUserCommand::COMMAND;
-                }elseif(isset($_POST[AddCertificateCommand::COMMAND])){
-                    $commandToken = AddCertificateCommand::COMMAND;
+                }elseif(isset($_POST[AddInvitationCommand::COMMAND])){
+                    $commandToken = AddInvitationCommand::COMMAND;
                 }elseif(isset($_POST[UpdateUserCommand::COMMAND])){
                     $commandToken = UpdateUserCommand::COMMAND;
                 }elseif (isset($_POST[RevokeCertificateCommand::COMMAND])){
                     $commandToken = RevokeCertificateCommand::COMMAND;
+                }elseif (isset($_POST[RevokeInvitationCommand::COMMAND])){
+                    $commandToken = RevokeInvitationCommand::COMMAND;
                 }elseif (isset($_POST[SaveUsersCommand::COMMAND])){
                     $commandToken = SaveUsersCommand::COMMAND;
                 }
@@ -65,12 +67,14 @@ class SilverbulletController extends AbstractController implements MessageDistri
                 return new AddUsersCommand($commandToken, $this->context);
             }elseif ($commandToken == DeleteUserCommand::COMMAND){
                 return new DeleteUserCommand($commandToken, $this->context);
-            }elseif ($commandToken == AddCertificateCommand::COMMAND){
-                return new AddCertificateCommand($commandToken, $this->context);
+            }elseif ($commandToken == AddInvitationCommand::COMMAND){
+                return new AddInvitationCommand($commandToken, $this->context);
             }elseif ($commandToken == UpdateUserCommand::COMMAND){
                 return new UpdateUserCommand($commandToken, $this->context);
             }elseif ($commandToken == RevokeCertificateCommand::COMMAND){
                 return new RevokeCertificateCommand($commandToken, $this->context);
+            }elseif ($commandToken == RevokeInvitationCommand::COMMAND){
+                return new RevokeInvitationCommand($commandToken, $this->context);
             }elseif ($commandToken == SaveUsersCommand::COMMAND){
                 return new SaveUsersCommand($commandToken, $this->context);
             }elseif ($commandToken == SendTokenByEmail::COMMAND){

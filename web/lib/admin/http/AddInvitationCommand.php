@@ -8,9 +8,9 @@ use web\lib\admin\domain\SilverbulletUser;
  * @author Zilvinas Vaira
  *
  */
-class AddCertificateCommand extends AbstractInvokerCommand{
+class AddInvitationCommand extends AbstractInvokerCommand{
 
-    const COMMAND = 'newcertificate';
+    const COMMAND = 'newinvitation';
 
     /**
      * 
@@ -40,7 +40,7 @@ class AddCertificateCommand extends AbstractInvokerCommand{
         if($user->isExpired()){
             $this->storeErrorMessage(sprintf(_("User '%s' has expired. In order to generate credentials please extend the expiry date!"), $user->getUsername()));
         }else{
-            $this->context->createCertificate($user, $this);
+            $this->context->createInvitation($user, $this);
             if($user->isDeactivated()){
                 $user->setDeactivated(false, $this->context->getProfile());
                 $user->save();

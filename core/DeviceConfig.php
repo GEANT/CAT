@@ -20,6 +20,7 @@
 
 namespace core;
 use \Exception;
+use web\lib\admin\domain\SilverbulletCertificate;
 
 /**
  * This class defines the API for CAT module writers.
@@ -154,7 +155,16 @@ abstract class DeviceConfig extends \core\common\Entity {
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
-            $dbInstance->exec("UPDATE silverbullet_certificate SET device = ? WHERE one_time_token = ?", "ss", $devicename, $token);
+
+            //$dbInstance->exec("UPDATE silverbullet_certificate SET device = ? WHERE one_time_token = ?", "ss", $devicename, $token);
+            /* Using Silverbullet domain objects instead of direct database queries.
+             * 
+             */
+            if($this->clientCert['certificateId']!=null){
+                $certificate = SilverbulletCertificate::prepare($this->clientCert['certificateId']);
+                $certificate->setDeviceName($devicename);
+                $certificate->save();
+            }
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;

@@ -2,9 +2,7 @@
 
 namespace web\lib\admin\domain;
 
-use web\lib\admin\view\html\UnaryTag;
 use core\ProfileSilverbullet;
-use web\lib\admin\view\UserCredentialsForm;
 
 /**
  * 
@@ -85,24 +83,16 @@ class SilverbulletCertificate extends PersistentEntity {
 
     /**
      * 
-     * @var string
+     * @param $silverbulletInvitation SilverbulletInvitation
      */
-    private $defaultTokenExpiry;
-
-    /**
-     * 
-     * @param $silverbulletUser SilverbulletUser
-     */
-    public function __construct($silverbulletUser) {
+    public function __construct($silverbulletInvitation) {
         parent::__construct(self::TABLE, self::TYPE_INST);
         $this->setAttributeType(self::PROFILEID, Attribute::TYPE_INTEGER);
         $this->setAttributeType(self::SILVERBULLETUSERID, Attribute::TYPE_INTEGER);
-        if (!empty($silverbulletUser)) {
-            $this->set(self::PROFILEID, $silverbulletUser->getProfileId());
-            $this->set(self::SILVERBULLETUSERID, $silverbulletUser->getIdentifier());
-            $this->set(self::ONETIMETOKEN, $this->generateToken());
-            $this->defaultTokenExpiry = date('Y-m-d H:i:s', strtotime("+1 week"));
-            $this->set(self::EXPIRY, $this->defaultTokenExpiry);
+        if (!empty($silverbulletInvitation)) {
+            $this->set(self::PROFILEID, $silverbulletInvitation->get(SilverbulletCertificate::PROFILEID));
+            $this->set(self::SILVERBULLETUSERID, $silverbulletInvitation->get(SilverbulletCertificate::SILVERBULLETUSERID));
+            $this->set(self::EXPIRY, date('Y-m-d H:i:s', strtotime("+1 week")));
         }
     }
 
@@ -117,6 +107,14 @@ class SilverbulletCertificate extends PersistentEntity {
         $this->set(self::CN, $cn);
         $expiry = date('Y-m-d H:i:s', strtotime($expiry));
         $this->set(self::EXPIRY, $expiry);
+    }
+    
+    /**
+     * 
+     * @param string $deviceName
+     */
+    public function setDeviceName($deviceName) {
+        $this->set(self::DEVICE, $deviceName);
     }
 
     /**
@@ -159,60 +157,6 @@ class SilverbulletCertificate extends PersistentEntity {
     }
 
     /**
-     *
-     * @return string
-     */
-    public function getOneTimeToken() {
-        if ($this->isExpired()) {
-            return _('User did not consume the token and it expired!');
-        } else {
-            return $this->get(self::ONETIMETOKEN);
-        }
-    }
-
-    public function getOneTimeTokenLink($host = '') {
-        $link = '';
-        if (empty($host)) {
-            if (isset($_SERVER['HTTPS'])) {
-                $link = 'https://';
-            } else {
-                $link = 'http://';
-            }
-            $link .= $_SERVER['SERVER_NAME'];
-            $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
-            if ($relPath[strlen($relPath) -1] == '/') {
-                $relPath = substr($relPath, 0, strlen($relPath) - 1);
-            }
-            $link = $link . $relPath;
-        } else {
-            $link = $host;
-        }
-        if ($this->isExpired()) {
-            $link = _('User did not consume the token and it expired!');
-        } else {
-            $link .= '/accountstatus/accountstatus.php?token=' . $this->get(self::ONETIMETOKEN);
-            $input = new UnaryTag('input');
-            $input->addAttribute('type', 'text');
-            $input->addAttribute('class', UserCredentialsForm::INVITATION_TOKEN_CLASS);
-            $input->addAttribute('readonly', 'readonly');
-            $input->addAttribute('value', $link);
-            $input->addAttribute('style', 'color: grey;min-width:150px;width:50%');
-            $input->addAttribute('name', 'certificate-link[]');
-
-            $link = $input->__toString();
-        }
-        return $link;
-    }
-
-    /**
-     *
-     * @return string
-     */
-    private function generateToken() {
-        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
-    }
-
-    /**
      * 
      * @return string
      */
@@ -235,14 +179,10 @@ class SilverbulletCertificate extends PersistentEntity {
     }
 
     public function getCertificateDetails() {
-        if ($this->isGenerated()) {
-            return _('Device:') . $this->get(self::DEVICE) . '<br> '
-                    . _('Serial Number:') . dechex($this->getSerialNumber()) . '<br> '
-                    . _('CN:') . $this->getShortCommonName() . '<br> '
-                    . _('Expiry:') . $this->getExpiry();
-        } else {
-            return $this->getOneTimeTokenLink();
-        }
+        return _('Device:') . $this->get(self::DEVICE) . '<br> '
+                . _('Serial Number:') . dechex($this->getSerialNumber()) . '<br> '
+                . _('CN:') . $this->getShortCommonName() . '<br> '
+                . _('Expiry:') . $this->getExpiry();
     }
 
     /**
@@ -305,7 +245,7 @@ class SilverbulletCertificate extends PersistentEntity {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         $userId = $silverbulletUser->getAttribute(self::ID);
         if ($searchAttribute != null) {
-            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY, $searchAttribute->key);
+            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
             $result = $databaseHandle->exec($query, $userId->getType() . $searchAttribute->getType(), $userId->value, $searchAttribute->value);
         } else {
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY);

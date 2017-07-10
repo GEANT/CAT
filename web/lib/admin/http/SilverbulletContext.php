@@ -2,7 +2,7 @@
 namespace web\lib\admin\http;
 
 use core\ProfileSilverbullet;
-use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\domain\SilverbulletInvitation;
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\view\InstitutionPageBuilder;
 
@@ -107,19 +107,22 @@ class SilverbulletContext extends DefaultContext{
     }
     
     /**
-     * Factory method that creates Silverbullet certificate object and stores it to database
+     * Factory method that creates Silverbullet invitation object and stores it to database
      *
      * @param SilverbulletUser $user
      * @param AbstractInvokerCommand $command
-     * @return SilverbulletCertificate
+     * @return SilverbulletInvitation
      */
-    public function createCertificate($user, $command){
-        $certificate = new SilverbulletCertificate($user);
-        $certificate->save();
-        if(empty($certificate->getIdentifier())){
-            $command->storeErrorMessage(_('Could not create certificate!'));
+    public function createInvitation($user, $command, $quantity = 1){
+        $invitation = new SilverbulletInvitation($user);
+        if($quantity > 1){
+            $invitation->setQuantity($quantity);
         }
-        return $certificate;
+        $invitation->save();
+        if(empty($invitation->getIdentifier())){
+            $command->storeErrorMessage(_('Could not create invitation!'));
+        }
+        return $invitation;
     }
     
     /**

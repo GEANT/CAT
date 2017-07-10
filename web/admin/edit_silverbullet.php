@@ -103,6 +103,12 @@ if($builder->isReady()){
         foreach ($certificates as $certificate) {
             $editBlock->addCertificateRow($certificate);
         }
+        $invitations = $user->getInvitations();
+        foreach ($invitations as $invitation) {
+            $editBlock->addInvitationRow($invitation);
+        }
+        
+        
     }
     $builder->addContentElement($editBlock);
     

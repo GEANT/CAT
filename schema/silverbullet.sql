@@ -8,6 +8,7 @@
  */
 DROP TABLE IF EXISTS `silverbullet_certificate`;
 DROP TABLE IF EXISTS `silverbullet_user`;
+DROP TABLE IF EXISTS `silverbullet_invitation`;
 
 CREATE TABLE `silverbullet_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
@@ -31,9 +32,11 @@ CREATE TABLE `silverbullet_certificate` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
-  `one_time_token` VARCHAR(45) NOT NULL COMMENT '',
+  `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '', /* new field */
+  `one_time_token` VARCHAR(45) NOT NULL COMMENT '', /* remove this one */
   `serial_number` BLOB NULL COMMENT '',
   `cn` VARCHAR(128) NULL COMMENT '',
+  `issued` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '', /* new field */
   `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
   `device` VARCHAR(128) DEFAULT NULL,
   `revocation_status` ENUM('NOT_REVOKED', 'REVOKED') NOT NULL DEFAULT 'NOT_REVOKED',
@@ -42,7 +45,29 @@ CREATE TABLE `silverbullet_certificate` (
   `OCSP_timestamp` TIMESTAMP DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
   INDEX `fk_silverbullet_certificate_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
+  INDEX `fk_silverbullet_certificate_silverbullet_invitation1_idx` (`silverbullet_invitation_id` ASC)  COMMENT '', /* new index */
   CONSTRAINT `fk_silverbullet_certificate_silverbullet_user1`
+    FOREIGN KEY (`silverbullet_user_id` , `profile_id`)
+    REFERENCES `silverbullet_user` (`id` , `profile_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_silverbullet_certificate_silverbullet_invitation1` /* new constraint */
+    FOREIGN KEY (`silverbullet_invitation_id`)
+    REFERENCES `silverbullet_invitation` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB CHARSET=utf8;
+
+CREATE TABLE `silverbullet_invitation` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `profile_id` INT(11) NOT NULL COMMENT '',
+  `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
+  `token` VARCHAR(45) NOT NULL COMMENT '',
+  `quantity` TINYINT(3) NOT NULL DEFAULT 10 COMMENT '',
+  `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
+  PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
+  INDEX `fk_silverbullet_invitation_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_silverbullet_invitation_silverbullet_user1`
     FOREIGN KEY (`silverbullet_user_id` , `profile_id`)
     REFERENCES `silverbullet_user` (`id` , `profile_id`)
     ON DELETE CASCADE

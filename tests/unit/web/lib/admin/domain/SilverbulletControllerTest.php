@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../../../../core/MockProfileSilverbullet.php');
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\domain\SilverbulletUser;
-use web\lib\admin\http\AddCertificateCommand;
+use web\lib\admin\http\AddInvitationCommand;
 use web\lib\admin\http\AddUserCommand;
 use web\lib\admin\http\DeleteUserCommand;
 use web\lib\admin\http\RevokeCertificateCommand;
@@ -105,7 +105,7 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
     
         $_POST['command'] = SaveUsersCommand::COMMAND;
-        $_POST[AddCertificateCommand::COMMAND] = $this->user->getIdentifier();
+        $_POST[AddInvitationCommand::COMMAND] = $this->user->getIdentifier();
         $this->factory->parseRequest();
     
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
@@ -120,7 +120,7 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
 
         $_POST['command'] = SaveUsersCommand::COMMAND;
-        $_POST[AddCertificateCommand::COMMAND] = $this->user->getIdentifier();
+        $_POST[AddInvitationCommand::COMMAND] = $this->user->getIdentifier();
         $this->factory->parseRequest();
         
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
