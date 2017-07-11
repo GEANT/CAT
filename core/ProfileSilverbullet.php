@@ -287,15 +287,17 @@ class ProfileSilverbullet extends AbstractProfile {
         //$this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
         /* Using Silverbullet domain objects instead of direct database queries.
          * Finds invitation by its token attribute, creates new certificate, sets values and stores it to database.
-         * There are two failures (theoreticaly) possible: no record has been found for given token or more than one record has been found for given token.
+         * There are three failures (theoreticaly) possible: no record has been found for given token, more than one record has been found for given token or invitation has reached a limit of alowed certificates.
          */
         $invitations = SilverbulletInvitation::getList(null, new Attribute(SilverbulletInvitation::TOKEN, $token));
-        $certificateId = null;
+        $certificate = null;
         if(count($invitations) > 0){
-            $certificate = new SilverbulletCertificate($invitations[0]);
-            $certificate->setCertificateDetails($serial, $username, $realExpiryDate);
-            $certificate->save();
-            $certificateId = $certificate->getIdentifier();
+            $invitation = $invitations[0];
+            if($invitation->hasMoreSlots()){
+                $certificate = new SilverbulletCertificate($invitations[0]);
+                $certificate->setCertificateDetails($serial, $username, $realExpiryDate);
+                $certificate->save();
+            }
         }
         
         // newborn cert immediately gets its "valid" OCSP response
@@ -309,7 +311,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "sha1" => $sha1,
             'importPassword' => $importPassword,
             'serial' => $serial,
-            'certificateId' => $certificateId
+            'certificate' => $certificate
         ];
     }
 
@@ -437,35 +439,35 @@ class ProfileSilverbullet extends AbstractProfile {
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance = new \core\common\Logging();
-        $tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device, one_time_token FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
+        /*$tokenrow = $databaseHandle->exec("SELECT profile_id, silverbullet_user_id, expiry, cn, serial_number, revocation_status, device, one_time_token FROM silverbullet_certificate WHERE one_time_token = ?", "s", $tokenvalue);
         if (!$tokenrow || $tokenrow->num_rows != 1) {
             $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
             return ["status" => self::SB_TOKENSTATUS_INVALID,
-                "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,];
-        }
-// still here? then the token was found
-        $details = mysqli_fetch_object($tokenrow);
+                    "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,];
+        }*/
+        // still here? then the token was found
+        /*$details = mysqli_fetch_object($tokenrow);
         if ($details->cn == NULL && $details->serial_number == NULL) { // no cert exists yet; token is either still acive or expired
             $now = new \DateTime();
             $expiryObject = new \DateTime($details->expiry);
             $delta = $now->diff($expiryObject);
             $loggerInstance->debug(5, "ProfileSilverbullet::tokenStatus() - at token validation level, no certificate exists.\n");
-
+        
             $retArray = ["status" => ($delta->invert == 1 ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID), // negative means token has expired, otherwise good
-                "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
-                "profile" => $details->profile_id,
-                "user" => $details->silverbullet_user_id,
-                "expiry" => $expiryObject->format("Y-m-d H:i:s"),
-                "value" => $details->one_time_token];
-            
+                    "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
+                    "profile" => $details->profile_id,
+                    "user" => $details->silverbullet_user_id,
+                    "expiry" => $expiryObject->format("Y-m-d H:i:s"),
+                    "value" => $details->one_time_token];
+        
             $loggerInstance->debug(5, "tokenStatus: done, returning ".$retArray['status'].", ".$retArray['cert_status'].", ".$retArray['profile'].", ".$retArray['user'].", ".$retArray['expiry'].", ".$retArray['value']."\n");
-            
+        
             return $retArray;
-        }
-// still here? then there is certificate data, so token was redeemed
-// add the corresponding cert details here
-
-        $now = new \DateTime();
+        }*/
+        // still here? then there is certificate data, so token was redeemed
+        // add the corresponding cert details here
+        
+        /*$now = new \DateTime();
         $cert_expiry = new \DateTime($details->expiry);
         $delta = $now->diff($cert_expiry);
         $certStatus = ($delta->invert == 1 ? self::SB_CERTSTATUS_EXPIRED : self::SB_CERTSTATUS_VALID);
@@ -473,17 +475,49 @@ class ProfileSilverbullet extends AbstractProfile {
         if ($certStatus == self::SB_CERTSTATUS_VALID && $details->revocation_status == "REVOKED") {
             $certStatus = self::SB_CERTSTATUS_REVOKED;
         }
-
-
+        
+        
         return ["status" => self::SB_TOKENSTATUS_REDEEMED,
-            "cert_status" => $certStatus,
-            "profile" => $details->profile_id,
-            "user" => $details->silverbullet_user_id,
-            "cert_serial" => $details->serial_number,
-            "cert_name" => $details->cn,
-            "cert_expiry" => $details->expiry,
-            "device" => $details->device,
-        ];
+                "cert_status" => $certStatus,
+                "profile" => $details->profile_id,
+                "user" => $details->silverbullet_user_id,
+                "cert_serial" => $details->serial_number,
+                "cert_name" => $details->cn,
+                "cert_expiry" => $details->expiry,
+                "device" => $details->device,
+        ];*/
+        
+        /* Using Silverbullet domain objects instead of direct database queries.
+         * Finds invitation by its token attribute and loads all certificates generated using the token.
+         * Certificate details will always be empty, since code still needs to be adapted to return multiple certificates information.
+         */
+        $invitations = SilverbulletInvitation::getList(null, new Attribute(SilverbulletInvitation::TOKEN, $tokenvalue));
+        $invitation = null;
+        if(count($invitations) > 0){
+            $invitation = $invitations[0];
+            $certificates = $invitation->getCertificates();
+            $loggerInstance->debug(5, "ProfileSilverbullet::tokenStatus() - at token validation level, " .count($certificates). " certificates exists.\n");
+
+            $retArray = [
+                    "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
+                    "profile" => $invitation->getProfileId(),
+                    "user" => $invitation->getSilverbulletUserId(),
+                    "expiry" => $invitation->getExpiry(),
+                    "value" => $invitation->getToken()
+            ];
+            if($invitation->hasMoreSlots()){
+                $retArray['status'] = ($invitation->isExpired() ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID);
+            }else{
+                $retArray['status'] = self::SB_TOKENSTATUS_REDEEMED;
+            }
+            
+            $loggerInstance->debug(5, "tokenStatus: done, returning ".$retArray['status'].", ".$retArray['cert_status'].", ".$retArray['profile'].", ".$retArray['user'].", ".$retArray['expiry'].", ".$retArray['value']."\n");
+            return $retArray;
+        }else{
+            $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
+            return ["status" => self::SB_TOKENSTATUS_INVALID,
+                    "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,];
+        }
     }
 
     /**

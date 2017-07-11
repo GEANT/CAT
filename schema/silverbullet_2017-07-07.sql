@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `silverbullet_invitation` (
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
   `token` VARCHAR(45) NOT NULL COMMENT '',
-  `quantity` TINYINT(3) NOT NULL DEFAULT 10 COMMENT '',
+  `quantity` TINYINT(3) NOT NULL DEFAULT 1 COMMENT '',
   `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
   PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
   INDEX `fk_silverbullet_invitation_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS `silverbullet_invitation` (
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB CHARSET=utf8;
+
+ALTER TABLE `silverbullet_certificate` ADD COLUMN `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '';
 
 DROP PROCEDURE IF EXISTS migrateInvitationTokens;
 DELIMITER ;;

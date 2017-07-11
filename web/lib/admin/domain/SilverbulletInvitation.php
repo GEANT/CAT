@@ -72,6 +72,22 @@ class SilverbulletInvitation extends PersistentEntity {
     
     /**
      * 
+     * @return number
+     */
+    public function getProfileId() {
+        return (int) $this->get(self::PROFILEID);
+    }
+    
+    /**
+     *
+     * @return number
+     */
+    public function getSilverbulletUserId() {
+        return (int) $this->get(self::SILVERBULLETUSERID);
+    }
+    
+    /**
+     * 
      * @param int $quantity
      */
     public function setQuantity($quantity){
@@ -158,6 +174,26 @@ class SilverbulletInvitation extends PersistentEntity {
         $currentTime = time();
         return $currentTime > $expiryTime;
     }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function hasMoreSlots() {
+        $quantity = $this->get(self::QUANTITY);
+        $certificates = $this->getCertificates();
+        var_dump($quantity);
+        var_dump(count($this->getCertificates()));
+        return count($this->getCertificates()) < $quantity;
+    }
+    
+    /**
+     * 
+     * @return \web\lib\admin\domain\SilverbulletCertificate[]
+     */
+    public function getCertificates(){
+        return SilverbulletCertificate::getList(null, new Attribute(SilverbulletCertificate::SILVERBULLETINVITATIONID, $this->getIdentifier(), Attribute::TYPE_INTEGER));
+    }
 
     /**
      * 
@@ -178,11 +214,12 @@ class SilverbulletInvitation extends PersistentEntity {
      */
     public static function getList($silverbulletUser = null, $searchAttribute = null) {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
-        $userId = $silverbulletUser->getAttribute(self::ID);
         if ($searchAttribute != null && $silverbulletUser != null) {
+            $userId = $silverbulletUser->getAttribute(self::ID);
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, $searchAttribute->key, self::EXPIRY);
             $result = $databaseHandle->exec($query, $userId->getType() . $searchAttribute->getType(), $userId->value, $searchAttribute->value);
         } else if($silverbulletUser != null) {
+            $userId = $silverbulletUser->getAttribute(self::ID);
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::EXPIRY);
             $result = $databaseHandle->exec($query, $userId->getType(), $userId->value);
         } else if ($searchAttribute != null) {

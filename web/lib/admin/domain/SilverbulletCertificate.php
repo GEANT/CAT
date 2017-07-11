@@ -26,6 +26,13 @@ class SilverbulletCertificate extends PersistentEntity {
      * @var string
      */
     const SILVERBULLETUSERID = 'silverbullet_user_id';
+    
+    /**
+     * Required invitation identifier
+     *
+     * @var string
+     */
+    const SILVERBULLETINVITATIONID = 'silverbullet_invitation_id';
 
     /**
      * 
@@ -92,6 +99,7 @@ class SilverbulletCertificate extends PersistentEntity {
         if (!empty($silverbulletInvitation)) {
             $this->set(self::PROFILEID, $silverbulletInvitation->get(SilverbulletCertificate::PROFILEID));
             $this->set(self::SILVERBULLETUSERID, $silverbulletInvitation->get(SilverbulletCertificate::SILVERBULLETUSERID));
+            $this->set(self::SILVERBULLETINVITATIONID, $silverbulletInvitation->getIdentifier());
             $this->set(self::EXPIRY, date('Y-m-d H:i:s', strtotime("+1 week")));
         }
     }
@@ -241,17 +249,24 @@ class SilverbulletCertificate extends PersistentEntity {
      * @param Attribute $searchAttribute
      * @return \web\lib\admin\domain\SilverbulletCertificate[]
      */
-    public static function getList($silverbulletUser, $searchAttribute = null) {
+    public static function getList($silverbulletUser = null, $searchAttribute = null) {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
-        $userId = $silverbulletUser->getAttribute(self::ID);
-        if ($searchAttribute != null) {
+        if ($searchAttribute != null && $silverbulletUser != null) {
+            $userId = $silverbulletUser->getAttribute(self::ID);
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
             $result = $databaseHandle->exec($query, $userId->getType() . $searchAttribute->getType(), $userId->value, $searchAttribute->value);
-        } else {
+        } else if($silverbulletUser != null) {
+            $userId = $silverbulletUser->getAttribute(self::ID);
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY);
             $result = $databaseHandle->exec($query, $userId->getType(), $userId->value);
+        } else if ($searchAttribute != null) {
+            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
+            $result = $databaseHandle->exec($query, $searchAttribute->getType(), $searchAttribute->value);
+        } else {
+            $query = sprintf("SELECT * FROM `%s` ORDER BY `%s`, `%s` DESC", self::TABLE, self::REVOCATION_STATUS, self::EXPIRY);
+            $result = $databaseHandle->exec($query);
         }
-
+        
         $list = array();
         while ($row = mysqli_fetch_assoc($result)) {
             $certificate = new SilverbulletCertificate(null);
