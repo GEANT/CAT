@@ -96,6 +96,7 @@ class SilverbulletCertificate extends PersistentEntity {
         parent::__construct(self::TABLE, self::TYPE_INST);
         $this->setAttributeType(self::PROFILEID, Attribute::TYPE_INTEGER);
         $this->setAttributeType(self::SILVERBULLETUSERID, Attribute::TYPE_INTEGER);
+        $this->setAttributeType(self::SILVERBULLETINVITATIONID, Attribute::TYPE_INTEGER);
         if (!empty($silverbulletInvitation)) {
             $this->set(self::PROFILEID, $silverbulletInvitation->get(SilverbulletCertificate::PROFILEID));
             $this->set(self::SILVERBULLETUSERID, $silverbulletInvitation->get(SilverbulletCertificate::SILVERBULLETUSERID));
