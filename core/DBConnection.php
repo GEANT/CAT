@@ -109,7 +109,6 @@ class DBConnection {
 
             $localArray = $arguments;
             array_unshift($localArray, $types);
-            echo $this->connection->error;
             call_user_func_array([$statementObject, "bind_param"], $localArray);
             $result = $statementObject->execute();
             $selectResult = $statementObject->get_result();
