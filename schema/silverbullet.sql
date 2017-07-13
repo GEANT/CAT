@@ -49,7 +49,7 @@ CREATE TABLE `silverbullet_certificate` (
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '', /* new field */
-  `one_time_token` VARCHAR(45) NOT NULL COMMENT '',  /* remove this one */
+  /* `one_time_token` VARCHAR(45) NOT NULL COMMENT '',  remove this one */
   `serial_number` BLOB NULL COMMENT '',
   `cn` VARCHAR(128) NULL COMMENT '',
   `issued` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '', /* new field */
