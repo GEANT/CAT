@@ -181,7 +181,6 @@ class SilverbulletInvitation extends PersistentEntity {
      */
     public function hasMoreSlots() {
         $quantity = $this->get(self::QUANTITY);
-        $certificates = $this->getCertificates();
         return count($this->getCertificates()) < $quantity;
     }
     

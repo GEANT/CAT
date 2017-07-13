@@ -223,7 +223,7 @@ class SilverbulletContext extends DefaultContext  implements MessageDistributor{
      */
     public function distributeMessages($commandToken, $receiver){
         if($this->controller != null){
-            $command = $this->controller->createCommand($commandToken);
+            $this->controller->createCommand($commandToken);
             if(isset($this->invokers[$commandToken])){
                 $this->invokers[$commandToken]->publishMessages($receiver);
             }
