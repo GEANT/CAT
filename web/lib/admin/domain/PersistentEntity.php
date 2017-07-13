@@ -176,11 +176,6 @@ abstract class PersistentEntity extends \core\common\Entity implements Persisten
         $valueString .= ")";
         if($keyString != "()"){
             $query .= " " .$keyString . " VALUES " . $valueString;
-            $class = get_class($this);
-            
-            if(strpos($class, 'SilverbulletCertificate')!==false){
-                echo $query." ".$types."\n";
-            }
             $result = $this->databaseHandle->exec($query, $types, ...$arguments);
             if($result){
                 $this->set(self::ID, $this->databaseHandle->lastID());
