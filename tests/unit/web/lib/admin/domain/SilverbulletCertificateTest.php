@@ -50,8 +50,12 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         
         $this->faultyUser = new SilverbulletUser($this->profileId, 'faultytestusername');
         
-        $this->newCertificate = new SilverbulletCertificate(new SilverbulletInvitation($this->newUser));
-        $this->faultyCertificate = new SilverbulletCertificate(new SilverbulletInvitation($this->faultyUser));
+        $newUserInvitation = new SilverbulletInvitation($this->newUser);
+        $newUserInvitation->save();
+        $this->newCertificate = new SilverbulletCertificate($newUserInvitation);
+        $faultyUserInvitation = new SilverbulletInvitation($this->faultyUser);
+        $faultyUserInvitation->save();
+        $this->faultyCertificate = new SilverbulletCertificate($faultyUserInvitation);
     }
     
     public function testNewCertificateSuccess() {

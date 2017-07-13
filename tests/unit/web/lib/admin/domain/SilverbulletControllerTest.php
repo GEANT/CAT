@@ -131,7 +131,9 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
     
     public function testRevokeCertificate() {
         $this->user->save();
-        $certificate = new SilverbulletCertificate(new SilverbulletInvitation($this->user));
+        $invitation = new SilverbulletInvitation($this->user);
+        $invitation->save();
+        $certificate = new SilverbulletCertificate($invitation);
         $certificate->save();
         
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
@@ -151,7 +153,9 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         
         $this->user->save();
 
-        $certificate = new SilverbulletCertificate(new SilverbulletInvitation($this->user));
+        $invitation = new SilverbulletInvitation($this->user);
+        $invitation->save();
+        $certificate = new SilverbulletCertificate($invitation);
         $certificate->save();
         
         $this->profile->generateCertificate($serial, $cn);

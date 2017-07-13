@@ -70,6 +70,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $this->newUser->save();
         $invitation = new SilverbulletInvitation($this->newUser);
         $invitation->setQuantity(2);
+        $invitation->save();
         $certificate1 = new SilverbulletCertificate($invitation);
         $certificate1->save();
         $certificate2 = new SilverbulletCertificate($invitation);
@@ -94,6 +95,7 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
 
         $invitation = new SilverbulletInvitation($this->newUser);
         $invitation->setQuantity(2);
+        $invitation->save();
         $certificate = new SilverbulletCertificate($invitation);
         $certificate->save();
         $certificateGenerated = new SilverbulletCertificate($invitation);
