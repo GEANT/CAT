@@ -248,7 +248,7 @@ class SilverbulletUser extends PersistentEntity{
     public function load($searchAttribute = null){
         $state = parent::load();
         $this->certificates = SilverbulletCertificate::getList($this, $searchAttribute);
-        $this->invitations = SilverbulletInvitation::getList($this, $searchAttribute);
+        $this->invitations = SilverbulletInvitation::getList($this);
         return $state;
     }
     

@@ -2,6 +2,7 @@
 
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\domain\SilverbulletUser;
+use web\lib\admin\domain\SilverbulletInvitation;
 
 class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     
@@ -49,8 +50,8 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         
         $this->faultyUser = new SilverbulletUser($this->profileId, 'faultytestusername');
         
-        $this->newCertificate = new SilverbulletCertificate($this->newUser);
-        $this->faultyCertificate = new SilverbulletCertificate($this->faultyUser);
+        $this->newCertificate = new SilverbulletCertificate(new SilverbulletInvitation($this->newUser));
+        $this->faultyCertificate = new SilverbulletCertificate(new SilverbulletInvitation($this->faultyUser));
     }
     
     public function testNewCertificateSuccess() {
