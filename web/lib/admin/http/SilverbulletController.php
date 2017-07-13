@@ -6,15 +6,13 @@ namespace web\lib\admin\http;
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletController extends AbstractController implements MessageDistributor{
-    
+class SilverbulletController extends AbstractController{
     
     /**
      * 
      * @var SilverbulletContext
      */
     private $context = null;
-
     
     /**
      * Creates Silverbullet front controller object and prepares commands and common rules how the commands are executed.
@@ -22,6 +20,7 @@ class SilverbulletController extends AbstractController implements MessageDistri
      * @param SilverbulletContext $context Requires silverbullet page context object
      */
     public function __construct($context){
+        $context->setController($this);
         $this->context = $context;
     }
     
@@ -91,16 +90,6 @@ class SilverbulletController extends AbstractController implements MessageDistri
                 return new DefaultCommand($commandToken);
             }
         }
-    }
-    
-    /**
-     * 
-     * {@inheritDoc}
-     * @see \web\lib\admin\http\MessageDistributor::distributeMessages()
-     */
-    public function distributeMessages($commandToken, $receiver){
-        $command = $this->createCommand($commandToken);
-        $command->publishMessages($receiver);
     }
     
 }

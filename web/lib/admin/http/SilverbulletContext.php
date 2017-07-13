@@ -11,7 +11,7 @@ use web\lib\admin\view\InstitutionPageBuilder;
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletContext extends DefaultContext{
+class SilverbulletContext extends DefaultContext  implements MessageDistributor{
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
@@ -37,12 +37,32 @@ class SilverbulletContext extends DefaultContext{
     
     /**
      * 
+     * @var AbstractController
+     */
+    private $controller = null;
+    
+    /**
+     *
+     * @var MessageInvokerInterface[]
+     */
+    private $invokers = array();
+    
+    /**
+     * 
      * @param InstitutionPageBuilder $builder
      */
     public function __construct($builder) {
         parent::__construct($builder->getPage());
         $this->builder = $builder;
         $this->profile = $builder->getProfile();
+    }
+    
+    /**
+     * 
+     * @param SilverbulletController $controller
+     */
+    public function setController($controller){
+        $this->controller = $controller;
     }
     
     /**
@@ -185,6 +205,29 @@ class SilverbulletContext extends DefaultContext{
             }
         }
         return $url . $query;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\MessageDistributor::addMessageInvoker()
+     */
+    public function addMessageInvoker($commandToken, $invoker){
+        $this->invokers[$commandToken] = $invoker;
+    }
+    
+    /**
+     *
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\MessageDistributor::distributeMessages()
+     */
+    public function distributeMessages($commandToken, $receiver){
+        if($this->controller != null){
+            $command = $this->controller->createCommand($commandToken);
+            if(isset($this->invokers[$commandToken])){
+                $this->invokers[$commandToken]->publishMessages($receiver);
+            }
+        }
     }
     
 }

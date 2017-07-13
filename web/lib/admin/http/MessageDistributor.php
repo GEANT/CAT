@@ -10,6 +10,13 @@ use web\lib\admin\view\MessageReceiverInterface;
  */
 interface MessageDistributor {
     /**
+     * Registers message invoker and maps it to a particular command token
+     * 
+     * @param string $commandToken
+     * @param MessageInvokerInterface $invoker
+     */
+    public function addMessageInvoker($commandToken, $invoker);
+    /**
      * Distributes messages from particular invoker to a requested receiver
      *
      * @param string $commandToken
