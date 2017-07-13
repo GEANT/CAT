@@ -28,22 +28,6 @@ CREATE TABLE `silverbullet_user` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `silverbullet_invitation` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
-  `profile_id` INT(11) NOT NULL COMMENT '',
-  `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
-  `token` VARCHAR(45) NOT NULL COMMENT '',
-  `quantity` TINYINT(3) NOT NULL DEFAULT 1 COMMENT '',
-  `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
-  PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
-  INDEX `fk_silverbullet_invitation_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
-  CONSTRAINT `fk_silverbullet_invitation_silverbullet_user1`
-    FOREIGN KEY (`silverbullet_user_id` , `profile_id`)
-    REFERENCES `silverbullet_user` (`id` , `profile_id`)
-    ON DELETE CASCADE
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB CHARSET=utf8;
-
 CREATE TABLE `silverbullet_certificate` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
@@ -73,4 +57,22 @@ CREATE TABLE `silverbullet_certificate` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB CHARSET=utf8;
+
+CREATE TABLE `silverbullet_invitation` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
+  `profile_id` INT(11) NOT NULL COMMENT '',
+  `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
+  `token` VARCHAR(45) NOT NULL COMMENT '',
+  `quantity` TINYINT(3) NOT NULL DEFAULT 1 COMMENT '',
+  `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
+  PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
+  INDEX `fk_silverbullet_invitation_silverbullet_user1_idx` (`silverbullet_user_id` ASC, `profile_id` ASC)  COMMENT '',
+  CONSTRAINT `fk_silverbullet_invitation_silverbullet_user1`
+    FOREIGN KEY (`silverbullet_user_id` , `profile_id`)
+    REFERENCES `silverbullet_user` (`id` , `profile_id`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB CHARSET=utf8;
+
+
 
