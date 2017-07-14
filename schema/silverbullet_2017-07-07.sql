@@ -23,7 +23,16 @@ CREATE TABLE IF NOT EXISTS `silverbullet_invitation` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB CHARSET=utf8;
 
-ALTER TABLE `silverbullet_certificate` ADD COLUMN `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '';
+ALTER TABLE `silverbullet_certificate` 
+ADD COLUMN `silverbullet_invitation_id` INT(11) NULL AFTER `silverbullet_user_id`,
+ADD INDEX `fk_silverbullet_certificate_silverbullet_invitation1_idx` (`silverbullet_invitation_id` ASC)  COMMENT '',
+ADD CONSTRAINT `fk_silverbullet_certificate_silverbullet_invitation1`
+    FOREIGN KEY (`silverbullet_invitation_id`)
+    REFERENCES `silverbullet_invitation` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+/*ALTER TABLE `silverbullet_certificate` ADD COLUMN `issued` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '';*/
+
 
 DROP PROCEDURE IF EXISTS migrateInvitationTokens;
 DELIMITER ;;

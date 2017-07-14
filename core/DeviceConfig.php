@@ -155,14 +155,11 @@ abstract class DeviceConfig extends \core\common\Entity {
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
 
-            //$dbInstance->exec("UPDATE silverbullet_certificate SET device = ? WHERE one_time_token = ?", "ss", $devicename, $token);
-            /* Using Silverbullet domain objects instead of direct database queries.
+            /* 
              * If certificate has been created updating device name for it.
              */
-            if($this->clientCert['certificate'] != null){
-                $certificate = $this->clientCert['certificate'];
-                $certificate->setDeviceName($devicename);
-                $certificate->save();
+            if($this->clientCert['certificateId'] != null){
+                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $this->clientCert['certificateId']);
             }
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");

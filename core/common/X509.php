@@ -94,7 +94,27 @@ class X509 {
         $md5 = openssl_digest($authorityDer, 'MD5');
         $sha1 = openssl_digest($authorityDer, 'SHA1');
         $out = ["pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
-        $difference = array_diff($mydetails['issuer'], $mydetails['subject']);
+        
+        /*
+         * Introduced fix for array_diff in order to avoid "Array to string conversion" error which is produced if multidimensional arrays are used.
+         */
+        $mydetailsIssuer = array();
+        foreach ($mydetails['issuer'] as $issuerKey => $issuerValue) {
+            if(is_array($issuerValue)){
+                $mydetailsIssuer[$issuerKey] = implode(" ", $issuerValue);
+            }else{
+                $mydetailsIssuer[$issuerKey] = $issuerValue;
+            }
+        }
+        $mydetailsSubject = array();
+        foreach ($mydetails['subject'] as $subjectKey => $subjectValue) {
+            if(is_array($subjectValue)){
+                $mydetailsSubject[$subjectKey] = implode(" ", $subjectValue);
+            }else{
+                $mydetailsSubject[$subjectKey] = $subjectValue;
+            }
+        }
+        $difference = array_diff($mydetailsIssuer, $mydetailsSubject);;
         $out['root'] = 0; // default, unless concinved otherwise below
         if (count($difference) == 0) {
             $out['root'] = 1;

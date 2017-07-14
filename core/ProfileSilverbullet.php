@@ -22,9 +22,8 @@
 namespace core;
 
 use \Exception;
-use web\lib\admin\domain\SilverbulletInvitation;
 use web\lib\admin\domain\Attribute;
-use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\domain\SilverbulletInvitation;
 
 /**
  * This class represents an EAP Profile.
@@ -284,19 +283,20 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->loggerInstance->debug(5, "CERTINFO: " . print_r($parsedCert['full_details'], true));
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
         
-        //$this->databaseHandle->exec("UPDATE silverbullet_certificate SET cn = ?, serial_number = ?, expiry = ? WHERE one_time_token = ?", "siss", $username, $serial, $realExpiryDate, $token);
-        /* Using Silverbullet domain objects instead of direct database queries.
-         * Finds invitation by its token attribute, creates new certificate, sets values and stores it to database.
+        /* 
+         * Finds invitation by its token attribute, creates new certificate record with provided values inside the database.
          * There are three failures (theoreticaly) possible: no record has been found for given token, more than one record has been found for given token or invitation has reached a limit of alowed certificates.
          */
-        $invitations = SilverbulletInvitation::getList(null, new Attribute(SilverbulletInvitation::TOKEN, $token));
-        $certificate = null;
-        if(count($invitations) > 0){
-            $invitation = $invitations[0];
-            if($invitation->hasMoreSlots()){
-                $certificate = new SilverbulletCertificate($invitations[0]);
-                $certificate->setCertificateDetails($serial, $username, $realExpiryDate);
-                $certificate->save();
+        $invitationsResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $token);
+        $certificateId = null;
+        if ($invitationsResult && $invitationsResult->num_rows > 0) {
+            $invitationRow = mysqli_fetch_object($invitationsResult);
+            $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_user_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
+            if(!$certificatesResult || $certificatesResult->num_rows < $invitationRow->quantity){
+                $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationRow->profile_id, $invitationRow->silverbullet_user_id, $invitationRow->id, $serial, $username, $realExpiryDate);
+                if($newCertificateResult === true){
+                    $certificateId = $this->databaseHandle->lastID();
+                }
             }
         }
         
@@ -311,7 +311,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "sha1" => $sha1,
             'importPassword' => $importPassword,
             'serial' => $serial,
-            'certificate' => $certificate
+            'certificateId' => $certificateId
         ];
     }
 
