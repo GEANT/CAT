@@ -31,7 +31,7 @@ ADD CONSTRAINT `fk_silverbullet_certificate_silverbullet_invitation1`
     REFERENCES `silverbullet_invitation` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
-/*ALTER TABLE `silverbullet_certificate` ADD COLUMN `issued` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '';*/
+/* ALTER TABLE `silverbullet_certificate` ADD COLUMN `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '';*/
 
 
 DROP PROCEDURE IF EXISTS migrateInvitationTokens;

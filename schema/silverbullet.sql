@@ -52,7 +52,7 @@ CREATE TABLE `silverbullet_certificate` (
   /* `one_time_token` VARCHAR(45) NOT NULL COMMENT '',  remove this one */
   `serial_number` BLOB NULL COMMENT '',
   `cn` VARCHAR(128) NULL COMMENT '',
-  `issued` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '', /* new field */
+  `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '', /* new field */
   `expiry` TIMESTAMP DEFAULT '0000-00-00 00:00:00' COMMENT '',
   `device` VARCHAR(128) DEFAULT NULL,
   `revocation_status` ENUM('NOT_REVOKED', 'REVOKED') NOT NULL DEFAULT 'NOT_REVOKED',
