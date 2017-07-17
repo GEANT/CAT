@@ -29,7 +29,7 @@ ADD INDEX `fk_silverbullet_certificate_silverbullet_invitation1_idx` (`silverbul
 ADD CONSTRAINT `fk_silverbullet_certificate_silverbullet_invitation1`
     FOREIGN KEY (`silverbullet_invitation_id`)
     REFERENCES `silverbullet_invitation` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION;
 /* ALTER TABLE `silverbullet_certificate` ADD COLUMN `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '';*/
 

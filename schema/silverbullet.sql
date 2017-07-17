@@ -48,7 +48,7 @@ CREATE TABLE `silverbullet_certificate` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
-  `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '', /* new field */
+  `silverbullet_invitation_id` INT(11) NULL COMMENT '', /* new field */
   /* `one_time_token` VARCHAR(45) NOT NULL COMMENT '',  remove this one */
   `serial_number` BLOB NULL COMMENT '',
   `cn` VARCHAR(128) NULL COMMENT '',
@@ -70,7 +70,7 @@ CREATE TABLE `silverbullet_certificate` (
   CONSTRAINT `fk_silverbullet_certificate_silverbullet_invitation1` /* new constraint */
     FOREIGN KEY (`silverbullet_invitation_id`)
     REFERENCES `silverbullet_invitation` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE SET NULL
     ON UPDATE NO ACTION)
 ENGINE = InnoDB CHARSET=utf8;
 

@@ -96,6 +96,15 @@ class SilverbulletInvitation extends PersistentEntity {
 
     /**
      *
+     * @return int
+     */
+    public function getRemainingQuantity(){
+        return (int) $this->get(self::QUANTITY) - count($this->getCertificates());
+    }
+    
+    
+    /**
+     *
      * @return string
      */
     public function getToken() {

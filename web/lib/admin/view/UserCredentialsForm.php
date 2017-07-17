@@ -187,7 +187,17 @@ class UserCredentialsForm implements PageElementInterface{
                 $deactivationButton->addAttribute('disabled', 'disabled'); 
             }
         $action->addTag($deactivationButton);
-        $action->addTag(new Button(_('New Credential'), 'submit', AddInvitationCommand::COMMAND, $user->getIdentifier()));
+        $action->addTag(new Button(_('New Credential'), 'submit', AddInvitationCommand::COMMAND, $this->userIndex));
+        $invitationsLabel = new CompositeTag("label");
+        $invitationsLabel->addText(_('Quantity: '));
+        $invitationsQuantity = new Tag('input');
+        $invitationsQuantity->addAttribute('type', 'text');
+        $invitationsQuantity->addAttribute('name', SaveUsersCommand::PARAM_QUANTITY_MULTIPLE);
+        $invitationsQuantity->addAttribute('value', '1');
+        $invitationsQuantity->addAttribute('maxlength', '3');
+        $invitationsQuantity->addAttribute('style', 'width: 30px;');
+        $invitationsLabel->addTag($invitationsQuantity);
+        $action->addTag($invitationsLabel);
         $this->table->addToCell($this->userRowIndex, self::ACTION_COLUMN, $action);
         $this->userIndex++;
     }
@@ -234,7 +244,7 @@ class UserCredentialsForm implements PageElementInterface{
      * @param SilverbulletInvitation $invitation
      */
     public function addInvitationRow($invitation){
-        $row = new Row(array('token' => $invitation->getTokenLink(), 'expiry' => $invitation->getExpiry()));
+        $row = new Row(array(self::USER_COLUMN => _("Quantity: ") . $invitation->getRemainingQuantity(), self::TOKEN_COLUMN => $invitation->getTokenLink(), self::EXPIRY_COLUMN => $invitation->getExpiry()));
         $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);

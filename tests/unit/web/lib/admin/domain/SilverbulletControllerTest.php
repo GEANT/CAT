@@ -106,7 +106,9 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
     
         $_POST['command'] = SaveUsersCommand::COMMAND;
-        $_POST[AddInvitationCommand::COMMAND] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_ID][0] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_QUANTITY][0] = 1;
+        $_POST[AddInvitationCommand::COMMAND] = 0;
         $this->factory->parseRequest();
     
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
@@ -121,7 +123,9 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $invitationsBefore = count(SilverbulletInvitation::getList($this->user));
 
         $_POST['command'] = SaveUsersCommand::COMMAND;
-        $_POST[AddInvitationCommand::COMMAND] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_ID][0] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_QUANTITY][0] = 1;
+        $_POST[AddInvitationCommand::COMMAND] = 0;
         $this->factory->parseRequest();
         
         $invitationsAfter = count(SilverbulletInvitation::getList($this->user));

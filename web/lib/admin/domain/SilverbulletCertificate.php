@@ -50,14 +50,14 @@ class SilverbulletCertificate extends PersistentEntity {
      *
      * @var string
      */
-    const ONETIMETOKEN = 'one_time_token';
+    const EXPIRY = 'expiry';
 
     /**
      *
      * @var string
      */
-    const EXPIRY = 'expiry';
-
+    const ISSUED = 'issued';
+    
     /**
      *
      * @var string
@@ -167,13 +167,14 @@ class SilverbulletCertificate extends PersistentEntity {
 
     /**
      * 
+     * @param string $field
      * @return string
      */
-    public function getExpiry() {
-        if (empty($this->get(self::EXPIRY))) {
+    public function getDateString($field) {
+        if (empty($this->get($field))) {
             return "n/a";
         } else {
-            return date('Y-m-d', strtotime($this->get(self::EXPIRY)));
+            return date('Y-m-d', strtotime($this->get($field)));
         }
     }
 
@@ -191,7 +192,8 @@ class SilverbulletCertificate extends PersistentEntity {
         return _('Device:') . $this->get(self::DEVICE) . '<br> '
                 . _('Serial Number:') . dechex($this->getSerialNumber()) . '<br> '
                 . _('CN:') . $this->getShortCommonName() . '<br> '
-                . _('Expiry:') . $this->getExpiry();
+                . _('Expiry:') . $this->getDateString(self::EXPIRY) . '<br>'
+                . _('Issued:') . $this->getDateString(self::ISSUED);
     }
 
     /**

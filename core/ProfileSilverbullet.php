@@ -494,9 +494,9 @@ class ProfileSilverbullet extends AbstractProfile {
 
     public function userStatus($username) {
         $retval = [];
-        $userrows = $this->databaseHandle->exec("SELECT one_time_token FROM silverbullet_certificate WHERE silverbullet_user_id = ? AND profile_id = ? ", "si", $username, $this->identifier);
+        $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "si", $username, $this->identifier);
         while ($returnedData = mysqli_fetch_object($userrows)) {
-            $retval[] = ProfileSilverbullet::tokenStatus($returnedData->one_time_token);
+            $retval[] = ProfileSilverbullet::tokenStatus($returnedData->token);
         }
         return $retval;
     }
