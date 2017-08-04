@@ -20,11 +20,12 @@ abstract class AbstractInvokerCommand extends AbstractCommand implements Message
     /**
      *
      * @param string $commandToken
-     * @param DefaultContext $context
+     * @param SilverbulletContext $context
      */
     public function __construct($commandToken, $context) {
         parent::__construct($commandToken);
         $this->session = $context->getSession();
+        $context->addMessageInvoker($commandToken, $this);
     }
     
     /**

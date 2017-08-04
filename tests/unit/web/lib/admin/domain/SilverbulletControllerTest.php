@@ -4,7 +4,7 @@ require_once(__DIR__ . '/../../../../core/MockProfileSilverbullet.php');
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\domain\SilverbulletUser;
-use web\lib\admin\http\AddCertificateCommand;
+use web\lib\admin\http\AddInvitationCommand;
 use web\lib\admin\http\AddUserCommand;
 use web\lib\admin\http\DeleteUserCommand;
 use web\lib\admin\http\RevokeCertificateCommand;
@@ -13,6 +13,7 @@ use web\lib\admin\http\SaveUsersCommand;
 use web\lib\admin\domain\Attribute;
 use web\lib\admin\view\DefaultHtmlPage;
 use web\lib\admin\http\SilverbulletContext;
+use web\lib\admin\domain\SilverbulletInvitation;
 
 if ( !isset( $_SESSION ) ) $_SESSION = array();
 
@@ -105,7 +106,9 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
     
         $_POST['command'] = SaveUsersCommand::COMMAND;
-        $_POST[AddCertificateCommand::COMMAND] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_ID][0] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_QUANTITY][0] = 1;
+        $_POST[AddInvitationCommand::COMMAND] = 0;
         $this->factory->parseRequest();
     
         $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
@@ -113,24 +116,28 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         $this->assertFalse($certificatesAfter > $certificatesBefore);
     }
     
-    public function testNewCertificate() {
+    public function testNewInvitation() {
         $this->user->setExpiry('+1 week');
         $this->user->save();
         
-        $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
+        $invitationsBefore = count(SilverbulletInvitation::getList($this->user));
 
         $_POST['command'] = SaveUsersCommand::COMMAND;
-        $_POST[AddCertificateCommand::COMMAND] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_ID][0] = $this->user->getIdentifier();
+        $_POST[SaveUsersCommand::PARAM_QUANTITY][0] = 1;
+        $_POST[AddInvitationCommand::COMMAND] = 0;
         $this->factory->parseRequest();
         
-        $certificatesAfter = count(SilverbulletCertificate::getList($this->user));
+        $invitationsAfter = count(SilverbulletInvitation::getList($this->user));
         
-        $this->assertTrue($certificatesAfter > $certificatesBefore);
+        $this->assertTrue($invitationsAfter > $invitationsBefore);
     }
     
     public function testRevokeCertificate() {
         $this->user->save();
-        $certificate = new SilverbulletCertificate($this->user);
+        $invitation = new SilverbulletInvitation($this->user);
+        $invitation->save();
+        $certificate = new SilverbulletCertificate($invitation);
         $certificate->save();
         
         $certificatesBefore = count(SilverbulletCertificate::getList($this->user));
@@ -150,7 +157,9 @@ class SilverbulletControllerTest extends PHPUnit_Framework_TestCase{
         
         $this->user->save();
 
-        $certificate = new SilverbulletCertificate($this->user);
+        $invitation = new SilverbulletInvitation($this->user);
+        $invitation->save();
+        $certificate = new SilverbulletCertificate($invitation);
         $certificate->save();
         
         $this->profile->generateCertificate($serial, $cn);

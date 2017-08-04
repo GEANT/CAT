@@ -3,6 +3,7 @@
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\domain\Attribute;
+use web\lib\admin\domain\SilverbulletInvitation;
 
 class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
@@ -67,9 +68,12 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
     
     public function testActiveUser(){
         $this->newUser->save();
-        $certificate1 = new SilverbulletCertificate($this->newUser);
+        $invitation = new SilverbulletInvitation($this->newUser);
+        $invitation->setQuantity(2);
+        $invitation->save();
+        $certificate1 = new SilverbulletCertificate($invitation);
         $certificate1->save();
-        $certificate2 = new SilverbulletCertificate($this->newUser);
+        $certificate2 = new SilverbulletCertificate($invitation);
         $certificate2->save();
         
         $existingUser = SilverbulletUser::prepare($this->newUser->getIdentifier());
@@ -89,9 +93,12 @@ class SilverbulletUserTest extends PHPUnit_Framework_TestCase{
         $this->newUser->save();
         $this->assertNotEmpty($this->newUser->getIdentifier());
 
-        $certificate = new SilverbulletCertificate($this->newUser);
+        $invitation = new SilverbulletInvitation($this->newUser);
+        $invitation->setQuantity(2);
+        $invitation->save();
+        $certificate = new SilverbulletCertificate($invitation);
         $certificate->save();
-        $certificateGenerated = new SilverbulletCertificate($this->newUser);
+        $certificateGenerated = new SilverbulletCertificate($invitation);
         $this->profile->generateCertificate($serial, $cn);
         $certificateGenerated->setCertificateDetails($serial, $cn, $expiry);
         $certificateGenerated->save();

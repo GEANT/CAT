@@ -2,6 +2,7 @@
 
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\domain\SilverbulletUser;
+use web\lib\admin\domain\SilverbulletInvitation;
 
 class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
     
@@ -49,8 +50,12 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         
         $this->faultyUser = new SilverbulletUser($this->profileId, 'faultytestusername');
         
-        $this->newCertificate = new SilverbulletCertificate($this->newUser);
-        $this->faultyCertificate = new SilverbulletCertificate($this->faultyUser);
+        $newUserInvitation = new SilverbulletInvitation($this->newUser);
+        $newUserInvitation->save();
+        $this->newCertificate = new SilverbulletCertificate($newUserInvitation);
+        $faultyUserInvitation = new SilverbulletInvitation($this->faultyUser);
+        $faultyUserInvitation->save();
+        $this->faultyCertificate = new SilverbulletCertificate($faultyUserInvitation);
     }
     
     public function testNewCertificateSuccess() {
@@ -60,9 +65,6 @@ class SilverBulletCertificateTest extends PHPUnit_Framework_TestCase {
         $existingCertificate = SilverbulletCertificate::prepare($this->newCertificate->getIdentifier());
         $existingCertificate->load();
         $this->assertNotEmpty($existingCertificate->getIdentifier());
-        
-        $oneTimeToken = $existingCertificate->getOneTimeToken();
-        $this->assertNotEmpty($oneTimeToken);
         
         $expiry = $existingCertificate->get(SilverbulletCertificate::EXPIRY);
         $this->assertNotEmpty($expiry);

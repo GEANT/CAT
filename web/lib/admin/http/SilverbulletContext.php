@@ -2,7 +2,7 @@
 namespace web\lib\admin\http;
 
 use core\ProfileSilverbullet;
-use web\lib\admin\domain\SilverbulletCertificate;
+use web\lib\admin\domain\SilverbulletInvitation;
 use web\lib\admin\domain\SilverbulletUser;
 use web\lib\admin\view\InstitutionPageBuilder;
 
@@ -11,7 +11,7 @@ use web\lib\admin\view\InstitutionPageBuilder;
  * @author Zilvinas Vaira
  *
  */
-class SilverbulletContext extends DefaultContext{
+class SilverbulletContext extends DefaultContext  implements MessageDistributor{
     
     const STATS_TOTAL = 'total';
     const STATS_ACTIVE = 'active';
@@ -37,12 +37,32 @@ class SilverbulletContext extends DefaultContext{
     
     /**
      * 
+     * @var AbstractController
+     */
+    private $controller = null;
+    
+    /**
+     *
+     * @var MessageInvokerInterface[]
+     */
+    private $invokers = array();
+    
+    /**
+     * 
      * @param InstitutionPageBuilder $builder
      */
     public function __construct($builder) {
         parent::__construct($builder->getPage());
         $this->builder = $builder;
         $this->profile = $builder->getProfile();
+    }
+    
+    /**
+     * 
+     * @param SilverbulletController $controller
+     */
+    public function setController($controller){
+        $this->controller = $controller;
     }
     
     /**
@@ -107,19 +127,22 @@ class SilverbulletContext extends DefaultContext{
     }
     
     /**
-     * Factory method that creates Silverbullet certificate object and stores it to database
+     * Factory method that creates Silverbullet invitation object and stores it to database
      *
      * @param SilverbulletUser $user
      * @param AbstractInvokerCommand $command
-     * @return SilverbulletCertificate
+     * @return SilverbulletInvitation
      */
-    public function createCertificate($user, $command){
-        $certificate = new SilverbulletCertificate($user);
-        $certificate->save();
-        if(empty($certificate->getIdentifier())){
-            $command->storeErrorMessage(_('Could not create certificate!'));
+    public function createInvitation($user, $command, $quantity = 1){
+        $invitation = new SilverbulletInvitation($user);
+        if($quantity > 1){
+            $invitation->setQuantity($quantity);
         }
-        return $certificate;
+        $invitation->save();
+        if(empty($invitation->getIdentifier())){
+            $command->storeErrorMessage(_('Could not create invitation!'));
+        }
+        return $invitation;
     }
     
     /**
@@ -182,6 +205,29 @@ class SilverbulletContext extends DefaultContext{
             }
         }
         return $url . $query;
+    }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\MessageDistributor::addMessageInvoker()
+     */
+    public function addMessageInvoker($commandToken, $invoker){
+        $this->invokers[$commandToken] = $invoker;
+    }
+    
+    /**
+     *
+     * {@inheritDoc}
+     * @see \web\lib\admin\http\MessageDistributor::distributeMessages()
+     */
+    public function distributeMessages($commandToken, $receiver){
+        if($this->controller != null){
+            $this->controller->createCommand($commandToken);
+            if(isset($this->invokers[$commandToken])){
+                $this->invokers[$commandToken]->publishMessages($receiver);
+            }
+        }
     }
     
 }

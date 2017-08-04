@@ -4,7 +4,7 @@ namespace web\lib\admin\view;
 
 use web\lib\admin\domain\SilverbulletCertificate;
 use web\lib\admin\domain\SilverbulletUser;
-use web\lib\admin\http\AddCertificateCommand;
+use web\lib\admin\http\AddInvitationCommand;
 use web\lib\admin\http\DeleteUserCommand;
 use web\lib\admin\http\MessageDistributor;
 use web\lib\admin\http\RevokeCertificateCommand;
@@ -18,6 +18,8 @@ use web\lib\admin\view\html\Tag;
 use web\lib\admin\view\html\UnaryTag;
 use web\lib\admin\http\SendTokenByEmail;
 use web\lib\admin\http\SendTokenBySms;
+use web\lib\admin\domain\SilverbulletInvitation;
+use web\lib\admin\http\RevokeInvitationCommand;
 
 /**
  * 
@@ -108,7 +110,7 @@ class UserCredentialsForm implements PageElementInterface{
         
         $saveMessageBox = new MessageBox(PageElementInterface::MESSAGEBOX_CLASS);
         $distributor->distributeMessages(SaveUsersCommand::COMMAND, $saveMessageBox);
-        $distributor->distributeMessages(AddCertificateCommand::COMMAND, $saveMessageBox);
+        $distributor->distributeMessages(AddInvitationCommand::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(DeleteUserCommand::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(SendTokenByEmail::COMMAND, $saveMessageBox);
         $distributor->distributeMessages(SendTokenBySms::COMMAND, $saveMessageBox);
@@ -185,7 +187,17 @@ class UserCredentialsForm implements PageElementInterface{
                 $deactivationButton->addAttribute('disabled', 'disabled'); 
             }
         $action->addTag($deactivationButton);
-        $action->addTag(new Button(_('New Credential'), 'submit', AddCertificateCommand::COMMAND, $user->getIdentifier()));
+        $action->addTag(new Button(_('New Credential'), 'submit', AddInvitationCommand::COMMAND, $this->userIndex));
+        $invitationsLabel = new CompositeTag("label");
+        $invitationsLabel->addText(_('Quantity: '));
+        $invitationsQuantity = new Tag('input');
+        $invitationsQuantity->addAttribute('type', 'text');
+        $invitationsQuantity->addAttribute('name', SaveUsersCommand::PARAM_QUANTITY_MULTIPLE);
+        $invitationsQuantity->addAttribute('value', '1');
+        $invitationsQuantity->addAttribute('maxlength', '3');
+        $invitationsQuantity->addAttribute('style', 'width: 30px;');
+        $invitationsLabel->addTag($invitationsQuantity);
+        $action->addTag($invitationsLabel);
         $this->table->addToCell($this->userRowIndex, self::ACTION_COLUMN, $action);
         $this->userIndex++;
     }
@@ -224,21 +236,25 @@ class UserCredentialsForm implements PageElementInterface{
             $certificateBox->addTag($buttonContainer);
             $this->table->addToCell($this->userRowIndex, self::TOKEN_COLUMN, $certificateBox);
             
-        }else{
-            if(!$certificate->isRevoked()){
-                $row = new Row(array('token' => $certificate->getCertificateDetails(), 'expiry' => $certificate->getExpiry()));
-                $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
-                $index = $this->table->size();
-                $this->table->addRow($row);
-                if(!$certificate->isExpired()){
-                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
-                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
-                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Send in SMS...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-sms'));
-                    $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Generate QR code...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-qrcode'));
-                }
-                $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeCertificateCommand::COMMAND, $certificate->getIdentifier(), 'delete'));
-             }
         }
+    }
+    
+    /**
+     *
+     * @param SilverbulletInvitation $invitation
+     */
+    public function addInvitationRow($invitation){
+        $row = new Row(array(self::USER_COLUMN => _("Quantity: ") . $invitation->getRemainingQuantity(), self::TOKEN_COLUMN => $invitation->getTokenLink(), self::EXPIRY_COLUMN => $invitation->getExpiry()));
+        $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
+        $index = $this->table->size();
+        $this->table->addRow($row);
+        if(!$invitation->isExpired()){
+            $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
+            $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
+            $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Send in SMS...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-sms'));
+            $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Generate QR code...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-qrcode'));
+        }
+        $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeInvitationCommand::COMMAND, $invitation->getIdentifier(), 'delete'));
     }
     
     /**

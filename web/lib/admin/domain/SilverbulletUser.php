@@ -77,6 +77,13 @@ class SilverbulletUser extends PersistentEntity{
     private $certificates = array();
     
     /**
+     * List of invitations for user entity
+     *
+     * @var SilverbulletInvitation[]
+     */
+    private $invitations = array();
+    
+    /**
      * Constructor that should be used when creating a new record. Refer to Silverbullet:: create and Silverbullet::list to load existing records.
      * 
      * @param int $profileId
@@ -177,6 +184,14 @@ class SilverbulletUser extends PersistentEntity{
     public function getCertificates(){
         return $this->certificates;
     }
+
+    /**
+     *
+     * @return \web\lib\admin\domain\SilverbulletInvitation
+     */
+    public function getInvitations(){
+        return $this->invitations;
+    }
     
     /**
      * 
@@ -233,6 +248,7 @@ class SilverbulletUser extends PersistentEntity{
     public function load($searchAttribute = null){
         $state = parent::load();
         $this->certificates = SilverbulletCertificate::getList($this, $searchAttribute);
+        $this->invitations = SilverbulletInvitation::getList($this);
         return $state;
     }
     
@@ -245,6 +261,9 @@ class SilverbulletUser extends PersistentEntity{
         $state = parent::delete();
         foreach ($this->certificates as $certificate) {
             $certificate->delete();
+        }
+        foreach ($this->invitations as $invitation) {
+            $invitation->delete();
         }
         return $state;
     }
@@ -273,6 +292,7 @@ class SilverbulletUser extends PersistentEntity{
             $user = new SilverbulletUser(null, '');
             $user->setRow($row);
             $user->certificates = SilverbulletCertificate::getList($user);
+            $user->invitations = SilverbulletInvitation::getList($user);
             $list[] = $user;
         }
         return $list;

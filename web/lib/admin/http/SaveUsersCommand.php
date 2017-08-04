@@ -14,6 +14,8 @@ class SaveUsersCommand extends AbstractInvokerCommand{
 
     const PARAM_EXPIRY = 'userexpiry';
     const PARAM_EXPIRY_MULTIPLE = 'userexpiry[]';
+    const PARAM_QUANTITY = 'invitationsquantity';
+    const PARAM_QUANTITY_MULTIPLE = 'invitationsquantity[]';
     const PARAM_ID = 'userid';
     const PARAM_ID_MULTIPLE = 'userid[]';
     const PARAM_ACKNOWLEDGE = 'acknowledge';

@@ -96,19 +96,25 @@ if($builder->isReady()){
     $acknowledgeText = _ ( 'You need to acknowledge that the created accounts are still valid within the next %s days.'
                 .' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                 .' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.' );
-    $editBlock = new UserCredentialsForm($controller, $action, _('Manage institution users'), $acknowledgeText, count($users) > 0);
+    $editBlock = new UserCredentialsForm($context, $action, _('Manage institution users'), $acknowledgeText, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();
         foreach ($certificates as $certificate) {
             $editBlock->addCertificateRow($certificate);
         }
+        $invitations = $user->getInvitations();
+        foreach ($invitations as $invitation) {
+            $editBlock->addInvitationRow($invitation);
+        }
+        
+        
     }
     $builder->addContentElement($editBlock);
     
     //Add new user and user import forms preparation
-    $newUserFrom = new AddNewUserForm($controller, $action, _("Please enter a username of your choice and user expiry date to create a new user:"));
-    $importForm = new FileUploadForm($controller, $action, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
+    $newUserFrom = new AddNewUserForm($context, $action, _("Please enter a username of your choice and user expiry date to create a new user:"));
+    $importForm = new FileUploadForm($context, $action, _('Comma separated values should be provided in CSV file: username, expiration date "yyyy-mm-dd", number of tokens (optional):'));
     //Creating tabbed box and adding forms
     $tabbedBox = new TabbedPanelsBox();
     $tabbedBox->addTabbedPanel(_('Add new user'), $newUserFrom);

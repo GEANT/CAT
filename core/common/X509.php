@@ -94,9 +94,9 @@ class X509 {
         $md5 = openssl_digest($authorityDer, 'MD5');
         $sha1 = openssl_digest($authorityDer, 'SHA1');
         $out = ["pem" => $authorityPem, "der" => $authorityDer, "md5" => $md5, "sha1" => $sha1, "name" => $mydetails['name']];
-        $difference = array_diff($mydetails['issuer'], $mydetails['subject']);
+        
         $out['root'] = 0; // default, unless concinved otherwise below
-        if (count($difference) == 0) {
+        if ($mydetails['issuer'] === $mydetails['subject']) {
             $out['root'] = 1;
             $mydetails['type'] = 'root';
         }
