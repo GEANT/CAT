@@ -25,6 +25,7 @@ ENGINE = InnoDB CHARSET=utf8;
 
 ALTER TABLE `silverbullet_certificate` 
 ADD COLUMN `silverbullet_invitation_id` INT(11) NULL AFTER `silverbullet_user_id`,
+ADD COLUMN `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
 ADD INDEX `fk_silverbullet_certificate_silverbullet_invitation1_idx` (`silverbullet_invitation_id` ASC)  COMMENT '',
 ADD CONSTRAINT `fk_silverbullet_certificate_silverbullet_invitation1`
     FOREIGN KEY (`silverbullet_invitation_id`)
