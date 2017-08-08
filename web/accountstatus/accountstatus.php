@@ -22,7 +22,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $cleanToken = FALSE;
 $operatingSystem = FALSE;
 $tokenStatus = ["status" => \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID,
-    "cert_status" => \core\ProfileSilverbullet::SB_CERTSTATUS_NONEXISTENT,];
+    "cert_status" => [],];
 $profile = NULL;
 $idp = NULL;
 $fed = NULL;

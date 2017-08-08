@@ -81,22 +81,82 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                     case NULL:
                     default:
                 }
+                // if we know ANYTHING about this token, display info.
+                if ($statusInfo['tokenstatus']['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) {
+                    echo "<h2>" . _("We have the following information on file for you:") . "</h2>";
+                    $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
+                    $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
+                    $allcerts = [];
+                    foreach ($userdata as $index => $content) {
+                        $allcerts = array_merge($allcerts, $content['cert_status']);
+                    }
+                    switch (count($allcerts)) {
+                        case 0:
+                            echo _("You are a new user without a history of eduroam credentials.");
+                            break;
+                        default:
+                            echo "<table>";
+                            $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
+                            foreach ($categories as $category) {
+
+                                switch ($category) {
+                                    case \core\ProfileSilverbullet::SB_CERTSTATUS_VALID:
+                                        $categoryText = _("Current login tokens");
+                                        $color = "#000000";
+                                        break;
+                                    case \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
+                                        $categoryText = _("Previous login tokens");
+                                        $color = "#999999";
+                                        break;
+                                    case \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
+                                        $categoryText = _("Revoked login tokens");
+                                        $color = "#ff0000";
+                                        break;
+                                    default:
+                                        continue;
+                                }
+                                $categoryCount = 0;
+                                $categoryText = "<tr style='color:$color;'><td colspan=4><h2>" . $categoryText;
+
+                                $categoryText .= "</h2></td></tr>";
+                                $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th></tr>";
+                                foreach ($allcerts as $oneCredential) {
+                                    if ($oneCredential['status'] == $category) {
+                                        $categoryCount++;
+                                        $categoryText .= "<tr style='color:$color;'>";
+                                        $categoryText .= "<td>" . $oneCredential['name'] . "</td>";
+                                        $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
+                                        $categoryText .= "<td>" . $oneCredential['serial'] . "</td>";
+                                        $categoryText .= "<td>" . $oneCredential['issued'] . "</td>";
+                                        $categoryText .= "<td>" . $oneCredential['expiry'] . "</td>";
+                                        $categoryText .= "</tr>";
+                                    }
+                                }
+                                if ($categoryCount > 0) {
+                                    echo $categoryText;
+                                }
+                            }
+                            echo "</table>";
+                    }
+                }
+                // and then display additional information, based on status.
                 switch ($statusInfo['tokenstatus']['status']) {
-                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
-                        echo "<p>" . _("Your invitation token is valid.") . " ";
+                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID: // treat both cases as equal
+                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
+                        echo "<h2>" . sprintf(_("Your invitation token is valid for %d more device activations."), $statusInfo['tokenstatus']['activations_remaining']) . "</h2>";
                         if (!$statusInfo["OS"]) {
-                            echo _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
+                            echo "<p>"._("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
                             break;
                         }
 
                         $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
                         $dev->device->calculatePreferredEapType([\core\common\EAP::EAPTYPE_SILVERBULLET]);
                         if ($dev->device->selectedEap == []) {
-                            echo sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
+                            echo "<p>".sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;
                         }
 
-                        echo sprintf(_("You can now download a personalised  %s installation program."), CONFIG['CONSORTIUM']['name']);
+                        echo "<p>".sprintf(_("You can now download a personalised  %s installation program."), CONFIG['CONSORTIUM']['name']);
                         echo sprintf(_("The installation program is<br/><span style='font-size: 30px;'>strictly personal</span>, to be used<br/><span style='font-size: 30px;'>only on this device (%s)</span>, and it is<br/><span style='font-size: 30px;'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
                         echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p>";
@@ -121,50 +181,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         echo "<p>Below is all the information about your account's other login details, if any.</p>";
 // do NOT break, display full account info instead (this was a previously valid token after all)
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED:
-                        echo "<h2>" . _("We have the following information on file for you:") . "</h2>";
-                        $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
-                        $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
-                        echo "<table>";
-                        $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
-                        foreach ($categories as $category) {
-
-                            switch ($category) {
-                                case \core\ProfileSilverbullet::SB_CERTSTATUS_VALID:
-                                    $categoryText = _("Current login tokens");
-                                    $color = "#000000";
-                                    break;
-                                case \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
-                                    $categoryText = _("Previous login tokens");
-                                    $color = "#999999";
-                                    break;
-                                case \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
-                                    $categoryText = _("Revoked login tokens");
-                                    $color = "#ff0000";
-                                    break;
-                                default:
-                                    continue;
-                            }
-                            $categoryCount = 0;
-                            $categoryText = "<tr style='color:$color;'><td colspan=3><h2>" . $categoryText;
-
-                            $categoryText .= "</h2></td></tr>";
-                            $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Expiry Date") . "</th></tr>";
-                            foreach ($userdata as $oneCredential) {
-                                if ($oneCredential['cert_status'] == $category) {
-                                    $categoryCount++;
-                                    $categoryText .= "<tr style='color:$color;'>";
-                                    $categoryText .= "<td>" . $oneCredential['cert_name'] . "</td>";
-                                    $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
-                                    $categoryText .= "<td>" . $oneCredential['cert_serial'] . "</td>";
-                                    $categoryText .= "<td>" . $oneCredential['cert_expiry'] . "</td>";
-                                    $categoryText .= "</tr>";
-                                }
-                            }
-                            if ($categoryCount > 0) {
-                                echo $categoryText;
-                            }
-                        }
-                        echo "</table>";
+                        // nothing to say really. User got the breakdown of certs above, and this link doesn't give him any new ones.
                         break;
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID:
                         echo "<h2>" . _("Account information not found") . "</h2>";

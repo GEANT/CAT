@@ -39,10 +39,10 @@ use \Exception;
 class ProfileSilverbullet extends AbstractProfile {
 
     const SB_TOKENSTATUS_VALID = 0;
-    const SB_TOKENSTATUS_REDEEMED = 1;
-    const SB_TOKENSTATUS_EXPIRED = 2;
-    const SB_TOKENSTATUS_INVALID = 3;
-    const SB_CERTSTATUS_NONEXISTENT = 0;
+    const SB_TOKENSTATUS_PARTIALLY_REDEEMED = 1;
+    const SB_TOKENSTATUS_REDEEMED = 2;
+    const SB_TOKENSTATUS_EXPIRED = 3;
+    const SB_TOKENSTATUS_INVALID = 4;
     const SB_CERTSTATUS_VALID = 1;
     const SB_CERTSTATUS_EXPIRED = 2;
     const SB_CERTSTATUS_REVOKED = 3;
@@ -179,8 +179,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $cert = "";
         $this->loggerInstance->debug(5, "generateCertificate() - starting.\n");
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
-        $this->loggerInstance->debug(5, "tokenStatus: done, got ".$tokenStatus['status'].", ".$tokenStatus['cert_status'].", ".$tokenStatus['profile'].", ".$tokenStatus['user'].", ".$tokenStatus['expiry'].", ".$tokenStatus['value']."\n");
-        $this->loggerInstance->debug(5, "generateCertificate() - token status is ".$tokenStatus['status']);
+        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $tokenStatus['status'] . ", " . $tokenStatus['cert_status'] . ", " . $tokenStatus['profile'] . ", " . $tokenStatus['user'] . ", " . $tokenStatus['expiry'] . ", " . $tokenStatus['value'] . "\n");
+        $this->loggerInstance->debug(5, "generateCertificate() - token status is " . $tokenStatus['status']);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
@@ -229,7 +229,7 @@ class ProfileSilverbullet extends AbstractProfile {
         );
 
         $this->loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
-        
+
         switch (CONFIG['CONSORTIUM']['silverbullet_CA']['type']) {
             case "embedded":
                 $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
@@ -264,7 +264,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
 
         $this->loggerInstance->debug(5, "generateCertificate: post-processing certificate.\n");
-        
+
         // get the SHA1 fingerprint, this will be handy for Windows installers
         $sha1 = openssl_x509_fingerprint($cert, "sha1");
         // with the cert, our private key and import password, make a PKCS#12 container out of it
@@ -280,8 +280,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $parsedCert = $x509->processCertificate($certString);
         $this->loggerInstance->debug(5, "CERTINFO: " . print_r($parsedCert['full_details'], true));
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
-        
-        /* 
+
+        /*
          * Finds invitation by its token attribute, creates new certificate record with provided values inside the database.
          * There are three failures (theoreticaly) possible: no record has been found for given token, more than one record has been found for given token or invitation has reached a limit of alowed certificates.
          */
@@ -290,16 +290,16 @@ class ProfileSilverbullet extends AbstractProfile {
         if ($invitationsResult && $invitationsResult->num_rows > 0) {
             $invitationRow = mysqli_fetch_object($invitationsResult);
             $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
-            if(!$certificatesResult || $certificatesResult->num_rows < $invitationRow->quantity){
+            if (!$certificatesResult || $certificatesResult->num_rows < $invitationRow->quantity) {
                 $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationRow->profile_id, $invitationRow->silverbullet_user_id, $invitationRow->id, $serial, $username, $realExpiryDate);
-                if($newCertificateResult === true){
+                if ($newCertificateResult === true) {
                     $certificateId = $this->databaseHandle->lastID();
                 }
             }
         }
-        
+
         // newborn cert immediately gets its "valid" OCSP response
-        ProfileSilverbullet::triggerNewOCSPStatement((int)$serial);
+        ProfileSilverbullet::triggerNewOCSPStatement((int) $serial);
 // return PKCS#12 data stream
         return [
             "username" => $username,
@@ -434,48 +434,85 @@ class ProfileSilverbullet extends AbstractProfile {
         return file_get_contents($url, false, $context);
     }
 
+    private static function enumerateCertDetails($certQuery) {
+        $retval = [];
+        while ($resource = mysqli_fetch_object($certQuery)) {
+            // is the cert expired?
+            $now = new \DateTime();
+            $cert_expiry = new \DateTime($resource->expiry);
+            $delta = $now->diff($cert_expiry);
+            $certStatus = ($delta->invert == 1 ? self::SB_CERTSTATUS_EXPIRED : self::SB_CERTSTATUS_VALID);
+            // expired is expired; even if it was previously revoked. But do update status for revoked ones...
+            if ($certStatus == self::SB_CERTSTATUS_VALID && $resource->revocation_status == "REVOKED") {
+                $certStatus = self::SB_CERTSTATUS_REVOKED;
+            }
+            $retval[] = [
+                "status" => $certStatus,
+                "serial" => $resource->serial_number,
+                "name"   => $resource->cn,
+                "issued" => $resource->issued,
+                "expiry" => $resource->expiry,
+                "device" => $resource->device,
+            ];
+        }
+        return $retval;
+    }
+
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance = new \core\common\Logging();
-        
-        /* 
+
+        /*
          * Finds invitation by its token attribute and loads all certificates generated using the token.
          * Certificate details will always be empty, since code still needs to be adapted to return multiple certificates information.
          */
         $invitationsResult = $databaseHandle->exec("SELECT * FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $tokenvalue);
-        if ($invitationsResult && $invitationsResult->num_rows > 0) {
-            $invitationRow = mysqli_fetch_object($invitationsResult);
-            $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
-            $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
-            $loggerInstance->debug(5, "ProfileSilverbullet::tokenStatus() - at token validation level, " .$certificatesNumber. " certificates exists.\n");
-            
-            /*
-             * cert_status and other certificate details should be calculated by iterating over $certificatesResult
-             */
-            $retArray = [
-                    "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,
-                    "profile" => $invitationRow->profile_id,
-                    "user" => $invitationRow->silverbullet_user_id,
-                    "expiry" => $invitationRow->expiry,
-                    "value" => $invitationRow->token
-            ];
-            if($certificatesNumber < $invitationRow->quantity){
+        if (!$invitationsResult || $invitationsResult->num_rows == 0) {
+            $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
+            return ["status" => self::SB_TOKENSTATUS_INVALID,
+                "cert_status" => [],];
+        }
+        // if not returned, we found the token in the DB
+        $invitationRow = mysqli_fetch_object($invitationsResult);
+        $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
+        $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
+        $loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
+
+        $retArray = [
+            "cert_status" => \core\ProfileSilverbullet::enumerateCertDetails($certificatesResult),
+            "profile" => $invitationRow->profile_id,
+            "user" => $invitationRow->silverbullet_user_id,
+            "expiry" => $invitationRow->expiry,
+            "activations_remaining" => $invitationRow->quantity - $certificatesNumber,
+            "value" => $invitationRow->token
+        ];
+        
+        switch ($certificatesNumber) {
+            case 0:
+                // find out if it has expired
                 $now = new \DateTime();
                 $expiryObject = new \DateTime($invitationRow->expiry);
                 $delta = $now->diff($expiryObject);
-                $retArray['status'] = ($delta->invert == 1 ? self::SB_TOKENSTATUS_EXPIRED : self::SB_TOKENSTATUS_VALID);
-            }else{
+                if ($delta->invert == 1) {
+                    $retArray['status'] = self::SB_TOKENSTATUS_EXPIRED;
+                    $retArray['activations_remaining'] = 0;
+                    break;
+                }
+                $retArray['status'] = self::SB_TOKENSTATUS_VALID;
+                break;
+            case $invitationRow->quantity:
                 $retArray['status'] = self::SB_TOKENSTATUS_REDEEMED;
-            }
-            
-            $loggerInstance->debug(5, "tokenStatus: done, returning ".$retArray['status'].", ".$retArray['cert_status'].", ".$retArray['profile'].", ".$retArray['user'].", ".$retArray['expiry'].", ".$retArray['value']."\n");
-            return $retArray;
-        }else{
-                $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
-                return ["status" => self::SB_TOKENSTATUS_INVALID,
-                        "cert_status" => self::SB_CERTSTATUS_NONEXISTENT,];
+                break;
+            default:
+                assert($certificatesNumber > 0); // no negatives allowed
+                assert($certificatesNumber < $invitationRow->quantity); // not more than max quantity allowed
+                $retArray['status'] = self::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
         }
-        
+
+        // now, look up certificate details and put them all in the cert_status property
+
+        $loggerInstance->debug(5, "tokenStatus: done, returning " . $retArray['status'] . ", " . count($retArray['cert_status']) . ", " . $retArray['profile'] . ", " . $retArray['user'] . ", " . $retArray['expiry'] . ", " . $retArray['value'] . "\n");
+        return $retArray;
     }
 
     /**
