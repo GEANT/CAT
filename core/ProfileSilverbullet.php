@@ -181,7 +181,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
         $this->loggerInstance->debug(5, "tokenStatus: done, got " . $tokenStatus['status'] . ", " . $tokenStatus['profile'] . ", " . $tokenStatus['user'] . ", " . $tokenStatus['expiry'] . ", " . $tokenStatus['value'] . "\n");
         $this->loggerInstance->debug(5, "generateCertificate() - token status is " . $tokenStatus['status']);
-        if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
+        if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID || $tokenStatus['status'] != self::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
         if ($tokenStatus['profile'] != $this->identifier) {
