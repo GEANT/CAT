@@ -189,7 +189,7 @@ class UserCredentialsForm implements PageElementInterface{
         $action->addTag($deactivationButton);
         $action->addTag(new Button(_('New Credential'), 'submit', AddInvitationCommand::COMMAND, $this->userIndex));
         $invitationsLabel = new CompositeTag("label");
-        $invitationsLabel->addText(_('Quantity: '));
+        $invitationsLabel->addText(_('Activations: '));
         $invitationsQuantity = new Tag('input');
         $invitationsQuantity->addAttribute('type', 'text');
         $invitationsQuantity->addAttribute('name', SaveUsersCommand::PARAM_QUANTITY_MULTIPLE);
@@ -246,18 +246,20 @@ class UserCredentialsForm implements PageElementInterface{
     public function addInvitationRow($invitation){
         $expiryColumn = _("Expiry Date: ") . $invitation->getExpiry();
         $expiryColumn .= "<br>";
-        $expiryColumn .= _("Activations: ") . $invitation->getRemainingQuantity();
+        $expiryColumn .= _("Activations: ") . $invitation->getRemainingActivations();
         $row = new Row(array(self::TOKEN_COLUMN => $invitation->getTokenLink(), self::EXPIRY_COLUMN => $expiryColumn));
         $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);
-        if(!$invitation->isExpired()){
+        if(!$invitation->isExpired() && !$invitation->isRevoked() && !$invitation->isAbsent()){
             $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Copy to Clipboard'), 'button', '', '', self::INVITATION_TOKEN_CLASS . '-copy'));
             $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Compose mail...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-compose'));
             $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Send in SMS...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-sms'));
             $this->table->addToCell($index, self::TOKEN_COLUMN, new Button(_('Generate QR code...'), 'button', '', '', self::INVITATION_TOKEN_CLASS. '-qrcode'));
         }
-        $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeInvitationCommand::COMMAND, $invitation->getIdentifier(), 'delete'));
+        if(!$invitation->isRevoked()){
+            $this->table->addToCell($index, self::ACTION_COLUMN, new Button(_('Revoke'), 'submit', RevokeInvitationCommand::COMMAND, $invitation->getIdentifier(), 'delete'));
+        }
     }
     
     /**
