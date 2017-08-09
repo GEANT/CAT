@@ -37,9 +37,8 @@ class RevokeInvitationCommand extends AbstractInvokerCommand{
         $invitationId = $this->parseInt($_POST[self::COMMAND]);
         
         $invitation = SilverbulletInvitation::prepare($invitationId);
-        $invitation->load();
-        
-        $invitation->delete();
+        $invitation->setQuantity(0);
+        $invitation->save();
         
         $this->context->redirectAfterSubmit();
     }

@@ -142,7 +142,7 @@ class UserCredentialsForm implements PageElementInterface{
      * 
      */
     private function addTitleRow(){
-        $row = new Row(array(self::USER_COLUMN => 'User', self::TOKEN_COLUMN => 'Token/Certificate details', self::EXPIRY_COLUMN => 'User Expiry/Certificate Expiry', self::ACTION_COLUMN => 'Actions'));
+        $row = new Row(array(self::USER_COLUMN => _('User'), self::TOKEN_COLUMN => _('Token/Certificate details'), self::EXPIRY_COLUMN => _('User/Token Expiry'), self::ACTION_COLUMN => _('Actions')));
         $row->addAttribute('class', self::TITLEROW_CLASS);
         $this->table->addRow($row);
     }
@@ -244,7 +244,10 @@ class UserCredentialsForm implements PageElementInterface{
      * @param SilverbulletInvitation $invitation
      */
     public function addInvitationRow($invitation){
-        $row = new Row(array(self::USER_COLUMN => _("Quantity: ") . $invitation->getRemainingQuantity(), self::TOKEN_COLUMN => $invitation->getTokenLink(), self::EXPIRY_COLUMN => $invitation->getExpiry()));
+        $expiryColumn = _("Expiry Date: ") . $invitation->getExpiry();
+        $expiryColumn .= "<br>";
+        $expiryColumn .= _("Activations: ") . $invitation->getRemainingQuantity();
+        $row = new Row(array(self::TOKEN_COLUMN => $invitation->getTokenLink(), self::EXPIRY_COLUMN => $expiryColumn));
         $row->addAttribute('class', self::CERTIFICATEROW_CLASS);
         $index = $this->table->size();
         $this->table->addRow($row);

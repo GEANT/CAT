@@ -179,7 +179,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $cert = "";
         $this->loggerInstance->debug(5, "generateCertificate() - starting.\n");
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
-        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $tokenStatus['status'] . ", " . $tokenStatus['cert_status'] . ", " . $tokenStatus['profile'] . ", " . $tokenStatus['user'] . ", " . $tokenStatus['expiry'] . ", " . $tokenStatus['value'] . "\n");
+        $this->loggerInstance->debug(5, "tokenStatus: done, got " . $tokenStatus['status'] . ", " . $tokenStatus['profile'] . ", " . $tokenStatus['user'] . ", " . $tokenStatus['expiry'] . ", " . $tokenStatus['value'] . "\n");
         $this->loggerInstance->debug(5, "generateCertificate() - token status is " . $tokenStatus['status']);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
@@ -338,7 +338,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $cn = "";
             $federation = NULL;
             $certstatus = "";
-            $originalExpiry = "2000-01-01 00:00:00";
+            $originalExpiry = date_create_from_format("Y-m-d H:i:s", "2000-01-01 00:00:00");
             $dbHandle = DBConnection::handle("INST");
             $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
             if (mysqli_num_rows($originalStatusQuery) > 0) {
@@ -505,7 +505,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 break;
             default:
                 assert($certificatesNumber > 0); // no negatives allowed
-                assert($certificatesNumber < $invitationRow->quantity); // not more than max quantity allowed
+                assert($certificatesNumber < $invitationRow->quantity || $invitationRow->quantity == 0); // not more than max quantity allowed (unless quantity is zero)
                 $retArray['status'] = self::SB_TOKENSTATUS_PARTIALLY_REDEEMED;
         }
 

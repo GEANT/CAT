@@ -36,7 +36,7 @@ use web\lib\admin\view\SendSmsBox;
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.3.2');
+$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.3.3');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
