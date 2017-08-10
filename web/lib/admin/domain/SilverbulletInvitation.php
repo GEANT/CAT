@@ -51,6 +51,13 @@ class SilverbulletInvitation extends PersistentEntity {
      * @var string
      */
     private $defaultTokenExpiry;
+    
+    /**
+     * List of certificates issued using this invitation
+     *
+     * @var SilverbulletCertificate[]
+     */
+    private $certificates = array();
 
     /**
      * 
@@ -96,12 +103,25 @@ class SilverbulletInvitation extends PersistentEntity {
 
     /**
      *
-     * @return int
+     * @return string
      */
-    public function getRemainingQuantity(){
-        return (int) $this->get(self::QUANTITY) - count($this->getCertificates());
+    public function getRemainingActivations(){
+        return sprintf(_("%s of %s"), count($this->certificates), $this->get(self::QUANTITY));
     }
     
+    /**
+     * 
+     * @return boolean
+     */
+    public function isRevoked(){
+        $quantity = $this->get(self::QUANTITY);
+        return $quantity <= 0;
+    }
+    
+    public function isAbsent(){
+        $quantity = $this->get(self::QUANTITY);
+        return count($this->certificates) >= $quantity;
+    }
     
     /**
      *
@@ -137,7 +157,12 @@ class SilverbulletInvitation extends PersistentEntity {
         } else {
             $link = $host;
         }
-        if ($this->isExpired()) {
+        
+        if ($this->isRevoked()){
+            $link = _('This token has been revoked!');
+        }else if($this->isAbsent()){
+            $link = _('All available activations were used!');
+        }else if ($this->isExpired()) {
             $link = _('User did not consume the token and it expired!');
         } else {
             $link .= '/accountstatus/accountstatus.php?token=' . $this->get(self::TOKEN);
@@ -168,7 +193,7 @@ class SilverbulletInvitation extends PersistentEntity {
      */
     public function getExpiry() {
         if (empty($this->get(self::EXPIRY))) {
-            return "n/a";
+            return _("n/a");
         } else {
             return date('Y-m-d', strtotime($this->get(self::EXPIRY)));
         }
@@ -198,9 +223,20 @@ class SilverbulletInvitation extends PersistentEntity {
      * @return \web\lib\admin\domain\SilverbulletCertificate[]
      */
     public function getCertificates(){
-        return SilverbulletCertificate::getList(null, new Attribute(SilverbulletCertificate::SILVERBULLETINVITATIONID, $this->getIdentifier(), Attribute::TYPE_INTEGER));
+        return $this->certificates;
     }
-
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\domain\PersistentEntity::load()
+     */
+    public function load($searchAttribute = null){
+        $state = parent::load($searchAttribute);
+        $this->certificates = SilverbulletCertificate::getList(null, new Attribute(SilverbulletCertificate::SILVERBULLETINVITATIONID, $this->getIdentifier(), Attribute::TYPE_INTEGER));
+        return $state;
+    }
+    
     /**
      * 
      * @param int $invitationId
@@ -240,6 +276,7 @@ class SilverbulletInvitation extends PersistentEntity {
         while ($row = mysqli_fetch_assoc($result)) {
             $invitation = new SilverbulletInvitation(null);
             $invitation->setRow($row);
+            $invitation->certificates = SilverbulletCertificate::getList(null, new Attribute(SilverbulletCertificate::SILVERBULLETINVITATIONID, $invitation->getIdentifier(), Attribute::TYPE_INTEGER));
             $list[] = $invitation;
         }
         return $list;
