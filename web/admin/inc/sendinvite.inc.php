@@ -199,13 +199,24 @@ if (isset(CONFIG['APPEARANCE']['invitation-bcc-mail']) && CONFIG['APPEARANCE']['
 $recipients = explode(", ", $newmailaddress);
 
 $secStatus = TRUE;
+$domainStatus = TRUE;
 
 // fill the destinations in PHPMailer API
 foreach ($recipients as $recipient) {
     $mail->addAddress($recipient);
-    if (\core\common\OutsideComm::mailAddressValidSecure($recipient) < \core\common\OutsideComm::MAILDOMAIN_STARTTLS) {
+    $status = \core\common\OutsideComm::mailAddressValidSecure($recipient);
+    if ($status < \core\common\OutsideComm::MAILDOMAIN_STARTTLS) {
         $secStatus = FALSE;
     }
+    if ($status < 0) {
+        $domainStatus = FALSE;
+    }
+}
+
+if (!$domainStatus) {
+    $mgmt->invalidateToken($newtoken);
+    header("Location: $redirect_destination" . "invitation=FAILURE");
+    exit;
 }
 
 // what do we want to say?
@@ -218,6 +229,7 @@ $sent = $mail->send();
 if (!$sent) {
     $mgmt->invalidateToken($newtoken);
     header("Location: $redirect_destination" . "invitation=FAILURE");
+    exit;
 }
 
 header("Location: $redirect_destination" . "invitation=SUCCESS&transportsecurity=" . ($secStatus ? "ENCRYPTED" : "CLEAR"));
