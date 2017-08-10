@@ -166,7 +166,7 @@ class PageDecoration {
         // content from here on will SCROLL instead of being fixed at the top
         $retval .= "<div class='pagecontent'>"; // closes in footer again
         $retval .= "<div class='trick'>"; // closes in footer again
-        $retval .= "<div id='secondrow' style='border-bottom:5px solid ".CONFIG['APPEARANCE']['colour1']." min-height:100px;'>
+        $retval .= "<div id='secondrow' style='border-bottom:5px solid ".CONFIG['APPEARANCE']['colour1']."; min-height:100px;'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
                 <h2>$cap2</h2>
             </div><!--secondarycaptions-->";
