@@ -967,6 +967,9 @@ silverbullet.views.TokenProvider.ELEMENT_CLASS = 'sb-invitation-token';
 silverbullet.views.TokenProvider.prototype.animate = function () {
     this.copyJQButton.css('background-color', this.originalBackgroundColor);
     this.copyJQButton.css('color', this.originalColor);
+    var tokenValue =  this.tokenJQInput.val();
+    this.tokenJQInput.val("");
+    this.tokenJQInput.val(tokenValue);
     this.tokenJQInput.blur();
 };
 
