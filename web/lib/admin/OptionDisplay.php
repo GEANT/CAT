@@ -34,6 +34,10 @@ class OptionDisplay {
     private $level;
 
     /**
+     * 
+     */
+    private $allLocationCount;
+    /**
      * Which attributes are we talking about?
      * @param array $options the options of interest
      * @param string $level the level on which these options were defined by the user
@@ -41,6 +45,7 @@ class OptionDisplay {
     public function __construct($options, $level) {
         $this->listOfOptions = $options;
         $this->level = $level;
+        $this->allLocationCount = 0;
     }
 
     /**
@@ -310,7 +315,6 @@ class OptionDisplay {
      * @return string HTML code <tr>
      */
     public function optiontext($defaultselect, $list, $prefill = 0, $prefillLang = 0) {
-        $allLocationCount = 0;
         $locationIndex = 0;
         $rowid = mt_rand();
 
@@ -321,7 +325,7 @@ class OptionDisplay {
         }
 
         if ($prefill) {
-            $retval .= $this->prefillText($rowid, $list, $prefill, $prefillLang, $locationIndex, $allLocationCount);
+            $retval .= $this->prefillText($rowid, $list, $prefill, $prefillLang, $locationIndex, $this->allLocationCount);
         }
         $retval .= "
 
