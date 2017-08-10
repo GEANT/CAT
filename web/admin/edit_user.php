@@ -42,7 +42,7 @@ $user = new \core\User($_SESSION['user']);
             </legend>
             <?php 
             $optionDisplay = new \web\lib\admin\OptionDisplay($user->getAttributes(), "User");
-            echo prefilledOptionTable("user"); 
+            echo $optionDisplay->prefilledOptionTable("user"); 
             ?>
             <button type='button' class='newoption' onclick='getXML("user")'>
                 <?php echo _("Add new option"); ?>
