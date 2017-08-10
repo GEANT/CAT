@@ -13,8 +13,6 @@
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
 require_once("common.inc.php");
-require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/PHPMailer.php");
-require_once(dirname(dirname(dirname(__DIR__))) . "/core/PHPMailer/src/SMTP.php");
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
