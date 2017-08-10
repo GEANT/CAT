@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -18,8 +19,11 @@
 /**
  * 
  */
+
 namespace devices\apple_mobileconfig;
+
 use \Exception;
+
 /**
  * This is the main implementation class of the module
  *
@@ -42,18 +46,6 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
     public function __construct() {
         parent::__construct();
-        // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
-        // also escape htmlspecialchars
-        // not all names and profiles have a name, so be prepared
-        $this->instName = $this->attributes['general:instname'][0] ?? _("Unnamed Institution");
-        $this->profileName = $this->attributes['profile:name'][0] ?? _("Unnamed Profile");
-
-        $this->massagedInst       = $this->massageName($this->instName);
-        $this->massagedProfile    = $this->massageName($this->profileName);
-        $this->massagedCountry    = $this->massageName($this->attributes['internal:country'][0]);
-        $this->massagedConsortium = $this->massageName(CONFIG['CONSORTIUM']['name']);
-        $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
-        
         // that's what all variants support. Sub-classes can change it.
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
     }
@@ -61,7 +53,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     private function massageName($input) {
         return htmlspecialchars(strtolower(iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace(['/ /', '/\//'], '_', $input))), ENT_XML1, 'UTF-8');
     }
-    
+
     private function generalPayload() {
         $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
 
@@ -87,15 +79,14 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
       <key>PayloadVersion</key>
          <integer>1</integer>";
     }
-    
+
     const FILE_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>
 <!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\"
 \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
 <plist version=\"1.0\">
 <dict>";
-    
     const FILE_END = "</dict></plist>";
-    
+
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
@@ -121,8 +112,24 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         textdomain("devices");
 
         $this->loggerInstance->debug(4, "mobileconfig Module Installer start\n");
+
+        // remove spaces and slashes (filename!), make sure it's simple ASCII only, then lowercase it
+        // also escape htmlspecialchars
+        // not all names and profiles have a name, so be prepared
+
+        $this->loggerInstance->debug(5, "List of available attributes: " . var_export($this->attributes, TRUE));
+
+        $this->instName = $this->attributes['general:instname'][0] ?? _("Unnamed Institution");
+        $this->profileName = $this->attributes['profile:name'][0] ?? _("Unnamed Profile");
+
+        $this->massagedInst = $this->massageName($this->instName);
+        $this->massagedProfile = $this->massageName($this->profileName);
+        $this->massagedCountry = $this->massageName($this->attributes['internal:country'][0]);
+        $this->massagedConsortium = $this->massageName(CONFIG['CONSORTIUM']['name']);
+        $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
+
         $eapType = $this->selectedEap;
-        
+
         $outputXml = self::FILE_START;
         $outputXml .= "<key>PayloadContent</key>
          <array>";
@@ -144,20 +151,13 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         }
 
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
-        
-        $outputXml .= $this->allNetworkBlocks(
-                $this->attributes['internal:SSID'], 
-                $this->attributes['internal:consortia'], 
-                $this->attributes['eap:server_name'], 
-                $this->listCAUuids($this->attributes['internal:CAs'][0]), 
-                $this->selectedEap,
-                $includeWired, 
-                $clientCertUUID, 
-                $this->determineOuterIdString());
 
-        
+        $outputXml .= $this->allNetworkBlocks(
+                $this->attributes['internal:SSID'], $this->attributes['internal:consortia'], $this->attributes['eap:server_name'], $this->listCAUuids($this->attributes['internal:CAs'][0]), $this->selectedEap, $includeWired, $clientCertUUID, $this->determineOuterIdString());
+
+
         $outputXml .= $this->generalPayload();
-        
+
         if (isset($this->attributes['support:info_file'])) {
             $outputXml .= "
       <key>ConsentText</key>
@@ -254,7 +254,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         // but which release is OS X doing? And what should we fill in, given
         // that we have thousands of realms? Try just eduroam.org
         if (CONFIG['CONSORTIUM']['name'] == "eduroam") {
-        $retval .= "<key>NAIRealmNames</key>
+            $retval .= "<key>NAIRealmNames</key>
                 <array>
                     <string>eduroam.org</string>
                 </array>";
@@ -265,7 +265,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     private $serial;
 
     private function eapBlock($eapType, $realm, $cAUUIDList, $serverList) {
-                $retval = "<key>EAPClientConfiguration</key>
+        $retval = "<key>EAPClientConfiguration</key>
                   <dict>
                       <key>AcceptEAPTypes</key>
                          <array>
@@ -308,7 +308,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                    </dict>";
         return $retval;
     }
-    
+
     private function networkBlock($ssid, $consortiumOi, $serverList, $cAUUIDList, $eapType, $wired, $clientCertUUID, $realm = 0) {
         $escapedSSID = htmlspecialchars($ssid, ENT_XML1, 'UTF-8');
 
@@ -456,11 +456,11 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $mimeBlob = base64_encode($binaryBlob);
         $mimeFormatted = chunk_split($mimeBlob, 52, "\r\n");
         $payloadUUID = $this->uuid('', $mimeBlob);
-        return ["block" => "<dict>".
-                  // we don't include the import password. It's displayed on screen, and should be input by the user.
-                  // <key>Password</key>
-                  //   <string>" . $this->clientCert['password'] . "</string>
-                  "<key>PayloadCertificateFileName</key>
+        return ["block" => "<dict>" .
+            // we don't include the import password. It's displayed on screen, and should be input by the user.
+            // <key>Password</key>
+            //   <string>" . $this->clientCert['password'] . "</string>
+            "<key>PayloadCertificateFileName</key>
                      <string>cert-cli.pfx</string>
                   <key>PayloadContent</key>
                      <data>
@@ -469,7 +469,7 @@ $mimeFormatted
                   <key>PayloadDescription</key>
                      <string>MIME Base-64 encoded PKCS#12 Client Certificate</string>
                   <key>PayloadDisplayName</key>
-                     <string>"._("eduroam user certificate")."</string>
+                     <string>" . _("eduroam user certificate") . "</string>
                   <key>PayloadIdentifier</key>
                      <string>com.apple.security.pkcs12.$payloadUUID</string>
                   <key>PayloadType</key>
