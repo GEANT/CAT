@@ -16,7 +16,7 @@ require_once("inc/common.inc.php");
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
     
-function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
+function profilechecks(\core\IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dbHandle = \core\DBConnection::handle("INST");
 
