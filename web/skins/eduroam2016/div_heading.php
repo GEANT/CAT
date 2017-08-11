@@ -26,7 +26,7 @@ $menu = new Menu([
      'text'=>_("Language"), 'submenu'=>$langsArray],
     ['id'=>'help',
      'text'=>_("Help"), 'submenu'=>[
-            ['text'=>_("My institution is not listed"), 'catInfo'=>['idp_not_listed',_("FAQ")]],
+            ['text'=>sprintf(_("My %s is not listed"),$Gui->nomenclature_inst), 'catInfo'=>['idp_not_listed',_("FAQ")]],
             ['text'=>_("My device is not listed"), 'catInfo'=>['device_not_listed',_("FAQ")]],
             ['text'=>_("What is eduroam"), 'catInfo'=>['what_is_eduroam',_("FAQ")]],
             ['text'=>_("FAQ"), 'catInfo'=>['faq',_("FAQ")]],
@@ -35,7 +35,7 @@ $menu = new Menu([
     ['id'=>'manage',
      'text'=>_("Manage"),'submenu'=>[
             ['text'=>sprintf(_("%s admin access"),CONFIG['CONSORTIUM']['name']),
-             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name'])]],
+             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your %s"), CONFIG['CONSORTIUM']['name'], $Gui->nomenclature_inst)]],
             ['text'=>_("Become a CAT developer"),
              'catInfo'=>['develop',_("Become a CAT developer")]],
             ['text'=>_("Documentation")],

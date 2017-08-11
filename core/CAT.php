@@ -75,6 +75,18 @@ class CAT extends \core\common\Entity {
      */
     public $CAT_COPYRIGHT;
 
+        /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+    
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
      * The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
@@ -116,6 +128,19 @@ class CAT extends \core\common\Entity {
          */
         $oldlocale = $this->languageInstance->setTextDomain('core');
 
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG['CONSORTIUM']['nomenclature_institution']);
+        
         $this->knownFederations = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),

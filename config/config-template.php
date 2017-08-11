@@ -124,6 +124,7 @@ const CONFIG = [
         'silverbullet_CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
       # 'silverbullet_CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
         'nomenclature_federation' => 'National Roaming Operator',
+        'nomenclature_institution' => 'Identity Provider',
     ],
 
     /**

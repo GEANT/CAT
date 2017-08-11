@@ -14,11 +14,12 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("inc/common.inc.php");
 
 $validator = new \web\lib\common\InputValidation();
-
+$uiElements = new web\lib\admin\UIElements();
+    
 function profilechecks(IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dbHandle = \core\DBConnection::handle("INST");
-    $uiElements = new web\lib\admin\UIElements();
+
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
@@ -159,7 +160,7 @@ function rowdescription() {
 
 $deco = new \web\lib\admin\PageDecoration();
 
-echo $deco->defaultPagePrelude(_("Authentication Server Status for all known federation members"));
+echo $deco->defaultPagePrelude(sprintf(_("Authentication Server Status for all known %s members"),$uiElements->nomenclature_fed));
 
 // check authorisation of user; this check immediately dies if not authorised
 
@@ -200,7 +201,7 @@ if (count($profiles_confready) > 0) {
 }
 ?>
 <form method='post' action='overview_federation.php' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo _("Return to federation overview"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s overview"),$uiElements->nomenclature_fed); ?></button>
 </form>
 
 <?php echo $deco->footer() ?>

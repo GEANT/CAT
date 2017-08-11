@@ -115,11 +115,11 @@ class Device_Vista7 extends WindowsCommon {
         }
 // TODO - change this below
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
+            $out .= sprintf(_("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your %s. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process."), $this->nomenclature_inst);
             return($out);
         }
         // not EAP-TLS
-        $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
+        $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
 
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_PEAP_MSCHAP2) {
             $out .= "<p>";

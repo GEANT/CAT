@@ -119,7 +119,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         $this->loggerInstance->debug(5, "List of available attributes: " . var_export($this->attributes, TRUE));
 
-        $this->instName = $this->attributes['general:instname'][0] ?? _("Unnamed Institution");
+        $this->instName = $this->attributes['general:instname'][0] ?? sprintf(_("Unnamed %s"),$this->nomenclature_inst);
         $this->profileName = $this->attributes['profile:name'][0] ?? _("Unnamed Profile");
 
         $this->massagedInst = $this->massageName($this->instName);
@@ -205,7 +205,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $out .= " " . sprintf(_("(%d times)"), $certCount);
         }
         $out .= "</li>";
-        $out .= "<li>" . _("to enter the username and password of your institution");
+        $out .= "<li>" . sprintf(_("to enter the username and password of your %s"), $this->nomenclature_inst);
         if ($ssidCount > 1) {
             $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, CONFIG['CONSORTIUM']['name'], $ssidCount);
         }

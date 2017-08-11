@@ -160,8 +160,9 @@ class Federation extends EntityWithDBProperties {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->identifier')");
         $identifier = $this->databaseHandle->lastID();
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
-            echo "<p>" . _("Could not create a new Institution!") . "</p>";
-            throw new Exception("Could not create a new Institution!");
+            $text = "<p>Could not create a new ".CONFIG['CONSORTIUM']['nomenclature_inst']."!</p>";
+            echo $text;
+            throw new Exception($text);
         }
         // escape all strings
         $escapedOwnerId = $this->databaseHandle->escapeValue($ownerId);

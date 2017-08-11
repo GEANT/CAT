@@ -42,7 +42,7 @@ class InputValidation {
         $cat = new \core\CAT();
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
-            throw new Exception($this->inputValidationError("This federation does not exist!"));
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!"),$cat->nomenclature_fed));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
@@ -58,7 +58,7 @@ class InputValidation {
                 return $temp;
             }
         }
-        throw new Exception($this->inputValidationError("User is not federation administrator!"));
+        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!",$cat->nomenclature_fed)));
     }
 
     /**

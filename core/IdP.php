@@ -63,7 +63,7 @@ class IdP extends EntityWithDBProperties {
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         if (!is_numeric($instId)) {
-            throw new Exception("Institutions are identified by an integer index!");
+            throw new Exception("An ".CONFIG['CONSORTIUM']['nomenclature_inst']." is identified by an integer index!");
         }
         $this->identifier = (int) $instId;
 

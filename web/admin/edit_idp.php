@@ -87,7 +87,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         ?>
     </h1>
     <div class='infobox'>
-        <h2><?php echo _("General Institution Properties"); ?></h2>
+        <h2><?php echo sprintf(_("General %s properties"),$uiElements->nomenclature_inst); ?></h2>
         <table>
             <tr>
                 <td><?php echo _("Country:"); ?></td>
@@ -106,7 +106,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
 
     if ($wizardStyle) {
         echo "<p>" .
-        _("Hello, newcomer. Your institution is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users.") . "</p>";
+        sprintf(_("Hello, newcomer. Your %s is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users."), $uiElements->nomenclature_inst ) . "</p>";
     }
     $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
     ?>
@@ -115,7 +115,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            _("This is the place where you can describe your institution in a fine-grained way. The solicited information is used as follows:") . "</p>
+            sprintf(_("This is the place where you can describe your %s in a fine-grained way. The solicited information is used as follows:"), $uiElements->nomenclature_inst) . "</p>
                       <ul>
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
                          <li>" . _("<strong>Terms of Use</strong>: Some installers support displaying text to the user during installation time. If so, we will make that happen if you upload an RTF file or plain text file to display.") . "</li>";

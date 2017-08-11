@@ -19,6 +19,7 @@
  */
 
 namespace core;
+
 use \Exception;
 
 /**
@@ -64,6 +65,18 @@ abstract class DeviceConfig extends \core\common\Entity {
     public $supportedEapMethods;
 
     /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+    
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+    
+    /**
      * 
      * @param array $eapArray the list of EAP methods the device supports
      */
@@ -80,6 +93,18 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG['CONSORTIUM']['nomenclature_institution']);
     }
 
     /**
@@ -155,10 +180,10 @@ abstract class DeviceConfig extends \core\common\Entity {
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
 
-            /* 
+            /*
              * If certificate has been created updating device name for it.
              */
-            if($this->clientCert['certificateId'] != null){
+            if ($this->clientCert['certificateId'] != null) {
                 $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $this->clientCert['certificateId']);
             }
         }

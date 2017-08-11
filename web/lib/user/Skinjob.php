@@ -18,6 +18,7 @@
 /**
  * 
  */
+
 namespace web\lib\user;
 
 use \Exception;
@@ -31,16 +32,33 @@ class Skinjob {
      */
     public $skin;
 
+    /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+
     public function __construct($selectedSkin) {
         // input may have been garbage. Sanity-check and fall back to default skin if needed
         $actualSkin = CONFIG['APPEARANCE']['skins'][0];
         if (in_array($selectedSkin, CONFIG['APPEARANCE']['skins'])) {
             $correctIndex = array_search($selectedSkin, CONFIG['APPEARANCE']['skins']);
-        $actualSkin = CONFIG['APPEARANCE']['skins'][$correctIndex];
+            $actualSkin = CONFIG['APPEARANCE']['skins'][$correctIndex];
         }
-        
+
         $this->skin = $actualSkin;
         $_SESSION['skin'] = $actualSkin;
+
+        $cat = new \core\CAT();
+        
+        $this->nomenclature_fed = $cat->nomenclature_fed;
+        $this->nomenclature_inst = $cat->nomenclature_inst;
     }
 
     /**
@@ -71,16 +89,16 @@ class Skinjob {
             default:
                 throw new Exception("findResourceUrl: unknown type of resource requested");
         }
-        
+
         // does the file exist in the current skin's directory? Has precedence
-        if (file_exists(__DIR__."/../../skins/".$this->skin.$path.$filename)) {
+        if (file_exists(__DIR__ . "/../../skins/" . $this->skin . $path . $filename)) {
             $extrapath = "/skins/" . $this->skin;
-        } elseif (file_exists(__DIR__."/../../".$path.$filename)) {
+        } elseif (file_exists(__DIR__ . "/../../" . $path . $filename)) {
             $extrapath = "";
         } else {
             return FALSE;
         }
-        
+
         $validator = new \web\lib\common\InputValidation();
         $url = "//" . $validator->hostname($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
         if ($url === FALSE) {

@@ -700,8 +700,8 @@ FunctionEnd
 
 Function displayExternalInfo
 ;TRANSLATION
-  MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Please read the additional information from your home institution which will be displayed in a moment."))?>"
-  ExecShell "open" "${EXTERNAL_INFO}"
+  MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Please read the additional information from \${ORGANISATION} which will be displayed in a moment."))?>"
+  ExecShell "open" "${EXTERNAL_INFO}"home institution
 FunctionEnd
 
 ;=============================

@@ -44,7 +44,7 @@ switch ($page) {
         }
         break;
     case 'about':
-        $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one institution will not work for users of another one, therefore if your institution is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your institution configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'], CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname']);
+        $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one %s will not work for users of another one, therefore if your %s is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'], CONFIG['APPEARANCE']['productname'],$skinObject->nomenclature_inst, $skinObject->nomenclature_inst, $skinObject->nomenclature_inst, CONFIG['APPEARANCE']['productname']);
         $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), CONFIG['APPEARANCE']['productname']) . "</p>";
         $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
         $uiElements = new web\lib\admin\UIElements();
@@ -129,7 +129,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
             $out .= '<script type="text/javascript">goAdmin()</script>';
         } else {
             if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
-                $out .= sprintf(_("You must have received an invitation from your national %s operator before being able to manage your institution. If that is the case, please continue and log in."), CONFIG['CONSORTIUM']['name']);
+                $out .= sprintf(_("You must have received an invitation from your %s %s before being able to manage your %s. If that is the case, please continue and log in."), CONFIG['CONSORTIUM']['name'], $skinObject->nomenclature_fed, $skinObject->nomenclature_inst);
             } else {
                 $out .= _("Please authenticate yourself and login");
             }

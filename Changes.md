@@ -39,6 +39,7 @@ Configuration parameter changes
 - [ADDED]     CONSORTIUM['silverbullet_server_suffix']
 - [ADDED]     CONSORTIUM['silverbullet_gracetime']
 - [ADDED]     CONSORTIUM['nomenclature_federation']
+- [ADDED]     CONSORTIUM['nomenclature_institution']
 - [ADDED]     APPEARANCE['skins']
 - [ADDED]     SMSSETTINGS['provider'] (only supported value: Nexmo)
 - [ADDED]     SMSSETTINGS['username']

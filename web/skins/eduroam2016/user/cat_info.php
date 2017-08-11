@@ -90,7 +90,7 @@ $Tou['full'] . "
                     $out .= '<script type="text/javascript">goAdmin()</script>';
                 } else {
                     if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
-                        $out .= sprintf(_("You must have received an invitation from your national %s operator before being able to manage your institution. If that is the case, please continue and log in."), CONFIG['CONSORTIUM']['name']);
+                        $out .= sprintf(_("You must have received an invitation from your %s %s before being able to manage your %s. If that is the case, please continue and log in."), CONFIG['CONSORTIUM']['name'], $Gui->nomenclature_fed, $Gui->nomenclature_inst);
                     } else {
                         $out .= _("Please authenticate yourself and login");
                     }

@@ -3,7 +3,7 @@
         <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG['CONSORTIUM']['name']) ?></span>
         <span id="line2"></span>
         <span id="line3"></span>
-        <span id="line4"><?php echo _("Custom built for your home institution") ?></span>
+        <span id="line4"><?php echo sprintf(_("Custom built for your %s"),$Gui->nomenclature_inst) ?></span>
         <span id="line5">
             <?php
             if (!empty(CONFIG['CONSORTIUM']['signer_name'])) {

@@ -20,6 +20,7 @@ $auth->authenticate();
 $catInstance = new \core\CAT();
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new \web\lib\admin\UIElements();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
@@ -57,7 +58,7 @@ if (isset($_GET['inst_id'])) {
     $fedadmin = $userObject->isFederationAdmin($idp->federation);
     // check if he is either one, if not, complain
     if (!$is_owner && !$fedadmin) {
-        echo "<p>" . _("Something's wrong... you are a federation admin, but not for the federation the requested institution belongs to!") . "</p>";
+        echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclature_fed, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
         exit(1);
     }
 
@@ -75,7 +76,7 @@ else if (isset($_POST['creation'])) {
         $newcountry = $validator->string($_POST['country']);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
+            throw new Exception("Something's wrong... you want to create a new ".$uiElements->nomenclature_inst.", but are not a ".$uiElements->nomenclature_fed." admin for the ".$uiElements->nomenclature_fed." it should be in!");
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
@@ -91,7 +92,7 @@ else if (isset($_POST['creation'])) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception(_("Something's wrong... you want to create a new institution, but are not a federation admin for the federation it should be in!"));
+            throw new Exception("Something's wrong... you want to create a new ".$uiElements->nomenclature_inst.", but are not a ".$uiElements->nomenclature_fed." admin for the ".$uiElements->nomenclature_fed." it should be in!");
         }
         $federation = $validator->Federation($extinfo['country']);
         $newcountry = $extinfo['country'];
@@ -141,7 +142,7 @@ $message = _("Hello,") . "
 if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
     $customtext = $federation->getAttributes('fed:custominvite');
     if (count($customtext) > 0) {
-        $message .= wordwrap(_("Additional message from your federation administrator:"), 72) . "
+        $message .= wordwrap(sprintf(_("Additional message from your %s administrator:"),$uiElements->nomenclature_fed), 72) . "
 ---------------------------------
 "
                 . wordwrap($customtext[0]['value'], 72) . "
@@ -163,7 +164,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
         _("and enter the invitation token") . "
     $newtoken
 " . ( /* $new_idp_authorized_fedadmin */ FALSE ?
-        wordwrap(_("manually. If you reply to this mail, you will reach the federation administrators of your federation."), 72) :
+        wordwrap(sprintf(_("manually. If you reply to this mail, you will reach your %s administrators."),$uiElements->nomenclature_fed), 72) :
         wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
 
 " . wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "
@@ -181,7 +182,7 @@ if ($new_idp_authorized_fedadmin) {
     foreach ($federation->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new \core\User($fedadmin_id);
         $mailaddr = $fedadmin->getAttributes("user:email")['value'];
-        $name = $fedadmin->getAttributes("user:realname")['value'] ?? "Federation Administrator";
+        $name = $fedadmin->getAttributes("user:realname")['value'] ?? sprintf(_("%s administrator"),$uiElements->nomenclature_fed);
         if ($mailaddr) {
             $mail->addReplyTo($mailaddr, $name);
         }

@@ -21,7 +21,7 @@ class Gui extends \core\UserAPI {
         }
         $this->skinObject = new \web\lib\user\Skinjob( $_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
         $this->langObject = new \core\common\Language();
-    }
+    }    
     public $loggerInstance;
     public $skinObject;
     public $langObject;

@@ -13,6 +13,33 @@ namespace web\lib\admin;
 
 class UIElements {
 
+    /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+
+    public function __construct() {
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG['CONSORTIUM']['nomenclature_institution']);
+    }
+
     public function displayName($input) {
 
         $ssidText = _("SSID");
@@ -31,7 +58,7 @@ class UIElements {
             _("Support: EAP Types") => "support:eap_types",
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
-            _("Institution Name") => "general:instname",
+            sprintf(_("Name of %s"),$this->nomenclature_inst) => "general:instname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
@@ -49,7 +76,7 @@ class UIElements {
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
             _("Profile Description") => "profile:description",
-            _("Federation Administrator") => "user:fedadmin",
+            sprintf(_("%s Administrator"), $this->nomenclature_fed) => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",
             _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
@@ -62,9 +89,9 @@ class UIElements {
             \core\ProfileSilverbullet::PRODUCTNAME => \core\common\EAP::EAPTYPE_SILVERBULLET,
             _("Remove/Disable SSID") => "media:remove_SSID",
             _("Custom CSS file for User Area") => "fed:css_file",
-            _("Federation Logo") => "fed:logo_file",
+            sprintf(_("%s Logo"), $this->nomenclature_fed) => "fed:logo_file",
             _("Preferred Skin for User Area") => "fed:desired_skin",
-            _("Federation Operator Name") => "fed:realname",
+            sprintf(_("%s Name"),$this->nomenclature_fed) => "fed:realname",
             _("Custom text in IdP Invitations") => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
@@ -77,7 +104,7 @@ class UIElements {
         $find = array_keys($displayNames, $input, TRUE);
 
         if (count($find) == 0) { // this is an error! throw an Exception
-            throw new Exception("The translation of an option name was requested, but the option is not known to the system: ". htmlentities($input));
+            throw new Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
         return $find[0];
     }
@@ -146,7 +173,7 @@ class UIElements {
     public function instLevelInfoBoxes(\core\IdP $myInst) {
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
-        <h2>" . _("General Institution Details") . "</h2>
+        <h2>" . sprintf(_("General %s details"),$this->nomenclature_inst) . "</h2>
         <table>
             <tr>
                 <td>

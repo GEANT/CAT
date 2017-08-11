@@ -160,7 +160,7 @@ include("user/js/cat_js.php");
                                     "faq" => sprintf(_("FAQ")),
                                     "report" => sprintf(_("Report a problem")),
                                     "develop" => sprintf(_("Become a CAT developer")),
-                                    "admin" => [sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name']), 'padding-top:30px;'],
+                                    "admin" => [sprintf(_("%s admin:<br>manage your %s"), CONFIG['CONSORTIUM']['name'], $Gui->nomenclature_inst), 'padding-top:30px;'],
                                 ]);
 
                                 $menu->printMenu();
@@ -179,7 +179,7 @@ include("user/js/cat_js.php");
                                             <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG['CONSORTIUM']['name']) ?></span>
                                             <span id="line2"></span>
                                             <span id="line3"></span>
-                                            <span id="line4"><?php echo _("Custom built for your home institution") ?></span>
+                                            <span id="line4"><?php echo sprintf(_("Custom built for your %s"),$Gui->nomenclature_inst) ?></span>
                                             <span id="line5">
                                                 <?php
                                                 if (isset(CONFIG['CONSORTIUM']['signer_name']) && CONFIG['CONSORTIUM']['signer_name'] != "") {

@@ -35,7 +35,7 @@ $remaining_attribs = $user->beginflushAttributes();
 if (isset($_POST['option'])) {
     foreach ($_POST['option'] as $opt_id => $optname) {
         if ($optname == "user:fedadmin") {
-            echo "Security violation: user tried to make himself federation administrator!";
+            echo "Security violation: user tried to make himself ".CONFIG['CONSORTIUM']['nomenclature_federation']." administrator!";
             exit(1);
         }
     }

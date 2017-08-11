@@ -14,9 +14,11 @@ namespace web\lib\admin;
 class PageDecoration {
 
     private $validator;
+    private $ui;
     
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
+        $this->ui = new UIElements();
     }
     /**
      * Our (very modest and light) sidebar. authenticated admins get more options, like logout
@@ -117,7 +119,7 @@ class PageDecoration {
         switch ($area) {
             case "ADMIN-IDP":
                 $cap1 = CONFIG['APPEARANCE']['productname_long'];
-                $cap2 = _("Administrator Interface - Identity Provider");
+                $cap2 = sprintf(_("Administrator Interface - Identity Provider"),$this->ui->nomenclature_inst);
                 $advancedControls = TRUE;
                 break;
             case "ADMIN-IDP-USERS":
@@ -137,7 +139,7 @@ class PageDecoration {
                 break;
             case "FEDERATION":
                 $cap1 = CONFIG['APPEARANCE']['productname_long'];
-                $cap2 = _("Administrator Interface - Federation Management");
+                $cap2 = sprintf(_("Administrator Interface - %s Management"),$this->ui->nomenclature_fed);
                 $advancedControls = TRUE;
                 break;
             case "USER":

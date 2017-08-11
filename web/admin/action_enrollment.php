@@ -16,6 +16,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$elements = new \web\lib\admin\UIElements();
 $usermgmt = new \core\UserManagement();
 
 $auth->authenticate();
@@ -51,10 +52,10 @@ if ($checkval < 0) {
     echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
     switch ($checkval) {
         case \core\UserManagement::TOKENSTATUS_FAIL_ALREADYCONSUMED:
-            echo "<p>" . _("Sorry... this token has already been used to create an institution. If you got it from a mailing list, probably someone else used it before you.") . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has already been used to create an %s. If you got it from a mailing list, probably someone else used it before you."), $elements->nomenclature_inst) . "</p>";
             break;
         case \core\UserManagement::TOKENSTATUS_FAIL_EXPIRED:
-            echo "<p>" . _("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your federation administrator for a new one.") . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your %s administrator for a new one."),$elements->nomenclature_fed) . "</p>";
             break;
         default:
             echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";
