@@ -42,7 +42,7 @@ class InputValidation {
         $cat = new \core\CAT();
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
-            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!"),$cat->nomenclature_fed));
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!",$cat->nomenclature_fed)));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);

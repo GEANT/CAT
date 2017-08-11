@@ -14,12 +14,11 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once("inc/common.inc.php");
 
 $validator = new \web\lib\common\InputValidation();
-$uiElements = new web\lib\admin\UIElements();
     
 function profilechecks(\core\IdP $idpinfo, ProfileRADIUS $profile) {
 
     $dbHandle = \core\DBConnection::handle("INST");
-
+    $uiElements = new web\lib\admin\UIElements();
 
     $tabletext = "<tr><td>" . $idpinfo->name . "</td><td>" . $profile->name . "</td>";
 
@@ -106,7 +105,6 @@ function profilechecks(\core\IdP $idpinfo, ProfileRADIUS $profile) {
 
     $tabletext .= "</td><td>";
 
-    $uiElements = new web\lib\admin\UIElements();
     $tabletext .= $uiElements->boxFlexible($certBiggestOddity, 0, 0, true);
 
     $tabletext .= "</td><td>";
@@ -159,8 +157,9 @@ function rowdescription() {
 }
 
 $deco = new \web\lib\admin\PageDecoration();
+$uiElementGlobal = new web\lib\admin\UIElements();
 
-echo $deco->defaultPagePrelude(sprintf(_("Authentication Server Status for all known %s members"),$uiElements->nomenclature_fed));
+echo $deco->defaultPagePrelude(sprintf(_("Authentication Server Status for all known %s members"),$uiElementGlobal->nomenclature_fed));
 
 // check authorisation of user; this check immediately dies if not authorised
 
