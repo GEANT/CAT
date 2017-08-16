@@ -60,6 +60,8 @@ const CONFIG = [
         'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
         'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
         'skins' => ["classic", "eduroam2016", "example"],
+        // get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key?refresh=1
+        'google_maps_api_key' => '',
     ],
 
     /**

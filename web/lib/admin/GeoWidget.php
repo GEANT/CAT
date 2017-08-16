@@ -37,7 +37,7 @@ class GeoWidget {
      */
     public function insertInHead($inst_country, $inst_name) {
         $cat = new \core\CAT();
-        return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?sensor=false'></script>
+        return "<script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=".CONFIG['APPEARANCE']['google_maps_api_key']."'></script>
     <script type='text/javascript'>
         // some global variables;
         var center_lat=49.6114885608729;
