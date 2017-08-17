@@ -14,6 +14,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
 require_once("inc/common.inc.php");
 
 $uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new web\lib\common\PrettyPrint();
 
 function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
     $loggerInstance = new \core\common\Logging();
@@ -223,7 +224,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $typelist = $profile_list->getEapMethodsinOrderOfPreference();
         $allcomplete = TRUE;
         foreach ($typelist as $eaptype) {
-            $buffer_eaptypediv .= $uiElements->displayName($eaptype);
+            $buffer_eaptypediv .= $eapDisplayNames->eapNames($eaptype);
             $completeness = $profile_list->isEapTypeDefinitionComplete($eaptype);
             if ($completeness === true) {
                 $buffer_eaptypediv .= " <div class='acceptable'>" . _("OK") . "</div>";

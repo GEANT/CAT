@@ -15,6 +15,7 @@ require_once("inc/common.inc.php");
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
@@ -407,10 +408,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 // new EAP sorting code  
 
     foreach ($methods as $a) {
-        $display = $uiElements->displayName($a);
+        $display = $eapDisplayNames->eapNames($a);
         $enabled = FALSE;
         foreach ($prefill_methods as $prio => $value) {
-            if ($uiElements->displayName($a) == $uiElements->displayName($value)) {
+            if ($eapDisplayNames->eapNames($a) == $eapDisplayNames->eapNames($value)) {
                 $enabled = TRUE;
                 $countactive = $prio + 1;
             }
@@ -428,8 +429,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                         <?php
                         $D = [];
                         foreach ($prefill_methods as $prio => $value) {
-                            print '<li>' . $uiElements->displayName($value) . "</li>\n";
-                            $D[$uiElements->displayName($value)] = $prio;
+                            print '<li>' . $eapDisplayNames->eapNames($value) . "</li>\n";
+                            $D[$eapDisplayNames->eapNames($value)] = $prio;
                         }
                         ?>
                     </ol>
@@ -452,9 +453,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                             if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
                                 continue;
                             }
-                            $display = $uiElements->displayName($a);
-                            if (!isset($D[$uiElements->displayName($a)])) {
-                                print '<li class="eap1">' . $uiElements->displayName($a) . "</li>\n";
+                            $display = $eapDisplayNames->eapNames($a);
+                            if (!isset($D[$eapDisplayNames->eapNames($a)])) {
+                                print '<li class="eap1">' . $eapDisplayNames->eapNames($a) . "</li>\n";
                             }
                         }
                         ?>
@@ -465,7 +466,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     </div>
     <?php
     foreach ($methods as $a) {
-        $display = $uiElements->displayName($a);
+        $display = $eapDisplayNames->eapNames($a);
         $v = isset($D[$display]) ? $D[$display] : '';
         print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
         print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';

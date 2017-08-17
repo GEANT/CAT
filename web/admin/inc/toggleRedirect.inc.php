@@ -18,6 +18,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
@@ -99,7 +100,8 @@ if ($device != NULL) {
             $attribs[] = $attrib;
         }
     }
-    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $uiElements->displayName($eaptype));
+    
+    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $eapDisplayNames->eapNames($eaptype));
     $keyword = "eap-specific";
     $extrainput = "<input type='hidden' name='eaptype' value='" . \core\common\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
 } else {

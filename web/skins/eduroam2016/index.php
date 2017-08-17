@@ -20,8 +20,6 @@ error_reporting(E_ALL | E_STRICT);
 $Gui->langObject->setTextDomain("web_user");
 
 function defaultPagePrelude($guiObject, $pagetitle, $authRequired = TRUE) {
-    if ($authRequired === TRUE) {
-    }
     $ourlocale = $guiObject->langObject->getLang();
     header("Content-Type:text/html;charset=utf-8");
     echo "<!DOCTYPE html>

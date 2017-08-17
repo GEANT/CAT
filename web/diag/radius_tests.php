@@ -126,7 +126,8 @@ switch ($test_type) {
                 $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password);
             }
             $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
-            $returnarray['result'][$i]['eap'] = $uiElements->displayName($eap);
+            $eapDisplayNames = new \web\lib\common\PrettyPrint();
+            $returnarray['result'][$i]['eap'] = $eapDisplayNames->eapNames($eap);
             $returnarray['returncode'][$i] = $testresult;
 
 
@@ -293,12 +294,12 @@ switch ($test_type) {
         $returnarray['time_millisec'] = sprintf("%d", $testsuite->UDP_reachability_result[$host]['time_millisec']);
 
         if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-            $printedres .= $uiElements->boxError(_("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure);
+            $printedres .= "<tr><td>"._("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure ."</td></tr>";
             $my_ip_addrs[$key]["status"] = "FAILED";
             $goterror = 1;
         }
         if (preg_match('/verify return:1/', implode($opensslbabble))) {
-            $printedres .= $uiElements->boxOkay(_("Completed.") . $measure);
+            $printedres .= "<tr><td>"._("Completed.") . $measure . "</td></tr>";
             $printedres .= "<tr><td></td><td><div class=\"more\">";
             $my_ip_addrs[$key]["status"] = "OK";
             $servercertRaw = implode("\n", $opensslbabble);

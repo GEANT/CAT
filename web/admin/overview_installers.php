@@ -14,7 +14,7 @@ require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
-$uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
@@ -45,7 +45,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             <?php            
             foreach ($preflist as $method) {
                 $escapedMethod = \core\common\EAP::eAPMethodArrayIdConversion($method);
-                echo "<th style='min-width:200px'>" . $uiElements->displayName($method) . "<br/>
+                echo "<th style='min-width:200px'>" . $eapDisplayNames->eapNames($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>

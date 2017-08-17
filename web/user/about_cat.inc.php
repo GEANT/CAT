@@ -28,9 +28,9 @@ $skinObject = new \web\lib\user\Skinjob("classic");
         $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one %s will not work for users of another one, therefore if your %s is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG['APPEARANCE']['productname'], $cat->nomenclature_inst, $cat->nomenclature_inst, $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname']);
         $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), CONFIG['APPEARANCE']['productname']) . "</p>";
         $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
-        $uiElements = new web\lib\admin\UIElements();
+        $eapDisplayNames = new web\lib\common\PrettyPrint();
 foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
-            $out .= "<th style='min-width: 80px;'>" . $uiElements->displayName($oneeap) . "</th>";
+            $out .= "<th style='min-width: 80px;'>" . $eapDisplayNames->eapNames($oneeap) . "</th>";
         }
         $out .= "</tr>";
         foreach (\devices\Devices::listDevices() as $index => $onedevice) {
