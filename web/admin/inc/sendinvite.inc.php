@@ -48,37 +48,57 @@ $newcountry = "";
 $userObject = new \core\User($_SESSION['user']);
 $federation = FALSE;
 
-if (isset($_GET['inst_id'])) {
-    $idp = $validator->IdP($_GET['inst_id']);
-    // editing IdPs is done from within the popup. When we're done, send the 
-    // user back to the popup (append the result of the operation later)
-    $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
-    abortOnBogusMail($newmailaddress, $redirect_destination);
-    // is the user admin of this IdP?
-    $is_owner = FALSE;
-    $owners = $idp->owner();
-    foreach ($owners as $oneowner) {
-        if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED") {
-            $is_owner = TRUE;
-        }
-    }
-    // check if he is (also) federation admin for the federation this IdP is in. His invitations have more blessing then.
-    $fedadmin = $userObject->isFederationAdmin($idp->federation);
-    // check if he is either one, if not, complain
-    if (!$is_owner && !$fedadmin) {
-        echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclature_fed, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
-        exit(1);
-    }
+const OPERATION_MODE_INVALID = 0;
+const OPERATION_MODE_EDIT = 1;
+const OPERATION_MODE_NEWFROMDB = 2;
+const OPERATION_MODE_NEWUNLINKED = 3;
 
-    $prettyprintname = $idp->name;
-    $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
-    $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
-    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
-} // or invite to manage a new inst, only for fedAdmins
-else if (isset($_POST['creation'])) {
-    $redirect_destination = "../overview_federation.php?";
-    abortOnBogusMail($newmailaddress, $redirect_destination);
-    if ($_POST['creation'] == "new" && isset($_POST['name']) && isset($_POST['country'])) {
+$operationMode = OPERATION_MODE_INVALID;
+
+// what did we actually get?
+if (isset($_GET['inst_id'])) {
+    $operationMode = OPERATION_MODE_EDIT;
+}
+
+if (isset($_POST['creation']) && $_POST['creation'] == "new" && isset($_POST['name']) && isset($_POST['country'])) {
+    $operationMode = OPERATION_MODE_NEWUNLINKED;
+}
+
+if (isset($_POST['creation']) && ($_POST['creation'] == "existing") && isset($_POST['externals']) && ($_POST['externals'] != "FREETEXT")) {
+    $operationMode = OPERATION_MODE_NEWFROMDB;
+}
+
+switch ($operationMode) {
+    case OPERATION_MODE_EDIT:
+        $idp = $validator->IdP($_GET['inst_id']);
+        // editing IdPs is done from within the popup. When we're done, send the 
+        // user back to the popup (append the result of the operation later)
+        $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
+        abortOnBogusMail($newmailaddress, $redirect_destination);
+        // is the user admin of this IdP?
+        $is_owner = FALSE;
+        $owners = $idp->owner();
+        foreach ($owners as $oneowner) {
+            if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED") {
+                $is_owner = TRUE;
+            }
+        }
+        // check if he is (also) federation admin for the federation this IdP is in. His invitations have more blessing then.
+        $fedadmin = $userObject->isFederationAdmin($idp->federation);
+        // check if he is either one, if not, complain
+        if (!$is_owner && !$fedadmin) {
+            echo "<p>" . sprintf(_("Something's wrong... you are a %s admin, but not for the %s the requested %s belongs to!"), $uiElements->nomenclature_fed, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
+            exit(1);
+        }
+
+        $prettyprintname = $idp->name;
+        $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
+        $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        break;
+    case OPERATION_MODE_NEWUNLINKED:
+        $redirect_destination = "../overview_federation.php?";
+        abortOnBogusMail($newmailaddress, $redirect_destination);
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
@@ -88,14 +108,17 @@ else if (isset($_POST['creation'])) {
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
-        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $uiElements->nomenclature_inst, $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $newinstname, 0, $newcountry);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
-    } elseif ($_POST['creation'] == "existing" && isset($_POST['externals']) && $_POST['externals'] != "FREETEXT") {
+        break;
+    case OPERATION_MODE_NEWFROMDB:
+        $redirect_destination = "../overview_federation.php?";
+        abortOnBogusMail($newmailaddress, $redirect_destination);
         // a real external DB entry was submitted and all the required parameters are there
-        $newexternalid = $this->validator->string($_POST['externals']);
+        $newexternalid = $validator->string($_POST['externals']);
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
@@ -119,17 +142,17 @@ else if (isset($_POST['creation'])) {
             }
         }
         // fill the rest of the text
-        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $uiElements->nomenclature_inst, $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $prettyprintname, $newexternalid);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
-    }
-} else {
-    $wrongcontent = print_r($_POST, TRUE);
-    echo "<pre>Wrong parameters in POST:
+        break;
+    default: // includes OPERATION_MODE_INVALID
+        $wrongcontent = print_r($_POST, TRUE);
+        echo "<pre>Wrong parameters in POST:
 " . htmlspecialchars($wrongcontent) . "
 </pre>";
-    exit(1);
+        exit(1);
 }
 // are we on https?
 $proto = "http://";
@@ -157,7 +180,7 @@ if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom me
     }
 }
 
-$message .= wordwrap(_("To enlist as an administrator for that IdP, please click on the following link:"), 72) . "
+$message .= wordwrap(sprintf(_("To enlist as an administrator for that %s, please click on the following link:"), $uiElements->nomenclature_inst), 72) . "
     
 $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "/action_enrollment.php?token=$newtoken
     
@@ -224,7 +247,7 @@ if (!$domainStatus) {
 }
 
 // what do we want to say?
-$mail->Subject = sprintf(_("%s: you have been invited to manage an IdP"), CONFIG['APPEARANCE']['productname']);
+$mail->Subject = sprintf(_("%s: you have been invited to manage an %s"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_inst);
 $mail->Body = $message;
 
 $sent = $mail->send();
