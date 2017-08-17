@@ -34,6 +34,8 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 installation then then sets this cert as user credentials, no more problems with
                 multiple user certificates
 - [FEATURE #14] PEAP credenials setting has been changed to use the new WLANSetEAPUserData utility
+- [FEATURE #15] allow separate deployments of the diagnostics vs. config assistant
+                functionality (split config into three parts)
 
 Configuration parameter changes
 -------------------------------
