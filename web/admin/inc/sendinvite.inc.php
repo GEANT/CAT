@@ -27,16 +27,19 @@ $languageInstance->setTextDomain("web_admin");
 $mgmt = new \core\UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
 
+function abortOnBogusMail($newmailaddress, $redirect_destination) {
+    if ($newmailaddress === FALSE) {
+        header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
+        exit;
+    }
+}
+
 // check if the user is authenticated, and we have a valid mail address
 if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
 $newmailaddress = $validator->email($_POST['mailaddr']);
-if ($newmailaddress === FALSE) {
-    header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
-    exit;
-}
 $newcountry = "";
 
 // fed admin stuff
@@ -47,6 +50,10 @@ $federation = FALSE;
 
 if (isset($_GET['inst_id'])) {
     $idp = $validator->IdP($_GET['inst_id']);
+    // editing IdPs is done from within the popup. When we're done, send the 
+    // user back to the popup (append the result of the operation later)
+    $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
+    abortOnBogusMail($newmailaddress, $redirect_destination);
     // is the user admin of this IdP?
     $is_owner = FALSE;
     $owners = $idp->owner();
@@ -67,23 +74,22 @@ if (isset($_GET['inst_id'])) {
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
     $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
-    // editing IdPs is done from within the popup. Send the user back to the popup, append the result of the operation later
-    $redirect_destination = "manageAdmins.inc.php?inst_id=" . $_GET['inst_id'] . "&";
 } // or invite to manage a new inst, only for fedAdmins
 else if (isset($_POST['creation'])) {
+    $redirect_destination = "../overview_federation.php?";
+    abortOnBogusMail($newmailaddress, $redirect_destination);
     if ($_POST['creation'] == "new" && isset($_POST['name']) && isset($_POST['country'])) {
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($newcountry);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new ".$uiElements->nomenclature_inst.", but are not a ".$uiElements->nomenclature_fed." admin for the ".$uiElements->nomenclature_fed." it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclature_inst . ", but are not a " . $uiElements->nomenclature_fed . " admin for the " . $uiElements->nomenclature_fed . " it should be in!");
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
         $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
-        $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $newinstname, 0, $newcountry);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
@@ -93,7 +99,7 @@ else if (isset($_POST['creation'])) {
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
         $new_idp_authorized_fedadmin = $userObject->isFederationAdmin($extinfo['country']);
         if ($new_idp_authorized_fedadmin !== TRUE) {
-            throw new Exception("Something's wrong... you want to create a new ".$uiElements->nomenclature_inst.", but are not a ".$uiElements->nomenclature_fed." admin for the ".$uiElements->nomenclature_fed." it should be in!");
+            throw new Exception("Something's wrong... you want to create a new " . $uiElements->nomenclature_inst . ", but are not a " . $uiElements->nomenclature_fed . " admin for the " . $uiElements->nomenclature_fed . " it should be in!");
         }
         $federation = $validator->Federation($extinfo['country']);
         $newcountry = $extinfo['country'];
@@ -114,9 +120,7 @@ else if (isset($_POST['creation'])) {
         }
         // fill the rest of the text
         $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
-        $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
-        // TODO finish
         $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $prettyprintname, $newexternalid);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
     }
@@ -143,7 +147,7 @@ $message = _("Hello,") . "
 if ($new_idp_authorized_fedadmin) { // see if we are supposed to add a custom message
     $customtext = $federation->getAttributes('fed:custominvite');
     if (count($customtext) > 0) {
-        $message .= wordwrap(sprintf(_("Additional message from your %s administrator:"),$uiElements->nomenclature_fed), 72) . "
+        $message .= wordwrap(sprintf(_("Additional message from your %s administrator:"), $uiElements->nomenclature_fed), 72) . "
 ---------------------------------
 "
                 . wordwrap($customtext[0]['value'], 72) . "
@@ -165,7 +169,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
         _("and enter the invitation token") . "
     $newtoken
 " . ( /* $new_idp_authorized_fedadmin */ FALSE ?
-        wordwrap(sprintf(_("manually. If you reply to this mail, you will reach your %s administrators."),$uiElements->nomenclature_fed), 72) :
+        wordwrap(sprintf(_("manually. If you reply to this mail, you will reach your %s administrators."), $uiElements->nomenclature_fed), 72) :
         wordwrap(_("manually. Please do not reply to this mail; this is a send-only address.")) ) . "
 
 " . wordwrap(_("Do NOT forward the mail before the token has expired - or the recipients may be able to consume the token on your behalf!"), 72) . "
@@ -183,7 +187,7 @@ if ($new_idp_authorized_fedadmin) {
     foreach ($federation->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new \core\User($fedadmin_id);
         $mailaddr = $fedadmin->getAttributes("user:email")['value'];
-        $name = $fedadmin->getAttributes("user:realname")['value'] ?? sprintf(_("%s administrator"),$uiElements->nomenclature_fed);
+        $name = $fedadmin->getAttributes("user:realname")['value'] ?? sprintf(_("%s administrator"), $uiElements->nomenclature_fed);
         if ($mailaddr) {
             $mail->addReplyTo($mailaddr, $name);
         }
