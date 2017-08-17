@@ -45,9 +45,10 @@ unlink(ROOT."/var/tmp/temp-master.php");
 
 // this is the actual config
 
+*/
 include(ROOT."/config/config-master.php");
 
-// as a test, run this, display in browser and exit
+/* as a test for the config comparison, run this, display in browser and exit
 
 echo "<pre>";
 print_r(TEMPLATE_CONFIG);
