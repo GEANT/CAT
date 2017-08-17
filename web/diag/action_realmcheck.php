@@ -15,9 +15,20 @@ $loggerInstance = new \core\common\Logging();
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
+$gui = new \web\lib\user\Gui();
+    
+$ourlocale = $gui->langObject->getLang();
+    header("Content-Type:text/html;charset=utf-8");
+    echo "<!DOCTYPE html>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
+          <head lang='" . $ourlocale . "'>
+          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
+    // diag area needs its own CSS at some point, but use the user area one for now
+    $cssUrl = $gui->skinObject->findResourceUrl("CSS","cat.css.php");
+    echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
+    echo "<title>" . htmlspecialchars(_("Sanity check for dynamic discovery of realms")) . "</title>";
 
-echo $deco->defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
-$langObject = new \core\common\Language();
+
 $check_thorough = FALSE;
 $error_message = '';
 $my_inst = $validator->IdP($_REQUEST['inst_id'], $_SESSION['user']);
@@ -87,7 +98,7 @@ $errorstate = [];
     icons[L_REMARK] = '../resources/images/icons/Quetto/info-icon.png';
     var icon_loading = '../resources/images/icons/loading51.gif';
     var tmp_content;
-    var lang = '<?php echo $langObject->getLang(); ?>'
+    var lang = '<?php echo $gui->langObject->getLang(); ?>'
     var states = new Array();
     states['PASS'] = "<?php echo _("PASS") ?>";
     states['FAIL'] = "<?php echo _("FAIL") ?>";
@@ -444,7 +455,7 @@ foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) 
 $(\"#src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#src$hostindex\").html('');
 running_ajax_stat++;
-$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $langObject->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
+$.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostindex, lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex'  }, udp, 'json');
 
 ";
 }
@@ -464,7 +475,6 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
     }
 </script>
 <?php
-echo $deco->productheader("DIAG");
 print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
 if ($error_message) {
     print "<p>$error_message</p>";
@@ -579,9 +589,9 @@ if ($error_message) {
                         $host = ($addr['family'] == "IPv6" ? "[" : "") . $addr['IP'] . ($addr['family'] == "IPv6" ? "]" : "") . ":" . $addr['port'];
                         print "
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'capath', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: capath, dataType: 'json'}); 
                             running_ajax_dyn++;
-                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
+                            $.ajax({url:'radius_tests.php', data:{test_type: 'clients', realm: realm, src: '$host', lang: '" . $gui->langObject->getLang() . "', hostindex: '$hostindex' }, error: eee, success: clients, dataType: 'json'}); 
                        ";
                     }
                     echo "}
@@ -697,7 +707,7 @@ if ($error_message) {
                     <p>" . _("Note: the tool purposefully does not offer you to save these credentials, and they will never be saved in any way on the server side. Please use only <strong>temporary test accounts</strong> here; permanently valid test accounts in the wild are considered harmful!") . "</p></div>
                     <form enctype='multipart/form-data' id='live_form' accept-charset='UTF-8'>
                     <input type='hidden' name='test_type' value='udp_login'>
-                    <input type='hidden' name='lang' value='" . $langObject->getLang() . "'>
+                    <input type='hidden' name='lang' value='" . $gui->langObject->getLang() . "'>
                     <input type='hidden' name='profile_id' value='" . $my_profile->identifier . "'>
                     <table id='live_tests'>";
 // if any password based EAP methods are available enable this section
@@ -738,9 +748,15 @@ if ($error_message) {
 </div>
 ";
         }
+        
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
+            $returnUrl = "../admin/overview_idp.php?inst_id=".$my_inst->identifier;
+        } else {
+            $returnUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT']."/admin/overview_idp.php?inst_id=".$my_inst->identifier;
+        }
         ?>
-        <form method='post' action='overview_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo _("Return to dashboard"); ?></button>
+        <form method='post' action='<?php echo $returnUrl;?>' accept-charset='UTF-8'>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"),$gui->nomenclature_inst); ?></button>
         </form>
         <script>
 
@@ -758,7 +774,5 @@ if (!$check_thorough) {
 }
 ?>
         </script>
-        <?php echo $deco->footer() ?>
-
         </body>
 
