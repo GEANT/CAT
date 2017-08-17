@@ -111,6 +111,9 @@ if (isset($_GET['invitation'])) {
         case "FAILURE":
             echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
             break;
+        case "INVALIDSYNTAX":
+            echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
+            break;
         default:
             throw new Exception("Error: unknown result code of invitation!?!");
     }

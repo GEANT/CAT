@@ -34,7 +34,8 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
 
 $newmailaddress = $validator->email($_POST['mailaddr']);
 if ($newmailaddress === FALSE) {
-    throw new Exception("sendinvite: The supplied value for email address is not a valid mail address!");
+    header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
+    exit;
 }
 $newcountry = "";
 
