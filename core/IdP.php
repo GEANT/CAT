@@ -63,7 +63,7 @@ class IdP extends EntityWithDBProperties {
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         if (!is_numeric($instId)) {
-            throw new Exception("An ".CONFIG['CONSORTIUM']['nomenclature_inst']." is identified by an integer index!");
+            throw new Exception("An ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst']." is identified by an integer index!");
         }
         $this->identifier = (int) $instId;
 
@@ -220,7 +220,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, CONFIG['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
             $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
         }
         unset($this);
@@ -233,7 +233,7 @@ Best regards,
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $list = [];
             $usedarray = [];
             // extract all institutions from the country
@@ -273,7 +273,7 @@ Best regards,
     }
 
     public function getExternalDBSyncState() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
         return self::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
@@ -285,7 +285,7 @@ Best regards,
      * @return mixed the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
@@ -298,7 +298,7 @@ Best regards,
 
     public function setExternalDBId($identifier) {
         $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {

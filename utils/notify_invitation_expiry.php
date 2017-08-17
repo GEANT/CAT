@@ -44,7 +44,7 @@ foreach ($cat->knownFederations as $federation => $federation_name) {
     $admins = $this_fed->listFederationAdmins();
     $mailtext = "Hello,
 
-invitation tokens for the following new ". CONFIG['CONSORTIUM']['nomenclature_institution'] ." have recently expired:
+invitation tokens for the following new ". CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ." have recently expired:
 
 ";
     foreach ($listofinstnames as $instname) {
@@ -54,7 +54,7 @@ invitation tokens for the following new ". CONFIG['CONSORTIUM']['nomenclature_in
     if ($numberofexistingidps > 0) {
         $mailtext .= "
 
-Additionally, $numberofexistingidps invitations for an existing ". CONFIG['CONSORTIUM']['nomenclature_institution']." have expired.
+Additionally, $numberofexistingidps invitations for an existing ". CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']." have expired.
         ";
     }
     $mailtext .= "

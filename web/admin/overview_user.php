@@ -67,7 +67,7 @@ $user = new \core\User($_SESSION['user']);
     <?php
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
-    if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
+    if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
         $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), "https://wiki.geant.org/x/SwB_AQ") . "</h3>";
     } else {
         $helptext = "";
@@ -143,7 +143,7 @@ $user = new \core\User($_SESSION['user']);
     } else {
         echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclature_inst) . "</h2>";
     }
-    if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
+    if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
         echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
         echo "<hr/>
              <div style='white-space: nowrap;'>

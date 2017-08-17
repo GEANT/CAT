@@ -18,7 +18,7 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
  * consortium-agreed criteria
- * Can only be used if CONFIG['RADIUSTESTS'] is configured.
+ * Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -85,13 +85,13 @@ class RFC6614Tests extends AbstractTest {
      */
     public function TLS_clients_side_check($host) {
         $res = RADIUSTests::RETVAL_OK;
-        if (!is_array(CONFIG['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) == 0) {
+        if (!is_array(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;
         }
         if (preg_match("/\[/", $host)) {
             return RADIUSTests::RETVAL_INVALID;
         }
-        foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
@@ -250,7 +250,7 @@ class RFC6614Tests extends AbstractTest {
     private function propertyCheckPolicy($cert) {
         $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
-            foreach (CONFIG['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
+            foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
                 if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
                     $oids[$key] = $oid;
                 }

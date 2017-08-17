@@ -138,8 +138,8 @@ class CAT extends \core\common\Entity {
         // and do something useless with the strings so that there's no "unused" complaint
         $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
 
-        $this->nomenclature_fed = _(CONFIG['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG['CONSORTIUM']['nomenclature_institution']);
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
         
         $this->knownFederations = [
             'AD' => _("Andorra"),
@@ -515,7 +515,7 @@ class CAT extends \core\common\Entity {
 
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";

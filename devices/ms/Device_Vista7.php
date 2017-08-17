@@ -93,17 +93,17 @@ class Device_Vista7 extends WindowsCommon {
     public function writeDeviceInfo() {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = "<p>";
-        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']);
+        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             }
             $iterator = 0;
             foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
+                if (!in_array($ssid, CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
                     if ($iterator > 0) {
                         $out .= ", ";
                     }
@@ -464,7 +464,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
         $fcontents = '';
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $fcontents .= "Unicode true\n";
         }
 
@@ -489,8 +489,8 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
         $fcontents .= '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"

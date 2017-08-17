@@ -160,7 +160,7 @@ class Federation extends EntityWithDBProperties {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->identifier')");
         $identifier = $this->databaseHandle->lastID();
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
-            $text = "<p>Could not create a new ".CONFIG['CONSORTIUM']['nomenclature_inst']."!</p>";
+            $text = "<p>Could not create a new ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst']."!</p>";
             echo $text;
             throw new Exception($text);
         }
@@ -212,7 +212,7 @@ class Federation extends EntityWithDBProperties {
     public function listFederationAdmins() {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
@@ -228,7 +228,7 @@ class Federation extends EntityWithDBProperties {
     public function listExternalEntities($unmappedOnly) {
         $returnarray = [];
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
             $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
 
@@ -329,7 +329,7 @@ class Federation extends EntityWithDBProperties {
             $candidatesCat = [Federation::AMBIGUOUS_IDP];
         }
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
             $externalHandle = DBConnection::handle("EXTERNAL");
             $candidateExternalQuery = $externalHandle->exec("SELECT id_institution, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
             while ($row = mysqli_fetch_object($candidateExternalQuery)) {

@@ -134,18 +134,18 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG['CONSORTIUM']['name']) . "</p>
+            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</p>
           <ul>";
             echo "<li>";
-            echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
-            if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+            echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
+            if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
                 $ssidlist = "";
-                foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
+                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
                     $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
                 }
                 $ssidlist = substr($ssidlist, 2);
-                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG['CONSORTIUM']['ssid'])), $ssidlist);
-                if (CONFIG['CONSORTIUM']['tkipsupport']) {
+                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])), $ssidlist);
+                if (CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 }
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), $uiElements->displayName("media:SSID"), $uiElements->displayName("media:SSID_with_legacy"));
@@ -156,14 +156,14 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
             echo "</li>";
 
             echo "<li>";
-            echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
-            if (count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+            echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
+            if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
                 $consortiumlist = "";
-                foreach (CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
+                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
                     $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
                 }
                 $consortiumlist = substr($consortiumlist, 2);
-                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
+                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
                 echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), $uiElements->displayName("media:consortium_OI"));
             } else {

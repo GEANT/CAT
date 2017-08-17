@@ -28,7 +28,7 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
- * the real world. Can only be used if CONFIG['RADIUSTESTS'] is configured.
+ * the real world. Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -483,12 +483,12 @@ network={
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
         $cmdline = CONFIG['PATHS']['eapol_test'] .
-                " -a " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
-                " -s " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
+                " -a " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
+                " -s " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
                 " -c ./udp_login_test.conf" .
                 " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
-                " -t " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
+                " -t " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
         if ($opName) {
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
         }
@@ -701,7 +701,7 @@ network={
         /** preliminaries */
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         // no host to send probes to? Nothing to do then
-        if (!isset(CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
+        if (!isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }

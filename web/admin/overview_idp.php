@@ -116,7 +116,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"),$uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"),$uiElements->nomenclature_inst); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"),$uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"),$uiElements->nomenclature_inst); ?></button>
                 </form>
 
             </td>
@@ -132,7 +132,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     <h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
+        if (count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] != "") {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -142,7 +142,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                         </td>
                     </tr>";
         }
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
                         <td>" . sprintf(_("Check server status of European %ss"),$uiElements->nomenclature_fed) . "</td>
                         <td>
@@ -285,7 +285,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $hasRealmArray = $profile_list->getAttributes("internal:realm");
         $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
-        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "")) {
+        if (count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] != "")) {
             echo "<form action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "

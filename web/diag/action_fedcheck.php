@@ -54,7 +54,7 @@ function profilechecks(\core\IdP $idpinfo, ProfileRADIUS $profile) {
                 $tabletext .= sprintf(_("No associated NAPTR records"));
                 break;
             default: // if none of the possible negative retvals, then we have matching NAPTRs
-                $tabletext .= sprintf(_("%d %s NAPTR records"), $naptr, CONFIG['CONSORTIUM']['name']);
+                $tabletext .= sprintf(_("%d %s NAPTR records"), $naptr, CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
         }
 
     // compliance checks for NAPTRs
@@ -89,7 +89,7 @@ function profilechecks(\core\IdP $idpinfo, ProfileRADIUS $profile) {
     $UDPErrors = false;
     $certBiggestOddity = \core\common\Entity::L_OK;
 
-    foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+    foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
         $testsuite->UDP_reachability($hostindex, true, true);
         $results = $testsuite->UDP_reachability_result[$hostindex];
         if ($results['packetflow_sane'] != TRUE)

@@ -79,7 +79,7 @@ if (isset($_POST['submitbutton'])) {
             $ownermgmt = new \core\UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
         } else {
-            echo "Fatal Error: you wanted to take control over an ".CONFIG['CONSORTIUM']['nomenclature_institution'].", but are not a ".CONFIG['CONSORTIUM']['nomenclature_federation']." operator!";
+            echo "Fatal Error: you wanted to take control over an ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'].", but are not a ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." operator!";
             exit(1);
         }
     }

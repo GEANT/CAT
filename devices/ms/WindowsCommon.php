@@ -110,7 +110,7 @@ class WindowsCommon extends \core\DeviceConfig {
     }
 
     protected function compileNSIS() {
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $makensis = CONFIG['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
         } else {
             $makensis = CONFIG['PATHS']['makensis'];
@@ -129,7 +129,7 @@ class WindowsCommon extends \core\DeviceConfig {
                 $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
             } elseif ($attr['internal:info_file'][0]['mime'] == 'txt') {
                 $infoFile = file_get_contents($attr['internal:info_file'][0]['name']);
-                if (CONFIG['NSIS_VERSION'] >= 3) {
+                if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
                     $infoFileConverted = $infoFile;
                 } else {
                     $infoFileConverted = iconv('UTF-8', $this->codePage . '//TRANSLIT', $infoFile);

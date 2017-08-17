@@ -127,7 +127,7 @@ class SilverbulletUser extends PersistentEntity{
      * @return int One of the following constants LEVEL_GREEN, LEVEL_YELLOW, LEVEL_RED.
      */
     public function getAcknowledgeLevel(){
-        $max = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
+        $max = isset(CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
         $days = $this->getAcknowledgeDays();
         if($days <= $max * 0.2 && $days > $max * 0.1){
             return self::LEVEL_YELLOW;
@@ -144,7 +144,7 @@ class SilverbulletUser extends PersistentEntity{
      * @return number Number of days from 0 to maximum period.
      */
     public function getAcknowledgeDays(){
-        $max = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
+        $max = isset(CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
         $lastAcknowledge = strtotime($this->get(self::LAST_ACKNOWLEDGE));
         $now = strtotime('now');
         $days = $max - ceil(($now - $lastAcknowledge) / (24 * 3600));

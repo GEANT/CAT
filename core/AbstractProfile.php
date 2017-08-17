@@ -631,7 +631,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
         if (!isset($attribs['media:SSID']) &&
                 !isset($attribs['media:SSID_with_legacy']) &&
-                (!isset(CONFIG['CONSORTIUM']['ssid']) || count(CONFIG['CONSORTIUM']['ssid']) == 0) &&
+                (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) == 0) &&
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }

@@ -32,22 +32,22 @@ class TermsOfUseBox extends AbstractDialogBox{
         ?>
         <hr>
         <h2>Product Definition</h2>
-        <p><?php echo \core\ProfileSilverbullet::PRODUCTNAME;?> outsources the technical setup of <?php echo CONFIG['CONSORTIUM']['name'] ." ".CONFIG['CONSORTIUM']['nomenclature_institution'];?> functions to the <?php echo CONFIG['CONSORTIUM']['name'];?> Operations Team. The system includes</p>
+        <p><?php echo \core\ProfileSilverbullet::PRODUCTNAME;?> outsources the technical setup of <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?> functions to the <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['name'];?> Operations Team. The system includes</p>
             <ul>
                 <li>a web-based user management interface where user accounts and access credentials can be created and revoked (there is a limit to the number of active users)</li>
                 <li>a technical infrastructure ("CA") which issues and revokes credentials</li>
-                <li>a technical infrastructure ("RADIUS") which verifies access credentials and subsequently grants access to <?php echo CONFIG['CONSORTIUM']['name'];?></li>
-                <li><span style='color: red;'>TBD: a lookup/notification system which informs you of network abuse complaints by <?php echo CONFIG['CONSORTIUM']['name'];?> Service Providers that pertain to your users</span></li>
+                <li>a technical infrastructure ("RADIUS") which verifies access credentials and subsequently grants access to <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['name'];?></li>
+                <li><span style='color: red;'>TBD: a lookup/notification system which informs you of network abuse complaints by <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['name'];?> Service Providers that pertain to your users</span></li>
             </ul>
         <h2>User Account Liability</h2>
-        <p>As an <?php echo CONFIG['CONSORTIUM']['name'] ." ".CONFIG['CONSORTIUM']['nomenclature_institution'];?> administrator using this system, you are authorized to create user accounts according to your local <?php echo CONFIG['CONSORTIUM']['nomenclature_institution'] ?> policy. You are fully responsible for the accounts you issue. In particular, you</p>
+        <p>As an <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?> administrator using this system, you are authorized to create user accounts according to your local <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ?> policy. You are fully responsible for the accounts you issue. In particular, you</p>
         <ul>
-            <li>only issue accounts to members of your <?php echo CONFIG['CONSORTIUM']['nomenclature_institution'];?>, as defined by your local policy.</li>
+            <li>only issue accounts to members of your <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?>, as defined by your local policy.</li>
             <li>must make sure that all accounts that you issue can be linked by you to actual human end users</li>
-            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your <?php echo CONFIG['CONSORTIUM']['nomenclature_institution'];?></li>
+            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?></li>
             <li>will act upon notifications about possible network abuse by your users and will appropriately sanction them</li>
         </ul>
-        <p>Failure to comply with these requirements may lead to the deletion of your <?php echo CONFIG['CONSORTIUM']['nomenclature_institution'];?> (and all the users you create inside) in this system.</p>
+        <p>Failure to comply with these requirements may lead to the deletion of your <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?> (and all the users you create inside) in this system.</p>
         <h2>Privacy</h2>
         <p>With <?php echo \core\ProfileSilverbullet::PRODUCTNAME;?>, we are not interested in and strive not to collect any personally identifiable information about the end users you create. To that end,</p>
         <ul>

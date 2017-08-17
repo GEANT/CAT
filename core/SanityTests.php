@@ -357,11 +357,11 @@ class SanityTests extends CAT {
      * test if makensis is available
      */
     private function makensis_test() {
-        if (!is_numeric(CONFIG['NSIS_VERSION'])) {
+        if (!is_numeric(CONFIG_CONFASSISTANT['NSIS_VERSION'])) {
             $this->test_return(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
         }
-        if (CONFIG['NSIS_VERSION'] < 2) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] < 2) {
             $this->test_return(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be at least 2!");
             return;
         }
@@ -375,10 +375,10 @@ class SanityTests extends CAT {
             }
             exec($A['exec'] . ' -HELP', $t);
             $t1 = count(preg_grep('/INPUTCHARSET/', $t));
-            if ($t1 == 1 && CONFIG['NSIS_VERSION'] == 2) {
+            if ($t1 == 1 && CONFIG_CONFASSISTANT['NSIS_VERSION'] == 2) {
                 $this->test_return(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
-            if ($t1 == 0 && CONFIG['NSIS_VERSION'] >= 3) {
+            if ($t1 == 0 && CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
                 $this->test_return(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
         } else {
@@ -502,7 +502,7 @@ class SanityTests extends CAT {
         } elseif (CONFIG['APPEARANCE']['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
             $defaultvalues .= "APPEARANCE/webcert_OCSP ";
         }
-        if (isset(CONFIG['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
+        if (isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
             $defaultvalues .= "RADIUSTESTS/UDP-hosts ";
         }
         if (CONFIG['DB']['INST']['host'] == "db.host.example") {
@@ -515,7 +515,7 @@ class SanityTests extends CAT {
             $defaultvalues .= "DB/EXTERNAL ";
         }
         $files = [];
-        foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
             foreach ($cadata['certificates'] as $cert_files) {
                 $files[] = $cert_files['public'];
                 $files[] = $cert_files['private'];

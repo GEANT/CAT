@@ -19,8 +19,8 @@ $menu = new Menu([
      'text'=>_("About"),'link'=>'','submenu'=>[
             ['text'=>sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
              'catInfo'=>['about_cat',sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
-            ['text'=>sprintf(_("About %s"), CONFIG['CONSORTIUM']['name']),
-             'link'=>CONFIG['CONSORTIUM']['homepage']],
+            ['text'=>sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
+             'link'=>CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
         ]],
     ['id'=>'lang',
      'text'=>_("Language"), 'submenu'=>$langsArray],
@@ -34,8 +34,8 @@ $menu = new Menu([
         ]],
     ['id'=>'manage',
      'text'=>_("Manage"),'submenu'=>[
-            ['text'=>sprintf(_("%s admin access"),CONFIG['CONSORTIUM']['name']),
-             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your %s"), CONFIG['CONSORTIUM']['name'], $Gui->nomenclature_inst)]],
+            ['text'=>sprintf(_("%s admin access"),CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
+             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $Gui->nomenclature_inst)]],
             ['text'=>_("Become a CAT developer"),
              'catInfo'=>['develop',_("Become a CAT developer")]],
             ['text'=>_("Documentation")],

@@ -101,7 +101,7 @@ $errorstate = [];
     var restskipped = "<?php echo _("Rest of tests for this CA skipped") ?>";
     var listofcas = "<?php echo _("You should update your list of accredited CAs") ?>";
     var getitfrom = "<?php echo _("Get it from here.") ?>";
-    var listsource = "<?php echo CONFIG['RADIUSTESTS']['accreditedCAsURL'] ?>";
+    var listsource = "<?php echo CONFIG_DIAGNOSTICS['RADIUSTESTS']['accreditedCAsURL'] ?>";
     var moretext = "<?php echo _("more") . "&raquo;" ?>";
     var lesstext = "<?php echo "&laquo" ?>";
     var morealltext = "<?php echo _("Show detailed information for all tests") ?>";
@@ -404,7 +404,7 @@ $errorstate = [];
         $(".eap_test_results").empty();
         var formData = new FormData($('#live_form')[0]);
 <?php
-foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
     print "
 $(\"#live_src" . $hostindex . "_img\").attr('src',icon_loading);
 $(\"#live_src" . $hostindex . "_img\").show();
@@ -435,7 +435,7 @@ $(\"#live_src" . $hostindex . "_img\").show();
         $(".results_tr").remove();
         $(".server_cert").hide();
 <?php
-foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
     if ($check_thorough) {
         $extraarg = "profile_id: " . $my_profile->identifier . ", ";
     } else {
@@ -497,10 +497,10 @@ if ($error_message) {
                             echo _("This realm has no NAPTR records.");
                             break;
                         case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
-                            printf(_("This realm has NAPTR records, but none are associated with %s."), CONFIG['CONSORTIUM']['name']);
+                            printf(_("This realm has NAPTR records, but none are associated with %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
                             break;
                         default: // if none of the possible negative retvals, then we have matching NAPTRs
-                            printf(_("This realm has %d %s NAPTR records."), $naptr, CONFIG['CONSORTIUM']['name']);
+                            printf(_("This realm has %d %s NAPTR records."), $naptr, CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
                     }
                     echo "</td></tr>";
 
@@ -612,12 +612,12 @@ if ($error_message) {
             <fieldset class="option_container" id="static_tests">
                 <legend><strong> <?php echo _("STATIC connectivity tests"); ?> </strong> </legend>
                 <?php
-                echo sprintf(_("This check sends a request for the realm through various entry points of the %s infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation."), CONFIG['CONSORTIUM']['name']);
+                echo sprintf(_("This check sends a request for the realm through various entry points of the %s infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
                 print "<p>";
 
-                foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+                foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
                     print "<hr>";
-                    printf(_("Testing from: %s"), "<strong>" . CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
+                    printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
                     print "<table id='results$hostindex'  style='width:100%' class='udp_results'>
 <tr>
 <td class='icon_td'><img src='../resources/images/icons/loading51.gif' id='src" . $hostindex . "_img'></td>
@@ -724,9 +724,9 @@ if ($error_message) {
                     }
                     echo "<tr><td colspan='2'><button id='submit_credentials'>" . _("Submit credentials") . "</button></td></tr></table></form>";
                     echo "<div id='live_login_results' style='display:none'>";
-                    foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
+                    foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
                         print "<hr>";
-                        printf(_("Testing from: %s"), "<strong>" . CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
+                        printf(_("Testing from: %s"), "<strong>" . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['display_name'] . "</strong>");
                         print "<span style='position:relative'><img src='../resources/images/icons/loading51.gif' id='live_src" . $hostindex . "_img' style='width:24px; position: absolute; left: 20px; bottom: 0px; '></span>";
                         print "<div id='eap_test$hostindex' class='eap_test_results'></div>";
                     }

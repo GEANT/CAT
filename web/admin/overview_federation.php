@@ -151,7 +151,7 @@ $user = new \core\User($_SESSION['user']);
         }
         echo "</table></div>";
     }
-    if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
+    if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
         $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/KQB_AQ", $uiElements->nomenclature_fed) . "</h3>";
     } else {
         $helptext = "";
@@ -167,7 +167,7 @@ $user = new \core\User($_SESSION['user']);
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (CONFIG['DB']['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG['CONSORTIUM']['name']) . "</th>";
+                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</th>";
             }
             ?>
             <th><?php echo _("Administrator Management"); ?></th>

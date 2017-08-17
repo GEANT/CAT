@@ -86,13 +86,13 @@ fi
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             }
             $iterator = 0;
             foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
+                if (!in_array($ssid, CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
                     if ($iterator > 0) {
                         $out .= ", ";
                     }

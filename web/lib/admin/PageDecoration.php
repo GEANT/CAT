@@ -226,7 +226,7 @@ class PageDecoration {
      * @return string HTML code with GEANT Org and EU attribution as required for FP7 / H2020 projects
      */
     public function attributionEurope() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
         // we may need to jump up one dir if we are either in admin/ or accountstatus/
         // (accountstatus courtesy of my good mood. It's userspace not admin space so
         // it shouldn't be using this function any more.)
@@ -265,7 +265,7 @@ class PageDecoration {
                         " . $cat->CAT_COPYRIGHT . "</td>
                     <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();
         } else {
             $retval .= "&nbsp;";

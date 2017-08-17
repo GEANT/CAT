@@ -69,7 +69,7 @@ if($builder->isReady()){
         $fed = new \core\Federation($inst->federation);
         $allowSb = $fed->getAttributes("fed:silverbullet");
         if (count($allowSb) == 0) {
-            throw new Exception("We were told to create a new SB profile, but this ".CONFIG['CONSORTIUM']['nomenclature_federation']." does not allow SB at all!");
+            throw new Exception("We were told to create a new SB profile, but this ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." does not allow SB at all!");
         }
         // okay, new SB profiles are allowed. Create one.
         $newProfile = $inst->newProfile("SILVERBULLET");

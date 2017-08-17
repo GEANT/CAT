@@ -103,8 +103,8 @@ abstract class DeviceConfig extends \core\common\Entity {
         // and do something useless with the strings so that there's no "unused" complaint
         $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
 
-        $this->nomenclature_fed = _(CONFIG['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG['CONSORTIUM']['nomenclature_institution']);
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
 
     /**
@@ -218,8 +218,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $olddomain = $this->languageInstance->setTextDomain("core");
-        $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
-        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
+        $support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
         $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
@@ -314,7 +314,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($output_name === NULL) {
@@ -370,7 +370,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         if (empty($source_string)) {
             return($source_string);
         }
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($encoding) {
@@ -453,7 +453,7 @@ abstract class DeviceConfig extends \core\common\Entity {
                 $inst .= $i[0];
             }
         }
-        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
+        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG_CONFASSISTANT['CONSORTIUM']['name']));
         if ($this->attributes['internal:profile_count'][0] > 1) {
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
                 $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
@@ -479,9 +479,9 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
-        if (isset(CONFIG['CONSORTIUM']['ssid'])) {
-            foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
-                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE) {
+        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
+            foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
+                if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
                     $ssidList['add'][$ssid] = 'AES';
@@ -512,7 +512,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     }
 
     private function getConsortia() {
-        $consortia = CONFIG['CONSORTIUM']['interworking-consortium-oi'];
+        $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 $consortia[] = $new_oi;

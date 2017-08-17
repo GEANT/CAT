@@ -83,8 +83,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
 // set to global config value
 
-        if (isset(CONFIG['CONSORTIUM']['silverbullet_default_maxusers'])) {
-            $tempMaxUsers = CONFIG['CONSORTIUM']['silverbullet_default_maxusers'];
+        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_default_maxusers'])) {
+            $tempMaxUsers = CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_default_maxusers'];
         }
         $myInst = new IdP($this->institution);
         $myFed = new Federation($myInst->federation);
@@ -95,8 +95,8 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // realm is automatically calculated, then stored in DB
 
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
-        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_realm_suffix'];
+        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_realm_suffix']);
         $localValueIfAny = "";
 
 // but there's some common internal attributes populated directly
@@ -113,7 +113,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
-            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_server_suffix'],
+            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_server_suffix'],
         ];
         $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
@@ -218,7 +218,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->loggerInstance->debug(5, "generateCertificate: generating private key.\n");
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         $csr = openssl_csr_new(
-                ['O' => CONFIG['CONSORTIUM']['name'],
+                ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
             'OU' => $federation,
             'CN' => $username,
             'emailAddress' => $username,
@@ -230,7 +230,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        switch (CONFIG['CONSORTIUM']['silverbullet_CA']['type']) {
+        switch (CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_CA']['type']) {
             case "embedded":
                 $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
                 $rootCaPem = fread($rootCaHandle, 1000000);
@@ -323,7 +323,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $logHandle = new \core\common\Logging();
         $logHandle->debug(2, "Triggering new OCSP statement for serial $serial.\n");
         $ocsp = ""; // the statement
-        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
             /* HTTP POST the serial to the CA. The CA knows about the state of
              * the certificate.
              *
@@ -373,7 +373,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 $serialHex = "0" . $serialHex;
             }
             $indexfile = fopen($tempdir . "/index.txt", "w");
-            $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
+            $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
             $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
             fwrite($indexfile, $indexStatement);
             fclose($indexfile);
@@ -409,7 +409,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // TODO for now, just mark as revoked in the certificates table (and use the stub OCSP updater)
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
-        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
             // send revocation request to CA.
             // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
             throw new Exception("External silverbullet CA is not implemented yet!");

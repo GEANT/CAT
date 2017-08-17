@@ -66,7 +66,7 @@ if (isset($_GET['inst_id'])) {
     $prettyprintname = $idp->name;
     $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
     $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
-    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+    $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
     // editing IdPs is done from within the popup. Send the user back to the popup, append the result of the operation later
     $redirect_destination = "manageAdmins.inc.php?inst_id=" . $_GET['inst_id'] . "&";
 } // or invite to manage a new inst, only for fedAdmins
@@ -81,7 +81,7 @@ else if (isset($_POST['creation'])) {
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
-        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the future IdP  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
@@ -113,7 +113,7 @@ else if (isset($_POST['creation'])) {
             }
         }
         // fill the rest of the text
-        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), CONFIG['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s operator has invited you to manage the IdP  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         $redirect_destination = "../overview_federation.php?";
         // do the token creation magic
         // TODO finish
@@ -174,7 +174,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
         
 " . sprintf(_("Sincerely,
 
-Your friendly folks from %s Operations"), CONFIG['CONSORTIUM']['name']);
+Your friendly folks from %s Operations"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
 
 $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?

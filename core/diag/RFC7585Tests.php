@@ -18,7 +18,7 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
  * consortium-agreed criteria
- * Can only be used if CONFIG['RADIUSTESTS'] is configured.
+ * Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -90,14 +90,14 @@ class RFC7585Tests extends AbstractTest {
      * configured consortium NAPTR target.
      * 
      * possible RETVALs:
-     * - RETVAL_NOTCONFIGURED; needs CONFIG['RADIUSTESTS']['TLS-discoverytag']
+     * - RETVAL_NOTCONFIGURED; needs CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag']
      * - RETVAL_ONLYUNRELATEDNAPTR
      * - RETVAL_NONAPTR
      * 
      * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
      */
     public function NAPTR() {
-        if (CONFIG['RADIUSTESTS']['TLS-discoverytag'] == "") {
+        if (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] == "") {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
@@ -108,7 +108,7 @@ class RFC7585Tests extends AbstractTest {
         }
         $NAPTRs_consortium = [];
         foreach ($NAPTRs as $naptr) {
-            if ($naptr["services"] == CONFIG['RADIUSTESTS']['TLS-discoverytag']) {
+            if ($naptr["services"] == CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag']) {
                 $NAPTRs_consortium[] = $naptr;
             }
         }
@@ -125,7 +125,7 @@ class RFC7585Tests extends AbstractTest {
      * Tests if all the dicovered NAPTR entries conform to the consortium's requirements
      * 
      * possible RETVALs:
-     * - RETVAL_NOTCONFIGURED; needs CONFIG['RADIUSTESTS']['TLS-discoverytag']
+     * - RETVAL_NOTCONFIGURED; needs CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag']
      * - RETVAL_INVALID (at least one format error)
      * - RETVAL_OK (all fine)
 
@@ -149,7 +149,7 @@ class RFC7585Tests extends AbstractTest {
         $formatErrors = [];
 // format of NAPTRs is consortium specific. eduroam below; others need
 // their own code
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             foreach ($this->NAPTR_records as $edupointer) {
 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {

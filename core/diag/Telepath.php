@@ -188,7 +188,7 @@ class Telepath {
         $allAreConversationReject = TRUE;
         $atLeastOneConversationReject = FALSE;
 
-        foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $probeindex => $probe) {
             $reachCheck = $testsuite->UDP_reachability($probeindex);
             if ($reachCheck != RADIUSTests::RETVAL_CONVERSATION_REJECT) {
                 $allAreConversationReject = FALSE;

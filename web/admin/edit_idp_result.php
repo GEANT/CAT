@@ -88,9 +88,9 @@ $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 $ssids = [];
 
-if (isset(CONFIG['CONSORTIUM']['ssid']) && count(CONFIG['CONSORTIUM']['ssid']) > 0) {
-    foreach (CONFIG['CONSORTIUM']['ssid'] as $ssidname) {
-        $ssids[] = $ssidname . " " . (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+    foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssidname) {
+        $ssids[] = $ssidname . " " . (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
     }
 }
 

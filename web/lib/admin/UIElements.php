@@ -36,8 +36,8 @@ class UIElements {
         // and do something useless with the strings so that there's no "unused" complaint
         $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
 
-        $this->nomenclature_fed = _(CONFIG['CONSORTIUM']['nomenclature_federation']);
-        $this->nomenclature_inst = _(CONFIG['CONSORTIUM']['nomenclature_institution']);
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
 
     public function displayName($input) {
@@ -46,11 +46,11 @@ class UIElements {
         $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
 
-        if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
             $ssidText = _("Additional SSID");
             $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
         }
-        if (!empty(CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+        if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
         }
 

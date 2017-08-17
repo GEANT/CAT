@@ -55,19 +55,19 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     }
 
     private function generalPayload() {
-        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+        $tagline = sprintf(_("Network configuration profile '%s' of '%s' - provided by %s"), htmlspecialchars($this->profileName, ENT_XML1, 'UTF-8'), htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
 
         $eapType = $this->selectedEap;
         // simpler message for silverbullet
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
-            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG['CONSORTIUM']['name']);
+            $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
         }
 
         return "</array>
       <key>PayloadDescription</key>
          <string>$tagline</string>
       <key>PayloadDisplayName</key>
-         <string>" . CONFIG['CONSORTIUM']['name'] . "</string>
+         <string>" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "</string>
       <key>PayloadIdentifier</key>
          <string>" . self::$iPhonePayloadPrefix . ".$this->massagedConsortium.$this->massagedCountry.$this->massagedInst.$this->massagedProfile.$this->lang</string>
       <key>PayloadOrganization</key>
@@ -125,7 +125,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $this->massagedInst = $this->massageName($this->instName);
         $this->massagedProfile = $this->massageName($this->profileName);
         $this->massagedCountry = $this->massageName($this->attributes['internal:country'][0]);
-        $this->massagedConsortium = $this->massageName(CONFIG['CONSORTIUM']['name']);
+        $this->massagedConsortium = $this->massageName(CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
         $this->lang = preg_replace('/\..+/', '', setlocale(LC_ALL, "0"));
 
         $eapType = $this->selectedEap;
@@ -207,7 +207,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $out .= "</li>";
         $out .= "<li>" . sprintf(_("to enter the username and password of your %s"), $this->nomenclature_inst);
         if ($ssidCount > 1) {
-            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, CONFIG['CONSORTIUM']['name'], $ssidCount);
+            $out .= " " . sprintf(_("(%d times each, because %s is installed for %d SSIDs)"), $ssidCount, CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $ssidCount);
         }
         $out .= "</li>";
         $out .= "</ul>";
@@ -230,7 +230,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                <key>ServiceProviderRoamingEnabled</key>
                <true/>
                <key>DisplayedOperatorName</key>
-               <string>" . CONFIG['CONSORTIUM']['name'] . " via Passpoint</string>";
+               <string>" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . " via Passpoint</string>";
         // if we don't know the realm, omit the entire DomainName key
         if (isset($this->attributes['internal:realm'])) {
             $retval .= "<key>DomainName</key>
@@ -253,7 +253,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         // no because ConsortiumOI is enough.
         // but which release is OS X doing? And what should we fill in, given
         // that we have thousands of realms? Try just eduroam.org
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam") {
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") {
             $retval .= "<key>NAIRealmNames</key>
                 <array>
                     <string>eduroam.org</string>
@@ -314,20 +314,20 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         $payloadIdentifier = "wifi." . $this->serial;
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
-        $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG['CONSORTIUM']['name'], $escapedSSID);
+        $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $escapedSSID);
         $encryptionTypeString = "WPA";
 
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
             $payloadShortName = _("Wired Network");
-            $payloadName = sprintf(_("%s configuration for wired network"), CONFIG['CONSORTIUM']['name']);
+            $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
             $encryptionTypeString = "any";
         }
 
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
             $payloadIdentifier = "hs20";
             $payloadShortName = _("Hotspot 2.0 Settings");
-            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG['CONSORTIUM']['name']);
+            $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
             $encryptionTypeString = "WPA";
         }
 
@@ -396,7 +396,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 	<key>IsHotspot</key>
 	<false/>
 	<key>PayloadDescription</key>
-	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), CONFIG['CONSORTIUM']['name']) . "</string>
+	<string>" . sprintf(_("This SSID should not be used after bootstrapping %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</string>
 	<key>PayloadDisplayName</key>
 	<string>" . _("Disabled WiFi network") . "</string>
 	<key>PayloadIdentifier</key>
