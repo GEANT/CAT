@@ -209,10 +209,11 @@ $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Invitation System";
 if ($new_idp_authorized_fedadmin) {
     foreach ($federation->listFederationAdmins() as $fedadmin_id) {
         $fedadmin = new \core\User($fedadmin_id);
-        $mailaddr = $fedadmin->getAttributes("user:email")['value'];
-        $name = $fedadmin->getAttributes("user:realname")['value'] ?? sprintf(_("%s administrator"), $uiElements->nomenclature_fed);
-        if ($mailaddr) {
-            $mail->addReplyTo($mailaddr, $name);
+        $mailaddrAttrib = $fedadmin->getAttributes("user:email");
+        $nameAttrib = $fedadmin->getAttributes("user:realname");
+        $name = $nameAttrib[0]['value'] ?? sprintf(_("%s administrator"), $uiElements->nomenclature_fed);
+        if (count($mailaddrAttrib) > 0) {
+            $mail->addReplyTo($mailaddrAttrib[0]['value'], $name);
         }
     }
 }
