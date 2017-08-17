@@ -19,11 +19,6 @@ build:
               'productname_long' => 'Configuration Assistant Tool',
               'defaultlocale' => 'en',
               ], 
-              'CONSORTIUM' => [
-              'name' => 'eduroam',
-              'nomenclature_federation' => 'National Roaming Operator',
-              'nomenclature_institution' => 'Identity Provider',
-              ], 
               'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
               'AUTHENTICATION' => [], 
               'GEOIP' => [], 
@@ -41,7 +36,21 @@ build:
               'MAX_UPLOAD_SIZE' => [], 
               'DEBUG_LEVEL' => 5, 
               'NSIS_VERSION' => 2, 
-              'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config.php
+              'SUPERADMINS' => [], ];" >/home/scrutinizer/build/config/config-master.php
+            - |
+              echo "<?php const CONFIG_CONFASSISTANT = 
+              [
+              'CONSORTIUM' => [
+              'name' => 'eduroam',
+              'nomenclature_federation' => 'National Roaming Operator',
+              'nomenclature_institution' => 'Identity Provider',
+              ],
+              ];" >/home/scrutinizer/build/config/config-confassistant.php
+            - |
+              echo "<?php const CONFIG_DIAGNOSTICS = 
+              [
+              'RADIUSTESTS' => [],
+              ];" >/home/scrutinizer/build/config/config-diagnostics.php
             - |
               echo "
               -----BEGIN CERTIFICATE-----
