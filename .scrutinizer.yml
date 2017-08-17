@@ -18,6 +18,10 @@ build:
               'productname' => 'CAT', 
               'productname_long' => 'Configuration Assistant Tool',
               'defaultlocale' => 'en',
+              ],
+              'FUNCTIONALITY_LOCATIONS' =>
+              ['CONFASSISTANT' => 'LOCAL',
+               'DIAGNOSTICS' => 'LOCAL',
               ], 
               'PATHS' => ['logdir' => '/home/scrutinizer/' ], 
               'AUTHENTICATION' => [], 
