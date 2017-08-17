@@ -15,7 +15,6 @@ $loggerInstance = new \core\common\Logging();
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
-$uiElements = new web\lib\admin\UIElements();
 
 echo $deco->defaultPagePrelude(_("Sanity check for dynamic discovery of realms"));
 $langObject = new \core\common\Language();
@@ -554,13 +553,12 @@ if ($error_message) {
                         echo "</td></tr>";
                     }
 
-                    echo "</table><table>";
+                    echo "</table><br/><br/>";
                     if (count($testsuite->listerrors()) == 0) {
-                        echo $uiElements->boxOkay(sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!"));
-                        echo "</table>";
+                        echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");                        
                     } else {
-                        echo $uiElements->boxError(sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below."));
-                        echo "</table><div class='notacceptable'><table>";
+                        echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
+                        echo "<div class='notacceptable'><table>";
                         foreach ($testsuite->listerrors() as $details) {
                             echo "<tr><td>" . $details['TYPE'] . "</td><td>" . $details['TARGET'] . "</td></tr>";
                         }
@@ -645,7 +643,7 @@ if ($error_message) {
 
                 $resultstoprint = [];
                 if (count($rfc7585suite->NAPTR_hostname_records) > 0) {
-                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . $uiElements->boxError(_("Some errors were found during the tests, see below")) . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . $uiElements->boxOkay(_("All tests passed, congratulations!")) . '</table>';
+                    $resultstoprint[] = '<table style="align:right; display: none;" id="dynamic_result_fail">' . _("Some errors were found during the tests, see below") . '</table><table style="align:right; display: none;" id="dynamic_result_pass">' . _("All tests passed, congratulations!") . '</table>';
                     $resultstoprint[] = '<div style="align:right;"><a href="" class="moreall">' . _('Show detailed information for all tests') . '</a></div>' . '<p><strong>' . _("Checking server handshake...") . "</strong><p>";
                     foreach ($rfc7585suite->NAPTR_hostname_records as $hostindex => $addr) {
                         $bracketaddr = ($addr["family"] == "IPv6" ? "[" . $addr["IP"] . "]" : $addr["IP"]);
