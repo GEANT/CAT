@@ -286,7 +286,12 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
         if (count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] != "")) {
-            echo "<form action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+            if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+                $diagUrl = "../diag/";
+            } else {
+                $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS']."/diag/";
+            }
+            echo "<form action='".$diagUrl."action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>
