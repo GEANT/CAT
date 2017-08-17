@@ -46,6 +46,7 @@ Configuration parameter changes
 - [ADDED]     CONSORTIUM['nomenclature_institution']
 - [ADDED]     APPEARANCE['skins']
 - [ADDED]     APPEARANCE['google_maps_api_key']
+- [ADDED]     APPEARANCE['FUNCTIONALITY_LOCATIONS']
 - [ADDED]     SMSSETTINGS['provider'] (only supported value: Nexmo)
 - [ADDED]     SMSSETTINGS['username']
 - [ADDED]     SMSSETTINGS['password']
