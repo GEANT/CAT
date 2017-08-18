@@ -58,6 +58,18 @@ const CONFIG_DIAGNOSTICS = [
      * @var array
      */
 
+        /**
+     * Various paths.
+     * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
+     * c_rehash: absolute path to the c_rehash executable. If you just fill in "c_rehash" the one from the system $PATH will be taken.
+     *   See also NSIS_VERSION further down
+     * @var array
+     */
+    'PATHS' => [
+        'c_rehash' => 'c_rehash',
+        'eapol_test' => 'eapol_test',
+    ],
+
     /**
      * Configures the reachability tests, both for plain RADIUS/UDP and RADIUS/TLS.
      * UDP-hosts: an array of RADIUS servers to which login probes will be sent

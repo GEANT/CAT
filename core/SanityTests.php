@@ -206,7 +206,7 @@ class SanityTests extends CAT {
      * test if eapol_test is availabe and reacent enough
      */
     private function eapol_test_test() {
-        exec(CONFIG['PATHS']['eapol_test'], $out, $retval);
+        exec(CONFIG_DIAGNOSTICS['PATHS']['eapol_test'], $out, $retval);
         if ($retval == 255) {
             $o = preg_grep('/-o<server cert/', $out);
             if (count($o) > 0) {
@@ -400,7 +400,7 @@ class SanityTests extends CAT {
         $NSIS_Module_status = [];
         foreach ($this->NSIS_Modules as $module) {
             unset($out);
-            exec(CONFIG['PATHS']['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
+            exec(CONFIG_CONFASSISTANT['PATHS']['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
             if ($retval > 0) {
                 $NSIS_Module_status[$module] = 0;
             } else {

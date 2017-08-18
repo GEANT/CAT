@@ -75,19 +75,12 @@ const CONFIG = [
     /**
      * Various paths.
      * logdir: directory where all logs will be written to (debug and audit logs)
-     * installerdir: generated installers will be saved under this base directory. Path is relative to the web/ subdirectory.
      * openssl: absolute path to the openssl executable. If you just fill in "openssl" the one from the system $PATH will be taken.
-     * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
-     * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
-     *   See also NSIS_VERSION further down
      * @var array
      */
     'PATHS' => [
         'logdir' => '/var/log/CAT/',
         'openssl' => 'openssl',
-        'c_rehash' => 'c_rehash',
-        'eapol_test' => 'eapol_test',
-        'makensis' => 'makensis',
     ],
 
     /**
@@ -134,15 +127,6 @@ const CONFIG = [
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
-    ],
-    
-    /**
-     * Configures SMS gateway settings
-     */
-    'SMSSETTINGS' => [
-        'provider' => 'Nexmo',
-        'username' => '...',
-        'password' => '...',
     ],
     
     /**

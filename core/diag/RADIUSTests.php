@@ -482,7 +482,7 @@ network={
      * @return string the command-line for eapol_test
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
-        $cmdline = CONFIG['PATHS']['eapol_test'] .
+        $cmdline = CONFIG_DIAGNOSTICS['PATHS']['eapol_test'] .
                 " -a " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
                 " -s " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
@@ -560,8 +560,8 @@ network={
 
 
 // now c_rehash the root CA directory ...
-        system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
-        system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+        system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
+        system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
 
 // ... and run the verification test
         $verifyResultEaponly = [];

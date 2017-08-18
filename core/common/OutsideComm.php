@@ -145,13 +145,13 @@ class OutsideComm {
      */
     public static function sendSMS($number, $content) {
         $loggerInstance = new \core\common\Logging();
-        switch (CONFIG['SMSSETTINGS']['provider']) {
+        switch (CONFIG_CONFASSISTANT['SMSSETTINGS']['provider']) {
             case 'Nexmo':
                 // taken from https://docs.nexmo.com/messaging/sms-api
                 $url = 'https://rest.nexmo.com/sms/json?' . http_build_query(
                                 [
-                                    'api_key' => CONFIG['SMSSETTINGS']['username'],
-                                    'api_secret' => CONFIG['SMSSETTINGS']['password'],
+                                    'api_key' => CONFIG_CONFASSISTANT['SMSSETTINGS']['username'],
+                                    'api_secret' => CONFIG_CONFASSISTANT['SMSSETTINGS']['password'],
                                     'to' => $number,
                                     'from' => CONFIG['APPEARANCE']['productname'],
                                     'text' => $content,

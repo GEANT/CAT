@@ -92,8 +92,27 @@ const CONFIG_CONFASSISTANT = [
     ],
 
     /**
+     * Various paths.
+     * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
+     *   See also NSIS_VERSION further down
+     * @var array
+     */
+    'PATHS' => [
+        'makensis' => 'makensis',
+    ],
+
+    /**
      * NSIS version - with version 3 UTF installers will be created
      * see also $PATHS['makensis']
      */
     'NSIS_VERSION' => 2,
+    
+    /**
+     * Configures SMS gateway settings
+     */
+    'SMSSETTINGS' => [
+        'provider' => 'Nexmo',
+        'username' => '...',
+        'password' => '...',
+    ],
 ];

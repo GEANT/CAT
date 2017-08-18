@@ -111,9 +111,9 @@ class WindowsCommon extends \core\DeviceConfig {
 
     protected function compileNSIS() {
         if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
-            $makensis = CONFIG['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
+            $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'] . " -INPUTCHARSET UTF8";
         } else {
-            $makensis = CONFIG['PATHS']['makensis'];
+            $makensis = CONFIG_CONFASSISTANT['PATHS']['makensis'];
         }
         $command = $makensis . ' -V4 cat.NSI > nsis.log';
         system($command);
