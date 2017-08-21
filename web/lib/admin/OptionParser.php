@@ -71,19 +71,6 @@ class OptionParser {
                 }
             }
         }
-        // be cautious: there is one attribute which the user hasn't sent (because it is set for him out-of-band)
-        // which needs to be preserved: user:fedadmin. The following code path is less tested than the rest because
-        // the eduroam deployment leaves fedadmin privilege management entirely to the eduroam Service Provider Proxy
-        //  and eduroam DB
-        
-        if (CONFIG['DB']['userdb-readonly'] === FALSE) { // we are actually writing user properties ourselves
-            $user = new \core\User($_SESSION['user']);
-            $federations = $user->getAttributes("user:fedadmin");
-            foreach ($federations as $federation) {
-                $options[] = ["user:fedadmin" => ['lang' => NULL, 'content' => $federation['content']]];
-                // don't add it to $good - this is entirely an automatic background operation
-            }
-        }
         
         return $options;
     }
@@ -262,9 +249,6 @@ class OptionParser {
                                         continue 3;
                                     }
                                     break;
-                                case "user:fedadmin":
-                                    $bad[] = $objValue;
-                                    continue 3;
                                 default:
                                     $content = $this->validator->string($iterator["$objId-0"]);
                                     break;
