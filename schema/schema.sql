@@ -147,12 +147,12 @@ CREATE TABLE `downloads` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user_options` ( 
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
+  `row` int(11) NOT NULL AUTO_INCREMENT, 
   `user_id` varchar(255) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  KEY `rowindex` (`id`),
+  KEY `rowindex` (`row`),
   KEY `foreign_key_options` (`option_name`), 
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
