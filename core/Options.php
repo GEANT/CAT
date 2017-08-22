@@ -28,8 +28,6 @@ use \Exception;
  * excessive DB requests; its content never changes during a script run.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
- *
- * @package Developer
  */
 class Options {
 

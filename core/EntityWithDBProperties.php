@@ -15,10 +15,12 @@
  *
  * @package Developer
  */
+
 /**
  * 
  */
 namespace core;
+
 /**
  * This class represents an Entity with properties stored in the DB.
  * IdPs have properties of their own, and may have one or more Profiles. The
@@ -28,8 +30,6 @@ namespace core;
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @license see LICENSE file in root directory
- *
- * @package Developer
  */
 abstract class EntityWithDBProperties extends \core\common\Entity {
 
@@ -85,6 +85,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      */
     public $name;
 
+    /**
+     * The constructor initialises the entity. Since it has DB properties,
+     * this means the DB connection is set up for it.
+     */
     public function __construct() {
         parent::__construct();
         // we are called after the sub-classes have declared their default
@@ -93,13 +97,19 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
 
     /**
-     * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
+     * This function retrieves the entity's attributes. 
+     * 
+     * If called with the optional parameter, only attribute values for the attribute
      * name in $optionName are retrieved; otherwise, all attributes are retrieved.
+     * The retrieval is in-memory from the internal attributes class member - no
+     * DB callback, so changes in the database during the class instance lifetime
+     * are not considered.
      *
      * @param string $optionName optionally, the name of the attribute that is to be retrieved
+     * 
      * @return array of arrays of attributes which were set for this IdP
      */
-    public function getAttributes($optionName = 0) {
+    public function getAttributes(string $optionName = 0) {
         if ($optionName) {
             $returnarray = [];
             foreach ($this->attributes as $theAttr) {
@@ -130,11 +140,11 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
 
     /**
-     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array
+     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array.
      *
      * @param array $tobedeleted array of database rows which are to be deleted
      */
-    public function commitFlushAttributes($tobedeleted) {
+    public function commitFlushAttributes(array $tobedeleted) {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         foreach (array_keys($tobedeleted) as $row) {
             $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
