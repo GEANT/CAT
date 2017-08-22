@@ -18,16 +18,12 @@
  * @package Developer
  * 
  */
-/**
- * necessary includes
- */
-
 namespace core;
-
 use \Exception;
 
 /**
  * This class represents an consortium federation.
+ * 
  * It is semantically a country(!). Do not confuse this with a TLD; a federation
  * may span more than one TLD, and a TLD may be distributed across multiple federations.
  *

@@ -23,6 +23,7 @@ use \Exception;
 
 /**
  * This class represents an EAP Profile.
+ * 
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
  * one can set attribute in the Profile directly. If there is a conflict between
  * IdP-wide and Profile-wide attributes, the more specific ones (i.e. Profile) win.
@@ -126,6 +127,13 @@ class ProfileRADIUS extends AbstractProfile {
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
     }
 
+    /**
+     * Retrieves attributes which pertain either to a specific EAP type or a specific device type.
+     * 
+     * @param string $devicesOrEAPMethods is either "DEVICES" or "STRINGS". Any other value throws an Exception
+     * @return array the list attributes in an array
+     * @throws Exception
+     */
     private function fetchDeviceOrEAPLevelAttributes($devicesOrEAPMethods) {
         // only one of the two is allowed to be set
         $temparray = [];
@@ -167,8 +175,10 @@ class ProfileRADIUS extends AbstractProfile {
     /**
      * Updates database with new installler location
      * 
-     * @param string device the device identifier string
-     * @param string path the path where the new installer can be found
+     * @param string $device the device identifier string
+     * @param string $path the path where the new installer can be found
+     * @param string $mime the MIME type of the new installer
+     * @param int $integerEapType the numeric representation of the EAP type for which this installer was generated
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         $escapedDevice = $this->databaseHandle->escapeValue($device);
@@ -183,6 +193,7 @@ class ProfileRADIUS extends AbstractProfile {
      * because this class also has per-EAP-type and per-device sub-settings
      *
      * @param string $attrName name of the attribute to set
+     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
      * @param string $attrValue value of the attribute to set
      * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
      * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
@@ -194,14 +205,37 @@ class ProfileRADIUS extends AbstractProfile {
         $this->updateFreshness();
     }
 
+    /**
+     * this is the variant which sets attributes for specific EAP types
+     * 
+     * @param string $attrName name of the attribute to set
+     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrValue value of the attribute to set
+     * @param int $eapType identifier of the EAP type in the database. 0 if the attribute is valid for all EAP types.
+     */
     public function addAttributeEAPSpecific($attrName, $attrLang, $attrValue, $eapType) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, $eapType, NULL);
     }
 
+    /**
+     * this is the variant which sets attributes for specific devices
+     * 
+     * @param string $attrName name of the attribute to set
+     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrValue value of the attribute to set
+     * @param string $device identifier of the device in the databse. Omit the argument if attribute is valid for all devices.
+     */
     public function addAttributeDeviceSpecific($attrName, $attrLang, $attrValue, $device) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, $device);
     }
 
+    /**
+     * this is the variant which sets attributes which are valid profile-wide
+     * 
+     * @param string $attrName name of the attribute to set
+     * @param string $attrLang language of the attribute to set (if multilang, can be NULL)
+     * @param string $attrValue value of the attribute to set
+     */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $this->addAttributeAllLevels($attrName, $attrLang, $attrValue, 0, NULL);
     }
@@ -239,6 +273,8 @@ class ProfileRADIUS extends AbstractProfile {
 
     /** should username be verified or even prefilled?
      * 
+     * @param bool $verify should the user input be verified by the installer?
+     * @param bool $hint should the user be shown username formatting hints?
      */
     public function setInputVerificationPreference($verify, $hint) {
         $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify == true ? "1" : "0") .

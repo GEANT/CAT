@@ -109,8 +109,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * 
      * @return array of arrays of attributes which were set for this IdP
      */
-    public function getAttributes(string $optionName = 0) {
-        if ($optionName) {
+    public function getAttributes(string $optionName = NULL) {
+        if ($optionName !== NULL) {
             $returnarray = [];
             foreach ($this->attributes as $theAttr) {
                 if ($theAttr['name'] == $optionName) {
