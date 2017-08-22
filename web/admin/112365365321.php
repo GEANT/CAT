@@ -26,6 +26,9 @@ $Tests = [
     'device_cache',
     'mailer',
 ];
+ini_set('display_errors', '0');
+require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
+require_once("inc/common.inc.php");
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
     $Tests[] = 'makensis';
@@ -37,9 +40,6 @@ if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
     $Tests[] = 'eapol_test';
 }
 
-ini_set('display_errors', '0');
-require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
-require_once("inc/common.inc.php");
 
 $uiElements = new web\lib\admin\UIElements();
 
