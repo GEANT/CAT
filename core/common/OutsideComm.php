@@ -54,8 +54,8 @@ class OutsideComm {
         $mail->CharSet = 'UTF-8';
         $mail->From = CONFIG['APPEARANCE']['from-mail'];
 // are we fancy? i.e. S/MIME signing?
-        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['certfilename'], CONFIG_CONFASSISTANT['CONSORTIUM']['keyfilename'], CONFIG_CONFASSISTANT['CONSORTIUM']['keypass'])) {
-            $mail->sign(CONFIG_CONFASSISTANT['CONSORTIUM']['certfilename'], CONFIG_CONFASSISTANT['CONSORTIUM']['keyfilename'], CONFIG_CONFASSISTANT['CONSORTIUM']['keypass']);
+        if (isset(CONFIG['MAILSETTINGS']['certfilename'], CONFIG['MAILSETTINGS']['keyfilename'], CONFIG['MAILSETTINGS']['keypass'])) {
+            $mail->sign(CONFIG['MAILSETTINGS']['certfilename'], CONFIG['MAILSETTINGS']['keyfilename'], CONFIG['MAILSETTINGS']['keypass']);
         }
         return $mail;
     }

@@ -129,6 +129,11 @@ const CONFIG = [
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
+        // in case the mails should be signed with S/MIME
+        'certfilename' => NULL,
+        'keyfilename' => NULL,
+        'keypass' => NULL,
+
     ],
     
     /**
