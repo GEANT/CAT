@@ -78,16 +78,19 @@ const CONFIG_CONFASSISTANT = [
             // 'secretvalue' => 'UK',
             // 'othervalue' => 'DE',
         ],
-        'silverbullet_default_maxusers' => 200,
-        'silverbullet_realm_suffix' => '.hosted.eduroam.org',
-        'silverbullet_server_suffix' => '.hosted.eduroam.org',
-        'silverbullet_gracetime' => 90,
-        'silverbullet_CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
-      # 'silverbullet_CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
         'nomenclature_federation' => 'National Roaming Operator',
         'nomenclature_institution' => 'Identity Provider',
     ],
 
+    'SILVERBULLET' => [
+        'default_maxusers' => 200,
+        'realm_suffix' => '.hosted.eduroam.org',
+        'server_suffix' => '.hosted.eduroam.org',
+        'gracetime' => 90,
+        'CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
+      # 'CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
+
+    ],
     /**
      * Various paths.
      * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
