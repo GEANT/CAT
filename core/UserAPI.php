@@ -366,7 +366,7 @@ class UserAPI extends CAT {
         if (count($logo) > 0) {
             $hasLogo = 1;
         }
-        $profiles = $idp->listProfiles(1);
+        $profiles = $idp->listProfiles(TRUE);
         if ($sort == 1) {
             usort($profiles, ["UserAPI", "profile_sort"]);
         }

@@ -165,7 +165,7 @@ class SimpleGUI extends \core\UserAPI {
         if (empty($this->idp)) {
             return('');
         }
-        $profiles = $this->idp->listProfiles(1);
+        $profiles = $this->idp->listProfiles(TRUE);
         if (!isset($this->profile)) {
             $this->profile = $profiles[0];
         }

@@ -57,7 +57,7 @@ class IdP extends EntityWithDBProperties {
      *
      * @param int $instId the database row identifier
      */
-    public function __construct($instId) {
+    public function __construct(int $instId) {
         $this->databaseType = "INST";
         parent::__construct(); // now databaseHandle and logging is available
         $this->entityOptionTable = "institution_option";
@@ -96,10 +96,10 @@ class IdP extends EntityWithDBProperties {
      * This function retrieves all registered profiles for this IdP from the database
      *
      * @return array<AbstractProfile> List of Profiles of this IdP
-     * @param int $activeOnly if and set to non-zero will
+     * @param bool $activeOnly if and set to non-zero will
      * cause listing of only those institutions which have some valid profiles defined.
      */
-    public function listProfiles($activeOnly = 0) {
+    public function listProfiles(bool $activeOnly = FALSE) {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
         $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
