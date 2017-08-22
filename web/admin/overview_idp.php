@@ -75,14 +75,14 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
-    <h1><?php echo sprintf(_("Overview of %s"),$uiElements->nomenclature_inst); ?></h1>
+    <h1><?php echo sprintf(_("Overview of %s"), $uiElements->nomenclature_inst); ?></h1>
     <div>
-        <h2><?php echo sprintf(_("%s-wide settings"),$uiElements->nomenclature_inst); ?></h2>
+        <h2><?php echo sprintf(_("%s-wide settings"), $uiElements->nomenclature_inst); ?></h2>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
         <div class='infobox' style='text-align:center;'>
-            <h2><?php echo sprintf(_("QR Code for %s download area"),$uiElements->nomenclature_inst); ?></h2>
+            <h2><?php echo sprintf(_("QR Code for %s download area"), $uiElements->nomenclature_inst); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
             $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
@@ -112,18 +112,18 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         <tr>
             <td>
                 <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"),$uiElements->nomenclature_inst); ?></button>
+                    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclature_inst); ?></button>
                 </form>
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"),$uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"),$uiElements->nomenclature_inst); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
                 </form>
 
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your %s and start over the configuration from scratch. Do you really want to reset all settings of your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"),$uiElements->nomenclature_inst); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your %s and start over the configuration from scratch. Do you really want to reset all settings of your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
                 </form>
 
             </td>
@@ -133,7 +133,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     <h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] != "") {
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -145,7 +145,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         }
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
-                        <td>" . sprintf(_("Check server status of European %ss"),$uiElements->nomenclature_fed) . "</td>
+                        <td>" . sprintf(_("Check server status of European %ss"), $uiElements->nomenclature_fed) . "</td>
                         <td>
                            <form action='https://monitor.eduroam.org' accept-charset='UTF-8'>
                               <button type='submit'>" . _("Go!") . "</button>
@@ -268,7 +268,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
             case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                 $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
-        
+
         $buffer_headline .= "</div>";
 
         $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
@@ -286,13 +286,13 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $hasRealmArray = $profile_list->getAttributes("internal:realm");
         $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
-        if (count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] != "")) {
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
             if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
                 $diagUrl = "../diag/";
             } else {
-                $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS']."/diag/";
+                $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
             }
-            echo "<form action='".$diagUrl."action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+            echo "<form action='" . $diagUrl . "action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>

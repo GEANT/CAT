@@ -65,8 +65,10 @@ const CONFIG = [
     ],
     
     'FUNCTIONALITY_LOCATIONS' => [
-        /** these can be either the string "LOCAL" or an absolute URL to the 
-         * base directory of an installation with the functionality aspect
+        /** these can be either 
+         *  - the string "LOCAL" (component is running in this installation
+         *  - NULL (component does not live anywhere, trim functionality from display)
+         *  - or an absolute URL to the base directory of an installation with the functionality aspect
          */
         'CONFASSISTANT' => 'LOCAL',
         'DIAGNOSTICS' => 'LOCAL',

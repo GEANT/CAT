@@ -18,11 +18,7 @@ $Tests = [
     'php',
     'phpModules',
     'openssl',
-    'makensis',
-    'makensis=>NSISmodules',
-    'makensis=>NSIS_GetVersion',
     'zip',
-    'eapol_test',
     'directories',
     'locales',
     'defaults',
@@ -30,6 +26,16 @@ $Tests = [
     'device_cache',
     'mailer',
 ];
+
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
+    $Tests[] = 'makensis';
+    $Tests[] = 'makensis=>NSISmodules';
+    $Tests[] = 'makensis=>NSIS_GetVersion';
+}
+
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+    $Tests[] = 'eapol_test';
+}
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
