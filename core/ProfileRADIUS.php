@@ -277,8 +277,8 @@ class ProfileRADIUS extends AbstractProfile {
      * @param bool $hint should the user be shown username formatting hints?
      */
     public function setInputVerificationPreference($verify, $hint) {
-        $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify == true ? "1" : "0") .
-                ", hint_userinput_suffix = " . ($hint == true ? "1" : "0") .
+        $this->databaseHandle->exec("UPDATE profile SET verify_userinput_suffix = " . ($verify === true ? "1" : "0") .
+                ", hint_userinput_suffix = " . ($hint === true ? "1" : "0") .
                 " WHERE profile_id = $this->identifier");
     }
 
