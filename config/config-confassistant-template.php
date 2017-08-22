@@ -48,20 +48,6 @@ const CONFIG_CONFASSISTANT = [
      *        - devices/ms/Files/eduroam_150.bmp
      *        - devices/ms/Files/eduroam32.ico
      * 
-     * certfilename, keyfilename, keypass: if you want to send S/MIME signed mails, just configure the signing cert
-     *                                     with these parameters. All must be non-NULL for signing to happen. If you
-     *                                     don't need a keypass, make it an empty string instead.
-     * silverbullet options:
-     *         default_maxusers: an institution is not allowed to create more than that amount of users
-     *             the value can be overriden as a per-federation option in fed-operator UI
-     *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
-     *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
-     *             if left empty, realms would end in the federation name only
-     *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
-     *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
-     *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
-     *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
-     *             value steers where to get certificates from
      * @var array
      */
     'CONSORTIUM' => [
@@ -81,6 +67,19 @@ const CONFIG_CONFASSISTANT = [
         'nomenclature_federation' => 'National Roaming Operator',
         'nomenclature_institution' => 'Identity Provider',
     ],
+
+    /* silverbullet options:
+     *         default_maxusers: an institution is not allowed to create more than that amount of users
+     *             the value can be overriden as a per-federation option in fed-operator UI
+     *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
+     *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
+     *             if left empty, realms would end in the federation name only
+     *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
+     *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
+     *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
+     *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
+     *             value steers where to get certificates from 
+     */
 
     'SILVERBULLET' => [
         'default_maxusers' => 200,
