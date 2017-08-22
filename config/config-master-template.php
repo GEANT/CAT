@@ -123,6 +123,11 @@ const CONFIG = [
      * host: Submission host
      * user: username for the login to the host
      * pass: password for the username
+     * certfilename, keyfilename, keypass: if you want to send S/MIME signed 
+     *    mails, just configure the signing cert with these parameters. All must
+     *    be non-NULL for signing to happen. If you don't need a keypass, make 
+     *    it an empty string instead.
+
      * @var array
      */
     'MAILSETTINGS' => [ // we always use Submission
