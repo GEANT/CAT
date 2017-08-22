@@ -307,7 +307,7 @@ public function boolean($input) {
     if ($input != "on") {
         throw new Exception($this->inputValidationError("Unknown state of boolean option!"));
     }
-    return $input;
+    return TRUE;
 }
 
 const TABLEMAPPING = [

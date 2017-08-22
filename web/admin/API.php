@@ -132,7 +132,7 @@ switch ($sanitised_action) {
                         }
                         break;
                     case "profile-api:useanon":
-                        if (isset($_POST['value'][$optindex . "-3"]) && $validator->boolean($_POST['value'][$optindex . "-3"]) == "on") {
+                        if (isset($_POST['value'][$optindex . "-3"]) && $validator->boolean($_POST['value'][$optindex . "-3"]) == TRUE) {
                             $useAnon = TRUE;
                         }
                         break;
