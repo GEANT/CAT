@@ -175,7 +175,7 @@ $user = new \core\User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new \core\Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your %s %s contains the following %s list: (<a href='%s'>Check their authentication server status</a>)"), $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>', $uiElements->nomenclature_inst, "action_fedcheck.php?fed=" . $thefed->identifier) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your %s %s contains the following %s list:"), $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>', $uiElements->nomenclature_inst) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
