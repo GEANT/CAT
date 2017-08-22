@@ -146,15 +146,18 @@ class SanityTests extends CAT {
     private function get_exec_path($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";
-        if (!empty(CONFIG['PATHS'][$pathToCheck])) {
-            $matchArray = [];
-            preg_match('/([^ ]+) ?/', CONFIG['PATHS'][$pathToCheck], $matchArray);
-            $exe = $matchArray[1];
-            $the_path = exec("which " . CONFIG['PATHS'][$pathToCheck]);
-            if ($the_path == $exe) {
-                $exec_is = "EXPLICIT";
-            } else {
-                $exec_is = "IMPLICIT";
+        foreach ([CONFIG, CONFIG_CONFASSISTANT, CONFIG_DIAGNOSTICS] as $config) { 
+            if (!empty($config['PATHS'][$pathToCheck])) {
+                $matchArray = [];
+                preg_match('/([^ ]+) ?/', $config['PATHS'][$pathToCheck], $matchArray);
+                $exe = $matchArray[1];
+                $the_path = exec("which " . $config['PATHS'][$pathToCheck]);
+                if ($the_path == $exe) {
+                    $exec_is = "EXPLICIT";
+                } else {
+                    $exec_is = "IMPLICIT";
+                }
+                return(['exec' => $the_path, 'exec_is' => $exec_is]);
             }
         }
         return(['exec' => $the_path, 'exec_is' => $exec_is]);
