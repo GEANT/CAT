@@ -39,7 +39,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                     continue;
                 }
             }
-            $out .= "<tr><td class='vendor'><img src='" . (new \web\lib\user\Skinjob(""))->findResourceUrl("IMAGES", "vendorlogo/" . $onedevice['group'] . ".png") . "' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
+            $out .= "<tr><td class='vendor'><img src='" . (new \web\lib\user\Skinjob())->findResourceUrl("IMAGES", "vendorlogo/" . $onedevice['group'] . ".png") . "' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new \core\DeviceFactory($index);
             foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";

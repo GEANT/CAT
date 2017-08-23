@@ -14,13 +14,28 @@ namespace web\lib\admin;
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
 
+/**
+ * This class handles admin user authentication.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 class Authentication {
 
+    /**
+     * finds out whether the user is already authenticated. Does not trigger an authentication if not.
+     *
+     * @return bool auth state
+     */
     public function isAuthenticated() {
         $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         return $authSimple->isAuthenticated();
     }
 
+    /**
+     * authenticates a user.
+     * 
+     * @throws Exception
+     */
     public function authenticate() {
         $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
@@ -61,6 +76,11 @@ class Authentication {
         }
     }
 
+    /**
+     * deauthenticates the user.
+     * 
+     * Sends a SAML LogoutRequest to the IdP, which will kill the SSO session and return us to our own logout_check page.
+     */
     public function deauthenticate() {
 
         $as = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);

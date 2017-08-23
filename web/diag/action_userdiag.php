@@ -63,7 +63,7 @@ $global = new \core\Federation();
 // need to ask more subtle
 
 function username_format_lecture() {
-    $skinjob = new \web\lib\user\Skinjob("");
+    $skinjob = new \web\lib\user\Skinjob();
     $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
     $retval = "<div class='problemdescription'><p>" . _("Roaming with eduroam requires a username in the format 'localname@realm'. Many Identity Providers also require that same format also when using the network locally.") . "</p>";
     $retval .= "<p>" . _("Exceptions to that format requirement apply only when an Idenity Provider forces the use of an anonymous outer identity using specially prepared configuration profiles or extensive manual instructions.") . "</p>";
@@ -102,7 +102,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
             echo username_format_lecture();
             break;
         case "deviceprob":
-            $skinjob = new \web\lib\user\Skinjob("");
+            $skinjob = new \web\lib\user\Skinjob();
             $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
             echo "<h2>" . _("It is very likely that the configuration of the non-working device is incorrect.") . "</h2>";
             echo "<div class='problemdescription'><p>" . _("A proper configuration for eduroam requires more than a username and password. Some settings such as a required 'anonymous outer identity' can prevent the device from working.") . "</p></div>";

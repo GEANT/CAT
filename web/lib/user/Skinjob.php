@@ -10,8 +10,7 @@
  */
 
 /**
- * This file contains Federation, IdP and Profile classes.
- * These should be split into separate files later.
+ * This file contains a class for handling switching between skin frontends.
  *
  * @package Developer
  */
@@ -23,6 +22,11 @@ namespace web\lib\user;
 
 use \Exception;
 
+/**
+ * This class handles user UI skin handling.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 class Skinjob {
 
     /**
@@ -34,17 +38,24 @@ class Skinjob {
 
     /**
      * the custom displayable variant of the term 'federation'
+     * 
      * @var string
      */
     public $nomenclature_fed;
 
     /**
      * the custom displayable variant of the term 'institution'
+     * 
      * @var string
      */
     public $nomenclature_inst;
 
-    public function __construct($selectedSkin) {
+    /**
+     * Initialise the skin.
+     * 
+     * @param string $selectedSkin the name of the skin to use
+     */
+    public function __construct($selectedSkin = NULL) {
         // input may have been garbage. Sanity-check and fall back to default skin if needed
         $actualSkin = CONFIG['APPEARANCE']['skins'][0];
         if (in_array($selectedSkin, CONFIG['APPEARANCE']['skins'])) {
