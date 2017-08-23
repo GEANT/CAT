@@ -230,13 +230,13 @@ class OptionDisplay {
      * @param int $rowid the HTML field base name of the option to be displayed
      * @param string $optionName the name of the option to display
      * @param string $optionValue the value of the option to display
-     * @param string $optionLang the language of the option to display
+     * @param mixed $optionLang the language of the option to display
      * @param int $locationIndex which n of m locations is this, in case we are displaying a coordinate
      * @param int $allLocationCount how many locations in total exist, in case we are displaying a coordinate
      * @return string HTML code
      * @throws Exception
      */
-    private function prefillText(int $rowid, string $optionName, string $optionValue, string $optionLang, int &$locationIndex, int &$allLocationCount) {
+    private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang, int &$locationIndex, int &$allLocationCount) {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $loggerInstance = new \core\common\Logging();

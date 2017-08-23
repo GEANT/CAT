@@ -74,9 +74,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
         $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
     }
-    if ($device == NULL) {
+    if ($device === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eap_id, "");
-        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
+        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, "", TRUE);
     }
     $my_inst->commitFlushAttributes($killlist);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
@@ -85,7 +85,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
 }
 
 $attribs = [];
-if ($device != NULL) {
+if ($device !== NULL) {
     foreach ($my_profile->getAttributes() as $attrib) {
         if (isset($attrib['device']) && $attrib['device'] == $device_key) {
             $attribs[] = $attrib;

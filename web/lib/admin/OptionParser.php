@@ -208,7 +208,7 @@ class OptionParser {
                 }
                 switch (get_class($object)) {
                     case 'core\\ProfileRADIUS':
-                        if ($device !== NULL) {
+                        if ($device !== "") {
                             $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
                         } elseif ($eaptype != 0) {
                             $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
@@ -350,7 +350,7 @@ class OptionParser {
      * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
      * @throws Exception
      */
-    public function processSubmittedFields($object, array $postArray, array $filesArray, array $pendingattributes, int $eaptype = 0, string $device = NULL, bool $silent = FALSE) {
+    public function processSubmittedFields($object, array $postArray, array $filesArray, array $pendingattributes, int $eaptype = 0, string $device = "", bool $silent = FALSE) {
 
 // construct new array with all non-empty options for later feeding into DB
         // $multilangAttrsWithC is a helper array to keep track of multilang 

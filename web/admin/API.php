@@ -103,7 +103,7 @@ switch ($sanitised_action) {
             }
         }
         // now process all inst-wide options    
-        $optionParser->processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, 0, TRUE);
+        $optionParser->processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, "", TRUE);
         // same thing for profile options
         $profileWideOptions = $_POST;
         foreach ($profileWideOptions['option'] as $optindex => $optname) {

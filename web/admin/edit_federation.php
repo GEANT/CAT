@@ -25,7 +25,11 @@ $uiElements = new web\lib\admin\UIElements();
 
 $auth->authenticate();
 
-$my_fed = $validator->Federation($_POST['fed_id'], $_SESSION['user']);
+
+$fedPost = $_POST['fed_id'];
+
+
+$my_fed = $validator->Federation($fedPost, $_SESSION['user']);
 $fed_options = $my_fed->getAttributes();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: Editing %s '%s'"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed, $my_fed->name));
