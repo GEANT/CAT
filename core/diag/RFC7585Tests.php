@@ -277,7 +277,9 @@ class RFC7585Tests extends AbstractTest {
     /**
      * Checks whether the previously discovered hostnames have actual IP addresses in DNS.
      * 
-     * @return array list of IP / port pairs for all the hostnames
+     * The actual list is stored in the class property NAPTR_hostname_records.
+     * 
+     * @return count of IP / port pairs for all the hostnames
      */
     public function NAPTR_hostnames() {
 // make sure the previous tests have been run before we go on

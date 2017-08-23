@@ -39,9 +39,9 @@ class X509 {
     public function pem2der(string $pemData) {
         $begin = "CERTIFICATE-----";
         $end = "-----END";
-        $pemData = substr($pemData, strpos($pemData, $begin) + strlen($begin));
-        $pemData = substr($pemData, 0, strpos($pemData, $end));
-        $der = base64_decode($pemData);
+        $pemDataTemp = substr($pemData, strpos($pemData, $begin) + strlen($begin));
+        $pemDataTemp2 = substr($pemData, 0, strpos($pemDataTemp, $end));
+        $der = base64_decode($pemDataTemp2);
         return $der;
     }
 

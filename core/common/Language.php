@@ -20,9 +20,13 @@
  */
 namespace core\common;
 
+/**
+ * This class maintains state of the selected language and can set the language.
+ */
 class Language {
 
     /**
+     * the current language
      * 
      * @var string
      */
@@ -30,6 +34,8 @@ class Language {
 
     /**
      * language display name for the language set by the constructor
+     * 
+     * @var string
      */
     public $locale;
 
