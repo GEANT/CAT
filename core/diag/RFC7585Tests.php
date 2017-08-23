@@ -29,13 +29,61 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
  */
 class RFC7585Tests extends AbstractTest {
 
+    /**
+     * maintains state for the question: has the NAPTR existence check already been executed?
+     * 
+     * @var bool
+     */
     private $NAPTR_executed;
+    
+    /**
+     * maintains state for the question: has the NAPTR compliance check already been executed?
+     * 
+     * @var bool
+     */
     private $NAPTR_compliance_executed;
+    
+    /**
+     * maintains state for the question: has the NAPTR SRV check already been executed?
+     * 
+     * @var bool
+     */
     private $NAPTR_SRV_executed;
+    
+    /**
+     * maintains state for the question: has the existrence of hostnames been checked already?
+     * 
+     * @var bool
+     */
     private $NAPTR_hostname_executed;
+    
+    /**
+     * holds the list of NAPTR records found
+     * 
+     * @var array
+     */
     private $NAPTR_records;
+    
+    /**
+     * holds the list of SRV records found
+     * 
+     * @var array
+     */
     private $NAPTR_SRV_records;
+    
+    /**
+     * stores the various errors encountered during the checks
+     * 
+     * @var array
+     */
     private $errorlist;
+    
+    /**
+     * stores the IP address / port pairs (strings) which were ultimately found
+     * as candidate RADIUS/TLS servers
+     * 
+     * @var array
+     */
     public $NAPTR_hostname_records;
 
     // return codes specific to NAPTR existence checks

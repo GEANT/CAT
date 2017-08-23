@@ -46,7 +46,9 @@ class Options {
     private static $instance;
 
     /**
+     * Our access to logging facilities
      * 
+     * @var \core\common\Logging
      */
     private $loggerInstance;
 

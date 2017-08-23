@@ -95,9 +95,8 @@ class IdP extends EntityWithDBProperties {
     /**
      * This function retrieves all registered profiles for this IdP from the database
      *
+     * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
      * @return array<AbstractProfile> List of Profiles of this IdP
-     * @param bool $activeOnly if and set to non-zero will
-     * cause listing of only those institutions which have some valid profiles defined.
      */
     public function listProfiles(bool $activeOnly = FALSE) {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
@@ -140,7 +139,8 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
-     * This function gets the profile count for a given IdP
+     * This function gets the profile count for a given IdP.
+     * 
      * The count could be retreived from the listProfiles method
      * but this is less expensive.
      *
@@ -153,8 +153,10 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
-     * This function sets the timestamp of last modification of the child profiles to the current timestamp. This is needed
-     * for installer caching: all installers which are on disk must be re-created if an attribute changes. This timestamp here
+     * This function sets the timestamp of last modification of the child profiles to the current timestamp.
+     * 
+     * This is needed for installer caching: all installers which are on disk 
+     * must be re-created if an attribute changes. This timestamp here
      * is used to determine if the installer on disk is still new enough.
      */
     public function updateFreshness() {
@@ -165,11 +167,13 @@ class IdP extends EntityWithDBProperties {
 
     /**
      * Adds a new profile to this IdP.
+     * 
      * Only creates the DB entry for the Profile. If you want to add attributes later, see Profile::addAttribute().
      *
+     * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
      * @return object new Profile object if successful, or FALSE if an error occured
      */
-    public function newProfile($type) {
+    public function newProfile(string $type) {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
         $identifier = $this->databaseHandle->lastID();
 
@@ -227,8 +231,9 @@ Best regards,
     }
 
     /**
-     * Performs a lookup in an external database to determine matching entities to this IdP. The business logic of this function is
-     * roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
+     * Performs a lookup in an external database to determine matching entities to this IdP. 
+     * 
+     * The business logic of this function is roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
      * 
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
@@ -272,6 +277,11 @@ Best regards,
         return FALSE;
     }
 
+    /**
+     * returns the state of sync with the external DB.
+     * 
+     * @return int
+     */
     public function getExternalDBSyncState() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
@@ -296,7 +306,12 @@ Best regards,
         return FALSE;
     }
 
-    public function setExternalDBId($identifier) {
+    /**
+     * Associates the external DB id with a CAT id
+     * 
+     * @param string $identifier the external DB id, which can be alpha-numeric
+     */
+    public function setExternalDBId(string $identifier) {
         $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
