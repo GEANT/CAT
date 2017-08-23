@@ -54,7 +54,7 @@ if ($posted_eaptype) {
         throw new Exception("POSTed EAP type value is not an integer!");
     }
     // conversion routine throws an exception if the EAP type id is not known
-    $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($posted_eaptype);
+    $eaptype = \core\common\EAP::eAPMethodArrayIdConversion((int)$posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.

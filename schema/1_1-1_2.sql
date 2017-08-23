@@ -55,7 +55,7 @@ ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
 ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
 
-ALTER TABLE `user_options` DROP KEY `rowindex`, CHANGE COLUMN `id` `row`, ADD KEY `rowindex` (`row`);
+ALTER TABLE `user_options` DROP KEY `rowindex`, CHANGE COLUMN `id` `row` int primary key auto_increment, ADD KEY `rowindex` (`row`);
 
 UPDATE institution SET country = UPPER(country);
 

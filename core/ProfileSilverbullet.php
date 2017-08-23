@@ -18,9 +18,7 @@
  * @package Developer
  *
  */
-
 namespace core;
-
 use \Exception;
 
 /**

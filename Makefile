@@ -6,7 +6,7 @@ all: documentation translation
 
 documentation:
 	rm -R phpdoc
-	php /home/swinter/packages/linux/phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -t phpdoc/
+	php /home/swinter/packages/linux/phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -t phpdoc/
 
 translation:
 	echo "****************************************"

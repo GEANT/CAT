@@ -22,7 +22,7 @@ namespace core;
 use \Exception;
 
 /**
- * This class represents an EAP Profile.
+ * This class represents a profile with third-party EAP handling (i.e. a "real" RADIUS profile).
  * 
  * Profiles can inherit attributes from their IdP, if the IdP has some. Otherwise,
  * one can set attribute in the Profile directly. If there is a conflict between
