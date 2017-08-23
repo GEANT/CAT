@@ -171,8 +171,8 @@ switch ($test_type) {
                     $returnarray['level'] = \core\common\Entity::L_ERROR;
                     break;
                 default:
-                    $level = isset($testsuite->return_codes[$testresult]['severity']) ? $testsuite->return_codes[$testresult]['severity'] : \core\common\Entity::L_ERROR;
-                    $message = isset($testsuite->return_codes[$testresult]['message']) ? $testsuite->return_codes[$testresult]['message'] : _("<strong>Test FAILED</strong>");
+                    $level = isset($testsuite->returnCodes[$testresult]['severity']) ? $testsuite->returnCodes[$testresult]['severity'] : \core\common\Entity::L_ERROR;
+                    $message = isset($testsuite->returnCodes[$testresult]['message']) ? $testsuite->returnCodes[$testresult]['message'] : _("<strong>Test FAILED</strong>");
                     $returnarray['result'][$i]['server'] = 0;
                     break;
             }
@@ -233,7 +233,7 @@ switch ($test_type) {
                 $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = \core\common\Entity::L_ERROR;
             } else {
-                $returnarray['message'] = $rfc6614suite->return_codes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
+                $returnarray['message'] = $rfc6614suite->returnCodes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = \core\common\Entity::L_OK;
                 if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
                     $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';

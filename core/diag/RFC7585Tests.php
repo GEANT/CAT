@@ -30,30 +30,30 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 class RFC7585Tests extends AbstractTest {
 
     /**
-     * maintains state for the question: has the NAPTR existence check already been executed?
+     * maintains state for the question: has the NAPTR existence check already been executed? Holds the number of NAPTR records found if so.
      * 
-     * @var bool
+     * @var int
      */
     private $NAPTR_executed;
     
     /**
      * maintains state for the question: has the NAPTR compliance check already been executed?
      * 
-     * @var bool
+     * @var int
      */
     private $NAPTR_compliance_executed;
     
     /**
-     * maintains state for the question: has the NAPTR SRV check already been executed?
+     * maintains state for the question: has the NAPTR SRV check already been executed? Holds the number of SRV records if so.
      * 
-     * @var bool
+     * @var int
      */
     private $NAPTR_SRV_executed;
     
     /**
-     * maintains state for the question: has the existrence of hostnames been checked already?
+     * maintains state for the question: has the existrence of hostnames been checked already? Holds the number of IP:port pairs if so.
      * 
-     * @var bool
+     * @var int
      */
     private $NAPTR_hostname_executed;
     
@@ -87,6 +87,12 @@ class RFC7585Tests extends AbstractTest {
     public $NAPTR_hostname_records;
 
     // return codes specific to NAPTR existence checks
+    
+    /**
+     * test hasn't been run yet
+     */
+    const RETVAL_NOTRUNYET = -1;
+    
     /**
      * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
      */
@@ -105,28 +111,33 @@ class RFC7585Tests extends AbstractTest {
      */
     private $realm;
 
-    public function __construct($realm) {
+    /**
+     * Initialises the dynamic discovery test instance for a specific realm that is to be tested
+     * 
+     * @param string $realm the realm to be tested
+     */
+    public function __construct(string $realm) {
         parent::__construct();
 
         // return codes specific to NAPTR existence checks
         /**
          * no NAPTRs for domain; this is not an error, simply means that realm is not doing dynamic discovery for any service
          */
-        $this->return_codes[RFC7585Tests::RETVAL_NONAPTR]["message"] = _("This realm has no NAPTR records.");
-        $this->return_codes[RFC7585Tests::RETVAL_NONAPTR]["severity"] = \core\common\Entity::L_OK;
+        $this->returnCodes[RFC7585Tests::RETVAL_NONAPTR]["message"] = _("This realm has no NAPTR records.");
+        $this->returnCodes[RFC7585Tests::RETVAL_NONAPTR]["severity"] = \core\common\Entity::L_OK;
 
         /**
          * no eduroam NAPTR for domain; this is not an error, simply means that realm is not doing dynamic discovery for eduroam
          */
-        $this->return_codes[RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR]["message"] = _("NAPTR records were found, but all of them refer to unrelated services.");
-        $this->return_codes[RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR]["severity"] = \core\common\Entity::L_OK;
+        $this->returnCodes[RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR]["message"] = _("NAPTR records were found, but all of them refer to unrelated services.");
+        $this->returnCodes[RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR]["severity"] = \core\common\Entity::L_OK;
 
 
         $this->realm = $realm;
-        $this->NAPTR_executed = FALSE;
-        $this->NAPTR_compliance_executed = FALSE;
-        $this->NAPTR_SRV_executed = FALSE;
-        $this->NAPTR_hostname_executed = FALSE;
+        $this->NAPTR_executed = RFC7585Tests::RETVAL_NOTRUNYET;
+        $this->NAPTR_compliance_executed = RFC7585Tests::RETVAL_NOTRUNYET;
+        $this->NAPTR_SRV_executed = RFC7585Tests::RETVAL_NOTRUNYET;
+        $this->NAPTR_hostname_executed = RFC7585Tests::RETVAL_NOTRUNYET;
         $this->NAPTR_records = [];
         $this->NAPTR_SRV_records = [];
         $this->NAPTR_hostname_records = [];
@@ -181,7 +192,7 @@ class RFC7585Tests extends AbstractTest {
      */
     public function NAPTR_compliance() {
 // did we query DNS for the NAPTRs yet? If not, do so now.
-        if ($this->NAPTR_executed === FALSE) {
+        if ($this->NAPTR_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
             $this->NAPTR();
         }
 // if the NAPTR checks aren't configured, tell the caller
@@ -231,7 +242,7 @@ class RFC7585Tests extends AbstractTest {
     public function NAPTR_SRV() {
 // see if preceding checks have been run, and run them if not
 // compliance check will cascade NAPTR check on its own
-        if ($this->NAPTR_compliance_executed === FALSE) {
+        if ($this->NAPTR_compliance_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
             $this->NAPTR_compliance();
         }
 // we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
@@ -263,10 +274,15 @@ class RFC7585Tests extends AbstractTest {
         return count($sRVtargets);
     }
 
+    /**
+     * Checks whether the previously discovered hostnames have actual IP addresses in DNS.
+     * 
+     * @return array list of IP / port pairs for all the hostnames
+     */
     public function NAPTR_hostnames() {
 // make sure the previous tests have been run before we go on
 // preceeding tests will cascade automatically if needed
-        if ($this->NAPTR_SRV_executed === FALSE) {
+        if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
             $this->NAPTR_SRV();
         }
 // if previous are SKIPPED, skip this one, too

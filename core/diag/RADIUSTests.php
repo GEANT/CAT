@@ -938,9 +938,9 @@ network={
         foreach ($udpResult['cert_oddities'] as $oddity) {
             $o = [];
             $o['code'] = $oddity;
-            $o['message'] = isset($this->return_codes[$oddity]["message"]) && $this->return_codes[$oddity]["message"] ? $this->return_codes[$oddity]["message"] : $oddity;
-            $o['level'] = $this->return_codes[$oddity]["severity"];
-            $ret['level'] = max($ret['level'], $this->return_codes[$oddity]["severity"]);
+            $o['message'] = isset($this->returnCodes[$oddity]["message"]) && $this->returnCodes[$oddity]["message"] ? $this->returnCodes[$oddity]["message"] : $oddity;
+            $o['level'] = $this->returnCodes[$oddity]["severity"];
+            $ret['level'] = max($ret['level'], $this->returnCodes[$oddity]["severity"]);
             $ret['cert_oddities'][] = $o;
         }
 
