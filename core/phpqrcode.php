@@ -699,7 +699,8 @@
          * Put a finder pattern.
          * @param frame
          * @param width
-         * @param ox,oy upper-left coordinate of the pattern
+         * @param ox upper-left x coordinate of the pattern
+         * @param oy upper-left y coordinate of the pattern
          */
         public static function putFinderPattern(&$frame, $ox, $oy)
         {
