@@ -18,6 +18,8 @@ require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
  * We need to display previously set options in various forms. This class covers
  * the ways to do that; the generated page content can then be parsed with 
  * OptionParser.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
  */
 class OptionDisplay {
 
@@ -34,15 +36,16 @@ class OptionDisplay {
     private $level;
 
     /**
-     * 
+     * a counter storing how many locations are to be displayed
      */
     private $allLocationCount;
+
     /**
      * Which attributes are we talking about?
      * @param array $options the options of interest
      * @param string $level the level on which these options were defined by the user
      */
-    public function __construct($options, $level) {
+    public function __construct(array $options, string $level) {
         $this->listOfOptions = $options;
         $this->level = $level;
         $this->allLocationCount = 0;
@@ -54,7 +57,7 @@ class OptionDisplay {
      * @param string $attributePrefix category of option to display
      * @return string HTML code <table>
      */
-    public function prefilledOptionTable($attributePrefix) {
+    public function prefilledOptionTable(string $attributePrefix) {
         $retval = "<table id='expandable_$attributePrefix" . "_options'>";
 
         $prepopulate = [];
@@ -73,7 +76,7 @@ class OptionDisplay {
      * @param string $class the class of options that is to be displayed
      * @param array $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
      */
-    private function add_option($class, $prepopulate = []) { // no GET class ? we've been called directly:
+    private function add_option(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
         // or that an object is to be edited. In that case, $prepopulated has to
         // contain the array of existing variables
@@ -121,7 +124,15 @@ class OptionDisplay {
         return $retval;
     }
 
-    private function noPrefillText($rowid, $list, $defaultselect) {
+    /**
+     * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
+     * @param int $rowid the HTML field base name of the option to be displayed
+     * @param array $list the list of option names to include in the type selector
+     * @param int $defaultselect the datatype which should be displayed by default
+     * @return string HTML code
+     * @throws Exception
+     */
+    private function noPrefillText(int $rowid, array $list, int $defaultselect) {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $jsmagic = "onchange='
@@ -208,35 +219,40 @@ class OptionDisplay {
     const TYPECODE_TEXT = 1;
     const TYPECODE_BOOLEAN = 3;
 
-    private function prefillText($rowid, $list, $prefill, $prefillLang, &$locationIndex, &$allLocationCount) {
+    /**
+     * generates HTML code that displays an already set option.
+     * 
+     * @param int $rowid the HTML field base name of the option to be displayed
+     * @param string $optionName the name of the option to display
+     * @param string $optionValue the value of the option to display
+     * @param string $optionLang the language of the option to display
+     * @param int $locationIndex which n of m locations is this, in case we are displaying a coordinate
+     * @param int $allLocationCount how many locations in total exist, in case we are displaying a coordinate
+     * @return string HTML code
+     * @throws Exception
+     */
+    private function prefillText(int $rowid, string $optionName, string $optionValue, string $optionLang, int &$locationIndex, int &$allLocationCount) {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $loggerInstance = new \core\common\Logging();
-        $loggerInstance->debug(5, "Executed with PREFILL $prefill!\n");
+        $loggerInstance->debug(5, "Executed with PREFILL $optionValue!\n");
         $retval .= "<td>";
-        // prefill is always only called with a list with exactly one element.
-        // if we see anything else here, get excited.
-        if (count($list) != 1) {
-            throw new Exception("Optiontext prefilled display only can work with exactly one option!");
-        }
-        $value = $list[0];
-
         $uiElements = new UIElements();
-        $listtype = $optioninfo->optionType($value);
-        $retval .= $uiElements->displayName($value);
-        $retval .= tooltip($value);
-        $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
+        $listtype = $optioninfo->optionType($optionName);
+        $retval .= $uiElements->displayName($optionName);
+        $retval .= tooltip($optionName);
+        $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$optionName#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 
         // language tag if any
         $retval .= "<td>";
         if ($listtype["flag"] == "ML") {
 
-            $language = "(" . strtoupper($prefillLang) . ")";
-            if ($prefillLang == 'C') {
+            $language = "(" . strtoupper($optionLang) . ")";
+            if ($optionLang == 'C') {
                 $language = _("(default/other languages)");
             }
             $retval .= $language;
-            $retval .= "<input type='hidden' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect' value='" . $prefillLang . "' style='display:block'>";
+            $retval .= "<input type='hidden' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect' value='" . $optionLang . "' style='display:block'>";
         }
         $retval .= "</td>";
 // attribute content
@@ -248,21 +264,21 @@ class OptionDisplay {
                 $allLocationCount++;
                 $locationIndex = $allLocationCount;
                 $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
-                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . self::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$prefill'>$link";
+                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . self::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
             case "file":
-                $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($prefill) . "'>";
+                $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($optionValue) . "'>";
                 $uiElements = new UIElements();
-                switch ($value) {
+                switch ($optionName) {
                     case "eap:ca_file":
-                        $retval .= $uiElements->previewCAinHTML($prefill);
+                        $retval .= $uiElements->previewCAinHTML($optionValue);
                         break;
                     case "general:logo_file":
                     case "fed:logo_file":
-                        $retval .= $uiElements->previewImageinHTML($prefill);
+                        $retval .= $uiElements->previewImageinHTML($optionValue);
                         break;
                     case "support:info_file":
-                        $retval .= $uiElements->previewInfoFileinHTML($prefill);
+                        $retval .= $uiElements->previewInfoFileinHTML($optionValue);
                         break;
                     default:
                         $retval .= _("file content");
@@ -282,19 +298,19 @@ class OptionDisplay {
                 if ($intCode == -1) {
                     $intCode = self::TYPECODE_TEXT;
                 }
-                $displayedVariant = $prefill; // for all three types, value tag and actual display are identical
+                $displayedVariant = $optionValue; // for all three types, value tag and actual display are identical
             case "boolean":
                 if ($intCode == -1) {
                     $intCode = self::TYPECODE_BOOLEAN;
                 }
                 if ($displayedVariant == "") { // a fall-through has set this before
                     $displayedVariant = _("off");
-                    if ($prefill == "on") {
+                    if ($optionValue == "on") {
                         /// Device assessment is "on"
                         $displayedVariant = _("on");
                     }
                 }
-                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($prefill) . "\" style='display:block'>";
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
                 break;
             default:
                 // this should never happen!
@@ -310,22 +326,27 @@ class OptionDisplay {
      * of different option names and types
      * @param int $defaultselect for new options, which of the data types should be preselected
      * @param array $list options which should be displayed; can be only exactly one if existing option, or multiple if new option type
-     * @param string $prefill for existing option, it's value to be displayed
-     * @param string $prefillLang for existing option, the language of the value to be displayed
+     * @param string $prefillValue for an existing option, it's value to be displayed
+     * @param string $prefillLang for an existing option, the language of the value to be displayed
      * @return string HTML code <tr>
      */
-    public function optiontext($defaultselect, $list, $prefill = 0, $prefillLang = 0) {
+    public function optiontext(int $defaultselect, array $list, string $prefillValue = NULL, string $prefillLang = NULL) {
         $locationIndex = 0;
         $rowid = mt_rand();
 
         $retval = "<tr id='option-S$rowid' style='vertical-align:top'>";
 
-        if (!$prefill) {
+        if ($prefillValue === NULL) {
             $retval .= $this->noPrefillText($rowid, $list, $defaultselect);
         }
 
-        if ($prefill) {
-            $retval .= $this->prefillText($rowid, $list, $prefill, $prefillLang, $locationIndex, $this->allLocationCount);
+        if ($prefillValue !== NULL) {
+            // prefill is always only called with a list with exactly one element.
+            // if we see anything else here, get excited.
+            if (count($list) != 1) {
+                throw new Exception("Optiontext prefilled display only can work with exactly one option!");
+            }
+            $retval .= $this->prefillText($rowid, array_pop($list), $prefillValue, $prefillLang, $locationIndex, $this->allLocationCount);
         }
         $retval .= "
 

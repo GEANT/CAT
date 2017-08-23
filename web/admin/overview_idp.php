@@ -7,6 +7,12 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
+/**
+ * This page displays the dashboard overview of an entire IdP.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
@@ -16,7 +22,18 @@ require_once("inc/common.inc.php");
 $uiElements = new web\lib\admin\UIElements();
 $eapDisplayNames = new web\lib\common\PrettyPrint();
 
-function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
+/**
+ * Injects the consortium logo in the middle of a given PNG.
+ * 
+ * Usually used on QR code PNGs - the parameters inform about the structure of
+ * the QR code so that the logo does not prevent parsing of the QR code.
+ * 
+ * @param string $inputpngstring the PNG to edit
+ * @param int $symbolsize size in pixels of one QR "pixel"
+ * @param int $marginsymbols size in pixels of border around the actual QR
+ * @return string the image with logo centered in the middle
+ */
+function png_inject_consortium_logo(string $inputpngstring, int $symbolsize = 12, int $marginsymbols = 4) {
     $loggerInstance = new \core\common\Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
 
