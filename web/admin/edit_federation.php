@@ -7,6 +7,12 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
+
+/**
+ * This page edits a federation.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");

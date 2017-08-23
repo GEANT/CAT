@@ -279,7 +279,7 @@ class RFC7585Tests extends AbstractTest {
      * 
      * The actual list is stored in the class property NAPTR_hostname_records.
      * 
-     * @return count of IP / port pairs for all the hostnames
+     * @return int count of IP / port pairs for all the hostnames
      */
     public function NAPTR_hostnames() {
 // make sure the previous tests have been run before we go on

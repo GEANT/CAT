@@ -8,6 +8,15 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
+/**
+ * This file executes the enrollment of a new admin to the system.
+ * 
+ * The administrator authenticates and then presents an invitation token via
+ * the $_GET['token'] parameter.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 ?>
 <?php
 
@@ -21,7 +30,14 @@ $usermgmt = new \core\UserManagement();
 
 $auth->authenticate();
 
-function bailout($uiDisplay, $decoObject) {
+/**
+ * Something went wrong. We display the error cause and then throw an Exception.
+ * 
+ * @param string $uiDisplay error string to display
+ * @param \web\lib\admin\PageDecoration $decoObject the instance of PageDecoration, needed for footer display.
+ * @throws Exception
+ */
+function bailout(string $uiDisplay, $decoObject) {
     echo $decoObject->pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
     echo "<h1>$uiDisplay</h1>";
     echo $decoObject->footer();

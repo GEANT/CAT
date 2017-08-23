@@ -7,6 +7,13 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
+/**
+ * This page is used to edit a RADIUS profile by its administrator.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
+
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
@@ -367,7 +374,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     ?>
     <?php
 
-    function priority($eapType, $isenabled, $priority) {
+    /**
+     * creates HTML code which lists the EAP types in their desired property order.
+     * 
+     * @param string $eapType
+     * @param bool $isenabled
+     * @param int $priority
+     */
+    function priority(string $eapType, bool $isenabled, int $priority) {
         echo "<td><select id='$eapType-priority' name='$eapType-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
         for ($a = 1; $a < 7; $a = $a + 1) {
             echo "<option id='$eapType-$a' value='$a' " . ( $isenabled && $a == $priority ? "selected" : "" ) . ">$a</option>";
@@ -375,6 +389,15 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         echo "</select></td>";
     }
 
+    /**
+     * Displays HTML code which displays the EAP options inherited from IdP-wide config.
+     * 
+     * Since CAT-next does not allow to set EAP properties IdP-wide any more, this is probably useless and can be deleted at some point.
+     * 
+     * @param array $idpwideoptions
+     * @param string $eapType
+     * @param bool $isVisible
+     */
     function inherited_options($idpwideoptions, $eapType, $isVisible) {
         echo "<td><div style='" . (!$isVisible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eapType-inherited-global'>";
 

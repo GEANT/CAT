@@ -7,6 +7,12 @@
  * License: see the web/copyright.php file in the file structure
  *******************************************************************************
  */
+
+/**
+ * This page parses federation properties and enters them into the database.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 ?>
 <?php
 
