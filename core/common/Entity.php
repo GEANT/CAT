@@ -88,7 +88,6 @@ abstract class Entity {
             case 'silverbullet':
                 $path .= '/var/silverbullet';
                 break;
-            case 'logo':
             case 'installer':
                 $path .= '/var/installer_cache';
                 break;
