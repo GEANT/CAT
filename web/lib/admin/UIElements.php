@@ -11,20 +11,32 @@
 
 namespace web\lib\admin;
 
+/**
+ * This class provides various HTML snippets and other UI-related convenience functions.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 class UIElements {
 
     /**
      * the custom displayable variant of the term 'federation'
+     * 
      * @var string
      */
     public $nomenclature_fed;
 
     /**
      * the custom displayable variant of the term 'institution'
+     * 
      * @var string
      */
     public $nomenclature_inst;
 
+    /**
+     * Initialises the class.
+     * 
+     * Mainly fetches various nomenclature from the config and attempts to translate those into local language. Needs pre-loading some terms.
+     */
     public function __construct() {
         // some config elements are displayable. We need some dummies to 
         // translate the common values for them. If a deployment chooses a 
@@ -40,6 +52,13 @@ class UIElements {
         $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
 
+    /**
+     * provides human-readable text for the various option names as stored in DB.
+     * 
+     * @param string $input raw text in need of a human-readable display variant
+     * @return string the human-readable variant
+     * @throws Exception
+     */
     public function displayName($input) {
 
         $ssidText = _("SSID");
@@ -101,7 +120,14 @@ class UIElements {
         return $find[0];
     }
 
-    public function infoblock($optionlist, $class, $level) {
+    /**
+     * creates an HTML information block with a list of options from a given category and level
+     * @param array $optionlist list of options
+     * @param string $class option class of interest
+     * @param string $level option level of interest
+     * @return string HTML code
+     */
+    public function infoblock(array $optionlist, string $class, string $level) {
         $googleMarkers = [];
         $retval = "";
         $optioninfo = \core\Options::instance();
@@ -162,6 +188,12 @@ class UIElements {
         return $retval;
     }
 
+    /**
+     * creates HTML code to display all information boxes for an IdP
+     * 
+     * @param \core\IdP $myInst the IdP in question
+     * @return string HTML code
+     */
     public function instLevelInfoBoxes(\core\IdP $myInst) {
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
@@ -195,6 +227,12 @@ class UIElements {
         return $retval;
     }
 
+    /**
+     * creates HTML code to display a nice UI representation of a CA
+     * 
+     * @param string $cAReference ROWID pointer to the CA to display
+     * @return string HTML code
+     */
     public function previewCAinHTML($cAReference) {
         $found = preg_match("/^ROWID-.*/", $cAReference);
         if (!$found) {
@@ -218,6 +256,12 @@ class UIElements {
         return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
     }
 
+    /**
+     * creates HTML code to display a nice UI representation of an image
+     * 
+     * @param string $imageReference ROWID pointer to the image to display
+     * @return string HTML code
+     */
     public function previewImageinHTML($imageReference) {
         $found = preg_match("/^ROWID-.*/", $imageReference);
         if (!$found) {
@@ -226,6 +270,12 @@ class UIElements {
         return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
     }
 
+    /**
+     * creates HTML code to display a nice UI representation of a TermsOfUse file
+     * 
+     * @param string $fileReference ROWID pointer to the file to display
+     * @return string HTML code
+     */
     public function previewInfoFileinHTML($fileReference) {
         $found = preg_match("/^ROWID-.*/", $fileReference);
         if (!$found) {
@@ -238,7 +288,16 @@ class UIElements {
         return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
     }
 
-    public function boxFlexible($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code for a UI element which informs the user about something.
+     * 
+     * @param int $level what kind of information is to be displayed?
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return string
+     */
+    public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
 
         $uiMessages = [
             \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
@@ -251,12 +310,12 @@ class UIElements {
         if (!$omittabletags) {
             $retval .= "<tr><td>";
         }
-        $caption = ($customCaption !== 0 ? $customCaption : $uiMessages[$level]['text']);
-        $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
+        $finalCaption = ($caption !== NULL ? $caption : $uiMessages[$level]['text']);
+        $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $finalCaption . "' title='" . $finalCaption . "'/>";
         if (!$omittabletags) {
             $retval .= "</td><td>";
         }
-        if ($text !== 0) {
+        if ($text !== NULL) {
             $retval .= $text;
         }
         if (!$omittabletags) {
@@ -265,19 +324,51 @@ class UIElements {
         return $retval;
     }
 
-    public function boxOkay($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display an "all is okay" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxOkay(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_OK, $text, $caption, $omittabletags);
     }
 
-    public function boxRemark($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display a "smartass comment" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxRemark(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_REMARK, $text, $caption, $omittabletags);
     }
 
-    public function boxWarning($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display a "something's a bit wrong" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxWarning(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_WARN, $text, $caption, $omittabletags);
     }
 
-    public function boxError($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display a "Whoa! Danger, Will Robinson!" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxError(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 

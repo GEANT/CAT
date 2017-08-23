@@ -338,6 +338,7 @@ class OptionParser {
     }
 
     /**
+     * The main function: takes all HTML field inputs, makes sense of them and stores valid data in the database
      * 
      * @param mixed $object The object for which attributes were submitted
      * @param array $postArray incoming attribute names and values as submitted with $_POST

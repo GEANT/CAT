@@ -24,19 +24,23 @@ require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 class OptionDisplay {
 
     /**
-     *
+     * stores all the options we are caring about
+     * 
      * @var array
      */
     private $listOfOptions;
 
     /**
-     *
+     * on which level are we operating?
+     * 
      * @var string
      */
     private $level;
 
     /**
      * a counter storing how many locations are to be displayed
+     * 
+     * @var int
      */
     private $allLocationCount;
 
@@ -66,17 +70,18 @@ class OptionDisplay {
                 $prepopulate[] = $existingAttribute;
             }
         }
-        $retval .= $this->add_option($attributePrefix, $prepopulate);
+        $retval .= $this->addOption($attributePrefix, $prepopulate);
         $retval .= "</table>";
         return $retval;
     }
 
     /**
+     * Displays options for a given option class.
      * 
      * @param string $class the class of options that is to be displayed
      * @param array $prepopulate should an empty set of fillable options be displayed, or do we have existing data to prefill with
      */
-    private function add_option(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
+    private function addOption(string $class, array $prepopulate = []) { // no GET class ? we've been called directly:
         // this can mean either a new object (list all options with empty values)
         // or that an object is to be edited. In that case, $prepopulated has to
         // contain the array of existing variables
