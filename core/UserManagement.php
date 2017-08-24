@@ -106,7 +106,7 @@ class UserManagement extends \core\common\Entity {
      * @param string $owner Persistent User ID who becomes the administrator of the institution
      * @return IdP 
      */
-    public function createIdPFromToken($token, string $owner) {
+    public function createIdPFromToken(string $token, string $owner) {
         // the token either has cat_institution_id set -> new admin for existing inst
         // or contains a number of parameters from external DB -> set up new inst
         $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
