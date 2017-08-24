@@ -56,7 +56,11 @@ class Logging {
             $line = $backtrace[1]['line'] ?? "no line";
             $output .= " [$file / $function / $line] ";
         }
-        $output .= print_r($stuff, TRUE);
+        if (is_string($stuff)) {
+            $output .= $stuff;
+        } else {
+            $output .= var_export($stuff, TRUE);
+        }
         $this->writeToFile("debug.log", $output);
 
         return;
@@ -79,9 +83,14 @@ class Logging {
             case "MOD": // modified existing object
             case "DEL": // deleted an object
                 ob_start();
-                print " ($category) ";
-                print_r(" " . $user . ": ");
-                print_r($message . "\n");
+                echo " ($category) ";
+                echo " " . $user . ": ";
+                if (is_string($message)) {
+                    echo $message ."\n";
+                } else {
+                    echo var_export($message);
+                }
+                
                 $output = ob_get_clean();
 
                 $this->writeToFile("audit-activity.log", $output);
