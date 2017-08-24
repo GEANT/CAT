@@ -20,7 +20,6 @@
 require_once("../config/_config.php");
 
 CONST TREATMENT_TABLES = ['federation_option', 'institution_option', 'profile_option', 'user_options'];
-CONST TREATMENT_COLUMNS = ['row', 'row', 'row', 'id'];
 
 $dbInstance = \core\DBConnection::handle('INST');
 
@@ -32,7 +31,7 @@ while ($optionsResultRow = mysqli_fetch_object($optionsInNeed)) {
 }
 foreach (TREATMENT_TABLES as $tableIndex => $tableName) {
     foreach ($treatment_options as $optionName) {
-        $affectedPayloads = $dbInstance->exec("SELECT " . TREATMENT_COLUMNS[$tableIndex] . " AS row, option_lang, option_value FROM $tableName WHERE option_name = '$optionName'");
+        $affectedPayloads = $dbInstance->exec("SELECT row, option_lang, option_value FROM $tableName WHERE option_name = '$optionName'");
         if ($affectedPayloads === FALSE) {
             echo "[FAIL] Unknown error querying update status for option " . $optionName . " in table $tableName. Did you run the 'ALTER TABLE' statements?\n";
             continue;
@@ -48,7 +47,7 @@ foreach (TREATMENT_TABLES as $tableIndex => $tableName) {
                 continue;
             }
             // pry apart lang and content into their own columns
-            $rewrittenPayload = $dbInstance->exec("UPDATE $tableName SET option_lang = ?, option_value = ? WHERE " . TREATMENT_COLUMNS[$tableIndex] . " = " . $oneAffectedPayload->row, "ss", $decoded["lang"], $decoded["content"]);
+            $rewrittenPayload = $dbInstance->exec("UPDATE $tableName SET option_lang = ?, option_value = ? WHERE row = ?", "ssi", $decoded["lang"], $decoded["content"], $oneAffectedPayload->row);
             if ($rewrittenPayload !== FALSE) {
                 echo "[ OK ] " . $oneAffectedPayload->option_value . " ---> " . $decoded["lang"] . " # " . $decoded["content"] . "\n";
                 continue;
@@ -71,7 +70,7 @@ while ($oneAffectedPayload = mysqli_fetch_object($affectedPayloads)) {
         echo "[WARN] Please check row " . $oneAffectedPayload->row . " of table institution_option - this entry did not successfully unserialize() even though it is a coordinate!\n";
     }
     $newstyle = json_encode(["lon" => $decoded["lon"], "lat" => $decoded["lat"]]);
-    $rewrittenPayload = $dbInstance->exec("UPDATE institution_option SET option_value = ? WHERE row = " . $oneAffectedPayload->row, "s", $newstyle);
+    $rewrittenPayload = $dbInstance->exec("UPDATE institution_option SET option_value = ? WHERE row = ?", "si", $newstyle, $oneAffectedPayload->row);
     if ($rewrittenPayload !== FALSE) {
         echo "[ OK ] " . $oneAffectedPayload->option_value . " ---> $newstyle\n";
         continue;
