@@ -85,7 +85,7 @@ class OptionParser {
                 // echo "Error! The certificate seems broken!";
                 return FALSE;
             case "support:info_file":
-                $info = new finfo();
+                $info = new \finfo();
                 $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
 
                 // we only take plain text files in UTF-8!
