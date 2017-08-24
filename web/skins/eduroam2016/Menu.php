@@ -14,8 +14,9 @@ class Menu {
      * as the title argument or an two element array - the first element of this array will be
      * the title and the second is a style specification applied to the given menu item
      */
-    public function __construct($menuArray) {
+    public function __construct($menuArray,$visibility = 'all') {
         $this->menu = $menuArray;
+        $this->visibility = $visibility;
     }
     public function printMenu($menu = NULL,$id=NULL) {
         $menu = $menu ?? $this->menu;
@@ -24,20 +25,24 @@ class Menu {
      }
         $out = "\n<ul>\n";
         foreach ($menu as $menuItem) {
-            $iD = $menuItem['id'] ?? $id;
-            $catInfo = NULL;
-            if (!empty($menuItem['catInfo'])) {
-                $catInfo = 'javascript:infoCAT("'.$iD.'", "'.$menuItem['catInfo'][0].'","'.$menuItem['catInfo'][1].'")';
-            }
-            $link = $catInfo ?? $menuItem['link'] ?? '';
-            $class = empty($menuItem['class']) ? '' : ' class="'.$menuItem['class'].'"';
-            $submenu  = $menuItem['submenu'] ?? [];
-            $out .= $this->printMenuItem($menuItem['text'], $link, $class);
-            $out .= $this->printMenu($submenu,$iD);
-            $out .= "</li>\n";
-         }
-         $out .= '</ul>';
-         return($out);
+            $itemVisibility = $menuItem['visibility'] ?? 'all';
+            if ($this->visibility === 'all' || $itemVisibility === 'all' || $itemVisibility === $this->visibility) {
+                $iD = $menuItem['id'] ?? $id;
+                $catInfo = NULL;
+                if (!empty($menuItem['catInfo'])) {
+                    $catInfo = 'javascript:infoCAT("'.$iD.'", "'.$menuItem['catInfo'][0].'","'.$menuItem['catInfo'][1].'")';
+                }
+                $link = $catInfo ?? $menuItem['link'] ?? '';
+                $class = empty($menuItem['class']) ? '' : ' class="'.$menuItem['class'].'"';
+                $submenu  = $menuItem['submenu'] ?? [];
+                $out .= $this->printMenuItem($menuItem['text'], $link, $class);
+                $out .= $this->printMenu($submenu,$iD);
+                $out .= "</li>\n";
+             }
+        }
+       
+        $out .= '</ul>';
+        return($out);
     }
 
     private function printMenuItem($itemText,$itemLink = '',$itemClass = '') {
@@ -45,5 +50,6 @@ class Menu {
     }
 
     private $menu;
+    private $visibility;
 }
 ?>
