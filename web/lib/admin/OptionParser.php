@@ -278,11 +278,20 @@ class OptionParser {
                 switch ($optioninfo["type"]) {
                     case "text":
                     case "coordinates":
-                    case "boolean":
                     case "integer":
                         $varName = "$objId-" . $validators[$optioninfo['type']]['field'];
                         if (!empty($listOfEntries[$varName])) {
                             $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$listOfEntries[$varName]], $validators[$optioninfo['type']]['extraarg']));
+                            break;
+                        }
+                        continue 2;
+                    case "boolean":
+                        $varName = "$objId-3";
+                        if (!empty($listOfEntries[$varName])) {
+                            $contentValid = $this->validator->boolean($listOfEntries[$varName]);
+                            if ($contentValid) {
+                                $content = "on";
+                            }
                             break;
                         }
                         continue 2;
