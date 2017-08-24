@@ -15,10 +15,10 @@
  *
  * @package Developer
  */
-
 /**
  * 
  */
+
 namespace core;
 
 /**
@@ -168,7 +168,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $identifierType = (is_int($this->identifier) ? "i" : "s");
-        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)",$identifierType."sss",$this->identifier, $attrName, $attrLang, $attrValue);                
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $this->identifier, $attrName, $attrLang, $attrValue);
         $this->updateFreshness();
     }
 
@@ -240,35 +240,31 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         // we need to create our own DB handle as this is a static method
         $handle = DBConnection::handle("INST");
         switch ($table) {
-            case "profile_option":
-                $blobQuery = $handle->exec("SELECT profile_id from $table WHERE row = $row");
-                while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
-                    $blobprofile = $profileIdQuery->profile_id;
-                }
-                // is the profile in question public?
-                if (!isset($blobprofile)) {
-                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
-                }
-                $profile = ProfileFactory::instantiate($blobprofile);
-                if ($profile->readinessLevel() == AbstractProfile::READINESS_LEVEL_SHOWTIME) { // public data
-                    return FALSE;
-                }
-                // okay, so it's NOT public. return the owner
-                $inst = new IdP($profile->institution);
-                return $inst->owner();
-
+            case "profile_option": // both of these are similar
+                $columnName = "profile_id";
             case "institution_option":
-                $blobQuery = $handle->exec("SELECT institution_id from $table WHERE row = $row");
-                while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
-                    $blobinst = $instIdQuery->institution_id;
+                $columnName = $columnName ?? "institution_id";
+                $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = $row");
+                while ($idQuery = mysqli_fetch_object($blobQuery)) { // only one row
+                    $blobId = $idQuery->id;
                 }
-                if (!isset($blobinst)) {
+                if (!isset($blobId)) {
                     return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
                 }
-                $inst = new IdP($blobinst);
-                // if at least one of the profiles belonging to the inst is public, the data is public
-                if ($inst->maxProfileStatus() == IdP::PROFILES_SHOWTIME) { // public data
-                    return FALSE;
+                
+                if ($table == "profile_option") { // is the profile in question public?
+                    $profile = ProfileFactory::instantiate($blobId);
+                    if ($profile->readinessLevel() == AbstractProfile::READINESS_LEVEL_SHOWTIME) { // public data
+                        return FALSE;
+                    }
+                    // okay, so it's NOT public. prepare to return the owner
+                    $inst = new IdP($profile->institution);
+                } else { // does the IdP have at least one public profile?
+                    $inst = new IdP($blobId);
+                    // if at least one of the profiles belonging to the inst is public, the data is public
+                    if ($inst->maxProfileStatus() == IdP::PROFILES_SHOWTIME) { // public data
+                        return FALSE;
+                    }
                 }
                 // okay, so it's NOT public. return the owner
                 return $inst->owner();
