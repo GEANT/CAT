@@ -256,9 +256,9 @@ abstract class DeviceConfig extends \core\common\Entity {
     
     private function findSourceFile($file) {
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $file;
+            return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
         } elseif (is_file($this->module_path . '/Files/' . $file)) {
-            $source = $this->module_path . '/Files/' . $file;
+            return $this->module_path . '/Files/' . $file;
         } else {
             $this->loggerInstance->debug(2, "requested file $file does not exist\n");
             return(FALSE);
