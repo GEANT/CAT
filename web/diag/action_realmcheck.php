@@ -66,6 +66,7 @@ if ($my_profile != NULL) {
     }
     if ($check_realm) {
         $testsuite = new \core\diag\RADIUSTests($check_realm, "@".$check_realm);
+        $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
     }
