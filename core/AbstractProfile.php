@@ -112,17 +112,17 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * sub-classes need to set the property $realm, $name themselves!
      * 
-     * @param int $profileId identifier of the profile in the DB
+     * @param int $profileIdRaw identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject = NULL) {
+    public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
         parent::__construct(); // we now have access to our database handle and logging
         // first make sure that we are operating on numeric identifiers
-        if (!is_numeric($profileId)) {
+        if (!is_numeric($profileIdRaw)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
         }
-        $profileId = (int)$profileId; // no, it can not possibly be a double. Try to convince Scrutinizer...
+        $profileId = (int)$profileIdRaw; // no, it can not possibly be a double. Try to convince Scrutinizer...
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
