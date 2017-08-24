@@ -54,6 +54,51 @@ class OptionParser {
     }
 
     /**
+     * Verifies whether an incoming upload was actually valid data
+     * 
+     * @param string $optiontype for which option was the data uploaded
+     * @param string $filename the temp file name on the filesystem where the uploaded data resides
+     * @return boolean whether the data was valid
+     */
+    private function checkUploadSanity(string $optiontype, string $filename) {
+        switch ($optiontype) {
+            case "general:logo_file":
+            case "fed:logo_file":
+            case "internal:logo_from_url":
+                // we check logo_file with ImageMagick
+                $image = new \Imagick();
+                try {
+                    $image->readImageBlob($filename);
+                } catch (\ImagickException $exception) {
+                    echo "Error" . $exception->getMessage();
+                    return FALSE;
+                }
+                // image survived the sanity check
+                return TRUE;
+            case "eap:ca_file":
+                // echo "Checking $optiontype with file $filename";
+                $func = new \core\common\X509;
+                $cert = $func->processCertificate($filename);
+                if ($cert) {
+                    return TRUE;
+                }
+                // echo "Error! The certificate seems broken!";
+                return FALSE;
+            case "support:info_file":
+                $info = new finfo();
+                $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
+
+                // we only take plain text files in UTF-8!
+                if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE) {
+                    return TRUE;
+                }
+                return FALSE;
+            default:
+                return FALSE;
+        }
+    }
+
+    /**
      * Known-good options are sometimes converted, this function takes care of that.
      * 
      * Cases in point:
@@ -80,7 +125,7 @@ class OptionParser {
                         }
                         $bindata = \core\common\OutsideComm::downloadFile($optionPayload['content']);
                         unset($options[$index]);
-                        if (check_upload_sanity($finalOptionname, $bindata)) {
+                        if ($this->checkUploadSanity($finalOptionname, $bindata)) {
                             $good[] = $name;
                             $options[] = [$finalOptionname => ['lang' => NULL, 'content' => base64_encode($bindata)]];
                         } else {
@@ -331,7 +376,7 @@ class OptionParser {
                         } else if (isset($listOfEntries["$objId-2"]) && ($listOfEntries["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
                             $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $listOfEntries["$objId-2"]);
-                            if (!check_upload_sanity($objValue, $rawContent)) {
+                            if (!$this->checkUploadSanity($objValue, $rawContent)) {
                                 $bad[] = $objValue;
                                 continue 2;
                             }
@@ -361,7 +406,7 @@ class OptionParser {
      * @throws Exception
      */
     public function processSubmittedFields($object, array $postArray, array $filesArray, int $eaptype = NULL, string $device = NULL) {
-        
+
         // construct new array with all non-empty options for later feeding into DB
         // $multilangAttrsWithC is a helper array to keep track of multilang 
         // options that were set in a specific language but are not 
@@ -400,7 +445,6 @@ class OptionParser {
 
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
-
         // 5a: first deletion step: purge all old content except file-based attributes;
         //     then take note of which file-based attributes are now stale
         if ($device === NULL && $eaptype === NULL) {
@@ -415,15 +459,13 @@ class OptionParser {
         }
         // 5b: finally, kill the stale file-based attributes which are not wanted any more.
         $object->commitFlushAttributes($killlist);
-        
+
         // finally: return HTML code that gives feedback about what we did. 
         // In some cases, callers won't actually want to display it; so simply
         // do not echo the return value. Reasons not to do this is if we working
         // e.g. from inside an overlay
-        
+
         return $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
-
-
     }
 
 }

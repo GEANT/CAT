@@ -10,7 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
 $loggerInstance = new \core\common\Logging();

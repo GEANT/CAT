@@ -12,7 +12,6 @@
 namespace web\lib\admin;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
 
 /**
  * We need to display previously set options in various forms. This class covers
@@ -245,7 +244,7 @@ class OptionDisplay {
         $uiElements = new UIElements();
         $listtype = $optioninfo->optionType($optionName);
         $retval .= $uiElements->displayName($optionName);
-        $retval .= tooltip($optionName);
+        $retval .= $uiElements->tooltip($optionName);
         $retval .= "<input type='hidden' id='option-S$rowid-select' name='option[S$rowid]' value='$optionName#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ></td>";
 
         // language tag if any

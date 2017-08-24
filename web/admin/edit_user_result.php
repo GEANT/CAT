@@ -11,8 +11,6 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $optionParser = new \web\lib\admin\OptionParser();

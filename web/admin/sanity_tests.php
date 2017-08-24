@@ -34,7 +34,6 @@ $Tests = [
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("inc/common.inc.php");
 
 function print_test_results($test) {
     $out = '';

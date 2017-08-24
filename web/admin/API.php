@@ -11,7 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("inc/common.inc.php");
 
 // no SAML auth on this page. The API key authenticates the entity
 

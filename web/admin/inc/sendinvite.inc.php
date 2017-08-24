@@ -12,7 +12,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__DIR__))) . "/config/_config.php");
-require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();

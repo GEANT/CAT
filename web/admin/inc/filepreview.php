@@ -12,8 +12,6 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("common.inc.php");
-
 /**
  * retrieves a binary object from the database and pushes it out to the browser
  * @param string $id
@@ -22,7 +20,8 @@ require_once("common.inc.php");
 function getObjectFromDB($id) {
 
     // check if data is public for this blob call
-    $blob = getBlobFromDB($id, TRUE);
+    
+    $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
     $finalBlob = base64_decode($blob);
 
     if ($finalBlob === FALSE) {

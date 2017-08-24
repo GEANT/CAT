@@ -13,8 +13,6 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 use web\lib\admin\http\SilverbulletContext;
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
