@@ -284,7 +284,7 @@ class RADIUSTests extends AbstractTest {
         $returnresult = 0;
         if (!isset($cert['full_details']['extensions']['crlDistributionPoints'])) {
             $returnresult = RADIUSTests::CERTPROB_NO_CDP;
-        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
+        } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], '', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
             $returnresult = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
             $crlcontent = \core\common\OutsideComm::downloadFile($crlUrl[1] . $crlUrl[2]);
