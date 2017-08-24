@@ -59,37 +59,18 @@ class Menu {
 }
 
 $deco = new \web\lib\admin\PageDecoration();
-echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
-
-
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
+<!-- JQuery -->
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js") ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate-1.2.1.js") ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js") ?>"></script>
+<!-- JQuery -->
 <script type="text/javascript">
     if (screen.width <= 480) {
         window.location.href = "<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/basic.php?<?php echo htmlspecialchars($_SERVER['QUERY_STRING']) ?>";
             }
 </script>
-<script type="text/javascript">ie_version = 0;</script>
-<!--[if IE]>
-<script type="text/javascript">ie_version=1;</script>
-<![endif]-->
-<!--[if IE 7]>
-<script type="text/javascript">ie_version=7;</script>
-<![endif]-->
-<!--[if IE 8]>
-<script type="text/javascript">ie_version=8;</script>
-<![endif]-->
-<!--[if IE 9]>
-<script type="text/javascript">ie_version=9;</script>
-<![endif]-->
-<!--[if IE 10]>
-<script type="text/javascript">ie_version=10;</script>
-<![endif]-->
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
-<!-- JQuery --> 
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script> 
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate-1.2.1.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script> 
-<!-- JQuery --> 
 <script type="text/javascript">
     var recognisedOS = '';
     var downloadMessage;
