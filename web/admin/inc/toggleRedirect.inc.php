@@ -72,13 +72,12 @@ if ($device == NULL && $eaptype === NULL) {
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
     if ($eaptype === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
-        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
+        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key);
     }
     if ($device === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eap_id, "");
-        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, "", TRUE);
+        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, "");
     }
-    $my_inst->commitFlushAttributes($killlist);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
     header("Location: ../overview_installers.php?inst_id=$my_inst->identifier&profile_id=$my_profile->identifier");
     exit;

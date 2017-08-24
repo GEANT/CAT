@@ -195,7 +195,7 @@ class OptionParser {
      * @return array list of attributes which were previously stored but are to be deleted now
      * @throws Exception
      */
-    private function sendOptionsToDatabase($object, array $options, array $pendingattributes, string $device, int $eaptype) {
+    private function sendOptionsToDatabase($object, array $options, array $pendingattributes, string $device = NULL, int $eaptype = NULL) {
         $retval = [];
         foreach ($options as $iterateOption) {
             foreach ($iterateOption as $name => $optionPayload) {
@@ -208,9 +208,9 @@ class OptionParser {
                 }
                 switch (get_class($object)) {
                     case 'core\\ProfileRADIUS':
-                        if ($device !== "") {
+                        if ($device !== NULL) {
                             $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
-                        } elseif ($eaptype != 0) {
+                        } elseif ($eaptype != NULL) {
                             $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
                         } else {
                             $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
@@ -352,16 +352,15 @@ class OptionParser {
      * @param mixed $object The object for which attributes were submitted
      * @param array $postArray incoming attribute names and values as submitted with $_POST
      * @param array $filesArray incoming attribute names and values as submitted with $_FILES
-     * @param array $pendingattributes object's attributes stored by-reference in the DB which are tentatively marked for deletion
      * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
      * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
      * @param bool $silent determines whether a HTML form with the result of processing should be output or not
      * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
      * @throws Exception
      */
-    public function processSubmittedFields($object, array $postArray, array $filesArray, array $pendingattributes, int $eaptype = 0, string $device = "", bool $silent = FALSE) {
-
-// construct new array with all non-empty options for later feeding into DB
+    public function processSubmittedFields($object, array $postArray, array $filesArray, int $eaptype = NULL, string $device = NULL) {
+        
+        // construct new array with all non-empty options for later feeding into DB
         // $multilangAttrsWithC is a helper array to keep track of multilang 
         // options that were set in a specific language but are not 
         // accompanied by a "default" language setting
@@ -400,19 +399,29 @@ class OptionParser {
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
 
-        $killlist = $this->sendOptionsToDatabase($object, $options, $pendingattributes, $device, $eaptype);
-
-        // Step 6: if we are in interactive HTML mode, give feedback about what 
-        // we did. Reasons not to do this is if we working from inside an overlay
-
-        if ($silent === FALSE) {
-            echo $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
+        // 5a: first deletion step: purge all old content except file-based attributes;
+        //     then take note of which file-based attributes are now stale
+        if ($device === NULL && $eaptype === NULL) {
+            $remaining = $object->beginflushAttributes();
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining);
+        } elseif ($device !== NULL) {
+            $remaining = $object->beginFlushMethodLevelAttributes(0, $device);
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, $device);
+        } else {
+            $remaining = $object->beginFlushMethodLevelAttributes($eaptype, "");
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, "", $eaptype);
         }
+        // 5b: finally, kill the stale file-based attributes which are not wanted any more.
+        $object->commitFlushAttributes($killlist);
+        
+        // finally: return HTML code that gives feedback about what we did. 
+        // In some cases, callers won't actually want to display it; so simply
+        // do not echo the return value. Reasons not to do this is if we working
+        // e.g. from inside an overlay
+        
+        return $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
 
-        // finally, return the list of pre-stored attributes which should now be
-        // deleted.
 
-        return $killlist;
     }
 
 }

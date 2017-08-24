@@ -170,9 +170,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
         $profile->setInputVerificationPreference(false, false);
     }
 
-    $remaining_attribs = $profile->beginflushAttributes();
-    $killlist = $optionParser->processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
-    $profile->commitFlushAttributes($killlist);
+    echo $optionParser->processSubmittedFields($profile, $_POST, $_FILES);
 
     if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {

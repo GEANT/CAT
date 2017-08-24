@@ -35,16 +35,6 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != web\lib\admin\Fo
 // the eduroam deployment leaves fedadmin privilege management entirely to the eduroam Service Provider Proxy
 //  and eduroam DB
 
-$salvageFedPrivs = [];
-if (CONFIG['DB']['userdb-readonly'] === FALSE) { // we are actually writing user properties ourselves
-    $federations = $user->getAttributes("user:fedadmin");
-    foreach ($federations as $federation) {
-        $salvageFedPrivs[] = $federation['value'];
-    }
-}
-
-$remaining_attribs = $user->beginflushAttributes();
-
 if (isset($_POST['option'])) {
     foreach ($_POST['option'] as $opt_id => $optname) {
         if ($optname == "user:fedadmin") {
@@ -53,9 +43,17 @@ if (isset($_POST['option'])) {
         }
     }
 }
+$salvageFedPrivs = [];
+if (CONFIG['DB']['userdb-readonly'] === FALSE) { // we are actually writing user properties ourselves
+    $federations = $user->getAttributes("user:fedadmin");
+    foreach ($federations as $federation) {
+        $salvageFedPrivs[] = $federation['value'];
+    }
+}
 
-// now, add any salvaged fedops privileges ourselves. Adding things to POST
+// add any salvaged fedops privileges ourselves. Adding things to POST
 // is maybe a bit ugly, but it works.
+
 $i = 0;
 foreach ($salvageFedPrivs as $oneFed) {
     $_POST['option']["S123456789".$i] = "user:fedadmin#string##";
@@ -65,8 +63,7 @@ foreach ($salvageFedPrivs as $oneFed) {
 ?>
 <table>
     <?php
-    $killlist = $optionParser->processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
-    $user->commitFlushAttributes($killlist);
+    echo $optionParser->processSubmittedFields($user, $_POST, $_FILES);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "User attributes changed");
     ?>
 </table>

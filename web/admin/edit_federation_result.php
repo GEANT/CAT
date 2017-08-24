@@ -32,12 +32,9 @@ if (isset($_POST['submitbutton'])) {
     if (( $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) && isset($_POST['option']) && isset($_POST['value'])) { // here we go
         $fed_name = $my_fed->name;
         echo "<h1>" . sprintf(_("Submitted attributes for %s '%s'"), $uiElements->nomenclature_fed, $fed_name) . "</h1>";
-        $remaining_attribs = $my_fed->beginflushAttributes();
-
         echo "<table>";
-        $killlist = $optionParser->processSubmittedFields($my_fed, $_POST, $_FILES, $remaining_attribs);
+        echo $optionParser->processSubmittedFields($my_fed, $_POST, $_FILES);
         echo "</table>";
-        $my_fed->commitFlushAttributes($killlist);
 
         $loggerInstance = new \core\common\Logging();
         $loggerInstance->writeAudit($_SESSION['user'], "MOD", "FED " . $my_fed->name . " - attributes changed");
