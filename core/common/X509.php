@@ -40,7 +40,7 @@ class X509 {
         $begin = "CERTIFICATE-----";
         $end = "-----END";
         $pemDataTemp = substr($pemData, strpos($pemData, $begin) + strlen($begin));
-        $pemDataTemp2 = substr($pemData, 0, strpos($pemDataTemp, $end));
+        $pemDataTemp2 = substr($pemDataTemp, 0, strpos($pemDataTemp, $end));
         $der = base64_decode($pemDataTemp2);
         return $der;
     }
@@ -87,7 +87,6 @@ class X509 {
             $authorityDer = $cadata;
             $authorityPem = X509::der2pem($cadata);
         }
-
         
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);
