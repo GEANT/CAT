@@ -26,10 +26,19 @@ $languageInstance->setTextDomain("web_admin");
 $mgmt = new \core\UserManagement;
 $new_idp_authorized_fedadmin = FALSE;
 
+/**
+ * aborts code execution if a required mail address is invalid
+ * 
+ * @param mixed $newmailaddress input string, possibly a mail address
+ * @param string $redirect_destination destination to send user to if validation failed
+ * @return string mail address if validation passed
+ */
 function abortOnBogusMail($newmailaddress, $redirect_destination) {
     if ($newmailaddress === FALSE) {
         header("Location: $redirect_destination" . "invitation=INVALIDSYNTAX");
         exit;
+    } else {
+        return $newmailaddress;
     }
 }
 
@@ -73,7 +82,7 @@ switch ($operationMode) {
         // editing IdPs is done from within the popup. When we're done, send the 
         // user back to the popup (append the result of the operation later)
         $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
-        abortOnBogusMail($newmailaddress, $redirect_destination);
+        $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
         // is the user admin of this IdP?
         $is_owner = FALSE;
         $owners = $idp->owner();
@@ -91,13 +100,13 @@ switch ($operationMode) {
         }
 
         $prettyprintname = $idp->name;
-        $newtoken = $mgmt->createToken($fedadmin, $newmailaddress, $idp);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $newmailaddress);
+        $newtoken = $mgmt->createToken($fedadmin, $mailaddress, $idp);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $mailaddress);
         $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         break;
     case OPERATION_MODE_NEWUNLINKED:
         $redirect_destination = "../overview_federation.php?";
-        abortOnBogusMail($newmailaddress, $redirect_destination);
+        $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
         // run an input check and conversion of the raw inputs... just in case
         $newinstname = $validator->string($_POST['name']);
         $newcountry = $validator->string($_POST['country']);
@@ -110,12 +119,12 @@ switch ($operationMode) {
         $introtext = sprintf(_("a %s operator has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $uiElements->nomenclature_inst, $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
-        $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $newinstname, 0, $newcountry);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
+        $newtoken = $mgmt->createToken(TRUE, $mailaddress, $newinstname, 0, $newcountry);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $mailaddress);
         break;
     case OPERATION_MODE_NEWFROMDB:
         $redirect_destination = "../overview_federation.php?";
-        abortOnBogusMail($newmailaddress, $redirect_destination);
+        $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
         // a real external DB entry was submitted and all the required parameters are there
         $newexternalid = $validator->string($_POST['externals']);
         $extinfo = $catInstance->getExternalDBEntityDetails($newexternalid);
@@ -143,8 +152,8 @@ switch ($operationMode) {
         // fill the rest of the text
         $introtext = sprintf(_("a %s operator has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $uiElements->nomenclature_inst, $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // do the token creation magic
-        $newtoken = $mgmt->createToken(TRUE, $newmailaddress, $prettyprintname, $newexternalid);
-        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $newmailaddress);
+        $newtoken = $mgmt->createToken(TRUE, $mailaddress, $prettyprintname, $newexternalid);
+        $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $mailaddress);
         break;
     default: // includes OPERATION_MODE_INVALID
         $wrongcontent = print_r($_POST, TRUE);
