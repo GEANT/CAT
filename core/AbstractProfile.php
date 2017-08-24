@@ -122,6 +122,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         if (!is_numeric($profileId)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
         }
+        $profileId = (int)$profileId; // no, it can not possibly be a double. Try to convince Scrutinizer...
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
