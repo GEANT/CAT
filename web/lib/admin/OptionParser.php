@@ -338,7 +338,7 @@ class OptionParser {
                                 $content = "on";
                             } else {
                                 $bad[] = $objValue;
-                                continue 3;
+                                continue 2;
                             }
                             break;
                         }
