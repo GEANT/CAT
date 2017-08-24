@@ -1,8 +1,8 @@
 
 body {
-    background: #fff ;
+    background: #fff;
     min-height: 100%;
-//    height: auto;
+/*    height: auto; */
    position: relative;
 }
 
@@ -12,7 +12,7 @@ body {
 
 #cat_form {
    height: 100%;
-//overflow: auto;
+/* overflow: auto; */
 padding-bottom: 80px;
 }
 
@@ -35,7 +35,7 @@ padding-bottom: 80px;
 
 button {
     height: 23px;
-//    box-shadow: 10px 10px 5px #888888;
+/*    box-shadow: 10px 10px 5px #888888;*/
     cursor: pointer;
 }
 
@@ -67,19 +67,19 @@ button {
 #device_list button.disabledDevice {
     color: #444;
     background: #bbb;
-//    border-left-style: outset;
-//    border-left-width: 1px;
-//    border-left-color: #eee;
-//    border-top-style: outset;
-//    border-top-width: 1px;
-//    border-top-color: #eee;
-//    border-right-style: outset;
-//    border-right-width: 2px;
-//    border-right-color: #444;
-//    border-bottom-style: outset;
-//    border-bottom-width: 2px;
-//    border-bottom-color: #444;
-//    box-shadow: 10px 10px 5px rgba(100,100,100,0.4);
+/*    border-left-style: outset;
+    border-left-width: 1px;
+    border-left-color: #eee;
+    border-top-style: outset;
+    border-top-width: 1px;
+    border-top-color: #eee;
+    border-right-style: outset;
+    border-right-width: 2px;
+    border-right-color: #444;
+    border-bottom-style: outset;
+    border-bottom-width: 2px;
+    border-bottom-color: #444;
+    box-shadow: 10px 10px 5px rgba(100,100,100,0.4); */
 }
 
 #roller {
@@ -128,13 +128,13 @@ button {
 #user_button_td {
     padding-top: 50px;
     position: relative;
-//    top: 50px;
+/*    top: 50px; */
     height: auto;
 }
 
 #user_button1 {
     position: relative;
-//    top: 360px;
+/*    top: 360px; */
     vertical-align: top;
     height: auto;
     padding-top: 15px;
@@ -185,7 +185,7 @@ button {
   font-weight:bold;
   position: relative;
   top: 8px;
-//  left: 0px;
+/*  left: 0px; */
   
 }
 
@@ -517,7 +517,7 @@ button.guess_os {
 #menu_top > ul li {
    float: left;
    position: relative;
-//   max-width: 15vw;
+/*   max-width: 15vw;*/
 }
 
 #menu_top > ul li a {
@@ -607,8 +607,8 @@ button.guess_os {
     padding-right: 0px;
     padding-bottom: 10px;
     vertical-align: top;
-    box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06)
-//    border-top: 4px solid #1d4a74;
+    box-shadow: 0px 3px 2px 1px rgba(0,0,0,0.06);
+/*    border-top: 4px solid #1d4a74;*/
     text-align: justify;
     font-size: 14px;
     z-index: 140;
@@ -684,7 +684,7 @@ button.large_button {
     color: #ffffff;
     font-size: 20px;
     text-decoration: none;
-//    width: 50vw;
+/*    width: 50vw;*/
 }
 
 button.large_button:hover {

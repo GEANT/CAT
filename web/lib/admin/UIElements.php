@@ -77,7 +77,7 @@ class UIElements {
             _("Support: EAP Types") => "support:eap_types",
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
-            sprintf(_("Name of %s"),$this->nomenclature_inst) => "general:instname",
+            sprintf(_("Name of %s"), $this->nomenclature_inst) => "general:instname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
@@ -102,7 +102,7 @@ class UIElements {
             _("Custom CSS file for User Area") => "fed:css_file",
             sprintf(_("%s Logo"), $this->nomenclature_fed) => "fed:logo_file",
             _("Preferred Skin for User Area") => "fed:desired_skin",
-            sprintf(_("%s Name"),$this->nomenclature_fed) => "fed:realname",
+            sprintf(_("%s Name"), $this->nomenclature_fed) => "fed:realname",
             _("Custom text in IdP Invitations") => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
@@ -118,6 +118,20 @@ class UIElements {
             throw new \Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
         return $find[0];
+    }
+
+    public function tooltip($input) {
+        $descriptions = [];
+        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+            $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name'])] = "media:SSID";
+        }
+
+        $find = array_search($input, $descriptions);
+
+        if ($find === FALSE) {
+            return "";
+        }
+        return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
     }
 
     /**
@@ -197,7 +211,7 @@ class UIElements {
     public function instLevelInfoBoxes(\core\IdP $myInst) {
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
-        <h2>" . sprintf(_("General %s details"),$this->nomenclature_inst) . "</h2>
+        <h2>" . sprintf(_("General %s details"), $this->nomenclature_inst) . "</h2>
         <table>
             <tr>
                 <td>
@@ -228,6 +242,64 @@ class UIElements {
     }
 
     /**
+     * pretty-prints a file size number in SI "bi" units
+     * @param int $number the size of the file
+     * @return string the pretty-print representation of the file size
+     */
+    private function displaySize(int $number) {
+        if ($number > 1024 * 1024) {
+            return round($number / 1024 / 1024, 2) . " MiB";
+        }
+        if ($number > 1024) {
+            return round($number / 1024, 2) . " KiB";
+        }
+        return $number . " B";
+    }
+
+    public static function getBlobFromDB($ref, $checkpublic) {
+        $validator = new \web\lib\common\InputValidation();
+        $reference = $validator->databaseReference($ref);
+
+        if ($reference == FALSE) {
+            return;
+        }
+
+        // the data is either public (just give it away) or not; in this case, only
+        // release if the data belongs to admin himself
+        if ($checkpublic) {
+            // we might be called without session context (filepreview) so get the
+            // context if needed
+            if (session_status() != PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+            $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
+
+            $ownersCondensed = [];
+
+            if ($owners !== FALSE) { // restricted datam see if we're authenticated and owners of the data
+                $auth = new \web\lib\admin\Authentication();
+                if (!$auth->isAuthenticated()) {
+                    return FALSE; // admin-only, but we are not an admin
+                }
+                foreach ($owners as $oneowner) {
+                    $ownersCondensed[] = $oneowner['ID'];
+                }
+                if (array_search($_SESSION['user'], $ownersCondensed) === FALSE) {
+                    return FALSE; // wrong guy
+                }
+                // carry on and get the data
+            }
+        }
+
+
+        $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+        if (!$blob) {
+            return FALSE;
+        }
+        return $blob;
+    }
+
+    /**
      * creates HTML code to display a nice UI representation of a CA
      * 
      * @param string $cAReference ROWID pointer to the CA to display
@@ -239,7 +311,7 @@ class UIElements {
             return "<div>" . _("Error, ROWID expected.") . "</div>";
         }
 
-        $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
+        $cAblob = base64_decode(UIElements::getBlobFromDB($cAReference, FALSE));
 
         $func = new \core\common\X509;
         $details = $func->processCertificate($cAblob);
@@ -282,10 +354,10 @@ class UIElements {
             return _("<div>Error, ROWID expected, got $fileReference.</div>");
         }
 
-        $fileBlob = getBlobFromDB($fileReference, FALSE);
+        $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
         $decodedFileBlob = base64_decode($fileBlob);
         $fileinfo = new \finfo();
-        return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+        return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . $this->displaySize(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
     }
 
     /**

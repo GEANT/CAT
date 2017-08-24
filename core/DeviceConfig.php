@@ -253,6 +253,17 @@ abstract class DeviceConfig extends \core\common\Entity {
     public function writeDeviceInfo() {
         return _("Sorry, this should not happen - no additional information is available");
     }
+    
+    private function findSourceFile($file) {
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
+            return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
+        } elseif (is_file($this->module_path . '/Files/' . $file)) {
+            return $this->module_path . '/Files/' . $file;
+        } else {
+            $this->loggerInstance->debug(2, "requested file $file does not exist\n");
+            return(FALSE);
+        }
+    }
 
     /**
      *  Copy a file from the module location to the temporary directory.
@@ -274,13 +285,9 @@ abstract class DeviceConfig extends \core\common\Entity {
             $output_name = $source_name;
         }
         $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $source_name;
-        } else {
-            $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
-            return(FALSE);
+        $source = $this->findSourceFile($source_name);
+        if ($source === FALSE) {
+            return FALSE;
         }
         $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
@@ -324,13 +331,9 @@ abstract class DeviceConfig extends \core\common\Entity {
         $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
         $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
-        $source = "";
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $source_name;
-        }
-        if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable
+        $source = $this->findSourceFile($source_name);
+        
+        if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
             include($source);
         }
         $output = ob_get_clean();

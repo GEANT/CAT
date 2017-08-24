@@ -39,10 +39,10 @@ class Logging {
      * write debug messages to the log, if the debug level is high enough
      *
      * @param int $level the debug level of the message that is to be logged
-     * @param string $text the text to be logged
+     * @param mixed $stuff the stuff to be logged (via print_r)
      * @return void
      */
-    public function debug($level, $text) {
+    public function debug($level, $stuff) {
         if (CONFIG['DEBUG_LEVEL'] < $level) {
             return;
         }
@@ -56,7 +56,7 @@ class Logging {
             $line = $backtrace[1]['line'] ?? "no line";
             $output .= " [$file / $function / $line] ";
         }
-        $output .= print_r($text, TRUE);
+        $output .= print_r($stuff, TRUE);
         $this->writeToFile("debug.log", $output);
 
         return;

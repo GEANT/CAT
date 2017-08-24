@@ -17,8 +17,6 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/common.inc.php");
-
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $loggerInstance = new \core\common\Logging();

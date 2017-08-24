@@ -23,7 +23,6 @@
  *
  */
 require_once(dirname(dirname(dirname((dirname(dirname(__FILE__)))))) . "/config/_config.php");
-require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/admin/inc/common.inc.php");
 
 $langObject = new \core\common\Language();
 $langObject->setTextDomain("web_user");

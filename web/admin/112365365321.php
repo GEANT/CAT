@@ -28,7 +28,6 @@ $Tests = [
 ];
 ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
-require_once("inc/common.inc.php");
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
     $Tests[] = 'makensis';
