@@ -291,6 +291,9 @@ class OptionParser {
                             $contentValid = $this->validator->boolean($listOfEntries[$varName]);
                             if ($contentValid) {
                                 $content = "on";
+                            } else {
+                                $bad[] = $objValue;
+                                continue 3;
                             }
                             break;
                         }
