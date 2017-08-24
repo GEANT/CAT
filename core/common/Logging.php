@@ -56,7 +56,11 @@ class Logging {
             $line = $backtrace[1]['line'] ?? "no line";
             $output .= " [$file / $function / $line] ";
         }
-        $output .= print_r($stuff, TRUE);
+        if (is_string($stuff)) {
+            $output .= $stuff;
+        } else {
+            $output .= var_export($stuff, TRUE);
+        }
         $this->writeToFile("debug.log", $output);
 
         return;
