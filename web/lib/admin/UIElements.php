@@ -115,7 +115,7 @@ class UIElements {
         $find = array_keys($displayNames, $input, TRUE);
 
         if (count($find) == 0) { // this is an error! throw an Exception
-            throw new Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
+            throw new \Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
         return $find[0];
     }
