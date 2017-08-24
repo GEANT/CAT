@@ -210,7 +210,7 @@ class OptionParser {
                     case 'core\\ProfileRADIUS':
                         if ($device !== NULL) {
                             $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
-                        } elseif ($eaptype != NULL) {
+                        } elseif ($eaptype !== NULL) {
                             $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
                         } else {
                             $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
@@ -357,7 +357,6 @@ class OptionParser {
      * @param array $filesArray incoming attribute names and values as submitted with $_FILES
      * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
      * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
-     * @param bool $silent determines whether a HTML form with the result of processing should be output or not
      * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
      * @throws Exception
      */
