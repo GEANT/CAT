@@ -57,10 +57,10 @@ class OptionParser {
      * Verifies whether an incoming upload was actually valid data
      * 
      * @param string $optiontype for which option was the data uploaded
-     * @param string $filename the temp file name on the filesystem where the uploaded data resides
+     * @param string $incomingBinary the uploaded data
      * @return boolean whether the data was valid
      */
-    private function checkUploadSanity(string $optiontype, string $filename) {
+    private function checkUploadSanity(string $optiontype, string $incomingBinary) {
         switch ($optiontype) {
             case "general:logo_file":
             case "fed:logo_file":
@@ -68,7 +68,7 @@ class OptionParser {
                 // we check logo_file with ImageMagick
                 $image = new \Imagick();
                 try {
-                    $image->readImageBlob($filename);
+                    $image->readImageBlob($incomingBinary);
                 } catch (\ImagickException $exception) {
                     echo "Error" . $exception->getMessage();
                     return FALSE;
@@ -78,7 +78,7 @@ class OptionParser {
             case "eap:ca_file":
                 // echo "Checking $optiontype with file $filename";
                 $func = new \core\common\X509;
-                $cert = $func->processCertificate($filename);
+                $cert = $func->processCertificate($incomingBinary);
                 if ($cert) {
                     return TRUE;
                 }
@@ -86,10 +86,10 @@ class OptionParser {
                 return FALSE;
             case "support:info_file":
                 $info = new \finfo();
-                $filetype = $info->buffer($filename, FILEINFO_MIME_TYPE);
+                $filetype = $info->buffer($incomingBinary, FILEINFO_MIME_TYPE);
 
                 // we only take plain text files in UTF-8!
-                if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $filename) !== FALSE) {
+                if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $incomingBinary) !== FALSE) {
                     return TRUE;
                 }
                 return FALSE;
@@ -125,6 +125,10 @@ class OptionParser {
                         }
                         $bindata = \core\common\OutsideComm::downloadFile($optionPayload['content']);
                         unset($options[$index]);
+                        if ($bindata === FALSE) {
+                            $bad[] = $name;
+                            break;
+                        }
                         if ($this->checkUploadSanity($finalOptionname, $bindata)) {
                             $good[] = $name;
                             $options[] = [$finalOptionname => ['lang' => NULL, 'content' => base64_encode($bindata)]];
@@ -376,7 +380,8 @@ class OptionParser {
                         } else if (isset($listOfEntries["$objId-2"]) && ($listOfEntries["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
                             $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $listOfEntries["$objId-2"]);
-                            if (!$this->checkUploadSanity($objValue, $rawContent)) {
+                            
+                            if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
                                 $bad[] = $objValue;
                                 continue 2;
                             }
