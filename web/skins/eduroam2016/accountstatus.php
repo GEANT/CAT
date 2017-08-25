@@ -1,204 +1,104 @@
 <?php
-/*
- * ******************************************************************************
- * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
- * and GN4-2 consortia
- *
- * License: see the web/copyright.php file in the file structure
- * ******************************************************************************
- */
-?>
-<?php
-/**
- * Front-end for the user GUI
- *
- * @author Tomasz Wolniewicz <twoln@umk.pl>
- * @package UserGUI
- */
 error_reporting(E_ALL | E_STRICT);
 
-require_once("resources/inc/header.php");
-require_once("resources/inc/footer.php");
+$Gui->langObject->setTextDomain("web_user");
 
-$languageInstance = new \core\Language();
-$languageInstance->setTextDomain("web_user");
-$loggerInstance = new \core\Logging();
-$loggerInstance->debug(4, "\n---------------------- accountstatus.php START --------------------------\n");
-$loggerInstance->debug(4, $operatingSystem, true);
+function defaultPagePrelude($guiObject, $pagetitle, $authRequired = TRUE) {
+    if ($authRequired === TRUE) {
+    }
+    $ourlocale = $guiObject->langObject->getLang();
+    header("Content-Type:text/html;charset=utf-8");
+    echo "<!DOCTYPE html>
+          <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
+          <head lang='" . $ourlocale . "'>
+          <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
+    $cssUrl = $guiObject->skinObject->findResourceUrl("CSS","cat.css.php");
 
-defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
-echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", true) . "cat-user.css' />";
+    echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
+    echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
+}
+
+
+
+
+$Gui->loggerInstance->debug(4, "\n---------------------- index.php START --------------------------\n");
+
+defaultPagePrelude($Gui,CONFIG['APPEARANCE']['productname_long'], FALSE);
+
 ?>
+<script type="text/javascript">ie_version = 0;</script>
+<!--[if IE]>
+<script type="text/javascript">ie_version=1;</script>
+<![endif]-->
+<!--[if IE 7]>
+<script type="text/javascript">ie_version=7;</script>
+<![endif]-->
+<!--[if IE 8]>
+<script type="text/javascript">ie_version=8;</script>
+<![endif]-->
+<!--[if IE 9]>
+<script type="text/javascript">ie_version=9;</script>
+<![endif]-->
+<!--[if IE 10]>
+<script type="text/javascript">ie_version=10;</script>
+<![endif]-->
+<!-- JQuery -->
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js");?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate-1.2.1.js");?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js");?>"></script>
+<!-- JQuery -->
+<script type="text/javascript">
+    var recognisedOS = '';
+    var downloadMessage;
+<?php
+$Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
+if ($operatingSystem) {
+    print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
+include("user/js/aa_js.php");
+}
+?>
+var lang = "<?php echo($Gui->langObject->getLang()) ?>";
+</script>
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
+
 </head>
 <body>
-    <div id="heading">
-        <?php
-        print '<img src="' . $skinObject->findResourceUrl("IMAGES") . 'consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
-        print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
-        print '<h1 style="padding-bottom:0px; height:1em;">' . sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']) . '</h1>
-<h2 style="padding-bottom:0px; height:0px; vertical-align:bottom;">' . CONFIG['APPEARANCE']['productname_long'] . '</h2>';
-        echo '<table id="lang_select"><tr><td>';
-        echo _("View this page in");
-        ?>
-        <?php
-        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
-            echo "<a href='javascript:changeLang(\"$lang\")'>" . $value['display'] . "</a> ";
-        }
-        echo '</td><td style="text-align:right;padding-right:20px"><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $languageInstance->getLang() . '">' . _("Start page") . '</a></td></tr></table>';
-        ?>
-    </div> <!-- id="heading" -->
+<div id="wrap">
+    <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo $_SERVER['SCRIPT_NAME'] ?>/">
     <?php
-    if (!$statusInfo['token']) {
-        // user came to page without a token.
-        // use client cert Apache Voodoo to find out the certificate serial number
-        // of the user, then the token belonging to that cert, and then use the
-        // token info for the normal status page display
-        // $cleanToken = "123abc";
-    }
+    include "div_heading.php";
+    print '<div id="main_page">';
     ?>
-    <div id="user_info" style='min-height: 500px;'>    
-        <?php
-        if ($statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED || $statusInfo['tokenstatus']['status'] == \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED) {
-            $loggerInstance->debug(4, "IDP ID = " . $statusInfo['idp']->identifier);
-            //IdP and federatiopn logo, if present
-            ?>
-            <table style='position: absolute; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
-                <tr>
-                    <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE"); ?>user/API.php?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='<?php echo sprintf(_("%s Logo"),$skinObject->nomenclature_fed);?>'/></td>
-                </tr>
-                <tr>
-                    <td><?php echo $statusInfo['idp']->name; ?></td>
-                    <td><?php echo sprintf(_("%s %s in %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'], $statusInfo['fed']->name); ?></td>
-                </tr>
-            </table>
-            <?php
-        }
-        ?>
-
-
-        <div style='max-width: 700px;'>
-            <span style="max-width: 700px;">
-                <?php
-                echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</h1>";
-                $errorCode = $_REQUEST['errorcode'] ?? "";
-                switch ($errorCode) {
-                    case "GENERATOR_CONSUMED":
-                        echo UI_error(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
-                        break;
-                    default:
-                }
-                switch ($statusInfo['tokenstatus']['status']) {
-                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
-                        echo "<p>" . _("Your invitation token is valid.") . " ";
-                        if (!$statusInfo["OS"]) {
-                            echo _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
-                            break;
-                        }
-
-                        $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
-                        $dev->device->calculatePreferredEapType([\core\EAP::EAPTYPE_SILVERBULLET]);
-                        if ($dev->device->selectedEap == []) {
-                            echo sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
-                            break;
-                        }
-
-                        echo sprintf(_("You can now create an installation program with personalised %s login information."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</p>";
-                        echo "<p>" . sprintf(_("The installation program is <b>strictly personal</b>, to be used <b>only on the device</b> you are currently using (%s), and it is <b>not permitted to share</b> this information with anyone. When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator."), $statusInfo['OS']['display']) . "</p>";
-                        echo "<p>" . _("During the installation process, you will be asked for the following import password. This only happens once during the installation. You do not have to write down this password.") . "</p>";
-
-                        $importPassword = \core\ProfileSilverbullet::random_str(6);
-                        $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
-
-                        echo "<h2>" . sprintf(_("Import Password: %s"), $importPassword) . "</h2>";
-                        echo "<form action='user/sb_download.php' method='POST'>";
-                        echo "<input type='hidden' name='profile' value='" . $statusInfo['profile']->identifier . "'/>";
-                        echo "<input type='hidden' name='idp' value='" . $statusInfo['profile']->institution . "'/>";
-                        $_SESSION['individualtoken'] = $cleanToken;
-                        $_SESSION['importpassword'] = $importPassword;
-                        echo "<input type='hidden' name='device' value='" . $statusInfo['OS']['device'] . "'/>";
-                        echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
-                        echo "<button class='signin signin_large' id='user_button1' type='submit' style='height:80px;'><span id='user_button'>" . sprintf(_("Click here to download your %s installer!"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</span></button>";
-                        echo "</form>";
-                        break;
-                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:
-                        echo "<h2>Invitation link expired</h2>";
-                        echo "<p>" . sprintf(_("Unfortunately, the invitation link you just used is too old. The eduroam sign-up invitation was valid until %s. You cannot use this link any more. Please ask your administrator to issue you a new invitation link."), $statusInfo['tokenstatus']['expiry']) . "</p>";
-                        echo "<p>Below is all the information about your account's other login details, if any.</p>";
-// do NOT break, display full account info instead (this was a previously valid token after all)
-                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED:
-                        echo "<h2>" . _("We have the following information on file for you:") . "</h2>";
-                        $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
-                        $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
-                        echo "<table>";
-                        $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
-                        foreach ($categories as $category) {
-
-                            switch ($category) {
-                                case \core\ProfileSilverbullet::SB_CERTSTATUS_VALID:
-                                    $categoryText = _("Current login tokens");
-                                    $color = "#000000";
-                                    break;
-                                case \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
-                                    $categoryText = _("Previous login tokens");
-                                    $color = "#999999";
-                                    break;
-                                case \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
-                                    $categoryText = _("Revoked login tokens");
-                                    $color = "#ff0000";
-                                    break;
-                                default:
-                                    continue;
-                            }
-                            $categoryCount = 0;
-                            $categoryText = "<tr style='color:$color;'><td colspan=3><h2>" . $categoryText;
-
-                            $categoryText .= "</h2></td></tr>";
-                            $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Expiry Date") . "</th></tr>";
-                            foreach ($userdata as $oneCredential) {
-                                if ($oneCredential['cert_status'] == $category) {
-                                    $categoryCount++;
-                                    $categoryText .= "<tr style='color:$color;'>";
-                                    $categoryText .= "<td>" . $oneCredential['cert_name'] . "</td>";
-                                    $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
-                                    $categoryText .= "<td>" . $oneCredential['cert_serial'] . "</td>";
-                                    $categoryText .= "<td>" . $oneCredential['cert_expiry'] . "</td>";
-                                    $categoryText .= "</tr>";
-                                }
-                            }
-                            if ($categoryCount > 0) {
-                                echo $categoryText;
-                            }
-                        }
-                        echo "</table>";
-                        break;
-                    case \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID:
-                        echo "<h2>" . _("Account information not found") . "</h2>";
-                        echo "<p>" . _("The invitation link you followed does not map to any invititation we have on file.") . "</p><p>" . _("You should use the exact link you got during sign-up to come here. Alternatively, if you have a valid eduroam login token already, you can visit this page and Accept the question about logging in with a client certificate (select a certificate with a name ending in '...hosted.eduroam.org').");
-                }
-                ?>
-            </span>
-        </div>
+    <div id="info_overlay"> <!-- device info -->
+        <div id="info_window"></div>
+        <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
     </div>
-    <div class='footer' id='footer' style="display:block;">
-        <table style='width:100%'>
-            <tr>
-                <td style="padding-left:20px; text-align:left">
-                    <?php
-                    echo $Gui->CAT_COPYRIGHT;
-                    ?>
-                </td>
-                <td style="padding-left:80px; text-align:right;">
-                    <?php
-                    if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-                        echo attributionEurope();
-                    } else {
-                        echo "&nbsp;";
-                    }
-                    ?>
-                </td>
-            </tr>
-        </table>
+    <div id="main_menu_info" style="display:none"> <!-- stuff triggered form main menu -->
+          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+          <div id="main_menu_content"></div>
     </div>
+       <div id="main_body">
+              <div id="front_page">
+</div>
+<div id="user_page">
+<div id="institution_name">
+    <span id="inst_name_span"><?php echo $statusInfo['idp']->name; ?></span>
+</div>
+<div> <!-- IdP logo, if present -->
+    <img id="idp_logo" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","empty.png")?>" alt="IdP Logo"/>
+</div>
+<div id="user_info"></div> <!-- this will be filled with the profile contact information -->
+<div id="devices" class="device_list">
+<?php                            include "div_guess_os.php"; ?>
+            </div> <!-- id="user_page" -->
+      </div>
+    </div>
+
+
+
+
+    </form>
+    </div>
+<?php include "div_foot.php"; ?>
+
 </body>
-</html>

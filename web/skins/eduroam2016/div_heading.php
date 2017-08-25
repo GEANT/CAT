@@ -11,38 +11,43 @@ foreach (CONFIG['LANGUAGES'] as $lang => $value) {
 }
 
 
+$visibility = $visibility ?? 'all';
 
 $menu = new Menu([
     ['id'=>'start',
-     'text'=>_("Start page")],
+     'text'=>_("Start page"),
+     'visibility' => 'index'],
     ['id'=>'about',
      'text'=>_("About"),'link'=>'','submenu'=>[
             ['text'=>sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
              'catInfo'=>['about_cat',sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
-            ['text'=>sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
-             'link'=>CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
+            ['text'=>sprintf(_("About %s"), CONFIG['CONSORTIUM']['name']),
+             'link'=>CONFIG['CONSORTIUM']['homepage']],
         ]],
     ['id'=>'lang',
-     'text'=>_("Language"), 'submenu'=>$langsArray],
+     'text'=>_("Language"), 'submenu'=>$langsArray,],
     ['id'=>'help',
      'text'=>_("Help"), 'submenu'=>[
-            ['text'=>sprintf(_("My %s is not listed"),$Gui->nomenclature_inst), 'catInfo'=>['idp_not_listed',_("FAQ")]],
-            ['text'=>_("My device is not listed"), 'catInfo'=>['device_not_listed',_("FAQ")]],
+            ['text'=>_("My institution is not listed"), 'catInfo'=>['idp_not_listed',_("FAQ")], 'visibility'=>'index'],
+            ['text'=>_("My device is not listed"), 'catInfo'=>['device_not_listed',_("FAQ")], 'visibility'=>'index'],
+            ['text'=>_("SB help item"),'visibility'=>'xxx'],
             ['text'=>_("What is eduroam"), 'catInfo'=>['what_is_eduroam',_("FAQ")]],
             ['text'=>_("FAQ"), 'catInfo'=>['faq',_("FAQ")]],
             ['text'=>_("Contact"), 'catInfo'=>['contact',_("FAQ")]],
         ]],
     ['id'=>'manage',
      'text'=>_("Manage"),'submenu'=>[
-            ['text'=>sprintf(_("%s admin access"),CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
-             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $Gui->nomenclature_inst)]],
+            ['text'=>sprintf(_("%s admin access"),CONFIG['CONSORTIUM']['name']),
+             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name'])]],
             ['text'=>_("Become a CAT developer"),
              'catInfo'=>['develop',_("Become a CAT developer")]],
             ['text'=>_("Documentation")],
-        ]],
+        ],
+     'visibility' => 'index'],
     ['id'=>'tou',
      'text'=>_("Terms of use"), 'catInfo'=>['tou','TOU']],
-    ]
+    ],
+    $visibility
 );
 ?>
 
