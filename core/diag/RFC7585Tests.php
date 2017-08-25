@@ -11,8 +11,6 @@
 
 namespace core\diag;
 
-use \Exception;
-
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 /**
