@@ -111,7 +111,7 @@ class Skinjob {
         }
 
         $validator = new \web\lib\common\InputValidation();
-        $url = "//" . $validator->hostname($_SERVER['HTTP_HOST']); // omitting http or https means "on same protocol"
+        $url = "//" . $validator->hostname($_SERVER['SERVER_NAME']); // omitting http or https means "on same protocol"
         if ($url === FALSE) {
             throw new Exception("We don't know our own hostname?!");
         }

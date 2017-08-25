@@ -260,7 +260,7 @@ class UserAPI extends CAT {
         if ($out == '/') {
             $out = '';
         }
-        return '//' . $_SERVER['HTTP_HOST'] . $out;
+        return '//' . $_SERVER['SERVER_NAME'] . $out;
     }
 
     /* JSON functions */

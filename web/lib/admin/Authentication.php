@@ -85,7 +85,7 @@ class Authentication {
 
         $as = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
 
-        $url = "//" . $_SERVER['HTTP_HOST'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
+        $url = "//" . $_SERVER['SERVER_NAME'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
 
         $as->logout([
             'ReturnTo' => $url,

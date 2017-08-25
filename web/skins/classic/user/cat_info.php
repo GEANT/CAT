@@ -76,7 +76,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
         $out .= sprintf(_("<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use behind captive portals (e.g. on a 'setup' SSID which only allows access to CAT for device configuration), the following hostnames need to be allowed for port TCP/443 in the portal:</p>"
                         . "<b><u>REQUIRED</u></b>"
                         . "<ul>"
-                        . "<li><b>%s</b> (the service itself)</li>"), CONFIG['APPEARANCE']['productname'], $validator->hostname($_SERVER['HTTP_HOST']));
+                        . "<li><b>%s</b> (the service itself)</li>"), CONFIG['APPEARANCE']['productname'], $validator->hostname($_SERVER['SERVER_NAME']));
         if (!empty(CONFIG['APPEARANCE']['webcert_CRLDP'])) {
             $out .= sprintf(ngettext("<li><b>%s</b> (the CRL Distribution Point for the site certificate), also TCP/80</li>", "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also TCP/80</li>", count(CONFIG['APPEARANCE']['webcert_CRLDP'])), implode(", ", CONFIG['APPEARANCE']['webcert_CRLDP']));
         }
