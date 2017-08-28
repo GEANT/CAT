@@ -50,6 +50,7 @@ class XMLElement {
             \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
             \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
             \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate'],
         ]
     ];
 
@@ -204,9 +205,6 @@ class ClientSideCredential extends XMLElement {
             $element = XMLElement::$authMethodElements['client'][$this->EAPType];
             $objectVars = get_object_vars($this);
             $outputArray = [];
-            $loggerInstance = new \core\common\Logging();
-            $loggerInstance->debug(4, "EEE:" . $this->EAPType . ":\n");
-            $loggerInstance->debug(4, $element);
             foreach ($objectVars as $name => $value) {
                 if (in_array($name, $element)) {
                     $outputArray[$name] = $value;
