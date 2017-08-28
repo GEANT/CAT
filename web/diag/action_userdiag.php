@@ -19,8 +19,8 @@ $validator = new \web\lib\common\InputValidation();
 echo $deco->defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
 echo $deco->productheader("USER");
 ?>
-<h1><?php printf(_("eduroam authentication diagnostics"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']); ?></h1>
-<p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']); ?></p>
+<h1><?php _("Authentication Diagnostics"); ?></h1>
+<p><?php _("We are sorry to hear that you have problems connecting to the network. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."); ?></p>
 <p><?php
 echo _("Please follow the instructions below.");
 $global = new \core\Federation();
@@ -291,7 +291,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                         $infrastructure_warned = TRUE;
                     case "REACHABLE": // only complain if ALIEN
                         if ($problem['DETAIL'] == "REALM_NOT_IN_DB") {
-                            $warning_html .= "<div class='problemdescription'>" . sprintf(_("This realm is not a known %s participant. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</div>";
+                            $warning_html .= "<div class='problemdescription'>" . _("This realm is not a known participating institution. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead.") . "</div>";
                             $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration.") . "</div>";
                         }
                         // drill down further: are there any certprobs of critical

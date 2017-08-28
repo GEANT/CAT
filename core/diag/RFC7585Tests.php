@@ -206,7 +206,7 @@ class RFC7585Tests extends AbstractTest {
         $formatErrors = [];
 // format of NAPTRs is consortium specific. eduroam below; others need
 // their own code
-        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
+        if (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] == "x-eduroam:radius.tls") {
             foreach ($this->NAPTR_records as $edupointer) {
 // must be "s" type for SRV
                 if ($edupointer["flags"] != "s" && $edupointer["flags"] != "S") {
