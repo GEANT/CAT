@@ -102,7 +102,7 @@ switch ($operationMode) {
         $prettyprintname = $idp->name;
         $newtoken = $mgmt->createToken($fedadmin, $mailaddress, $idp);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP " . $idp->identifier . " - Token created for " . $mailaddress);
-        $introtext = sprintf(_("an administrator of the %s Identity Provider \"%s\" has invited you to manage the IdP together with him."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s of the %s %s \"%s\" has invited you to manage the %s together with him."), $uiElements->nomenclature_fed, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst, $prettyprintname, $uiElements->nomenclature_inst) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         break;
     case OPERATION_MODE_NEWUNLINKED:
         $redirect_destination = "../overview_federation.php?";
@@ -116,7 +116,7 @@ switch ($operationMode) {
         }
         $federation = $validator->Federation($newcountry);
         $prettyprintname = $newinstname;
-        $introtext = sprintf(_("a %s operator has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $uiElements->nomenclature_inst, $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s %s has invited you to manage the future %s  \"%s\" (%s)."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_fed, $uiElements->nomenclature_inst, $prettyprintname, $newcountry) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // send the user back to his federation overview page, append the result of the operation later
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $mailaddress, $newinstname, 0, $newcountry);
@@ -150,7 +150,7 @@ switch ($operationMode) {
             }
         }
         // fill the rest of the text
-        $introtext = sprintf(_("a %s operator has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $uiElements->nomenclature_inst, $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
+        $introtext = sprintf(_("a %s %s has invited you to manage the %s  \"%s\"."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_fed, $uiElements->nomenclature_inst, $prettyprintname) . " " . sprintf(_("This invitation is valid for 24 hours from now, i.e. until %s."), strftime("%x %X", time() + 86400));
         // do the token creation magic
         $newtoken = $mgmt->createToken(TRUE, $mailaddress, $prettyprintname, $newexternalid);
         $loggerInstance->writeAudit($_SESSION['user'], "NEW", "IdP FUTURE  - Token created for " . $mailaddress);
@@ -209,7 +209,7 @@ $proto" . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . 
         
 " . sprintf(_("Sincerely,
 
-Your friendly folks from %s Operations"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+Your friendly folks from %s Operations"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 
 $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?

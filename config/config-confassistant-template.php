@@ -52,6 +52,7 @@ const CONFIG_CONFASSISTANT = [
      */
     'CONSORTIUM' => [
         'name' => 'eduroam',
+        'display_name' => 'eduroam®',
         'ssid' => ['eduroam'],
         'tkipsupport' => FALSE,
         'homepage' => 'http://www.eduroam.org',

@@ -218,8 +218,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $olddomain = $this->languageInstance->setTextDomain("core");
-        $support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
-        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+        $support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {

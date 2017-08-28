@@ -133,7 +133,7 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</p>
+            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>
           <ul>";
             echo "<li>";
             echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";

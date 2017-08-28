@@ -224,7 +224,7 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
             $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
         }
         unset($this);

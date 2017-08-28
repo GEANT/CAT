@@ -80,7 +80,7 @@ $Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-$downloadMessage = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+$downloadMessage = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 print 'downloadMessage = "' . $downloadMessage . '";';
 //TODO modify this based on OS detection
 if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
@@ -135,13 +135,13 @@ include("user/js/cat_js.php");
                             <table id="left_menu">
                                 <?php
                                 $menu = new Menu([
-                                    "about_consortium" => [sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']), 'padding-bottom:20px;font-weight: bold; '],
+                                    "about_consortium" => [sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']), 'padding-bottom:20px;font-weight: bold; '],
                                     "about" => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
                                     "tou" => sprintf(_("Terms of use")),
                                     "faq" => sprintf(_("FAQ")),
                                     "report" => sprintf(_("Report a problem")),
                                     "develop" => sprintf(_("Become a CAT developer")),
-                                    "admin" => [sprintf(_("%s admin:<br>manage your %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $Gui->nomenclature_inst), 'padding-top:30px;'],
+                                    "admin" => [sprintf(_("%s admin:<br>manage your %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $Gui->nomenclature_inst), 'padding-top:30px;'],
                                 ]);
 
                                 $menu->printMenu();
@@ -157,14 +157,14 @@ include("user/js/cat_js.php");
                                 <tr>
                                     <td id="slides" style="background: #fff url(<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "gradient-bg.png"); ?>) repeat-x; height:272px; border-radius: 16px; width: 100%; padding-left:20px;">
                                         <div>
-                                            <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) ?></span>
+                                            <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) ?></span>
                                             <span id="line2"></span>
                                             <span id="line3"></span>
                                             <span id="line4"><?php echo sprintf(_("Custom built for your %s"),$Gui->nomenclature_inst) ?></span>
                                             <span id="line5">
                                                 <?php
                                                 if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']) && CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'] != "") {
-                                                    echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
+                                                    echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
                                                 }
                                                 ?>
                                             </span>
@@ -178,7 +178,7 @@ include("user/js/cat_js.php");
                     </tr>
                     <tr>
                         <td id="user_button_td">
-                            <?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
+                            <?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
 
                         </td>
                     </tr>

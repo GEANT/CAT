@@ -462,7 +462,7 @@ $(".signin").DiscoJuice({
    "title":"<?php escaped_echo($cat->nomenclature_inst) ?>",
    "subtitle":"<?php escaped_echo(sprintf(_("Select your <strong>%s<\/strong>"),$cat->nomenclature_inst)) ?>",
    "textHelp": "<?php escaped_echo(sprintf(_("Help, my %s is not on the list"),$cat->nomenclature_inst)) ?>",
-   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your %s is not on the list, then nag them to add information to the %s database."),CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname'])); ?>",
+   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your %s is not on the list, then nag them to add information to the %s database."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname'])); ?>",
    "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php escaped_echo(sprintf(_("Show %ss in"), $cat->nomenclature_inst)) ?>",
    "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",

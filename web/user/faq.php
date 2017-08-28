@@ -17,23 +17,23 @@ array_push($FAQ, [
 
 array_push($FAQ, [
     'title' => sprintf(_("What can I do to get my %s listed?"),$skinObject->nomenclature_inst),
-    'text' => sprintf(_("Contact %s administrators at your %s and complain. It will take at most one hour of their time to get things done."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $skinObject->nomenclature_inst)
+    'text' => sprintf(_("Contact %s administrators at your %s and complain. It will take at most one hour of their time to get things done."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $skinObject->nomenclature_inst)
 ]);
 
 array_push($FAQ, [
-    'title' => sprintf(_("My device is not listed! Does that mean I can't do %s?"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
-    'text' => sprintf(_("No. The CAT tool can only support Operating Systems which can be automatically configured in some way. Many other devices can still be used with %s, but must be configured manually. Please contact your %s Identity Provider to get help in setting up such a device."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name'])
+    'title' => sprintf(_("My device is not listed! Does that mean I can't do %s?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+    'text' => sprintf(_("No. The CAT tool can only support Operating Systems which can be automatically configured in some way. Many other devices can still be used with %s, but must be configured manually. Please contact your %s Identity Provider to get help in setting up such a device."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
 ]);
 
 array_push($FAQ, [
-    'title' => sprintf(_("I can connect to %s simply by providing username and password, what is the point of using an installer?"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
+    'title' => sprintf(_("I can connect to %s simply by providing username and password, what is the point of using an installer?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
     'text' => sprintf(_("When you are connecting from an unconfigured device your security is at risk. The very point of preconfiguration is to set up security, when this is done, your device will first confirm that it talks to the correct authentication server and will never send your password to an untrusted one."))
 ]);
 
 if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") {
     array_push($FAQ, [
-        'title' => sprintf(_("What is this eduroam thing anyway?")),
-        'text' => sprintf(_("eduroam is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all eduroam hotspots on the planet. There are several million eduroam users already, enjoying free internet access on more than 6.000 hotspots! Visit <a href='http://www.eduroam.org'>the eduroam homepage</a> for more details."))
+        'title' => sprintf(_("What is this %s thing anyway?"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+        'text' => sprintf(_("%s is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all %s hotspots on the planet. There are several million %s users already, enjoying free internet access on more than 6.000 hotspots! Visit <a href='http://www.eduroam.org'>the %s homepage</a> for more details."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
     ]);
 }
 
@@ -48,8 +48,8 @@ array_push($FAQ, [
 ]);
 
 array_push($FAQ, [
-    'title' => sprintf(_("I can see %s network and my device is configured but it does not connect, what can be the cause?"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']),
-    'text' => sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your %s and report the problem, the administrators should be able to trace your connections."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $skinObject->nomenclature_inst)
+    'title' => sprintf(_("I can see %s network and my device is configured but it does not connect, what can be the cause?"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+    'text' => sprintf(_("There can be a number of different reasons. The network you see may not be a genuine %s one and your device silently drops the connection attempt; there may be something wrong with the configuration of the network; your account may have expired; there may be a connection problem with your home authentication server; you may have broken the regulations of the network you are using and have been refused access as a consequence. You should contact your %s and report the problem, the administrators should be able to trace your connections."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $skinObject->nomenclature_inst)
 ]);
 
 array_push($FAQ, [

@@ -27,8 +27,8 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
      */
     public function __construct($commandToken, $context){
         parent::__construct($commandToken, $context);
-        $this->subject = sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
-        $this->body = sprintf(_("Hello!\n\nA new %s access credential has been created for you by your network administrator.\n\nPlease follow the following link with the device you want to enable for eduroam to get a custom %s installation program just for you:"), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+        $this->subject = sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->body = sprintf(_("Hello!\n\nA new %s access credential has been created for you by your network administrator.\n\nPlease follow the following link with the device you want to enable for eduroam to get a custom %s installation program just for you:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->body .= "\n%s\n\n"; // gets replaced with the token value by getBody()
         $this->body .= sprintf(_("Regards,\n\n%s"), CONFIG['APPEARANCE']['productname_long']);
     }

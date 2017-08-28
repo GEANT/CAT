@@ -95,7 +95,7 @@ class Device_W8 extends WindowsCommon {
     public function writeDeviceInfo() {
         $ssidCount = count($this->attributes['internal:SSID']);
         $out = "<p>";
-        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $out .= "<p>";
         if ($ssidCount > 1) {
             if ($ssidCount > 2) {
@@ -440,8 +440,8 @@ class Device_W8 extends WindowsCommon {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
         $fcontents .= '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"

@@ -165,7 +165,7 @@ $user = new \core\User($_SESSION['user']);
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (CONFIG['DB']['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']) . "</th>";
+                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</th>";
             }
             ?>
             <th><?php echo _("Administrator Management"); ?></th>
