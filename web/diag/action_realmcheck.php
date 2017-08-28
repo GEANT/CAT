@@ -507,10 +507,10 @@ if ($error_message) {
                             echo _("This realm has no NAPTR records.");
                             break;
                         case \core\diag\RFC7585Tests::RETVAL_ONLYUNRELATEDNAPTR:
-                            printf(_("This realm has NAPTR records, but none are associated with %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+                            echo _("This realm has NAPTR records, but none are related to this roaming consortium.");
                             break;
                         default: // if none of the possible negative retvals, then we have matching NAPTRs
-                            printf(_("This realm has %d %s NAPTR records."), $naptr, CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+                            printf(_("This realm has %d NAPTR records relating to this roaming consortium."), $naptr);
                     }
                     echo "</td></tr>";
 
@@ -621,7 +621,7 @@ if ($error_message) {
             <fieldset class="option_container" id="static_tests">
                 <legend><strong> <?php echo _("STATIC connectivity tests"); ?> </strong> </legend>
                 <?php
-                echo sprintf(_("This check sends a request for the realm through various entry points of the %s infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation."), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
+                echo _("This check sends a request for the realm through various entry points of the roaming consortium infrastructure. The request will contain the 'Operator-Name' attribute, and will be larger than 1500 Bytes to catch two common configuration problems.<br/>Since we don't have actual credentials for the realm, we can't authenticate successfully - so the expected outcome is to get an Access-Reject after having gone through an EAP conversation.");
                 print "<p>";
 
                 foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
