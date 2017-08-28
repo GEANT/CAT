@@ -51,7 +51,12 @@ const CONFIG_CONFASSISTANT = [
      * @var array
      */
     'CONSORTIUM' => [
+        // for technical usages inside the product and things in installers not 
+        // reaching the human eye. Please keep this ASCII only. There are some
+        // code paths in the product which are only taken when the value is "eduroam"
         'name' => 'eduroam',
+        // pretty-print version of the consortium name, for places where this is
+        // presented to actual humans.
         'display_name' => 'eduroam®',
         'ssid' => ['eduroam'],
         'tkipsupport' => FALSE,
