@@ -46,6 +46,7 @@ build:
               [
               'CONSORTIUM' => [
               'name' => 'eduroam',
+              'display_name' => 'eduroam®',
               'nomenclature_federation' => 'National Roaming Operator',
               'nomenclature_institution' => 'Identity Provider',
               ],
