@@ -8,20 +8,31 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
 namespace web\lib\user;
 
 class Gui extends \core\UserAPI {
+
+    /**
+     * various pre-translated UI texts
+     * 
+     * @var TextTemplates
+     */
+    public $textTemplates;
+
     public function __construct() {
         $validator = new \web\lib\common\InputValidation();
+        $this->textTemplates = new TextTemplates();
         parent::__construct();
         if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preference
             $idp = $validator->IdP($_REQUEST['idp']);
             $fed = $validator->Federation($idp->federation);
             $fedskin = $fed->getAttributes("fed:desired_skin");
         }
-        $this->skinObject = new \web\lib\user\Skinjob( $_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+        $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
         $this->langObject = new \core\common\Language();
-    }   
+    }
+
     public function defaultPagePrelude($pagetitle = CONFIG['APPEARANCE']['productname_long']) {
         $ourlocale = $this->langObject->getLang();
         header("Content-Type:text/html;charset=utf-8");
@@ -29,7 +40,7 @@ class Gui extends \core\UserAPI {
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
           <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-        $cssUrl = $this->skinObject->findResourceUrl("CSS","cat.css.php");
+        $cssUrl = $this->skinObject->findResourceUrl("CSS", "cat.css.php");
         echo "<link rel='stylesheet' media='screen' type='text/css' href='$cssUrl' />";
         echo "<title>" . htmlspecialchars($pagetitle) . "</title>";
         echo '<script type="text/javascript">ie_version = 0;</script>
@@ -54,4 +65,5 @@ class Gui extends \core\UserAPI {
     public $loggerInstance;
     public $skinObject;
     public $langObject;
+
 }

@@ -33,7 +33,7 @@ $Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-$downloadMessage = sprintf(_("Download your %s installer"), CONFIG['CONSORTIUM']['name']);
+$downloadMessage = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
 print 'downloadMessage = "' . $downloadMessage . '";';
 //TODO modify this based on OS detection
 if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {

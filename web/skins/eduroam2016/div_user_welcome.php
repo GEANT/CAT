@@ -1,9 +1,9 @@
 <div id="user_welcome"> <!-- this information is shown just pefore the download -->
-    <strong><?php echo _("Welcome aboard the eduroam® user community!") ?></strong>
+    <strong><?php echo $Gui->textTemplates->templates[web\lib\user\WELCOME_ABOARD_HEADING] ?></strong>
     <p>
     <span id="download_info"><?php
 /// the empty href is dynamically exchanged with the actual path by jQuery at runtime
-        echo _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
+        echo $Gui->textTemplates->templates[web\lib\user\WELCOME_ABOARD_DOWNLOAD];
     ?></span>
     <p>
     <?php printf(_("Dear user from %s,"), "<span class='inst_name'></span>") ?>

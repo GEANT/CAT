@@ -49,7 +49,7 @@ class Skinjob {
      * @var string
      */
     public $nomenclature_inst;
-
+    
     /**
      * Initialise the skin.
      * 
