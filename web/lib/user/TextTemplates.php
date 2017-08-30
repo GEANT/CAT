@@ -15,9 +15,17 @@ namespace web\lib\user;
  * prefix, the names simply get too long for comfort
  */
 
-const WELCOME_ABOARD_HEADING = 1000;
+const WELCOME_ABOARD_PAGEHEADING = 1000;
 const WELCOME_ABOARD_DOWNLOAD = 1001;
-    
+const WELCOME_ABOARD_HEADING = 1002;  
+const WELCOME_ABOARD_USAGE = 1003;
+const WELCOME_ABOARD_PROBLEMS = 1004;
+const WELCOME_ABOARD_BACKTODOWNLOADS = 1005;
+
+/**
+ * some of the texts we write are consortium-specific.
+ */
+const EDUROAM_WELCOME_ADVERTISING = 2000;
 
 /**
  * provides various translated texts which are hopefully of common interest for
@@ -30,7 +38,8 @@ class TextTemplates {
     /**
      * An array with lots of template texts. 
      * 
-     * HTML markup is used sparingly. Expect <br> <p> <strong> <a> but nothing else.
+     * HTML markup is used sparingly. Expect <a> <span> but nothing else. 
+     * Remember that you can get plain text by using strip_tags()
      * 
      * @var array
      */
@@ -40,7 +49,12 @@ class TextTemplates {
      * Initialises the texts.
      */
     public function __construct() {
-        $this->templates[WELCOME_ABOARD_HEADING] = sprintf(_("Welcome aboard the %s user community!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->templates[WELCOME_ABOARD_PAGEHEADING] = sprintf(_("Welcome aboard the %s user community!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[WELCOME_ABOARD_DOWNLOAD] = _("Your download will start shortly. In case of problems with the automatic download please use this direct <a href=''>link</a>.");
+        $this->templates[WELCOME_ABOARD_HEADING] = sprintf(_("Dear user from %s,"), "<span class='inst_name'></span>");
+        $this->templates[WELCOME_ABOARD_USAGE] = sprintf(_("Now that you have downloaded and installed a client configurator, all you need to do is find an %s hotspot in your vicinity and enter your user credentials (this is our fancy name for 'username and password' or 'personal certificate') - and be online!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->templates[WELCOME_ABOARD_PROBLEMS] = sprintf(_("Should you have any problems using this service, please always contact the helpdesk of %s. They will diagnose the problem and help you out. You can reach them via the means shown above."), "<span class='inst_name'></span>");
+        $this->templates[WELCOME_ABOARD_BACKTODOWNLOADS] = _("Back to downloads");
+        $this->templates[EDUROAM_WELCOME_ADVERTISING] = sprintf(_("we would like to warmly welcome you among the several million users of %s! From now on, you will be able to use internet access resources on thousands of universities, research centres and other places all over the globe. All of this completely free of charge!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
     }
 }

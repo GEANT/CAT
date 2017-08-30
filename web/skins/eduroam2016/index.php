@@ -27,6 +27,8 @@
     var recognisedOS = '';
     var downloadMessage;
 <?php
+include_once('Divs.php');
+$divs = new Divs($Gui);
 $visibility = 'index';
 $operatingSystem = $Gui->detectOS();
 $Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
@@ -88,7 +90,7 @@ include("user/js/cat_js.php");
             <?php  include "div_institution.php";
                    include "div_profiles.php"; ?>
                 <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
-                <?php  include "div_user_welcome.php"; ?>
+                <?php echo $divs->div_user_welcome() ?>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
                     <?php echo _("Your local administrator has specified a redirect to a local support page.<br>
                             When you click <b>Continue</b> this support page will be opened in a new window/tab."); ?>
