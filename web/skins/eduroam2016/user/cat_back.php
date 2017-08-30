@@ -65,7 +65,9 @@ switch ($action) {
         if ($id === FALSE || $profile === FALSE) { 
             exit;
         }
-        $API->downloadInstaller($id, $profile,$generatedfor);
+        $validator = new \web\lib\common\InputValidation();
+        $device = $validator->Device($id); // throws an Exception if unknown
+        $API->downloadInstaller($device, $profile,$generatedfor);
         break;
     case 'profileAttributes': // needs $id set
         if ($id === FALSE) { 

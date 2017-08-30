@@ -296,7 +296,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 if ($eapO->eap_type == NULL) {
                     $this->loggerInstance->debug(2, "EAP_type not set in the database\n");
                 } else {
-                    $this->saveDownloadDetails($this->institution, $this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
+                    $this->saveDownloadDetails($this->institution, $this->identifier, $device, $area, $this->languageInstance->getLang(), $eapO->eap_type);
                 }
             }
             return TRUE;
