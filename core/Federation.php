@@ -65,6 +65,7 @@ class Federation extends EntityWithDBProperties {
         $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->identifier);
         while ($result = mysqli_fetch_object($profilesList)) {
             foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
+                $countDevice = [];
                 $countDevice['ADMIN'] = 0;
                 $countDevice['SILVERBULLET'] = 0;
                 $countDevice['USER'] = 0;
