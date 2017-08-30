@@ -484,17 +484,20 @@ class UserAPI extends CAT {
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param \core\IdP $idpInstance IdP instance
+     * @param int $idp IdP identifier
      * @param int $disco flag turning on image generation for DiscoJuice
      * @param int $width maximum width of the generated image 
      * @param int $height  maximum height of the generated image
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendLogo(\core\IdP $idpInstance, $disco = FALSE, $width = 0, $height = 0) {
+    
+        public function getIdpLogo($idp, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
+        $validator = new \web\lib\common\InputValidation();
+        $idpInstance = $validator->IdP($idp);
         $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = 1;
@@ -504,16 +507,10 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
-        } elseif ($disco == 1) {
-            $width = 120;
-            $height = 40;
-            $resize = 1;
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idp . '_' . $width . '_' . $height . '.png';
         }
-
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idpInstance->identifier . "\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idp . "\n");
             $blob = file_get_contents($logoFile);
         } else {
             $logoAttribute = $idpInstance->getAttributes('general:logo_file');
@@ -525,10 +522,7 @@ class UserAPI extends CAT {
             $expiresString = $meta['expires'];
             $blob = $meta['blob'];
         }
-        header("Content-type: " . $filetype);
-        header("Cache-Control:max-age=36000, must-revalidate");
-        header($expiresString);
-        echo $blob;
+        return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
     /**
@@ -542,10 +536,12 @@ class UserAPI extends CAT {
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendFedLogo($fedIdentifier, $width = 0, $height = 0) {
+    public function getFedLogo($fedIdentifier, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
+        $validator = new \web\lib\common\InputValidation();
+        $federation = $validator->Federation($fedIdentifier);
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = 1;
             if ($height == 0) {
@@ -554,15 +550,13 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdenifier . '_' . $width . '_' . $height . '.png';
         }
-
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $fedIdentifier\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $fedIdentifier . "\n");
             $blob = file_get_contents($logoFile);
             $filetype = 'image/png';
         } else {
-            $federation = new Federation($fedIdentifier);
             $logoAttribute = $federation->getAttributes('fed:logo_file');
             if (count($logoAttribute) == 0) {
                 return;
@@ -572,12 +566,23 @@ class UserAPI extends CAT {
             $expiresString = $meta['expires'];
             $blob = $meta['blob'];
         }
-        header("Content-type: " . $filetype);
-        header("Cache-Control:max-age=36000, must-revalidate");
-        header($expiresString);
-        echo $blob;
+        return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
+
+    public function sendLogo($identifier, $type, $width = 0, $height = 0){
+        if ($type === "federation") {
+            $logo = $this->getFedLogo($identifier, $width, $height);
+        }
+        if ($type === "idp") {
+            $logo = $this->getIdpLogo($identifier, $width, $height);
+        }
+        header("Content-type: " . $logo['filetype']);
+        header("Cache-Control:max-age=36000, must-revalidate");
+        header($logo['expiresString']);
+        echo $logo['blob'];
+    }
+    
     public function locateUser() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];

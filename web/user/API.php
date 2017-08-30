@@ -32,12 +32,12 @@ const LISTOFACTIONS = [
     'listAllIdentityProviders',
     'listProfiles', // needs $idp set - abort if not
     'listDevices',
-    'generateInstaller', // needs $id and $profile set
-    'downloadInstaller', // needs $id and $profile set optional $generatedfor
-    'profileAttributes', // needs $id set
-    'sendLogo', // needs $id and $disco set
-    'sendFedLogo', // needs $id and $disco set
-    'deviceInfo', // needs $id and profile set
+    'generateInstaller', // needs $device and $profile set
+    'downloadInstaller', // needs $device and $profile set optional $generatedfor
+    'profileAttributes', // needs $profile set
+    'sendLogo', // needs $idp and $disco set
+    'sendFedLogo', // needs $federation
+    'deviceInfo', // needs $device and profile set
     'locateUser',
     'detectOS',
     'orderIdentityProviders',
@@ -51,27 +51,24 @@ if ($action === FALSE) {
 
 $idp = FALSE;
 $lang = FALSE;
-$fed = FALSE;
 $profile = FALSE;
 $federation = FALSE;
 $disco = FALSE;
-
-$id = $_REQUEST['id'] ?? FALSE;
-$device = $_REQUEST['device'] ?? FALSE;
+$device = FALSE;
 if (isset($_REQUEST['lang'])) {
     $lang = $validator->supportedLanguage($_REQUEST['lang']);
 }
+if (isset($_REQUEST['device'])) {
+    $device = $validator->Device($_REQUEST['device']);
+}
 if (isset($_REQUEST['idp'])) {
     $idp = $validator->IdP($_REQUEST['idp'])->identifier;
-}
-if (isset($_REQUEST['fed'])) {
-    $fed = $validator->Federation(strtoupper($_REQUEST['fed']));
 }
 if (isset($_REQUEST['profile'])) {
     $profile = $validator->Profile($_REQUEST['profile'])->identifier;
 }
 if (isset($_REQUEST['federation'])) {
-    $federation = $validator->Federation(strtoupper($_REQUEST['federation']));
+    $federation = $validator->Federation(strtoupper($_REQUEST['federation']))->identifier;
 }
 if (isset($_REQUEST['disco'])){
     $disco    = (int)$_REQUEST['disco'];
@@ -81,14 +78,9 @@ $width    = (int)($_REQUEST['width'] ?? 0);
 $height   = (int)($_REQUEST['height'] ?? 0);
 $sort     = (int)($_REQUEST['sort'] ?? 0);
 $location = $_REQUEST['location'] ?? 0;
-$api_version = (int)$_REQUEST['api_version'] ?? 1;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
 
-/* in order to provide bacwards compatibility, both $id and new named arguments are supported.
-  Support for $id will be removed in the futute
- */
-
-$API->version = $api_version;
+$API->version = 2;
 
 switch ($action) {
     case 'listLanguages':
@@ -98,82 +90,55 @@ switch ($action) {
         $API->JSON_listCountries();
         break;
     case 'listIdentityProviders':
-        if (!$federation) {
-            $federation = $id;
-        }
         $API->JSON_listIdentityProviders($federation);
         break;
     case 'listAllIdentityProviders':
         $API->JSON_listIdentityProvidersForDisco();
         break;
     case 'listProfiles': // needs $idp set - abort if not
-        if (!$idp) {
-            $idp = $id;
-        }
         if ($idp === FALSE) {
             exit;
         }
         $API->JSON_listProfiles($idp, $sort);
         break;
     case 'listDevices':
-        if (!$profile) {
-            $profile = $id;
-        }
         $API->JSON_listDevices($profile);
         break;
-    case 'generateInstaller': // needs $id and $profile set
-        if (!$device) {
-            $device = $id;
-        }
+    case 'generateInstaller': // needs $device and $profile set
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
         $API->JSON_generateInstaller($device, $profile);
         break;
-    case 'downloadInstaller': // needs $id and $profile set optional $generatedfor
-        if (!$device) {
-            $device = $id;
-        }
+    case 'downloadInstaller': // needs $device and $profile set optional $generatedfor
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
-        $validator = new \web\lib\common\InputValidation();
-        $cleanDevice = $validator->Device($device); // throws an Exception if unknown
-        $API->downloadInstaller($cleanDevice, $profile, $generatedfor);
+        $API->downloadInstaller($device, $profile, $generatedfor);
         break;
-    case 'profileAttributes': // needs $id set
-        if (!$profile) {
-            $profile = $id;
-        }
+    case 'profileAttributes': // needs $profile set
         if ($profile === FALSE) {
             exit;
         }
         $API->JSON_profileAttributes($profile);
         break;
-    case 'sendLogo': // needs $id and $disco set
-        if (!$idp) {
-            $idp = $id;
-        }
+    case 'sendLogo': // needs $idp and $disco set
         if ($idp === FALSE) {
             exit;
         }
-        $validator = new \web\lib\common\InputValidation();
-        $API->sendLogo($validator->IdP($idp), $disco, $width, $height);
-        break;
-    case 'sendFedLogo': // needs $id and $disco set
-        if (!$fed) {
-            $fed = $validator->Federation($id);
+        if ($disco == 1) {
+            $width = 120;
+            $height = 40;
         }
-        if (!$fed instanceof \core\Federation) {
+        $API->sendLogo($idp, "idp", $width, $height);
+        break;
+    case 'sendFedLogo': // needs $federation
+        if ($federation === FALSE) {
             exit;
         }
-        $validator = new \web\lib\common\InputValidation();
-        $API->sendFedLogo($fed->identifier, $width, $height);
+        $API->sendLogo($federation, "federation", $width, $height);
         break;        
-    case 'deviceInfo': // needs $id and profile set
-        if (!$device) {
-            $device = $id;
-        }
+    case 'deviceInfo': // needsdevice and profile set
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
@@ -186,9 +151,6 @@ switch ($action) {
         $API->JSON_detectOS();
         break;
     case 'orderIdentityProviders':
-        if (!$federation) {
-            $federation = $id;
-        }
         $coordinateArray = NULL;
         if ($location) {
             $coordinateArrayRaw = explode(':', $location);
@@ -197,5 +159,5 @@ switch ($action) {
         $API->JSON_orderIdentityProviders($federation, $coordinateArray);
         break;
 }
-$loggerInstance = new \core\common\Logging();
-$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");
+//$loggerInstance = new \core\common\Logging();
+//$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");
