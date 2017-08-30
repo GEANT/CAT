@@ -36,6 +36,10 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 - [FEATURE #14] PEAP credenials setting has been changed to use the new WLANSetEAPUserData utility
 - [FEATURE #15] allow separate deployments of the diagnostics vs. config assistant
                 functionality (split config into three parts)
+- [FEATURE #16] allow to configure a separate database user for end-user
+                frontend things. Usually the same as "INST" but on deployments
+                where end-user frontend and admin areas are on separate hosts
+                this can be useful for privilege separation
 
 Configuration parameter changes
 -------------------------------
@@ -53,6 +57,7 @@ Configuration parameter changes
 - [ADDED]     SMSSETTINGS['provider'] (only supported value: Nexmo)
 - [ADDED]     SMSSETTINGS['username']
 - [ADDED]     SMSSETTINGS['password']
+- [ADDED]     DB['FRONTEND']
 - [EXTERNAL]  for Managed IdP client cert auth for the accountstatus page:
               Apache: SSLCACertificateFile ... file with PEMs of client cert issuers ...
               Apache: SSLOptions StdEnvVars

@@ -33,6 +33,7 @@ build:
               'RADIUSTESTS' => [], 
               'DB' => [
               'INST' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
+              'FRONTEND' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
               'USER' =>     ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
               'EXTERNAL' => ['host' => '127.0.0.1', 'db' => 'cat', 'user' => 'root', 'pass' => NULL],
               'userdb-readonly' => FALSE,

@@ -80,6 +80,15 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     protected $idpAttributes;
 
+    /**
+     * This class also needs to handle frontend operations, so needs its own
+     * access to the FRONTEND datbase. This member stores the corresponding 
+     * handle.
+     * 
+     * @var DBConnection
+     */
+    protected $frontendHandle;
+    
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
         if (CONFIG['PATHS']['logdir']) {
             $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
@@ -117,7 +126,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
-        parent::__construct(); // we now have access to our database handle and logging
+        parent::__construct(); // we now have access to our INST database handle and logging
+        $this->frontendHandle = DBConnection::handle("FRONTEND");
         // first make sure that we are operating on numeric identifiers
         if (!is_numeric($profileIdRaw)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
@@ -246,8 +256,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function testCache($device) {
         $returnValue = NULL;
-        $escapedDevice = $this->databaseHandle->escapeValue($device);
-        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
+        $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $this->languageInstance->getLang());
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
@@ -277,11 +286,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return boolean TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
-        $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
-            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $this->languageInstance->getLang());
             // get eap_type from the downloads table
-            $eapTypeQuery = $this->databaseHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
+            $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $this->languageInstance->getLang());
             if (!$eapTypeQuery || !$eapO = mysqli_fetch_object($eapTypeQuery)) {
                 $this->loggerInstance->debug(2, "Error getting EAP_type from the database\n");
             } else {
@@ -307,7 +315,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $columnName = "downloads_silverbullet";
         }
         $returnarray = [];
-        $numbers = $this->databaseHandle->exec("SELECT device_id, SUM($columnName) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
+        $numbers = $this->frontendHandle->exec("SELECT device_id, SUM($columnName) AS downloads_user FROM downloads WHERE profile_id = ? GROUP BY device_id", "i", $this->identifier);
         while ($statsQuery = mysqli_fetch_object($numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }

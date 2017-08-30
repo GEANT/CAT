@@ -16,12 +16,11 @@
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 
-$dbHandle = \core\DBConnection::handle("INST");
-
 $downloads = dirname(dirname(__FILE__)) . "/var/installer_cache";
 $tm = time();
 
 $Cache = [];
+$dbHandle = \core\DBConnection::handle("FRONTEND");
 $result = $dbHandle->exec("SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
 while ($r = mysqli_fetch_row($result)) {
     $e = explode('/', $r[0]);

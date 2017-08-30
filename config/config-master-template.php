@@ -189,11 +189,27 @@ const CONFIG = [
      * @var array
      */
     'DB' => [
+        // this slice of DB use will deal with all tables in the schema except
+        // downloads and user_options. If you give the user below exclusively
+        // read-only access, all data manipulation will fail; only existing state
+        // can be worked with.
         'INST' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
             'pass' => 'somepass'],
+        // this slice of DB user is about the downloads table. The corresponding
+        // DB user should have write access to update statistics and the cache
+        // locations of installers.
+        'FRONTEND' => [
+            'host' => 'db.host.example',
+            'db' => 'cat',
+            'user' => 'someuser',
+            'pass' => 'somepass'],
+        // this slice of DB use is about user management in the user_options
+        // table. Giving the corresponding user only read-only access means that
+        // all user properties have to "magically" occur in the table by OOB
+        // means (custom queries are also possible of course).
         'USER' => [
             'host' => 'db.host.example',
             'db' => 'cat',

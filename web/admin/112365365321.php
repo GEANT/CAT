@@ -60,7 +60,7 @@ $deco = new \web\lib\admin\PageDecoration();
 
 echo $deco->pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
-$dbHandle = \core\DBConnection::handle("INST");
+$dbHandle = \core\DBConnection::handle("FRONTEND");
 ?>
 <h1>By. Your. Command.</h1>
 <form action="112365365321.php" method="POST" accept-charset="UTF-8">

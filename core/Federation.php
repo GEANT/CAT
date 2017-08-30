@@ -18,7 +18,9 @@
  * @package Developer
  * 
  */
+
 namespace core;
+
 use \Exception;
 
 /**
@@ -41,29 +43,42 @@ use \Exception;
  */
 class Federation extends EntityWithDBProperties {
 
+    /**
+     * the handle to the FRONTEND database (only needed for some stats access)
+     * 
+     * @var DBConnection
+     */
+    private $frontendHandle;
+
+    /**
+     * retrieve the statistics from the database in an internal array representation
+     * 
+     * @return array
+     */
     private function downloadStatsCore() {
         $grossAdmin = 0;
         $grossUser = 0;
         $grossSilverbullet = 0;
-
         $dataArray = [];
-
-        $handle = DBConnection::handle("INST");
-        foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
-            $query = "SELECT SUM(downloads_admin) AS admin, "
-                    . "SUM(downloads_silverbullet) AS silverbullet, "
-                    . "SUM(downloads_user) AS user "
-                    . "FROM downloads, profile, institution "
-                    . "WHERE device_id = ? AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id "
-                    . "AND institution.country = ?";
-
-            $numberQuery = $handle->exec($query, "ss", $index, $this->identifier);
-
-            while ($queryResult = mysqli_fetch_object($numberQuery)) {
-                $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "SILVERBULLET" => ($queryResult->silverbullet === NULL ? "0" : $queryResult->silverbullet), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
-                $grossAdmin = $grossAdmin + $queryResult->admin;
-                $grossSilverbullet = $grossSilverbullet + $queryResult->silverbullet;
-                $grossUser = $grossUser + $queryResult->user;
+        // first, find out which profiles belong to this federation
+        $cohesionQuery = "SELECT profile_id FROM profile, institution WHERE profile.inst_id = institution.inst_id AND institution.country = ?";
+        $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->identifier);
+        while ($result = mysqli_fetch_object($profilesList)) {
+            foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
+                $countDevice['ADMIN'] = 0;
+                $countDevice['SILVERBULLET'] = 0;
+                $countDevice['USER'] = 0;
+                $deviceQuery = "SELECT downloads_admin, downloads_silverbullet, downloads_user FROM downloads WHERE device_id = ? AND profile_id = ?";
+                $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $result->profile_id);
+                while ($queryResult = mysqli_fetch_object($statsList)) {
+                    $countDevice['ADMIN'] = $countDevice['ADMIN'] + $queryResult->downloads_admin;
+                    $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_admin;
+                    $countDevice['USER'] = $countDevice['USER'] + $queryResult->downloads_admin;
+                    $grossAdmin = $grossAdmin + $queryResult->admin;
+                    $grossSilverbullet = $grossSilverbullet + $queryResult->silverbullet;
+                    $grossUser = $grossUser + $queryResult->user;
+                }
+                $dataArray[$deviceArray['display']] = ["ADMIN" => $countDevice['ADMIN'], "SILVERBULLET" => $countDevice['SILVERBULLET'], "USER" => $countDevice['USER']];
             }
         }
         $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "SILVERBULLET" => $grossSilverbullet, "USER" => $grossUser];
@@ -129,6 +144,9 @@ class Federation extends EntityWithDBProperties {
         $this->name = $cat->knownFederations[$this->identifier];
 
         parent::__construct(); // we now have access to our database handle
+
+        $this->frontendHandle = DBConnection::handle("FRONTEND");
+
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
@@ -156,7 +174,7 @@ class Federation extends EntityWithDBProperties {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->identifier')");
         $identifier = $this->databaseHandle->lastID();
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
-            $text = "<p>Could not create a new ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst']."!</p>";
+            $text = "<p>Could not create a new " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . "!</p>";
             echo $text;
             throw new Exception($text);
         }
@@ -303,13 +321,13 @@ class Federation extends EntityWithDBProperties {
         $candidatesExternalDb = [];
         $country = NULL;
         $dbHandle = DBConnection::handle("INST");
-        
+
         $realmSearchStringCat = "%@$realm";
         $realmSearchStringDb1 = "$realm";
         $realmSearchStringDb2 = "%,$realm";
         $realmSearchStringDb3 = "$realm,%";
         $realmSearchStringDb4 = "%,$realm,%";
-        
+
         $candidateCatQuery = $dbHandle->exec("SELECT inst_id FROM profile WHERE realm LIKE ?", "s", $realmSearchStringCat);
         while ($row = mysqli_fetch_object($candidateCatQuery)) {
             if (!in_array($row->inst_id, $candidatesCat)) {
