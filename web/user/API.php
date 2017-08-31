@@ -18,12 +18,7 @@
 include(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $API = new \core\UserAPI();
 $validator = new web\lib\common\InputValidation();
-
-// extract request parameters; action is mandatory
-if (!isset($_REQUEST['action'])) {
-    exit;
-}
-$action = $_REQUEST['action'];
+$loggerInstance = new \core\common\Logging();
 
 const LISTOFACTIONS = [
     'listLanguages',
@@ -43,17 +38,9 @@ const LISTOFACTIONS = [
     'orderIdentityProviders',
 ];
 
-// make sure this is a known action
-$action = LISTOFACTIONS[array_search($_REQUEST['action'], LISTOFACTIONS)];
-if ($action === FALSE) {
-    exit;
-}
-
-
-
 
 function getRequest($varName,$filter) {
-    $safeText = ["options"=>["regexp"=>"/^\w+$"]];
+    $safeText = ["options"=>["regexp"=>"/^[\w\d]+$/"]];
     switch ($filter) {
         case 'safe_text':
             $out = filter_input(INPUT_GET, $varName, FILTER_VALIDATE_REGEXP, $safeText) ?? filter_input(INPUT_POST, $varName, FILTER_VALIDATE_REGEXP, $safeText);
@@ -68,17 +55,27 @@ function getRequest($varName,$filter) {
     return $out;
 }
 
-$langR = getRequest('lang', 'safeText');
+// make sure this is a known action
+$actionR = getRequest('action', 'safe_text');
+$action = array_search($actionR,LISTOFACTIONS) ? $actionR : FALSE;
+if ($action === FALSE) {
+    exit;
+}
+$langR = getRequest('lang', 'safe_text');
 $lang = $langR ? $validator->supportedLanguage($langR) : FALSE;
-$deviceR = getRequest('device', 'safeText');
+$deviceR = getRequest('device', 'safe_text');
 $device = $deviceR ? $validator->Device($deviceR) : FALSE;
 $idpR = getRequest('idp','int');
 $idp = $idpR ? $validator->IdP($idpR)->identifier : FALSE;
 $profileR = getRequest('profile','int');
 $profile = $profileR ? $validator->Profile($profileR)->identifier : FALSE;
-$federationR = getRequest('federation','safeText');
+$federationR = getRequest('federation','safe_text');
 $federation = $federationR ? $validator->Federation($deviceR)->identifier : FALSE;
 $disco = getRequest('disco','int');
+$width = getRequest('width','int') ?? 0;
+$height = getRequest('height','int') ?? 0;
+$sort = getRequest('sort','int') ?? 0;
+$generatedforR = getRequest('generatedfor','safe_text') ?? 'user';
 
 /*
 $idp = FALSE;
@@ -105,13 +102,15 @@ if (isset($_REQUEST['federation'])) {
 if (isset($_REQUEST['disco'])){
     $disco    = (int)$_REQUEST['disco'];
 }
-*/
+
+
 
 $width    = (int)($_REQUEST['width'] ?? 0);
 $height   = (int)($_REQUEST['height'] ?? 0);
 $sort     = (int)($_REQUEST['sort'] ?? 0);
 $location = $_REQUEST['location'] ?? 0;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
+*/
 
 $API->version = 2;
 
@@ -147,6 +146,7 @@ switch ($action) {
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
+        $loggerInstance->debug(4, "UserAPI action:DDDDD\n");
         $API->downloadInstaller($device, $profile, $generatedfor);
         break;
     case 'profileAttributes': // needs $profile set
@@ -192,5 +192,5 @@ switch ($action) {
         $API->JSON_orderIdentityProviders($federation, $coordinateArray);
         break;
 }
-//$loggerInstance = new \core\common\Logging();
-//$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $id . ':' . $lang . ':' . $profile . ':' . $disco . "\n");
+
+$loggerInstance->debug(4, "UserAPI action: " . $action . ':' . $lang . ':' . $profile . ':' . $device . "\n");
