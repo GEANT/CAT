@@ -82,7 +82,7 @@ class UserAPI extends CAT {
         $this->installerPath = $this->getCachedPath($device, $profile);
         if ($this->installerPath && $token == NULL && $password == NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
+            $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
@@ -153,7 +153,7 @@ class UserAPI extends CAT {
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . \core\common\EAP::eAPMethodArrayIdConversion($dev->selectedEap) . "\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
+                $out['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
                 $out['link'] = 0;
@@ -281,7 +281,7 @@ class UserAPI extends CAT {
     public function JSON_listLanguages() {
         $returnArray = [];
         foreach (CONFIG['LANGUAGES'] as $id => $val) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'lang') => $id, 'display' => $val['display'], 'locale' => $val['locale']];
+            $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
         }
         echo $this->return_json($returnArray);
     }
@@ -295,7 +295,7 @@ class UserAPI extends CAT {
         $federations = $this->printCountryList(1);
         $returnArray = [];
         foreach ($federations as $id => $val) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'federation' ) => $id, 'display' => $val];
+            $returnArray[] = ['federation' => $id, 'display' => $val];
         }
         echo $this->return_json($returnArray);
     }
@@ -310,7 +310,7 @@ class UserAPI extends CAT {
         $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $idp['entityID'], 'display' => $idp['title']];
+            $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
         }
         echo $this->return_json($returnArray);
     }
@@ -325,7 +325,7 @@ class UserAPI extends CAT {
         $idps = $this->listAllIdentityProviders(1);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $idp[( $this->version == 1 ? 'id' : 'idp' )] = $idp['entityID'];
+            $idp['idp'] = $idp['entityID'];
             $returnArray[] = $idp;
         }
         echo json_encode($returnArray);
@@ -340,7 +340,7 @@ class UserAPI extends CAT {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $idp['id'], 'display' => $idp['title']];
+            $returnArray[] = ['idp' => $idp['id'], 'display' => $idp['title']];
         }
         echo $this->return_json($returnArray);
     }
@@ -371,7 +371,7 @@ class UserAPI extends CAT {
             usort($profiles, ["UserAPI", "profile_sort"]);
         }
         foreach ($profiles as $profile) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'profile' ) => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
+            $returnArray[] = ['profile' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
         }
         echo $this->return_json($returnArray);
     }
@@ -394,19 +394,11 @@ class UserAPI extends CAT {
                     continue;
                 }
                 $disp = $D['display'];
-                if ($this->version == 1) {
-                    if ($D['id'] === '0') {
-                        $profile_redirect = 1;
-                        $disp = $c;
-                    }
-                    $returnArray[] = ['id' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
-                } else {
-                    if ($D['device'] === '0') {
-                        $profile_redirect = 1;
-                        $disp = $c;
-                    }
-                    $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
+                if ($D['device'] === '0') {
+                    $profile_redirect = 1;
+                    $disp = $c;
                 }
+                $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
             }
         }
         echo $this->return_json($returnArray);
@@ -718,7 +710,7 @@ class UserAPI extends CAT {
         asort($resultSet);
         $outarray = [];
         foreach (array_keys($resultSet) as $r) {
-            $outarray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $r, 'title' => $idpTitle[$r]];
+            $outarray[] = ['idp' => $r, 'title' => $idpTitle[$r]];
         }
         return($outarray);
     }
@@ -737,7 +729,7 @@ class UserAPI extends CAT {
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];
             $device = $Dev[$dev_id];
-            return([( $this->version == 1 ? 'id' : 'device') => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
+            return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
         }
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $this->loggerInstance->debug(4, "HTTP_USER_AGENT=$browser\n");
@@ -748,7 +740,7 @@ class UserAPI extends CAT {
             if (preg_match('/' . $device['match'] . '/', $browser)) {
                 if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
                     $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
-                    return([( $this->version == 1 ? 'id' : 'device' ) => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
+                    return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
                 } else {
                     $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
                     return(false);
@@ -770,7 +762,6 @@ class UserAPI extends CAT {
     }
 
     public $device;
-    public $version;
     private $installerPath;
 
     private static function profile_sort($profile1, $profile2) {

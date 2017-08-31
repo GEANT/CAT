@@ -38,7 +38,6 @@ class SimpleGUI extends \core\UserAPI {
         $this->args = [];
         $this->page = 0;
         $this->languageInstance->setTextDomain('core');
-        $this->version = 2;
         $this->args['lang'] = $this->languageInstance->getLang();
 
         /*

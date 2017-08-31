@@ -112,7 +112,6 @@ $location = $_REQUEST['location'] ?? 0;
 $generatedfor = $_REQUEST['generatedfor'] ?? 'user';
 */
 
-$API->version = 2;
 
 switch ($action) {
     case 'listLanguages':
