@@ -579,7 +579,7 @@ class UserAPI extends CAT {
         }
         header("Content-type: " . $logo['filetype']);
         header("Cache-Control:max-age=36000, must-revalidate");
-        header($logo['expiresString']);
+        header($logo['expires']);
         echo $logo['blob'];
     }
     
@@ -587,7 +587,8 @@ class UserAPI extends CAT {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
-        $host = $_SERVER['REMOTE_ADDR'];
+        //$host = $_SERVER['REMOTE_ADDR'];
+        $host = input_filter(INPUT_SERVER,'REMOTE_ADDR',FILTER_VALIDATE_IP);
         $record = geoip_record_by_name($host);
         if ($record === FALSE) {
             return ['status' => 'error', 'error' => 'Problem listing countries'];

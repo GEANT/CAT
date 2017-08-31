@@ -49,6 +49,38 @@ if ($action === FALSE) {
     exit;
 }
 
+
+
+
+function getRequest($varName,$filter) {
+    $safeText = ["options"=>["regexp"=>"/^\w+$"]];
+    switch ($filter) {
+        case 'safe_text':
+            $out = filter_input(INPUT_GET, $varName, FILTER_VALIDATE_REGEXP, $safeText) ?? filter_input(INPUT_POST, $varName, FILTER_VALIDATE_REGEXP, $safeText);
+            break;
+        case 'int':
+            $out = filter_input(INPUT_GET, $varName, FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, $varName, FILTER_VALIDATE_INT);
+            break;
+        default:
+            $out = NULL;
+            break;
+    }
+    return $out;
+}
+
+$langR = getRequest('lang', 'safeText');
+$lang = $langR ? $validator->supportedLanguage($langR) : FALSE;
+$deviceR = getRequest('device', 'safeText');
+$device = $deviceR ? $validator->Device($deviceR) : FALSE;
+$idpR = getRequest('idp','int');
+$idp = $idpR ? $validator->IdP($idpR)->identifier : FALSE;
+$profileR = getRequest('profile','int');
+$profile = $profileR ? $validator->Profile($profileR)->identifier : FALSE;
+$federationR = getRequest('federation','safeText');
+$federation = $federationR ? $validator->Federation($deviceR)->identifier : FALSE;
+$disco = getRequest('disco','int');
+
+/*
 $idp = FALSE;
 $lang = FALSE;
 $profile = FALSE;
@@ -73,6 +105,7 @@ if (isset($_REQUEST['federation'])) {
 if (isset($_REQUEST['disco'])){
     $disco    = (int)$_REQUEST['disco'];
 }
+*/
 
 $width    = (int)($_REQUEST['width'] ?? 0);
 $height   = (int)($_REQUEST['height'] ?? 0);
