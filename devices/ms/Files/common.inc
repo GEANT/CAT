@@ -8,7 +8,7 @@ namespace devices\ms;
 ; * License: see the web/copyright.php file in the file structure
 ; ******************************************************************************
 ;
-; Used by Vista/W7/W8 module
+; Used by Vista/W7/W8/W10 module
 ;---------------------------------------
 
 !define DEBUG_CAT 5
@@ -522,11 +522,25 @@ Function wVersionCheck
   ${EndIf}
   Pop $VistaNoSP
 
-
-  !ifdef W8
+!ifdef W10
+  ${If} ${AtMostWin8.1}
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"
+    !ifndef ALLOW_LOW_VERSION
+        Call Cleanup
+    !endif
+  ${EndIf}
+!else ifdef W8
+${If} ${AtLeastWin10}
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
+    !ifndef ALLOW_LOW_VERSION
+        Call Cleanup
+    !endif
+  ${EndIf}
   ${If} ${AtMostWin7}
     IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
     !ifndef ALLOW_LOW_VERSION
         Call Cleanup
     !endif

@@ -141,6 +141,11 @@ class Device_W8 extends WindowsCommon {
     private function prepareEapConfig($attr) {
         $eap = $this->selectedEap;
         $w8Ext = '';
+        if ($eap != \core\common\EAP::EAPTYPE_TLS && $eap != \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_PWD && $eap != \core\common\EAP::EAPTYPE_TTLS_PAP && $eap != \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $this->loggerInstance->debug(2,"this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
+            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
+            return;
+        }
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {
             $outerUser = $attr['internal:anon_local_value'][0];
