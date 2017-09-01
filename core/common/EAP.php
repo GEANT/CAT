@@ -185,12 +185,12 @@ class EAP {
             throw new Exception("Zero - How can that be?");
         }
         if (is_numeric($input) && isset(EAP::EAPTYPES_CONVERSION[$input])) {
-            return EAP::EAPTYPES_CONVERSION[$input];
+            return (array)EAP::EAPTYPES_CONVERSION[$input];
         }
         if (is_array($input)) {
             $keys = array_keys(EAP::EAPTYPES_CONVERSION, $input);
             if (count($keys) == 1) {
-                return $keys[0];
+                return (int)$keys[0];
             }
         }
         throw new Exception("Unable to map EAP method array to EAP method int or vice versa: $input!");

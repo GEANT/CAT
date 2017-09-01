@@ -56,6 +56,12 @@ class RADIUSTests extends AbstractTest {
     private $outerUsernameForChecks;
     private $expectedCABundle;
     private $expectedServerNames;
+    
+    /**
+     * the list of EAP types which the IdP allegedly supports.
+     * 
+     * @var array
+     */
     private $supportedEapTypes;
     private $opMode;
     public $UDP_reachability_result;
