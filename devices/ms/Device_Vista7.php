@@ -562,24 +562,10 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
-                if (!($this->copyFile('GEANTLink/GEANTLink32.msi', 'GEANTLink32.msi') &&
-                        $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi') &&
-                        $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe') &&
-                        $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe'))) {
-                    throw new Exception("Copying needed files (GEANTLink) failed for at least one file!");
-                }
-                if (!$this->translateFile('geant_link.inc', 'cat.NSI', $this->codePage)) {
-                    throw new Exception("Translating needed file geant_link.inc failed!");
-                }
+                $this->copyGeantLinkFiles();
                 break;
             case \core\common\EAP::PWD:
-                if (!($this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
-                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi'))) {
-                    throw new Exception("Copying needed files (EAP-pwd) failed for at least one file!");
-                }
-                if (!$this->translateFile('pwd.inc', 'cat.NSI', $this->codePage)) {
-                    throw new Exception("Translating needed file pwd.inc failed!");
-                }
+                $this->copyPwdFiles();
                 break;
             default:
                 if (!$this->translateFile('peap_tls.inc', 'cat.NSI', $this->codePage)) {

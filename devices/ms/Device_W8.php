@@ -515,11 +515,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         $this->copyBasicFiles();
         switch ($eap["OUTER"]) {
             case \core\common\EAP::PWD:
-                $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
-                if (!($this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
-                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi'))) {
-                    throw new Exception("Copying needed files (EAP-pwd) failed for at least one file!");
-                }
+                $this->copyPwdFiles();
                 break;
             default:
                 if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
