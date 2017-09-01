@@ -50,7 +50,12 @@ class Device_W10 extends WindowsCommon {
         }
 
 
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_PAP || $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_PWD || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+        if (in_array($this->selectedEap, [ \core\common\EAP::EAPTYPE_TLS, 
+                                           \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, 
+                                           \core\common\EAP::EAPTYPE_TTLS_PAP, 
+                                           \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, 
+                                           \core\common\EAP::EAPTYPE_PWD, 
+                                           \core\common\EAP::EAPTYPE_SILVERBULLET ])) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -142,11 +147,17 @@ class Device_W10 extends WindowsCommon {
         $eap = $this->selectedEap;
         $useGeantLink = ( isset($this->options['args']) && $this->options['args'] == 'gl' ) ? 1 : 0;
         $w10Ext = '';
-        if ($eap != \core\common\EAP::EAPTYPE_TLS && $eap != \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_PWD && $eap != \core\common\EAP::EAPTYPE_TTLS_PAP && $eap != \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $this->loggerInstance->debug(2,"this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
-            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
-            return;
-        }
+        // there is only one caller to this function, and it will always call
+        // with exactly one of exactly the EAP types below. Let's assert() that
+        // rather than returning void, otherwise this is a condition that needs
+        // to be caught later on.
+        assert(in_array($eap, [ \core\common\EAP::EAPTYPE_TLS, 
+                                \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, 
+                                \core\common\EAP::EAPTYPE_PWD, 
+                                \core\common\EAP::EAPTYPE_TTLS_PAP, 
+                                \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, 
+                                \core\common\EAP::EAPTYPE_SILVERBULLET]), new \Exception("prepareEapConfig called for an EAP type it cannot handle!"));
+        
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {
             $outerUser = $attr['internal:anon_local_value'][0];
