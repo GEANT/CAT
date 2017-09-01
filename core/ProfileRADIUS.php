@@ -94,7 +94,6 @@ class ProfileRADIUS extends AbstractProfile {
 
         $this->loggerInstance->debug(5, "Device-Level Attributes: " . print_r($this->deviceLevelAttributes, true));
         $this->loggerInstance->debug(5, "EAP-Level Attributes: " . print_r($this->eapLevelAttributes, true));
-
         $this->loggerInstance->debug(5, "All low-Level Attributes: " . print_r($attributesLowLevel, true));
 
         // now fetch and merge profile-level attributes if not already set on deeper level
@@ -118,8 +117,9 @@ class ProfileRADIUS extends AbstractProfile {
 
         // now, fetch and merge IdP-wide attributes
 
-        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $this->idpAttributes, "IdP");
 
+        $attrUpToIdp = $this->levelPrecedenceAttributeJoin($attrUpToProfile, $this->idpAttributes, "IdP");
+        $this->attributes = $this->levelPrecedenceAttributeJoin($attrUpToIdp, $this->fedAttributes, "FED");
         $this->privEaptypes = $this->fetchEAPMethods();
 
         $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('profile:name')); // cannot be set per device or eap type

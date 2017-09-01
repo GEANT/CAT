@@ -83,7 +83,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
         $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        $this->loggerInstance->debug(4, $this->supportedEapMethods, true);
     }
 
     /**
@@ -206,11 +206,17 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
+
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
         if (isset($this->attributes['general:logo_file'])) {
-            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
+            $this->loggerInstance->debug(5, "saving IDP logo\n");
+            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'],'idp');
+        }
+        if (isset($this->attributes['fed:logo_file'])) {
+            $this->loggerInstance->debug(5, "saving FED logo\n");
+            $this->attributes['fed:logo_file'] = $this->saveLogoFile($this->attributes['fed:logo_file'], 'fed');
         }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
 
@@ -284,12 +290,12 @@ abstract class DeviceConfig extends \core\common\Entity {
         if ($output_name === NULL) {
             $output_name = $source_name;
         }
-        $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
+        $this->loggerInstance->debug(5, "fileCopy($source_name, $output_name)\n");
         $source = $this->findSourceFile($source_name);
         if ($source === FALSE) {
             return FALSE;
         }
-        $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
+        $this->loggerInstance->debug(5, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
         if (!$result) {
             $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
@@ -328,9 +334,9 @@ abstract class DeviceConfig extends \core\common\Entity {
             $output_name = $source_name;
         }
 
-        $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
+        $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
-        $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
+        $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
         $source = $this->findSourceFile($source_name);
         
         if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
@@ -349,7 +355,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
         fwrite($fileHandle, $output);
         fclose($fileHandle);
-        $this->loggerInstance->debug(4, "translateFile($source, $output_name, $encoding) end\n");
+        $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
     }
 
     /**
@@ -369,7 +375,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
-        $this->loggerInstance->debug(4, "translateString input: \"$source_string\"\n");
+        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
             return($source_string);
         }
@@ -446,7 +452,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
         $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
-        $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
+        $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
@@ -534,7 +540,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         'application/pdf' => 'pdf',
     ];
 
-    private function saveLogoFile($logos) {
+    private function saveLogoFile($logos,$type) {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {
@@ -546,8 +552,8 @@ abstract class DeviceConfig extends \core\common\Entity {
             } else {
                 $ext = 'unsupported';
             }
-            $this->loggerInstance->debug(4, "saveLogoFile: $mime : $ext\n");
-            $fileName = 'logo-' . $iterator . '.' . $ext;
+            $this->loggerInstance->debug(5, "saveLogoFile: $mime : $ext\n");
+            $fileName = 'logo-' . $type . $iterator . '.' . $ext;
             $fileHandle = fopen($fileName, "w");
             if (!$fileHandle) {
                 $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
@@ -565,7 +571,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
-        $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
+        $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
         if (!$fileHandle) {
             throw new Exception("problem opening the file");

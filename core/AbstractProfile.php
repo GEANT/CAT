@@ -79,6 +79,11 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * IdP-wide attributes of the IdP this profile is attached to
      */
     protected $idpAttributes;
+    
+    /**
+     * Federation level attributes that this profile is attached to via its IdP
+     */
+    protected $fedAttributes;
 
     /**
      * This class also needs to handle frontend operations, so needs its own
@@ -151,6 +156,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->instName = $idp->name;
         $this->idpNumberOfProfiles = $idp->profileCount();
         $this->idpAttributes = $idp->getAttributes();
+        $fedObject = new Federation($idp->federation);
+        $this->fedAttributes = $fedObject->getAttributes();
         $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
     }
 
@@ -566,7 +573,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
                 $nameCandidate = [];
-                $levelsToTry = ['Profile', 'IdP'];
+                $levelsToTry = ['Profile', 'IdP', 'FED'];
                 foreach ($levelsToTry as $level) {
                     if (empty($nameCandidate) && isset($temp[$name][$level])) {
                         foreach ($temp[$name][$level] as $oneName) {
@@ -585,7 +592,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
                 }
             } else {
-                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'];
+                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'] ?? $temp[$name]['FED'];
             }
         }
         return($out);
