@@ -94,7 +94,7 @@ $profiles = []; // index is inst id, value is an array of profile objects and th
 
 while ($oneAttrib = mysqli_fetch_object($idpWideOptionsQuery)) {
     if (!isset($profiles[$oneAttrib->institution_id])) {
-        $idp = new \core\IdP($oneAttrib->institution_id);
+        $idp = new \core\IdP((int)$oneAttrib->institution_id);
         $profiles[$oneAttrib->institution_id] = ['IdP' => $idp, 'Profiles' => $idp->listProfiles()];
         echo "Debug: IdP " . $idp->identifier . " has profiles ";
         foreach ($profiles[$oneAttrib->institution_id]['Profiles'] as $oneProfileObject) {
