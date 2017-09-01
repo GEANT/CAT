@@ -108,10 +108,10 @@ class UserAPI extends CAT {
             $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
         }
         if ($noCache) {
-            $this->loggerInstance->debug(4, "getCachedPath: the no_cache option set for this device\n");
+            $this->loggerInstance->debug(5, "getCachedPath: the no_cache option set for this device\n");
             return(FALSE);
         }
-        $this->loggerInstance->debug(4, "getCachedPath: caching option set for this device\n");
+        $this->loggerInstance->debug(5, "getCachedPath: caching option set for this device\n");
         $cache = $profile->testCache($device);
         $iPath = $cache['cache'];
         if ($iPath && is_file($iPath)) {
