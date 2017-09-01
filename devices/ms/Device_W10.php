@@ -578,50 +578,37 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
-        // see if all copy file operations succeed.
-        $result1 = $this->copyFile('wlan_test.exe') &&
-                $this->copyFile('check_wired.cmd') &&
-                $this->copyFile('install_wired.cmd') &&
-                $this->copyFile('cat_bg.bmp') &&
-                $this->copyFile('base64.nsh');
-        if ($result1 === FALSE) {
-            throw new Exception("Copying needed files (part 1) failed for at least one file!");
-        }
-        $result2 = $this->copyFile('cat32.ico') &&
-                $this->copyFile('cat_150.bmp') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserData32.exe') &&
-                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserData64.exe');
-        if ($result2 === FALSE) {
-            throw new Exception("Copying needed files (part 2) failed for at least one file!");
-        }
-        $this->translateFile('common.inc', 'common.nsh', $this->codePage);
+        $this->copyBasicFiles();
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
                 if (isset($this->options['args']) && $this->options['args'] == 'gl') {
-                    $resultGL = $this->copyFile('GEANTLink32.msi') &&
+                    if (!($this->copyFile('GEANTLink32.msi') &&
                             $this->copyFile('GEANTLink64.msi') &&
                             $this->copyFile('CredWrite.exe') &&
-                            $this->copyFile('MsiUseFeature.exe');
-                    if ($resultGL === FALSE) {
+                            $this->copyFile('MsiUseFeature.exe'))) {
                         throw new Exception("Copying needed files (GEANTLink) failed for at least one file!");
                     }
-                    $this->translateFile('geant_link.inc', 'cat.NSI', $this->code_page);
+                    if (!$this->translateFile('geant_link.inc', 'cat.NSI', $this->code_page)) {
+                        throw new Exception("Translating needed file geant_link.inc failed!");
+                    }
                 }
                 break;
             case \core\common\EAP::PWD:
-                $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
-                $resultPWD = $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
-                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
-                if ($resultPWD === FALSE) {
+                if (!($this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
+                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi'))) {
                     throw new Exception("Copying needed files (EAP-pwd) failed for at least one file!");
+                }
+                if (!$this->translateFile('pwd.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file pwd.inc failed!");
                 }
                 break;
             default:
-                $this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage);
-                $result = 1;
+                if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file eap_w8.inc failed!");
+                }
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
-        return($result);
+        return TRUE;
     }
 
     private $tlsOtherUsername = 0;

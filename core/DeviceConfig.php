@@ -352,10 +352,12 @@ abstract class DeviceConfig extends \core\common\Entity {
         $fileHandle = fopen("$output_name", "w");
         if (!$fileHandle) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            return FALSE;
         }
         fwrite($fileHandle, $output);
         fclose($fileHandle);
         $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
+        return TRUE;
     }
 
     /**

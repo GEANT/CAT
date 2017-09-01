@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -18,6 +19,7 @@
 /**
  * necessary includes
  */
+
 namespace devices\ms;
 
 class Device_Vista7 extends WindowsCommon {
@@ -25,8 +27,8 @@ class Device_Vista7 extends WindowsCommon {
     final public function __construct() {
         parent::__construct();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_PWD, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
-      $this->loggerInstance->debug(4,"This device supports the following EAP methods: ");
-      $this->loggerInstance->debug(4,$this->supportedEapMethods);
+        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, $this->supportedEapMethods);
         $this->specialities['anon_id'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
     }
 
@@ -177,9 +179,9 @@ class Device_Vista7 extends WindowsCommon {
             $profileFileCont .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
-<EAPIdentityProvider ID="'.$this->deviceUUID.'" namespace="urn:UUID">
+<EAPIdentityProvider ID="' . $this->deviceUUID . '" namespace="urn:UUID">
 <ProviderInfo>
-<DisplayName>'.$this->translateString($attr['general:instname'][0], $this->code_page).'</DisplayName>
+<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->code_page) . '</DisplayName>
 </ProviderInfo>
 <AuthenticationMethods>
 <AuthenticationMethod>
@@ -209,7 +211,7 @@ class Device_Vista7 extends WindowsCommon {
             $profileFileCont .= '
 </ServerSideCredential>
 <InnerAuthenticationMethod>
-<NonEAPAuthMethod>'.$inner_method.'</NonEAPAuthMethod>
+<NonEAPAuthMethod>' . $inner_method . '</NonEAPAuthMethod>
 </InnerAuthenticationMethod>
 <VendorSpecific>
 <SessionResumption>false</SessionResumption>
@@ -494,7 +496,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
-!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
+!define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -508,10 +510,10 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 ';
 //TODO this must be changed with a new option
         if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
-           $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
+            $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
         }
-           $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
+        $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
 
@@ -519,7 +521,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
             $fcontents .= '!define WIRED
 ';
         }
-        $fcontents .= '!define PROVIDERID "urn:UUID:'.$this->deviceUUID.'"
+        $fcontents .= '!define PROVIDERID "urn:UUID:' . $this->deviceUUID . '"
 ';
 
 
@@ -555,38 +557,38 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
         $this->loggerInstance->debug(4, "code_page=" . $this->codePage . "\n");
-        $result;
-        $result = $this->copyFile('wlan_test.exe');
-        $result = $this->copyFile('check_wired.cmd');
-        $result = $this->copyFile('install_wired.cmd');
-        $result = $this->copyFile('base64.nsh');
-        $result = $this->copyFile('cat_bg.bmp');
-        $result = $result && $this->copyFile('cat32.ico');
-        $result = $result && $this->copyFile('cat_150.bmp');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
-        $this->translateFile('common.inc', 'common.nsh', $this->codePage);
+        $this->copyBasicFiles();
 
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
-                $result = $result && $this->copyFile('GEANTLink/GEANTLink32.msi', 'GEANTLink32.msi');
-                $result = $result && $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi');
-                $result = $result && $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe');
-                $result = $result && $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe');
-                $this->translateFile('geant_link.inc', 'cat.NSI', $this->codePage);
+                if (!($this->copyFile('GEANTLink/GEANTLink32.msi', 'GEANTLink32.msi') &&
+                        $this->copyFile('GEANTLink/GEANTLink64.msi', 'GEANTLink64.msi') &&
+                        $this->copyFile('GEANTLink/CredWrite.exe', 'CredWrite.exe') &&
+                        $this->copyFile('GEANTLink/MsiUseFeature.exe', 'MsiUseFeature.exe'))) {
+                    throw new Exception("Copying needed files (GEANTLink) failed for at least one file!");
+                }
+                if (!$this->translateFile('geant_link.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file geant_link.inc failed!");
+                }
                 break;
             case \core\common\EAP::PWD:
-                $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
-                $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
-                $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
+                if (!($this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
+                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi'))) {
+                    throw new Exception("Copying needed files (EAP-pwd) failed for at least one file!");
+                }
+                if (!$this->translateFile('pwd.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file pwd.inc failed!");
+                }
                 break;
             default:
-                $this->translateFile('peap_tls.inc', 'cat.NSI', $this->codePage);
-                $result = 1;
+                if (!$this->translateFile('peap_tls.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file peap_tls.inc failed!");
+                }
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
-        return($result);
+        return TRUE;
     }
+
     private $tlsOtherUsername = 0;
 
 }

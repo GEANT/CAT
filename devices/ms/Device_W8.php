@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -15,7 +16,9 @@
  *
  * @package ModuleWriting
  */
+
 namespace devices\ms;
+
 /**
  * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -142,7 +145,7 @@ class Device_W8 extends WindowsCommon {
         $eap = $this->selectedEap;
         $w8Ext = '';
         if ($eap != \core\common\EAP::EAPTYPE_TLS && $eap != \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_PWD && $eap != \core\common\EAP::EAPTYPE_TTLS_PAP && $eap != \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $this->loggerInstance->debug(2,"this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
+            $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
             error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
             return;
         }
@@ -450,7 +453,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
-!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
+!define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -465,7 +468,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
-        } 
+        }
         $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
@@ -508,28 +511,24 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
-        $result;
-        $result = $this->copyFile('wlan_test.exe');
-        $result = $this->copyFile('check_wired.cmd');
-        $result = $this->copyFile('install_wired.cmd');
-        $result = $this->copyFile('cat_bg.bmp');
-        $result = $this->copyFile('base64.nsh');
-        $result = $result && $this->copyFile('cat32.ico');
-        $result = $result && $this->copyFile('cat_150.bmp');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
-        $this->translateFile('common.inc', 'common.nsh', $this->codePage);
-        if ($eap["OUTER"] == \core\common\EAP::PWD) {
-            $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
-            $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
-            $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
-        } else {
-            $this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage);
-            $result = 1;
+        $this->copyBasicFiles();
+        switch ($eap["OUTER"]) {
+            case \core\common\EAP::PWD:
+                $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
+                if (!($this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
+                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi'))) {
+                    throw new Exception("Copying needed files (EAP-pwd) failed for at least one file!");
+                }
+                break;
+            default:
+                if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file eap_w8.inc failed!");
+                }
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
-        return($result);
+        return TRUE;
     }
+
     private $tlsOtherUsername = 0;
 
 }

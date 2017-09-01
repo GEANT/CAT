@@ -1,4 +1,5 @@
 <?php
+
 /*
  * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
@@ -16,6 +17,7 @@
  */
 
 namespace devices\ms;
+
 use \Exception;
 
 /**
@@ -25,6 +27,27 @@ use \Exception;
  * @package ModuleWriting
  */
 class WindowsCommon extends \core\DeviceConfig {
+
+    public function copyBasicFiles() {
+        if (!($this->copyFile('wlan_test.exe') &&
+                $this->copyFile('check_wired.cmd') &&
+                $this->copyFile('install_wired.cmd') &&
+                $this->copyFile('cat_bg.bmp') &&
+                $this->copyFile('base64.nsh'))) {
+            throw new \Exception("Copying needed files (part 1) failed for at least one file!");
+        }
+
+        if (!($this->copyFile('cat32.ico') &&
+                $this->copyFile('cat_150.bmp') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserData32.exe') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserData64.exe'))) {
+            throw new Exception("Copying needed files (part 2) failed for at least one file!");
+        }
+        if (!$this->translateFile('common.inc', 'common.nsh', $this->codePage)) {
+            throw new Exception("Translating needed file common.inc failed!");
+        }
+        return;
+    }
 
     /**
      * function to escape double quotes in a special NSI-compatible way
