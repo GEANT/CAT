@@ -18,6 +18,7 @@
  */
 
 namespace devices\ms;
+use \Exception;
 
 /**
  * 
@@ -159,7 +160,7 @@ class Device_W10 extends WindowsCommon {
             \core\common\EAP::EAPTYPE_PWD,
             \core\common\EAP::EAPTYPE_TTLS_PAP,
             \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
-            \core\common\EAP::EAPTYPE_SILVERBULLET]), new \Exception("prepareEapConfig called for an EAP type it cannot handle!"));
+            \core\common\EAP::EAPTYPE_SILVERBULLET]), new Exception("prepareEapConfig called for an EAP type it cannot handle!"));
 
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {

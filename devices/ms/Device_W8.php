@@ -18,6 +18,7 @@
  */
 
 namespace devices\ms;
+use \Exception;
 
 /**
  * 

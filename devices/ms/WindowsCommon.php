@@ -34,7 +34,7 @@ class WindowsCommon extends \core\DeviceConfig {
                 $this->copyFile('install_wired.cmd') &&
                 $this->copyFile('cat_bg.bmp') &&
                 $this->copyFile('base64.nsh'))) {
-            throw new \Exception("Copying needed files (part 1) failed for at least one file!");
+            throw new Exception("Copying needed files (part 1) failed for at least one file!");
         }
 
         if (!($this->copyFile('cat32.ico') &&

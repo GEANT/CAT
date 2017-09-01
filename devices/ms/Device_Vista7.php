@@ -21,6 +21,7 @@
  */
 
 namespace devices\ms;
+use \Exception;
 
 class Device_Vista7 extends WindowsCommon {
 
