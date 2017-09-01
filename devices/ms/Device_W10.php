@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -15,7 +16,9 @@
  *
  * @package ModuleWriting
  */
+
 namespace devices\ms;
+
 /**
  * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -50,12 +53,12 @@ class Device_W10 extends WindowsCommon {
         }
 
 
-        if (in_array($this->selectedEap, [ \core\common\EAP::EAPTYPE_TLS, 
-                                           \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, 
-                                           \core\common\EAP::EAPTYPE_TTLS_PAP, 
-                                           \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, 
-                                           \core\common\EAP::EAPTYPE_PWD, 
-                                           \core\common\EAP::EAPTYPE_SILVERBULLET ])) {
+        if (in_array($this->selectedEap, [\core\common\EAP::EAPTYPE_TLS,
+                    \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
+                    \core\common\EAP::EAPTYPE_TTLS_PAP,
+                    \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
+                    \core\common\EAP::EAPTYPE_PWD,
+                    \core\common\EAP::EAPTYPE_SILVERBULLET])) {
             $windowsProfile = [];
             $eapConfig = $this->prepareEapConfig($this->attributes);
             $iterator = 0;
@@ -151,13 +154,13 @@ class Device_W10 extends WindowsCommon {
         // with exactly one of exactly the EAP types below. Let's assert() that
         // rather than returning void, otherwise this is a condition that needs
         // to be caught later on.
-        assert(in_array($eap, [ \core\common\EAP::EAPTYPE_TLS, 
-                                \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, 
-                                \core\common\EAP::EAPTYPE_PWD, 
-                                \core\common\EAP::EAPTYPE_TTLS_PAP, 
-                                \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, 
-                                \core\common\EAP::EAPTYPE_SILVERBULLET]), new \Exception("prepareEapConfig called for an EAP type it cannot handle!"));
-        
+        assert(in_array($eap, [\core\common\EAP::EAPTYPE_TLS,
+            \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
+            \core\common\EAP::EAPTYPE_PWD,
+            \core\common\EAP::EAPTYPE_TTLS_PAP,
+            \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
+            \core\common\EAP::EAPTYPE_SILVERBULLET]), new \Exception("prepareEapConfig called for an EAP type it cannot handle!"));
+
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {
             $outerUser = $attr['internal:anon_local_value'][0];
@@ -167,10 +170,10 @@ class Device_W10 extends WindowsCommon {
         $servers = implode(';', $attr['eap:server_name']);
         $caArray = $attr['internal:CAs'][0];
         $authorId = "0";
-        if( $eap == \core\common\EAP::EAPTYPE_TTLS_PAP || $eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
+        if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP || $eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
             if ($useGeantLink) {
                 $authorId = "67532";
-                $servers = implode('</ServerName><ServerName>',$attr['eap:server_name']);
+                $servers = implode('</ServerName><ServerName>', $attr['eap:server_name']);
             } else {
                 $authorId = "311";
             }
@@ -184,7 +187,7 @@ class Device_W10 extends WindowsCommon {
                 $this->selectedEap["OUTER"] . '</Type>
 <VendorId xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorId>
 <VendorType xmlns="http://www.microsoft.com/provisioning/EapCommon">0</VendorType>
-<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">'.$authorId.'</AuthorId>
+<AuthorId xmlns="http://www.microsoft.com/provisioning/EapCommon">' . $authorId . '</AuthorId>
 </EapMethod>
 ';
         if ($eap == \core\common\EAP::EAPTYPE_TLS || $eap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
@@ -282,10 +285,10 @@ class Device_W10 extends WindowsCommon {
                 $profileFileCont .= '
 <Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
-<EAPIdentityProvider ID="'.$this->deviceUUID.'" namespace="urn:UUID">
+<EAPIdentityProvider ID="' . $this->deviceUUID . '" namespace="urn:UUID">
 
 <ProviderInfo>
-<DisplayName>'.$this->translateString($attr['general:instname'][0], $this->code_page).'</DisplayName>
+<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->code_page) . '</DisplayName>
 </ProviderInfo>
 <AuthenticationMethods>
 <AuthenticationMethod>
@@ -293,28 +296,28 @@ class Device_W10 extends WindowsCommon {
 <ClientSideCredential>
 <allow-save>true</allow-save>
 ';
-        if($use_anon == 1) {
-            if($outer_user == '')
-                $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
-            else
-                $profileFileCont .= '<AnonymousIdentity>'.$outer_id.'</AnonymousIdentity>';
-        }
-        $profileFileCont .= '</ClientSideCredential>
+                if ($use_anon == 1) {
+                    if ($outer_user == '')
+                        $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
+                    else
+                        $profileFileCont .= '<AnonymousIdentity>' . $outer_id . '</AnonymousIdentity>';
+                }
+                $profileFileCont .= '</ClientSideCredential>
 <ServerSideCredential>
 ';
 
-        foreach ($caArray as $ca) {
-            $profileFileCont .= '<CA><format>PEM</format><cert-data>';
-            $profileFileCont .= base64_encode($ca['der']);
-            $profileFileCont .= '</cert-data></CA>
+                foreach ($caArray as $ca) {
+                    $profileFileCont .= '<CA><format>PEM</format><cert-data>';
+                    $profileFileCont .= base64_encode($ca['der']);
+                    $profileFileCont .= '</cert-data></CA>
 ';
-         }
-         $profileFileCont .= "<ServerName>$servers</ServerName>\n";
+                }
+                $profileFileCont .= "<ServerName>$servers</ServerName>\n";
 
-         $profileFileCont .= '
+                $profileFileCont .= '
 </ServerSideCredential>
 <InnerAuthenticationMethod>
-<NonEAPAuthMethod>'.$innerMethod.'</NonEAPAuthMethod>
+<NonEAPAuthMethod>' . $innerMethod . '</NonEAPAuthMethod>
 </InnerAuthenticationMethod>
 <VendorSpecific>
 <SessionResumption>false</SessionResumption>
@@ -326,52 +329,52 @@ class Device_W10 extends WindowsCommon {
 </Config>
 ';
             } else {
-            $w10Ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
+                $w10Ext = '<Config xmlns="http://www.microsoft.com/provisioning/EapHostConfig">
 <EapTtls xmlns="http://www.microsoft.com/provisioning/EapTtlsConnectionPropertiesV1">
 <ServerValidation>
 <ServerNames>' . $servers . '</ServerNames> ';
-            if ($caArray) {
-                foreach ($caArray as $certAuthority) {
-                    if ($certAuthority['root']) {
-                        $w10Ext .= "<TrustedRootCAHash>" . chunk_split($certAuthority['sha1'], 2, ' ') . "</TrustedRootCAHash>\n";
+                if ($caArray) {
+                    foreach ($caArray as $certAuthority) {
+                        if ($certAuthority['root']) {
+                            $w10Ext .= "<TrustedRootCAHash>" . chunk_split($certAuthority['sha1'], 2, ' ') . "</TrustedRootCAHash>\n";
+                        }
                     }
                 }
-            }
-            $w10Ext .= '<DisablePrompt>true</DisablePrompt> 
+                $w10Ext .= '<DisablePrompt>true</DisablePrompt> 
 </ServerValidation>
 <Phase2Authentication>
 ';
-            if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP) {
-                $w10Ext .= '<PAPAuthentication /> ';
-            }
-            if ($eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
-                $w10Ext .= '<MSCHAPv2Authentication>
+                if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP) {
+                    $w10Ext .= '<PAPAuthentication /> ';
+                }
+                if ($eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
+                    $w10Ext .= '<MSCHAPv2Authentication>
 <UseWinlogonCredentials>false</UseWinlogonCredentials>
 </MSCHAPv2Authentication>
 ';
-            }
-            $w10Ext .= '</Phase2Authentication>
+                }
+                $w10Ext .= '</Phase2Authentication>
 <Phase1Identity>
 ';
-            if ($useAnon == 1) {
-                $w10Ext .= '<IdentityPrivacy>true</IdentityPrivacy> 
+                if ($useAnon == 1) {
+                    $w10Ext .= '<IdentityPrivacy>true</IdentityPrivacy> 
 ';
-                if (isset($outerId) && $outerId) {
-                    $w10Ext .= '<AnonymousIdentity>' . $outerId . '</AnonymousIdentity>
+                    if (isset($outerId) && $outerId) {
+                        $w10Ext .= '<AnonymousIdentity>' . $outerId . '</AnonymousIdentity>
                 ';
+                    } else {
+                        $w10Ext .= '<AnonymousIdentity/>
+                ';
+                    }
                 } else {
-                    $w10Ext .= '<AnonymousIdentity/>
-                ';
-                }
-            } else {
-                $w10Ext .= '<IdentityPrivacy>false</IdentityPrivacy>
+                    $w10Ext .= '<IdentityPrivacy>false</IdentityPrivacy>
 ';
-            }
-            $w10Ext .= '</Phase1Identity>
+                }
+                $w10Ext .= '</Phase1Identity>
 </EapTtls>
 </Config>
 ';
-    }
+            }
         } elseif ($eap == \core\common\EAP::EAPTYPE_PWD) {
             $profileFileCont .= '<ConfigBlob></ConfigBlob>';
         }
@@ -488,8 +491,8 @@ class Device_W10 extends WindowsCommon {
             \core\common\EAP::TTLS => ['str' => 'TTLS', 'exec' => 'user'],
             \core\common\EAP::PWD => ['str' => 'PWD', 'exec' => 'user'],
         ];
-        if (isset($this->options['args']) && $this->options['args'] == 'gl' ) {
-            $eapOptions[\core\common\EAP::TTLS]['strnnnnnnn/w']='GEANTLink';
+        if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+            $eapOptions[\core\common\EAP::TTLS]['strnnnnnnn/w'] = 'GEANTLink';
         }
 
 // Uncomment the line below if you want this module to run under XP (only displaying a warning)
@@ -516,7 +519,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
-!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
+!define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -531,7 +534,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
-        } 
+        }
         $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
@@ -540,7 +543,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
             $fcontents .= '!define WIRED
         ';
         }
-        $fcontents .= '!define PROVIDERID "urn:UUID:'.$this->deviceUUID.'"
+        $fcontents .= '!define PROVIDERID "urn:UUID:' . $this->deviceUUID . '"
 ';
         $fileHandle = fopen('main.nsh', 'w');
         fwrite($fileHandle, $fcontents);
@@ -575,34 +578,52 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
-        $result;
-        $result = $this->copyFile('wlan_test.exe');
-        $result = $this->copyFile('check_wired.cmd');
-        $result = $this->copyFile('install_wired.cmd');
-        $result = $this->copyFile('cat_bg.bmp');
-        $result = $this->copyFile('base64.nsh');
-        $result = $result && $this->copyFile('cat32.ico');
-        $result = $result && $this->copyFile('cat_150.bmp');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
+        // see if all copy file operations succeed.
+        $result1 = $this->copyFile('wlan_test.exe') &&
+                $this->copyFile('check_wired.cmd') &&
+                $this->copyFile('install_wired.cmd') &&
+                $this->copyFile('cat_bg.bmp') &&
+                $this->copyFile('base64.nsh');
+        if ($result1 === FALSE) {
+            throw new Exception("Copying needed files (part 1) failed for at least one file!");
+        }
+        $result2 = $this->copyFile('cat32.ico') &&
+                $this->copyFile('cat_150.bmp') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe', 'WLANSetEAPUserData32.exe') &&
+                $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe', 'WLANSetEAPUserData64.exe');
+        if ($result2 === FALSE) {
+            throw new Exception("Copying needed files (part 2) failed for at least one file!");
+        }
         $this->translateFile('common.inc', 'common.nsh', $this->codePage);
-        if( $eap["OUTER"] == \core\common\EAP::TTLS && isset($this->options['args']) && $this->options['args'] == 'gl' )  {
-            $result = $result && $this->copyFile('GEANTLink32.msi');
-            $result = $result && $this->copyFile('GEANTLink64.msi');
-            $result = $result && $this->copyFile('CredWrite.exe');
-            $result = $result && $this->copyFile('MsiUseFeature.exe');
-            $this->translateFile('geant_link.inc','cat.NSI',$this->code_page);
-        } elseif ($eap["OUTER"] == \core\common\EAP::PWD) {
-            $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
-            $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
-            $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
-        } else {
-            $this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage);
-            $result = 1;
+        switch ($eap["OUTER"]) {
+            case \core\common\EAP::TTLS:
+                if (isset($this->options['args']) && $this->options['args'] == 'gl') {
+                    $resultGL = $this->copyFile('GEANTLink32.msi') &&
+                            $this->copyFile('GEANTLink64.msi') &&
+                            $this->copyFile('CredWrite.exe') &&
+                            $this->copyFile('MsiUseFeature.exe');
+                    if ($resultGL === FALSE) {
+                        throw new Exception("Copying needed files (GEANTLink) failed for at least one file!");
+                    }
+                    $this->translateFile('geant_link.inc', 'cat.NSI', $this->code_page);
+                }
+                break;
+            case \core\common\EAP::PWD:
+                $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
+                $resultPWD = $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi') &&
+                        $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
+                if ($resultPWD === FALSE) {
+                    throw new Exception("Copying needed files (EAP-pwd) failed for at least one file!");
+                }
+                break;
+            default:
+                $this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage);
+                $result = 1;
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
         return($result);
     }
+
     private $tlsOtherUsername = 0;
 
 }
