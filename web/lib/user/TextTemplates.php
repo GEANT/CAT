@@ -67,7 +67,7 @@ class TextTemplates {
         $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
         $this->templates[HEADING_TOPLEVEL_PURPOSE] = sprintf(_("Connect your device to %s"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->tempaltes[FRONTPAGE_ROLLER_CUSTOMBUILT] = sprintf(_("Custom built for your %s"),$parent->nomenclature_inst);
+        $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = sprintf(_("Custom built for your %s"),$parent->nomenclature_inst);
         $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
         $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
     }
