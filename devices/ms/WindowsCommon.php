@@ -188,7 +188,7 @@ class WindowsCommon extends \core\DeviceConfig {
             $this->loggerInstance->debug(5, "New logo size: ");
             $this->loggerInstance->debug(5, $idpLogoSize);
         }
-        if($useFederationLogo && $fedLogo != NULL) {
+        if ($useFederationLogo && $fedLogo != NULL) {
             $fedLogoObject = new \Imagick($fedLogo[0]['name']);
             $fedLogoSize = $fedLogoObject->getImageGeometry();
             $fedMax = max($fedLogoSize);
