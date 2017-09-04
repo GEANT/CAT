@@ -312,57 +312,52 @@ class Federation extends EntityWithDBProperties {
     const AMBIGUOUS_IDP = -2;
 
     /**
+     * 
+     * @param mysqli_result $dbResult
+     */
+    private static function findCandidates(\mysqli_result $dbResult, &$country) {
+        $retArray = [];
+        while ($row = mysqli_fetch_object($dbResult)) {
+            if (!in_array($row->inst_id, $retArray)) {
+                $retArray[] = $row->inst_id;
+                $country = strtoupper($row->country);
+            }
+        }
+        if (count($retArray) <= 0) {
+            return Federation::UNKNOWN_IDP;
+        }
+        if (count($retArray) > 1) {
+            return Federation::AMBIGUOUS_IDP;
+        }
+
+        return array_pop($retArray);
+    }
+
+    /**
      * If we are running diagnostics, our input from the user is the realm. We
      * need to find out which IdP this realm belongs to.
      * @param string $realm the realm to search for
      * @return IdP|int either the ID of the IdP in the system, or UNKNOWN_IDP or AMBIGUOUS_IDP
      */
     public static function determineIdPIdByRealm($realm) {
-        $candidatesCat = [];
-        $candidatesExternalDb = [];
         $country = NULL;
+        $candidatesExternalDb = Federation::UNKNOWN_IDP;
         $dbHandle = DBConnection::handle("INST");
-
         $realmSearchStringCat = "%@$realm";
-        $realmSearchStringDb1 = "$realm";
-        $realmSearchStringDb2 = "%,$realm";
-        $realmSearchStringDb3 = "$realm,%";
-        $realmSearchStringDb4 = "%,$realm,%";
-
-        $candidateCatQuery = $dbHandle->exec("SELECT inst_id FROM profile WHERE realm LIKE ?", "s", $realmSearchStringCat);
-        while ($row = mysqli_fetch_object($candidateCatQuery)) {
-            if (!in_array($row->inst_id, $candidatesCat)) {
-                $candidatesCat[] = $row->inst_id;
-                $idpObject = new IdP($row->inst_id);
-                $country = strtoupper($idpObject->federation);
-            }
-        }
-        if (count($candidatesCat) <= 0) {
-            $candidatesCat = [Federation::UNKNOWN_IDP];
-        }
-        if (count($candidatesCat) > 1) {
-            $candidatesCat = [Federation::AMBIGUOUS_IDP];
-        }
+        $candidateCatQuery = $dbHandle->exec("SELECT p.inst_id as inst_id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ?", "s", $realmSearchStringCat);
+        $candidatesCat = Federation::findCandidates($candidateCatQuery, $country);
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
-            while ($row = mysqli_fetch_object($candidateExternalQuery)) {
-                if (!in_array($row->inst_id, $candidatesExternalDb)) {
-                    $candidatesExternalDb[] = $row->id_institution;
-                    $country = strtoupper($row->country);
-                }
-            }
-        }
-        if (count($candidatesExternalDb) <= 0) {
-            $candidatesExternalDb = [Federation::UNKNOWN_IDP];
-        }
-        if (count($candidatesExternalDb) > 1) {
-            $candidatesExternalDb = [Federation::AMBIGUOUS_IDP];
+            $realmSearchStringDb1 = "$realm";
+            $realmSearchStringDb2 = "%,$realm";
+            $realmSearchStringDb3 = "$realm,%";
+            $realmSearchStringDb4 = "%,$realm,%";
+            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution as inst_id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
+            $candidatesExternalDb = Federation::findCandidates($candidateExternalQuery, $country);
         }
 
-
-        return ["CAT" => array_pop($candidatesCat), "EXTERNAL" => array_pop($candidatesExternalDb), "FEDERATION" => $country];
+        return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
 
     private function usort_institution($a, $b) {
