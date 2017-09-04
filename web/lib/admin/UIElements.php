@@ -95,6 +95,7 @@ class UIElements {
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
             _("Profile Description") => "profile:description",
+            _("Custom Installer Name Suffix") => "profile:customsuffix",
             sprintf(_("%s Administrator"), $this->nomenclature_fed) => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",

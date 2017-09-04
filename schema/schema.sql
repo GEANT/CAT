@@ -175,6 +175,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('media:remove_SSID','SSIDs to remove during installation','string',NULL),
 ('media:consortium_OI','Hotspot 2.0 consortium OIs to configure','string',NULL),
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),
 ('profile:production','Profile is ready and can be displayed on download page','boolean',NULL),
 ('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),

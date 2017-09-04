@@ -453,6 +453,15 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
+        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG_CONFASSISTANT['CONSORTIUM']['name']));
+        if (isset($this->attributes['profile:customsuffix'][1])) { 
+            // this string will end up as a filename on a filesystem, so always
+            // take a latin-based language variant if available
+            // and then scrub non-ASCII just in case
+            return $consortiumName . "-" . $this->getDeviceId() . iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:customsuffix'][1]));
+        }
+        // Okay, no custom suffix. 
+        // Use the configured inst name and apply shortening heuristics
         $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
         $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
@@ -464,7 +473,7 @@ abstract class DeviceConfig extends \core\common\Entity {
                 $inst .= $i[0];
             }
         }
-        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG_CONFASSISTANT['CONSORTIUM']['name']));
+        // and if the inst has multiple profiles, add the profile name behin
         if ($this->attributes['internal:profile_count'][0] > 1) {
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
                 $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));

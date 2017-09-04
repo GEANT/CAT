@@ -19,7 +19,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
-('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL);
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML');
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,

@@ -40,6 +40,9 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 frontend things. Usually the same as "INST" but on deployments
                 where end-user frontend and admin areas are on separate hosts
                 this can be useful for privilege separation
+- [FEATURE #17] Allow to specify custom installer name suffixes on per-profile
+                level
+
 
 Configuration parameter changes
 -------------------------------
