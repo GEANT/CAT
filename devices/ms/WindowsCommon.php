@@ -90,6 +90,7 @@ class WindowsCommon extends \core\DeviceConfig {
 
     public function __construct() {
         parent::__construct();
+        $this->useGeantLink = ( isset($this->options['args']) && $this->options['args'] == 'gl' ) ? 1 : 0;
     }
 
     protected function prepareInstallerLang() {
@@ -103,6 +104,56 @@ class WindowsCommon extends \core\DeviceConfig {
         }
     }
 
+    public function writeDeviceInfo() {
+        $ssidCount = count($this->attributes['internal:SSID']);
+        $out = "<p>";
+        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $out .= "<p>";
+        if ($ssidCount > 1) {
+            if ($ssidCount > 2) {
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
+            } else {
+                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
+            }
+            $iterator = 0;
+            foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
+                if (!in_array($ssid, CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
+                    if ($iterator > 0) {
+                        $out .= ", ";
+                    }
+                    $iterator++;
+                    $out .= "<strong>$ssid</strong>";
+                }
+            }
+            $out .= "<p>";
+        }
+// TODO - change this below
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $out .= sprintf(_("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your %s. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process."), $this->nomenclature_inst);
+            return($out);
+        }
+        // not EAP-TLS
+        $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
+
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_PEAP_MSCHAP2) {
+            $out .= "<p>";
+            $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
+            if ($ssidCount > 1) {
+                $out .= "<p>";
+                $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
+                $iterator = 0;
+                foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
+                    if ($iterator > 0) {
+                        $out .= ", ";
+                    }
+                    $iterator++;
+                    $out .= "<strong>$ssid</strong>";
+                }
+            }
+        }
+        return($out);
+    }    
+    
     protected function combineLogo($logos, $fedLogo = NULL) {
         // maximum size to which we want to resize the logos
         $maxSize = 120;
@@ -289,5 +340,6 @@ class WindowsCommon extends \core\DeviceConfig {
     ];
     public $codePage;
     public $lang;
+    public $useGeantLink;
 
 }

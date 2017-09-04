@@ -90,8 +90,9 @@ class Device_W10 extends WindowsCommon {
             $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
+        $fedLogo = $this->attributes['fed:logo_file'] ?? NULL;
         if (isset($this->attributes['internal:logo_file'])) {
-            $this->combineLogo($this->attributes['internal:logo_file']);
+            $this->combineLogo($this->attributes['internal:logo_file'], $fedLogo);
         }
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
@@ -101,55 +102,8 @@ class Device_W10 extends WindowsCommon {
         return($installerPath);
     }
 
-    public function writeDeviceInfo() {
-        $ssidCount = count($this->attributes['internal:SSID']);
-        $out = "<p>";
-        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $out .= "<p>";
-        if ($ssidCount > 1) {
-            if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
-            } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
-            }
-            $iterator = 0;
-            foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
-            }
-            $out .= "<p>";
-        }
-// TODO - change this below
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $out .= sprintf(_("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your %s. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process."), $this->nomenclature_inst);
-        } else {
-            $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
-            $out .= "<p>";
-            $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
-            if ($ssidCount > 1) {
-                $out .= "<p>";
-                $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
-                $iterator = 0;
-                foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
-            }
-        }
-        return $out;
-    }
-
     private function prepareEapConfig($attr) {
         $eap = $this->selectedEap;
-        $useGeantLink = ( isset($this->options['args']) && $this->options['args'] == 'gl' ) ? 1 : 0;
         $w10Ext = '';
         // there is only one caller to this function, and it will always call
         // with exactly one of exactly the EAP types below. Let's assert() that
@@ -172,7 +126,7 @@ class Device_W10 extends WindowsCommon {
         $caArray = $attr['internal:CAs'][0];
         $authorId = "0";
         if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP || $eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
-            if ($useGeantLink) {
+            if ($this->useGeantLink) {
                 $authorId = "67532";
                 $servers = implode('</ServerName><ServerName>', $attr['eap:server_name']);
             } else {
@@ -278,7 +232,7 @@ class Device_W10 extends WindowsCommon {
 </Config>
 ';
         } elseif ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP || $eap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2) {
-            if ($useGeantLink) {
+            if ($this->useGeantLink) {
                 $innerMethod = 'MSCHAPv2';
                 if ($eap == \core\common\EAP::EAPTYPE_TTLS_PAP) {
                     $innerMethod = 'PAP';
