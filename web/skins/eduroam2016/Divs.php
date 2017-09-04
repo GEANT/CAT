@@ -59,4 +59,49 @@ class Divs {
         return $retval;
     }
 
+    public function div_top_welcome() {
+        return "
+<div id='welcome_top1'>
+    " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_GREET] . "
+</div>
+<div id='top_invite' class='signin'>
+    " . $this->Gui->textTemplates->templates[user\HEADING_TOPLEVEL_PURPOSE] . "
+</div>";
+    }
+
+    public function div_roller() {
+        $retval = "
+<div id='roller'>
+    <div id='slides'>
+        <span id='line1'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_EASY] . "</span>
+        <span id='line2'></span>
+        <span id='line3'></span>
+        <span id='line4'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT] . "</span>
+        <span id='line5'>";
+        if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
+            $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
+        }
+        $retval .= "
+        </span>
+    </div>
+    <div id = 'img_roll'>
+        <img id='img_roll_0' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='Rollover 0'/> <img id='img_roll_1' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='Rollover 1'/>
+    </div>
+</div>";
+        return $retval;
+    }
+
+    public function div_main_button() {
+        return "
+<div id='user_button_td'>
+  <span id='signin'>
+     <button class='large_button signin signin_large' id='user_button1'>
+        <span id='user_button'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_BIGDOWNLOADBUTTON] . "
+        </span>
+     </button>
+  </span>
+  <span style='padding-left:50px'>&nbsp;</span>
+</div>";
+    }
+
 }

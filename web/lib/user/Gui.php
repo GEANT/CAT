@@ -22,7 +22,6 @@ class Gui extends \core\UserAPI {
 
     public function __construct() {
         $validator = new \web\lib\common\InputValidation();
-        $this->textTemplates = new TextTemplates();
         parent::__construct();
         if (!empty($_REQUEST['idp'])) { // determine skin to use based on NROs preference
             $idp = $validator->IdP($_REQUEST['idp']);
@@ -31,6 +30,7 @@ class Gui extends \core\UserAPI {
         }
         $this->skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $_SESSION['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
         $this->langObject = new \core\common\Language();
+        $this->textTemplates = new TextTemplates($this);
     }
 
     public function defaultPagePrelude($pagetitle = CONFIG['APPEARANCE']['productname_long']) {
