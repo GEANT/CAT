@@ -197,6 +197,7 @@ class UserAPI extends CAT {
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         if (isset($dev)) {
+            $dev->setup($profile);
             $out = $dev->writeDeviceInfo();
         }
         $this->languageInstance->setTextDomain("web_user");
