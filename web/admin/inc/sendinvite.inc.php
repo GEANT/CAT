@@ -47,7 +47,7 @@ if (!isset($_SESSION['user']) || !isset($_POST['mailaddr'])) {
     throw new Exception("sendinvite: called either without authentication or without target mail address!");
 }
 
-$newmailaddress = $validator->email($_POST['mailaddr']);
+$newmailaddress = $validator->email(filter_input(INPUT_POST, 'mailaddr', FILTER_SANITIZE_STRING));
 $newcountry = "";
 
 // fed admin stuff
