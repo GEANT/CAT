@@ -115,16 +115,7 @@ class WindowsCommon extends \core\DeviceConfig {
             } else {
                 $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             }
-            $iterator = 0;
-            foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
-            }
+            $out .= '<strong>' . join ('</strong>, <strong>', array_diff(array_keys($this->attributes['internal:SSID']), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
             $out .= "<p>";
         }
 // TODO - change this below
@@ -135,20 +126,13 @@ class WindowsCommon extends \core\DeviceConfig {
         // not EAP-TLS
         $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
 
-        if ( ! $this->useGeantLink && ( $this->selectedEap == \core\common\EAP::EAPTYPE_TTSL_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_TTSL_PAP )) {
+        if (! $this->useGeantLink && ( $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_PAP )) {
             $out .= "<p>";
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
                 $out .= "<p>";
                 $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
-                $iterator = 0;
-                foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
+                $out .= '<strong>' . join ('</strong>, <strong>', array_keys($this->attributes['internal:SSID'])) . '</strong>';
             }
         }
         return($out);
