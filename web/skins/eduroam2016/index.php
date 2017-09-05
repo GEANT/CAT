@@ -79,9 +79,9 @@ include("user/js/cat_js.php");
          <?php if (empty($_REQUEST['idp'])) { ?>
               <div id="front_page">
                   <?php
-                         include "div_top_welcome.php";
-                         include "div_roller.php";
-                         include "div_main_button.php"; ?>
+                         echo $divs->div_top_welcome();
+                         echo $divs->div_roller();
+                         echo $divs->div_main_button(); ?>
               </div> <!-- id="front_page" -->
          <?php } ?>
             <!-- the user_page div contains all information for a given IdP, i.e. the profile selection (if multiple profiles are defined)
