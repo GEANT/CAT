@@ -50,7 +50,7 @@ class User extends EntityWithDBProperties {
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
+            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $userId);
             $visited = FALSE;
             while ($userDetailQuery = mysqli_fetch_object($info)) {
                 if (!$visited) {

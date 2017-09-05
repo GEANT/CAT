@@ -66,18 +66,6 @@ class DBConnection {
     }
 
     /**
-     * 
-     * @param string $value The value to escape
-     * @return string
-     */
-    public function escapeValue($value) {
-        $this->loggerInstance->debug(5, "Escaping $value for DB $this->databaseInstance to get a safe query value.\n");
-        $escaped = $this->connection->real_escape_string($value);
-        $this->loggerInstance->debug(5, "This is the result: $escaped .\n");
-        return $escaped;
-    }
-
-    /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
      * @param string $querystring the query to be executed
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements

@@ -74,10 +74,9 @@ class UserManagement extends \core\common\Entity {
      * @return int
      */
     public function checkTokenValidity($token) {
-        $escapedToken = $this->databaseHandle->escapeValue($token);
         $check = $this->databaseHandle->exec("SELECT invite_token, cat_institution_id 
                            FROM invitations 
-                           WHERE invite_token = '$escapedToken' AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
+                           WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
 
         if ($tokenCheck = mysqli_fetch_object($check)) {
             if ($tokenCheck->cat_institution_id === NULL) {
@@ -87,7 +86,7 @@ class UserManagement extends \core\common\Entity {
         }
         // if we haven't returned from the function yet, it is an invalid token... 
         // be a little verbose what's wrong with it
-        $checkReason = $this->databaseHandle->exec("SELECT invite_token, used FROM invitations WHERE invite_token = '$escapedToken'");
+        $checkReason = $this->databaseHandle->exec("SELECT invite_token, used FROM invitations WHERE invite_token = ?", "s", $token);
         if ($invalidTokenCheck = mysqli_fetch_object($checkReason)) {
             if ($invalidTokenCheck->used == 1) {
                 return self::TOKENSTATUS_FAIL_ALREADYCONSUMED;
@@ -184,8 +183,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function addAdminToIdp($idp, $user) {
-        $escapedUser = $this->databaseHandle->escapeValue($user);
-        $this->databaseHandle->exec("INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES($idp->identifier,'$escapedUser','FED','SELF-APPOINTED')");
+        $this->databaseHandle->exec("INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'FED', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
         return TRUE;
     }
 
@@ -196,8 +194,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function removeAdminFromIdP($idp, $user) {
-        $escapedUser = $this->databaseHandle->escapeValue($user);
-        $this->databaseHandle->exec("DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = '$escapedUser'");
+        $this->databaseHandle->exec("DELETE from ownership WHERE institution_id = $idp->identifier AND user_id = ?", "s", $user);
         return TRUE;
     }
 
@@ -210,8 +207,7 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function invalidateToken($token) {
-        $escapedToken = $this->databaseHandle->escapeValue($token);
-        $this->databaseHandle->exec("UPDATE invitations SET used = 1 WHERE invite_token = '$escapedToken'");
+        $this->databaseHandle->exec("UPDATE invitations SET used = 1 WHERE invite_token = ?", "s", $token);
         return TRUE;
     }
 
@@ -228,25 +224,20 @@ Best regards,
      * @return mixed The function returns either the token (as string) or FALSE if something went wrong
      */
     public function createToken($isByFedadmin, $for, $instIdentifier, $externalId = 0, $country = 0) {
-        $escapedFor = $this->databaseHandle->escapeValue($for);
         $token = sha1(base_convert(rand(0, 10e16), 10, 36)) . sha1(base_convert(rand(0, 10e16), 10, 36));
         $level = ($isByFedadmin ? "FED" : "INST");
 
         if ($instIdentifier instanceof IdP) {
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES('$level', '$escapedFor', '$token',$instIdentifier->identifier)");
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,cat_institution_id) VALUES(?, ?, ?, ?)", "sssi", $level, $for, $token, $instIdentifier->identifier);
             return $token;
         } else if (func_num_args() == 4) { // string name, but no country - new IdP with link to external DB
             // what country are we talking about?
-            $newname = $this->databaseHandle->escapeValue($instIdentifier);
             $cat = new CAT();
             $extinfo = $cat->getExternalDBEntityDetails($externalId);
-            $externalhandle = $this->databaseHandle->escapeValue($externalId);
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $extinfo['country'] . "',  '" . $externalhandle . "')");
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $for, $token, $instIdentifier, $extinfo['country'], $externalId);
             return $token;
         } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
-            $newname = $this->databaseHandle->escapeValue($instIdentifier);
-            $newcountry = $this->databaseHandle->escapeValue($country);
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES('$level', '$escapedFor', '$token', '" . $newname . "', '" . $newcountry . "')");
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $for, $token, $instIdentifier, $country);
             return $token;
         }
         throw new Exception("Creation of a new token failed!");
@@ -299,8 +290,7 @@ Best regards,
      */
     public function listInstitutionsByAdmin($userid) {
         $returnarray = [];
-        $escapedUserid = $this->databaseHandle->escapeValue($userid);
-        $institutions = $this->databaseHandle->exec("SELECT institution_id FROM ownership WHERE user_id = '$escapedUserid' ORDER BY institution_id");
+        $institutions = $this->databaseHandle->exec("SELECT institution_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userid);
         while ($instQuery = mysqli_fetch_object($institutions)) {
             $returnarray[] = $instQuery->institution_id;
         }

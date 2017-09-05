@@ -71,7 +71,7 @@ if ($checkval < 0) {
             echo "<p>" . sprintf(_("Sorry... this token has already been used to create an %s. If you got it from a mailing list, probably someone else used it before you."), $elements->nomenclature_inst) . "</p>";
             break;
         case \core\UserManagement::TOKENSTATUS_FAIL_EXPIRED:
-            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your %s administrator for a new one."),$elements->nomenclature_fed) . "</p>";
+            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your %s administrator for a new one."), $elements->nomenclature_fed) . "</p>";
             break;
         default:
             echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";
@@ -82,9 +82,10 @@ if ($checkval < 0) {
 
 // token is valid. Get meta-info and create inst
 // TODO get invitation level and mail, store it as property
-
 $user = $validator->User($_SESSION['user']);
+
 $loggerInstance = new \core\common\Logging();
+
 switch ($token) {
     case "SELF-REGISTER":
         $fed = new \core\Federation($federation);

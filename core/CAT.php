@@ -75,7 +75,7 @@ class CAT extends \core\common\Entity {
      */
     public $CAT_COPYRIGHT;
 
-        /**
+    /**
      * the custom displayable variant of the term 'federation'
      * @var string
      */
@@ -86,7 +86,7 @@ class CAT extends \core\common\Entity {
      * @var string
      */
     public $nomenclature_inst;
-    
+
     /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
      * The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
@@ -140,7 +140,7 @@ class CAT extends \core\common\Entity {
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
         $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
-        
+
         $this->knownFederations = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
@@ -437,13 +437,12 @@ class CAT extends \core\common\Entity {
         $query .= "WHERE (institution_option.option_name = 'general:instname' 
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
-        if ($country) {
-            // escape the parameter
-            $country = $handle->escapeValue($country);
-            $query .= "AND institution.country = '$country' ";
-        }
+
+        $query .= ($country ? "AND institution.country = ? " : "");
+
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        $allIDPs = $handle->exec($query);
+        
+        $allIDPs = ($country ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
         while ($queryResult = mysqli_fetch_object($allIDPs)) {
             $institutionOptions = explode('---', $queryResult->options);

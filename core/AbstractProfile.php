@@ -362,9 +362,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
     public function setRealm($realm) {
-        $escapedRealm = $this->databaseHandle->escapeValue($realm);
-        $this->databaseHandle->exec("UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
-        $this->realm = $escapedRealm;
+        $this->databaseHandle->exec("UPDATE profile SET realm = ? WHERE profile_id = ?", "si", $realm, $this->identifier);
+        $this->realm = $realm;
     }
 
     /**

@@ -42,7 +42,7 @@ class InputValidation {
         $cat = new \core\CAT();
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
-            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!",$cat->nomenclature_fed)));
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", $cat->nomenclature_fed)));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
@@ -58,7 +58,7 @@ class InputValidation {
                 return $temp;
             }
         }
-        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!",$cat->nomenclature_fed)));
+        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", $cat->nomenclature_fed)));
     }
 
     /**
@@ -156,7 +156,7 @@ class InputValidation {
     if (is_array($afterWhitespace)) {
         throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
     }
-    return (string)$afterWhitespace;
+    return (string) $afterWhitespace;
 }
 
 /**
@@ -242,12 +242,18 @@ public function realm($input) {
  * @throws Exception
  */
 public function User($input) {
-    $retval = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $input);
+    $retvalStep0 = iconv("UTF-8", "UTF-8//TRANSLIT", $input);
+    if ($retvalStep0 === FALSE) {
+        throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
+    }
+    $retvalStep1 = trim($retvalStep0);
+
+    $retval = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retvalStep1);
     if ($retval != "" && !ctype_print($retval)) {
         throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
 
-    return $this->string($retval);
+    return $retval;
 }
 
 /**
