@@ -242,8 +242,8 @@ public function realm($input) {
  * @throws Exception
  */
 public function User($input) {
-    $retval = $input;
-    if ($input != "" && !ctype_print($input)) {
+    $retval = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $input);
+    if ($retval != "" && !ctype_print($retval)) {
         throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
 
