@@ -14,6 +14,6 @@ $telepath = new \core\diag\Telepath($_GET['realm'], $_GET['visited']);
 $validator = new \web\lib\common\InputValidation();
 
 echo "<pre>";
-echo "Testing ".$validator->realm($_GET['realm'])." in ".$validator->string($_GET['visited']);
+echo "Testing ".$validator->realm(filter_input(INPUT_GET,'realm', FILTER_SANITIZE_STRING))." in ".$validator->string(filter_input(INPUT_GET, 'visited', FILTER_SANITIZE_STRING));
 print_r($telepath->magic());
 echo "</pre>";
