@@ -73,11 +73,11 @@ class Federation extends EntityWithDBProperties {
                 $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $result->profile_id);
                 while ($queryResult = mysqli_fetch_object($statsList)) {
                     $countDevice['ADMIN'] = $countDevice['ADMIN'] + $queryResult->downloads_admin;
-                    $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_admin;
-                    $countDevice['USER'] = $countDevice['USER'] + $queryResult->downloads_admin;
-                    $grossAdmin = $grossAdmin + $queryResult->admin;
-                    $grossSilverbullet = $grossSilverbullet + $queryResult->silverbullet;
-                    $grossUser = $grossUser + $queryResult->user;
+                    $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_silverbullet;
+                    $countDevice['USER'] = $countDevice['USER'] + $queryResult->downloads_user;
+                    $grossAdmin = $grossAdmin + $queryResult->downloads_admin;
+                    $grossSilverbullet = $grossSilverbullet + $queryResult->downloads_silverbullet;
+                    $grossUser = $grossUser + $queryResult->downloads_user;
                 }
                 $dataArray[$deviceArray['display']] = ["ADMIN" => $countDevice['ADMIN'], "SILVERBULLET" => $countDevice['SILVERBULLET'], "USER" => $countDevice['USER']];
             }
