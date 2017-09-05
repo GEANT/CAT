@@ -55,24 +55,27 @@ class Authentication {
         /*
          * This is a nice pathological test case for a user ID.
          *
-         * */ 
-         // $_SESSION['user'] = "<saml:NameID xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" NameQualifier=\"https://idp.jisc.ac.uk/idp/shibboleth\" SPNameQualifier=\"https://cat-beta.govroam.uk/simplesaml/module.php/saml/sp/metadata.php/default-sp\" Format=\"urn:oasis:names:tc:SAML:2.0:nameid-format:persistent\">XXXXXXXXXXXXXXXX</saml:NameID>";
-         
-         
+         * */
+        // $_SESSION['user'] = "<saml:NameID xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" NameQualifier=\"https://idp.jisc.ac.uk/idp/shibboleth\" SPNameQualifier=\"https://cat-beta.govroam.uk/simplesaml/module.php/saml/sp/metadata.php/default-sp\" Format=\"urn:oasis:names:tc:SAML:2.0:nameid-format:persistent\">XXXXXXXXXXXXXXXX</saml:NameID>";
+
+
         $newNameReceived = FALSE;
 
         $userObject = new \core\User($user);
-        if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0]) && (count($userObject->getAttributes('user:realname')) == 0)) {
-            $name = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-name']][0];
-            $userObject->addAttribute('user:realname', NULL, $name);
-            $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added real name from external auth source");
-            $newNameReceived = TRUE;
-        }
 
-        if (isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0]) && (count($userObject->getAttributes('user:email')) == 0)) {
-            $mail = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-email']][0];
-            $userObject->addAttribute('user:email', NULL, $mail);
-            $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added email address from external auth source");
+        $attribMapping = [
+            "ssp-attrib-name" => "user:realname", 
+            "ssp-attrib-email" => "user:email"];
+
+        foreach ($attribMapping as $SSPside => $CATside) {
+            if (isset($admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0]) && (count($userObject->getAttributes($CATside)) == 0)) {
+                $name = $admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0];
+                $userObject->addAttribute($CATside, NULL, $name);
+                $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added $CATside from external auth source");
+                if ($CATside == "user:realname") {
+                    $newNameReceived = TRUE;
+                }
+            }
         }
 
         if (count($userObject->getAttributes('user:realname')) > 0 || $newNameReceived) { // we have a real name ... set it
