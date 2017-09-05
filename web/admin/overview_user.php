@@ -43,7 +43,7 @@ $user = new \core\User($_SESSION['user']);
                 <td>
                 </td>
                 <td>
-                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo htmlspecialchars($_SESSION["user"], ENT_QUOTES); ?>")'><?php echo _("click to display"); ?></span>
+                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'','\x27',str_replace('"','\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
         </table>

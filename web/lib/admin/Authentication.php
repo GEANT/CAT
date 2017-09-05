@@ -52,6 +52,12 @@ class Authentication {
         $user = $admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0];
 
         $_SESSION['user'] = $user;
+        /*
+         * This is a nice pathological test case for a user ID.
+         * 
+         $_SESSION['user'] = "<saml:NameID xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\" NameQualifier=\"https://idp.jisc.ac.uk/idp/shibboleth\" SPNameQualifier=\"https://cat-beta.govroam.uk/simplesaml/module.php/saml/sp/metadata.php/default-sp\" Format=\"urn:oasis:names:tc:SAML:2.0:nameid-format:persistent\">XXXXXXXXXXXXXXXX</saml:NameID>";
+         */
+         
         $newNameReceived = FALSE;
 
         $userObject = new \core\User($user);
