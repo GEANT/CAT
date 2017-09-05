@@ -28,6 +28,11 @@ const FRONTPAGE_ROLLER_EASY = 1020;
 const FRONTPAGE_ROLLER_CUSTOMBUILT = 1021;
 const FRONTPAGE_ROLLER_SIGNEDBY = 1022;
 const FRONTPAGE_BIGDOWNLOADBUTTON = 1023;
+const INSTITUTION_SELECTION = 1030;
+const PROFILE_SELECTION = 1040;
+const DOWNLOAD_CHOOSE = 1050;
+const DOWNLOAD_ALLPLATFORMS = 1051;
+const DOWNLOAD_MESSAGE = 1052;
 
 /**
  * some of the texts we write are consortium-specific.
@@ -70,5 +75,10 @@ class TextTemplates {
         $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = sprintf(_("Custom built for your %s"),$parent->nomenclature_inst);
         $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
         $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->templates[PROFILE_SELECTION] = _("Select the user group");
+        $this->templates[INSTITUTION_SELECTION] = _("select another");
+        $this->templates[DOWNLOAD_CHOOSE] = _("Choose an installer to download");
+        $this->templates[DOWNLOAD_ALLPLATFORMS] = _("All platforms");
+        $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
     }
 }

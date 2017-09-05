@@ -35,8 +35,8 @@ $Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-$downloadMessage = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['name']);
-print 'downloadMessage = "' . $downloadMessage . '";';
+
+print 'downloadMessage = "' . $Gui->textTemplates->templates[\web\lib\user\DOWNLOAD_MESSAGE] . '";';
 //TODO modify this based on OS detection
 if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
     $profile_list_size = 1;
@@ -87,8 +87,8 @@ include("user/js/cat_js.php");
             <!-- the user_page div contains all information for a given IdP, i.e. the profile selection (if multiple profiles are defined)
                  and the device selection (including the automatic OS detection ) -->
             <div id="user_page">
-            <?php  include "div_institution.php";
-                   include "div_profiles.php"; ?>
+            <?php  echo $divs->div_institution();
+                   echo $divs->div_profiles(); ?>
                 <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                 <?php echo $divs->div_user_welcome() ?>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
@@ -104,9 +104,9 @@ include("user/js/cat_js.php");
                     <?php
                         // this part is shown when we have guessed the OS -->
                         if ($operatingSystem) {
-                            include "div_guess_os.php";
+                            echo $divs->div_guess_os($operatingSystem);
                         }
-                         include "div_other_installers.php";
+                         echo $divs->div_otherinstallers();
                     ?>
                 </div> <!-- id="devices" -->
                 <input type="hidden" name="profile" id="profile_id"/>
@@ -118,6 +118,6 @@ include("user/js/cat_js.php");
     </div>
    </form>
 </div>
-<?php include "div_foot.php"; ?>
+<?php echo $divs->div_footer(); ?>
 </body>
 </html>

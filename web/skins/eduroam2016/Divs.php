@@ -104,4 +104,115 @@ class Divs {
 </div>";
     }
 
+    public function div_profiles() {
+        return "
+<div id='profiles'> <!-- this is the profile selection filled during run time -->
+    <div id='profiles_h' class='sub_h'>" . $this->Gui->textTemplates->templates[user\PROFILE_SELECTION] . "
+    </div>
+    <table>
+        <tr>
+            <td><select id='profile_list'></select></td>
+            <td><div id='profile_desc' class='profile_desc'></div></td>
+        </tr>
+    </table>
+</div>";
+    }
+
+    public function div_institution() {
+        return "
+<div id='institution_name'>
+    <span id='inst_name_span'></span> <!-- this will be filled with the IdP name -->
+    <a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>
+</div>
+<div> <!-- IdP logo, if present -->
+    <img id='idp_logo' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='IdP Logo'/>
+</div>";
+    }
+
+    public function div_otherinstallers() {
+        $retval = "
+<div class='sub_h'>
+    <div id='other_installers'>" . $this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE] . "
+         <table id='device_list' style='padding:0px;'>";
+
+        $this->Gui->langObject->setTextDomain("devices");
+        foreach ($this->Gui->listDevices(isset($_REQUEST['hidden']) ? $_REQUEST['hidden'] : 0) as $group => $deviceGroup) {
+            $groupIndex = count($deviceGroup);
+            $deviceIndex = 0;
+            $retval .= '<tbody><tr><td class="vendor" rowspan="' . $groupIndex . '"><img src="' . $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $group . ".png") . '" alt="' . $group . ' Device" title="' . $group . ' Device"></td>';
+            foreach ($deviceGroup as $d => $D) {
+                if ($deviceIndex) {
+                    $retval .= '<tr>';
+                }
+                $j = ($deviceIndex + 1) * 20;
+                $retval .= "<td><button id='" . $d . "'>" . $D['display'] . "</button>"
+                        . "<div class='device_info' id='info_" . $d . "'></div></td>"
+                        . "<td><button class='more_info_b' id='info_b_" . $d . "'>i</button></td></tr>\n";
+                $deviceIndex++;
+            }
+            $retval .= "</tbody>";
+        }
+        $this->Gui->langObject->setTextDomain("web_user");
+        $retval .= "    
+        </table>
+    </div>
+</div>";
+        return $retval;
+    }
+
+    public function div_guess_os($operatingSystem) {
+        return "
+<div class='sub_h' id='guess_os'>
+    <!-- table browser -->
+    <table id='browser'>
+        <tr>
+            <td>
+                <button class='large_button guess_os' style='background-image:url(\"" . $this->Gui->skinObject->findResourceUrl("IMAGES", "vendorlogo/" . $operatingSystem['group'] . ".png") . "\"'
+                                                    id='g_" . $operatingSystem['device'] . "'>
+                    <img id='cross_icon_" . $operatingSystem['device'] . "' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/delete_32.png") . "' >
+                    <div class='download_button_text_1' id='download_button_header_" . $operatingSystem['device'] . "'> " . $this->Gui->textTemplates->templates[user\DOWNLOAD_MESSAGE] . "
+                    </div>
+                    <div class='download_button_text'>" .
+                $operatingSystem['display'] . "
+                    </div>
+                </button>
+                <div class='device_info' id='info_g_" . $operatingSystem['device'] . "'></div>
+          </td>
+          <td style='vertical-align:top'>
+               <button class='more_info_b large_button' id='g_info_b_" . $operatingSystem['device'] . "'>i</button>
+          </td>
+      </tr>
+    </table> <!-- id='browser' -->
+    <div class='sub_h'>
+       <a href='javascript:other_installers()'>" . $this->Gui->textTemplates->templates[user\DOWNLOAD_CHOOSE] . "</a>
+    </div>
+</div> <!-- id='guess_os' -->";
+    }
+
+    public function div_footer() {
+        $retval = "
+<div class='footer' id='footer'>
+    <table>
+        <tr>
+            <td>" .
+                $this->Gui->CAT_COPYRIGHT
+                . "
+            </td>
+            <td>";
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
+            $retval .= "<span id='logos'><img src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "dante.png") . "' alt='DANTE' style='height:23px;width:47px'/>
+              <img src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "eu.png") . "' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
+              <span id='eu_text' style='text-align:right; padding-left: 60px; display: block; '><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top; text-align:right'>European Commission Communications Networks, Content and Technology</a></span>";
+        } else {
+            $retval .= "&nbsp;";
+        }
+
+        $retval .= "
+            </td>
+        </tr>
+    </table>
+</div>";
+        return $retval;
+    }
+
 }
