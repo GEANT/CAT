@@ -127,7 +127,7 @@ switch ($sanitised_action) {
                         break;
                     case "profile-api:realm":
                         if (isset($_POST['value'][$optindex . "-0"]) && $validator->realm($_POST['value'][$optindex . "-0"])) {
-                            $therealm = $_POST['value'][$optindex . "-0"];
+                            $therealm = $validator->realm($_POST['value'][$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:useanon":
