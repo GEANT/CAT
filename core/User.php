@@ -42,7 +42,7 @@ class User extends EntityWithDBProperties {
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = $this->databaseHandle->escapeValue($userId);
+        $this->identifier = $userId;
 
         $optioninstance = Options::instance();
 
@@ -68,7 +68,7 @@ class User extends EntityWithDBProperties {
         } else {
             $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                                                 FROM $this->entityOptionTable
-                                                WHERE $this->entityIdColumn = '$userId'", "User");
+                                                WHERE $this->entityIdColumn = ?", "User", "s", $userId);
         }
     }
 

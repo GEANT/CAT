@@ -176,12 +176,14 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * retrieve attributes from a database.
      * @param string $query sub-classes set the query to execute to get to the options
      * @param string $level the retrieved options get flagged with this "level" identifier
+     * @param string $identifierType what form does the identifier have (stored procedure indicator)
+     * @param string $identifier the identifier in the DB
      * @return array the attributes in one array
      */
-    protected function retrieveOptionsFromDatabase($query, $level) {
+    protected function retrieveOptionsFromDatabase($query, $level, $identifierType, $identifier) {
         $optioninstance = Options::instance();
         $tempAttributes = [];
-        $attributeDbExec = $this->databaseHandle->exec($query);
+        $attributeDbExec = $this->databaseHandle->exec($query, $identifierType, $identifier);
         if (empty($attributeDbExec)) {
             return $tempAttributes;
         }

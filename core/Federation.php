@@ -151,8 +151,8 @@ class Federation extends EntityWithDBProperties {
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
-                                            WHERE $this->entityIdColumn = '$this->identifier' 
-                                            ORDER BY option_name", "FED");
+                                            WHERE $this->entityIdColumn = ?
+                                            ORDER BY option_name", "FED", "s", $this->identifier);
 
 
         $this->attributes[] = array("name" => "internal:country",

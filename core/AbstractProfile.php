@@ -695,9 +695,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     protected function addDatabaseAttributes() {
         $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                 FROM $this->entityOptionTable
-                WHERE $this->entityIdColumn = $this->identifier
+                WHERE $this->entityIdColumn = ?
                 AND device_id IS NULL AND eap_method_id = 0
-                ORDER BY option_name", "Profile");
+                ORDER BY option_name", "Profile", "i", $this->identifier);
         return $databaseAttributes;
     }
 

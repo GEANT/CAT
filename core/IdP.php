@@ -78,8 +78,8 @@ class IdP extends EntityWithDBProperties {
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
-                                            WHERE $this->entityIdColumn = $this->identifier  
-                                            ORDER BY option_name", "IdP");
+                                            WHERE $this->entityIdColumn = ?  
+                                            ORDER BY option_name", "IdP", "i", $this->identifier);
 
         $this->attributes[] = ["name" => "internal:country",
             "lang" => NULL,

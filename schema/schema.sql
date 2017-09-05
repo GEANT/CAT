@@ -148,7 +148,7 @@ CREATE TABLE `downloads` (
 
 CREATE TABLE `user_options` ( 
   `row` int(11) NOT NULL AUTO_INCREMENT, 
-  `user_id` varchar(255) NOT NULL, 
+  `user_id` varchar(2048) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
