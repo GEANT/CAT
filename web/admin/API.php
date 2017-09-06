@@ -118,11 +118,15 @@ switch ($sanitised_action) {
             $therealm = "";
             $theanonid = "anonymous";
             $useAnon = FALSE;
+            $valuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
-                        if (isset($_POST['value'][$optindex . "-0"]) && $validator->string($_POST['value'][$optindex . "-0"])) {
-                            $theanonid = $validator->string($_POST['value'][$optindex . "-0"]);
+                        // I rather work directly with _POST, but some code 
+                        // paths trigger Scrutinizer's security warnings
+                        // so relying on the pre-filtered input for those places
+                        if (array_key_exists($optindex . "-0", $valuesFiltered)) {
+                            $theanonid = $validator->string($valuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:realm":
