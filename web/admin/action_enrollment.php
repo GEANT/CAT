@@ -59,7 +59,7 @@ switch ($_GET['token']) {
         $federation = CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'];
         break;
     default:
-        $token = $validator->token($_GET['token']);
+        $token = $validator->token(filter_input(INPUT_GET,'token',FILTER_SANITIZE_STRING));
         $checkval = $usermgmt->checkTokenValidity($token);
 }
 

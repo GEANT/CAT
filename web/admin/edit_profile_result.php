@@ -61,7 +61,7 @@ if (isset($_POST['anon_support'])) {
 
 $anonLocal = "anonymous";
 if (isset($_POST['anon_local'])) {
-    $anonLocal = $validator->string($_POST['anon_local']);
+    $anonLocal = $validator->string(filter_input(INPUT_POST, 'anon_local', FILTER_SANITIZE_STRING));
 } elseif ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
     $local = $my_profile->getAttributes("internal:anon_local_value");
     if (isset($local[0])) {

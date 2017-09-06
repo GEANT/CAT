@@ -56,9 +56,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
     // okay, he did sumbit an inst. It's either a (string) handle from a promising 
     // candidate, or "other" as selected from the drop-down list
     if ($_POST['inst_link'] != "other") {
-        $my_inst->setExternalDBId($validator->string($_POST['inst_link']));
+        $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link', FILTER_SANITIZE_STRING)));
     } elseif (isset($_POST['inst_link_other'])) {
-        $my_inst->setExternalDBId($validator->string($_POST['inst_link_other']));
+        $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link_other', FILTER_SANITIZE_STRING)));
     }
     header("Location: ../overview_federation.php");
     exit;

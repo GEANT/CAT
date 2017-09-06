@@ -118,7 +118,7 @@ $user = new \core\User($_SESSION['user']);
     if (isset($_POST['submitbutton']) &&
             $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE &&
             isset($_POST['invitation_id'])) {
-        $mgmt->invalidateToken($_POST['invitation_id']);
+        $mgmt->invalidateToken(filter_input(INPUT_POST, 'invitation_id', FILTER_SANITIZE_STRING));
     }
 
     if (isset($_GET['invitation'])) {

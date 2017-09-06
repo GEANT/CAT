@@ -10,5 +10,5 @@
  */
 
 echo "<pre>";
-print_r(\core\User::findLoginIdPByEmail($_GET['mail']));
+print_r(\core\User::findLoginIdPByEmail(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL)));
 echo "<pre>";

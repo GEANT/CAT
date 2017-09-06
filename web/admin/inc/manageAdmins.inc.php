@@ -62,7 +62,7 @@ if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE) {
         if (isset($_POST['admin_id'])) {
             $ownermgmt = new \core\UserManagement();
-            $ownermgmt->removeAdminFromIdP($my_inst, $_POST['admin_id']);
+            $ownermgmt->removeAdminFromIdP($my_inst, filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_STRING));
             // if the user deleted himself, go back to overview page. Otherwise, just stay here and display the remaining owners
             // we don't decide about that here; it's done by JS magic in the calling button
             if ($_POST['admin_id'] == $_SESSION['user']) {

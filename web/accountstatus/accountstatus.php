@@ -32,7 +32,7 @@ $Gui = new \core\UserAPI();
 $operatingSystem = $Gui->detectOS();
 
 if (isset($_REQUEST['token'])) {
-    $cleanToken = $validator->token($_REQUEST['token']);
+    $cleanToken = $validator->token(filter_input(INPUT_REQUEST, 'token', FILTER_SANITIZE_STRING));
     if ($cleanToken) {
         // check status of this silverbullet token according to info in DB:
         // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
