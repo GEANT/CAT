@@ -743,12 +743,12 @@ class UserAPI extends CAT {
                     $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
                     return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
                 } else {
-                    $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
+                    $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER,'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
                     return(false);
                 }
             }
         }
-        $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
+        $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER,'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
         return(false);
     }
 

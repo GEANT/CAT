@@ -84,13 +84,13 @@ class Language {
             $langConverted[] = $hardSetLang;
         }
         if (!empty($_REQUEST['lang'])) {
-            $langConverted[] = $_REQUEST['lang'];
+            $langConverted[] = filter_input(INPUT_REQUEST, 'lang', FILTER_SANITIZE_STRING);
         }
         if (!empty($_SESSION['language'])) {
             $langConverted[] = $_SESSION['language'];
         }
         if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+            $langs = explode(",", filter_input(INPUT_SERVER,"HTTP_ACCEPT_LANGUAGE", FILTER_SANITIZE_STRING));
             foreach ($langs as $lang) {
                 $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);
