@@ -61,7 +61,7 @@ if (!$p->institution || $p->institution !== $instId) {
 // now we generate the installer
 try {
     $validator = new \web\lib\common\InputValidation();
-    $cleanDevice = $validator->Device($id); // throws an Exception if unknown
+    $cleanDevice = $validator->Device($device); // throws an Exception if unknown
     $API->downloadInstaller($cleanDevice, $p->identifier, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob();

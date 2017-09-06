@@ -263,7 +263,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function testCache($device) {
         $returnValue = NULL;
-        $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $this->languageInstance->getLang());
+        $lang = $this->languageInstance->getLang();
+        $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
@@ -294,9 +295,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function incrementDownloadStats($device, $area) {
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
-            $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $this->languageInstance->getLang());
+            $lang = $this->languageInstance->getLang();
+            $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $lang);
             // get eap_type from the downloads table
-            $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $this->languageInstance->getLang());
+            $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
             if (!$eapTypeQuery || !$eapO = mysqli_fetch_object($eapTypeQuery)) {
                 $this->loggerInstance->debug(2, "Error getting EAP_type from the database\n");
             } else {
