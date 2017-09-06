@@ -143,7 +143,6 @@ class EAP {
      * instantiate *real* EAP types, i.e. not EAPTYPE::ANY or EAPTYPE::NONE
      * 
      * @param mixed $eapType the EAP type, either in its integer or array representation
-     * @return void
      */
     public function __construct(mixed $eapType) {
         if (is_numeric($eapType) && array_key_exists($eapType, EAP::EAPTYPES_CONVERSION)) {
