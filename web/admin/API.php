@@ -121,7 +121,7 @@ switch ($sanitised_action) {
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
-                        if (isset($_POST['value'][$optindex . "-0"])) {
+                        if (isset($_POST['value'][$optindex . "-0"]) && $validator->string($_POST['value'][$optindex . "-0"])) {
                             $theanonid = $validator->string($_POST['value'][$optindex . "-0"]);
                         }
                         break;
