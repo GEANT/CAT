@@ -51,7 +51,7 @@ if (isset($_GET['profile_id'])) {
 
 $realm = FALSE;
 if (isset($_POST['realm']) && $_POST['realm'] != "") {
-    $realm = $validator->realm($_POST['realm']);
+    $realm = $validator->realm(filter_input(INPUT_POST, 'realm', FILTER_SANITIZE_STRING));
 }
 
 $anon = FALSE;

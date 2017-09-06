@@ -35,7 +35,7 @@ class AddUserCommand extends AbstractInvokerCommand {
      */
     public function execute(){
         if(isset($_POST[self::PARAM_NAME]) && isset($_POST[self::PARAM_EXPIRY])){
-            $name = $this->parseString($_POST[self::PARAM_NAME]);
+            $name = $this->parseString(filter_input(INPUT_POST, self::PARAM_NAME, FILTER_SANITIZE_STRING));
             $expiry = $this->parseString($_POST[self::PARAM_EXPIRY]);
             $user = $this->context->createUser($name, $expiry, $this);
             if(!empty($user->getIdentifier())){
