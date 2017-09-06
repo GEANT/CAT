@@ -46,7 +46,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
         // the GET URL *is* the request.
         // don't just cut off at last slash; base64 data may have embedded slashes
-        $rawStream = substr($_SERVER['PHP_SELF'], strpos($_SERVER['PHP_SELF'], '/', 1) + 1);
+        $rawStream = substr(filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING), strpos($_SERVER['PHP_SELF'], '/', 1) + 1);
         $ocspRequestDer = base64_decode(urldecode($rawStream), TRUE);
         if ($ocspRequestDer === FALSE) {
             instantDeath("The input data was not cleanly base64-encoded data!");
