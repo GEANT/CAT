@@ -479,7 +479,8 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         // if not returned, we found the token in the DB
         $invitationRow = mysqli_fetch_object($invitationsResult);
-        $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
+        $rowId = $invitationRow->id;
+        $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $rowId);
         $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
         $loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
 
