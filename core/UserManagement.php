@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -21,8 +22,11 @@
 /**
  * necessary includes
  */
+
 namespace core;
+
 use \Exception;
+
 /**
  * This class manages user privileges and bindings to institutions
  *
@@ -60,6 +64,7 @@ class UserManagement extends \core\common\Entity {
     const TOKENSTATUS_FAIL_ALREADYCONSUMED = -1;
     const TOKENSTATUS_FAIL_EXPIRED = -2;
     const TOKENSTATUS_FAIL_NONEXISTING = -3;
+
     /**
      * Checks if a given invitation token exists and is valid in the invitations database
      * returns a string with the following values:
@@ -113,8 +118,16 @@ class UserManagement extends \core\common\Entity {
                              WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
         if ($invitationDetails = mysqli_fetch_object($instinfo)) {
             if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
-                $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, $invitationDetails->cat_institution_id, '$invitationDetails->invite_issuer_level', '$invitationDetails->invite_dest_mail') ON DUPLICATE KEY UPDATE blesslevel='$invitationDetails->invite_issuer_level', orig_mail='$invitationDetails->invite_dest_mail' ", "s", $owner);
-                $this->loggerInstance->writeAudit((string)$owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
+                // we can't rely on a unique key on this table (user IDs 
+                // possibly too long), so run a query to find there's an
+                // tuple already; and act accordingly
+                $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $owner, $invitationDetails->cat_institution_id);
+                if (mysqli_num_rows($existing) > 0) {
+                    $this->databaseHandle->exec("UPDATE ownership SET blesslevel = ?, orig_mail = ? WHERE user_id = ? AND institution_id = ?", "sssi", $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $owner, $invitationDetails->cat_institution_id);
+                } else {
+                    $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $invitationDetails->cat_institution_id, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail);
+                }
+                $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
                 return new IdP($invitationDetails->cat_institution_id);
             }
             // create new IdP
@@ -183,7 +196,10 @@ Best regards,
      * @return boolean This function always returns TRUE.
      */
     public function addAdminToIdp($idp, $user) {
-        $this->databaseHandle->exec("INSERT IGNORE into ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'FED', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
+        $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $user, $idp->identifier);
+        if (mysqli_num_rows($existing) == 0) {
+            $this->databaseHandle->exec("INSERT INTO ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'FED', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
+        }
         return TRUE;
     }
 

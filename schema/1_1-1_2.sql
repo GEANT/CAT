@@ -58,6 +58,9 @@ ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
 
 ALTER TABLE `user_options` DROP KEY `rowindex`, CHANGE COLUMN `id` `row` int primary key auto_increment, ADD KEY `rowindex` (`row`);
 
+ALTER TABLE ownership DROP KEY `pair`;
+ALTER TABLE ownership CHANGE COLUMN `user_id` `user_id` VARCHAR(2048) NOT NULL;
+
 UPDATE institution SET country = UPPER(country);
 
 CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);

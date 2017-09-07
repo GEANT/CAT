@@ -81,12 +81,11 @@ CREATE TABLE `invitations` (
 
 CREATE TABLE `ownership` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) NOT NULL,
+  `user_id` varchar(2048) NOT NULL,
   `institution_id` int(11) NOT NULL,
   `blesslevel` varchar(16) NOT NULL DEFAULT 'FED',
   `orig_mail` varchar(128) NOT NULL DEFAULT 'LEGACY-NO-MAIL-KNOWN',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `pair` (`user_id`,`institution_id`),
   KEY `institution_id` (`institution_id`),
   CONSTRAINT `ownership_ibfk_1` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`inst_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
