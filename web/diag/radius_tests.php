@@ -65,7 +65,8 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
     // in any case, it's a printable string, so filter it initially
-    $filteredHost = filter_input(INPUT_REQUEST,'src', FILTER_SANITIZE_STRING);
+    
+    $filteredHost = filter_input(INPUT_GET,'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST,'src', FILTER_SANITIZE_STRING);
     $hostonly1 = preg_replace('/:[0-9]*$/', "", $filteredHost);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
     $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
