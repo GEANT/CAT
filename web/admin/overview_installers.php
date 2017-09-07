@@ -76,7 +76,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                 $display_footnote = FALSE;
                 $langObject = new \core\common\Language();
                 $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
-                                       <input type='hidden' name='id' value='$index'/>
+                                       <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . _("Download") . "</button>
                                      ";
