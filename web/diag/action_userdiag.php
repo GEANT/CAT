@@ -19,8 +19,8 @@ $validator = new \web\lib\common\InputValidation();
 echo $deco->defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
 echo $deco->productheader("USER");
 ?>
-<h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
-<p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
+<h1><?php _("Authentication Diagnostics"); ?></h1>
+<p><?php _("We are sorry to hear that you have problems connecting to the network. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."); ?></p>
 <p><?php
 echo _("Please follow the instructions below.");
 $global = new \core\Federation();
@@ -63,7 +63,7 @@ $global = new \core\Federation();
 // need to ask more subtle
 
 function username_format_lecture() {
-    $skinjob = new \web\lib\user\Skinjob("");
+    $skinjob = new \web\lib\user\Skinjob();
     $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
     $retval = "<div class='problemdescription'><p>" . _("Roaming with eduroam requires a username in the format 'localname@realm'. Many Identity Providers also require that same format also when using the network locally.") . "</p>";
     $retval .= "<p>" . _("Exceptions to that format requirement apply only when an Idenity Provider forces the use of an anonymous outer identity using specially prepared configuration profiles or extensive manual instructions.") . "</p>";
@@ -102,7 +102,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
             echo username_format_lecture();
             break;
         case "deviceprob":
-            $skinjob = new \web\lib\user\Skinjob("");
+            $skinjob = new \web\lib\user\Skinjob();
             $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
             echo "<h2>" . _("It is very likely that the configuration of the non-working device is incorrect.") . "</h2>";
             echo "<div class='problemdescription'><p>" . _("A proper configuration for eduroam requires more than a username and password. Some settings such as a required 'anonymous outer identity' can prevent the device from working.") . "</p></div>";
@@ -181,7 +181,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $realmproblems = [];
 
     foreach ($checks as $check) {
-        foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
             $checkresult[$number] = $check['instance']->UDP_reachability($number, TRUE, TRUE);
             if ($checkresult[$number] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // great
                 // only emit a warning in case of ALIEN - NRO did not populate DB!
@@ -291,20 +291,20 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                         $infrastructure_warned = TRUE;
                     case "REACHABLE": // only complain if ALIEN
                         if ($problem['DETAIL'] == "REALM_NOT_IN_DB") {
-                            $warning_html .= "<div class='problemdescription'>" . sprintf(_("This realm is not a known %s participant. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead."), CONFIG['CONSORTIUM']['name']) . "</div>";
+                            $warning_html .= "<div class='problemdescription'>" . _("This realm is not a known participating institution. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead.") . "</div>";
                             $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration.") . "</div>";
                         }
                         // drill down further: are there any certprobs of critical
                         // level? They would be the likely explanation
                         $oneRADIUSTest = $checks[0]['instance'];
                         foreach ($all_certprobs as $certprob) {
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == \core\common\Entity::L_ERROR) {
-                                $warning_html .= "<div class='problemdescription'>" . _("We found a problem with your Identity Provider. This may be the cause of your problems. The exact error is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
-                                $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration. We will notify the Identity Provider about the problem. Please wait until the problem is resolved. ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->returnCodes[$certprob]['severity'] == \core\common\Entity::L_ERROR) {
+                                $warning_html .= "<div class='problemdescription'>" . _("We found a problem with your Identity Provider. This may be the cause of your problems. The exact error is: ") . $oneRADIUSTest->returnCodes[$certprob]['message'] . "</div>";
+                                $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration. We will notify the Identity Provider about the problem. Please wait until the problem is resolved. ") . $oneRADIUSTest->returnCodes[$certprob]['message'] . "</div>";
                                 $certprobs_warned[] = $certprob;
                             }
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == \core\common\Entity::L_WARN) {
-                                $warning_html .= "<div class='problemdescription'>" . _("We found a minor misconfiguration of your Identity Provider. Certain devices may not work because of this. The exact warning is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] .
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->returnCodes[$certprob]['severity'] == \core\common\Entity::L_WARN) {
+                                $warning_html .= "<div class='problemdescription'>" . _("We found a minor misconfiguration of your Identity Provider. Certain devices may not work because of this. The exact warning is: ") . $oneRADIUSTest->returnCodes[$certprob]['message'] .
                                         "<br/>It is not necessarily the case that these warnings are the source of your problem; e.g. simple errors in username or password can not be ruled out.</div>";
                                 $warning_html .= "<p>Please answer some supplementary questions on the next page so that we can send a detailed problem report to your identity provider. (next page does not exist yet!)</p>";
                                 $certprobs_warned[] = $certprob;

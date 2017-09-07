@@ -10,7 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
 $loggerInstance = new \core\common\Logging();
@@ -18,6 +17,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
@@ -53,7 +53,7 @@ if ($posted_eaptype) {
         throw new Exception("POSTed EAP type value is not an integer!");
     }
     // conversion routine throws an exception if the EAP type id is not known
-    $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($posted_eaptype);
+    $eaptype = \core\common\EAP::eAPMethodArrayIdConversion((int)$posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.
@@ -71,20 +71,19 @@ if ($device == NULL && $eaptype === NULL) {
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
     if ($eaptype === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
-        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, 0, $device_key, TRUE);
+        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, 0, $device_key);
     }
-    if ($device == NULL) {
+    if ($device === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eap_id, "");
-        $killlist = $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $remaining_attribs, $eap_id, 0, TRUE);
+        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $eap_id, "");
     }
-    $my_inst->commitFlushAttributes($killlist);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
     header("Location: ../overview_installers.php?inst_id=$my_inst->identifier&profile_id=$my_profile->identifier");
     exit;
 }
 
 $attribs = [];
-if ($device != NULL) {
+if ($device !== NULL) {
     foreach ($my_profile->getAttributes() as $attrib) {
         if (isset($attrib['device']) && $attrib['device'] == $device_key) {
             $attribs[] = $attrib;
@@ -99,7 +98,8 @@ if ($device != NULL) {
             $attribs[] = $attrib;
         }
     }
-    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $uiElements->displayName($eaptype));
+    
+    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $eapDisplayNames->eapNames($eaptype));
     $keyword = "eap-specific";
     $extrainput = "<input type='hidden' name='eaptype' value='" . \core\common\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
 } else {

@@ -38,7 +38,6 @@ class SimpleGUI extends \core\UserAPI {
         $this->args = [];
         $this->page = 0;
         $this->languageInstance->setTextDomain('core');
-        $this->version = 2;
         $this->args['lang'] = $this->languageInstance->getLang();
 
         /*
@@ -142,7 +141,7 @@ class SimpleGUI extends \core\UserAPI {
     public function listIdPs() {
         $instList = $this->orderIdentityProviders($this->country->identifier);
         $out = '';
-        $out .= _("Select your institution");
+        $out .= sprintf(_("Select your %s"), $this->nomenclature_inst );
         $out .= '<select name="idp" onchange="submit_form(this)">';
         if (!empty($instList)) {
             if (!isset($this->idp)) {
@@ -165,7 +164,7 @@ class SimpleGUI extends \core\UserAPI {
         if (empty($this->idp)) {
             return('');
         }
-        $profiles = $this->idp->listProfiles(1);
+        $profiles = $this->idp->listProfiles(TRUE);
         if (!isset($this->profile)) {
             $this->profile = $profiles[0];
         }
@@ -200,7 +199,7 @@ class SimpleGUI extends \core\UserAPI {
         $redirectTarget = '';
         $deviceRedirects = '';
         $selectedOs = 0;
-        $unsupportedMessage = '<div id="unsupported_os">' . _("Your operating system was not properly detected, is not supported yet or cannot be configured with settings provided by your institution") . "</div><br>";
+        $unsupportedMessage = '<div id="unsupported_os">' . sprintf(_("Your operating system was not properly detected, is not supported yet or cannot be configured with settings provided by your %s"), $this->nomenclature_inst) . "</div><br>";
 
         $attributes = $this->profileAttributes($this->profile->identifier);
         $thedevices = $attributes['devices'];
@@ -255,7 +254,7 @@ class SimpleGUI extends \core\UserAPI {
         } else {
             $deviceRedirects .= 'is_redirected = 0;';
             $action = 'submit_form(this)';
-            $out .= "<p><button id='devices' name='devices' style='width:100%;' onclick=\"" . $action . '">' . _("Do you have an account at this institution?") . '<br>' . _("If so and if the other settings above are OK then click here to download...") . "</button>";
+            $out .= "<p><button id='devices' name='devices' style='width:100%;' onclick=\"" . $action . '">' . sprintf(_("Do you have an account at this %s?"), $this->nomenclature_inst) . '<br>' . _("If so and if the other settings above are OK then click here to download...") . "</button>";
         }
         $out .= '<script type="text/javascript">' . $deviceRedirects . '</script>';
         return $out;
@@ -281,7 +280,7 @@ class SimpleGUI extends \core\UserAPI {
         }
         if ($out !== '') {
             print '<div class="user_info">';
-            print _("If you encounter problems you should ask for help at your home institution");
+            print sprintf(_("If you encounter problems you should ask for help at your %s"), $this->nomenclature_inst);
             print $out;
             print "</div>\n";
         }

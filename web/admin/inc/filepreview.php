@@ -12,12 +12,16 @@
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("common.inc.php");
-
-function getImageFromDB($id) {
+/**
+ * retrieves a binary object from the database and pushes it out to the browser
+ * @param string $id
+ * @return void in case of error - otherwise, sends the content directly to browser and never returns
+ */
+function getObjectFromDB($id) {
 
     // check if data is public for this blob call
-    $blob = getBlobFromDB($id, TRUE);
+    
+    $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
     $finalBlob = base64_decode($blob);
 
     if ($finalBlob === FALSE) {
@@ -52,7 +56,7 @@ function getImageFromDB($id) {
 
 $validator = new \web\lib\common\InputValidation();
 if (isset($_GET["id"]) && $validator->databaseReference($_GET["id"])) {
-    getImageFromDB($_GET["id"]);
+    getObjectFromDB($_GET["id"]);
 } else {
     echo "No valid ID";
 }

@@ -7,15 +7,32 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
+/**
+ * This page displays the dashboard overview of an entire IdP.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
-require_once("inc/common.inc.php");
 
 $uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new web\lib\common\PrettyPrint();
 
-function png_inject_consortium_logo($inputpngstring, $symbolsize = 12, $marginsymbols = 4) {
+/**
+ * Injects the consortium logo in the middle of a given PNG.
+ * 
+ * Usually used on QR code PNGs - the parameters inform about the structure of
+ * the QR code so that the logo does not prevent parsing of the QR code.
+ * 
+ * @param string $inputpngstring the PNG to edit
+ * @param int $symbolsize size in pixels of one QR "pixel"
+ * @param int $marginsymbols size in pixels of border around the actual QR
+ * @return string the image with logo centered in the middle
+ */
+function png_inject_consortium_logo(string $inputpngstring, int $symbolsize = 12, int $marginsymbols = 4) {
     $loggerInstance = new \core\common\Logging();
     $inputgd = imagecreatefromstring($inputpngstring);
 
@@ -74,14 +91,14 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     // Sanity check complete. Show what we know about this IdP.
     $idpoptions = $my_inst->getAttributes();
     ?>
-    <h1><?php echo _("Identity Provider Overview"); ?></h1>
+    <h1><?php echo sprintf(_("Overview of %s"), $uiElements->nomenclature_inst); ?></h1>
     <div>
-        <h2><?php echo _("IdP-wide settings"); ?></h2>
+        <h2><?php echo sprintf(_("%s-wide settings"), $uiElements->nomenclature_inst); ?></h2>
         <?php
         echo $uiElements->instLevelInfoBoxes($my_inst);
         ?>
         <div class='infobox' style='text-align:center;'>
-            <h2><?php echo _("Institution Download Area QR Code"); ?></h2>
+            <h2><?php echo sprintf(_("QR Code for %s download area"), $uiElements->nomenclature_inst); ?></h2>
             <?php
             $displayurl = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on" ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'] . dirname(dirname($_SERVER['SCRIPT_NAME'])) . "?idp=" . $my_inst->identifier;
             $uri = "data:image/png;base64," . base64_encode(png_inject_consortium_logo(QRcode::png($displayurl, FALSE, QR_ECLEVEL_Q, 12)));
@@ -111,18 +128,18 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         <tr>
             <td>
                 <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_EDIT; ?>'><?php echo _("Edit IdP-wide settings"); ?></button>
+                    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclature_inst); ?></button>
                 </form>
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG['CONSORTIUM']['selfservice_registration'] === NULL ? _("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the federation administrator!") . " " : "" ) . sprintf(_("Do you really want to delete your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Delete IdP"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
                 </form>
 
             </td>
             <td>
                 <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your IdP and start over the configuration from scratch. Do you really want to reset all settings of your IdP %s?"), $my_inst->name); ?>')"><?php echo _("Reset all IdP settings"); ?></button>
+                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your %s and start over the configuration from scratch. Do you really want to reset all settings of your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
                 </form>
 
             </td>
@@ -132,7 +149,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     <h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
-        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
             echo "<tr>
                         <td>" . _("Check another realm's reachability") . "</td>
                         <td><form method='post' action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'>
@@ -142,9 +159,9 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                         </td>
                     </tr>";
         }
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam") { // SW: APPROVED
             echo "<tr>
-                        <td>" . _("Check server status of European federations") . "</td>
+                        <td>" . sprintf(_("Check server status of European %ss"), $uiElements->nomenclature_fed) . "</td>
                         <td>
                            <form action='https://monitor.eduroam.org' accept-charset='UTF-8'>
                               <button type='submit'>" . _("Go!") . "</button>
@@ -158,7 +175,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     <?php
     $profiles_for_this_idp = $my_inst->listProfiles();
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
-        echo "<h2>" . _("There are not yet any profiles for your institution.") . "</h2>";
+        echo "<h2>" . sprintf(_("There are not yet any profiles for your %s."), $uiElements->nomenclature_inst) . "</h2>";
     }
 
     // if there is one profile and it is of type Silver Bullet, display a very
@@ -200,7 +217,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         }
     }
     if (count($profiles_for_this_idp) > 0) { // no profiles yet.
-        echo "<h2>" . _("Profiles for this institution") . "</h2>";
+        echo "<h2>" . sprintf(_("Profiles for this %s"), $uiElements->nomenclature_inst) . "</h2>";
     }
     foreach ($profiles_for_this_idp as $profile_list) {
         echo "<div style='display: table-row; margin-bottom: 20px;'>";
@@ -223,7 +240,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $typelist = $profile_list->getEapMethodsinOrderOfPreference();
         $allcomplete = TRUE;
         foreach ($typelist as $eaptype) {
-            $buffer_eaptypediv .= $uiElements->displayName($eaptype);
+            $buffer_eaptypediv .= $eapDisplayNames->eapNames($eaptype);
             $completeness = $profile_list->isEapTypeDefinitionComplete($eaptype);
             if ($completeness === true) {
                 $buffer_eaptypediv .= " <div class='acceptable'>" . _("OK") . "</div>";
@@ -267,7 +284,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
             case core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
                 $buffer_headline .= $uiElements->boxWarning("", sprintf(_("This profile is NOT shown on the user download interface, even though we have enough information to show. To enable the profile, add the attribute \"%s\" and tick the corresponding box."), $uiElements->displayName("profile:production")), TRUE);
         }
-        
+
         $buffer_headline .= "</div>";
 
         $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
@@ -285,8 +302,13 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $hasRealmArray = $profile_list->getAttributes("internal:realm");
         $has_realm = $hasRealmArray[0]['value'];
         echo "<div class='profilemodulebuttons' style='float:right;'>";
-        if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || ( count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) > 0 && CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "")) {
-            echo "<form action='../diag/action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
+            if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+                $diagUrl = "../diag/";
+            } else {
+                $diagUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] . "/diag/";
+            }
+            echo "<form action='" . $diagUrl . "action_realmcheck.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                               <button type='submit' name='profile_action' value='check' " . ($has_realm ? "" : "disabled='disabled' title='" . _("The realm can only be checked if you configure the realm!") . "'") . ">
                                   " . _("Check realm reachability") . "
                               </button>

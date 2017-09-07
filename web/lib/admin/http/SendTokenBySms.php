@@ -78,10 +78,9 @@ class SendTokenBySms extends AbstractInvokerCommand{
             $invitationToken = $this->parseString($_POST[GetTokenEmailDetails::PARAM_TOKENLINK]);
             $phone = $this->parseString($_POST[SendTokenBySms::PARAM_PHONE]);
             $content = sprintf(
-                _("Your %s access is ready! Please click on the link at the end to continue! (On Android, be sure to install the %s app from %s before doing that) %s"), 
-                CONFIG['CONSORTIUM']['name'],
+                _("Your %s access is ready! Please click on the link at the end to continue! (On Android, install the %s app before doing that.) %s"), 
+                CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],
                 "eduroam CAT",
-                "https://play.google.com/store/apps/details?id=uk.ac.swansea.eduroamcat",
                 $invitationToken
             );
             

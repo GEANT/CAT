@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -15,7 +16,10 @@
  *
  * @package ModuleWriting
  */
+
 namespace devices\ms;
+use \Exception;
+
 /**
  * 
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -27,6 +31,7 @@ class Device_W8 extends WindowsCommon {
         parent::__construct();
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_TLS, \core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_PWD, \core\common\EAP::EAPTYPE_SILVERBULLET]);
         $this->specialities['anon_id'][serialize(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2)] = _("Anonymous identities do not use the realm as specified in the profile - it is derived from the suffix of the user's username input instead.");
+        $this->useGeantLink = 0;
     }
 
     public function writeInstaller() {
@@ -92,55 +97,14 @@ class Device_W8 extends WindowsCommon {
         return($installerPath);
     }
 
-    public function writeDeviceInfo() {
-        $ssidCount = count($this->attributes['internal:SSID']);
-        $out = "<p>";
-        $out .= sprintf(_("%s installer will be in the form of an EXE file. It will configure %s on your device, by creating wireless network profiles.<p>When you click the download button, the installer will be saved by your browser. Copy it to the machine you want to configure and execute."), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']);
-        $out .= "<p>";
-        if ($ssidCount > 1) {
-            if ($ssidCount > 2) {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to the following networks:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
-            } else {
-                $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG['CONSORTIUM']['ssid'])) . " ";
-            }
-            $iterator = 0;
-            foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                if (!in_array($ssid, CONFIG['CONSORTIUM']['ssid'])) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
-            }
-            $out .= "<p>";
-        }
-// TODO - change this below
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $out .= _("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your home institution. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process.");
-        } else {
-            $out .= _("In order to connect to the network you will need an account from your home institution. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated.");
-            $out .= "<p>";
-            $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
-            if ($ssidCount > 1) {
-                $out .= "<p>";
-                $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
-                $iterator = 0;
-                foreach ($this->attributes['internal:SSID'] as $ssid => $v) {
-                    if ($iterator > 0) {
-                        $out .= ", ";
-                    }
-                    $iterator++;
-                    $out .= "<strong>$ssid</strong>";
-                }
-            }
-        }
-        return $out;
-    }
-
     private function prepareEapConfig($attr) {
         $eap = $this->selectedEap;
         $w8Ext = '';
+        if ($eap != \core\common\EAP::EAPTYPE_TLS && $eap != \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_PWD && $eap != \core\common\EAP::EAPTYPE_TTLS_PAP && $eap != \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
+            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
+            return;
+        }
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {
             $outerUser = $attr['internal:anon_local_value'][0];
@@ -410,7 +374,7 @@ class Device_W8 extends WindowsCommon {
         $this->loggerInstance->debug(4, "writeMainNSH");
         $this->loggerInstance->debug(4, $attr);
         $fcontents = "!define W8\n";
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $fcontents .= "Unicode true\n";
         }
 
@@ -440,12 +404,12 @@ class Device_W8 extends WindowsCommon {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
         $fcontents .= '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG['CONSORTIUM']['name'], $attr['general:instname'][0]), $this->codePage) . '"
+Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
+!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
 !define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
 !define INSTALLER_NAME "installer.exe"
 !define LANG "' . $this->lang . '"
-!define LOCALE "'.preg_replace('/\..*$/','',CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']).'"
+!define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
 ';
         $fcontents .= $this->msInfoFile($attr);
 
@@ -460,7 +424,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
 ';
-        } 
+        }
         $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
 !endif
 ';
@@ -503,28 +467,20 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
 
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
-        $result;
-        $result = $this->copyFile('wlan_test.exe');
-        $result = $this->copyFile('check_wired.cmd');
-        $result = $this->copyFile('install_wired.cmd');
-        $result = $this->copyFile('cat_bg.bmp');
-        $result = $this->copyFile('base64.nsh');
-        $result = $result && $this->copyFile('cat32.ico');
-        $result = $result && $this->copyFile('cat_150.bmp');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData32.exe','WLANSetEAPUserData32.exe');
-        $result = $result && $this->copyFile('WLANSetEAPUserData/WLANSetEAPUserData64.exe','WLANSetEAPUserData64.exe');
-        $this->translateFile('common.inc', 'common.nsh', $this->codePage);
-        if ($eap["OUTER"] == \core\common\EAP::PWD) {
-            $this->translateFile('pwd.inc', 'cat.NSI', $this->codePage);
-            $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x32.msi');
-            $result = $result && $this->copyFile('Aruba_Networks_EAP-pwd_x64.msi');
-        } else {
-            $this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage);
-            $result = 1;
+        $this->copyBasicFiles();
+        switch ($eap["OUTER"]) {
+            case \core\common\EAP::PWD:
+                $this->copyPwdFiles();
+                break;
+            default:
+                if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
+                    throw new Exception("Translating needed file eap_w8.inc failed!");
+                }
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
-        return($result);
+        return TRUE;
     }
+
     private $tlsOtherUsername = 0;
 
 }

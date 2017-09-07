@@ -10,11 +10,10 @@
 ?>
 <?php
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
-require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
-$uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
@@ -45,7 +44,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             <?php            
             foreach ($preflist as $method) {
                 $escapedMethod = \core\common\EAP::eAPMethodArrayIdConversion($method);
-                echo "<th style='min-width:200px'>" . $uiElements->displayName($method) . "<br/>
+                echo "<th style='min-width:200px'>" . $eapDisplayNames->eapNames($method) . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
@@ -77,7 +76,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                 $display_footnote = FALSE;
                 $langObject = new \core\common\Language();
                 $downloadform = "<form action='" . rtrim(dirname(dirname($_SERVER['SCRIPT_NAME'])), '/') . "/user/API.php?action=downloadInstaller&profile=$my_profile->identifier&lang=" . $langObject->getLang() . "' method='post' accept-charset='UTF-8'>
-                                       <input type='hidden' name='id' value='$index'/>
+                                       <input type='hidden' name='device' value='$index'/>
                                        <input type='hidden' name='generatedfor'  value='admin'/>
                                        <button class='download'>" . _("Download") . "</button>
                                      ";

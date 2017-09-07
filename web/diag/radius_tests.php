@@ -13,7 +13,6 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 $loggerInstance = new \core\common\Logging();
 $validator = new \web\lib\common\InputValidation();
-$uiElements = new web\lib\admin\UIElements();
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_admin");
 
@@ -62,10 +61,13 @@ if (!is_numeric($hostindex)) {
 
 $posted_host = $_REQUEST['src'];
 if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host in config
-    $host = filter_var(CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
+    $host = filter_var(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
 } else { // dynamic discovery host, potentially unvetted user input
     // contains port number; needs to be redacted for filter_var to work
-    $hostonly1 = preg_replace('/:[0-9]*$/', "", $posted_host);
+    // in any case, it's a printable string, so filter it initially
+    
+    $filteredHost = filter_input(INPUT_GET,'src', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST,'src', FILTER_SANITIZE_STRING);
+    $hostonly1 = preg_replace('/:[0-9]*$/', "", $filteredHost);
     $hostonly2 = preg_replace('/^\[/', "", $hostonly1);
     $hostonly3 = preg_replace('/\]$/', "", $hostonly2);
     $hostonly = filter_var($hostonly3, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE);
@@ -74,14 +76,14 @@ if (is_numeric($posted_host)) { // UDP tests, this is an index to the test host 
         throw new Exception("The configured test host ($hostonly) is not a valid IP address from acceptable IP ranges!");
     }
     // host IP address testing passed. So let's take our port number back
-    $host = $posted_host;
+    $host = $filteredHost;
     
 }
 
 
 
 $returnarray = [];
-$timeout = CONFIG['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
+$timeout = CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$hostindex]['timeout'];
 switch ($test_type) {
     case 'udp_login' :
         $i = 0;
@@ -126,7 +128,8 @@ switch ($test_type) {
                 $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password);
             }
             $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
-            $returnarray['result'][$i]['eap'] = $uiElements->displayName($eap);
+            $eapDisplayNames = new \web\lib\common\PrettyPrint();
+            $returnarray['result'][$i]['eap'] = $eapDisplayNames->eapNames($eap);
             $returnarray['returncode'][$i] = $testresult;
 
 
@@ -171,8 +174,8 @@ switch ($test_type) {
                     $returnarray['level'] = \core\common\Entity::L_ERROR;
                     break;
                 default:
-                    $level = isset($testsuite->return_codes[$testresult]['severity']) ? $testsuite->return_codes[$testresult]['severity'] : \core\common\Entity::L_ERROR;
-                    $message = isset($testsuite->return_codes[$testresult]['message']) ? $testsuite->return_codes[$testresult]['message'] : _("<strong>Test FAILED</strong>");
+                    $level = isset($testsuite->returnCodes[$testresult]['severity']) ? $testsuite->returnCodes[$testresult]['severity'] : \core\common\Entity::L_ERROR;
+                    $message = isset($testsuite->returnCodes[$testresult]['message']) ? $testsuite->returnCodes[$testresult]['message'] : _("<strong>Test FAILED</strong>");
                     $returnarray['result'][$i]['server'] = 0;
                     break;
             }
@@ -233,7 +236,7 @@ switch ($test_type) {
                 $returnarray['message'] = _("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
                 $returnarray['level'] = \core\common\Entity::L_ERROR;
             } else {
-                $returnarray['message'] = $rfc6614suite->return_codes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
+                $returnarray['message'] = $rfc6614suite->returnCodes[$rfc6614suite->TLS_CA_checks_result[$host]['status']]["message"];
                 $returnarray['level'] = \core\common\Entity::L_OK;
                 if ($rfc6614suite->TLS_CA_checks_result[$host]['status'] != \core\diag\RADIUSTests::RETVAL_CONNECTION_REFUSED) {
                     $returnarray['message'] .= ' (' . sprintf(_("elapsed time: %d"), $rfc6614suite->TLS_CA_checks_result[$host]['time_millisec']) . '&nbsp;ms)';
@@ -293,12 +296,12 @@ switch ($test_type) {
         $returnarray['time_millisec'] = sprintf("%d", $testsuite->UDP_reachability_result[$host]['time_millisec']);
 
         if (preg_match('/verify error:num=19/', implode($opensslbabble))) {
-            $printedres .= $uiElements->boxError(_("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure);
+            $printedres .= "<tr><td>"._("<strong>ERROR</strong>: the server presented a certificate which is from an unknown authority!") . $measure ."</td></tr>";
             $my_ip_addrs[$key]["status"] = "FAILED";
             $goterror = 1;
         }
         if (preg_match('/verify return:1/', implode($opensslbabble))) {
-            $printedres .= $uiElements->boxOkay(_("Completed.") . $measure);
+            $printedres .= "<tr><td>"._("Completed.") . $measure . "</td></tr>";
             $printedres .= "<tr><td></td><td><div class=\"more\">";
             $my_ip_addrs[$key]["status"] = "OK";
             $servercertRaw = implode("\n", $opensslbabble);

@@ -60,88 +60,29 @@ const CONFIG = [
         'webcert_CRLDP' => ['list', 'of', 'CRL', 'pointers'],
         'webcert_OCSP' => ['list', 'of', 'OCSP', 'pointers'],
         'skins' => ["classic", "eduroam2016", "example"],
+        // get your key here: https://developers.google.com/maps/documentation/javascript/get-api-key?refresh=1
+        'google_maps_api_key' => '',
     ],
-
-    /**
-     * Defines various general parameters of the roaming consortium.
-     * name: the display name of the consortium
-     * ssid: an array of default SSIDs for this consortium; they are automatically added to all installers.
-     * interworking-consortium-oi: Organisation Identifier of the roaming consortium for Interworking/Hotspot 2.0; 
-     *                             a profile with these OIs will be added to all installers
-     * tkipsupport: whether the default SSIDs should be configured for WPA/TKIP and WPA2/AES (TRUE) or only for WPA2/AES (FALSE)
-     * homepage: URL of the consortium's general homepage.
-     * signer_name: if installers are configured for digital signature, this parameter should contain the "O" name
-     *           in the certificate. If left empty, signatures are not advertised even if configured and working
-     * allow_self_service_registration: if set to NULL, federation admins need to invite new inst admins manually
-     *                                  if set to a federation ID string, e.g. "DE" for Germany, new admins can
-     *                                  self-register and will be put into that federation.
-     * registration_API_keys: allows select federations to make bulk registrations for new IdPs (e.g. if they have
-     *                        an own, opaque, customer management system. The API will be documented at a later stage
-     * LOGOS: there are several variants of the consortium logo scattered in the
-     *        source. Please change them at the appropriate places:
-     *        - web/resources/images/consortium_logo.png
-     *        - web/favicon.ico
-     *        - devices/ms/Files/eduroam_150.bmp
-     *        - devices/ms/Files/eduroam32.ico
-     * 
-     * certfilename, keyfilename, keypass: if you want to send S/MIME signed mails, just configure the signing cert
-     *                                     with these parameters. All must be non-NULL for signing to happen. If you
-     *                                     don't need a keypass, make it an empty string instead.
-     * silverbullet options:
-     *         default_maxusers: an institution is not allowed to create more than that amount of users
-     *             the value can be overriden as a per-federation option in fed-operator UI
-     *         realm_suffix: user credentials have a realm which always includes the inst ID and profile ID and the name
-     *             of the federation; for routing aggregation purposes /all/ realms should end with a common suffix though
-     *             if left empty, realms would end in the federation name only
-     *         server_suffix: the suffix of the auth server's name. It will be auth.<fedname> followed by this suffix
-     *         gracetime: admins need to re-login and verify that accounts are still valid. This prevents lazy admins
-     *             who forget deletion of people who have lost their eligibility. The number is an integer value in days
-     *         CA: the code can either act as its own CA ("embedded") or use API calls to an external CA. This config
-     *             value steers where to get certificates from
-     * @var array
-     */
-    'CONSORTIUM' => [
-        'name' => 'eduroam',
-        'ssid' => ['eduroam'],
-        'tkipsupport' => FALSE,
-        'homepage' => 'http://www.eduroam.org',
-        'signer_name' => 'GÉANT Association',
-        'selfservice_registration'   => NULL,
-#        'deployment-voodoo'         => "Operations Team",
-        'ssid'                       => ['eduroam'],
-        'interworking-consortium-oi' => ['001bc50460'],
-        'registration_API_keys'      =>  [
-            // 'secretvalue' => 'UK',
-            // 'othervalue' => 'DE',
-        ],
-        'certfilename' => NULL,
-        'keyfilename' => NULL,
-        'keypass' => NULL,
-        'silverbullet_default_maxusers' => 200,
-        'silverbullet_realm_suffix' => '.hosted.eduroam.org',
-        'silverbullet_server_suffix' => '.hosted.eduroam.org',
-        'silverbullet_gracetime' => 90,
-        'silverbullet_CA' => ["type" => "embedded"], # OCSP URL needs to be configured in openssl.cnf
-      # 'silverbullet_CA' => ["type" => "DFN", "SOAP_API_ENDPOINT" => "http://no.idea.where/"],
-        'nomenclature_federation' => 'National Roaming Operator',
+    
+    'FUNCTIONALITY_LOCATIONS' => [
+        /** these can be either 
+         *  - the string "LOCAL" (component is running in this installation
+         *  - NULL (component does not live anywhere, trim functionality from display)
+         *  - or an absolute URL to the base directory of an installation with the functionality aspect
+         */
+        'CONFASSISTANT' => 'LOCAL',
+        'DIAGNOSTICS' => 'LOCAL',
     ],
 
     /**
      * Various paths.
      * logdir: directory where all logs will be written to (debug and audit logs)
-     * installerdir: generated installers will be saved under this base directory. Path is relative to the web/ subdirectory.
      * openssl: absolute path to the openssl executable. If you just fill in "openssl" the one from the system $PATH will be taken.
-     * eapol_test: absolute path to the eapol_test executable. If you just fill in "eapol_test" the one from the system $PATH will be taken.
-     * makensis: absolute path to the makensis executable. If you just fill in "makensis" the one from the system $PATH will be taken.
-     *   See also NSIS_VERSION further down
      * @var array
      */
     'PATHS' => [
         'logdir' => '/var/log/CAT/',
         'openssl' => 'openssl',
-        'c_rehash' => 'c_rehash',
-        'eapol_test' => 'eapol_test',
-        'makensis' => 'makensis',
     ],
 
     /**
@@ -182,21 +123,22 @@ const CONFIG = [
      * host: Submission host
      * user: username for the login to the host
      * pass: password for the username
+     * certfilename, keyfilename, keypass: if you want to send S/MIME signed 
+     *    mails, just configure the signing cert with these parameters. All must
+     *    be non-NULL for signing to happen. If you don't need a keypass, make 
+     *    it an empty string instead.
+
      * @var array
      */
     'MAILSETTINGS' => [ // we always use Submission
         'host' => 'submission.capable.mta',
         'user'=> 'mailuser',
         'pass' => 'mailpass',
-    ],
-    
-    /**
-     * Configures SMS gateway settings
-     */
-    'SMSSETTINGS' => [
-        'provider' => 'Nexmo',
-        'username' => '...',
-        'password' => '...',
+        // in case the mails should be signed with S/MIME
+        'certfilename' => NULL,
+        'keyfilename' => NULL,
+        'keypass' => NULL,
+
     ],
     
     /**
@@ -239,77 +181,6 @@ const CONFIG = [
 //      'cy' => ['display' => 'Cymraeg', 'locale' => 'cy_GB.utf8',    'latin_based' => TRUE],
     ],
 
-    /**
-     * Configures the reachability tests, both for plain RADIUS/UDP and RADIUS/TLS.
-     * UDP-hosts: an array of RADIUS servers to which login probes will be sent
-     * TLS-discoverytag: the DNS NAPTR label that should be used for finding RADIUS/TLS servers
-     * TLS-acceptableOIDs: defines which policy OID is expected from RADIUS/TLS servers and clients
-     * TLS-clientcerts: for full two-way auth, the TLS handshake must have access to client certificates.
-     * You can specify known-good certificates (expected=pass) and known-bad ones (expected=fail)
-     * For each accredited CA you should provide four server certificates: valid, expired, revoked, wrong policy
-     * so that all corner cases can be tested. Be sure to set "expected" to match
-     * your expectations regarding the outcome of the connection attempt.
-     * 
-     * @var array
-     */
-    'RADIUSTESTS' => [
-        'UDP-hosts' => [
-            ['display_name' => 'Recon Viper 1',
-                'ip' => '192.0.2.1',
-                'secret' => 'somesecret',
-                'timeout' => 5],
-            ['display_name' => 'Recon Viper 2',
-                'ip' => '198.51.100.17',
-                'secret' => 'whatever',
-                'timeout' => 5],
-        ],
-        'TLS-discoverytag' => 'aaa+auth:radius.tls',
-        'TLS-acceptableOIDs' => [
-            'client' => '1.3.6.1.4.1.25178.3.1.1',
-            'server' => '1.3.6.1.4.1.25178.3.1.2',
-        ],
-
-        'TLS-clientcerts' => [
-          'CA1' => [
-            'status' => 'ACCREDITED',
-            'issuerCA' => '/DC=org/DC=pki1/CN=PKI 1',
-            'certificates' => [
-              [
-                'status' => 'CORRECT',
-                'public' => 'ca1-client-cert.pem',
-                'private' => 'ca1-client-key.pem',
-                'expected' => 'PASS'],
-              [
-                'status' => 'WRONGPOLICY',
-                'public' => 'ca1-nopolicy-cert.pem',
-                'private' => 'ca1-nopolicy-key.key',
-                'expected' => 'FAIL'],
-              [
-                'status' => 'EXPIRED',
-                'public' => 'ca1-exp.pem',
-                'private' => 'ca1-exp.key',
-                'expected' => 'FAIL'],
-              [
-                'status' => 'REVOKED',
-                'public' => 'ca1-revoked.pem',
-                'private' => 'ca1-revoked.key',
-                'expected' => 'FAIL'],
-            ]
-          ],
-          'CA-N' => [
-            'status' => 'NONACCREDITED',
-            'issuerCA' => '/DC=org/DC=pkiN/CN=PKI N',
-            'certificates' => [
-               [
-                'status' => 'CORRECT',
-                'public' => 'caN-client-cert.pem',
-                'private' => 'caN-client-cert.key',
-                'expected' => 'FAIL'],
-               ]
-          ]
-      ],
-      'accreditedCAsURL' => '',
-    ],
 
     /**
      * Set of database connection details. The third entry is only needed if you set $ENFORCE_EXTERNAL_DB_SYNC to TRUE.
@@ -318,11 +189,27 @@ const CONFIG = [
      * @var array
      */
     'DB' => [
+        // this slice of DB use will deal with all tables in the schema except
+        // downloads and user_options. If you give the user below exclusively
+        // read-only access, all data manipulation will fail; only existing state
+        // can be worked with.
         'INST' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
             'pass' => 'somepass'],
+        // this slice of DB user is about the downloads table. The corresponding
+        // DB user should have write access to update statistics and the cache
+        // locations of installers.
+        'FRONTEND' => [
+            'host' => 'db.host.example',
+            'db' => 'cat',
+            'user' => 'someuser',
+            'pass' => 'somepass'],
+        // this slice of DB use is about user management in the user_options
+        // table. Giving the corresponding user only read-only access means that
+        // all user properties have to "magically" occur in the table by OOB
+        // means (custom queries are also possible of course).
         'USER' => [
             'host' => 'db.host.example',
             'db' => 'cat',
@@ -371,12 +258,6 @@ const CONFIG = [
      *
      */
     'DEBUG_LEVEL' => 5,
-
-    /**
-     * NSIS version - with version 3 UTF installers will be created
-     * see also $PATHS['makensis']
-     */
-    'NSIS_VERSION' => 2,
 
     'SUPERADMINS' =>  [
         'eptid:someuser',

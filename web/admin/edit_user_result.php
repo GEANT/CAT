@@ -1,17 +1,15 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("inc/common.inc.php");
 
 $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
@@ -30,21 +28,40 @@ if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != web\lib\admin\Fo
     <?php _("Submitted attributes"); ?>
 </h1>
 <?php
-$remaining_attribs = $user->beginflushAttributes();
+// be cautious: there is one attribute which the user hasn't sent (because it is set for him out-of-band)
+// which needs to be preserved: user:fedadmin. The following code path is less tested than the rest because
+// the eduroam deployment leaves fedadmin privilege management entirely to the eduroam Service Provider Proxy
+//  and eduroam DB
 
 if (isset($_POST['option'])) {
     foreach ($_POST['option'] as $opt_id => $optname) {
         if ($optname == "user:fedadmin") {
-            echo "Security violation: user tried to make himself federation administrator!";
+            echo "Security violation: user tried to make himself " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'] . " administrator!";
             exit(1);
         }
     }
 }
+$salvageFedPrivs = [];
+if (CONFIG['DB']['userdb-readonly'] === FALSE) { // we are actually writing user properties ourselves
+    $federations = $user->getAttributes("user:fedadmin");
+    foreach ($federations as $federation) {
+        $salvageFedPrivs[] = $federation['value'];
+    }
+}
+
+// add any salvaged fedops privileges ourselves. Adding things to POST
+// is maybe a bit ugly, but it works.
+
+$i = 0;
+foreach ($salvageFedPrivs as $oneFed) {
+    $_POST['option']["S123456789".$i] = "user:fedadmin#string##";
+    $_POST['value']["S123456789".$i."-0"] = $oneFed;
+    $i++;
+}
 ?>
 <table>
     <?php
-    $killlist = $optionParser->processSubmittedFields($user, $_POST, $_FILES, $remaining_attribs);
-    $user->commitFlushAttributes($killlist);
+    echo $optionParser->processSubmittedFields($user, $_POST, $_FILES);
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "User attributes changed");
     ?>
 </table>

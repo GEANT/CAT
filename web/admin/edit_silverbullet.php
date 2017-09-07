@@ -13,8 +13,6 @@
  */
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 use web\lib\admin\http\SilverbulletContext;
 use web\lib\admin\http\SilverbulletController;
 use web\lib\admin\http\TermsOfUseCommand;
@@ -36,7 +34,9 @@ use web\lib\admin\view\SendSmsBox;
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
 
-$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, _('Managing institution users'), '1.3.3');
+$uiElements = new \web\lib\admin\UIElements();
+
+$page = new DefaultHtmlPage(DefaultHtmlPage::ADMIN_IDP_USERS, sprintf(_('Managing %s users'),$uiElements->nomenclature_inst), '1.3.3');
 // Load global scripts
 $page->appendScript('js/option_expand.js');
 $page->appendScript('../external/jquery/jquery.js');
@@ -67,7 +67,7 @@ if($builder->isReady()){
         $fed = new \core\Federation($inst->federation);
         $allowSb = $fed->getAttributes("fed:silverbullet");
         if (count($allowSb) == 0) {
-            throw new Exception("We were told to create a new SB profile, but this federation does not allow SB at all!");
+            throw new Exception("We were told to create a new SB profile, but this ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." does not allow SB at all!");
         }
         // okay, new SB profiles are allowed. Create one.
         $newProfile = $inst->newProfile("SILVERBULLET");
@@ -85,7 +85,7 @@ if($builder->isReady()){
     $action = $context->addQuery($_SERVER['SCRIPT_NAME']);
     
     //Info block data preparation
-    $infoBlock = new InfoBlockTable( _('Current institution users'));
+    $infoBlock = new InfoBlockTable( sprintf(_('Current %s users'), $uiElements->nomenclature_inst));
     $infoBlock->addRow(array('The assigned realm', $builder->getRealmName()));
     $infoBlock->addRow(array('The total number of active users which are allowed for this profile', $stats[SilverbulletContext::STATS_TOTAL]));
     $infoBlock->addRow(array('The current number of configured active users', $stats[SilverbulletContext::STATS_ACTIVE]));
@@ -96,7 +96,7 @@ if($builder->isReady()){
     $acknowledgeText = _ ( 'You need to acknowledge that the created accounts are still valid within the next %s days.'
                 .' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                 .' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.' );
-    $editBlock = new UserCredentialsForm($context, $action, _('Manage institution users'), $acknowledgeText, count($users) > 0);
+    $editBlock = new UserCredentialsForm($context, $action, sprintf(_('Manage %s users'), $uiElements->nomenclature_inst), $acknowledgeText, count($users) > 0);
     foreach ($users as $user) {
         $editBlock->addUserRow($user);
         $certificates = $user->getCertificates();

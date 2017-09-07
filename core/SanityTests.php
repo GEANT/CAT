@@ -146,15 +146,18 @@ class SanityTests extends CAT {
     private function get_exec_path($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";
-        if (!empty(CONFIG['PATHS'][$pathToCheck])) {
-            $matchArray = [];
-            preg_match('/([^ ]+) ?/', CONFIG['PATHS'][$pathToCheck], $matchArray);
-            $exe = $matchArray[1];
-            $the_path = exec("which " . CONFIG['PATHS'][$pathToCheck]);
-            if ($the_path == $exe) {
-                $exec_is = "EXPLICIT";
-            } else {
-                $exec_is = "IMPLICIT";
+        foreach ([CONFIG, CONFIG_CONFASSISTANT, CONFIG_DIAGNOSTICS] as $config) { 
+            if (!empty($config['PATHS'][$pathToCheck])) {
+                $matchArray = [];
+                preg_match('/([^ ]+) ?/', $config['PATHS'][$pathToCheck], $matchArray);
+                $exe = $matchArray[1];
+                $the_path = exec("which " . $config['PATHS'][$pathToCheck]);
+                if ($the_path == $exe) {
+                    $exec_is = "EXPLICIT";
+                } else {
+                    $exec_is = "IMPLICIT";
+                }
+                return(['exec' => $the_path, 'exec_is' => $exec_is]);
             }
         }
         return(['exec' => $the_path, 'exec_is' => $exec_is]);
@@ -206,7 +209,7 @@ class SanityTests extends CAT {
      * test if eapol_test is availabe and reacent enough
      */
     private function eapol_test_test() {
-        exec(CONFIG['PATHS']['eapol_test'], $out, $retval);
+        exec(CONFIG_DIAGNOSTICS['PATHS']['eapol_test'], $out, $retval);
         if ($retval == 255) {
             $o = preg_grep('/-o<server cert/', $out);
             if (count($o) > 0) {
@@ -357,11 +360,11 @@ class SanityTests extends CAT {
      * test if makensis is available
      */
     private function makensis_test() {
-        if (!is_numeric(CONFIG['NSIS_VERSION'])) {
+        if (!is_numeric(CONFIG_CONFASSISTANT['NSIS_VERSION'])) {
             $this->test_return(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be numeric!");
             return;
         }
-        if (CONFIG['NSIS_VERSION'] < 2) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] < 2) {
             $this->test_return(\core\common\Entity::L_ERROR, "NSIS_VERSION needs to be at least 2!");
             return;
         }
@@ -375,10 +378,10 @@ class SanityTests extends CAT {
             }
             exec($A['exec'] . ' -HELP', $t);
             $t1 = count(preg_grep('/INPUTCHARSET/', $t));
-            if ($t1 == 1 && CONFIG['NSIS_VERSION'] == 2) {
+            if ($t1 == 1 && CONFIG_CONFASSISTANT['NSIS_VERSION'] == 2) {
                 $this->test_return(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
-            if ($t1 == 0 && CONFIG['NSIS_VERSION'] >= 3) {
+            if ($t1 == 0 && CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
                 $this->test_return(\core\common\Entity::L_ERROR, "Declared NSIS_VERSION does not seem to match the file pointed to by PATHS['makensis']!");
             }
         } else {
@@ -400,7 +403,7 @@ class SanityTests extends CAT {
         $NSIS_Module_status = [];
         foreach ($this->NSIS_Modules as $module) {
             unset($out);
-            exec(CONFIG['PATHS']['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
+            exec(CONFIG_CONFASSISTANT['PATHS']['makensis'] . " -V1 '-X!include $module' '-XOutFile $exe' '-XSection X' '-XSectionEnd'", $out, $retval);
             if ($retval > 0) {
                 $NSIS_Module_status[$module] = 0;
             } else {
@@ -502,7 +505,7 @@ class SanityTests extends CAT {
         } elseif (CONFIG['APPEARANCE']['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
             $defaultvalues .= "APPEARANCE/webcert_OCSP ";
         }
-        if (isset(CONFIG['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
+        if (isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
             $defaultvalues .= "RADIUSTESTS/UDP-hosts ";
         }
         if (CONFIG['DB']['INST']['host'] == "db.host.example") {
@@ -515,7 +518,7 @@ class SanityTests extends CAT {
             $defaultvalues .= "DB/EXTERNAL ";
         }
         $files = [];
-        foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $cadata) {
             foreach ($cadata['certificates'] as $cert_files) {
                 $files[] = $cert_files['public'];
                 $files[] = $cert_files['private'];
@@ -592,7 +595,7 @@ class SanityTests extends CAT {
         }
 
         if ($global_no_cache == 1) {
-            $this->test_return(L_WARN, "Devices no_cache global option is set, this is not a good idea in a production setting\n");
+            $this->test_return(\core\common\Entity::L_WARN, "Devices no_cache global option is set, this is not a good idea in a production setting\n");
         }
         $Devs = \devices\Devices::listDevices();
         $no_cache_dev = '';

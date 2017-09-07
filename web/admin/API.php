@@ -11,7 +11,6 @@
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("inc/common.inc.php");
 
 // no SAML auth on this page. The API key authenticates the entity
 
@@ -48,7 +47,7 @@ function cmpSequenceNumber($left, $right) {
     
 echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
 
-if (!isset(CONFIG['CONSORTIUM']['registration_API_keys']) || count(CONFIG['CONSORTIUM']['registration_API_keys']) == 0) {
+if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) == 0) {
     return_error(ERROR_API_DISABLED, "API is disabled in this instance of CAT");
     exit(1);
 }
@@ -58,7 +57,7 @@ if (!isset($_POST['APIKEY'])) {
     exit(1);
 }
 
-foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
+foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
     if ($_POST['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;
@@ -103,7 +102,7 @@ switch ($sanitised_action) {
             }
         }
         // now process all inst-wide options    
-        $optionParser->processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, 0, TRUE);
+        $optionParser->processSubmittedFields($idp, $instWideOptions, $_FILES, 0, "");
         // same thing for profile options
         $profileWideOptions = $_POST;
         foreach ($profileWideOptions['option'] as $optindex => $optname) {
@@ -119,20 +118,24 @@ switch ($sanitised_action) {
             $therealm = "";
             $theanonid = "anonymous";
             $useAnon = FALSE;
+            $valuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
-                        if (isset($_POST['value'][$optindex . "-0"])) {
-                            $theanonid = $validator->string($_POST['value'][$optindex . "-0"]);
+                        // I rather work directly with _POST, but some code 
+                        // paths trigger Scrutinizer's security warnings
+                        // so relying on the pre-filtered input for those places
+                        if (array_key_exists($optindex . "-0", $valuesFiltered)) {
+                            $theanonid = $validator->string($valuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:realm":
-                        if (isset($_POST['value'][$optindex . "-0"]) && $validator->realm($_POST['value'][$optindex . "-0"])) {
-                            $therealm = $_POST['value'][$optindex . "-0"];
+                        if (array_key_exists($optindex . "-0", $valuesFiltered)) {
+                            $therealm = $validator->realm($valuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:useanon":
-                        if (isset($_POST['value'][$optindex . "-3"]) && $validator->boolean($_POST['value'][$optindex . "-3"]) == "on") {
+                        if (isset($_POST['value'][$optindex . "-3"]) && $validator->boolean($_POST['value'][$optindex . "-3"]) === TRUE) {
                             $useAnon = TRUE;
                         }
                         break;

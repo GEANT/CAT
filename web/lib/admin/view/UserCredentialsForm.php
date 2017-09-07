@@ -116,7 +116,7 @@ class UserCredentialsForm implements PageElementInterface{
         $distributor->distributeMessages(SendTokenBySms::COMMAND, $saveMessageBox);
         $this->decorator->addHtmlElement($saveMessageBox, TitledFormDecorator::BEFORE);
         
-        $this->acknowledgeDays = isset(CONFIG['CONSORTIUM']['silverbullet_gracetime']) ? CONFIG['CONSORTIUM']['silverbullet_gracetime'] : SilverbulletUser::MAX_ACKNOWLEDGE;
+        $this->acknowledgeDays = CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? SilverbulletUser::MAX_ACKNOWLEDGE;
         $this->acknowledgeText = $acknowledgeText;
         if($isAcknowledgeEnabled){
             $div = new CompositeTag('div');

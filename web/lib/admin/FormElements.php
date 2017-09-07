@@ -11,6 +11,15 @@
 
 namespace web\lib\admin;
 
+/**
+ * This class defines constants for HTML form handling.
+ * 
+ * When submitting forms, the sending page's form and receiving page's POST/GET 
+ * must have a common understanding on what's being transmitted. Rather than
+ * using strings or raw integers, named constants are much prettier.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 class FormElements {
 
     const BUTTON_CLOSE = 0;

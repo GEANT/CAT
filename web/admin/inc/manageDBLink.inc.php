@@ -10,7 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
 $auth->authenticate();
@@ -21,6 +20,7 @@ $languageInstance->setTextDomain("web_admin");
 header("Content-Type:text/html;charset=utf-8");
 
 $validator = new \web\lib\common\InputValidation();
+$uiElements = new \web\lib\admin\UIElements();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
@@ -40,7 +40,7 @@ $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
 // if not, send the user away
 
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this institution."), CONFIG['CONSORTIUM']['name']);
+    echo sprintf(_("You do not have the necessary privileges to manage the %s DB link state of this %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst);
     exit(1);
 }
 
@@ -56,16 +56,16 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
     // okay, he did sumbit an inst. It's either a (string) handle from a promising 
     // candidate, or "other" as selected from the drop-down list
     if ($_POST['inst_link'] != "other") {
-        $my_inst->setExternalDBId($validator->string($_POST['inst_link']));
+        $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link', FILTER_SANITIZE_STRING)));
     } elseif (isset($_POST['inst_link_other'])) {
-        $my_inst->setExternalDBId($validator->string($_POST['inst_link_other']));
+        $my_inst->setExternalDBId($validator->string(filter_input(INPUT_POST, 'inst_link_other', FILTER_SANITIZE_STRING)));
     }
     header("Location: ../overview_federation.php");
     exit;
 }
 ?>
 <h1>
-    <?php printf(_("%s Database Link Status for IdP '%s'"), CONFIG['CONSORTIUM']['name'], $my_inst->name); ?>
+    <?php printf(_("%s Database Link Status for IdP '%s'"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $my_inst->name); ?>
 </h1>
 <hr/>
 <p>
@@ -73,9 +73,9 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
     $cat = new \core\CAT();
     if ($my_inst->getExternalDBSyncState() == \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED) {
 
-        printf(_("This institution is linked to the %s database."), CONFIG['CONSORTIUM']['name']) . "</p>";
-        echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name']) . "</p>";
-        echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG['APPEARANCE']['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG['CONSORTIUM']['name']) . "</td></tr>";
+        printf(_("This %s is linked to the %s database."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
+        echo "<p>" . sprintf(_("The following information about the IdP is stored in the %s DB and %s DB:"), CONFIG['APPEARANCE']['productname'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
+        echo "<table><tr><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG['APPEARANCE']['productname']) . "</td><td>" . sprintf(_("Information in <strong>%s Database</strong>"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</td></tr>";
         echo "<tr><td>";
         // left-hand side: CAT DB
         echo "<table>";
@@ -87,7 +87,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
             } else {
                 $language = CONFIG['LANGUAGES'][$name['lang']]['display'] ?? "(unsupported language)";
             }
-            echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $language) . "</td><td>" . $name['value'] . "</td></tr>";
+            echo "<tr><td>" . sprintf(_("Name of %s (%s)"), $uiElements->nomenclature_inst, $language) . "</td><td>" . $name['value'] . "</td></tr>";
         }
 
         $admins = $my_inst->owner();
@@ -106,14 +106,14 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
         // right-hand side: external DB
         $externalid = $my_inst->getExternalDBId();
         if (!$externalid) { // we are in SYNCED state so this cannot happen
-            throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the institution!");
+            throw new Exception("We are in SYNCSTATE_SYNCED but still there is no external DB Id available for the ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']."!");
         }
 
         $extinfo = $cat->getExternalDBEntityDetails($externalid);
 
         echo "<table>";
         foreach ($extinfo['names'] as $lang => $name) {
-            echo "<tr><td>" . sprintf(_("Institution Name (%s)"), $lang) . "</td><td>$name</td>";
+            echo "<tr><td>" . sprintf(_("Name of %s (%s)"), $uiElements->nomenclature_inst, $lang) . "</td><td>$name</td>";
         }
         foreach ($extinfo['admins'] as $number => $admin_details) {
             echo "<tr><td>" . _("Administrator email") . "</td><td>" . $admin_details['email'] . "</td></tr>";
@@ -123,17 +123,17 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
         echo "</td></tr></table>";
     } else if ($my_inst->getExternalDBSyncState() == \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED) {
         $temparray = [];
-        printf(_("This institution is not yet linked to the %s database."), CONFIG['CONSORTIUM']['name']) . " ";
+        printf(_("This %s is not yet linked to the %s database."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . " ";
         echo "<strong>" . _("This means that its profiles are not made available on the user download page.") . "</strong> ";
-        printf(_("You can link it to the %s database below."), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']);
+        printf(_("You can link it to the %s database below."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $candidates = $my_inst->getExternalDBSyncCandidates();
         echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
-        printf(_("Please select an entity from the %s DB which corresponds to this CAT institution."), CONFIG['CONSORTIUM']['name']) . " ";
+        printf(_("Please select an entity from the %s DB which corresponds to this CAT %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst) . " ";
         if ($candidates !== FALSE) {
-            printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG['CONSORTIUM']['name']);
+            printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         }
         echo "<table>";
-        echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . _("Name of the institution") . "</th><th>" . _("Administrators") . "</th></tr>";
+        echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("Name of the %s"), $uiElements->nomenclature_inst) . "</th><th>" . _("Administrators") . "</th></tr>";
         if ($candidates !== FALSE) {
             foreach ($candidates as $candidate) {
                 $info = $cat->getExternalDBEntityDetails($candidate);
@@ -167,7 +167,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
         }
         // issue a big red warning if there are no link candidates at all in the federation
         if (empty($buffer) && empty($candidates)) {
-            echo "<tr><td style='color:#ff0000' colspan='2'>There are no unmapped institutions in the external database for this federation!</td></tr>";
+            echo "<tr><td style='color:#ff0000' colspan='2'>". sprintf(_('There is no single unmapped %s in the external database for this %s!'), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed)."</td></tr>";
         }
         echo "</table><button type='submit' name='submitbutton' id='submit' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "' disabled >" . _("Create Link") . "</button></form>";
     }

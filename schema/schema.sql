@@ -81,12 +81,11 @@ CREATE TABLE `invitations` (
 
 CREATE TABLE `ownership` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) NOT NULL,
+  `user_id` varchar(2048) NOT NULL,
   `institution_id` int(11) NOT NULL,
   `blesslevel` varchar(16) NOT NULL DEFAULT 'FED',
   `orig_mail` varchar(128) NOT NULL DEFAULT 'LEGACY-NO-MAIL-KNOWN',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `pair` (`user_id`,`institution_id`),
   KEY `institution_id` (`institution_id`),
   CONSTRAINT `ownership_ibfk_1` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`inst_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -147,12 +146,12 @@ CREATE TABLE `downloads` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user_options` ( 
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
-  `user_id` varchar(255) NOT NULL, 
+  `row` int(11) NOT NULL AUTO_INCREMENT, 
+  `user_id` varchar(2048) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
   `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  KEY `rowindex` (`id`),
+  KEY `rowindex` (`row`),
   KEY `foreign_key_options` (`option_name`), 
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -175,6 +174,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('media:remove_SSID','SSIDs to remove during installation','string',NULL),
 ('media:consortium_OI','Hotspot 2.0 consortium OIs to configure','string',NULL),
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),
 ('profile:production','Profile is ready and can be displayed on download page','boolean',NULL),
 ('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),

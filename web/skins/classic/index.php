@@ -59,37 +59,18 @@ class Menu {
 }
 
 $deco = new \web\lib\admin\PageDecoration();
-echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 ?>
-
-
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
+<!-- JQuery -->
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js") ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate-1.2.1.js") ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js") ?>"></script>
+<!-- JQuery -->
 <script type="text/javascript">
     if (screen.width <= 480) {
         window.location.href = "<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/basic.php?<?php echo htmlspecialchars($_SERVER['QUERY_STRING']) ?>";
             }
 </script>
-<script type="text/javascript">ie_version = 0;</script>
-<!--[if IE]>
-<script type="text/javascript">ie_version=1;</script>
-<![endif]-->
-<!--[if IE 7]>
-<script type="text/javascript">ie_version=7;</script>
-<![endif]-->
-<!--[if IE 8]>
-<script type="text/javascript">ie_version=8;</script>
-<![endif]-->
-<!--[if IE 9]>
-<script type="text/javascript">ie_version=9;</script>
-<![endif]-->
-<!--[if IE 10]>
-<script type="text/javascript">ie_version=10;</script>
-<![endif]-->
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
-<!-- JQuery --> 
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script> 
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate-1.2.1.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script> 
-<!-- JQuery --> 
 <script type="text/javascript">
     var recognisedOS = '';
     var downloadMessage;
@@ -99,7 +80,7 @@ $Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-$downloadMessage = sprintf(_("Download your %s installer"), CONFIG['CONSORTIUM']['name']);
+$downloadMessage = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 print 'downloadMessage = "' . $downloadMessage . '";';
 //TODO modify this based on OS detection
 if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
@@ -154,13 +135,13 @@ include("user/js/cat_js.php");
                             <table id="left_menu">
                                 <?php
                                 $menu = new Menu([
-                                    "about_consortium" => [sprintf(_("About %s"), CONFIG['CONSORTIUM']['name']), 'padding-bottom:20px;font-weight: bold; '],
+                                    "about_consortium" => [sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']), 'padding-bottom:20px;font-weight: bold; '],
                                     "about" => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
                                     "tou" => sprintf(_("Terms of use")),
                                     "faq" => sprintf(_("FAQ")),
                                     "report" => sprintf(_("Report a problem")),
                                     "develop" => sprintf(_("Become a CAT developer")),
-                                    "admin" => [sprintf(_("%s admin:<br>manage your IdP"), CONFIG['CONSORTIUM']['name']), 'padding-top:30px;'],
+                                    "admin" => [sprintf(_("%s admin:<br>manage your %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $Gui->nomenclature_inst), 'padding-top:30px;'],
                                 ]);
 
                                 $menu->printMenu();
@@ -176,14 +157,14 @@ include("user/js/cat_js.php");
                                 <tr>
                                     <td id="slides" style="background: #fff url(<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "gradient-bg.png"); ?>) repeat-x; height:272px; border-radius: 16px; width: 100%; padding-left:20px;">
                                         <div>
-                                            <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG['CONSORTIUM']['name']) ?></span>
+                                            <span id="line1"><?php printf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) ?></span>
                                             <span id="line2"></span>
                                             <span id="line3"></span>
-                                            <span id="line4"><?php echo _("Custom built for your home institution") ?></span>
+                                            <span id="line4"><?php echo sprintf(_("Custom built for your %s"),$Gui->nomenclature_inst) ?></span>
                                             <span id="line5">
                                                 <?php
-                                                if (isset(CONFIG['CONSORTIUM']['signer_name']) && CONFIG['CONSORTIUM']['signer_name'] != "") {
-                                                    echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['signer_name']);
+                                                if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']) && CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'] != "") {
+                                                    echo sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
                                                 }
                                                 ?>
                                             </span>
@@ -197,7 +178,7 @@ include("user/js/cat_js.php");
                     </tr>
                     <tr>
                         <td id="user_button_td">
-                            <?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
+                            <?php print '<span id="signin"><button class="signin signin_large" id="user_button1"><span id="user_button">' . sprintf(_("%s user:<br>download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . '</span></button></span><span style="padding-left:50px">&nbsp;</span>'; ?>
 
                         </td>
                     </tr>

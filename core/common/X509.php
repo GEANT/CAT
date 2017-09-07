@@ -28,22 +28,29 @@ namespace core\common;
  */
 class X509 {
 
-    /** transform PEM formed certificate to DER format
+    /** 
+     * transform PEM formatted certificate to DER format
      *
-     *  @param mixed $pemData blob of data, which is hopefully a PEM certificate
-     *  @return the DER representation of the certificate
+     *  @param string $pemData blob of data, which is hopefully a PEM certificate
+     *  @return string the DER representation of the certificate
      *
      *  @author http://php.net/manual/en/ref.openssl.php (comment from 29-Mar-2007)
      */
-    public function pem2der($pemData) {
+    public function pem2der(string $pemData) {
         $begin = "CERTIFICATE-----";
         $end = "-----END";
-        $pemData = substr($pemData, strpos($pemData, $begin) + strlen($begin));
-        $pemData = substr($pemData, 0, strpos($pemData, $end));
-        $der = base64_decode($pemData);
+        $pemDataTemp = substr($pemData, strpos($pemData, $begin) + strlen($begin));
+        $pemDataTemp2 = substr($pemDataTemp, 0, strpos($pemDataTemp, $end));
+        $der = base64_decode($pemDataTemp2);
         return $der;
     }
 
+    /**
+     * transform DER formatted certificate to PEM format
+     * 
+     * @param string $derData blob of DER data
+     * @return string the PEM representation of the certificate
+     */
     public function der2pem($derData) {
         $pem = chunk_split(base64_encode($derData), 64, "\n");
         $pem = "-----BEGIN CERTIFICATE-----\n" . $pem . "-----END CERTIFICATE-----\n";
@@ -80,7 +87,6 @@ class X509 {
             $authorityDer = $cadata;
             $authorityPem = X509::der2pem($cadata);
         }
-
         
         // check that the certificate is OK
         $myca = openssl_x509_read($authorityPem);

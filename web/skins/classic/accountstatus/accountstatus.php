@@ -17,8 +17,6 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
-require_once(dirname(dirname(dirname(__DIR__))) . "/admin/inc/common.inc.php");
-
 $languageInstance = new \core\common\Language();
 $languageInstance->setTextDomain("web_user");
 $loggerInstance = new \core\common\Logging();
@@ -58,11 +56,11 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             <table style='float: right; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
                 <tr>
                     <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='Federation Logo'/></td>
+                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='<?php echo sprintf(_("%s Logo"),$uiElements->nomenclature_fed);?>'/></td>
                 </tr>
                 <tr>
                     <td><?php echo $statusInfo['idp']->name; ?></td>
-                    <td><?php echo sprintf(_("%s %s in %s"), CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['nomenclature_federation'], $statusInfo['fed']->name); ?></td>
+                    <td><?php echo sprintf(_("%s %s in %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'], $statusInfo['fed']->name); ?></td>
                 </tr>
             </table>
             <?php
@@ -73,7 +71,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
         <div style='max-width: 700px;'>
             <span style="max-width: 700px;">
                 <?php
-                echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG['CONSORTIUM']['name']) . "</h1>";
+                echo "<h1>" . sprintf(_("Your personal %s account status page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</h1>";
                 switch ($statusInfo['errorcode']) {
                     case "GENERATOR_CONSUMED":
                         echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE);
@@ -156,7 +154,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             break;
                         }
 
-                        echo "<p>".sprintf(_("You can now download a personalised  %s installation program."), CONFIG['CONSORTIUM']['name']);
+                        echo "<p>".sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                         echo sprintf(_("The installation program is<br/><span style='font-size: 30px;'>strictly personal</span>, to be used<br/><span style='font-size: 30px;'>only on this device (%s)</span>, and it is<br/><span style='font-size: 30px;'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
                         echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p>";
@@ -172,7 +170,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         $_SESSION['importpassword'] = $importPassword;
                         echo "<input type='hidden' name='device' value='" . $statusInfo['OS']['device'] . "'/>";
                         echo "<input type='hidden' name='generatedfor' value='silverbullet'/>";
-                        echo "<button class='signin signin_large' id='user_button1' type='submit' style='height:80px;'><span id='user_button'>" . sprintf(_("Click here to download your %s installer!"), CONFIG['CONSORTIUM']['name']) . "</span></button>";
+                        echo "<button class='signin signin_large' id='user_button1' type='submit' style='height:80px;'><span id='user_button'>" . sprintf(_("Click here to download your %s installer!"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</span></button>";
                         echo "</form>";
                         break;
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:

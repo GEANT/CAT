@@ -9,7 +9,6 @@
  */
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("common.inc.php");
 
 use web\lib\admin\Authentication;
 use web\lib\admin\view\DefaultAjaxPage;

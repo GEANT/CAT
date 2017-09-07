@@ -20,9 +20,13 @@
  */
 namespace core\common;
 
+/**
+ * This class maintains state of the selected language and can set the language.
+ */
 class Language {
 
     /**
+     * the current language
      * 
      * @var string
      */
@@ -30,6 +34,8 @@ class Language {
 
     /**
      * language display name for the language set by the constructor
+     * 
+     * @var string
      */
     public $locale;
 
@@ -78,13 +84,14 @@ class Language {
             $langConverted[] = $hardSetLang;
         }
         if (!empty($_REQUEST['lang'])) {
-            $langConverted[] = $_REQUEST['lang'];
+            $recoverLang = filter_input(INPUT_GET,'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
+            $langConverted[] = $recoverLang;
         }
         if (!empty($_SESSION['language'])) {
             $langConverted[] = $_SESSION['language'];
         }
         if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $langs = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
+            $langs = explode(",", filter_input(INPUT_SERVER,"HTTP_ACCEPT_LANGUAGE", FILTER_SANITIZE_STRING));
             foreach ($langs as $lang) {
                 $result = [];
                 preg_match("/(.*);+.*/", $lang, $result);

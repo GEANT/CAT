@@ -76,6 +76,18 @@ class CAT extends \core\common\Entity {
     public $CAT_COPYRIGHT;
 
     /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+
+    /**
      * all known federation, in an array with ISO short name as an index, and localised version of the pretty-print name as value.
      * The static value is only filled with meaningful content after the first object has been instantiated. That is because it is not
      * possible to define static properties with function calls like _().
@@ -115,6 +127,19 @@ class CAT extends \core\common\Entity {
         /* Federations are created in DB with bootstrapFederation, and listed via listFederations
          */
         $oldlocale = $this->languageInstance->setTextDomain('core');
+
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
 
         $this->knownFederations = [
             'AD' => _("Andorra"),
@@ -412,13 +437,12 @@ class CAT extends \core\common\Entity {
         $query .= "WHERE (institution_option.option_name = 'general:instname' 
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
-        if ($country) {
-            // escape the parameter
-            $country = $handle->escapeValue($country);
-            $query .= "AND institution.country = '$country' ";
-        }
+
+        $query .= ($country ? "AND institution.country = ? " : "");
+
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        $allIDPs = $handle->exec($query);
+        
+        $allIDPs = ($country ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
         while ($queryResult = mysqli_fetch_object($allIDPs)) {
             $institutionOptions = explode('---', $queryResult->options);
@@ -490,7 +514,7 @@ class CAT extends \core\common\Entity {
 
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $scanforrealm = "";
             if ($realm !== NULL) {
                 $scanforrealm = "OR inst_realm LIKE '%$realm%'";

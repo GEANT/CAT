@@ -7,14 +7,21 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+
+/**
+ * This page is used to edit a RADIUS profile by its administrator.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
+
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("inc/common.inc.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $uiElements = new web\lib\admin\UIElements();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), CONFIG['APPEARANCE']['productname']));
 ?>
@@ -197,8 +204,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             echo "<p>" . _("First of all we need a name for the profile. This will be displayed to end users, so you may want to choose a descriptive name like 'Professors', 'Students of the Faculty of Bioscience', etc.") . "</p>";
             echo "<p>" . _("Optionally, you can provide a longer descriptive text about who this profile is for. If you specify it, it will be displayed on the download page after the user has selected the profile name in the list.") . "</p>";
             echo "<p>" . _("You can also tell us your RADIUS realm. ");
-            if (count(CONFIG['RADIUSTESTS']['UDP-hosts']) > 0 || CONFIG['RADIUSTESTS']['TLS-discoverytag'] != "") {
-                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), CONFIG['CONSORTIUM']['name']);
+            if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] !== NULL) {
+                printf(_("This is useful if you want to use the sanity check module later, which tests reachability of your realm in the %s infrastructure. "), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             }
             echo _("It is required to enter the realm name if you want to support anonymous outer identities (see below).") . "</p>";
         }
@@ -366,7 +373,14 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     ?>
     <?php
 
-    function priority($eapType, $isenabled, $priority) {
+    /**
+     * creates HTML code which lists the EAP types in their desired property order.
+     * 
+     * @param string $eapType
+     * @param bool $isenabled
+     * @param int $priority
+     */
+    function priority(string $eapType, bool $isenabled, int $priority) {
         echo "<td><select id='$eapType-priority' name='$eapType-priority' " . (!$isenabled ? "disabled='disabled'" : "") . ">";
         for ($a = 1; $a < 7; $a = $a + 1) {
             echo "<option id='$eapType-$a' value='$a' " . ( $isenabled && $a == $priority ? "selected" : "" ) . ">$a</option>";
@@ -374,6 +388,15 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         echo "</select></td>";
     }
 
+    /**
+     * Displays HTML code which displays the EAP options inherited from IdP-wide config.
+     * 
+     * Since CAT-next does not allow to set EAP properties IdP-wide any more, this is probably useless and can be deleted at some point.
+     * 
+     * @param array $idpwideoptions
+     * @param string $eapType
+     * @param bool $isVisible
+     */
     function inherited_options($idpwideoptions, $eapType, $isVisible) {
         echo "<td><div style='" . (!$isVisible ? "visibility:hidden" : "") . "' class='inheritedoptions' id='$eapType-inherited-global'>";
 
@@ -407,10 +430,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
 // new EAP sorting code  
 
     foreach ($methods as $a) {
-        $display = $uiElements->displayName($a);
+        $display = $eapDisplayNames->eapNames($a);
         $enabled = FALSE;
         foreach ($prefill_methods as $prio => $value) {
-            if ($uiElements->displayName($a) == $uiElements->displayName($value)) {
+            if ($eapDisplayNames->eapNames($a) == $eapDisplayNames->eapNames($value)) {
                 $enabled = TRUE;
                 $countactive = $prio + 1;
             }
@@ -428,8 +451,8 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                         <?php
                         $D = [];
                         foreach ($prefill_methods as $prio => $value) {
-                            print '<li>' . $uiElements->displayName($value) . "</li>\n";
-                            $D[$uiElements->displayName($value)] = $prio;
+                            print '<li>' . $eapDisplayNames->eapNames($value) . "</li>\n";
+                            $D[$eapDisplayNames->eapNames($value)] = $prio;
                         }
                         ?>
                     </ol>
@@ -452,9 +475,9 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                             if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) {
                                 continue;
                             }
-                            $display = $uiElements->displayName($a);
-                            if (!isset($D[$uiElements->displayName($a)])) {
-                                print '<li class="eap1">' . $uiElements->displayName($a) . "</li>\n";
+                            $display = $eapDisplayNames->eapNames($a);
+                            if (!isset($D[$eapDisplayNames->eapNames($a)])) {
+                                print '<li class="eap1">' . $eapDisplayNames->eapNames($a) . "</li>\n";
                             }
                         }
                         ?>
@@ -465,7 +488,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
     </div>
     <?php
     foreach ($methods as $a) {
-        $display = $uiElements->displayName($a);
+        $display = $eapDisplayNames->eapNames($a);
         $v = isset($D[$display]) ? $D[$display] : '';
         print '<input type="hidden" class="eapm" name="' . $display . '" id="EAP-' . $display . '" value="' . $display . '">';
         print '<input type="hidden" class="eapmv" name="' . $display . '-priority" id="EAP-' . $display . '-priority" value="' . $v . '">';

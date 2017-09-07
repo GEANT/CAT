@@ -18,9 +18,6 @@
  * @package Developer
  * 
  */
-/**
- * necessary includes
- */
 
 namespace core;
 
@@ -28,6 +25,7 @@ use \Exception;
 
 /**
  * This class represents an consortium federation.
+ * 
  * It is semantically a country(!). Do not confuse this with a TLD; a federation
  * may span more than one TLD, and a TLD may be distributed across multiple federations.
  *
@@ -45,29 +43,43 @@ use \Exception;
  */
 class Federation extends EntityWithDBProperties {
 
+    /**
+     * the handle to the FRONTEND database (only needed for some stats access)
+     * 
+     * @var DBConnection
+     */
+    private $frontendHandle;
+
+    /**
+     * retrieve the statistics from the database in an internal array representation
+     * 
+     * @return array
+     */
     private function downloadStatsCore() {
         $grossAdmin = 0;
         $grossUser = 0;
         $grossSilverbullet = 0;
-
         $dataArray = [];
-
-        $handle = DBConnection::handle("INST");
-        foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
-            $query = "SELECT SUM(downloads_admin) AS admin, "
-                    . "SUM(downloads_silverbullet) AS silverbullet, "
-                    . "SUM(downloads_user) AS user "
-                    . "FROM downloads, profile, institution "
-                    . "WHERE device_id = ? AND downloads.profile_id = profile.profile_id AND profile.inst_id = institution.inst_id "
-                    . "AND institution.country = ?";
-
-            $numberQuery = $handle->exec($query, "ss", $index, $this->identifier);
-
-            while ($queryResult = mysqli_fetch_object($numberQuery)) {
-                $dataArray[$deviceArray['display']] = ["ADMIN" => ( $queryResult->admin === NULL ? "0" : $queryResult->admin), "SILVERBULLET" => ($queryResult->silverbullet === NULL ? "0" : $queryResult->silverbullet), "USER" => ($queryResult->user === NULL ? "0" : $queryResult->user)];
-                $grossAdmin = $grossAdmin + $queryResult->admin;
-                $grossSilverbullet = $grossSilverbullet + $queryResult->silverbullet;
-                $grossUser = $grossUser + $queryResult->user;
+        // first, find out which profiles belong to this federation
+        $cohesionQuery = "SELECT profile_id FROM profile, institution WHERE profile.inst_id = institution.inst_id AND institution.country = ?";
+        $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->identifier);
+        while ($result = mysqli_fetch_object($profilesList)) {
+            foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
+                $countDevice = [];
+                $countDevice['ADMIN'] = 0;
+                $countDevice['SILVERBULLET'] = 0;
+                $countDevice['USER'] = 0;
+                $deviceQuery = "SELECT downloads_admin, downloads_silverbullet, downloads_user FROM downloads WHERE device_id = ? AND profile_id = ?";
+                $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $result->profile_id);
+                while ($queryResult = mysqli_fetch_object($statsList)) {
+                    $countDevice['ADMIN'] = $countDevice['ADMIN'] + $queryResult->downloads_admin;
+                    $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_silverbullet;
+                    $countDevice['USER'] = $countDevice['USER'] + $queryResult->downloads_user;
+                    $grossAdmin = $grossAdmin + $queryResult->downloads_admin;
+                    $grossSilverbullet = $grossSilverbullet + $queryResult->downloads_silverbullet;
+                    $grossUser = $grossUser + $queryResult->downloads_user;
+                }
+                $dataArray[$deviceArray['display']] = ["ADMIN" => $countDevice['ADMIN'], "SILVERBULLET" => $countDevice['SILVERBULLET'], "USER" => $countDevice['USER']];
             }
         }
         $dataArray["TOTAL"] = ["ADMIN" => $grossAdmin, "SILVERBULLET" => $grossSilverbullet, "USER" => $grossUser];
@@ -133,11 +145,14 @@ class Federation extends EntityWithDBProperties {
         $this->name = $cat->knownFederations[$this->identifier];
 
         parent::__construct(); // we now have access to our database handle
+
+        $this->frontendHandle = DBConnection::handle("FRONTEND");
+
         // fetch attributes from DB; populates $this->attributes array
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
-                                            WHERE $this->entityIdColumn = '$this->identifier' 
-                                            ORDER BY option_name", "FED");
+                                            WHERE $this->entityIdColumn = ?
+                                            ORDER BY option_name", "FED", "s", $this->identifier);
 
 
         $this->attributes[] = array("name" => "internal:country",
@@ -159,17 +174,15 @@ class Federation extends EntityWithDBProperties {
     public function newIdP($ownerId, $level, $mail) {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->identifier')");
         $identifier = $this->databaseHandle->lastID();
+        
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
-            echo "<p>" . _("Could not create a new Institution!") . "</p>";
-            throw new Exception("Could not create a new Institution!");
+            $text = "<p>Could not create a new " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . "!</p>";
+            echo $text;
+            throw new Exception($text);
         }
-        // escape all strings
-        $escapedOwnerId = $this->databaseHandle->escapeValue($ownerId);
-        $escapedLevel = $this->databaseHandle->escapeValue($level);
-        $escapedMail = $this->databaseHandle->escapeValue($mail);
-
-        if ($escapedOwnerId != "PENDING") {
-            $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES('$escapedOwnerId', $identifier, '$escapedLevel', '$escapedMail')");
+        
+        if ($ownerId != "PENDING") {
+            $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES(?,?,?,?)", "siss", $ownerId, $identifier, $level, $mail);
         }
         return $identifier;
     }
@@ -211,7 +224,7 @@ class Federation extends EntityWithDBProperties {
     public function listFederationAdmins() {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
@@ -227,7 +240,7 @@ class Federation extends EntityWithDBProperties {
     public function listExternalEntities($unmappedOnly) {
         $returnarray = [];
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $usedarray = [];
             $query = "SELECT id_institution AS id, country, inst_realm as realmlist, name AS collapsed_name, contact AS collapsed_contact FROM view_active_idp_institution WHERE country = ?";
 
@@ -296,57 +309,52 @@ class Federation extends EntityWithDBProperties {
     const AMBIGUOUS_IDP = -2;
 
     /**
+     * 
+     * @param mysqli_result $dbResult
+     */
+    private static function findCandidates(\mysqli_result $dbResult, &$country) {
+        $retArray = [];
+        while ($row = mysqli_fetch_object($dbResult)) {
+            if (!in_array($row->inst_id, $retArray)) {
+                $retArray[] = $row->inst_id;
+                $country = strtoupper($row->country);
+            }
+        }
+        if (count($retArray) <= 0) {
+            return Federation::UNKNOWN_IDP;
+        }
+        if (count($retArray) > 1) {
+            return Federation::AMBIGUOUS_IDP;
+        }
+
+        return array_pop($retArray);
+    }
+
+    /**
      * If we are running diagnostics, our input from the user is the realm. We
      * need to find out which IdP this realm belongs to.
      * @param string $realm the realm to search for
      * @return IdP|int either the ID of the IdP in the system, or UNKNOWN_IDP or AMBIGUOUS_IDP
      */
     public static function determineIdPIdByRealm($realm) {
-        $candidatesCat = [];
-        $candidatesExternalDb = [];
         $country = NULL;
+        $candidatesExternalDb = Federation::UNKNOWN_IDP;
         $dbHandle = DBConnection::handle("INST");
-        
         $realmSearchStringCat = "%@$realm";
-        $realmSearchStringDb1 = "$realm";
-        $realmSearchStringDb2 = "%,$realm";
-        $realmSearchStringDb3 = "$realm,%";
-        $realmSearchStringDb4 = "%,$realm,%";
-        
-        $candidateCatQuery = $dbHandle->exec("SELECT inst_id FROM profile WHERE realm LIKE ?", "s", $realmSearchStringCat);
-        while ($row = mysqli_fetch_object($candidateCatQuery)) {
-            if (!in_array($row->inst_id, $candidatesCat)) {
-                $candidatesCat[] = $row->inst_id;
-                $idpObject = new IdP($row->inst_id);
-                $country = strtoupper($idpObject->federation);
-            }
-        }
-        if (count($candidatesCat) <= 0) {
-            $candidatesCat = [Federation::UNKNOWN_IDP];
-        }
-        if (count($candidatesCat) > 1) {
-            $candidatesCat = [Federation::AMBIGUOUS_IDP];
-        }
+        $candidateCatQuery = $dbHandle->exec("SELECT p.inst_id as inst_id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ?", "s", $realmSearchStringCat);
+        $candidatesCat = Federation::findCandidates($candidateCatQuery, $country);
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
-            while ($row = mysqli_fetch_object($candidateExternalQuery)) {
-                if (!in_array($row->inst_id, $candidatesExternalDb)) {
-                    $candidatesExternalDb[] = $row->id_institution;
-                    $country = strtoupper($row->country);
-                }
-            }
-        }
-        if (count($candidatesExternalDb) <= 0) {
-            $candidatesExternalDb = [Federation::UNKNOWN_IDP];
-        }
-        if (count($candidatesExternalDb) > 1) {
-            $candidatesExternalDb = [Federation::AMBIGUOUS_IDP];
+            $realmSearchStringDb1 = "$realm";
+            $realmSearchStringDb2 = "%,$realm";
+            $realmSearchStringDb3 = "$realm,%";
+            $realmSearchStringDb4 = "%,$realm,%";
+            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution as inst_id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
+            $candidatesExternalDb = Federation::findCandidates($candidateExternalQuery, $country);
         }
 
-
-        return ["CAT" => array_pop($candidatesCat), "EXTERNAL" => array_pop($candidatesExternalDb), "FEDERATION" => $country];
+        return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
 
     private function usort_institution($a, $b) {

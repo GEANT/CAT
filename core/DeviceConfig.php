@@ -19,6 +19,7 @@
  */
 
 namespace core;
+
 use \Exception;
 
 /**
@@ -64,13 +65,25 @@ abstract class DeviceConfig extends \core\common\Entity {
     public $supportedEapMethods;
 
     /**
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+    
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+    
+    /**
      * 
      * @param array $eapArray the list of EAP methods the device supports
      */
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
         $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        $this->loggerInstance->debug(4, $this->supportedEapMethods, true);
     }
 
     /**
@@ -80,6 +93,18 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
 
     /**
@@ -155,11 +180,12 @@ abstract class DeviceConfig extends \core\common\Entity {
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
 
-            /* 
+            /*
              * If certificate has been created updating device name for it.
              */
-            if($this->clientCert['certificateId'] != null){
-                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $this->clientCert['certificateId']);
+            if ($this->clientCert['certificateId'] != null) {
+                $certId = $this->clientCert['certificateId'];
+                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);
             }
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
@@ -181,11 +207,17 @@ abstract class DeviceConfig extends \core\common\Entity {
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
+
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
         if (isset($this->attributes['general:logo_file'])) {
-            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
+            $this->loggerInstance->debug(5, "saving IDP logo\n");
+            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'],'idp');
+        }
+        if (isset($this->attributes['fed:logo_file'])) {
+            $this->loggerInstance->debug(5, "saving FED logo\n");
+            $this->attributes['fed:logo_file'] = $this->saveLogoFile($this->attributes['fed:logo_file'], 'fed');
         }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
 
@@ -193,8 +225,8 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
         $olddomain = $this->languageInstance->setTextDomain("core");
-        $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
-        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
+        $support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
@@ -228,6 +260,17 @@ abstract class DeviceConfig extends \core\common\Entity {
     public function writeDeviceInfo() {
         return _("Sorry, this should not happen - no additional information is available");
     }
+    
+    private function findSourceFile($file) {
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
+            return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
+        } elseif (is_file($this->module_path . '/Files/' . $file)) {
+            return $this->module_path . '/Files/' . $file;
+        } else {
+            $this->loggerInstance->debug(2, "requested file $file does not exist\n");
+            return(FALSE);
+        }
+    }
 
     /**
      *  Copy a file from the module location to the temporary directory.
@@ -248,16 +291,12 @@ abstract class DeviceConfig extends \core\common\Entity {
         if ($output_name === NULL) {
             $output_name = $source_name;
         }
-        $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $source_name;
-        } else {
-            $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
-            return(FALSE);
+        $this->loggerInstance->debug(5, "fileCopy($source_name, $output_name)\n");
+        $source = $this->findSourceFile($source_name);
+        if ($source === FALSE) {
+            return FALSE;
         }
-        $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
+        $this->loggerInstance->debug(5, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
         if (!$result) {
             $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
@@ -289,23 +328,19 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($output_name === NULL) {
             $output_name = $source_name;
         }
 
-        $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
+        $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
-        $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
-        $source = "";
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $source_name;
-        }
-        if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable
+        $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
+        $source = $this->findSourceFile($source_name);
+        
+        if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
             include($source);
         }
         $output = ob_get_clean();
@@ -318,10 +353,12 @@ abstract class DeviceConfig extends \core\common\Entity {
         $fileHandle = fopen("$output_name", "w");
         if (!$fileHandle) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            return FALSE;
         }
         fwrite($fileHandle, $output);
         fclose($fileHandle);
-        $this->loggerInstance->debug(4, "translateFile($source, $output_name, $encoding) end\n");
+        $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
+        return TRUE;
     }
 
     /**
@@ -341,11 +378,11 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
-        $this->loggerInstance->debug(4, "translateString input: \"$source_string\"\n");
+        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
             return($source_string);
         }
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($encoding) {
@@ -417,8 +454,17 @@ abstract class DeviceConfig extends \core\common\Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
+        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG_CONFASSISTANT['CONSORTIUM']['name']));
+        if (isset($this->attributes['profile:customsuffix'][1])) { 
+            // this string will end up as a filename on a filesystem, so always
+            // take a latin-based language variant if available
+            // and then scrub non-ASCII just in case
+            return $consortiumName . "-" . $this->getDeviceId() . iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:customsuffix'][1]));
+        }
+        // Okay, no custom suffix. 
+        // Use the configured inst name and apply shortening heuristics
         $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
-        $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
+        $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
@@ -428,7 +474,7 @@ abstract class DeviceConfig extends \core\common\Entity {
                 $inst .= $i[0];
             }
         }
-        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
+        // and if the inst has multiple profiles, add the profile name behin
         if ($this->attributes['internal:profile_count'][0] > 1) {
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
                 $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
@@ -454,9 +500,9 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
-        if (isset(CONFIG['CONSORTIUM']['ssid'])) {
-            foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
-                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE) {
+        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
+            foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
+                if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
                     $ssidList['add'][$ssid] = 'AES';
@@ -487,7 +533,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     }
 
     private function getConsortia() {
-        $consortia = CONFIG['CONSORTIUM']['interworking-consortium-oi'];
+        $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 $consortia[] = $new_oi;
@@ -506,7 +552,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         'application/pdf' => 'pdf',
     ];
 
-    private function saveLogoFile($logos) {
+    private function saveLogoFile($logos,$type) {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {
@@ -518,8 +564,8 @@ abstract class DeviceConfig extends \core\common\Entity {
             } else {
                 $ext = 'unsupported';
             }
-            $this->loggerInstance->debug(4, "saveLogoFile: $mime : $ext\n");
-            $fileName = 'logo-' . $iterator . '.' . $ext;
+            $this->loggerInstance->debug(5, "saveLogoFile: $mime : $ext\n");
+            $fileName = 'logo-' . $type . $iterator . '.' . $ext;
             $fileHandle = fopen($fileName, "w");
             if (!$fileHandle) {
                 $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
@@ -537,7 +583,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
-        $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
+        $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
         if (!$fileHandle) {
             throw new Exception("problem opening the file");

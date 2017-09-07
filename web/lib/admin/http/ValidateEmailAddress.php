@@ -31,7 +31,7 @@ class ValidateEmailAddress extends AbstractAjaxCommand{
      */
     public function execute(){
         if(isset($_POST[self::PARAM_ADDRESS])){
-            $address = $this->parseString($_POST[self::PARAM_ADDRESS]);
+            $address = $this->parseString(filter_input(INPUT_POST,self::PARAM_ADDRESS, FILTER_SANITIZE_STRING));
             $result = OutsideComm::mailAddressValidSecure($address);
             $message = $this->chooseMessage($result, $address);
             $tokenTag = new Tag('email');

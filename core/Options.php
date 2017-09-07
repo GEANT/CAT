@@ -28,8 +28,6 @@ use \Exception;
  * excessive DB requests; its content never changes during a script run.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
- *
- * @package Developer
  */
 class Options {
 
@@ -48,7 +46,9 @@ class Options {
     private static $instance;
 
     /**
+     * Our access to logging facilities
      * 
+     * @var \core\common\Logging
      */
     private $loggerInstance;
 

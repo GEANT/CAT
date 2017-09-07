@@ -10,7 +10,6 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
 $languageInstance = new \core\common\Language();
@@ -53,7 +52,7 @@ foreach ($owners as $oneowner) {
 // if none of the two, send the user away
 
 if (!$isFedAdmin && !$is_admin_with_blessing) {
-    echo _("You do not have the necessary privileges to alter administrators of this institution. In fact, you shouldn't have come this far!");
+    echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclature_inst);
     exit(1);
 }
 
@@ -63,7 +62,7 @@ if (isset($_POST['submitbutton'])) {
     if ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE) {
         if (isset($_POST['admin_id'])) {
             $ownermgmt = new \core\UserManagement();
-            $ownermgmt->removeAdminFromIdP($my_inst, $_POST['admin_id']);
+            $ownermgmt->removeAdminFromIdP($my_inst, filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_STRING));
             // if the user deleted himself, go back to overview page. Otherwise, just stay here and display the remaining owners
             // we don't decide about that here; it's done by JS magic in the calling button
             if ($_POST['admin_id'] == $_SESSION['user']) {
@@ -79,7 +78,7 @@ if (isset($_POST['submitbutton'])) {
             $ownermgmt = new \core\UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
         } else {
-            echo "Fatal Error: you wanted to take control over an institution, but are not a federation operator!";
+            echo "Fatal Error: you wanted to take control over an ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'].", but are not a ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." operator!";
             exit(1);
         }
     }
@@ -111,6 +110,9 @@ if (isset($_GET['invitation'])) {
         case "FAILURE":
             echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
             break;
+        case "INVALIDSYNTAX":
+            echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
+            break;
         default:
             throw new Exception("Error: unknown result code of invitation!?!");
     }
@@ -119,13 +121,13 @@ if (isset($_GET['invitation'])) {
 
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(_("You are the federation administrator of this IdP. You can invite new administrators, who can in turn appoint further administrators on their own."), _("Federation Administrator"));
+    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator of this %s. You can invite new administrators, who can in turn appoint further administrators on their own."),$uiElements->nomenclature_fed, $uiElements->nomenclature_inst), sprintf(_("%s Administrator"),$uiElements->nomenclature_fed));
     echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(_("You are an administrator of this IdP who was directly appointed by the federation administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), _("Directly Appointed IdP Administrator"));
+    echo $uiElements->boxRemark(sprintf(_("You are an administrator of this %s, and were directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."),$uiElements->nomenclature_inst ,$uiElements->nomenclature_fed), _("Directly Appointed IdP Administrator"));
     echo "</table></div>";
 }
 ?>
@@ -193,7 +195,7 @@ if ($isFedAdmin) {
 
     if (!$is_admin_himself) {
         echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_TAKECONTROL . "'>" . _("Take control of this institution") . "</button>
+    <button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclature_inst) . "</button>
 </form>";
     }
 }

@@ -22,15 +22,15 @@
  * the receiving end to strip this marker and not add the title by itself.
  *
  */
-
+$cat = new core\CAT();
 $skinObject = new \web\lib\user\Skinjob("classic");
 
-        $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one institution will not work for users of another one, therefore if your institution is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your institution configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG['CONSORTIUM']['name'], CONFIG['CONSORTIUM']['name'], CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname']);
+        $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one %s will not work for users of another one, therefore if your %s is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG['APPEARANCE']['productname'], $cat->nomenclature_inst, $cat->nomenclature_inst, $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname']);
         $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), CONFIG['APPEARANCE']['productname']) . "</p>";
         $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
-        $uiElements = new web\lib\admin\UIElements();
+        $eapDisplayNames = new web\lib\common\PrettyPrint();
 foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
-            $out .= "<th style='min-width: 80px;'>" . $uiElements->displayName($oneeap) . "</th>";
+            $out .= "<th style='min-width: 80px;'>" . $eapDisplayNames->eapNames($oneeap) . "</th>";
         }
         $out .= "</tr>";
         foreach (\devices\Devices::listDevices() as $index => $onedevice) {
@@ -39,7 +39,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                     continue;
                 }
             }
-            $out .= "<tr><td class='vendor'><img src='" . (new \web\lib\user\Skinjob(""))->findResourceUrl("IMAGES", "vendorlogo/" . $onedevice['group'] . ".png") . "' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
+            $out .= "<tr><td class='vendor'><img src='" . (new \web\lib\user\Skinjob())->findResourceUrl("IMAGES", "vendorlogo/" . $onedevice['group'] . ".png") . "' alt='logo'></td><td>" . $onedevice['display'] . "</td>";
             $device_instance = new \core\DeviceFactory($index);
             foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
@@ -58,7 +58,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
         $out .= sprintf(_("<p><span class='edu_cat'>%s</span> is publicly accessible. To enable its use behind captive portals (e.g. on a 'setup' SSID which only allows access to CAT for device configuration), the following hostnames need to be allowed for port TCP/443 in the portal:</p>"
                         . "<b><u>REQUIRED</u></b>"
                         . "<ul>"
-                        . "<li><b>%s</b> (the service itself)</li>"), CONFIG['APPEARANCE']['productname'], $validator->hostname($_SERVER['HTTP_HOST']));
+                        . "<li><b>%s</b> (the service itself)</li>"), CONFIG['APPEARANCE']['productname'], $validator->hostname($_SERVER['SERVER_NAME']));
         if (!empty(CONFIG['APPEARANCE']['webcert_CRLDP'])) {
             $out .= sprintf(ngettext("<li><b>%s</b> (the CRL Distribution Point for the site certificate), also TCP/80</li>", "<li><b>%s</b> (the CRL Distribution Points for the site certificate), also TCP/80</li>", count(CONFIG['APPEARANCE']['webcert_CRLDP'])), implode(", ", CONFIG['APPEARANCE']['webcert_CRLDP']));
         }

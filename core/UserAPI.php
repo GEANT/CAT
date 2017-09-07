@@ -82,7 +82,7 @@ class UserAPI extends CAT {
         $this->installerPath = $this->getCachedPath($device, $profile);
         if ($this->installerPath && $token == NULL && $password == NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
-            $installerProperties['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
+            $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
@@ -108,10 +108,10 @@ class UserAPI extends CAT {
             $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
         }
         if ($noCache) {
-            $this->loggerInstance->debug(4, "getCachedPath: the no_cache option set for this device\n");
+            $this->loggerInstance->debug(5, "getCachedPath: the no_cache option set for this device\n");
             return(FALSE);
         }
-        $this->loggerInstance->debug(4, "getCachedPath: caching option set for this device\n");
+        $this->loggerInstance->debug(5, "getCachedPath: caching option set for this device\n");
         $cache = $profile->testCache($device);
         $iPath = $cache['cache'];
         if ($iPath && is_file($iPath)) {
@@ -153,7 +153,7 @@ class UserAPI extends CAT {
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
                 $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . \core\common\EAP::eAPMethodArrayIdConversion($dev->selectedEap) . "\n");
-                $out['link'] = "API.php?api_version=$this->version&action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
+                $out['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
                 $out['link'] = 0;
@@ -197,6 +197,7 @@ class UserAPI extends CAT {
         $factory = new DeviceFactory($device);
         $dev = $factory->device;
         if (isset($dev)) {
+            $dev->setup($profile);
             $out = $dev->writeDeviceInfo();
         }
         $this->languageInstance->setTextDomain("web_user");
@@ -260,7 +261,7 @@ class UserAPI extends CAT {
         if ($out == '/') {
             $out = '';
         }
-        return '//' . $_SERVER['HTTP_HOST'] . $out;
+        return '//' . $_SERVER['SERVER_NAME'] . $out;
     }
 
     /* JSON functions */
@@ -281,7 +282,7 @@ class UserAPI extends CAT {
     public function JSON_listLanguages() {
         $returnArray = [];
         foreach (CONFIG['LANGUAGES'] as $id => $val) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'lang') => $id, 'display' => $val['display'], 'locale' => $val['locale']];
+            $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
         }
         echo $this->return_json($returnArray);
     }
@@ -295,7 +296,7 @@ class UserAPI extends CAT {
         $federations = $this->printCountryList(1);
         $returnArray = [];
         foreach ($federations as $id => $val) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'federation' ) => $id, 'display' => $val];
+            $returnArray[] = ['federation' => $id, 'display' => $val];
         }
         echo $this->return_json($returnArray);
     }
@@ -310,7 +311,7 @@ class UserAPI extends CAT {
         $idps = $this->listAllIdentityProviders(1, $country);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $idp['entityID'], 'display' => $idp['title']];
+            $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
         }
         echo $this->return_json($returnArray);
     }
@@ -325,7 +326,7 @@ class UserAPI extends CAT {
         $idps = $this->listAllIdentityProviders(1);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $idp[( $this->version == 1 ? 'id' : 'idp' )] = $idp['entityID'];
+            $idp['idp'] = $idp['entityID'];
             $returnArray[] = $idp;
         }
         echo json_encode($returnArray);
@@ -340,7 +341,7 @@ class UserAPI extends CAT {
         $idps = $this->orderIdentityProviders($country, $location);
         $returnArray = [];
         foreach ($idps as $idp) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $idp['id'], 'display' => $idp['title']];
+            $returnArray[] = ['idp' => $idp['id'], 'display' => $idp['title']];
         }
         echo $this->return_json($returnArray);
     }
@@ -366,12 +367,12 @@ class UserAPI extends CAT {
         if (count($logo) > 0) {
             $hasLogo = 1;
         }
-        $profiles = $idp->listProfiles(1);
+        $profiles = $idp->listProfiles(TRUE);
         if ($sort == 1) {
             usort($profiles, ["UserAPI", "profile_sort"]);
         }
         foreach ($profiles as $profile) {
-            $returnArray[] = [( $this->version == 1 ? 'id' : 'profile' ) => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
+            $returnArray[] = ['profile' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
         }
         echo $this->return_json($returnArray);
     }
@@ -394,19 +395,11 @@ class UserAPI extends CAT {
                     continue;
                 }
                 $disp = $D['display'];
-                if ($this->version == 1) {
-                    if ($D['id'] === '0') {
-                        $profile_redirect = 1;
-                        $disp = $c;
-                    }
-                    $returnArray[] = ['id' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
-                } else {
-                    if ($D['device'] === '0') {
-                        $profile_redirect = 1;
-                        $disp = $c;
-                    }
-                    $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
+                if ($D['device'] === '0') {
+                    $profile_redirect = 1;
+                    $disp = $c;
                 }
+                $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
             }
         }
         echo $this->return_json($returnArray);
@@ -484,17 +477,20 @@ class UserAPI extends CAT {
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param \core\IdP $idpInstance IdP instance
+     * @param int $idp IdP identifier
      * @param int $disco flag turning on image generation for DiscoJuice
      * @param int $width maximum width of the generated image 
      * @param int $height  maximum height of the generated image
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendLogo(\core\IdP $idpInstance, $disco = FALSE, $width = 0, $height = 0) {
+    
+        public function getIdpLogo($idp, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
+        $validator = new \web\lib\common\InputValidation();
+        $idpInstance = $validator->IdP($idp);
         $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = 1;
@@ -504,16 +500,10 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
-        } elseif ($disco == 1) {
-            $width = 120;
-            $height = 40;
-            $resize = 1;
-            $logoFile = ROOT . '/web/downloads/logos/' . $idpInstance->identifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $idp . '_' . $width . '_' . $height . '.png';
         }
-
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idpInstance->identifier . "\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idp . "\n");
             $blob = file_get_contents($logoFile);
         } else {
             $logoAttribute = $idpInstance->getAttributes('general:logo_file');
@@ -525,10 +515,7 @@ class UserAPI extends CAT {
             $expiresString = $meta['expires'];
             $blob = $meta['blob'];
         }
-        header("Content-type: " . $filetype);
-        header("Cache-Control:max-age=36000, must-revalidate");
-        header($expiresString);
-        echo $blob;
+        return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
     /**
@@ -542,10 +529,12 @@ class UserAPI extends CAT {
      * if one of these is 0 then it is treated as no upper bound
      *
      */
-    public function sendFedLogo($fedIdentifier, $width = 0, $height = 0) {
+    public function getFedLogo($fedIdentifier, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
+        $validator = new \web\lib\common\InputValidation();
+        $federation = $validator->Federation($fedIdentifier);
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = 1;
             if ($height == 0) {
@@ -554,15 +543,13 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdenifier . '_' . $width . '_' . $height . '.png';
         }
-
         if ($resize && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $fedIdentifier\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $fedIdentifier . "\n");
             $blob = file_get_contents($logoFile);
             $filetype = 'image/png';
         } else {
-            $federation = new Federation($fedIdentifier);
             $logoAttribute = $federation->getAttributes('fed:logo_file');
             if (count($logoAttribute) == 0) {
                 return;
@@ -572,17 +559,29 @@ class UserAPI extends CAT {
             $expiresString = $meta['expires'];
             $blob = $meta['blob'];
         }
-        header("Content-type: " . $filetype);
-        header("Cache-Control:max-age=36000, must-revalidate");
-        header($expiresString);
-        echo $blob;
+        return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
+
+    public function sendLogo($identifier, $type, $width = 0, $height = 0){
+        if ($type === "federation") {
+            $logo = $this->getFedLogo($identifier, $width, $height);
+        }
+        if ($type === "idp") {
+            $logo = $this->getIdpLogo($identifier, $width, $height);
+        }
+        header("Content-type: " . $logo['filetype']);
+        header("Cache-Control:max-age=36000, must-revalidate");
+        header($logo['expires']);
+        echo $logo['blob'];
+    }
+    
     public function locateUser() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
-        $host = $_SERVER['REMOTE_ADDR'];
+        //$host = $_SERVER['REMOTE_ADDR'];
+        $host = input_filter(INPUT_SERVER,'REMOTE_ADDR',FILTER_VALIDATE_IP);
         $record = geoip_record_by_name($host);
         if ($record === FALSE) {
             return ['status' => 'error', 'error' => 'Problem listing countries'];
@@ -712,7 +711,7 @@ class UserAPI extends CAT {
         asort($resultSet);
         $outarray = [];
         foreach (array_keys($resultSet) as $r) {
-            $outarray[] = [( $this->version == 1 ? 'id' : 'idp' ) => $r, 'title' => $idpTitle[$r]];
+            $outarray[] = ['idp' => $r, 'title' => $idpTitle[$r]];
         }
         return($outarray);
     }
@@ -731,7 +730,7 @@ class UserAPI extends CAT {
         if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
             $dev_id = $_REQUEST['device'];
             $device = $Dev[$dev_id];
-            return([( $this->version == 1 ? 'id' : 'device') => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
+            return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
         }
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $this->loggerInstance->debug(4, "HTTP_USER_AGENT=$browser\n");
@@ -742,14 +741,14 @@ class UserAPI extends CAT {
             if (preg_match('/' . $device['match'] . '/', $browser)) {
                 if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
                     $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
-                    return([( $this->version == 1 ? 'id' : 'device' ) => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
+                    return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
                 } else {
-                    $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
+                    $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER,'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
                     return(false);
                 }
             }
         }
-        $this->loggerInstance->debug(2, "Unrecognised system: " . $_SERVER['HTTP_USER_AGENT'] . "\n");
+        $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER,'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
         return(false);
     }
 
@@ -764,7 +763,6 @@ class UserAPI extends CAT {
     }
 
     public $device;
-    public $version;
     private $installerPath;
 
     private static function profile_sort($profile1, $profile2) {

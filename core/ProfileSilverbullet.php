@@ -18,9 +18,7 @@
  * @package Developer
  *
  */
-
 namespace core;
-
 use \Exception;
 
 /**
@@ -83,8 +81,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $tempMaxUsers = 200; // abolutely last resort fallback if no per-fed and no config option
 // set to global config value
 
-        if (isset(CONFIG['CONSORTIUM']['silverbullet_default_maxusers'])) {
-            $tempMaxUsers = CONFIG['CONSORTIUM']['silverbullet_default_maxusers'];
+        if (isset(CONFIG_CONFASSISTANT['SILVERBULLET']['default_maxusers'])) {
+            $tempMaxUsers = CONFIG_CONFASSISTANT['SILVERBULLET']['default_maxusers'];
         }
         $myInst = new IdP($this->institution);
         $myFed = new Federation($myInst->federation);
@@ -95,8 +93,8 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // realm is automatically calculated, then stored in DB
 
-        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix'];
-        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG['CONSORTIUM']['silverbullet_realm_suffix']);
+        $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix'];
+        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']);
         $localValueIfAny = "";
 
 // but there's some common internal attributes populated directly
@@ -113,7 +111,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
-            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG['CONSORTIUM']['silverbullet_server_suffix'],
+            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG_CONFASSISTANT['SILVERBULLET']['server_suffix'],
         ];
         $x509 = new \core\common\X509();
         $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
@@ -188,7 +186,8 @@ class ProfileSilverbullet extends AbstractProfile {
             throw new Exception("Attempt to generate a SilverBullet installer, but the profile ID (constructor) and the profile from token do not match!");
         }
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
-        $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $tokenStatus['user']);
+        $userStatus = $tokenStatus['user'];
+        $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $userStatus);
         if (!$userrow || $userrow->num_rows != 1) {
             throw new Exception("Despite a valid token, the corresponding user was not found in database or database query error!");
         }
@@ -218,7 +217,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->loggerInstance->debug(5, "generateCertificate: generating private key.\n");
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
         $csr = openssl_csr_new(
-                ['O' => CONFIG['CONSORTIUM']['name'],
+                ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
             'OU' => $federation,
             'CN' => $username,
             'emailAddress' => $username,
@@ -230,7 +229,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        switch (CONFIG['CONSORTIUM']['silverbullet_CA']['type']) {
+        switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
             case "embedded":
                 $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
                 $rootCaPem = fread($rootCaHandle, 1000000);
@@ -289,9 +288,12 @@ class ProfileSilverbullet extends AbstractProfile {
         $certificateId = null;
         if ($invitationsResult && $invitationsResult->num_rows > 0) {
             $invitationRow = mysqli_fetch_object($invitationsResult);
-            $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
+            $invitationId = $invitationRow->id;
+            $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationId);
             if (!$certificatesResult || $certificatesResult->num_rows < $invitationRow->quantity) {
-                $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationRow->profile_id, $invitationRow->silverbullet_user_id, $invitationRow->id, $serial, $username, $realExpiryDate);
+                $invitationProfile = $invitationRow->profile_id;
+                $invitationSbId =  $invitationRow->silverbullet_user_id;
+                $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationProfile, $invitationSbId, $invitationId, $serial, $username, $realExpiryDate);
                 if ($newCertificateResult === true) {
                     $certificateId = $this->databaseHandle->lastID();
                 }
@@ -323,76 +325,83 @@ class ProfileSilverbullet extends AbstractProfile {
         $logHandle = new \core\common\Logging();
         $logHandle->debug(2, "Triggering new OCSP statement for serial $serial.\n");
         $ocsp = ""; // the statement
-        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
-            /* HTTP POST the serial to the CA. The CA knows about the state of
-             * the certificate.
-             *
-             * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/ocsp/", ["serial" => $serial ] );
-             *
-             * The result of this if clause has to be a DER-encoded OCSP statement
-             * to be stored in the variable $ocsp
-             */
-            throw new Exception("External silverbullet CA is not implemented yet!");
-        } else { // embedded CA
-            // get all relevant info from DB
-            $cn = "";
-            $federation = NULL;
-            $certstatus = "";
-            $originalExpiry = date_create_from_format("Y-m-d H:i:s", "2000-01-01 00:00:00");
-            $dbHandle = DBConnection::handle("INST");
-            $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
-            if (mysqli_num_rows($originalStatusQuery) > 0) {
-                $certstatus = "V";
-            }
-            while ($runner = mysqli_fetch_object($originalStatusQuery)) { // there can be only one row
-                if ($runner->revocation_status == "REVOKED") {
-                    // already revoked, simply return canned OCSP response
-                    $certstatus = "R";
+        switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
+            case "embedded":
+                // get all relevant info from DB
+                $cn = "";
+                $federation = NULL;
+                $certstatus = "";
+                $originalExpiry = date_create_from_format("Y-m-d H:i:s", "2000-01-01 00:00:00");
+                $dbHandle = DBConnection::handle("INST");
+                $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+                if (mysqli_num_rows($originalStatusQuery) > 0) {
+                    $certstatus = "V";
                 }
-                $originalExpiry = date_create_from_format("Y-m-d H:i:s", $runner->expiry);
-                $validity = date_diff(date_create(), $originalExpiry);
-                if ($validity->invert == 1) {
-                    // negative! Cert is already expired, no need to revoke. 
-                    // No need to return anything really, but do return the last known OCSP statement to prevent special case
-                    $certstatus = "E";
+                while ($runner = mysqli_fetch_object($originalStatusQuery)) { // there can be only one row
+                    if ($runner->revocation_status == "REVOKED") {
+                        // already revoked, simply return canned OCSP response
+                        $certstatus = "R";
+                    }
+                    $originalExpiry = date_create_from_format("Y-m-d H:i:s", $runner->expiry);
+                    $validity = date_diff(date_create(), $originalExpiry);
+                    if ($validity->invert == 1) {
+                        // negative! Cert is already expired, no need to revoke. 
+                        // No need to return anything really, but do return the last known OCSP statement to prevent special case
+                        $certstatus = "E";
+                    }
+                    $cn = $runner->cn;
+                    $profile = new ProfileSilverbullet($runner->profile_id);
+                    $inst = new IdP($profile->institution);
+                    $federation = strtoupper($inst->federation);
                 }
-                $cn = $runner->cn;
-                $profile = new ProfileSilverbullet($runner->profile_id);
-                $inst = new IdP($profile->institution);
-                $federation = strtoupper($inst->federation);
-            }
 
-            // generate stub index.txt file
-            $cat = new CAT();
-            $tempdirArray = $cat->createTemporaryDirectory("test");
-            $tempdir = $tempdirArray['dir'];
-            $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
-            $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
-            $serialHex = strtoupper(dechex($serial));
-            if (strlen($serialHex) % 2 == 1) {
-                $serialHex = "0" . $serialHex;
-            }
-            $indexfile = fopen($tempdir . "/index.txt", "w");
-            $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
-            $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
-            fwrite($indexfile, $indexStatement);
-            fclose($indexfile);
-            // index.attr is dull but needs to exist
-            $indexAttrFile = fopen($tempdir . "/index.txt.attr", "w");
-            fwrite($indexAttrFile, "unique_subject = yes\n");
-            fclose($indexAttrFile);
-            // call "openssl ocsp" to manufacture our own OCSP statement
-            $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha1 -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
-            $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
-            $output = [];
-            $return = 999;
-            exec($execCmd, $output, $return);
-            if ($return !== 0) {
-                throw new Exception("Non-zero return value from openssl ocsp!");
-            }
-            $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
-            $ocsp = fread($ocspFile, 1000000);
-            fclose($ocspFile);
+                // generate stub index.txt file
+                $cat = new CAT();
+                $tempdirArray = $cat->createTemporaryDirectory("test");
+                $tempdir = $tempdirArray['dir'];
+                $nowIndexTxt = (new \DateTime())->format("ymdHis") . "Z";
+                $expiryIndexTxt = $originalExpiry->format("ymdHis") . "Z";
+                $serialHex = strtoupper(dechex($serial));
+                if (strlen($serialHex) % 2 == 1) {
+                    $serialHex = "0" . $serialHex;
+                }
+                $indexfile = fopen($tempdir . "/index.txt", "w");
+                $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
+                $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
+                fwrite($indexfile, $indexStatement);
+                fclose($indexfile);
+                // index.attr is dull but needs to exist
+                $indexAttrFile = fopen($tempdir . "/index.txt.attr", "w");
+                fwrite($indexAttrFile, "unique_subject = yes\n");
+                fclose($indexAttrFile);
+                // call "openssl ocsp" to manufacture our own OCSP statement
+                
+                // adding "-rmd sha1" to the following command-line makes the
+                // choice of signature algorithm for the response explicit
+                // but it's only available from openssl-1.1.0 (which we do not
+                // want to require just for that one thing).
+                $execCmd = CONFIG['PATHS']['openssl'] . " ocsp -issuer " . ROOT . "/config/SilverbulletClientCerts/real.pem -sha1 -ndays 10 -no_nonce -serial 0x$serialHex -CA " . ROOT . "/config/SilverbulletClientCerts/real.pem -rsigner " . ROOT . "/config/SilverbulletClientCerts/real.pem -rkey " . ROOT . "/config/SilverbulletClientCerts/real.key -index $tempdir/index.txt -no_cert_verify -respout $tempdir/$serialHex.response.der";
+                $logHandle->debug(2, "Calling openssl ocsp with following cmdline: $execCmd\n");
+                $output = [];
+                $return = 999;
+                exec($execCmd, $output, $return);
+                if ($return !== 0) {
+                    throw new Exception("Non-zero return value from openssl ocsp!");
+                }
+                $ocspFile = fopen($tempdir . "/$serialHex.response.der", "r");
+                $ocsp = fread($ocspFile, 1000000);
+                fclose($ocspFile);
+                break;
+            default:
+                /* HTTP POST the serial to the CA. The CA knows about the state of
+                 * the certificate.
+                 *
+                 * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/ocsp/", ["serial" => $serial ] );
+                 *
+                 * The result of this if clause has to be a DER-encoded OCSP statement
+                 * to be stored in the variable $ocsp
+                 */
+                throw new Exception("External silverbullet CA is not implemented yet!");
         }
         // write the new statement into DB
         $dbHandle->exec("UPDATE silverbullet_certificate SET OCSP = ?, OCSP_timestamp = NOW() WHERE serial_number = ?", "si", $ocsp, $serial);
@@ -409,7 +418,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // TODO for now, just mark as revoked in the certificates table (and use the stub OCSP updater)
         $nowSql = (new \DateTime())->format("Y-m-d H:i:s");
-        if (CONFIG['CONSORTIUM']['silverbullet_CA']['type'] != "embedded") {
+        if (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type'] != "embedded") {
             // send revocation request to CA.
             // $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/revoke/", ["serial" => $serial ] );
             throw new Exception("External silverbullet CA is not implemented yet!");
@@ -449,7 +458,7 @@ class ProfileSilverbullet extends AbstractProfile {
             $retval[] = [
                 "status" => $certStatus,
                 "serial" => $resource->serial_number,
-                "name"   => $resource->cn,
+                "name" => $resource->cn,
                 "issued" => $resource->issued,
                 "expiry" => $resource->expiry,
                 "device" => $resource->device,
@@ -474,7 +483,8 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         // if not returned, we found the token in the DB
         $invitationRow = mysqli_fetch_object($invitationsResult);
-        $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
+        $rowId = $invitationRow->id;
+        $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $rowId);
         $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
         $loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
 
@@ -486,7 +496,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "activations_remaining" => $invitationRow->quantity - $certificatesNumber,
             "value" => $invitationRow->token
         ];
-        
+
         switch ($certificatesNumber) {
             case 0:
                 // find out if it has expired

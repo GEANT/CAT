@@ -18,11 +18,7 @@ $Tests = [
     'php',
     'phpModules',
     'openssl',
-    'makensis',
-    'makensis=>NSISmodules',
-    'makensis=>NSIS_GetVersion',
     'zip',
-    'eapol_test',
     'directories',
     'locales',
     'defaults',
@@ -30,10 +26,19 @@ $Tests = [
     'device_cache',
     'mailer',
 ];
-
 ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
-require_once("inc/common.inc.php");
+
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
+    $Tests[] = 'makensis';
+    $Tests[] = 'makensis=>NSISmodules';
+    $Tests[] = 'makensis=>NSIS_GetVersion';
+}
+
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+    $Tests[] = 'eapol_test';
+}
+
 
 $uiElements = new web\lib\admin\UIElements();
 
@@ -55,7 +60,7 @@ $deco = new \web\lib\admin\PageDecoration();
 
 echo $deco->pageheader("By. Your. Command.", "SUPERADMIN", FALSE); // no auth in pageheader; we did our own before
 
-$dbHandle = \core\DBConnection::handle("INST");
+$dbHandle = \core\DBConnection::handle("FRONTEND");
 ?>
 <h1>By. Your. Command.</h1>
 <form action="112365365321.php" method="POST" accept-charset="UTF-8">

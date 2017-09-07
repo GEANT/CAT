@@ -20,7 +20,6 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 $cleanToken = FALSE;
-$operatingSystem = FALSE;
 $tokenStatus = ["status" => \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID,
     "cert_status" => [],];
 $profile = NULL;
@@ -32,7 +31,8 @@ $Gui = new \core\UserAPI();
 $operatingSystem = $Gui->detectOS();
 
 if (isset($_REQUEST['token'])) {
-    $cleanToken = $validator->token($_REQUEST['token']);
+    $recoverToken = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
+    $cleanToken = $validator->token($recoverToken);
     if ($cleanToken) {
         // check status of this silverbullet token according to info in DB:
         // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)

@@ -16,19 +16,102 @@ namespace web\lib\admin;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
+/**
+ * This class parses HTML field input from POST and FILES and extracts valid and authorized options to be set.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 class OptionParser {
 
+    /**
+     * an instance of the InputValidation class which we use heavily for syntax checks.
+     * 
+     * @var \web\lib\common\InputValidation
+     */
     private $validator;
+
+    /**
+     * an instance of the UIElements() class to draw some UI widgets from.
+     * 
+     * @var UIElements
+     */
     private $uiElements;
+
+    /**
+     * a handle for the Options singleton
+     * 
+     * @var \core\Options
+     */
     private $optioninfoObject;
 
+    /**
+     * initialises the various handles.
+     */
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
         $this->uiElements = new UIElements();
         $this->optioninfoObject = \core\Options::instance();
     }
 
-    private function postProcessValidAttributes($options, &$good, &$bad) {
+    /**
+     * Verifies whether an incoming upload was actually valid data
+     * 
+     * @param string $optiontype for which option was the data uploaded
+     * @param string $incomingBinary the uploaded data
+     * @return boolean whether the data was valid
+     */
+    private function checkUploadSanity(string $optiontype, string $incomingBinary) {
+        switch ($optiontype) {
+            case "general:logo_file":
+            case "fed:logo_file":
+            case "internal:logo_from_url":
+                // we check logo_file with ImageMagick
+                $image = new \Imagick();
+                try {
+                    $image->readImageBlob($incomingBinary);
+                } catch (\ImagickException $exception) {
+                    echo "Error" . $exception->getMessage();
+                    return FALSE;
+                }
+                // image survived the sanity check
+                return TRUE;
+            case "eap:ca_file":
+                // echo "Checking $optiontype with file $filename";
+                $func = new \core\common\X509;
+                $cert = $func->processCertificate($incomingBinary);
+                if ($cert) {
+                    return TRUE;
+                }
+                // echo "Error! The certificate seems broken!";
+                return FALSE;
+            case "support:info_file":
+                $info = new \finfo();
+                $filetype = $info->buffer($incomingBinary, FILEINFO_MIME_TYPE);
+
+                // we only take plain text files in UTF-8!
+                if ($filetype == "text/plain" && iconv("UTF-8", "UTF-8", $incomingBinary) !== FALSE) {
+                    return TRUE;
+                }
+                return FALSE;
+            default:
+                return FALSE;
+        }
+    }
+
+    /**
+     * Known-good options are sometimes converted, this function takes care of that.
+     * 
+     * Cases in point:
+     * - CA import by URL reference: fetch cert from URL and store it as CA file instead
+     * - Logo import by URL reference: fetch logo from URL and store it as logo file instead
+     * - CA file: mangle the content so that *only* the valid content remains (raw input may contain line breaks or spaces which are valid, but some supplicants choke upon)
+     * 
+     * @param array $options the list of options we got
+     * @param array $good by-reference: the future list of actually imported options
+     * @param array $bad by-reference: the future list of submitted but rejected options
+     * @return array the options, post-processed
+     */
+    private function postProcessValidAttributes(array $options, array &$good, array &$bad) {
         foreach ($options as $index => $iterateOption) {
             foreach ($iterateOption as $name => $optionPayload) {
                 switch ($name) {
@@ -42,7 +125,11 @@ class OptionParser {
                         }
                         $bindata = \core\common\OutsideComm::downloadFile($optionPayload['content']);
                         unset($options[$index]);
-                        if (check_upload_sanity($finalOptionname, $bindata)) {
+                        if ($bindata === FALSE) {
+                            $bad[] = $name;
+                            break;
+                        }
+                        if ($this->checkUploadSanity($finalOptionname, $bindata)) {
                             $good[] = $name;
                             $options[] = [$finalOptionname => ['lang' => NULL, 'content' => base64_encode($bindata)]];
                         } else {
@@ -71,6 +158,7 @@ class OptionParser {
                 }
             }
         }
+
         return $options;
     }
 
@@ -82,7 +170,7 @@ class OptionParser {
      * @param array $good
      * @return array
      */
-    private function postProcessCoordinates($postArray, &$good) {
+    private function postProcessCoordinates(array $postArray, array &$good) {
         if (!empty($postArray['geo_long']) && !empty($postArray['geo_lat'])) {
 
             $lat = $this->validator->coordinate($postArray['geo_lat']);
@@ -93,7 +181,14 @@ class OptionParser {
         return [];
     }
 
-    private function displaySummaryInUI($good, $bad, $mlAttribsWithC) {
+    /**
+     * creates HTML code for a user-readable summary of the imports
+     * @param array $good list of actually imported options
+     * @param array $bad list of submitted but rejected options
+     * @param array $mlAttribsWithC list of language-variant options
+     * @return string HTML code
+     */
+    private function displaySummaryInUI(array $good, array $bad, array $mlAttribsWithC) {
         $retval = "";
         // don't do your own table - only the <tr>s here
         // list all attributes that were set correctly
@@ -126,7 +221,7 @@ class OptionParser {
      * @param array $filesArray _FILES
      * @return array
      */
-    private function collateOptionArrays($postArray, $filesArray) {
+    private function collateOptionArrays(array $postArray, array $filesArray) {
 
         $optionarray = $postArray['option'] ?? [];
         $valuearray = $postArray['value'] ?? [];
@@ -149,7 +244,7 @@ class OptionParser {
      * @return array list of attributes which were previously stored but are to be deleted now
      * @throws Exception
      */
-    private function sendOptionsToDatabase($object, $options, $pendingattributes, $device, $eaptype) {
+    private function sendOptionsToDatabase($object, array $options, array $pendingattributes, string $device = NULL, int $eaptype = NULL) {
         $retval = [];
         foreach ($options as $iterateOption) {
             foreach ($iterateOption as $name => $optionPayload) {
@@ -164,7 +259,7 @@ class OptionParser {
                     case 'core\\ProfileRADIUS':
                         if ($device !== NULL) {
                             $object->addAttributeDeviceSpecific($name, $optionPayload['lang'], $optionPayload['content'], $device);
-                        } elseif ($eaptype != 0) {
+                        } elseif ($eaptype !== NULL) {
                             $object->addAttributeEAPSpecific($name, $optionPayload['lang'], $optionPayload['content'], $eaptype);
                         } else {
                             $object->addAttribute($name, $optionPayload['lang'], $optionPayload['content']);
@@ -183,20 +278,29 @@ class OptionParser {
         return $pendingattributes;
     }
 
-    private function sanitiseInputs($iterator, &$multilangAttrsWithC, &$bad) {
+    /**
+     * filters the input to find syntactically correctly submitted attributes
+     * 
+     * @param array $listOfEntries list of POST and FILES entries
+     * @param array $multilangAttrsWithC by-reference: future list of language-variant options and their "default lang" state
+     * @param array $bad by-reference: future list of submitted but rejected options
+     * @return array sanitised list of options
+     * @throws Exception
+     */
+    private function sanitiseInputs(array $listOfEntries, array &$multilangAttrsWithC, array &$bad) {
         $retval = [];
-        foreach ($iterator as $objId => $objValueRaw) {
+        foreach ($listOfEntries as $objId => $objValueRaw) {
 // pick those without dash - they indicate a new value        
             if (preg_match('/^S[0123456789]*$/', $objId)) {
                 $objValue = $this->validator->OptionName(preg_replace('/#.*$/', '', $objValueRaw));
                 $optioninfo = $this->optioninfoObject->optionType($objValue);
                 $lang = NULL;
                 if ($optioninfo["flag"] == "ML") {
-                    if (isset($iterator["$objId-lang"])) {
+                    if (isset($listOfEntries["$objId-lang"])) {
                         if (!isset($multilangAttrsWithC[$objValue])) { // on first sight, initialise the attribute as "no C language set"
                             $multilangAttrsWithC[$objValue] = FALSE;
                         }
-                        $lang = $iterator["$objId-lang"];
+                        $lang = $listOfEntries["$objId-lang"];
                         if ($lang == "") { // user forgot to select a language
                             $lang = "C";
                         }
@@ -223,33 +327,45 @@ class OptionParser {
                 switch ($optioninfo["type"]) {
                     case "text":
                     case "coordinates":
-                    case "boolean":
                     case "integer":
                         $varName = "$objId-" . $validators[$optioninfo['type']]['field'];
-                        if (!empty($iterator[$varName])) {
-                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$iterator[$varName]], $validators[$optioninfo['type']]['extraarg']));
+                        if (!empty($listOfEntries[$varName])) {
+                            $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$listOfEntries[$varName]], $validators[$optioninfo['type']]['extraarg']));
+                            break;
+                        }
+                        continue 2;
+                    case "boolean":
+                        $varName = "$objId-3";
+                        if (!empty($listOfEntries[$varName])) {
+                            $contentValid = $this->validator->boolean($listOfEntries[$varName]);
+                            if ($contentValid) {
+                                $content = "on";
+                            } else {
+                                $bad[] = $objValue;
+                                continue 2;
+                            }
                             break;
                         }
                         continue 2;
                     case "string":
-                        if (!empty($iterator["$objId-0"])) {
+                        if (!empty($listOfEntries["$objId-0"])) {
                             switch ($objValue) {
                                 case "media:consortium_OI":
-                                    $content = $this->validator->consortium_oi($iterator["$objId-0"]);
+                                    $content = $this->validator->consortium_oi($listOfEntries["$objId-0"]);
                                     if ($content === FALSE) {
                                         $bad[] = $objValue;
                                         continue 3;
                                     }
                                     break;
                                 case "media:remove_SSID":
-                                    $content = $this->validator->string($iterator["$objId-0"]);
+                                    $content = $this->validator->string($listOfEntries["$objId-0"]);
                                     if ($content == "eduroam") {
                                         $bad[] = $objValue;
                                         continue 3;
                                     }
                                     break;
                                 default:
-                                    $content = $this->validator->string($iterator["$objId-0"]);
+                                    $content = $this->validator->string($listOfEntries["$objId-0"]);
                                     break;
                             }
                             break;
@@ -257,14 +373,15 @@ class OptionParser {
                         continue 2;
                     case "file":
 // echo "In file processing ...<br/>";
-                        if (!empty($iterator["$objId-1"])) { // was already in, by ROWID reference, extract
+                        if (!empty($listOfEntries["$objId-1"])) { // was already in, by ROWID reference, extract
                             // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                            $content = $this->validator->string(urldecode($iterator["$objId-1"]), TRUE);
+                            $content = $this->validator->string(urldecode($listOfEntries["$objId-1"]), TRUE);
                             break;
-                        } else if (isset($iterator["$objId-2"]) && ($iterator["$objId-2"] != "")) { // let's do the download
+                        } else if (isset($listOfEntries["$objId-2"]) && ($listOfEntries["$objId-2"] != "")) { // let's do the download
 // echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
-                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $iterator["$objId-2"]);
-                            if (!check_upload_sanity($objValue, $rawContent)) {
+                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $listOfEntries["$objId-2"]);
+                            
+                            if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
                                 $bad[] = $objValue;
                                 continue 2;
                             }
@@ -283,21 +400,19 @@ class OptionParser {
     }
 
     /**
+     * The main function: takes all HTML field inputs, makes sense of them and stores valid data in the database
      * 
      * @param mixed $object The object for which attributes were submitted
      * @param array $postArray incoming attribute names and values as submitted with $_POST
      * @param array $filesArray incoming attribute names and values as submitted with $_FILES
-     * @param array $pendingattributes object's attributes stored by-reference in the DB which are tentatively marked for deletion
      * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
      * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
-     * @param boolean $silent determines whether a HTML form with the result of processing should be output or not
      * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
      * @throws Exception
      */
-    public function processSubmittedFields($object, $postArray, $filesArray, $pendingattributes, $eaptype = 0, $device = NULL, $silent = FALSE) {
+    public function processSubmittedFields($object, array $postArray, array $filesArray, int $eaptype = NULL, string $device = NULL) {
 
-// construct new array with all non-empty options for later feeding into DB
-
+        // construct new array with all non-empty options for later feeding into DB
         // $multilangAttrsWithC is a helper array to keep track of multilang 
         // options that were set in a specific language but are not 
         // accompanied by a "default" language setting
@@ -306,10 +421,10 @@ class OptionParser {
         // attrib_name -> boolean
 
         $multilangAttrsWithC = [];
-        
+
         // these two variables store which attributes were processed 
         // successfully vs. which were discarded because in some way malformed
-        
+
         $good = [];
         $bad = [];
 
@@ -319,7 +434,7 @@ class OptionParser {
         $iterator = $this->collateOptionArrays($postArray, $filesArray);
 
         // Step 2: sieve out malformed input
-        
+
         $cleanData = $this->sanitiseInputs($iterator, $multilangAttrsWithC, $bad);
 
         // Step 3: now we have clean input data. Some attributes need special care:
@@ -335,20 +450,27 @@ class OptionParser {
 
         // Step 5: push all the received options to the database. Keep mind of 
         // the list of existing database entries that are to be deleted.
-
-        $killlist = $this->sendOptionsToDatabase($object, $options, $pendingattributes, $device, $eaptype);
-
-        // Step 6: if we are in interactive HTML mode, give feedback about what 
-        // we did. Reasons not to do this is if we working from inside an overlay
-        
-        if ($silent === FALSE) {
-            echo $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
+        // 5a: first deletion step: purge all old content except file-based attributes;
+        //     then take note of which file-based attributes are now stale
+        if ($device === NULL && $eaptype === NULL) {
+            $remaining = $object->beginflushAttributes();
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining);
+        } elseif ($device !== NULL) {
+            $remaining = $object->beginFlushMethodLevelAttributes(0, $device);
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, $device);
+        } else {
+            $remaining = $object->beginFlushMethodLevelAttributes($eaptype, "");
+            $killlist = $this->sendOptionsToDatabase($object, $options, $remaining, "", $eaptype);
         }
-        
-        // finally, return the list of pre-stored attributes which should now be
-        // deleted.
-        
-        return $killlist;
+        // 5b: finally, kill the stale file-based attributes which are not wanted any more.
+        $object->commitFlushAttributes($killlist);
+
+        // finally: return HTML code that gives feedback about what we did. 
+        // In some cases, callers won't actually want to display it; so simply
+        // do not echo the return value. Reasons not to do this is if we working
+        // e.g. from inside an overlay
+
+        return $this->displaySummaryInUI($good, $bad, $multilangAttrsWithC);
     }
 
 }

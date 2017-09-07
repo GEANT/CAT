@@ -28,7 +28,7 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 /**
  * Test suite to verify that an EAP setup is actually working as advertised in
- * the real world. Can only be used if CONFIG['RADIUSTESTS'] is configured.
+ * the real world. Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -56,6 +56,12 @@ class RADIUSTests extends AbstractTest {
     private $outerUsernameForChecks;
     private $expectedCABundle;
     private $expectedServerNames;
+    
+    /**
+     * the list of EAP types which the IdP allegedly supports.
+     * 
+     * @var array
+     */
     private $supportedEapTypes;
     private $opMode;
     public $UDP_reachability_result;
@@ -287,7 +293,7 @@ class RADIUSTests extends AbstractTest {
         } else if (!preg_match("/^.*URI\:(http)(.*)$/", str_replace(["\r", "\n"], ' ', $cert['full_details']['extensions']['crlDistributionPoints']), $crlUrl)) {
             $returnresult = RADIUSTests::CERTPROB_NO_CDP_HTTP;
         } else { // first and second sub-match is the full URL... check it
-            $crlcontent = \core\common\OutsideComm::downloadFile($crlUrl[1] . $crlUrl[2]);
+            $crlcontent = \core\common\OutsideComm::downloadFile(trim($crlUrl[1] . $crlUrl[2]));
             if ($crlcontent === FALSE) {
                 $returnresult = RADIUSTests::CERTPROB_NO_CRL_AT_CDP_URL;
             }
@@ -482,13 +488,13 @@ network={
      * @return string the command-line for eapol_test
      */
     private function eapolTestConfig($probeindex, $opName, $frag) {
-        $cmdline = CONFIG['PATHS']['eapol_test'] .
-                " -a " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
-                " -s " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
+        $cmdline = CONFIG_DIAGNOSTICS['PATHS']['eapol_test'] .
+                " -a " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['ip'] .
+                " -s " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['secret'] .
                 " -o serverchain.pem" .
                 " -c ./udp_login_test.conf" .
                 " -M 22:44:66:CA:20:" . sprintf("%02d", $probeindex) . " " .
-                " -t " . CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
+                " -t " . CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex]['timeout'] . " ";
         if ($opName) {
             $cmdline .= '-N126:s:"1cat.eduroam.org" ';
         }
@@ -560,8 +566,8 @@ network={
 
 
 // now c_rehash the root CA directory ...
-        system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
-        system(CONFIG['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+        system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
+        system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
 
 // ... and run the verification test
         $verifyResultEaponly = [];
@@ -701,7 +707,7 @@ network={
         /** preliminaries */
         $eapText = \core\common\EAP::eapDisplayName($eaptype);
         // no host to send probes to? Nothing to do then
-        if (!isset(CONFIG['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
+        if (!isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][$probeindex])) {
             $this->UDP_reachability_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
         }
@@ -938,9 +944,9 @@ network={
         foreach ($udpResult['cert_oddities'] as $oddity) {
             $o = [];
             $o['code'] = $oddity;
-            $o['message'] = isset($this->return_codes[$oddity]["message"]) && $this->return_codes[$oddity]["message"] ? $this->return_codes[$oddity]["message"] : $oddity;
-            $o['level'] = $this->return_codes[$oddity]["severity"];
-            $ret['level'] = max($ret['level'], $this->return_codes[$oddity]["severity"]);
+            $o['message'] = isset($this->returnCodes[$oddity]["message"]) && $this->returnCodes[$oddity]["message"] ? $this->returnCodes[$oddity]["message"] : $oddity;
+            $o['level'] = $this->returnCodes[$oddity]["severity"];
+            $ret['level'] = max($ret['level'], $this->returnCodes[$oddity]["severity"]);
             $ret['cert_oddities'][] = $o;
         }
 

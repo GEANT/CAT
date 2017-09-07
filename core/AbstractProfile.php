@@ -79,7 +79,21 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * IdP-wide attributes of the IdP this profile is attached to
      */
     protected $idpAttributes;
+    
+    /**
+     * Federation level attributes that this profile is attached to via its IdP
+     */
+    protected $fedAttributes;
 
+    /**
+     * This class also needs to handle frontend operations, so needs its own
+     * access to the FRONTEND datbase. This member stores the corresponding 
+     * handle.
+     * 
+     * @var DBConnection
+     */
+    protected $frontendHandle;
+    
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
         if (CONFIG['PATHS']['logdir']) {
             $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
@@ -102,7 +116,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
-        $this->loggerInstance->debug(4, "Looks like this profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
+        $this->loggerInstance->debug(4, "This profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
         return $eapTypeArray;
     }
 
@@ -112,16 +126,18 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * 
      * sub-classes need to set the property $realm, $name themselves!
      * 
-     * @param int $profileId identifier of the profile in the DB
+     * @param int $profileIdRaw identifier of the profile in the DB
      * @param IdP $idpObject optionally, the institution to which this Profile belongs. Saves the construction of the IdP instance. If omitted, an extra query and instantiation is executed to find out.
      */
-    public function __construct($profileId, $idpObject = NULL) {
+    public function __construct($profileIdRaw, $idpObject = NULL) {
         $this->databaseType = "INST";
-        parent::__construct(); // we now have access to our database handle and logging
+        parent::__construct(); // we now have access to our INST database handle and logging
+        $this->frontendHandle = DBConnection::handle("FRONTEND");
         // first make sure that we are operating on numeric identifiers
-        if (!is_numeric($profileId)) {
+        if (!is_numeric($profileIdRaw)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
         }
+        $profileId = (int)$profileIdRaw; // no, it can not possibly be a double. Try to convince Scrutinizer...
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
@@ -134,12 +150,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $idp = new IdP($this->institution);
         } else {
             $idp = $idpObject;
-            $this->institution = $idp->identifier;
+            $this->institution = (int)$idp->identifier;
         }
 
         $this->instName = $idp->name;
         $this->idpNumberOfProfiles = $idp->profileCount();
         $this->idpAttributes = $idp->getAttributes();
+        $fedObject = new Federation($idp->federation);
+        $this->fedAttributes = $fedObject->getAttributes();
         $this->loggerInstance->debug(3, "--- END Constructing new AbstractProfile object ... ---\n");
     }
 
@@ -245,8 +263,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      */
     public function testCache($device) {
         $returnValue = NULL;
-        $escapedDevice = $this->databaseHandle->escapeValue($device);
-        $result = $this->databaseHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = $this->identifier AND device_id = '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
+        $lang = $this->languageInstance->getLang();
+        $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
         if ($result && $cache = mysqli_fetch_object($result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
@@ -276,18 +294,18 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return boolean TRUE if incrementing worked, FALSE if not
      */
     public function incrementDownloadStats($device, $area) {
-        $escapedDevice = $this->databaseHandle->escapeValue($device);
         if ($area == "admin" || $area == "user" || $area == "silverbullet") {
-            $this->databaseHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES ($this->identifier, '$escapedDevice','" . $this->languageInstance->getLang() . "', 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1");
+            $lang = $this->languageInstance->getLang();
+            $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $lang);
             // get eap_type from the downloads table
-            $eapTypeQuery = $this->databaseHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = $this->identifier AND device_id= '$escapedDevice' AND lang = '" . $this->languageInstance->getLang() . "'");
+            $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
             if (!$eapTypeQuery || !$eapO = mysqli_fetch_object($eapTypeQuery)) {
                 $this->loggerInstance->debug(2, "Error getting EAP_type from the database\n");
             } else {
                 if ($eapO->eap_type == NULL) {
                     $this->loggerInstance->debug(2, "EAP_type not set in the database\n");
                 } else {
-                    $this->saveDownloadDetails($this->institution, $this->identifier, $escapedDevice, $area, $this->languageInstance->getLang(), $eapO->eap_type);
+                    $this->saveDownloadDetails($this->institution, $this->identifier, $device, $area, $this->languageInstance->getLang(), $eapO->eap_type);
                 }
             }
             return TRUE;
@@ -306,7 +324,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $columnName = "downloads_silverbullet";
         }
         $returnarray = [];
-        $numbers = $this->databaseHandle->exec("SELECT device_id, SUM($columnName) AS downloads_user FROM downloads WHERE profile_id = $this->identifier GROUP BY device_id");
+        $numbers = $this->frontendHandle->exec("SELECT device_id, SUM($columnName) AS downloads_user FROM downloads WHERE profile_id = ? GROUP BY device_id", "i", $this->identifier);
         while ($statsQuery = mysqli_fetch_object($numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
@@ -346,9 +364,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
     public function setRealm($realm) {
-        $escapedRealm = $this->databaseHandle->escapeValue($realm);
-        $this->databaseHandle->exec("UPDATE profile SET realm = '$escapedRealm' WHERE profile_id = $this->identifier");
-        $this->realm = $escapedRealm;
+        $this->databaseHandle->exec("UPDATE profile SET realm = ? WHERE profile_id = ?", "si", $realm, $this->identifier);
+        $this->realm = $realm;
     }
 
     /**
@@ -557,7 +574,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         foreach ($temp1 as $name) {
             if ($flags[$name] == 'ML') {
                 $nameCandidate = [];
-                $levelsToTry = ['Profile', 'IdP'];
+                $levelsToTry = ['Profile', 'IdP', 'FED'];
                 foreach ($levelsToTry as $level) {
                     if (empty($nameCandidate) && isset($temp[$name][$level])) {
                         foreach ($temp[$name][$level] as $oneName) {
@@ -576,7 +593,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
                 }
             } else {
-                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'];
+                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'] ?? $temp[$name]['FED'];
             }
         }
         return($out);
@@ -631,7 +648,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // do we know at least one SSID to configure, or work with wired? If not, it's not ready...
         if (!isset($attribs['media:SSID']) &&
                 !isset($attribs['media:SSID_with_legacy']) &&
-                (!isset(CONFIG['CONSORTIUM']['ssid']) || count(CONFIG['CONSORTIUM']['ssid']) == 0) &&
+                (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) == 0) &&
                 !isset($attribs['media:wired'])) {
             $properConfig = FALSE;
         }
@@ -679,9 +696,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     protected function addDatabaseAttributes() {
         $databaseAttributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                 FROM $this->entityOptionTable
-                WHERE $this->entityIdColumn = $this->identifier
+                WHERE $this->entityIdColumn = ?
                 AND device_id IS NULL AND eap_method_id = 0
-                ORDER BY option_name", "Profile");
+                ORDER BY option_name", "Profile", "i", $this->identifier);
         return $databaseAttributes;
     }
 

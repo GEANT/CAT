@@ -18,7 +18,7 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 /**
  * Test suite to verify that a given NAI realm has NAPTR records according to
  * consortium-agreed criteria
- * Can only be used if CONFIG['RADIUSTESTS'] is configured.
+ * Can only be used if CONFIG_DIAGNOSTICS['RADIUSTESTS'] is configured.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
@@ -29,11 +29,39 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
  */
 class RFC6614Tests extends AbstractTest {
 
+    /**
+     * dictionary of translatable texts around the certificates we check
+     * 
+     * @var array
+     */
     private $TLS_certkeys = [];
+    
+    /**
+     * list of IP addresses which are candidates for dynamic discovery targets
+     * 
+     * @var array
+     */
     private $candidateIPs;
+    
+    /**
+     * associative array holding the server-side cert test results for a given IP (IP is the key)
+     * 
+     * @var array
+     */
     public $TLS_CA_checks_result;
+    
+    /**
+     * associative array holding the client-side cert test results for a given IP (IP is the key)
+     * 
+     * @var array
+     */
     public $TLS_clients_checks_result;
 
+    /**
+     * Sets up the instance for testing of a number of candidate IPs
+     * 
+     * @param array $listOfIPs candidates to test
+     */
     public function __construct($listOfIPs) {
         parent::__construct();
         $this->TLS_certkeys = [
@@ -66,11 +94,12 @@ class RFC6614Tests extends AbstractTest {
     }
     
     /**
-     * This function executes openssl s_clientends command to check if a server accept a CA
+     * This function executes openssl s_clientends command to check if a server accepts a CA
+     * 
      * @param string $host IP:port
      * @return int returncode
      */
-    public function cApathCheck($host) {
+    public function cApathCheck(string $host) {
         if (!isset($this->TLS_CA_checks_result[$host])) {
             $this->TLS_CA_checks_result[$host] = [];
         }
@@ -79,19 +108,20 @@ class RFC6614Tests extends AbstractTest {
     }
 
     /**
-     * This function executes openssl s_client command to check if a server accept a client certificate
+     * This function executes openssl s_client command to check if a server accepts a client certificate
+     * 
      * @param string $host IP:port
      * @return int returncode
      */
-    public function TLS_clients_side_check($host) {
+    public function TLS_clients_side_check(string $host) {
         $res = RADIUSTests::RETVAL_OK;
-        if (!is_array(CONFIG['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG['RADIUSTESTS']['TLS-clientcerts']) == 0) {
+        if (!is_array(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;
         }
         if (preg_match("/\[/", $host)) {
             return RADIUSTests::RETVAL_INVALID;
         }
-        foreach (CONFIG['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts'] as $type => $tlsclient) {
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['from'] = $type;
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['status'] = $tlsclient['status'];
             $this->TLS_clients_checks_result[$host]['ca'][$type]['clientcertinfo']['message'] = $this->TLS_certkeys[$tlsclient['status']];
@@ -250,7 +280,7 @@ class RFC6614Tests extends AbstractTest {
     private function propertyCheckPolicy($cert) {
         $oids = [];
         if ($cert['extensions']['certificatePolicies']) {
-            foreach (CONFIG['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
+            foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-acceptableOIDs'] as $key => $oid) {
                 if (preg_match("/Policy: $oid/", $cert['extensions']['certificatePolicies'])) {
                     $oids[$key] = $oid;
                 }

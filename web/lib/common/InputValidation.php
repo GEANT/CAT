@@ -42,7 +42,7 @@ class InputValidation {
         $cat = new \core\CAT();
         $fedIdentifiers = array_keys($cat->knownFederations);
         if (!in_array(strtoupper($input), $fedIdentifiers)) {
-            throw new Exception($this->inputValidationError("This federation does not exist!"));
+            throw new Exception($this->inputValidationError(sprintf("This %s does not exist!", $cat->nomenclature_fed)));
         }
         // totally circular, but this hopefully *finally* make Scrutinizer happier
         $correctIndex = array_search(strtoupper($input), $fedIdentifiers);
@@ -58,18 +58,18 @@ class InputValidation {
                 return $temp;
             }
         }
-        throw new Exception($this->inputValidationError("User is not federation administrator!"));
+        throw new Exception($this->inputValidationError(sprintf("User is not %s administrator!", $cat->nomenclature_fed)));
     }
 
     /**
      * Is this a known IdP? Optionally, also check if the authenticated
      * user is an admin of that IdP
      * @param int $input the numeric ID of the IdP in the system
-     * @param string|NULL $owner the authenticated username, optional
+     * @param string $owner the authenticated username, optional
      * @return \core\IdP
      * @throws Exception
      */
-    public function IdP($input, $owner = NULL) {
+    public function IdP(int $input, $owner = NULL) {
         if (!is_numeric($input)) {
             throw new Exception($this->inputValidationError("Value for IdP is not an integer!"));
         }
@@ -127,6 +127,7 @@ class InputValidation {
     }
 
     /**
+     * Checks if the input was a valid string.
      * 
      * @param string $input a string to be made SQL-safe
      * @param boolean $allowWhitespace whether some whitespace (e.g. newlines should be preserved (true) or redacted (false)
@@ -155,11 +156,12 @@ class InputValidation {
     if (is_array($afterWhitespace)) {
         throw new Exception("This function has to be given a string and returns a string. preg_replace has generated an array instead!");
     }
-    return (string)$afterWhitespace;
+    return (string) $afterWhitespace;
 }
 
 /**
  * Is this an integer, or a string that represents an integer?
+ * 
  * @param string|int $input
  * @return false|string|int returns the input, or FALSE if it is not an integer-like value
  */
@@ -173,6 +175,7 @@ public function integer($input) {
 /**
  * Checks if the input is the hex representation of a Consortium OI (i.e. three
  * or five bytes)
+ * 
  * @param string $input
  * @return false|string returns the input, or FALSE on validation failure
  */
@@ -189,6 +192,7 @@ public function consortium_oi($input) {
 
 /**
  * Is the input an NAI realm? Throws HTML error and returns FALSE if not.
+ * 
  * @param string $input the input to check
  * @return false|string returns the realm, or FALSE if it was malformed
  */
@@ -229,24 +233,33 @@ public function realm($input) {
 }
 
 /**
- * could this be a valid username? Only checks correct form, not if the user
- * actually exists in the system.
+ * could this be a valid username? 
+ * 
+ * Only checks correct form, not if the user actually exists in the system.
+ * 
  * @param string $input
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
  */
 public function User($input) {
-    $retval = $input;
-    if ($input != "" && !ctype_print($input)) {
+    $retvalStep0 = iconv("UTF-8", "UTF-8//TRANSLIT", $input);
+    if ($retvalStep0 === FALSE) {
+        throw new Exception("iconv failure for string sanitisation. With TRANSLIT, this should never happen!");
+    }
+    $retvalStep1 = trim($retvalStep0);
+
+    $retval = preg_replace('/(\0|\r|\x0b|\t|\n)/', '', $retvalStep1);
+    if ($retval != "" && !ctype_print($retval)) {
         throw new Exception($this->inputValidationError("The user identifier is not an ASCII string!"));
     }
 
-    return $this->string($retval);
+    return $retval;
 }
 
 /**
- * could this be a valid token? Only checks correct form, not if the token
- * actually exists in the system.
+ * could this be a valid token? 
+ * 
+ * Only checks correct form, not if the token actually exists in the system.
  * @param string $input
  * @return string echoes back the input string, or throws an Exception if bogus
  * @throws Exception
@@ -260,6 +273,7 @@ public function token($input) {
 }
 
 /**
+ * Is this be a valid coordinate vector on one axis?
  * 
  * @param string $input a numeric value in range of a geo coordinate [-180;180]
  * @return string returns back the input if all is good; throws an Exception if out of bounds or not numeric
@@ -280,6 +294,7 @@ public function coordinate($input) {
 }
 
 /**
+ * Is this a valid coordinate pair in JSON encoded representation?
  * 
  * @param string $input the string to be checked: is this a serialised array with lat/lon keys in a valid number range?
  * @return string returns $input if checks have passed; throws an Exception if something's wrong
@@ -296,9 +311,11 @@ public function coordJsonEncoded($input) {
 }
 
 /**
- * This checks the state of a HTML GET/POST "boolean" (if not checked, no value
- * is submitted at all; if checked, has the word "on". Anything else is a big
- * error
+ * This checks the state of a HTML GET/POST "boolean".
+ * 
+ * If not checked, no value is submitted at all; if checked, has the word "on". 
+ * Anything else is a big error.
+ * 
  * @param string $input the string to test
  * @return string echoes back the input if good, throws an Exception otherwise
  * @throws Exception
@@ -307,7 +324,7 @@ public function boolean($input) {
     if ($input != "on") {
         throw new Exception($this->inputValidationError("Unknown state of boolean option!"));
     }
-    return $input;
+    return TRUE;
 }
 
 const TABLEMAPPING = [
@@ -319,6 +336,7 @@ const TABLEMAPPING = [
 /**
  * Is this a valid database reference? Has the form <tablename>-<rowID> and there
  * needs to be actual data at that place
+ * 
  * @param string $input the reference to check
  * @return false|array the reference split up into "table" and "rowindex", or FALSE
  */
@@ -332,6 +350,7 @@ public function databaseReference($input) {
 
 /**
  * is this a valid hostname?
+ * 
  * @param string $input
  * @return false|string echoes the hostname, or FALSE if bogus
  */
@@ -347,6 +366,7 @@ public function hostname($input) {
 
 /**
  * is this a valid email address?
+ * 
  * @param string $input
  * @return false|string echoes the mail address, or FALSE if bogus
  */
@@ -359,6 +379,12 @@ public function email($input) {
     return FALSE;
 }
 
+/**
+ * Is this is a language we support? If not, sanitise to our configured default language.
+ * 
+ * @param string $input the candidate language identifier
+ * @return string
+ */
 public function supportedLanguage($input) {
     if (!array_key_exists($input, CONFIG['LANGUAGES'])) {
         return CONFIG['APPEARANCE']['defaultlocale'];
@@ -371,6 +397,7 @@ public function supportedLanguage($input) {
 /**
  * Makes sure we are not receiving a bogus option name. The called function throws
  * an assertion if the name is not known.
+ * 
  * @param string $input
  * @return string
  */

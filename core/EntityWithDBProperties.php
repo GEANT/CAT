@@ -18,7 +18,9 @@
 /**
  * 
  */
+
 namespace core;
+
 /**
  * This class represents an Entity with properties stored in the DB.
  * IdPs have properties of their own, and may have one or more Profiles. The
@@ -28,8 +30,6 @@ namespace core;
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @license see LICENSE file in root directory
- *
- * @package Developer
  */
 abstract class EntityWithDBProperties extends \core\common\Entity {
 
@@ -85,6 +85,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      */
     public $name;
 
+    /**
+     * The constructor initialises the entity. Since it has DB properties,
+     * this means the DB connection is set up for it.
+     */
     public function __construct() {
         parent::__construct();
         // we are called after the sub-classes have declared their default
@@ -93,14 +97,20 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
 
     /**
-     * This function retrieves the IdP-wide attributes. If called with the optional parameter, only attribute values for the attribute
+     * This function retrieves the entity's attributes. 
+     * 
+     * If called with the optional parameter, only attribute values for the attribute
      * name in $optionName are retrieved; otherwise, all attributes are retrieved.
+     * The retrieval is in-memory from the internal attributes class member - no
+     * DB callback, so changes in the database during the class instance lifetime
+     * are not considered.
      *
      * @param string $optionName optionally, the name of the attribute that is to be retrieved
+     * 
      * @return array of arrays of attributes which were set for this IdP
      */
-    public function getAttributes($optionName = 0) {
-        if ($optionName) {
+    public function getAttributes(string $optionName = NULL) {
+        if ($optionName !== NULL) {
             $returnarray = [];
             foreach ($this->attributes as $theAttr) {
                 if ($theAttr['name'] == $optionName) {
@@ -130,11 +140,11 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
 
     /**
-     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array
+     * after a beginFlushAttributes, deletes all attributes which are in the tobedeleted array.
      *
      * @param array $tobedeleted array of database rows which are to be deleted
      */
-    public function commitFlushAttributes($tobedeleted) {
+    public function commitFlushAttributes(array $tobedeleted) {
         $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
         foreach (array_keys($tobedeleted) as $row) {
             $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
@@ -158,7 +168,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
         $identifierType = (is_int($this->identifier) ? "i" : "s");
-        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)",$identifierType."sss",$this->identifier, $attrName, $attrLang, $attrValue);                
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $this->identifier, $attrName, $attrLang, $attrValue);
         $this->updateFreshness();
     }
 
@@ -166,12 +176,14 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * retrieve attributes from a database.
      * @param string $query sub-classes set the query to execute to get to the options
      * @param string $level the retrieved options get flagged with this "level" identifier
+     * @param string $identifierType what form does the identifier have (stored procedure indicator)
+     * @param string $identifier the identifier in the DB
      * @return array the attributes in one array
      */
-    protected function retrieveOptionsFromDatabase($query, $level) {
+    protected function retrieveOptionsFromDatabase($query, $level, $identifierType, $identifier) {
         $optioninstance = Options::instance();
         $tempAttributes = [];
-        $attributeDbExec = $this->databaseHandle->exec($query);
+        $attributeDbExec = $this->databaseHandle->exec($query, $identifierType, $identifier);
         if (empty($attributeDbExec)) {
             return $tempAttributes;
         }
@@ -230,35 +242,31 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         // we need to create our own DB handle as this is a static method
         $handle = DBConnection::handle("INST");
         switch ($table) {
-            case "profile_option":
-                $blobQuery = $handle->exec("SELECT profile_id from $table WHERE row = $row");
-                while ($profileIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
-                    $blobprofile = $profileIdQuery->profile_id;
-                }
-                // is the profile in question public?
-                if (!isset($blobprofile)) {
-                    return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
-                }
-                $profile = ProfileFactory::instantiate($blobprofile);
-                if ($profile->readinessLevel() == AbstractProfile::READINESS_LEVEL_SHOWTIME) { // public data
-                    return FALSE;
-                }
-                // okay, so it's NOT public. return the owner
-                $inst = new IdP($profile->institution);
-                return $inst->owner();
-
+            case "profile_option": // both of these are similar
+                $columnName = "profile_id";
             case "institution_option":
-                $blobQuery = $handle->exec("SELECT institution_id from $table WHERE row = $row");
-                while ($instIdQuery = mysqli_fetch_object($blobQuery)) { // only one row
-                    $blobinst = $instIdQuery->institution_id;
+                $columnName = $columnName ?? "institution_id";
+                $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = $row");
+                while ($idQuery = mysqli_fetch_object($blobQuery)) { // only one row
+                    $blobId = $idQuery->id;
                 }
-                if (!isset($blobinst)) {
+                if (!isset($blobId)) {
                     return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
                 }
-                $inst = new IdP($blobinst);
-                // if at least one of the profiles belonging to the inst is public, the data is public
-                if ($inst->maxProfileStatus() == IdP::PROFILES_SHOWTIME) { // public data
-                    return FALSE;
+                
+                if ($table == "profile_option") { // is the profile in question public?
+                    $profile = ProfileFactory::instantiate($blobId);
+                    if ($profile->readinessLevel() == AbstractProfile::READINESS_LEVEL_SHOWTIME) { // public data
+                        return FALSE;
+                    }
+                    // okay, so it's NOT public. prepare to return the owner
+                    $inst = new IdP($profile->institution);
+                } else { // does the IdP have at least one public profile?
+                    $inst = new IdP($blobId);
+                    // if at least one of the profiles belonging to the inst is public, the data is public
+                    if ($inst->maxProfileStatus() == IdP::PROFILES_SHOWTIME) { // public data
+                        return FALSE;
+                    }
                 }
                 // okay, so it's NOT public. return the owner
                 return $inst->owner();

@@ -42,15 +42,15 @@ class User extends EntityWithDBProperties {
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = $this->databaseHandle->escapeValue($userId);
+        $this->identifier = $userId;
 
         $optioninstance = Options::instance();
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
+            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $userId);
             $visited = FALSE;
             while ($userDetailQuery = mysqli_fetch_object($info)) {
                 if (!$visited) {
@@ -66,9 +66,9 @@ class User extends EntityWithDBProperties {
                 }
             }
         } else {
-            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT option_name, option_lang, option_value, id AS row
+            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                                                 FROM $this->entityOptionTable
-                                                WHERE $this->entityIdColumn = '$userId'", "User");
+                                                WHERE $this->entityIdColumn = ?", "User", "s", $userId);
         }
     }
 

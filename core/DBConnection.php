@@ -46,6 +46,7 @@ class DBConnection {
             case "INST":
             case "USER":
             case "EXTERNAL":
+            case "FRONTEND":
                 if (!isset(self::${"instance" . $theDb})) {
                     $class = __CLASS__;
                     self::${"instance" . $theDb} = new $class($database);
@@ -62,18 +63,6 @@ class DBConnection {
      */
     public function __clone() {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
-    }
-
-    /**
-     * 
-     * @param string $value The value to escape
-     * @return string
-     */
-    public function escapeValue($value) {
-        $this->loggerInstance->debug(5, "Escaping $value for DB $this->databaseInstance to get a safe query value.\n");
-        $escaped = $this->connection->real_escape_string($value);
-        $this->loggerInstance->debug(5, "This is the result: $escaped .\n");
-        return $escaped;
     }
 
     /**
@@ -164,6 +153,13 @@ class DBConnection {
     private static $instanceEXTERNAL;
 
     /**
+     * Holds the singleton instance reference to FRONTEND database
+     * 
+     * @var DBConnection 
+     */
+    private static $instanceFRONTEND;
+    
+    /**
      * after instantiation, keep state of which DB *this one* talks to
      * 
      * @var string which database does this instance talk to
@@ -193,7 +189,7 @@ class DBConnection {
             throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
 
-        if ($databaseCapitalised == "EXTERNAL" && CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
+        if ($databaseCapitalised == "EXTERNAL" && CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
     }

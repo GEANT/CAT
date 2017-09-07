@@ -11,13 +11,11 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
-
 $auth = new \web\lib\admin\Authentication();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
+$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 // deletion sets its own header-location  - treat with priority before calling default auth
 
@@ -53,7 +51,7 @@ if (isset($_GET['profile_id'])) {
 
 $realm = FALSE;
 if (isset($_POST['realm']) && $_POST['realm'] != "") {
-    $realm = $validator->realm($_POST['realm']);
+    $realm = $validator->realm(filter_input(INPUT_POST, 'realm', FILTER_SANITIZE_STRING));
 }
 
 $anon = FALSE;
@@ -63,7 +61,7 @@ if (isset($_POST['anon_support'])) {
 
 $anonLocal = "anonymous";
 if (isset($_POST['anon_local'])) {
-    $anonLocal = $validator->string($_POST['anon_local']);
+    $anonLocal = $validator->string(filter_input(INPUT_POST, 'anon_local', FILTER_SANITIZE_STRING));
 } elseif ($my_profile !== NULL) { // get the old anon outer id from DB. People don't appreciate "forgetting" it when unchecking anon id
     $local = $my_profile->getAttributes("internal:anon_local_value");
     if (isset($local[0])) {
@@ -169,9 +167,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
         $profile->setInputVerificationPreference(false, false);
     }
 
-    $remaining_attribs = $profile->beginflushAttributes();
-    $killlist = $optionParser->processSubmittedFields($profile, $_POST, $_FILES, $remaining_attribs);
-    $profile->commitFlushAttributes($killlist);
+    echo $optionParser->processSubmittedFields($profile, $_POST, $_FILES);
 
     if ($redirect !== FALSE) {
         if (!isset($_POST['redirect_target']) || $_POST['redirect_target'] == "") {
@@ -199,23 +195,23 @@ if (!$profile instanceof \core\ProfileRADIUS) {
         if ($a == \core\common\EAP::EAPTYPE_SILVERBULLET) { // do not allow adding silverbullet via the backdoor
             continue;
         }
-        if (isset($_POST[$uiElements->displayName($a)]) && isset($_POST[$uiElements->displayName($a) . "-priority"]) && is_numeric($_POST[$uiElements->displayName($a) . "-priority"])) {
-            $priority = (int) $_POST[$uiElements->displayName($a) . "-priority"];
+        if (isset($_POST[$eapDisplayNames->eapNames($a)]) && isset($_POST[$eapDisplayNames->eapNames($a) . "-priority"]) && is_numeric($_POST[$eapDisplayNames->eapNames($a) . "-priority"])) {
+            $priority = (int) $_POST[$eapDisplayNames->eapNames($a) . "-priority"];
             // add EAP type to profile as requested, but ...
             $profile->addSupportedEapMethod($a, $priority);
             $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $profile->identifier . " - supported EAP types changed");
             // see if we can enable the EAP type, or if info is missing
             $eapcompleteness = $profile->isEapTypeDefinitionComplete($a);
             if ($eapcompleteness === true) {
-                echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $uiElements->displayName($a) . "</strong>");
+                echo $uiElements->boxOkay(_("Supported EAP Type: ") . "<strong>" . $eapDisplayNames->eapNames($a) . "</strong>");
             } else {
                 $warntext = "";
                 if (is_array($eapcompleteness)) {
                     foreach ($eapcompleteness as $item) {
-                        $warntext .= "<strong>" . $uiElements->displayName($item) . "</strong> ";
+                        $warntext .= "<strong>" . $eapDisplayNames->eapNames($item) . "</strong> ";
                     }
                 }
-                echo $uiElements->boxWarning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $uiElements->displayName($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
+                echo $uiElements->boxWarning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $eapDisplayNames->eapNames($a), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
             }
         }
     }

@@ -9,8 +9,6 @@
  * ******************************************************************************
  */
 
-require_once(dirname(dirname(__DIR__)) . "/admin/inc/common.inc.php");
-
 echo "<pre>";
-print_r(\core\User::findLoginIdPByEmail($_GET['mail']));
+print_r(\core\User::findLoginIdPByEmail(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL)));
 echo "<pre>";

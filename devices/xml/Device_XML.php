@@ -102,6 +102,7 @@ abstract class Device_XML extends \core\DeviceConfig {
 
         marshalObject($root, $eapIdp);
         $dom = dom_import_simplexml($root)->ownerDocument;
+        //TODO schema validation makes sense so probably should be used
         $res = $dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd');
         $file = fopen($this->installerBasename . '.eap-config', "w");
         fwrite($file, $dom->saveXML());
@@ -343,11 +344,23 @@ abstract class Device_XML extends \core\DeviceConfig {
             $clientsidecredential->setProperty('OuterIdentity', $attr['internal:anon_local_value'][0] . '@' . $attr['internal:realm'][0]);
         }
         $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
+        
+        // Client Certificate
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $clientCertificateObject = new ClientCertificate();
+            $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
+            $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
+            
+            $clientsidecredential->setProperty('ClientCertificate',$clientCertificateObject);
+        }
+        
         $authmethod->setProperty('ClientSideCredential', $clientsidecredential);
         if ($eapParams['inner_method']) {
             $authmethod->setProperty('InnerAuthenticationMethod', $eapParams['inner_method']);
         }
         return $authmethod;
     }
+    
+
 
 }

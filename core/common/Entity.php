@@ -54,12 +54,22 @@ abstract class Entity {
      */
     protected $languageInstance;
 
+    /**
+     * initialise the entity.
+     * 
+     * Logs the start of lifetime of the entity to the debug log on levels 3 and higher.
+     */
     public function __construct() {
         $this->loggerInstance = new Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing class ". get_class($this)." .\n");
         $this->languageInstance = new Language();
     }
 
+    /**
+     * destroys the entity.
+     * 
+     * Logs the end of lifetime of the entity to the debug log on level 5.
+     */
     public function __destruct() {
         (new Logging())->debug(5,"--- KILL Destructing class ". get_class($this)." .\n");
     }
@@ -78,7 +88,6 @@ abstract class Entity {
             case 'silverbullet':
                 $path .= '/var/silverbullet';
                 break;
-            case 'logo':
             case 'installer':
                 $path .= '/var/installer_cache';
                 break;
@@ -106,6 +115,8 @@ abstract class Entity {
 
     /**
      * this direcory delete function has been copied from PHP documentation
+     * 
+     * @param string $dir name of the directory to delete
      */
     public static function rrmdir($dir) {
         foreach (glob($dir . '/*') as $file) {

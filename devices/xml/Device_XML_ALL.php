@@ -20,6 +20,7 @@ class Device_XML_ALL extends Device_XML {
             \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
             \core\common\EAP::EAPTYPE_TLS,
             \core\common\EAP::EAPTYPE_PWD,
+            \core\common\EAP::EAPTYPE_SILVERBULLET,
         ]);
         $this->langScope = 'single';
         $this->allEaps = TRUE;

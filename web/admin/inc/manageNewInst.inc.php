@@ -10,9 +10,9 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
-require_once("common.inc.php");
 
 $auth = new \web\lib\admin\Authentication();
+$uiElements = new \web\lib\admin\UIElements();
 $auth->authenticate();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
@@ -34,21 +34,21 @@ $isFedAdmin = $user->isFederationAdmin();
 
 // if not, send the user away
 if (!$isFedAdmin) {
-    echo sprintf(_("You do not have the necessary privileges to register new IdPs."), CONFIG['CONSORTIUM']['name']);
+    echo sprintf(_("You do not have the necessary privileges to register new %ss."), $uiElements->nomenclature_inst);
     exit(1);
 }
 // okay... we are indeed entitled to "do stuff"
 $feds = $user->getAttributes("user:fedadmin");
 ?>
 <h1>
-    <?php printf(_("%s - Register New Institution"), CONFIG['APPEARANCE']['productname']); ?>
+    <?php printf(_("%s - Register new %s"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_inst); ?>
 </h1>
 <?php
-echo _("On this page, you can add new institutions to your federation. Please fill out the form below to send out an email invitation to the new institution's administrator.");
+echo sprintf(_("On this page, you can add a new %s to your %s. Please fill out the form below to send out an email invitation to the new %s administrator."), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed, $uiElements->nomenclature_inst);
 if (CONFIG['DB']['enforce-external-sync']) {
-    echo "<p>" . sprintf(_("You can either register a known IdP (as defined in the %s database) or create a totally new IdP."), CONFIG['CONSORTIUM']['name']) . "</p>";
-    echo "<p>" . sprintf(_("The latter one is typically for institutions which are yet in a testing phase and therefore don't appear in the %s database yet."), CONFIG['CONSORTIUM']['name']) . "</p>";
-    echo "<p>" . sprintf(_("Please keep in mind that any profiles of such new institutions will only be made available on the user download page after you have linked them to an entity in the %s database (but they are otherwise fully functional)."), CONFIG['CONSORTIUM']['name']) . "</p>";
+    echo "<p>" . sprintf(_("You can either register a known %s (as defined in the %s database) or create a totally new %s."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst) . "</p>";
+    echo "<p>" . sprintf(_("The latter one is typically for an %s which is yet in a testing phase and therefore doesn't appear in the %s database yet."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
+    echo "<p>" . sprintf(_("Please keep in mind that any profiles of such a new %s will only be made available on the user download page after you have linked it to an entity in the %s database (but they are otherwise fully functional)."), $uiElements->nomenclature_inst, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>";
 }
 ?>
 <hr/>
@@ -85,7 +85,7 @@ if (CONFIG['DB']['enforce-external-sync']) {
             <td>
                 <?php echo _("Name"); ?><input type='text' size='40' id='name' name='name' onchange='document.sendinvite.creation[1].checked = true'/>
             </td>
-            <td><?php echo _("Federation"); ?>
+            <td><?php echo $uiElements->nomenclature_fed; ?>
                 <select id='country' name='country'>
                     <?php
                     $cat = new \core\CAT();

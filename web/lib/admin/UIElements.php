@@ -11,19 +11,65 @@
 
 namespace web\lib\admin;
 
+/**
+ * This class provides various HTML snippets and other UI-related convenience functions.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 class UIElements {
 
+    /**
+     * the custom displayable variant of the term 'federation'
+     * 
+     * @var string
+     */
+    public $nomenclature_fed;
+
+    /**
+     * the custom displayable variant of the term 'institution'
+     * 
+     * @var string
+     */
+    public $nomenclature_inst;
+
+    /**
+     * Initialises the class.
+     * 
+     * Mainly fetches various nomenclature from the config and attempts to translate those into local language. Needs pre-loading some terms.
+     */
+    public function __construct() {
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
+    }
+
+    /**
+     * provides human-readable text for the various option names as stored in DB.
+     * 
+     * @param string $input raw text in need of a human-readable display variant
+     * @return string the human-readable variant
+     * @throws Exception
+     */
     public function displayName($input) {
 
         $ssidText = _("SSID");
         $ssidLegacyText = _("SSID (with WPA/TKIP)");
         $passpointOiText = _("HS20 Consortium OI");
 
-        if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
             $ssidText = _("Additional SSID");
             $ssidLegacyText = _("Additional SSID (with WPA/TKIP)");
         }
-        if (!empty(CONFIG['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+        if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
             $passpointOiText = _("Additional HS20 Consortium OI");
         }
 
@@ -31,7 +77,7 @@ class UIElements {
             _("Support: EAP Types") => "support:eap_types",
             _("Support: Phone") => "support:phone",
             _("Support: E-Mail") => "support:email",
-            _("Institution Name") => "general:instname",
+            sprintf(_("Name of %s"), $this->nomenclature_inst) => "general:instname",
             _("Location") => "general:geo_coordinates",
             _("Logo URL") => "general:logo_url",
             _("Logo image") => "general:logo_file",
@@ -49,22 +95,15 @@ class UIElements {
             _("Extra text on downloadpage for EAP method") => "eap-specific:customtext",
             _("Turn on selection of EAP-TLS User-Name") => "eap-specific:tls_use_other_id",
             _("Profile Description") => "profile:description",
-            _("Federation Administrator") => "user:fedadmin",
+            _("Custom Installer Name Suffix") => "profile:customsuffix",
+            sprintf(_("%s Administrator"), $this->nomenclature_fed) => "user:fedadmin",
             _("Real Name") => "user:realname",
             _("E-Mail Address") => "user:email",
-            _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
-            _("TLS") => \core\common\EAP::EAPTYPE_TLS,
-            _("TTLS-PAP") => \core\common\EAP::EAPTYPE_TTLS_PAP,
-            _("TTLS-MSCHAPv2") => \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
-            _("TTLS-GTC") => \core\common\EAP::EAPTYPE_TTLS_GTC,
-            _("FAST-GTC") => \core\common\EAP::EAPTYPE_FAST_GTC,
-            _("EAP-pwd") => \core\common\EAP::EAPTYPE_PWD,
-            \core\ProfileSilverbullet::PRODUCTNAME => \core\common\EAP::EAPTYPE_SILVERBULLET,
             _("Remove/Disable SSID") => "media:remove_SSID",
             _("Custom CSS file for User Area") => "fed:css_file",
-            _("Federation Logo") => "fed:logo_file",
+            sprintf(_("%s Logo"), $this->nomenclature_fed) => "fed:logo_file",
             _("Preferred Skin for User Area") => "fed:desired_skin",
-            _("Federation Operator Name") => "fed:realname",
+            sprintf(_("%s Name"), $this->nomenclature_fed) => "fed:realname",
             _("Custom text in IdP Invitations") => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
             sprintf(_("%s: Do not terminate EAP"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet-noterm",
@@ -77,12 +116,33 @@ class UIElements {
         $find = array_keys($displayNames, $input, TRUE);
 
         if (count($find) == 0) { // this is an error! throw an Exception
-            throw new Exception("The translation of an option name was requested, but the option is not known to the system: ". htmlentities($input));
+            throw new \Exception("The translation of an option name was requested, but the option is not known to the system: " . htmlentities($input));
         }
         return $find[0];
     }
 
-    public function infoblock($optionlist, $class, $level) {
+    public function tooltip($input) {
+        $descriptions = [];
+        if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+            $descriptions[sprintf(_("This attribute can be set if you want to configure an additional SSID besides the default SSIDs for %s. It is almost always a bad idea not to use the default SSIDs. The only exception is if you have premises with an overlap of the radio signal with another %s hotspot. Typical misconceptions about additional SSIDs include: I want to have a local SSID for my own users. It is much better to use the default SSID and separate user groups with VLANs. That approach has two advantages: 1) your users will configure %s properly because it is their everyday SSID; 2) if you use a custom name and advertise this one as extra secure, your users might at some point roam to another place which happens to have the same SSID name. They might then be misled to believe that they are connecting to an extra secure network while they are not."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])] = "media:SSID";
+        }
+
+        $find = array_search($input, $descriptions);
+
+        if ($find === FALSE) {
+            return "";
+        }
+        return "<span class='tooltip' onclick='alert(\"" . $find . "\")'><img src='../resources/images/icons/question-mark-icon.png" . "'></span>";
+    }
+
+    /**
+     * creates an HTML information block with a list of options from a given category and level
+     * @param array $optionlist list of options
+     * @param string $class option class of interest
+     * @param string $level option level of interest
+     * @return string HTML code
+     */
+    public function infoblock(array $optionlist, string $class, string $level) {
         $googleMarkers = [];
         $retval = "";
         $optioninfo = \core\Options::instance();
@@ -143,10 +203,16 @@ class UIElements {
         return $retval;
     }
 
+    /**
+     * creates HTML code to display all information boxes for an IdP
+     * 
+     * @param \core\IdP $myInst the IdP in question
+     * @return string HTML code
+     */
     public function instLevelInfoBoxes(\core\IdP $myInst) {
         $idpoptions = $myInst->getAttributes();
         $retval = "<div class='infobox'>
-        <h2>" . _("General Institution Details") . "</h2>
+        <h2>" . sprintf(_("General %s details"), $this->nomenclature_inst) . "</h2>
         <table>
             <tr>
                 <td>
@@ -176,13 +242,77 @@ class UIElements {
         return $retval;
     }
 
+    /**
+     * pretty-prints a file size number in SI "bi" units
+     * @param int $number the size of the file
+     * @return string the pretty-print representation of the file size
+     */
+    private function displaySize(int $number) {
+        if ($number > 1024 * 1024) {
+            return round($number / 1024 / 1024, 2) . " MiB";
+        }
+        if ($number > 1024) {
+            return round($number / 1024, 2) . " KiB";
+        }
+        return $number . " B";
+    }
+
+    public static function getBlobFromDB($ref, $checkpublic) {
+        $validator = new \web\lib\common\InputValidation();
+        $reference = $validator->databaseReference($ref);
+
+        if ($reference == FALSE) {
+            return;
+        }
+
+        // the data is either public (just give it away) or not; in this case, only
+        // release if the data belongs to admin himself
+        if ($checkpublic) {
+            // we might be called without session context (filepreview) so get the
+            // context if needed
+            if (session_status() != PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+            $owners = \core\EntityWithDBProperties::isDataRestricted($reference["table"], $reference["rowindex"]);
+
+            $ownersCondensed = [];
+
+            if ($owners !== FALSE) { // restricted datam see if we're authenticated and owners of the data
+                $auth = new \web\lib\admin\Authentication();
+                if (!$auth->isAuthenticated()) {
+                    return FALSE; // admin-only, but we are not an admin
+                }
+                foreach ($owners as $oneowner) {
+                    $ownersCondensed[] = $oneowner['ID'];
+                }
+                if (array_search($_SESSION['user'], $ownersCondensed) === FALSE) {
+                    return FALSE; // wrong guy
+                }
+                // carry on and get the data
+            }
+        }
+
+
+        $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
+        if (!$blob) {
+            return FALSE;
+        }
+        return $blob;
+    }
+
+    /**
+     * creates HTML code to display a nice UI representation of a CA
+     * 
+     * @param string $cAReference ROWID pointer to the CA to display
+     * @return string HTML code
+     */
     public function previewCAinHTML($cAReference) {
         $found = preg_match("/^ROWID-.*/", $cAReference);
         if (!$found) {
             return "<div>" . _("Error, ROWID expected.") . "</div>";
         }
 
-        $cAblob = base64_decode(getBlobFromDB($cAReference, FALSE));
+        $cAblob = base64_decode(UIElements::getBlobFromDB($cAReference, FALSE));
 
         $func = new \core\common\X509;
         $details = $func->processCertificate($cAblob);
@@ -199,6 +329,12 @@ class UIElements {
         return "<div class='ca-summary'                                ><div style='position:absolute; right: 0px; width:20px; height:20px; background-color:#0000ff; border-radius:10px; text-align: center;'><div style='padding-top:3px; font-weight:bold; color:#ffffff;'>$certstatus</div></div>" . $details['name'] . "</div>";
     }
 
+    /**
+     * creates HTML code to display a nice UI representation of an image
+     * 
+     * @param string $imageReference ROWID pointer to the image to display
+     * @return string HTML code
+     */
     public function previewImageinHTML($imageReference) {
         $found = preg_match("/^ROWID-.*/", $imageReference);
         if (!$found) {
@@ -207,19 +343,34 @@ class UIElements {
         return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
     }
 
+    /**
+     * creates HTML code to display a nice UI representation of a TermsOfUse file
+     * 
+     * @param string $fileReference ROWID pointer to the file to display
+     * @return string HTML code
+     */
     public function previewInfoFileinHTML($fileReference) {
         $found = preg_match("/^ROWID-.*/", $fileReference);
         if (!$found) {
             return _("<div>Error, ROWID expected, got $fileReference.</div>");
         }
 
-        $fileBlob = getBlobFromDB($fileReference, FALSE);
+        $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
         $decodedFileBlob = base64_decode($fileBlob);
         $fileinfo = new \finfo();
-        return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . display_size(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
+        return "<div class='ca-summary'>" . _("File exists") . " (" . $fileinfo->buffer($decodedFileBlob, FILEINFO_MIME_TYPE) . ", " . $this->displaySize(strlen($decodedFileBlob)) . ")<br/><a href='inc/filepreview.php?id=$fileReference'>" . _("Preview") . "</a></div>";
     }
 
-    public function boxFlexible($level, $text = 0, $customCaption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code for a UI element which informs the user about something.
+     * 
+     * @param int $level what kind of information is to be displayed?
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return string
+     */
+    public function boxFlexible(int $level, string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
 
         $uiMessages = [
             \core\common\Entity::L_OK => ['icon' => '../resources/images/icons/Quetto/check-icon.png', 'text' => _("OK")],
@@ -232,12 +383,12 @@ class UIElements {
         if (!$omittabletags) {
             $retval .= "<tr><td>";
         }
-        $caption = ($customCaption !== 0 ? $customCaption : $uiMessages[$level]['text']);
-        $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $caption . "' title='" . $caption . "'/>";
+        $finalCaption = ($caption !== NULL ? $caption : $uiMessages[$level]['text']);
+        $retval .= "<img class='icon' src='" . $uiMessages[$level]['icon'] . "' alt='" . $finalCaption . "' title='" . $finalCaption . "'/>";
         if (!$omittabletags) {
             $retval .= "</td><td>";
         }
-        if ($text !== 0) {
+        if ($text !== NULL) {
             $retval .= $text;
         }
         if (!$omittabletags) {
@@ -246,19 +397,51 @@ class UIElements {
         return $retval;
     }
 
-    public function boxOkay($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display an "all is okay" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxOkay(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_OK, $text, $caption, $omittabletags);
     }
 
-    public function boxRemark($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display a "smartass comment" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxRemark(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_REMARK, $text, $caption, $omittabletags);
     }
 
-    public function boxWarning($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display a "something's a bit wrong" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxWarning(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_WARN, $text, $caption, $omittabletags);
     }
 
-    public function boxError($text = 0, $caption = 0, $omittabletags = FALSE) {
+    /**
+     * creates HTML code to display a "Whoa! Danger, Will Robinson!" message
+     * 
+     * @param string $text the text to display
+     * @param string $caption the caption to display
+     * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
+     * @return type
+     */
+    public function boxError(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 

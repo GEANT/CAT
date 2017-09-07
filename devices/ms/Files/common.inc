@@ -8,7 +8,7 @@ namespace devices\ms;
 ; * License: see the web/copyright.php file in the file structure
 ; ******************************************************************************
 ;
-; Used by Vista/W7/W8 module
+; Used by Vista/W7/W8/W10 module
 ;---------------------------------------
 
 !define DEBUG_CAT 5
@@ -120,7 +120,7 @@ Var rebootRequired
 !define MUI_HEADERIMAGE_BITMAP "cat_150.bmp"
 !define MUI_COMPONENTSPAGE_SMALLDESC
 
-!define WELCOME_HEADER "<?php printf(WindowsCommon::sprint_nsi(_("Welcome to the %s installer")),CONFIG['CONSORTIUM']['name'])?>"
+!define WELCOME_HEADER "<?php printf(WindowsCommon::sprint_nsi(_("Welcome to the %s installer")),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])?>"
 !define FAREWELL_HEADER "<?php WindowsCommon::echo_nsi( _("Installation complete"))?>"
 !define FAREWELL_TEXT	"<?php WindowsCommon::echo_nsi( _("Network profiles have been installed."))?>$\r$\n$\n <?php WindowsCommon::echo_nsi(  _("Your system is ready."))?>"
 !define FAREWELL_FAIL	"<?php WindowsCommon::echo_nsi( _("Network installation had errors."))?>$\r$\n$\n <?php WindowsCommon::echo_nsi( _("Please contact \${SUPPORT}."))?>"
@@ -522,11 +522,25 @@ Function wVersionCheck
   ${EndIf}
   Pop $VistaNoSP
 
-
-  !ifdef W8
+!ifdef W10
+  ${If} ${AtMostWin8.1}
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 10 and newer. Please download the correct installer and try again."))?>"
+    !ifndef ALLOW_LOW_VERSION
+        Call Cleanup
+    !endif
+  ${EndIf}
+!else ifdef W8
+${If} ${AtLeastWin10}
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
+    !ifndef ALLOW_LOW_VERSION
+        Call Cleanup
+    !endif
+  ${EndIf}
   ${If} ${AtMostWin7}
     IfSilent +2
-    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and newer. Please download the correct installer and try again."))?>"
+    MessageBox MB_OK|MB_ICONEXCLAMATION  "<?php WindowsCommon::echo_nsi(_("You are running Windows \$WindowsName but this installer is only for Windows 8 and 8.1. Please download the correct installer and try again."))?>"
     !ifndef ALLOW_LOW_VERSION
         Call Cleanup
     !endif
@@ -700,7 +714,7 @@ FunctionEnd
 
 Function displayExternalInfo
 ;TRANSLATION
-  MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Please read the additional information from your home institution which will be displayed in a moment."))?>"
+  MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Please read the additional information from \${ORGANISATION} which will be displayed in a moment."))?>"
   ExecShell "open" "${EXTERNAL_INFO}"
 FunctionEnd
 
@@ -755,7 +769,7 @@ Call ShowAllButtons
     ${If} $Symantec_installed  != 0
      !insertmacro debug_cat 3 "Symantec problem"
      IfSilent +2
-     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(WindowsCommon::sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),CONFIG['CONSORTIUM']['name']) ?>"
+     MessageBox MB_OK|MB_ICONEXCLAMATION "<?php printf(WindowsCommon::sprint_nsi(_("Please READ this message it is IMPORTANT.$\\r$\\nInstallation problems may be due to the fact that Symantec Endpoint Protection is installed on your machine.$\\r$\\nWhile this is a well-known bug of the Symantec product, about which the installer can not do anything, there is a workaround.$\\r$\\nWhen you close this window the installer will exit and an explorer window will be started (it could appear underneath already opened windows). In this window you should see a script named inst_cat. Start it by double-clicking, It will install the profiles. You will need to login to %s with your username and password.")),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) ?>"
     Exec '"explorer" /select,"$EXEDIR\inst_cat.cmd"'
     Quit
 
@@ -988,7 +1002,7 @@ FunctionEnd
 Function PFXCertificateSelect
   !ifndef SILVERBULLET
 ;TRANSLATION
-!insertmacro MUI_HEADER_TEXT "<?php printf(WindowsCommon::sprint_nsi(_("%s installer for")),CONFIG['CONSORTIUM']['name'])?> " "<?php WindowsCommon::echo_nsi(_("Install personal certificate"))?>"
+!insertmacro MUI_HEADER_TEXT "<?php printf(WindowsCommon::sprint_nsi(_("%s installer for")),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])?> " "<?php WindowsCommon::echo_nsi(_("Install personal certificate"))?>"
 ;TRANSLATION
     IfSilent +2
   MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Preparing to install personal certificate."))?>$\r$\n<?php WindowsCommon::echo_nsi(_("Click OK to continue"))?> "

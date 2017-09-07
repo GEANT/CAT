@@ -11,8 +11,6 @@ namespace core;
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 $instMgmt = new \core\UserManagement();
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new \web\lib\admin\UIElements();
@@ -45,7 +43,7 @@ $user = new \core\User($_SESSION['user']);
                 <td>
                 </td>
                 <td>
-                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo $_SESSION["user"]; ?>")'><?php echo _("click to display"); ?></span>
+                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'','\x27',str_replace('"','\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
         </table>
@@ -57,7 +55,7 @@ $user = new \core\User($_SESSION['user']);
         }
 
         if ($user->isFederationAdmin()) {
-            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to manage your federations') . "</button></form>";
+            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here to manage your %ss'),$uiElements->nomenclature_fed) . "</button></form>";
         }
         if ($user->isSuperadmin()) {
             echo "<form action='112365365321.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to access the superadmin page') . "</button></form>";
@@ -67,7 +65,7 @@ $user = new \core\User($_SESSION['user']);
     <?php
     $hasInst = $instMgmt->listInstitutionsByAdmin($_SESSION['user']);
 
-    if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
+    if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
         $helptext = "&nbsp;<h3 style='display:inline;'>" . sprintf(_("(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"), "https://wiki.geant.org/x/SwB_AQ") . "</h3>";
     } else {
         $helptext = "";
@@ -76,7 +74,7 @@ $user = new \core\User($_SESSION['user']);
     if (sizeof($hasInst) > 0) {
         // we need to run the Federation constructor
         $cat = new \core\CAT;
-        echo "<h2>" . sprintf(ngettext("You are managing the following institution:", "You are managing the following <strong>%d</strong> institutions:", sizeof($hasInst)), sizeof($hasInst)) . "</h2>";
+        echo "<h2>" . sprintf(ngettext("You are managing the following %s:", "You are managing the following <strong>%d</strong> %ss:", sizeof($hasInst)), sizeof($hasInst), $uiElements->nomenclature_inst) . "</h2>";
         echo $helptext;
         $instlist = [];
         $my_idps = [];
@@ -99,9 +97,9 @@ $user = new \core\User($_SESSION['user']);
             $country[$key] = $row['country'];
             $name[$key] = $row['name'];
         }
-        echo "<tr><th>" . _("Institution Name") . "</th><th>" . _("Other admins of this institution") . "</th><th>" . _("Administrator Management") . "</th></tr>";
+        echo "<tr><th>" . sprintf(_("%s Name"), $uiElements->nomenclature_inst) . "</th><th>" . sprintf(_("Other admins of this %s"), $uiElements->nomenclature_inst) . "</th><th>" . _("Administrator Management") . "</th></tr>";
         foreach ($myFeds as $fed_id => $fed_name) {
-            echo "<tr><td colspan='3'><strong>" . sprintf(_("Institutions in federation %s"), $fed_name) . "</strong></td></tr>";
+            echo "<tr><td colspan='3'><strong>" . sprintf(_("%s %s: %s list"), $uiElements->nomenclature_fed, $fed_name, $uiElements->nomenclature_inst) . "</strong></td></tr>";
 
             $fed_idps = $my_idps[$fed_id];
             asort($fed_idps);
@@ -141,14 +139,14 @@ $user = new \core\User($_SESSION['user']);
         }
         echo "</table>";
     } else {
-        echo "<h2>" . _("You are not managing any institutions.") . "</h2>";
+        echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclature_inst) . "</h2>";
     }
-    if (CONFIG['CONSORTIUM']['selfservice_registration'] === NULL) {
-        echo "<p>" . _("Please ask your federation administrator to invite you to become an institution administrator.") . "</p>";
+    if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
+        echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
         echo "<hr/>
              <div style='white-space: nowrap;'>
                 <form action='action_enrollment.php' method='get' accept-charset='UTF-8'>" .
-        _("Did you receive an invitation token to manage an institution? Please paste it here:") .
+        sprintf(_("Did you receive an invitation token to manage an %s? Please paste it here:"), $uiElements->nomenclature_inst) .
         "        <input type='text' id='token' name='token'/>
                     <button type='submit'>" .
         _("Go!") . "
@@ -160,7 +158,7 @@ $user = new \core\User($_SESSION['user']);
             <div style='white-space: nowrap;'>
         <form action='action_enrollment.php' method='get'><button type='submit' accept-charset='UTF-8'>
                 <input type='hidden' id='token' name='token' value='SELF-REGISTER'/>" .
-        _("Register New Institution!") . "
+        sprintf(_("Register new %s!"),$uiElements->nomenclature_inst) . "
             </button>
         </form>
         </div>";

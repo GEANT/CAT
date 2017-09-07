@@ -19,7 +19,8 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
-('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL);
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML');
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,
@@ -55,6 +56,10 @@ ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
 ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
 ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
 
+ALTER TABLE `user_options` DROP KEY `rowindex`, CHANGE COLUMN `id` `row` int primary key auto_increment, ADD KEY `rowindex` (`row`);
+
+ALTER TABLE ownership DROP KEY `pair`;
+ALTER TABLE ownership CHANGE COLUMN `user_id` `user_id` VARCHAR(2048) NOT NULL;
 
 UPDATE institution SET country = UPPER(country);
 

@@ -11,12 +11,10 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
 
-echo $deco->defaultPagePrelude(sprintf(_("%s: Federation Management"), CONFIG['APPEARANCE']['productname']));
+echo $deco->defaultPagePrelude(sprintf(_("%s: %s Management"), CONFIG['APPEARANCE']['productname'], $uiElements->nomenclature_fed));
 $user = new \core\User($_SESSION['user']);
 ?>
 <script src="js/XHR.js" type="text/javascript"></script>
@@ -27,7 +25,7 @@ $user = new \core\User($_SESSION['user']);
     echo $deco->productheader("FEDERATION");
     ?>
     <h1>
-        <?php echo _("Federation Overview"); ?>
+        <?php echo sprintf(_("%s Overview"),$uiElements->nomenclature_fed); ?>
     </h1>
 
     <div class="infobox">
@@ -41,7 +39,7 @@ $user = new \core\User($_SESSION['user']);
                 <td>
                 </td>
                 <td>
-                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo $_SESSION["user"]; ?>")'><?php echo _("click to display"); ?></span>
+                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'','\x27',str_replace('"','\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
         </table>
@@ -51,7 +49,7 @@ $user = new \core\User($_SESSION['user']);
     $mgmt = new \core\UserManagement();
 
     if (!$user->isFederationAdmin()) {
-        echo "<p>" . _("You are not a federation manager.") . "</p>";
+        echo "<p>" . sprintf(_("You are not a %s manager."),$uiElements->nomenclature_fed) . "</p>";
         echo $deco->footer();
         exit(0);
     }
@@ -62,7 +60,7 @@ $user = new \core\User($_SESSION['user']);
         ?>
 
         <div class='infobox'><h2>
-                <?php echo sprintf(_("Federation Properties: %s"), $thefed->name); ?>
+                <?php echo sprintf(_("%s Properties: %s"), $uiElements->nomenclature_fed, $thefed->name); ?>
             </h2>
             <table>
                 <!-- fed properties -->
@@ -88,7 +86,7 @@ $user = new \core\User($_SESSION['user']);
         </div>
         <div class='infobox'>
             <h2>
-                <?php echo sprintf(_("Federation Statistics: %s"), $thefed->name); ?>
+                <?php echo sprintf(_("%s Statistics: %s"), $uiElements->nomenclature_fed, $thefed->name); ?>
             </h2>
             <table>
                 <!-- idp stats -->
@@ -120,7 +118,7 @@ $user = new \core\User($_SESSION['user']);
     if (isset($_POST['submitbutton']) &&
             $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE &&
             isset($_POST['invitation_id'])) {
-        $mgmt->invalidateToken($_POST['invitation_id']);
+        $mgmt->invalidateToken(filter_input(INPUT_POST, 'invitation_id', FILTER_SANITIZE_STRING));
     }
 
     if (isset($_GET['invitation'])) {
@@ -143,13 +141,16 @@ $user = new \core\User($_SESSION['user']);
             case "FAILURE":
                 echo $uiElements->boxError(_("The invitation email could not be sent!"), _("The invitation email could not be sent!"));
                 break;
+            case "INVALIDSYNTAX":
+                echo $uiElements->boxError(_("The invitation email address was malformed, no invitation was sent!"), _("The invitation email address was malformed, no invitation was sent!"));
+                break;
             default:
                 echo $uiElements->boxError(_("Error: unknown result code of invitation!?!"), _("Unknown result!"));
         }
         echo "</table></div>";
     }
-    if (CONFIG['CONSORTIUM']['name'] == 'eduroam') {
-        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>Federation Operator manual</a>"), "https://wiki.geant.org/x/KQB_AQ") . "</h3>";
+    if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == 'eduroam') {
+        $helptext = "<h3>" . sprintf(_("Need help? Refer to the <a href='%s'>%s manual</a>"), "https://wiki.geant.org/x/KQB_AQ", $uiElements->nomenclature_fed) . "</h3>";
     } else {
         $helptext = "";
     }
@@ -158,13 +159,13 @@ $user = new \core\User($_SESSION['user']);
     <table class='user_overview' style='border:0px;'>
         <tr>
             <th><?php echo _("Deployment Status"); ?></th>
-            <th><?php echo _("Institution Name"); ?></th>
+            <th><?php echo sprintf(_("Name of %s"), $uiElements->nomenclature_inst); ?></th>
 
             <?php
             $pending_invites = $mgmt->listPendingInvitations();
 
             if (CONFIG['DB']['enforce-external-sync']) {
-                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG['CONSORTIUM']['name']) . "</th>";
+                echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</th>";
             }
             ?>
             <th><?php echo _("Administrator Management"); ?></th>
@@ -172,7 +173,7 @@ $user = new \core\User($_SESSION['user']);
         <?php
         foreach ($feds as $onefed) {
             $thefed = new \core\Federation(strtoupper($onefed['value']));
-            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your federation %s contains the following institutions: (<a href='%s'>Check their authentication server status</a>)"), '<span style="color:green">' . $thefed->name . '</span>', "action_fedcheck.php?fed=" . $thefed->identifier) . "</strong></td></tr>";
+            echo "<tr><td colspan='8'><strong>" . sprintf(_("Your %s %s contains the following %s list:"), $uiElements->nomenclature_fed, '<span style="color:green">' . $thefed->name . '</span>', $uiElements->nomenclature_inst) . "</strong></td></tr>";
 
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
@@ -236,7 +237,7 @@ $user = new \core\User($_SESSION['user']);
                 echo "<tr>
                             <td colspan='2'>
                                <strong>" .
-                _("Pending invitations in your federation:") . "
+                sprintf(_("Pending invitations in your %s:"),$uiElements->nomenclature_fed) . "
                                </strong>
                             </td>
                          </tr>";
@@ -267,7 +268,7 @@ $user = new \core\User($_SESSION['user']);
     <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
             return false;' accept-charset='UTF-8'>
         <button type='submit' class='download'>
-            <?php echo _("Register New Institution!"); ?>
+            <?php echo sprintf(_("Register new %s!"), $uiElements->nomenclature_inst); ?>
         </button>
     </form>
     <br/>

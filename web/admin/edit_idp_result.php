@@ -13,8 +13,6 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("inc/common.inc.php");
-
 $auth = new \web\lib\admin\Authentication();
 $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
@@ -66,12 +64,10 @@ if ($_POST['submitbutton'] != web\lib\admin\FormElements::BUTTON_SAVE && $_POST[
 
 $inst_name = $my_inst->name;
 echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
-$remaining_attribs = $my_inst->beginflushAttributes();
-
 echo "<table>";
-$killlist = $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES, $remaining_attribs);
+echo $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES);
 echo "</table>";
-$my_inst->commitFlushAttributes($killlist);
+
 // delete cached logo, if present
 $logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identifier . ".png";
 if (is_file($logofile)) {
@@ -88,9 +84,9 @@ $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 $ssids = [];
 
-if (isset(CONFIG['CONSORTIUM']['ssid']) && count(CONFIG['CONSORTIUM']['ssid']) > 0) {
-    foreach (CONFIG['CONSORTIUM']['ssid'] as $ssidname) {
-        $ssids[] = $ssidname . " " . (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+    foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssidname) {
+        $ssids[] = $ssidname . " " . (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
     }
 }
 

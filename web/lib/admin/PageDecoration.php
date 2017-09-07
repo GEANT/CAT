@@ -14,9 +14,11 @@ namespace web\lib\admin;
 class PageDecoration {
 
     private $validator;
+    private $ui;
     
     public function __construct() {
         $this->validator = new \web\lib\common\InputValidation();
+        $this->ui = new UIElements();
     }
     /**
      * Our (very modest and light) sidebar. authenticated admins get more options, like logout
@@ -75,7 +77,7 @@ class PageDecoration {
         $retval .= "</form>
                 </div><!--langselection-->";
 
-        $logoUrl = "//" . $this->validator->hostname($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")))."/resources/images/consortium_logo.png";        
+        $logoUrl = "//" . $this->validator->hostname($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")))."/resources/images/consortium_logo.png";        
         $retval .= "<div class='consortium_logo'>
                     <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
                 </div> <!-- consortium_logo -->
@@ -117,7 +119,7 @@ class PageDecoration {
         switch ($area) {
             case "ADMIN-IDP":
                 $cap1 = CONFIG['APPEARANCE']['productname_long'];
-                $cap2 = _("Administrator Interface - Identity Provider");
+                $cap2 = sprintf(_("Administrator Interface - Identity Provider"),$this->ui->nomenclature_inst);
                 $advancedControls = TRUE;
                 break;
             case "ADMIN-IDP-USERS":
@@ -137,7 +139,7 @@ class PageDecoration {
                 break;
             case "FEDERATION":
                 $cap1 = CONFIG['APPEARANCE']['productname_long'];
-                $cap2 = _("Administrator Interface - Federation Management");
+                $cap2 = sprintf(_("Administrator Interface - %s Management"),$this->ui->nomenclature_fed);
                 $advancedControls = TRUE;
                 break;
             case "USER":
@@ -166,7 +168,7 @@ class PageDecoration {
         // content from here on will SCROLL instead of being fixed at the top
         $retval .= "<div class='pagecontent'>"; // closes in footer again
         $retval .= "<div class='trick'>"; // closes in footer again
-        $retval .= "<div id='secondrow' style='border-bottom:5px solid ".CONFIG['APPEARANCE']['colour1']." min-height:100px;'>
+        $retval .= "<div id='secondrow' style='border-bottom:5px solid ".CONFIG['APPEARANCE']['colour1']."; min-height:100px;'>
             <div id='secondarycaptions' style='display:inline-block; float:left'>
                 <h2>$cap2</h2>
             </div><!--secondarycaptions-->";
@@ -211,7 +213,7 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
 
-        $cssUrl = "//" . $this->validator->hostname($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
+        $cssUrl = "//" . $this->validator->hostname($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition )."/resources/css/cat.css.php";
         
         $retval .= "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
         $retval .= "<title>" . htmlspecialchars($pagetitle) . "</title>";
@@ -224,7 +226,7 @@ class PageDecoration {
      * @return string HTML code with GEANT Org and EU attribution as required for FP7 / H2020 projects
      */
     public function attributionEurope() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
         // we may need to jump up one dir if we are either in admin/ or accountstatus/
         // (accountstatus courtesy of my good mood. It's userspace not admin space so
         // it shouldn't be using this function any more.)
@@ -239,7 +241,7 @@ class PageDecoration {
             $cutoffPosition = strrpos($_SERVER['PHP_SELF'], "/");
         }
         
-        $logoBase = "//" . $this->validator->hostname($_SERVER['HTTP_HOST']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
+        $logoBase = "//" . $this->validator->hostname($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, $cutoffPosition)."/resources/images";
 
         return "<span id='logos' style='position:fixed; left:50%;'><img src='$logoBase/dante.png' alt='DANTE' style='height:23px;width:47px'/>
               <img src='$logoBase/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
@@ -263,7 +265,7 @@ class PageDecoration {
                         " . $cat->CAT_COPYRIGHT . "</td>
                     <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>";
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $retval .= $this->attributionEurope();
         } else {
             $retval .= "&nbsp;";

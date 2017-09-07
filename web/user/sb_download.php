@@ -60,9 +60,11 @@ if (!$p->institution || $p->institution !== $instId) {
 
 // now we generate the installer
 try {
-    $API->downloadInstaller($device, $p->identifier, $generatedFor, $cleanToken, $password);
+    $validator = new \web\lib\common\InputValidation();
+    $cleanDevice = $validator->Device($device); // throws an Exception if unknown
+    $API->downloadInstaller($cleanDevice, $p->identifier, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
-    $skinObject = new \web\lib\user\Skinjob("");
+    $skinObject = new \web\lib\user\Skinjob();
     // find our account status page, and bail out if this doesn't work
     $accountPageUrl = "../accountstatus/accountstatus.php";
     if ($accountPageUrl === FALSE) {

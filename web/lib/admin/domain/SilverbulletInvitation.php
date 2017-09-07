@@ -258,15 +258,23 @@ class SilverbulletInvitation extends PersistentEntity {
         $databaseHandle = \core\DBConnection::handle(self::TYPE_INST);
         if ($searchAttribute != null && $silverbulletUser != null) {
             $userId = $silverbulletUser->getAttribute(self::ID);
+            $userType = $userId->getType();
+            $userValue = $userId->value;
+            $attrType = $searchAttribute->getType();
+            $attrValue = $searchAttribute->value;
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, $searchAttribute->key, self::EXPIRY);
-            $result = $databaseHandle->exec($query, $userId->getType() . $searchAttribute->getType(), $userId->value, $searchAttribute->value);
+            $result = $databaseHandle->exec($query, $userType . $attrType, $userValue, $attrValue);
         } else if($silverbulletUser != null) {
             $userId = $silverbulletUser->getAttribute(self::ID);
+            $userType = $userId->getType();
+            $userValue = $userId->value;
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::EXPIRY);
-            $result = $databaseHandle->exec($query, $userId->getType(), $userId->value);
+            $result = $databaseHandle->exec($query, $userType, $userValue);
         } else if ($searchAttribute != null) {
+            $attrType = $searchAttribute->getType();
+            $attrValue = $searchAttribute->value;
             $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s` DESC", self::TABLE, $searchAttribute->key, self::EXPIRY);
-            $result = $databaseHandle->exec($query, $searchAttribute->getType(), $searchAttribute->value);
+            $result = $databaseHandle->exec($query, $attrType, $attrValue);
         } else {
             $query = sprintf("SELECT * FROM `%s` ORDER BY `%s` DESC", self::TABLE, self::EXPIRY);
             $result = $databaseHandle->exec($query);

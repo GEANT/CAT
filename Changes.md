@@ -3,6 +3,10 @@ Changes in 1.2
 
 Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 
+- [BUGFIX #1 ]  Google Maps JavaScript API needs an API key (again). Without it,
+                things seem to work, but the conditions are unclear and it
+                generates ugly JS error console warnings. Added a config
+                parameter APPEARANCE['google_maps_api_key] to make things proper
 - [FEATURE #1]  UserAPI redone. Instead of the "id" as a common argument we now use
                 meaningful names, like idp, profile, device etc.
                 To get the new behaviour you need to set api_version argument to 2.
@@ -30,6 +34,15 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 installation then then sets this cert as user credentials, no more problems with
                 multiple user certificates
 - [FEATURE #14] PEAP credenials setting has been changed to use the new WLANSetEAPUserData utility
+- [FEATURE #15] allow separate deployments of the diagnostics vs. config assistant
+                functionality (split config into three parts)
+- [FEATURE #16] allow to configure a separate database user for end-user
+                frontend things. Usually the same as "INST" but on deployments
+                where end-user frontend and admin areas are on separate hosts
+                this can be useful for privilege separation
+- [FEATURE #17] Allow to specify custom installer name suffixes on per-profile
+                level
+
 
 Configuration parameter changes
 -------------------------------
@@ -39,10 +52,15 @@ Configuration parameter changes
 - [ADDED]     CONSORTIUM['silverbullet_server_suffix']
 - [ADDED]     CONSORTIUM['silverbullet_gracetime']
 - [ADDED]     CONSORTIUM['nomenclature_federation']
+- [ADDED]     CONSORTIUM['nomenclature_institution']
+- [ADDED]     CONSORTIUM['display_name']
 - [ADDED]     APPEARANCE['skins']
+- [ADDED]     APPEARANCE['google_maps_api_key']
+- [ADDED]     APPEARANCE['FUNCTIONALITY_LOCATIONS']
 - [ADDED]     SMSSETTINGS['provider'] (only supported value: Nexmo)
 - [ADDED]     SMSSETTINGS['username']
 - [ADDED]     SMSSETTINGS['password']
+- [ADDED]     DB['FRONTEND']
 - [EXTERNAL]  for Managed IdP client cert auth for the accountstatus page:
               Apache: SSLCACertificateFile ... file with PEMs of client cert issuers ...
               Apache: SSLOptions StdEnvVars
