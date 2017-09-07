@@ -84,7 +84,8 @@ class Language {
             $langConverted[] = $hardSetLang;
         }
         if (!empty($_REQUEST['lang'])) {
-            $langConverted[] = filter_input(INPUT_REQUEST, 'lang', FILTER_SANITIZE_STRING);
+            $recoverLang = filter_input(INPUT_GET,'lang', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'lang', FILTER_SANITIZE_STRING);
+            $langConverted[] = $recoverLang;
         }
         if (!empty($_SESSION['language'])) {
             $langConverted[] = $_SESSION['language'];
