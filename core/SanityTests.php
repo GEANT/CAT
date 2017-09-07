@@ -595,7 +595,7 @@ class SanityTests extends CAT {
         }
 
         if ($global_no_cache == 1) {
-            $this->test_return(L_WARN, "Devices no_cache global option is set, this is not a good idea in a production setting\n");
+            $this->test_return(\core\common\Entity::L_WARN, "Devices no_cache global option is set, this is not a good idea in a production setting\n");
         }
         $Devs = \devices\Devices::listDevices();
         $no_cache_dev = '';
