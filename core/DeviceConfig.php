@@ -184,7 +184,8 @@ abstract class DeviceConfig extends \core\common\Entity {
              * If certificate has been created updating device name for it.
              */
             if ($this->clientCert['certificateId'] != null) {
-                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $this->clientCert['certificateId']);
+                $certId = $this->clientCert['certificateId'];
+                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);
             }
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");

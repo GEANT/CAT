@@ -313,10 +313,11 @@ Best regards,
      */
     public function setExternalDBId(string $identifier) {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, self::EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {
-                $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, self::EXTERNAL_DB_SYNCSTATE_SYNCED, $this->identifier );
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, $syncState, $this->identifier );
             }
         }
     }

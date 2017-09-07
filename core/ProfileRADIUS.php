@@ -181,10 +181,11 @@ class ProfileRADIUS extends AbstractProfile {
      * @param int $integerEapType the numeric representation of the EAP type for which this installer was generated
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
+        $lang = $this->languageInstance->getLang();
         $this->frontendHandle->exec("INSERT INTO downloads (profile_id,device_id,download_path,mime,lang,installer_time,eap_type) 
                                         VALUES (?,?,?,?,?,CURRENT_TIMESTAMP,?) 
                                         ON DUPLICATE KEY UPDATE download_path = ?, mime = ?, installer_time = CURRENT_TIMESTAMP, eap_type = ?",
-                "issssissi", $this->identifier, $device, $path, $mime, $this->languageInstance->getLang(), $integerEapType, $path, $mime, $integerEapType);
+                "issssissi", $this->identifier, $device, $path, $mime, $lang, $integerEapType, $path, $mime, $integerEapType);
     }
 
     /**

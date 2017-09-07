@@ -47,12 +47,15 @@ foreach (TREATMENT_TABLES as $tableIndex => $tableName) {
                 continue;
             }
             // pry apart lang and content into their own columns
-            $rewrittenPayload = $dbInstance->exec("UPDATE $tableName SET option_lang = ?, option_value = ? WHERE row = ?", "ssi", $decoded["lang"], $decoded["content"], $oneAffectedPayload->row);
+            $theLang = $decoded["lang"];
+            $theContent = $decoded["content"];
+            $row = $oneAffectedPayload->row;
+            $rewrittenPayload = $dbInstance->exec("UPDATE $tableName SET option_lang = ?, option_value = ? WHERE row = ?", "ssi", $theLang, $theContent, $row);
             if ($rewrittenPayload !== FALSE) {
-                echo "[ OK ] " . $oneAffectedPayload->option_value . " ---> " . $decoded["lang"] . " # " . $decoded["content"] . "\n";
+                echo "[ OK ] " . $oneAffectedPayload->option_value . " ---> $theLang # $theContent\n";
                 continue;
             }
-            echo "[FAIL] Unknown error executing the payload update for row " . $oneAffectedPayload->row . " of table $tableName. Did you run the 'ALTER TABLE' statements?\n";
+            echo "[FAIL] Unknown error executing the payload update for row $row of table $tableName. Did you run the 'ALTER TABLE' statements?\n";
         }
     }
 }
@@ -66,16 +69,18 @@ if ($affectedPayloads === FALSE) {
 }
 while ($oneAffectedPayload = mysqli_fetch_object($affectedPayloads)) {
     $decoded = unserialize($oneAffectedPayload->option_value);
+    $row = $oneAffectedPayload->row;
     if ($decoded === FALSE || !isset($decoded["lon"]) || !isset($decoded['lat'])) {
-        echo "[WARN] Please check row " . $oneAffectedPayload->row . " of table institution_option - this entry did not successfully unserialize() even though it is a coordinate!\n";
+        echo "[WARN] Please check row $row of table institution_option - this entry did not successfully unserialize() even though it is a coordinate!\n";
     }
     $newstyle = json_encode(["lon" => $decoded["lon"], "lat" => $decoded["lat"]]);
-    $rewrittenPayload = $dbInstance->exec("UPDATE institution_option SET option_value = ? WHERE row = ?", "si", $newstyle, $oneAffectedPayload->row);
+    
+    $rewrittenPayload = $dbInstance->exec("UPDATE institution_option SET option_value = ? WHERE row = ?", "si", $newstyle, $row);
     if ($rewrittenPayload !== FALSE) {
         echo "[ OK ] " . $oneAffectedPayload->option_value . " ---> $newstyle\n";
         continue;
     }
-    echo "[FAIL] Unknown error executing the payload update for row " . $oneAffectedPayload->row . " of table institution_option.\n";
+    echo "[FAIL] Unknown error executing the payload update for row $row of table institution_option.\n";
 }
 
 
@@ -120,6 +125,10 @@ while ($oneAttrib = mysqli_fetch_object($idpWideOptionsQuery)) {
         }
     }
     // delete it from the IdP level
-    $deletionQuery = $dbInstance->exec("DELETE FROM institution_option WHERE institution_id = ? AND option_name = ? and option_lang = ? and option_value = ?", "isss", $oneAttrib->institution_id, $oneAttrib->option_name, $oneAttrib->option_lang, $oneAttrib->option_value);
-    echo "[OK  ] Deleted IdP-wide EAP option " . $oneAttrib->option_name . " for IdP " . $profiles[$oneAttrib->institution_id]['IdP']->name . " (ID " . $profiles[$oneAttrib->institution_id]['IdP']->identifier . ").\n";
+    $instId = $oneAttrib->institution_id;
+    $optName = $oneAttrib->option_name;
+    $optLang = $oneAttrib->option_lang;
+    $optValue = $oneAttrib->option_value;
+    $deletionQuery = $dbInstance->exec("DELETE FROM institution_option WHERE institution_id = ? AND option_name = ? and option_lang = ? and option_value = ?", "isss", $instId, $optName, $optLang, $optValue);
+    echo "[OK  ] Deleted IdP-wide EAP option $optName for IdP " . $profiles[$instId]['IdP']->name . " (ID " . $profiles[$instId]['IdP']->identifier . ").\n";
 }

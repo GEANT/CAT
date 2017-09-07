@@ -186,7 +186,8 @@ class ProfileSilverbullet extends AbstractProfile {
             throw new Exception("Attempt to generate a SilverBullet installer, but the profile ID (constructor) and the profile from token do not match!");
         }
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
-        $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $tokenStatus['user']);
+        $userStatus = $tokenStatus['user'];
+        $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $userStatus);
         if (!$userrow || $userrow->num_rows != 1) {
             throw new Exception("Despite a valid token, the corresponding user was not found in database or database query error!");
         }
@@ -287,9 +288,12 @@ class ProfileSilverbullet extends AbstractProfile {
         $certificateId = null;
         if ($invitationsResult && $invitationsResult->num_rows > 0) {
             $invitationRow = mysqli_fetch_object($invitationsResult);
-            $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationRow->id);
+            $invitationId = $invitationRow->id;
+            $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationId);
             if (!$certificatesResult || $certificatesResult->num_rows < $invitationRow->quantity) {
-                $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationRow->profile_id, $invitationRow->silverbullet_user_id, $invitationRow->id, $serial, $username, $realExpiryDate);
+                $invitationProfile = $invitationRow->profile_id;
+                $invitationSbId =  $invitationRow->silverbullet_user_id;
+                $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationProfile, $invitationSbId, $invitationId, $serial, $username, $realExpiryDate);
                 if ($newCertificateResult === true) {
                     $certificateId = $this->databaseHandle->lastID();
                 }

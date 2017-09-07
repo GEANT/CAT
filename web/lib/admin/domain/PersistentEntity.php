@@ -219,7 +219,8 @@ abstract class PersistentEntity extends \core\common\Entity implements Persisten
         $state = false;
         $id = $this->getAttribute(self::ID);
         $query = sprintf("SELECT * FROM `%s` WHERE `%s` =?", $this->table, self::ID);
-        $result = $this->databaseHandle->exec($query, $id->getType(), $id->value);
+        $value = $id->value;
+        $result = $this->databaseHandle->exec($query, $id->getType(), $value);
         if(mysqli_num_rows($result)>0){
             $this->setRow(mysqli_fetch_assoc($result));
             $state = true;
@@ -235,7 +236,9 @@ abstract class PersistentEntity extends \core\common\Entity implements Persisten
     public function delete(){
         $id = $this->getAttribute(self::ID);
         $query = sprintf("DELETE FROM `%s` WHERE `%s`=?", $this->table, self::ID);
-        return $this->databaseHandle->exec($query, $id->getType(), $id->value);
+        $type = $id->getType();
+        $value = $id->value;
+        return $this->databaseHandle->exec($query, $type, $value);
     }
     
 }

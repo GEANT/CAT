@@ -121,11 +121,14 @@ class UserManagement extends \core\common\Entity {
                 // we can't rely on a unique key on this table (user IDs 
                 // possibly too long), so run a query to find there's an
                 // tuple already; and act accordingly
-                $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $owner, $invitationDetails->cat_institution_id);
+                $catId = $invitationDetails->cat_institution_id;
+                $level = $invitationDetails->cat_institution_id;
+                $destMail = $invitationDetails->invite_dest_mail;
+                $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $owner, $catId);
                 if (mysqli_num_rows($existing) > 0) {
-                    $this->databaseHandle->exec("UPDATE ownership SET blesslevel = ?, orig_mail = ? WHERE user_id = ? AND institution_id = ?", "sssi", $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail, $owner, $invitationDetails->cat_institution_id);
+                    $this->databaseHandle->exec("UPDATE ownership SET blesslevel = ?, orig_mail = ? WHERE user_id = ? AND institution_id = ?", "sssi", $level, $destMail, $owner, $catId);
                 } else {
-                    $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $invitationDetails->cat_institution_id, $invitationDetails->invite_issuer_level, $invitationDetails->invite_dest_mail);
+                    $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $catId, $level, $destMail);
                 }
                 $this->loggerInstance->writeAudit((string) $owner, "OWN", "IdP " . $invitationDetails->cat_institution_id . " - added user as owner");
                 return new IdP($invitationDetails->cat_institution_id);
@@ -250,7 +253,8 @@ Best regards,
             // what country are we talking about?
             $cat = new CAT();
             $extinfo = $cat->getExternalDBEntityDetails($externalId);
-            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $for, $token, $instIdentifier, $extinfo['country'], $externalId);
+            $extCountry = $extinfo['country'];
+            $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country, external_db_uniquehandle) VALUES(?, ?, ?, ?, ?, ?)", "ssssss", $level, $for, $token, $instIdentifier, $extCountry, $externalId);
             return $token;
         } else if (func_num_args() == 5) { // string name, and country set - whole new IdP
             $this->databaseHandle->exec("INSERT INTO invitations (invite_issuer_level, invite_dest_mail, invite_token,name,country) VALUES(?, ?, ?, ?, ?)", "sssss", $level, $for, $token, $instIdentifier, $country);
