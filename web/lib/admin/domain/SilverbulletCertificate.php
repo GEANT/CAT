@@ -13,6 +13,8 @@ class SilverbulletCertificate extends PersistentEntity {
 
     const TABLE = 'silverbullet_certificate';
 
+    const COLUMN_NAME_LIST = "`id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn`, `issued`, `expiry`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`";
+    
     /**
      * Required profile identifier
      * 
@@ -260,21 +262,22 @@ class SilverbulletCertificate extends PersistentEntity {
             $userValue = $userId->value;
             $attrType = $searchAttribute->getType();
             $attrValue = $searchAttribute->value;
-            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
-            $result = $databaseHandle->exec($query, $userType . $attrType, $userValue, $attrValue);
+            $query = sprintf("SELECT %s FROM `%s` WHERE `%s`=? AND `%s`=? ORDER BY `%s`, `%s` DESC", self::COLUMN_NAME_LIST, self::TABLE, self::SILVERBULLETUSERID, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
+            $types = $userType . $attrType;
+            $result = $databaseHandle->exec($query, $types, $userValue, $attrValue);
         } else if($silverbulletUser != null) {
             $userId = $silverbulletUser->getAttribute(self::ID);
             $userType = $userId->getType();
             $userValue = $userId->value;
-            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY);
+            $query = sprintf("SELECT %s FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::COLUMN_NAME_LIST, self::TABLE, self::SILVERBULLETUSERID, self::REVOCATION_STATUS, self::EXPIRY);
             $result = $databaseHandle->exec($query, $userType, $userValue);
         } else if ($searchAttribute != null) {
             $attrType = $searchAttribute->getType();
             $attrValue = $searchAttribute->value;
-            $query = sprintf("SELECT * FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::TABLE, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
+            $query = sprintf("SELECT %s FROM `%s` WHERE `%s`=? ORDER BY `%s`, `%s` DESC", self::COLUMN_NAME_LIST, self::TABLE, $searchAttribute->key, self::REVOCATION_STATUS, self::EXPIRY);
             $result = $databaseHandle->exec($query, $attrType, $attrValue);
         } else {
-            $query = sprintf("SELECT * FROM `%s` ORDER BY `%s`, `%s` DESC", self::TABLE, self::REVOCATION_STATUS, self::EXPIRY);
+            $query = sprintf("SELECT %s FROM `%s` ORDER BY `%s`, `%s` DESC", self::COLUMN_NAME_LIST, self::TABLE, self::REVOCATION_STATUS, self::EXPIRY);
             $result = $databaseHandle->exec($query);
         }
         

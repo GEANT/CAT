@@ -475,7 +475,8 @@ class ProfileSilverbullet extends AbstractProfile {
          * Finds invitation by its token attribute and loads all certificates generated using the token.
          * Certificate details will always be empty, since code still needs to be adapted to return multiple certificates information.
          */
-        $invitationsResult = $databaseHandle->exec("SELECT * FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $tokenvalue);
+        $invColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `token`, `quantity`, `expiry`";
+        $invitationsResult = $databaseHandle->exec("SELECT $invColumnNames FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $tokenvalue);
         if (!$invitationsResult || $invitationsResult->num_rows == 0) {
             $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
             return ["status" => self::SB_TOKENSTATUS_INVALID,
@@ -484,7 +485,8 @@ class ProfileSilverbullet extends AbstractProfile {
         // if not returned, we found the token in the DB
         $invitationRow = mysqli_fetch_object($invitationsResult);
         $rowId = $invitationRow->id;
-        $certificatesResult = $databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $rowId);
+        $certColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn`, `issued`, `expiry`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`";
+        $certificatesResult = $databaseHandle->exec("SELECT $certColumnNames FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $rowId);
         $certificatesNumber = ($certificatesResult ? $certificatesResult->num_rows : 0);
         $loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
 
