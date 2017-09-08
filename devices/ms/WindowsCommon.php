@@ -168,13 +168,12 @@ class WindowsCommon extends \core\DeviceConfig {
         // $freeBottom is set to how much vertical space we need to leave at the bottom
         // this will depend on the design of the background
         $freeBottom = 30;
-        // $useFederationLogo controls if federation logos should be enabled
+        // $useFederationLogo controls if federation logos should be enabled (TRUE or FALSE)
         $useFederationLogo = FALSE;
 
         $bgImage = new \Imagick('cat_bg.bmp');
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
-        $usedHeight = 0;
         $logosToPlace = [];
         $this->background = [];
         $this->background['freeHeight'] = $bgImageSize['height'] - $freeTop - $freeBottom;
@@ -198,7 +197,6 @@ class WindowsCommon extends \core\DeviceConfig {
                 $voffset += $logoSize['height'];
                 }
         }
-
 //new image is saved as the background
         $bgImage->writeImage('BMP3:cat_bg.bmp');
     }
@@ -330,6 +328,6 @@ class WindowsCommon extends \core\DeviceConfig {
     public $codePage;
     public $lang;
     public $useGeantLink;
-    public $background;
+    private $background;
 
 }
