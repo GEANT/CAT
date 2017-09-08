@@ -94,7 +94,7 @@ class DBConnection {
             }
             $prepResult = $statementObject->prepare($querystring);
             if ($prepResult === FALSE) {
-                throw new Exception("DB: Unable to prepare statement! Statement was --> $query <--, error was --> ". $statementObject->error ." <--.");
+                throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> ". $statementObject->error ." <--.");
             }
 
             // we have a variable number of arguments packed into the ... array
