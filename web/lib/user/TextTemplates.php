@@ -33,6 +33,8 @@ const PROFILE_SELECTION = 1040;
 const DOWNLOAD_CHOOSE = 1050;
 const DOWNLOAD_ALLPLATFORMS = 1051;
 const DOWNLOAD_MESSAGE = 1052;
+const DOWNLOAD_REDIRECT = 1053;
+const DOWNLOAD_REDIRECT_CONTINUE = 1054;
 
 /**
  * some of the texts we write are consortium-specific.
@@ -50,7 +52,7 @@ class TextTemplates {
     /**
      * An array with lots of template texts. 
      * 
-     * HTML markup is used sparingly. Expect <a> <span> but nothing else. 
+     * HTML markup is used sparingly. Expect <br> <a> <b> <span> but nothing else. 
      * Remember that you can get plain text by using strip_tags()
      * 
      * @var array
@@ -80,5 +82,7 @@ class TextTemplates {
         $this->templates[DOWNLOAD_CHOOSE] = _("Choose an installer to download");
         $this->templates[DOWNLOAD_ALLPLATFORMS] = _("All platforms");
         $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");
+        $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
     }
 }

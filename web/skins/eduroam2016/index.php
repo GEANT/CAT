@@ -92,11 +92,10 @@ include("user/js/cat_js.php");
                 <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                 <?php echo $divs->div_user_welcome() ?>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
-                    <?php echo _("Your local administrator has specified a redirect to a local support page.<br>
-                            When you click <b>Continue</b> this support page will be opened in a new window/tab."); ?>
+                    <?php echo $Gui->textTemplates->templates[web\lib\user\DOWNLOAD_REDIRECT]; ?>
                     <br>
                     <span class="redirect_link">
-                        <a id="profile_redirect_bt" href="" target="_blank"><?php echo _("Continue"); ?>
+                        <a id="profile_redirect_bt" href="" target="_blank"><?php echo $Gui->textTemplates->templates[\web\lib\user\DOWNLOAD_REDIRECT_CONTINUE]; ?>
                         </a>
                     </span>
                 </div> <!-- id="profile_redirect" -->
