@@ -63,14 +63,18 @@ class Federation extends EntityWithDBProperties {
         // first, find out which profiles belong to this federation
         $cohesionQuery = "SELECT profile_id FROM profile, institution WHERE profile.inst_id = institution.inst_id AND institution.country = ?";
         $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->identifier);
+        $profilesArray = [];
         while ($result = mysqli_fetch_object($profilesList)) {
-            foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
-                $countDevice = [];
-                $countDevice['ADMIN'] = 0;
-                $countDevice['SILVERBULLET'] = 0;
-                $countDevice['USER'] = 0;
+            $profilesArray[] = $result->profile_id;
+        }
+        foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
+            $countDevice = [];
+            $countDevice['ADMIN'] = 0;
+            $countDevice['SILVERBULLET'] = 0;
+            $countDevice['USER'] = 0;
+            foreach ($profilesArray as $profileNumber) {
                 $deviceQuery = "SELECT downloads_admin, downloads_silverbullet, downloads_user FROM downloads WHERE device_id = ? AND profile_id = ?";
-                $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $result->profile_id);
+                $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $profileNumber);
                 while ($queryResult = mysqli_fetch_object($statsList)) {
                     $countDevice['ADMIN'] = $countDevice['ADMIN'] + $queryResult->downloads_admin;
                     $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_silverbullet;
@@ -174,13 +178,13 @@ class Federation extends EntityWithDBProperties {
     public function newIdP($ownerId, $level, $mail) {
         $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->identifier')");
         $identifier = $this->databaseHandle->lastID();
-        
+
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
             $text = "<p>Could not create a new " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . "!</p>";
             echo $text;
             throw new Exception($text);
         }
-        
+
         if ($ownerId != "PENDING") {
             $this->databaseHandle->exec("INSERT INTO ownership (user_id,institution_id, blesslevel, orig_mail) VALUES(?,?,?,?)", "siss", $ownerId, $identifier, $level, $mail);
         }
