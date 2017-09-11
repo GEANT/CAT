@@ -86,9 +86,9 @@ class Device_W8 extends WindowsCommon {
             $this->writeClientP12File();
         }
         $this->copyFiles($this->selectedEap);
-        if (isset($this->attributes['internal:logo_file'])) {
-            $this->combineLogo($this->attributes['internal:logo_file']);
-        }
+        $fedLogo = $this->attributes['fed:logo_file'] ?? NULL;
+        $idpLogo = $this->attributes['internal:logo_file'] ?? NULL;
+        $this->combineLogo($idpLogo, $fedLogo);
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
         $installerPath = $this->signInstaller();

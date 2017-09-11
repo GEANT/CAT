@@ -115,7 +115,7 @@ class WindowsCommon extends \core\DeviceConfig {
             } else {
                 $out .= sprintf(_("In addition to <strong>%s</strong> the installer will also configure access to:"), implode(', ', CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . " ";
             }
-            $out .= '<strong>' . join ('</strong>, <strong>', array_diff(array_keys($this->attributes['internal:SSID']), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
+            $out .= '<strong>' . join('</strong>, <strong>', array_diff(array_keys($this->attributes['internal:SSID']), CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) . '</strong>';
             $out .= "<p>";
         }
 // TODO - change this below
@@ -132,14 +132,35 @@ class WindowsCommon extends \core\DeviceConfig {
             if ($ssidCount > 1) {
                 $out .= "<p>";
                 $out .= _("You will be required to enter the same credentials for each of the configured notworks:") . " ";
-                $out .= '<strong>' . join ('</strong>, <strong>', array_keys($this->attributes['internal:SSID'])) . '</strong>';
+                $out .= '<strong>' . join('</strong>, <strong>', array_keys($this->attributes['internal:SSID'])) . '</strong>';
             }
         }
         return($out);
     }    
     
-    protected function combineLogo($logos, $fedLogo = NULL) {
+    private function scaleLogo($imagePath, $maxSize) {
+        $imageObject = new \Imagick($imagePath);
+        $imageSize = $imageObject->getImageGeometry();
+        $imageMax = max($imageSize);
+        $this->loggerInstance->debug(5, "Logo size: ");
+        $this->loggerInstance->debug(5, $imageSize);
+        $this->loggerInstance->debug(5, "max=$imageMax\n");
+// resize logo if necessary
+        if ($imageMax > $maxSize) {
+            if ($imageMax == $imageSize['width']) {
+                $imageObject->scaleImage($maxSize, 0);
+            } else {
+                $imageObject->scaleImage(0, $maxSize);
+            }
+        }
+        $imageSize = $imageObject->getImageGeometry();
+        $this->background['freeHeight'] -= $imageSize['height'];
+        return($imageObject);
+    }
+
+    protected function combineLogo($logos = NULL, $fedLogo = NULL) {
         // maximum size to which we want to resize the logos
+        
         $maxSize = 120;
         // $freeTop is set to how much vertical space we need to leave at the top
         // this will depend on the design of the background
@@ -147,53 +168,35 @@ class WindowsCommon extends \core\DeviceConfig {
         // $freeBottom is set to how much vertical space we need to leave at the bottom
         // this will depend on the design of the background
         $freeBottom = 30;
-        // $useFederationLogo controls if federation logos should be enabled
+        // $useFederationLogo controls if federation logos should be enabled (TRUE or FALSE)
         $useFederationLogo = FALSE;
-                
+
         $bgImage = new \Imagick('cat_bg.bmp');
         $bgImage->setFormat('BMP3');
         $bgImageSize = $bgImage->getImageGeometry();
-        $freeHeight = $bgImageSize['height'] - $freeTop - $freeBottom;
-        $idpLogoObject = new \Imagick($logos[0]['name']);
-        $idpLogoSize = $idpLogoObject->getImageGeometry();
-        $max = max($idpLogoSize);
-        $this->loggerInstance->debug(5, "Logo size: ");
-        $this->loggerInstance->debug(5, $idpLogoSize);
-        $this->loggerInstance->debug(5, "max=$max\n");
+        $logosToPlace = [];
+        $this->background = [];
+        $this->background['freeHeight'] = $bgImageSize['height'] - $freeTop - $freeBottom;
 
-// resize logo if necessary
-        if ($max > $maxSize) {
-            if ($max == $idpLogoSize['width']) {
-                $idpLogoObject->scaleImage($maxSize, 0);
-            } else {
-                $idpLogoObject->scaleImage(0, $maxSize);
-            }
-            $idpLogoSize = $idpLogoObject->getImageGeometry();
-            $this->loggerInstance->debug(5, "New logo size: ");
-            $this->loggerInstance->debug(5, $idpLogoSize);
-        }
         if ($useFederationLogo && $fedLogo != NULL) {
-            $fedLogoObject = new \Imagick($fedLogo[0]['name']);
-            $fedLogoSize = $fedLogoObject->getImageGeometry();
-            $fedMax = max($fedLogoSize);
-            $this->loggerInstance->debug(5, "Fed Logo size: ");
-            $this->loggerInstance->debug(5, $fedLogoSize);
-            $this->loggerInstance->debug(5, "max=$fedMax\n");
-            if ($fedLogoSize['width'] > $maxSize) {
-                $fedLogoObject->scaleimage($maxSize, 0);
-                $fedLogoSize = $fedLogoObject->getImageGeometry();
-            }
-            $hoffset = round(($bgImageSize['width'] - $fedLogoSize['width']) / 2);
-            $freeSpace = round(($freeHeight - $fedLogoSize['height'] - $idpLogoSize['height']) / 3);
-            $voffset = $freeSpace + $freeTop;
-            $bgImage->compositeImage($fedLogoObject, $fedLogoObject->getImageCompose(), $hoffset, $voffset);
-            $voffset = 2 * $freeSpace + $fedLogoSize['height'] + $freeTop;
-        } else {
-            $voffset = round(($freeHeight - $idpLogoSize['height']) / 2) + $freeTop;
+            $logosToPlace[] = $this->scaleLogo($fedLogo[0]['name'],$maxSize);
         }
-        $hoffset = round(($bgImageSize['width'] - $idpLogoSize['width']) / 2);
-        $bgImage->compositeImage($idpLogoObject, $idpLogoObject->getImageCompose(), $hoffset, $voffset);    
+        if ($logos != NULL) {
+            $logosToPlace[] = $this->scaleLogo($logos[0]['name'],$maxSize);
+        }
 
+        $logoCount = count($logosToPlace);
+        if ($logoCount > 0) {
+            $voffset = $freeTop;
+            $freeSpace = round($this->background['freeHeight'] / ($logoCount + 1));
+            foreach ($logosToPlace as $logo) {
+                $voffset += $freeSpace;
+                $logoSize = $logo->getImageGeometry();
+                $hoffset = round(($bgImageSize['width'] - $logoSize['width']) / 2);
+                $bgImage->compositeImage($logo, $logo->getImageCompose(), $hoffset, $voffset);
+                $voffset += $logoSize['height'];
+                }
+        }
 //new image is saved as the background
         $bgImage->writeImage('BMP3:cat_bg.bmp');
     }
@@ -325,5 +328,6 @@ class WindowsCommon extends \core\DeviceConfig {
     public $codePage;
     public $lang;
     public $useGeantLink;
+    private $background;
 
 }

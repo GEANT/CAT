@@ -91,9 +91,8 @@ class Device_W10 extends WindowsCommon {
         }
         $this->copyFiles($this->selectedEap);
         $fedLogo = $this->attributes['fed:logo_file'] ?? NULL;
-        if (isset($this->attributes['internal:logo_file'])) {
-            $this->combineLogo($this->attributes['internal:logo_file'], $fedLogo);
-        }
+        $idpLogo = $this->attributes['internal:logo_file'] ?? NULL;
+        $this->combineLogo($idpLogo, $fedLogo);
         $this->writeMainNSH($this->selectedEap, $this->attributes);
         $this->compileNSIS();
         $installerPath = $this->signInstaller();

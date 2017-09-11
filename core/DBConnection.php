@@ -86,10 +86,16 @@ class DBConnection {
         } else {
             // fancy! prepared statement with dedicated argument list
             if (strlen($types) != count($arguments)) {
-                throw new Exception("DB Prepared Statement: Number of arguments and the type list length differ!");
+                throw new Exception("DB: Prepared Statement: Number of arguments and the type list length differ!");
             }
             $statementObject = $this->connection->stmt_init();
-            $statementObject->prepare($querystring);
+            if ($statementObject === FALSE) {
+                throw new Exception("DB: Unable to initialise prepared Statement!");
+            }
+            $prepResult = $statementObject->prepare($querystring);
+            if ($prepResult === FALSE) {
+                throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> ". $statementObject->error ." <--.");
+            }
 
             // we have a variable number of arguments packed into the ... array
             // but the function needs to be called exactly once, with a series of
@@ -98,8 +104,14 @@ class DBConnection {
 
             $localArray = $arguments;
             array_unshift($localArray, $types);
-            call_user_func_array([$statementObject, "bind_param"], $localArray);
+            $retval = call_user_func_array([$statementObject, "bind_param"], $localArray);
+            if ($retval === FALSE) {
+                throw new Exception("DB: Unuable to bind parameters to prepared statement! Argument array was --> ". var_export($localArray, TRUE) ." <--. Error was --> ". $statementObject->error ." <--");
+            }
             $result = $statementObject->execute();
+            if ($result === FALSE) {
+                throw new Exception("DB: Unuable to execute prepared statement! Error was --> ". $statementObject->error ." <--");
+            }
             $selectResult = $statementObject->get_result();
             if ($selectResult !== FALSE) {
                 $result = $selectResult;
