@@ -174,7 +174,8 @@ abstract class PersistentEntity extends \core\common\Entity implements Persisten
         }
         $keyString .= ")";
         $valueString .= ")";
-        if($keyString != "()"){
+        $isValid = $this->validate();
+        if($isValid && $keyString != "()"){
             $query .= " " .$keyString . " VALUES " . $valueString;
             $result = $this->databaseHandle->exec($query, $types, ...$arguments);
             if($result){
