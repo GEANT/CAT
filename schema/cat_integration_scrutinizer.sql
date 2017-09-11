@@ -327,6 +327,7 @@ CREATE TABLE `silverbullet_certificate` (
   `one_time_token` varchar(45) NOT NULL,
   `serial_number` blob,
   `cn` varchar(128) DEFAULT NULL,
+  `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '', /* new field */
   `expiry` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `device` varchar(128) DEFAULT NULL,
   `revocation_status` enum('NOT_REVOKED','REVOKED') NOT NULL DEFAULT 'NOT_REVOKED',
