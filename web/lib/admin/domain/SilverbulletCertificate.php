@@ -106,6 +106,19 @@ class SilverbulletCertificate extends PersistentEntity {
             $this->set(self::EXPIRY, date('Y-m-d H:i:s', strtotime("+1 week")));
         }
     }
+    
+    /**
+     * 
+     * {@inheritDoc}
+     * @see \web\lib\admin\domain\PersistentInterface::validate()
+     */
+    public function validate(){
+        return (
+            !empty($this->get(self::PROFILEID)) &&
+            !empty($this->get(self::SILVERBULLETUSERID)) &&
+            !empty($this->get(self::SILVERBULLETINVITATIONID))
+        );
+    }
 
     /**
      * 
