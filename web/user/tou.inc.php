@@ -85,4 +85,3 @@ any other relevant country.
 The eduroam Operations team may vary these Terms from time to time without notice to You. You are advised to check these
 Terms before using the Metadata and/or Installers.</li></ol>",
 ];
-?>

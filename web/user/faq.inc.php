@@ -61,4 +61,3 @@
            'text'=>sprintf(_("%s is a global WiFi roaming consortium which gives members of education and research access to the internet <i>for free</i> on all %s hotspots on the planet. There are several million %s users already, enjoying free internet access on more than 6.000 hotspots! Visit <a href='http://www.eduroam.org'>the %s homepage</a> for more details."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'],CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])
          ]);
     }
-?>

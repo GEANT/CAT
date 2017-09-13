@@ -52,4 +52,3 @@ class Menu {
     private $menu;
     private $visibility;
 }
-?>
