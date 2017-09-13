@@ -120,8 +120,8 @@ class ProfileSilverbullet extends AbstractProfile {
             $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));
         }
 
-        $tempArrayProfLevel = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
-        $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $tempArrayProfLevel);
+        $temp = array_merge($this->addInternalAttributes($internalAttributes), $this->addInternalAttributes($silverbulletAttributes));
+        $tempArrayProfLevel = array_merge($this->addDatabaseAttributes(), $temp);
 
 // now, fetch and merge IdP-wide attributes
 
@@ -153,7 +153,11 @@ class ProfileSilverbullet extends AbstractProfile {
      *
      */
     public function addSupportedEapMethod($type, $preference) {
-// params are needed for proper overriding, but not used at all.
+        // the parameters really should only list SB and with prio 1 - otherwise,
+        // something fishy is going on
+        if ($type != \core\common\EAP::EAPTYPE_SILVERBULLET || $preference != 1) {
+            throw new Exception("Silverbullet::addSupportedEapMethod was called for a non-SP EAP type or unexpected priority!");
+        }
         parent::addSupportedEapMethod(\core\common\EAP::EAPTYPE_SILVERBULLET, 1);
     }
 
@@ -162,7 +166,10 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param boolean $shallwe
      */
     public function setAnonymousIDSupport($shallwe) {
-// params are needed for proper overriding, but not used at all.
+        // we don't do anonymous outer IDs in SB
+        if ($shallwe == TRUE) {
+            throw new Exception("Silverbullet: attempt to add anonymous outer ID support to a SB profile!");
+        }
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
     }
 
