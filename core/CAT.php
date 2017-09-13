@@ -137,7 +137,7 @@ class CAT extends \core\common\Entity {
         $dummy_inst2 = _("organisation");
         $dummy_inst3 = _("Identity Provider");
         // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst1 . $dummy_inst3) < 0 ) {
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0 ) {
             throw new Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
 
