@@ -85,5 +85,3 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                         . "<li><b>checkout.google.com</b></li>"
                         . "</ul>"
         ));
-
-?>
