@@ -101,6 +101,17 @@ class SilverbulletUser extends PersistentEntity{
     }
     
     /**
+     *
+     * {@inheritDoc}
+     * @see \web\lib\admin\domain\PersistentInterface::validate()
+     */
+    public function validate(){
+        return (
+                !empty($this->get(self::PROFILEID))
+        );
+    }
+    
+    /**
      * Accepts any string date value representation and prepares it to be stored.
      * 
      * @param string $date Takes any string value that can passed to strtotime() function.

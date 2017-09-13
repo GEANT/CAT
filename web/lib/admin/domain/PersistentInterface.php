@@ -20,4 +20,10 @@ interface PersistentInterface {
      * @return boolean
      */
     public function delete();
+    /**
+     * Performs validation whether all required fields are defined properly before executing save() method.
+     * 
+     * @return
+     */
+    public function validate();
 }

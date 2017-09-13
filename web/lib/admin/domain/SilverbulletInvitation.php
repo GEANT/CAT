@@ -78,6 +78,18 @@ class SilverbulletInvitation extends PersistentEntity {
     }
     
     /**
+     *
+     * {@inheritDoc}
+     * @see \web\lib\admin\domain\PersistentInterface::validate()
+     */
+    public function validate(){
+        return (
+            !empty($this->get(self::PROFILEID)) &&
+            !empty($this->get(self::SILVERBULLETUSERID))
+        );
+    }
+    
+    /**
      * 
      * @return number
      */
