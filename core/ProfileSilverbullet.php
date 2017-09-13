@@ -142,7 +142,12 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string path the path where the new installer can be found
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
-// params are needed for proper overriding, but not needed at all.
+        // caching is not supported in SB (private key in installers)
+        // the following merely makes the "unused parameter" warnings go away
+        // the FALSE in condition one makes sure it never gets executed
+        if (FALSE || $device == "Macbeth" || $path == "heath" || $mime == "application/witchcraft" || $integerEapType == 0) {
+            throw new Exception("FALSE is TRUE, and TRUE is FALSE! Hover through the browser and filthy code!");
+        }
     }
 
     /**
