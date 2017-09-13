@@ -172,7 +172,7 @@ class ProfileSilverbullet extends AbstractProfile {
      */
     public function setAnonymousIDSupport($shallwe) {
         // we don't do anonymous outer IDs in SB
-        if ($shallwe == TRUE) {
+        if ($shallwe === TRUE) {
             throw new Exception("Silverbullet: attempt to add anonymous outer ID support to a SB profile!");
         }
         $this->databaseHandle->exec("UPDATE profile SET use_anon_outer = 0 WHERE profile_id = $this->identifier");
