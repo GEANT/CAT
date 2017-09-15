@@ -245,9 +245,10 @@ abstract class DeviceConfig extends \core\common\Entity {
         foreach ($eap_array as $eap) {
             if (in_array($eap, $this->supportedEapMethods)) {
                 $this->selectedEap = $eap;
-                $this->loggerInstance->debug(4, "Selected EAP:");
-                $this->loggerInstance->debug(4, $eap);
             }
+        }
+        if ($this->selectedEap != []) {
+            $this->selectedEapObject = new common\EAP($this->selectedEap);
         }
     }
 
@@ -693,6 +694,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * @var array
      */
     public $selectedEap;
+    public $selectedEapObject;
 
     /**
      * the path to the profile signing program
