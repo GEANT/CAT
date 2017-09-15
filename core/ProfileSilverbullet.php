@@ -153,17 +153,17 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * register new supported EAP method for this profile
      *
-     * @param array $type The EAP Type, as defined in class EAP
+     * @param \core\common\EAP $type The EAP Type, as defined in class EAP
      * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      *
      */
-    public function addSupportedEapMethod($type, $preference) {
+    public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         // the parameters really should only list SB and with prio 1 - otherwise,
         // something fishy is going on
-        if ($type != \core\common\EAP::EAPTYPE_SILVERBULLET || $preference != 1) {
+        if ($type->getIntegerRep() != \core\common\EAP::INTEGER_SILVERBULLET || $preference != 1) {
             throw new Exception("Silverbullet::addSupportedEapMethod was called for a non-SP EAP type or unexpected priority!");
         }
-        parent::addSupportedEapMethod(\core\common\EAP::EAPTYPE_SILVERBULLET, 1);
+        parent::addSupportedEapMethod($type, 1);
     }
 
     /**

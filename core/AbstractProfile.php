@@ -373,14 +373,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * register new supported EAP method for this profile
      *
-     * @param array $type The EAP Type, as defined in class EAP
+     * @param \core\common\EAP $type The EAP Type, as defined in class EAP
      * @param int $preference preference of this EAP Type. If a preference value is re-used, the order of EAP types of the same preference level is undefined.
      *
      */
-    public function addSupportedEapMethod($type, $preference) {
+    public function addSupportedEapMethod(\core\common\EAP $type, $preference) {
         $this->databaseHandle->exec("INSERT INTO supported_eap (profile_id, eap_method_id, preference) VALUES ("
                 . $this->identifier . ", "
-                . \core\common\EAP::eAPMethodArrayIdConversion($type) . ", "
+                . $type->getIntegerRep() . ", "
                 . $preference . ")");
         $this->updateFreshness();
     }
