@@ -131,7 +131,7 @@ class EAP {
      * @var array
      */
     private $arrayRep;
-    
+
     /**
      * The integer representation of the EAP type
      * @var int
@@ -162,19 +162,12 @@ class EAP {
         throw new Exception("Unable to instantiate the EAP class - the EAP type is bogus.");
     }
 
-    const OPMODE_PASSWORD_REQUIRED = 100;
-    const OPMODE_PASSWORD_OPTIONAL = 101;
-    const OPMODE_PASSWORD_NOTPOSSIBLE = 102;
-    const OPMODE_CLIENTCERT_REQUIRED = 103;
-    const OPMODE_CLIENTCERT_OPTIONAL = 104;
-    const OPMODE_CLIENTCERT_NOTPOSSIBLE = 105;
-    
     /**
      * Is this a password-based EAP method?
      * @return int
      * @throws Exception
      */
-    public function isPasswordBased() {
+    public function isPasswordRequired() {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_pwd:
             case EAP::INTEGER_FAST_GTC:
@@ -182,36 +175,64 @@ class EAP {
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAPv2:
             case EAP::INTEGER_TTLS_PAP:
-                return EAP::OPMODE_PASSWORD_REQUIRED;
+                return TRUE;
             case EAP::INTEGER_TLS:
             case EAP::INTEGER_SILVERBULLET:
-                return EAP::OPMODE_PASSWORD_NOTPOSSIBLE;
+                return FALSE;
             default:
-                throw new Exception("Unable to determine if the EAP type is password-based or not!");
+                throw new Exception("Unable to determine if the EAP type required a password or not!");
         }
     }
-    
+
+    /**
+     * There could be EAP methods which have an optional need for a password.
+     * Not aware of any, so this is a simple function :-)
+     * @return boolean
+     */
+    public function isPasswordOptional() {
+        return FALSE;
+    }
+
     /**
      * Is this a certificate-based EAP method?
      * @return int
      * @throws Exception
      */
-    public function isClientCertBased() {
+    public function isClientCertRequired() {
         switch ($this->intRep) {
             case EAP::INTEGER_EAP_pwd:
-                return EAP::OPMODE_CLIENTCERT_NOTPOSSIBLE;
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
             case EAP::INTEGER_TTLS_MSCHAPv2:
             case EAP::INTEGER_TTLS_PAP:
-                return EAP::OPMODE_CLIENTCERT_OPTIONAL;
+                return FALSE;
             case EAP::INTEGER_TLS:
             case EAP::INTEGER_SILVERBULLET:
-                return EAP::OPMODE_CLIENTCERT_REQUIRED;
+                return TRUE;
             default:
-                throw new Exception("Unable to determine if the EAP type is client-certificate-based or not!");
-        }        
+                throw new Exception("Unable to determine if the EAP type requires client-certificates or not!");
+        }
+    }
+
+    /**
+     * Does an EAP type optionally allow to send a client certificate?
+     */
+    public function isClientCertOptional() {
+        switch ($this->intRep) {
+            case EAP::INTEGER_EAP_pwd:
+            case EAP::INTEGER_TLS:
+            case EAP::INTEGER_SILVERBULLET:
+                return FALSE;
+            case EAP::INTEGER_FAST_GTC:
+            case EAP::INTEGER_PEAP_MSCHAPv2:
+            case EAP::INTEGER_TTLS_GTC:
+            case EAP::INTEGER_TTLS_MSCHAPv2:
+            case EAP::INTEGER_TTLS_PAP:
+                return TRUE;
+            default:
+                throw new Exception("Unable to determine if the EAP type has optional client-certificates or not!");
+        }
     }
 
     /**
@@ -234,8 +255,8 @@ class EAP {
             default:
                 throw new Exception("Unable to determine if the EAP type requires a CA trust base for secure functioning or not!");
         }
-        
     }
+
     /**
      * Does the EAP type require the specification of a server name to be secure?
      * @return bool
@@ -255,9 +276,8 @@ class EAP {
             default:
                 throw new Exception("Unable to determine if the EAP type requires a server name trust base for secure functioning or not!");
         }
-        
     }
-    
+
     /**
      * Returns the Array representation of the EAP type.
      * 
@@ -266,7 +286,7 @@ class EAP {
     public function getArrayRep() {
         return $this->arrayRep;
     }
-    
+
     /**
      * Returns the int representation of the EAP type.
      * 
@@ -275,7 +295,7 @@ class EAP {
     public function getIntegerRep() {
         return $this->intRep;
     }
-    
+
     /**
      * This function takes the EAP method in array representation (OUTER/INNER) and returns it in a custom format for the
      * Linux installers (not numbers, but strings as values).
