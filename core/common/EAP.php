@@ -148,7 +148,7 @@ class EAP {
         if (is_numeric($eapType) && array_key_exists($eapType, EAP::EAPTYPES_CONVERSION)) {
             $key = array_keys(EAP::EAPTYPES_CONVERSION, EAP::EAPTYPES_CONVERSION[$eapType]);
             $this->intRep = $key[0];
-            $this->arrayRep = EAP::EAPTYPES_CONVERSION[$eapType];
+            $this->arrayRep = EAP::EAPTYPES_CONVERSION[$this->intRep];
             return;
         }
         if (is_array($eapType)) {
@@ -347,7 +347,7 @@ class EAP {
         $retval = [];
 
         foreach (array_values(EAP::EAPTYPES_CONVERSION) as $oneArrayRep) {
-            $retval .= new EAP($oneArrayRep);
+            $retval[] = new EAP($oneArrayRep);
         }
         return $retval;
     }

@@ -148,7 +148,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         }
 
                         $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
-                        $dev->device->calculatePreferredEapType([\core\common\EAP::EAPTYPE_SILVERBULLET]);
+                        $dev->device->calculatePreferredEapType([new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET)]);
                         if ($dev->device->selectedEap == []) {
                             echo "<p>".sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;

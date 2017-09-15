@@ -154,7 +154,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
 
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
-        $this->calculatePreferredEapType($eaps->getArrayRep());
+        $this->calculatePreferredEapType($eaps);
         if (count($this->selectedEap) == 0) {
             throw new Exception("No EAP type specified.");
         }
@@ -238,13 +238,13 @@ abstract class DeviceConfig extends \core\common\Entity {
     /**
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
-     * @param array eap_array an array of eap methods supported by a given device
+     * @param array eapArrayofObjects an array of eap methods supported by a given device
      */
-    public function calculatePreferredEapType($eap_array) {
+    public function calculatePreferredEapType($eapArrayofObjects) {
         $this->selectedEap = [];
-        foreach ($eap_array as $eap) {
-            if (in_array($eap, $this->supportedEapMethods)) {
-                $this->selectedEap = $eap;
+        foreach ($eapArrayofObjects as $eap) {
+            if (in_array($eap->getArrayRep(), $this->supportedEapMethods)) {
+                $this->selectedEap = $eap->getArrayRep();
             }
         }
         if ($this->selectedEap != []) {
