@@ -144,7 +144,7 @@ class EAP {
      * 
      * @param mixed $eapType the EAP type, either in its integer or array representation
      */
-    public function __construct(mixed $eapType) {
+    public function __construct($eapType) {
         if (is_numeric($eapType) && array_key_exists($eapType, EAP::EAPTYPES_CONVERSION)) {
             $key = array_keys(EAP::EAPTYPES_CONVERSION, EAP::EAPTYPES_CONVERSION[$eapType]);
             $this->intRep = $key[0];
@@ -341,10 +341,15 @@ class EAP {
     /**
      * This function enumerates all known EAP types and returns them as array
      * 
-     * @return array of all EAP types the CAT knows about
+     * @return array of all EAP types the CAT knows about, as objects
      */
     public static function listKnownEAPTypes() {
-        return array_values(EAP::EAPTYPES_CONVERSION);
+        $retval = [];
+    
+        foreach (array_values(EAP::EAPTYPES_CONVERSION) as $oneArrayRep) {
+            $retval .= new EAP($oneArrayRep);
+        }
+            return $retval;
     }
 
     /**
