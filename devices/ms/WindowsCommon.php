@@ -119,14 +119,14 @@ class WindowsCommon extends \core\DeviceConfig {
             $out .= "<p>";
         }
 // TODO - change this below
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_TLS || $this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+        if ($this->selectedEapObject->isClientCertRequired()) {
             $out .= sprintf(_("In order to connect to the network you will need an a personal certificate in the form of a p12 file. You should obtain this certificate from your %s. Consult the support page to find out how this certificate can be obtained. Such certificate files are password protected. You should have both the file and the password available during the installation process."), $this->nomenclature_inst);
             return($out);
         }
         // not EAP-TLS
         $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
 
-        if (! $this->useGeantLink && ( $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 || $this->selectedEap == \core\common\EAP::EAPTYPE_TTLS_PAP )) {
+        if (! $this->useGeantLink && $this->selectedEap['OUTER'] == \core\common\EAP::TTLS) {
             $out .= "<p>";
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
