@@ -144,44 +144,20 @@ class OptionDisplay {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
                                    } else {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"none\";
-                                   }
-                               if (/#file#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"block\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
+                                   }";
+        $dataTypes = ["file", "text", "string", "boolean", "integer"];
+        foreach ($dataTypes as $oneDataType) {
+            // TODO make this a $jsmagic .= after the update of cat-pilot
+            $jsmagic .= "if (/#$oneDataType#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  document.getElementById(\"S$rowid-input-file\").style.display = \"".($oneDataType == "file" ? "block" : "none")."\";
+                                  document.getElementById(\"S$rowid-input-text\").style.display = \"".($oneDataType == "text" ? "block" : "none")."\";
+                                  document.getElementById(\"S$rowid-input-string\").style.display = \"".($oneDataType == "string" ? "block" : "none")."\";
+                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"".($oneDataType == "boolean" ? "block" : "none")."\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"".($oneDataType == "integer" ? "block" : "none")."\";
                              }
-                               if (/#string#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"block\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
-                               }
-                                  if (/#text#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"block\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";    
-                               }
-                                  if (/#boolean#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"block\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"none\";
-                               }
-                                  if (/#integer#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"none\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"block\";
-                               }
-    '";
-
+                             ";
+        }
+        
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
         $uiElements = new UIElements();
