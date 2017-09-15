@@ -47,7 +47,7 @@ if (isset($_REQUEST['profile_id'])) {
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("RADIUS Tests can only be performed on RADIUS Profiles (d'oh!)");
     }
-    $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($my_profile->getEapMethodsinOrderOfPreference(1)), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()['eap:ca_file']);
+    $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()['eap:ca_file']);
 } else {
     $my_profile = NULL;
     $testsuite = new \core\diag\RADIUSTests($check_realm, "@".$check_realm);

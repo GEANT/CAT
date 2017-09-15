@@ -91,22 +91,27 @@ class RADIUSTests extends AbstractTest {
 
         $this->opMode = self::RADIUS_TEST_OPERATION_MODE_SHALLOW;
 
-        if (in_array(\core\common\EAP::INTEGER_TLS, $supportedEapTypes) ||
-                in_array(\core\common\EAP::INTEGER_SILVERBULLET, $supportedEapTypes) ||
-                in_array(\core\common\EAP::INTEGER_TTLS_GTC, $supportedEapTypes) ||
-                in_array(\core\common\EAP::INTEGER_TTLS_MSCHAPv2, $supportedEapTypes) ||
-                in_array(\core\common\EAP::INTEGER_TTLS_PAP, $supportedEapTypes) ||
-                in_array(\core\common\EAP::INTEGER_PEAP_MSCHAPv2, $supportedEapTypes) ||
-                in_array(\core\common\EAP::INTEGER_FAST_GTC, $supportedEapTypes)) {
+        $caNeeded = FALSE;
+        $serverNeeded = FALSE;
+        foreach ($supportedEapTypes as $oneEapType) {
+            if ($oneEapType->needsServerCACert()) {
+                $caNeeded = TRUE;
+            }
+            if ($oneEapType->needsServerName()) {
+                $serverNeeded = TRUE;
+            }
+        }
+        
+        if ($caNeeded) {
             // we need to have info about at least one CA cert and server names
-            if (count($this->expectedCABundle) == 0 || count($this->expectedServerNames) == 0) {
-                Throw new Exception("Thorough checks for an EAP type needing CA+server names were requested, but the required parameters were not given.");
+            if (count($this->expectedCABundle) == 0) {
+                Throw new Exception("Thorough checks for an EAP type needing CAs were requested, but the required parameters were not given.");
             } else {
                 $this->opMode = self::RADIUS_TEST_OPERATION_MODE_THOROUGH;
             }
         }
 
-        if (in_array(\core\common\EAP::INTEGER_EAP_pwd, $supportedEapTypes)) {
+        if ($serverNeeded) {
             if (count($this->expectedServerNames) == 0) {
                 Throw new Exception("Thorough checks for an EAP type needing server names were requested, but the required parameter was not given.");
             } else {

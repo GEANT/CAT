@@ -352,36 +352,6 @@ class EAP {
         return $retval;
     }
 
-    /**
-     * EAP methods have two representations: an integer enumeration and an array with keys OUTER and INNER
-     * This function converts between the two.
-     * @param int|array $input either the integer ID of an EAP type (returns array representation) or the array representation (returns integer)
-     * @return array|int
-     */
-    public static function eAPMethodArrayIdConversion($input) {
-        if ($input == 0) {
-            throw new Exception("Zero - How can that be?");
-        }
-        if (is_numeric($input) && isset(EAP::EAPTYPES_CONVERSION[$input])) {
-            return (array) EAP::EAPTYPES_CONVERSION[$input];
-        }
-        if (is_array($input)) {
-            $keys = array_keys(EAP::EAPTYPES_CONVERSION, $input);
-            if (count($keys) == 1) {
-                return (int) $keys[0];
-            }
-        }
-        throw new Exception("Unable to map EAP method array to EAP method int or vice versa: $input!");
-    }
-
-    public static function multiConversion($inputArray) {
-        $out = [];
-        foreach ($inputArray as $oneMember) {
-            $out[] = EAP::eAPMethodArrayIdConversion($oneMember);
-        }
-        return $out;
-    }
-
     public function getPrintableRep() {
         $nameMapping = [
             _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,

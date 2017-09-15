@@ -47,7 +47,7 @@ if ($my_profile != NULL) {
         // checking our own stuff. Enable thorough checks
         $check_thorough = TRUE;
         $check_realm = $checkrealm[0]['value'];
-        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($my_profile->getEapMethodsinOrderOfPreference(1)), $my_profile->getCollapsedAttributes()['eap:server_name'] , $my_profile->getCollapsedAttributes()["eap:ca_file"]);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'] , $my_profile->getCollapsedAttributes()["eap:ca_file"]);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";

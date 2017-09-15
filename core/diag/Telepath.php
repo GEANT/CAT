@@ -172,7 +172,7 @@ class Telepath {
             }
             if ($bestProfile != FALSE) { // still nothing? then there's only a very incomplete profile definition, and we can't work with that. Fall back to shallow
                 $this->additionalFindings[Telepath::INFRA_IdP_RADIUS][] = ["Profile" => $bestProfile->identifier];
-                $testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($bestProfile->getEapMethodsinOrderOfPreference(1)), $bestProfile->getCollapsedAttributes()['eap:server_name'], $bestProfile->getCollapsedAttributes()["eap:ca_file"]);
+                $testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), $bestProfile->getEapMethodsinOrderOfPreference(1), $bestProfile->getCollapsedAttributes()['eap:server_name'], $bestProfile->getCollapsedAttributes()["eap:ca_file"]);
             } else {
                 $this->additionalFindings[Telepath::INFRA_IdP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
                 $testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);

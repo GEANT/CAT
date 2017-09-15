@@ -164,7 +164,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
         if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
             $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);
             $profile = \core\ProfileFactory::instantiate($profile_id);
-            $checks[] = ["realm" => $sanitised_realm, "instance" => new \core\diag\RADIUSTests($sanitised_realm, $profile->getRealmCheckOuterUsername(), \core\common\EAP::multiConversion($profile->getEapMethodsinOrderOfPreference(1)), $profile->getCollapsedAttributes()['eap:server_name'], $profile->getCollapsedAttributes()['eap:ca_file']), "class" => "CAT", "profile" => $profile];
+            $checks[] = ["realm" => $sanitised_realm, "instance" => new \core\diag\RADIUSTests($sanitised_realm, $profile->getRealmCheckOuterUsername(), $profile->getEapMethodsinOrderOfPreference(1), $profile->getCollapsedAttributes()['eap:server_name'], $profile->getCollapsedAttributes()['eap:ca_file']), "class" => "CAT", "profile" => $profile];
             echo "Debugging CAT Profile $profile_id for $sanitised_realm<br/>";
         } else if (!empty($cat->getExternalDBEntityDetails(0, $realm))) {
             $checks[] = ["realm" => $sanitised_realm, "instance" => new \core\diag\RADIUSTests($sanitised_realm, "@".$sanitised_realm), "class" => "EXT_DB"];
