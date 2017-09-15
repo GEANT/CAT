@@ -118,7 +118,8 @@ switch ($sanitised_action) {
             $therealm = "";
             $theanonid = "anonymous";
             $useAnon = FALSE;
-            $valuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+            $stringValuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+            $intValuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
             $pref = 0;
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
@@ -126,13 +127,13 @@ switch ($sanitised_action) {
                         // I rather work directly with _POST, but some code 
                         // paths trigger Scrutinizer's security warnings
                         // so relying on the pre-filtered input for those places
-                        if (array_key_exists($optindex . "-0", $valuesFiltered)) {
-                            $theanonid = $validator->string($valuesFiltered[$optindex . "-0"]);
+                        if (array_key_exists($optindex . "-0", $stringValuesFiltered)) {
+                            $theanonid = $validator->string($stringValuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:realm":
-                        if (array_key_exists($optindex . "-0", $valuesFiltered)) {
-                            $therealm = $validator->realm($valuesFiltered[$optindex . "-0"]);
+                        if (array_key_exists($optindex . "-0", $stringValuesFiltered)) {
+                            $therealm = $validator->realm($stringValuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:useanon":
@@ -142,8 +143,8 @@ switch ($sanitised_action) {
                         break;
                     case "profile-api:eaptype":
                         
-                        if (isset($_POST['value'][$optindex . "-0"])) {
-                            $filteredType = filter_input(INPUT_POST, $_POST['value'][$optindex . "-0"], FILTER_VALIDATE_INT);
+                        if (isset($intValuesFiltered[$optindex . "-0"])) {
+                            $filteredType = $intValuesFiltered[$optindex . "-0"];
                             if ($filteredType <0 || $filteredType >8) {
                                 break;
                             }
