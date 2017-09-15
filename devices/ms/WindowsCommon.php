@@ -90,7 +90,7 @@ class WindowsCommon extends \core\DeviceConfig {
 
     public function __construct() {
         parent::__construct();
-        $this->useGeantLink = (isset($this->options['args']) && $this->options['args'] == 'gl' ) ? 1 : 0;
+        $this->useGeantLink = (isset($this->options['args']) && $this->options['args'] == 'gl') ? 1 : 0;
     }
 
     protected function prepareInstallerLang() {
@@ -126,7 +126,7 @@ class WindowsCommon extends \core\DeviceConfig {
         // not EAP-TLS
         $out .= sprintf(_("In order to connect to the network you will need an account from your %s. You should consult the support page to find out how this account can be obtained. It is very likely that your account is already activated."), $this->nomenclature_inst);
 
-        if (! $this->useGeantLink && $this->selectedEap['OUTER'] == \core\common\EAP::TTLS) {
+        if (!$this->useGeantLink && $this->selectedEap['OUTER'] == \core\common\EAP::TTLS) {
             $out .= "<p>";
             $out .= _("When you are connecting to the network for the first time, Windows will pop up a login box, where you should enter your user name and password. This information will be saved so that you will reconnect to the network automatically each time you are in the range.");
             if ($ssidCount > 1) {
@@ -179,10 +179,10 @@ class WindowsCommon extends \core\DeviceConfig {
         $this->background['freeHeight'] = $bgImageSize['height'] - $freeTop - $freeBottom;
 
         if ($useFederationLogo && $fedLogo != NULL) {
-            $logosToPlace[] = $this->scaleLogo($fedLogo[0]['name'],$maxSize);
+            $logosToPlace[] = $this->scaleLogo($fedLogo[0]['name'], $maxSize);
         }
         if ($logos != NULL) {
-            $logosToPlace[] = $this->scaleLogo($logos[0]['name'],$maxSize);
+            $logosToPlace[] = $this->scaleLogo($logos[0]['name'], $maxSize);
         }
 
         $logoCount = count($logosToPlace);
