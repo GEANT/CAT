@@ -7,6 +7,8 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 things seem to work, but the conditions are unclear and it
                 generates ugly JS error console warnings. Added a config
                 parameter APPEARANCE['google_maps_api_key] to make things proper
+- [BUGFIX #2 ]  In UserAPI deviceInfo was not calling a device setup for the selected
+                profile, as a result parts of the info was not shown.
 - [FEATURE #1]  UserAPI redone. Instead of the "id" as a common argument we now use
                 meaningful names, like idp, profile, device etc.
                 To get the new behaviour you need to set api_version argument to 2.
@@ -42,6 +44,9 @@ Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
                 this can be useful for privilege separation
 - [FEATURE #17] Allow to specify custom installer name suffixes on per-profile
                 level
+- [FEATURE #18] Added support for displaying federation logo in Windows installers
+
+- [FEATURE #19] Deleted the cat_back.php files which were only there for backwards compatibility
 
 
 Configuration parameter changes
