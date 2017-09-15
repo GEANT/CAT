@@ -119,6 +119,7 @@ switch ($sanitised_action) {
             $theanonid = "anonymous";
             $useAnon = FALSE;
             $valuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+            $pref = 0;
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
@@ -140,11 +141,12 @@ switch ($sanitised_action) {
                         }
                         break;
                     case "profile-api:eaptype":
-                        $pref = 0;
-                        if (isset($_POST['value'][$optindex . "-0"]) &&
-                                is_numeric($_POST['value'][$optindex . "-0"]) &&
-                                $_POST['value'][$optindex . "-0"] >= 1 &&
-                                $_POST['value'][$optindex . "-0"] <= 8) {
+                        
+                        if (isset($_POST['value'][$optindex . "-0"])) {
+                            $filteredType = filter_input(INPUT_POST, $_POST['value'][$optindex . "-0"], FILTER_VALIDATE_INT);
+                            if ($filteredType <0 || $filteredType >8) {
+                                break;
+                            }
                             $newprofile->addSupportedEapMethod(new \core\common\EAP($_POST['value'][$optindex . "-0"]), $pref);
                             $pref = $pref + 1;
                         }
