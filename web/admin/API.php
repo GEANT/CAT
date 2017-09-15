@@ -145,7 +145,7 @@ switch ($sanitised_action) {
                                 is_numeric($_POST['value'][$optindex . "-0"]) &&
                                 $_POST['value'][$optindex . "-0"] >= 1 &&
                                 $_POST['value'][$optindex . "-0"] <= 8) {
-                            $newprofile->addSupportedEapMethod(new \core\common\EAP($_POST['value'][$optindex . "-0"], $pref));
+                            $newprofile->addSupportedEapMethod(new \core\common\EAP($_POST['value'][$optindex . "-0"]), $pref);
                             $pref = $pref + 1;
                         }
                         break;
