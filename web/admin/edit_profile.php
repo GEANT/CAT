@@ -432,7 +432,7 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
         $display = $a->getPrintableRep();
         $enabled = FALSE;
         foreach ($prefill_methods as $prio => $value) {
-            if ($a->getPrintableRep() == $value->getPrinatbleRep()) {
+            if ($a->getPrintableRep() == $value->getPrintableRep()) {
                 $enabled = TRUE;
                 $countactive = $prio + 1;
             }
