@@ -147,7 +147,7 @@ switch ($sanitised_action) {
                             if ($filteredType <0 || $filteredType >8) {
                                 break;
                             }
-                            $newprofile->addSupportedEapMethod(new \core\common\EAP($_POST['value'][$optindex . "-0"]), $pref);
+                            $newprofile->addSupportedEapMethod(new \core\common\EAP($filteredType), $pref);
                             $pref = $pref + 1;
                         }
                         break;
