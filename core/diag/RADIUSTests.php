@@ -273,7 +273,8 @@ class RADIUSTests extends AbstractTest {
         // if we are in thorough opMode, use our knowledge for a more clever check
         // otherwise guess
         if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
-            return $this->UDP_login($probeindex, \core\common\EAP::eAPMethodArrayIdConversion($this->supportedEapTypes[0]), $this->outerUsernameForChecks, 'eaplab', $opnameCheck, $frag, $clientcert);
+            $eapObject = new \core\common\EAP($this->supportedEapTypes[0]);
+            return $this->UDP_login($probeindex, $eapObject->getArrayRep(), $this->outerUsernameForChecks, 'eaplab', $opnameCheck, $frag, $clientcert);
         }
         return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, 'eaplab', $opnameCheck, $frag, $clientcert);
     }

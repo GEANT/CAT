@@ -148,11 +148,12 @@ class UserAPI extends CAT {
                 }
                 $this->installerPath = $dev->FPATH . '/' . $installer;
                 rename($iPath, $this->installerPath);
-                $profile->updateCache($device, $this->installerPath, $out['mime'], \core\common\EAP::eAPMethodArrayIdConversion($dev->selectedEap));
+                $integerEap = (new \core\common\EAP($dev->selectedEap))->getIntegerRep();
+                $profile->updateCache($device, $this->installerPath, $out['mime'], $integerEap);
                 if (CONFIG['DEBUG_LEVEL'] < 4) {
                     \core\common\Entity::rrmdir($dev->FPATH . '/tmp');
                 }
-                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . \core\common\EAP::eAPMethodArrayIdConversion($dev->selectedEap) . "\n");
+                $this->loggerInstance->debug(4, "Generated installer: " . $this->installerPath . ": for: $device, EAP:" . $integerEap . "\n");
                 $out['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=" . $profile->identifier . "&device=$device&generatedfor=$generatedFor";
             } else {
                 $this->loggerInstance->debug(2, "Installer generation failed for: " . $profile->identifier . ":$device:" . $this->languageInstance->getLang() . "\n");
