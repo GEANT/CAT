@@ -46,9 +46,8 @@ switch ($page) {
         $out = sprintf(_("<span class='edu_cat'>%s</span> is built as a cooperation platform.<p>Local %s administrators enter their %s configuration details and based on them, <span class='edu_cat'>%s</span> builds customised installers for a number of popular platforms. An installer prepared for one %s will not work for users of another one, therefore if your %s is not on the list, you cannot use this system. Please contact your local administrators and try to influence them to add your %s configuration to <span class='edu_cat'>%s</span>."), CONFIG['APPEARANCE']['productname'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG['APPEARANCE']['productname'],$skinObject->nomenclature_inst, $skinObject->nomenclature_inst, $skinObject->nomenclature_inst, CONFIG['APPEARANCE']['productname']);
         $out .= "<p>" . sprintf(_("<span class='edu_cat'>%s</span> currently supports the following devices and EAP type combinations:"), CONFIG['APPEARANCE']['productname']) . "</p>";
         $out .= "<table><tr><th>" . _("Device Group") . "</th><th>" . _("Device") . "</th>";
-        $eapDisplayNames = new web\lib\common\PrettyPrint();
 foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
-            $out .= "<th style='min-width: 80px;'>" . $eapDisplayNames->eapNames($oneeap) . "</th>";
+            $out .= "<th style='min-width: 80px;'>" . $oneeap->getPrintableRep() . "</th>";
         }
         $out .= "</tr>";
         foreach (\devices\Devices::listDevices() as $index => $onedevice) {
@@ -61,7 +60,7 @@ foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
             $device_instance = new \core\DeviceFactory($index);
             foreach (\core\common\EAP::listKnownEAPTypes() as $oneeap) {
                 $out .= "<td>";
-                if (in_array($oneeap, $device_instance->device->supportedEapMethods)) {
+                if (in_array($oneeap->getArrayRep(), $device_instance->device->supportedEapMethods)) {
                     $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES", "icons/Quetto/check-icon.png") . "' alt='SUPPORTED'>";
                 } else {
                     $out .= "<img src='" . $skinObject->findResourceUrl("IMAGES", "icons/Quetto/no-icon.png") . "' alt='UNSUPPORTED'>";

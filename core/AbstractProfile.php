@@ -64,7 +64,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public $realm;
 
     /**
-     * This array holds the supported EAP types (in "array" OUTER/INNER representation). They are not synced against the DB after instantiation.
+     * This array holds the supported EAP types (in object representation). 
+     * 
+     * They are not synced against the DB after instantiation.
      * 
      * @var array
      */
@@ -79,7 +81,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * IdP-wide attributes of the IdP this profile is attached to
      */
     protected $idpAttributes;
-    
+
     /**
      * Federation level attributes that this profile is attached to via its IdP
      */
@@ -93,7 +95,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @var DBConnection
      */
     protected $frontendHandle;
-    
+
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
         if (CONFIG['PATHS']['logdir']) {
             $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
@@ -113,7 +115,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                                         ORDER by preference");
         $eapTypeArray = [];
         while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
-            $eaptype = \core\common\EAP::eAPMethodArrayIdConversion($eapQuery->eap_method_id);
+            $eaptype = new common\EAP($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
         $this->loggerInstance->debug(4, "This profile supports the following EAP types:\n" . print_r($eapTypeArray, true));
@@ -137,7 +139,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         if (!is_numeric($profileIdRaw)) {
             throw new Exception("Non-numeric Profile identifier was passed to AbstractProfile constructor!");
         }
-        $profileId = (int)$profileIdRaw; // no, it can not possibly be a double. Try to convince Scrutinizer...
+        $profileId = (int) $profileIdRaw; // no, it can not possibly be a double. Try to convince Scrutinizer...
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
         if (!$profile || $profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
@@ -150,7 +152,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $idp = new IdP($this->institution);
         } else {
             $idp = $idpObject;
-            $this->institution = (int)$idp->identifier;
+            $this->institution = (int) $idp->identifier;
         }
 
         $this->instName = $idp->name;
@@ -204,7 +206,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return string the outer ID to use for realm check operations
      * @thorws Exception
      */
-        public function getRealmCheckOuterUsername() {
+    public function getRealmCheckOuterUsername() {
         $realm = $this->getAttributes("internal:realm")[0]['value'] ?? FALSE;
         if ($realm == FALSE) { // we can't really return anything useful here
             throw new Exception("Unable to construct a realmcheck username if the admin did not tell us the realm. You shouldn't have called this function in this context.");
@@ -221,7 +223,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         // okay, no guidance on outer IDs at all - but we need *something* to
         // test with for the RealmChecks. So:
-        return "@".$realm;
+        return "@" . $realm;
     }
 
     /**
@@ -387,7 +389,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Produces an array of EAP methods supported by this profile, ordered by preference
      * 
      * @param int $completeOnly if set and non-zero limits the output to methods with complete information
-     * @return array list of EAP methods, (in "array" OUTER/INNER representation)
+     * @return array list of EAP methods, (in object representation)
      */
     public function getEapMethodsinOrderOfPreference($completeOnly = 0) {
         $temparray = [];
@@ -406,47 +408,37 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * Performs a sanity check for a given EAP type - did the admin submit enough information to create installers for him?
      * 
-     * @param array $eaptype the EAP type in "array" OUTER/INNER representation
+     * @param common\EAP $eaptype the EAP type
      * @return mixed TRUE if the EAP type is complete; an array of missing attribues if it's incomplete; FALSE if it's incomplete for other reasons
      */
     public function isEapTypeDefinitionComplete($eaptype) {
-        // TLS, TTLS, PEAP outer phase need a CA certficate and a Server Name
-        switch ($eaptype['OUTER']) {
-            case \core\common\EAP::TLS:
-            case \core\common\EAP::PEAP:
-            case \core\common\EAP::TTLS:
-            case \core\common\EAP::FAST:
-                $missing = [];
-                $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
-                $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
+        if ($eaptype->needsServerCACert() && $eaptype->needsServerName()) {
+            $missing = [];
+            $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
+            $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
 
-                if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
-                    foreach ($caOption as $oneCa) {
-                        $x509 = new \core\common\X509();
-                        $caParsed = $x509->processCertificate($oneCa['value']);
-                        if ($caParsed['root'] == 1) {
-                            return true;
-                        }
+            if (count($caOption) > 0 && count($cnOption) > 0) {// see if we have at least one root CA cert
+                foreach ($caOption as $oneCa) {
+                    $x509 = new \core\common\X509();
+                    $caParsed = $x509->processCertificate($oneCa['value']);
+                    if ($caParsed['root'] == 1) {
+                        return true;
                     }
-                    $missing[] = "eap:ca_file";
                 }
-                if (count($caOption) == 0) {
-                    $missing[] = "eap:ca_file";
-                }
-                if (count($cnOption) == 0) {
-                    $missing[] = "eap:server_name";
-                }
-                if (count($missing) == 0) {
-                    return TRUE;
-                }
-                return $missing;
-            case \core\common\EAP::PWD:
-                // well actually this EAP type has a server name; but it's optional
-                // so no reason to be picky on it
-                return true;
-            default:
-                return false;
+                $missing[] = "eap:ca_file";
+            }
+            if (count($caOption) == 0) {
+                $missing[] = "eap:ca_file";
+            }
+            if (count($cnOption) == 0) {
+                $missing[] = "eap:server_name";
+            }
+            if (count($missing) == 0) {
+                return TRUE;
+            }
+            return $missing;
         }
+        return TRUE;
     }
 
     /**
@@ -491,7 +483,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                 if (isset($deviceProperties['options']) && isset($deviceProperties['options']['redirect']) && $deviceProperties['options']['redirect']) {
                     $devStatus = self::HIDDEN;
                 } else {
-                    $dev->calculatePreferredEapType($preferredEap);
+                    $dev->calculatePreferredEapType($preferredEap->getArrayRep());
                     $eap = $dev->selectedEap;
                     if (count($eap) > 0) {
                         if (isset($eAPOptions["eap-specific:customtext"][serialize($eap)])) {
@@ -602,7 +594,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     const READINESS_LEVEL_NOTREADY = 0;
     const READINESS_LEVEL_SUFFICIENTCONFIG = 1;
     const READINESS_LEVEL_SHOWTIME = 2;
-    
+
     /**
      * Does the profile contain enough information to generate installers with
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
@@ -622,7 +614,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         return self::READINESS_LEVEL_SHOWTIME;
     }
-    
+
     /**
      * Checks if the profile has enough information to have something to show to end users. This does not necessarily mean
      * that there's a fully configured EAP type - it is sufficient if a redirect has been set for at least one device.

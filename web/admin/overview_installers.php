@@ -13,7 +13,6 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
-$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 ?>
@@ -43,8 +42,8 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
             <?php            
             foreach ($preflist as $method) {
-                $escapedMethod = \core\common\EAP::eAPMethodArrayIdConversion($method);
-                echo "<th style='min-width:200px'>" . $eapDisplayNames->eapNames($method) . "<br/>
+                $escapedMethod = $method->getIntegerRep();
+                echo "<th style='min-width:200px'>" . $method->getPrintableRep() . "<br/>
                         <form method='post' action='inc/toggleRedirect.inc.php?inst_id=$my_inst->identifier&amp;profile_id=$my_profile->identifier' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                         <input type='hidden' name='eaptype' value='$escapedMethod'>
                         <button class='redirect' type='submit'>" . _("EAP-Type-specific options...") . "</button>
@@ -91,21 +90,21 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
 
                 if (count($redirectAttribs) > 0) {
                     echo "<td class='compat_redirected'>";
-                    if (in_array($method, $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method) === true && ($method === $preflist[0] || $defaultisset === FALSE)) {
+                    if (in_array($method->getArrayRep(), $factory->device->supportedEapMethods) && $my_profile->isEapTypeDefinitionComplete($method->getArrayRep()) === true && ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE)) {
                         echo "$downloadform</form>";
                         $defaultisset = TRUE;
                     }
                     echo "</td>";
                 } else
-                if (in_array($method, $factory->device->supportedEapMethods)) {
+                if (in_array($method->getArrayRep(), $factory->device->supportedEapMethods)) {
                     if ($my_profile->isEapTypeDefinitionComplete($method) !== true) {
                         echo "<td class='compat_incomplete'></td>";
-                    } elseif ($method === $preflist[0] || $defaultisset === FALSE) {
+                    } elseif ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote: anon_id
                         $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
                         if ($anon !== "" && isset($factory->device->specialities['anon_id'])) {
-                            if (isset($factory->device->specialities['anon_id'][serialize($method)])) {
-                                $footnotetext = $factory->device->specialities['anon_id'][serialize($method)];
+                            if (isset($factory->device->specialities['anon_id'][serialize($method->getArrayRep())])) {
+                                $footnotetext = $factory->device->specialities['anon_id'][serialize($method->getArrayRep())];
                                 $display_footnote = TRUE;
                             } else if (!is_array($factory->device->specialities['anon_id'])) {
                                 $footnotetext = $factory->device->specialities['anon_id'];

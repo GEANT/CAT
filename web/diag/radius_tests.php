@@ -94,7 +94,7 @@ switch ($test_type) {
         $user_password = isset($_REQUEST['password']) && $_REQUEST['password'] ? $_REQUEST['password'] : ""; //!!
         $returnarray['result'] = [];
         foreach ($eaps as $eap) {
-            if ($eap == \core\common\EAP::EAPTYPE_TLS) {
+            if ($eap->getIntegerRep() == \core\common\EAP::INTEGER_TLS) {
                 $run_test = TRUE;
                 if ($_FILES['cert']['error'] == UPLOAD_ERR_OK) {
                     $clientcertdata = file_get_contents($_FILES['cert']['tmp_name']);
@@ -128,8 +128,7 @@ switch ($test_type) {
                 $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password);
             }
             $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
-            $eapDisplayNames = new \web\lib\common\PrettyPrint();
-            $returnarray['result'][$i]['eap'] = $eapDisplayNames->eapNames($eap);
+            $returnarray['result'][$i]['eap'] = $eap->getPrintableRep();
             $returnarray['returncode'][$i] = $testresult;
 
 

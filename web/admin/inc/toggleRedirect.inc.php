@@ -17,7 +17,6 @@ $optionParser = new \web\lib\admin\OptionParser();
 $validator = new \web\lib\common\InputValidation();
 $languageInstance = new \core\common\Language();
 $uiElements = new web\lib\admin\UIElements();
-$eapDisplayNames = new \web\lib\common\PrettyPrint();
 
 $auth->authenticate();
 $languageInstance->setTextDomain("web_admin");
@@ -46,14 +45,13 @@ if ($posted_device) {
     }
 }
 $eaptype = NULL;
-$eap_id = 0;
 $posted_eaptype = $_POST['eaptype'] ?? FALSE;
 if ($posted_eaptype) {
     if (!is_numeric($posted_eaptype)) {
         throw new Exception("POSTed EAP type value is not an integer!");
     }
     // conversion routine throws an exception if the EAP type id is not known
-    $eaptype = \core\common\EAP::eAPMethodArrayIdConversion((int)$posted_eaptype);
+    $eaptype = new \core\common\EAP((int)$posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.
@@ -74,8 +72,8 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
         $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, 0, $device_key);
     }
     if ($device === NULL) {
-        $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eap_id, "");
-        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $eap_id, "");
+        $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes($eaptype->getIntegerRep(), "");
+        $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, $eaptype->getIntegerRep(), "");
     }
     $loggerInstance->writeAudit($_SESSION['user'], "MOD", "Profile " . $my_profile->identifier . " - device/EAP-Type settings changed");
     header("Location: ../overview_installers.php?inst_id=$my_inst->identifier&profile_id=$my_profile->identifier");
@@ -94,14 +92,14 @@ if ($device !== NULL) {
     $extrainput = "<input type='hidden' name='device' value='" . $device_key . "'/>";
 } elseif ($eaptype !== NULL) {
     foreach ($my_profile->getAttributes() as $attrib) {
-        if (isset($attrib['eapmethod']) && $attrib['eapmethod'] == $eaptype) {
+        if (isset($attrib['eapmethod']) && $attrib['eapmethod'] == $eaptype->getArrayRep()) {
             $attribs[] = $attrib;
         }
     }
     
-    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $eapDisplayNames->eapNames($eaptype));
+    $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $eaptype->getPrintableRep());
     $keyword = "eap-specific";
-    $extrainput = "<input type='hidden' name='eaptype' value='" . \core\common\EAP::eAPMethodArrayIdConversion($eaptype) . "'>";
+    $extrainput = "<input type='hidden' name='eaptype' value='" . $eaptype->getIntegerRep() . "'>";
 } else {
     throw new Exception("previous type checks make it impossible to reach this code path.");
 }

@@ -154,7 +154,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         }
 
         $eaps = $profile->getEapMethodsinOrderOfPreference(1);
-        $this->calculatePreferredEapType($eaps);
+        $this->calculatePreferredEapType($eaps->getArrayRep());
         if (count($this->selectedEap) == 0) {
             throw new Exception("No EAP type specified.");
         }

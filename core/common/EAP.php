@@ -345,11 +345,11 @@ class EAP {
      */
     public static function listKnownEAPTypes() {
         $retval = [];
-    
+
         foreach (array_values(EAP::EAPTYPES_CONVERSION) as $oneArrayRep) {
             $retval .= new EAP($oneArrayRep);
         }
-            return $retval;
+        return $retval;
     }
 
     /**
@@ -380,6 +380,21 @@ class EAP {
             $out[] = EAP::eAPMethodArrayIdConversion($oneMember);
         }
         return $out;
+    }
+
+    public function getPrintableRep() {
+        $nameMapping = [
+            _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,
+            _("TLS") => \core\common\EAP::EAPTYPE_TLS,
+            _("TTLS-PAP") => \core\common\EAP::EAPTYPE_TTLS_PAP,
+            _("TTLS-MSCHAPv2") => \core\common\EAP::EAPTYPE_TTLS_MSCHAP2,
+            _("TTLS-GTC") => \core\common\EAP::EAPTYPE_TTLS_GTC,
+            _("FAST-GTC") => \core\common\EAP::EAPTYPE_FAST_GTC,
+            _("EAP-pwd") => \core\common\EAP::EAPTYPE_PWD,
+            \core\ProfileSilverbullet::PRODUCTNAME => \core\common\EAP::EAPTYPE_SILVERBULLET,
+        ];
+        $find = array_keys($nameMapping, $this->arrayRep, TRUE);
+        return $find[0];
     }
 
 }

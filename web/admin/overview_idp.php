@@ -19,7 +19,6 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(dirname(dirname(dirname(__FILE__))) . "/core/phpqrcode.php");
 
 $uiElements = new web\lib\admin\UIElements();
-$eapDisplayNames = new web\lib\common\PrettyPrint();
 
 /**
  * Injects the consortium logo in the middle of a given PNG.
@@ -240,7 +239,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $typelist = $profile_list->getEapMethodsinOrderOfPreference();
         $allcomplete = TRUE;
         foreach ($typelist as $eaptype) {
-            $buffer_eaptypediv .= $eapDisplayNames->eapNames($eaptype);
+            $buffer_eaptypediv .= $eaptype->getPrintableRep();
             $completeness = $profile_list->isEapTypeDefinitionComplete($eaptype);
             if ($completeness === true) {
                 $buffer_eaptypediv .= " <div class='acceptable'>" . _("OK") . "</div>";
@@ -290,11 +289,6 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $buffer_headline .= sprintf(_("Profile: %s"), $profile_name) . "</h2>";
 
         echo $buffer_headline;
-
-        if (array_search(\core\common\EAP::EAPTYPE_TTLS_PAP, $typelist) !== FALSE && array_search(\core\common\EAP::EAPTYPE_TTLS_GTC, $typelist) === FALSE && array_search(\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, $typelist) === FALSE && array_search(\core\common\EAP::EAPTYPE_TTLS_MSCHAP2, $typelist) === FALSE) {
-            /// Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
-            $buffer_eaptypediv .= "<p>" . sprintf(_("Read this <a href='%s'>tip</a>."), "https://wiki.geant.org/display/H2eduroam/eap-types#eap-types-choices") . "</p>";
-        }
 
         $buffer_eaptypediv .= "</div>";
         echo $buffer_eaptypediv;
