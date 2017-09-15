@@ -259,12 +259,12 @@ class EAP {
 
     /**
      * Does the EAP type require the specification of a server name to be secure?
+     * EAP-pwd has one, but it is not really required.
      * @return bool
      * @throws Exception
      */
     public function needsServerName() {
         switch ($this->intRep) {
-            case EAP::INTEGER_EAP_pwd:
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
@@ -273,6 +273,8 @@ class EAP {
             case EAP::INTEGER_TLS:
             case EAP::INTEGER_SILVERBULLET:
                 return TRUE;
+            case EAP::INTEGER_EAP_pwd:
+                return FALSE;
             default:
                 throw new Exception("Unable to determine if the EAP type requires a server name trust base for secure functioning or not!");
         }
