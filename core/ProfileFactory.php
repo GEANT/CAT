@@ -30,7 +30,7 @@ class ProfileFactory {
         // switch to the other if our guess was wrong
         $attempt = new ProfileRADIUS($profileId, $idpObject);
         $methods = $attempt->getEapMethodsinOrderOfPreference();
-        if ((count($methods) == 1) && $methods[0] == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+        if ((count($methods) == 1) && $methods[0]->getArrayRep() == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             return new ProfileSilverbullet($profileId, $idpObject);
         }
         return $attempt;
