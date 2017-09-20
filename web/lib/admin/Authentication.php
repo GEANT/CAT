@@ -68,7 +68,7 @@ class Authentication {
             "ssp-attrib-email" => "user:email"];
 
         foreach ($attribMapping as $SSPside => $CATside) {
-            if (isset($admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0]) && (count($userObject->getAttributes($CATside)) == 0)) {
+            if (isset($admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0]) && (count($userObject->getAttributes($CATside)) == 0) && CONFIG['DB']['userdb-readonly'] === FALSE) {
                 $name = $admininfo[CONFIG['AUTHENTICATION'][$SSPside]][0];
                 $userObject->addAttribute($CATside, NULL, $name);
                 $loggerInstance->writeAudit($_SESSION['user'], "NEW", "User - added $CATside from external auth source");
