@@ -106,7 +106,7 @@ switch ($sanitised_action) {
         // same thing for profile options
         $profileWideOptions = $_POST;
         foreach ($profileWideOptions['option'] as $optindex => $optname) {
-            if (!preg_match("/^profile:/", $optname) || $optname == "profile:QR-user") {
+            if (!preg_match("/^profile:/", $optname)) {
                 unset($profileWideOptions['option'][$optindex]);
             }
         }

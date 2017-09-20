@@ -92,7 +92,7 @@ class OptionDisplay {
         if (is_array($prepopulate) && ( count($prepopulate) > 1 || $class == "device-specific" || $class == "eap-specific")) { // editing... fill with values
             $number = 0;
             foreach ($prepopulate as $option) {
-                if (preg_match("/$class:/", $option['name']) && !preg_match("/(profile:QR-user|user:fedadmin)/", $option['name'])) {
+                if (preg_match("/$class:/", $option['name']) && !preg_match("/(user:fedadmin)/", $option['name'])) {
                     $optiontypearray = $optioninfo->optionType($option['name']);
                     $loggerInstance = new \core\common\Logging();
                     $loggerInstance->debug(5, "About to execute optiontext with PREFILL!\n");
