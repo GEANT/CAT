@@ -16,6 +16,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:custominvite','custom text to send with new IdP invitations','text', NULL),
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
+('fed:include_logo_installers','whether or not the fed logo should be visible in installers','boolean', NULL),
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),

@@ -103,6 +103,7 @@ class UIElements {
             _("Custom CSS file for User Area") => "fed:css_file",
             sprintf(_("%s Logo"), $this->nomenclature_fed) => "fed:logo_file",
             _("Preferred Skin for User Area") => "fed:desired_skin",
+            _("Include NRO branding in installers") => "fed:include_logo_installers",
             sprintf(_("%s Name"), $this->nomenclature_fed) => "fed:realname",
             _("Custom text in IdP Invitations") => "fed:custominvite",
             sprintf(_("Enable %s"), \core\ProfileSilverbullet::PRODUCTNAME) => "fed:silverbullet",
