@@ -43,4 +43,4 @@ $optioninfo = \core\Options::instance();
 $list = array_diff($optioninfo->availableOptions($_GET["class"]), DO_NOT_DISPLAY[$_GET['class']]);
 
 $optionDisplay = new \web\lib\admin\OptionDisplay($list, $_GET['class']);
-echo $optionDisplay->optiontext(0, $list);
+echo $optionDisplay->optiontext($list);
