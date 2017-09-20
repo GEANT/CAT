@@ -206,12 +206,10 @@ class OptionDisplay {
      * @param string $optionName the name of the option to display
      * @param string $optionValue the value of the option to display
      * @param mixed $optionLang the language of the option to display
-     * @param int $locationIndex which n of m locations is this, in case we are displaying a coordinate
-     * @param int $allLocationCount how many locations in total exist, in case we are displaying a coordinate
      * @return string HTML code
      * @throws Exception
      */
-    private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang, int &$locationIndex, int &$allLocationCount) {
+    private function prefillText(int $rowid, string $optionName, string $optionValue, $optionLang) {
         $retval = "";
         $optioninfo = \core\Options::instance();
         $loggerInstance = new \core\common\Logging();
@@ -241,9 +239,8 @@ class OptionDisplay {
         $displayedVariant = "";
         switch ($listtype["type"]) {
             case "coordinates":
-                $allLocationCount++;
-                $locationIndex = $allLocationCount;
-                $link = "<button id='location_b_$allLocationCount' class='location_button'>" . _("Click to see location") . " $allLocationCount</button>";
+                $this->allLocationCount = $this->allLocationCount + 1;
+                $link = "<button id='location_b_".$this->allLocationCount."' class='location_button'>" . _("Click to see location") . " $this->allLocationCount</button>";
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . self::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
             case "file":
@@ -311,11 +308,11 @@ class OptionDisplay {
      * @return string HTML code <tr>
      */
     public function optiontext(int $defaultselect, array $list, string $prefillValue = NULL, string $prefillLang = NULL) {
-        $locationIndex = 0;
         $rowid = mt_rand();
 
         $retval = "<tr id='option-S$rowid' style='vertical-align:top'>";
 
+        $item = "MULTIPLE";
         if ($prefillValue === NULL) {
             $retval .= $this->noPrefillText($rowid, $list, $defaultselect);
         }
@@ -326,12 +323,13 @@ class OptionDisplay {
             if (count($list) != 1) {
                 throw new Exception("Optiontext prefilled display only can work with exactly one option!");
             }
-            $retval .= $this->prefillText($rowid, array_pop($list), $prefillValue, $prefillLang, $locationIndex, $this->allLocationCount);
+            $item = array_pop($list);
+            $retval .= $this->prefillText($rowid, $item, $prefillValue, $prefillLang);
         }
         $retval .= "
 
        <td>
-          <button type='button' class='delete' onclick='deleteOption(" . $locationIndex . ",\"option-S" . $rowid . "\")'>-</button>
+          <button type='button' class='delete' onclick='deleteOption(" . ( $prefillValue !== NULL && $item == "general:geo_coordinates" ? $this->allLocationCount : 0 ) . ",\"option-S" . $rowid . "\")'>-</button>
        </td>
     </tr>";
         return $retval;
