@@ -157,7 +157,7 @@ class OptionDisplay {
                              }
                              ";
         }
-        
+        $jsmagic .= "'";
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
         $uiElements = new UIElements();
