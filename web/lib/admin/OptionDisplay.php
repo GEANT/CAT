@@ -132,7 +132,8 @@ class OptionDisplay {
             }
 
             // add as many options as there are different option types
-            for ($this->optionIterator = 0; $this->optionIterator < count($list); $this->optionIterator++) {
+            $numberOfOptions = count($list);
+            for ($this->optionIterator = 0; $this->optionIterator < $numberOfOptions; $this->optionIterator++) {
                 $retval .= $this->optiontext($list);
             }
         }
@@ -143,7 +144,6 @@ class OptionDisplay {
      * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
      * @param int $rowid the HTML field base name of the option to be displayed
      * @param array $list the list of option names to include in the type selector
-     * @param int $defaultselect the datatype which should be displayed by default
      * @return string HTML code
      * @throws Exception
      */
