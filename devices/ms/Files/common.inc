@@ -1015,15 +1015,15 @@ Function PFXCertificateSelect
   Pop $Cert_file
 ;TRANSLATION
   <?php $certPasswordLabel = WindowsCommon::sprint_nsi(_("certificate password:"));
-        $certPasswordLenght = strlen($certPasswordLabel);
+        $certPasswordLength = strlen($certPasswordLabel);
         $certUsernameLabel = WindowsCommon::sprint_nsi(_("Username:"));
         $certUsernameLength = strlen($certUsernameLabel);
-        $labelLength = max($certPasswordLenght,$certUsernameLength);
+        $labelLength = max($certPasswordLength,$certUsernameLength);
   ?>
   ${NSD_CreateLabel} 0 0 100% 32u "<?php WindowsCommon::echo_nsi(_("Selected file: \$Cert_file"))?>"
   !else
   <?php $certPasswordLabel = WindowsCommon::sprint_nsi(_("import password:"));
-        $certPasswordLenght = strlen($certPasswordLabel);
+        $certPasswordLength = strlen($certPasswordLabel);
   ?>
   !insertmacro debug_cat 4 "Unpacking SB_cert.p12"
   File "SB_cert.p12"
@@ -1038,8 +1038,8 @@ Function PFXCertificateSelect
        !define LABEL_LENGTH "<?php echo($labelLength*3.5)?>u"
        !define TEXT_START "<?php echo($labelLength*3.5 +5)?>u"
     !else
-       !define LABEL_LENGTH "<?php echo($certPasswordLenght*3.5)?>u"
-       !define TEXT_START "<?php echo($certPasswordLenght*3.5 +5)?>u"
+       !define LABEL_LENGTH "<?php echo($certPasswordLength*3.5)?>u"
+       !define TEXT_START "<?php echo($certPasswordLength*3.5 +5)?>u"
     !endif
     ${NSD_CreateLabel} 0 35u ${LABEL_LENGTH} 12u "<?php echo $certPasswordLabel?>"
     ${NSD_CreatePassword} ${TEXT_START} 34.5u 120u 12u ""
