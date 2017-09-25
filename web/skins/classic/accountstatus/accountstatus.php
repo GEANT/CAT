@@ -26,6 +26,22 @@ $loggerInstance->debug(4, $operatingSystem);
 $deco = new \web\lib\admin\PageDecoration();
 $uiElements = new web\lib\admin\UIElements();
 
+if (isset($_POST['action']) && $_POST['action'] == \web\lib\common\FormElements::BUTTON_DELETE && isset($_POST['serial']) && $statusInfo['tokenstatus'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) {
+    $serial = filter_input(INPUT_POST, "serial", FILTER_SANITIZE_NUMBER_INT);
+    $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
+    // if the requested serial belongs to the user, AND it is currently valid, revoke it
+    $allcerts = [];
+    foreach ($userdata as $index => $content) {
+        $allcerts = array_merge($allcerts, $content['cert_status']);
+    }
+    foreach ($allcerts as $index => $onecert) {
+        if ($onecert['serial'] == $serial && $onecert['status'] == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID) {
+            $statusInfo['profile']->revokeCertificate($serial);
+            header("Location: accountstatus.php?token=".$statusInfo['token']);
+        }
+    }
+}
+
 echo $deco->defaultPagePrelude(CONFIG['APPEARANCE']['productname_long'], FALSE);
 echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObject->findResourceUrl("CSS", "cat-user.css") . "' />";
 ?>
@@ -56,7 +72,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
             <table style='float: right; right:30px; padding-top: 10px; border-spacing: 20px; max-width: 340px;'>
                 <tr>
                     <td><img id='logo1' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp=<?php echo $statusInfo['idp']->identifier; ?>' alt='IdP Logo'/></td>
-                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='<?php echo sprintf(_("%s Logo"),$uiElements->nomenclature_fed);?>'/></td>
+                    <td><img id='logo2' style='max-width: 150px; max-height:150px;' src='<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendFedLogo&api_version=2&fed=<?php echo strtoupper($statusInfo['idp']->federation); ?>' alt='<?php echo sprintf(_("%s Logo"), $uiElements->nomenclature_fed); ?>'/></td>
                 </tr>
                 <tr>
                     <td><?php echo $statusInfo['idp']->name; ?></td>
@@ -95,6 +111,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         default:
                             echo "<table>";
                             $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
+                            $revokeText = "<th>" . _("Revoke?") . "</th>";
                             foreach ($categories as $category) {
 
                                 switch ($category) {
@@ -117,7 +134,9 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                 $categoryText = "<tr style='color:$color;'><td colspan=4><h2>" . $categoryText;
 
                                 $categoryText .= "</h2></td></tr>";
-                                $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th></tr>";
+
+
+                                $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th>" . ( $category == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID ? $revokeText : "") . "</tr>";
                                 foreach ($allcerts as $oneCredential) {
                                     if ($oneCredential['status'] == $category) {
                                         $categoryCount++;
@@ -127,6 +146,9 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                         $categoryText .= "<td>" . $oneCredential['serial'] . "</td>";
                                         $categoryText .= "<td>" . $oneCredential['issued'] . "</td>";
                                         $categoryText .= "<td>" . $oneCredential['expiry'] . "</td>";
+                                        if ($category == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID) {
+                                            $categoryText .= "<td><form action='accountstatus.php?token=" . $statusInfo['token'] . "' method='POST'><input type='hidden' name='serial' value='" . $oneCredential['serial'] . "'/><button class='delete' type='submit' name='action' value='" . \web\lib\common\FormElements::BUTTON_DELETE . "'>Revoke</button></form></td>";
+                                        }
                                         $categoryText .= "</tr>";
                                     }
                                 }
@@ -143,18 +165,18 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                         echo "<h2>" . sprintf(_("Your invitation token is valid for %d more device activations."), $statusInfo['tokenstatus']['activations_remaining']) . "</h2>";
                         if (!$statusInfo["OS"]) {
-                            echo "<p>"._("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
+                            echo "<p>" . _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
                             break;
                         }
 
                         $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
                         $dev->device->calculatePreferredEapType([new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET)]);
                         if ($dev->device->selectedEap == []) {
-                            echo "<p>".sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
+                            echo "<p>" . sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;
                         }
 
-                        echo "<p>".sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                        echo "<p>" . sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
                         echo sprintf(_("The installation program is<br/><span style='font-size: 30px;'>strictly personal</span>, to be used<br/><span style='font-size: 30px;'>only on this device (%s)</span>, and it is<br/><span style='font-size: 30px;'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
                         echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p>";

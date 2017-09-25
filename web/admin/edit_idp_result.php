@@ -19,7 +19,7 @@ $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
     $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
@@ -30,7 +30,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
     exit;
 }
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
     $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
@@ -56,7 +56,7 @@ if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_
     exit(0);
 }
 
-if ($_POST['submitbutton'] != web\lib\admin\FormElements::BUTTON_SAVE && $_POST['submitbutton'] != web\lib\admin\FormElements::BUTTON_CONTINUE) {
+if ($_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE && $_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_CONTINUE) {
     // unexpected button value
     echo $deco->footer();
     exit(0);
@@ -126,7 +126,7 @@ echo "</table>";
 foreach ($my_inst->listProfiles() as $index => $profile) {
     $profile->prepShowtime();
 }
-if ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
+if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
     echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
 } else { // does federation want us to offer Silver Bullet?
     // if so, show both buttons; if not, just the normal EAP profile button

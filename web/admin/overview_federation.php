@@ -116,7 +116,7 @@ $user = new \core\User($_SESSION['user']);
     }
 
     if (isset($_POST['submitbutton']) &&
-            $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE &&
+            $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE &&
             isset($_POST['invitation_id'])) {
         $mgmt->invalidateToken(filter_input(INPUT_POST, 'invitation_id', FILTER_SANITIZE_STRING));
     }
@@ -253,7 +253,7 @@ $user = new \core\User($_SESSION['user']);
                                     <td colspan=2>";
                         echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
-                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
+                                <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
                               </form>";
                         echo "      </td>
                                  </tr>";

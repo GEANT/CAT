@@ -18,7 +18,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 echo $deco->pageheader(_("User Attributes - Summary of submitted data"), "USERMGMT");
 
 $user = new \core\User($_SESSION['user']);
-if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != web\lib\admin\FormElements::BUTTON_SAVE) { // what are we supposed to do?
+if (!isset($_POST['submitbutton']) || $_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE) { // what are we supposed to do?
     echo "<p>" . _("The page was called with insufficient data. Please report this as an error.") . "</p>";
     echo $deco->footer();
     exit(0);

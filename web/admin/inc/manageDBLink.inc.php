@@ -24,7 +24,7 @@ $uiElements = new \web\lib\admin\UIElements();
 
 // if we have a pushed close button, submit attributes and send user back to the overview page
 // if external DB sync is disabled globally, the user never gets to this page. If he came here *anyway* -> send him back immediately.
-if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_CLOSE ) || CONFIG['DB']['enforce-external-sync'] == FALSE) {
+if ((isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_CLOSE ) || CONFIG['DB']['enforce-external-sync'] == FALSE) {
     header("Location: ../overview_federation.php");
     exit;
 }
@@ -47,7 +47,7 @@ if (!$isFedAdmin) {
 // okay... we are indeed entitled to "do stuff"
 // make a link if the admin has submitted the required info
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
     // someone clever pushed the button without selecting an inst?
     if (!isset($_POST['inst_link'])) {
         header("Location: ../overview_federation.php");
@@ -169,7 +169,7 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\For
         if (empty($buffer) && empty($candidates)) {
             echo "<tr><td style='color:#ff0000' colspan='2'>". sprintf(_('There is no single unmapped %s in the external database for this %s!'), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed)."</td></tr>";
         }
-        echo "</table><button type='submit' name='submitbutton' id='submit' value='" . web\lib\admin\FormElements::BUTTON_SAVE . "' disabled >" . _("Create Link") . "</button></form>";
+        echo "</table><button type='submit' name='submitbutton' id='submit' value='" . web\lib\common\FormElements::BUTTON_SAVE . "' disabled >" . _("Create Link") . "</button></form>";
     }
     ?>
 </p>
@@ -190,6 +190,6 @@ if (count($pending_invites) > 0) {
 <br/>
 <hr/>
 <form action='inc/manageDBLink.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox();
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox();
             return false'><?php echo _("Close"); ?></button>
 </form>

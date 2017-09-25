@@ -59,7 +59,7 @@ if (!$isFedAdmin && !$is_admin_with_blessing) {
 // okay... we are indeed entitled to "do stuff"
 
 if (isset($_POST['submitbutton'])) {
-    if ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE) {
+    if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
         if (isset($_POST['admin_id'])) {
             $ownermgmt = new \core\UserManagement();
             $ownermgmt->removeAdminFromIdP($my_inst, filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_STRING));
@@ -73,7 +73,7 @@ if (isset($_POST['submitbutton'])) {
             echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";
             exit(1);
         }
-    } elseif ($_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_TAKECONTROL) {
+    } elseif ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_TAKECONTROL) {
         if ($isFedAdmin) {
             $ownermgmt = new \core\UserManagement();
             $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
@@ -157,7 +157,7 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
               <td>
                 <form action='inc/manageAdmins.inc.php?inst_id=" . $my_inst->identifier . "' method='post' " . ( $oneowner['ID'] != $_SESSION['user'] ? "onsubmit='popupRedirectWindow(this); return false;'" : "" ) . " accept-charset='UTF-8'>
                 <input type='hidden' name='admin_id' value='" . $oneowner['ID'] . "'></input>
-                <button type='submit' name='submitbutton' class='delete' value='" . web\lib\admin\FormElements::BUTTON_DELETE . "'>" . _("Delete Administrator") . "</button>
+                <button type='submit' name='submitbutton' class='delete' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Delete Administrator") . "</button>
                 </form>
               </td>
             </tr>";
@@ -181,7 +181,7 @@ if (count($pending_invites) > 0) {
 ?>
 <br/>
 <form action='inc/sendinvite.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
+    <?php echo _("New administrator's email address(es) (comma-separated):"); ?><input type="text" name="mailaddr"/><button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Invite new administrator"); ?></button>
 </form>
 <br/>
 <?php
@@ -195,12 +195,12 @@ if ($isFedAdmin) {
 
     if (!$is_admin_himself) {
         echo "<form action='inc/manageAdmins.inc.php?inst_id=$my_inst->identifier' method='post' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='" . web\lib\admin\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclature_inst) . "</button>
+    <button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_TAKECONTROL . "'>" . sprintf(_("Take control of this %s"), $uiElements->nomenclature_inst) . "</button>
 </form>";
     }
 }
 ?>
 <hr/>
 <form action='inc/manageAdmins.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-    <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox(); return false;'><?php echo _("Close"); ?></button>
+    <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox(); return false;'><?php echo _("Close"); ?></button>
 </form>

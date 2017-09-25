@@ -47,7 +47,7 @@ $user = new \core\User($_SESSION['user']);
             </button>
         </fieldset>
         <div>
-            <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'>
                 <?php echo _("Save data"); ?>
             </button>
             <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = "overview_user.php"'>

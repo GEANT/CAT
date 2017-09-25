@@ -66,7 +66,7 @@ if ($device == NULL && $eaptype === NULL) {
 
 // if we have a pushed button, submit attributes and send user back to the compat matrix
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
     if ($eaptype === NULL) {
         $remaining_attribs = $my_profile->beginFlushMethodLevelAttributes(0, $device_key);
         $optionParser->processSubmittedFields($my_profile, $_POST, $_FILES, 0, $device_key);
@@ -123,5 +123,5 @@ if ($device !== NULL) {
     <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
     <br/>
     <hr/>
-    <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
+    <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
 </form>

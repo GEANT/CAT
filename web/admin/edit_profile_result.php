@@ -19,7 +19,7 @@ $optionParser = new \web\lib\admin\OptionParser();
 // deletion sets its own header-location  - treat with priority before calling default auth
 
 $loggerInstance = new \core\common\Logging();
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id']) && isset($_GET['profile_id'])) {
     $auth->authenticate();
     $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
@@ -99,7 +99,7 @@ if (isset($_POST['redirect'])) {
 // did the user submit info? If so, submit to DB and go on to the 'dashboard' or 'next profile' page.
 // if not, what is he doing on this page anyway!
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\admin\FormElements::BUTTON_SAVE) {
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {
     // maybe we were asked to edit an existing profile? check for that...
     if ($my_profile instanceof \core\AbstractProfile) {
         $profile = $my_profile;

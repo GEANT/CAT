@@ -9,7 +9,7 @@
  * ******************************************************************************
  */
 
-namespace web\lib\admin;
+namespace web\lib\common;
 
 /**
  * This class defines constants for HTML form handling.

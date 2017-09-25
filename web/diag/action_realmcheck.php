@@ -757,7 +757,7 @@ if ($error_message) {
         }
         ?>
         <form method='post' action='<?php echo $returnUrl;?>' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo web\lib\admin\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"),$gui->nomenclature_inst); ?></button>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"),$gui->nomenclature_inst); ?></button>
         </form>
         <script>
 
