@@ -37,7 +37,7 @@ if (isset($_POST['action']) && $_POST['action'] == \web\lib\common\FormElements:
     foreach ($allcerts as $index => $onecert) {
         if ($onecert['serial'] == $serial && $onecert['status'] == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID) {
             $statusInfo['profile']->revokeCertificate($serial);
-            header("Location: accountstatus.php?token=".$statusInfo['token']);
+            header("Location: accountstatus.php?token=" . $statusInfo['token']);
         }
     }
 }
@@ -133,7 +133,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                     default:
                                         continue;
                                 }
-                                ${$categoryCountVar}= 0;
+                                ${$categoryCountVar} = 0;
                                 $categoryText = "<tr style='color:$color;'><td colspan=4><h2>" . $categoryText;
 
                                 $categoryText .= "</h2></td></tr>";
@@ -142,7 +142,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                 $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th>" . ( $category == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID ? $revokeText : "") . "</tr>";
                                 foreach ($allcerts as $oneCredential) {
                                     if ($oneCredential['status'] == $category) {
-                                    ${$categoryCountVar}++;
+                                        ${$categoryCountVar} ++;
                                         $categoryText .= "<tr style='color:$color;'>";
                                         $categoryText .= "<td>" . $oneCredential['name'] . "</td>";
                                         $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
@@ -160,8 +160,13 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                 }
                             }
                             $detailedView .= "</table>";
-                            echo sprintf(_("You have <strong>%d</strong> currently valid %s credentials, and <strong>%d</strong> which are not valid any more."), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $numRevoked + $numExpired );
-                            echo " <span id='detailtext' onclick='document.getElementById(\"hiddenbydefault\").style.display = \"block\"; document.getElementById(\"detailtext\").textContent=\""._("The details are displayed below.")."\"'><a class='morelink'>"._("I want to see the details.")."</a></span>";
+                            echo sprintf(ngettext("You have <strong>%d</strong> currently valid %s credential.", "You have <strong>%d</strong> currently valid %s credentials.", $numValid), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                            $noGoodCerts = $numRevoked + $numExpired;
+                            if ($noGoodCerts > 0) {
+                                echo " ";
+                                echo sprintf(ngettext("<strong>%d</strong> of your credentials is not valid any more.", "<strong>%d</strong> of your credentials are not valid any more.", $noGoodCerts), $noGoodCerts);
+                            }
+                            echo " <span id='detailtext' onclick='document.getElementById(\"hiddenbydefault\").style.display = \"block\"; document.getElementById(\"detailtext\").textContent=\"" . _("The details are displayed below.") . "\"'><a class='morelink'>" . _("I want to see the details.") . "</a></span>";
                             echo $detailedView;
                     }
                 }
@@ -170,7 +175,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID: // treat both cases as equal
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                         if ($statusInfo['tokenstatus']['activations_total'] > 1) { // only show this extra info in the non-trivial case.
-                            echo "<h2>" . sprintf(_("Your invitation token is valid for %d more device activations (%d have already been used)."), $statusInfo['tokenstatus']['activations_remaining'], $statusInfo['tokenstatus']['activations_total'] - $statusInfo['tokenstatus']['activations_remaining'] ) . "</h2>";
+                            echo "<h2>" . sprintf(_("Your invitation token is valid for %d more device activations (%d have already been used)."), $statusInfo['tokenstatus']['activations_remaining'], $statusInfo['tokenstatus']['activations_total'] - $statusInfo['tokenstatus']['activations_remaining']) . "</h2>";
                         }
                         if (!$statusInfo["OS"]) {
                             echo "<p>" . _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
