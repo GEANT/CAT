@@ -508,6 +508,7 @@ class ProfileSilverbullet extends AbstractProfile {
             "user" => $invitationRow->silverbullet_user_id,
             "expiry" => $invitationRow->expiry,
             "activations_remaining" => $invitationRow->quantity - $certificatesNumber,
+            "activations_total" => $invitationRow->quantity,
             "value" => $invitationRow->token
         ];
 

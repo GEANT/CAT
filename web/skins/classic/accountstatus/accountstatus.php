@@ -109,7 +109,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                             echo _("You are a new user without a history of eduroam credentials.");
                             break;
                         default:
-                            echo "<table>";
+                            $detailedView = "<table id='hiddenbydefault' style='display:none;'>";
                             $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
                             $revokeText = "<th>" . _("Revoke?") . "</th>";
                             foreach ($categories as $category) {
@@ -118,19 +118,22 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                     case \core\ProfileSilverbullet::SB_CERTSTATUS_VALID:
                                         $categoryText = _("Current login tokens");
                                         $color = "#000000";
+                                        $categoryCountVar = "numValid";
                                         break;
                                     case \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
                                         $categoryText = _("Previous login tokens");
                                         $color = "#999999";
+                                        $categoryCountVar = "numExpired";
                                         break;
                                     case \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
                                         $categoryText = _("Revoked login tokens");
                                         $color = "#ff0000";
+                                        $categoryCountVar = "numRevoked";
                                         break;
                                     default:
                                         continue;
                                 }
-                                $categoryCount = 0;
+                                ${$categoryCountVar}= 0;
                                 $categoryText = "<tr style='color:$color;'><td colspan=4><h2>" . $categoryText;
 
                                 $categoryText .= "</h2></td></tr>";
@@ -139,7 +142,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                 $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th>" . ( $category == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID ? $revokeText : "") . "</tr>";
                                 foreach ($allcerts as $oneCredential) {
                                     if ($oneCredential['status'] == $category) {
-                                        $categoryCount++;
+                                    ${$categoryCountVar}++;
                                         $categoryText .= "<tr style='color:$color;'>";
                                         $categoryText .= "<td>" . $oneCredential['name'] . "</td>";
                                         $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
@@ -152,18 +155,23 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                                         $categoryText .= "</tr>";
                                     }
                                 }
-                                if ($categoryCount > 0) {
-                                    echo $categoryText;
+                                if (${$categoryCountVar} > 0) {
+                                    $detailedView .= $categoryText;
                                 }
                             }
-                            echo "</table>";
+                            $detailedView .= "</table>";
+                            echo sprintf(_("You have <strong>%d</strong> currently valid %s credentials, and <strong>%d</strong> which are not valid any more."), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $numRevoked + $numExpired );
+                            echo " <span id='detailtext' onclick='document.getElementById(\"hiddenbydefault\").style.display = \"block\"; document.getElementById(\"detailtext\").textContent=\""._("The details are displayed below.")."\"'><a class='morelink'>"._("I want to see the details.")."</a></span>";
+                            echo $detailedView;
                     }
                 }
                 // and then display additional information, based on status.
                 switch ($statusInfo['tokenstatus']['status']) {
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_VALID: // treat both cases as equal
                     case \core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
-                        echo "<h2>" . sprintf(_("Your invitation token is valid for %d more device activations."), $statusInfo['tokenstatus']['activations_remaining']) . "</h2>";
+                        if ($statusInfo['tokenstatus']['activations_total'] > 1) { // only show this extra info in the non-trivial case.
+                            echo "<h2>" . sprintf(_("Your invitation token is valid for %d more device activations (%d have already been used)."), $statusInfo['tokenstatus']['activations_remaining'], $statusInfo['tokenstatus']['activations_total'] - $statusInfo['tokenstatus']['activations_remaining'] ) . "</h2>";
+                        }
                         if (!$statusInfo["OS"]) {
                             echo "<p>" . _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
                             break;
