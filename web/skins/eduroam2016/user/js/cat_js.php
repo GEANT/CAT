@@ -10,7 +10,7 @@
 ?>
 <?php 
 function escaped_echo($s) {
-   echo preg_replace('/"/','&quot;',$s);
+    echo preg_replace('/"/', '&quot;', $s);
 }
 
 $langObject = new \core\common\Language();
@@ -19,7 +19,7 @@ $cat = new core\CAT();
 $idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT);
 $profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT);
 $skinObject = $Gui->skinObject;
- ?>
+    ?>
 var n;
 var profile;
 // var device_button_bg ="#0a698e";
@@ -75,7 +75,7 @@ $.fn.redraw = function(){
     result = j.status;
     if(! result) {
       alert("<?php escaped_echo(_("no matching data found"))?>");
-      document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/'?>';
+      document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
     }
     j = j.data;
     n = j.length;
@@ -192,8 +192,8 @@ function resetDevices() {
        j1 = $.parseJSON(data);
        result = j1.status;
        if(! result) {
-            alert("<?php escaped_echo( _("no matching data found"))?>");
-            document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/').'/'?>';
+            alert("<?php escaped_echo(_("no matching data found")) ?>");
+            document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' ?>';
        }
        j = j1.data;
        if(j.description !== undefined && j.description) {
@@ -204,7 +204,7 @@ function resetDevices() {
          $("#profile_desc").text('');
        }
        if(j.local_url !== undefined && j.local_url) 
-         txt = txt+'<tr><td><?php escaped_echo(_("WWW:"));?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
+         txt = txt+'<tr><td><?php escaped_echo(_("WWW:")); ?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
        if(j.local_email !== undefined && j.local_email) 
          txt = txt+'<tr><td><?php escaped_echo(_("email:"));?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
        if(j.local_phone !== undefined && j.local_phone) 
@@ -352,7 +352,7 @@ function getWindowHCenter() {
 }
 
 <?php if($idpId) { 
-      print "front_page = 0;\n";
+        print "front_page = 0;\n";
 } ?>
 
 function showTOU(){
@@ -434,7 +434,7 @@ $(document).ready(function(){
 if ($profileId) {
     print "listProfiles($idpId,$profileId);";
 }
- ?>
+    ?>
 
 $(".signin").click(function(event){
      event.preventDefault();
@@ -517,12 +517,12 @@ $(".signin").DiscoJuice({
         });
 DiscoJuice.Constants.Countries = {
 <?php 
-  $C = $Gui->printCountryList(1);
-     $ret = '';
-   foreach ($C as $key => $val) {
-    $ret .= "'$key': \"$val\",";
-   }
-   echo substr($ret, 0, -1);
+    $C = $Gui->printCountryList(1);
+    $ret = '';
+    foreach ($C as $key => $val) {
+        $ret .= "'$key': \"$val\",";
+    }
+    echo substr($ret, 0, -1);
 ?>
         };
 }

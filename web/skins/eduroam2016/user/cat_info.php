@@ -31,9 +31,9 @@ $page = $_REQUEST['page'];
 $subpage= $_REQUEST['subpage'];
 switch ($page) {
     case 'about' :
-       require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php");
-       $out = "<div>$out</div>";
-       break;
+        require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php");
+        $out = "<div>$out</div>";
+        break;
     case 'tou':
         require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php");
         $out = "no_title<div>
@@ -59,18 +59,18 @@ $Tou['full'] . "
             case 'what_is_eduroam' :
                 $out = "no_title<div><h1>" . _("Help") . "</h1>";
                 foreach ($Faq as $faqItem) {
-                   if (!empty($faqItem['id']) && $faqItem['id'] == $subpage) {
-                       $out .= "<div><h3>" . $faqItem['title'] . "</h3>\n";
-                       $out .= "" . $faqItem['text'] . "</div>\n";
-                   }
+                    if (!empty($faqItem['id']) && $faqItem['id'] == $subpage) {
+                        $out .= "<div><h3>" . $faqItem['title'] . "</h3>\n";
+                        $out .= "" . $faqItem['text'] . "</div>\n";
+                    }
                 }
                 $out .= "</div>";
                 break;
             case 'faq':
                 $out = "no_title<div><h1>" . _("Frequently Asked Questions") . "</h1>";
                 foreach ($Faq as $faqItem) {
-                   $out .= "<div><h3>" . $faqItem['title'] . "</h3>\n";
-                   $out .= "" . $faqItem['text'] . "</div>\n";
+                    $out .= "<div><h3>" . $faqItem['title'] . "</h3>\n";
+                    $out .= "" . $faqItem['text'] . "</div>\n";
                 }
                 $out .= "</div>";
                 break;
@@ -98,8 +98,8 @@ $Tou['full'] . "
                     $out .= "<input id='mail' name='mail' type='text'/><button onclick='window.location.replace(\"remindIdP.php?mail=stefan.winter@restena.lu\"; return false;'>" . _("Get IdP Reminder") . "</button>";
                 }
                 break;
-       }
-       break;
+        }
+        break;
     default:
         break;
 }

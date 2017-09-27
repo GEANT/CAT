@@ -70,6 +70,5 @@ try {
     if ($accountPageUrl === FALSE) {
         throw new Exception("Unable to find our accountstatus.php page.");
     }
-//    print $accountPageUrl;
-  header("Location: ../accountstatus/accountstatus.php?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
+    header("Location: ../accountstatus/accountstatus.php?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
 }

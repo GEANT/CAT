@@ -13,6 +13,8 @@ class Menu {
      * the values of the array can be either a simple string which is passed to user/cat_info.php
      * as the title argument or an two element array - the first element of this array will be
      * the title and the second is a style specification applied to the given menu item
+     * @param string $visibility
+     * @param string $selectedLang
      */
     public function __construct($visibility = 'all', $selectedLang) {
         $langsArray = [];
@@ -23,39 +25,39 @@ class Menu {
                 $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("'.$lang.'")'];
             }
         }
-        $this->menu = [['id'=>'start',
-     'text'=>_("Start page"),
-     'visibility' => 'index'],
-    ['id'=>'about',
-     'text'=>_("About"),'link'=>'','submenu'=>[
-            ['text'=>sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
-             'catInfo'=>['about_cat',sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
-            ['text'=>sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-             'link'=>CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
-        ]],
-    ['id'=>'lang',
-     'text'=>_("Language"), 'submenu'=>$langsArray,],
-    ['id'=>'help',
-     'text'=>_("Help"), 'submenu'=>[
-            ['text'=>_("My institution is not listed"), 'catInfo'=>['idp_not_listed',_("FAQ")], 'visibility'=>'index'],
-            ['text'=>_("My device is not listed"), 'catInfo'=>['device_not_listed',_("FAQ")], 'visibility'=>'index'],
-            ['text'=>_("SB help item"),'visibility'=>'sb'],
-            ['text'=>_("What is eduroam"), 'catInfo'=>['what_is_eduroam',_("FAQ")]],
-            ['text'=>_("FAQ"), 'catInfo'=>['faq',_("FAQ")]],
-            ['text'=>_("Contact"), 'catInfo'=>['contact',_("FAQ")]],
-        ]],
-    ['id'=>'manage',
-     'text'=>_("Manage"),'submenu'=>[
-            ['text'=>sprintf(_("%s admin access"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
-             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your IdP"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])]],
-            ['text'=>_("Become a CAT developer"),
-             'catInfo'=>['develop',_("Become a CAT developer")]],
-            ['text'=>_("Documentation")],
-        ],
-     'visibility' => 'index'],
-    ['id'=>'tou',
-     'text'=>_("Terms of use"), 'catInfo'=>['tou','TOU']],
-    ];
+        $this->menu = [['id' => 'start',
+        'text' => _("Start page"),
+        'visibility' => 'index'],
+            ['id' => 'about',
+                'text' => _("About"), 'link' => '', 'submenu' => [
+                    ['text' => sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
+                        'catInfo' => ['about_cat', sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
+                    ['text' => sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+                        'link' => CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
+                ]],
+            ['id' => 'lang',
+                'text' => _("Language"), 'submenu' => $langsArray,],
+            ['id' => 'help',
+                'text' => _("Help"), 'submenu' => [
+                    ['text' => _("My institution is not listed"), 'catInfo' => ['idp_not_listed', _("FAQ")], 'visibility' => 'index'],
+                    ['text' => _("My device is not listed"), 'catInfo' => ['device_not_listed', _("FAQ")], 'visibility' => 'index'],
+                    ['text' => _("SB help item"), 'visibility' => 'sb'],
+                    ['text' => _("What is eduroam"), 'catInfo' => ['what_is_eduroam', _("FAQ")]],
+                    ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
+                    ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
+                ]],
+            ['id' => 'manage',
+                'text' => _("Manage"), 'submenu' => [
+                    ['text' => sprintf(_("%s admin access"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+                        'catInfo' => ['admin', sprintf(_("%s admin:<br>manage your IdP"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])]],
+                    ['text' => _("Become a CAT developer"),
+                        'catInfo' => ['develop', _("Become a CAT developer")]],
+                    ['text' => _("Documentation")],
+                ],
+                'visibility' => 'index'],
+            ['id' => 'tou',
+                'text' => _("Terms of use"), 'catInfo' => ['tou', 'TOU']],
+        ];
         $this->visibility = $visibility;
     }
     public function printMenu($menu = NULL, $id=NULL) {
