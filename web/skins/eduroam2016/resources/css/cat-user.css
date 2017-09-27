@@ -799,3 +799,9 @@ a.signin {
     padding-top: 15px;
     padding-bottom: 50px;
 }
+
+#detailtext {
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
+}

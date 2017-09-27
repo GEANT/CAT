@@ -53,7 +53,7 @@ if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID)
     $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
     $idp = new \core\IdP($profile->institution);
     $fed = $validator->Federation(strtoupper($idp->federation));
-    $fedskin = $fed->getAttributes("fed:desired_skin");
+    $fedskin = $fed->getAttributes("fed:desired_skin"); 
 }
 // ... unless overwritten by direct GET/POST parameter in the request
 // ... with last resort being the default skin (first one in the configured skin list is the default)
@@ -71,7 +71,7 @@ $statusInfo = ["token" => $cleanToken,
     "OS" => $Gui->operatingSystem,
     "profile" => $profile,
     "attributes" => $Gui->profileAttributes($profile->identifier),
-    "profile_id" => $profile->identifier,
+    "profile_id" => $tokenStatus['profile'],
     "idp" => $idp,
     "idp_id" => $idp->identifier,
     "idp_logo" => $hasLogo,

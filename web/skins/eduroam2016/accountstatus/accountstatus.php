@@ -71,7 +71,10 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                             break;
                         default:
                             $detailedView = "<table id='cert_details'>";
+                            $dV = "<table id='cert_details'></table>";
+
                             $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
+                            $revokeText = "<th>" . _("Revoke?") . "</th>";
                             foreach ($categories as $category) {
 
                                 switch ($category) {
@@ -98,7 +101,7 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                                 $categoryText = "<tr style='color:$color;'><th colspan=5 class='th1'>" . $categoryText;
 
                                 $categoryText .= "</th></tr>";
-                                $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th></tr>";
+                                $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th>". ( $category == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID ? $revokeText : "") . "</tr>";
                                 foreach ($allcerts as $oneCredential) {
                                     if ($oneCredential['status'] == $category) {
                                         $categoryCount++;
@@ -123,8 +126,9 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                                 echo " ";
                                 echo sprintf(ngettext("<strong>%d</strong> of your credentials is not valid any more.", "<strong>%d</strong> of your credentials are not valid any more.", $noGoodCerts), $noGoodCerts);
                             }
-                            echo " <span id='detailtext' onclick='document.getElementById(\"cert_details\").style.display = \"block\"; document.getElementById(\"detailtext\").textContent=\"" . _("The details are displayed below.") . "\"'><a class='morelink'>" . _("I want to see the details.") . "</a></span>";
-                            echo $detailedView;
+                            echo " <span id='detailtext'>" . _("I want to see the details.") . "</span>";
+                            //echo $detailedView;
+                            echo $dV;
                     }
                 }
                                 // and then display additional information, based on status.
@@ -229,6 +233,25 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
             $("#cat_form").attr('action','<?php echo $Gui->skinObject->findResourceUrl("BASE","user/sb_download.php");?>');
             $("#cat_form").submit();
         });
+        
+        $("#detailtext").click(function(event){
+            token = "<?php echo $statusInfo['token']; ?>";
+            $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'getUserCerts', api_version: 2, token: token}, function(data) {
+ //               alert(data);
+                j = $.parseJSON(data);
+                result = j.status;
+                if(! result) {
+                    alert("<?php escaped_echo(_("invalid token"))?>");
+                        }
+                j = j.data;
+                $.each(j, function( index, value ) {
+                    $("#cert_details").append('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td><td>'+value.status+'</td></tr>');
+                });
+            });
+            $("#cert_details").show();
+            $(this).html("<?php escaped_echo(_("The details are displayed below."))?>");
+        });
+
 
         loadIdpData();
     </script> 

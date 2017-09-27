@@ -36,8 +36,8 @@ const LISTOFACTIONS = [
     'locateUser',
     'detectOS',
     'orderIdentityProviders',
+    'getUserCerts',
 ];
-
 
 function getRequest($varName,$filter) {
     $safeText = ["options"=>["regexp"=>"/^[\w\d]+$/"]];
@@ -76,41 +76,7 @@ $width = getRequest('width','int') ?? 0;
 $height = getRequest('height','int') ?? 0;
 $sort = getRequest('sort','int') ?? 0;
 $generatedforR = getRequest('generatedfor','safe_text') ?? 'user';
-
-/*
-$idp = FALSE;
-$lang = FALSE;
-$profile = FALSE;
-$federation = FALSE;
-$disco = FALSE;
-$device = FALSE;
-if (isset($_REQUEST['lang'])) {
-    $lang = $validator->supportedLanguage($_REQUEST['lang']);
-}
-if (isset($_REQUEST['device'])) {
-    $device = $validator->Device($_REQUEST['device']);
-}
-if (isset($_REQUEST['idp'])) {
-    $idp = $validator->IdP($_REQUEST['idp'])->identifier;
-}
-if (isset($_REQUEST['profile'])) {
-    $profile = $validator->Profile($_REQUEST['profile'])->identifier;
-}
-if (isset($_REQUEST['federation'])) {
-    $federation = $validator->Federation(strtoupper($_REQUEST['federation']))->identifier;
-}
-if (isset($_REQUEST['disco'])){
-    $disco    = (int)$_REQUEST['disco'];
-}
-
-
-
-$width    = (int)($_REQUEST['width'] ?? 0);
-$height   = (int)($_REQUEST['height'] ?? 0);
-$sort     = (int)($_REQUEST['sort'] ?? 0);
-$location = $_REQUEST['location'] ?? 0;
-$generatedfor = $_REQUEST['generatedfor'] ?? 'user';
-*/
+$token = getRequest('token','safe_text');
 
 
 switch ($action) {
@@ -189,6 +155,9 @@ switch ($action) {
             $coordinateArray = ['lat' => $coordinateArrayRaw[0], 'lon' => $coordinateArrayRaw[1]];
         }
         $API->JSON_orderIdentityProviders($federation, $coordinateArray);
+        break;
+    case 'getUserCerts':
+        $API->JSON_getUserCerts($token);
         break;
 }
 
