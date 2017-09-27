@@ -762,6 +762,35 @@ class UserAPI extends CAT {
         }
         echo $this->return_json($returnArray, $status);
     }
+    
+    public function getUserCerts($token) {
+        $validator = new \web\lib\common\InputValidation();
+        $cleanToken = $validator->token($token);
+        if ($cleanToken) {
+            // check status of this silverbullet token according to info in DB:
+            // it can be VALID (exists and not redeemed, EXPIRED, REDEEMED or INVALID (non existent)
+            $tokenStatus = \core\ProfileSilverbullet::tokenStatus($cleanToken);
+        } else {
+            return false;
+        }
+        $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
+        $userdata = $profile->userStatus($tokenStatus['user']);
+        $allcerts = [];
+        foreach ($userdata as $index => $content) {
+            $allcerts = array_merge($allcerts, $content['cert_status']);
+        }
+        return $allcerts;
+    }
+
+    public function JSON_getUserCerts($token) {
+        $returnArray = $this->getUserCerts($token);
+        if ($returnArray) {
+            $status = 1;
+        } else {
+            $status = 0;
+        }
+        echo $this->return_json($returnArray, $status);
+    }
 
     public $device;
     private $installerPath;
