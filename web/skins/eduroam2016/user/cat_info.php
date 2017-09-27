@@ -32,7 +32,7 @@ $subpage= $_REQUEST['subpage'];
 switch ($page) {
     case 'about' :
         require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php");
-        $out = "<div>$out</div>";
+        $out = "<div class='padding'>$out</div>";
         break;
     case 'tou':
         require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/tou.inc.php");
@@ -96,7 +96,8 @@ $Tou['full'] . "
                     $out .= "<p><button onclick='goAdmin(); return(false);'>" . _("Login") . "</button>";
                     $out .= "<br/><br/><p>" . _("Did you forget with which Identity Provider you logged in to the system? We can try to find out if you specify the email address with which you were invited to the system in the box below. This may not work if you were invited from a third-party website via the AdminAPI.") . "</p>";
                     $out .= "<input id='mail' name='mail' type='text'/><button onclick='window.location.replace(\"remindIdP.php?mail=stefan.winter@restena.lu\"; return false;'>" . _("Get IdP Reminder") . "</button>";
-                }
+                    $out = "<div  class='padding'>$out</div>";
+                    }
                 break;
         }
         break;
