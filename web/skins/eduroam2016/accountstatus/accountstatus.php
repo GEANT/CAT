@@ -237,16 +237,38 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
         $("#detailtext").click(function(event){
             token = "<?php echo $statusInfo['token']; ?>";
             $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'getUserCerts', api_version: 2, token: token}, function(data) {
- //               alert(data);
+                var validCerts = new Array();
+                var revokedCerts = new Array();
+                var expiredCerts = new Array();
+
+        //               alert(data);
                 j = $.parseJSON(data);
                 result = j.status;
                 if(! result) {
                     alert("<?php escaped_echo(_("invalid token"))?>");
                         }
                 j = j.data;
+                
                 $.each(j, function( index, value ) {
-                    $("#cert_details").append('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td><td>'+value.status+'</td></tr>');
+                    if (value.status == 1)
+                        validCerts.push('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td></tr>');
+                    if (value.status == 3)
+                        revokedCerts.push('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td></tr>');
+    
+    //                  $("#cert_details").append('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td><td>'+value.status+'</td></tr>');
                 });
+                if (validCerts.length > 0) {
+                    $("#cert_details").append('<tr><th>Valid</th></tr>');
+                    $.each(validCerts, function(index,line){
+                        $("#cert_details").append(line);
+                    });
+                }
+                if (revokedCerts.length > 0) {
+                    $("#cert_details").append('<tr><th>Revoked</th></tr>');
+                    $.each(revokedCerts, function(index,line){
+                        $("#cert_details").append(line);
+                    });
+                }
             });
             $("#cert_details").show();
             $(this).html("<?php escaped_echo(_("The details are displayed below."))?>");
