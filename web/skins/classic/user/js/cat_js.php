@@ -16,14 +16,8 @@ function escaped_echo($s) {
 
 $langObject = new \core\common\Language();
 $langObject->setTextDomain('web_user');
-$idpId = empty($_REQUEST['idp']) ? 0 : $_REQUEST['idp'];
-if (! is_numeric($idpId)) {
-    exit;
-}
-$profileId = empty($_REQUEST['profile']) ? 0 : $_REQUEST['profile'];
-if (! is_numeric($profileId)) {
-    exit;
-}
+$idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT);
+$profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT);
  ?>
 var n;
 var profile;

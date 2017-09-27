@@ -14,11 +14,51 @@ class Menu {
      * as the title argument or an two element array - the first element of this array will be
      * the title and the second is a style specification applied to the given menu item
      */
-    public function __construct($menuArray,$visibility = 'all') {
-        $this->menu = $menuArray;
+    public function __construct($visibility = 'all', $selectedLang) {
+        $langsArray = [];
+        foreach (CONFIG['LANGUAGES'] as $lang => $value) {
+            if ($lang == $selectedLang) {
+                $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("'.$lang.'")', 'class'=>'selected-lang'];
+            } else {
+                $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("'.$lang.'")'];
+            }
+        }
+        $this->menu = [['id'=>'start',
+     'text'=>_("Start page"),
+     'visibility' => 'index'],
+    ['id'=>'about',
+     'text'=>_("About"),'link'=>'','submenu'=>[
+            ['text'=>sprintf(_("About %s"), CONFIG['APPEARANCE']['productname']),
+             'catInfo'=>['about_cat',sprintf(_("About %s"), CONFIG['APPEARANCE']['productname'])]],
+            ['text'=>sprintf(_("About %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+             'link'=>CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
+        ]],
+    ['id'=>'lang',
+     'text'=>_("Language"), 'submenu'=>$langsArray,],
+    ['id'=>'help',
+     'text'=>_("Help"), 'submenu'=>[
+            ['text'=>_("My institution is not listed"), 'catInfo'=>['idp_not_listed',_("FAQ")], 'visibility'=>'index'],
+            ['text'=>_("My device is not listed"), 'catInfo'=>['device_not_listed',_("FAQ")], 'visibility'=>'index'],
+            ['text'=>_("SB help item"),'visibility'=>'sb'],
+            ['text'=>_("What is eduroam"), 'catInfo'=>['what_is_eduroam',_("FAQ")]],
+            ['text'=>_("FAQ"), 'catInfo'=>['faq',_("FAQ")]],
+            ['text'=>_("Contact"), 'catInfo'=>['contact',_("FAQ")]],
+        ]],
+    ['id'=>'manage',
+     'text'=>_("Manage"),'submenu'=>[
+            ['text'=>sprintf(_("%s admin access"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']),
+             'catInfo'=>['admin',sprintf(_("%s admin:<br>manage your IdP"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])]],
+            ['text'=>_("Become a CAT developer"),
+             'catInfo'=>['develop',_("Become a CAT developer")]],
+            ['text'=>_("Documentation")],
+        ],
+     'visibility' => 'index'],
+    ['id'=>'tou',
+     'text'=>_("Terms of use"), 'catInfo'=>['tou','TOU']],
+    ];
         $this->visibility = $visibility;
     }
-    public function printMenu($menu = NULL,$id=NULL) {
+    public function printMenu($menu = NULL, $id=NULL) {
         $menu = $menu ?? $this->menu;
      if(count($menu) == 0) {
           return;
@@ -40,7 +80,6 @@ class Menu {
                 $out .= "</li>\n";
              }
         }
-       
         $out .= '</ul>';
         return($out);
     }
@@ -48,6 +87,7 @@ class Menu {
     private function printMenuItem($itemText,$itemLink = '',$itemClass = '') {
         return "<li><a href='" . $itemLink . "'".$itemClass.'>' . $itemText . "</a>";
     }
+    
 
     private $menu;
     private $visibility;

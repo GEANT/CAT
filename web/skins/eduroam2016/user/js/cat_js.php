@@ -16,14 +16,9 @@ function escaped_echo($s) {
 $langObject = new \core\common\Language();
 $langObject->setTextDomain('web_user');
 $cat = new core\CAT();
-$idpId = empty($_REQUEST['idp']) ? 0 : $_REQUEST['idp'];
-if (! is_numeric($idpId)) {
-    exit;
-}
-$profileId = empty($_REQUEST['profile']) ? 0 : $_REQUEST['profile'];
-if (! is_numeric($profileId)) {
-    exit;
-}
+$idpId = filter_input(INPUT_GET, 'idp', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'idp', FILTER_VALIDATE_INT);
+$profileId = filter_input(INPUT_GET, 'profile', FILTER_VALIDATE_INT) ?? filter_input(INPUT_POST, 'profile', FILTER_VALIDATE_INT);
+$skinObject = $Gui->skinObject;
  ?>
 var n;
 var profile;
@@ -38,7 +33,16 @@ var download_link;
 var profile_list_size = <?php echo $profile_list_size ?>;
 var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation of your installer failed. System admins have been notified. We will try to take care of the problem as soon as possible.")) ?>";
 
-   $.fn.redraw = function(){
+var roller;
+if (roller === undefined)
+    roller = 0;
+var noDisco;
+if (noDisco === undefined)
+    noDisco = 0;
+var sbPage;
+if (sbPage === undefined)
+    sbPage = 0;
+$.fn.redraw = function(){
   $(this).each(function(){
     var redraw = this.offsetHeight;
   });
@@ -58,13 +62,14 @@ var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation o
     $("#inst_id").val(inst_id);
     $("#profile_id").val('');
     $(".signin_large").hide();
-    Program.stop_program = 1;
+    if (roller)
+        Program.stop_program = 1;
     $("#profiles").hide();
     $("#user_info").hide();
     $("#devices").hide();
     $("#profile_redirect").hide();
     i_s = selected_profile;
-      $.post('user/API.php', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
+      $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'listProfiles', api_version: 2, lang: lang, idp: inst_id}, function(data) {
 //alert(data);
     j = $.parseJSON(data);
     result = j.status;
@@ -88,7 +93,7 @@ var generation_error = "<?php escaped_echo(_("This is embarrassing. Generation o
     if(n <= profile_list_size)
     $("#profile_list").append('<option value="0" selected style="display:none"> </option>');
     if(logo) {
-    $("#idp_logo").attr("src","user/API.php?action=sendLogo&api_version=2&idp="+inst_id);
+    $("#idp_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+inst_id);
     $("#idp_logo").show();
     }
     if (n > 1) {
@@ -140,7 +145,7 @@ function resetDevices() {
   if(button_id.substr(0,7) == "info_b_") {
     var device_id = button_id.substr(7);
     $("#info_window").html("<h2>"+$('#'+device_id).text()+"</h2>");
-  $.post('user/API.php', {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
+  $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'deviceInfo', api_version: 2, lang: lang, device: device_id, profile: profile}, function(data) {
     var h = $("#info_window").html();
     $("#info_window").html(h+data);
     $("#main_body").fadeTo("fast", 0.2,function() {
@@ -163,7 +168,7 @@ function resetDevices() {
         generateTimer = $.now();
         $("#devices").hide();
         $("#user_welcome").show();
-        $.post('user/API.php', {action: 'generateInstaller', api_version: 2, lang: lang, device: button_id, profile: profile}, processDownload);
+        $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'generateInstaller', api_version: 2, lang: lang, device: button_id, profile: profile}, processDownload);
      }
   }
 }); 
@@ -183,7 +188,7 @@ function resetDevices() {
      profile = prof;
      $("#profile_id").val(prof);
      txt = '';
-     $.post('user/API.php', {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
+     $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'profileAttributes', api_version: 2, lang: lang, profile: profile}, function(data) {
        j1 = $.parseJSON(data);
        result = j1.status;
        if(! result) {
@@ -276,7 +281,7 @@ function resetDevices() {
                $("#devices").hide();
                generateTimer = $.now();
                $("#user_welcome").show();
-               $.post('user/API.php', {action: 'generateInstaller', api_version: 2, lang: lang, device: dev_id, profile: profile}, processDownload); 
+               $.post('<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>', {action: 'generateInstaller', api_version: 2, lang: lang, device: dev_id, profile: profile}, processDownload); 
                }
             });
                
@@ -307,7 +312,8 @@ function resetDevices() {
     } else {
        data = "<h1>"+title+"</h1>"+data;
     }
-    Program.stop_program = 1;
+    if (roller)
+        Program.stop_program = 1;
 //    $("#welcome_top1").css('visibility','hidden');
 //    $("#top_invite").css('visibility','hidden');
 //    $("#main_body").css('visibility','hidden');
@@ -380,7 +386,7 @@ function processDownload(data) {
   if( j.link == 0 )
     alert(generation_error);
   else {
-    download_link = 'user/API.php?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
+    download_link = '<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
     $("#download_info a").attr('href',download_link);
     $('#download_info').show();
     if( generateTimer > 0 ) {
@@ -406,10 +412,16 @@ $(document).ready(function(){
      $('body').addClass("no_borders");
    }
 
-   $("#user_page").hide();
-   $("#institution_name").hide();
+   if (sbPage == 0) {
+       $("#user_page").hide();
+       $("#institution_name").hide();
+       $("#user_info").hide();
+   } else {
+       $("#user_page").show();
+       $("#institution_name").show();
+       $("#user_info").show();
+   }   
    $("#profiles").hide();
-   $("#user_info").hide();
    $("#devices").hide();
    $("#download_info a").css('font-weight','bold');
 
@@ -431,8 +443,10 @@ $(".signin").click(function(event){
 $("#main_menu_close").click(function(event){
     $("#main_menu_info").hide('fast');
     $("#main_body").fadeTo("fast", 1.0);
-    Program.stop_program = 0;
-    Program.nextStep();
+    if (roller) {
+        Program.stop_program = 0;
+        Program.nextStep();
+    }
   return(false);
 });
 
@@ -454,9 +468,10 @@ $("#menu_top > ul >li").click(function(event){
 
 catWelcome = $("#main_menu_content").html();
   
+if (noDisco === 0) {
 $(".signin").DiscoJuice({
    "discoPath":"external/discojuice/",
-   "iconPath":"user/API.php?action=sendLogo&api_version=2&disco=1&lang=en&idp=",
+   "iconPath":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&disco=1&lang=en&idp=",
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
    "title":"<?php escaped_echo($cat->nomenclature_inst) ?>",
@@ -478,8 +493,8 @@ $(".signin").DiscoJuice({
    "geoLoc_here" : "<?php escaped_echo(_("You are here:"))?>",
    "geoLoc_getting" : "<?php escaped_echo(_("Getting your location..."))?>",
    "geoLoc_nearby" : "<?php escaped_echo(_("Nearby providers shown on top."))?>",
-   "countryAPI":"user/API.php?action=locateUser&api_version=2",
-   "metadata":"user/API.php?action=listAllIdentityProviders&api_version=2&lang="+lang,
+   "countryAPI":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=locateUser&api_version=2",
+   "metadata":"<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=listAllIdentityProviders&api_version=2&lang="+lang,
    "callback": function(e) {
      $("#profile_desc").hide();
      $("#profile_desc").text('');
@@ -487,7 +502,8 @@ $(".signin").DiscoJuice({
      $("#top_invite").hide();
      $("#institution_name").hide();
      $("#front_page").hide();
-     Program.stop_program = 1;
+     if (roller)
+         Program.stop_program = 1;
      $(this).addClass('pressed');
      $('#welcome').hide();
      $("#inst_name_span").html("");
@@ -509,17 +525,20 @@ DiscoJuice.Constants.Countries = {
    echo substr($ret, 0, -1);
 ?>
         };
+}
 
 
 // device_button_bg = $("button:first").css('background');
  device_button_fg = $("button:first").css('color');
 
-if(front_page)
-   $("#img_roll_1").fadeOut(0);
+ if(front_page)
+   if (roller)
+       $("#img_roll_1").fadeOut(0);
    $("#cursor").fadeOut(0);
 if(front_page) {
-   $("#fron_page").show();
-   prepareAnimation();
+   $("#front_page").show();
+   if (roller)
+       prepareAnimation();
  }
 
 //alert($("#welcome_top1").css('display'));

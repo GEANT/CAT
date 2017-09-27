@@ -22,13 +22,12 @@ body {
     background: <?php echo $colour1;?>;
     color: #000000;
     font-family:"Open Sans", Helvetica, sans-serif;
-    font-size:11px;
+    font-size:12px;
     height: 100%;
     margin: 0px;
     padding: 0px;
     padding-left: 0px;
 //    min-width: 700px;
-    font-size: 11px;
     font-weight: normal;
 
 }
@@ -607,10 +606,15 @@ span.redirect_link a:active {
 
 #user_info {
     padding-left: 30px; 
-    font-size: 11px;  
+    font-size: 12px;  
     font-weight: normal; 
 }
 
+#sb_info {
+    padding-left: 30px; 
+    font-size: 12px;  
+    font-weight: normal; 
+}
 #profile_list2 {
     width: 30em; 
     padding-left: 10px; 
@@ -624,7 +628,7 @@ span.redirect_link a:active {
 #profile_redirect {
     padding-left: 30px;
     padding-top: 20px;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: normal;
     max-width:500px;
     width: 80%;
@@ -633,7 +637,7 @@ span.redirect_link a:active {
 
 #profiles {
     padding-left: 30px; 
-    font-size: 11px; 
+    font-size: 12px; 
     padding-bottom: 10px 
 }
 
@@ -649,7 +653,7 @@ span.redirect_link a:active {
 
 .device_list button {
     width: 270px; 
-    font-size: 11px;  
+    font-size: 12px;  
     font-weight: normal; 
     font-style: normal;
 }
@@ -685,7 +689,7 @@ span.redirect_link a:active {
     border-bottom-style:solid;
     border-bottom-width:5px;
     border-color: <?php echo $colour1;?>;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: normal;
 }
 
@@ -702,7 +706,7 @@ span.redirect_link a:active {
 }
 
 #lang_select td {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: normal;
     height:3em;
     vertical-align: bottom;

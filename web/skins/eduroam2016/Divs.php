@@ -10,6 +10,7 @@
  */
 
 use web\lib\user;
+require("Menu.php");
 
 /**
  * This class delivers various <div> elements for the front page.
@@ -29,9 +30,28 @@ class Divs {
         $this->Gui = $Gui;
     }
 
+    public function div_heading($visibility = 'all') {
+        $selectedLang = $this->Gui->langObject->getLang();
+        $menu = new Menu($visibility, $selectedLang);
+        $retval = "
+    <div id='heading'>
+        <div id='cat_logo'>
+            <img id='logo_img' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png") . "' alt='Consortium Logo'/>
+            <span>Configuration Assistant Tool</span>
+        </div>
+        <div id='motd'>" . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . "</div>
+        <img id='hamburger' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/menu.png") . "' alt='Menu'/>
+        <div id='menu_top'>
+";
+        $retval .= $menu->printMenu();
+
+        $retval .= "</div></div>\n";
+        return $retval;
+    }
+
     public function div_user_welcome() {
         $retval = "
-<div id='user_welcome'> <!-- this information is shown just pefore the download -->
+<div id='user_welcome'> <!-- this information is shown just before the download -->
     <strong>" . $this->Gui->textTemplates->templates[user\WELCOME_ABOARD_PAGEHEADING] . "</strong>
     <p>
     <span id='download_info'>
@@ -118,12 +138,12 @@ class Divs {
 </div>";
     }
 
-    public function div_institution() {
+    public function div_institution($selectButton = TRUE) {
         return "
 <div id='institution_name'>
-    <span id='inst_name_span'></span> <!-- this will be filled with the IdP name -->
-    <a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>
-</div>
+    <span id='inst_name_span'></span> <div id='inst_extra_text'></div><!-- this will be filled with the IdP name -->" . 
+($selectButton ? "<a  id='select_another' class='signin' href=\"\">" . $this->Gui->textTemplates->templates[user\INSTITUTION_SELECTION] . "</a>" : "") .
+"</div>
 <div> <!-- IdP logo, if present -->
     <img id='idp_logo' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "empty.png") . "' alt='IdP Logo'/>
 </div>";

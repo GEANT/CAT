@@ -17,6 +17,8 @@
  * Some texts that you might want to customise are hardcoded 
  * in the calls creating the OS objects. See more comments at
  * the bottom of this file
+ * 
+ * This file should be loaded AFTER cat_js.php
 */
 ?>
 <?php 
@@ -26,6 +28,7 @@ $langObject->setTextDomain('web_user'); ?>
 
 
 var img_vis = 0;
+var roller = 1;
 var that;
 
 /*

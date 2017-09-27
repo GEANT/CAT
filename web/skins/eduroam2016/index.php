@@ -27,11 +27,11 @@
     var recognisedOS = '';
     var downloadMessage;
 <?php
+$visibility = 'index';
 include_once('Divs.php');
 $divs = new Divs($Gui);
-$visibility = 'index';
 $operatingSystem = $Gui->detectOS();
-$Gui->loggerInstance->debug(4, print_r($operatingSystem, true));
+$Gui->loggerInstance->debug(4, $operatingSystem);
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
@@ -62,7 +62,7 @@ include("user/js/cat_js.php");
 <body>
 <div id="wrap">
     <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/'); ?>/">
-    <?php include "div_heading.php"; ?>
+    <?php echo $divs->div_heading($visibility); ?>
     <div id="main_page">
         <div id="loading_ico">
           <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>" alt="Authenticating ..."/>

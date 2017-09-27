@@ -66,9 +66,10 @@ try {
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob();
     // find our account status page, and bail out if this doesn't work
-    $accountPageUrl = "../accountstatus/accountstatus.php";
+    $accountPageUrl = $skinObject->findResourceUrl("BASE", "accountstatus/accountstatus.php");
     if ($accountPageUrl === FALSE) {
         throw new Exception("Unable to find our accountstatus.php page.");
     }
-    header("Location: $accountPageUrl?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
+//    print $accountPageUrl;
+  header("Location: ../accountstatus/accountstatus.php?token=" . $cleanToken . "&errorcode=GENERATOR_CONSUMED");
 }

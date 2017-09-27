@@ -8,12 +8,14 @@ body {
 
 #wrap {
     min-height: 100%;
+  /*  height: 100%;
+  padding-bottom: 80px;*/
 }
 
 #cat_form {
-   height: 100%;
+ height: 100%;
 /* overflow: auto; */
-padding-bottom: 80px;
+padding-bottom: 80px; 
 }
 
 #heading {
@@ -214,6 +216,19 @@ button {
    padding-top:10px;
 }
 
+#inst_extra_text {
+   position: absolute;
+   max-width: 30vw;
+   width: auto;
+   top: 0px;
+   right: 20px;
+   font-size: 16px;
+   padding-top: 12px;
+   color: yellow;
+   padding-left:0px;
+   text-align: right;
+}
+
 @media all and (max-width: 750px) {
 #institution_name {
     font-size: 24px;
@@ -364,6 +379,19 @@ button.guess_os {
 #idp_logo {
    max-width:20vw;
    padding-top:30px;
+}
+
+#inst_extra_text {
+   position: absolute;
+   max-width: 30vw;
+   width: auto;
+   top: 0px;
+   right: 20px;
+   font-size: 13px;
+   padding-top: 12px;
+   color: yellow;
+   padding-left:0px;
+   text-align: right;
 }
 
 }
@@ -719,6 +747,7 @@ a.signin {
    text-align: right;
 }
 
+
 #download_info {
    background: #f0f0f0;
    padding-left: 20px;
@@ -728,3 +757,41 @@ a.signin {
    display: block;
 }
 
+#cert_details {
+    display: none;
+    padding-top: 10px;
+    
+}
+
+#cert_details td {
+    background: #eee;
+    padding: 1px;
+}
+
+#cert_details th.th1 {
+    font-size: 14px;
+    text-align: left;
+    padding-top: 4px;
+    border-bottom: 1px black solid;
+}
+
+#sb_download_message span.emph {
+    font-weight: bold;
+}
+
+#sb_download_message {
+    font-size: 16px;
+    padding-right: 30px;
+    padding-left: 20px;
+    padding-top:1px;
+    padding-bottom: 1px;
+    background: #eee;
+    position: relative;
+    left: -20px;
+    top: 10px;
+}
+
+#sb_info {
+    padding-top: 15px;
+    padding-bottom: 50px;
+}

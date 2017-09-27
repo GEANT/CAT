@@ -27,8 +27,7 @@ $idp = NULL;
 $fed = NULL;
 
 $validator = new \web\lib\common\InputValidation();
-$Gui = new \core\UserAPI();
-$operatingSystem = $Gui->detectOS();
+$Gui = new \web\lib\user\Gui();
 
 if (isset($_REQUEST['token'])) {
     $recoverToken = filter_input(INPUT_GET, 'token', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'token', FILTER_SANITIZE_STRING);
@@ -60,12 +59,23 @@ if ($tokenStatus['status'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID)
 // ... with last resort being the default skin (first one in the configured skin list is the default)
 
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
+$hasLogo = 0;
+$logo = $idp->getAttributes('general:logo_file');
+if (count($logo) > 0) {
+    $hasLogo = 1;
+}
 
+$attributes = $Gui->profileAttributes($profile->identifier);
 $statusInfo = ["token" => $cleanToken,
     "tokenstatus" => $tokenStatus,
-    "OS" => $operatingSystem,
+    "OS" => $Gui->operatingSystem,
     "profile" => $profile,
+    "attributes" => $Gui->profileAttributes($profile->identifier),
+    "profile_id" => $profile->identifier,
     "idp" => $idp,
+    "idp_id" => $idp->identifier,
+    "idp_logo" => $hasLogo,
+    "idp_name" => $idp->name,
     "fed" => $fed,
 ];
 
