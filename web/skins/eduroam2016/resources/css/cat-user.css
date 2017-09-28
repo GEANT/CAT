@@ -653,6 +653,10 @@ img.close_button {
    cursor: pointer;
 }
 
+#main_menu_content div.padding {
+    padding-left: 20px;
+    padding-right: 20px;
+}
 #main_menu_content h1 {
     padding: 40px;
     height: 30px;
@@ -794,4 +798,10 @@ a.signin {
 #sb_info {
     padding-top: 15px;
     padding-bottom: 50px;
+}
+
+#detailtext {
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
 }
