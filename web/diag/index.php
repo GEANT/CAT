@@ -46,6 +46,10 @@
                     <td><textarea name='freetext' cols='80' rows='5'></textarea></td>
                 </tr>
                 <tr>
+                    <td>Please specify an email address on which the IdP can contact you</td>
+                    <td><input type='text' name='email'></td>
+                </tr>
+                <tr>
                     <td><button type='submit' name='go'>Go!</button></td>
                     <td></td>
                 </tr>
@@ -89,6 +93,10 @@
                 <tr>
                     <td>Do you have any contact details by which the user wishes to be contacted by the SP?</td>
                     <td><textarea name='freetext' cols='80' rows='5'></textarea></td>
+                </tr>
+                <tr>
+                    <td>Please specify an email address on which the SP can contact you</td>
+                    <td><input type='text' name='email'></td>
                 </tr>
                 <tr>
                     <td><button type='submit' name='go'>Go!</button></td>
