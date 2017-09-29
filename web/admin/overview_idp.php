@@ -176,7 +176,9 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     if (count($profiles_for_this_idp) == 0) { // no profiles yet.
         echo "<h2>" . sprintf(_("There are not yet any profiles for your %s."), $uiElements->nomenclature_inst) . "</h2>";
     }
-
+    if (count($profiles_for_this_idp) > 0) { // no profiles yet.
+        echo "<h2>" . sprintf(_("Profiles for this %s"), $uiElements->nomenclature_inst) . "</h2>";
+    }
     // if there is one profile and it is of type Silver Bullet, display a very
     // simple widget with just a "Manage" button
 
@@ -215,9 +217,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
             $profiles_for_this_idp = [];
         }
     }
-    if (count($profiles_for_this_idp) > 0) { // no profiles yet.
-        echo "<h2>" . sprintf(_("Profiles for this %s"), $uiElements->nomenclature_inst) . "</h2>";
-    }
+
     foreach ($profiles_for_this_idp as $profile_list) {
         echo "<div style='display: table-row; margin-bottom: 20px;'>";
         $profile_name = $profile_list->name;
@@ -387,7 +387,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         $methods = $one_profile->getEapMethodsinOrderOfPreference();
         // silver bullet is an exclusive method; looking in the first entry of
         // the array will catch it.
-        if (count($methods) > 0 && $methods[0] == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+        if (count($methods) > 0 && $methods[0]->getArrayRep() == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $found_silverbullet = TRUE;
         }
     }
