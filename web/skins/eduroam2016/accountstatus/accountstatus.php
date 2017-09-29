@@ -61,74 +61,23 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
     //                echo "<h3>" . _("We have the following information on file for you:") . "</h3>";
                     $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
                     $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
-                    $allcerts = [];
-                    foreach ($userdata as $index => $content) {
-                        $allcerts = array_merge($allcerts, $content['cert_status']);
-                    }
-                    switch (count($allcerts)) {
-                        case 0:
-                            echo _("You are a new user without a history of eduroam credentials.");
-                            break;
-                        default:
-                            $detailedView = "<table id='cert_details'>";
-                            $dV = "<table id='cert_details'></table>";
+                    $allcerts = $Gui->getUserCerts($statusInfo['token']);                    
+                    if (count($allcerts) == 0) {
+                        echo _("You are a new user without a history of eduroam credentials.");
+                    } else {
+                        $stats = array_count_values(array_column($allcerts, 'status'));
+                        $numValid = $stats[\core\ProfileSilverbullet::SB_CERTSTATUS_VALID] ?? 0;
+                        $numExpired = $stats[\core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED] ?? 0;
+                        $numRevoked = $stats[\core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED] ?? 0;
+                        echo sprintf(ngettext("You have <strong>%d</strong> currently valid %s credential.", "You have <strong>%d</strong> currently valid %s credentials.", $numValid), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                        $noGoodCerts = $numRevoked + $numExpired;
+                        if ($noGoodCerts > 0) {
+                            echo " ";
+                            echo sprintf(ngettext("<strong>%d</strong> of your credentials is not valid any more.", "<strong>%d</strong> of your credentials are not valid any more.", $noGoodCerts), $noGoodCerts);
+                        }
+                        echo " <span id='detailtext'>" . _("I want to see the details.") . "</span>";
+                        echo "<table id='cert_details'></table>";
 
-                            $categories = [\core\ProfileSilverbullet::SB_CERTSTATUS_VALID, \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED, \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED];
-                            $revokeText = "<th>" . _("Revoke?") . "</th>";
-                            foreach ($categories as $category) {
-
-                                switch ($category) {
-                                    case \core\ProfileSilverbullet::SB_CERTSTATUS_VALID:
-                                        $categoryText = _("Current login tokens");
-                                        $color = "#000000";
-                                        $categoryCountVar = "numValid";
-                                        break;
-                                    case \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
-                                        $categoryText = _("Previous login tokens");
-                                        $color = "#999999";
-                                        $categoryCountVar = "numExpired";
-                                        break;
-                                    case \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
-                                        $categoryText = _("Revoked login tokens");
-                                        $color = "#ff0000";
-                                        $categoryCountVar = "numRevoked";
-                                        break;
-                                    default:
-                                        continue;
-                                }
-                                $categoryCount = 0;
-                                ${$categoryCountVar} = 0;
-                                $categoryText = "<tr style='color:$color;'><th colspan=5 class='th1'>" . $categoryText;
-
-                                $categoryText .= "</th></tr>";
-                                $categoryText .= "<tr style='color:$color;'><th>" . _("Pseudonym") . "</th><th>" . _("Device Type") . "</th><th>" . _("Serial Number") . "</th><th>" . _("Issue Date") . "</th><th>" . _("Expiry Date") . "</th>". ( $category == \core\ProfileSilverbullet::SB_CERTSTATUS_VALID ? $revokeText : "") . "</tr>";
-                                foreach ($allcerts as $oneCredential) {
-                                    if ($oneCredential['status'] == $category) {
-                                        $categoryCount++;
-                                        ${$categoryCountVar} ++;
-                                        $categoryText .= "<tr style='color:$color;'>";
-                                        $categoryText .= "<td>" . $oneCredential['name'] . "</td>";
-                                        $categoryText .= "<td>" . $oneCredential['device'] . "</td>";
-                                        $categoryText .= "<td>" . $oneCredential['serial'] . "</td>";
-                                        $categoryText .= "<td>" . $oneCredential['issued'] . "</td>";
-                                        $categoryText .= "<td>" . $oneCredential['expiry'] . "</td>";
-                                        $categoryText .= "</tr>";
-                                    }
-                                }
-                                if (${$categoryCountVar} > 0) {
-                                    $detailedView .= $categoryText;
-                                }
-                            }
-                            $detailedView .= "</table>";
-                            echo sprintf(ngettext("You have <strong>%d</strong> currently valid %s credential.", "You have <strong>%d</strong> currently valid %s credentials.", $numValid), $numValid, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-                            $noGoodCerts = $numRevoked + $numExpired;
-                            if ($noGoodCerts > 0) {
-                                echo " ";
-                                echo sprintf(ngettext("<strong>%d</strong> of your credentials is not valid any more.", "<strong>%d</strong> of your credentials are not valid any more.", $noGoodCerts), $noGoodCerts);
-                            }
-                            echo " <span id='detailtext'>" . _("I want to see the details.") . "</span>";
-                            //echo $detailedView;
-                            echo $dV;
                     }
                 }
                                 // and then display additional information, based on status.
@@ -240,41 +189,54 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                 var validCerts = new Array();
                 var revokedCerts = new Array();
                 var expiredCerts = new Array();
-
-        //               alert(data);
-                j = $.parseJSON(data);
-                result = j.status;
-                if(! result) {
-                    alert("<?php escaped_echo(_("invalid token"))?>");
-                        }
-                j = j.data;
+                var allArray = new Array();
+                var statusCount = new Array();
                 
-                $.each(j, function( index, value ) {
-                    if (value.status == 1)
-                        validCerts.push('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td></tr>');
-                    if (value.status == 3)
-                        revokedCerts.push('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td></tr>');
-    
-    //                  $("#cert_details").append('<tr><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td><td>'+value.status+'</td></tr>');
+                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID;?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
+                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED;?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
+                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED;?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
+                var headerLine = "<tr><th><?php escaped_echo(_("Pseudonym"));?></th><th><?php escaped_echo(_("Device Type"));?></th><th><?php escaped_echo(_("Serial Number"));?></th><th><?php escaped_echo(_("Issue Date"));?></th><th><?php escaped_echo(_("Expiry Date"));?></th></tr>";
+                $.each(allArray, function(index, value) {
+                    if(value !== undefined) {
+                        value.rows.push('<tr style="color:' + value.color + ';"><th class="th1" colspan="5">' + value.categoryText + '</th></tr>');
+                        value.rows.push(headerLine);
+                        statusCount[index] = 0;
+                    }
                 });
-                if (validCerts.length > 0) {
-                    $("#cert_details").append('<tr><th>Valid</th></tr>');
-                    $.each(validCerts, function(index,line){
-                        $("#cert_details").append(line);
-                    });
+                j = $.parseJSON(data);
+                if(! j.status) {
+                    alert("<?php escaped_echo(_("invalid token"))?>");
                 }
-                if (revokedCerts.length > 0) {
-                    $("#cert_details").append('<tr><th>Revoked</th></tr>');
-                    $.each(revokedCerts, function(index,line){
-                        $("#cert_details").append(line);
-                    });
-                }
+                j = j.data;
+                $.each(j, function( index, value ) {
+                    statusCount[value.status]++;
+                    allArray[value.status].rows.push('<tr style="color:' + allArray[value.status].color + ';"><td>'+value.serial+'</td><td>'+value.name+'</td><td>'+value.device+'</td><td>'+value.issued+'</td><td>'+value.expiry+'</td>');
+                });
+                $.each(allArray, function(index, value) {
+                   if (value !== undefined && value.rows.length > 2) {
+                        $.each(value.rows, function(i,line){
+                            if (i > 1) {
+                                if (index === <?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID;?>)
+                                    line = line + '<td class="revoke"><a href="" TITLE="revoke certificate">revoke</a></td></tr>';
+                                else
+                                    line = line + '</tr>';
+                            }
+                           // alert(line);
+                            $("#cert_details").append(line);
+                        });
+                    }
+                });
+           // alert("V:"+statusCount[1]+"; E:"+statusCount[2]+"; R"+statusCount[3])
             });
             $("#cert_details").show();
             $(this).html("<?php escaped_echo(_("The details are displayed below."))?>");
         });
 
-
+        $("#cert_details").on("click", "td.revoke>a", function(event) {
+            event.preventDefault();
+            if (confirm("<?php escaped_echo(_("really revoke this certificate?"));?>"))
+                alert("deleting - not yet implemented");
+        })
         loadIdpData();
     </script> 
 </body>
