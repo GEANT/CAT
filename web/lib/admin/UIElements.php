@@ -446,4 +446,49 @@ class UIElements {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);
     }
 
+    /**
+     * Injects the consortium logo in the middle of a given PNG.
+     * 
+     * Usually used on QR code PNGs - the parameters inform about the structure of
+     * the QR code so that the logo does not prevent parsing of the QR code.
+     * 
+     * @param string $inputpngstring the PNG to edit
+     * @param int $symbolsize size in pixels of one QR "pixel"
+     * @param int $marginsymbols size in pixels of border around the actual QR
+     * @return string the image with logo centered in the middle
+     */
+    public function pngInjectConsortiumLogo(string $inputpngstring, int $symbolsize, int $marginsymbols = 4) {
+        $loggerInstance = new \core\common\Logging();
+        $inputgd = imagecreatefromstring($inputpngstring);
+
+        $loggerInstance->debug(4, "Consortium logo is at: " . ROOT . "/web/resources/images/consortium_logo_large.png");
+        $logogd = imagecreatefrompng(ROOT . "/web/resources/images/consortium_logo_large.png");
+
+        $sizeinput = [imagesx($inputgd), imagesy($inputgd)];
+        $sizelogo = [imagesx($logogd), imagesy($logogd)];
+        // Q level QR-codes can sustain 25% "damage"
+        // make our logo cover approx 15% of area to be sure; mind that there's a $symbolsize * $marginsymbols pixel white border around each edge
+        $totalpixels = ($sizeinput[0] - $symbolsize * $marginsymbols) * ($sizeinput[1] - $symbolsize * $marginsymbols);
+        $totallogopixels = ($sizelogo[0]) * ($sizelogo[1]);
+        $maxoccupy = $totalpixels * 0.04;
+        // find out how much we have to scale down logo to reach 10% QR estate
+        $scale = sqrt($maxoccupy / $totallogopixels);
+        $loggerInstance->debug(4, "Scaling info: $scale, $maxoccupy, $totallogopixels\n");
+        // determine final pixel size - round to multitude of $symbolsize to match exact symbol boundary
+        $targetwidth = $symbolsize * round($sizelogo[0] * $scale / $symbolsize);
+        $targetheight = $symbolsize * round($sizelogo[1] * $scale / $symbolsize);
+        // paint white below the logo, in case it has transparencies (looks bad)
+        // have one symbol in each direction extra white space
+        $whiteimage = imagecreate($targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+        imagecolorallocate($whiteimage, 255, 255, 255);
+        // also make sure the initial placement is a multitude of 12; otherwise "two half" symbols might be affected
+        $targetplacementx = $symbolsize * round(($sizeinput[0] / 2 - ($targetwidth - $symbolsize) / 2) / $symbolsize);
+        $targetplacementy = $symbolsize * round(($sizeinput[1] / 2 - ($targetheight - $symbolsize) / 2) / $symbolsize);
+        imagecopyresized($inputgd, $whiteimage, $targetplacementx - $symbolsize, $targetplacementy - $symbolsize, 0, 0, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize, $targetwidth + 2 * $symbolsize, $targetheight + 2 * $symbolsize);
+        imagecopyresized($inputgd, $logogd, $targetplacementx, $targetplacementy, 0, 0, $targetwidth, $targetheight, $sizelogo[0], $sizelogo[1]);
+        ob_start();
+        imagepng($inputgd);
+        return ob_get_clean();
+    }
+
 }

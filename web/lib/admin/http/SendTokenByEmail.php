@@ -56,11 +56,12 @@ class SendTokenByEmail extends AbstractInvokerCommand{
             
             $invitationToken = $this->parseString($_POST[GetTokenEmailDetails::PARAM_TOKENLINK]);
             $address = $this->parseString($_POST[ValidateEmailAddress::PARAM_ADDRESS]);
+            $uiElements = new \web\lib\admin\UIElements();
             
             $this->mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
             $this->mail->Subject  = $this->detailsCommand->getSubject();
             $this->mail->Body = $this->detailsCommand->getBody($invitationToken);
-            $bytestream = \QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12);
+            $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12),12);
             $this->mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
             
             $this->mail->addAddress($address);

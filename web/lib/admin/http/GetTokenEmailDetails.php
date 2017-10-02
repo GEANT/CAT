@@ -32,7 +32,7 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
         $this->body .= "\n\n";
         $this->body .= sprintf(_("A new %s access credential has been created for you by your network administrator."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->body .= " ";
-        $this->body .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy&paste it into a browser or scan the attached QR code."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->body .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy and paste it into a browser or scan the attached QR code."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->body .= "\n\n%s\n\n"; // gets replaced with the token value by getBody()
         $this->body .= sprintf(_("Please keep this email or bookmark this link for future use. After picking up your %s installation program, you can use the same link to get status information about your %s account."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->body .= "\n\n";
@@ -68,9 +68,11 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
             
             $invitationToken = $this->parseString($_POST[self::PARAM_TOKENLINK]);
 
+            $uiELements = new \web\lib\admin\UIElements();
+            
             $tokenTag = new Tag('email');
             $tokenTag->addAttribute('subject', $this->getSubject());
-            $bytestream = \QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12);
+            $bytestream = $uiELements->pngInjectConsortiumLogo(\QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12),12);
             $tokenTag->addAttribute('image', "data:image/png;base64," . base64_encode($bytestream));
             $tokenTag->addText($this->getBody($invitationToken));
             
