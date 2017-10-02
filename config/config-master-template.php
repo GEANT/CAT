@@ -70,7 +70,8 @@ const CONFIG = [
          *  - NULL (component does not live anywhere, trim functionality from display)
          *  - or an absolute URL to the base directory of an installation with the functionality aspect
          */
-        'CONFASSISTANT' => 'LOCAL',
+        'CONFASSISTANT_SILVERBULLET' => 'LOCAL',
+        'CONFASSISTANT_RADIUS' => 'LOCAL',
         'DIAGNOSTICS' => 'LOCAL',
     ],
 

@@ -18,6 +18,7 @@ $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $optionParser = new \web\lib\admin\OptionParser();
+$ui = new \web\lib\admin\UIElements();
 
 if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
     $auth->authenticate();
@@ -126,15 +127,29 @@ echo "</table>";
 foreach ($my_inst->listProfiles() as $index => $profile) {
     $profile->prepShowtime();
 }
-if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
-    echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
-} else { // does federation want us to offer Silver Bullet?
-    // if so, show both buttons; if not, just the normal EAP profile button
-    $myfed = new \core\Federation($my_inst->federation);
-    $allow_sb = $myfed->getAttributes("fed:silverbullet");
-    if (count($allow_sb) > 0) {
-        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
+// does federation want us to offer Silver Bullet?
+// if so, show both buttons; if not, just the normal EAP profile button
+$myfed = new \core\Federation($my_inst->federation);
+$allow_sb = $myfed->getAttributes("fed:silverbullet");
+// show the new profile jumpstart buttons only if we do not have any profile at all
+if (count($my_inst->listProfiles()) == 0) {
+
+    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
+        echo "<br/>";
+        // did we get an email address? then, show the silverbullet jumpstart button
+        // otherwise, issue a smartass comment
+        if (count($my_inst->getAttributes("support:email")) > 0) {
+            echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
+        } else {
+            echo "<table>";
+            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the IdP dashboard and edit your %s settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclature_inst), _("No support e-mail!"));
+            echo "</table>";
+        }
     }
-    echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+    }
 }
+echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
+
 echo $deco->footer();

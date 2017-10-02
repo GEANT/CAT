@@ -29,7 +29,7 @@ $Tests = [
 ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
 
-if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
     $Tests[] = 'makensis';
     $Tests[] = 'makensis=>NSISmodules';
     $Tests[] = 'makensis=>NSIS_GetVersion';

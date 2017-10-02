@@ -20,7 +20,8 @@ build:
               'defaultlocale' => 'en',
               ],
               'FUNCTIONALITY_LOCATIONS' =>
-              ['CONFASSISTANT' => 'LOCAL',
+              ['CONFASSISTANT_SILVERBULLET' => 'LOCAL',
+               'CONFASSISTANT_RADIUS' => 'LOCAL',   
                'DIAGNOSTICS' => 'LOCAL',
               ], 
               'PATHS' => ['logdir' => '/home/scrutinizer/' ], 

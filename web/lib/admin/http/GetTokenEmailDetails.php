@@ -28,9 +28,17 @@ class GetTokenEmailDetails extends AbstractAjaxCommand{
     public function __construct($commandToken, $context){
         parent::__construct($commandToken, $context);
         $this->subject = sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->body = sprintf(_("Hello!\n\nA new %s access credential has been created for you by your network administrator.\n\nPlease follow the following link with the device you want to enable for eduroam to get a custom %s installation program just for you:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->body .= "\n%s\n\n"; // gets replaced with the token value by getBody()
-        $this->body .= sprintf(_("Regards,\n\n%s"), CONFIG['APPEARANCE']['productname_long']);
+        $this->body =  _("Hello!");
+        $this->body .= "\n\n";
+        $this->body .= sprintf(_("A new %s access credential has been created for you by your network administrator."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->body .= " ";
+        $this->body .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy&paste it into a browser or scan the attached QR code."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->body .= "\n\n%s\n\n"; // gets replaced with the token value by getBody()
+        $this->body .= sprintf(_("Please keep this email or bookmark this link for future use. After picking up your %s installation program, you can use the same link to get status information about your %s account."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->body .= "\n\n";
+        $this->body .= _("Regards,");
+        $this->body .= "\n\n";
+        $this->body .= sprintf("%s", CONFIG['APPEARANCE']['productname_long']);
     }
     
     /**

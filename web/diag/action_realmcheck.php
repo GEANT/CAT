@@ -750,10 +750,10 @@ if ($error_message) {
 ";
         }
         
-        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == "LOCAL") {
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
             $returnUrl = "../admin/overview_idp.php?inst_id=".$my_inst->identifier;
         } else {
-            $returnUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT']."/admin/overview_idp.php?inst_id=".$my_inst->identifier;
+            $returnUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS']."/admin/overview_idp.php?inst_id=".$my_inst->identifier;
         }
         ?>
         <form method='post' action='<?php echo $returnUrl;?>' accept-charset='UTF-8'>

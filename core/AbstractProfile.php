@@ -414,6 +414,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     public function isEapTypeDefinitionComplete($eaptype) {
         if ($eaptype->needsServerCACert() && $eaptype->needsServerName()) {
             $missing = [];
+            // silverbullet needs a support email address configured
+            if ($eaptype->getIntegerRep() == common\EAP::INTEGER_SILVERBULLET && count($this->getAttributes("support:email")) == 0) {
+                return ["support:email"];
+            }
             $cnOption = $this->getAttributes("eap:server_name"); // cannot be set per device or eap type
             $caOption = $this->getAttributes("eap:ca_file"); // cannot be set per device or eap type
 
@@ -422,7 +426,7 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                     $x509 = new \core\common\X509();
                     $caParsed = $x509->processCertificate($oneCa['value']);
                     if ($caParsed['root'] == 1) {
-                        return true;
+                        return TRUE;
                     }
                 }
                 $missing[] = "eap:ca_file";

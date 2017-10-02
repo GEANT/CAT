@@ -94,7 +94,7 @@ exit;
 
 /* load sub-configs if we are dealing with those in this installation */
 
-if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT'] == 'LOCAL') {
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == 'LOCAL' || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == 'LOCAL' ) {
     include(ROOT . "/config/config-confassistant.php");
 }
 
