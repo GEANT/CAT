@@ -323,7 +323,8 @@ class RADIUSTests extends AbstractTest {
         $temparray = preg_replace("/^.*$stringToRedact.*$/", "LINE CONTAINING PASSWORD REDACTED", $inputarray);
         $hex = bin2hex($stringToRedact);
         $spaced = "";
-        for ($i = 1; $i < strlen($hex); $i++) {
+        $origLength = strlen($hex);
+        for ($i = 1; $i < $origLength; $i++) {
             if ($i % 2 == 1 && $i != strlen($hex)) {
                 $spaced .= $hex[$i] . " ";
             } else {
