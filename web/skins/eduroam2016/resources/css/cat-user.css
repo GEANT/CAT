@@ -732,7 +732,6 @@ a.signin {
 }
 
 
-
 #logos {
     position: absolute;
     left: 0px;
@@ -777,6 +776,20 @@ a.signin {
     text-align: left;
     padding-top: 4px;
     border-bottom: 1px black solid;
+}
+
+#cert_details td.revoke {
+    background: #fff;
+}
+
+#cert_details td.revoke a {
+    color: red;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#cert_details td.revoke a:hover {
+    text-decoration: underline;
 }
 
 #sb_download_message span.emph {
