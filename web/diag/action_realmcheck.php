@@ -497,7 +497,7 @@ if ($error_message) {
                 <?php
                 // NAPTR existence check
                 echo "<strong>" . _("DNS chekcs") . "</strong><div>";
-                $naptr = $rfc7585suite->NAPTR();
+                $naptr = $rfc7585suite->relevantNAPTR();
                 if ($naptr != \core\diag\RADIUSTests::RETVAL_NOTCONFIGURED) {
                     echo "<table>";
                     // output in friendly words
@@ -518,7 +518,7 @@ if ($error_message) {
 
                     if ($naptr > 0) {
                         echo "<tr><td>" . _("Checking NAPTR compliance (flag = S and regex = {empty}):") . "</td><td>";
-                        $naptr_valid = $rfc7585suite->NAPTR_compliance();
+                        $naptr_valid = $rfc7585suite->relevantNAPTRcompliance();
                         switch ($naptr_valid) {
                             case \core\diag\RADIUSTests::RETVAL_OK:
                                 echo _("No issues found.");
@@ -533,7 +533,7 @@ if ($error_message) {
                     // SRV resolution
 
                     if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK) {
-                        $srv = $rfc7585suite->NAPTR_SRV();
+                        $srv = $rfc7585suite->relevantNAPTRsrvResolution();
                         echo "<tr><td>" . _("Checking SRVs:") . "</td><td>";
                         switch ($srv) {
                             case \core\diag\RADIUSTests::RETVAL_SKIPPED:
@@ -549,7 +549,7 @@ if ($error_message) {
                     }
                     // IP addresses for the hosts
                     if ($naptr > 0 && $naptr_valid == \core\diag\RADIUSTests::RETVAL_OK && $srv > 0) {
-                        $hosts = $rfc7585suite->NAPTR_hostnames();
+                        $hosts = $rfc7585suite->relevantNAPTRhostnameResolution();
                         echo "<tr><td>" . _("Checking IP address resolution:") . "</td><td>";
                         switch ($srv) {
                             case \core\diag\RADIUSTests::RETVAL_SKIPPED:

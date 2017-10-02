@@ -194,7 +194,7 @@ echo "<link rel='stylesheet' media='screen' type='text/css' href='" . $skinObjec
                         echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
                         echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p>";
 
-                        $importPassword = \core\ProfileSilverbullet::random_str(4, "0123456789");
+                        $importPassword = \core\ProfileSilverbullet::randomString(4, "0123456789");
                         $profile = new \core\ProfileSilverbullet($statusInfo['profile']->identifier, NULL);
 
                         echo "<h2>" . sprintf(_("Import PIN: %s"), $importPassword) . "</h2>";

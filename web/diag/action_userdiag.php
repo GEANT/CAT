@@ -182,7 +182,7 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
 
     foreach ($checks as $check) {
         foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
-            $checkresult[$number] = $check['instance']->UDP_reachability($number, TRUE, TRUE);
+            $checkresult[$number] = $check['instance']->udpReachability($number, TRUE, TRUE);
             if ($checkresult[$number] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // great
                 // only emit a warning in case of ALIEN - NRO did not populate DB!
                 if ($check['class'] == "ALIEN") {
@@ -195,12 +195,12 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                 // this could be harmless/undetectable if it's an NPS that won't talk to us
                 // but if the get results with smaller packets and/or Operator-Name omitted
                 // then there is a smoking gun!
-                $checkresult[$number] = $check['instance']->UDP_reachability($number, FALSE, FALSE);
+                $checkresult[$number] = $check['instance']->udpReachability($number, FALSE, FALSE);
                 if ($checkresult[$number] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // so now things work?!
                     // either a packet size or Operator-Name problem!
-                    if ($check['instance']->UDP_reachability($number, TRUE, FALSE) != \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT)
+                    if ($check['instance']->udpReachability($number, TRUE, FALSE) != \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT)
                         $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "OPERATOR-NAME", "FROM" => $probe['display_name'], "DETAIL" => ""];
-                    if ($check['instance']->UDP_reachability($number, FALSE, TRUE) != \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT)
+                    if ($check['instance']->udpReachability($number, FALSE, TRUE) != \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT)
                         $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "PACKETSIZE", "FROM" => $probe['display_name'], "DETAIL" => ""];
                 } else { // still no response or immediate reject
                     // if this is a CAT realm with anon ID set, we can't be seeing an NPS ignorance problem

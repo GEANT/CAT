@@ -271,16 +271,16 @@ class RADIUSTests extends AbstractTest {
      * @param boolean $frag should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
      * @return int returncode
      */
-    public function UDP_reachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
+    public function udpReachability($probeindex, $opnameCheck = TRUE, $frag = TRUE) {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
         // if we are in thorough opMode, use our knowledge for a more clever check
         // otherwise guess
         if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
-            return $this->UDP_login($probeindex, $this->supportedEapTypes[0]->getArrayRep(), $this->outerUsernameForChecks, 'eaplab', $opnameCheck, $frag, $clientcert);
+            return $this->udpLogin($probeindex, $this->supportedEapTypes[0]->getArrayRep(), $this->outerUsernameForChecks, 'eaplab', $opnameCheck, $frag, $clientcert);
         }
-        return $this->UDP_login($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, 'eaplab', $opnameCheck, $frag, $clientcert);
+        return $this->udpLogin($probeindex, \core\common\EAP::EAPTYPE_ANY, "cat-connectivity-test@" . $this->realm, 'eaplab', $opnameCheck, $frag, $clientcert);
     }
 
     /**
@@ -708,7 +708,7 @@ network={
      * @return int overall return code of the login test
      * @throws Exception
      */
-    public function UDP_login($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
+    public function udpLogin($probeindex, $eaptype, $innerUser, $password, $opnameCheck = TRUE, $frag = TRUE, $clientcertdata = NULL) {
 
         /** preliminaries */
         $eapText = \core\common\EAP::eapDisplayName($eaptype);

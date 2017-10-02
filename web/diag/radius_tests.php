@@ -122,10 +122,10 @@ switch ($test_type) {
                 }
                 if ($run_test) {
                     $loggerInstance->debug(4, "TLS-USERNAME=$tls_username\n");
-                    $testresult = $testsuite->UDP_login($hostindex, $eap, $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
+                    $testresult = $testsuite->udpLogin($hostindex, $eap, $tls_username, $privkey_pass, TRUE, TRUE, $clientcertdata);
                 }
             } else {
-                $testresult = $testsuite->UDP_login($hostindex, $eap, $user_name, $user_password);
+                $testresult = $testsuite->udpLogin($hostindex, $eap, $user_name, $user_password);
             }
             $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
             $returnarray['result'][$i]['eap'] = $eap->getPrintableRep();
@@ -186,7 +186,7 @@ switch ($test_type) {
     case 'udp' :
         $i = 0;
         $returnarray['hostindex'] = $hostindex;
-        $testresult = $testsuite->UDP_reachability($hostindex);
+        $testresult = $testsuite->udpReachability($hostindex);
         $returnarray['result'][$i] = $testsuite->consolidateUdpResult($hostindex);
         $returnarray['result'][$i]['eap'] = 'ALL';
         $returnarray['returncode'][$i] = $testresult;
@@ -267,7 +267,7 @@ switch ($test_type) {
         break;
     case 'clients':
         $rfc6614suite = new \core\diag\RFC6614Tests([$host]);
-        $testresult = $rfc6614suite->TLS_clients_side_check($host);
+        $testresult = $rfc6614suite->tlsClientSideCheck($host);
         $returnarray['IP'] = $host;
         $returnarray['hostindex'] = $hostindex;
         $k = 0;

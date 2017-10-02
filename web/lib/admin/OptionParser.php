@@ -292,7 +292,7 @@ class OptionParser {
         foreach ($listOfEntries as $objId => $objValueRaw) {
 // pick those without dash - they indicate a new value        
             if (preg_match('/^S[0123456789]*$/', $objId)) {
-                $objValue = $this->validator->OptionName(preg_replace('/#.*$/', '', $objValueRaw));
+                $objValue = $this->validator->optionName(preg_replace('/#.*$/', '', $objValueRaw));
                 $optioninfo = $this->optioninfoObject->optionType($objValue);
                 $lang = NULL;
                 if ($optioninfo["flag"] == "ML") {
@@ -351,7 +351,7 @@ class OptionParser {
                         if (!empty($listOfEntries["$objId-0"])) {
                             switch ($objValue) {
                                 case "media:consortium_OI":
-                                    $content = $this->validator->consortium_oi($listOfEntries["$objId-0"]);
+                                    $content = $this->validator->consortiumOI($listOfEntries["$objId-0"]);
                                     if ($content === FALSE) {
                                         $bad[] = $objValue;
                                         continue 3;

@@ -246,7 +246,7 @@ class UserAPI extends CAT {
       cicumstances
      */
 
-    private function GetRootURL() {
+    private function getRootURL() {
         $backtrace = debug_backtrace();
         $backtraceFileInfo = array_pop($backtrace);
         $fileTemp = $backtraceFileInfo['file'];
@@ -264,14 +264,14 @@ class UserAPI extends CAT {
         }
         return '//' . $_SERVER['SERVER_NAME'] . $out;
     }
-
+    
     /* JSON functions */
 
     public function return_json($data, $status = 1) {
         $returnArray = [];
         $returnArray['status'] = $status;
         $returnArray['data'] = $data;
-        $returnArray['tou'] = "Please consult Terms of Use at: " . $this->GetRootURL() . "/tou.php";
+        $returnArray['tou'] = "Please consult Terms of Use at: " . $this->getRootURL() . "/tou.php";
         return(json_encode($returnArray));
     }
 
@@ -370,7 +370,7 @@ class UserAPI extends CAT {
         }
         $profiles = $idp->listProfiles(TRUE);
         if ($sort == 1) {
-            usort($profiles, ["UserAPI", "profile_sort"]);
+            usort($profiles, ["UserAPI", "profileSort"]);
         }
         foreach ($profiles as $profile) {
             $returnArray[] = ['profile' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
@@ -795,7 +795,7 @@ class UserAPI extends CAT {
     public $device;
     private $installerPath;
 
-    private static function profile_sort($profile1, $profile2) {
+    private static function profileSort($profile1, $profile2) {
         return strcasecmp($profile1->name, $profile2->name);
     }
 

@@ -153,7 +153,7 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int Either a RETVAL constant or a positive number (count of relevant NAPTR records)
      */
-    public function NAPTR() {
+    public function relevantNAPTR() {
         if (CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-discoverytag'] == "") {
             $this->NAPTR_executed = RADIUSTests::RETVAL_NOTCONFIGURED;
             return RADIUSTests::RETVAL_NOTCONFIGURED;
@@ -188,10 +188,10 @@ class RFC7585Tests extends AbstractTest {
 
      * @return int one of two RETVALs above
      */
-    public function NAPTR_compliance() {
+    public function relevantNAPTRcompliance() {
 // did we query DNS for the NAPTRs yet? If not, do so now.
         if ($this->NAPTR_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
-            $this->NAPTR();
+            $this->relevantNAPTR();
         }
 // if the NAPTR checks aren't configured, tell the caller
         if ($this->NAPTR_executed === RADIUSTests::RETVAL_NOTCONFIGURED) {
@@ -237,11 +237,11 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int one of the RETVALs above or the number of SRV records which were resolved
      */
-    public function NAPTR_SRV() {
+    public function relevantNAPTRsrvResolution() {
 // see if preceding checks have been run, and run them if not
 // compliance check will cascade NAPTR check on its own
         if ($this->NAPTR_compliance_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
-            $this->NAPTR_compliance();
+            $this->relevantNAPTRcompliance();
         }
 // we only run the SRV checks if all records are compliant and more than one relevant NAPTR exists
         if ($this->NAPTR_executed <= 0 || $this->NAPTR_compliance_executed == RADIUSTests::RETVAL_INVALID) {
@@ -279,11 +279,11 @@ class RFC7585Tests extends AbstractTest {
      * 
      * @return int count of IP / port pairs for all the hostnames
      */
-    public function NAPTR_hostnames() {
+    public function relevantNAPTRhostnameResolution() {
 // make sure the previous tests have been run before we go on
 // preceeding tests will cascade automatically if needed
         if ($this->NAPTR_SRV_executed == RFC7585Tests::RETVAL_NOTRUNYET) {
-            $this->NAPTR_SRV();
+            $this->relevantNAPTRsrvResolution();
         }
 // if previous are SKIPPED, skip this one, too
         if ($this->NAPTR_SRV_executed == RADIUSTests::RETVAL_SKIPPED) {

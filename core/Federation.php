@@ -304,7 +304,7 @@ class Federation extends EntityWithDBProperties {
                 }
                 $returnarray[] = ["ID" => $externalQuery->id, "name" => $thelangauge, "contactlist" => $mailnames, "country" => $externalQuery->country, "realmlist" => $externalQuery->realmlist];
             }
-            usort($returnarray, array($this, "usort_institution"));
+            usort($returnarray, array($this, "usortInstitution"));
         }
         return $returnarray;
     }
@@ -361,7 +361,7 @@ class Federation extends EntityWithDBProperties {
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
 
-    private function usort_institution($a, $b) {
+    private function usortInstitution($a, $b) {
         return strcasecmp($a["name"], $b["name"]);
     }
 

@@ -89,7 +89,7 @@ class RFC6614Tests extends AbstractTest {
     public function allChecks() {
         foreach ($this->candidateIPs as $oneIP) {
             $this->cApathCheck($oneIP);
-            $this->TLS_clients_side_check($oneIP);
+            $this->tlsClientSideCheck($oneIP);
         }
     }
     
@@ -113,7 +113,7 @@ class RFC6614Tests extends AbstractTest {
      * @param string $host IP:port
      * @return int returncode
      */
-    public function TLS_clients_side_check(string $host) {
+    public function tlsClientSideCheck(string $host) {
         $res = RADIUSTests::RETVAL_OK;
         if (!is_array(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) || count(CONFIG_DIAGNOSTICS['RADIUSTESTS']['TLS-clientcerts']) == 0) {
             return RADIUSTests::RETVAL_SKIPPED;

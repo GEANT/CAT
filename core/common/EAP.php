@@ -55,8 +55,8 @@ class EAP {
     const INTEGER_TLS = 3;
     const INTEGER_FAST_GTC = 4;
     const INTEGER_TTLS_GTC = 5;
-    const INTEGER_TTLS_MSCHAPv2 = 6;
-    const INTEGER_EAP_pwd = 7;
+    const INTEGER_TTLS_MSCHAP2 = 6;
+    const INTEGER_EAP_PWD = 7;
     const INTEGER_SILVERBULLET = 8;
 
 // PHP7 allows to define constants with arrays as value. Hooray! This makes
@@ -118,10 +118,10 @@ class EAP {
     const EAPTYPES_CONVERSION = [
         EAP::INTEGER_FAST_GTC => EAP::EAPTYPE_FAST_GTC,
         EAP::INTEGER_PEAP_MSCHAPv2 => EAP::EAPTYPE_PEAP_MSCHAP2,
-        EAP::INTEGER_EAP_pwd => EAP::EAPTYPE_PWD,
+        EAP::INTEGER_EAP_PWD => EAP::EAPTYPE_PWD,
         EAP::INTEGER_TLS => EAP::EAPTYPE_TLS,
         EAP::INTEGER_TTLS_GTC => EAP::EAPTYPE_TTLS_GTC,
-        EAP::INTEGER_TTLS_MSCHAPv2 => EAP::EAPTYPE_TTLS_MSCHAP2,
+        EAP::INTEGER_TTLS_MSCHAP2 => EAP::EAPTYPE_TTLS_MSCHAP2,
         EAP::INTEGER_TTLS_PAP => EAP::EAPTYPE_TTLS_PAP,
         EAP::INTEGER_SILVERBULLET => EAP::EAPTYPE_SILVERBULLET,
     ];
@@ -169,11 +169,11 @@ class EAP {
      */
     public function isPasswordRequired() {
         switch ($this->intRep) {
-            case EAP::INTEGER_EAP_pwd:
+            case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
-            case EAP::INTEGER_TTLS_MSCHAPv2:
+            case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
                 return TRUE;
             case EAP::INTEGER_TLS:
@@ -200,11 +200,11 @@ class EAP {
      */
     public function isClientCertRequired() {
         switch ($this->intRep) {
-            case EAP::INTEGER_EAP_pwd:
+            case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
-            case EAP::INTEGER_TTLS_MSCHAPv2:
+            case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
                 return FALSE;
             case EAP::INTEGER_TLS:
@@ -220,14 +220,14 @@ class EAP {
      */
     public function isClientCertOptional() {
         switch ($this->intRep) {
-            case EAP::INTEGER_EAP_pwd:
+            case EAP::INTEGER_EAP_PWD:
             case EAP::INTEGER_TLS:
             case EAP::INTEGER_SILVERBULLET:
                 return FALSE;
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
-            case EAP::INTEGER_TTLS_MSCHAPv2:
+            case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
                 return TRUE;
             default:
@@ -242,12 +242,12 @@ class EAP {
      */
     public function needsServerCACert() {
         switch ($this->intRep) {
-            case EAP::INTEGER_EAP_pwd:
+            case EAP::INTEGER_EAP_PWD:
                 return FALSE;
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
-            case EAP::INTEGER_TTLS_MSCHAPv2:
+            case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
             case EAP::INTEGER_TLS:
             case EAP::INTEGER_SILVERBULLET:
@@ -268,12 +268,12 @@ class EAP {
             case EAP::INTEGER_FAST_GTC:
             case EAP::INTEGER_PEAP_MSCHAPv2:
             case EAP::INTEGER_TTLS_GTC:
-            case EAP::INTEGER_TTLS_MSCHAPv2:
+            case EAP::INTEGER_TTLS_MSCHAP2:
             case EAP::INTEGER_TTLS_PAP:
             case EAP::INTEGER_TLS:
             case EAP::INTEGER_SILVERBULLET:
                 return TRUE;
-            case EAP::INTEGER_EAP_pwd:
+            case EAP::INTEGER_EAP_PWD:
                 return FALSE;
             default:
                 throw new Exception("Unable to determine if the EAP type requires a server name trust base for secure functioning or not!");

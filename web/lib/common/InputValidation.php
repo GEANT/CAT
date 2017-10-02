@@ -179,7 +179,7 @@ public function integer($input) {
  * @param string $input
  * @return false|string returns the input, or FALSE on validation failure
  */
-public function consortium_oi($input) {
+public function consortiumOI($input) {
     $shallow = $this->string($input);
     if (strlen($shallow) != 6 && strlen($shallow) != 10) {
         return FALSE;
@@ -401,7 +401,7 @@ public function supportedLanguage($input) {
  * @param string $input
  * @return string
  */
-public function OptionName($input) {
+public function optionName($input) {
     $object = \core\Options::instance();
     return $object->assertValidOptionName($input);
 }

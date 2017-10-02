@@ -93,7 +93,7 @@ class Device_Chromebook extends \core\DeviceConfig {
     }
 
     private function encryptConfig($clearJson, $password) {
-        $salt = \core\ProfileSilverbullet::random_str(12);
+        $salt = \core\ProfileSilverbullet::randomString(12);
         $encryptionKey = hash_pbkdf2("sha1", $password, $salt, Device_Chromebook::PBKDF2_ITERATIONS, 32, TRUE); // the spec is not clear about the algo. Source code in Chromium makes clear it's SHA1.
         $strong = FALSE; // should become TRUE if strong crypto is available like it should.
         $initVector = openssl_random_pseudo_bytes(16, $strong);
