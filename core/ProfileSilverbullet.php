@@ -217,7 +217,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $usernameIsUnique = FALSE;
         $username = "";
         while ($usernameIsUnique === FALSE) {
-            $usernameLocalPart = self::randomString(64 - 1 - strlen($this->realm));
+            $usernameLocalPart = self::randomString(64 - 1 - strlen($this->realm),"0123456789abcdefghijklmnopqrstuvwxyz");
             $username = $usernameLocalPart . "@" . $this->realm;
             $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
             if (mysqli_num_rows($uniquenessQuery) == 0) {
