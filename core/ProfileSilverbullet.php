@@ -220,7 +220,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * take a CSR and sign it with our issuing CA's certificate
      * 
-     * @param type $csr the CSR
+     * @param $csr the CSR
      */
     private function signCsr($csr, $expiryDays) {
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
@@ -239,7 +239,7 @@ class ProfileSilverbullet extends AbstractProfile {
                 } while (!$nonDupSerialFound);
                 $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
                 return [
-                    "CERT" => openssl_csr_sign($csr["CSR"], $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial),
+                    "CERT" => openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial),
                     "SERIAL" => $serial,
                     "ISSUER" => $issuingCaPem,
                     "ROOT" => $rootCaPem,
@@ -298,7 +298,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        $certMeta = $this->signCsr($csr, $expiryDays);
+        $certMeta = $this->signCsr($csr["CSR"], $expiryDays);
         $cert = $certMeta["CERT"];
         $issuingCaPem = $certMeta["ISSUER"];
         $rootCaPem = $certMeta["ROOT"];
@@ -324,9 +324,10 @@ class ProfileSilverbullet extends AbstractProfile {
 
         // store new cert info in DB
         $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $tokenStatus['profile'], $tokenStatus['user'], $tokenStatus['db_id'], $serial, $csr["USERNAME"], $realExpiryDate);
-        if ($newCertificateResult === true) {
-            $certificateId = $this->databaseHandle->lastID();
-        }
+        if ($newCertificateResult === false) {
+            throw new Exception("Unable to update database with new cert details!");
+        } 
+        $certificateId = $this->databaseHandle->lastID();
 
         // newborn cert immediately gets its "valid" OCSP response
         ProfileSilverbullet::triggerNewOCSPStatement((int) $serial);
