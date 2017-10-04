@@ -170,7 +170,7 @@ abstract class DeviceConfig extends \core\common\Entity {
 
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - preliminaries done.\n");
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
-            $this->clientCert = $profile->generateCertificate($token, $importPassword);
+            $this->clientCert = $profile->issueCertificate($token, $importPassword);
             // add a UUID identifier for the devices that want one
             $this->clientCert['GUID'] = $this->uuid("", $this->clientCert['certdata']);
             // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.

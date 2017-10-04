@@ -18,7 +18,9 @@
  * @package Developer
  *
  */
+
 namespace core;
+
 use \Exception;
 
 /**
@@ -179,18 +181,96 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
+     * create a CSR
+     * 
+     * @return 
+     */
+    private function generateCsr($privateKey) {
+        // token leads us to the NRO, to set the OU property of the cert
+        $inst = new IdP($this->institution);
+        $federation = strtoupper($inst->federation);
+        $usernameIsUnique = FALSE;
+        $username = "";
+        while ($usernameIsUnique === FALSE) {
+            $usernameLocalPart = self::randomString(64 - 1 - strlen($this->realm), "0123456789abcdefghijklmnopqrstuvwxyz");
+            $username = $usernameLocalPart . "@" . $this->realm;
+            $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
+            if (mysqli_num_rows($uniquenessQuery) == 0) {
+                $usernameIsUnique = TRUE;
+            }
+        }
+
+        $this->loggerInstance->debug(5, "generateCertificate: generating private key.\n");
+
+        return [
+            "CSR" => openssl_csr_new(
+                    ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
+                'OU' => $federation,
+                'CN' => $username,
+                'emailAddress' => $username,
+                    ], $privateKey, [
+                'digest_alg' => 'sha256',
+                'req_extensions' => 'v3_req',
+                    ]
+            ),
+            "USERNAME" => $username
+        ];
+    }
+
+    /**
+     * take a CSR and sign it with our issuing CA's certificate
+     * 
+     * @param type $csr the CSR
+     */
+    private function signCsr($csr, $expiryDays) {
+        switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
+            case "embedded":
+                $rootCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/rootca.pem");
+                $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
+                $issuingCa = openssl_x509_read($issuingCaPem);
+                $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
+                $nonDupSerialFound = FALSE;
+                do {
+                    $serial = random_int(1000000000, PHP_INT_MAX);
+                    $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
+                    if (mysqli_num_rows($dupeQuery) == 0) {
+                        $nonDupSerialFound = TRUE;
+                    }
+                } while (!$nonDupSerialFound);
+                $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
+                return [
+                    "CERT" => openssl_csr_sign($csr["CSR"], $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial),
+                    "SERIAL" => $serial,
+                    "ISSUER" => $issuingCaPem,
+                    "ROOT" => $rootCaPem,
+                ];
+            default:
+                /* HTTP POST the CSR to the CA with the $expiryDays as parameter
+                 * on successful execution, gets back a PEM file which is the
+                 * certificate (structure TBD)
+                 * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
+                 *
+                 * The result of this if clause has to be a certificate in PHP's 
+                 * "openssl_object" style (like the one that openssl_csr_sign would 
+                 * produce), to be stored in the variable $cert; we also need the
+                 * serial - which can be extracted from the received cert and has
+                 * to be stored in $serial.
+                 */
+                throw new Exception("External silverbullet CA is not implemented yet!");
+        }
+    }
+
+    /**
      * issue a certificate based on a token
      *
      * @param string $token
      * @param string $importPassword
      * @return array
      */
-    public function generateCertificate($token, $importPassword) {
-        $cert = "";
+    public function issueCertificate($token, $importPassword) {
         $this->loggerInstance->debug(5, "generateCertificate() - starting.\n");
         $tokenStatus = ProfileSilverbullet::tokenStatus($token);
         $this->loggerInstance->debug(5, "tokenStatus: done, got " . $tokenStatus['status'] . ", " . $tokenStatus['profile'] . ", " . $tokenStatus['user'] . ", " . $tokenStatus['expiry'] . ", " . $tokenStatus['value'] . "\n");
-        $this->loggerInstance->debug(5, "generateCertificate() - token status is " . $tokenStatus['status']);
         if ($tokenStatus['status'] != self::SB_TOKENSTATUS_VALID && $tokenStatus['status'] != self::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
             throw new Exception("Attempt to generate a SilverBullet installer with an invalid/redeemed/expired token. The user should never have gotten that far!");
         }
@@ -208,71 +288,21 @@ class ProfileSilverbullet extends AbstractProfile {
         $expiryDateObject = date_create_from_format("Y-m-d H:i:s", $expiryObject->expiry);
         $this->loggerInstance->debug(5, $expiryDateObject->format("Y-m-d H:i:s") . "\n");
         $validity = date_diff(date_create(), $expiryDateObject);
+        $expiryDays = $validity->days + 1;
         if ($validity->invert == 1) { // negative! That should not be possible
             throw new Exception("Attempt to generate a certificate for a user which is already expired!");
         }
-        // token leads us to the NRO, to set the OU property of the cert
-        $inst = new IdP($this->institution);
-        $federation = strtoupper($inst->federation);
-        $usernameIsUnique = FALSE;
-        $username = "";
-        while ($usernameIsUnique === FALSE) {
-            $usernameLocalPart = self::randomString(64 - 1 - strlen($this->realm),"0123456789abcdefghijklmnopqrstuvwxyz");
-            $username = $usernameLocalPart . "@" . $this->realm;
-            $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
-            if (mysqli_num_rows($uniquenessQuery) == 0) {
-                $usernameIsUnique = TRUE;
-            }
-        }
-        $expiryDays = $validity->days;
 
-        $this->loggerInstance->debug(5, "generateCertificate: generating private key.\n");
         $privateKey = openssl_pkey_new(['private_key_bits' => 2048, 'private_key_type' => OPENSSL_KEYTYPE_RSA, 'encrypt_key' => FALSE]);
-        $csr = openssl_csr_new(
-                ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
-            'OU' => $federation,
-            'CN' => $username,
-            'emailAddress' => $username,
-                ], $privateKey, [
-            'digest_alg' => 'sha256',
-            'req_extensions' => 'v3_req',
-                ]
-        );
+        $csr = $this->generateCsr($privateKey);
 
         $this->loggerInstance->debug(5, "generateCertificate: proceeding to sign cert.\n");
 
-        switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
-            case "embedded":
-                $rootCaHandle = fopen(ROOT . "/config/SilverbulletClientCerts/rootca.pem", "r");
-                $rootCaPem = fread($rootCaHandle, 1000000);
-                $issuingCaPem = file_get_contents(ROOT . "/config/SilverbulletClientCerts/real.pem");
-                $issuingCa = openssl_x509_read($issuingCaPem);
-                $issuingCaKey = openssl_pkey_get_private("file://" . ROOT . "/config/SilverbulletClientCerts/real.key");
-                $nonDupSerialFound = FALSE;
-                do {
-                    $serial = random_int(1000000000, PHP_INT_MAX);
-                    $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
-                    if (mysqli_num_rows($dupeQuery) == 0) {
-                        $nonDupSerialFound = TRUE;
-                    }
-                } while (!$nonDupSerialFound);
-                $this->loggerInstance->debug(5, "generateCertificate: signing imminent with unique serial $serial.\n");
-                $cert = openssl_csr_sign($csr, $issuingCa, $issuingCaKey, $expiryDays, ['digest_alg' => 'sha256'], $serial);
-                break;
-            default:
-                /* HTTP POST the CSR to the CA with the $expiryDays as parameter
-                 * on successful execution, gets back a PEM file which is the
-                 * certificate (structure TBD)
-                 * $httpResponse = httpRequest("https://clientca.hosted.eduroam.org/issue/", ["csr" => $csr, "expiry" => $expiryDays ] );
-                 *
-                 * The result of this if clause has to be a certificate in PHP's 
-                 * "openssl_object" style (like the one that openssl_csr_sign would 
-                 * produce), to be stored in the variable $cert; we also need the
-                 * serial - which can be extracted from the received cert and has
-                 * to be stored in $serial.
-                 */
-                throw new Exception("External silverbullet CA is not implemented yet!");
-        }
+        $certMeta = $this->signCsr($csr, $expiryDays);
+        $cert = $certMeta["CERT"];
+        $issuingCaPem = $certMeta["ISSUER"];
+        $rootCaPem = $certMeta["ROOT"];
+        $serial = $certMeta["SERIAL"];
 
         $this->loggerInstance->debug(5, "generateCertificate: post-processing certificate.\n");
 
@@ -292,38 +322,24 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->loggerInstance->debug(5, "CERTINFO: " . print_r($parsedCert['full_details'], true));
         $realExpiryDate = date_create_from_format("U", $parsedCert['full_details']['validTo_time_t'])->format("Y-m-d H:i:s");
 
-        /*
-         * Finds invitation by its token attribute, creates new certificate record with provided values inside the database.
-         * There are three failures (theoreticaly) possible: no record has been found for given token, more than one record has been found for given token or invitation has reached a limit of alowed certificates.
-         */
-        $invitationsResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $token);
-        $certificateId = null;
-        if ($invitationsResult && $invitationsResult->num_rows > 0) {
-            $invitationRow = mysqli_fetch_object($invitationsResult);
-            $invitationId = $invitationRow->id;
-            $certificatesResult = $this->databaseHandle->exec("SELECT * FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id`=? ORDER BY `revocation_status`, `expiry` DESC", "i", $invitationId);
-            if (!$certificatesResult || $certificatesResult->num_rows < $invitationRow->quantity) {
-                $invitationProfile = $invitationRow->profile_id;
-                $invitationSbId =  $invitationRow->silverbullet_user_id;
-                $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $invitationProfile, $invitationSbId, $invitationId, $serial, $username, $realExpiryDate);
-                if ($newCertificateResult === true) {
-                    $certificateId = $this->databaseHandle->lastID();
-                }
-            }
+        // store new cert info in DB
+        $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $tokenStatus['profile'], $tokenStatus['user'], $tokenStatus['db_id'], $serial, $csr["USERNAME"], $realExpiryDate);
+        if ($newCertificateResult === true) {
+            $certificateId = $this->databaseHandle->lastID();
         }
 
         // newborn cert immediately gets its "valid" OCSP response
         ProfileSilverbullet::triggerNewOCSPStatement((int) $serial);
 // return PKCS#12 data stream
         return [
-            "username" => $username,
+            "username" => $csr["USERNAME"],
             "certdata" => $exportedCertProt,
             "certdataclear" => $exportedCertClear,
             "expiry" => $expiryDateObject->format("Y-m-d\TH:i:s\Z"),
             "sha1" => $sha1,
             'importPassword' => $importPassword,
             'serial' => $serial,
-            'certificateId' => $certificateId
+            'certificateId' => $certificateId,
         ];
     }
 
@@ -387,7 +403,6 @@ class ProfileSilverbullet extends AbstractProfile {
                 fwrite($indexAttrFile, "unique_subject = yes\n");
                 fclose($indexAttrFile);
                 // call "openssl ocsp" to manufacture our own OCSP statement
-                
                 // adding "-rmd sha1" to the following command-line makes the
                 // choice of signature algorithm for the response explicit
                 // but it's only available from openssl-1.1.0 (which we do not
@@ -509,7 +524,8 @@ class ProfileSilverbullet extends AbstractProfile {
             "expiry" => $invitationRow->expiry,
             "activations_remaining" => $invitationRow->quantity - $certificatesNumber,
             "activations_total" => $invitationRow->quantity,
-            "value" => $invitationRow->token
+            "value" => $invitationRow->token,
+            "db_id" => $invitationRow->id,
         ];
 
         switch ($certificatesNumber) {
