@@ -48,6 +48,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         parent::__construct();
         // that's what all variants support. Sub-classes can change it.
         $this->setSupportedEapMethods([\core\common\EAP::EAPTYPE_PEAP_MSCHAP2, \core\common\EAP::EAPTYPE_TTLS_PAP, \core\common\EAP::EAPTYPE_TTLS_MSCHAP2, \core\common\EAP::EAPTYPE_SILVERBULLET]);
+        $this->specialities['internal:verify_userinput_suffix'] = _("It is not possible to actively verify the user input for suffix match; but if there is no 'Terms of Use' configured, the installer will display a corresponding hint to the user instead.");
     }
 
     private function massageName($input) {
