@@ -102,12 +102,12 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                     } elseif ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE) {
                         // see if we want to add a footnote: anon_id
                         $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
-                        if ($anon !== "" && isset($factory->device->specialities['anon_id'])) {
-                            if (isset($factory->device->specialities['anon_id'][serialize($method->getArrayRep())])) {
-                                $footnotetext = $factory->device->specialities['anon_id'][serialize($method->getArrayRep())];
+                        if ($anon != 0 && isset($factory->device->specialities['internal:use_anon_outer'])) {
+                            if (isset($factory->device->specialities['internal:use_anon_outer'][serialize($method->getArrayRep())])) {
+                                $footnotetext = $factory->device->specialities['internal:use_anon_outer'][serialize($method->getArrayRep())];
                                 $display_footnote = TRUE;
-                            } else if (!is_array($factory->device->specialities['anon_id'])) {
-                                $footnotetext = $factory->device->specialities['anon_id'];
+                            } else if (!is_array($factory->device->specialities['internal:use_anon_outer'])) {
+                                $footnotetext = $factory->device->specialities['internal:use_anon_outer'];
                                 $display_footnote = TRUE;
                             }
                         }
