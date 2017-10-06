@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -40,7 +40,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
             <th></th>
             <th><?php echo _("Device"); ?></th>
 
-            <?php            
+            <?php
             foreach ($preflist as $method) {
                 $escapedMethod = $method->getIntegerRep();
                 echo "<th style='min-width:200px'>" . $method->getPrintableRep() . "<br/>
@@ -100,15 +100,19 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                     if ($my_profile->isEapTypeDefinitionComplete($method) !== true) {
                         echo "<td class='compat_incomplete'></td>";
                     } elseif ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE) {
-                        // see if we want to add a footnote: anon_id
-                        $anon = $my_profile->getAttributes("internal:use_anon_outer")[0]["value"];
-                        if ($anon != 0 && isset($factory->device->specialities['internal:use_anon_outer'])) {
-                            if (isset($factory->device->specialities['internal:use_anon_outer'][serialize($method->getArrayRep())])) {
-                                $footnotetext = $factory->device->specialities['internal:use_anon_outer'][serialize($method->getArrayRep())];
-                                $display_footnote = TRUE;
-                            } else if (!is_array($factory->device->specialities['internal:use_anon_outer'])) {
-                                $footnotetext = $factory->device->specialities['internal:use_anon_outer'];
-                                $display_footnote = TRUE;
+                        // see if we want to add a footnote - iterate through all available attributes and see if we have something in the buffer
+                        $optionlist = core\Options::instance();
+                        foreach ($optionlist->availableOptions() as $oneOption) {
+                            $value = $my_profile->getAttributes($oneOption)[0]["value"];
+                            // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
+                            if ($value != FALSE && isset($factory->device->specialities[$oneOption])) {
+                                if (isset($factory->device->specialities[$oneOption][serialize($method->getArrayRep())])) {
+                                    $footnotetext = $factory->device->specialities[$oneOption][serialize($method->getArrayRep())];
+                                    $display_footnote = TRUE;
+                                } else if (!is_array($factory->device->specialities[$oneOption])) {
+                                    $footnotetext = $factory->device->specialities[$oneOption];
+                                    $display_footnote = TRUE;
+                                }
                             }
                         }
                         echo "<td class='compat_default'>$downloadform";
