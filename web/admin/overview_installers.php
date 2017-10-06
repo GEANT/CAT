@@ -103,7 +103,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         // see if we want to add a footnote - iterate through all available attributes and see if we have something in the buffer
                         $optionlist = core\Options::instance();
                         foreach ($optionlist->availableOptions() as $oneOption) {
-                            $value = $my_profile->getAttributes($oneOption)[0]["value"];
+                            $value = $my_profile->getAttributes($oneOption)[0]["value"] ?? FALSE;
                             // next line: we DO want loose comparison; no matter if "" or FALSE or a 0 - if something's not set, don't add the footnote
                             if ($value != FALSE && isset($factory->device->specialities[$oneOption])) {
                                 if (isset($factory->device->specialities[$oneOption][serialize($method->getArrayRep())])) {
