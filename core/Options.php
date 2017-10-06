@@ -94,6 +94,15 @@ class Options {
         $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["internal:country"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:profile_count"] = ["type" => "integer", "flag" => NULL];
+        $this->typeDb["internal:checkuser_outer"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:checkuser_value"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:verify_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:hint_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];
+
 
         $this->loggerInstance->debug(3, "--- END constructing Options instance ---\n");
     }
