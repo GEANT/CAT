@@ -21,6 +21,7 @@
  */
 
 namespace core;
+
 use \Exception;
 
 /**
@@ -123,9 +124,7 @@ class Options {
         foreach (array_keys($this->typeDb) as $name) {
             if ($className === 0) {
                 $returnArray[] = $name;
-                return $returnArray;
-            }
-            if (preg_match('/^' . $className . ':/', $name) > 0) {
+            } elseif (preg_match('/^' . $className . ':/', $name) > 0) {
                 $returnArray[] = $name;
             }
         }
