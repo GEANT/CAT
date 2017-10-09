@@ -148,7 +148,8 @@ class ProfileSilverbullet extends AbstractProfile {
                 <li><span style='color: red;'>TBD: a lookup/notification system which informs you of network abuse complaints by " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Service Providers that pertain to your users</span></li>
             </ul>
         <h2>User Account Liability</h2>
-        <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ." administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue. In particular, you</p>
+        <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ." administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
+        $this->termsAndConditions .= "<p>Your responsibilities include that you</p>
         <ul>
             <li>only issue accounts to members of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . ", as defined by your local policy.</li>
             <li>must make sure that all accounts that you issue can be linked by you to actual human end users</li>
@@ -161,7 +162,8 @@ class ProfileSilverbullet extends AbstractProfile {
         <ul>
             <li>You are the only one who needs to be able to make a link to the human behind the usernames you create. The usernames you create in the system have to be rich enough to allow you to make that identification step. Also consider situations when you are unavailable or leave the organisation and someone else needs to perform the matching to an individual.</li>
             <li>The identifiers we create in the credentials are not linked to the usernames you add to the system; they are randomly generated pseudonyms.</li>
-            <li>Each access credential carries a different pseudonym, even if it pertains to the same username.</li>      
+            <li>Each access credential carries a different pseudonym, even if it pertains to the same username.</li>
+            <li>If you choose to deposit users' email addresses in the system, you authorise the system to send emails on your behalf regarding operationally relevant events to the users in question (e.g. notification of nearing expiry dates of credentials, notification of access revocation).
         </ul>";
     }
 
