@@ -47,6 +47,10 @@ class ProfileSilverbullet extends AbstractProfile {
     const SB_CERTSTATUS_EXPIRED = 2;
     const SB_CERTSTATUS_REVOKED = 3;
 
+    const SB_ACKNOWLEDGEMENT_REQUIRED_DAYS = 365;
+    
+    public $termsAndConditions;
+            
     /*
      * 
      */
@@ -134,6 +138,31 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->name = ProfileSilverbullet::PRODUCTNAME;
 
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
+        
+        $this->termsAndConditions = "<h2>Product Definition</h2>
+        <p>". \core\ProfileSilverbullet::PRODUCTNAME." outsources the technical setup of ".CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']." functions to the " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Operations Team. The system includes</p>
+            <ul>
+                <li>a web-based user management interface where user accounts and access credentials can be created and revoked (there is a limit to the number of active users)</li>
+                <li>a technical infrastructure ('CA') which issues and revokes credentials</li>
+                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ."</li>
+                <li><span style='color: red;'>TBD: a lookup/notification system which informs you of network abuse complaints by " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Service Providers that pertain to your users</span></li>
+            </ul>
+        <h2>User Account Liability</h2>
+        <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ." administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue. In particular, you</p>
+        <ul>
+            <li>only issue accounts to members of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . ", as defined by your local policy.</li>
+            <li>must make sure that all accounts that you issue can be linked by you to actual human end users</li>
+            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ."</li>
+            <li>will act upon notifications about possible network abuse by your users and will appropriately sanction them</li>
+        </ul>
+        <p>Failure to comply with these requirements may lead to the deletion of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.</p>
+        <h2>Privacy</h2>
+        <p>With " . \core\ProfileSilverbullet::PRODUCTNAME .", we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>
+        <ul>
+            <li>You are the only one who needs to be able to make a link to the human behind the identifiers you create. The usernames you create in the system have to be rich enough to allow you to make that identification step. Also consider situations when you are unavailable or leave the organisation and someone else needs to perform the matching to an individual.</li>
+            <li>The identifiers we create in the credentials are not linked to the usernames you add to the system.</li>
+            <li>Each access credential carries a different pseudonym, even if it pertains to the same username.</li>      
+        </ul>";
     }
 
     /**
@@ -571,13 +600,46 @@ class ProfileSilverbullet extends AbstractProfile {
         }
     }
 
-    public function userStatus($username) {
+    public function userStatus($userId) {
         $retval = [];
-        $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "si", $username, $this->identifier);
+        $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "ii", $userId, $this->identifier);
         while ($returnedData = mysqli_fetch_object($userrows)) {
             $retval[] = ProfileSilverbullet::tokenStatus($returnedData->token);
         }
         return $retval;
+    }
+    
+    public function getUserExpiryDate($userId) {
+        $query = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ? AND profile_id = ? ", "ii", $userId, $this->identifier);
+        while ($returnedData = mysqli_fetch_object($query)) {
+            return $returnedData->expiry;
+        }
+        
+    }
+    
+    public function listAllUsers() {
+        $userArray = [];
+        $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? ", "i", $this->identifier);
+        while ($res = mysqli_fetch_object($users)) {
+            $userArray[$res->id] = $res->username;
+        }
+        return $userArray;
+    }
+    
+    public function listActiveUsers() {
+        // users are active if they have a non-expired invitation OR a non-expired, non-revoked certificate
+        $userCount = [];
+        $users = $this->databaseHandle->exec("SELECT COUNT(DISTINCT u.id) AS usercount FROM silverbullet_user u, silverbullet_invitation i, silverbullet_certificate c "
+                . "WHERE u.profile_id = ? "
+                . "AND ( "
+                .   "( u.id = i.silverbullet_user_id AND i.expiry >= NOW() )"
+                . "     OR"
+                . "  ( u.id = c.silverbullet_user_id AND c.expiry >= NOW() AND c.revocation_status != 'REVOKED' ) "
+                . ")", "i", $this->identifier);
+        while ($res = mysqli_fetch_object($users)) {
+            $userCount[] = $res->usercount;
+        }
+        return $userCount;
     }
 
 }
