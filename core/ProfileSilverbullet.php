@@ -159,8 +159,8 @@ class ProfileSilverbullet extends AbstractProfile {
         <h2>Privacy</h2>
         <p>With " . \core\ProfileSilverbullet::PRODUCTNAME .", we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>
         <ul>
-            <li>You are the only one who needs to be able to make a link to the human behind the identifiers you create. The usernames you create in the system have to be rich enough to allow you to make that identification step. Also consider situations when you are unavailable or leave the organisation and someone else needs to perform the matching to an individual.</li>
-            <li>The identifiers we create in the credentials are not linked to the usernames you add to the system.</li>
+            <li>You are the only one who needs to be able to make a link to the human behind the usernames you create. The usernames you create in the system have to be rich enough to allow you to make that identification step. Also consider situations when you are unavailable or leave the organisation and someone else needs to perform the matching to an individual.</li>
+            <li>The identifiers we create in the credentials are not linked to the usernames you add to the system; they are randomly generated pseudonyms.</li>
             <li>Each access credential carries a different pseudonym, even if it pertains to the same username.</li>      
         </ul>";
     }
