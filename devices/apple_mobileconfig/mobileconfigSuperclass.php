@@ -64,7 +64,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $tagline = sprintf(_("%s configuration for IdP '%s' - provided by %s"), \core\ProfileSilverbullet::PRODUCTNAME, htmlspecialchars($this->instName, ENT_XML1, 'UTF-8'), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         }
 
-        return "</array>
+        return "
       <key>PayloadDescription</key>
          <string>$tagline</string>
       <key>PayloadDisplayName</key>
@@ -87,6 +87,27 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 <plist version=\"1.0\">
 <dict>";
     const FILE_END = "</dict></plist>";
+    const BUFFER_CONSENT_PRE = "
+      <key>ConsentText</key>
+         <dict>
+            <key>default</key>
+               <string>";
+    const BUFFER_CONSENT_POST = "</string>
+         </dict>
+         ";
+
+    protected function consentBlock() {
+        if (isset($this->attributes['support:info_file'])) {
+            return mobileconfigSuperclass::BUFFER_CONSENT_PRE . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . mobileconfigSuperclass::BUFFER_CONSENT_POST;
+        }
+        if (isset($this->attributes['internal:verify_userinput_suffix'])) {
+            if (isset($this->attributes['internal:realm'])) {
+                return mobileconfigSuperclass::BUFFER_CONSENT_PRE . sprintf(_("Important Notice: your username must end with @%s!"), $this->attributes['internal:realm'][0]) . mobileconfigSuperclass::BUFFER_CONSENT_POST;
+            }
+            return mobileconfigSuperclass::BUFFER_CONSENT_PRE . _("Important Notice: your username MUST be in the form of xxx@yyy where the yyy is a common suffix identifying your Identity Provider. Please find out what to use there and enter the username in the correct format.") . mobileconfigSuperclass::BUFFER_CONSENT_POST;
+        }
+        return "";
+    }
 
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
@@ -120,7 +141,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 
         $this->loggerInstance->debug(5, "List of available attributes: " . var_export($this->attributes, TRUE));
 
-        $this->instName = $this->attributes['general:instname'][0] ?? sprintf(_("Unnamed %s"),$this->nomenclature_inst);
+        $this->instName = $this->attributes['general:instname'][0] ?? sprintf(_("Unnamed %s"), $this->nomenclature_inst);
         $this->profileName = $this->attributes['profile:name'][0] ?? _("Unnamed Profile");
 
         $this->massagedInst = $this->massageName($this->instName);
@@ -154,20 +175,19 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
 
         $outputXml .= $this->allNetworkBlocks(
-                $this->attributes['internal:SSID'], $this->attributes['internal:consortia'], $this->attributes['eap:server_name'], $this->listCAUuids($this->attributes['internal:CAs'][0]), $this->selectedEap, $includeWired, $clientCertUUID, $this->determineOuterIdString());
+                $this->attributes['internal:SSID'], 
+                $this->attributes['internal:consortia'], 
+                $this->attributes['eap:server_name'], 
+                $this->listCAUuids($this->attributes['internal:CAs'][0]), 
+                $this->selectedEap, 
+                $includeWired, 
+                $clientCertUUID, 
+                $this->determineOuterIdString());
 
-
+        $outputXml .= "</array>";
         $outputXml .= $this->generalPayload();
+        $outputXml .= $this->consentBlock();
 
-        if (isset($this->attributes['support:info_file'])) {
-            $outputXml .= "
-      <key>ConsentText</key>
-         <dict>
-            <key>default</key>
-               <string>" . htmlspecialchars(iconv("UTF-8", "UTF-8//TRANSLIT", $this->attributes['support:info_file'][0]), ENT_XML1, 'UTF-8') . "</string>
-         </dict>
-         ";
-        }
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             $outputXml .= $this->expiryBlock();
         }
