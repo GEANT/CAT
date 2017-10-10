@@ -156,7 +156,9 @@ class ProfileSilverbullet extends AbstractProfile {
             <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ."</li>
             <li>will act upon notifications about possible network abuse by your users and will appropriately sanction them</li>
         </ul>
-        <p>Failure to comply with these requirements may lead to the deletion of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.</p>
+        <p>";
+        $this->termsAndConditions .= "Failure to comply with these requirements may make your ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." act on your behalf, which you authorise, and will ultimately lead to the deletion of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.";
+        $this->termsAndConditions .= "</p>
         <h2>Privacy</h2>
         <p>With " . \core\ProfileSilverbullet::PRODUCTNAME .", we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>
         <ul>
