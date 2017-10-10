@@ -387,13 +387,14 @@ function processDownload(data) {
     alert(generation_error);
   else {
     download_link = '<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
+   alert(download_link);
     $("#download_info a").attr('href',download_link);
     $('#download_info').show();
     if( generateTimer > 0 ) {
-       setTimeout("document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/')?>'+'/'+download_link",generateTimer);
+        setTimeout("document.location.href=download_link",generateTimer);
     }
     else {
-       document.location.href='<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']),'/')?>'+'/'+download_link;
+       document.location.href=download_link;
     }
   }
 }
