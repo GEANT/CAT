@@ -231,8 +231,6 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                         this.form.elements[\"checkuser_support\"].removeAttribute(\"disabled\");
                                         document.getElementById(\"checkuser_label\").removeAttribute(\"style\");
                                         
-                                        this.form.elements[\"verify_support\"].removeAttribute(\"disabled\");
-                                        
                                         document.getElementById(\"verify_label\").removeAttribute(\"style\");
                                         document.getElementById(\"hint_label\").removeAttribute(\"style\");
 
@@ -246,14 +244,10 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
                                         this.form.elements[\"checkuser_support\"].setAttribute(\"disabled\", \"disabled\");
                                         this.form.elements[\"checkuser_local\"].setAttribute(\"disabled\", \"disabled\");
                                         document.getElementById(\"checkuser_label\").setAttribute(\"style\", \"color:#999999\");
-                                        
-                                        this.form.elements[\"verify_support\"].checked = false;
-                                        this.form.elements[\"verify_support\"].setAttribute(\"disabled\", \"disabled\");
-                                        
+                                                                                
                                         this.form.elements[\"hint_support\"].checked = false;
                                         this.form.elements[\"hint_support\"].setAttribute(\"disabled\", \"disabled\");
                                         
-                                        document.getElementById(\"verify_label\").setAttribute(\"style\", \"color:#999999\");
                                         document.getElementById(\"hint_label\").setAttribute(\"style\", \"color:#999999\");
                                       };'/>"; ?>
 
@@ -279,16 +273,15 @@ if (isset($_GET['profile_id'])) { // oh! We should edit an existing profile, not
             <tr>
                 <!-- checkbox for "verify-->
                 <td>
-                    <span id='verify_label' style='<?php echo ($realm == "" ? "color:#999999" : "" ); ?>'>
+                    <span id='verify_label'>
                         <?php echo _("Verify user input to contain realm suffix:"); ?>
                     </span>
                 </td>
                 <td>
                     <input type='checkbox' <?php
                     echo ($verify != FALSE ? "checked" : "" );
-                    echo ($realm == "" ? "disabled" : "" );
                     ?> name='verify_support' onclick='
-                            if (this.form.elements["verify_support"].checked !== true) {
+                            if (this.form.elements["verify_support"].checked !== true || this.form.elements["realm"].value.length == 0) {
                                 this.form.elements["hint_support"].setAttribute("disabled", "disabled");
                             } else {
                                 this.form.elements["hint_support"].removeAttribute("disabled");
