@@ -40,7 +40,7 @@ const LISTOFACTIONS = [
 ];
 
 function getRequest($varName,$filter) {
-    $safeText = ["options"=>["regexp"=>"/^[\w\d]+$/"]];
+    $safeText = ["options"=>["regexp"=>"/^[\w\d-]+$/"]];
     switch ($filter) {
         case 'safe_text':
             $out = filter_input(INPUT_GET, $varName, FILTER_VALIDATE_REGEXP, $safeText) ?? filter_input(INPUT_POST, $varName, FILTER_VALIDATE_REGEXP, $safeText);

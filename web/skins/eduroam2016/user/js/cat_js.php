@@ -161,7 +161,9 @@ function resetDevices() {
         $(this).addClass('pressedDisabled');
       else 
         $(this).addClass('pressed');
+      pressedButton = $(this);
       if($(this).hasClass('additionalInfo')) {
+        info_id = 'info_'+pressedButton.attr('id');
         $('#'+info_id).show(100);
       } else {
         $('#download_info').hide();
@@ -274,6 +276,7 @@ function resetDevices() {
             i_div.html(t);
             $(".redirect_link").click(function(event) {
                i_div.hide('fast');
+               var dev_id = pressedButton.attr('id');
                if(dev_id.substr(0,2) == "g_")
                   dev_id = dev_id.substr(2);
                if(v.status == 0) {
@@ -387,7 +390,6 @@ function processDownload(data) {
     alert(generation_error);
   else {
     download_link = '<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=downloadInstaller&api_version=2&lang='+lang+'&device='+j.device+'&profile='+j.profile;
-   alert(download_link);
     $("#download_info a").attr('href',download_link);
     $('#download_info').show();
     if( generateTimer > 0 ) {
