@@ -160,7 +160,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
             } else {
                 $extratext = ".";
             }
-            echo $uiElements->boxOkay(sprintf(_("Where possible, username inputs will be <strong>verified to contain an @ and end with %s</strong>%s"), $realm, $extratext));
+            echo $uiElements->boxOkay(sprintf(_("Where possible, username inputs will be <strong>verified to end with @%s</strong>%s"), $realm, $extratext));
         }
     } else {
         $profile->setInputVerificationPreference(false, false);
