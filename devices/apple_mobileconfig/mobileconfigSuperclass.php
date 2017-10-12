@@ -323,7 +323,11 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
 <string>$commonName</string>";
         }
         $retval .= "
-                         </array>
+                         </array>";
+        if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
+            $retval .= "<key>UserName</key><string>".$this->clientCert["username"]."</string>";
+        }
+        $retval .="
                       <key>TTLSInnerAuthentication</key>
                          <string>" . ($eapType['INNER'] == \core\common\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>";
