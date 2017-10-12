@@ -227,9 +227,10 @@ class WindowsCommon extends \core\DeviceConfig {
     }
 
     protected function writeNsisDefines($eap, $attr) {
-        $fcontents = '';
+        $fcontents .= "\n" . '!define NSIS_MAJOR_VERSION ' . CONFIG_CONFASSISTANT['NSIS_VERSION'];
         if ($attr['internal:profile_count'][0] > 1) {
-            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
+            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"
+';
         }
         $fcontents .=  '
 Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
