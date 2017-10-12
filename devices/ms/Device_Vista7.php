@@ -437,44 +437,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
 
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
-        if ($attr['internal:profile_count'][0] > 1) {
-            $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
-        }
-        $fcontents .= '
-Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define APPLICATION "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s installer for %s")), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $attr['general:instname'][0]), $this->codePage) . '"
-!define VERSION "' . \core\CAT::VERSION_MAJOR . '.' . \core\CAT::VERSION_MINOR . '"
-!define INSTALLER_NAME "installer.exe"
-!define LANG "' . $this->lang . '"
-!define LOCALE "' . preg_replace('/\..*$/', '', CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['locale']) . '"
-';
-        $fcontents .= $this->msInfoFile($attr);
-
-
-        $fcontents .= ';--------------------------------
-!define ORGANISATION "' . $this->translateString($attr['general:instname'][0], $this->codePage) . '"
-!define SUPPORT "' . ((isset($attr['support:email'][0]) && $attr['support:email'][0] ) ? $attr['support:email'][0] : $this->translateString($this->support_email_substitute, $this->codePage)) . '"
-!define URL "' . ((isset($attr['support:url'][0]) && $attr['support:url'][0] ) ? $attr['support:url'][0] : $this->translateString($this->support_url_substitute, $this->codePage)) . '"
-
-!ifdef TLS
-';
-//TODO this must be changed with a new option
-        if ($eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $fcontents .= '!define TLS_CERT_STRING "certyfikaty.umk.pl"
-';
-        }
-        $fcontents .= '!define TLS_FILE_NAME "cert*.p12"
-!endif
-';
-
-        if (isset($this->attributes['media:wired'][0]) && $attr['media:wired'][0] == 'on') {
-            $fcontents .= '!define WIRED
-';
-        }
-        $fcontents .= '!define PROVIDERID "urn:UUID:' . $this->deviceUUID . '"
-';
-
-
+        $fcontents .= $this->writeNsisDefines($eap, $attr);
         $fileHandle = fopen('main.nsh', 'w');
         fwrite($fileHandle, $fcontents);
         fclose($fileHandle);
