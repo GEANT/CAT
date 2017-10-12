@@ -227,6 +227,7 @@ class WindowsCommon extends \core\DeviceConfig {
     }
 
     protected function writeNsisDefines($eap, $attr) {
+        $fcontents = '';
         if ($attr['internal:profile_count'][0] > 1) {
             $fcontents .= "\n" . '!define USER_GROUP "' . $this->translateString(str_replace('"', '$\\"', $attr['profile:name'][0]), $this->codePage) . '"';
         }
