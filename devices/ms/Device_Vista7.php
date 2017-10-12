@@ -474,7 +474,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         $fcontents .= '!define PROVIDERID "urn:UUID:' . $this->deviceUUID . '"
 ';
 
-
+        $fcontents .= $this->writeNsisDefines($attr);
         $fileHandle = fopen('main.nsh', 'w');
         fwrite($fileHandle, $fcontents);
         fclose($fileHandle);
