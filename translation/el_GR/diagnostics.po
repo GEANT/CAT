@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"POT-Creation-Date: 2016-09-28 15:58+0200\n"
 "PO-Revision-Date: 2015-04-07 16:41+0000\n"
 "Last-Translator: Zenon Mousmoulas <zenon@mousmoulas.gr>\n"
 "Language-Team: Greek (http://www.transifex.com/projects/p/cat/language/el/)\n"
@@ -21,47 +21,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: core/RADIUSTests.php:263
+#: core/RADIUSTests.php:261
 msgid "eduPKI"
 msgstr "eduPKI"
 
-#: core/RADIUSTests.php:264
+#: core/RADIUSTests.php:262
 msgid "Nicolaus Copernicus University"
 msgstr "Πανεπιστήμιο Nicolaus Copernicus"
 
-#: core/RADIUSTests.php:265
+#: core/RADIUSTests.php:263
 msgid "accredited"
 msgstr "διαπιστευμένο"
 
-#: core/RADIUSTests.php:266
+#: core/RADIUSTests.php:264
 msgid "non-accredited"
 msgstr "μη διαπιστευμένο"
 
-#: core/RADIUSTests.php:267
+#: core/RADIUSTests.php:265
 msgid "correct certificate"
 msgstr "σωστό πιστοποιητικό"
 
-#: core/RADIUSTests.php:268
+#: core/RADIUSTests.php:266
 msgid "certificate with wrong policy OID"
 msgstr "πιστοποιητικό με λάθος πολιτική OID"
 
-#: core/RADIUSTests.php:269
+#: core/RADIUSTests.php:267
 msgid "expired certificate"
 msgstr "πιστοποιητικό που έχει λήξει"
 
-#: core/RADIUSTests.php:270
+#: core/RADIUSTests.php:268
 msgid "revoked certificate"
 msgstr "πιστοποιητικό που έχει ανακληθεί"
 
-#: core/RADIUSTests.php:271
+#: core/RADIUSTests.php:269
 msgid "pass"
 msgstr "επιτυχία"
 
-#: core/RADIUSTests.php:272
+#: core/RADIUSTests.php:270
 msgid "fail"
 msgstr "αποτυχία"
 
-#: core/RADIUSTests.php:273
+#: core/RADIUSTests.php:271
 msgid "eduroam-accredited CA (now only for tests)"
 msgstr "διαπιστευμένα από το eduroam CA (προς το παρόν μόνο για δοκιμές)"
 
@@ -69,29 +69,33 @@ msgstr "διαπιστευμένα από το eduroam CA (προς το παρ�
 msgid "Completed"
 msgstr "Ολοκληρωμένο"
 
-#: core/RADIUSTests.php:391
+#: core/RADIUSTests.php:386
+msgid "Product is not configured to run this check."
+msgstr ""
+
+#: core/RADIUSTests.php:392
 msgid "This check was skipped."
 msgstr "Αυτός ο έλεγχος παραλείφθηκε."
 
-#: core/RADIUSTests.php:398
+#: core/RADIUSTests.php:399
 msgid "There were errors during the test."
 msgstr "Υπήρξαν σφάλματα κατά τις δοκιμές."
 
-#: core/RADIUSTests.php:406
+#: core/RADIUSTests.php:407
 msgid "This realm has no NAPTR records."
 msgstr "Αυτός ο τομέας δεν έχει εγγραφές NAPTR."
 
-#: core/RADIUSTests.php:413
+#: core/RADIUSTests.php:414
 msgid "NAPTR records were found, but all of them refer to unrelated services."
 msgstr ""
 "Βρέθηκαν εγγραφές NAPTR, αλλά όλες τους αναφέρονται σε μη συσχετισμένες "
 "συσκευές."
 
-#: core/RADIUSTests.php:421
+#: core/RADIUSTests.php:422
 msgid "There was no reply at all from the RADIUS server."
 msgstr "Δεν υπήρξε καμία απόκριση από τον εξυπηρετητή RADIUS."
 
-#: core/RADIUSTests.php:428
+#: core/RADIUSTests.php:429
 msgid ""
 "There was a bidirectional communication with the RADIUS server, but it ended "
 "halfway through."
@@ -99,7 +103,7 @@ msgstr ""
 "Υπήρξε μια αμφίδρομη επικοινωνία με τον εξυπηρετητή RADIUS, αλλά έληξε στο "
 "ενδιάμεσο της διαδρομής. "
 
-#: core/RADIUSTests.php:435
+#: core/RADIUSTests.php:436
 msgid ""
 "The RADIUS server immediately rejected the authentication request in its "
 "first reply."
@@ -107,7 +111,7 @@ msgstr ""
 "Ο εξυπηρετητής RADIUS άμεσα απέρριψε το αίτημα πιστοποίησης στην πρώτη "
 "απάντηση του."
 
-#: core/RADIUSTests.php:442
+#: core/RADIUSTests.php:443
 msgid ""
 "The RADIUS server rejected the authentication request after an EAP "
 "conversation."
@@ -115,22 +119,22 @@ msgstr ""
 "Ο εξυπηρετητής RADIUS απέρριψε το αίτημα πιστοποίησης ύστερα από μια "
 "συνομιλία EAP."
 
-#: core/RADIUSTests.php:449
+#: core/RADIUSTests.php:450
 msgid "Connection refused"
 msgstr "Άρνηση σύνδεσης"
 
-#: core/RADIUSTests.php:456
+#: core/RADIUSTests.php:457
 msgid "Not enough data provided to perform an authentication"
 msgstr "Δεν υπάρχουν αρκετά δεδομένα για να πραγματοποιηθεί μια ταυτοποίηση."
 
-#: core/RADIUSTests.php:463
+#: core/RADIUSTests.php:464
 msgid ""
 "The certificate password you provided does not match the certificate file."
 msgstr ""
 "Ο κωδικός του πιστοποιητικού που υποβάλλατε δεν αντιστοιχεί στο αρχείο "
 "πιστοποίησης."
 
-#: core/RADIUSTests.php:471
+#: core/RADIUSTests.php:472
 msgid ""
 "The certificate chain includes the root CA certificate. This does not serve "
 "any useful purpose but inflates the packet exchange, possibly leading to "
@@ -141,15 +145,15 @@ msgstr ""
 "ανταλλάσσονται, πιθανώς προκαλώντας περισσότερες κυκλικές διαδρομές και "
 "συνεπώς πιο αργή ταυτοποίηση."
 
-#: core/RADIUSTests.php:478
+#: core/RADIUSTests.php:479
 msgid "There is more than one server certificate in the chain."
 msgstr "Υπάρχουν περισσότερα από ένα πιστοποιητικά εξυπηρετητή στην αλυσίδα."
 
-#: core/RADIUSTests.php:485
+#: core/RADIUSTests.php:486
 msgid "There is no server certificate in the chain."
 msgstr "Δεν υπάρχει πιστοποιητικό εξυπηρετητή στην αλυσίδα."
 
-#: core/RADIUSTests.php:492
+#: core/RADIUSTests.php:493
 msgid ""
 "At least one certificate in the chain is signed with the MD5 signature "
 "algorithm. Many Operating Systems, including Apple iOS, will fail to "
@@ -159,7 +163,7 @@ msgstr ""
 "αλγόριθμο υπογραφής MD5. Πολλά Λειτουργικά Συστήματα, συμπεριλαμβανομένου "
 "του Apple iOS, θα αποτύχει να επαληθεύσει αυτό το πιστοποιητικό."
 
-#: core/RADIUSTests.php:499
+#: core/RADIUSTests.php:500
 msgid ""
 "At least one certificate in the chain had a public key of less than 1024 "
 "bits. Many recent operating systems consider this unacceptable and will fail "
@@ -169,7 +173,7 @@ msgstr ""
 "λιγότερα από 1024 bits. Πολλά πρόσφατα λειτουργικά συστήματα το θεωρούν ως "
 "μη αποδεκτό και θα αποτύχουν να επαληθεύσουν το πιστοποιητικό διακομιστή."
 
-#: core/RADIUSTests.php:506
+#: core/RADIUSTests.php:507
 msgid ""
 "The server certificate does not have the extension 'extendedKeyUsage: TLS "
 "Web Server Authentication'. Most Microsoft Operating Systems will fail to "
@@ -179,7 +183,7 @@ msgstr ""
 "Web Server Authentication'. Τα περισσότερα Λειτουργικά Συστήματα της "
 "Microsoft θα αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό."
 
-#: core/RADIUSTests.php:513
+#: core/RADIUSTests.php:514
 msgid ""
 "The server certificate did not include a CRL Distribution Point, creating "
 "compatibility problems with Windows Phone 8."
@@ -187,7 +191,7 @@ msgstr ""
 "Το πιστοποιητικό εξυπηρετητή δεν περιλαμβάνει ένα CRL Distribution Point, "
 "δημιουργώντας προβλήματα συμβατότητας με τα Windows Phone 8."
 
-#: core/RADIUSTests.php:520
+#: core/RADIUSTests.php:521
 msgid ""
 "The server certificate's 'CRL Distribution Point' extension does not point "
 "to an HTTP/HTTPS URL. Some Operating Systems may fail to validate this "
@@ -199,7 +203,7 @@ msgstr ""
 "αποτύχουν να επαληθεύσουν αυτό το πιστοποιητικό. Ο έλεγχος της εγκυρότητας "
 "του πιστοποιητικού εξυπηρετητή ενάντια σε ένα CRL δεν θα είναι εφικτός."
 
-#: core/RADIUSTests.php:527
+#: core/RADIUSTests.php:528
 msgid ""
 "The extension 'CRL Distribution Point' in the server certificate points to a "
 "non-existing location. Some Operating Systems check certificate validity by "
@@ -212,11 +216,11 @@ msgstr ""
 "επαληθεύσουν το πιστοποιητικό. Ο έλεγχος της εγκυρότητας του πιστοποιητικού "
 "εξυπηρετητή με βάση ένα CRL δε θα είναι εφικτός."
 
-#: core/RADIUSTests.php:534
+#: core/RADIUSTests.php:535
 msgid "The server certificate was revoked by the CA!"
 msgstr "Το πιστοποιητικό του εξυπηρετητή ανακλήθηκε από το CA!"
 
-#: core/RADIUSTests.php:541
+#: core/RADIUSTests.php:542
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which does not parse as "
 "a hostname. This can be problematic on some supplicants. If the certificate "
@@ -229,7 +233,7 @@ msgstr ""
 "χρησιμοποιείτε μόνο αυτά για την διαμόρφωση του supplicant, τότε μπορείτε "
 "ασφαλώς να αγνοήσετε αυτή την ειδοποίηση."
 
-#: core/RADIUSTests.php:548
+#: core/RADIUSTests.php:549
 msgid ""
 "The certificate contained a CN or subjectAltName:DNS which contains a "
 "wildcard ('*'). This can be problematic on some supplicants. If the "
@@ -243,7 +247,7 @@ msgstr ""
 "περιλαμβάνουν χαρακτήρες μπαλαντέρ, τότε μπορείτε ασφαλώς να αγνοήσετε αυτή "
 "την ειδοποίηση."
 
-#: core/RADIUSTests.php:555
+#: core/RADIUSTests.php:556
 msgid ""
 "At least one certificate is outside its validity period (not yet valid, or "
 "already expired)!"
@@ -251,7 +255,7 @@ msgstr ""
 "Τουλάχιστον ένα πιστοποιητικό βρίσκεται εκτός της περιόδου ισχύος (δεν είναι "
 "ακόμη έγκυρο, ή έχει ήδη λήξει)!"
 
-#: core/RADIUSTests.php:562
+#: core/RADIUSTests.php:563
 #, php-format
 msgid ""
 "At least one intermediate certificate in your CAT profile is outside its "
@@ -264,7 +268,7 @@ msgstr ""
 "πιστοποιητικό δεν χρησιμοποιήθηκε για επαλήθευση της ταυτότητας του "
 "εξυπηρετητή. Εξετάστε την αφαίρεσή του από την %s παραμετροποίηση."
 
-#: core/RADIUSTests.php:569
+#: core/RADIUSTests.php:570
 msgid ""
 "The server certificate could not be verified to the root CA you configured "
 "in your profile!"
@@ -272,7 +276,7 @@ msgstr ""
 "Το πιστοποιητικό εξυπηρετητή δεν ήταν δυνατό να επαληθευτεί στο βασικό CA "
 "που διαμορφώσατε στο προφίλ σας!"
 
-#: core/RADIUSTests.php:573
+#: core/RADIUSTests.php:574
 msgid ""
 "The certificate chain as received in EAP was not sufficient to verify the "
 "certificate to the root CA in your profile. It was verified using the "
@@ -285,7 +289,7 @@ msgstr ""
 "εξετάσετε το ενδεχόμενο να στέλνετε τα απαραίτητα ενδιάμεσα CAs στο πλαίσιο "
 "της συνομιλίας EAP."
 
-#: core/RADIUSTests.php:579
+#: core/RADIUSTests.php:580
 msgid ""
 "The EAP server name does not match any of the configured names in your "
 "profile!"
@@ -293,7 +297,7 @@ msgstr ""
 "Το όνομα του εξυπηρετητή EAP δεν αντιστοιχεί σε κανένα από τα διαμορφωμένα "
 "ονόματα στο προφίλ σας!"
 
-#: core/RADIUSTests.php:586
+#: core/RADIUSTests.php:587
 msgid ""
 "The configured EAP server name matches either the CN or a subjectAltName:DNS "
 "of the incoming certificate; best current practice is that the certificate "
@@ -304,7 +308,7 @@ msgstr ""
 "πρακτική θα ήταν αυτό το πιστοποιητικό να περιλαμβάνει το όνομα και στα ΔΥΟ "
 "σημεία."
 
-#: core/RADIUSTests.php:593
+#: core/RADIUSTests.php:594
 msgid ""
 "At least one certificate did not contain any BasicConstraints extension; "
 "which makes it unclear if it's a CA certificate or end-entity certificate. "
@@ -316,60 +320,64 @@ msgstr ""
 "ή ένα πιστοποιητικό end-entity. Τουλάχιστον το Mac OS X 10.8 (Mountain Lion) "
 "δεν θα επαληθεύσει αυτό το πιστοποιητικό για τους σκοπούς του EAP!"
 
-#: core/RADIUSTests.php:600
+#: core/RADIUSTests.php:601
 msgid "The server presented a certificate from an unknown authority."
 msgstr "Ο εξυπηρετητής παρουσίασε ένα πιστοποιητικό από μια άγνωστη αρχή."
 
-#: core/RADIUSTests.php:607
+#: core/RADIUSTests.php:608
 msgid "The server accepted the INVALID client certificate."
 msgstr "Ο εξυπηρετητής αποδέχτηκε το ΑΚΥΡΟ πιστοποιητικό πελάτη."
 
-#: core/RADIUSTests.php:614
+#: core/RADIUSTests.php:615
 msgid "The server rejected the client certificate, even though it was valid."
 msgstr "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη μολονότι ήταν έγκυρο."
 
-#: core/RADIUSTests.php:621
+#: core/RADIUSTests.php:622
 msgid "The server rejected the client certificate as expected."
 msgstr "Ο εξυπηρετητής απέρριψε το πιστοποιητικό πελάτη όπως αναμενόταν."
 
-#: core/RADIUSTests.php:628
+#: core/RADIUSTests.php:629
 msgid "The CRL of a certificate could not be found."
 msgstr "Το CRL ενός πιστοποιητικού δεν βρέθηκε."
 
-#: core/RADIUSTests.php:635
+#: core/RADIUSTests.php:636
 msgid "EAP method negotiation failed!"
 msgstr "Η μέθοδος διαπραγμάτευσης EAP απέτυχε!"
 
-#: core/RADIUSTests.php:642
+#: core/RADIUSTests.php:643
 msgid ""
 "The server offers Diffie-Hellman (DH) ciphers with a DH group smaller than "
 "1024 bit. Mac OS X 10.11 'El Capitan' is known to refuse TLS connections "
 "under these circumstances!"
 msgstr ""
 
-#: core/RADIUSTests.php:649
+#: core/RADIUSTests.php:650
 msgid ""
 "The certificate contains more than one CommonName (CN) field. This is "
 "reportedly problematic on many supplicants."
 msgstr ""
 
-#: core/RADIUSTests.php:1557
+#: core/RADIUSTests.php:1671
+msgid "No TLS connection established: Connection refused"
+msgstr ""
+
+#: core/RADIUSTests.php:1673
 msgid "certificate expired"
 msgstr "το πιστοποιητικό έληξε"
 
-#: core/RADIUSTests.php:1559
+#: core/RADIUSTests.php:1675
 msgid "certificate was revoked"
 msgstr "το πιστοποιητικό έχει ανακληθεί"
 
-#: core/RADIUSTests.php:1561
+#: core/RADIUSTests.php:1677
 msgid "bad policy"
 msgstr "κακή πολιτική"
 
-#: core/RADIUSTests.php:1563
+#: core/RADIUSTests.php:1679
 msgid "unknown authority"
 msgstr "άγνωστη αρχή"
 
-#: core/RADIUSTests.php:1566
+#: core/RADIUSTests.php:1682
 msgid "unknown authority or no certificate policy or another problem"
 msgstr "άγνωστη αρχή ή χωρίς πολιτική πιστοποιητικού ή άλλο πρόβλημα"
 

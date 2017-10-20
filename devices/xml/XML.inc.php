@@ -1,11 +1,12 @@
 <?php
-
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
-?>
-<?php
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 
 /**
  * This file contains class definitions and procedures for 
@@ -15,8 +16,7 @@
  *
  * @package ModuleWriting
  */
-require_once("EAP.php");
-
+namespace devices\xml;
 /**
  * base class extended by every element
  */
@@ -39,17 +39,18 @@ class XMLElement {
      */
     public static $authMethodElements = [
         'server' => [
-            TLS => ['CA', 'ServerID'],
-            FAST => ['CA', 'ServerID'],
-            PEAP => ['CA', 'ServerID'],
-            TTLS => ['CA', 'ServerID'],
-            PWD => [],
+            \core\common\EAP::TLS => ['CA', 'ServerID'],
+            \core\common\EAP::FAST => ['CA', 'ServerID'],
+            \core\common\EAP::PEAP => ['CA', 'ServerID'],
+            \core\common\EAP::TTLS => ['CA', 'ServerID'],
+            \core\common\EAP::PWD => ['ServerID'],
         ],
         'client' => [
-            TLS => ['UserName', 'Password', 'ClientCertificate'],
-            MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
-            GTC => ['UserName', 'OneTimeToken'],
-            NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::TLS => ['UserName', 'Password', 'ClientCertificate'],
+            \core\common\EAP::MSCHAP2 => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::GTC => ['UserName', 'OneTimeToken'],
+            \core\common\EAP::NE_PAP => ['UserName', 'Password', 'OuterIdentity'],
+            \core\common\EAP::NE_SILVERBULLET => ['UserName', 'ClientCertificate'],
         ]
     ];
 
@@ -171,15 +172,15 @@ class ServerSideCredential extends XMLElement {
 
     public function getAll() {
         if (isset(XMLElement::$authMethodElements['server'][$this->EAPType]) && XMLElement::$authMethodElements['server'][$this->EAPType]) {
-            $E = XMLElement::$authMethodElements['server'][$this->EAPType];
-            $out = get_object_vars($this);
-            $OUT = [];
-            foreach ($out as $o => $v) {
-                if (in_array($o, $E)) {
-                    $OUT[$o] = $v;
+            $element = XMLElement::$authMethodElements['server'][$this->EAPType];
+            $objectVariables = get_object_vars($this);
+            $outArray = [];
+            foreach ($objectVariables as $o => $v) {
+                if (in_array($o, $element)) {
+                    $outArray[$o] = $v;
                 }
             }
-            return($OUT);
+            return($outArray);
         }
     }
 
@@ -204,9 +205,6 @@ class ClientSideCredential extends XMLElement {
             $element = XMLElement::$authMethodElements['client'][$this->EAPType];
             $objectVars = get_object_vars($this);
             $outputArray = [];
-            $loggerInstance = new Logging();
-            $loggerInstance->debug(4, "EEE:" . $this->EAPType . ":\n");
-            $loggerInstance->debug(4, $element);
             foreach ($objectVars as $name => $value) {
                 if (in_array($name, $element)) {
                     $outputArray[$name] = $value;
@@ -337,13 +335,16 @@ function SimpleXMLElement_append($key, $value) {
  */
 function marshalObject($node, $object) {
     $val = '';
-    $className = get_class($object);
+    $qualClassName = get_class($object);
+    // remove namespace qualifier
+    $pos = strrpos($qualClassName, '\\');
+    $className =  substr($qualClassName, $pos + 1);
     $name = preg_replace("/_/", "-", $className);
     if ($object->getValue()) {
         $val = $object->getValue();
     }
     $simplexmlelement = NULL;
-    if ($val instanceof SimpleXMLElement) {
+    if ($val instanceof \SimpleXMLElement) {
         $simplexmlelement = $val;
         $val = '';
     }

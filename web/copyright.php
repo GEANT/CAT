@@ -1,8 +1,14 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
+?>
+<?php
 /**
  * Front-end for the user GUI
  *
@@ -10,16 +16,13 @@
  * @package UserGUI
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("UserAPI.php");
-$Gui = new UserAPI();
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
     <head lang="en"> 
         <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat.css.php" />
-        <link rel="stylesheet" media="screen" type="text/css" href="resources/css/cat-user.css" />
     </head>
-    <body>
+    <body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
         <div id="heading">
             <?php
             print '<img src="resources/images/consortium_logo.png" alt="Consortium Logo" style="float:right; padding-right:20px; padding-top:20px"/>';
@@ -193,27 +196,14 @@ Andreas
                 <tr>
                     <td style="padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;">
                         <?php
-// this variable gets set during "make distribution" only
-                        $RELEASE = "THERELEASE";
-                        echo CONFIG['APPEARANCE']['productname'] . " - ";
-                        if ($RELEASE != "THERELEASE") {
-                            echo sprintf(_("Release %s"), $RELEASE);
-                        } else {
-                            echo _("Unreleased SVN Revision");
-                        }
-                        echo " &copy; 2011-15 G&Eacute;ANT Ltd. on behalf of the GN3 and GN3plus consortia and others <a href='copyright.php'>Full Copyright and Licenses</a>";
+                        $cat = new \core\CAT();
+                        echo $cat->CAT_COPYRIGHT;
                         ?>
                     </td>
                     <td style="padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;">
                         <?php
-                        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {// SW: APPROVED
-                            echo "
-                  <span id='logos' style='position:fixed; left:50%;'><img src='resources/images/dante.png' alt='DANTE' style='height:23px;width:47px'/>
-                  <img src='resources/images/eu.png' alt='EU' style='height:23px;width:27px;border-width:0px;'/></span>
-                  <span id='eu_text' style='text-align:right;'><a href='http://ec.europa.eu/dgs/connect/index_en.htm' style='text-decoration:none; vertical-align:top;'>European Commission Communications Networks, Content and Technology</a></span>";
-                        } else {
-                            echo "&nbsp;";
-                        }
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
                         ?>
                     </td>
                 </tr>

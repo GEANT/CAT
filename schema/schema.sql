@@ -1,3 +1,11 @@
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 DROP TABLE IF EXISTS `eap_method`;
 DROP TABLE IF EXISTS `profile_option`;
 DROP TABLE IF EXISTS `profile`;
@@ -37,6 +45,7 @@ CREATE TABLE `profile_option_dict` (
 CREATE TABLE `federation_option` (
   `federation_id` varchar(16) NOT NULL DEFAULT 'DEFAULT',
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -47,6 +56,7 @@ CREATE TABLE `federation_option` (
 CREATE TABLE `institution_option` (
   `institution_id` int(11) NOT NULL DEFAULT '0',
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -71,12 +81,11 @@ CREATE TABLE `invitations` (
 
 CREATE TABLE `ownership` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) NOT NULL,
+  `user_id` varchar(2048) NOT NULL,
   `institution_id` int(11) NOT NULL,
   `blesslevel` varchar(16) NOT NULL DEFAULT 'FED',
   `orig_mail` varchar(128) NOT NULL DEFAULT 'LEGACY-NO-MAIL-KNOWN',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `pair` (`user_id`,`institution_id`),
   KEY `institution_id` (`institution_id`),
   CONSTRAINT `ownership_ibfk_1` FOREIGN KEY (`institution_id`) REFERENCES `institution` (`inst_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -106,6 +115,7 @@ CREATE TABLE `profile_option` (
   `eap_method_id` int(11) DEFAULT '0',
   `device_id` varchar(32) DEFAULT NULL,
   `option_name` varchar(32) DEFAULT NULL,
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
   `row` int(11) NOT NULL AUTO_INCREMENT,
   KEY `option_name` (`option_name`),
@@ -126,22 +136,27 @@ CREATE TABLE `downloads` (
   `device_id` varchar(32) NOT NULL,
   `downloads_admin` int(11) NOT NULL DEFAULT '0',
   `downloads_user` int(11) NOT NULL DEFAULT '0',
+  `downloads_silverbullet` int(11) NOT NULL DEFAULT '0',
   `download_path` varchar(1024) DEFAULT NULL,
   `installer_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `lang` char(4) NOT NULL,
   `mime` varchar(50) DEFAULT NULL,
+  `eap_type` int(4),
   UNIQUE KEY `profile_device_lang` (`device_id`,`profile_id`,`lang`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 CREATE TABLE `user_options` ( 
-  `id` int(11) NOT NULL AUTO_INCREMENT, 
-  `user_id` varchar(255) NOT NULL, 
+  `row` int(11) NOT NULL AUTO_INCREMENT, 
+  `user_id` varchar(2048) NOT NULL, 
   `option_name` varchar(32) DEFAULT NULL, 
+  `option_lang` varchar(8) DEFAULT NULL,
   `option_value` longblob,
-  KEY `rowindex` (`id`),
+  KEY `rowindex` (`row`),
   KEY `foreign_key_options` (`option_name`), 
   CONSTRAINT `foreign_key_options` FOREIGN KEY (`option_name`) REFERENCES `profile_option_dict` (`name`) ON DELETE CASCADE 
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);
 
 INSERT INTO `profile_option_dict` VALUES 
 ('device-specific:customtext','extra text to be displayed to the user when downloading an installer for this device','text','ML'),
@@ -159,8 +174,10 @@ INSERT INTO `profile_option_dict` VALUES
 ('media:remove_SSID','SSIDs to remove during installation','string',NULL),
 ('media:consortium_OI','Hotspot 2.0 consortium OIs to configure','string',NULL),
 ('profile:name','The user-friendly name of this profile, in multiple languages','string','ML'),
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML'),
 ('profile:description','extra text to describe the profile to end-users','text','ML'),
 ('profile:production','Profile is ready and can be displayed on download page','boolean',NULL),
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
 ('support:email','email for users to contact for local instructions','string','ML'),
 ('support:info_file','consent file displayed to the users','file','ML'),
 ('support:phone','telephone number for users to contact for local instructions','string','ML'),
@@ -173,6 +190,7 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:custominvite','custom text to send with new IdP invitations','text', NULL),
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
+('fed:include_logo_installers','whether or not the fed logo should be visible in installers','boolean', NULL),
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
 ('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL);

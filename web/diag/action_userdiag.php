@@ -1,34 +1,30 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Helper.php");
-require_once("CAT.php");
-require_once("IdP.php");
-require_once('ProfileFactory.php');
-require_once("ProfileRADIUS.php");
-require_once("RADIUSTests.php");
-require_once("Federation.php");
-
-require_once("../admin/inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
-
 // no authentication - this is for John Doe
-$cat = defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
-productheader("USER", CAT::$lang_index);
+
+$deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
+
+echo $deco->defaultPagePrelude(_("eduroam authentication diagnostics"), FALSE);
+echo $deco->productheader("USER");
 ?>
-<h1><?php printf(_("eduroam authentication diagnostics"), CONFIG['CONSORTIUM']['name']); ?></h1>
-<p><?php printf(_("We are sorry to hear that you have problems using %s. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."), CONFIG['CONSORTIUM']['name']); ?></p>
+<h1><?php _("Authentication Diagnostics"); ?></h1>
+<p><?php _("We are sorry to hear that you have problems connecting to the network. The series of diagnostic tests on this page will help us narrow down the problem and suggest a possible solution to your problem."); ?></p>
 <p><?php
-    echo _("Please follow the instructions below.");
-    $global = new Federation();
-    ?></p><hr/>
+echo _("Please follow the instructions below.");
+$global = new \core\Federation();
+?></p><hr/>
 
 <?php if (empty($_POST['realm']) && empty($_POST['norealm']) && empty($_POST['problemscope'])) { ?> <!-- COND-BLOCK-1 -->
     <form action="action_userdiag.php" method="POST">
@@ -66,21 +62,13 @@ productheader("USER", CAT::$lang_index);
 // otherwise, maybe an IdP problem. We still need his realm to investigate, but
 // need to ask more subtle
 
-function mainpage_url() {
-    $main_url = valid_host($_SERVER['HTTP_HOST']);
-    if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
-        $main_url = "https://" . $main_url;
-    else
-        $main_url = "http://" . $main_url;
-    $main_url .= substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/diag/"));
-    return $main_url;
-}
-
 function username_format_lecture() {
+    $skinjob = new \web\lib\user\Skinjob();
+    $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
     $retval = "<div class='problemdescription'><p>" . _("Roaming with eduroam requires a username in the format 'localname@realm'. Many Identity Providers also require that same format also when using the network locally.") . "</p>";
     $retval .= "<p>" . _("Exceptions to that format requirement apply only when an Idenity Provider forces the use of an anonymous outer identity using specially prepared configuration profiles or extensive manual instructions.") . "</p>";
     $retval .= "<p>" . _("Since you do not know the realm that is used by your Identity Provider, the first step is to double-check the correct username format.") . "</p></div>";
-    $retval .= "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your Identity Provider - it will, among others, set up the correct username format. If you do not find your Identity Provider there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], mainpage_url()) . "</p></div>";
+    $retval .= "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your Identity Provider - it will, among others, set up the correct username format. If you do not find your Identity Provider there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], $basepath) . "</p></div>";
     return $retval;
 }
 
@@ -91,9 +79,16 @@ if ((empty($_POST['norealm']) && empty($_POST['realm'])) XOR empty($_POST['probl
 if (!empty($_POST['norealm']) && !empty($_POST['realm'])) {
     echo _("You have indicated a realm in your username AND that your username does not contain the '@' character. This is contradictory. Please <a href='.'>start again</a>.");
 }
+const KNOWN_SCOPES = ["always" => "always", "always-roaming" => "always-roaming", "deviceprob" => "deviceprob", "sometimes-roaming" => "sometimes-roaming", "sometimes" => "sometimes"];
 
 if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST['completion'])) {
-    switch ($_POST['problemscope']) {
+// wash clean the input
+    $scope = array_key(KNOWN_SCOPES, $_POST['problemscope']);
+    if (count($scope) == 0) {
+        throw new Exception("Unknown problem scope");
+    }
+
+    switch ($scope) {
         case "always":
             // username and/or password incorrect. Point to installer and helpdesk. Finish.
             echo "<h2>" . _("It is very likely that you have a problem with your username or your password.") . "</h2>";
@@ -107,9 +102,11 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
             echo username_format_lecture();
             break;
         case "deviceprob":
+            $skinjob = new \web\lib\user\Skinjob();
+            $basepath = $skinjob->findResourceUrl("BASE", "/index.php");
             echo "<h2>" . _("It is very likely that the configuration of the non-working device is incorrect.") . "</h2>";
             echo "<div class='problemdescription'><p>" . _("A proper configuration for eduroam requires more than a username and password. Some settings such as a required 'anonymous outer identity' can prevent the device from working.") . "</p></div>";
-            echo "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your device and Identity Provider. If you do not find your Identity Provider or device there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], mainpage_url()) . "</p></div>";
+            echo "<div class='problemsolution'><p>" . sprintf(_("If your identity provider is listed in the %s <a href='%s'>download page</a>, please use the correct installer for your device and Identity Provider. If you do not find your Identity Provider or device there, please contact the organisation's helpdesk directly."), CONFIG['APPEARANCE']['productname'], $basepath) . "</p></div>";
         case "sometimes-roaming":
         case "sometimes":
             // a real problem maybe. But the user is clueless about his realm.
@@ -119,7 +116,7 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
             <p><?php echo _("The following questions help us narrow down the problem"); ?></p>
             <form action = 'action_userdiag.php' method='POST'>
                 <input type='hidden' name='completion' id='completion' value='NOREALM-1'/>
-                <input type='hidden' name='problemscope' id='problemscope' value='<?php echo $_POST['problemscope']; ?>'/>
+                <input type='hidden' name='problemscope' id='problemscope' value='<?php echo $scope; ?>'/>
                 <h2><?php echo _("Q3: We need to find out which organisation has issued your eduroam login. It can usually be identified by its realm, but since you do not have this information, please select country and institution name from the lists below:"); ?></h2>
                 <select style='display:block' name='realm' id='realm'>
                     <option id='NONE' value='dropdown-unknown-selected'>My institution is not in this list!</option>
@@ -132,7 +129,8 @@ if (!empty($_POST['norealm']) && !empty($_POST['problemscope']) && empty($_POST[
                     }
 
                     $current_locale = setlocale(LC_ALL, 0);
-                    setlocale(LC_ALL, CONFIG['LANGUAGES'][CAT::$lang_index]['locale']);
+                    $langObject = new \core\common\Language();
+                    setlocale(LC_ALL, CONFIG['LANGUAGES'][$langObject->locale]);
                     array_multisort($name, SORT_ASC, SORT_LOCALE_STRING, $displaylist);
                     setlocale(LC_ALL, $current_locale);
 
@@ -161,16 +159,18 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $listofrealms = explode(',', $_POST['realm']);
     $checks = [];
     foreach ($listofrealms as $realm) {
-        $sanitised_realm = trim(valid_string_db($realm));
+        $sanitised_realm = trim($validator->string($realm));
+        $cat = new \core\CAT();
         if (AbstractProfile::profileFromRealm($sanitised_realm)) { // a CAT participant
             $profile_id = AbstractProfile::profileFromRealm($sanitised_realm);
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm, $profile_id), "class" => "CAT", "profile" => ProfileFactory::instantiate($profile_id)];
+            $profile = \core\ProfileFactory::instantiate($profile_id);
+            $checks[] = ["realm" => $sanitised_realm, "instance" => new \core\diag\RADIUSTests($sanitised_realm, $profile->getRealmCheckOuterUsername(), $profile->getEapMethodsinOrderOfPreference(1), $profile->getCollapsedAttributes()['eap:server_name'], $profile->getCollapsedAttributes()['eap:ca_file']), "class" => "CAT", "profile" => $profile];
             echo "Debugging CAT Profile $profile_id for $sanitised_realm<br/>";
-        } else if (!empty($global->getExternalDBEntityDetails(0, $realm))) {
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "EXT_DB"];
+        } else if (!empty($cat->getExternalDBEntityDetails(0, $realm))) {
+            $checks[] = ["realm" => $sanitised_realm, "instance" => new \core\diag\RADIUSTests($sanitised_realm, "@".$sanitised_realm), "class" => "EXT_DB"];
             echo "Debugging non-CAT but existing realm $sanitised_realm<br/>";
         } else {
-            $checks[] = ["realm" => $realm, "instance" => new RADIUSTests($sanitised_realm), "class" => "ALIEN"];
+            $checks[] = ["realm" => $sanitised_realm, "instance" => new \core\diag\RADIUSTests($sanitised_realm, "@".$sanitised_realm), "class" => "ALIEN"];
             echo "Debugging non-existing realm $sanitised_realm<br/>";
         }
     }
@@ -181,9 +181,9 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     $realmproblems = [];
 
     foreach ($checks as $check) {
-        foreach (CONFIG['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
-            $checkresult[$number] = $check['instance']->UDP_reachability($number, TRUE, TRUE);
-            if ($checkresult[$number] == RETVAL_CONVERSATION_REJECT) { // great
+        foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $number => $probe) {
+            $checkresult[$number] = $check['instance']->udpReachability($number, TRUE, TRUE);
+            if ($checkresult[$number] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // great
                 // only emit a warning in case of ALIEN - NRO did not populate DB!
                 if ($check['class'] == "ALIEN") {
                     $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "REACHABLE", "FROM" => $probe['display_name'], "DETAIL" => "REALM_NOT_IN_DB"];
@@ -191,16 +191,16 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                     $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "REACHABLE", "FROM" => $probe['display_name'], "DETAIL" => ""];
                 }
                 continue;
-            } else if ($checkresult[$number] == RETVAL_NO_RESPONSE || $checkresult[$number] == RETVAL_IMMEDIATE_REJECT) {
+            } else if ($checkresult[$number] == \core\diag\RADIUSTests::RETVAL_NO_RESPONSE || $checkresult[$number] == \core\diag\RADIUSTests::RETVAL_IMMEDIATE_REJECT) {
                 // this could be harmless/undetectable if it's an NPS that won't talk to us
                 // but if the get results with smaller packets and/or Operator-Name omitted
                 // then there is a smoking gun!
-                $checkresult[$number] = $check['instance']->UDP_reachability($number, FALSE, FALSE);
-                if ($checkresult[$number] == RETVAL_CONVERSATION_REJECT) { // so now things work?!
+                $checkresult[$number] = $check['instance']->udpReachability($number, FALSE, FALSE);
+                if ($checkresult[$number] == \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT) { // so now things work?!
                     // either a packet size or Operator-Name problem!
-                    if ($check['instance']->UDP_reachability($number, TRUE, FALSE) != RETVAL_CONVERSATION_REJECT)
+                    if ($check['instance']->udpReachability($number, TRUE, FALSE) != \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT)
                         $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "OPERATOR-NAME", "FROM" => $probe['display_name'], "DETAIL" => ""];
-                    if ($check['instance']->UDP_reachability($number, FALSE, TRUE) != RETVAL_CONVERSATION_REJECT)
+                    if ($check['instance']->udpReachability($number, FALSE, TRUE) != \core\diag\RADIUSTests::RETVAL_CONVERSATION_REJECT)
                         $realmproblems[] = ["REALM" => $check['realm'], "STATUS" => "PACKETSIZE", "FROM" => $probe['display_name'], "DETAIL" => ""];
                 } else { // still no response or immediate reject
                     // if this is a CAT realm with anon ID set, we can't be seeing an NPS ignorance problem
@@ -268,11 +268,6 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
         foreach ($resultset as $result)
             $all_certprobs = array_merge($all_certprobs, $result['cert_oddities']);
     }
-    echo "<pre>";
-    print_r($realmproblems);
-    print_r($all_certprobs);
-    print_r($_POST['problemscope']);
-    echo "</pre>";
 
 // now we have something to say...
 // infrastructure problems are always a problem, regardless how often they affect
@@ -296,20 +291,20 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
                         $infrastructure_warned = TRUE;
                     case "REACHABLE": // only complain if ALIEN
                         if ($problem['DETAIL'] == "REALM_NOT_IN_DB") {
-                            $warning_html .= "<div class='problemdescription'>" . sprintf(_("This realm is not a known %s participant. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead."), CONFIG['CONSORTIUM']['name']) . "</div>";
+                            $warning_html .= "<div class='problemdescription'>" . _("This realm is not a known participating institution. However, our tests indicate that it is actually functioning normally. This is a non-fatal error (the Identity Provider did not supply the required information into the operator database). We should probably not tell you this anyway, but send an immediate email to the NRO instead.") . "</div>";
                             $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration.") . "</div>";
                         }
                         // drill down further: are there any certprobs of critical
                         // level? They would be the likely explanation
                         $oneRADIUSTest = $checks[0]['instance'];
                         foreach ($all_certprobs as $certprob) {
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == L_ERROR) {
-                                $warning_html .= "<div class='problemdescription'>" . _("We found a problem with your Identity Provider. This may be the cause of your problems. The exact error is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
-                                $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration. We will notify the Identity Provider about the problem. Please wait until the problem is resolved. ") . $oneRADIUSTest->return_codes[$certprob]['message'] . "</div>";
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->returnCodes[$certprob]['severity'] == \core\common\Entity::L_ERROR) {
+                                $warning_html .= "<div class='problemdescription'>" . _("We found a problem with your Identity Provider. This may be the cause of your problems. The exact error is: ") . $oneRADIUSTest->returnCodes[$certprob]['message'] . "</div>";
+                                $warning_html .= "<div class='problemsolution'>" . _("You do not need to take action. In particular, please do not change your device configuration. We will notify the Identity Provider about the problem. Please wait until the problem is resolved. ") . $oneRADIUSTest->returnCodes[$certprob]['message'] . "</div>";
                                 $certprobs_warned[] = $certprob;
                             }
-                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->return_codes[$certprob]['severity'] == L_WARN) {
-                                $warning_html .= "<div class='problemdescription'>" . _("We found a minor misconfiguration of your Identity Provider. Certain devices may not work because of this. The exact warning is: ") . $oneRADIUSTest->return_codes[$certprob]['message'] .
+                            if (!in_array($certprob, $certprobs_warned) && $oneRADIUSTest->returnCodes[$certprob]['severity'] == \core\common\Entity::L_WARN) {
+                                $warning_html .= "<div class='problemdescription'>" . _("We found a minor misconfiguration of your Identity Provider. Certain devices may not work because of this. The exact warning is: ") . $oneRADIUSTest->returnCodes[$certprob]['message'] .
                                         "<br/>It is not necessarily the case that these warnings are the source of your problem; e.g. simple errors in username or password can not be ruled out.</div>";
                                 $warning_html .= "<p>Please answer some supplementary questions on the next page so that we can send a detailed problem report to your identity provider. (next page does not exist yet!)</p>";
                                 $certprobs_warned[] = $certprob;
@@ -352,4 +347,4 @@ if (!empty($_POST['realm']) && !empty($_POST['problemscope'])) {
     }
     echo $warning_html;
 }
-footer();
+echo $deco->footer();

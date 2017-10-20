@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eduroam CAT\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-14 13:36+0200\n"
+"POT-Creation-Date: 2016-09-28 15:58+0200\n"
 "PO-Revision-Date: 2015-04-03 09:17+0000\n"
 "Last-Translator: eduroam_devel <stefan.winter@restena.lu>\n"
 "Language-Team: Italian (Italy) (http://www.transifex.com/projects/p/cat/"
@@ -55,62 +55,62 @@ msgstr ""
 "Sei una persona malintenzionata? Se non lo sei dovresti andare alla <a "
 "href='overview_user.php'>pagina del tuo profilo</a> invece."
 
-#: web/admin/action_fedcheck.php:50
+#: web/admin/action_fedcheck.php:52
 #, fuzzy
 msgid "No NAPTR records"
 msgstr "Questo realm non ha record NAPTR."
 
-#: web/admin/action_fedcheck.php:53
+#: web/admin/action_fedcheck.php:55
 #, fuzzy, php-format
 msgid "No associated NAPTR records"
 msgstr "Questo realm non ha record NAPTR."
 
-#: web/admin/action_fedcheck.php:56
+#: web/admin/action_fedcheck.php:58
 #, fuzzy, php-format
 msgid "%d %s NAPTR records"
 msgstr "questo realm ha %d %s NAPTR records"
 
-#: web/admin/action_fedcheck.php:149
+#: web/admin/action_fedcheck.php:148
 #, fuzzy
 msgid "Inst Name"
 msgstr "Nome dell'Organizzazione"
 
-#: web/admin/action_fedcheck.php:150
+#: web/admin/action_fedcheck.php:149
 #, fuzzy
 msgid "Profile Name"
 msgstr "Display Name del Profilo"
 
-#: web/admin/action_fedcheck.php:151
+#: web/admin/action_fedcheck.php:150
 #, fuzzy
 msgid "DNS Checks"
 msgstr "Controlli DNS"
 
-#: web/admin/action_fedcheck.php:152
+#: web/admin/action_fedcheck.php:151
 msgid "Cert Checks"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:153
+#: web/admin/action_fedcheck.php:152
 msgid "Reachability Checks"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:154
+#: web/admin/action_fedcheck.php:153
 msgid "RADIUS/TLS Checks"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:158
+#: web/admin/action_fedcheck.php:157
 #, fuzzy
 msgid "Authentication Server Status for all known federation members"
 msgstr "Verifica lo stato dei server delle federazioni europee"
 
-#: web/admin/action_fedcheck.php:177
+#: web/admin/action_fedcheck.php:176
 msgid "Profiles marked as visible (V)"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:185
+#: web/admin/action_fedcheck.php:184
 msgid "Profiles with sufficient configuration, not marked as visible (C)"
 msgstr ""
 
-#: web/admin/action_fedcheck.php:193
+#: web/admin/action_fedcheck.php:192
 #, fuzzy
 msgid "Return to federation overview"
 msgstr "Panoramica della Federazione"
@@ -119,264 +119,264 @@ msgstr "Panoramica della Federazione"
 msgid "Sanity check for dynamic discovery of realms"
 msgstr "Controllo di integrità per la scoperta dinamica dei realm"
 
-#: web/admin/action_realmcheck.php:38
+#: web/admin/action_realmcheck.php:43
 msgid ""
 "You asked for a realm check, but we don't know the realm for this profile!"
 msgstr ""
 "Hai chiesto di controllare il realm, ma non conosciamo il realm per questo "
 "profilo!"
 
-#: web/admin/action_realmcheck.php:54
+#: web/admin/action_realmcheck.php:60
 msgid "No valid realm name given, cannot execute any checks!"
 msgstr ""
 "Nessun nome di realm valido immesso, non si può eseguire alcun controllo!"
 
-#: web/admin/action_realmcheck.php:57
+#: web/admin/action_realmcheck.php:64
 msgid "STATIC"
 msgstr "STATICO"
 
-#: web/admin/action_realmcheck.php:58
+#: web/admin/action_realmcheck.php:65
 msgid "DYNAMIC"
 msgstr "DINAMICO"
 
-#: web/admin/action_realmcheck.php:86
+#: web/admin/action_realmcheck.php:93
 msgid "PASS"
 msgstr "Successo"
 
-#: web/admin/action_realmcheck.php:87
+#: web/admin/action_realmcheck.php:94
 msgid "FAIL"
 msgstr "Fallito"
 
-#: web/admin/action_realmcheck.php:88
+#: web/admin/action_realmcheck.php:95
 msgid "Client certificate:"
 msgstr "Certificato client:"
 
-#: web/admin/action_realmcheck.php:89
+#: web/admin/action_realmcheck.php:96
 msgid "expected result: "
 msgstr "risultato atteso: "
 
-#: web/admin/action_realmcheck.php:90
+#: web/admin/action_realmcheck.php:97
 msgid "Server accepted this client certificate"
 msgstr "Il server ha accettato questo certificato client"
 
-#: web/admin/action_realmcheck.php:91
+#: web/admin/action_realmcheck.php:98
 msgid "Server accepted this client certificate, but should not have"
 msgstr ""
 "Il server ha accettato questo certificato client, ma non avrebbe dovuto"
 
-#: web/admin/action_realmcheck.php:92
+#: web/admin/action_realmcheck.php:99
 msgid "Server did not accept this client certificate"
 msgstr "Il server non accetta il certificato del client"
 
-#: web/admin/action_realmcheck.php:93
+#: web/admin/action_realmcheck.php:100
 msgid "Server did not accept this client certificate - reason"
 msgstr "Il server non accetta il certificato del client - motivo:"
 
-#: web/admin/action_realmcheck.php:94
+#: web/admin/action_realmcheck.php:101
 msgid "Rest of tests for this CA skipped"
 msgstr "Saltati gli altri test per questa CA"
 
-#: web/admin/action_realmcheck.php:95
+#: web/admin/action_realmcheck.php:102
 msgid "You should update your list of accredited CAs"
 msgstr "Si prega di aggiornare la lista delle CA accreditate"
 
-#: web/admin/action_realmcheck.php:96
+#: web/admin/action_realmcheck.php:103
 msgid "Get it from here."
 msgstr "Scaricalo da qui."
 
-#: web/admin/action_realmcheck.php:98
+#: web/admin/action_realmcheck.php:105
 msgid "more"
 msgstr "di più"
 
-#: web/admin/action_realmcheck.php:100 web/admin/action_realmcheck.php:652
+#: web/admin/action_realmcheck.php:107 web/admin/action_realmcheck.php:653
 msgid "Show detailed information for all tests"
 msgstr "Visualizza informazioni dettagliate per tutti i test"
 
-#: web/admin/action_realmcheck.php:103
+#: web/admin/action_realmcheck.php:110
 msgid "Connection refused"
 msgstr "Connessione rifiutata"
 
-#: web/admin/action_realmcheck.php:115 web/admin/radius_tests.php:340
+#: web/admin/action_realmcheck.php:122 web/admin/radius_tests.php:357
 msgid "Server certificate"
 msgstr "Certificato Server"
 
-#: web/admin/action_realmcheck.php:116 web/admin/radius_tests.php:342
+#: web/admin/action_realmcheck.php:123 web/admin/radius_tests.php:359
 msgid "Subject"
 msgstr "Oggetto"
 
-#: web/admin/action_realmcheck.php:117 web/admin/radius_tests.php:343
+#: web/admin/action_realmcheck.php:124 web/admin/radius_tests.php:360
 msgid "Issuer"
 msgstr "Emittente"
 
-#: web/admin/action_realmcheck.php:118 web/admin/radius_tests.php:345
+#: web/admin/action_realmcheck.php:125 web/admin/radius_tests.php:362
 msgid "SubjectAltName"
 msgstr "SubjectAltName"
 
-#: web/admin/action_realmcheck.php:119 web/admin/radius_tests.php:349
+#: web/admin/action_realmcheck.php:126 web/admin/radius_tests.php:366
 msgid "Certificate policies"
 msgstr "Politiche sul certificato"
 
-#: web/admin/action_realmcheck.php:120
+#: web/admin/action_realmcheck.php:127
 msgid "crlDistributionPoint"
 msgstr "crlDistributionPoint"
 
-#: web/admin/action_realmcheck.php:121 web/admin/radius_tests.php:357
+#: web/admin/action_realmcheck.php:128 web/admin/radius_tests.php:375
 msgid "authorityInfoAccess"
 msgstr "authorityInfoAccess"
 
-#: web/admin/action_realmcheck.php:122
+#: web/admin/action_realmcheck.php:129
 msgid "Hide detailed information for all tests"
 msgstr "Nascondi informazioni dettagliate per tutti i test"
 
-#: web/admin/action_realmcheck.php:177
+#: web/admin/action_realmcheck.php:183
 msgid "Some required input is missing!"
 msgstr "Alcuni campi mancanti!"
 
-#: web/admin/action_realmcheck.php:229 web/admin/action_realmcheck.php:319
-#: web/admin/action_realmcheck.php:342 web/admin/action_realmcheck.php:394
+#: web/admin/action_realmcheck.php:234 web/admin/action_realmcheck.php:324
+#: web/admin/action_realmcheck.php:347 web/admin/action_realmcheck.php:399
 #, php-format
 msgid "elapsed time: %sms."
 msgstr "tempo stimato: %sms"
 
-#: web/admin/action_realmcheck.php:306
+#: web/admin/action_realmcheck.php:311
 msgid "Subject:"
 msgstr "Soggetto:"
 
-#: web/admin/action_realmcheck.php:307
+#: web/admin/action_realmcheck.php:312
 msgid "Issuer:"
 msgstr "Rilasciato da:"
 
-#: web/admin/action_realmcheck.php:308
+#: web/admin/action_realmcheck.php:313
 msgid "Valid from:"
 msgstr "Valido da"
 
-#: web/admin/action_realmcheck.php:309
+#: web/admin/action_realmcheck.php:314
 msgid "Valid to:"
 msgstr "Valido fino a:"
 
-#: web/admin/action_realmcheck.php:310
+#: web/admin/action_realmcheck.php:315
 msgid "Serial number:"
 msgstr "Serial number:"
 
-#: web/admin/action_realmcheck.php:311
+#: web/admin/action_realmcheck.php:316
 msgid "SHA1 fingerprint:"
 msgstr "Impronta SHA1: "
 
-#: web/admin/action_realmcheck.php:332 web/admin/action_realmcheck.php:384
+#: web/admin/action_realmcheck.php:337 web/admin/action_realmcheck.php:389
 msgid "Extensions"
 msgstr "Estensioni"
 
-#: web/admin/action_realmcheck.php:333
+#: web/admin/action_realmcheck.php:338
 msgid "show server certificate details"
 msgstr "Visualizza dettagli del certificato server"
 
-#: web/admin/action_realmcheck.php:353 web/admin/action_realmcheck.php:358
+#: web/admin/action_realmcheck.php:358 web/admin/action_realmcheck.php:363
 msgid "See the appropriate tab for details."
 msgstr ""
 
-#: web/admin/action_realmcheck.php:372
+#: web/admin/action_realmcheck.php:377
 msgid "Server certificate details:"
 msgstr "Dettagli del certificato server"
 
-#: web/admin/action_realmcheck.php:464
+#: web/admin/action_realmcheck.php:468
 #, php-format
 msgid "Realm testing for: %s"
 msgstr "Test del realm per: %s"
 
-#: web/admin/action_realmcheck.php:472 web/admin/action_realmcheck.php:480
+#: web/admin/action_realmcheck.php:476 web/admin/action_realmcheck.php:484
 #, fuzzy
 msgid "Overview"
 msgstr "Informazioni Utente"
 
-#: web/admin/action_realmcheck.php:473 web/admin/action_realmcheck.php:595
+#: web/admin/action_realmcheck.php:477 web/admin/action_realmcheck.php:596
 msgid "Static connectivity tests"
 msgstr "Test di connettività statica"
 
-#: web/admin/action_realmcheck.php:474 web/admin/action_realmcheck.php:600
+#: web/admin/action_realmcheck.php:478 web/admin/action_realmcheck.php:601
 msgid "Dynamic connectivity tests"
 msgstr "Test di connettività dinamica"
 
-#: web/admin/action_realmcheck.php:475
+#: web/admin/action_realmcheck.php:479
 msgid "Live login tests"
 msgstr "test di login liva"
 
-#: web/admin/action_realmcheck.php:484
+#: web/admin/action_realmcheck.php:488
 #, fuzzy
 msgid "DNS chekcs"
 msgstr "Controlli DNS"
 
-#: web/admin/action_realmcheck.php:489
+#: web/admin/action_realmcheck.php:493
 msgid "Checking NAPTR existence:"
 msgstr "chek di esistenza del record NAPTR"
 
-#: web/admin/action_realmcheck.php:492
+#: web/admin/action_realmcheck.php:496
 msgid "This realm has no NAPTR records."
 msgstr "Questo realm non ha record NAPTR."
 
-#: web/admin/action_realmcheck.php:495
+#: web/admin/action_realmcheck.php:499
 #, php-format
 msgid "This realm has NAPTR records, but none are associated with %s."
 msgstr "Questo realm ha dei record NAPTR, ma nessuno è associato a %s."
 
-#: web/admin/action_realmcheck.php:498
+#: web/admin/action_realmcheck.php:502
 #, php-format
 msgid "This realm has %d %s NAPTR records."
 msgstr "questo realm ha %d %s NAPTR records"
 
-#: web/admin/action_realmcheck.php:505
+#: web/admin/action_realmcheck.php:509
 msgid "Checking NAPTR compliance (flag = S and regex = {empty}):"
 msgstr "Verifico la compliance del NAPTR (flag = S and regex = {empty}):"
 
-#: web/admin/action_realmcheck.php:509
+#: web/admin/action_realmcheck.php:513
 msgid "No issues found."
 msgstr "Nessun problkema riscontrato"
 
-#: web/admin/action_realmcheck.php:512 web/admin/action_realmcheck.php:528
+#: web/admin/action_realmcheck.php:516 web/admin/action_realmcheck.php:532
 #, php-format
 msgid "At least one NAPTR with invalid content found!"
 msgstr "Trovato almeno un record NAPTR invalido"
 
-#: web/admin/action_realmcheck.php:522
+#: web/admin/action_realmcheck.php:526
 msgid "Checking SRVs:"
 msgstr "Controllo i SRV:"
 
-#: web/admin/action_realmcheck.php:525 web/admin/action_realmcheck.php:541
+#: web/admin/action_realmcheck.php:529 web/admin/action_realmcheck.php:545
 msgid "This check was skipped."
 msgstr "Questo controllo è stato saltato."
 
-#: web/admin/action_realmcheck.php:531
+#: web/admin/action_realmcheck.php:535
 #, php-format
 msgid "%d host names discovered."
 msgstr "%d nomi host scoperti."
 
-#: web/admin/action_realmcheck.php:538
+#: web/admin/action_realmcheck.php:542
 msgid "Checking IP address resolution:"
 msgstr "Controllo la risoluzione dell'indirizzo IP"
 
-#: web/admin/action_realmcheck.php:544
+#: web/admin/action_realmcheck.php:548
 #, php-format
 msgid "At least one hostname could not be resolved!"
 msgstr "Almeno un nome host non può essere risolto!"
 
-#: web/admin/action_realmcheck.php:547
+#: web/admin/action_realmcheck.php:551
 #, php-format
 msgid "%d IP addresses resolved."
 msgstr "risolto %d indirizzo IP"
 
-#: web/admin/action_realmcheck.php:554 web/admin/action_realmcheck.php:557
+#: web/admin/action_realmcheck.php:558 web/admin/action_realmcheck.php:561
 #, php-format
 msgid "Realm is <strong>%s</strong> "
 msgstr "Il realm è <strong>%s</strong> "
 
-#: web/admin/action_realmcheck.php:554
+#: web/admin/action_realmcheck.php:558
 msgid "with no DNS errors encountered. Congratulations!"
 msgstr "senza errori DNS. Congratulazioni!"
 
-#: web/admin/action_realmcheck.php:557
+#: web/admin/action_realmcheck.php:561
 msgid "but there were DNS errors! Check them!"
 msgstr "ma ci sono stati errori DNS! Controlla!"
 
-#: web/admin/action_realmcheck.php:557
+#: web/admin/action_realmcheck.php:561
 msgid ""
 "You should re-run the tests after fixing the errors; more errors might be "
 "uncovered at that point. The exact error causes are listed below."
@@ -385,20 +385,20 @@ msgstr ""
 "possono essere scoperti più errori. Le cause esatte di errore sono elencate "
 "di seguito."
 
-#: web/admin/action_realmcheck.php:593
+#: web/admin/action_realmcheck.php:594
 #, fuzzy
 msgid "Dynamic discovery test is not configured"
 msgstr "Questo controllo non è configurato."
 
-#: web/admin/action_realmcheck.php:611
+#: web/admin/action_realmcheck.php:612
 msgid "Repeat static connectivity tests"
 msgstr "Ripeti il test di connettività statico"
 
-#: web/admin/action_realmcheck.php:614
+#: web/admin/action_realmcheck.php:615
 msgid "STATIC connectivity tests"
 msgstr "test di connettività STATICA"
 
-#: web/admin/action_realmcheck.php:616
+#: web/admin/action_realmcheck.php:617
 #, php-format
 msgid ""
 "This check sends a request for the realm through various entry points of the "
@@ -415,41 +415,41 @@ msgstr ""
 "realm, non possiamo autenticarci con successo - così il risultato atteso è "
 "di ottenere un Access-Reject dopo che la conversazione EAP abbia avuto luogo."
 
-#: web/admin/action_realmcheck.php:621 web/admin/action_realmcheck.php:740
+#: web/admin/action_realmcheck.php:622 web/admin/action_realmcheck.php:742
 #, php-format
 msgid "Testing from: %s"
 msgstr "Testing da: %s"
 
-#: web/admin/action_realmcheck.php:626 web/admin/action_realmcheck.php:665
-#: web/admin/action_realmcheck.php:683
+#: web/admin/action_realmcheck.php:627 web/admin/action_realmcheck.php:666
+#: web/admin/action_realmcheck.php:684
 msgid "testing..."
 msgstr "testing..."
 
-#: web/admin/action_realmcheck.php:643
+#: web/admin/action_realmcheck.php:644
 msgid "Repeat dynamic connectivity tests"
 msgstr "Ripeti test di connettività dinamico"
 
-#: web/admin/action_realmcheck.php:647
+#: web/admin/action_realmcheck.php:648
 msgid "DYNAMIC connectivity tests"
 msgstr "Test di connettività DINAMICA"
 
-#: web/admin/action_realmcheck.php:651
+#: web/admin/action_realmcheck.php:652
 msgid "Some errors were found during the tests, see below"
 msgstr "Gli errori, riportati sotto, sono stati riscontrati durante i tests."
 
-#: web/admin/action_realmcheck.php:651
+#: web/admin/action_realmcheck.php:652
 msgid "All tests passed, congratulations!"
 msgstr "Tutti i test hanno avuto esito positivo , congratulazioni!"
 
-#: web/admin/action_realmcheck.php:652
+#: web/admin/action_realmcheck.php:653
 msgid "Checking server handshake..."
 msgstr "verifico l'handshake del server...."
 
-#: web/admin/action_realmcheck.php:691
+#: web/admin/action_realmcheck.php:692
 msgid "Checking if certificates from  CAs are accepted..."
 msgstr "verifico se il certificato appartiene  CAs accettate"
 
-#: web/admin/action_realmcheck.php:691
+#: web/admin/action_realmcheck.php:692
 msgid ""
 "A few client certificates will be tested to check if servers are resistant "
 "to some certificate problems."
@@ -457,11 +457,11 @@ msgstr ""
 "Alcuni certificati client saranno verificati per stabilire se il server è "
 "immune dalle vulnerabilità sui certificati note."
 
-#: web/admin/action_realmcheck.php:705
+#: web/admin/action_realmcheck.php:706
 msgid "Live login test"
 msgstr "Test di login in tempo reale"
 
-#: web/admin/action_realmcheck.php:709
+#: web/admin/action_realmcheck.php:710
 msgid ""
 "If you enter an existing login credential here, you can test the actual "
 "authentication from various checkpoints all over the world."
@@ -469,7 +469,7 @@ msgstr ""
 "Se si inseriscono qui delle credenziali di accesso esistenti, si può testare "
 "l'effettiva autenticazione da vari punti di controllo in tutto il mondo."
 
-#: web/admin/action_realmcheck.php:710
+#: web/admin/action_realmcheck.php:711
 msgid ""
 "The test will use all EAP types you have set in your profile information to "
 "check whether the right CAs and server names are used, and of course whether "
@@ -482,7 +482,7 @@ msgstr ""
 "effettivamente funzionato. Se hai configurato un ID esterno anonimo, il test "
 "userà quello."
 
-#: web/admin/action_realmcheck.php:711
+#: web/admin/action_realmcheck.php:712
 msgid ""
 "Note: the tool purposefully does not offer you to save these credentials, "
 "and they will never be saved in any way on the server side. Please use only "
@@ -494,43 +494,43 @@ msgstr ""
 "<strong>account temporanei di test</strong> qui; account di test "
 "permanentemente validi e diffusi sono considerati dannosi!"
 
-#: web/admin/action_realmcheck.php:725
+#: web/admin/action_realmcheck.php:726
 msgid "Password-based EAP types"
 msgstr "Tipi EAP basati sulla password"
 
-#: web/admin/action_realmcheck.php:726
+#: web/admin/action_realmcheck.php:727
 msgid "Real (inner) username:"
 msgstr "Real (inner) username:"
 
-#: web/admin/action_realmcheck.php:727
+#: web/admin/action_realmcheck.php:728
 msgid "Anonymous outer ID (optional):"
 msgstr "Anonymous outer ID (optional):"
 
-#: web/admin/action_realmcheck.php:728
+#: web/admin/action_realmcheck.php:729
 msgid "Password:"
 msgstr "Password:"
 
-#: web/admin/action_realmcheck.php:732
+#: web/admin/action_realmcheck.php:733
 msgid "Certificate-based EAP types"
 msgstr "Tipi EAP basati sul certificato"
 
-#: web/admin/action_realmcheck.php:733
+#: web/admin/action_realmcheck.php:734
 msgid "Certificate file (.p12 or .pfx):"
 msgstr " file  certificato(.p12 or .pfx):"
 
-#: web/admin/action_realmcheck.php:734
+#: web/admin/action_realmcheck.php:735
 msgid "Certificate password, if any:"
 msgstr "password del certificato, se definita:"
 
-#: web/admin/action_realmcheck.php:735
+#: web/admin/action_realmcheck.php:736
 msgid "Username, if different from certificate Subject:"
 msgstr "Username, se differente dal Subject del certificato"
 
-#: web/admin/action_realmcheck.php:736
+#: web/admin/action_realmcheck.php:738
 msgid "Submit credentials"
 msgstr "Invia le credenziali"
 
-#: web/admin/action_realmcheck.php:757 web/admin/overview_installers.php:154
+#: web/admin/action_realmcheck.php:758 web/admin/overview_installers.php:164
 msgid "Return to dashboard"
 msgstr "Ritorna al cruscotto"
 
@@ -544,48 +544,47 @@ msgstr "%s: Modifica IdP '%s'"
 msgid "Editing Federation information for '%s'"
 msgstr "Modifica informazioni IdP per '%s'"
 
-#: web/admin/edit_federation.php:42 web/admin/edit_federation.php:60
+#: web/admin/edit_federation.php:42 web/admin/edit_federation.php:59
 #, fuzzy
 msgid "Federation Properties"
 msgstr "Media Properties"
 
-#: web/admin/edit_federation.php:45 web/admin/edit_idp.php:87
-#: web/admin/edit_profile.php:187
+#: web/admin/edit_federation.php:45 web/admin/edit_idp.php:92
+#: web/admin/inc/common.inc.php:298
 msgid "Country:"
 msgstr "Paese:"
 
-#: web/admin/edit_federation.php:66 web/admin/edit_idp.php:123
-#: web/admin/edit_idp.php:188 web/admin/edit_idp.php:205
-#: web/admin/edit_idp.php:218 web/admin/edit_profile.php:250
-#: web/admin/edit_profile.php:507 web/admin/edit_profile.php:538
-#: web/admin/edit_profile.php:570 web/admin/edit_user.php:47
-#: web/admin/inc/toggleRedirect.inc.php:117
+#: web/admin/edit_federation.php:63 web/admin/edit_idp.php:125
+#: web/admin/edit_idp.php:181 web/admin/edit_idp.php:195
+#: web/admin/edit_profile.php:208 web/admin/edit_profile.php:496
+#: web/admin/edit_profile.php:521 web/admin/edit_profile.php:547
+#: web/admin/edit_user.php:44 web/admin/inc/toggleRedirect.inc.php:128
 msgid "Add new option"
 msgstr "Aggiungi nuova opzione"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_idp.php:224
-#: web/admin/edit_profile.php:574 web/admin/edit_user.php:52
-#: web/admin/inc/toggleRedirect.inc.php:120
+#: web/admin/edit_federation.php:66 web/admin/edit_idp.php:200
+#: web/admin/edit_profile.php:552 web/admin/edit_user.php:49
+#: web/admin/inc/toggleRedirect.inc.php:131
 msgid "Save data"
 msgstr "Salva i dati"
 
-#: web/admin/edit_federation.php:69 web/admin/edit_idp.php:224
-#: web/admin/edit_profile.php:574 web/admin/edit_user.php:55
+#: web/admin/edit_federation.php:66 web/admin/edit_idp.php:200
+#: web/admin/edit_profile.php:552 web/admin/edit_user.php:52
 msgid "Discard changes"
 msgstr "Annulla le modifiche"
 
-#: web/admin/edit_federation_result.php:25
+#: web/admin/edit_federation_result.php:26
 #, php-format
 msgid "%s: Federation Customisation (submission completed)"
 msgstr ""
 
-#: web/admin/edit_federation_result.php:30
+#: web/admin/edit_federation_result.php:31
 #, fuzzy, php-format
 msgid "Submitted attributes for federation '%s'"
 msgstr "Attributi inseriti per l'IdP '%s'"
 
-#: web/admin/edit_federation_result.php:45 web/admin/edit_idp_result.php:117
-#: web/admin/edit_profile_result.php:207
+#: web/admin/edit_federation_result.php:46 web/admin/edit_idp_result.php:134
+#: web/admin/edit_profile_result.php:223
 msgid "Continue to dashboard"
 msgstr "Continua sul cruscotto"
 
@@ -599,20 +598,20 @@ msgstr "%s: wizard di registrazione dell'IdP (fase 2)"
 msgid "%s: Editing IdP '%s'"
 msgstr "%s: Modifica IdP '%s'"
 
-#: web/admin/edit_idp.php:78
+#: web/admin/edit_idp.php:82
 msgid "Step 2: General Information about your IdP"
 msgstr "Fase 2: Informazioni generali sul proprio IdP"
 
-#: web/admin/edit_idp.php:80
+#: web/admin/edit_idp.php:84
 #, php-format
 msgid "Editing IdP information for '%s'"
 msgstr "Modifica informazioni IdP per '%s'"
 
-#: web/admin/edit_idp.php:84
+#: web/admin/edit_idp.php:89
 msgid "General Institution Properties"
 msgstr "Caratteristiche dell'Organizzazione"
 
-#: web/admin/edit_idp.php:103
+#: web/admin/edit_idp.php:108
 msgid ""
 "Hello, newcomer. Your institution is new to us. This wizard will ask you "
 "several questions about your IdP, so that we can generate beautiful profiles "
@@ -625,11 +624,11 @@ msgstr ""
 "informazioni sottostanti sono opzionali, ma è consigliabile valorizzarne il "
 "maggior numero possibile a beneficio della semplicità per l'utente finale"
 
-#: web/admin/edit_idp.php:106
+#: web/admin/edit_idp.php:112
 msgid "General Information"
 msgstr "Informazioni Generali"
 
-#: web/admin/edit_idp.php:110
+#: web/admin/edit_idp.php:116
 msgid ""
 "This is the place where you can describe your institution in a fine-grained "
 "way. The solicited information is used as follows:"
@@ -637,7 +636,7 @@ msgstr ""
 "Questo è il posto per dettagliare le informazioni della tua organizzazione.  "
 "Le informazioni richiesta saranno usate come segue:"
 
-#: web/admin/edit_idp.php:112
+#: web/admin/edit_idp.php:118
 msgid ""
 "<strong>Logo</strong>: When you submit a logo, we will embed this logo into "
 "all installers where a custom logo is possible. We accept any image format, "
@@ -650,7 +649,7 @@ msgstr ""
 "caricato un logo, verrà usato il logo generico (vedi in alto e destra di "
 "questa pagina)."
 
-#: web/admin/edit_idp.php:113
+#: web/admin/edit_idp.php:119
 msgid ""
 "<strong>Terms of Use</strong>: Some installers support displaying text to "
 "the user during installation time. If so, we will make that happen if you "
@@ -661,12 +660,11 @@ msgstr ""
 "In tal caso, faremo in modo che questo avvenga se carichi un file RTF o un "
 "file di testo semplice da visualizzare. "
 
-#: web/admin/edit_idp.php:136 web/admin/edit_profile.php:202
-#: web/admin/overview_idp.php:73
+#: web/admin/edit_idp.php:131 web/admin/inc/common.inc.php:312
 msgid "Media Properties"
 msgstr "Media Properties"
 
-#: web/admin/edit_idp.php:140
+#: web/admin/edit_idp.php:135
 #, php-format
 msgid ""
 "In this section, you define on which media %s should be configured on user "
@@ -675,22 +673,22 @@ msgstr ""
 "In questa sezione, definisci su quali media %s deve essere configurato sui "
 "dispositivi degli utenti."
 
-#: web/admin/edit_idp.php:143
+#: web/admin/edit_idp.php:138
 msgid "Additional SSIDs:"
 msgstr "SSID addizionali:"
 
-#: web/admin/edit_idp.php:143
+#: web/admin/edit_idp.php:138
 msgid "SSIDs:"
 msgstr "SSIDs:"
 
-#: web/admin/edit_idp.php:149
+#: web/admin/edit_idp.php:145
 #, php-format
 msgid "We will always configure this SSID for WPA2/AES: %s."
 msgid_plural "We will always configure these SSIDs for WPA2/AES: %s."
 msgstr[0] "Il seguente SSID sara configurato per WPA2/AES: %s"
 msgstr[1] "I seguenti SSID saranno configurati per WPA2/AES: %s"
 
-#: web/admin/edit_idp.php:151
+#: web/admin/edit_idp.php:147
 msgid ""
 "They will also be configured for WPA/TKIP if the device supports multiple "
 "encryption types."
@@ -698,7 +696,7 @@ msgstr ""
 "Saranno anche configurati per WPA/TKIP se il dispositivo supporta molteplici "
 "tipi di crittazione."
 
-#: web/admin/edit_idp.php:152
+#: web/admin/edit_idp.php:149
 #, php-format
 msgid ""
 "It is also possible to define custom additional SSIDs with the options '%s' "
@@ -707,12 +705,12 @@ msgstr ""
 "E' anche possibile definire SSIDs addizionali personalizzati con le opzioni "
 "'%s' e '%s' sotto riportate."
 
-#: web/admin/edit_idp.php:154
+#: web/admin/edit_idp.php:151
 msgid "Please configure which SSIDs should be configured in the installers."
 msgstr ""
 "Configurare quali SSID verranno configurati nei programmi di installazione."
 
-#: web/admin/edit_idp.php:156
+#: web/admin/edit_idp.php:153
 msgid ""
 "By default, we will only configure the SSIDs with WPA2/AES encryption. By "
 "using the '(with WPA/TKIP)' option you can specify that we should include "
@@ -722,22 +720,22 @@ msgstr ""
 "l'opzione '(with WPA/TKIP)' puoi specificare di includere il supporto legacy "
 "per WPA/TKIP dove possibile."
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_idp.php:157
 msgid "Additional Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Additional Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:160
+#: web/admin/edit_idp.php:157
 msgid "Hotspot 2.0 / Passpoint Consortia:"
 msgstr "Hotspot 2.0 / Passpoint Consortia:"
 
-#: web/admin/edit_idp.php:166
+#: web/admin/edit_idp.php:164
 #, php-format
 msgid "We will always configure this Consortium OI: %s."
 msgid_plural "We will always configure these Consortium OIs: %s."
 msgstr[0] "Verrà configurato sempre questo Consortium OI: %s."
 msgstr[1] "Verranno configurati sempre questi Consortium OIs: %s."
 
-#: web/admin/edit_idp.php:168
+#: web/admin/edit_idp.php:166
 #, php-format
 msgid ""
 "It is also possible to define custom additional OIs with the option '%s' "
@@ -746,18 +744,18 @@ msgstr ""
 "E' anche possibile definire OIs supplementari personalizzati con l'opzione "
 "'%s' qui sotto."
 
-#: web/admin/edit_idp.php:170
+#: web/admin/edit_idp.php:168
 msgid ""
 "Please configure which Consortium OIs should be configured in the installers."
 msgstr ""
 "Configura quali Consortium OIs vanno configurati nei programmi di "
 "installazione."
 
-#: web/admin/edit_idp.php:173
+#: web/admin/edit_idp.php:171
 msgid "Support for wired IEEE 802.1X:"
 msgstr "Supporto per la rete cablata IEEE 802.1x"
 
-#: web/admin/edit_idp.php:174
+#: web/admin/edit_idp.php:172
 msgid ""
 "If you want to configure your users' devices with IEEE 802.1X support for "
 "wired ethernet, please check the corresponding box. Note that this makes the "
@@ -772,11 +770,11 @@ msgstr ""
 "l'installazione di un profilo con il supporto cablato su un dispositivo "
 "senza una scheda ethernet cablata attiva fallirà)."
 
-#: web/admin/edit_idp.php:176
+#: web/admin/edit_idp.php:174
 msgid "Removal of bootstrap/onboarding SSIDs:"
 msgstr "Rimozione degli SSID di avvio:"
 
-#: web/admin/edit_idp.php:177
+#: web/admin/edit_idp.php:175
 msgid ""
 "If you use a captive portal to distribute configurations, you may want to "
 "unconfigure/disable that SSID after the bootstrap process. With this option, "
@@ -787,11 +785,11 @@ msgstr ""
 "opzione, l'SSID sarà o rimosso, o sarà definito come 'Connetti solo "
 "manualmente'."
 
-#: web/admin/edit_idp.php:191
+#: web/admin/edit_idp.php:184
 msgid "Helpdesk Details for all users"
 msgstr "Dettagli dell'Helpdesk per tutti gli utenti"
 
-#: web/admin/edit_idp.php:195
+#: web/admin/edit_idp.php:188
 msgid ""
 "If your IdP provides a helpdesk for its users, it would be nice if you would "
 "tell us the pointers to this helpdesk. Some site installers might be able to "
@@ -801,7 +799,7 @@ msgstr ""
 "indicassi i riferimenti. Alcuni programmi di installazione visualizzano "
 "queste info in caso di problemi"
 
-#: web/admin/edit_idp.php:197
+#: web/admin/edit_idp.php:190
 msgid ""
 "If you enter a value here, it will be added to the site installers for all "
 "your users, and will be displayed on the download page. If you operate "
@@ -818,84 +816,51 @@ msgstr ""
 "opzionalmente specificare informazioni di helpdesk separate per ogni profilo "
 "più avanti in questo wizard."
 
-#: web/admin/edit_idp.php:207
-msgid "EAP details for all users"
-msgstr "Dettagli EAP per tutti gli utenti"
-
-#: web/admin/edit_idp.php:210
-msgid ""
-"Most EAP methods need server-side authentication details, like the CA "
-"certificate and/or server name(s) of your authentication servers. If all the "
-"EAP methods you support work with the same CA and or Common Names of "
-"servers, you can enter them here and they will be added as trust anchors in "
-"all profiles. If the details differ per profile or per EAP-type, you can "
-"also enter them in the individual profiles later."
-msgstr ""
-"Molti metodi EAP richiedono i dettagli dell'autenticazione lato server come "
-"ad esempio il certificato CA e/o i server name dei tuoi server di "
-"autenticazione. Se tutti i metodi EAP che supporti usano la stessa CA e/o "
-"gli stessi Common Name dei server, puoi inserirli qui e  saranno aggiunti "
-"come trust anchor in tutti i profili. Se i dettagli differiscono da profilo "
-"a profilo o in base al tipo EAP, puoi anche inserirli in ogni profilo più "
-"avanti."
-
-#: web/admin/edit_idp.php:211
-#, php-format
-msgid ""
-"<strong>Note well: </strong>The server-side validation is a cornerstone of "
-"%s; without it, users are subject to man-in-the-middle attacks! We will not "
-"generate site installers without Trusted CA anchors and server names."
-msgstr ""
-"<strong>Nota bene: </strong> La verifica del server è fondamentale per %s; "
-"senza di essi l'utente è esposto ad attacchi di tipo man-in-the-middle. Non "
-"saranno generati programmi di installazione senza l'utilizzo di TRUSTED CA e "
-"server names."
-
-#: web/admin/edit_idp.php:222
+#: web/admin/edit_idp.php:198
 #, php-format
 msgid ""
 "When you are sure that everything is correct, please click on %sContinue ..."
 "%s"
 msgstr "Quando sei sicuro che sia tutto corretto, clicca su %sContinua ...%s"
 
-#: web/admin/edit_idp_result.php:51
+#: web/admin/edit_idp_result.php:53
 #, php-format
 msgid "%s: IdP enrollment wizard (step 2 completed)"
 msgstr "%s: IdP enrollment wizard (passo 2 completato)"
 
-#: web/admin/edit_idp_result.php:56
+#: web/admin/edit_idp_result.php:69
 #, php-format
 msgid "Submitted attributes for IdP '%s'"
 msgstr "Attributi inseriti per l'IdP '%s'"
 
-#: web/admin/edit_idp_result.php:81 web/admin/edit_idp_result.php:89
+#: web/admin/edit_idp_result.php:94 web/admin/edit_idp_result.php:104
 msgid "(WPA2/AES and WPA/TKIP)"
 msgstr "(WPA2/AES e WPA/TKIP)"
 
-#: web/admin/edit_idp_result.php:81 web/admin/edit_idp_result.php:93
+#: web/admin/edit_idp_result.php:94 web/admin/edit_idp_result.php:110
 msgid "(WPA2/AES)"
 msgstr "(WPA2/AES)"
 
-#: web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:120
 #, php-format
 msgid "Your installers will configure the following SSIDs: <strong>%s</strong>"
 msgstr ""
 "I tuoi installatori configureranno i seguenti SSID: <strong>%s</strong>"
 
-#: web/admin/edit_idp_result.php:102
+#: web/admin/edit_idp_result.php:120
 msgid "SSIDs configured"
 msgstr "SSID configurati"
 
-#: web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:123
 #, php-format
 msgid "Your installers will configure wired interfaces."
 msgstr "L'installer configurerà le interfaccie di rete cablata"
 
-#: web/admin/edit_idp_result.php:105
+#: web/admin/edit_idp_result.php:123
 msgid "Wired configured"
 msgstr "Rete cablata configurata"
 
-#: web/admin/edit_idp_result.php:108
+#: web/admin/edit_idp_result.php:126
 msgid ""
 "We cannot generate installers because neither wireless SSIDs nor wired "
 "interfaces have been selected as a target!"
@@ -903,41 +868,35 @@ msgstr ""
 "Non è possibile generare programmi di installazione perché non sono state "
 "selezionate come target né SSIDs wireless, né interfacce cablate!"
 
-#: web/admin/edit_idp_result.php:119
-msgid "Continue to profile definition"
+#: web/admin/edit_idp_result.php:140
+#, fuzzy
+msgid "Continue to eduroam-as-a-service properties"
+msgstr "Continua alla pagina di overview dell'utente"
+
+#: web/admin/edit_idp_result.php:142
+#, fuzzy
+msgid "Continue to RADIUS/EAP profile definition"
 msgstr "Continua sulla definizione del profilo"
 
-#: web/admin/edit_profile.php:22
+#: web/admin/edit_profile.php:21
 #, php-format
 msgid "%s: IdP Enrollment Wizard (Step 3)"
 msgstr "%s: Wizard di registrazione dell'IdP (Fase 3)"
 
-#: web/admin/edit_profile.php:177
+#: web/admin/edit_profile.php:173
 msgid "Step 3: Defining a user group profile"
 msgstr "Fase 3: Definizione di un profilo gruppo di utenti"
 
-#: web/admin/edit_profile.php:179
+#: web/admin/edit_profile.php:175
 #, php-format
 msgid "Edit profile '%s' ..."
 msgstr "Modifica il Profilo '%s' ..."
 
-#: web/admin/edit_profile.php:183 web/admin/overview_idp.php:49
-msgid "General Institution Details"
-msgstr "Dettagli generali dell'Organizzazione"
-
-#: web/admin/edit_profile.php:206 web/admin/overview_idp.php:67
-msgid "Global Helpdesk Details"
-msgstr "Dettagli globali dell'Helpdesk"
-
-#: web/admin/edit_profile.php:210 web/admin/overview_idp.php:79
-msgid "Global EAP Options"
-msgstr "Opzioni globali EAP"
-
-#: web/admin/edit_profile.php:219
+#: web/admin/edit_profile.php:187
 msgid "General Profile properties"
 msgstr "Proprietà generali del Profilo"
 
-#: web/admin/edit_profile.php:223
+#: web/admin/edit_profile.php:191
 msgid ""
 "We will now define a profile for your user group(s).  You can add as many "
 "profiles as you like by choosing the appropriate button on the end of the "
@@ -949,11 +908,11 @@ msgstr ""
 "della pagina. Una volta finito, la procedura guidata sarà terminata e sarete "
 "portati alla pagina principale di amministrazione dell'IdP."
 
-#: web/admin/edit_profile.php:225
+#: web/admin/edit_profile.php:194
 msgid "Profile Name and RADIUS realm"
 msgstr "Nome del Profilo e realm RADIUS"
 
-#: web/admin/edit_profile.php:228
+#: web/admin/edit_profile.php:197
 msgid ""
 "First of all we need a name for the profile. This will be displayed to end "
 "users, so you may want to choose a descriptive name like 'Professors', "
@@ -963,7 +922,7 @@ msgstr ""
 "visualizzato all'utente finale, quindi si consiglia di scegliere un nome "
 "descrittivo come 'Professori','Studenti della Facoltà di Bioscienze', ecc."
 
-#: web/admin/edit_profile.php:229
+#: web/admin/edit_profile.php:198
 msgid ""
 "Optionally, you can provide a longer descriptive text about who this profile "
 "is for. If you specify it, it will be displayed on the download page after "
@@ -973,11 +932,11 @@ msgstr ""
 "di questo profilo. Se lo valorizzi, sarà mostrato sulla pagina di download "
 "dopo che l'utente avrà selezionato il nome del profilo dalla lista."
 
-#: web/admin/edit_profile.php:230
+#: web/admin/edit_profile.php:199
 msgid "You can also tell us your RADIUS realm. "
 msgstr "Puoi inserire anche il dominio RADIUS"
 
-#: web/admin/edit_profile.php:232
+#: web/admin/edit_profile.php:201
 #, php-format
 msgid ""
 "This is useful if you want to use the sanity check module later, which tests "
@@ -987,7 +946,7 @@ msgstr ""
 "quale verifica la raggiungibilità del proprio dominio all'interno della "
 "infrastruttura %s. "
 
-#: web/admin/edit_profile.php:233
+#: web/admin/edit_profile.php:203
 msgid ""
 "It is required to enter the realm name if you want to support anonymous "
 "outer identities (see below)."
@@ -995,16 +954,16 @@ msgstr ""
 "E' richiesta l'immissione del nome del realm, se si desidera supportare "
 "identità esterne anonime (vedi sotto)."
 
-#: web/admin/edit_profile.php:258
+#: web/admin/edit_profile.php:216
 msgid "Realm:"
 msgstr "Realm:"
 
-#: web/admin/edit_profile.php:301
+#: web/admin/edit_profile.php:259
 #, fuzzy
 msgid "Realm Options"
 msgstr "Opzioni globali EAP"
 
-#: web/admin/edit_profile.php:305
+#: web/admin/edit_profile.php:263
 #, fuzzy, php-format
 msgid ""
 "Some installers support a feature called 'Anonymous outer identity'. If you "
@@ -1016,14 +975,14 @@ msgstr ""
 "con anonymous outer identities dove disponibile? Perché questo funzioni devi "
 "riempire il campo 'Realm' più sopra."
 
-#: web/admin/edit_profile.php:306
+#: web/admin/edit_profile.php:264
 msgid ""
 "On some platforms, the installers can suggest username endings and/or verify "
 "the user input to contain the realm suffix (sub-realms will pass this "
 "validation)."
 msgstr ""
 
-#: web/admin/edit_profile.php:307
+#: web/admin/edit_profile.php:265
 msgid ""
 "The realm check feature needs to know an outer ID which actually gets a "
 "chance to authenticate. If your RADIUS server lets only select usernames "
@@ -1031,27 +990,27 @@ msgid ""
 "username we can use for testing."
 msgstr ""
 
-#: web/admin/edit_profile.php:316
+#: web/admin/edit_profile.php:277
 msgid "Verify user input to contain realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:323
+#: web/admin/edit_profile.php:292
 msgid "Prefill user input with realm suffix:"
 msgstr ""
 
-#: web/admin/edit_profile.php:327
+#: web/admin/edit_profile.php:302
 msgid "Enable Anonymous Outer Identity:"
 msgstr "Abilita l'Identità Esterna Anonima"
 
-#: web/admin/edit_profile.php:337
+#: web/admin/edit_profile.php:321
 msgid "Use special Outer Identity for realm checks:"
 msgstr ""
 
-#: web/admin/edit_profile.php:349
+#: web/admin/edit_profile.php:338
 msgid "Installer Download Location"
 msgstr "Posizione di download del programma di installazione."
 
-#: web/admin/edit_profile.php:353
+#: web/admin/edit_profile.php:342
 msgid ""
 "The CAT has a download area for end users. There, they will, for example, "
 "learn about the support pointers you entered earlier. The CAT can also "
@@ -1069,15 +1028,15 @@ msgstr ""
 "amministratore, tu puoi comunque scaricare i profili e metterli in quella "
 "pagina (vedi il pulsante 'Matrice di Compatibilità' sul cruscotto)."
 
-#: web/admin/edit_profile.php:358
+#: web/admin/edit_profile.php:348
 msgid "Redirect end users to own web page:"
 msgstr "Reindirizzare gli utenti alla pagina web:"
 
-#: web/admin/edit_profile.php:371
+#: web/admin/edit_profile.php:361
 msgid "Supported EAP types"
 msgstr "Tipi EAP supportati"
 
-#: web/admin/edit_profile.php:374
+#: web/admin/edit_profile.php:364
 msgid ""
 "Now, we need to know which EAP types your IdP supports. If you support "
 "multiple EAP types, you can assign every type a priority (1=highest). This "
@@ -1092,22 +1051,22 @@ msgstr ""
 "EAP più in basso nella lista solo se il dispositivo dell'utente non può "
 "utilizzare quel tipo EAP."
 
-#: web/admin/edit_profile.php:397
+#: web/admin/edit_profile.php:391
 msgid "EAP options inherited from Global level:"
 msgstr "Opzioni EAP ereditate dal livello Globale:"
 
 #. / option count and enumeration
 #. / Example: "(3x) Server Name"
-#: web/admin/edit_profile.php:401
+#: web/admin/edit_profile.php:395
 #, php-format
 msgid "(%dx) %s"
 msgstr "(%dx) %s"
 
-#: web/admin/edit_profile.php:429
+#: web/admin/edit_profile.php:423
 msgid "Supported EAP types for this profile"
 msgstr "Tipi EAP supportati per questo profilo"
 
-#: web/admin/edit_profile.php:443
+#: web/admin/edit_profile.php:437
 msgid ""
 "Use \"drag &amp; drop\" to mark an EAP method and move it to the supported "
 "(green) area. Prioritisation is done automatically, depending on where you "
@@ -1117,16 +1076,16 @@ msgstr ""
 "supportato (verde). La definizione delle priorità avviene automaticamente, a "
 "seconda di dove si \"rilascia\" il metodo."
 
-#: web/admin/edit_profile.php:451
+#: web/admin/edit_profile.php:445
 msgid "Unsupported EAP types"
 msgstr "Tipi EAP non supportati"
 
-#: web/admin/edit_profile.php:478
+#: web/admin/edit_profile.php:473
 msgid "Helpdesk Details for this profile"
 msgstr "Dettagli dell'Helpdesk per questo profilo"
 
-#: web/admin/edit_profile.php:491 web/admin/edit_profile.php:522
-#: web/admin/edit_profile.php:554
+#: web/admin/edit_profile.php:489 web/admin/edit_profile.php:514
+#: web/admin/edit_profile.php:540
 #, php-format
 msgid ""
 "The option %s is already defined IdP-wide. If you set it here on profile "
@@ -1141,16 +1100,16 @@ msgstr[1] ""
 "Le opzioni %s sono  già definite a livello di IDP.  Se vengono  impostate "
 "qui a livello di profilo, sovrascriveranno quelle a livello di IdP."
 
-#: web/admin/edit_profile.php:510
+#: web/admin/edit_profile.php:499
 msgid "EAP Details for this profile"
 msgstr "Dettagli EAP per questo profilo"
 
-#: web/admin/edit_profile.php:541
+#: web/admin/edit_profile.php:524
 #, fuzzy
 msgid "Media Properties for this profile"
 msgstr "Dettagli dell'Helpdesk per questo profilo"
 
-#: web/admin/edit_profile.php:573
+#: web/admin/edit_profile.php:550
 msgid ""
 "When you are sure that everything is correct, please click on 'Save data' "
 "and you will be taken to your IdP Dashboard page."
@@ -1158,29 +1117,29 @@ msgstr ""
 "Quando sei sicuro che tutto è corretto, clicca su 'Salva i dati' e sarai "
 "portato alla pagina Cruscotto del tuo IdP."
 
-#: web/admin/edit_profile_result.php:34
+#: web/admin/edit_profile_result.php:36
 #, php-format
 msgid "%s: Profile wizard (step 3 completed)"
 msgstr "%s: Wizard del profilo (fase 3 completata)"
 
-#: web/admin/edit_profile_result.php:104
+#: web/admin/edit_profile_result.php:113
 msgid "Darn! Could not get a proper profile handle!"
 msgstr "Impossibile ottenere un profile handle adeguato!"
 
-#: web/admin/edit_profile_result.php:109
+#: web/admin/edit_profile_result.php:117
 msgid "Submitted attributes for this profile"
 msgstr "Attributi inviati per questo profilo"
 
-#: web/admin/edit_profile_result.php:115
+#: web/admin/edit_profile_result.php:123
 #, php-format
 msgid "Realm: <strong>%s</strong>"
 msgstr "Realm: <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:121
+#: web/admin/edit_profile_result.php:130
 msgid "Anonymous Outer Identities cannot be turned on: realm is missing!"
 msgstr "L'Identità Esterna Anonima non può essere attivata: manca il realm!"
 
-#: web/admin/edit_profile_result.php:124
+#: web/admin/edit_profile_result.php:133
 #, php-format
 msgid ""
 "Anonymous Identity support is <strong>%s</strong>, the anonymous outer "
@@ -1189,25 +1148,25 @@ msgstr ""
 "Il supporto per l'identità anonima è <strong>%s</strong>, l'identità esterna "
 "anonima è <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:124 web/admin/edit_profile_result.php:136
+#: web/admin/edit_profile_result.php:133 web/admin/edit_profile_result.php:145
 msgid "ON"
 msgstr "ON"
 
-#: web/admin/edit_profile_result.php:128
+#: web/admin/edit_profile_result.php:137
 #, php-format
 msgid "Anonymous Identity support is <strong>%s</strong>"
 msgstr "Il supporto per l'Identità Anonima è <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:128
+#: web/admin/edit_profile_result.php:137
 msgid "OFF"
 msgstr "OFF"
 
-#: web/admin/edit_profile_result.php:133 web/admin/edit_profile_result.php:145
+#: web/admin/edit_profile_result.php:142 web/admin/edit_profile_result.php:154
 #, fuzzy
 msgid "Realm check username cannot be configured: realm is missing!"
 msgstr "L'Identità Esterna Anonima non può essere attivata: manca il realm!"
 
-#: web/admin/edit_profile_result.php:136
+#: web/admin/edit_profile_result.php:145
 #, fuzzy, php-format
 msgid ""
 "Special username for realm check is <strong>%s</strong>, the value is "
@@ -1216,37 +1175,37 @@ msgstr ""
 "Il supporto per l'identità anonima è <strong>%s</strong>, l'identità esterna "
 "anonima è <strong>%s</strong>"
 
-#: web/admin/edit_profile_result.php:140
+#: web/admin/edit_profile_result.php:149
 msgid "No special username for realm checks is configured."
 msgstr ""
 
-#: web/admin/edit_profile_result.php:149
+#: web/admin/edit_profile_result.php:158
 #, php-format
 msgid "and the input field will be prefilled with '<strong>@%s</strong>'."
 msgstr ""
 
-#: web/admin/edit_profile_result.php:153
+#: web/admin/edit_profile_result.php:162
 #, php-format
 msgid ""
 "Where possible, username inputs will be <strong>verified to contain an @ and "
 "end with %s</strong>%s"
 msgstr ""
 
-#: web/admin/edit_profile_result.php:167
+#: web/admin/edit_profile_result.php:174
 msgid "Redirection can't be activated - you did not specify a target location!"
 msgstr ""
 "La ridirezione non può essere attivata - non è stata specificata una "
 "posizione di destinazione!"
 
-#: web/admin/edit_profile_result.php:173
+#: web/admin/edit_profile_result.php:180
 msgid "Redirection is <strong>OFF</strong>"
 msgstr "La ridirezione è <strong>OFF</strong>"
 
-#: web/admin/edit_profile_result.php:190
+#: web/admin/edit_profile_result.php:200
 msgid "Supported EAP Type: "
 msgstr "Tipi EAP supportati:"
 
-#: web/admin/edit_profile_result.php:196
+#: web/admin/edit_profile_result.php:208
 #, php-format
 msgid ""
 "Supported EAP Type: <strong>%s</strong> is missing required information %s !"
@@ -1254,7 +1213,7 @@ msgstr ""
 "Tipi EAP supportati: <strong>%s</strong> mancano le informazioni necessarie "
 "%s !"
 
-#: web/admin/edit_profile_result.php:196
+#: web/admin/edit_profile_result.php:208
 msgid ""
 "The EAP type was added to the profile, but you need to complete the missing "
 "information before we can produce installers for you."
@@ -1263,48 +1222,48 @@ msgstr ""
 "informazioni mancanti prima di poter produrre i programmi di installazione "
 "per te."
 
-#: web/admin/edit_profile_result.php:212
+#: web/admin/edit_profile_result.php:228
 msgid "Continue to Installer Fine-Tuning and Download"
 msgstr ""
 "Continua alla configurazione avanzata del programma di installazione e al "
 "Download"
 
-#: web/admin/edit_user.php:20 web/admin/edit_user.php:28
+#: web/admin/edit_user.php:19 web/admin/edit_user.php:27
 msgid "Editing User Attributes"
 msgstr "Modifica degli Attributi Utente"
 
-#: web/admin/edit_user.php:32
+#: web/admin/edit_user.php:31
 msgid "Current User Attributes"
 msgstr "Attributi Utente correnti"
 
-#: web/admin/edit_user.php:41
+#: web/admin/edit_user.php:40
 msgid "Your attributes"
 msgstr "I tuoi attributi"
 
-#: web/admin/edit_user_result.php:19
+#: web/admin/edit_user_result.php:21
 msgid "User Attributes - Summary of submitted data"
 msgstr "Attributi Utente - Riassunto dei dati inseriti"
 
-#: web/admin/edit_user_result.php:23
+#: web/admin/edit_user_result.php:25
 msgid ""
 "The page was called with insufficient data. Please report this as an error."
 msgstr ""
 "La pagina è stata chiamata con dati insufficienti. Si prega di segnalare "
 "questo errore."
 
-#: web/admin/edit_user_result.php:29
+#: web/admin/edit_user_result.php:31
 msgid "Submitted attributes"
 msgstr "Attributi inseriti"
 
-#: web/admin/edit_user_result.php:51
+#: web/admin/edit_user_result.php:55
 msgid "Continue to user overview page"
 msgstr "Continua alla pagina di overview dell'utente"
 
-#: web/admin/logout_check.php:29
+#: web/admin/logout_check.php:24
 msgid "Incomplete Logout"
 msgstr "Logout incompleto"
 
-#: web/admin/logout_check.php:30
+#: web/admin/logout_check.php:25
 msgid ""
 "We were unable to log you out of all your sessions. To be completely sure "
 "that you are logged out, you need to close your web browser."
@@ -1343,7 +1302,7 @@ msgstr "Non sei un gestore della federazione."
 msgid "Federation Properties: %s"
 msgstr "Caratteristiche dell'Organizzazione"
 
-#: web/admin/overview_federation.php:74 web/admin/overview_idp.php:53
+#: web/admin/overview_federation.php:74
 msgid "Country"
 msgstr "Paese"
 
@@ -1374,82 +1333,83 @@ msgstr ""
 msgid "User"
 msgstr ""
 
-#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:95
+#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:97
 msgid "The invitation email was sent successfully."
 msgstr "La mail di invito è stata inviata con successo."
 
-#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:95
+#: web/admin/overview_federation.php:132 web/admin/inc/manageAdmins.inc.php:97
 msgid "The invitation email was sent."
 msgstr "La email di invito è stata spedita."
 
-#: web/admin/overview_federation.php:134 web/admin/inc/manageAdmins.inc.php:97
-#: web/admin/inc/overview_js.php:52 web/admin/inc/overview_js.php:107
+#: web/admin/overview_federation.php:135
+#: web/admin/inc/manageAdmins.inc.php:100 web/admin/inc/overview_js.php:52
+#: web/admin/inc/overview_js.php:107
 msgid "The invitation email could not be sent!"
 msgstr "Non è stato possibile spedire l'email di invito."
 
-#: web/admin/overview_federation.php:136 web/admin/inc/manageAdmins.inc.php:99
+#: web/admin/overview_federation.php:138
 msgid "Error: unknown result code of invitation!?!"
 msgstr "Errore: codice di risposta dell'invito sconosciuto!?!"
 
-#: web/admin/overview_federation.php:136 web/admin/inc/manageAdmins.inc.php:99
+#: web/admin/overview_federation.php:138
 msgid "Unknown result!"
 msgstr "Risultato sconosciuto!"
 
-#: web/admin/overview_federation.php:141
+#: web/admin/overview_federation.php:143
 #, php-format
 msgid "Need help? Refer to the <a href='%s'>Federation Operator manual</a>"
 msgstr ""
 
-#: web/admin/overview_federation.php:149
+#: web/admin/overview_federation.php:151
 msgid "Deployment Status"
 msgstr "Stato del deployment"
 
-#: web/admin/overview_federation.php:150 web/admin/overview_user.php:100
-#: web/admin/inc/common.inc.php:39
+#: web/admin/overview_federation.php:152 web/admin/overview_user.php:104
+#: web/admin/inc/common.inc.php:40
 msgid "Institution Name"
 msgstr "Nome dell'Organizzazione"
 
-#: web/admin/overview_federation.php:157
+#: web/admin/overview_federation.php:158
 #, php-format
 msgid "%s Database Sync Status"
 msgstr "Stato di sincronizzazione del database %s"
 
-#: web/admin/overview_federation.php:159 web/admin/overview_user.php:100
+#: web/admin/overview_federation.php:161 web/admin/overview_user.php:104
 msgid "Administrator Management"
 msgstr "Gestione Amministratore"
 
-#: web/admin/overview_federation.php:164
+#: web/admin/overview_federation.php:166
 #, fuzzy, php-format
 msgid ""
 "Your federation %s contains the following institutions: (<a href='%s'>Check "
 "their authentication server status</a>)"
 msgstr "La tua federazione %s contiene i seguenti enti:"
 
-#: web/admin/overview_federation.php:224
+#: web/admin/overview_federation.php:226
 msgid "Manage DB Link"
 msgstr "Gestisci il collegamento al DB"
 
-#: web/admin/overview_federation.php:227
+#: web/admin/overview_federation.php:229
 msgid "NOT linked"
 msgstr "NON linkato"
 
-#: web/admin/overview_federation.php:229
+#: web/admin/overview_federation.php:231
 msgid "Linked"
 msgstr "Linkato"
 
-#: web/admin/overview_federation.php:240 web/admin/overview_user.php:136
+#: web/admin/overview_federation.php:242 web/admin/overview_user.php:139
 msgid "Add/Remove Administrators"
 msgstr "Aggiungi/Rimuovi Amministratori"
 
-#: web/admin/overview_federation.php:252
+#: web/admin/overview_federation.php:254
 msgid "Pending invitations in your federation:"
 msgstr "Inviti pendenti per la tua federazione:"
 
-#: web/admin/overview_federation.php:268
+#: web/admin/overview_federation.php:270
 msgid "Revoke Invitation"
 msgstr "Revoca invito"
 
-#: web/admin/overview_federation.php:282 web/admin/overview_user.php:162
+#: web/admin/overview_federation.php:285 web/admin/overview_user.php:165
 msgid "Register New Institution!"
 msgstr "Registra una nuova Organizzazione!"
 
@@ -1466,15 +1426,15 @@ msgstr "Panoramica dell'Identity Provider"
 msgid "IdP-wide settings"
 msgstr "impostazioni a livello di IdP"
 
-#: web/admin/overview_idp.php:85
+#: web/admin/overview_idp.php:52
 msgid "Institution Download Area QR Code"
 msgstr "QR code area Download dell'organizzazione"
 
-#: web/admin/overview_idp.php:112
+#: web/admin/overview_idp.php:82
 msgid "Edit IdP-wide settings"
 msgstr "Modifica impostazioni a livello di IdP"
 
-#: web/admin/overview_idp.php:117
+#: web/admin/overview_idp.php:87
 msgid ""
 "After deleting the IdP, you can not recreate it yourself - you need a new "
 "invitation token from the federation administrator!"
@@ -1482,16 +1442,16 @@ msgstr ""
 "Dopo aver cancellato l'IdP, non puoi ricrearlo autonomamente - è necessario "
 "un nuovo invito dell'amministratore della federazione!"
 
-#: web/admin/overview_idp.php:117
+#: web/admin/overview_idp.php:87
 #, php-format
 msgid "Do you really want to delete your IdP %s?"
 msgstr "Vuoi veramente cancellare l'IdP %s?"
 
-#: web/admin/overview_idp.php:117
+#: web/admin/overview_idp.php:87
 msgid "Delete IdP"
 msgstr "Cancella IdP"
 
-#: web/admin/overview_idp.php:123
+#: web/admin/overview_idp.php:93
 #, php-format
 msgid ""
 "This action will delete all properties of your IdP and start over the "
@@ -1502,65 +1462,77 @@ msgstr ""
 "configurazione da zero. Vuoi veramente resettare tutte le impostazioni del "
 "tuo IdP %s?"
 
-#: web/admin/overview_idp.php:123
+#: web/admin/overview_idp.php:93
 msgid "Reset all IdP settings"
 msgstr "Reset tutte le configurazioni dell'IdP"
 
-#: web/admin/overview_idp.php:130
+#: web/admin/overview_idp.php:100
 msgid "Available Support actions"
 msgstr "Azioni di supporto disponibili"
 
-#: web/admin/overview_idp.php:135
+#: web/admin/overview_idp.php:105
 msgid "Check another realm's reachability"
 msgstr "Verifica la raggiungibilità di un altro realm"
 
-#: web/admin/overview_idp.php:138 web/admin/overview_idp.php:147
-#: web/admin/overview_user.php:153
+#: web/admin/overview_idp.php:108 web/admin/overview_idp.php:118
+#: web/admin/overview_user.php:156
 msgid "Go!"
 msgstr "Vai!"
 
-#: web/admin/overview_idp.php:144
+#: web/admin/overview_idp.php:115
 msgid "Check server status of European federations"
 msgstr "Verifica lo stato dei server delle federazioni europee"
 
-#: web/admin/overview_idp.php:154
-msgid "Profiles for this institution"
-msgstr "Profili per questa organizzazione"
-
-#: web/admin/overview_idp.php:158
+#: web/admin/overview_idp.php:129
 msgid "There are not yet any profiles for your institution."
 msgstr "Non ci sono ancora profili per la tua organizzazione."
 
-#: web/admin/overview_idp.php:176
+#: web/admin/overview_idp.php:144
+#, php-format
+msgid ""
+"You can create up to %d users. Their credentials will carry the name <strong>"
+"%s</strong>."
+msgstr ""
+
+#: web/admin/overview_idp.php:149
+msgid "Manage User Base"
+msgstr ""
+
+#: web/admin/overview_idp.php:161
+msgid "Profiles for this institution"
+msgstr "Profili per questa organizzazione"
+
+#: web/admin/overview_idp.php:180
 msgid "<strong>EAP Types</strong> (in order of preference):"
 msgstr "<strong>Tipi EAP</strong> (in ordine di preferenza):"
 
-#: web/admin/overview_idp.php:183 web/admin/inc/common.inc.php:112
+#: web/admin/overview_idp.php:187 web/admin/inc/common.inc.php:118
 msgid "OK"
 msgstr "OK"
 
-#: web/admin/overview_idp.php:186
+#: web/admin/overview_idp.php:190
 msgid "Information needed!"
 msgstr "Informazione necessaria!"
 
-#: web/admin/overview_idp.php:200
-msgid "Option override on EAP Method level is in effect."
+#: web/admin/overview_idp.php:204
+#, fuzzy
+msgid "Options on EAP Method level are in effect."
 msgstr "L'opzione di sovrascrittura a livello di METODO EAP è attiva"
 
-#: web/admin/overview_idp.php:209
+#: web/admin/overview_idp.php:215
 msgid "Option override on profile level is in effect."
 msgstr "L'opzione di sovrascrittura a livello di PROFILO è attiva"
 
-#: web/admin/overview_idp.php:211
+#: web/admin/overview_idp.php:218
 msgid "The information in this profile is incomplete."
 msgstr "Le informazioni in questo profilo sono incomplete"
 
-#: web/admin/overview_idp.php:213
+#: web/admin/overview_idp.php:221
 msgid "This profile is shown on the user download interface."
 msgstr ""
 "Questo profilo viene mostrato sull'interfaccia di download per l'utente."
 
-#: web/admin/overview_idp.php:215
+#: web/admin/overview_idp.php:223
 #, php-format
 msgid ""
 "This profile is NOT shown on the user download interface, even though we "
@@ -1571,108 +1543,114 @@ msgstr ""
 "anche se avremmo informazioni sufficienti per mostrarlo. Per abilitare il "
 "profilo, aggiungere l'attributo \"%s\" e attivare il box corrispondente."
 
-#: web/admin/overview_idp.php:218
+#: web/admin/overview_idp.php:227
 #, php-format
 msgid "Profile: %s"
 msgstr "Profilo: %s"
 
 #. / Hmmm... IdP Supports TTLS-PAP, but not TTLS-GTC nor anything based on MSCHAPv2. That locks out Symbian users; and is easy to circumvent. Tell the admin...
-#: web/admin/overview_idp.php:224
+#: web/admin/overview_idp.php:233
 #, php-format
 msgid "Read this <a href='%s'>tip</a>."
 msgstr "Leggi questo <a href='%s'>suggerimento</a>."
 
-#: web/admin/overview_idp.php:234
+#: web/admin/overview_idp.php:244
 msgid "The realm can only be checked if you configure the realm!"
 msgstr "Il realm può essere verificato solo se lo si configura!"
 
-#: web/admin/overview_idp.php:235
+#: web/admin/overview_idp.php:245
 msgid "Check realm reachability"
 msgstr "Verifica la raggiungibilità del realm"
 
-#: web/admin/overview_idp.php:239
+#: web/admin/overview_idp.php:250
 msgid "You have not fully configured any supported EAP types!"
 msgstr "Non hai configurato completamente alcun tipo di EAP supportato!"
 
-#: web/admin/overview_idp.php:240
+#: web/admin/overview_idp.php:251
 msgid "Installer Fine-Tuning and Download"
 msgstr "Configurazione avanzata programma di installazione e Download"
 
-#: web/admin/overview_idp.php:248
+#: web/admin/overview_idp.php:259
 msgid "Edit"
 msgstr "Modifica"
 
-#: web/admin/overview_idp.php:251
+#: web/admin/overview_idp.php:262
 #, php-format
 msgid "Do you really want to delete the profile %s?"
 msgstr "Vuoi veramente cancellare il profilo %s?"
 
-#: web/admin/overview_idp.php:252
+#: web/admin/overview_idp.php:263
 msgid "Delete"
 msgstr "Cancella"
 
-#: web/admin/overview_idp.php:261
+#: web/admin/overview_idp.php:272
 msgid "User Download Link"
 msgstr "Link di Download per l'utente"
 
-#: web/admin/overview_idp.php:277
+#: web/admin/overview_idp.php:289
 msgid "User Downloads"
 msgstr "Download Utente"
 
-#: web/admin/overview_idp.php:293
-msgid "Add new profile ..."
+#: web/admin/overview_idp.php:311
+#, fuzzy
+msgid "Add eduroam-as-a-service profile ..."
 msgstr "Aggiungi nuovo profilo ..."
 
-#: web/admin/overview_installers.php:23
+#: web/admin/overview_idp.php:337
+#, fuzzy
+msgid "Add new RADIUS/EAP profile ..."
+msgstr "Aggiungi nuovo profilo ..."
+
+#: web/admin/overview_installers.php:24
 msgid "Device Compatibility matrix"
 msgstr "Matrice di compatibilità dei dispositivi"
 
-#: web/admin/overview_installers.php:39
+#: web/admin/overview_installers.php:43
 #, php-format
 msgid "Device compatiblity matrix for %s of %s "
 msgstr "Matrice di compatibilità dei dispositivi per %s di %s "
 
-#: web/admin/overview_installers.php:43
+#: web/admin/overview_installers.php:47
 msgid "Device"
 msgstr "Dispositivo"
 
-#: web/admin/overview_installers.php:51
+#: web/admin/overview_installers.php:55
 msgid "EAP-Type-specific options..."
 msgstr "Opzioni per tipo di EAP"
 
-#: web/admin/overview_installers.php:71
+#: web/admin/overview_installers.php:75
 msgid "Device-specific options..."
 msgstr "Opzioni per dispositivo"
 
-#: web/admin/overview_installers.php:81
+#: web/admin/overview_installers.php:86
 msgid "Download"
 msgstr "Scarica"
 
-#: web/admin/overview_installers.php:136
+#: web/admin/overview_installers.php:145
 msgid "Legend:"
 msgstr "Legenda:"
 
-#: web/admin/overview_installers.php:138
+#: web/admin/overview_installers.php:147
 msgid "redirection is set"
 msgstr "è configurata la ridirezione"
 
-#: web/admin/overview_installers.php:139
+#: web/admin/overview_installers.php:148
 msgid "will be offered on download site"
 msgstr "sarà offerto sul sito di scaricamento."
 
-#: web/admin/overview_installers.php:140
+#: web/admin/overview_installers.php:149
 msgid "configured, but not preferred EAP type"
 msgstr "tipo EAP configurato, ma non preferito"
 
-#: web/admin/overview_installers.php:141
+#: web/admin/overview_installers.php:150
 msgid "incomplete configuration"
 msgstr "configurazione incompleta"
 
-#: web/admin/overview_installers.php:142
+#: web/admin/overview_installers.php:151
 msgid "not supported by CAT"
 msgstr "non supportato da CAT"
 
-#: web/admin/overview_installers.php:146
+#: web/admin/overview_installers.php:155
 msgid "Footnotes:"
 msgstr "Note:"
 
@@ -1689,46 +1667,46 @@ msgstr "Informazioni Utente"
 msgid "Edit User Details"
 msgstr "Modifica dettagli utente"
 
-#: web/admin/overview_user.php:61
+#: web/admin/overview_user.php:62
 msgid "Click here to manage your federations"
 msgstr "Clicca quì per gestire le tue federazioni."
 
-#: web/admin/overview_user.php:63
+#: web/admin/overview_user.php:65
 msgid "Click here to access the superadmin page"
 msgstr "Clicca qui per la pqgina di superadmin"
 
-#: web/admin/overview_user.php:70
+#: web/admin/overview_user.php:73
 #, php-format
 msgid "(Need help? Refer to the <a href='%s'>IdP administrator manual</a>)"
 msgstr ""
 
-#: web/admin/overview_user.php:77
+#: web/admin/overview_user.php:81
 #, php-format
 msgid "You are managing the following institution:"
 msgid_plural "You are managing the following <strong>%d</strong> institutions:"
 msgstr[0] "Stai gestendo i seguenti enti:"
 msgstr[1] "Stai gestendo i seguenti <strong>%d</strong> enti:"
 
-#: web/admin/overview_user.php:100
+#: web/admin/overview_user.php:104
 msgid "Other admins of this institution"
 msgstr "Altri amministratori di questa Organizzazione"
 
-#: web/admin/overview_user.php:102
+#: web/admin/overview_user.php:106
 #, php-format
 msgid "Institutions in federation %s"
 msgstr "Organizzazioni nella federazione %s"
 
-#: web/admin/overview_user.php:130
+#: web/admin/overview_user.php:135
 msgid "other user"
 msgid_plural "other users"
 msgstr[0] "altro utente"
 msgstr[1] "altri utenti"
 
-#: web/admin/overview_user.php:143
+#: web/admin/overview_user.php:146
 msgid "You are not managing any institutions."
 msgstr "Non ti risulta assegnata nessuna organizzazione."
 
-#: web/admin/overview_user.php:146
+#: web/admin/overview_user.php:149
 msgid ""
 "Please ask your federation administrator to invite you to become an "
 "institution administrator."
@@ -1736,7 +1714,7 @@ msgstr ""
 "Chiedi all'amministratore della federazione di invitarti a diventare un "
 "amministratore di una Organizzazione."
 
-#: web/admin/overview_user.php:150
+#: web/admin/overview_user.php:153
 msgid ""
 "Did you receive an invitation token to manage an institution? Please paste "
 "it here:"
@@ -1744,7 +1722,7 @@ msgstr ""
 "Hai ricevuto il token di invito per l'amministrazione di una "
 "organizzazione?. Si prega di incollarlo qui:"
 
-#: web/admin/radius_tests.php:23 web/admin/radius_tests.php:24
+#: web/admin/radius_tests.php:26 web/admin/radius_tests.php:27
 msgid ""
 "Some properties of the connection attempt were sub-optimal; the list is "
 "below."
@@ -1752,7 +1730,7 @@ msgstr ""
 "Qualche proprietà del tentativo di connessione è non ottimale; la lista è "
 "qua sotto."
 
-#: web/admin/radius_tests.php:25
+#: web/admin/radius_tests.php:28
 msgid "Some configuration errors were observed; the list is below."
 msgstr ""
 "Sono stati osservati degli errori di configurazione; la lista è qua sotto."
@@ -1762,7 +1740,16 @@ msgstr ""
 msgid "Connected to %s."
 msgstr "Connesso a %s"
 
-#: web/admin/radius_tests.php:86
+#: web/admin/radius_tests.php:84 web/admin/radius_tests.php:251
+msgid ""
+"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
+"multiple round-trips was carried out, and ended in an Access-Reject as "
+"planned."
+msgstr ""
+"<strong>Test OK</strong>: una conversazione RADIUS bidirezionale con round-"
+"trips multipli ha avuto luogo ed è finita con un Access-Reject come previsto."
+
+#: web/admin/radius_tests.php:88
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1774,28 +1761,19 @@ msgstr ""
 "come previsto. Alcune proprietà del tentativo di connessione non sono "
 "ottimali; la lista è qua sotto."
 
-#: web/admin/radius_tests.php:97 web/admin/radius_tests.php:241
-msgid ""
-"<strong>Test successful</strong>: a bidirectional RADIUS conversation with "
-"multiple round-trips was carried out, and ended in an Access-Reject as "
-"planned."
-msgstr ""
-"<strong>Test OK</strong>: una conversazione RADIUS bidirezionale con round-"
-"trips multipli ha avuto luogo ed è finita con un Access-Reject come previsto."
-
-#: web/admin/radius_tests.php:181
+#: web/admin/radius_tests.php:191
 msgid "<strong>Test successful.</strong>"
 msgstr "<strong>Test superato.</strong>"
 
-#: web/admin/radius_tests.php:185
+#: web/admin/radius_tests.php:195
 msgid "<strong>Test partially successful</strong>: authentication succeded."
 msgstr "<strong>Test superato parzialmente</strong>: autenticazione superata."
 
-#: web/admin/radius_tests.php:188
+#: web/admin/radius_tests.php:198
 msgid "<strong>Test FAILED</strong>: authentication succeded."
 msgstr "<strong>Test FALLITO</strong>: autenticazione superata."
 
-#: web/admin/radius_tests.php:193
+#: web/admin/radius_tests.php:203
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected. The most likely "
 "cause is that you have misspelt the Username and/or the Password."
@@ -1803,11 +1781,11 @@ msgstr ""
 "<strong>Test FALLITO</strong>: la richiesta è stata respinta. La causa più "
 "probabile è che tu abbia sbagliato di digitare lo Username e/o la Password."
 
-#: web/admin/radius_tests.php:198
+#: web/admin/radius_tests.php:208
 msgid "This method cannot be tested"
 msgstr "Questo metodo non può essere testato"
 
-#: web/admin/radius_tests.php:202
+#: web/admin/radius_tests.php:212
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. Either you have misspelt the Username or there is "
@@ -1817,7 +1795,7 @@ msgstr ""
 "immediatamente, senza una conversazione EAP. Hai sbagliato di digitare lo "
 "Username oppure c'è qualcosa di decisamente sbagliato sul tuo server."
 
-#: web/admin/radius_tests.php:208 web/admin/radius_tests.php:249
+#: web/admin/radius_tests.php:218 web/admin/radius_tests.php:260
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: no reply from the RADIUS server after %d "
@@ -1826,7 +1804,7 @@ msgstr ""
 "<strong>Test FALLITO</strong>: nessuna risposta dal server RADIUS dopo %d "
 "secondi. Il server desiignato è down oppure ci sono problemi di routing!"
 
-#: web/admin/radius_tests.php:213 web/admin/radius_tests.php:253
+#: web/admin/radius_tests.php:223 web/admin/radius_tests.php:264
 #, php-format
 msgid ""
 "<strong>Test FAILED</strong>: there was a bidirectional RADIUS conversation, "
@@ -1835,11 +1813,11 @@ msgstr ""
 "<strong>Test FALLITO</strong>: si è verificata una conversazione RADIUS "
 "bidirezionale, ma non si è conclusa dopo %d secondi!"
 
-#: web/admin/radius_tests.php:218
+#: web/admin/radius_tests.php:228
 msgid "<strong>Test FAILED</strong>"
 msgstr "<strong>Test FALLITO</strong>"
 
-#: web/admin/radius_tests.php:239
+#: web/admin/radius_tests.php:249
 msgid ""
 "<strong>Test partially successful</strong>: a bidirectional RADIUS "
 "conversation with multiple round-trips was carried out, and ended in an "
@@ -1849,7 +1827,7 @@ msgstr ""
 "bidirezionale RADIUS con round-trip multipli  ed è terminata con un Access-"
 "Reject come previsto."
 
-#: web/admin/radius_tests.php:244
+#: web/admin/radius_tests.php:255
 msgid ""
 "<strong>Test FAILED</strong>: the request was rejected immediately, without "
 "EAP conversation. This is not necessarily an error: if the RADIUS server "
@@ -1859,11 +1837,11 @@ msgid ""
 "appears misconfigured or it is unreachable."
 msgstr ""
 
-#: web/admin/radius_tests.php:257
+#: web/admin/radius_tests.php:268
 msgid "unhandled error"
 msgstr "Errore non gestito"
 
-#: web/admin/radius_tests.php:274 web/admin/radius_tests.php:330
+#: web/admin/radius_tests.php:285 web/admin/radius_tests.php:347
 msgid ""
 "<strong>ERROR</strong>: the server presented a certificate which is from an "
 "unknown authority!"
@@ -1871,190 +1849,206 @@ msgstr ""
 "<strong>ERRORE</strong>: il server ha presentato un certificato di una "
 "autorità sconosciuta"
 
-#: web/admin/radius_tests.php:274 web/admin/radius_tests.php:280
+#: web/admin/radius_tests.php:285 web/admin/radius_tests.php:291
 #, php-format
 msgid "elapsed time: %d"
 msgstr "tempo stimato: %d"
 
-#: web/admin/radius_tests.php:335
+#: web/admin/radius_tests.php:352
 msgid "Completed."
 msgstr "Completato."
 
-#: web/admin/radius_tests.php:354
+#: web/admin/radius_tests.php:372
 msgid "crlDistributionPoints"
 msgstr "crlDistributionPoints"
 
-#: web/admin/inc/common.inc.php:35
+#: web/admin/inc/common.inc.php:36
 msgid "Support: Web"
 msgstr "Supporto: Web"
 
-#: web/admin/inc/common.inc.php:36
+#: web/admin/inc/common.inc.php:37
 msgid "Support: EAP Types"
 msgstr "Supporto: tipi EAP"
 
-#: web/admin/inc/common.inc.php:37
+#: web/admin/inc/common.inc.php:38
 msgid "Support: Phone"
 msgstr "Supporto: Telefono"
 
-#: web/admin/inc/common.inc.php:38
+#: web/admin/inc/common.inc.php:39
 msgid "Support: E-Mail"
 msgstr "Supporto: E-Mail"
 
-#: web/admin/inc/common.inc.php:40 web/admin/inc/geo_widget.php:281
+#: web/admin/inc/common.inc.php:41 web/admin/inc/geo_widget.php:282
 msgid "Location"
 msgstr "Posizione"
 
-#: web/admin/inc/common.inc.php:41
+#: web/admin/inc/common.inc.php:42
 msgid "Logo URL"
 msgstr "URL del Logo"
 
-#: web/admin/inc/common.inc.php:42
+#: web/admin/inc/common.inc.php:43
 msgid "Logo image"
 msgstr "Immagine del Logo"
 
-#: web/admin/inc/common.inc.php:43
+#: web/admin/inc/common.inc.php:44
 msgid "Configure Wired Ethernet"
 msgstr "Configurazione Ethernet cablata"
 
-#: web/admin/inc/common.inc.php:44
+#: web/admin/inc/common.inc.php:45
 msgid "Name (CN) of Authentication Server"
 msgstr "Nome (CN) dell' Authentication Server"
 
-#: web/admin/inc/common.inc.php:45
+#: web/admin/inc/common.inc.php:46
 msgid "Enable device assessment"
 msgstr "Abilita l'accertamento del dispositivo."
 
-#: web/admin/inc/common.inc.php:46
+#: web/admin/inc/common.inc.php:47
 msgid "Terms of Use"
 msgstr "Condizioni di Utilizzo"
 
-#: web/admin/inc/common.inc.php:47
+#: web/admin/inc/common.inc.php:48
 msgid "CA Certificate URL"
 msgstr "URL del Certificato della CA"
 
-#: web/admin/inc/common.inc.php:48
+#: web/admin/inc/common.inc.php:49
 msgid "CA Certificate File"
 msgstr "File del Certificato della CA"
 
-#: web/admin/inc/common.inc.php:49
+#: web/admin/inc/common.inc.php:50
 msgid "Profile Display Name"
 msgstr "Display Name del Profilo"
 
-#: web/admin/inc/common.inc.php:50
+#: web/admin/inc/common.inc.php:51
 msgid "Production-Ready"
 msgstr "Production-Ready"
 
-#: web/admin/inc/common.inc.php:51
+#: web/admin/inc/common.inc.php:52
 msgid "Extra text on downloadpage for device"
 msgstr "Testo aggiuntivo sulla pagina di download per il dispositivo"
 
-#: web/admin/inc/common.inc.php:52
+#: web/admin/inc/common.inc.php:53
 msgid "Redirection Target"
 msgstr "Ridirigi in"
 
-#: web/admin/inc/common.inc.php:53
+#: web/admin/inc/common.inc.php:54
 msgid "Extra text on downloadpage for EAP method"
 msgstr "Testo aggiuntivo sulla pagina di download per il metodo EAP"
 
-#: web/admin/inc/common.inc.php:54
+#: web/admin/inc/common.inc.php:55
 msgid "Turn on selection of EAP-TLS User-Name"
 msgstr "Accendi l'opzione di EAP-TLS User-name"
 
-#: web/admin/inc/common.inc.php:55
+#: web/admin/inc/common.inc.php:56
 msgid "Profile Description"
 msgstr "Descrizione del Profilo"
 
-#: web/admin/inc/common.inc.php:56 web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/common.inc.php:57 web/admin/inc/manageAdmins.inc.php:110
 msgid "Federation Administrator"
 msgstr "Amministratore della Federazione"
 
-#: web/admin/inc/common.inc.php:57
+#: web/admin/inc/common.inc.php:58
 msgid "Real Name"
 msgstr "Nome Vero"
 
-#: web/admin/inc/common.inc.php:58
+#: web/admin/inc/common.inc.php:59
 msgid "E-Mail Address"
 msgstr "Indirizzo E-Mail"
 
-#: web/admin/inc/common.inc.php:59
+#: web/admin/inc/common.inc.php:60
 msgid "PEAP-MSCHAPv2"
 msgstr "PEAP-MSCHAPv2"
 
-#: web/admin/inc/common.inc.php:60
+#: web/admin/inc/common.inc.php:61
 msgid "TLS"
 msgstr "TLS"
 
-#: web/admin/inc/common.inc.php:61
+#: web/admin/inc/common.inc.php:62
 msgid "TTLS-PAP"
 msgstr "TTLS-PAP"
 
-#: web/admin/inc/common.inc.php:62
+#: web/admin/inc/common.inc.php:63
 msgid "TTLS-MSCHAPv2"
 msgstr "TTLS-MSCHAPv2"
 
-#: web/admin/inc/common.inc.php:63
+#: web/admin/inc/common.inc.php:64
 msgid "TTLS-GTC"
 msgstr "TTLS-GTC"
 
-#: web/admin/inc/common.inc.php:64
+#: web/admin/inc/common.inc.php:65
 msgid "FAST-GTC"
 msgstr "FAST-GTC"
 
-#: web/admin/inc/common.inc.php:65
+#: web/admin/inc/common.inc.php:66
 msgid "EAP-pwd"
 msgstr "EAP-pwd"
 
-#: web/admin/inc/common.inc.php:66
-msgid "Remove/Disable SSID"
-msgstr "Rimuovi/disabilita l'SSID"
-
 #: web/admin/inc/common.inc.php:67
-msgid "Custom CSS file for User Area"
+msgid "eduroam-as-a-service"
 msgstr ""
 
 #: web/admin/inc/common.inc.php:68
-#, fuzzy
-msgid "Federation Logo"
-msgstr "Federazione"
+msgid "Remove/Disable SSID"
+msgstr "Rimuovi/disabilita l'SSID"
 
 #: web/admin/inc/common.inc.php:69
-msgid "Preferred Skin for User Area"
+msgid "Custom CSS file for User Area"
 msgstr ""
 
 #: web/admin/inc/common.inc.php:70
 #, fuzzy
+msgid "Federation Logo"
+msgstr "Federazione"
+
+#: web/admin/inc/common.inc.php:71
+msgid "Preferred Skin for User Area"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:72
+#, fuzzy
 msgid "Federation Operator Name"
 msgstr "Panoramica della Federazione"
 
-#: web/admin/inc/common.inc.php:71
+#: web/admin/inc/common.inc.php:73
 msgid "Custom text in IdP Invitations"
 msgstr ""
 
+#: web/admin/inc/common.inc.php:74
+msgid "Enable Silver Bullet"
+msgstr ""
+
 #: web/admin/inc/common.inc.php:75
+msgid "Silver Bullet: Do not terminate EAP"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:76
+msgid "Silver Bullet: max users per profile"
+msgstr ""
+
+#: web/admin/inc/common.inc.php:80
 msgid "Additional SSID"
 msgstr "SSID addizionale"
 
-#: web/admin/inc/common.inc.php:76
+#: web/admin/inc/common.inc.php:81
 msgid "Additional SSID (with WPA/TKIP)"
 msgstr "SSID addizionale (con WPA/TKIP)"
 
-#: web/admin/inc/common.inc.php:78
+#: web/admin/inc/common.inc.php:83
 msgid "SSID"
 msgstr "SSID"
 
-#: web/admin/inc/common.inc.php:79
+#: web/admin/inc/common.inc.php:84
 msgid "SSID (with WPA/TKIP)"
 msgstr "SSID (con WPA/TKIP)"
 
-#: web/admin/inc/common.inc.php:83
+#: web/admin/inc/common.inc.php:88
 msgid "Additional HS20 Consortium OI"
 msgstr "Additional HS20 Consortium OI"
 
-#: web/admin/inc/common.inc.php:84
+#: web/admin/inc/common.inc.php:90
 msgid "HS20 Consortium OI"
 msgstr "HS20 Consortium OI"
 
-#: web/admin/inc/common.inc.php:98
+#: web/admin/inc/common.inc.php:104
 #, php-format
 msgid ""
 "This attribute can be set if you want to configure an additional SSID "
@@ -2084,69 +2078,76 @@ msgstr ""
 "che  si stanno connettendo a un network extra sicuro quando non lo stanno "
 "facendo."
 
-#: web/admin/inc/common.inc.php:113
+#: web/admin/inc/common.inc.php:119
 msgid "Remark"
 msgstr "Commento"
 
-#: web/admin/inc/common.inc.php:114
+#: web/admin/inc/common.inc.php:120
 msgid "Warning!"
 msgstr "Attenzione!"
 
-#: web/admin/inc/common.inc.php:115
+#: web/admin/inc/common.inc.php:121
 msgid "Error!"
 msgstr "Errore! "
 
-#: web/admin/inc/common.inc.php:306 web/admin/inc/common.inc.php:327
+#: web/admin/inc/common.inc.php:250 web/admin/inc/common.inc.php:273
 msgid "Error, ROWID expected."
 msgstr "Errore, ROWID expected."
 
-#: web/admin/inc/common.inc.php:313
+#: web/admin/inc/common.inc.php:258
 msgid "There was an error processing the certificate!"
 msgstr "Si è verificato un errore durante l'elaborazione del certificato!"
 
-#: web/admin/inc/common.inc.php:319
+#: web/admin/inc/common.inc.php:265
 msgid "This is a <strong>SERVER</strong> certificate!"
 msgstr "questo è un certificato<strong>SERVER</strong>!"
 
-#: web/admin/inc/common.inc.php:328
+#: web/admin/inc/common.inc.php:275
 msgid "Preview of logo file"
 msgstr "Anteprima del file di logo"
 
-#: web/admin/inc/common.inc.php:339
+#: web/admin/inc/common.inc.php:287
 msgid "File exists"
 msgstr "Il file esiste"
 
-#: web/admin/inc/common.inc.php:339
+#: web/admin/inc/common.inc.php:287
 msgid "Preview"
 msgstr "Anteprima"
 
-#: web/admin/inc/common.inc.php:362 web/admin/inc/option_html.inc.php:117
+#: web/admin/inc/common.inc.php:294
+msgid "General Institution Details"
+msgstr "Dettagli generali dell'Organizzazione"
+
+#: web/admin/inc/common.inc.php:312
+msgid "Global Helpdesk Details"
+msgstr "Dettagli globali dell'Helpdesk"
+
+#: web/admin/inc/common.inc.php:338 web/admin/inc/option_html.inc.php:153
 msgid "default/other languages"
 msgstr "default/altre lingue"
 
 #. / Device assessment is "on"
-#: web/admin/inc/common.inc.php:392 web/admin/inc/option_html.inc.php:202
+#: web/admin/inc/common.inc.php:367 web/admin/inc/option_html.inc.php:246
 msgid "on"
 msgstr "on"
 
-#. / Device assessment is "off"
-#: web/admin/inc/common.inc.php:392 web/admin/inc/option_html.inc.php:205
+#: web/admin/inc/common.inc.php:367 web/admin/inc/option_html.inc.php:243
 msgid "off"
 msgstr "off"
 
-#: web/admin/inc/geo_widget.php:99
+#: web/admin/inc/geo_widget.php:101
 msgid "This is location "
 msgstr "Questa è la posizione"
 
-#: web/admin/inc/geo_widget.php:178
+#: web/admin/inc/geo_widget.php:180
 msgid "nothing entered in the address field"
 msgstr "non è stato inserito nulla nel campo dell'indirizzo"
 
-#: web/admin/inc/geo_widget.php:198
+#: web/admin/inc/geo_widget.php:200
 msgid "locating"
 msgstr "localizzazione"
 
-#: web/admin/inc/geo_widget.php:285
+#: web/admin/inc/geo_widget.php:286
 msgid ""
 "The user download interface (see <a href='../'>here</a>), uses geolocation "
 "to suggest possibly matching IdPs to the user. The more precise you define "
@@ -2157,7 +2158,7 @@ msgstr ""
 "più è precisa la posizione che definisci qui, più facilmente gli utenti ti "
 "troveranno."
 
-#: web/admin/inc/geo_widget.php:288
+#: web/admin/inc/geo_widget.php:289
 msgid ""
 "<li>Drag the marker in the map to your place, or</li>\n"
 "<li>enter your street address in the field below for lookup, or</li>\n"
@@ -2167,13 +2168,13 @@ msgstr ""
 "<li>inserisci l'indirizzo nel campo sottostante, o</li>\n"
 "<li>usa il bottone 'Locate Me!'</li>"
 
-#: web/admin/inc/geo_widget.php:293
+#: web/admin/inc/geo_widget.php:294
 msgid "We will use the coordinates as indicated by the marker for geolocation."
 msgstr ""
 "Le coordinate saranno usate come indicato dall'indicatore della "
 "geolocalizzazione"
 
-#: web/admin/inc/geo_widget.php:296
+#: web/admin/inc/geo_widget.php:298
 msgid ""
 "You can enter an <strong>additional</strong> location here. You can see the "
 "already defined locations in the 'General Information' field."
@@ -2181,109 +2182,59 @@ msgstr ""
 "Puoi inserire una posizione <strong>addizionale</strong> qui. Puoi vedere le "
 "posizioni già definite nel campo 'Informazioni generali'."
 
-#: web/admin/inc/geo_widget.php:298
+#: web/admin/inc/geo_widget.php:300
 msgid "Address:"
 msgstr "Indirizzo:"
 
-#: web/admin/inc/geo_widget.php:298
+#: web/admin/inc/geo_widget.php:300
 msgid "Find address"
 msgstr "Trovare l'indirizzo"
 
-#: web/admin/inc/geo_widget.php:298
+#: web/admin/inc/geo_widget.php:300
 msgid "Locate Me!"
 msgstr "Localizzami!"
 
-#: web/admin/inc/geo_widget.php:301
+#: web/admin/inc/geo_widget.php:303
 msgid "Latitude:"
 msgstr "Latitudine:"
 
-#: web/admin/inc/geo_widget.php:301
+#: web/admin/inc/geo_widget.php:303
 msgid "Longitude:"
 msgstr "Longitudine:"
 
-#: web/admin/inc/input_validation.inc.php:19
+#: web/admin/inc/input_validation.inc.php:20
 msgid "Input validation error: "
 msgstr "Errore di validazione dell'input:"
 
-#: web/admin/inc/input_validation.inc.php:26
-#: web/admin/inc/input_validation.inc.php:33
-#, fuzzy
-msgid "This Federation identifier is not accessible!"
-msgstr "L'identificativo dell'Idp non è accessibile!"
-
-#: web/admin/inc/input_validation.inc.php:39
-msgid "Value for IdP is not an integer!"
-msgstr "Il valore dell'Idp non è un intero!"
-
-#: web/admin/inc/input_validation.inc.php:45
-#: web/admin/inc/input_validation.inc.php:53
-msgid "This IdP identifier is not accessible!"
-msgstr "L'identificativo dell'Idp non è accessibile!"
-
-#: web/admin/inc/input_validation.inc.php:61
-msgid "Value for profile is not an integer!"
-msgstr "Il valore del profilo non è un intero!"
-
-#: web/admin/inc/input_validation.inc.php:67
-#: web/admin/inc/input_validation.inc.php:72
-msgid "This profile is not accessible!"
-msgstr "Il profilo non è accessibile!"
-
-#: web/admin/inc/input_validation.inc.php:81
-msgid "This device does not exist!"
-msgstr "Questo dispositivo non esiste!"
-
-#: web/admin/inc/input_validation.inc.php:114
+#: web/admin/inc/input_validation.inc.php:122
 msgid "Realm contains an @ sign!"
 msgstr "Il Realm contiene il segno @!"
 
-#: web/admin/inc/input_validation.inc.php:118
+#: web/admin/inc/input_validation.inc.php:126
 msgid "Realm begins with a . (dot)!"
 msgstr "Il Realm inizia con un . (punto)!"
 
-#: web/admin/inc/input_validation.inc.php:122
+#: web/admin/inc/input_validation.inc.php:130
 msgid "Realm ends with a . (dot)!"
 msgstr "Il Realm finisce con un . (punto)!"
 
-#: web/admin/inc/input_validation.inc.php:126
+#: web/admin/inc/input_validation.inc.php:134
 msgid "Realm does not contain at least one . (dot)!"
 msgstr "Il Realm non contiene almeno un . (punto)!"
 
-#: web/admin/inc/input_validation.inc.php:130
+#: web/admin/inc/input_validation.inc.php:138
 msgid "Realm contains spaces!"
 msgstr "Il Realm contiene spazi!"
 
-#: web/admin/inc/input_validation.inc.php:139
-msgid "The user identifier is not an ASCII string!"
-msgstr "L'identificativo dell'utente non è una stringa ASCII!"
-
-#: web/admin/inc/input_validation.inc.php:148
-msgid "Token is not a hexadecimal string!"
-msgstr "Il token non è una stringa esadecimale!"
-
-#: web/admin/inc/input_validation.inc.php:156
-msgid "Coordinate is not a numeric value!"
-msgstr "Le coordinate non sono in formato numerico!"
-
-#: web/admin/inc/input_validation.inc.php:161
-msgid "Coordinate is out of bounds. Which planet are you from?"
+#: web/admin/inc/input_validation.inc.php:142
+msgid "Realm is empty!"
 msgstr ""
-"Le coordinate sono esterne ai valori ammissibili. Controllare la propria "
-"posizione!"
 
-#: web/admin/inc/input_validation.inc.php:173
+#: web/admin/inc/input_validation.inc.php:197
 msgid "Wrong coordinate encoding!"
 msgstr "Codifica delle coordinate errata!"
 
-#: web/admin/inc/input_validation.inc.php:180
-msgid "Invalid structure in multi-language attribute!"
-msgstr "Struttura dell'attributo multi-lingua non valida!"
-
-#: web/admin/inc/input_validation.inc.php:187
-msgid "Unknown state of boolean option!"
-msgstr "Stato non valido per l'opzione binaria!"
-
-#: web/admin/inc/manageAdmins.inc.php:55
+#: web/admin/inc/manageAdmins.inc.php:56
 msgid ""
 "You do not have the necessary privileges to alter administrators of this "
 "institution. In fact, you shouldn't have come this far!"
@@ -2291,12 +2242,12 @@ msgstr ""
 "Non hai i privilegi necessari per modificare gli amministratori di questo "
 "ente. In effetti, non saresti dovuto arrivare fin qui!"
 
-#: web/admin/inc/manageAdmins.inc.php:87
+#: web/admin/inc/manageAdmins.inc.php:89
 #, php-format
 msgid "Administrators for IdP '%s'"
 msgstr "Amministratori per l'IdP '%s'"
 
-#: web/admin/inc/manageAdmins.inc.php:106
+#: web/admin/inc/manageAdmins.inc.php:110
 msgid ""
 "You are the federation administrator of this IdP. You can invite new "
 "administrators, who can in turn appoint further administrators on their own."
@@ -2305,7 +2256,7 @@ msgstr ""
 "amministratori, che possono a loro volta autonomamente nominare altri "
 "amministratori."
 
-#: web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/inc/manageAdmins.inc.php:116
 msgid ""
 "You are an administrator of this IdP who was directly appointed by the "
 "federation administrator. You can appoint further administrators, but these "
@@ -2315,52 +2266,52 @@ msgstr ""
 "dall'amministratore della federazione. Puoi invitare nuovi amministratori, "
 "ma a loro volta questi non potranno nominare altri amministratori."
 
-#: web/admin/inc/manageAdmins.inc.php:112
+#: web/admin/inc/manageAdmins.inc.php:116
 msgid "Directly Appointed IdP Administrator"
 msgstr "Nominato direttamente Amministratore di IdP "
 
-#: web/admin/inc/manageAdmins.inc.php:125
+#: web/admin/inc/manageAdmins.inc.php:128
 msgid "User without name"
 msgstr "Utente senza nome"
 
-#: web/admin/inc/manageAdmins.inc.php:133
+#: web/admin/inc/manageAdmins.inc.php:137
 #, php-format
 msgid "(originally invited as %s)"
 msgstr "(originariamente invitato come %s)"
 
-#: web/admin/inc/manageAdmins.inc.php:135
+#: web/admin/inc/manageAdmins.inc.php:139
 msgid "(self-appointed)"
 msgstr "(auto-nominato)"
 
-#: web/admin/inc/manageAdmins.inc.php:141
+#: web/admin/inc/manageAdmins.inc.php:146
 msgid "Delete Administrator"
 msgstr "Cancella l'Amministratore"
 
-#: web/admin/inc/manageAdmins.inc.php:154
-#: web/admin/inc/manageDBLink.inc.php:161
+#: web/admin/inc/manageAdmins.inc.php:160
+#: web/admin/inc/manageDBLink.inc.php:182
 msgid "Pending invitations for this IdP"
 msgstr "Inviti pendenti per questo IdP"
 
-#: web/admin/inc/manageAdmins.inc.php:163
+#: web/admin/inc/manageAdmins.inc.php:170
 #, fuzzy
 msgid "New administrator's email address(es) (comma-separated):"
 msgstr "Nuovo indirizzo email dell'amministratore"
 
-#: web/admin/inc/manageAdmins.inc.php:163
+#: web/admin/inc/manageAdmins.inc.php:170
 msgid "Invite new administrator"
 msgstr "Invita un nuovo amministratore"
 
-#: web/admin/inc/manageAdmins.inc.php:175
+#: web/admin/inc/manageAdmins.inc.php:184
 msgid "Take control of this institution"
 msgstr "Prendi il controllo di questa organizzazione"
 
-#: web/admin/inc/manageAdmins.inc.php:181
-#: web/admin/inc/manageDBLink.inc.php:172
-#: web/admin/inc/manageNewInst.inc.php:117
+#: web/admin/inc/manageAdmins.inc.php:191
+#: web/admin/inc/manageDBLink.inc.php:194
+#: web/admin/inc/manageNewInst.inc.php:121
 msgid "Close"
 msgstr "Chiudi"
 
-#: web/admin/inc/manageDBLink.inc.php:42
+#: web/admin/inc/manageDBLink.inc.php:44
 #, php-format
 msgid ""
 "You do not have the necessary privileges to manage the %s DB link state of "
@@ -2369,52 +2320,52 @@ msgstr ""
 "Non hai i privilegi necessari per gestire lo stato del DB link di %s per "
 "questa organizzazione."
 
-#: web/admin/inc/manageDBLink.inc.php:64
+#: web/admin/inc/manageDBLink.inc.php:67
 #, php-format
 msgid "%s Database Link Status for IdP '%s'"
 msgstr "Lo stato del Database Link di %s per l'IdP '%s'"
 
-#: web/admin/inc/manageDBLink.inc.php:71
+#: web/admin/inc/manageDBLink.inc.php:74
 #, php-format
 msgid "This institution is linked to the %s database."
 msgstr "Questa organizzazione è linkata al database di %s."
 
-#: web/admin/inc/manageDBLink.inc.php:72
+#: web/admin/inc/manageDBLink.inc.php:75
 #, php-format
 msgid ""
 "The following information about the IdP is stored in the %s DB and %s DB:"
 msgstr ""
 "Le seguenti informazioni sull'IdP sono conservate nel DB %s  e nel DB %s:"
 
-#: web/admin/inc/manageDBLink.inc.php:73
+#: web/admin/inc/manageDBLink.inc.php:76
 #, php-format
 msgid "Information in <strong>%s Database</strong>"
 msgstr "Informazioni nel <strong>Database %s</strong>"
 
-#: web/admin/inc/manageDBLink.inc.php:86
-#: web/admin/inc/manageDBLink.inc.php:105
+#: web/admin/inc/manageDBLink.inc.php:90
+#: web/admin/inc/manageDBLink.inc.php:116
 #, php-format
 msgid "Institution Name (%s)"
 msgstr "Nome dell'Organizzazione (%s)"
 
-#: web/admin/inc/manageDBLink.inc.php:95
+#: web/admin/inc/manageDBLink.inc.php:99
 msgid "Unnamed User"
 msgstr "Utente senza nome"
 
-#: web/admin/inc/manageDBLink.inc.php:96
+#: web/admin/inc/manageDBLink.inc.php:101
 msgid "Administrator [invited as]"
 msgstr "Amministratore [come invitato]"
 
-#: web/admin/inc/manageDBLink.inc.php:107
+#: web/admin/inc/manageDBLink.inc.php:119
 msgid "Administrator email"
 msgstr "email dell'Amministratore"
 
-#: web/admin/inc/manageDBLink.inc.php:113
+#: web/admin/inc/manageDBLink.inc.php:126
 #, php-format
 msgid "This institution is not yet linked to the %s database."
 msgstr "Questa organizzazione non è ancora linkata nel database %s."
 
-#: web/admin/inc/manageDBLink.inc.php:114
+#: web/admin/inc/manageDBLink.inc.php:127
 msgid ""
 "This means that its profiles are not made available on the user download "
 "page."
@@ -2422,12 +2373,12 @@ msgstr ""
 "Questo significa che i tuoi profili non saranno resi disponibili sulla "
 "pagina di download per l'utente."
 
-#: web/admin/inc/manageDBLink.inc.php:115
+#: web/admin/inc/manageDBLink.inc.php:128
 #, php-format
 msgid "You can link it to the %s database below."
 msgstr "Puoi collegarti al database %s quì sotto."
 
-#: web/admin/inc/manageDBLink.inc.php:118
+#: web/admin/inc/manageDBLink.inc.php:131
 #, php-format
 msgid ""
 "Please select an entity from the %s DB which corresponds to this CAT "
@@ -2435,7 +2386,7 @@ msgid ""
 msgstr ""
 "Selezionare una entità dal DB %s che corrisponda a questa organizzazione CAT."
 
-#: web/admin/inc/manageDBLink.inc.php:120
+#: web/admin/inc/manageDBLink.inc.php:133
 #, php-format
 msgid ""
 "Particularly promising entries (names in CAT and %s DB are a 100%% match) "
@@ -2444,33 +2395,33 @@ msgstr ""
 "I record particolarmente promettenti (nomi in CAT e nel DB %s sono un match "
 "al 100%%) sono in cima alla lista."
 
-#: web/admin/inc/manageDBLink.inc.php:121
+#: web/admin/inc/manageDBLink.inc.php:136
 msgid "Link to this entity?"
 msgstr "Collegarsi a questa entità?"
 
-#: web/admin/inc/manageDBLink.inc.php:121
+#: web/admin/inc/manageDBLink.inc.php:136
 msgid "Name of the institution"
 msgstr "Nome dell'Organizzazione"
 
-#: web/admin/inc/manageDBLink.inc.php:121
+#: web/admin/inc/manageDBLink.inc.php:136
 msgid "Administrators"
 msgstr "Amministratori"
 
-#: web/admin/inc/manageDBLink.inc.php:152
+#: web/admin/inc/manageDBLink.inc.php:172
 msgid "Create Link"
 msgstr "Crea un Link"
 
-#: web/admin/inc/manageNewInst.inc.php:41
+#: web/admin/inc/manageNewInst.inc.php:42
 #, php-format
 msgid "You do not have the necessary privileges to register new IdPs."
 msgstr "Non possiedi i privilegi necessari per registrare nuovi idP."
 
-#: web/admin/inc/manageNewInst.inc.php:48
+#: web/admin/inc/manageNewInst.inc.php:49
 #, php-format
 msgid "%s - Register New Institution"
 msgstr "%s - Registra una nuova Organizzazione"
 
-#: web/admin/inc/manageNewInst.inc.php:51
+#: web/admin/inc/manageNewInst.inc.php:52
 msgid ""
 "On this page, you can add new institutions to your federation. Please fill "
 "out the form below to send out an email invitation to the new institution's "
@@ -2480,7 +2431,7 @@ msgstr ""
 "Riempire il modulo sottostante per spedire un invito all'amministratore "
 "della nuova Organizzazione."
 
-#: web/admin/inc/manageNewInst.inc.php:53
+#: web/admin/inc/manageNewInst.inc.php:54
 #, php-format
 msgid ""
 "You can either register a known IdP (as defined in the %s database) or "
@@ -2489,7 +2440,7 @@ msgstr ""
 "Puoi indifferentemente registrare un IdP noto (come definito nel database "
 "%s) o creare un idP totalmente nuovo."
 
-#: web/admin/inc/manageNewInst.inc.php:54
+#: web/admin/inc/manageNewInst.inc.php:55
 #, php-format
 msgid ""
 "The latter one is typically for institutions which are yet in a testing "
@@ -2498,7 +2449,7 @@ msgstr ""
 "L'ultimo è tipicamente per le Organizzazioni che sono ancora in una fase di "
 "test e perciò non appaiono ancora nel database %s."
 
-#: web/admin/inc/manageNewInst.inc.php:55
+#: web/admin/inc/manageNewInst.inc.php:56
 #, php-format
 msgid ""
 "Please keep in mind that any profiles of such new institutions will only be "
@@ -2510,59 +2461,59 @@ msgstr ""
 "collegato ad una entità nel database %s (ma è non di meno pienamente "
 "funzionante)"
 
-#: web/admin/inc/manageNewInst.inc.php:64
+#: web/admin/inc/manageNewInst.inc.php:65
 msgid "Existing IdP:"
 msgstr "IdP esistenti:"
 
-#: web/admin/inc/manageNewInst.inc.php:69
+#: web/admin/inc/manageNewInst.inc.php:70
 msgid "--- select IdP here ---"
 msgstr "--- seleziona l'IdP qui ---"
 
-#: web/admin/inc/manageNewInst.inc.php:87
+#: web/admin/inc/manageNewInst.inc.php:88
 msgid "New IdP"
 msgstr "Nuovo IdP"
 
-#: web/admin/inc/manageNewInst.inc.php:90
+#: web/admin/inc/manageNewInst.inc.php:91
 msgid "Name"
 msgstr "Nome"
 
-#: web/admin/inc/manageNewInst.inc.php:92
+#: web/admin/inc/manageNewInst.inc.php:93
 msgid "Federation"
 msgstr "Federazione"
 
-#: web/admin/inc/manageNewInst.inc.php:108
+#: web/admin/inc/manageNewInst.inc.php:112
 msgid "Administrator's E-Mail:"
 msgstr "E-Mail del responsabile"
 
-#: web/admin/inc/manageNewInst.inc.php:113
+#: web/admin/inc/manageNewInst.inc.php:117
 msgid "Send invitation"
 msgstr "Manda l'invito"
 
-#: web/admin/inc/option_html.inc.php:116
+#: web/admin/inc/option_html.inc.php:152
 msgid "select language"
 msgstr "seleziona la lingua"
 
-#: web/admin/inc/option_html.inc.php:158
+#: web/admin/inc/option_html.inc.php:199
 msgid "(default/other languages)"
 msgstr "(default/altre lingue)"
 
-#: web/admin/inc/option_html.inc.php:173
+#: web/admin/inc/option_html.inc.php:213
 msgid "Click to see location"
 msgstr "Clicca per vedere la posizione"
 
-#: web/admin/inc/option_html.inc.php:190
+#: web/admin/inc/option_html.inc.php:230
 msgid "file content"
 msgstr "contenuto del file"
 
 #. / number of times attribute is present, and its name
 #. / Example: "5x Support E-Mail"
-#: web/admin/inc/option_parse.inc.php:247
-#: web/admin/inc/option_parse.inc.php:251
+#: web/admin/inc/option_parse.inc.php:101
+#: web/admin/inc/option_parse.inc.php:106
 #, php-format
 msgid "%dx %s"
 msgstr "%dx %s"
 
-#: web/admin/inc/option_parse.inc.php:255
+#: web/admin/inc/option_parse.inc.php:111
 #, php-format
 msgid ""
 "You did not set a 'default language' value for %s. This means we can only "
@@ -2588,7 +2539,7 @@ msgstr "Invito mandato a:"
 msgid "Mail address to invite:"
 msgstr "Indirizzo email da invitare:"
 
-#: web/admin/inc/sendinvite.inc.php:30
+#: web/admin/inc/sendinvite.inc.php:33
 msgid ""
 "Something's wrong... you want to create a new institution, but are not a "
 "federation admin for the federation it should be in!"
@@ -2596,7 +2547,7 @@ msgstr ""
 "Qualcosa è sbagliato... vuoi creare una nuova organizzazione, ma non sei "
 "amministratore di federazione per la federazione in cui dovrebbe essere!"
 
-#: web/admin/inc/sendinvite.inc.php:68
+#: web/admin/inc/sendinvite.inc.php:75
 msgid ""
 "Something's wrong... you are a federation admin, but not for the federation "
 "the requested institution belongs to!"
@@ -2604,7 +2555,7 @@ msgstr ""
 "C'è qualcosa di sbagliato... tu sei un admin di federazione, ma non per la "
 "federazione a cui l'organizzazione richiesta appartiene."
 
-#: web/admin/inc/sendinvite.inc.php:75
+#: web/admin/inc/sendinvite.inc.php:82
 #, php-format
 msgid ""
 "an administrator of the %s Identity Provider \"%s\" has invited you to "
@@ -2613,31 +2564,31 @@ msgstr ""
 "un amministratore del %s Identity Provider \"%s\" ti ha invitato a gestire "
 "l'Idp insieme a lui"
 
-#: web/admin/inc/sendinvite.inc.php:75 web/admin/inc/sendinvite.inc.php:87
-#: web/admin/inc/sendinvite.inc.php:111
+#: web/admin/inc/sendinvite.inc.php:82 web/admin/inc/sendinvite.inc.php:94
+#: web/admin/inc/sendinvite.inc.php:122
 #, php-format
 msgid "This invitation is valid for 24 hours from now, i.e. until %s."
 msgstr "Questo invito  è valido 24 ore da ora, es. fino a %s"
 
-#: web/admin/inc/sendinvite.inc.php:87
+#: web/admin/inc/sendinvite.inc.php:94
 #, php-format
 msgid "a %s operator has invited you to manage the future IdP  \"%s\" (%s)."
 msgstr "un operatore %s ti ha invitato a gestire il futuro IdP \"%s\" (%s)."
 
-#: web/admin/inc/sendinvite.inc.php:111
+#: web/admin/inc/sendinvite.inc.php:122
 #, php-format
 msgid "a %s operator has invited you to manage the IdP  \"%s\"."
 msgstr "un operatore %s ti ha invitato a gestire l'IdP \"%s\"."
 
-#: web/admin/inc/sendinvite.inc.php:131
+#: web/admin/inc/sendinvite.inc.php:143
 msgid "Hello,"
 msgstr "Salve,"
 
-#: web/admin/inc/sendinvite.inc.php:140
+#: web/admin/inc/sendinvite.inc.php:152
 msgid "Additional message from your federation administrator:"
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:149
+#: web/admin/inc/sendinvite.inc.php:162
 msgid ""
 "To enlist as an administrator for that IdP, please click on the following "
 "link:"
@@ -2645,7 +2596,7 @@ msgstr ""
 "Per diventare amministratore di questo IdP, si prega di usare il seguente "
 "link:"
 
-#: web/admin/inc/sendinvite.inc.php:153
+#: web/admin/inc/sendinvite.inc.php:166
 #, php-format
 msgid ""
 "If clicking the link doesn't work, you can also go to the %s Administrator "
@@ -2654,35 +2605,35 @@ msgstr ""
 "Se il link non funziona, raggiungere la interfaccia di amministrazione di %s "
 "al seguente indirizzo "
 
-#: web/admin/inc/sendinvite.inc.php:158
+#: web/admin/inc/sendinvite.inc.php:171
 msgid "and enter the invitation token"
 msgstr "e inserire il seguente codice"
 
-#: web/admin/inc/sendinvite.inc.php:161
+#: web/admin/inc/sendinvite.inc.php:174
 msgid ""
 "manually. If you reply to this mail, you will reach the federation "
 "administrators of your federation."
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:162
+#: web/admin/inc/sendinvite.inc.php:175
 #, fuzzy
 msgid ""
 "manually. Please do not reply to this mail; this is a send-only address."
 msgstr ""
 "Si prega di non rispondere a questa mail, è un sistema di invio automatico"
 
-#: web/admin/inc/sendinvite.inc.php:164
+#: web/admin/inc/sendinvite.inc.php:177
 msgid ""
 "Do NOT forward the mail before the token has expired - or the recipients may "
 "be able to consume the token on your behalf!"
 msgstr ""
 
-#: web/admin/inc/sendinvite.inc.php:166
+#: web/admin/inc/sendinvite.inc.php:179
 #, php-format
 msgid "We wish you a lot of fun with the %s."
 msgstr "Vi auguriamo buon divertimento con %s"
 
-#: web/admin/inc/sendinvite.inc.php:168
+#: web/admin/inc/sendinvite.inc.php:181
 #, php-format
 msgid ""
 "Sincerely,\n"
@@ -2693,40 +2644,110 @@ msgstr ""
 "\n"
 "I tuoi amici da %s Operations"
 
-#: web/admin/inc/sendinvite.inc.php:208
+#: web/admin/inc/sendinvite.inc.php:211
 #, php-format
 msgid "%s: you have been invited to manage an IdP"
 msgstr "%s: sei stato invitato a gestire un IdP"
 
-#: web/admin/inc/toggleRedirect.inc.php:59
-msgid ""
-"This page needs to be called either for EAP-Types OR for devices, not both "
-"simultaneously!"
-msgstr ""
-"Questa pagina deve essere richiamata sia per EAP-Types che per dispositivi, "
-"ma non contemporaneamente!"
-
-#: web/admin/inc/toggleRedirect.inc.php:66
-msgid ""
-"This page needs to be called either for EAP-Types OR for devices, but none "
-"of the two were set!"
-msgstr ""
-"Questa pagina viene caricata configurare per qualsiasi  tipo di EAP o "
-"dispositivo, ma nessuno dei due è impostato."
-
-#: web/admin/inc/toggleRedirect.inc.php:88
+#: web/admin/inc/toggleRedirect.inc.php:96
 #, php-format
 msgid "device <strong>%s</strong>"
 msgstr "dispositivo <strong>%s</strong>"
 
-#: web/admin/inc/toggleRedirect.inc.php:94
+#: web/admin/inc/toggleRedirect.inc.php:107
 #, php-format
 msgid "EAP-Type <strong>%s</strong>"
 msgstr "EAP-Type <strong>%s</strong>"
 
-#: web/admin/inc/toggleRedirect.inc.php:100
+#: web/admin/inc/toggleRedirect.inc.php:113
 msgid "Fine-tuning options for "
 msgstr "Opzioni di rifinitura per "
+
+#~ msgid "EAP details for all users"
+#~ msgstr "Dettagli EAP per tutti gli utenti"
+
+#~ msgid ""
+#~ "Most EAP methods need server-side authentication details, like the CA "
+#~ "certificate and/or server name(s) of your authentication servers. If all "
+#~ "the EAP methods you support work with the same CA and or Common Names of "
+#~ "servers, you can enter them here and they will be added as trust anchors "
+#~ "in all profiles. If the details differ per profile or per EAP-type, you "
+#~ "can also enter them in the individual profiles later."
+#~ msgstr ""
+#~ "Molti metodi EAP richiedono i dettagli dell'autenticazione lato server "
+#~ "come ad esempio il certificato CA e/o i server name dei tuoi server di "
+#~ "autenticazione. Se tutti i metodi EAP che supporti usano la stessa CA e/o "
+#~ "gli stessi Common Name dei server, puoi inserirli qui e  saranno aggiunti "
+#~ "come trust anchor in tutti i profili. Se i dettagli differiscono da "
+#~ "profilo a profilo o in base al tipo EAP, puoi anche inserirli in ogni "
+#~ "profilo più avanti."
+
+#~ msgid ""
+#~ "<strong>Note well: </strong>The server-side validation is a cornerstone "
+#~ "of %s; without it, users are subject to man-in-the-middle attacks! We "
+#~ "will not generate site installers without Trusted CA anchors and server "
+#~ "names."
+#~ msgstr ""
+#~ "<strong>Nota bene: </strong> La verifica del server è fondamentale per "
+#~ "%s; senza di essi l'utente è esposto ad attacchi di tipo man-in-the-"
+#~ "middle. Non saranno generati programmi di installazione senza l'utilizzo "
+#~ "di TRUSTED CA e server names."
+
+#~ msgid "Global EAP Options"
+#~ msgstr "Opzioni globali EAP"
+
+#, fuzzy
+#~ msgid "This Federation identifier is not accessible!"
+#~ msgstr "L'identificativo dell'Idp non è accessibile!"
+
+#~ msgid "Value for IdP is not an integer!"
+#~ msgstr "Il valore dell'Idp non è un intero!"
+
+#~ msgid "This IdP identifier is not accessible!"
+#~ msgstr "L'identificativo dell'Idp non è accessibile!"
+
+#~ msgid "Value for profile is not an integer!"
+#~ msgstr "Il valore del profilo non è un intero!"
+
+#~ msgid "This profile is not accessible!"
+#~ msgstr "Il profilo non è accessibile!"
+
+#~ msgid "This device does not exist!"
+#~ msgstr "Questo dispositivo non esiste!"
+
+#~ msgid "The user identifier is not an ASCII string!"
+#~ msgstr "L'identificativo dell'utente non è una stringa ASCII!"
+
+#~ msgid "Token is not a hexadecimal string!"
+#~ msgstr "Il token non è una stringa esadecimale!"
+
+#~ msgid "Coordinate is not a numeric value!"
+#~ msgstr "Le coordinate non sono in formato numerico!"
+
+#~ msgid "Coordinate is out of bounds. Which planet are you from?"
+#~ msgstr ""
+#~ "Le coordinate sono esterne ai valori ammissibili. Controllare la propria "
+#~ "posizione!"
+
+#~ msgid "Invalid structure in multi-language attribute!"
+#~ msgstr "Struttura dell'attributo multi-lingua non valida!"
+
+#~ msgid "Unknown state of boolean option!"
+#~ msgstr "Stato non valido per l'opzione binaria!"
+
+#~ msgid ""
+#~ "This page needs to be called either for EAP-Types OR for devices, not "
+#~ "both simultaneously!"
+#~ msgstr ""
+#~ "Questa pagina deve essere richiamata sia per EAP-Types che per "
+#~ "dispositivi, ma non contemporaneamente!"
+
+#~ msgid ""
+#~ "This page needs to be called either for EAP-Types OR for devices, but "
+#~ "none of the two were set!"
+#~ msgstr ""
+#~ "Questa pagina viene caricata configurare per qualsiasi  tipo di EAP o "
+#~ "dispositivo, ma nessuno dei due è impostato."
 
 #~ msgid ""
 #~ "Due to OpenSSL limitations, it is not possible to check IPv6 addresses at "

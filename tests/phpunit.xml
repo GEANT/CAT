@@ -5,16 +5,22 @@
       <directory>unit</directory>
     </testsuite>
     <testsuite name="View">
-      <directory>unit/lib/view</directory>
+      <directory>unit/web/lib/admin/view</directory>
     </testsuite>
     <testsuite name="Html">
-      <directory>unit/lib/view/html</directory>
+      <directory>unit/web/lib/admin/view/html</directory>
     </testsuite>
     <testsuite name="Autoloader">
       <directory>unit/core/autoloader</directory>
     </testsuite>
     <testsuite name="Domain">
-      <directory>unit/lib/domain</directory>
+      <directory>unit/web/lib/admin/domain</directory>
     </testsuite>
+    <testsuite name="Utils">
+      <directory>unit/web/lib/admin/utils</directory></testsuite>
+    <testsuite name="Storage">
+      <directory>unit/web/lib/admin/storage</directory></testsuite>
+    <testsuite name="Http">
+      <directory>unit/web/lib/admin/http</directory></testsuite>
   </testsuites>
 </phpunit>

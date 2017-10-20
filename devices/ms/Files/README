@@ -1,17 +1,42 @@
 This directory contains additional files for Windows installer modules.
 
-arnes_link.inc - installer code for ArnesLink TTLS
-EAP-PWD.msi - PWD installer supplied by Aruba
-cat_bg.bmp - defualt background
-common.inc - common NSIS code for all modules but XP
-dump_arneslink_profile.cmd - dump profile file for SSID replacement
-eap_w8.inc - W8 specific code
-GPL3.rtf - GPLv3 license text
-cat_150.bmp - CAT header
-cat32.ico - EXE icon
-install_wired.cmd - install wired profile
-install_arneslink_profile.cmd - replace SSID and reinstall wireless profile
-peap_tls.inc - PEAP/TLS code for Vista/W7 installers
-pwd.inc - EAP-PWD code (calling Aruba installer)
-setEAPCred.exe - user credentials installer supplied by Gareth Ayres 
-wlan_test.exe - utility for checking wireless status of Windows
+  README - you are reading it now
+
+Varous utilities to be included in the installer code:
+  GEANTLink - GIT submodule link to the GEANTLink binary
+  WLANSetEAPUserData - EAP credential loading utility from https://github.com/rozmansi/WLANSetEAPUserData
+  Aruba_Networks_EAP-pwd_x32.msi - EAP-pwd installer binary in 32 bit version
+  Aruba_Networks_EAP-pwd_x64.msi - EAP-pwd installer binary in 64 bit version
+  check_wired.cmd - utility to check status of wired 802.1X subsystem
+  wlan_test.exe - utility for checking wireless status of Windows
+  install_wired.cmd - install wired profile - a wrappr around netsh
+
+Graphics:
+  cat32.ico - CAT EXE icon
+  cat_150.bmp - CAT header image
+  cat_bg.bmp - default background
+
+The NSIS code
+   base64.nsh - NSIS module for base64 encoding/decoding (for license, see inline)
+   common.inc - common NSIS code for all modules
+   eap_w8.inc - W8 and higher specific code
+   geant_link.inc - NSIS code snippet for inclusion of GEANTLink
+   peap_tls.inc - PEAP/TLS code for Vista/W7 installers
+   pwd.inc - EAP-PWD code (calling Aruba installer)
+
+
+Some explanation about constnts used in the NSIS code (not full)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  DEBUG_CAT - turn on the debugging messages code - this one is set manually in the code
+
+The constants below are set byt the Windows module when it generates the actual installer
+
+  WIRED - install things for wired interfaces as well
+  CRED - turn on the credentials installation code
+  PASSWORD_BASED_CRED - username/password based credentials like PAP od MSCHAPv2
+  TLS_CRED - credenials based on certificate
+  SILVERBULLET - use the SilverBullet instalation specifics
+  SB_FINGERPRINT - SilverBullet user certificate SHA-1 fingerprint
+  SB_USERNAME - SilverBullet username
+

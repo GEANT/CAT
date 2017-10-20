@@ -1,21 +1,16 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-
-require_once("UserManagement.php");
-require_once("CAT.php");
-require_once("ProfileFactory.php");
-require_once("AbstractProfile.php");
-require_once("inc/input_validation.inc.php");
-require_once("inc/option_parse.inc.php");
-require_once("inc/common.inc.php");
 
 // no SAML auth on this page. The API key authenticates the entity
 
@@ -30,15 +25,29 @@ define("ERROR_INVALID_ACTION", 7);
 $checkval = "FAIL";
 $mode = "API";
 
+$validator = new \web\lib\common\InputValidation();
+$optionParser = new \web\lib\admin\OptionParser();
+
 function return_error($code, $description) {
     echo "<CAT-API-Response>\n";
     echo "  <error>\n    <code>" . $code . "</code>\n    <description>$description</description>\n  </error>\n";
     echo "</CAT-API-Response>\n";
 }
 
+function cmpSequenceNumber($left, $right) {
+        $pat = "/^S([0-9]+)(-.*)?$/";
+        $rep = "$1";
+        $leftNum = (int) preg_replace($pat, $rep, $left);
+        $rightNum = (int) preg_replace($pat, $rep, $right);
+        return ($left != $leftNum && $right != $rightNum) ?
+                $leftNum - $rightNum :
+                strcmp($left, $right);
+    }
+
+    
 echo "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n";
 
-if (!isset(CONFIG['CONSORTIUM']['registration_API_keys']) || count(CONFIG['CONSORTIUM']['registration_API_keys']) == 0) {
+if (!isset(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) || count(CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys']) == 0) {
     return_error(ERROR_API_DISABLED, "API is disabled in this instance of CAT");
     exit(1);
 }
@@ -48,7 +57,7 @@ if (!isset($_POST['APIKEY'])) {
     exit(1);
 }
 
-foreach (CONFIG['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
+foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['registration_API_keys'] as $key => $fed_name) {
     if ($_POST['APIKEY'] == $key) {
         $mode = "API";
         $federation = $fed_name;
@@ -68,7 +77,7 @@ if (!isset($_POST['ACTION'])) {
     exit(1);
 }
 
-$sanitised_action = valid_string_db($_POST['ACTION']);
+$sanitised_action = $validator->string($_POST['ACTION']);
 
 switch ($sanitised_action) {
     case 'NEWINST':
@@ -79,12 +88,12 @@ switch ($sanitised_action) {
             exit(1);
         }
         // alright: create the IdP, fill in attributes
-        $mgmt = new UserManagement();
-        $fed = new Federation($federation);
-        $idp = new IdP($fed->newIdP("PENDING", "API", valid_string_db($_POST['NEWINST_PRIMARYADMIN'])));
+        $mgmt = new \core\UserManagement();
+        $fed = new \core\Federation($federation);
+        $idp = new \core\IdP($fed->newIdP("PENDING", "API", $validator->string($_POST['NEWINST_PRIMARYADMIN'])));
 
         // ensure seq. number asc. order for options (S1, S2...)
-        uksort($_POST['option'], "cmpSequenceNumber");
+        uksort($_POST['option'], ["cmpSequenceNumber"]);
 
         $instWideOptions = $_POST;
         foreach ($instWideOptions['option'] as $optindex => $optname) {
@@ -93,11 +102,11 @@ switch ($sanitised_action) {
             }
         }
         // now process all inst-wide options    
-        processSubmittedFields($idp, $instWideOptions, $_FILES, [], 0, 0, TRUE);
+        $optionParser->processSubmittedFields($idp, $instWideOptions, $_FILES, 0, "");
         // same thing for profile options
         $profileWideOptions = $_POST;
         foreach ($profileWideOptions['option'] as $optindex => $optname) {
-            if (!preg_match("/^profile:/", $optname) || $optname == "profile:QR-user") {
+            if (!preg_match("/^profile:/", $optname)) {
                 unset($profileWideOptions['option'][$optindex]);
             }
         }
@@ -109,52 +118,37 @@ switch ($sanitised_action) {
             $therealm = "";
             $theanonid = "anonymous";
             $useAnon = FALSE;
+            $stringValuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_STRING, FILTER_REQUIRE_ARRAY);
+            $intValuesFiltered = filter_input(INPUT_POST,'value', FILTER_SANITIZE_NUMBER_INT, FILTER_REQUIRE_ARRAY);
+            $pref = 0;
             foreach ($_POST['option'] as $optindex => $optname) {
                 switch ($optname) {
                     case "profile-api:anon":
-                        if (isset($_POST['value'][$optindex . "-0"])) {
-                            $theanonid = valid_string_db($_POST['value'][$optindex . "-0"]);
+                        // I rather work directly with _POST, but some code 
+                        // paths trigger Scrutinizer's security warnings
+                        // so relying on the pre-filtered input for those places
+                        if (array_key_exists($optindex . "-0", $stringValuesFiltered)) {
+                            $theanonid = $validator->string($stringValuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:realm":
-                        if (isset($_POST['value'][$optindex . "-0"]) && valid_Realm($_POST['value'][$optindex . "-0"])) {
-                            $therealm = $_POST['value'][$optindex . "-0"];
+                        if (array_key_exists($optindex . "-0", $stringValuesFiltered)) {
+                            $therealm = $validator->realm($stringValuesFiltered[$optindex . "-0"]);
                         }
                         break;
                     case "profile-api:useanon":
-                        if (isset($_POST['value'][$optindex . "-3"]) && valid_boolean($_POST['value'][$optindex . "-3"]) == "on") {
+                        if (isset($_POST['value'][$optindex . "-3"]) && $validator->boolean($_POST['value'][$optindex . "-3"]) === TRUE) {
                             $useAnon = TRUE;
                         }
                         break;
                     case "profile-api:eaptype":
-                        $pref = 0;
-                        if (isset($_POST['value'][$optindex . "-0"]) &&
-                                is_numeric($_POST['value'][$optindex . "-0"]) &&
-                                $_POST['value'][$optindex . "-0"] >= 1 &&
-                                $_POST['value'][$optindex . "-0"] <= 7) {
-                            switch ($_POST['value'][$optindex . "-0"]) {
-                                case 1:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_PAP, $pref);
-                                    break;
-                                case 2:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_PEAP_MSCHAP2, $pref);
-                                    break;
-                                case 3:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TLS, $pref);
-                                    break;
-                                case 4:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_FAST_GTC, $pref);
-                                    break;
-                                case 5:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_GTC, $pref);
-                                    break;
-                                case 6:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_TTLS_MSCHAP2, $pref);
-                                    break;
-                                case 7:
-                                    $newprofile->addSupportedEapMethod(EAPTYPE_PWD, $pref);
-                                    break;
+                        
+                        if (isset($intValuesFiltered[$optindex . "-0"])) {
+                            $filteredType = $intValuesFiltered[$optindex . "-0"];
+                            if ($filteredType <0 || $filteredType >8) {
+                                break;
                             }
+                            $newprofile->addSupportedEapMethod(new \core\common\EAP($filteredType), $pref);
                             $pref = $pref + 1;
                         }
                         break;
@@ -173,7 +167,7 @@ switch ($sanitised_action) {
             $profile->prepShowtime();
         }
         // generate the token
-        $newtoken = $mgmt->createToken(true, valid_string_db($_POST['NEWINST_PRIMARYADMIN']), $idp);
+        $newtoken = $mgmt->createToken(true, $validator->string($_POST['NEWINST_PRIMARYADMIN']), $idp);
         // and send it back to the caller
         $URL = "https://" . $_SERVER['SERVER_NAME'] . dirname($_SERVER['SCRIPT_NAME']) . "/action_enrollment.php?token=$newtoken";
         echo "<CAT-API-Response>\n";
@@ -186,8 +180,8 @@ switch ($sanitised_action) {
             return_error(ERROR_MISSING_PARAMETER, "Parameter missing (INST_IDENTIFIER)");
             exit(1);
         }
-        $wannabeidp = valid_IdP($_POST['INST_IDENTIFIER']);
-        if (!$wannabeidp instanceof IdP) {
+        $wannabeidp = $validator->IdP($_POST['INST_IDENTIFIER']);
+        if (!$wannabeidp instanceof \core\IdP) {
             return_error(ERROR_INVALID_PARAMETER, "Parameter invalid (INST_IDENTIFIER)");
             exit(1);
         }

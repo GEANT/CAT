@@ -1,8 +1,12 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 ?>
 <?php
 // error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
@@ -15,17 +19,16 @@
  * 
  */
 include(dirname(dirname(__FILE__)) . "/config/_config.php");
-require_once("UserAPI.php");
-require_once("Logging.php");
-$loggerInstance = new Logging();
+$loggerInstance = new \core\common\Logging();
+$langObject = new \core\common\Language();
+$cat = new \core\CAT();
 $loggerInstance->debug(4, "\n----------------------------------TOU.PHP------------------------\n");
 ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo CAT::get_lang() ?>">
-    <head lang="<?php echo CAT::get_lang() ?>"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="<?php echo $langObject->getLang() ?>">
+    <head lang="<?php echo $langObject->getLang() ?>"> 
         <title><?php echo CONFIG['APPEARANCE']['productname_long']; ?></title>
-        <link media="only screen and (max-device-width: 480px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic.css.php" type= "text/css" rel="stylesheet" />
-        <link media="only screen and (min-device-width: 481px)" href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat-basic-large.css" type= "text/css" rel="stylesheet" />
+        <link href="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/css/cat.css.php" type= "text/css" rel="stylesheet" />
         <meta charset="utf-8" /> 
         <script type="text/javascript">
             function showTOU() {
@@ -36,25 +39,31 @@ $loggerInstance->debug(4, "\n----------------------------------TOU.PHP----------
         </script>
 
     </head>
-    <body style="">
+    <body style='background: #fff url(resources/images/bg_grey_tile.png) repeat-x;'>
         <img src="<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/resources/images/consortium_logo.png" style="padding-right:20px; padding-top:20px; float:right" alt="logo" />
-        <?php
-        print '<div id="motd">' . ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . '</div>';
 
-        print '<h1><a href="' . dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . CAT::get_lang() . '">' . CONFIG['APPEARANCE']['productname'] . '</a></h1>';
-        print '<div id="tou">';
-        include("user/tou.php");
-        print '</div>';
+        <div id="motd"><?php print ( isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp'); ?></div>
 
-// this variable gets set during "make distribution" only
-        $RELEASE = "THERELEASE";
-        echo "" . CONFIG['APPEARANCE']['productname'] . " - ";
-        if ($RELEASE != "THERELEASE") {
-            echo sprintf(_("Release %s"), $RELEASE);
-        } else {
-            echo _("Unreleased SVN Revision");
-        }
-        echo " &copy; 2011-16 DANTE Ltd., GEANT Ltd. on behalf of the GN3, GN3plus, GN4-1 and GN4-2 consortia</div>";
-        ?>
+        <h1><a href="<?php echo dirname($_SERVER['SCRIPT_NAME']) . '?lang=' . $langObject->getLang(); ?>"><?php echo CONFIG['APPEARANCE']['productname']; ?></a></h1>
+        <div id="tou">
+            <?php
+            include("user/tou.php");
+            ?>
+        </div>
+        <div>
+            <table style='width:100%'>
+                <tr>
+                    <td style='padding-left:20px; padding-right:20px; text-align:left; vertical-align:top;'>
+                        <?php echo $cat->CAT_COPYRIGHT; ?>
+                    </td>
+                    <td style='padding-left:80px; padding-right:20px; text-align:right; vertical-align:top;'>
+                        <?php
+                        $deco = new \web\lib\admin\PageDecoration();
+                        echo $deco->attributionEurope();
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

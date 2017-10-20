@@ -1,11 +1,13 @@
 <?php
 
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
-?>
-<?php
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 
 /**
  * This file contains the DBConnection singleton.
@@ -15,7 +17,12 @@
  * 
  * @package Developer
  */
-require_once('Logging.php');
+
+namespace core;
+
+use \Exception;
+
+require_once(dirname(__DIR__) . "/config/_config.php");
 
 /**
  * This class is a singleton for establishing a connection to the database
@@ -34,28 +41,18 @@ class DBConnection {
      * @return DBConnection the (only) instance of this class
      */
     public static function handle($database) {
-        switch (strtoupper($database)) {
+        $theDb = strtoupper($database);
+        switch ($theDb) {
             case "INST":
-                if (!isset(self::$instanceInst)) {
-                    $class = __CLASS__;
-                    self::$instanceInst = new $class($database);
-                    DBConnection::$instanceInst->databaseInstance = strtoupper($database);
-                }
-                return self::$instanceInst;
             case "USER":
-                if (!isset(self::$instanceUser)) {
-                    $class = __CLASS__;
-                    self::$instanceUser = new $class($database);
-                    DBConnection::$instanceUser->databaseInstance = strtoupper($database);
-                }
-                return self::$instanceUser;
             case "EXTERNAL":
-                if (!isset(self::$instanceExternal)) {
+            case "FRONTEND":
+                if (!isset(self::${"instance" . $theDb})) {
                     $class = __CLASS__;
-                    self::$instanceExternal = new $class($database);
-                    DBConnection::$instanceExternal->databaseInstance = strtoupper($database);
+                    self::${"instance" . $theDb} = new $class($database);
+                    DBConnection::${"instance" . $theDb}->databaseInstance = $theDb;
                 }
-                return self::$instanceExternal;
+                return self::${"instance" . $theDb};
             default:
                 throw new Exception("This type of database (" . strtoupper($database) . ") is not known!");
         }
@@ -69,18 +66,6 @@ class DBConnection {
     }
 
     /**
-     * 
-     * @param string $value The value to escape
-     * @return string
-     */
-    public function escapeValue($value) {
-        $this->loggerInstance->debug(5, "Escaping $value for DB $this->databaseInstance to get a safe query value.\n");
-        $escaped = mysqli_real_escape_string($this->connection, $value);
-        $this->loggerInstance->debug(5, "This is the result: $escaped .\n");
-        return $escaped;
-    }
-
-    /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
      * @param string $querystring the query to be executed
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
@@ -88,27 +73,54 @@ class DBConnection {
     public function exec($querystring, $types = NULL, &...$arguments) {
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
+        if ($types != NULL) {
+            $this->loggerInstance->debug(5, "Argument type sequence: $types, parameters are: " . print_r($arguments, true));
+        }
 
-        if ($this->connection == FALSE) {
-            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection)!");
+        if ($this->connection->connect_error) {
+            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection, error number" . $this->connection->connect_errno . ")!");
             return FALSE;
         }
         if ($types == NULL) {
-            $result = mysqli_query($this->connection, $querystring);
+            $result = $this->connection->query($querystring);
         } else {
             // fancy! prepared statement with dedicated argument list
             if (strlen($types) != count($arguments)) {
-                throw new Exception("DB Prepared Statement: Number of arguments and the type list length differ!");
+                throw new Exception("DB: Prepared Statement: Number of arguments and the type list length differ!");
             }
-            $statementObject = new mysqli_stmt($this->connection);
-            $statementObject->prepare($querystring);
-            foreach ($arguments as $index => $content) {
-                $statementObject->bind_param($types[$index], $content);
+            $statementObject = $this->connection->stmt_init();
+            if ($statementObject === FALSE) {
+                throw new Exception("DB: Unable to initialise prepared Statement!");
+            }
+            $prepResult = $statementObject->prepare($querystring);
+            if ($prepResult === FALSE) {
+                throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> ". $statementObject->error ." <--.");
+            }
+
+            // we have a variable number of arguments packed into the ... array
+            // but the function needs to be called exactly once, with a series of
+            // individual arguments, not an array. The voodoo solution is to call
+            // it via call_user_func_array()
+
+            $localArray = $arguments;
+            array_unshift($localArray, $types);
+            $retval = call_user_func_array([$statementObject, "bind_param"], $localArray);
+            if ($retval === FALSE) {
+                throw new Exception("DB: Unuable to bind parameters to prepared statement! Argument array was --> ". var_export($localArray, TRUE) ." <--. Error was --> ". $statementObject->error ." <--");
             }
             $result = $statementObject->execute();
+            if ($result === FALSE) {
+                throw new Exception("DB: Unuable to execute prepared statement! Error was --> ". $statementObject->error ." <--");
+            }
+            $selectResult = $statementObject->get_result();
+            if ($selectResult !== FALSE) {
+                $result = $selectResult;
+            }
+
+            $statementObject->close();
         }
-        
-        if ($result === FALSE) {
+
+        if ($result === FALSE && $this->connection->errno) {
             $this->loggerInstance->debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
             return FALSE;
         }
@@ -116,6 +128,9 @@ class DBConnection {
         // log exact query to audit log, if it's not a SELECT
         if (preg_match("/^SELECT/i", $querystring) == 0) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
+            if ($types != NULL) {
+                $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . print_r($arguments, true));
+            }
         }
         return $result;
     }
@@ -125,7 +140,7 @@ class DBConnection {
      * @return int the last autoincrement-ID
      */
     public function lastID() {
-        return mysqli_insert_id($this->connection);
+        return $this->connection->insert_id;
     }
 
     /**
@@ -133,22 +148,29 @@ class DBConnection {
      * 
      * @var DBConnection 
      */
-    private static $instanceUser;
+    private static $instanceUSER;
 
     /**
      * Holds the singleton instance reference to INST database
      * 
      * @var DBConnection 
      */
-    private static $instanceInst;
+    private static $instanceINST;
 
     /**
      * Holds the singleton instance reference to EXTERNAL database
      * 
      * @var DBConnection 
      */
-    private static $instanceExternal;
+    private static $instanceEXTERNAL;
 
+    /**
+     * Holds the singleton instance reference to FRONTEND database
+     * 
+     * @var DBConnection 
+     */
+    private static $instanceFRONTEND;
+    
     /**
      * after instantiation, keep state of which DB *this one* talks to
      * 
@@ -159,12 +181,12 @@ class DBConnection {
     /**
      * The connection to the DB server
      * 
-     * @var mysqli
+     * @var \mysqli
      */
     private $connection;
 
     /**
-     * @var Logging
+     * @var \core\common\Logging
      */
     private $loggerInstance;
 
@@ -172,15 +194,15 @@ class DBConnection {
      * Class constructor. Cannot be called directly; use handle()
      */
     private function __construct($database) {
-        $this->loggerInstance = new Logging();
+        $this->loggerInstance = new \core\common\Logging();
         $databaseCapitalised = strtoupper($database);
-        $this->connection = mysqli_connect(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
-        if ($this->connection == FALSE) {
-            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up.");
+        $this->connection = new \mysqli(CONFIG['DB'][$databaseCapitalised]['host'], CONFIG['DB'][$databaseCapitalised]['user'], CONFIG['DB'][$databaseCapitalised]['pass'], CONFIG['DB'][$databaseCapitalised]['db']);
+        if ($this->connection->connect_error) {
+            throw new Exception("ERROR: Unable to connect to $database database! This is a fatal error, giving up (error number " . $this->connection->connect_errno . ").");
         }
 
-        if ($databaseCapitalised == "EXTERNAL" && CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
-            mysqli_query($this->connection, "SET NAMES 'latin1'");
+        if ($databaseCapitalised == "EXTERNAL" && CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
+            $this->connection->query("SET NAMES 'latin1'");
         }
     }
 

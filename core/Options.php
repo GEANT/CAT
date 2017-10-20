@@ -1,11 +1,13 @@
 <?php
 
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
-?>
-<?php
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 
 /**
  * This file contains some convenience functions around option handling.
@@ -17,15 +19,16 @@
 /**
  * necessary includes
  */
-require_once('Entity.php');
+
+namespace core;
+
+use \Exception;
 
 /**
  * The Options class contains convenience functions around option handling. It is implemented as a singleton to prevent
  * excessive DB requests; its content never changes during a script run.
  *
  * @author Stefan Winter <stefan.winter@restena.lu>
- *
- * @package Developer
  */
 class Options {
 
@@ -44,7 +47,9 @@ class Options {
     private static $instance;
 
     /**
+     * Our access to logging facilities
      * 
+     * @var \core\common\Logging
      */
     private $loggerInstance;
 
@@ -80,9 +85,9 @@ class Options {
      */
     private function __construct() {
         $this->typeDb = [];
-        $this->loggerInstance = new Logging();
+        $this->loggerInstance = new \core\common\Logging();
         $this->loggerInstance->debug(3, "--- BEGIN constructing Options instance ---\n");
-        $handle = DBConnection::handle(Options::$databaseType);
+        $handle = DBConnection::handle(self::$databaseType);
         $options = $handle->exec("SELECT name,type,flag from profile_option_dict ORDER BY name");
         while ($optionDataQuery = mysqli_fetch_object($options)) {
             $this->typeDb[$optionDataQuery->name] = ["type" => $optionDataQuery->type, "flag" => $optionDataQuery->flag];
@@ -90,6 +95,15 @@ class Options {
         $this->typeDb["general:logo_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["eap:ca_url"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["internal:country"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:profile_count"] = ["type" => "integer", "flag" => NULL];
+        $this->typeDb["internal:checkuser_outer"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:checkuser_value"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:verify_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:hint_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL];
+        $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL];
+        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];
+
 
         $this->loggerInstance->debug(3, "--- END constructing Options instance ---\n");
     }
@@ -110,9 +124,7 @@ class Options {
         foreach (array_keys($this->typeDb) as $name) {
             if ($className === 0) {
                 $returnArray[] = $name;
-                return $returnArray;
-            }
-            if (preg_match('/^' . $className . ':/', $name) > 0) {
+            } elseif (preg_match('/^' . $className . ':/', $name) > 0) {
                 $returnArray[] = $name;
             }
         }
@@ -129,7 +141,29 @@ class Options {
      * @return array properties of the attribute
      */
     public function optionType($optionname) {
-        return $this->typeDb[$optionname];
+        if (isset($this->typeDb[$optionname])) {
+            return $this->typeDb[$optionname];
+        }
+        throw new Exception("Metadata about an option was requested, but the option name does not exist in the system: " . htmlentities($optionname));
+    }
+
+    /**
+     * This function is mostly useless. It takes an (unvetted) string, sees if
+     * it is a valid option name, and then returns the array key of the typeDb
+     * instead of the unvetted string. This makes Scrutinizer happy.
+     * 
+     * @param string $unvettedName the input name
+     * @return string the name echoed back, but from trusted source
+     * 
+     */
+    public function assertValidOptionName($unvettedName) {
+        $listOfOptions = array_keys($this->typeDb);
+        foreach ($listOfOptions as $name) {
+            if ($name == $unvettedName) {
+                return $name;
+            }
+        }
+        throw new Exception("Unknown option name encountered.");
     }
 
 }

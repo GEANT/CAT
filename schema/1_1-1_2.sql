@@ -1,9 +1,10 @@
 /* 
- * ******************************************************************************
- * *  Copyright 2011-12 DANTE Ltd. on behalf of the GN3 consortium
- * ******************************************************************************
- * *  License: see the LICENSE file in the root directory of this release
- * ******************************************************************************
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
  */
 /**
  * Author:  swinter
@@ -15,9 +16,12 @@ INSERT INTO `profile_option_dict` VALUES
 ('fed:css_file','custom CSS to be applied on any skin','file',NULL),
 ('fed:custominvite','custom text to send with new IdP invitations','text', NULL),
 ('fed:desired_skin','UI skin to use - if not exist, fall back to default','string',NULL),
+('fed:include_logo_installers','whether or not the fed logo should be visible in installers','boolean', NULL),
 ('fed:silverbullet','enable Silver Bullet in this federation','boolean',NULL),
 ('fed:silverbullet-noterm','to tell us we should not terminate EAP for this federation silverbullet','boolean',NULL),
-('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL);
+('fed:silverbullet-maxusers','maximum number of users per silverbullet profile','integer',NULL),
+('hiddenprofile:tou_accepted','were the terms of use accepted?','boolean',NULL),
+('profile:customsuffix','The filename suffix to use for the generated installers','string','ML');
 
 CREATE TABLE `federation` (
   `federation_id` varchar(16) NOT NULL,
@@ -44,3 +48,20 @@ ALTER TABLE `profile` ADD COLUMN `checkuser_outer` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `checkuser_value` varchar(128) DEFAULT NULL;
 ALTER TABLE `profile` ADD COLUMN `verify_userinput_suffix` int(1) NOT NULL DEFAULT '0';
 ALTER TABLE `profile` ADD COLUMN `hint_userinput_suffix` int(1) NOT NULL DEFAULT '0';
+
+ALTER TABLE `user_options` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `federation_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `institution_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+ALTER TABLE `profile_option` ADD COLUMN `option_lang` varchar(8) DEFAULT NULL;
+
+ALTER TABLE `downloads` ADD COLUMN `downloads_silverbullet` int(11) NOT NULL DEFAULT '0';
+ALTER TABLE `downloads` ADD `eap_type` int(4) NULL DEFAULT NULL;
+
+ALTER TABLE `user_options` DROP KEY `rowindex`, CHANGE COLUMN `id` `row` int primary key auto_increment, ADD KEY `rowindex` (`row`);
+
+ALTER TABLE ownership DROP KEY `pair`;
+ALTER TABLE ownership CHANGE COLUMN `user_id` `user_id` VARCHAR(2048) NOT NULL;
+
+UPDATE institution SET country = UPPER(country);
+
+CREATE VIEW `v_active_inst` AS select distinct `profile`.`inst_id` AS `inst_id` from `profile` where (`profile`.`showtime` = 1);

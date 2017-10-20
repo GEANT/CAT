@@ -1,11 +1,13 @@
 <?php
 
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
-?>
-<?php
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 
 /**
  * This class manages user privileges and bindings to institutions
@@ -18,13 +20,8 @@
 /**
  * necessary includes
  */
-require_once('DBConnection.php');
-require_once('EntityWithDBProperties.php');
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("core/PHPMailer/src/PHPMailer.php");
-require_once("core/PHPMailer/src/SMTP.php");
+
+namespace core;
 
 /**
  * This class represents a known CAT User (i.e. an institution and/or federation adiministrator).
@@ -45,33 +42,33 @@ class User extends EntityWithDBProperties {
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = $this->databaseHandle->escapeValue($userId);
+        $this->identifier = $userId;
 
         $optioninstance = Options::instance();
 
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = '$userId'");
+            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $userId);
             $visited = FALSE;
             while ($userDetailQuery = mysqli_fetch_object($info)) {
                 if (!$visited) {
                     $mailOptinfo = $optioninstance->optionType("user:email");
-                    $this->attributes[] = ["name" => "user:email", "value" => $userDetailQuery->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:email", "lang" => NULL, "value" => $userDetailQuery->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
                     $realnameOptinfo = $optioninstance->optionType("user:realname");
-                    $this->attributes[] = ["name" => "user:realname", "value" => $userDetailQuery->common_name, "level" => "User", "row" => 0, "flag" => $realnameOptinfo['flag']];
+                    $this->attributes[] = ["name" => "user:realname", "lang" => NULL, "value" => $userDetailQuery->common_name, "level" => "User", "row" => 0, "flag" => $realnameOptinfo['flag']];
                     $visited = TRUE;
                 }
                 if ($userDetailQuery->role == "fedadmin") {
                     $optinfo = $optioninstance->optionType("user:fedadmin");
-                    $this->attributes[] = ["name" => "user:fedadmin", "value" => strtoupper($userDetailQuery->realm), "level" => "User", "row" => 0, "flag" => $optinfo['flag']];
+                    $this->attributes[] = ["name" => "user:fedadmin", "lang" => NULL, "value" => strtoupper($userDetailQuery->realm), "level" => "User", "row" => 0, "flag" => $optinfo['flag']];
                 }
             }
         } else {
-            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT option_name, option_value, id AS row
+            $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                                                 FROM $this->entityOptionTable
-                                                WHERE $this->entityIdColumn = '$userId'", "User");
+                                                WHERE $this->entityIdColumn = ?", "User", "s", $userId);
         }
     }
 
@@ -129,18 +126,14 @@ class User extends EntityWithDBProperties {
         if (count($mailaddr) == 0) { // we don't know user's mail address
             return FALSE;
         }
-        $mail = mailHandle();
+        $mail = \core\common\OutsideComm::mailHandle();
 // who to whom?
-        $mail->From = CONFIG['APPEARANCE']['from-mail'];
         $mail->FromName = CONFIG['APPEARANCE']['productname'] . " Notification System";
-        $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
+        $mail->addReplyTo(CONFIG['APPEARANCE']['support-contact']['developer-mail'], CONFIG['APPEARANCE']['productname'] . " " . _("Feedback"));
         $mail->addAddress($mailaddr[0]["value"]);
 // what do we want to say?
         $mail->Subject = $subject;
         $mail->Body = $content;
-        if (isset(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass'])) {
-            $mail->sign(CONFIG['CONSORTIUM']['certfilename'], CONFIG['CONSORTIUM']['keyfilename'], CONFIG['CONSORTIUM']['keypass']);
-        }
 
         $sent = $mail->send();
 
@@ -149,6 +142,76 @@ class User extends EntityWithDBProperties {
 
     public function updateFreshness() {
         // User is always fresh
+    }
+
+    const PROVIDER_STRINGS = [
+        "eduPersonTargetedID" => "eduGAIN",
+        "facebook_targetedID" => "Facebook",
+        "google_eppn" => "Google",
+        "linkedin_targetedID" => "LinkedIn",
+        "twitter_targetedID" => "Twitter",
+        "openid" => "Google (defunct)",
+        ];
+    
+    /**
+     * Some users apparently forget which eduGAIN/social ID they originally used
+     * to log into CAT. We can try to help them: if they tell us the email
+     * address by which they received the invitation token, then we can see if
+     * any CAT IdPs are associated to an account which originally came in via
+     * that email address. We then see which pretty-print auth provider name
+     * was used
+     * 
+     * @param string $mail
+     * @return false|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
+     */
+    public static function findLoginIdPByEmail($mail) {
+        $listOfProviders = [];
+        $realmail = filter_var($mail, FILTER_VALIDATE_EMAIL);
+        if ($realmail === FALSE) {
+            return FALSE;
+        }
+        $dbHandle = \core\DBConnection::handle("INST");
+        $query = $dbHandle->exec("SELECT user_id FROM ownership WHERE orig_mail = ?", "s", $realmail);
+        while ($oneRow = mysqli_fetch_object($query)) {
+            $matches = [];
+            $lookFor = "";
+            foreach (User::PROVIDER_STRINGS as $name => $prettyname) {
+                if ($lookFor != "") {
+                    $lookFor .= "|";
+                }
+                $lookFor .= "$name";
+            }
+            $finding = preg_match("/^(".$lookFor."):(.*)/", $oneRow->user_id, $matches);
+            if ($finding === 0 || $finding === FALSE) {
+                return FALSE;
+            }
+            
+            $providerStrings = array_keys(User::PROVIDER_STRINGS);
+            switch ($matches[1]) {
+                case $providerStrings[0]: // eduGAIN needs to find the exact IdP behind it
+                    $moreMatches = [];
+                    $exactIdP = preg_match("/.*!(.*)$/", $matches[2], $moreMatches);
+                    if ($exactIdP === 0 || $exactIdP === FALSE) {
+                        return FALSE;
+                    }
+                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP " . $moreMatches[1], $listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP " . $moreMatches[1];
+                    }
+                    break;
+                case $providerStrings[1]:
+                case $providerStrings[2]:
+                case $providerStrings[3]:
+                case $providerStrings[4]:
+                case $providerStrings[5]:
+                    if (!in_array(User::PROVIDER_STRINGS[$matches[1]],$listOfProviders)) {
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$matches[1]];
+                    }
+                    break;
+                default:
+                    return FALSE;
+            }
+        }
+        return $listOfProviders;
     }
 
 }

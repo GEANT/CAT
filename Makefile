@@ -5,9 +5,8 @@ VV = $(VERSION)/
 all: documentation translation
 
 documentation:
-	# rm -R doc/*
-	phpdoc -i *.inc -it @assert -d core,config,devices,tutorials -t web/doc -dn "Configuration" -ti "IEEE 802.1X Configuration Assistant Tool (CAT) Documentation" -o HTML:Smarty:HandS
-	cp web/resources/images/consortium_logo.png web/doc/media/logo.png
+	rm -R phpdoc
+	php /home/swinter/packages/linux/phpDocumentor.phar run -d . -i core/phpqrcode.php -i core/PHPMailer/ -i tests/ -t phpdoc/
 
 translation:
 	echo "****************************************"
@@ -23,6 +22,7 @@ translation:
                 echo "*** Now translating in $$lang ***"; \
 		echo "********************************************"; \
 		for area in web_admin web_user devices core diagnostics ; do \
+			mkdir -p $$lang/LC_MESSAGES; \
 			msgmerge -q -v -U $$lang/$$area.po translation/$$area.pot; \
 			msgfmt $$lang/$$area.po -o $$lang/LC_MESSAGES/$$area.mo; \
 			done; \

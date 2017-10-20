@@ -1,3 +1,13 @@
+<!-- 
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
+-->
 <div>
     <h1>
         <?php echo _("Terms of Use"); ?>
@@ -42,7 +52,7 @@ and your eduroam Identity Provider. You are also allowed to share the installer 
     they are from the same user group. You are not allowed to share them to an unlimited
     audience (e.g. on a publicly accessible web server).</li>
 <li>If You are an eduroam Identity Provider administrator, you are allowed to download and pass on the Installers to
-your own institution's end users, e.g. on the support web pages of your institution, on Welcome Package CDs or USB sticks, etc.</li>
+your own <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?> end users, e.g. on the support web pages of your <?php echo CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'];?>, on Welcome Package CDs or USB sticks, etc.</li>
 <li>If You are a third-party not affiliated with eduroam, you are only allowed to download and pass on
 the Metadata and/or the Installers after having received written permission by the eduroam Operations team.</li>
 </ul>

@@ -1,3 +1,11 @@
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 @CHARSET "UTF-8";
 
 .sb-titled-cell{
@@ -6,22 +14,75 @@
 .sb-user-row{
     background:#F0F0F0;
 }
+.sb-user-buttons{
+    margin-top: 2px;
+    min-width:120px;
+}
+.sb-user-buttons button{
+    margin-bottom:6px;
+}
+.sb-certificate-row{
+    background:#DBEAF3;
+}
+.sb-certificate-summary{
+    width:270px;
+    display:inline-table;
+    overflow: hidden;
+    margin:3px;
+}
+.sb-certificate-details{
+    width:260px;
+    word-wrap: break-word;
+}
 .sb-title-row{
     background:lightgrey;
 }
 .sb-add-new-user{
-    padding: 10px;
+    padding: 10px 10px 10px 10px;
+    display: table;
 }
-.sb-add-new-user input{
-    display:block;
-    margin: 5px 0px 10px 0px;
+.sb-editable-block{
+    position: relative;
+}
+.sb-editable-block td{
+    vertical-align: top;
 }
 .sb-editable-block fieldset{
     display: inline-block;
-    position: relative;
     margin: 5px;
     padding: 5px;
     min-width: 500px;
     min-height: 150px;
     vertical-align: top;
 }
+.sb-date-container{
+    display: inline-block;
+    width: 187px;
+    margin-top:2px;
+    margin-bottom:3px;
+}
+.sb-date-picker{
+    padding-right:25px;
+    width: 140px;
+}
+.sb-date-button{
+    margin-left:-30px;
+    min-height: 22px;
+    border-left-style: solid;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-radius: 1px;
+    box-shadow: 0px 0px 0px #666666;
+}
+.sb-message-box{
+    font-weight: bold;
+}
+.sb-message-box-error{
+    color: red;
+}
+.sb-message-box-info{
+    color: green;
+}
+

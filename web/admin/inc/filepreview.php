@@ -1,37 +1,28 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 
-require_once("Helper.php");
-require_once("CAT.php");
-
-require_once("common.inc.php");
-require_once("input_validation.inc.php");
-
-function getImageFromDB($id) {
+/**
+ * retrieves a binary object from the database and pushes it out to the browser
+ * @param string $id
+ * @return void in case of error - otherwise, sends the content directly to browser and never returns
+ */
+function getObjectFromDB($id) {
 
     // check if data is public for this blob call
-    $blob = getBlobFromDB($id, TRUE);
-
-    // suppress E_NOTICE on the following... we are testing *if*
-    // we have a serialized value - so not having one is fine and
-    // shouldn't throw E_NOTICE
-    if (@unserialize($blob) !== FALSE) { // an array? must be lang-tagged content
-        $unserialisedBlob = unserialize($blob);
-        if (!isset($unserialisedBlob['content'])) {
-            return;
-        }
-        $finalBlob = base64_decode($unserialisedBlob['content']);
-    } else {
-        $finalBlob = base64_decode($blob);
-    }
+    
+    $blob = \web\lib\admin\UIElements::getBlobFromDB($id, TRUE);
+    $finalBlob = base64_decode($blob);
 
     if ($finalBlob === FALSE) {
         return;
@@ -51,7 +42,7 @@ function getImageFromDB($id) {
             header("Content-Disposition: attachment; filename='download.txt'");
             break;
         default:
-            throw new Exception("Unsupported file type encountered!");
+            // do nothing special with the Content-Disposition header
     }
 
     header("Cache-Control: must-revalidate");
@@ -63,8 +54,9 @@ function getImageFromDB($id) {
     echo $finalBlob;
 }
 
-if (isset($_GET["id"]) && valid_DB_reference($_GET["id"])) {
-    getImageFromDB($_GET["id"]);
+$validator = new \web\lib\common\InputValidation();
+if (isset($_GET["id"]) && $validator->databaseReference($_GET["id"])) {
+    getObjectFromDB($_GET["id"]);
 } else {
     echo "No valid ID";
 }

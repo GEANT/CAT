@@ -1,0 +1,24 @@
+body {
+    background: #fff url(../../resources/images/bg_grey_tile.png) repeat-x;
+}
+
+button {
+    height: 23px;
+    box-shadow: 10px 10px 5px #888888;
+    cursor: pointer;
+}
+
+.device_list button.more_info_b {
+    width: 23px; 
+    background-image:url("../images/icons/info_s.png");
+    background-repeat:no-repeat;
+    background-position: 2px 0px; 
+}
+
+#silverbullet {
+    display: none;
+    padding: 30px;
+    font-size: 14px;
+    font-weight: bold;
+    
+}

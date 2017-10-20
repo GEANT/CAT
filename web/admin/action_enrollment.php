@@ -1,62 +1,107 @@
 <?php
 
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
+
+/**
+ * This file executes the enrollment of a new admin to the system.
+ * 
+ * The administrator authenticates and then presents an invitation token via
+ * the $_GET['token'] parameter.
+ * 
+ * @author Stefan Winter <stefan.winter@restena.lu>
+ */
 ?>
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("UserManagement.php");
-require_once("Logging.php");
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
-require_once("inc/auth.inc.php");
-authenticate();
+$auth = new \web\lib\admin\Authentication();
+$deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
+$elements = new \web\lib\admin\UIElements();
+$usermgmt = new \core\UserManagement();
 
-$usermgmt = new UserManagement();
-$mode = "TOKEN";
+$auth->authenticate();
 
-$checkval = $usermgmt->checkTokenValidity($_GET['token']);
-
-if (CONFIG['CONSORTIUM']['selfservice_registration'] !== NULL && $_GET['token'] == "SELF-REGISTER") {
-    $mode = "SELFSERVICE";
-    $federation = CONFIG['CONSORTIUM']['selfservice_registration'];
-    $checkval = "OK-NEW";
+/**
+ * Something went wrong. We display the error cause and then throw an Exception.
+ * 
+ * @param string $uiDisplay error string to display
+ * @param \web\lib\admin\PageDecoration $decoObject the instance of PageDecoration, needed for footer display.
+ * @throws Exception
+ */
+function bailout(string $uiDisplay, $decoObject) {
+    echo $decoObject->pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
+    echo "<h1>$uiDisplay</h1>";
+    echo $decoObject->footer();
+    throw new Exception("action_enrollment: $uiDisplay.");
 }
 
-if (!isset($_GET['token']) || ( $checkval != "OK-NEW" && $checkval != "OK-EXISTING")) {
-    pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
+if (!isset($_GET['token'])) {
+    bailout(_("This page needs to be called with a valid invitation token!"), $deco);
+}
+
+if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL && $_GET['token'] == "SELF-REGISTER") {
+    bailout(_("You tried to register in self-service, but this deployment does not allow self-service!"), $deco);
+}
+
+switch ($_GET['token']) {
+    case "SELF-REGISTER":
+        $token = "SELF-REGISTER";
+        $checkval = \core\UserManagement::TOKENSTATUS_OK_NEW;
+        $federation = CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'];
+        break;
+    default:
+        $token = $validator->token(filter_input(INPUT_GET,'token',FILTER_SANITIZE_STRING));
+        $checkval = $usermgmt->checkTokenValidity($token);
+}
+
+if ($checkval < 0) {
+    echo $deco->pageheader(_("Error creating new IdP binding!"), "ADMIN-IDP");
     echo "<h1>" . _("Error creating new IdP binding!") . "</h1>";
-    if ($checkval == "FAIL-ALREADYCONSUMED") {
-        echo "<p>" . _("Sorry... this token has already been used to create an institution. If you got it from a mailing list, probably someone else used it before you.") . "</p>";
-    } elseif ($checkval == "FAIL-EXPIRED") {
-        echo "<p>" . _("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your federation administrator for a new one.") . "</p>";
-    } else {
-        echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";
+    switch ($checkval) {
+        case \core\UserManagement::TOKENSTATUS_FAIL_ALREADYCONSUMED:
+            echo "<p>" . sprintf(_("Sorry... this token has already been used to create an %s. If you got it from a mailing list, probably someone else used it before you."), $elements->nomenclature_inst) . "</p>";
+            break;
+        case \core\UserManagement::TOKENSTATUS_FAIL_EXPIRED:
+            echo "<p>" . sprintf(_("Sorry... this token has expired. Invitation tokens are valid for 24 hours. Please ask your %s administrator for a new one."), $elements->nomenclature_fed) . "</p>";
+            break;
+        default:
+            echo "<p>" . _("Sorry... you have come to the enrollment page without a valid token. Are you a nasty person? If not, you should go to <a href='overview_user.php'>your profile page</a> instead.") . "</p>";
     }
-    footer();
-    exit(1);
-} else { // token is valid. Get meta-info and create inst
-    // TODO get invitation level and mail, store it as property
-    $loggerInstance = new Logging();
-    if ($mode == "SELFSERVICE") {
-        $fed = new Federation($federation);
-        $newidp = new IdP($fed->newIdP($_SESSION['user'], "FED", $mode));
-        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - $mode registration");
-    } else {
-        $newidp = $usermgmt->createIdPFromToken($_GET['token'], $_SESSION['user']);
-        $usermgmt->invalidateToken($_GET['token']);
-        $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $newidp->identifier . " - Token used and invalidated");
-    }
+    echo $deco->footer();
+    throw new Exception("Terminating because something is wrong with the token we received.");
 }
-if ($checkval == "OK-EXISTING") {
+
+// token is valid. Get meta-info and create inst
+// TODO get invitation level and mail, store it as property
+$user = $validator->User($_SESSION['user']);
+
+$loggerInstance = new \core\common\Logging();
+
+switch ($token) {
+    case "SELF-REGISTER":
+        $fed = new \core\Federation($federation);
+        $newidp = new \core\IdP($fed->newIdP($user, "FED", "SELFSERVICE"));
+        $loggerInstance->writeAudit($user, "MOD", "IdP " . $newidp->identifier . " - selfservice registration");
+        break;
+    default:
+        $newidp = $usermgmt->createIdPFromToken($token, $user);
+        $usermgmt->invalidateToken($token);
+        $loggerInstance->writeAudit($user, "MOD", "IdP " . $newidp->identifier . " - Token used and invalidated");
+        break;
+}
+
+if ($checkval == \core\UserManagement::TOKENSTATUS_OK_EXISTING) {
     header("Location: overview_user.php");
 } else {
     header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
 }
+    

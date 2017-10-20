@@ -1,25 +1,22 @@
 <?php
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("CAT.php");
+$auth = new \web\lib\admin\Authentication();
+$deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
+$uiElements = new \web\lib\admin\UIElements();
 
-require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
-require_once("inc/option_html.inc.php");
-require_once("inc/geo_widget.php");
-require_once("inc/auth.inc.php");
-authenticate();
+$auth->authenticate();
 
 // how do we determine if we should go into wizard mode? It's all in the URL
 if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
@@ -27,17 +24,18 @@ if (isset($_GET['wizard']) && $_GET['wizard'] == "true") {
 } else {
     $wizardStyle = FALSE;
 }
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 $idpoptions = $my_inst->getAttributes();
 $inst_name = $my_inst->name;
 
 if ($wizardStyle) {
-    $cat = defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: IdP enrollment wizard (step 2)"), CONFIG['APPEARANCE']['productname']));
 } else {
-    $cat = defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
+    echo $deco->defaultPagePrelude(sprintf(_("%s: Editing IdP '%s'"), CONFIG['APPEARANCE']['productname'], $inst_name));
 }
 // let's check if the inst handle actually exists in the DB and user is authorised
 ?>
+<script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/option_expand.js" type="text/javascript"></script>
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script> 
@@ -49,7 +47,9 @@ foreach ($idpoptions as $optionname => $optionvalue) {
         $additional = TRUE;
     }
 }
-geo_widget_head($my_inst->federation, $inst_name)
+$widget = new \web\lib\admin\GeoWidget();
+
+echo $widget->insertInHead($my_inst->federation, $inst_name);
 ?>
 <script>
     $(document).ready(function () {
@@ -72,8 +72,10 @@ geo_widget_head($my_inst->federation, $inst_name)
 </script>
 </head>
 <body onload='load(1)'>
-
-    <?php productheader("ADMIN-IDP", CAT::get_lang()); ?>
+    <?php
+    $langObject = new \core\common\Language();
+    echo $deco->productheader("ADMIN-IDP");
+    ?>
 
     <h1>
         <?php
@@ -85,17 +87,17 @@ geo_widget_head($my_inst->federation, $inst_name)
         ?>
     </h1>
     <div class='infobox'>
-        <h2><?php echo _("General Institution Properties"); ?></h2>
+        <h2><?php echo sprintf(_("General %s properties"), $uiElements->nomenclature_inst); ?></h2>
         <table>
             <tr>
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
                 <td><strong><?php
-                        new Federation("blablub");
-                        echo Federation::$federationList[strtoupper($my_inst->federation)];
+                        $fed = new \core\Federation($my_inst->federation);
+                        echo $fed->name;
                         ?></strong></td>
             </tr>
-            <?php echo infoblock($idpoptions, "general", "IdP"); ?>
+            <?php echo $uiElements->infoblock($idpoptions, "general", "IdP"); ?>
         </table>
     </div>
     <?php
@@ -104,48 +106,49 @@ geo_widget_head($my_inst->federation, $inst_name)
 
     if ($wizardStyle) {
         echo "<p>" .
-        _("Hello, newcomer. Your institution is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users.") . "</p>";
+        sprintf(_("Hello, newcomer. Your %s is new to us. This wizard will ask you several questions about your IdP, so that we can generate beautiful profiles for you in the end. All of the information below is optional, but it is important to fill out as many fields as possible for the benefit of your end users."), $uiElements->nomenclature_inst) . "</p>";
     }
+    $optionDisplay = new web\lib\admin\OptionDisplay($idpoptions, "IdP");
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("General Information"); ?></strong></legend>
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            _("This is the place where you can describe your institution in a fine-grained way. The solicited information is used as follows:") . "</p>
+            sprintf(_("This is the place where you can describe your %s in a fine-grained way. The solicited information is used as follows:"), $uiElements->nomenclature_inst) . "</p>
                       <ul>
                          <li>" . _("<strong>Logo</strong>: When you submit a logo, we will embed this logo into all installers where a custom logo is possible. We accept any image format, but for best results, we suggest SVG. If you don't upload a logo, we will use the generic logo instead (see top-right corner of this page).") . "</li>
                          <li>" . _("<strong>Terms of Use</strong>: Some installers support displaying text to the user during installation time. If so, we will make that happen if you upload an RTF file or plain text file to display.") . "</li>";
 
             echo "</ul>";
         }
-        echo prefilledOptionTable($idpoptions, "general", "IdP");
+        echo $optionDisplay->prefilledOptionTable("general");
         ?>
         <button type='button' class='newoption' onclick='getXML("general")'><?php echo _("Add new option"); ?></button>
     </fieldset>
     <?php
-    geo_widget_body($wizardStyle, $additional);
+    echo $widget->insertInBody($wizardStyle, $additional);
     ?>
     <fieldset class="option_container">
         <legend><strong><?php echo _("Media Properties"); ?></strong></legend>
         <?php
         if ($wizardStyle) {
             echo "<p>" .
-            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG['CONSORTIUM']['name']) . "</p>
+            sprintf(_("In this section, you define on which media %s should be configured on user devices."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</p>
           <ul>";
             echo "<li>";
-            echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
-            if (count(CONFIG['CONSORTIUM']['ssid']) > 0) {
+            echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional SSIDs:") : _("SSIDs:")) . " </strong>";
+            if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
                 $ssidlist = "";
-                foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
+                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
                     $ssidlist .= ", '<strong>" . $ssid . "</strong>'";
                 }
                 $ssidlist = substr($ssidlist, 2);
-                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG['CONSORTIUM']['ssid'])), $ssidlist);
-                if (CONFIG['CONSORTIUM']['tkipsupport']) {
+                echo sprintf(ngettext("We will always configure this SSID for WPA2/AES: %s.", "We will always configure these SSIDs for WPA2/AES: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])), $ssidlist);
+                if (CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) {
                     echo " " . _("They will also be configured for WPA/TKIP if the device supports multiple encryption types.");
                 }
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), display_name("media:SSID"), display_name("media:SSID_with_legacy"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional SSIDs with the options '%s' and '%s' below."), $uiElements->displayName("media:SSID"), $uiElements->displayName("media:SSID_with_legacy"));
             } else {
                 echo _("Please configure which SSIDs should be configured in the installers.");
             }
@@ -153,16 +156,16 @@ geo_widget_head($my_inst->federation, $inst_name)
             echo "</li>";
 
             echo "<li>";
-            echo "<strong>" . ( count(CONFIG['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
-            if (count(CONFIG['CONSORTIUM']['interworking-consortium-oi']) > 0) {
+            echo "<strong>" . ( count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0 ? _("Additional Hotspot 2.0 / Passpoint Consortia:") : _("Hotspot 2.0 / Passpoint Consortia:")) . " </strong>";
+            if (count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi']) > 0) {
                 $consortiumlist = "";
-                foreach (CONFIG['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
+                foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'] as $oi) {
                     $consortiumlist .= ", '<strong>" . $oi . "</strong>'";
                 }
                 $consortiumlist = substr($consortiumlist, 2);
-                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
+                echo sprintf(ngettext("We will always configure this Consortium OI: %s.", "We will always configure these Consortium OIs: %s.", count(CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'])), $consortiumlist);
 
-                echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), display_name("media:consortium_OI"));
+                echo "<br/>" . sprintf(_("It is also possible to define custom additional OIs with the option '%s' below."), $uiElements->displayName("media:consortium_OI"));
             } else {
                 echo _("Please configure which Consortium OIs should be configured in the installers.");
             }
@@ -175,7 +178,7 @@ geo_widget_head($my_inst->federation, $inst_name)
             . "</li>";
             echo "</ul>";
         }
-        echo prefilledOptionTable($idpoptions, "media", "IdP");
+        echo $optionDisplay->prefilledOptionTable("media");
         ?>
         <button type='button' class='newoption' onclick='getXML("media")'><?php echo _("Add new option"); ?></button></fieldset>
 
@@ -183,20 +186,30 @@ geo_widget_head($my_inst->federation, $inst_name)
         <legend><strong><?php echo _("Helpdesk Details for all users"); ?></strong></legend>
         <?php
         if ($wizardStyle) {
-            echo "<p>" .
-            _("If your IdP provides a helpdesk for its users, it would be nice if you would tell us the pointers to this helpdesk. Some site installers might be able to signal this information to the user if he gets stuck.") . "</p>
-        <p>" .
-            _("If you enter a value here, it will be added to the site installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all (shame on you!), you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
+            echo "<p>"._("This section can be used to upload specific Terms of Use for your users and to display details of how your users can reach your local helpdesk.")."</p>";
+            
+            if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+                echo "<p>" .
+                _("If your RADIUS IdP does provide a helpdesk for its users, it would be nice if you would tell us the pointers to this helpdesk.") . "</p>" .
+                "<p>" .
+                _("If you enter a value here, it will be added to the installers for all your users, and will be displayed on the download page. If you operate separate helpdesks for different user groups (we call this 'profiles'), or operate no help desk at all, you can also leave any of these fields empty and optionally specify per-profile helpdesk information later in this wizard.") . "</p>";
+                if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                echo "<p>" . sprintf(_("For %s deployments, providing at least a local e-mail contact is required."), core\ProfileSilverbullet::PRODUCTNAME) ." " . _("This is the contact point for your end users' level 1 support.") . "</p>";
+                }
+            } elseif (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL") {
+                echo "<p>". _("Providing at least a local support e-mail contact is required.")." "._("This is the contact point for your end users' level 1 support.")."</p>";
+            }
+            
         }
-        echo prefilledOptionTable($idpoptions, "support", "IdP");
+        echo $optionDisplay->prefilledOptionTable("support");
         ?>
 
         <button type='button' class='newoption' onclick='getXML("support")'><?php echo _("Add new option"); ?></button></fieldset>
     <?php
     if ($wizardStyle) {
-        echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
+        echo "<p>" . sprintf(_("When you are sure that everything is correct, please click on %sContinue ...%s"), "<button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_CONTINUE . "'>", "</button>") . "</p></form>";
     } else {
-        echo "<div><button type='submit' name='submitbutton' value='" . BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
+        echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
     }
-    footer();
+    echo $deco->footer();
     

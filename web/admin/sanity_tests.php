@@ -1,9 +1,12 @@
 <?php
-
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
 ?>
 <?php
 
@@ -31,48 +34,44 @@ $Tests = [
 
 ini_set('display_errors', '0');
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-require_once("User.php");
-require_once("inc/common.inc.php");
-//require_once("DBConnection.php");
-require_once("SanityTests.php");
 
 function print_test_results($test) {
     $out = '';
     switch ($test->test_result['global']) {
-        case L_OK:
+        case \core\common\Entity::L_OK:
             $message = "Your configuration appears to be fine.";
             break;
-        case L_WARN:
+        case \core\common\Entity::L_WARN:
             $message = "There were some warnings, but your configuration should work.";
             break;
-        case L_ERROR:
+        case \core\common\Entity::L_ERROR:
             $message = "Your configuration appears to be broken, please fix the errors.";
             break;
-        case L_NOTICE:
+        case \core\common\Entity::L_NOTICE:
             $message = "Your configuration appears to be fine.";
             break;
         default:
             throw new Exception("The result code level " . $test->test_result['global'] . " is not defined!");
     }
-    $out .= UI_message($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
+    $uiElements = new web\lib\admin\UIElements();
+    $out .= $uiElements->boxFlexible($test->test_result['global'], "<br><strong>Test Summary</strong><br>" . $message . "<br>See below for details<br><hr>");
     foreach ($test->out as $testValue) {
         foreach ($testValue as $o) {
-            $out .= UI_message($o['level'], $o['message']);
+            $out .= $uiElements->boxFlexible($o['level'], $o['message']);
         }
     }
     return($out);
 }
 
 if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
-    require_once("inc/auth.inc.php");
-    authenticate();
-    $user = new User($_SESSION['user']);
+    $auth = new \web\lib\admin\Authentication();
+    $auth->authenticate();
+    $user = new \core\User($_SESSION['user']);
     if (!$user->isSuperadmin()) {
-        print "Not Superadmin";
-        exit;
+        throw new Exception("Not Superadmin");
     }
 }
-$test = new SanityTest();
+$test = new \core\SanityTests();
 $test->run_tests($Tests);
 $format = empty($_REQUEST['format']) ? 'include' : $_REQUEST['format'];
 switch ($format) {

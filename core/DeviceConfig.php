@@ -1,11 +1,13 @@
 <?php
 
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
-?>
-<?php
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 
 /**
  * This file defines the abstract Device class
@@ -15,11 +17,10 @@
 /**
  * 
  */
-require_once('AbstractProfile.php');
-require_once('X509.php');
-require_once('EAP.php');
-require_once('Logging.php');
-include_once("devices/devices.php");
+
+namespace core;
+
+use \Exception;
 
 /**
  * This class defines the API for CAT module writers.
@@ -43,7 +44,7 @@ include_once("devices/devices.php");
  * @package ModuleWriting
  * @abstract
  */
-abstract class DeviceConfig extends Entity {
+abstract class DeviceConfig extends \core\common\Entity {
 
     /**
      * stores the path to the temporary working directory for a module instance
@@ -64,13 +65,66 @@ abstract class DeviceConfig extends Entity {
     public $supportedEapMethods;
 
     /**
-     * device module constructor should be defined by each module, but if it is not, then here is a default one
+     * the custom displayable variant of the term 'federation'
+     * @var string
+     */
+    public $nomenclature_fed;
+    
+    /**
+     * the custom displayable variant of the term 'institution'
+     * @var string
+     */
+    public $nomenclature_inst;
+    
+    /**
+     * 
+     * @param array $eapArray the list of EAP methods the device supports
+     */
+    protected function setSupportedEapMethods($eapArray) {
+        $this->supportedEapMethods = $eapArray;
+        $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
+        $this->loggerInstance->debug(4, $this->supportedEapMethods, true);
+    }
+
+    /**
+     * device module constructor should be defined by each module. 
+     * The one important thing to do is to call setSupportedEapMethods with an 
+     * array of EAP methods the device supports
      */
     public function __construct() {
         parent::__construct();
-        $this->supportedEapMethods = [EAPTYPE_TLS, EAPTYPE_PEAP_MSCHAP2, EAPTYPE_TTLS_PAP];
-        $this->loggerInstance->debug(4, "This device supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, print_r($this->supportedEapMethods, true));
+        // some config elements are displayable. We need some dummies to 
+        // translate the common values for them. If a deployment chooses a 
+        // different wording, no translation, sorry
+
+        $dummy_NRO = _("National Roaming Operator");
+        $dummy_inst1 = _("identity provider");
+        $dummy_inst2 = _("organisation");
+        // and do something useless with the strings so that there's no "unused" complaint
+        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
+
+        $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
+        $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
+    }
+
+    /**
+     * generates a UUID, for the devices which identify file contents by UUID
+     *
+     * @param string $prefix an extra prefix to set before the UUID
+     * @return string UUID (possibly prefixed)
+     */
+    public function uuid($prefix = '', $deterministicSource = NULL) {
+        if ($deterministicSource === NULL) {
+            $chars = md5(uniqid(mt_rand(), true));
+        } else {
+            $chars = md5($deterministicSource);
+        }
+        $uuid = substr($chars, 0, 8) . '-';
+        $uuid .= substr($chars, 8, 4) . '-';
+        $uuid .= substr($chars, 12, 4) . '-';
+        $uuid .= substr($chars, 16, 4) . '-';
+        $uuid .= substr($chars, 20, 12);
+        return $prefix . $uuid;
     }
 
     /**
@@ -93,60 +147,87 @@ abstract class DeviceConfig extends Entity {
      */
     final public function setup(AbstractProfile $profile, $token = NULL, $importPassword = NULL) {
         $this->loggerInstance->debug(4, "module setup start\n");
+        $purpose = 'installer';
         if (!$profile instanceof AbstractProfile) {
             $this->loggerInstance->debug(2, "No profile has been set\n");
-            error("No profile has been set");
-            exit;
+            throw new Exception("No profile has been set");
+        }
+
+        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
+        $this->calculatePreferredEapType($eaps);
+        if (count($this->selectedEap) == 0) {
+            throw new Exception("No EAP type specified.");
         }
         $this->attributes = $this->getProfileAttributes($profile);
-          
-        if (!$this->selectedEap) {
-            error("No EAP type specified.");
-            exit;
-        }
-        
+        $this->deviceUUID = $this->uuid('', 'CAT' . $profile->institution . "-" . $profile->identifier . "-" . $this->device_id);
+
+
         // if we are instantiating a Silverbullet profile AND have been given
         // a token, attempt to create the client certificate NOW
         // then, this is the only instance of the device ever which knows the
         // cert and private key. It's not saved anywhere, so it's gone forever
         // after code execution!
-        
+
+        $this->loggerInstance->debug(5, "DeviceConfig->setup() - preliminaries done.\n");
         if ($profile instanceof ProfileSilverbullet && $token !== NULL && $importPassword !== NULL) {
-            $this->clientCert = $profile->generateCertificate($token, $importPassword);
+            $this->clientCert = $profile->issueCertificate($token, $importPassword);
+            // add a UUID identifier for the devices that want one
+            $this->clientCert['GUID'] = $this->uuid("", $this->clientCert['certdata']);
+            // we need to drag this along; ChromeOS needs it outside the P12 container to encrypt the entire *config* with it.
+            // Because encrypted private keys are not supported as per spec!
+            $purpose = 'silverbullet';
+            // let's keep a record for which device type this token was consumed
+            $dbInstance = DBConnection::handle("INST");
+            $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
+
+            /*
+             * If certificate has been created updating device name for it.
+             */
+            if ($this->clientCert['certificateId'] != null) {
+                $certId = $this->clientCert['certificateId'];
+                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);
+            }
         }
-        
+        $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;
-        $tempDir = createTemporaryDirectory('installer');
+        $tempDir = $this->createTemporaryDirectory($purpose);
         $this->FPATH = $tempDir['dir'];
         mkdir($tempDir['dir'] . '/tmp');
         chdir($tempDir['dir'] . '/tmp');
         $caList = [];
-        $x509 = new X509();
+        $x509 = new \core\common\X509();
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
                 $processedCert = $x509->processCertificate($ca);
                 if ($processedCert) {
+                    // add a UUID for convenience (some devices refer to their CAs by a UUID value)
+                    $processedCert['uuid'] = $this->uuid("", $processedCert['pem']);
                     $caList[] = $processedCert;
                 }
             }
             $this->attributes['internal:CAs'][0] = $caList;
         }
+
         if (isset($this->attributes['support:info_file'])) {
             $this->attributes['internal:info_file'][0] = $this->saveInfoFile($this->attributes['support:info_file'][0]);
         }
         if (isset($this->attributes['general:logo_file'])) {
-            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file']);
+            $this->loggerInstance->debug(5, "saving IDP logo\n");
+            $this->attributes['internal:logo_file'] = $this->saveLogoFile($this->attributes['general:logo_file'],'idp');
+        }
+        if (isset($this->attributes['fed:logo_file'])) {
+            $this->loggerInstance->debug(5, "saving FED logo\n");
+            $this->attributes['fed:logo_file'] = $this->saveLogoFile($this->attributes['fed:logo_file'], 'fed');
         }
         $this->attributes['internal:SSID'] = $this->getSSIDs()['add'];
 
         $this->attributes['internal:remove_SSID'] = $this->getSSIDs()['del'];
 
         $this->attributes['internal:consortia'] = $this->getConsortia();
-        $this->langIndex = CAT::get_lang();
-        $olddomain = CAT::set_locale("core");
-        $support_email_substitute = sprintf(_("your local %s support"), CONFIG['CONSORTIUM']['name']);
-        $support_url_substitute = sprintf(_("your local %s support page"), CONFIG['CONSORTIUM']['name']);
-        CAT::set_locale($olddomain);
+        $olddomain = $this->languageInstance->setTextDomain("core");
+        $this->support_email_substitute = sprintf(_("your local %s support"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->support_url_substitute = sprintf(_("your local %s support page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $this->languageInstance->setTextDomain($olddomain);
 
         if ($this->signer && $this->options['sign']) {
             $this->sign = ROOT . '/signer/' . $this->signer;
@@ -157,19 +238,18 @@ abstract class DeviceConfig extends Entity {
     /**
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
-     * @param array eap_array an array of eap methods supported by a given device
-     * @return array the best matching EAP type for the profile; the array may be empty if no match was found
+     * @param array eapArrayofObjects an array of eap methods supported by a given device
      */
-    public function getPreferredEapType($eap_array) {
-        foreach ($eap_array as $eap) {
-            if (in_array($eap, $this->supportedEapMethods)) {
-                $this->selectedEap = $eap;
-                $this->loggerInstance->debug(4, "Selected EAP:");
-                $this->loggerInstance->debug(4, $eap);
-                return($eap);
+    public function calculatePreferredEapType($eapArrayofObjects) {
+        $this->selectedEap = [];
+        foreach ($eapArrayofObjects as $eap) {
+            if (in_array($eap->getArrayRep(), $this->supportedEapMethods)) {
+                $this->selectedEap = $eap->getArrayRep();
             }
         }
-        return [];
+        if ($this->selectedEap != []) {
+            $this->selectedEapObject = new common\EAP($this->selectedEap);
+        }
     }
 
     /**
@@ -180,6 +260,17 @@ abstract class DeviceConfig extends Entity {
      */
     public function writeDeviceInfo() {
         return _("Sorry, this should not happen - no additional information is available");
+    }
+    
+    private function findSourceFile($file) {
+        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
+            return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
+        } elseif (is_file($this->module_path . '/Files/' . $file)) {
+            return $this->module_path . '/Files/' . $file;
+        } else {
+            $this->loggerInstance->debug(2, "requested file $file does not exist\n");
+            return(FALSE);
+        }
     }
 
     /**
@@ -201,16 +292,12 @@ abstract class DeviceConfig extends Entity {
         if ($output_name === NULL) {
             $output_name = $source_name;
         }
-        $this->loggerInstance->debug(4, "fileCopy($source_name, $output_name)\n");
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $source_name;
-        } else {
-            $this->loggerInstance->debug(2, "fileCopy:reqested file $source_name does not exist\n");
-            return(FALSE);
+        $this->loggerInstance->debug(5, "fileCopy($source_name, $output_name)\n");
+        $source = $this->findSourceFile($source_name);
+        if ($source === FALSE) {
+            return FALSE;
         }
-        $this->loggerInstance->debug(4, "Copying $source to $output_name\n");
+        $this->loggerInstance->debug(5, "Copying $source to $output_name\n");
         $result = copy($source, "$output_name");
         if (!$result) {
             $this->loggerInstance->debug(2, "fileCopy($source_name, $output_name) failed\n");
@@ -242,23 +329,19 @@ abstract class DeviceConfig extends Entity {
      * @final not to be redefined
      */
     final protected function translateFile($source_name, $output_name = NULL, $encoding = 0) {
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($output_name === NULL) {
             $output_name = $source_name;
         }
 
-        $this->loggerInstance->debug(4, "translateFile($source_name, $output_name, $encoding)\n");
+        $this->loggerInstance->debug(5, "translateFile($source_name, $output_name, $encoding)\n");
         ob_start();
-        $this->loggerInstance->debug(4, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
-        $source = "";
-        if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $this->device_id . '/' . $source_name;
-        } elseif (is_file($this->module_path . '/Files/' . $source_name)) {
-            $source = $this->module_path . '/Files/' . $source_name;
-        }
-        if ($source !== "") { // if there is no file found, don't attempt to include an uninitialised variable
+        $this->loggerInstance->debug(5, $this->module_path . '/Files/' . $this->device_id . '/' . $source_name . "\n");
+        $source = $this->findSourceFile($source_name);
+        
+        if ($source !== FALSE) { // if there is no file found, don't attempt to include an uninitialised variable
             include($source);
         }
         $output = ob_get_clean();
@@ -271,10 +354,12 @@ abstract class DeviceConfig extends Entity {
         $fileHandle = fopen("$output_name", "w");
         if (!$fileHandle) {
             $this->loggerInstance->debug(2, "translateFile($source, $output_name, $encoding) failed\n");
+            return FALSE;
         }
         fwrite($fileHandle, $output);
         fclose($fileHandle);
-        $this->loggerInstance->debug(4, "translateFile($source, $output_name, $encoding) end\n");
+        $this->loggerInstance->debug(5, "translateFile($source, $output_name, $encoding) end\n");
+        return TRUE;
     }
 
     /**
@@ -294,11 +379,11 @@ abstract class DeviceConfig extends Entity {
      * @final not to be redefined
      */
     final protected function translateString($source_string, $encoding = 0) {
-        $this->loggerInstance->debug(4, "translateString input: \"$source_string\"\n");
+        $this->loggerInstance->debug(5, "translateString input: \"$source_string\"\n");
         if (empty($source_string)) {
             return($source_string);
         }
-        if (CONFIG['NSIS_VERSION'] >= 3) {
+        if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
             $encoding = 0;
         }
         if ($encoding) {
@@ -338,7 +423,7 @@ abstract class DeviceConfig extends Entity {
                 foreach ($caArray as $certAuthority) {
                     $fileHandle = fopen("cert-$iterator.crt", "w");
                     if (!$fileHandle) {
-                        die("problem opening the file\n");
+                        throw new Exception("problem opening the file");
                     }
                     if ($format === "pem") {
                         fwrite($fileHandle, $certAuthority['pem']);
@@ -370,8 +455,17 @@ abstract class DeviceConfig extends Entity {
      */
     private function getInstallerBasename() {
         $replace_pattern = '/[ ()\/\'"]+/';
-        $lang_pointer = CONFIG['LANGUAGES'][$this->langIndex]['latin_based'] == TRUE ? 0 : 1;
-        $this->loggerInstance->debug(4, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
+        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG_CONFASSISTANT['CONSORTIUM']['name']));
+        if (isset($this->attributes['profile:customsuffix'][1])) { 
+            // this string will end up as a filename on a filesystem, so always
+            // take a latin-based language variant if available
+            // and then scrub non-ASCII just in case
+            return $consortiumName . "-" . $this->getDeviceId() . iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:customsuffix'][1]));
+        }
+        // Okay, no custom suffix. 
+        // Use the configured inst name and apply shortening heuristics
+        $lang_pointer = CONFIG['LANGUAGES'][$this->languageInstance->getLang()]['latin_based'] == TRUE ? 0 : 1;
+        $this->loggerInstance->debug(5, "getInstallerBasename1:" . $this->attributes['general:instname'][$lang_pointer] . "\n");
         $inst = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['general:instname'][$lang_pointer]));
         $this->loggerInstance->debug(4, "getInstallerBasename2:$inst\n");
         $Inst_a = explode('_', $inst);
@@ -381,7 +475,7 @@ abstract class DeviceConfig extends Entity {
                 $inst .= $i[0];
             }
         }
-        $consortiumName = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', CONFIG['CONSORTIUM']['name']));
+        // and if the inst has multiple profiles, add the profile name behin
         if ($this->attributes['internal:profile_count'][0] > 1) {
             if (!empty($this->attributes['profile:name']) && !empty($this->attributes['profile:name'][$lang_pointer])) {
                 $profTemp = iconv("UTF-8", "US-ASCII//TRANSLIT", preg_replace($replace_pattern, '_', $this->attributes['profile:name'][$lang_pointer]));
@@ -407,9 +501,9 @@ abstract class DeviceConfig extends Entity {
         $ssidList = [];
         $ssidList['add'] = [];
         $ssidList['del'] = [];
-        if (isset(CONFIG['CONSORTIUM']['ssid'])) {
-            foreach (CONFIG['CONSORTIUM']['ssid'] as $ssid) {
-                if (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] == TRUE) {
+        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
+            foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
+                if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
                     $ssidList['add'][$ssid] = 'AES';
@@ -440,7 +534,7 @@ abstract class DeviceConfig extends Entity {
     }
 
     private function getConsortia() {
-        $consortia = CONFIG['CONSORTIUM']['interworking-consortium-oi'];
+        $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
             foreach ($this->attributes['media:consortium_OI'] as $new_oi) {
                 $consortia[] = $new_oi;
@@ -459,11 +553,11 @@ abstract class DeviceConfig extends Entity {
         'application/pdf' => 'pdf',
     ];
 
-    private function saveLogoFile($logos) {
+    private function saveLogoFile($logos,$type) {
         $iterator = 0;
         $returnarray = [];
         foreach ($logos as $blob) {
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $finfo = new \finfo(FILEINFO_MIME_TYPE);
             $mime = $finfo->buffer($blob);
             $matches = [];
             if (preg_match('/^image\/(.*)/', $mime, $matches)) {
@@ -471,12 +565,12 @@ abstract class DeviceConfig extends Entity {
             } else {
                 $ext = 'unsupported';
             }
-            $this->loggerInstance->debug(4, "saveLogoFile: $mime : $ext\n");
-            $fileName = 'logo-' . $iterator . '.' . $ext;
+            $this->loggerInstance->debug(5, "saveLogoFile: $mime : $ext\n");
+            $fileName = 'logo-' . $type . $iterator . '.' . $ext;
             $fileHandle = fopen($fileName, "w");
             if (!$fileHandle) {
                 $this->loggerInstance->debug(2, "saveLogoFile failed for: $fileName\n");
-                die("problem opening the file\n");
+                throw new Exception("problem opening the file");
             }
             fwrite($fileHandle, $blob);
             fclose($fileHandle);
@@ -487,13 +581,13 @@ abstract class DeviceConfig extends Entity {
     }
 
     private function saveInfoFile($blob) {
-        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
         $ext = isset($this->mime_extensions[$mime]) ? $this->mime_extensions[$mime] : 'usupported';
-        $this->loggerInstance->debug(4, "saveInfoFile: $mime : $ext\n");
+        $this->loggerInstance->debug(5, "saveInfoFile: $mime : $ext\n");
         $fileHandle = fopen('local-info.' . $ext, "w");
         if (!$fileHandle) {
-            die("problem opening the file\n");
+            throw new Exception("problem opening the file");
         }
         fwrite($fileHandle, $blob);
         fclose($fileHandle);
@@ -501,15 +595,14 @@ abstract class DeviceConfig extends Entity {
     }
 
     private function getProfileAttributes(AbstractProfile $profile) {
-        $eaps = $profile->getEapMethodsinOrderOfPreference(1);
-        $bestMatchEap = $this->getPreferredEapType($eaps);
+        $bestMatchEap = $this->selectedEap;
         if (count($bestMatchEap) > 0) {
             $a = $profile->getCollapsedAttributes($bestMatchEap);
             $a['eap'] = $bestMatchEap;
-            $a['all_eaps'] = $eaps;
+            $a['all_eaps'] = $profile->getEapMethodsinOrderOfPreference(1);
             return($a);
         }
-        error("No supported eap types found for this profile.");
+        print("No supported eap types found for this profile.\n");
         return [];
     }
 
@@ -577,7 +670,7 @@ abstract class DeviceConfig extends Entity {
      * - <b>media:SSID</b>       -  additional SSID to configure, WPA2/AES only (device modules should use internal:SSID)
      * - <b>media:SSID_with_legacy</b> -  additional SSID to configure, WPA2/AES and WPA/TKIP (device modules should use internal:SSID)
      *
-     * @see X509::processCertificate()
+     * @see \core\common\X509::processCertificate()
      * @var array $attributes
      */
     public $attributes;
@@ -601,6 +694,7 @@ abstract class DeviceConfig extends Entity {
      * @var array
      */
     public $selectedEap;
+    public $selectedEapObject;
 
     /**
      * the path to the profile signing program
@@ -613,15 +707,6 @@ abstract class DeviceConfig extends Entity {
      */
     public $sign;
     public $signer;
-
-    /**
-     * the string referencing the language (index ot the CONFIG['LANGUAGES'] array).
-     * It is set to the current language and may be used by the device module to
-     * set its language
-     *
-     * @var string
-     */
-    public $langIndex;
 
     /**
      * The string identifier of the device (don't show this to users)
@@ -640,14 +725,14 @@ abstract class DeviceConfig extends Entity {
      * 
      * @var string 
      */
-    public static $support_email_substitute;
+    public $support_email_substitute;
 
     /**
      * This string will be shown if no support URL was configured by the admin
      * 
      * @var string 
      */
-    public static $support_url_substitute;
+    public $support_url_substitute;
 
     /**
      * This string should be used by all installer modules to set the 
@@ -656,10 +741,15 @@ abstract class DeviceConfig extends Entity {
      * @var string 
      */
     public $installerBasename;
-    
+
     /**
      * stores the PKCS#12 DER representation of a client certificate for SilverBullet
      */
     protected $clientCert;
+
+    /**
+     * stores identifier used by GEANTLink profiles
+     */
+    public $deviceUUID;
 
 }

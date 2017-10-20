@@ -1,4 +1,13 @@
 <?php
+/* 
+ *******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ *******************************************************************************
+ */
+
 include(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 $colour1 = CONFIG['APPEARANCE']['colour1'];
 $colour2 = CONFIG['APPEARANCE']['colour2'];
@@ -10,6 +19,7 @@ html {
 
 body {
     background: <?php echo $colour1;?>;
+    color: #000000;
     font-family:Verdana, Arial, Helvetica, sans-serif;
     font-size:11px;
     height: 100%;
@@ -741,13 +751,6 @@ span.redirect_link a:active {
     font-size: 11px;  
     font-weight: normal; 
     font-style: normal;
-}
-
-.device_list button.more_info_b {
-    width: 23px; 
-    background-image:url("../images/icons/info_s.png");
-    background-repeat:no-repeat;
-    background-position: 2px 0px; 
 }
 
 .device_list td {

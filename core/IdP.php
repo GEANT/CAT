@@ -1,11 +1,13 @@
 <?php
 
-/* * ********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
-?>
-<?php
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 
 /**
  * This file contains Federation, IdP and Profile classes.
@@ -16,18 +18,8 @@
 /**
  * 
  */
-require_once('Helper.php');
-require_once('ProfileFactory.php');
-require_once('AbstractProfile.php');
-require_once("CAT.php");
-require_once("Options.php");
-require_once("DBConnection.php");
-require_once("RADIUSTests.php");
-require_once('EntityWithDBProperties.php');
-
-define("EXTERNAL_DB_SYNCSTATE_NOT_SYNCED", 0);
-define("EXTERNAL_DB_SYNCSTATE_SYNCED", 1);
-define("EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING", 2);
+namespace core;
+use \Exception;
 
 /**
  * This class represents an Identity Provider (IdP).
@@ -42,6 +34,10 @@ define("EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING", 2);
  * @package Developer
  */
 class IdP extends EntityWithDBProperties {
+
+    const EXTERNAL_DB_SYNCSTATE_NOT_SYNCED = 0;
+    const EXTERNAL_DB_SYNCSTATE_SYNCED = 1;
+    const EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING = 2;
 
     /**
      *
@@ -61,14 +57,13 @@ class IdP extends EntityWithDBProperties {
      *
      * @param int $instId the database row identifier
      */
-    public function __construct($instId) {
+    public function __construct(int $instId) {
         $this->databaseType = "INST";
         parent::__construct(); // now databaseHandle and logging is available
-        $this->loggerInstance->debug(3, "--- BEGIN Constructing new IdP object ... ---\n");
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         if (!is_numeric($instId)) {
-            throw new Exception("Institutions are identified by an integer index!");
+            throw new Exception("An ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst']." is identified by an integer index!");
         }
         $this->identifier = (int) $instId;
 
@@ -81,29 +76,29 @@ class IdP extends EntityWithDBProperties {
         $this->externalDbSyncstate = $instQuery->external_db_syncstate;
 
         // fetch attributes from DB; populates $this->attributes array
-        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name,option_value, row 
+        $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
-                                            WHERE $this->entityIdColumn = $this->identifier  
-                                            ORDER BY option_name", "IdP");
+                                            WHERE $this->entityIdColumn = ?  
+                                            ORDER BY option_name", "IdP", "i", $this->identifier);
 
         $this->attributes[] = ["name" => "internal:country",
+            "lang" => NULL,
             "value" => $this->federation,
             "level" => "IdP",
             "row" => 0,
             "flag" => NULL];
 
-        $this->name = getLocalisedValue($this->getAttributes('general:instname'), CAT::get_lang());
+        $this->name = $this->languageInstance->getLocalisedValue($this->getAttributes('general:instname'));
         $this->loggerInstance->debug(3, "--- END Constructing new IdP object ... ---\n");
     }
 
     /**
      * This function retrieves all registered profiles for this IdP from the database
      *
-     * @return array List of Profiles of this IdP
-     * @param int $activeOnly if and set to non-zero will
-     * cause listing of only those institutions which have some valid profiles defined.
+     * @param bool $activeOnly if and set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @return array list of Profiles of this IdP
      */
-    public function listProfiles($activeOnly = 0) {
+    public function listProfiles(bool $activeOnly = FALSE) {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
         $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
@@ -117,43 +112,16 @@ class IdP extends EntityWithDBProperties {
         return $returnarray;
     }
 
-    public function isOneProfileConfigured() {
-        $allProfiles = $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        if (mysqli_num_rows($allProfiles) > 0) {
-            return TRUE;
+    const PROFILES_INCOMPLETE = 0;
+    const PROFILES_CONFIGURED = 1;
+    const PROFILES_SHOWTIME = 2;
+    
+    public function maxProfileStatus() {
+        $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
+        while ($res = mysqli_fetch_object($allProfiles)) {
+            return $res->maxlevel;
         }
-        return FALSE;
-    }
-
-    public function isOneProfileShowtime() {
-        $allProfiles = $this->databaseHandle->exec("SELECT profile_id FROM profile WHERE inst_id = $this->identifier AND showtime = 1");
-        if (mysqli_num_rows($allProfiles) > 0) {
-            return TRUE;
-        }
-        return FALSE;
-    }
-
-    public function getAllProfileStatusOverview() {
-        $allProfiles = $this->databaseHandle->exec("SELECT status_dns, status_cert, status_reachability, status_TLS, last_status_check FROM profile WHERE inst_id = $this->identifier AND sufficient_config = 1");
-        $returnarray = ['dns' => RETVAL_SKIPPED, 'cert' => L_OK, 'reachability' => RETVAL_SKIPPED, 'TLS' => RETVAL_SKIPPED, 'checktime' => NULL];
-        while ($statusQuery = mysqli_fetch_object($allProfiles)) {
-            if ($statusQuery->status_dns < $returnarray['dns']) {
-                $returnarray['dns'] = $statusQuery->status_dns;
-            }
-            if ($statusQuery->status_reachability < $returnarray['reachability']) {
-                $returnarray['reachability'] = $statusQuery->status_reachability;
-            }
-            if ($statusQuery->status_TLS < $returnarray['TLS']) {
-                $returnarray['TLS'] = $statusQuery->status_TLS;
-            }
-            if ($statusQuery->status_cert < $returnarray['cert']) {
-                $returnarray['cert'] = $statusQuery->status_cert;
-            }
-            if ($statusQuery->last_status_check > $returnarray['checktime']) {
-                $returnarray['checktime'] = $statusQuery->last_status_check;
-            }
-        }
-        return $returnarray;
+        return self::PROFILES_INCOMPLETE;
     }
 
     /** This function retrieves an array of authorised users which can
@@ -171,7 +139,8 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
-     * This function gets the profile count for a given IdP
+     * This function gets the profile count for a given IdP.
+     * 
      * The count could be retreived from the listProfiles method
      * but this is less expensive.
      *
@@ -184,8 +153,10 @@ class IdP extends EntityWithDBProperties {
     }
 
     /**
-     * This function sets the timestamp of last modification of the child profiles to the current timestamp. This is needed
-     * for installer caching: all installers which are on disk must be re-created if an attribute changes. This timestamp here
+     * This function sets the timestamp of last modification of the child profiles to the current timestamp.
+     * 
+     * This is needed for installer caching: all installers which are on disk 
+     * must be re-created if an attribute changes. This timestamp here
      * is used to determine if the installer on disk is still new enough.
      */
     public function updateFreshness() {
@@ -196,11 +167,13 @@ class IdP extends EntityWithDBProperties {
 
     /**
      * Adds a new profile to this IdP.
+     * 
      * Only creates the DB entry for the Profile. If you want to add attributes later, see Profile::addAttribute().
      *
+     * @param string $type exactly "RADIUS" or "SILVERBULLET", all other values throw an Exception
      * @return object new Profile object if successful, or FALSE if an error occured
      */
-    public function newProfile($type) {
+    public function newProfile(string $type) {
         $this->databaseHandle->exec("INSERT INTO profile (inst_id) VALUES($this->identifier)");
         $identifier = $this->databaseHandle->lastID();
 
@@ -209,7 +182,9 @@ class IdP extends EntityWithDBProperties {
                 case "RADIUS":
                     return new ProfileRADIUS($identifier, $this);
                 case "SILVERBULLET":
-                    return new ProfileSilverbullet($identifier, $this);
+                    $theProfile = new ProfileSilverbullet($identifier, $this);
+                    $theProfile->addSupportedEapMethod(new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET), 1);
+                    return $theProfile;
                 default:
                     throw new Exception("This type of profile is unknown and can not be added.");
             }
@@ -249,27 +224,29 @@ We thought you might want to know.
 
 Best regards,
 
-%s"), $this->name, CONFIG['CONSORTIUM']['name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
+%s"), $this->name, CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], strtoupper($fed->name), CONFIG['APPEARANCE']['productname'], CONFIG['APPEARANCE']['productname_long']);
             $user->sendMailToUser(_("IdP in your federation was deleted"), $message);
         }
         unset($this);
     }
 
     /**
-     * Performs a lookup in an external database to determine matching entities to this IdP. The business logic of this function is
-     * roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
+     * Performs a lookup in an external database to determine matching entities to this IdP. 
+     * 
+     * The business logic of this function is roaming consortium specific; if no match algorithm is known for the consortium, FALSE is returned.
      * 
      * @return mixed list of entities in external database that correspond to this IdP or FALSE if no consortium-specific matching function is defined
      */
     public function getExternalDBSyncCandidates() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $list = [];
             $usedarray = [];
             // extract all institutions from the country
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = '" . strtolower($this->federation) . "'");
-
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+            $lowerFed = strtolower($this->federation);
+            $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", $lowerFed);
+            $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
             while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
@@ -290,11 +267,8 @@ Best regards,
             $matchingCandidates = [];
             foreach ($mynames as $onename) {
                 foreach ($list as $listentry) {
-                    $unserialised = unserialize($onename['value']);
-                    if (($unserialised['lang'] == $listentry['lang'] || $unserialised['lang'] == "C") && $unserialised['content'] == $listentry['name']) {
-                        if (array_search($listentry['ID'], $matchingCandidates) === FALSE) {
-                            $matchingCandidates[] = $listentry['ID'];
-                        }
+                    if (($onename['lang'] == $listentry['lang'] || $onename['lang'] == "C") && $onename['value'] == $listentry['name'] && array_search($listentry['ID'], $matchingCandidates) === FALSE) {
+                        $matchingCandidates[] = $listentry['ID'];
                     }
                 }
             }
@@ -303,11 +277,16 @@ Best regards,
         return FALSE;
     }
 
+    /**
+     * returns the state of sync with the external DB.
+     * 
+     * @return int
+     */
     public function getExternalDBSyncState() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             return $this->externalDbSyncstate;
         }
-        return EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
+        return self::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING;
     }
 
     /**
@@ -316,8 +295,8 @@ Best regards,
      * @return mixed the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
             if (mysqli_num_rows($idQuery) == 0) {
                 return FALSE;
             }
@@ -327,13 +306,18 @@ Best regards,
         return FALSE;
     }
 
-    public function setExternalDBId($identifier) {
-        $escapedIdentifier = $this->databaseHandle->escapeValue($identifier);
-        if (CONFIG['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG['CONSORTIUM']['deployment-voodoo']) && CONFIG['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = '$escapedIdentifier' AND external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED);
+    /**
+     * Associates the external DB id with a CAT id
+     * 
+     * @param string $identifier the external DB id, which can be alpha-numeric
+     */
+    public function setExternalDBId(string $identifier) {
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
+            $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
 
             if (mysqli_num_rows($alreadyUsed) == 0) {
-                $this->databaseHandle->exec("UPDATE institution SET external_db_id = '$escapedIdentifier', external_db_syncstate = " . EXTERNAL_DB_SYNCSTATE_SYNCED . " WHERE inst_id = $this->identifier");
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, $syncState, $this->identifier );
             }
         }
     }

@@ -1,42 +1,39 @@
 <?php
 
-/* * *********************************************************************************
- * (c) 2011-15 GÉANT on behalf of the GN3, GN3plus and GN4 consortia
- * License: see the LICENSE file in the root directory
- * ********************************************************************************* */
+/*
+ * ******************************************************************************
+ * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
+ * and GN4-2 consortia
+ *
+ * License: see the web/copyright.php file in the file structure
+ * ******************************************************************************
+ */
 ?>
 <?php
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-require_once("Federation.php");
-require_once("IdP.php");
-require_once("Helper.php");
-require_once("Logging.php");
+$auth = new \web\lib\admin\Authentication();
+$loggerInstance = new \core\common\Logging();
+$deco = new \web\lib\admin\PageDecoration();
+$validator = new \web\lib\common\InputValidation();
+$optionParser = new \web\lib\admin\OptionParser();
+$ui = new \web\lib\admin\UIElements();
 
-require_once("inc/common.inc.php");
-require_once("inc/input_validation.inc.php");
-require_once("../resources/inc/header.php");
-require_once("../resources/inc/footer.php");
-require_once("inc/option_parse.inc.php");
-
-require_once("inc/auth.inc.php");
-
-$loggerInstance = new Logging();
-
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_DELETE && isset($_GET['inst_id'])) {
-    authenticate();
-    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE && isset($_GET['inst_id'])) {
+    $auth->authenticate();
+    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     // delete the IdP and send user to enrollment
     $my_inst->destroy();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP " . $instId);
-    header("Location:overview_user.php");
+    header("Location: overview_user.php");
+    exit;
 }
 
-if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
-    authenticate();
-    $my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART && isset($_GET['inst_id'])) {
+    $auth->authenticate();
+    $my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
     $instId = $my_inst->identifier;
     //
     $profiles = $my_inst->listProfiles();
@@ -46,33 +43,32 @@ if (isset($_POST['submitbutton']) && $_POST['submitbutton'] == BUTTON_FLUSH_AND_
     // flush all IdP attributes and send user to creation wizard
     $my_inst->flushAttributes();
     $loggerInstance->writeAudit($_SESSION['user'], "DEL", "IdP starting over" . $instId);
-    header("Location:edit_idp.php?inst_id=$instId&wizard=true");
+    header("Location: edit_idp.php?inst_id=$instId&wizard=true");
+    exit;
 }
 
 
-pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+echo $deco->pageheader(sprintf(_("%s: IdP enrollment wizard (step 2 completed)"), CONFIG['APPEARANCE']['productname']), "ADMIN-IDP");
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 if ((!isset($_POST['submitbutton'])) || (!isset($_POST['option'])) || (!isset($_POST['value']))) {
     // this page doesn't make sense without POST values
-    footer();
+    echo $deco->footer();
     exit(0);
 }
 
-if ($_POST['submitbutton'] != BUTTON_SAVE && $_POST['submitbutton'] != BUTTON_CONTINUE) {
+if ($_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_SAVE && $_POST['submitbutton'] != web\lib\common\FormElements::BUTTON_CONTINUE) {
     // unexpected button value
-    footer();
+    echo $deco->footer();
     exit(0);
 }
 
 $inst_name = $my_inst->name;
 echo "<h1>" . sprintf(_("Submitted attributes for IdP '%s'"), $inst_name) . "</h1>";
-$remaining_attribs = $my_inst->beginflushAttributes();
-
 echo "<table>";
-$killlist = processSubmittedFields($my_inst, $_POST, $_FILES, $remaining_attribs);
+echo $optionParser->processSubmittedFields($my_inst, $_POST, $_FILES);
 echo "</table>";
-$my_inst->commitFlushAttributes($killlist);
+
 // delete cached logo, if present
 $logofile = dirname(dirname(__FILE__)) . "/downloads/logos/" . $my_inst->identifier . ".png";
 if (is_file($logofile)) {
@@ -83,15 +79,15 @@ $loggerInstance->writeAudit($_SESSION['user'], "MOD", "IdP " . $my_inst->identif
 
 // re-instantiate ourselves... profiles need fresh data
 
-$my_inst = valid_IdP($_GET['inst_id'], $_SESSION['user']);
+$my_inst = $validator->IdP($_GET['inst_id'], $_SESSION['user']);
 
 // check if we have any SSID at all.
 
 $ssids = [];
 
-if (isset(CONFIG['CONSORTIUM']['ssid']) && count(CONFIG['CONSORTIUM']['ssid']) > 0) {
-    foreach (CONFIG['CONSORTIUM']['ssid'] as $ssidname) {
-        $ssids[] = $ssidname . " " . (isset(CONFIG['CONSORTIUM']['tkipsupport']) && CONFIG['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
+if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) && count(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) > 0) {
+    foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssidname) {
+        $ssids[] = $ssidname . " " . (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] === TRUE ? _("(WPA2/AES and WPA/TKIP)") : _("(WPA2/AES)") );
     }
 }
 
@@ -112,33 +108,48 @@ if (count($custom_ssids_wpa2) > 0) {
 }
 
 echo "<table>";
+$uiElements = new web\lib\admin\UIElements();
 if (count($ssids) > 0) {
     $printedlist = "";
     foreach ($ssids as $names) {
         $printedlist = $printedlist . "$names ";
     }
-    echo UI_okay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
+    echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
 }
 if (count($wired_support) > 0) {
-    echo UI_okay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
+    echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
 }
 if (count($ssids) == 0 && count($wired_support) == 0) {
-    echo UI_warning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
+    echo $uiElements->boxWarning(_("We cannot generate installers because neither wireless SSIDs nor wired interfaces have been selected as a target!"));
 }
 echo "</table>";
 
 foreach ($my_inst->listProfiles() as $index => $profile) {
     $profile->prepShowtime();
 }
-if ($_POST['submitbutton'] == BUTTON_SAVE) {// not in initial wizard mode, just allow to go back to overview page
-    echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
-} else { // does federation want us to offer Silver Bullet?
-    // if so, show both buttons; if not, just the normal EAP profile button
-    $myfed = new Federation($my_inst->federation);
-    $allow_sb = $myfed->getAttributes("fed:silverbullet");
-    if (count($allow_sb) > 0) {
-        echo "<br/><form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to eduroam-as-a-service properties") . "</button></form>";
+// does federation want us to offer Silver Bullet?
+// if so, show both buttons; if not, just the normal EAP profile button
+$myfed = new \core\Federation($my_inst->federation);
+$allow_sb = $myfed->getAttributes("fed:silverbullet");
+// show the new profile jumpstart buttons only if we do not have any profile at all
+if (count($my_inst->listProfiles()) == 0) {
+
+    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($allow_sb) > 0) {
+        echo "<br/>";
+        // did we get an email address? then, show the silverbullet jumpstart button
+        // otherwise, issue a smartass comment
+        if (count($my_inst->getAttributes("support:email")) > 0) {
+            echo "<form method='post' action='edit_silverbullet.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . sprintf(_("Continue to %s properties"), \core\ProfileSilverbullet::PRODUCTNAME) . "</button></form>";
+        } else {
+            echo "<table>";
+            echo $uiElements->boxError(sprintf(_("You did not submit an e-mail address. This is required for %s. Please go to the IdP dashboard and edit your %s settings to include a helpdesk e-mail address."), core\ProfileSilverbullet::PRODUCTNAME, $ui->nomenclature_inst), _("No support e-mail!"));
+            echo "</table>";
+        }
     }
-    echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+        echo "<br/><form method='post' action='edit_profile.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to RADIUS/EAP profile definition") . "</button></form>";
+    }
 }
-footer();
+echo "<br/><form method='post' action='overview_idp.php?inst_id=$my_inst->identifier' accept-charset='UTF-8'><button type='submit'>" . _("Continue to dashboard") . "</button></form>";
+
+echo $deco->footer();
