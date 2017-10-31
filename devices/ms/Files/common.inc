@@ -93,6 +93,7 @@ Var rebootRequired
   Var UNAME_B64
   Var PASS2_F
   Var PASS2
+  Var inputErrorMsg
 !endif
 
 !include "base64.nsh"
@@ -912,7 +913,8 @@ Function writeTlsUserProfle
     DetailPrint "<?php WindowsCommon::echo_nsi(_("installing credentials TLS"))?>"
     !insertmacro debug_cat 3 "Installing TLS credentials profile"
     FileOpen $9 "$TEMP\user_cred.xml" w
-    FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+    ${If} ${NSIS_MAJOR_VERSION} >= 3
+       FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
   <EapMethod>$\r$\n\
     <eapCommon:Type>13</eapCommon:Type>$\r$\n\
@@ -922,15 +924,39 @@ Function writeTlsUserProfle
     <baseEap:Eap>$\r$\n\
       <baseEap:Type>13</baseEap:Type>$\r$\n\
       <eapTls:EapType>$\r$\n'
+    ${Else}
+       FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+       <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
+  <EapMethod>$\r$\n\
+    <eapCommon:Type>13</eapCommon:Type>$\r$\n\
+    <eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
+  </EapMethod>$\r$\n\
+  <Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:eapTls=$\"http://www.microsoft.com/provisioning/EapTlsUserPropertiesV1$\">$\r$\n\
+    <baseEap:Eap>$\r$\n\
+      <baseEap:Type>13</baseEap:Type>$\r$\n\
+      <eapTls:EapType>$\r$\n'
+    ${EndIf}
 
 !ifdef PFX_USERNAME
-   FileWrite $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
+   ${If} ${NSIS_MAJOR_VERSION} >= 3
+      FileWriteUTF16LE $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
+   ${Else}
+      FileWrite $9 "<eapTls:Username>$UNAME</eapTls:Username>$\r$\n"
+   ${EndIf}
 !endif
+${If} ${NSIS_MAJOR_VERSION} >= 3
+FileWriteUTF16LE $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
+      </eapTls:EapType>$\r$\n\
+    </baseEap:Eap>$\r$\n\
+  </Credentials>$\r$\n\
+</EapHostUserCredentials>$\r$\n"
+${Else}
 FileWrite $9 "<eapTls:UserCert>$tlsFingerprint</eapTls:UserCert>$\r$\n\
       </eapTls:EapType>$\r$\n\
     </baseEap:Eap>$\r$\n\
   </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
+${EndIf}
    FileClose $9
    nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
@@ -938,6 +964,30 @@ FunctionEnd
 
 Function writePeapUserProfle
     FileOpen $9 "$TEMP\user_cred.xml" w
+    ${If} ${NSIS_MAJOR_VERSION} >= 3
+    FileWriteUTF16LE $9 '<?xml version=$\"1.0$\"?>$\r$\n\
+<EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
+<EapMethod>$\r$\n\
+<eapCommon:Type>25</eapCommon:Type>$\r$\n\
+<eapCommon:AuthorId>0</eapCommon:AuthorId>$\r$\n\
+</EapMethod>$\r$\n\
+<Credentials xmlns:eapUser=$\"http://www.microsoft.com/provisioning/EapUserPropertiesV1$\" xmlns:xsi=$\"http://www.w3.org/2001/XMLSchema-instance$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapUserPropertiesV1$\" xmlns:MsPeap=$\"http://www.microsoft.com/provisioning/MsPeapUserPropertiesV1$\" xmlns:MsChapV2=$\"http://www.microsoft.com/provisioning/MsChapV2UserPropertiesV1$\">$\r$\n\
+<baseEap:Eap>$\r$\n\
+<baseEap:Type>25</baseEap:Type>$\r$\n\
+<MsPeap:EapType>$\r$\n\
+<baseEap:Eap>$\r$\n\
+<baseEap:Type>26</baseEap:Type>$\r$\n\
+<MsChapV2:EapType>$\r$\n'
+
+FileWriteUTF16LE $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
+<MsChapV2:Password>$PASS1</MsChapV2:Password>$\r$\n\
+</MsChapV2:EapType>$\r$\n\
+</baseEap:Eap>$\r$\n\
+</MsPeap:EapType>$\r$\n\
+</baseEap:Eap>$\r$\n\
+</Credentials>$\r$\n\
+</EapHostUserCredentials>$\r$\n"
+${Else}
     FileWrite $9 '<?xml version=$\"1.0$\"?>$\r$\n\
 <EapHostUserCredentials xmlns=$\"http://www.microsoft.com/provisioning/EapHostUserCredentials$\" xmlns:eapCommon=$\"http://www.microsoft.com/provisioning/EapCommon$\" xmlns:baseEap=$\"http://www.microsoft.com/provisioning/BaseEapMethodUserCredentials$\">$\r$\n\
 <EapMethod>$\r$\n\
@@ -960,6 +1010,7 @@ FileWrite $9 "<MsChapV2:Username>$UNAME</MsChapV2:Username>$\r$\n\
 </baseEap:Eap>$\r$\n\
 </Credentials>$\r$\n\
 </EapHostUserCredentials>$\r$\n"
+${EndIf}
    FileClose $9
    nsArray::Set Delete_files "user_cred.xml"
 FunctionEnd
@@ -1101,7 +1152,127 @@ FunctionEnd
 
 ; User credentials dialog
 !ifdef PASSWORD_BASED_CRED
+; Function copied from http://nsis.sourceforge.net/IndexOf_%26_RIndexOf:_Find_index_of_character_in_string
+Function IndexOf
+Exch $R0
+Exch
+Exch $R1
+Push $R2
+Push $R3
+ 
+ StrCpy $R3 $R0
+ StrCpy $R0 -1
+ IntOp $R0 $R0 + 1
+  StrCpy $R2 $R3 1 $R0
+  StrCmp $R2 "" +2
+  StrCmp $R2 $R1 +2 -3
+  
+ StrCpy $R0 -1
+ 
+Pop $R3
+Pop $R2
+Pop $R1
+Exch $R0
+FunctionEnd
+
+; validateUsername returns 0 on success
+; -1 on missing user part
+;  1 if realm required but not present
+;  2 on more then one @
+;  3 on no dot or one immediately after @
+;  4 in realm not matching the EALM value
+
+Function validateUsername
+   Pop $R5
+   Push "@"
+   Push $R5
+   Call IndexOf
+   Pop $R6
+   ${If} $R6 = -1
+   ; No @ character
+   StrCpy $inputErrorMsg  "<?php WindowsCommon::echo_nsi(_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"))?>"
+   !ifdef VERIFY_USER_REALM_INPUT
+   ; the realm should be there, hence error
+      Push $inputErrorMsg
+      Push 1
+      Return
+   !else
+   ; no realm can be OK if verification is not set
+      Push "All fine"
+      Push 0
+      Return
+   !endif
+   ${EndIf}
+   !ifdef VERIFY_USER_REALM_INPUT
+      !ifdef HINT_USER_INPUT
+         StrCpy $inputErrorMsg  "<?php WindowsCommon::echo_nsi(_("Error: your username must be in the form of 'xxx@\${REALM}'. Please enter the username in the correct format."))?>"
+      !else
+         StrCpy $inputErrorMsg "<?php WindowsCommon::echo_nsi(_("Error: your username must be in the form of 'xxx@institutionID' and end with '\${REALM}'. Please enter the username in the correct format."))?>"
+      !endif
+   !else
+      StrCpy $inputErrorMsg "<?php WindowsCommon::echo_nsi(_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"))?>"
+   !endif
+   ${If} $R6 = 0
+   ; missing username part
+      Push $inputErrorMsg
+      Push -1
+      Return
+   ${EndIf}
+   IntOp $R6 $R6 + 1
+   StrCpy $R7 "$R5" 256 $R6
+   ; R7 contains the realm part
+   !ifdef VERIFY_USER_REALM_INPUT
+      !ifdef HINT_USER_INPUT
+      ;we use exact match here
+      ${If} "$R7" == "${REALM}"
+         Push "All fine"
+         Push 0
+         Return
+      ${Else}
+         Push $inputErrorMsg
+         Push 4
+         Return
+      ${EndIf}
+      !else
+      ; we just check the suffix and then run other tests
+         StrLen $R8 "${REALM}"
+         IntOp $R8 0 - $R8
+         StrCpy $R9 "$R7" 256 $R8
+         ${If} "$R9" != "${REALM}"
+            Push $inputErrorMsg
+            Push 4
+            Return
+         ${EndIf}
+      !endif
+   !endif
+   Push "@"
+   Push $R7
+   Call IndexOf
+   Pop $R6
+   ${If} $R6 >= 0
+   ; There is a second @ 
+      Push $inputErrorMsg
+      Push 2
+      Return
+   ${EndIf}
+   Push "."
+   Push $R7
+   Call IndexOf
+   Pop $R6
+   ${If} $R6 <= 0
+   ; Either no dot or one immediately after @
+      Push "<?php WindowsCommon::echo_nsi(_("Error: Your username must be of the form 'xxx@institutionID' e.g. 'john@example.net'!"))?>"
+      Push 3
+      Return
+   ${EndIf}
+   Push "All fine"
+   Push 0
+FunctionEnd
+
 Function GetPasswordBasedCredentials
+  !ifdef HINT_USER_INPUT
+    StrCpy $UNAME "@${REALM}"
+  !endif
   call ShowNextCancelButtons
   !insertmacro MUI_HEADER_TEXT "<?php WindowsCommon::echo_nsi(_("User credentials"))?>" " "
         nsDialogs::Create 1018
@@ -1128,7 +1299,14 @@ Function SavePasswordBasedCredentials
      MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Missing username"))?>"
      Abort
    ${EndIf}
-
+   Push $UNAME
+   call validateUsername
+   Pop $0
+   ${If} $0 != 0
+     Pop $R1
+     MessageBox MB_OK "$R1"
+     Abort
+   ${EndIf}
    ${If} "$PASS1" == ""
      MessageBox MB_OK "<?php WindowsCommon::echo_nsi(_("Missing password"))?>"
      Abort
