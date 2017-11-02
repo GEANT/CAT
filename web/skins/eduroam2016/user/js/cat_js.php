@@ -308,23 +308,22 @@ function resetDevices() {
     document.cat_form.submit();
   }
 
+  function showInfo(data, title) {
+      if(data.substring(0,8) == 'no_title') {
+          data = data.substring(8,data.length);
+      } else {
+          data = "<h1>"+title+"</h1>"+data;
+      }
+      if (roller)
+          Program.stop_program = 1;
+      $("#main_body").fadeTo("fast", 0.1);
+      $("#main_menu_content").html(data);
+      $("#main_menu_info").show('fast');
+  }
+  
   function infoCAT(k,subK,title) {
       $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE","user/cat_info.php")?>', {page: k, subpage: subK, lang: lang}, function(data) {
-    if(data.substring(0,8) == 'no_title') {
-       data = data.substring(8,data.length);
-    } else {
-       data = "<h1>"+title+"</h1>"+data;
-    }
-    if (roller)
-        Program.stop_program = 1;
-//    $("#welcome_top1").css('visibility','hidden');
-//    $("#top_invite").css('visibility','hidden');
-//    $("#main_body").css('visibility','hidden');
-    $("#main_body").fadeTo("fast", 0.1);
-//    $("#signin").hide();
-    $("#main_menu_content").html(data);
-    $("#main_menu_info").show('fast');
-   });
+          showInfo(data, title)});
   }
 
   function goAdmin() {
