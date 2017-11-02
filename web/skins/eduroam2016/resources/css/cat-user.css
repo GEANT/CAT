@@ -302,7 +302,7 @@ button {
     padding-left: 30px;
     padding-top: 20px;
     padding-right: 20px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
     display:none;
 }
@@ -319,7 +319,7 @@ button {
 .download_button_text_1 {
     width: 170px;
     position:absolute;
-    font-size:12px;
+    font-size:14px;
     top:20px;
     height: 30px;
     right: 5px;
@@ -388,7 +388,7 @@ button.guess_os {
    top: 0px;
    right: 20px;
    font-size: 13px;
-   padding-top: 12px;
+   padding-top: 14px;
    color: yellow;
    padding-left:0px;
    text-align: right;
@@ -479,7 +479,7 @@ button.guess_os {
     padding-left: 30px;
     padding-top: 20px;
     padding-right: 180px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
     display:none;
 }
@@ -496,7 +496,7 @@ button.guess_os {
 .download_button_text_1 {
     width: 380px;
     position:absolute;
-    font-size:12px;
+    font-size:14px;
     top:20px;
     height: 30px;
     right: 5px;

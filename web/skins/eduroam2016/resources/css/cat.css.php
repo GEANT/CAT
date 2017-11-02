@@ -606,7 +606,8 @@ span.redirect_link a:active {
 
 #user_info {
     padding-left: 30px; 
-    font-size: 12px;  
+    font-size: 14px;  
+    line-height: 150%;
     font-weight: normal; 
 }
 
@@ -637,7 +638,7 @@ span.redirect_link a:active {
 
 #profiles {
     padding-left: 30px; 
-    font-size: 12px; 
+    font-size: 14px; 
     padding-bottom: 10px 
 }
 
@@ -653,7 +654,7 @@ span.redirect_link a:active {
 
 .device_list button {
     width: 270px; 
-    font-size: 12px;  
+    font-size: 14px;  
     font-weight: normal; 
     font-style: normal;
 }
@@ -689,7 +690,7 @@ span.redirect_link a:active {
     border-bottom-style:solid;
     border-bottom-width:5px;
     border-color: <?php echo $colour1;?>;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: normal;
 }
 
