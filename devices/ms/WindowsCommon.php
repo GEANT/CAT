@@ -256,11 +256,11 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
             $fcontents .= '!define REALM "' . $attr['internal:realm'][0] . '"
 ';
         }
-        if(!empty($attr['internal:hint_userinput_suffix'][0])) {
+        if(!empty($attr['internal:hint_userinput_suffix'][0]) && $attr['internal:hint_userinput_suffix'][0] == 1) {
             $fcontents .= '!define HINT_USER_INPUT "' . $attr['internal:hint_userinput_suffix'][0] . '"
 ';
         }
-        if(!empty($attr['internal:verify_userinput_suffix'][0])) {
+        if(!empty($attr['internal:verify_userinput_suffix'][0]) && $attr['internal:verify_userinput_suffix'][0] == 1) {
             $fcontents .= '!define VERIFY_USER_REALM_INPUT "' . $attr['internal:verify_userinput_suffix'][0] . '"
 ';
         }
