@@ -95,6 +95,7 @@ class Device_W8 extends WindowsCommon {
     }
 
     private function prepareEapConfig($attr) {
+        $outerUser = '';
         $eap = $this->selectedEap;
         $w8Ext = '';
         if ($eap != \core\common\EAP::EAPTYPE_TLS && $eap != \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_PWD && $eap != \core\common\EAP::EAPTYPE_TTLS_PAP && $eap != \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
@@ -199,7 +200,7 @@ class Device_W8 extends WindowsCommon {
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
 ';
-                if (isset($outerUser) && $outerUser) {
+                if ($outerUser) {
                     $w8Ext .= '<AnonymousUserName>' . $outerUser . '</AnonymousUserName>
                 ';
                 } else {

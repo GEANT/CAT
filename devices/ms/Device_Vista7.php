@@ -94,6 +94,7 @@ class Device_Vista7 extends WindowsCommon {
     }
 
     private function prepareEapConfig($attr) {
+        $outerUser = '';
         $vistaExt = '';
         $w7Ext = '';
         $useAnon = $attr['internal:use_anon_outer'] [0];

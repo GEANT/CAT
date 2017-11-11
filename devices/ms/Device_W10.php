@@ -99,6 +99,7 @@ class Device_W10 extends WindowsCommon {
     }
 
     private function prepareEapConfig($attr) {
+        $outerUser = '';
         $eap = $this->selectedEap;
         $w10Ext = '';
         // there is only one caller to this function, and it will always call
@@ -212,7 +213,7 @@ class Device_W10 extends WindowsCommon {
 <IdentityPrivacy xmlns="http://www.microsoft.com/provisioning/MsPeapConnectionPropertiesV2">
 <EnableIdentityPrivacy>true</EnableIdentityPrivacy>
 ';
-                if (isset($outerUser) && $outerUser) {
+                if ($outerUser) {
                     $w10Ext .= '<AnonymousUserName>' . $outerUser . '</AnonymousUserName>
                 ';
                 } else {
@@ -248,10 +249,11 @@ class Device_W10 extends WindowsCommon {
 <allow-save>true</allow-save>
 ';
                 if ($useAnon == 1) {
-                    if ($outerUser == '')
+                    if ($outerUser == '') {
                         $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
-                    else
-                        $profileFileCont .= '<AnonymousIdentity>' . $outer_id . '</AnonymousIdentity>';
+                    } else {
+                        $profileFileCont .= '<AnonymousIdentity>' . $outerId . '</AnonymousIdentity>';
+                    }
                 }
                 $profileFileCont .= '</ClientSideCredential>
 <ServerSideCredential>
