@@ -100,6 +100,7 @@ class Device_W10 extends WindowsCommon {
 
     private function prepareEapConfig($attr) {
         $outerUser = '';
+        $outerId = '';
         $eap = $this->selectedEap;
         $w10Ext = '';
         // there is only one caller to this function, and it will always call
