@@ -14,7 +14,7 @@ $Gui->defaultPagePrelude();
     var sbPage = 1;
 <?php
 $profile_list_size = 1;
-include_once('Divs.php');
+include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);
 $visibility = 'sb';
 $operatingSystem = $Gui->detectOS();
@@ -23,7 +23,7 @@ $uiElements = new web\lib\admin\UIElements();
 if ($operatingSystem) {
     print "recognisedOS = '" . $operatingSystem['device'] . "';\n";
 }
-include("cat_js.php");
+include(dirname(__DIR__) . '/user/js/cat_js.php');
 ?>
 var lang = "<?php echo($Gui->langObject->getLang()) ?>";
 </script>
