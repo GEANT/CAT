@@ -83,9 +83,6 @@ class Device_W10 extends WindowsCommon {
 
         $this->writeProfilesNSH($windowsProfile, $caFiles, $setWired);
         $this->writeAdditionalDeletes($delProfiles);
-        if (isset($additionalDeletes) && count($additionalDeletes)) {
-            $this->writeAdditionalDeletes($additionalDeletes);
-        }
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $this->writeClientP12File();
         }
