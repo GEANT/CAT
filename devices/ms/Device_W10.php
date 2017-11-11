@@ -239,7 +239,7 @@ class Device_W10 extends WindowsCommon {
 <EAPIdentityProvider ID="' . $this->deviceUUID . '" namespace="urn:UUID">
 
 <ProviderInfo>
-<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->code_page) . '</DisplayName>
+<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->codePage) . '</DisplayName>
 </ProviderInfo>
 <AuthenticationMethods>
 <AuthenticationMethod>
@@ -248,7 +248,7 @@ class Device_W10 extends WindowsCommon {
 <allow-save>true</allow-save>
 ';
                 if ($useAnon == 1) {
-                    if ($outer_user == '')
+                    if ($outerUser == '')
                         $profileFileCont .= '<AnonymousIdentity>@</AnonymousIdentity>';
                     else
                         $profileFileCont .= '<AnonymousIdentity>' . $outer_id . '</AnonymousIdentity>';

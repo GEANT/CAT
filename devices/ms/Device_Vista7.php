@@ -131,7 +131,7 @@ class Device_Vista7 extends WindowsCommon {
 <EAPIdentityProviderList xmlns="urn:ietf:params:xml:ns:yang:ietf-eap-metadata">
 <EAPIdentityProvider ID="' . $this->deviceUUID . '" namespace="urn:UUID">
 <ProviderInfo>
-<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->code_page) . '</DisplayName>
+<DisplayName>' . $this->translateString($attr['general:instname'][0], $this->codePage) . '</DisplayName>
 </ProviderInfo>
 <AuthenticationMethods>
 <AuthenticationMethod>
