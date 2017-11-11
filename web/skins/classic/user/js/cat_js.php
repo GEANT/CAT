@@ -329,7 +329,6 @@ function resetDevices() {
   function goAdmin() {
    var x = getWindowHCenter() - 16;
    $("#loading_ico").css('left',x+'px');
-   $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
    $("#loading_ico").show();
    window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE","admin/overview_user.php");?>?lang="+lang);
 }
