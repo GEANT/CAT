@@ -239,7 +239,7 @@ class SilverbulletUser extends PersistentEntity{
                 $certificate->revoke($profile);
             }
         }else{
-            $this->set(self::DEACTIVATION_TIME, '0000-00-00 00:00:00');
+            $this->set(self::DEACTIVATION_TIME, '2000-01-01 00:00:00');
         }
     }
     
