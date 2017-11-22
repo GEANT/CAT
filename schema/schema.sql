@@ -138,7 +138,7 @@ CREATE TABLE `downloads` (
   `downloads_user` int(11) NOT NULL DEFAULT '0',
   `downloads_silverbullet` int(11) NOT NULL DEFAULT '0',
   `download_path` varchar(1024) DEFAULT NULL,
-  `installer_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `installer_time` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00',
   `lang` char(4) NOT NULL,
   `mime` varchar(50) DEFAULT NULL,
   `eap_type` int(4),

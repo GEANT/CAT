@@ -34,6 +34,7 @@ class Telepath {
     const INFRA_IDP_RADIUS = "INFRA_IdP_RADIUS";
     const INFRA_IDP_AUTHBACKEND = "INFRA_IdP_AUTHBACKEND";
     const INFRA_SP_80211 = "INFRA_SP_80211";
+    const INFRA_SP_LAN = "INFRA_SP_LAN"; 
     const INFRA_DEVICE = "INFRA_DEVICE";
     const INFRA_NONEXISTENTREALM = "INFRA_NONEXISTENTREALM";
 
@@ -60,6 +61,7 @@ class Telepath {
             Telepath::INFRA_IDP_RADIUS,
             Telepath::INFRA_IDP_AUTHBACKEND,
             Telepath::INFRA_SP_80211,
+            Telepath::INFRA_SP_LAN,
             Telepath::INFRA_DEVICE,
             Telepath::INFRA_NONEXISTENTREALM,
         ];
@@ -76,6 +78,7 @@ class Telepath {
             Telepath::INFRA_SP_RADIUS => 0.04,
             Telepath::INFRA_IDP_RADIUS => 0.04,
             Telepath::INFRA_SP_80211 => 0.05,
+            Telepath::INFRA_SP_LAN => 0.05,
             Telepath::INFRA_IDP_AUTHBACKEND => 0.02,
             Telepath::INFRA_DEVICE => 0.3,
             Telepath::INFRA_NONEXISTENTREALM => 0.7, /* if the eduroam DB were fully and consistently populated, this would have 1.0 - if we don't know anything about the realm, then this is not a valid eduroam realm. But reality says we don't have complete info in the DBs. */

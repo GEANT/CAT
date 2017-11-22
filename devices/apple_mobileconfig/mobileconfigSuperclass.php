@@ -376,6 +376,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         if (get_class($this) != "Device_mobileconfig_ios_56") {
             $retval .= "<key>ProxyType</key>
                   <string>Auto</string>
+                  <key>ProxyPACFallbackAllowed</key>
+                  <true/>
                 ";
         }
         if ($wired) {
