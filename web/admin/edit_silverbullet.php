@@ -112,19 +112,21 @@ if (isset($_POST['command'])) {
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKEINVITATION:
             if (isset($_POST['invitationid'])) {
-                $profile->revokeInvitation($_POST['invitationid']);
+                $filteredId = $validator->token(filter_input(INPUT_POST, 'invitationid'));
+                $profile->revokeInvitation($filteredId);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL:
             if (isset($_POST['certSerial'])) {
-                $profile->revokeCertificate($_POST['certSerial']);
+                $certSerial = $validator->integer(filter_input(INPUT_POST, 'certSerial'));
+                $profile->revokeCertificate($certSerial);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
         case \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER:
             if (isset($_POST['userid'])) {
-                $properId = $validator->User($_POST['userid']);
+                $properId = $validator->User(filter_input(INPUT_POST, 'userid'));
                 $profile->deactivateUser($properId);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
@@ -147,7 +149,7 @@ if (isset($_POST['command'])) {
             }
             $mail = \core\common\OutsideComm::mailHandle();
             $invitationToken = $profile->generateTokenLink($_POST['token']);
-            $properEmail = $validator->email($_POST['address']);
+            $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
             $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
             // send mail if all is good, otherwise UI a warning and confirmation
             switch ($domainStatus) {
@@ -164,7 +166,7 @@ if (isset($_POST['command'])) {
                         echo $formtext;
                         echo "<input type='hidden' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'</>";
                         echo "<input type='hidden' name='address' value='$properEmail'</>";
-                        echo "<input type='hidden' name='token' value='".$_POST['token']."'</>";
+                        echo "<input type='hidden' name='token' value='".$validator->token(filter_input(INPUT_POST, 'token'))."'</>";
                         echo "<input type='hidden' name='insecureconfirm' value='CONFIRM'/>";
                         echo "<button type='submit'>" . _("Send anyway.") . "</button>";
                         echo "</form>";
