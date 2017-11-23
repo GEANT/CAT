@@ -388,7 +388,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($profile->invitationMailBody($link))));
                                     $tokenHtmlBuffer .= "<td>
                                 
-                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='$link' name='token' class='identifiedtokenarea-$oneUserId'>(…)<br/> is ready for sending! Choose how to send it:
+                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='$link' name='token' class='identifiedtokenarea-".$tokenWithoutCert['db_id']."'>(…)<br/> is ready for sending! Choose how to send it:
                                     <table>
                                     <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
                                     $formtext
@@ -406,7 +406,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     </form>
 				</td></tr>
                                     <tr><td style='vertical-align:bottom;'>Manual:</td><td>
-				<button type='button' class='clipboardButton' onclick='clipboardCopy($oneUserId);'>" . _("Copy to Clipboard") . "</button>
+				<button type='button' class='clipboardButton' onclick='clipboardCopy(".$tokenWithoutCert['db_id'].");'>" . _("Copy to Clipboard") . "</button>
                                     <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
                                       <button type='submit'>" . _("Display QR code") . "</button>
