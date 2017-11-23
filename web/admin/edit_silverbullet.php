@@ -418,7 +418,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 </td>";
                                     $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $tokenWithoutCert['expiry'] . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $tokenWithoutCert['activations_remaining'], $tokenWithoutCert['activations_total']) . "</td>";
                                     $tokenHtmlBuffer .= "<td>"
-                                            . "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>"
+                                            . $formtext
                                             . "<input type='hidden' name='invitationid' value='" . $tokenWithoutCert['db_id'] . "'/>"
                                             . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>Revoke</button></form>"
                                             . "</td></tr>";
@@ -437,7 +437,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                         ?>
 
                         <td>
-                            <form enctype="multipart/form-data" action="edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>" method="post" accept-charset="UTF-8">
+                            <?php echo $formtext;?>
                                 <div class="sb-date-container">
                                     <input type="text" maxlength="10" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">
                                     <button class="sb-date-button" type="button">▼</button>
@@ -450,16 +450,15 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
-                                    echo "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>
+                                    echo $formtext ."
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' id='userdel' name='command' value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' class='delete'>" . _("Deactivate User") . "</button>
                                 </form>";
                                 }
                                 $expiryDate = $profile->getUserExpiryDate($oneUserId);
                                 if (new DateTime() < new DateTime($expiryDate)) {
+                                    echo $formtext;
                                     ?>
-
-                                    <form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>' method='post' accept-charset='UTF-8'>
                                         <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
                                         <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Credential"); ?></button>
 
@@ -489,8 +488,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                                     . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
 
-                    echo "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>"
-                    . "<div style='padding-bottom: 20px;'>"
+                    echo $formtext."<div style='padding-bottom: 20px;'>"
                     . "
                     <p>$acknowledgeText</p>
                     <input type='checkbox' name='acknowledge' value='true'>
@@ -514,7 +512,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         </ul>
         <!--adding manual -->
         <div id="tabs-1">
-            <form method="post" action="edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>" accept-charset="utf-8">
+            <?php echo $formtext;?>
                 <div class="sb-add-new-user">
                     <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
                     <div style="margin: 5px 0px 10px 0px;">
@@ -531,7 +529,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         <!--CSV -->
         <div id="tabs-2">
             <div>
-                <form enctype="multipart/form-data" method="post" action="edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>" accept-charset="utf-8">
+                <?php echo $formtext;?>
                     <div class="sb-add-new-user">
                         <p><?php echo _("Comma separated values should be provided in CSV file: username, expiration date 'yyyy-mm-dd', number of tokens (optional):"); ?></p>
                         <div style="margin: 5px 0px 10px 0px;">
@@ -559,7 +557,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                             <hr>
                             <?php echo $profile->termsAndConditions; ?>
                             <hr>
-                            <form action="edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>" method="post" accept-charset="UTF-8">
+                            <?php echo $formtext;?>
                                 <div style="position: relative; padding-bottom: 5px;">
                                     <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
                                 </div>
