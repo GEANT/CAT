@@ -1,1 +1,1 @@
-jquery-ui-1.11.2.custom/external/jquery/jquery.js
+jquery-ui-1.12.1.custom/external/jquery/jquery.js
