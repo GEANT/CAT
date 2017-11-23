@@ -149,7 +149,7 @@ if (isset($_POST['command'])) {
                 break;
             }
             $mail = \core\common\OutsideComm::mailHandle();
-            $invitationToken = $profile->generateTokenLink($_POST['token']);
+            $invitationToken = \core\ProfileSilverbullet::generateTokenLink($_POST['token']);
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
             $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
             // send mail if all is good, otherwise UI a warning and confirmation
@@ -200,7 +200,7 @@ if (isset($_POST['command'])) {
             if (!is_numeric($number)) {
                 break;
             }
-            $tokenlink = $profile->generateTokenLink($validator->token($_POST['token']));
+            $tokenlink = \core\ProfileSilverbullet::generateTokenLink($validator->token($_POST['token']));
             $sent = core\common\OutsideComm::sendSMS($number, "Your eduroam access is ready! Click here to continue: $tokenlink (on Android, install the app 'eduroam CAT' before that!)");
             switch ($sent) {
                 case core\common\OutsideComm::SMS_SENT:
@@ -230,6 +230,8 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
 <script src='../external/jquery/jquery.js' type='text/javascript'></script>
 <script src='../external/jquery/jquery-ui.js' type='text/javascript'></script>
 <script src='../external/jquery/jquery-migrate-1.2.1.js' type='text/javascript'></script>
+<script src="js/XHR.js" type="text/javascript"></script>
+<script src="js/popup_redirect.js" type="text/javascript"></script>
 <?php // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript ?>
 <script type='text/javascript'>
     function clipboardCopy(user) {
@@ -382,7 +384,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 case core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                                     $hasOnePendingInvite = TRUE;
                                     $tokenHtmlBuffer = "<tr class='sb-certificate-row'><td></td>";
-                                    $link = $profile->generateTokenLink($tokenWithoutCert['value']);
+                                    $link = \core\ProfileSilverbullet::generateTokenLink($tokenWithoutCert['value']);
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($profile->invitationMailBody($link))));
                                     $tokenHtmlBuffer .= "<td>
                                 
@@ -405,7 +407,10 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
 				</td></tr>
                                     <tr><td style='vertical-align:bottom;'>Manual:</td><td>
 				<button type='button' class='clipboardButton' onclick='clipboardCopy($oneUserId);'>" . _("Copy to Clipboard") . "</button>
-                                    <button type='button' class='sb-invitation-token-qrcode'>" . _("Generate QR code...") . "</button><br/>
+                                    <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                    <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
+                                      <button type='submit'>" . _("Display QR code") . "</button>
+                                  </form>
                                         </td></tr>
                                         
                                 </table>
