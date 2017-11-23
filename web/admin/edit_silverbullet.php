@@ -20,6 +20,7 @@ $auth->authenticate();
 $uiElements = new \web\lib\admin\UIElements();
 $validator = new web\lib\common\InputValidation();
 $deco = new \web\lib\admin\PageDecoration();
+$loggerInstance = new core\common\Logging();
 
 $inst = $validator->IdP(filter_input(INPUT_GET, 'inst_id'));
 // this page may have been called for the first time, when the profile does not
@@ -144,9 +145,10 @@ if (isset($_POST['command'])) {
             }
             break;
         case \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT:
-            if (!isset($_POST['address']) || isset($_POST['token'])) {
+            if (!isset($_POST['address']) || !isset($_POST['token'])) {
                 break;
             }
+            $loggerInstance->debug(5,"Sending mail with CAT\n");
             $mail = \core\common\OutsideComm::mailHandle();
             $invitationToken = $profile->generateTokenLink($_POST['token']);
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
