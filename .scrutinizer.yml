@@ -4,7 +4,7 @@ build:
             version: 7.0.20
         postgresql: false
         redis: false
-        mysql: 5.5
+        mysql: 5.7
     dependencies:
         before: 
             - mysql -h 127.0.0.1 -u root -e 'create database cat'
