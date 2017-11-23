@@ -4,7 +4,7 @@ $Gui->defaultPagePrelude();
 ?>
 <!-- JQuery -->
 <script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js");?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate-1.2.1.js");?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate.js");?>"></script>
 <script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js");?>"></script>
 <!-- JQuery -->
 <script type="text/javascript">

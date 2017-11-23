@@ -28,7 +28,7 @@ echo $deco->defaultPagePrelude(sprintf(_("%s: IdP Enrollment Wizard (Step 3)"), 
 <script src="js/option_expand.js" type="text/javascript"></script>
 <!-- JQuery --> 
 <script type="text/javascript" src="../external/jquery/jquery.js"></script> 
-<script type="text/javascript" src="../external/jquery/jquery-migrate-1.2.1.js"></script> 
+<script type="text/javascript" src="../external/jquery/jquery-migrate.js"></script> 
 <script type="text/javascript" src="../external/jquery/jquery-ui.js"></script> 
 <!-- EAP sorting code -->
 <style>

@@ -229,7 +229,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
 <script src='js/option_expand.js' type='text/javascript'></script>
 <script src='../external/jquery/jquery.js' type='text/javascript'></script>
 <script src='../external/jquery/jquery-ui.js' type='text/javascript'></script>
-<script src='../external/jquery/jquery-migrate-1.2.1.js' type='text/javascript'></script>
+<script src='../external/jquery/jquery-migrate.js' type='text/javascript'></script>
 <script src="js/XHR.js" type="text/javascript"></script>
 <script src="js/popup_redirect.js" type="text/javascript"></script>
 <?php // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript ?>
