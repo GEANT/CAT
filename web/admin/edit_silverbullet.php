@@ -63,7 +63,7 @@ if (!isset($_REQUEST['profile_id'])) {
     $profile = $validator->Profile(filter_input(INPUT_GET, "profile_id"));
 }
 
-$displayEmailSendStatus = "NOSTIPULATION";
+$displaySendStatus = "NOSTIPULATION";
 
 $formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
 
@@ -158,7 +158,7 @@ if (isset($_POST['command'])) {
                     // warn and ask for confirmation unless already confirmed
                     if (!isset($_POST['insecureconfirm']) || $_POST['insecureconfirm'] != "CONFIRM") {
                         echo $deco->pageheader(_("Insecure mail domain!"), "ADMIN-IDP-USERS");
-                        echo "<p>" . sprintf(_("The mail domain of the mail address <strong>%s</strong> is not secure: some or all of the mail servers are not accepting encrypted connections (no consistent support for STARTTLS)."),$properEmail) . "</p>";
+                        echo "<p>" . sprintf(_("The mail domain of the mail address <strong>%s</strong> is not secure: some or all of the mail servers are not accepting encrypted connections (no consistent support for STARTTLS)."), $properEmail) . "</p>";
                         echo "<p>" . _("The invitation would need to be sent in cleartext across the internet, and can possibly be read and abused by anyone in transit.") . "</p>";
                         echo "<p>" . _("Do you want the system to send this mail anyway?") . "</p>";
                         echo $formtext;
@@ -167,7 +167,7 @@ if (isset($_POST['command'])) {
                         echo $formtext;
                         echo "<input type='hidden' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'</>";
                         echo "<input type='hidden' name='address' value='$properEmail'</>";
-                        echo "<input type='hidden' name='token' value='".$validator->token(filter_input(INPUT_POST, 'token'))."'</>";
+                        echo "<input type='hidden' name='token' value='" . $validator->token(filter_input(INPUT_POST, 'token')) . "'</>";
                         echo "<input type='hidden' name='insecureconfirm' value='CONFIRM'/>";
                         echo "<button type='submit'>" . _("Send anyway.") . "</button>";
                         echo "</form>";
@@ -183,24 +183,38 @@ if (isset($_POST['command'])) {
                     $mail->addStringAttachment($bytestream, "qr-code-invitation.png", "base64", "image/png");
                     $mail->addAddress($properEmail);
                     if ($mail->send()) {
-                        $displayEmailSendStatus = "SENT";
+                        $displaySendStatus = "EMAIL-SENT";
                     } else {
-                        $displayEmailSendStatus = "NOTSENT";
+                        $displaySendStatus = "EMAIL-NOTSENT";
                     }
                     break;
                 default:
-                    $displayEmailSendStatus = "NOTSENT";
+                    $displaySendStatus = "EMAIL-NOTSENT";
             }
             break;
         case \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS:
-            if (isset($_POST['smsnumber']) && isset($_POST['token']) ) {
-                $number = str_replace(' ','', str_replace(".","",str_replace("+", "", $_POST['smsnumber'])));
-                if (!is_numeric($number)) {
-                    break;
-                }
-                $tokenlink = $profile->generateTokenLink($validator->token($_POST['token']));
-                $sent = core\common\OutsideComm::sendSMS($number, "Your eduroam access is ready! Click here to continue: $tokenlink (on Android, install the app 'eduroam CAT' before that!)" );
+            if (!isset($_POST['smsnumber']) || !isset($_POST['token'])) {
+                break;
             }
+            $number = str_replace(' ', '', str_replace(".", "", str_replace("+", "", $_POST['smsnumber'])));
+            if (!is_numeric($number)) {
+                break;
+            }
+            $tokenlink = $profile->generateTokenLink($validator->token($_POST['token']));
+            $sent = core\common\OutsideComm::sendSMS($number, "Your eduroam access is ready! Click here to continue: $tokenlink (on Android, install the app 'eduroam CAT' before that!)");
+            switch ($sent) {
+                case core\common\OutsideComm::SMS_SENT:
+                    $displaySendStatus = "SMS-SENT";
+                    break;
+                case core\common\OutsideComm::SMS_NOTSENT:
+                    $displaySendStatus = "SMS-NOTSENT";
+                    break;
+                case core\common\OutsideComm::SMS_FRAGEMENTSLOST:
+                    $displaySendStatus = "SMS-FRAGMENT";
+                    break;
+                default:
+            }
+
             break;
         default:
             throw new Exception("Unknown button action in Silverbullet!");
@@ -218,26 +232,25 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
 <script src='../external/jquery/jquery-migrate-1.2.1.js' type='text/javascript'></script>
 <?php // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript ?>
 <script type='text/javascript'>
-    function clipboardCopy (user) {
-    var copyTextArea = document.querySelector('.identifiedtokenarea-'+user); 
-    copyTextArea.select(); 
-    try { 
-         var successful = document.execCommand('copy'); 
-         var msg = successful ? 'successful' : 'unsuccessful'; 
-         console.log('Copying text command was ' + msg); 
-     } 
-     catch (err) { 
-         console.log('Unable to copy to clipboard.'); 
-     }
+    function clipboardCopy(user) {
+        var copyTextArea = document.querySelector('.identifiedtokenarea-' + user);
+        copyTextArea.select();
+        try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+            console.log('Copying text command was ' + msg);
+        } catch (err) {
+            console.log('Unable to copy to clipboard.');
+        }
     }
 </script>
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
 <link rel='stylesheet' type='text/css' href='css/silverbullet.css' />
 </head>
 <body>
-<?php
-echo $deco->productHeader("ADMIN-IDP-USERS");
-?>
+    <?php
+    echo $deco->productHeader("ADMIN-IDP-USERS");
+    ?>
     <div class='infobox'>
         <h2><?php echo sprintf(_('Current %s users'), $uiElements->nomenclature_inst); ?></h2>
         <table>
@@ -257,14 +270,23 @@ echo $deco->productHeader("ADMIN-IDP-USERS");
     </div>
     <div>
         <?php
-        switch ($displayEmailSendStatus) {
+        switch ($displaySendStatus) {
             case "NOSTIPULATION":
                 break;
-            case "SENT":
+            case "EMAIL-SENT":
                 echo $uiElements->boxOkay(_("The e-mail was sent successfully."), _("E-mail OK."), TRUE);
                 break;
-            case "NOTSENT":
+            case "EMAIL-NOTSENT":
                 echo $uiElements->boxError(_("The e-mail was NOT sent."), _("E-mail not OK."), TRUE);
+                break;
+            case "SMS-SENT":
+                echo $uiElements->boxOkay(_("The SMS was sent successfully."), _("SMS OK."), TRUE);
+                break;
+            case "SMS-NOTSENT":
+                echo $uiElements->boxOkay(_("The SMS was NOT sent."), _("SMS not OK."), TRUE);
+                break;
+            case "SMS-FRAGMENT":
+                echo $uiElements->boxWarning(_("Only a fragment of the SMS was sent. You should re-send it."), _("SMS Fragment."), TRUE);
                 break;
         }
         ?>
@@ -282,49 +304,49 @@ echo $deco->productHeader("ADMIN-IDP-USERS");
                     <td><?php echo _("User/Token Expiry"); ?></td>
                     <td><?php echo _("Actions"); ?></td>
                 </tr>
-<?php
-natsort($allUsers);
-$internalUserCount = 0;
-foreach ($allUsers as $oneUserId => $oneUserName) {
-    $userStatus = $profile->userStatus($oneUserId);
-    $allCerts = [];
-    $validCerts = [];
-    $tokensWithoutCerts = [];
-    foreach ($userStatus as $oneToken) {
-        if (count($oneToken['cert_status']) == 0 || $oneToken['status'] == core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
-            $tokensWithoutCerts[] = $oneToken;
-        }
-        if (count($oneToken['cert_status']) > 0) {
-            $allCerts = array_merge($allCerts, $oneToken['cert_status']);
-        }
-    }
+                <?php
+                natsort($allUsers);
+                $internalUserCount = 0;
+                foreach ($allUsers as $oneUserId => $oneUserName) {
+                    $userStatus = $profile->userStatus($oneUserId);
+                    $allCerts = [];
+                    $validCerts = [];
+                    $tokensWithoutCerts = [];
+                    foreach ($userStatus as $oneToken) {
+                        if (count($oneToken['cert_status']) == 0 || $oneToken['status'] == core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED) {
+                            $tokensWithoutCerts[] = $oneToken;
+                        }
+                        if (count($oneToken['cert_status']) > 0) {
+                            $allCerts = array_merge($allCerts, $oneToken['cert_status']);
+                        }
+                    }
 
-    // show all info about the user
-    ?>
+                    // show all info about the user
+                    ?>
                     <tr class='sb-user-row'>
                         <td><?php echo $oneUserName; ?></td>
                         <td>
                             <!-- list of certificates for the user-->
-    <?php
-    foreach ($allCerts as $oneCert) {
-        switch ($oneCert['status']) {
-            case core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
-                $style = "style:'background-color:#F0C0C0;' ";
-                $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
-                $buttonText = _("REVOKED");
-                break;
-            case core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
-                $style = "style:'background-color:lightgrey;'";
-                $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
-                $buttonText = _("EXPIRED");
-                break;
-            default:
-                $validCerts[] = $oneCert;
-                $style = "";
-                $buttonStyle = "";
-                $buttonText = "";
-        }
-        ?>
+                            <?php
+                            foreach ($allCerts as $oneCert) {
+                                switch ($oneCert['status']) {
+                                    case core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED:
+                                        $style = "style:'background-color:#F0C0C0;' ";
+                                        $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
+                                        $buttonText = _("REVOKED");
+                                        break;
+                                    case core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED:
+                                        $style = "style:'background-color:lightgrey;'";
+                                        $buttonStyle = "style:'height:22px; margin-top:7px; text-align:center;'";
+                                        $buttonText = _("EXPIRED");
+                                        break;
+                                    default:
+                                        $validCerts[] = $oneCert;
+                                        $style = "";
+                                        $buttonStyle = "";
+                                        $buttonText = "";
+                                }
+                                ?>
 
                                 <div class="sb-certificate-summary ca-summary">
                                     <div class="sb-certificate-details" <?php echo $style; ?> ><?php echo _("Device:") . " " . $oneCert['device']; ?>
@@ -334,54 +356,54 @@ foreach ($allUsers as $oneUserId => $oneUserName) {
                                         <br><?php echo _("Issued:") . "&nbsp;" . $oneCert['issued']; ?>
                                     </div>
                                     <div style="text-align:right;padding-top: 5px; <?php echo $buttonStyle; ?>">
-        <?php
-        if ($buttonText == "") {
-            echo "$formtext"
-            . "<input type='hidden' name='certSerial' value='" . $oneCert['serial'] . "'/>"
-            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' class='delete'>" . _("Revoke") . "</button>"
-            . "</form>";
-        } else {
-            echo $buttonText;
-        }
-        ?>
+                                        <?php
+                                        if ($buttonText == "") {
+                                            echo "$formtext"
+                                            . "<input type='hidden' name='certSerial' value='" . $oneCert['serial'] . "'/>"
+                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKECREDENTIAL . "' class='delete'>" . _("Revoke") . "</button>"
+                                            . "</form>";
+                                        } else {
+                                            echo $buttonText;
+                                        }
+                                        ?>
                                     </div>
                                 </div>
-        <?php
-    }
-    ?>
+                                <?php
+                            }
+                            ?>
                         </td>
 
-    <?php
-    $tokenHtmlBuffer = "";
-    $hasOnePendingInvite = FALSE;
-    foreach ($tokensWithoutCerts as $tokenWithoutCert) {
-        switch ($tokenWithoutCert['status']) {
-            case core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
-            case core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
-                $hasOnePendingInvite = TRUE;
-                $tokenHtmlBuffer = "<tr class='sb-certificate-row'><td></td>";
-                $link = $profile->generateTokenLink($tokenWithoutCert['value']);
-                $jsEncodedBody = str_replace('\n','%0D%0A',str_replace('"', '', json_encode($profile->invitationMailBody($link))));
-                $tokenHtmlBuffer .= "<td>
+                        <?php
+                        $tokenHtmlBuffer = "";
+                        $hasOnePendingInvite = FALSE;
+                        foreach ($tokensWithoutCerts as $tokenWithoutCert) {
+                            switch ($tokenWithoutCert['status']) {
+                                case core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
+                                case core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
+                                    $hasOnePendingInvite = TRUE;
+                                    $tokenHtmlBuffer = "<tr class='sb-certificate-row'><td></td>";
+                                    $link = $profile->generateTokenLink($tokenWithoutCert['value']);
+                                    $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($profile->invitationMailBody($link))));
+                                    $tokenHtmlBuffer .= "<td>
                                 
                                     The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='$link' name='token' class='identifiedtokenarea-$oneUserId'>(…)<br/> is ready for sending! Choose how to send it:
                                     <table>
-                                    <tr><td>E-Mail:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
                                     $formtext
-                                <input type='hidden' value='".$tokenWithoutCert['value']."' name='token'><br/>
+                                <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
                                 <input type='text' name='address' id='address'/>
-                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=".$profile->invitationMailSubject()."&body=$jsEncodedBody\"; return false;'>". _("Local mail client") . "</button>
-                                <button type='submit' name='command' value='".\web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT."'>Send with CAT</button>
+                                <button type='button' id='sb-compose-email-client' onclick='window.location=\"mailto:\"+document.getElementById(\"address\").value+\"?subject=" . $profile->invitationMailSubject() . "&body=$jsEncodedBody\"; return false;'>" . _("Local mail client") . "</button>
+                                <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONMAILBYCAT . "'>Send with CAT</button>
                                     </form>
                                     </td></tr>
-                                    <tr><td>SMS:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>SMS:</td><td>
                                     $formtext
-                                    <input type='hidden' value='".$tokenWithoutCert['value']."' name='token'><br/>
+                                    <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
                                     <input type='text' name='smsnumber' id='smsnumber'/>
-				<button type='submit' name='command' value='".\web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS."'>" . _("Send in SMS...") . "</button>
+				<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_SENDINVITATIONSMS . "'>" . _("Send in SMS...") . "</button>
                                     </form>
 				</td></tr>
-                                    <tr><td>Manual:</td><td>
+                                    <tr><td style='vertical-align:bottom;'>Manual:</td><td>
 				<button type='button' class='clipboardButton' onclick='clipboardCopy($oneUserId);'>" . _("Copy to Clipboard") . "</button>
                                     <button type='button' class='sb-invitation-token-qrcode'>" . _("Generate QR code...") . "</button><br/>
                                         </td></tr>
@@ -389,25 +411,25 @@ foreach ($allUsers as $oneUserId => $oneUserName) {
                                 </table>
                                 </form>
                                 </td>";
-                $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $tokenWithoutCert['expiry'] . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $tokenWithoutCert['activations_remaining'], $tokenWithoutCert['activations_total']) . "</td>";
-                $tokenHtmlBuffer .= "<td>"
-                        . "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>"
-                        . "<input type='hidden' name='invitationid' value='" . $tokenWithoutCert['db_id'] . "'/>"
-                        . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>Revoke</button></form>"
-                        . "</td></tr>";
-                break;
-            case core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:
-            case core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED:
-                break;
-            default: // ??? INVALID - not possible
-                $tokenHtmlBuffer .= "<td>INTERNAL ERROR - token state is INVALID?</td>";
-                $tokenHtmlBuffer .= "<td></td>";
-                $tokenHtmlBuffer .= "<td></td>";
-        }
+                                    $tokenHtmlBuffer .= "<td>" . _("Expiry Date:") . " " . $tokenWithoutCert['expiry'] . "<br>" . _("Activations remaining:") . " " . sprintf(_("%d of %d"), $tokenWithoutCert['activations_remaining'], $tokenWithoutCert['activations_total']) . "</td>";
+                                    $tokenHtmlBuffer .= "<td>"
+                                            . "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>"
+                                            . "<input type='hidden' name='invitationid' value='" . $tokenWithoutCert['db_id'] . "'/>"
+                                            . "<button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_REVOKEINVITATION . "' class='delete'>Revoke</button></form>"
+                                            . "</td></tr>";
+                                    break;
+                                case core\ProfileSilverbullet::SB_TOKENSTATUS_EXPIRED:
+                                case core\ProfileSilverbullet::SB_TOKENSTATUS_REDEEMED:
+                                    break;
+                                default: // ??? INVALID - not possible
+                                    $tokenHtmlBuffer .= "<td>INTERNAL ERROR - token state is INVALID?</td>";
+                                    $tokenHtmlBuffer .= "<td></td>";
+                                    $tokenHtmlBuffer .= "<td></td>";
+                            }
 
-        $internalUserCount++;
-    }
-    ?>
+                            $internalUserCount++;
+                        }
+                        ?>
 
                         <td>
                             <form enctype="multipart/form-data" action="edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>" method="post" accept-charset="UTF-8">
@@ -421,57 +443,57 @@ foreach ($allUsers as $oneUserId => $oneUserName) {
                         </td>
                         <td>
                             <div class="sb-user-buttons">
-    <?php
-    if ($hasOnePendingInvite || count($validCerts) > 0) {
-        echo "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>
+                                <?php
+                                if ($hasOnePendingInvite || count($validCerts) > 0) {
+                                    echo "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' id='userdel' name='command' value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' class='delete'>" . _("Deactivate User") . "</button>
                                 </form>";
-    }
-    $expiryDate = $profile->getUserExpiryDate($oneUserId);
-    if (new DateTime() < new DateTime($expiryDate)) {
-        ?>
+                                }
+                                $expiryDate = $profile->getUserExpiryDate($oneUserId);
+                                if (new DateTime() < new DateTime($expiryDate)) {
+                                    ?>
 
                                     <form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>' method='post' accept-charset='UTF-8'>
                                         <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
                                         <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Credential"); ?></button>
 
                                         <label>
-        <?php echo _("Activations:"); ?>
+                                            <?php echo _("Activations:"); ?>
                                             <input type="text" name="invitationsquantity" value="1" maxlength="3" style="width: 30px;"/>
                                         </label>
                                     </form>
-        <?php
-    }
-    ?>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </td>
                     </tr>
                     <!-- one tr for each invitation -->
-    <?php
-    echo $tokenHtmlBuffer;
-}
-?>
+                    <?php
+                    echo $tokenHtmlBuffer;
+                }
+                ?>
 
             </table>
             <!-- ... ends here -->
             <div style="padding: 20px;">
-<?php
-if (count($allUsers) > 0) {
-    $acknowledgeText = sprintf(_('You need to acknowledge that the created accounts are still valid within the next %s days.'
-                    . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
-                    . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
+                <?php
+                if (count($allUsers) > 0) {
+                    $acknowledgeText = sprintf(_('You need to acknowledge that the created accounts are still valid within the next %s days.'
+                                    . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
+                                    . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
 
-    echo "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>"
-    . "<div style='padding-bottom: 20px;'>"
-    . "
+                    echo "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>"
+                    . "<div style='padding-bottom: 20px;'>"
+                    . "
                     <p>$acknowledgeText</p>
                     <input type='checkbox' name='acknowledge' value='true'>
                     <label>" . _("I have verified that all configured users are still eligible for eduroam.") . "</label>
                 </div>
                 <button type='submit' name='command' value='" . \web\lib\common\FormElements::BUTTON_ACKUSERELIGIBILITY . "'>Save</button></form>";
-}
-?>
+                }
+                ?>
             </div>
         </fieldset>
     </div>
@@ -516,10 +538,10 @@ if (count($allUsers) > 0) {
             </div>
         </div>
     </div>
-<?php
-if (count($profile->getAttributes("hiddenprofile:tou_accepted")) == 0) {
-    //Appending terms of use popup
-    ?>
+    <?php
+    if (count($profile->getAttributes("hiddenprofile:tou_accepted")) == 0) {
+        //Appending terms of use popup
+        ?>
 
         <div id="sb-popup-message" >
             <div id="overlay"></div>
@@ -530,7 +552,7 @@ if (count($profile->getAttributes("hiddenprofile:tou_accepted")) == 0) {
                         <h1><?php echo sprintf(_("%s - Terms of Use"), core\ProfileSilverbullet::PRODUCTNAME); ?></h1>
                         <div class="containerbox" style="position: relative;">
                             <hr>
-    <?php echo $profile->termsAndConditions; ?>
+                            <?php echo $profile->termsAndConditions; ?>
                             <hr>
                             <form action="edit_silverbullet.php?inst_id=<?php echo $inst->identifier; ?>&profile_id=<?php echo $profile->identifier; ?>" method="post" accept-charset="UTF-8">
                                 <div style="position: relative; padding-bottom: 5px;">
@@ -543,6 +565,7 @@ if (count($profile->getAttributes("hiddenprofile:tou_accepted")) == 0) {
                 </div>
             </div>
         </div>
-    <?php
-}
-echo $deco->footer();
+        <?php
+    }
+    echo $deco->footer();
+    
