@@ -176,7 +176,7 @@ if (isset($_POST['command'])) {
                     }
                 // otherwise (insecure confirmed), intentional fall through to send the mail
                 case \core\common\OutsideComm::MAILDOMAIN_STARTTLS:
-                    $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, 12), 12);
+                    $bytestream = $uiElements->pngInjectConsortiumLogo(\QRcode::png($invitationToken, FALSE, QR_ECLEVEL_Q, QRCODE_PIXELS_PER_SYMBOL), QRCODE_PIXELS_PER_SYMBOL);
                     $mail->FromName = sprintf(_("%s Invitation System"), CONFIG['APPEARANCE']['productname']);
                     $mail->Subject = $profile->invitationMailSubject();
                     $mail->Body = $profile->invitationMailBody($invitationToken);
@@ -383,7 +383,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 case core\ProfileSilverbullet::SB_TOKENSTATUS_VALID:
                                 case core\ProfileSilverbullet::SB_TOKENSTATUS_PARTIALLY_REDEEMED:
                                     $hasOnePendingInvite = TRUE;
-                                    $tokenHtmlBuffer = "<tr class='sb-certificate-row'><td></td>";
+                                    $tokenHtmlBuffer .= "<tr class='sb-certificate-row'><td></td>";
                                     $link = \core\ProfileSilverbullet::generateTokenLink($tokenWithoutCert['value']);
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($profile->invitationMailBody($link))));
                                     $tokenHtmlBuffer .= "<td>
