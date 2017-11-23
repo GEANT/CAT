@@ -28,7 +28,7 @@ $uiElements = new web\lib\admin\UIElements();
 
 if (isset($_POST['action']) && $_POST['action'] == \web\lib\common\FormElements::BUTTON_DELETE && isset($_POST['serial']) && $statusInfo['tokenstatus'] != \core\ProfileSilverbullet::SB_TOKENSTATUS_INVALID) {
     $serial = filter_input(INPUT_POST, "serial", FILTER_SANITIZE_NUMBER_INT);
-    $userdata = $profile->userStatus($statusInfo['tokenstatus']['user']);
+    $userdata = $profile->userStatus($statusInfo['tokenstatus']['db_id']);
     // if the requested serial belongs to the user, AND it is currently valid, revoke it
     $allcerts = [];
     foreach ($userdata as $index => $content) {

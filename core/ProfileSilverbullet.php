@@ -46,14 +46,14 @@ class ProfileSilverbullet extends AbstractProfile {
     const SB_CERTSTATUS_VALID = 1;
     const SB_CERTSTATUS_EXPIRED = 2;
     const SB_CERTSTATUS_REVOKED = 3;
-
     const SB_ACKNOWLEDGEMENT_REQUIRED_DAYS = 365;
-    
+
     public $termsAndConditions;
-            
+
     /*
      * 
      */
+
     const PRODUCTNAME = "Managed IdP";
 
     public static function randomString(
@@ -138,29 +138,29 @@ class ProfileSilverbullet extends AbstractProfile {
         $this->name = ProfileSilverbullet::PRODUCTNAME;
 
         $this->loggerInstance->debug(3, "--- END Constructing new Profile object ... ---\n");
-        
+
         $this->termsAndConditions = "<h2>Product Definition</h2>
-        <p>". \core\ProfileSilverbullet::PRODUCTNAME." outsources the technical setup of ".CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']." functions to the " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Operations Team. The system includes</p>
+        <p>" . \core\ProfileSilverbullet::PRODUCTNAME . " outsources the technical setup of " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " functions to the " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Operations Team. The system includes</p>
             <ul>
                 <li>a web-based user management interface where user accounts and access credentials can be created and revoked (there is a limit to the number of active users)</li>
                 <li>a technical infrastructure ('CA') which issues and revokes credentials</li>
-                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ."</li>
+                <li>a technical infrastructure ('RADIUS') which verifies access credentials and subsequently grants access to " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . "</li>
                 <li><span style='color: red;'>TBD: a lookup/notification system which informs you of network abuse complaints by " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " Service Providers that pertain to your users</span></li>
             </ul>
         <h2>User Account Liability</h2>
-        <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] ." ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ." administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
+        <p>As an " . CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'] . " " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " administrator using this system, you are authorized to create user accounts according to your local " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " policy. You are fully responsible for the accounts you issue and are the data controller for all user information you deposit in this system; the system is a data processor.</p>";
         $this->termsAndConditions .= "<p>Your responsibilities include that you</p>
         <ul>
             <li>only issue accounts to members of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . ", as defined by your local policy.</li>
             <li>must make sure that all accounts that you issue can be linked by you to actual human end users</li>
-            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] ."</li>
+            <li>have to immediately revoke accounts of users when they leave or otherwise stop being a member of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . "</li>
             <li>will act upon notifications about possible network abuse by your users and will appropriately sanction them</li>
         </ul>
         <p>";
-        $this->termsAndConditions .= "Failure to comply with these requirements may make your ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." act on your behalf, which you authorise, and will ultimately lead to the deletion of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.";
+        $this->termsAndConditions .= "Failure to comply with these requirements may make your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'] . " act on your behalf, which you authorise, and will ultimately lead to the deletion of your " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . " (and all the users you create inside) in this system.";
         $this->termsAndConditions .= "</p>
         <h2>Privacy</h2>
-        <p>With " . \core\ProfileSilverbullet::PRODUCTNAME .", we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>
+        <p>With " . \core\ProfileSilverbullet::PRODUCTNAME . ", we are necessarily storing personally identifiable information about the end users you create. While the actual human is only identifiable with your help, we consider all the user data as relevant in terms of privacy jurisdiction. Please note that</p>
         <ul>
             <li>You are the only one who needs to be able to make a link to the human behind the usernames you create. The usernames you create in the system have to be rich enough to allow you to make that identification step. Also consider situations when you are unavailable or leave the organisation and someone else needs to perform the matching to an individual.</li>
             <li>The identifiers we create in the credentials are not linked to the usernames you add to the system; they are randomly generated pseudonyms.</li>
@@ -169,6 +169,26 @@ class ProfileSilverbullet extends AbstractProfile {
         </ul>";
     }
 
+    public function invitationMailSubject() {
+            return sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+    }
+    
+    public function invitationMailBody($invitationLink) {
+        $text = _("Hello!");
+        $text .= "\n\n";
+        $text .= sprintf(_("A new %s access credential has been created for you by your network administrator."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $text .= " ";
+        $text .= sprintf(_("Please follow the following link with the device you want to enable for %s to get a custom %s installation program just for you. You can click on the link, copy and paste it into a browser or scan the attached QR code."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $text .= "\n\n$invitationLink\n\n"; // gets replaced with the token value by getBody()
+        $text .= sprintf(_("Please keep this email or bookmark this link for future use. After picking up your %s installation program, you can use the same link to get status information about your %s account."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        $text .= "\n\n";
+        $text .= _("Regards,");
+        $text .= "\n\n";
+        $text .= sprintf("%s", CONFIG['APPEARANCE']['productname_long']);
+        
+        return $text;
+    }
+    
     /**
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
@@ -359,7 +379,7 @@ class ProfileSilverbullet extends AbstractProfile {
         $newCertificateResult = $this->databaseHandle->exec("INSERT INTO `silverbullet_certificate` (`profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn` ,`expiry`) VALUES (?, ?, ?, ?, ?, ?)", "iiisss", $tokenStatus['profile'], $tokenStatus['user'], $tokenStatus['db_id'], $serial, $csr["USERNAME"], $realExpiryDate);
         if ($newCertificateResult === false) {
             throw new Exception("Unable to update database with new cert details!");
-        } 
+        }
         $certificateId = $this->databaseHandle->lastID();
 
         // newborn cert immediately gets its "valid" OCSP response
@@ -612,15 +632,20 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         return $retval;
     }
-    
+
     public function getUserExpiryDate($userId) {
         $query = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ? AND profile_id = ? ", "ii", $userId, $this->identifier);
         while ($returnedData = mysqli_fetch_object($query)) {
             return $returnedData->expiry;
         }
-        
     }
     
+    public function setUserExpiryDate($userId, $date) {
+        $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
+        $theDate = $date->format("Y-m-d");
+        $this->databaseHandle->exec($query, "sii", $theDate, $this->identifier, $userId);
+    }
+
     public function listAllUsers() {
         $userArray = [];
         $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? ", "i", $this->identifier);
@@ -629,14 +654,14 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         return $userArray;
     }
-    
+
     public function listActiveUsers() {
         // users are active if they have a non-expired invitation OR a non-expired, non-revoked certificate
         $userCount = [];
-        $users = $this->databaseHandle->exec("SELECT COUNT(DISTINCT u.id) AS usercount FROM silverbullet_user u, silverbullet_invitation i, silverbullet_certificate c "
+        $users = $this->databaseHandle->exec("SELECT DISTINCT u.id AS usercount FROM silverbullet_user u, silverbullet_invitation i, silverbullet_certificate c "
                 . "WHERE u.profile_id = ? "
                 . "AND ( "
-                .   "( u.id = i.silverbullet_user_id AND i.expiry >= NOW() )"
+                . "( u.id = i.silverbullet_user_id AND i.expiry >= NOW() )"
                 . "     OR"
                 . "  ( u.id = c.silverbullet_user_id AND c.expiry >= NOW() AND c.revocation_status != 'REVOKED' ) "
                 . ")", "i", $this->identifier);
@@ -646,4 +671,75 @@ class ProfileSilverbullet extends AbstractProfile {
         return $userCount;
     }
 
+    public function addUser($user, \DateTime $expiry) {
+        $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";
+        $date = $expiry->format("Y-m-d");
+        $this->databaseHandle->exec($query, "iss", $this->identifier, $user, $date);
+        return $this->databaseHandle->lastID();
+    }
+
+    public function deactivateUser($userId) {
+        // set the expiry date of any still valid invitations to NOW()
+        $query = "SELECT id FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
+        $exec = $this->databaseHandle->exec($query, "s", $userId);
+        while ($result = mysqli_fetch_object($exec)) {
+            $this->revokeInvitation($result->id);
+        }
+        // and revoke all certificates
+        $query2 = "SELECT serial_number FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";
+        $exec2 = $this->databaseHandle->exec($query2, "i", $userId);
+        while ($result = mysqli_fetch_object($exec2)) {
+            $this->revokeCertificate($result->serial_number);
+        }
+        // and finally set the user expiry date to NOW(), too
+        $query3 = "UPDATE silverbullet_user SET expiry = NOW() WHERE profile_id = $this->identifier AND id = ?";
+        $exec3 = $this->databaseHandle->exec($query3, "i", $userId);
+    }
+    
+    /**
+     * 
+     * @param string $host
+     * @return string
+     */
+    public function generateTokenLink($token) {
+
+        if (isset($_SERVER['HTTPS'])) {
+            $link = 'https://';
+        } else {
+            $link = 'http://';
+        }
+        $link .= $_SERVER['SERVER_NAME'];
+        $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
+        if ($relPath[strlen($relPath) - 1] == '/') {
+            $relPath = substr($relPath, 0, strlen($relPath) - 1);
+        }
+        $link = $link . $relPath;
+
+        $link .= '/accountstatus/accountstatus.php?token='.$token;
+        return $link;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    private function generateToken() {
+        return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
+    }
+
+    public function createInvitation($userId, $activationCount) {
+        $query = "INSERT INTO silverbullet_invitation (profile_id, silverbullet_user_id, token, quantity, expiry) VALUES (?, ?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))";
+        $newToken = $this->generateToken();
+        $this->databaseHandle->exec($query, "iisi", $this->identifier, $userId, $newToken, $activationCount);
+    }
+    
+    public function revokeInvitation($invitationId) {
+        $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
+        $this->databaseHandle->exec($query, "ii", $invitationId, $this->identifier);
+    }
+
+    public function refreshEligibility() {
+        $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";
+        $this->databaseHandle->exec($query, "i", $this->identifier);
+    }
 }
