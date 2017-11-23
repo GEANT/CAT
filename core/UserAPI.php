@@ -774,7 +774,7 @@ class UserAPI extends CAT {
             return false;
         }
         $profile = new \core\ProfileSilverbullet($tokenStatus['profile'], NULL);
-        $userdata = $profile->userStatus($tokenStatus['user']);
+        $userdata = $profile->userStatus($tokenStatus['db_id']);
         $allcerts = [];
         foreach ($userdata as $index => $content) {
             $allcerts = array_merge($allcerts, $content['cert_status']);
