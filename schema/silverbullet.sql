@@ -32,7 +32,7 @@ CREATE TABLE `silverbullet_invitation` (
   `id` INT(11) NOT NULL AUTO_INCREMENT COMMENT '',
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
-  `token` VARCHAR(45) NOT NULL COMMENT '',
+  `token` VARCHAR(128) NOT NULL COMMENT '',
   `quantity` TINYINT(3) NOT NULL DEFAULT 1 COMMENT '',
   `expiry` TIMESTAMP DEFAULT '2000-01-01 00:00:00' COMMENT '',
   PRIMARY KEY (`id`, `profile_id`, `silverbullet_user_id`)  COMMENT '',
@@ -49,7 +49,6 @@ CREATE TABLE `silverbullet_certificate` (
   `profile_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_user_id` INT(11) NOT NULL COMMENT '',
   `silverbullet_invitation_id` INT(11) NOT NULL COMMENT '', /* new field */
-  /* `one_time_token` VARCHAR(45) NOT NULL COMMENT '',  remove this one */
   `serial_number` BLOB NULL COMMENT '',
   `cn` VARCHAR(128) NULL COMMENT '',
   `issued` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '', /* new field */
