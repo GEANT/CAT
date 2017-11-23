@@ -701,7 +701,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * @param string $host
      * @return string
      */
-    public function generateTokenLink($token) {
+    public static function generateTokenLink($token) {
 
         if (isset($_SERVER['HTTPS'])) {
             $link = 'https://';
@@ -715,6 +715,9 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         $link = $link . $relPath;
 
+        if (preg_match('/admin$/', $link)) {
+            $link = substr($link, 0, strlen($link)-6);
+        }
         $link .= '/accountstatus/accountstatus.php?token='.$token;
         return $link;
     }

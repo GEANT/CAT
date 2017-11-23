@@ -141,6 +141,7 @@ class OutsideComm {
      * 
      * @param string $number the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
      * @param string $content the text to send
+     * @return integer
      * @throws Exception
      */
     public static function sendSMS($number, $content) {
