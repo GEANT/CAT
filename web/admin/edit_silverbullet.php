@@ -148,7 +148,6 @@ if (isset($_POST['command'])) {
             if (!isset($_POST['address']) || !isset($_POST['token'])) {
                 break;
             }
-            $loggerInstance->debug(5,"Sending mail with CAT\n");
             $mail = \core\common\OutsideComm::mailHandle();
             $invitationToken = $profile->generateTokenLink($_POST['token']);
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
