@@ -46,7 +46,7 @@ if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
 include("user/js/roll.php");
 include("user/js/cat_js.php");
 ?>
-    var loading_ico = new Image();; ?>";
+    var loading_ico = new Image();
 </script>
 <?php $Gui->langObject->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
