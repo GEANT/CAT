@@ -245,6 +245,11 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
             console.log('Unable to copy to clipboard.');
         }
     }
+    $(document).ready(function () {
+        $(function () {
+            $("#tabs").tabs();
+        });
+    });
 </script>
 <link rel='stylesheet' type='text/css' href='../external/jquery/jquery-ui.css' />
 <link rel='stylesheet' type='text/css' href='css/silverbullet.css' />
@@ -571,4 +576,3 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         <?php
     }
     echo $deco->footer();
-    
