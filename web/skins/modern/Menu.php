@@ -79,7 +79,7 @@ class Menu {
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
                 $submenu = $menuItem['submenu'] ?? [];
                 $out .= $this->printMenuItem($menuItem['text'], $link, $class);
-                $out .= $this->printMenu($submenu,$iD);
+                $out .= $this->printMenu($submenu, $iD);
                 $out .= "</li>\n";
             }
         }

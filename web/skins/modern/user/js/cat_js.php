@@ -212,9 +212,9 @@ function resetDevices() {
        if(j.local_phone !== undefined && j.local_phone) 
          txt = txt+'<tr><td><?php escaped_echo(_("tel:")); ?></td><td>'+j.local_phone+'</td></tr>';
        if(txt) 
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"),$cat->nomenclature_inst)); ?></th></tr>"+txt+'</table>';
+         txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"), $cat->nomenclature_inst)); ?></th></tr>"+txt+'</table>';
         else 
-         txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems you should ask for help at your %s"),$cat->nomenclature_inst)); ?>.</th></tr></table>";
+         txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems you should ask for help at your %s"), $cat->nomenclature_inst)); ?>.</th></tr></table>";
       $("#user_info").html(txt);
       $("#user_info").show();
       resetDevices();
@@ -227,7 +227,7 @@ function resetDevices() {
           $("#g_"+v.id).addClass('alertButton');
           $("#cross_icon_"+v.id).show();
           $("#"+v.id).addClass('disabledDevice');
-          $("#download_button_header_"+v.id).html("<?php escaped_echo(sprintf(_("This device cannot be configured with settings provided by your %s"),$cat->nomenclature_inst))?>");
+          $("#download_button_header_"+v.id).html("<?php escaped_echo(sprintf(_("This device cannot be configured with settings provided by your %s"), $cat->nomenclature_inst))?>");
           $("#info_b_"+v.id+",#g_info_b_"+v.id).hide();
         } else  {
           if(v.status == -1)
@@ -252,7 +252,7 @@ function resetDevices() {
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
             if(v.status > 0) {
-              t = "<?php escaped_echo(sprintf(_("This device cannot be configured with settings provided by your %s"),$cat->nomenclature_inst))?>";
+              t = "<?php escaped_echo(sprintf(_("This device cannot be configured with settings provided by your %s"), $cat->nomenclature_inst))?>";
               continue_text = "<?php escaped_echo(_("Close")); ?>";
             } else {
             t = i_div.html();
@@ -434,7 +434,7 @@ $(document).ready(function(){
   resetDevices();
  <?php 
 if ($profileId) {
-    print "listProfiles($idpId,$profileId);";
+    print "listProfiles($idpId, $profileId);";
 }
     ?>
 
@@ -477,13 +477,13 @@ $(".signin").DiscoJuice({
    "overlay":true,"cookie":true,"type":false,
    "country":true,"location":true,
    "title":"<?php escaped_echo($cat->nomenclature_inst) ?>",
-   "subtitle":"<?php escaped_echo(sprintf(_("Select your <strong>%s<\/strong>"),$cat->nomenclature_inst)) ?>",
-   "textHelp": "<?php escaped_echo(sprintf(_("Help, my %s is not on the list"),$cat->nomenclature_inst)) ?>",
+   "subtitle":"<?php escaped_echo(sprintf(_("Select your <strong>%s<\/strong>"), $cat->nomenclature_inst)) ?>",
+   "textHelp": "<?php escaped_echo(sprintf(_("Help, my %s is not on the list"), $cat->nomenclature_inst)) ?>",
    "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your %s is not on the list, then nag them to add information to the %s database."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname'])); ?>",
    "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php escaped_echo(sprintf(_("Show %ss in"), $cat->nomenclature_inst)) ?>",
    "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
-   "textSearch" : "<?php escaped_echo(sprintf(_("or search for an %s, in example Univerity of Oslo"),$cat->nomenclature_inst)) ?>",
+   "textSearch" : "<?php escaped_echo(sprintf(_("or search for an %s, in example Univerity of Oslo"), $cat->nomenclature_inst)) ?>",
    "textShowAllCountries": "<?php escaped_echo(_("show all countries")) ?>",
    "textLimited1" : "<?php escaped_echo(_("Results limited to"))?>",
    "textLimited2" : "<?php escaped_echo(_("entries - show more"))?>",

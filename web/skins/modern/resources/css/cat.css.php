@@ -187,7 +187,7 @@ div.header {
     border-bottom-style:solid;
     border-top-width:5px; 
     border-bottom-width:5px; 
-    border-color: <?php echo $colour1;?>;
+    border-color: <?php echo $colour1; ?>;
     padding-left:30px;
     color: <?php echo $colour2; ?>;
 }

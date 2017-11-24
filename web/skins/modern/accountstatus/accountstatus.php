@@ -89,18 +89,18 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                             echo "<h3>" . sprintf(_("Your invitation token is valid for %d more device activations (%d have already been used)."), $statusInfo['tokenstatus']['activations_remaining'], $statusInfo['tokenstatus']['activations_total'] - $statusInfo['tokenstatus']['activations_remaining']) . "</h3>";
                         }
                         if (!$statusInfo["OS"]) {
-                            echo "<p>"._("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
+                            echo "<p>" . _("Unfortunately, we are unable to determine your device's operating system. If you have made modifications on your device which prevent it from being recognised (e.g. custom 'User Agent' settings), please undo such modifications. You can come back to this page again; the invitation link has not been used up yet.") . "</p>";
                             break;
                         }
 
                         $dev = new \core\DeviceFactory($statusInfo['OS']['device']);
                         $dev->device->calculatePreferredEapType([new \core\common\EAP(\core\common\EAP::EAPTYPE_SILVERBULLET)]);
                         if ($dev->device->selectedEap == []) {
-                            echo "<p>".sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
+                            echo "<p>" . sprintf(_("Unfortunately, the operating system your device uses (%s) is currently not supported for hosted end-user accounts. You can visit this page with a supported operating system later; the invitation link has not been used up yet."), $statusInfo['OS']['display']) . "</p>";
                             break;
                         }
 
-                        echo "<div id='sb_download_message'><p>".sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+                        echo "<div id='sb_download_message'><p>" . sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
 //                       echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
@@ -152,9 +152,9 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
             $supportInfo .= '<tr><td>' . ("tel:") . '</td><td><a href="' . $attributes['local_phone'] . '" target="_blank">' . $attributes['local_phone'] . '</a></td></tr>';
         }
         if ($supportInfo != '') {
-            $supportInfo = "<table><tr><th colspan='2'>" . sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"),$cat->nomenclature_inst) . "</th></tr>$supportInfo</table>";
+            $supportInfo = "<table><tr><th colspan='2'>" . sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"), $cat->nomenclature_inst) . "</th></tr>$supportInfo</table>";
         } else {
-            $supportInfo = "<table><tr><th colspan='2'>" . sprintf(_("If you encounter problems you should ask for help at your %s"),$cat->nomenclature_inst) . "</th></tr></table>";
+            $supportInfo = "<table><tr><th colspan='2'>" . sprintf(_("If you encounter problems you should ask for help at your %s"), $cat->nomenclature_inst) . "</th></tr></table>";
         }
 ?>
     <script>
