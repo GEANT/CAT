@@ -100,7 +100,7 @@ class ProfileSilverbullet extends AbstractProfile {
 // realm is automatically calculated, then stored in DB
 
         $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix'];
-        $this->setRealm("$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']);
+        $this->setRealm($myInst->identifier."-".$this->identifier."." . strtolower($myInst->federation) . strtolower(CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']));
         $localValueIfAny = "";
 
 // but there's some common internal attributes populated directly
@@ -698,10 +698,10 @@ class ProfileSilverbullet extends AbstractProfile {
     
     /**
      * 
-     * @param string $host
+     * @param string $token
      * @return string
      */
-    public static function generateTokenLink($token) {
+    public static function generateTokenLink(string $token) {
 
         if (isset($_SERVER['HTTPS'])) {
             $link = 'https://';
