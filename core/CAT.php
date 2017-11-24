@@ -45,10 +45,10 @@ class CAT extends \core\common\Entity {
      * developers need to set this in code. The user-displayed string
      * is generated into $CAT_VERSION_STRING and $CAT_COPYRIGHT below
      */
-    const VERSION_MAJOR = 1;
-    const VERSION_MINOR = 2;
+    const VERSION_MAJOR = 2;
+    const VERSION_MINOR = 0;
     const VERSION_PATCH = 0;
-    const VERSION_EXTRA = "";
+    const VERSION_EXTRA = "pre-alpha1";
     const RELEASE_VERSION = FALSE;
     const USER_API_VERSION = 2;
 
