@@ -322,7 +322,7 @@ function resetDevices() {
   }
   
   function infoCAT(k,subK,title) {
-      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE","user/cat_info.php")?>', {page: k, subpage: subK, lang: lang}, function(data) {
+      $.post('<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/cat_info.php")?>', {page: k, subpage: subK, lang: lang}, function(data) {
           showInfo(data, title)});
   }
 
@@ -331,7 +331,7 @@ function resetDevices() {
    $("#loading_ico").css('left',x+'px');
    $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
    $("#loading_ico").show();
-   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE","admin/overview_user.php")?>?lang="+lang);
+   window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE", "admin/overview_user.php")?>?lang="+lang);
 }
 
 
@@ -353,7 +353,7 @@ function getWindowHCenter() {
     return(Math.round(windowWidth/2));
 }
 
-<?php if($idpId) { 
+<?php if ($idpId) { 
         print "front_page = 0;\n";
 } ?>
 
@@ -479,7 +479,7 @@ $(".signin").DiscoJuice({
    "title":"<?php escaped_echo($cat->nomenclature_inst) ?>",
    "subtitle":"<?php escaped_echo(sprintf(_("Select your <strong>%s<\/strong>"), $cat->nomenclature_inst)) ?>",
    "textHelp": "<?php escaped_echo(sprintf(_("Help, my %s is not on the list"), $cat->nomenclature_inst)) ?>",
-   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your %s is not on the list, then nag them to add information to the %s database."),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname'])); ?>",
+   "textHelpMore": "<?php escaped_echo(sprintf(_("This system relies on information supplied by local %s administrators. If your %s is not on the list, then nag them to add information to the %s database."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $cat->nomenclature_inst, CONFIG['APPEARANCE']['productname'])); ?>",
    "textLocateMe": "<?php escaped_echo(_("Locate me more accurately using HTML5 Geo-Location")) ?>",
    "textShowProviders": "<?php escaped_echo(sprintf(_("Show %ss in"), $cat->nomenclature_inst)) ?>",
    "textAllCountries": "<?php escaped_echo(_("all countries")) ?>",
