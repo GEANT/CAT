@@ -86,7 +86,9 @@ class UserAPI extends CAT {
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
-            $installerProperties['mime'] = $myInstaller['mime'];
+            if ($myInstaller['link'] != 0 ) {
+                $installerProperties['mime'] = $myInstaller['mime'];
+            }
             $installerProperties['link'] = $myInstaller['link'];
         }
         $this->languageInstance->setTextDomain("web_user");
