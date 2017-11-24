@@ -62,7 +62,10 @@ if (!isset($_REQUEST['profile_id'])) {
 } else {
     $profile = $validator->Profile(filter_input(INPUT_GET, "profile_id"));
 }
-
+// at this point, we should really have a SB profile in our hands, not a RADIUS one
+if (!($profile instanceof \core\ProfileSilverbullet)) {
+    throw new Exception("Despite utmost care to get a SB profile, we got a RADIUS profile?!");
+}
 $displaySendStatus = "NOSTIPULATION";
 
 $formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";
