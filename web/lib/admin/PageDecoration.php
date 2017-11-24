@@ -115,32 +115,24 @@ class PageDecoration {
         // this <div is closing in footer, keep it in PHP for Netbeans syntax
         // highlighting to work
         $retval = "<div class='maincontent'>";
-
+        // default values which match almost every case; override where needed
+        $cap1 = CONFIG['APPEARANCE']['productname_long'];
+        $advancedControls = TRUE;
         switch ($area) {
             case "ADMIN-IDP":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = sprintf(_("Administrator Interface - Identity Provider"),$this->ui->nomenclature_inst);
-                $advancedControls = TRUE;
                 break;
             case "ADMIN-IDP-USERS":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = sprintf(_("Administrator Interface - %s User Management"), \core\ProfileSilverbullet::PRODUCTNAME);
-                $advancedControls = TRUE;
                 break;
             case "ADMIN":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = _("Administrator Interface");
-                $advancedControls = TRUE;
                 break;
             case "USERMGMT":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = _("Management of User Details");
-                $advancedControls = TRUE;
                 break;
             case "FEDERATION":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = sprintf(_("Administrator Interface - %s Management"),$this->ui->nomenclature_fed);
-                $advancedControls = TRUE;
                 break;
             case "USER":
                 $cap1 = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
@@ -148,21 +140,15 @@ class PageDecoration {
                 $advancedControls = FALSE;
                 break;
             case "SUPERADMIN":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = _("CIC");
-                $advancedControls = TRUE;
                 break;
             case "DIAG":
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = _("Diagnostics");
-                $advancedControls = TRUE;
                 break;
             default:
-                $cap1 = CONFIG['APPEARANCE']['productname_long'];
                 $cap2 = "It is an error if you ever see this string.";
                 $advancedControls = FALSE;
         }
-
 
         $retval .= $this->headerDiv($cap1, $language);
         // content from here on will SCROLL instead of being fixed at the top
