@@ -63,9 +63,9 @@ class Menu {
     }
     public function printMenu($menu = NULL, $id=NULL) {
         $menu = $menu ?? $this->menu;
-     if(count($menu) == 0) {
-          return;
-     }
+        if(count($menu) == 0) {
+            return;
+        }
         $out = "\n<ul>\n";
         foreach ($menu as $menuItem) {
             $itemVisibility = $menuItem['visibility'] ?? 'all';
@@ -88,7 +88,6 @@ class Menu {
     }
 
     private function printMenuItem($itemText,$itemLink = '',$itemClass = '') {
-        
         return "<li><a href='" . $itemLink . "'".$itemClass.'>' . $itemText . "</a>";
     }
     
