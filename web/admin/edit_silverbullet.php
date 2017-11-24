@@ -77,6 +77,10 @@ if (isset($_POST['command'])) {
                 $profile->addAttribute("hiddenprofile:tou_accepted", NULL, 1);
                 // re-instantiate profile with the new info
                 $profile = core\ProfileFactory::instantiate($profile->identifier, $inst);
+                // at this point, we should really have a SB profile in our hands, not a RADIUS one
+                if (!($profile instanceof \core\ProfileSilverbullet)) {
+                    throw new Exception("Despite utmost care to get a SB profile, we got a RADIUS profile?!");
+                }
             }
             break;
         case \web\lib\common\FormElements::BUTTON_ADDUSER:
@@ -396,7 +400,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     $jsEncodedBody = str_replace('\n', '%0D%0A', str_replace('"', '', json_encode($profile->invitationMailBody($link))));
                                     $tokenHtmlBuffer .= "<td>
                                 
-                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='$link' name='token' class='identifiedtokenarea-".$tokenWithoutCert['db_id']."'>(…)<br/> is ready for sending! Choose how to send it:
+                                    The invitation token <input type='text' readonly='readonly' color='grey' size='60' value='$link' name='token' class='identifiedtokenarea-" . $tokenWithoutCert['db_id'] . "'>(…)<br/> is ready for sending! Choose how to send it:
                                     <table>
                                     <tr><td style='vertical-align:bottom;'>E-Mail:</td><td>
                                     $formtext
@@ -414,7 +418,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     </form>
 				</td></tr>
                                     <tr><td style='vertical-align:bottom;'>Manual:</td><td>
-				<button type='button' class='clipboardButton' onclick='clipboardCopy(".$tokenWithoutCert['db_id'].");'>" . _("Copy to Clipboard") . "</button>
+				<button type='button' class='clipboardButton' onclick='clipboardCopy(" . $tokenWithoutCert['db_id'] . ");'>" . _("Copy to Clipboard") . "</button>
                                     <form style='display:inline-block;' method='post' action='inc/displayQRcode.inc.php' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <input type='hidden' value='" . $tokenWithoutCert['value'] . "' name='token'><br/>
                                       <button type='submit'>" . _("Display QR code") . "</button>
@@ -445,20 +449,20 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                         ?>
 
                         <td>
-                            <?php echo $formtext;?>
-                                <div class="sb-date-container">
-                                    <input type="text" maxlength="10" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">
-                                    <button class="sb-date-button" type="button">▼</button>
-                                </div>
-                                <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
-                                <button type="submit" id="updateexpiry" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
+                            <?php echo $formtext; ?>
+                            <div class="sb-date-container">
+                                <input type="text" maxlength="10" id="sb-date-picker-1" class="sb-date-picker" name="userexpiry" value="<?php echo $profile->getUserExpiryDate($oneUserId); ?>">
+                                <button class="sb-date-button" type="button">▼</button>
+                            </div>
+                            <input type="hidden" name="userid" value="<?php echo $oneUserId; ?>"/>
+                            <button type="submit" id="updateexpiry" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY ?>">Update</button>
                             </form>
                         </td>
                         <td>
                             <div class="sb-user-buttons">
                                 <?php
                                 if ($hasOnePendingInvite || count($validCerts) > 0) {
-                                    echo $formtext ."
+                                    echo $formtext . "
                                     <input type='hidden' name='userid' value='$oneUserId'/>
                                     <button type='submit' id='userdel' name='command' value='" . \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER . "' class='delete'>" . _("Deactivate User") . "</button>
                                 </form>";
@@ -467,13 +471,13 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                 if (new DateTime() < new DateTime($expiryDate)) {
                                     echo $formtext;
                                     ?>
-                                        <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
-                                        <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Credential"); ?></button>
+                                    <input type='hidden' name='userid' value='<?php echo $oneUserId ?>'/>
+                                    <button type='submit' id='userinvite' name='command' value='<?php echo \web\lib\common\FormElements::BUTTON_NEWINVITATION ?>'><?php echo _("New Credential"); ?></button>
 
-                                        <label>
-                                            <?php echo _("Activations:"); ?>
-                                            <input type="text" name="invitationsquantity" value="1" maxlength="3" style="width: 30px;"/>
-                                        </label>
+                                    <label>
+                                        <?php echo _("Activations:"); ?>
+                                        <input type="text" name="invitationsquantity" value="1" maxlength="3" style="width: 30px;"/>
+                                    </label>
                                     </form>
                                     <?php
                                 }
@@ -496,7 +500,7 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                                     . ' If all accounts shown as active above are indeed still valid, please check the box below and push "Save".'
                                     . ' If any of the accounts are stale, please deactivate them by pushing the corresponding button before doing this.'), CONFIG_CONFASSISTANT['SILVERBULLET']['gracetime'] ?? core\ProfileSilverbullet::SB_ACKNOWLEDGEMENT_REQUIRED_DAYS);
 
-                    echo $formtext."<div style='padding-bottom: 20px;'>"
+                    echo $formtext . "<div style='padding-bottom: 20px;'>"
                     . "
                     <p>$acknowledgeText</p>
                     <input type='checkbox' name='acknowledge' value='true'>
@@ -520,31 +524,31 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         </ul>
         <!--adding manual -->
         <div id="tabs-1">
-            <?php echo $formtext;?>
-                <div class="sb-add-new-user">
-                    <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
-                    <div style="margin: 5px 0px 10px 0px;">
-                        <input type="text" name="username">
-                        <div class="sb-date-container">
-                            <input type="text" maxlength="10" id="sb-date-picker-5" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd"/>
-                            <button class="sb-date-button" type="button">▼</button>
-                        </div>                
-                    </div>
-                    <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_ADDUSER ?>"><?php echo _("Add new user"); ?></button>
+            <?php echo $formtext; ?>
+            <div class="sb-add-new-user">
+                <label for="username"><?php echo _("Please enter a username of your choice and user expiry date to create a new user:"); ?></label>
+                <div style="margin: 5px 0px 10px 0px;">
+                    <input type="text" name="username">
+                    <div class="sb-date-container">
+                        <input type="text" maxlength="10" id="sb-date-picker-5" class="sb-date-picker" name="userexpiry" value="yyyy-MM-dd"/>
+                        <button class="sb-date-button" type="button">▼</button>
+                    </div>                
                 </div>
+                <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_ADDUSER ?>"><?php echo _("Add new user"); ?></button>
+            </div>
             </form>
         </div>
         <!--CSV -->
         <div id="tabs-2">
             <div>
-                <?php echo $formtext;?>
-                    <div class="sb-add-new-user">
-                        <p><?php echo _("Comma separated values should be provided in CSV file: username, expiration date 'yyyy-mm-dd', number of tokens (optional):"); ?></p>
-                        <div style="margin: 5px 0px 10px 0px;">
-                            <input type="file" name="newusers">
-                        </div>
-                        <button type="submit" name="command" value="newusers" ><?php echo _("Import users"); ?></button>
+                <?php echo $formtext; ?>
+                <div class="sb-add-new-user">
+                    <p><?php echo _("Comma separated values should be provided in CSV file: username, expiration date 'yyyy-mm-dd', number of tokens (optional):"); ?></p>
+                    <div style="margin: 5px 0px 10px 0px;">
+                        <input type="file" name="newusers">
                     </div>
+                    <button type="submit" name="command" value="newusers" ><?php echo _("Import users"); ?></button>
+                </div>
                 </form>
             </div>
         </div>
@@ -565,11 +569,11 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
                             <hr>
                             <?php echo $profile->termsAndConditions; ?>
                             <hr>
-                            <?php echo $formtext;?>
-                                <div style="position: relative; padding-bottom: 5px;">
-                                    <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
-                                </div>
-                                <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE ?>"><?php echo _("Continue"); ?></button>
+                            <?php echo $formtext; ?>
+                            <div style="position: relative; padding-bottom: 5px;">
+                                <input type="checkbox" name="agreement" value="true"> <label><?php echo _("I have read and agree to the terms."); ?></label>
+                            </div>
+                            <button type="submit" name="command" value="<?php echo \web\lib\common\FormElements::BUTTON_TERMSOFUSE ?>"><?php echo _("Continue"); ?></button>
                             </form>
                         </div>
                     </div>
@@ -579,3 +583,4 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         <?php
     }
     echo $deco->footer();
+    
