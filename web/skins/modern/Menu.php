@@ -16,13 +16,13 @@ class Menu {
      * @param string $visibility
      * @param string $selectedLang
      */
-    public function __construct($visibility = 'all', $selectedLang) {
+    public function __construct($visibility = 'all', $selectedLang = '') {
         $langsArray = [];
         foreach (CONFIG['LANGUAGES'] as $lang => $value) {
             if ($lang == $selectedLang) {
-                $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("'.$lang.'")', 'class'=>'selected-lang'];
+                $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("' . $lang . '")', 'class'=>'selected-lang'];
             } else {
-                $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("'.$lang.'")'];
+                $langsArray[] = ['text'=>$value['display'], 'link'=>'javascript:changeLang("' . $lang . '")'];
             }
         }
         $this->menu = [['id' => 'start',
@@ -36,7 +36,7 @@ class Menu {
                         'link' => CONFIG_CONFASSISTANT['CONSORTIUM']['homepage']],
                 ]],
             ['id' => 'lang',
-                'text' => _("Language"), 'submenu' => $langsArray,],
+                'text' => _("Language"), 'submenu' => $langsArray, ],
             ['id' => 'help',
                 'text' => _("Help"), 'submenu' => [
                     ['text' => _("My institution is not listed"), 'catInfo' => ['idp_not_listed', _("FAQ")], 'visibility' => 'index'],
@@ -61,9 +61,9 @@ class Menu {
         ];
         $this->visibility = $visibility;
     }
-    public function printMenu($menu = NULL, $id=NULL) {
+    public function printMenu($menu = NULL, $id = NULL) {
         $menu = $menu ?? $this->menu;
-        if(count($menu) == 0) {
+        if (count($menu) == 0) {
             return;
         }
         $out = "\n<ul>\n";
@@ -73,22 +73,22 @@ class Menu {
                 $iD = $menuItem['id'] ?? $id;
                 $catInfo = NULL;
                 if (!empty($menuItem['catInfo'])) {
-                    $catInfo = 'javascript:infoCAT("'.$iD.'", "'.$menuItem['catInfo'][0].'","'.$menuItem['catInfo'][1].'")';
+                    $catInfo = 'javascript:infoCAT("' . $iD . '", "' . $menuItem['catInfo'][0] . '","' . $menuItem['catInfo'][1] . '")';
                 }
                 $link = $catInfo ?? $menuItem['link'] ?? '';
-                $class = empty($menuItem['class']) ? '' : ' class="'.$menuItem['class'].'"';
-                $submenu  = $menuItem['submenu'] ?? [];
+                $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
+                $submenu = $menuItem['submenu'] ?? [];
                 $out .= $this->printMenuItem($menuItem['text'], $link, $class);
                 $out .= $this->printMenu($submenu,$iD);
                 $out .= "</li>\n";
-             }
+            }
         }
         $out .= '</ul>';
         return($out);
     }
 
-    private function printMenuItem($itemText,$itemLink = '',$itemClass = '') {
-        return "<li><a href='" . $itemLink . "'".$itemClass.'>' . $itemText . "</a>";
+    private function printMenuItem($itemText, $itemLink = '', $itemClass = '') {
+        return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     
 
