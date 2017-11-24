@@ -41,10 +41,11 @@ class Menu {
                 'text' => _("Help"), 'submenu' => [
                     ['text' => _("My institution is not listed"), 'catInfo' => ['idp_not_listed', _("FAQ")], 'visibility' => 'index'],
                     ['text' => _("My device is not listed"), 'catInfo' => ['device_not_listed', _("FAQ")], 'visibility' => 'index'],
-                    ['text' => _("SB help item"), 'visibility' => 'sb'],
+                    ['text' => _("SB help item"), 'visibility' => 'sb', 'link'=>'xxx.php'],
                     ['text' => _("What is eduroam"), 'catInfo' => ['what_is_eduroam', _("FAQ")]],
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
+                    ['text' => _("Diagnostics"), 'link' => 'diag/diag.php'], 
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
@@ -62,9 +63,9 @@ class Menu {
     }
     public function printMenu($menu = NULL, $id=NULL) {
         $menu = $menu ?? $this->menu;
-     if(count($menu) == 0) {
-          return;
-     }
+        if(count($menu) == 0) {
+            return;
+        }
         $out = "\n<ul>\n";
         foreach ($menu as $menuItem) {
             $itemVisibility = $menuItem['visibility'] ?? 'all';
