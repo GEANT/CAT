@@ -19,7 +19,7 @@ html {
 }
 
 body {
-    background: <?php echo $colour1;?>;
+    background: <?php echo $colour1; ?>;
     color: #000000;
     font-family:"Open Sans", Helvetica, sans-serif;
     font-size:12px;
@@ -33,7 +33,7 @@ body {
 }
 
 button {
-    background: <?php echo $colour2;?>; 
+    background: <?php echo $colour2; ?>; 
     color: #FFFFFF; 
     min-height: 23px;
     border-left-style: outset; 
@@ -189,7 +189,7 @@ div.header {
     border-bottom-width:5px; 
     border-color: <?php echo $colour1;?>;
     padding-left:30px;
-    color: <?php echo $colour2;?>;
+    color: <?php echo $colour2; ?>;
 }
 
 div.pagecontent {
@@ -382,7 +382,7 @@ div.ca-summary {
 
 span.edu_cat {
     font-weight: bold;
-    color: <?php echo $colour2;?>;
+    color: <?php echo $colour2; ?>;
 }
 
 span.tooltip {
@@ -495,7 +495,7 @@ p.MOTD {
     border-bottom-style:solid;
     border-top-width:5px; 
     border-bottom-width:5px; 
-    border-color: <?php echo $colour1;?>; 
+    border-color: <?php echo $colour1; ?>; 
     padding-left:30px;
 }
 
@@ -549,7 +549,7 @@ td.vendor img {
 }
 
 span.redirect_link {
-    background: <?php echo $colour2;?>; color: #FFFFFF; height: 23px;
+    background: <?php echo $colour2; ?>; color: #FFFFFF; height: 23px;
     border-left-style: inset; border-left-width: 1px; border-left-color: #8bbacb;
     border-top-style: inset; border-top-width: 1px; border-top-color: #8bbacb;
     border-right-style: outset; border-right-width: 2px; border-right-color: #043d52;
@@ -620,7 +620,7 @@ span.redirect_link a:active {
     width: 30em; 
     padding-left: 10px; 
     padding-right: 00px; 
-    background: <?php echo $colour2;?>; 
+    background: <?php echo $colour2; ?>; 
     color: #FFFFFF; 
     box-shadow: 10px 10px 5px #888888;
 }
@@ -670,7 +670,7 @@ span.redirect_link a:active {
 //    border-bottom-width:5px;
     border-color: #e7e7e7;
     padding-left:30px;
-    color: <?php echo $colour2;?>;
+    color: <?php echo $colour2; ?>;
 }
 
 #headingx h1 { 
@@ -689,7 +689,7 @@ span.redirect_link a:active {
     text-align: justify;
     border-bottom-style:solid;
     border-bottom-width:5px;
-    border-color: <?php echo $colour1;?>;
+    border-color: <?php echo $colour1; ?>;
     font-size: 14px;
     font-weight: normal;
 }
@@ -698,7 +698,7 @@ span.redirect_link a:active {
 
 #faq {
     padding: 20px;
-    color: <?php echo $colour2;?>;
+    color: <?php echo $colour2; ?>;
     background: #ffffff;
 }
 
@@ -738,7 +738,7 @@ span.redirect_link a:active {
 
 #menu_column {
     border-right:solid;
-    border-color: <?php echo $colour1;?>;
+    border-color: <?php echo $colour1; ?>;
     border-width:5px;
     min-height:400px;
     padding-left: 10px;
@@ -756,11 +756,11 @@ span.redirect_link a:active {
 }
 
 a:link {
-    color:<?php echo $colour2;?>;
+    color:<?php echo $colour2; ?>;
 }
 
 a:visited {
-    color:<?php echo $colour2;?>;
+    color:<?php echo $colour2; ?>;
 }
 
 a:hover {
@@ -768,7 +768,7 @@ a:hover {
 }
 
 a:active {
-    color:<?php echo $colour2;?>;
+    color:<?php echo $colour2; ?>;
 }
 
 .comment {

@@ -28,7 +28,7 @@ $Gui = new \web\lib\user\Gui();
 $Gui->langObject->setTextDomain("web_user");
 
 $page = $_REQUEST['page'];
-$subpage= $_REQUEST['subpage'];
+$subpage = $_REQUEST['subpage'];
 switch ($page) {
     case 'about' :
         require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/user/about_cat.inc.php");

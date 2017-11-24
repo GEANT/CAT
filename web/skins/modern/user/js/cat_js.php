@@ -208,9 +208,9 @@ function resetDevices() {
        if(j.local_url !== undefined && j.local_url) 
          txt = txt+'<tr><td><?php escaped_echo(_("WWW:")); ?></td><td><a href="'+j.local_url+'" target="_blank">'+j.local_url+'</a></td></tr>';
        if(j.local_email !== undefined && j.local_email) 
-         txt = txt+'<tr><td><?php escaped_echo(_("email:"));?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
+         txt = txt+'<tr><td><?php escaped_echo(_("email:")); ?></td><td><a href=mailto:"'+j.local_email+'">'+j.local_email+'</a></td></tr>';
        if(j.local_phone !== undefined && j.local_phone) 
-         txt = txt+'<tr><td><?php escaped_echo(_("tel:"));?></td><td>'+j.local_phone+'</td></tr>';
+         txt = txt+'<tr><td><?php escaped_echo(_("tel:")); ?></td><td>'+j.local_phone+'</td></tr>';
        if(txt) 
          txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"),$cat->nomenclature_inst)); ?></th></tr>"+txt+'</table>';
         else 
@@ -239,7 +239,7 @@ function resetDevices() {
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
-            t = "<?php escaped_echo(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php escaped_echo(_("Continue"));?></a></span>";
+            t = "<?php escaped_echo(_("Your site administrator has specified that this device should be configured with resources located on a local page. When you click <b>Continue</b> this page will be opened in a new window/tab."))?>"+"<br><span class='redirect_link'><a href='"+v.redirect+"' target='_blank'><?php escaped_echo(_("Continue")); ?></a></span>";
             i_div.html(t);
             $(".redirect_link").click(function(event) {
                i_div.hide();
@@ -247,13 +247,13 @@ function resetDevices() {
                
           });
         } else if(v.device_customtext != '0' || v.eap_customtext != '0' || v.message != '0' || v.status > 0) {
-          var continue_text = "<?php escaped_echo(_("Continue"));?>";
+          var continue_text = "<?php escaped_echo(_("Continue")); ?>";
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
           $("#"+v.id+",#g_"+v.id).click(function(event){
             i_div = $("#info_"+$(this).attr('id'));
             if(v.status > 0) {
               t = "<?php escaped_echo(sprintf(_("This device cannot be configured with settings provided by your %s"),$cat->nomenclature_inst))?>";
-              continue_text = "<?php escaped_echo(_("Close"));?>";
+              continue_text = "<?php escaped_echo(_("Close")); ?>";
             } else {
             t = i_div.html();
             if(v.message != '0') {

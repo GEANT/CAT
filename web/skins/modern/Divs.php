@@ -39,7 +39,7 @@ class Divs {
             <img id='logo_img' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "consortium_logo.png") . "' alt='Consortium Logo'/>
             <span>Configuration Assistant Tool</span>
         </div>
-        <div id='motd'>" . (isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp' ) . "</div>
+        <div id='motd'>" . (isset(CONFIG['APPEARANCE']['MOTD']) ? CONFIG['APPEARANCE']['MOTD'] : '&nbsp') . "</div>
         <img id='hamburger' src='" . $this->Gui->skinObject->findResourceUrl("IMAGES", "icons/menu.png") . "' alt='Menu'/>
         <div id='menu_top'>
 ";

@@ -18,9 +18,9 @@
 ?>
 
 <!-- JQuery -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js") ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate.js") ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js") ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
 <!-- JQuery -->
 
 <script type="text/javascript">
@@ -46,18 +46,17 @@ if (preg_match('/Android/', $_SERVER['HTTP_USER_AGENT'])) {
 include("user/js/roll.php");
 include("user/js/cat_js.php");
 ?>
-    var loading_ico = new Image();
-    loading_ico.src = "<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>";
+    var loading_ico = new Image();; ?>";
 </script>
 <?php $Gui->langObject->setTextDomain("web_user"); ?>
 <!-- DiscoJuice -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/discojuice.js")?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/discojuice.js"); ?>"></script>
 <script type="text/javascript">
     var lang = "<?php echo($Gui->langObject->getLang()) ?>";
 </script>
-<link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","discojuice/css/discojuice.css")?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "discojuice/css/discojuice.css"); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
 </head>
 <body>
 <div id="wrap">
@@ -65,30 +64,31 @@ include("user/js/cat_js.php");
     <?php echo $divs->div_heading($visibility); ?>
     <div id="main_page">
         <div id="loading_ico">
-          <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>" alt="Authenticating ..."/>
+          <?php echo _("Authenticating") . "..." ?><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Authenticating ..."/>
         </div>
         <div id="info_overlay"> <!-- device info -->
             <div id="info_window"></div>
-            <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+            <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png"); ?>" ALT="Close"/>
         </div>
         <div id="main_menu_info" style="display:none"> <!-- stuff triggered form main menu -->
-          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png"); ?>" ALT="Close"/>
           <div id="main_menu_content"></div>
         </div>
         <div id="main_body">
          <?php if (empty($_REQUEST['idp'])) { ?>
               <div id="front_page">
                   <?php
-                         echo $divs->div_top_welcome();
-                         echo $divs->div_roller();
-                         echo $divs->div_main_button(); ?>
+                        echo $divs->div_top_welcome();
+                        echo $divs->div_roller();
+                        echo $divs->div_main_button(); ?>
               </div> <!-- id="front_page" -->
          <?php } ?>
             <!-- the user_page div contains all information for a given IdP, i.e. the profile selection (if multiple profiles are defined)
                  and the device selection (including the automatic OS detection ) -->
             <div id="user_page">
-            <?php  echo $divs->div_institution();
-                   echo $divs->div_profiles(); ?>
+                <?php  
+                    echo $divs->div_institution();
+                    echo $divs->div_profiles(); ?>
                 <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                 <?php echo $divs->div_user_welcome() ?>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
@@ -105,7 +105,7 @@ include("user/js/cat_js.php");
                         if ($operatingSystem) {
                             echo $divs->div_guess_os($operatingSystem);
                         }
-                         echo $divs->div_otherinstallers();
+                        echo $divs->div_otherinstallers();
                     ?>
                 </div> <!-- id="devices" -->
                 <input type="hidden" name="profile" id="profile_id"/>

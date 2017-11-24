@@ -3,9 +3,9 @@ error_reporting(E_ALL | E_STRICT);
 $Gui->defaultPagePrelude();
 ?>
 <!-- JQuery -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js");?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-migrate.js");?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js");?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-migrate.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
 <!-- JQuery -->
 <script type="text/javascript">
     var recognisedOS = '';
@@ -28,7 +28,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 var lang = "<?php echo($Gui->langObject->getLang()) ?>";
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
 
 </head>
 <body>
@@ -38,19 +38,19 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
     <?php echo $divs->div_heading($visibility); ?>
     <div id="info_overlay"> <!-- device info -->
         <div id="info_window"></div>
-        <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+        <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png") ?>" ALT="Close"/>
     </div>
     <div id="main_menu_info" style="display:none"> <!-- stuff triggered form main menu -->
-          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png") ?>" ALT="Close"/>
           <div id="main_menu_content"></div>
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php  echo $divs->div_institution(FALSE);?>
+            <?php  echo $divs->div_institution(FALSE); ?>
             <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
             <div id="sb_info">
                 <?php 
-             switch ($statusInfo['errorcode']) {
+                switch ($statusInfo['errorcode']) {
                     case "GENERATOR_CONSUMED":
                         echo $uiElements->boxError(_("You attempted to download an installer that was already downloaded before. Please request a new token from your administrator instead."), _("Attempt to re-use download link"), TRUE) . "<p>";
                         break;
@@ -101,7 +101,7 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                         }
 
                         echo "<div id='sb_download_message'><p>".sprintf(_("You can now download a personalised  %s installation program."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
- //                       echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
+//                       echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo sprintf(_("The installation program is <span class='emph'>strictly personal</span>, to be used <span class='emph'>only on this device (%s)</span>, and it is <span class='emph'>not permitted to share</span> this information with anyone."), $statusInfo['OS']['display']);
                         echo "<p style='color:red;'>" . _("When the system detects abuse such as sharing login data with others, all access rights for you will be revoked and you may be sanctioned by your local eduroam administrator.") . "</p>";
                         echo "<p>" . _("During the installation process, you will be asked for the following import PIN. This only happens once during the installation. You do not have to write down this PIN.") . "</p></div>";
@@ -165,9 +165,9 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
     $("#inst_name").val(idpName);
     $("#inst_name_span").html(idpName);
     $(".inst_name").text(idpName);
-    $("#inst_extra_text").html("<?php escaped_echo(sprintf(_("Your personal %s account status page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']));?>");
+    $("#inst_extra_text").html("<?php escaped_echo(sprintf(_("Your personal %s account status page"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'])); ?>");
         if(logo) {
-    $("#idp_logo").attr("src","<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+idpId);
+    $("#idp_logo").attr("src", "<?php echo $skinObject->findResourceUrl("BASE", "user/API.php"); ?>?action=sendLogo&api_version=2&idp="+idpId);
     $("#idp_logo").show();
     }
     $("#user_info").html("<?php escaped_echo($supportInfo); ?>");
@@ -180,7 +180,7 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
         
         $("#user_button_sb").click(function(event){
             event.preventDefault();
-            $("#cat_form").attr('action','<?php echo $Gui->skinObject->findResourceUrl("BASE","user/sb_download.php");?>');
+            $("#cat_form").attr('action', '<?php echo $Gui->skinObject->findResourceUrl("BASE", "user/sb_download.php"); ?>');
             $("#cat_form").submit();
         });
         
@@ -193,10 +193,10 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                 var allArray = new Array();
                 var statusCount = new Array();
                 
-                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID;?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
-                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED;?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
-                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED;?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
-                var headerLine = "<tr><th><?php escaped_echo(_("Pseudonym"));?></th><th><?php escaped_echo(_("Device Type"));?></th><th><?php escaped_echo(_("Serial Number"));?></th><th><?php escaped_echo(_("Issue Date"));?></th><th><?php escaped_echo(_("Expiry Date"));?></th></tr>";
+                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID; ?>] = {color: "#000000", categoryText: "<?php escaped_echo(_("Current login tokens")) ?>", rows: validCerts};
+                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_EXPIRED; ?>] = {color: "#999999", categoryText: "<?php escaped_echo(_("Previous login tokens")) ?>", rows: expiredCerts};
+                allArray[<?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_REVOKED; ?>] = {color: "#ff0000", categoryText: "<?php escaped_echo(_("Revoked login tokens")) ?>", rows: revokedCerts};
+                var headerLine = "<tr><th><?php escaped_echo(_("Pseudonym")); ?></th><th><?php escaped_echo(_("Device Type")); ?></th><th><?php escaped_echo(_("Serial Number")); ?></th><th><?php escaped_echo(_("Issue Date")); ?></th><th><?php escaped_echo(_("Expiry Date")); ?></th></tr>";
                 $.each(allArray, function(index, value) {
                     if(value !== undefined) {
                         value.rows.push('<tr style="color:' + value.color + ';"><th class="th1" colspan="5">' + value.categoryText + '</th></tr>');
@@ -206,7 +206,7 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                 });
                 j = $.parseJSON(data);
                 if(! j.status) {
-                    alert("<?php escaped_echo(_("invalid token"))?>");
+                    alert("<?php escaped_echo(_("invalid token")); ?>");
                 }
                 j = j.data;
                 $.each(j, function( index, value ) {
@@ -217,7 +217,7 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
                    if (value !== undefined && value.rows.length > 2) {
                         $.each(value.rows, function(i,line){
                             if (i > 1) {
-                                if (index === <?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID;?>)
+                                if (index === <?php echo \core\ProfileSilverbullet::SB_CERTSTATUS_VALID; ?>)
                                     line = line + '<td class="revoke"><a href="" TITLE="revoke certificate">revoke</a></td></tr>';
                                 else
                                     line = line + '</tr>';
@@ -230,12 +230,12 @@ var lang = "<?php echo($Gui->langObject->getLang()) ?>";
            // alert("V:"+statusCount[1]+"; E:"+statusCount[2]+"; R"+statusCount[3])
             });
             $("#cert_details").show();
-            $(this).html("<?php escaped_echo(_("The details are displayed below."))?>");
+            $(this).html("<?php escaped_echo(_("The details are displayed below.")); ?>");
         });
 
         $("#cert_details").on("click", "td.revoke>a", function(event) {
             event.preventDefault();
-            if (confirm("<?php escaped_echo(_("really revoke this certificate?"));?>"))
+            if (confirm("<?php escaped_echo(_("really revoke this certificate?")); ?>"))
                 alert("deleting - not yet implemented");
         })
         loadIdpData();
