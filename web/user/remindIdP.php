@@ -17,7 +17,7 @@ require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $safeText = ["options"=>["regexp"=>"/^[\w\d-]+$/"]];
 $key1 = filter_input(INPUT_GET, 'key', FILTER_VALIDATE_REGEXP, $safeText);
 $key2 = $_SESSION['remindIdP'];
-if (! $key1 || $key1 != $key2) {
+if (!$key1 || $key1 != $key2) {
     print("wrong usage");
     exit;
 }
