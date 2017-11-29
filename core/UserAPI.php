@@ -86,7 +86,9 @@ class UserAPI extends CAT {
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
-            $installerProperties['mime'] = $myInstaller['mime'];
+            if ($myInstaller['link'] != 0) {
+                $installerProperties['mime'] = $myInstaller['mime'];
+            }
             $installerProperties['link'] = $myInstaller['link'];
         }
         $this->languageInstance->setTextDomain("web_user");
@@ -177,7 +179,7 @@ class UserAPI extends CAT {
             if (isset($deviceProperties['options']['hidden']) && $deviceProperties['options']['hidden'] && $showHidden == 0) {
                 continue;
             }
-            $count ++;
+            $count++;
 
             $deviceProperties['device'] = $device;
 
@@ -564,7 +566,7 @@ class UserAPI extends CAT {
     }
 
 
-    public function sendLogo($identifier, $type, $width = 0, $height = 0){
+    public function sendLogo($identifier, $type, $width = 0, $height = 0) {
         if ($type === "federation") {
             $logo = $this->getFedLogo($identifier, $width, $height);
         }
@@ -582,7 +584,7 @@ class UserAPI extends CAT {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
         //$host = $_SERVER['REMOTE_ADDR'];
-        $host = input_filter(INPUT_SERVER,'REMOTE_ADDR',FILTER_VALIDATE_IP);
+        $host = input_filter(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
         $record = geoip_record_by_name($host);
         if ($record === FALSE) {
             return ['status' => 'error', 'error' => 'Problem listing countries'];
@@ -744,12 +746,12 @@ class UserAPI extends CAT {
                     $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
                     return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
                 } else {
-                    $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER,'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
+                    $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
                     return(false);
                 }
             }
         }
-        $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER,'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
+        $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
         return(false);
     }
 

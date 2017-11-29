@@ -213,7 +213,7 @@ function resetDevices() {
          txt = txt+'<tr><td><?php escaped_echo(_("tel:")); ?></td><td>'+j.local_phone+'</td></tr>';
        if(txt) 
          txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems, then you can obtain direct assistance from your %s at:"), $cat->nomenclature_inst)); ?></th></tr>"+txt+'</table>';
-        else 
+        else
          txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems you should ask for help at your %s"), $cat->nomenclature_inst)); ?>.</th></tr></table>";
       $("#user_info").html(txt);
       $("#user_info").show();
@@ -327,12 +327,44 @@ function resetDevices() {
   }
 
   function goAdmin() {
+  alert("admin");
    var x = getWindowHCenter() - 16;
    $("#loading_ico").css('left',x+'px');
    $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
    $("#loading_ico").show();
    window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE", "admin/overview_user.php")?>?lang="+lang);
 }
+
+  function remindIdPF() {
+    mail = $("#remindIdP").val();
+    key = $("#remindIdPs").val();
+    if (mail == "") {
+        alert("<?php echo(_("Missing email address")); ?>");
+        return;
+    }
+    $.get('<?php echo $skinObject->findResourceUrl("BASE", "user/remindIdP.php"); ?>', {key: key, mail: mail}, function(data) {
+       $("#remindIdPl").html("");
+       try {
+         j = $.parseJSON(data);
+       }
+       catch(err) {
+         alert(generation_error);
+         return(false);
+       }
+       if (j.status == 0) {
+           $("#remindIdPh").html("<?php echo _("No providers found for this email") ?>");
+           return;
+       }
+       if (j.data.length == 1) {
+          $("#remindIdPh").html("<?php echo _("Your IdP is:") ?>");
+       } else {
+          $("#remindIdPh").html("<?php echo _("Your IdP could be one of:") ?>");
+       }
+       $.each(j.data, function(i, v) {
+           $("#remindIdPl").append('<li>' + v + '</li>');
+       });
+    });
+  }
 
 
 /* Get horizontal center of the Browser Window */
