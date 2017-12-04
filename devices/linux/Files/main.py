@@ -4,7 +4,7 @@ import sys
 try:
     import dbus
 except:
-    if sys.version[0] == 3:
+    if sys.version_info.major == 3:
         sys.exit(1)
     subprocess.call(['python3'] + sys.argv)
     sys.exit(0)
