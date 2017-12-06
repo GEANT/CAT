@@ -135,6 +135,7 @@ Status codes
         // needs a table to determine what goes where :-(
         $jsonResult = \core\common\OutsideComm::downloadFile("https://monitor.eduroam.org/mapi/index.php?type=tlr_test&tlr=TLR_EU");
         $decoded = json_decode($jsonResult, TRUE);
+        $retval = [];
         $retval["RAW"] = $decoded;
         $atLeastOneFunctional = FALSE;
         $allFunctional = TRUE;
