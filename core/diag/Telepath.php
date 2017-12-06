@@ -38,7 +38,7 @@ class Telepath {
     const INFRA_DEVICE = "INFRA_DEVICE";
     const INFRA_NONEXISTENTREALM = "INFRA_NONEXISTENTREALM";
 
-    private $probabilities;
+    private $occurenceGuess;
     private $possibleFailureReasons;
     private $additionalFindings;
     private $realm;
@@ -69,7 +69,7 @@ class Telepath {
         // these are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
         // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
         // to get a percentage to report on.
-        $this->probabilities = [
+        $this->occurenceGuess = [
             Telepath::INFRA_ETLR => 0.01,
             Telepath::INFRA_LINK_ETLR_NRO_IDP => 0.01,
             Telepath::INFRA_LINK_ETLR_NRO_SP => 0.01,
@@ -291,11 +291,11 @@ Status codes
                     break;
                 case RADIUSTests::L_WARN:
                     $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => RADIUSTests::L_WARN];
-                    $this->probabilities[Telepath::INFRA_IDP_RADIUS] = 0.3; // possibly we found the culprit - if RADIUS server is misconfigured AND user is on a device which reacts picky about exactly this oddity.
+                    $this->occurenceGuess[Telepath::INFRA_IDP_RADIUS] = 0.3; // possibly we found the culprit - if RADIUS server is misconfigured AND user is on a device which reacts picky about exactly this oddity.
                     break;
                 case RADIUSTests::L_ERROR:
                     $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => RADIUSTests::L_ERROR];
-                    $this->probabilities[Telepath::INFRA_IDP_RADIUS] = 0.8; // errors are never good, so we can be reasonably sure we've hit the spot!
+                    $this->occurenceGuess[Telepath::INFRA_IDP_RADIUS] = 0.8; // errors are never good, so we can be reasonably sure we've hit the spot!
             }
         }
 
@@ -325,7 +325,7 @@ Status codes
                 }
                 // But it is about int'l roaming, and we are spot on here.
                 // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                $this->probabilities[Telepath::INFRA_ETLR] = 0.95;
+                $this->occurenceGuess[Telepath::INFRA_ETLR] = 0.95;
         }
         // next up: if the ETLR was okay, check the the FLR and its ETLR 
         // uplink (if we know which federation we are talking about)
@@ -346,7 +346,7 @@ Status codes
                 case Telepath::STATUS_DOWN:
                     $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    $this->probabilities[Telepath::INFRA_NRO_IDP] = 0.95;
+                    $this->occurenceGuess[Telepath::INFRA_NRO_IDP] = 0.95;
             }
             // then its uplink 
             $flrUplinkStatus = $this->checkFedEtlrUplink($this->idPFederation);
@@ -364,8 +364,8 @@ Status codes
                     $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
                     // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                    if ($this->probabilities[Telepath::INFRA_NRO_IDP] != 0.95) {
-                        $this->probabilities[Telepath::INFRA_LINK_ETLR_NRO_IDP] = 0.95;
+                    if ($this->occurenceGuess[Telepath::INFRA_NRO_IDP] != 0.95) {
+                        $this->occurenceGuess[Telepath::INFRA_LINK_ETLR_NRO_IDP] = 0.95;
                     }
             }
         }
@@ -388,7 +388,7 @@ Status codes
                 case Telepath::STATUS_DOWN:
                     $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    $this->probabilities[Telepath::INFRA_NRO_SP] = 0.95;
+                    $this->occurenceGuess[Telepath::INFRA_NRO_SP] = 0.95;
             }
             // and again its uplink to the ETLR
             $visitedFlrUplinkStatus = $this->checkFedEtlrUplink($this->visitedFlr);
@@ -406,8 +406,8 @@ Status codes
                     $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
                     // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                    if ($this->probabilities[Telepath::INFRA_NRO_SP] != 0.95) {
-                        $this->probabilities[Telepath::INFRA_LINK_ETLR_NRO_SP] = 0.95;
+                    if ($this->occurenceGuess[Telepath::INFRA_NRO_SP] != 0.95) {
+                        $this->occurenceGuess[Telepath::INFRA_LINK_ETLR_NRO_SP] = 0.95;
                     }
             }
             // the last thing we can do (but it's a bit redundant): check the country-to-country link
@@ -430,23 +430,23 @@ Status codes
                     case Telepath::STATUS_DOWN:
                         // that's rather telling.
                         $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["C2CLINK" => Telepath::STATUS_DOWN];
-                        $this->probabilities[Telepath::INFRA_NRO_SP] = 0.95;
+                        $this->occurenceGuess[Telepath::INFRA_NRO_SP] = 0.95;
                 }
             }
         }
 
-        // done. return both the list of possible problem sources with their probabilities, and the additional findings we collected along the way.
+        // done. return both the list of possible problem sources with their occurence rating, and the additional findings we collected along the way.
         $totalScores = 0.;
         foreach ($this->possibleFailureReasons as $oneReason) {
-            $totalScores += $this->probabilities[$oneReason];
+            $totalScores += $this->occurenceGuess[$oneReason];
         }
         $probArray = [];
         foreach ($this->possibleFailureReasons as $oneReason) {
-            $probArray[$oneReason] = $this->probabilities[$oneReason] / $totalScores;
+            $probArray[$oneReason] = $this->occurenceGuess[$oneReason] / $totalScores;
         }
         array_multisort($probArray, SORT_DESC, SORT_NUMERIC, $this->possibleFailureReasons);
 
-        return ["SUSPECTS" => $this->possibleFailureReasons, "PROBABILITIES" => $probArray, "EVIDENCE" => $this->additionalFindings];
+        return ["SUSPECTS" => $this->possibleFailureReasons, "OCCURENCE" => $probArray, "EVIDENCE" => $this->additionalFindings];
     }
 
 }
