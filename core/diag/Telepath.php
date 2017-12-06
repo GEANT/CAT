@@ -104,11 +104,69 @@ class Telepath {
     const STATUS_GOOD = 0;
     const STATUS_PARTIAL = -1;
     const STATUS_DOWN = -2;
+    const STATUS_MONITORINGFAIL = -3;
 
+    /* The eduroam OT monitoring has the following return codes:
+     * 
+
+Status codes
+
+  0 - O.K.
+ -1 - Accept O.K. Reject No
+ -2 - Reject O.K. Accept No
+ -3 - Accept No Reject No
+ -9 - system error
+-10 - Accept O.K. Reject timeou
+-11 - Accept O.K. Reject no EAP 
+-20 - Reject O.K. Accept timeou
+-21 - Reject O.K. Accept no EAP 
+-31 - Accept No  Reject timeou
+-32 - Accept Timeout Reject no
+-33 - Accept Timeout Reject timeou
+-35 - Accept No Reject no EAP
+-36 - Reject No Accept no EAP 
+-37 - Reject No EAP Accept no EAP 
+-40 - UDP test error 
+
+     */
+    
     private function checkEtlrStatus() {
-        // TODO: this is a stub, need eduroam OT API to query the current server status
-        // APIQueryETLR();
-        return Telepath::STATUS_GOOD;
+        // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
+        // needs a table to determine what goes where :-(
+        $jsonResult = \core\common\OutsideComm::downloadFile("https://monitor.eduroam.org/mapi/index.php?type=tlr_test&tlr=TLR_EU");
+        $decoded = json_decode($jsonResult, TRUE);
+        $retval["RAW"] = $decoded;
+        $atLeastOneFunctional = FALSE;
+        $allFunctional = TRUE;
+        if (!isset($decoded['tlr_test']) || isset($decoded['ERROR'])) {
+            $retval["STATUS"] = Telepath::STATUS_MONITORINGFAIL;
+            return $retval;
+        }
+        foreach ($decoded['tlr_test'] as $instance => $resultset) {
+            if ($instance == "tlr") {
+                // don't care
+                continue;
+            }
+            switch ($resultset['status_code']) {
+                case 0:
+                    $atLeastOneFunctional = TRUE;
+                    break;
+                case 9:
+                    break;
+                default:
+                    $allFunctional = FALSE;
+            }
+        }
+        if ($allFunctional) {
+            $retval["STATUS"] = Telepath::STATUS_GOOD;
+            return $retval;
+        }
+        if ($atLeastOneFunctional) {
+            $retval["STATUS"] = Telepath::STATUS_PARTIAL;
+            return $retval;
+        }
+        $retval["STATUS"] = Telepath::STATUS_DOWN;
+        return $retval;
     }
 
     private function checkFedEtlrUplink($flr) {
@@ -212,7 +270,7 @@ class Telepath {
             // we have actually reached an IdP, so all links are good, and the
             // realm is routable in eduroam. So even if it exists in neither DB
             // we can exclude the NONEXISTENTREALM case
-            $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR, Telepath::INFRA_NRO_IDP, Telepath::INFRA_LINK_ETLR_NRO_IDP]);
+            $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR, Telepath::INFRA_NRO_IDP, Telepath::INFRA_LINK_ETLR_NRO_IDP, Telepath::INFRA_NONEXISTENTREALM]);
         };
 
         if ($atLeastOneConversationReject) {
@@ -247,18 +305,18 @@ class Telepath {
         // let's see if the ETLRs are up
 
         $etlrStatus = $this->checkEtlrStatus();
-        switch ($etlrStatus) {
+        $this->additionalFindings[Telepath::INFRA_ETLR][] = $etlrStatus;
+        switch ($etlrStatus["STATUS"]) {
             case Telepath::STATUS_GOOD:
-                $this->additionalFindings[Telepath::INFRA_ETLR][] = ["STATUS" => Telepath::STATUS_GOOD];
                 $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR]);
                 break;
             case Telepath::STATUS_PARTIAL:
-                // one of the ETLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
+            case Telepath::STATUS_MONITORINGFAIL:
+                // one of the ETLRs is down, or there is a failure in the monitoring system? 
+                // This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
                 // keep ETLR as a possible problem with original probability
-                $this->additionalFindings[Telepath::INFRA_ETLR][] = ["STATUS" => Telepath::STATUS_PARTIAL];
                 break;
             case Telepath::STATUS_DOWN:
-                $this->additionalFindings[Telepath::INFRA_ETLR][] = ["STATUS" => Telepath::STATUS_DOWN];
                 // Oh! Well if it is not international roaming, that still doesn't have an effect /in this case/. 
                 if ($this->idPFederation == $this->visitedFlr) {
                     $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR]);
