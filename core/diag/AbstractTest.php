@@ -227,6 +227,26 @@ class AbstractTest extends \core\common\Entity {
      */
     public function __construct() {
         parent::__construct();
+
+        // the numbers are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
+        // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
+        // to get a percentage to report on.
+
+        $this->possibleFailureReasons = [
+            Telepath::INFRA_ETLR => 0.01,
+            Telepath::INFRA_LINK_ETLR_NRO_IDP => 0.01,
+            Telepath::INFRA_LINK_ETLR_NRO_SP => 0.01,
+            Telepath::INFRA_NRO_SP => 0.02,
+            Telepath::INFRA_NRO_IDP => 0.02,
+            Telepath::INFRA_SP_RADIUS => 0.04,
+            Telepath::INFRA_IDP_RADIUS => 0.04,
+            Telepath::INFRA_IDP_AUTHBACKEND => 0.02,
+            Telepath::INFRA_SP_80211 => 0.05,
+            Telepath::INFRA_SP_LAN => 0.05,
+            Telepath::INFRA_DEVICE => 0.3,
+            Telepath::INFRA_NONEXISTENTREALM => 0.7,
+        ];
+
         $oldlocale = $this->languageInstance->setTextDomain('diagnostics');
         $this->returnCodes = [];
         /**
@@ -498,8 +518,52 @@ class AbstractTest extends \core\common\Entity {
         $code40 = RADIUSTests::CERTPROB_MULTIPLE_CN;
         $this->returnCodes[$code40]["message"] = _("The certificate contains more than one CommonName (CN) field. This is reportedly problematic on many supplicants.");
         $this->returnCodes[$code40]["severity"] = \core\common\Entity::L_WARN;
-        
+
         $this->languageInstance->setTextDomain($oldlocale);
     }
+
+    /**
+     * turns $this->possibleFailureReasons into something where the sum of all
+     * occurence factors is 1. A bit like a probability distribution, but they
+     * are not actual probabilities.
+     */
+    protected function normaliseResultSet() {
+        // done. return both the list of possible problem sources with their occurence rating, and the additional findings we collected along the way.
+        $totalScores = 0.;
+        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
+            $totalScores += $oneOccurence;
+        }
+        $probArray = [];
+        foreach ($this->possibleFailureReasons as $oneReason => $oneOccurence) {
+            $probArray[$oneReason] = $oneOccurence / $totalScores;
+        }
+        arsort($probArray);
+        $this->possibleFailureReasons = $probArray;
+    }
+
+    // list of elements of the infrastructure which could be broken
+    // along with their occurence probability (guesswork!)
+    const INFRA_ETLR = "INFRA_ETLR";
+    const INFRA_LINK_ETLR_NRO_IDP = "INFRA_LINK_ETLR_NRO_IdP";
+    const INFRA_LINK_ETLR_NRO_SP = "INFRA_LINK_ETLR_NRO_SP";
+    const INFRA_NRO_SP = "INFRA_NRO_SP";
+    const INFRA_NRO_IDP = "INFRA_NRO_IdP";
+    const INFRA_SP_RADIUS = "INFRA_SP_RADIUS";
+    const INFRA_IDP_RADIUS = "INFRA_IdP_RADIUS";
+    const INFRA_IDP_AUTHBACKEND = "INFRA_IDP_AUTHBACKEND";
+    const INFRA_SP_80211 = "INFRA_SP_80211";
+    const INFRA_SP_LAN = "INFRA_SP_LAN";
+    const INFRA_DEVICE = "INFRA_DEVICE";
+    const INFRA_NONEXISTENTREALM = "INFRA_NONEXISTENTREALM";
+
+    // statuses derived from Monitoring API
+    
+    const STATUS_GOOD = 0;
+    const STATUS_PARTIAL = -1;
+    const STATUS_DOWN = -2;
+    const STATUS_MONITORINGFAIL = -3;
+
+    
+    public $possibleFailureReasons;
 
 }

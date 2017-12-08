@@ -21,25 +21,8 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
  * also knows which federation the user is currently positioned in, or even 
  * which exact hotspot to analyse.
  */
-class Telepath {
-
-    // list of elements of the infrastructure which could be broken
-    // along with their occurence probability (guesswork!)
-    const INFRA_ETLR = "INFRA_ETLR";
-    const INFRA_LINK_ETLR_NRO_IDP = "INFRA_LINK_ETLR_NRO_IdP";
-    const INFRA_LINK_ETLR_NRO_SP = "INFRA_LINK_ETLR_NRO_SP";
-    const INFRA_NRO_SP = "INFRA_NRO_SP";
-    const INFRA_NRO_IDP = "INFRA_NRO_IdP";
-    const INFRA_SP_RADIUS = "INFRA_SP_RADIUS";
-    const INFRA_IDP_RADIUS = "INFRA_IdP_RADIUS";
-    const INFRA_IDP_AUTHBACKEND = "INFRA_IdP_AUTHBACKEND";
-    const INFRA_SP_80211 = "INFRA_SP_80211";
-    const INFRA_SP_LAN = "INFRA_SP_LAN"; 
-    const INFRA_DEVICE = "INFRA_DEVICE";
-    const INFRA_NONEXISTENTREALM = "INFRA_NONEXISTENTREALM";
-
-    private $occurenceGuess;
-    private $possibleFailureReasons;
+class Telepath extends AbstractTest {
+    
     private $additionalFindings;
     private $realm;
     private $visitedFlr;
@@ -47,42 +30,10 @@ class Telepath {
     private $catIdP;
     private $dbIdP;
     private $idPFederation;
-    private $logHandle;
 
     public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {
-        // everyone could be guilty
-        $this->possibleFailureReasons = [
-            Telepath::INFRA_ETLR,
-            Telepath::INFRA_LINK_ETLR_NRO_IDP,
-            Telepath::INFRA_LINK_ETLR_NRO_SP,
-            Telepath::INFRA_NRO_SP,
-            Telepath::INFRA_NRO_IDP,
-            Telepath::INFRA_SP_RADIUS,
-            Telepath::INFRA_IDP_RADIUS,
-            Telepath::INFRA_IDP_AUTHBACKEND,
-            Telepath::INFRA_SP_80211,
-            Telepath::INFRA_SP_LAN,
-            Telepath::INFRA_DEVICE,
-            Telepath::INFRA_NONEXISTENTREALM,
-        ];
+        parent::__construct();
 
-        // these are NOT constant - in the course of checks, we may find a "smoking gun" and elevate the probability
-        // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
-        // to get a percentage to report on.
-        $this->occurenceGuess = [
-            Telepath::INFRA_ETLR => 0.01,
-            Telepath::INFRA_LINK_ETLR_NRO_IDP => 0.01,
-            Telepath::INFRA_LINK_ETLR_NRO_SP => 0.01,
-            Telepath::INFRA_NRO_SP => 0.02,
-            Telepath::INFRA_NRO_IDP => 0.02,
-            Telepath::INFRA_SP_RADIUS => 0.04,
-            Telepath::INFRA_IDP_RADIUS => 0.04,
-            Telepath::INFRA_SP_80211 => 0.05,
-            Telepath::INFRA_SP_LAN => 0.05,
-            Telepath::INFRA_IDP_AUTHBACKEND => 0.02,
-            Telepath::INFRA_DEVICE => 0.3,
-            Telepath::INFRA_NONEXISTENTREALM => 0.7, /* if the eduroam DB were fully and consistently populated, this would have 1.0 - if we don't know anything about the realm, then this is not a valid eduroam realm. But reality says we don't have complete info in the DBs. */
-        ];
         $this->additionalFindings = [];
         $this->realm = $realm;
         $this->visitedFlr = $visitedFlr;
@@ -97,14 +48,8 @@ class Telepath {
         if ($this->idPFederation === NULL && preg_match("/\.(..)$/", $realm, $matches)) {
             $this->idPFederation = strtoupper($matches[1]);
         }
-        $this->logHandle = new \core\common\Logging();
-        $this->logHandle->debug(4, "XYZ: IdP-side NRO is " . $this->idPFederation . "\n");
+        $this->loggerInstance->debug(4, "XYZ: IdP-side NRO is " . $this->idPFederation . "\n");
     }
-
-    const STATUS_GOOD = 0;
-    const STATUS_PARTIAL = -1;
-    const STATUS_DOWN = -2;
-    const STATUS_MONITORINGFAIL = -3;
 
     /* The eduroam OT monitoring has the following return codes:
      * 
@@ -140,7 +85,7 @@ Status codes
         $atLeastOneFunctional = FALSE;
         $allFunctional = TRUE;
         if (!isset($decoded['tlr_test']) || isset($decoded['ERROR'])) {
-            $retval["STATUS"] = Telepath::STATUS_MONITORINGFAIL;
+            $retval["STATUS"] = AbstractTest::STATUS_MONITORINGFAIL;
             return $retval;
         }
         foreach ($decoded['tlr_test'] as $instance => $resultset) {
@@ -159,45 +104,45 @@ Status codes
             }
         }
         if ($allFunctional) {
-            $retval["STATUS"] = Telepath::STATUS_GOOD;
+            $retval["STATUS"] = AbstractTest::STATUS_GOOD;
             return $retval;
         }
         if ($atLeastOneFunctional) {
-            $retval["STATUS"] = Telepath::STATUS_PARTIAL;
+            $retval["STATUS"] = AbstractTest::STATUS_PARTIAL;
             return $retval;
         }
-        $retval["STATUS"] = Telepath::STATUS_DOWN;
+        $retval["STATUS"] = AbstractTest::STATUS_DOWN;
         return $retval;
     }
 
     private function checkFedEtlrUplink($flr) {
         // TODO: this is a stub, need eduroam OT API to query the current server status
         // APIQueryNROviaETLR($flr);
-        return Telepath::STATUS_GOOD;
+        return AbstractTest::STATUS_GOOD;
     }
 
     private function checkFlrServerStatus($flr) {
         // TODO: this is a stub, need eduroam OT API to query the current server status
         // APIQueryNRODirect($flr);
-        return Telepath::STATUS_GOOD;
+        return AbstractTest::STATUS_GOOD;
     }
 
     private function checkNROFlow($visitedFlr, $homeFlr) {
         // TODO: this is a stub, need eduroam OT API to query the current server status
         // APIQueryNRODirect($visitedFlr, $homeFlr);
-        return Telepath::STATUS_GOOD;
+        return AbstractTest::STATUS_GOOD;
     }
-
+    
     public function magic() {
 
         // simple things first: do we know anything about the realm, either
         // because it's a CAT participant or because it's in the eduroam DB?
         // if so, we can exclude the INFRA_NONEXISTENTREALM cause
 
-        $this->additionalFindings[Telepath::INFRA_NONEXISTENTREALM][] = ["ID1" => $this->catIdP, "ID2" => $this->dbIdP];
+        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM][] = ["ID1" => $this->catIdP, "ID2" => $this->dbIdP];
 
         if ($this->catIdP != \core\Federation::UNKNOWN_IDP || $this->dbIdP != \core\Federation::UNKNOWN_IDP) {
-            $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_NONEXISTENTREALM]);
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);
         }
 
         // let's do the least amount of testing needed:
@@ -233,10 +178,10 @@ Status codes
                 }
             }
             if ($bestProfile != FALSE) { // still nothing? then there's only a very incomplete profile definition, and we can't work with that. Fall back to shallow
-                $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["Profile" => $bestProfile->identifier];
+                $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $bestProfile->identifier];
                 $testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), $bestProfile->getEapMethodsinOrderOfPreference(1), $bestProfile->getCollapsedAttributes()['eap:server_name'], $bestProfile->getCollapsedAttributes()["eap:ca_file"]);
             } else {
-                $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
+                $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
                 $testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);
             }
         } else {
@@ -258,44 +203,47 @@ Status codes
                 $atLeastOneConversationReject = TRUE;
             }
 
-            $this->additionalFindings[Telepath::INFRA_ETLR][] = ["DETAIL" => $testsuite->consolidateUdpResult($probeindex)];
-            $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["DETAIL" => $testsuite->consolidateUdpResult($probeindex)];
-            $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["DETAIL" => $testsuite->consolidateUdpResult($probeindex)];
+            $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["DETAIL" => $testsuite->consolidateUdpResult($probeindex)];
+            $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["DETAIL" => $testsuite->consolidateUdpResult($probeindex)];
+            $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["DETAIL" => $testsuite->consolidateUdpResult($probeindex)];
         }
 
         if ($allAreConversationReject) {
-            $this->additionalFindings[Telepath::INFRA_ETLR][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
-            $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
-            $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
-            $this->additionalFindings[Telepath::INFRA_LINK_ETLR_NRO_IDP][] = ["LINKCHECK" => RADIUSTests::L_OK];
+            $this->additionalFindings[AbstractTest::INFRA_ETLR][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
+            $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
+            $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["CONNCHECK" => RADIUSTests::RETVAL_CONVERSATION_REJECT];
+            $this->additionalFindings[AbstractTest::INFRA_LINK_ETLR_NRO_IDP][] = ["LINKCHECK" => RADIUSTests::L_OK];
             // we have actually reached an IdP, so all links are good, and the
             // realm is routable in eduroam. So even if it exists in neither DB
             // we can exclude the NONEXISTENTREALM case
-            $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR, Telepath::INFRA_NRO_IDP, Telepath::INFRA_LINK_ETLR_NRO_IDP, Telepath::INFRA_NONEXISTENTREALM]);
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP]);
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_IDP]);
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);
         };
 
         if ($atLeastOneConversationReject) {
             // at least we can be sure it exists
-            $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_NONEXISTENTREALM]);
+            unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);
             // It could still be an IdP RADIUS problem in that some cert oddities 
             // in combination with the device lead to a broken auth
             // if there is nothing beyond the "REMARK" level, then it's not an IdP problem
             // otherwise, add the corresponding warnings and errors to $additionalFindings
-            switch ($this->additionalFindings[Telepath::INFRA_IDP_RADIUS][0]['DETAIL']['level']) {
+            switch ($this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0]['DETAIL']['level']) {
                 case RADIUSTests::L_OK:
                 case RADIUSTests::L_REMARK:
                     // both are fine - the IdP is working and the user problem
                     // is not on the IdP RADIUS level
-                    $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][0]['DETAIL']['level']];
-                    $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_IDP_RADIUS]);
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][0]['DETAIL']['level']];
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_IDP_RADIUS]);
                     break;
                 case RADIUSTests::L_WARN:
-                    $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => RADIUSTests::L_WARN];
-                    $this->occurenceGuess[Telepath::INFRA_IDP_RADIUS] = 0.3; // possibly we found the culprit - if RADIUS server is misconfigured AND user is on a device which reacts picky about exactly this oddity.
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => RADIUSTests::L_WARN];
+                    $this->possibleFailureReasons[AbstractTest::INFRA_IDP_RADIUS] = 0.3; // possibly we found the culprit - if RADIUS server is misconfigured AND user is on a device which reacts picky about exactly this oddity.
                     break;
                 case RADIUSTests::L_ERROR:
-                    $this->additionalFindings[Telepath::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => RADIUSTests::L_ERROR];
-                    $this->occurenceGuess[Telepath::INFRA_IDP_RADIUS] = 0.8; // errors are never good, so we can be reasonably sure we've hit the spot!
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["ODDITYLEVEL" => RADIUSTests::L_ERROR];
+                    $this->possibleFailureReasons[AbstractTest::INFRA_IDP_RADIUS] = 0.8; // errors are never good, so we can be reasonably sure we've hit the spot!
             }
         }
 
@@ -306,66 +254,67 @@ Status codes
         // let's see if the ETLRs are up
 
         $etlrStatus = $this->checkEtlrStatus();
-        $this->additionalFindings[Telepath::INFRA_ETLR][] = $etlrStatus;
+        $this->additionalFindings[AbstractTest::INFRA_ETLR][] = $etlrStatus;
         switch ($etlrStatus["STATUS"]) {
-            case Telepath::STATUS_GOOD:
-                $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR]);
+            case AbstractTest::STATUS_GOOD:
+                unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
                 break;
-            case Telepath::STATUS_PARTIAL:
-            case Telepath::STATUS_MONITORINGFAIL:
+            case AbstractTest::STATUS_PARTIAL:
+            case AbstractTest::STATUS_MONITORINGFAIL:
                 // one of the ETLRs is down, or there is a failure in the monitoring system? 
                 // This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
                 // keep ETLR as a possible problem with original probability
                 break;
-            case Telepath::STATUS_DOWN:
+            case AbstractTest::STATUS_DOWN:
                 // Oh! Well if it is not international roaming, that still doesn't have an effect /in this case/. 
                 if ($this->idPFederation == $this->visitedFlr) {
-                    $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_ETLR]);
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_ETLR]);
                     break;
                 }
                 // But it is about int'l roaming, and we are spot on here.
                 // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                $this->occurenceGuess[Telepath::INFRA_ETLR] = 0.95;
+                $this->possibleFailureReasons[AbstractTest::INFRA_ETLR] = 0.95;
         }
         // next up: if the ETLR was okay, check the the FLR and its ETLR 
         // uplink (if we know which federation we are talking about)
 
-        if (!in_array(Telepath::INFRA_ETLR, $this->possibleFailureReasons) && $this->idPFederation != NULL) {
+        if (!array_key_exists(AbstractTest::INFRA_ETLR, $this->possibleFailureReasons) && $this->idPFederation != NULL) {
             // first the direct connectivity to the server
             $flrServerStatus = $this->checkFlrServerStatus($this->idPFederation);
             switch ($flrServerStatus) {
-                case Telepath::STATUS_GOOD:
-                    $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_GOOD];
-                    $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_NRO_IDP]);
+                case AbstractTest::STATUS_GOOD:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["STATUS" => AbstractTest::STATUS_GOOD];
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP]);
                     break;
-                case Telepath::STATUS_PARTIAL:
+                case AbstractTest::STATUS_PARTIAL:
                     // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
                     // keep FLR as a possible problem with original probability
-                    $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_PARTIAL];
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["STATUS" => AbstractTest::STATUS_PARTIAL];
                     break;
-                case Telepath::STATUS_DOWN:
-                    $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_DOWN];
+                case AbstractTest::STATUS_DOWN:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["STATUS" => AbstractTest::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    $this->occurenceGuess[Telepath::INFRA_NRO_IDP] = 0.95;
+                    $this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP] = 0.95;
             }
             // then its uplink 
             $flrUplinkStatus = $this->checkFedEtlrUplink($this->idPFederation);
             switch ($flrUplinkStatus) {
-                case Telepath::STATUS_GOOD:
-                    $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_GOOD];
-                    $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_NRO_IDP, Telepath::INFRA_LINK_ETLR_NRO_IDP]);
+                case AbstractTest::STATUS_GOOD:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["STATUS" => AbstractTest::STATUS_GOOD];
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP]);
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_IDP]);
                     break;
-                case Telepath::STATUS_PARTIAL:
+                case AbstractTest::STATUS_PARTIAL:
                     // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
                     // keep FLR as a possible problem with original probability
-                    $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_PARTIAL];
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["STATUS" => AbstractTest::STATUS_PARTIAL];
                     break;
-                case Telepath::STATUS_DOWN:
-                    $this->additionalFindings[Telepath::INFRA_NRO_IDP][] = ["STATUS" => Telepath::STATUS_DOWN];
+                case AbstractTest::STATUS_DOWN:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_IDP][] = ["STATUS" => AbstractTest::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
                     // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                    if ($this->occurenceGuess[Telepath::INFRA_NRO_IDP] != 0.95) {
-                        $this->occurenceGuess[Telepath::INFRA_LINK_ETLR_NRO_IDP] = 0.95;
+                    if ($this->possibleFailureReasons[AbstractTest::INFRA_NRO_IDP] != 0.95) {
+                        $this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_IDP] = 0.95;
                     }
             }
         }
@@ -376,77 +325,69 @@ Status codes
             $visitedFlrStatus = $this->checkFlrServerStatus($this->visitedFlr);
             // direct query to server
             switch ($visitedFlrStatus) {
-                case Telepath::STATUS_GOOD:
-                    $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_GOOD];
-                    $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_NRO_SP]);
+                case AbstractTest::STATUS_GOOD:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["STATUS" => AbstractTest::STATUS_GOOD];
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP]);
                     break;
-                case Telepath::STATUS_PARTIAL:
+                case AbstractTest::STATUS_PARTIAL:
                     // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
                     // keep FLR as a possible problem with original probability
-                    $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_PARTIAL];
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["STATUS" => AbstractTest::STATUS_PARTIAL];
                     break;
-                case Telepath::STATUS_DOWN:
-                    $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_DOWN];
+                case AbstractTest::STATUS_DOWN:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["STATUS" => AbstractTest::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
-                    $this->occurenceGuess[Telepath::INFRA_NRO_SP] = 0.95;
+                    $this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP] = 0.95;
             }
             // and again its uplink to the ETLR
             $visitedFlrUplinkStatus = $this->checkFedEtlrUplink($this->visitedFlr);
             switch ($visitedFlrUplinkStatus) {
-                case Telepath::STATUS_GOOD:
-                    $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_GOOD];
-                    $this->possibleFailureReasons = array_diff($this->possibleFailureReasons, [Telepath::INFRA_NRO_SP, Telepath::INFRA_LINK_ETLR_NRO_SP]);
+                case AbstractTest::STATUS_GOOD:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["STATUS" => AbstractTest::STATUS_GOOD];
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP]);
+                    unset($this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_SP]);
                     break;
-                case Telepath::STATUS_PARTIAL:
+                case AbstractTest::STATUS_PARTIAL:
                     // a subset of the FLRs is down? This probably doesn't impact the user unless he's unlucky and has his session fall into failover.
                     // keep FLR as a possible problem with original probability
-                    $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_PARTIAL];
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["STATUS" => AbstractTest::STATUS_PARTIAL];
                     break;
-                case Telepath::STATUS_DOWN:
-                    $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["STATUS" => Telepath::STATUS_DOWN];
+                case AbstractTest::STATUS_DOWN:
+                    $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["STATUS" => AbstractTest::STATUS_DOWN];
                     // Raise probability by much (even monitoring is sometimes wrong, or a few minutes behind reality)
                     // if earlier test found the server itself to be the problem, keep it, otherwise put the blame on the link
-                    if ($this->occurenceGuess[Telepath::INFRA_NRO_SP] != 0.95) {
-                        $this->occurenceGuess[Telepath::INFRA_LINK_ETLR_NRO_SP] = 0.95;
+                    if ($this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP] != 0.95) {
+                        $this->possibleFailureReasons[AbstractTest::INFRA_LINK_ETLR_NRO_SP] = 0.95;
                     }
             }
             // the last thing we can do (but it's a bit redundant): check the country-to-country link
             // it's only needed if all three and their links are up, but we want to exclude funny routing blacklists 
             // which occur only in the *combination* of source and dest
             // if there is an issue at that point, blame the SP: once a request would have reached the ETLRs, things would be all good. So they apparently didn't.
-            if (!in_array(Telepath::INFRA_ETLR, $this->possibleFailureReasons) &&
-                    !in_array(Telepath::INFRA_LINK_ETLR_NRO_IDP, $this->possibleFailureReasons) &&
-                    !in_array(Telepath::INFRA_NRO_IDP, $this->possibleFailureReasons) &&
-                    !in_array(Telepath::INFRA_LINK_ETLR_NRO_SP, $this->possibleFailureReasons) &&
-                    !in_array(Telepath::INFRA_NRO_SP, $this->possibleFailureReasons)
+            if (!array_key_exists(AbstractTest::INFRA_ETLR, $this->possibleFailureReasons) &&
+                    !array_key_exists(AbstractTest::INFRA_LINK_ETLR_NRO_IDP, $this->possibleFailureReasons) &&
+                    !array_key_exists(AbstractTest::INFRA_NRO_IDP, $this->possibleFailureReasons) &&
+                    !array_key_exists(AbstractTest::INFRA_LINK_ETLR_NRO_SP, $this->possibleFailureReasons) &&
+                    !array_key_exists(AbstractTest::INFRA_NRO_SP, $this->possibleFailureReasons)
             ) {
                 $countryToCountryStatus = $this->checkNROFlow($this->visitedFlr, $this->idPFederation);
                 switch ($countryToCountryStatus) {
-                    case Telepath::STATUS_GOOD:
+                    case AbstractTest::STATUS_GOOD:
                         // all routes work
                         break;
-                    case Telepath::STATUS_PARTIAL:
+                    case AbstractTest::STATUS_PARTIAL:
                     // at least one, or even all have a routing problem
-                    case Telepath::STATUS_DOWN:
+                    case AbstractTest::STATUS_DOWN:
                         // that's rather telling.
-                        $this->additionalFindings[Telepath::INFRA_NRO_SP][] = ["C2CLINK" => Telepath::STATUS_DOWN];
-                        $this->occurenceGuess[Telepath::INFRA_NRO_SP] = 0.95;
+                        $this->additionalFindings[AbstractTest::INFRA_NRO_SP][] = ["C2CLINK" => AbstractTest::STATUS_DOWN];
+                        $this->possibleFailureReasons[AbstractTest::INFRA_NRO_SP] = 0.95;
                 }
             }
         }
 
-        // done. return both the list of possible problem sources with their occurence rating, and the additional findings we collected along the way.
-        $totalScores = 0.;
-        foreach ($this->possibleFailureReasons as $oneReason) {
-            $totalScores += $this->occurenceGuess[$oneReason];
-        }
-        $probArray = [];
-        foreach ($this->possibleFailureReasons as $oneReason) {
-            $probArray[$oneReason] = $this->occurenceGuess[$oneReason] / $totalScores;
-        }
-        array_multisort($probArray, SORT_DESC, SORT_NUMERIC, $this->possibleFailureReasons);
+        $this->normaliseResultSet();
 
-        return ["SUSPECTS" => $this->possibleFailureReasons, "OCCURENCE" => $probArray, "EVIDENCE" => $this->additionalFindings];
+        return ["SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings];
     }
 
 }
