@@ -60,7 +60,8 @@ class Sociopath extends AbstractTest {
     public function questionOracle() {
         reset($this->possibleFailureReasons);
         $highestCategory = key($this->possibleFailureReasons);
-        $nextCategory = key(next($this->possibleFailureReasons));
+        next($this->possibleFailureReasons);
+        $nextCategory = key($this->possibleFailureReasons);
         if ($this->possibleFailureReasons[$highestCategory] != $this->possibleFailureReasons[$nextCategory]) {
             $nextCategory = $highestCategory;
         }
