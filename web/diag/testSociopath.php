@@ -29,7 +29,15 @@ echo " with no question yet.\n";
 $QJSON = $sociopath->questionOracle();
 $QPHP = json_decode($QJSON, TRUE);
 print_r($QPHP);
-echo "Assuming this question gets a Yes, the next guess state is ";
+/* echo "Assuming this question gets a Yes, the next guess state is ";
 $sociopath->revaluate($QPHP["NUMBER"], TRUE);
 print_r(json_decode($sociopath->getCurrentGuessState(), TRUE));
+echo "</pre>"; */
+
+echo "Assuming this question gets a No, the next guess state is ";
+$sociopath->revaluate($QPHP["NUMBER"], FALSE);
+print_r(json_decode($sociopath->getCurrentGuessState(), TRUE));
+echo "And now, let's see what the verdict text to display would be: (consists of the basic AREA text plus a lecture on what the user did wrong.\n\n";
+echo wordwrap($sociopath->verdictText(\core\diag\AbstractTest::INFRA_DEVICE));
 echo "</pre>";
+
