@@ -357,7 +357,6 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->databaseHandle->exec("DELETE FROM profile_option WHERE profile_id = $this->identifier");
         $this->databaseHandle->exec("DELETE FROM supported_eap WHERE profile_id = $this->identifier");
         $this->databaseHandle->exec("DELETE FROM profile WHERE profile_id = $this->identifier");
-        unset($this);
     }
 
     /**
