@@ -105,11 +105,11 @@ class DBConnection {
             array_unshift($localArray, $types);
             $retval = call_user_func_array([$statementObject, "bind_param"], $localArray);
             if ($retval === FALSE) {
-                throw new Exception("DB: Unuable to bind parameters to prepared statement! Argument array was --> ". var_export($localArray, TRUE) ." <--. Error was --> ". $statementObject->error ." <--");
+                throw new Exception("DB: Unable to bind parameters to prepared statement! Argument array was --> ". var_export($localArray, TRUE) ." <--. Error was --> ". $statementObject->error ." <--");
             }
             $result = $statementObject->execute();
             if ($result === FALSE) {
-                throw new Exception("DB: Unuable to execute prepared statement! Error was --> ". $statementObject->error ." <--");
+                throw new Exception("DB: Unable to execute prepared statement! Error was --> ". $statementObject->error ." <--");
             }
             $selectResult = $statementObject->get_result();
             if ($selectResult !== FALSE) {
