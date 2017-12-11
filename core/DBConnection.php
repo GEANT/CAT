@@ -78,8 +78,7 @@ class DBConnection {
         }
 
         if ($this->connection->connect_error) {
-            $this->loggerInstance->debug(1, "ERROR: Cannot send query to $this->databaseInstance database (no connection, error number" . $this->connection->connect_errno . ")!");
-            return FALSE;
+            throw new Exception("ERROR: Cannot send query to $this->databaseInstance database (no connection, error number" . $this->connection->connect_error . ")!");
         }
         if ($types == NULL) {
             $result = $this->connection->query($querystring);
@@ -121,8 +120,7 @@ class DBConnection {
         }
 
         if ($result === FALSE && $this->connection->errno) {
-            $this->loggerInstance->debug(1, "ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring'!");
-            return FALSE;
+            throw new Exception("ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring', errno was ".$this->connection->errno."!");
         }
 
         // log exact query to audit log, if it's not a SELECT
