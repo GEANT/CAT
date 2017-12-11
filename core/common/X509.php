@@ -90,11 +90,11 @@ class X509 {
             if ($pemEnd !== FALSE) {
                 $cadata = substr($cadata, $pemBegin, $pemEnd - $pemBegin);
             }
-            $authorityDer = X509::pem2der($cadata);
-            $authorityPem = X509::der2pem($authorityDer);
+            $authorityDer = $this->pem2der($cadata);
+            $authorityPem = $this->der2pem($authorityDer);
         } else {
             $authorityDer = $cadata;
-            $authorityPem = X509::der2pem($cadata);
+            $authorityPem = $this->der2pem($cadata);
         }
         
         // check that the certificate is OK
