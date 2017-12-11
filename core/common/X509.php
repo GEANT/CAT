@@ -40,8 +40,17 @@ class X509 {
         $begin = "CERTIFICATE-----";
         $end = "-----END";
         $pemDataTemp = substr($pemData, strpos($pemData, $begin) + strlen($begin));
+        if ($pemDataTemp === FALSE) { // this is not allowed to happen, we always have clean input here
+            throw new \Exception("No BEGIN marker found in guaranteed PEM data!");
+        }
         $pemDataTemp2 = substr($pemDataTemp, 0, strpos($pemDataTemp, $end));
+        if ($pemDataTemp2 === FALSE) { // this is not allowed to happen, we always have clean input here
+            throw new \Exception("No END marker found in guaranteed PEM data!");
+        }
         $der = base64_decode($pemDataTemp2);
+        if ($der === FALSE) {
+            throw new \Exception("Invalid DER data after extracting guaranteed PEM data!");
+        }
         return $der;
     }
 
