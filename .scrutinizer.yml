@@ -162,5 +162,5 @@ tools:
         enabled: true
 
 filter:
-    excluded_paths: [web/external/*, core/phpqrcode.php, config/config-template.php, devices/devices-template.php]
+    excluded_paths: [web/external/*, core/phpqrcode.php, config/config-template.php, devices/devices-template.php, core/PHPMailer]
 
