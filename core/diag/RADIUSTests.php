@@ -809,8 +809,12 @@ network={
             $x509 = new \core\common\X509();
 // $eap_certarray holds all certs received in EAP conversation
             $eapCertArray = [];
-            if (fopen($tmpDir . "/serverchain.pem", "r") && fread($chainHandle, "1000000")) {
-                $eapCertArray = $x509->splitCertificate();
+            $chainHandle = fopen($tmpDir . "/serverchain.pem", "r");
+            if ($chainHandle !== FALSE) {
+                $content = fread($chainHandle, "1000000");
+                if ($content) {
+                    $eapCertArray = $x509->splitCertificate($content);
+                }
             }
 // we want no root cert, and exactly one server cert
             $numberRoot = 0;
