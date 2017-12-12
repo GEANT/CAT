@@ -410,6 +410,9 @@ class Device_W8 extends WindowsCommon {
 
         $fcontentsCerts = '';
         $fileHandleCerts = fopen('certs.nsh', 'w');
+        if ($fileHandleCerts === FALSE) {
+            throw new Exception("Unable to open new certs.nsh file for writing CAs.");
+        }
         if ($caArray) {
             foreach ($caArray as $certAuthority) {
                 $store = $certAuthority['root'] ? "root" : "ca";

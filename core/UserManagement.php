@@ -92,7 +92,8 @@ class UserManagement extends \core\common\Entity {
         // if we haven't returned from the function yet, it is an invalid token... 
         // be a little verbose what's wrong with it
         $checkReason = $this->databaseHandle->exec("SELECT invite_token, used FROM invitations WHERE invite_token = ?", "s", $token);
-        if ($invalidTokenCheck = mysqli_fetch_object($checkReason)) {
+        // SELECT -> resource, not boolean
+        if ($invalidTokenCheck = mysqli_fetch_object(/** @scrutinizer ignore-type */ $checkReason)) {
             if ($invalidTokenCheck->used == 1) {
                 return self::TOKENSTATUS_FAIL_ALREADYCONSUMED;
             }

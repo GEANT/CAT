@@ -9,6 +9,7 @@
  */
 
 namespace core\autoloader;
+use Exception;
 
 /**
  * An example of a general-purpose implementation that includes the optional

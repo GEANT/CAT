@@ -14,6 +14,7 @@
  * @package ModuleWriting
  */
 namespace devices\linux;
+use Exception;
 /**
  * This class creates Linux installers. It supports NetworkManager and raw
  * wpa_supplicant files.

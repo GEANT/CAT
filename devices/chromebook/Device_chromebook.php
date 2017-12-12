@@ -40,6 +40,7 @@
  */
 
 namespace devices\chromebook;
+use Exception;
 
 /**
  * This is the main implementation class of the module

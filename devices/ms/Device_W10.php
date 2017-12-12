@@ -460,7 +460,7 @@ class Device_W10 extends WindowsCommon {
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
         $fcontents .= $this->writeNsisDefines($eap, $attr);
-        fwrite('main.nsh', $fcontents);
+        file_put_contents('main.nsh', $fcontents);
     }
 
     private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {

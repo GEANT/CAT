@@ -329,7 +329,7 @@ function SimpleXMLElement_append($key, $value) {
 
 /**
  * 
- * @param SimpleXMLElement $node
+ * @param \SimpleXMLElement $node
  * @param EAPIdentityProvider $object
  * @return void
  */
