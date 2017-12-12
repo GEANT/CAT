@@ -34,6 +34,7 @@
 namespace core;
 use GeoIp2\Database\Reader;
 use \Exception;
+use \Reader;
 
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 require_once(dirname(dirname(__FILE__)) . "/core/PHPMailer/src/PHPMailer.php");
