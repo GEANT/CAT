@@ -77,6 +77,11 @@ class OutsideComm {
             return OutsideComm::MAILDOMAIN_INVALID;
         }
         $domain = substr($address, strpos($address, '@') + 1); // everything after the @ sign
+        // we can be sure that the @ was found (FILTER_VALIDATE_EMAIL succeeded)
+        // but let's be explicit
+        if ($domain === FALSE) {
+            return OutsideComm::MAILDOMAIN_INVALID;
+        }        
         // does the domain have MX records?
         $mx = dns_get_record($domain, DNS_MX);
         if ($mx === FALSE) {
