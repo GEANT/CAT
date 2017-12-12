@@ -52,15 +52,16 @@ class Sociopath extends AbstractTest {
         // the order in this array is important: lower numbered questions will be asked first. So make sure you have high-quality questions in the beginning.
         // to be clear: "Yes" answers are elsewhere in the class the TRUE case; No's are FALSE, a possible "Don't know or N/A" is NULL
         // VERDICTLECTURE is text which is displayed to the end user if his answer led to a HIGHER score in the process. We are storing the answers to determine this.
+        $confAssistantText = _("You should use appropriate configuration assistants [MGW: see if the realm exists in CAT, then display link to config] or contact your Identity Provider [MGW: show contact info].");
         $this->qaArray = [
             0 => ["AREA" => AbstractTest::INFRA_DEVICE,
                   "TXT" => _("Have you ever used the network succesfully, e.g. at your home institution without roaming?"),
                   "FACTOR" => 0.5,
-                  "VERDICTLECTURE" => _("If your device has never worked before with this setup, then very likely your device configuation is wrong. You should use appropriate configuration assistants [MGW: see if the realm exists in CAT, then display link to config] or contact your Identity Provider [MGW: show contact info].")],
+                  "VERDICTLECTURE" => sprintf(_("If your device has never worked before with this setup, then very likely your device configuation is wrong. %s"), $confAssistantText)],
             1 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did the device previously work when roaming, i.e. at other hotspots away from your home institution?"), 
                   "FACTOR" => 0.33,
-                  "VERDICTLECTURE" => _("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a username without the @realm.tld suffix - those potentially work at home, but can not be used when roaming.")],
+                  "VERDICTLECTURE" => sprintf(_("If roaming consistently does not work, then very likely your device configuration is wrong. Typical errors causing this symptom include: using a routing ('outer') username without the @realm.tld suffix - those potentially work at home, but can not be used when roaming. %s"),$confAssistantText)],
             2 => ["AREA" => AbstractTest::INFRA_DEVICE, 
                   "TXT" => _("Did you recently change the configuration on your device?"), 
                   "FACTOR" => 3,
@@ -85,9 +86,7 @@ class Sociopath extends AbstractTest {
         ];
         // stow away the current state of guesswork
         $this->previousQuestions = $alreadyAsked;
-        $this->possibleFailureReasons = $previousGuess;
-        
-        
+        $this->possibleFailureReasons = $previousGuess;        
     }
 
     /**
