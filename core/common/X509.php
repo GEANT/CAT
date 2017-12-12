@@ -89,6 +89,9 @@ class X509 {
      * @return array
      */
     public function processCertificate($cadata) {
+        if ($cadata === FALSE) { // we are expecting a string anyway
+            return FALSE;
+        }
         $pemBegin = strpos($cadata, "-----BEGIN CERTIFICATE-----");
         if ($pemBegin !== FALSE) {
             $pemEnd = strpos($cadata, "-----END CERTIFICATE-----") + 25;
