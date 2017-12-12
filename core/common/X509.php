@@ -16,6 +16,7 @@
  * @package Developer
  */
 namespace core\common;
+use Exception;
 /**
  * This class contains handling functions for X.509 certificates
  *
@@ -41,15 +42,19 @@ class X509 {
         $end = "-----END";
         $pemDataTemp = substr($pemData, strpos($pemData, $begin) + strlen($begin));
         if ($pemDataTemp === FALSE) { // this is not allowed to happen, we always have clean input here
-            throw new \Exception("No BEGIN marker found in guaranteed PEM data!");
+            throw new Exception("No BEGIN marker found in guaranteed PEM data!");
         }
-        $pemDataTemp2 = substr($pemDataTemp, 0, strpos($pemDataTemp, $end));
+        $markerPosition = strpos($pemDataTemp, $end);
+        if ($markerPosition === FALSE) {
+            throw new Exception("No END marker found in guaranteed PEM data!");
+        }
+        $pemDataTemp2 = substr($pemDataTemp, 0, $markerPosition);
         if ($pemDataTemp2 === FALSE) { // this is not allowed to happen, we always have clean input here
-            throw new \Exception("No END marker found in guaranteed PEM data!");
+            throw new Exception("Impossible: END marker cutting resulted in an empty string or error?!");
         }
         $der = base64_decode($pemDataTemp2);
         if ($der === FALSE) {
-            throw new \Exception("Invalid DER data after extracting guaranteed PEM data!");
+            throw new Exception("Invalid DER data after extracting guaranteed PEM data!");
         }
         return $der;
     }
@@ -89,6 +94,9 @@ class X509 {
             $pemEnd = strpos($cadata, "-----END CERTIFICATE-----") + 25;
             if ($pemEnd !== FALSE) {
                 $cadata = substr($cadata, $pemBegin, $pemEnd - $pemBegin);
+                if ($cadata === FALSE) {
+                    throw new Exception("Impossible: despite having found BEGIN and END markers, unable to cut out substring!");
+                }
             }
             $authorityDer = $this->pem2der($cadata);
             $authorityPem = $this->der2pem($authorityDer);
@@ -168,6 +176,9 @@ class X509 {
         $startPem = strpos($cadata, "-----BEGIN CERTIFICATE-----");
         if ($startPem !== FALSE) {
             $cadata = substr($cadata, $startPem);
+            if ($cadata === FALSE) {
+                    throw new Exception("Impossible: despite having found BEGIN marker, unable to cut out substring!");
+                }
             $endPem = strpos($cadata, "-----END CERTIFICATE-----") + 25;
             $nextPem = strpos($cadata, "-----BEGIN CERTIFICATE-----", 30);
             while ($nextPem !== FALSE) {
