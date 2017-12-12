@@ -29,9 +29,12 @@ class OutsideComm {
         }
         # we got a URL, download it
         $download = fopen($url, "rb");
+        if ($download === FALSE) {
+            $loggerInstance->debug(2, "Failed to open handle for $url");
+            return FALSE;
+        }
         $data = stream_get_contents($download);
-        if (!$data) {
-
+        if ($data === FALSE) {
             $loggerInstance->debug(2, "Failed to download the file from $url");
             return FALSE;
         }

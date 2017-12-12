@@ -154,7 +154,7 @@ class EAP {
         if (is_array($eapType)) {
             $key = array_search($eapType, EAP::EAPTYPES_CONVERSION);
             if ($key !== FALSE) {
-                $this->intRep = $key;
+                $this->intRep = $key; // array index is always an integer
                 $this->arrayRep = EAP::EAPTYPES_CONVERSION[$key];
                 return;
             }

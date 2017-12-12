@@ -138,7 +138,7 @@ class CAT extends \core\common\Entity {
         $dummy_inst3 = _("Identity Provider");
         // and do something useless with the strings so that there's no "unused" complaint
         if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0 ) {
-            throw new Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
+            throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
@@ -416,7 +416,8 @@ class CAT extends \core\common\Entity {
             default:
                 return -1;
         }
-        $dbresult = mysqli_fetch_object($idpcount);
+        // SELECTs never return a booleans, always an object
+        $dbresult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $idpcount);
         return $dbresult->instcount;
     }
 
@@ -447,7 +448,8 @@ class CAT extends \core\common\Entity {
         
         $allIDPs = ($country ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
-        while ($queryResult = mysqli_fetch_object($allIDPs)) {
+        // SELECTs never return a booleans, always an object
+        while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
             $institutionOptions = explode('---', $queryResult->options);
             $oneInstitutionResult = [];
             $geo = [];
@@ -503,7 +505,8 @@ class CAT extends \core\common\Entity {
         if ($activeOnly) {
             $federations = $handle->exec("SELECT DISTINCT UPPER(institution.country) AS country FROM institution JOIN profile
                           ON institution.inst_id = profile.inst_id WHERE profile.showtime = 1 ORDER BY country");
-            while ($activeFederations = mysqli_fetch_object($federations)) {
+            // SELECT never returns a boolean, always a mysqli_object
+            while ($activeFederations = mysqli_fetch_object(/** @scrutinizer ignore-type */ $federations)) {
                 $fedIdentifier = $activeFederations->country; // UPPER() has capitalised this for us
                 $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier] : $fedIdentifier;
             }
@@ -525,7 +528,8 @@ class CAT extends \core\common\Entity {
             $externalHandle = DBConnection::handle("EXTERNAL");
             $infoList = $externalHandle->exec("SELECT name AS collapsed_name, inst_realm as realmlist, contact AS collapsed_contact, country FROM view_active_idp_institution WHERE id_institution = $externalId $scanforrealm");
             // split names and contacts into proper pairs
-            while ($externalEntityQuery = mysqli_fetch_object($infoList)) {
+            // SELECT never returns a boolean, always a mysqli_object
+            while ($externalEntityQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $infoList)) {
                 $names = explode('#', $externalEntityQuery->collapsed_name);
                 foreach ($names as $name) {
                     $perlang = explode(': ', $name, 2);

@@ -73,8 +73,7 @@ class Language {
      * or finally checks browser properties.
      * Only one of the supported langiages can be set
      * if a match is not found, the default langiage is used
-     * @param $hardSetLang - this is currently not used but
-     * will allow to forst lang setting if this was ever required
+     * @param int $hardSetLang - this is currently not used but will allow to force lang setting if this was ever required
      */
     private function setLang($hardSetLang = 0) {
         // $langConverted will contain candidates for the language setting in the order

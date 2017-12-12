@@ -20,6 +20,7 @@
  */
 
 namespace core\common;
+use Exception;
 
 /**
  * This class represents an Entity in its widest sense. Every entity can log
@@ -77,7 +78,7 @@ abstract class Entity {
     /**
      * create a temporary directory and return the location
      * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
-     * @param $failIsFatal (default true) decides if a creation failure should cause an error
+     * @param bool $failIsFatal decides if a creation failure should cause an error; defaults to true
      * @return array the tuple of: base path, absolute path for directory, directory name
      */
     public function createTemporaryDirectory($purpose = 'installer', $failIsFatal = 1) {
