@@ -98,9 +98,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
 
     protected function saveDownloadDetails($idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType) {
         if (CONFIG['PATHS']['logdir']) {
-            $f = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
-            fprintf($f, "%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
-            fclose($f);
+            $file = fopen(CONFIG['PATHS']['logdir'] . "/download_details.log", "a");
+            if ($file === FALSE) {
+                throw new Exception("Unable to open file for append: $file");
+            }
+            fprintf($file, "%-015s;%d;%d;%s;%s;%s;%d\n", microtime(TRUE), $idpIdentifier, $profileId, $deviceId, $area, $lang, $eapType);
+            fclose($file);
         }
     }
 

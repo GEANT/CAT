@@ -82,6 +82,9 @@ class DBConnection {
         }
         if ($types == NULL) {
             $result = $this->connection->query($querystring);
+            if ($result === FALSE) {
+                throw new Exception("DB: Unable to execute simple statement! Error was --> ". $this->connection->error ." <--");
+            }
         } else {
             // fancy! prepared statement with dedicated argument list
             if (strlen($types) != count($arguments)) {
