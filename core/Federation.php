@@ -76,7 +76,8 @@ class Federation extends EntityWithDBProperties {
             foreach ($profilesArray as $profileNumber) {
                 $deviceQuery = "SELECT downloads_admin, downloads_silverbullet, downloads_user FROM downloads WHERE device_id = ? AND profile_id = ?";
                 $statsList = $this->frontendHandle->exec($deviceQuery, "si", $index, $profileNumber);
-                while ($queryResult = mysqli_fetch_object($statsList)) {
+                // SELECT -> resource, no boolean
+                while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $statsList)) {
                     $countDevice['ADMIN'] = $countDevice['ADMIN'] + $queryResult->downloads_admin;
                     $countDevice['SILVERBULLET'] = $countDevice['SILVERBULLET'] + $queryResult->downloads_silverbullet;
                     $countDevice['USER'] = $countDevice['USER'] + $queryResult->downloads_user;
@@ -273,7 +274,8 @@ class Federation extends EntityWithDBProperties {
                     $usedarray[] = $pendingInviteQuery->external_db_uniquehandle;
                 }
             }
-            while ($externalQuery = mysqli_fetch_object($externals)) {
+            // was a SELECT query, so a resource and not a boolean
+            while ($externalQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $externals)) {
                 if (($unmappedOnly === TRUE) && (in_array($externalQuery->id, $usedarray))) {
                     continue;
                 }
@@ -362,7 +364,8 @@ class Federation extends EntityWithDBProperties {
             $realmSearchStringDb3 = "$realm,%";
             $realmSearchStringDb4 = "%,$realm,%";
             $candidateExternalQuery = $externalHandle->exec("SELECT id_institution as inst_id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
-            $candidatesExternalDb = Federation::findCandidates($candidateExternalQuery, $country);
+            // SELECT -> resource, not boolean
+            $candidatesExternalDb = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateExternalQuery, $country);
         }
 
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];

@@ -256,8 +256,8 @@ Best regards,
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
 
-            // and split them into ID, LANG, NAME pairs
-            while ($candidateListQuery = mysqli_fetch_object($candidateList)) {
+            // and split them into ID, LANG, NAME pairs (operating on a resource, not boolean)
+            while ($candidateListQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $candidateList)) {
                 if (in_array($candidateListQuery->id, $usedarray)) {
                     continue;
                 }

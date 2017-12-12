@@ -812,7 +812,7 @@ network={
             $chainHandle = fopen($tmpDir . "/serverchain.pem", "r");
             if ($chainHandle !== FALSE) {
                 $content = fread($chainHandle, "1000000");
-                if ($content) {
+                if ($content !== FALSE) {
                     $eapCertArray = $x509->splitCertificate($content);
                 }
             }

@@ -464,12 +464,10 @@ class ProfileSilverbullet extends AbstractProfile {
                 $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
                 $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
                 if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
-                $this->loggerInstance->debug(1,"Unable to write openssl index.txt file for revocation handling!");
+                $logHandle->debug(1,"Unable to write openssl index.txt file for revocation handling!");
                 }
-                // index.attr is dull but needs to exist
-                $indexAttrFile = fopen($tempdir . "/index.txt.attr", "w");
-                fwrite($indexAttrFile, "unique_subject = yes\n");
-                fclose($indexAttrFile);
+                // index.txt.attr is dull but needs to exist
+                file_put_contents($tempdir . "/index.txt.attr", "unique_subject = yes\n");
                 // call "openssl ocsp" to manufacture our own OCSP statement
                 // adding "-rmd sha1" to the following command-line makes the
                 // choice of signature algorithm for the response explicit
@@ -741,7 +739,10 @@ class ProfileSilverbullet extends AbstractProfile {
         $link = $link . $relPath;
 
         if (preg_match('/admin$/', $link)) {
-            $link = substr($link, 0, strlen($link)-6);
+            $link = substr($link, 0, -6);
+            if ($link === FALSE) {
+                throw new Exception("Impossible: the string ends with '/admin' but it's not possible to cut six characters from the end?!");
+            }
         }
         $link .= '/accountstatus/accountstatus.php?token='.$token;
         return $link;

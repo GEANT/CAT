@@ -20,6 +20,7 @@
  */
 
 namespace core;
+use Exception;
 
 /**
  * This class represents an Entity with properties stored in the DB.
