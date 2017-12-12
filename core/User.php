@@ -52,7 +52,8 @@ class User extends EntityWithDBProperties {
 // federations), so consolidate all into the usual options
             $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $userId);
             $visited = FALSE;
-            while ($userDetailQuery = mysqli_fetch_object($info)) {
+            // SELECT -> resource, not boolean
+            while ($userDetailQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $info)) {
                 if (!$visited) {
                     $mailOptinfo = $optioninstance->optionType("user:email");
                     $this->attributes[] = ["name" => "user:email", "lang" => NULL, "value" => $userDetailQuery->email, "level" => "User", "row" => 0, "flag" => $mailOptinfo['flag']];
@@ -172,7 +173,8 @@ class User extends EntityWithDBProperties {
         }
         $dbHandle = \core\DBConnection::handle("INST");
         $query = $dbHandle->exec("SELECT user_id FROM ownership WHERE orig_mail = ?", "s", $realmail);
-        while ($oneRow = mysqli_fetch_object($query)) {
+        // SELECT -> resource, not boolean
+        while ($oneRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
             $matches = [];
             $lookFor = "";
             foreach (User::PROVIDER_STRINGS as $name => $prettyname) {

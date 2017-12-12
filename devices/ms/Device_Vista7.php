@@ -357,13 +357,9 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             mkdir('vista');
         }
         $vistaFileName = "vista/wlan_prof-$profileNumber.xml";
-        $vistaFileHandle = fopen($vistaFileName, 'w');
-        fwrite($vistaFileHandle, $profileFileCont . $eapConfig['vista'] . $closing);
-        fclose($vistaFileHandle);
+        file_put_contents($vistaFileName, $profileFileCont . $eapConfig['vista'] . $closing);
         $sevenFileName = "w7/wlan_prof-$profileNumber.xml";
-        $sevenFileHandle = fopen($sevenFileName, 'w');
-        fwrite($sevenFileHandle, $profileFileCont . $eapConfig['w7'] . $closing);
-        fclose($sevenFileHandle);
+        file_put_contents($sevenFileName, $profileFileCont . $eapConfig['w7'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
         $this->loggerInstance->debug(4, "WLAN_Profile:$wlanProfileName:$encryption\n");
         return("\"$wlanProfileName\" \"$encryption\"");
@@ -452,12 +448,13 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
             $contentWlan .= "!insertmacro define_wlan_profile $wlanProfile\n";
         }
 
-        $fileHandleProfiles = fopen('profiles.nsh', 'w');
-        fwrite($fileHandleProfiles, $contentWlan);
-        fclose($fileHandleProfiles);
-
+        file_put_contents('profiles.nsh', $contentWlan);
+        
         $contentCerts = '';
         $fileHandleCerts = fopen('certs.nsh', 'w');
+        if ($fileHandleCerts === FALSE) {
+            throw new Exception("Unable to open new file certs.nsh to write CAs!");
+        }
         if ($caArray) {
             foreach ($caArray as $certAuthority) {
                 $store = $certAuthority['root'] ? "root" : "ca";

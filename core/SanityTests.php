@@ -630,7 +630,7 @@ class SanityTests extends CAT {
      */
     private function mailer_test() {
         if (empty(CONFIG['APPEARANCE']['abuse-mail']) || CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
-            $this->test_return(L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
+            $this->test_return(\core\common\Entity::L_ERROR, "Your abuse-mail has not been set, cannot continue with mailer tests.");
             return;
         }
         $mail = new \PHPMailer\PHPMailer\PHPMailer();

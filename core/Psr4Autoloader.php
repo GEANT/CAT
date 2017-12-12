@@ -110,7 +110,7 @@ class Psr4Autoloader
      * Loads the class file for a given class name.
      *
      * @param string $class The fully-qualified class name.
-     * @return mixed The mapped file name on success, or boolean false on
+     * @return string|bool The mapped file name on success, or boolean false on
      * failure.
      */
     public function loadClass($class)
@@ -124,9 +124,15 @@ class Psr4Autoloader
 
             // retain the trailing namespace separator in the prefix
             $prefix = substr($class, 0, $pos + 1);
+            if ($prefix === FALSE) {
+                throw new Exception("How could we fail to crop the string at the last namespace separator?!");
+            }
 
             // the rest is the relative class name
             $relative_class = substr($class, $pos + 1);
+            if ($relative_class === FALSE) {
+                throw new Exception("How could we fail to crop the string to contain only the relative class name?!");
+            }
 
             // try to load a mapped file for the prefix and relative class
             $mapped_file = $this->loadMappedFile($prefix, $relative_class);

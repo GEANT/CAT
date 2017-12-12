@@ -211,6 +211,9 @@ class Device_Chromebook extends \core\DeviceConfig {
             // strip -----BEGIN CERTIFICATE----- and -----END CERTIFICATE-----
             $this->loggerInstance->debug(3, $ca['pem']);
             $caSanitized1 = substr($ca['pem'], 27, strlen($ca['pem']) - 27 - 25 - 1);
+            if ($caSanitized1 === FALSE) {
+                throw new Exception("Error cropping PEM data at its BEGIN marker.");
+            }
             $this->loggerInstance->debug(4, $caSanitized1 . "\n");
             // remove \n
             $caSanitized = str_replace("\n", "", $caSanitized1);
@@ -238,9 +241,7 @@ class Device_Chromebook extends \core\DeviceConfig {
             $finalJson = $this->encryptConfig($clearJson, $this->clientCert['importPassword']);
         }
 
-        $outputFile = fopen('installer_profile', 'w');
-        fwrite($outputFile, $finalJson);
-        fclose($outputFile);
+        file_put_contents('installer_profile', $finalJson);
 
         $fileName = $this->installerBasename . '.onc';
 

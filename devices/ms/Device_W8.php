@@ -100,8 +100,7 @@ class Device_W8 extends WindowsCommon {
         $w8Ext = '';
         if ($eap != \core\common\EAP::EAPTYPE_TLS && $eap != \core\common\EAP::EAPTYPE_PEAP_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_PWD && $eap != \core\common\EAP::EAPTYPE_TTLS_PAP && $eap != \core\common\EAP::EAPTYPE_TTLS_MSCHAP2 && $eap != \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $this->loggerInstance->debug(2, "this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
-            error("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
-            return;
+            throw new Exception("this method only allows TLS, PEAP, TTLS-PAP, TTLS-MSCHAPv2 or EAP-pwd");
         }
         $useAnon = $attr['internal:use_anon_outer'] [0];
         if ($useAnon) {
@@ -332,9 +331,9 @@ class Device_W8 extends WindowsCommon {
             mkdir('w8');
         }
         $xmlFname = "w8/wlan_prof-$profileNumber.xml";
-        $xmlF = fopen($xmlFname, 'w');
-        fwrite($xmlF, $profileFileCont . $eapConfig['w8'] . $closing);
-        fclose($xmlF);
+        
+        file_put_contents($xmlFname, $profileFileCont . $eapConfig['w8'] . $closing);
+        
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
         $this->loggerInstance->debug(4, "WWWWLAN_Profile:$wlanProfileName:$encryption\n");
         return("\"$wlanProfileName\" \"$encryption\"");
@@ -362,9 +361,7 @@ class Device_W8 extends WindowsCommon {
             mkdir('w8');
         }
         $xmlFname = "w8/lan_prof.xml";
-        $xmlF = fopen($xmlFname, 'w');
-        fwrite($xmlF, $profileFileCont . $eapConfig['w8'] . $closing);
-        fclose($xmlF);
+        file_put_contents($xmlFname, $profileFileCont . $eapConfig['w8'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
     }
 
@@ -397,9 +394,8 @@ class Device_W8 extends WindowsCommon {
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
         $fcontents .= $this->writeNsisDefines($eap, $attr);
-        $fileHandle = fopen('main.nsh', 'w');
-        fwrite($fileHandle, $fcontents);
-        fclose($fileHandle);
+        
+        file_put_contents('main.nsh', $fcontents);
     }
 
     private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {
@@ -410,9 +406,7 @@ class Device_W8 extends WindowsCommon {
             $fcontentsProfile .= "!insertmacro define_wlan_profile $wlanProfile\n";
         }
 
-        $fileHandleProfiles = fopen('profiles.nsh', 'w');
-        fwrite($fileHandleProfiles, $fcontentsProfile);
-        fclose($fileHandleProfiles);
+        file_put_contents('profiles.nsh', $fcontentsProfile);
 
         $fcontentsCerts = '';
         $fileHandleCerts = fopen('certs.nsh', 'w');

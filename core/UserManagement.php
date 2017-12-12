@@ -82,8 +82,8 @@ class UserManagement extends \core\common\Entity {
         $check = $this->databaseHandle->exec("SELECT invite_token, cat_institution_id 
                            FROM invitations 
                            WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
-
-        if ($tokenCheck = mysqli_fetch_object($check)) {
+        // SELECT -> resource, not boolean
+        if ($tokenCheck = mysqli_fetch_object(/** @scrutinizer ignore-type */ $check)) {
             if ($tokenCheck->cat_institution_id === NULL) {
                 return self::TOKENSTATUS_OK_NEW;
             }
@@ -116,7 +116,8 @@ class UserManagement extends \core\common\Entity {
         $instinfo = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, external_db_uniquehandle 
                              FROM invitations 
                              WHERE invite_token = ? AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0", "s", $token);
-        if ($invitationDetails = mysqli_fetch_object($instinfo)) {
+        // SELECT -> resource, no boolean
+        if ($invitationDetails = mysqli_fetch_object(/** @scrutinizer ignore-type */ $instinfo)) {
             if ($invitationDetails->cat_institution_id !== NULL) { // add new admin to existing IdP
                 // we can't rely on a unique key on this table (user IDs 
                 // possibly too long), so run a query to find there's an
@@ -125,7 +126,8 @@ class UserManagement extends \core\common\Entity {
                 $level = $invitationDetails->cat_institution_id;
                 $destMail = $invitationDetails->invite_dest_mail;
                 $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $owner, $catId);
-                if (mysqli_num_rows($existing) > 0) {
+                // SELECT -> resource, not boolean
+                if (mysqli_num_rows(/** @scrutinizer ignore-type */ $existing) > 0) {
                     $this->databaseHandle->exec("UPDATE ownership SET blesslevel = ?, orig_mail = ? WHERE user_id = ? AND institution_id = ?", "sssi", $level, $destMail, $owner, $catId);
                 } else {
                     $this->databaseHandle->exec("INSERT INTO ownership (user_id, institution_id, blesslevel, orig_mail) VALUES(?, ?, ?, ?)", "siss", $owner, $catId, $level, $destMail);
@@ -200,7 +202,8 @@ Best regards,
      */
     public function addAdminToIdp($idp, $user) {
         $existing = $this->databaseHandle->exec("SELECT user_id FROM ownership WHERE user_id = ? AND institution_id = ?", "si", $user, $idp->identifier);
-        if (mysqli_num_rows($existing) == 0) {
+        // SELECT -> resource, not boolean
+        if (mysqli_num_rows(/** @scrutinizer ignore-type */ $existing) == 0) {
             $this->databaseHandle->exec("INSERT INTO ownership (institution_id,user_id,blesslevel,orig_mail) VALUES(?, ?, 'FED', 'SELF-APPOINTED')", "is", $idp->identifier, $user);
         }
         return TRUE;
@@ -274,8 +277,9 @@ Best regards,
         $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE cat_institution_id " . ( $idpIdentifier != 0 ? "= $idpIdentifier" : "IS NULL") . " AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) AND used = 0");
+        // SELECT -> resource, not boolean
         $this->loggerInstance->debug(4, "Retrieving pending invitations for " . ($idpIdentifier != 0 ? "IdP $idpIdentifier" : "IdPs awaiting initial creation" ) . ".\n");
-        while ($invitationQuery = mysqli_fetch_object($invitations)) {
+        while ($invitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
             $retval[] = ["country" => $invitationQuery->country, "name" => $invitationQuery->name, "mail" => $invitationQuery->invite_dest_mail, "token" => $invitationQuery->invite_token];
         }
         return $retval;
@@ -290,7 +294,8 @@ Best regards,
         $invitations = $this->databaseHandle->exec("SELECT cat_institution_id, country, name, invite_issuer_level, invite_dest_mail, invite_token 
                                         FROM invitations 
                                         WHERE invite_created >= TIMESTAMPADD(HOUR, -25, NOW()) AND invite_created < TIMESTAMPADD(HOUR, -24, NOW()) AND used = 0");
-        while ($expInvitationQuery = mysqli_fetch_object($invitations)) {
+        // SELECT -> resource, not boolean
+        while ($expInvitationQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitations)) {
             $this->loggerInstance->debug(4, "Retrieving recently expired invitations (expired in last hour)\n");
             if ($expInvitationQuery->cat_institution_id == NULL) {
                 $retval[] = ["country" => $expInvitationQuery->country, "level" => $expInvitationQuery->invite_issuer_level, "name" => $expInvitationQuery->name, "mail" => $expInvitationQuery->invite_dest_mail];
@@ -311,7 +316,8 @@ Best regards,
     public function listInstitutionsByAdmin($userid) {
         $returnarray = [];
         $institutions = $this->databaseHandle->exec("SELECT institution_id FROM ownership WHERE user_id = ? ORDER BY institution_id", "s", $userid);
-        while ($instQuery = mysqli_fetch_object($institutions)) {
+        // SELECT -> resource, not boolean
+        while ($instQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $institutions)) {
             $returnarray[] = $instQuery->institution_id;
         }
         return $returnarray;

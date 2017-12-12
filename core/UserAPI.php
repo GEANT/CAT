@@ -253,8 +253,14 @@ class UserAPI extends CAT {
         $backtraceFileInfo = array_pop($backtrace);
         $fileTemp = $backtraceFileInfo['file'];
         $file = substr($fileTemp, strlen(dirname(__DIR__)));
+        if ($file === FALSE) {
+            throw new Exception("No idea what's going wrong - filename cropping returned FALSE!");
+        }
         while (substr($file, 0, 1) == '/') {
             $file = substr($file, 1);
+            if ($file === FALSE) {
+                throw new Exception("Unable to crop leading / from a string known to start with / ???");
+            }
         }
         $slashCount = count(explode('/', $file));
         $out = $_SERVER['SCRIPT_NAME'];
@@ -430,7 +436,7 @@ class UserAPI extends CAT {
      *
      * @param string $device identifier as in {@link devices.php}
      * @param int $prof_id profile identifier
-     * @return binary installerFile
+     * @return string binary stream: installerFile
      */
     public function downloadInstaller($device, $prof_id, $generated_for = 'user', $token = NULL, $password = NULL) {
         $this->loggerInstance->debug(4, "downloadInstaller arguments: $device,$prof_id,$generated_for\n");
@@ -459,7 +465,8 @@ class UserAPI extends CAT {
         $info = new \finfo();
         $filetype = $info->buffer($inputImage, FILEINFO_MIME_TYPE);
         $offset = 60 * 60 * 24 * 30;
-        $expiresString = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+        // gmdate cannot fail here - time() is its default argument (and integer), and we are adding an integer to it
+        $expiresString = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
         $blob = $inputImage;
 
         if ($resize) {
@@ -584,7 +591,7 @@ class UserAPI extends CAT {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
         //$host = $_SERVER['REMOTE_ADDR'];
-        $host = input_filter(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
+        $host = filter_input(INPUT_SERVER, 'REMOTE_ADDR', FILTER_VALIDATE_IP);
         $record = geoip_record_by_name($host);
         if ($record === FALSE) {
             return ['status' => 'error', 'error' => 'Problem listing countries'];
@@ -724,7 +731,7 @@ class UserAPI extends CAT {
      *
      * Detects the operating system and returns its id 
      * display name and group membership (as in devices.php)
-     * @return array indexed by 'id', 'display', 'group'
+     * @return array|false OS information, indexed by 'id', 'display', 'group'
      */
     public function detectOS() {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
@@ -757,7 +764,7 @@ class UserAPI extends CAT {
 
     public function JSON_detectOS() {
         $returnArray = $this->detectOS();
-        if ($returnArray) {
+        if (is_array($returnArray)) {
             $status = 1;
         } else {
             $status = 0;

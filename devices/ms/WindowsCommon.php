@@ -188,11 +188,11 @@ class WindowsCommon extends \core\DeviceConfig {
         $logoCount = count($logosToPlace);
         if ($logoCount > 0) {
             $voffset = $freeTop;
-            $freeSpace = round($this->background['freeHeight'] / ($logoCount + 1));
+            $freeSpace = (int)round($this->background['freeHeight'] / ($logoCount + 1));
             foreach ($logosToPlace as $logo) {
                 $voffset += $freeSpace;
                 $logoSize = $logo->getImageGeometry();
-                $hoffset = round(($bgImageSize['width'] - $logoSize['width']) / 2);
+                $hoffset = (int)round(($bgImageSize['width'] - $logoSize['width']) / 2);
                 $bgImage->compositeImage($logo, $logo->getImageCompose(), $hoffset, $voffset);
                 $voffset += $logoSize['height'];
                 }
@@ -288,12 +288,15 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
                 $out = '!define LICENSE_FILE "' . $attr['internal:info_file'][0]['name'];
             } elseif ($attr['internal:info_file'][0]['mime'] == 'txt') {
                 $infoFile = file_get_contents($attr['internal:info_file'][0]['name']);
+                if ($infoFile === FALSE) {
+                    throw new Exception("We were told this file exists. Failing to read it is not really possible.");
+                }
                 if (CONFIG_CONFASSISTANT['NSIS_VERSION'] >= 3) {
                     $infoFileConverted = $infoFile;
                 } else {
                     $infoFileConverted = iconv('UTF-8', $this->codePage . '//TRANSLIT', $infoFile);
                 }
-                if ($infoFileConverted) {
+                if ($infoFileConverted !== FALSE && strlen($infoFileConverted) > 0) {
                     file_put_contents('info_f.txt', $infoFileConverted);
                     $out = '!define LICENSE_FILE " info_f.txt';
                 }
@@ -312,6 +315,9 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
             return;
         }
         $fileHandle = fopen('profiles.nsh', 'a');
+        if ($fileHandle === FALSE) {
+            throw new Exception("Unable to open possibly pre-existing profiles.nsh to append additional deletes.");
+        }
         fwrite($fileHandle, "!define AdditionalDeletes\n");
         foreach ($profiles as $profile) {
             fwrite($fileHandle, "!insertmacro define_delete_profile \"$profile\"\n");
@@ -323,9 +329,7 @@ Caption "' . $this->translateString(sprintf(WindowsCommon::sprint_nsi(_("%s inst
         if (!is_array($this->clientCert)) {
             throw new Exception("the client block was called but there is no client certificate!");
         }
-        $fileHandle = fopen('SB_cert.p12', 'w');
-        fwrite($fileHandle, $this->clientCert["certdata"]);
-        fclose($fileHandle);
+        file_put_contents('SB_cert.p12', $this->clientCert["certdata"]);
     }
 
     protected function writeTlsUserProfile() {

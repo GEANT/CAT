@@ -181,14 +181,8 @@ abstract class DeviceConfig extends \core\common\Entity {
             // let's keep a record for which device type this token was consumed
             $dbInstance = DBConnection::handle("INST");
             $devicename = \devices\Devices::listDevices()[$this->device_id]['display'];
-
-            /*
-             * If certificate has been created updating device name for it.
-             */
-            if ($this->clientCert['certificateId'] != null) {
-                $certId = $this->clientCert['certificateId'];
-                $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);
-            }
+            $certId = $this->clientCert['certificateId'];
+            $dbInstance->exec("UPDATE `silverbullet_certificate` SET `device` = ? WHERE `id` = ?", "si", $devicename, $certId);    
         }
         $this->loggerInstance->debug(5, "DeviceConfig->setup() - silverbullet checks done.\n");
         // create temporary directory, its full path will be saved in $this->FPATH;

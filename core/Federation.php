@@ -238,9 +238,9 @@ class Federation extends EntityWithDBProperties {
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
         $upperFed = strtoupper($this->identifier);
         // SELECT -> resource, not boolean
-        $admins = $userHandle->exec($query, "s", /** @scrutinizer ignore-type */ $upperFed);
+        $admins = $userHandle->exec($query, "s", $upperFed);
 
-        while ($fedAdminQuery = mysqli_fetch_object($admins)) {
+        while ($fedAdminQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $admins)) {
             $returnarray[] = $fedAdminQuery->user_id;
         }
         return $returnarray;

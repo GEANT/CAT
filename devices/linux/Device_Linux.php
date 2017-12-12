@@ -34,9 +34,13 @@ class Device_Linux extends \core\DeviceConfig {
         $installerPath = $this->installerBasename . ".py";
         $this->copyFile("main.py", $installerPath);
         $installer = fopen($installerPath,"a");
+        if ($installer === FALSE) {
+            throw new Exception("Unable to open installer file for writing!");
+        }
         fwrite($installer,$this->writeMessages());
         fwrite($installer,$this->writeConfigVars());
         fwrite($installer, "run_installer()\n");
+        fclose($installer);
         return($installerPath);
     }
 

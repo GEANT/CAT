@@ -104,9 +104,7 @@ abstract class Device_XML extends \core\DeviceConfig {
         $dom = dom_import_simplexml($root)->ownerDocument;
         //TODO schema validation makes sense so probably should be used
         $res = $dom->schemaValidate(ROOT . '/devices/xml/eap-metadata.xsd');
-        $file = fopen($this->installerBasename . '.eap-config', "w");
-        fwrite($file, $dom->saveXML());
-        fclose($file);
+        file_put_contents($this->installerBasename . '.eap-config', $dom->saveXML());
         return($this->installerBasename . '.eap-config');
     }
 

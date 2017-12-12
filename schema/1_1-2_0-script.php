@@ -26,17 +26,15 @@ $dbInstance = \core\DBConnection::handle('INST');
 $treatment_options = [];
 
 $optionsInNeed = $dbInstance->exec("SELECT name FROM profile_option_dict WHERE flag = 'ML'");
-while ($optionsResultRow = mysqli_fetch_object($optionsInNeed)) {
+// SELECT -> returns resource, not a boolean
+while ($optionsResultRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $optionsInNeed)) {
     $treatment_options[] = $optionsResultRow->name;
 }
 foreach (TREATMENT_TABLES as $tableIndex => $tableName) {
     foreach ($treatment_options as $optionName) {
         $affectedPayloads = $dbInstance->exec("SELECT row, option_lang, option_value FROM $tableName WHERE option_name = '$optionName'");
-        if ($affectedPayloads === FALSE) {
-            echo "[FAIL] Unknown error querying update status for option " . $optionName . " in table $tableName. Did you run the 'ALTER TABLE' statements?\n";
-            continue;
-        }
-        while ($oneAffectedPayload = mysqli_fetch_object($affectedPayloads)) {
+        // SELECT -> returns resource, not a boolean
+        while ($oneAffectedPayload = mysqli_fetch_object(/** @scrutinizer ignore-type */ $affectedPayloads)) {
             if ($oneAffectedPayload->option_lang !== NULL) {
                 echo "[SKIP] The option in row " . $oneAffectedPayload->row . " of table $tableName appears to be converted already. Not touching it.\n";
                 continue;

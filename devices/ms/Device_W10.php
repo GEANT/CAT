@@ -394,9 +394,7 @@ class Device_W10 extends WindowsCommon {
             mkdir('w8');
         }
         $xmlFname = "w8/wlan_prof-$profileNumber.xml";
-        $xmlF = fopen($xmlFname, 'w');
-        fwrite($xmlF, $profileFileCont . $eapConfig['w10'] . $closing);
-        fclose($xmlF);
+        file_put_contents($xmlFname, $profileFileCont . $eapConfig['w10'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
         $this->loggerInstance->debug(4, "WWWWLAN_Profile:$wlanProfileName:$encryption\n");
         return("\"$wlanProfileName\" \"$encryption\"");
@@ -424,9 +422,7 @@ class Device_W10 extends WindowsCommon {
             mkdir('w8');
         }
         $xmlFname = "w8/lan_prof.xml";
-        $xmlF = fopen($xmlFname, 'w');
-        fwrite($xmlF, $profileFileCont . $eapConfig['w10'] . $closing);
-        fclose($xmlF);
+        file_put_contents($xmlFname, $profileFileCont . $eapConfig['w10'] . $closing);
         $this->loggerInstance->debug(2, "Installer has been written into directory $this->FPATH\n");
     }
 
@@ -464,9 +460,7 @@ class Device_W10 extends WindowsCommon {
         $fcontents .= '!define ' . $eapStr;
         $fcontents .= "\n" . '!define EXECLEVEL "' . $execLevel . '"';
         $fcontents .= $this->writeNsisDefines($eap, $attr);
-        $fileHandle = fopen('main.nsh', 'w');
-        fwrite($fileHandle, $fcontents);
-        fclose($fileHandle);
+        fwrite('main.nsh', $fcontents);
     }
 
     private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {
@@ -477,12 +471,13 @@ class Device_W10 extends WindowsCommon {
             $fcontentsProfile .= "!insertmacro define_wlan_profile $wlanProfile\n";
         }
 
-        $fileHandleProfiles = fopen('profiles.nsh', 'w');
-        fwrite($fileHandleProfiles, $fcontentsProfile);
-        fclose($fileHandleProfiles);
+        file_put_contents('profiles.nsh', $fcontentsProfile);        
 
         $fcontentsCerts = '';
         $fileHandleCerts = fopen('certs.nsh', 'w');
+        if ($fileHandleCerts === FALSE) {
+            throw new Exception("Unable to open new file certs.nsh to write CAs.");
+        }
         if ($caArray) {
             foreach ($caArray as $certAuthority) {
                 $store = $certAuthority['root'] ? "root" : "ca";

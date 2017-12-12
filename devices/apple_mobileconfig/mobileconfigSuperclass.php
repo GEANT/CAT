@@ -192,11 +192,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $outputXml .= $this->expiryBlock();
         }
         $outputXml .= self::FILE_END;
-
-        $xmlFile = fopen('installer_profile', 'w');
-        fwrite($xmlFile, $outputXml);
-        fclose($xmlFile);
-
+        
+        file_put_contents('installer_profile', $outputXml);
+       
         textdomain($dom);
 
         $fileName = $this->installerBasename . '.mobileconfig';
