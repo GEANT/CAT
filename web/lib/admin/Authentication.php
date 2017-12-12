@@ -10,6 +10,8 @@
  */
 
 namespace web\lib\admin;
+use SimpleSAML_Auth_Simple;
+use Exception;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
@@ -27,7 +29,7 @@ class Authentication {
      * @return bool auth state
      */
     public function isAuthenticated() {
-        $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         return $authSimple->isAuthenticated();
     }
 
@@ -38,7 +40,7 @@ class Authentication {
      */
     public function authenticate() {
         $loggerInstance = new \core\common\Logging();
-        $authSimple = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $authSimple = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
         $authSimple->requireAuth();
 
         $admininfo = $authSimple->getAttributes();
@@ -93,7 +95,7 @@ class Authentication {
      */
     public function deauthenticate() {
 
-        $as = new \SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
 
         $url = "//" . $_SERVER['SERVER_NAME'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
 
