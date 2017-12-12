@@ -240,7 +240,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     /**
      * Selects the preferred eap method based on profile EAP configuration and device EAP capabilities
      *
-     * @param array eapArrayofObjects an array of eap methods supported by a given device
+     * @param array $eapArrayofObjects an array of eap methods supported by a given device
      */
     public function calculatePreferredEapType($eapArrayofObjects) {
         $this->selectedEap = [];
@@ -619,9 +619,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         ob_start();
         print_r($this->attributes);
         $output = ob_get_clean();
-        $f = fopen($file, "w");
-        fwrite($f, $output);
-        fclose($f);
+        file_put_contents($file, $output);
     }
 
     /**
