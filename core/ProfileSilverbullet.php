@@ -193,8 +193,10 @@ class ProfileSilverbullet extends AbstractProfile {
      * Updates database with new installer location; NOOP because we do not
      * cache anything in Silverbullet
      * 
-     * @param string device the device identifier string
-     * @param string path the path where the new installer can be found
+     * @param string $device the device identifier string
+     * @param string $path the path where the new installer can be found
+     * @param string $mime the mime type of the new installer
+     * @param int $integerEapType the inter-representation of the EAP type that is configured in this installer
      */
     public function updateCache($device, $path, $mime, $integerEapType) {
         // caching is not supported in SB (private key in installers)
@@ -248,7 +250,8 @@ class ProfileSilverbullet extends AbstractProfile {
             $usernameLocalPart = self::randomString(64 - 1 - strlen($this->realm), "0123456789abcdefghijklmnopqrstuvwxyz");
             $username = $usernameLocalPart . "@" . $this->realm;
             $uniquenessQuery = $this->databaseHandle->exec("SELECT cn from silverbullet_certificate WHERE cn = ?", "s", $username);
-            if (mysqli_num_rows($uniquenessQuery) == 0) {
+            // SELECT -> resource, not boolean
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */ $uniquenessQuery) == 0) {
                 $usernameIsUnique = TRUE;
             }
         }
@@ -273,7 +276,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * take a CSR and sign it with our issuing CA's certificate
      * 
-     * @param $csr the CSR
+     * @param mixed $csr the CSR
      */
     private function signCsr($csr, $expiryDays) {
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
@@ -286,7 +289,8 @@ class ProfileSilverbullet extends AbstractProfile {
                 do {
                     $serial = random_int(1000000000, PHP_INT_MAX);
                     $dupeQuery = $this->databaseHandle->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
-                    if (mysqli_num_rows($dupeQuery) == 0) {
+                    // SELECT -> resource, not boolean
+                    if (mysqli_num_rows(/** @scrutinizer ignore-type */$dupeQuery) == 0) {
                         $nonDupSerialFound = TRUE;
                     }
                 } while (!$nonDupSerialFound);
@@ -333,14 +337,19 @@ class ProfileSilverbullet extends AbstractProfile {
         // SQL query to find the expiry date of the *user* to find the correct ValidUntil for the cert
         $userStatus = $tokenStatus['user'];
         $userrow = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ?", "i", $userStatus);
-        if (!$userrow || $userrow->num_rows != 1) {
+        // SELECT -> resource, not boolean
+        if ($userrow->num_rows != 1) {
             throw new Exception("Despite a valid token, the corresponding user was not found in database or database query error!");
         }
-        $expiryObject = mysqli_fetch_object($userrow);
+        $expiryObject = mysqli_fetch_object(/** @scrutinizer ignore-type */ $userrow);
         $this->loggerInstance->debug(5, "EXP: " . $expiryObject->expiry . "\n");
         $expiryDateObject = date_create_from_format("Y-m-d H:i:s", $expiryObject->expiry);
+        if ($expiryDateObject === FALSE) {
+            throw new Exception("The expiry date we got from the DB is bogus!");
+        }
         $this->loggerInstance->debug(5, $expiryDateObject->format("Y-m-d H:i:s") . "\n");
-        $validity = date_diff(date_create(), $expiryDateObject);
+        // date_create with no parameters can't fail, i.e. is never FALSE
+        $validity = date_diff(/** @scrutinizer ignore-type */ date_create(), $expiryDateObject);
         $expiryDays = $validity->days + 1;
         if ($validity->invert == 1) { // negative! That should not be possible
             throw new Exception("Attempt to generate a certificate for a user which is already expired!");
@@ -416,16 +425,20 @@ class ProfileSilverbullet extends AbstractProfile {
                 $originalExpiry = date_create_from_format("Y-m-d H:i:s", "2000-01-01 00:00:00");
                 $dbHandle = DBConnection::handle("INST");
                 $originalStatusQuery = $dbHandle->exec("SELECT profile_id, cn, revocation_status, expiry, revocation_time, OCSP FROM silverbullet_certificate WHERE serial_number = ?", "i", $serial);
-                if (mysqli_num_rows($originalStatusQuery) > 0) {
+                // SELECT -> resource, not boolean
+                if (mysqli_num_rows(/** @scrutinizer ignore-type */ $originalStatusQuery) > 0) {
                     $certstatus = "V";
                 }
-                while ($runner = mysqli_fetch_object($originalStatusQuery)) { // there can be only one row
+                while ($runner = mysqli_fetch_object(/** @scrutinizer ignore-type */ $originalStatusQuery)) { // there can be only one row
                     if ($runner->revocation_status == "REVOKED") {
                         // already revoked, simply return canned OCSP response
                         $certstatus = "R";
                     }
                     $originalExpiry = date_create_from_format("Y-m-d H:i:s", $runner->expiry);
-                    $validity = date_diff(date_create(), $originalExpiry);
+                    if ($originalExpiry === FALSE) {
+                        throw new Exception("Unable to calculate original expiry date, input data bogus!");
+                    }
+                    $validity = date_diff(/** @scrutinizer ignore-type */ date_create(), $originalExpiry);
                     if ($validity->invert == 1) {
                         // negative! Cert is already expired, no need to revoke. 
                         // No need to return anything really, but do return the last known OCSP statement to prevent special case
@@ -447,11 +460,12 @@ class ProfileSilverbullet extends AbstractProfile {
                 if (strlen($serialHex) % 2 == 1) {
                     $serialHex = "0" . $serialHex;
                 }
-                $indexfile = fopen($tempdir . "/index.txt", "w");
+                
                 $indexStatement = "$certstatus\t$expiryIndexTxt\t" . ($certstatus == "R" ? "$nowIndexTxt,unspecified" : "") . "\t$serialHex\tunknown\t/O=" . CONFIG_CONFASSISTANT['CONSORTIUM']['name'] . "/OU=$federation/CN=$cn/emailAddress=$cn\n";
                 $logHandle->debug(4, "index.txt contents-to-be: $indexStatement");
-                fwrite($indexfile, $indexStatement);
-                fclose($indexfile);
+                if (!file_put_contents($tempdir . "/index.txt", $indexStatement)) {
+                $this->loggerInstance->debug(1,"Unable to write openssl index.txt file for revocation handling!");
+                }
                 // index.attr is dull but needs to exist
                 $indexAttrFile = fopen($tempdir . "/index.txt.attr", "w");
                 fwrite($indexAttrFile, "unique_subject = yes\n");
@@ -558,13 +572,14 @@ class ProfileSilverbullet extends AbstractProfile {
          */
         $invColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `token`, `quantity`, `expiry`";
         $invitationsResult = $databaseHandle->exec("SELECT $invColumnNames FROM `silverbullet_invitation` WHERE `token`=? ORDER BY `expiry` DESC", "s", $tokenvalue);
-        if (!$invitationsResult || $invitationsResult->num_rows == 0) {
+        // SELECT -> resource, no boolean
+        if ($invitationsResult->num_rows == 0) {
             $loggerInstance->debug(2, "Token  $tokenvalue not found in database or database query error!\n");
             return ["status" => self::SB_TOKENSTATUS_INVALID,
                 "cert_status" => [],];
         }
         // if not returned, we found the token in the DB
-        $invitationRow = mysqli_fetch_object($invitationsResult);
+        $invitationRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $invitationsResult);
         $rowId = $invitationRow->id;
         $certColumnNames = "`id`, `profile_id`, `silverbullet_user_id`, `silverbullet_invitation_id`, `serial_number`, `cn`, `issued`, `expiry`, `device`, `revocation_status`, `revocation_time`, `OCSP`, `OCSP_timestamp`";
         $certificatesResult = $databaseHandle->exec("SELECT $certColumnNames FROM `silverbullet_certificate` WHERE `silverbullet_invitation_id` = ? ORDER BY `revocation_status`, `expiry` DESC", "i", $rowId);
@@ -614,12 +629,13 @@ class ProfileSilverbullet extends AbstractProfile {
      * For a given certificate username, find the profile and username in CAT
      * this needs to be static because we do not have a known profile instance
      * 
-     * @param type $certUsername a username from CN or sAN:email
+     * @param string $certUsername a username from CN or sAN:email
      */
     public static function findUserIdFromCert($certUsername) {
         $dbHandle = \core\DBConnection::handle("INST");
         $userrows = $dbHandle->exec("SELECT silverbullet_user_id AS user_id, profile_id AS profile FROM silverbullet_certificate WHERE cn = ?", "s", $certUsername);
-        while ($returnedData = mysqli_fetch_object($userrows)) { // only one
+        // SELECT -> resource, not boolean
+        while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $userrows)) { // only one
             return ["profile" => $returnedData->profile, "user" => $returnedData->user_id];
         }
     }
@@ -627,7 +643,8 @@ class ProfileSilverbullet extends AbstractProfile {
     public function userStatus($userId) {
         $retval = [];
         $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "ii", $userId, $this->identifier);
-        while ($returnedData = mysqli_fetch_object($userrows)) {
+        // SELECT -> resource, not boolean
+        while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $userrows)) {
             $retval[] = ProfileSilverbullet::tokenStatus($returnedData->token);
         }
         return $retval;
@@ -635,7 +652,8 @@ class ProfileSilverbullet extends AbstractProfile {
 
     public function getUserExpiryDate($userId) {
         $query = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ? AND profile_id = ? ", "ii", $userId, $this->identifier);
-        while ($returnedData = mysqli_fetch_object($query)) {
+        // SELECT -> resource, not boolean
+        while ($returnedData = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
             return $returnedData->expiry;
         }
     }
@@ -649,7 +667,8 @@ class ProfileSilverbullet extends AbstractProfile {
     public function listAllUsers() {
         $userArray = [];
         $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? ", "i", $this->identifier);
-        while ($res = mysqli_fetch_object($users)) {
+        // SELECT -> resource, not boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
             $userArray[$res->id] = $res->username;
         }
         return $userArray;
@@ -665,7 +684,8 @@ class ProfileSilverbullet extends AbstractProfile {
                 . "     OR"
                 . "  ( u.id = c.silverbullet_user_id AND c.expiry >= NOW() AND c.revocation_status != 'REVOKED' ) "
                 . ")", "i", $this->identifier);
-        while ($res = mysqli_fetch_object($users)) {
+        // SELECT -> resource, not boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $users)) {
             $userCount[] = $res->usercount;
         }
         return $userCount;
@@ -682,13 +702,15 @@ class ProfileSilverbullet extends AbstractProfile {
         // set the expiry date of any still valid invitations to NOW()
         $query = "SELECT id FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
         $exec = $this->databaseHandle->exec($query, "s", $userId);
-        while ($result = mysqli_fetch_object($exec)) {
+        // SELECT -> resource, not boolean
+        while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec)) {
             $this->revokeInvitation($result->id);
         }
         // and revoke all certificates
         $query2 = "SELECT serial_number FROM silverbullet_certificate WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW() AND revocation_status = 'NOT_REVOKED'";
         $exec2 = $this->databaseHandle->exec($query2, "i", $userId);
-        while ($result = mysqli_fetch_object($exec2)) {
+        // SELECT -> resource, not boolean
+        while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec2)) {
             $this->revokeCertificate($result->serial_number);
         }
         // and finally set the user expiry date to NOW(), too
@@ -710,8 +732,11 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         $link .= $_SERVER['SERVER_NAME'];
         $relPath = dirname(dirname($_SERVER['SCRIPT_NAME']));
-        if ($relPath[strlen($relPath) - 1] == '/') {
-            $relPath = substr($relPath, 0, strlen($relPath) - 1);
+        if (substr($relPath, -1) == '/') {
+            $relPath = substr($relPath, 0, -1);
+            if ($relPath === FALSE) {
+                throw new Exception("Uh. Something went seriously wrong with URL path mangling.");
+            }
         }
         $link = $link . $relPath;
 

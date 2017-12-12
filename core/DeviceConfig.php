@@ -201,7 +201,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         if (isset($this->attributes['eap:ca_file'])) {
             foreach ($this->attributes['eap:ca_file'] as $ca) {
                 $processedCert = $x509->processCertificate($ca);
-                if ($processedCert) {
+                if (is_array($processedCert)) {
                     // add a UUID for convenience (some devices refer to their CAs by a UUID value)
                     $processedCert['uuid'] = $this->uuid("", $processedCert['pem']);
                     $caList[] = $processedCert;

@@ -66,11 +66,19 @@ class ProfileRADIUS extends AbstractProfile {
         $this->attributes = [];
 
         $profile = $this->databaseHandle->exec("SELECT inst_id, realm, use_anon_outer, checkuser_outer, checkuser_value, verify_userinput_suffix as verify, hint_userinput_suffix as hint FROM profile WHERE profile_id = ?", "i", $profileId);
-        $profileQuery = mysqli_fetch_object($profile);
+        // SELECT -> resource, not boolean
+        $profileQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profile);
 
         $this->realm = $profileQuery->realm;
 
-        $localValueIfAny = (preg_match('/@/', $this->realm) ? substr($this->realm, 0, strpos($this->realm, '@')) : "anonymous" );
+        $localValueIfAny = "anonymous";
+        if (preg_match('/@/', $this->realm)) {
+            $position = strpos($this->realm, '@');
+            if ($position === FALSE) {
+                throw new Exception("Impossible: preg_match found an @, but strpos doesn't?!");
+            }
+            $localValueIfAny = substr($this->realm, 0, $position);
+        }
 
         $internalAttributes = [
             "internal:profile_count" => $this->idpNumberOfProfiles,
@@ -155,7 +163,8 @@ class ProfileRADIUS extends AbstractProfile {
                 FROM $this->entityOptionTable
                 WHERE $this->entityIdColumn = $this->identifier $conditionPart");
 
-        while ($attributeQuery = mysqli_fetch_object($allAttributes)) {
+        // this is a SELECT -> resource, not boolean
+        while ($attributeQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allAttributes)) {
 
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
 
@@ -306,9 +315,10 @@ class ProfileRADIUS extends AbstractProfile {
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier AND option_name NOT LIKE '%_file' $extracondition");
         $this->updateFreshness();
         // there are currently none file-based attributes on method level, so result here is always empty, but better be prepared for the future
-        $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier $extracondition");
+        $findFlushCandidates = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $this->identifier $extracondition");
         $returnArray = [];
-        while ($queryResult = mysqli_fetch_object($execFlush)) {
+        // SELECT -> resource, not boolean
+        while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $findFlushCandidates)) {
             $returnArray[$queryResult->row] = "KILLME";
         }
         return $returnArray;

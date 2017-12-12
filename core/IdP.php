@@ -68,7 +68,8 @@ class IdP extends EntityWithDBProperties {
         $this->identifier = (int) $instId;
 
         $idp = $this->databaseHandle->exec("SELECT inst_id, country,external_db_syncstate FROM institution WHERE inst_id = $this->identifier");
-        if (!$instQuery = mysqli_fetch_object($idp)) {
+        // SELECT -> returns resource, not boolean
+        if (!$instQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $idp)) {
             throw new Exception("IdP $this->identifier not found in database!");
         }
 
@@ -102,7 +103,8 @@ class IdP extends EntityWithDBProperties {
         $query = "SELECT profile_id FROM profile WHERE inst_id = $this->identifier" . ($activeOnly ? " AND showtime = 1" : "");
         $allProfiles = $this->databaseHandle->exec($query);
         $returnarray = [];
-        while ($profileQuery = mysqli_fetch_object($allProfiles)) {
+        // SELECT -> resource, not boolean
+        while ($profileQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
             $oneProfile = ProfileFactory::instantiate($profileQuery->profile_id, $this);
             $oneProfile->institution = $this->identifier;
             $returnarray[] = $oneProfile;
@@ -118,7 +120,8 @@ class IdP extends EntityWithDBProperties {
     
     public function maxProfileStatus() {
         $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
-        while ($res = mysqli_fetch_object($allProfiles)) {
+        // SELECT yields a resource, not a boolean
+        while ($res = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allProfiles)) {
             return $res->maxlevel;
         }
         return self::PROFILES_INCOMPLETE;
@@ -132,7 +135,8 @@ class IdP extends EntityWithDBProperties {
     public function owner() {
         $returnarray = [];
         $admins = $this->databaseHandle->exec("SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
-        while ($ownerQuery = mysqli_fetch_object($admins)) {
+        // SELECT -> resource, not boolean
+        while ($ownerQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $admins)) {
             $returnarray[] = ['ID' => $ownerQuery->user_id, 'MAIL' => $ownerQuery->orig_mail, 'LEVEL' => $ownerQuery->blesslevel];
         }
         return $returnarray;
@@ -149,7 +153,8 @@ class IdP extends EntityWithDBProperties {
     public function profileCount() {
         $result = $this->databaseHandle->exec("SELECT profile_id FROM profile 
              WHERE inst_id = $this->identifier");
-        return(mysqli_num_rows($result));
+        // SELECT -> resource, not boolean
+        return(mysqli_num_rows(/** @scrutinizer ignore-type */ $result));
     }
 
     /**
@@ -246,7 +251,8 @@ Best regards,
             $candidateList = $externalHandle->exec("SELECT id_institution AS id, name AS collapsed_name FROM view_active_idp_institution WHERE country = ?", "s", $lowerFed);
             $syncstate = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id IS NOT NULL AND external_db_syncstate = ?", "i", $syncstate);
-            while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
+            // SELECT -> resource, not boolean
+            while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
 
@@ -296,10 +302,11 @@ Best regards,
     public function getExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $idQuery = $this->databaseHandle->exec("SELECT external_db_id FROM institution WHERE inst_id = $this->identifier AND external_db_syncstate = " . self::EXTERNAL_DB_SYNCSTATE_SYNCED);
-            if (mysqli_num_rows($idQuery) == 0) {
+            // SELECT -> it's a resource, not a boolean
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */ $idQuery) == 0) {
                 return FALSE;
             }
-            $externalIdQuery = mysqli_fetch_object($idQuery);
+            $externalIdQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $idQuery);
             return $externalIdQuery->external_db_id;
         }
         return FALSE;
@@ -314,8 +321,8 @@ Best regards,
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
             $syncState = self::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
-
-            if (mysqli_num_rows($alreadyUsed) == 0) {
+            // SELECT -> resource, not boolean
+            if (mysqli_num_rows(/** @scrutinizer ignore-type */ $alreadyUsed) == 0) {
                 $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, $syncState, $this->identifier );
             }
         }

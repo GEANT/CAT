@@ -88,7 +88,7 @@ class Logging {
                 if (is_string($message)) {
                     echo $message ."\n";
                 } else {
-                    echo var_export($message);
+                    var_export($message);
                 }
                 
                 $output = ob_get_clean();

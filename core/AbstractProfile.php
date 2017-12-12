@@ -117,7 +117,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
                                                         WHERE supp.profile_id = $this->identifier 
                                                         ORDER by preference");
         $eapTypeArray = [];
-        while ($eapQuery = (mysqli_fetch_object($eapMethod))) {
+        // SELECTs never return a boolean, it's always a resource
+        while ($eapQuery = (mysqli_fetch_object(/** @scrutinizer ignore-type */ $eapMethod))) {
             $eaptype = new common\EAP($eapQuery->eap_method_id);
             $eapTypeArray[] = $eaptype;
         }
@@ -144,12 +145,13 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         $profileId = (int) $profileIdRaw; // no, it can not possibly be a double. Try to convince Scrutinizer...
         $profile = $this->databaseHandle->exec("SELECT inst_id FROM profile WHERE profile_id = $profileId");
-        if (!$profile || $profile->num_rows == 0) {
+        // SELECT always yields a resource, never a boolean
+        if ($profile->num_rows == 0) {
             $this->loggerInstance->debug(2, "Profile $profileId not found in database!\n");
             throw new Exception("Profile $profileId not found in database!");
         }
         $this->identifier = $profileId;
-        $profileQuery = mysqli_fetch_object($profile);
+        $profileQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profile);
         if (!($idpObject instanceof IdP)) {
             $this->institution = $profileQuery->inst_id;
             $idp = new IdP($this->institution);
@@ -196,7 +198,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         // static, need to create our own handle
         $handle = DBConnection::handle("INST");
         $execQuery = $handle->exec("SELECT profile_id FROM profile WHERE realm LIKE '%@$realm'");
-        if ($profileIdQuery = mysqli_fetch_object($execQuery)) {
+        // a SELECT query always yields a resource, not a boolean
+        if ($profileIdQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execQuery)) {
             return $profileIdQuery->profile_id;
         }
         return FALSE;
@@ -240,8 +243,9 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * gets the last-modified timestamp (useful for caching "dirty" check)
      */
     public function getFreshness() {
-        $execUpdate = $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
-        if ($freshnessQuery = mysqli_fetch_object($execUpdate)) {
+        $execLastChange = $this->databaseHandle->exec("SELECT last_change FROM profile WHERE profile_id = $this->identifier");
+        // SELECT always returns a resource, never a boolean
+        if ($freshnessQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $execLastChange)) {
             return $freshnessQuery->last_change;
         }
     }
@@ -270,7 +274,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $returnValue = NULL;
         $lang = $this->languageInstance->getLang();
         $result = $this->frontendHandle->exec("SELECT download_path, mime, UNIX_TIMESTAMP(installer_time) AS tm FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
-        if ($result && $cache = mysqli_fetch_object($result)) {
+        // SELECT queries always return a resource, not a boolean
+        if ($result && $cache = mysqli_fetch_object(/** @scrutinizer ignore-type */ $result)) {
             $execUpdate = $this->databaseHandle->exec("SELECT UNIX_TIMESTAMP(last_change) AS last_change FROM profile WHERE profile_id = $this->identifier");
             if ($lastChange = mysqli_fetch_object($execUpdate)->last_change) {
                 if ($lastChange < $cache->tm) {
@@ -286,8 +291,10 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * Updates database with new installer location. Actually does stuff when
      * caching is possible; is a noop if not
      * 
-     * @param string device the device identifier string
-     * @param string path the path where the new installer can be found
+     * @param string $device the device identifier string
+     * @param string $path the path where the new installer can be found
+     * @param string $mime the mime type of the new installer
+     * @param int $integerEapType the inter-representation of the EAP type that is configured in this installer
      */
     abstract public function updateCache($device, $path, $mime, $integerEapType);
 
@@ -304,7 +311,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
             $this->frontendHandle->exec("INSERT INTO downloads (profile_id, device_id, lang, downloads_$area) VALUES (? ,?, ?, 1) ON DUPLICATE KEY UPDATE downloads_$area = downloads_$area + 1", "iss", $this->identifier, $device, $lang);
             // get eap_type from the downloads table
             $eapTypeQuery = $this->frontendHandle->exec("SELECT eap_type FROM downloads WHERE profile_id = ? AND device_id = ? AND lang = ?", "iss", $this->identifier, $device, $lang);
-            if (!$eapTypeQuery || !$eapO = mysqli_fetch_object($eapTypeQuery)) {
+            // SELECT queries always return a resource, not a boolean
+            if (!$eapTypeQuery || !$eapO = mysqli_fetch_object(/** @scrutinizer ignore-type */ $eapTypeQuery)) {
                 $this->loggerInstance->debug(2, "Error getting EAP_type from the database\n");
             } else {
                 if ($eapO->eap_type == NULL) {
@@ -330,7 +338,8 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         }
         $returnarray = [];
         $numbers = $this->frontendHandle->exec("SELECT device_id, SUM($columnName) AS downloads_user FROM downloads WHERE profile_id = ? GROUP BY device_id", "i", $this->identifier);
-        while ($statsQuery = mysqli_fetch_object($numbers)) {
+        // SELECT queries always return a resource, not a boolean
+        while ($statsQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $numbers)) {
             $returnarray[$statsQuery->device_id] = $statsQuery->downloads_user;
         }
         if ($device !== NULL) {
@@ -606,11 +615,12 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * it? Silverbullet will always return TRUE; RADIUS profiles need to do some
      * heavy lifting here.
      * 
-     * * @return boolean TRUE if enough info is set to enable installers
+     * * @return int one of the constants above which tell if enough info is set to enable installers
      */
     public function readinessLevel() {
         $result = $this->databaseHandle->exec("SELECT sufficient_config, showtime FROM profile WHERE profile_id = ?", "i", $this->identifier);
-        $configQuery = mysqli_fetch_row($result);
+        // SELECT queries always return a resource, not a boolean
+        $configQuery = mysqli_fetch_row(/** @scrutinizer ignore-type */ $result);
         if ($configQuery[0] == "0") {
             return self::READINESS_LEVEL_NOTREADY;
         }

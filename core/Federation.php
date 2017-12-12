@@ -64,7 +64,8 @@ class Federation extends EntityWithDBProperties {
         $cohesionQuery = "SELECT profile_id FROM profile, institution WHERE profile.inst_id = institution.inst_id AND institution.country = ?";
         $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->identifier);
         $profilesArray = [];
-        while ($result = mysqli_fetch_object($profilesList)) {
+        // SELECT -> resource is returned, no boolean
+        while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profilesList)) {
             $profilesArray[] = $result->profile_id;
         }
         foreach (\devices\Devices::listDevices() as $index => $deviceArray) {
@@ -109,7 +110,8 @@ class Federation extends EntityWithDBProperties {
                 $retstring .= "<tr><td><strong>TOTAL</strong></td><td><strong>" . $data['TOTAL']['ADMIN'] . "</strong></td><td><strong>" . $data['TOTAL']['SILVERBULLET'] . "</strong></td><td><strong>" . $data['TOTAL']['USER'] . "</strong></td></tr>";
                 break;
             case "XML":
-                $retstring .= "<federation id='$this->identifier' ts='" . date("Y-m-d") . "T" . date("H:i:s") . "'>\n";
+                // the calls to date() operate on current date, so there is no chance for a FALSE to be returned. Silencing scrutinizer.
+                $retstring .= "<federation id='$this->identifier' ts='" . /** @scrutinizer ignore-type */ date("Y-m-d") . "T" . /** @scrutinizer ignore-type */ date("H:i:s") . "'>\n";
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
@@ -213,7 +215,8 @@ class Federation extends EntityWithDBProperties {
         }
 
         $returnarray = [];
-        while ($idpQuery = mysqli_fetch_object($allIDPs)) {
+        // SELECT -> resource, not boolean
+        while ($idpQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
             $idp = new IdP($idpQuery->inst_id);
             $name = $idp->name;
             $idpInfo = ['entityID' => $idp->identifier,
@@ -233,7 +236,8 @@ class Federation extends EntityWithDBProperties {
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
         $upperFed = strtoupper($this->identifier);
-        $admins = $userHandle->exec($query, "s", $upperFed);
+        // SELECT -> resource, not boolean
+        $admins = $userHandle->exec($query, "s", /** @scrutinizer ignore-type */ $upperFed);
 
         while ($fedAdminQuery = mysqli_fetch_object($admins)) {
             $returnarray[] = $fedAdminQuery->user_id;
@@ -259,10 +263,12 @@ class Federation extends EntityWithDBProperties {
                                                                                                       WHERE external_db_uniquehandle IS NOT NULL 
                                                                                                       AND invite_created >= TIMESTAMPADD(DAY, -1, NOW()) 
                                                                                                       AND used = 0");
-            while ($alreadyUsedQuery = mysqli_fetch_object($alreadyUsed)) {
+            // SELECT -> resource, no boolean
+            while ($alreadyUsedQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $alreadyUsed)) {
                 $usedarray[] = $alreadyUsedQuery->external_db_id;
             }
-            while ($pendingInviteQuery = mysqli_fetch_object($pendingInvite)) {
+            // SELECT -> resource, no boolean
+            while ($pendingInviteQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $pendingInvite)) {
                 if (!in_array($pendingInviteQuery->external_db_uniquehandle, $usedarray)) {
                     $usedarray[] = $pendingInviteQuery->external_db_uniquehandle;
                 }
@@ -314,7 +320,7 @@ class Federation extends EntityWithDBProperties {
 
     /**
      * 
-     * @param mysqli_result $dbResult
+     * @param \mysqli_result $dbResult
      */
     private static function findCandidates(\mysqli_result $dbResult, &$country) {
         $retArray = [];
@@ -338,7 +344,7 @@ class Federation extends EntityWithDBProperties {
      * If we are running diagnostics, our input from the user is the realm. We
      * need to find out which IdP this realm belongs to.
      * @param string $realm the realm to search for
-     * @return IdP|int either the ID of the IdP in the system, or UNKNOWN_IDP or AMBIGUOUS_IDP
+     * @return array an array with two entries, CAT ID and DB ID, with either the respective ID of the IdP in the system, or UNKNOWN_IDP or AMBIGUOUS_IDP
      */
     public static function determineIdPIdByRealm($realm) {
         $country = NULL;
@@ -346,7 +352,8 @@ class Federation extends EntityWithDBProperties {
         $dbHandle = DBConnection::handle("INST");
         $realmSearchStringCat = "%@$realm";
         $candidateCatQuery = $dbHandle->exec("SELECT p.inst_id as inst_id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ?", "s", $realmSearchStringCat);
-        $candidatesCat = Federation::findCandidates($candidateCatQuery, $country);
+        // this is a SELECT returning a resource, not a boolean
+        $candidatesCat = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateCatQuery, $country);
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED        
             $externalHandle = DBConnection::handle("EXTERNAL");

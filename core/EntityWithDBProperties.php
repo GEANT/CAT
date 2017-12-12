@@ -174,7 +174,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
 
     /**
-     * retrieve attributes from a database.
+     * retrieve attributes from a database. Only does SELECT queries.
      * @param string $query sub-classes set the query to execute to get to the options
      * @param string $level the retrieved options get flagged with this "level" identifier
      * @param string $identifierType what form does the identifier have (stored procedure indicator)
@@ -182,13 +182,17 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @return array the attributes in one array
      */
     protected function retrieveOptionsFromDatabase($query, $level, $identifierType, $identifier) {
+        if (substr($query, 0, 6) != "SELECT") {
+            throw new Exception("This function only operates with SELECT queries!");
+        }
         $optioninstance = Options::instance();
         $tempAttributes = [];
         $attributeDbExec = $this->databaseHandle->exec($query, $identifierType, $identifier);
         if (empty($attributeDbExec)) {
             return $tempAttributes;
         }
-        while ($attributeQuery = mysqli_fetch_object($attributeDbExec)) {
+        // with SELECTs, we always operate on a resource, not a boolean
+        while ($attributeQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $attributeDbExec)) {
             $optinfo = $optioninstance->optionType($attributeQuery->option_name);
             $flag = $optinfo['flag'];
             $decoded = $attributeQuery->option_value;
