@@ -77,7 +77,7 @@ abstract class Entity {
     
     /**
      * create a temporary directory and return the location
-     * @param $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
+     * @param string $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory
      * @param bool $failIsFatal decides if a creation failure should cause an error; defaults to true
      * @return array the tuple of: base path, absolute path for directory, directory name
      */

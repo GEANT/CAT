@@ -92,7 +92,7 @@ class Sociopath extends AbstractTest {
 
     /**
      * 
-     * @param type $questionNumber
+     * @param int $questionNumber
      * @param bool|NULL $answer TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
      */
     public function revaluate($questionNumber, $answer) {

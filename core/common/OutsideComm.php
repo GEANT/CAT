@@ -120,8 +120,8 @@ class OutsideComm {
                 $loggerInstance->debug(4, "OutsideComm::mailAddressValidSecure: connected to $oneip.");
                 $retval = OutsideComm::MAILDOMAIN_NO_STARTTLS;
                 if ($smtp->hello('eduroam.org')) {
-                    $e = $smtp->getServerExtList();
-                    if (!is_array($e) || !array_key_exists('STARTTLS', $e)) {
+                    $extensions = $smtp->getServerExtList(); // Scrutinzer is wrong; is not always null - contains server capabilities
+                    if (!is_array($extensions) || !array_key_exists('STARTTLS', $extensions)) {
                         $loggerInstance->debug(4, "OutsideComm::mailAddressValidSecure: no indication for STARTTLS.");
                         $allWithStarttls = FALSE;
                     }

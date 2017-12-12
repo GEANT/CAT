@@ -56,7 +56,7 @@ class RADIUSTests extends AbstractTest {
     private $outerUsernameForChecks;
     private $expectedCABundle;
     private $expectedServerNames;
-    
+
     /**
      * the list of EAP types which the IdP allegedly supports.
      * 
@@ -101,7 +101,7 @@ class RADIUSTests extends AbstractTest {
                 $serverNeeded = TRUE;
             }
         }
-        
+
         if ($caNeeded) {
             // we need to have info about at least one CA cert and server names
             if (count($this->expectedCABundle) == 0) {
@@ -266,7 +266,7 @@ class RADIUSTests extends AbstractTest {
      * The function fills array RADIUSTests::UDP_reachability_result[$probeindex] with all check detail
      * in case more than the return code is needed/wanted by the caller
      * 
-     * @param string $probeindex refers to the specific UDP-host in the config that should be checked
+     * @param int $probeindex refers to the specific UDP-host in the config that should be checked
      * @param boolean $opnameCheck should we check choking on Operator-Name?
      * @param boolean $frag should we cause UDP fragmentation? (Warning: makes use of Operator-Name!)
      * @return int returncode
@@ -275,6 +275,9 @@ class RADIUSTests extends AbstractTest {
         // for EAP-TLS to be a viable option, we need to pass a random client cert to make eapol_test happy
         // the following PEM data is one of the SENSE EAPLab client certs (not secret at all)
         $clientcert = file_get_contents(dirname(__FILE__) . "/clientcert.p12");
+        if ($clientcert === FALSE) {
+            throw new Exception("A dummy client cert is part of the source distribution, but could not be loaded!");
+        }
         // if we are in thorough opMode, use our knowledge for a more clever check
         // otherwise guess
         if ($this->opMode == self::RADIUS_TEST_OPERATION_MODE_THOROUGH) {
@@ -452,7 +455,7 @@ network={
     private function packetCountEvaluation(&$testresults, $packetcount) {
         $reqs = $packetcount[1] ?? 0;
         $accepts = $packetcount[2] ?? 0;
-        $rejects = $packetcount[3]?? 0;
+        $rejects = $packetcount[3] ?? 0;
         $challenges = $packetcount[11] ?? 0;
         $testresults['packetflow_sane'] = TRUE;
         if ($reqs - $accepts - $rejects - $challenges != 0 || $accepts > 1 || $rejects > 1) {
@@ -460,7 +463,7 @@ network={
         }
 
         $this->loggerInstance->debug(5, "XYZ: Counting req, acc, rej, chal: $reqs, $accepts, $rejects, $challenges");
-        
+
 // calculate the main return values that this test yielded
 
         $finalretval = RADIUSTests::RETVAL_INVALID;
@@ -805,7 +808,10 @@ network={
 // then check the presented names
             $x509 = new \core\common\X509();
 // $eap_certarray holds all certs received in EAP conversation
-            $eapCertarray = $x509->splitCertificate(fread(fopen($tmpDir . "/serverchain.pem", "r"), "1000000"));
+            $eapCertArray = [];
+            if (fopen($tmpDir . "/serverchain.pem", "r") && fread($chainHandle, "1000000")) {
+                $eapCertArray = $x509->splitCertificate();
+            }
 // we want no root cert, and exactly one server cert
             $numberRoot = 0;
             $numberServer = 0;
@@ -817,8 +823,8 @@ network={
 
             $testresults['certdata'] = [];
 
-            $serverFile = fopen($tmpDir . "/incomingserver.pem", "w");
-            foreach ($eapCertarray as $certPem) {
+
+            foreach ($eapCertArray as $certPem) {
                 $cert = $x509->processCertificate($certPem);
                 if ($cert == FALSE) {
                     continue;
@@ -828,8 +834,8 @@ network={
 // b) if it is a CA, and self-signed, and it is the only cert in
 //    the incoming cert chain
 //    (meaning the self-signed is itself the server cert)
-                if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertarray) == 1)) {
-                    if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertarray) == 1) {
+                if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1)) {
+                    if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1) {
                         $totallySelfsigned = TRUE;
                         $cert['full_details']['type'] = 'totally_selfsigned';
                     }
@@ -837,7 +843,9 @@ network={
 
                     $servercert = $cert;
                     if ($numberServer == 1) {
-                        fwrite($serverFile, $certPem . "\n");
+                        if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
+                            $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
+                        }
                         $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
                     }
                 } else
@@ -856,7 +864,7 @@ network={
                 }
                 $testresults['certdata'][] = $cert['full_details'];
             }
-            fclose($serverFile);
+
             if ($numberRoot > 0 && !$totallySelfsigned) {
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
             }

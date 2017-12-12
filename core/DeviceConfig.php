@@ -119,11 +119,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         } else {
             $chars = md5($deterministicSource);
         }
-        $uuid = substr($chars, 0, 8) . '-';
-        $uuid .= substr($chars, 8, 4) . '-';
-        $uuid .= substr($chars, 12, 4) . '-';
-        $uuid .= substr($chars, 16, 4) . '-';
-        $uuid .= substr($chars, 20, 12);
+        // these substr() are guaranteed to yield actual string data, as the
+        // base string is an MD5 hash - has sufficient length
+        $uuid = /** @scrutinizer ignore-type */ substr($chars, 0, 8) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 8, 4) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 12, 4) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 16, 4) . '-';
+        $uuid .= /** @scrutinizer ignore-type */ substr($chars, 20, 12);
         return $prefix . $uuid;
     }
 
