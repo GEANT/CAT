@@ -62,10 +62,8 @@ foreach (TREATMENT_TABLES as $tableIndex => $tableName) {
 // convert all stored coordinate pairs to the new way
 
 $affectedPayloads = $dbInstance->exec("SELECT row, option_value FROM institution_option WHERE option_name = 'general:geo_coordinates'");
-if ($affectedPayloads === FALSE) {
-    echo "[FAIL] Unknown error querying update status for option general:geo_coordinates in table institution_option.\n";
-}
-while ($oneAffectedPayload = mysqli_fetch_object($affectedPayloads)) {
+// SELECT -> resource, not a boolean
+while ($oneAffectedPayload = mysqli_fetch_object(/** @scrutinizer ignore-type */ $affectedPayloads)) {
     $decoded = unserialize($oneAffectedPayload->option_value);
     $row = $oneAffectedPayload->row;
     if ($decoded === FALSE || !isset($decoded["lon"]) || !isset($decoded['lat'])) {
@@ -92,10 +90,10 @@ foreach ($eap_options as $index => $name) {
     $typeString .= "s";
 }
 $idpWideOptionsQuery = $dbInstance->exec("SELECT institution_id, option_name, option_lang, option_value FROM institution_option $conditionString", $typeString, $eap_options[0], $eap_options[1]);
-
+// SELECT -> resource, not a boolean
 $profiles = []; // index is inst id, value is an array of profile objects and the IdP object. Populated as we iterate through the data set
 
-while ($oneAttrib = mysqli_fetch_object($idpWideOptionsQuery)) {
+while ($oneAttrib = mysqli_fetch_object(/** @scrutinizer ignore-type */ $idpWideOptionsQuery)) {
     if (!isset($profiles[$oneAttrib->institution_id])) {
         $idp = new \core\IdP((int)$oneAttrib->institution_id);
         $profiles[$oneAttrib->institution_id] = ['IdP' => $idp, 'Profiles' => $idp->listProfiles()];

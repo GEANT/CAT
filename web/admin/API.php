@@ -113,7 +113,8 @@ switch ($sanitised_action) {
         // if we do have profile-level options - create a profile and fill in the values!
         if (count($profileWideOptions['option']) > 0) {
             $newprofile = $idp->newProfile("RADIUS");
-            processSubmittedFields($newprofile, $profileWideOptions, $_FILES, [], 0, 0, TRUE);
+            $parse = new \web\lib\admin\OptionParser;
+            $parser->processSubmittedFields($newprofile, $profileWideOptions, $_FILES, 0, "");
             // sift through the options to find API ones (these are not caught by pSF() )
             $therealm = "";
             $theanonid = "anonymous";
@@ -163,7 +164,7 @@ switch ($sanitised_action) {
                 }
             }
             // re-instantiate $profile, we need to do completion checks and need fresh data for isEapTypeDefinitionComplete()
-            $profile = ProfileFactory::instantiate($newprofile->identifier);
+            $profile = \core\ProfileFactory::instantiate($newprofile->identifier);
             $profile->prepShowtime();
         }
         // generate the token

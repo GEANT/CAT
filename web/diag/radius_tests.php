@@ -26,7 +26,7 @@ $additional_message = [
 ];
 
 function disp_name($eap) {
-    $displayName = EAP::eapDisplayName($eap);
+    $displayName = \core\common\EAP::eapDisplayName($eap);
     return $displayName['OUTER'] . ( $displayName['INNER'] != '' ? '-' . $displayName['INNER'] : '');
 }
 

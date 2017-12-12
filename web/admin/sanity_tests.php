@@ -10,6 +10,8 @@
 ?>
 <?php
 
+require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
+
 /**
  * The $Tests array lists the config tests to be run
  */

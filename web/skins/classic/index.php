@@ -68,7 +68,7 @@ $deco = new \web\lib\admin\PageDecoration();
 <!-- JQuery -->
 <script type="text/javascript">
     if (screen.width <= 480) {
-        window.location.href = "<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/basic.php?<?php echo htmlspecialchars($_SERVER['QUERY_STRING']) ?>";
+        window.location.href = "<?php echo rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') ?>/basic.php?<?php echo htmlspecialchars(filter_input(INPUT_SERVER, 'QUERY_STRING', FILTER_SANITIZE_STRING)); ?>";
             }
 </script>
 <script type="text/javascript">

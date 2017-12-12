@@ -66,7 +66,7 @@ A humble " . CONFIG['APPEARANCE']['productname'] . " cron job
 ";
 
     foreach ($admins as $admin) {
-        $user = new User($admin);
+        $user = new \core\User($admin);
         $user->sendMailToUser("Expired Invitations in the last hour", $mailtext);
     }
 }
