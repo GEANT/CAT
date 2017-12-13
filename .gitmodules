@@ -7,3 +7,6 @@
 [submodule "core/GeoIP2"]
 	path = core/GeoIP2
 	url = https://github.com/maxmind/GeoIP2-php.git
+[submodule "core/PHPUnit"]
+	path = core/PHPUnit
+	url = https://github.com/sebastianbergmann/phpunit.git
