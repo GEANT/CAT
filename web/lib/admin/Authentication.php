@@ -10,7 +10,6 @@
  */
 
 namespace web\lib\admin;
-use SimpleSAML_Auth_Simple;
 use Exception;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
