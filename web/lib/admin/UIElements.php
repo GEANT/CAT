@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\admin;
+use Exception;
 
 /**
  * This class provides various HTML snippets and other UI-related convenience functions.
