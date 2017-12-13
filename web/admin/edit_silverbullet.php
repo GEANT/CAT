@@ -66,6 +66,9 @@ if (!isset($_REQUEST['profile_id'])) {
 if (!($profile instanceof \core\ProfileSilverbullet)) {
     throw new Exception("Despite utmost care to get a SB profile, we got a RADIUS profile?!");
 }
+
+assert($profile instanceof \core\ProfileSilverbullet);
+
 $displaySendStatus = "NOSTIPULATION";
 
 $formtext = "<form enctype='multipart/form-data' action='edit_silverbullet.php?inst_id=$inst->identifier&profile_id=$profile->identifier' method='post' accept-charset='UTF-8'>";

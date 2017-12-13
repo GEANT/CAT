@@ -49,7 +49,7 @@ function print_test_results($test) {
         case \core\common\Entity::L_ERROR:
             $message = "Your configuration appears to be broken, please fix the errors.";
             break;
-        case \core\common\Entity::L_NOTICE:
+        case \core\common\Entity::L_REMARK:
             $message = "Your configuration appears to be fine.";
             break;
         default:

@@ -302,17 +302,26 @@ class UIElements {
     }
 
     /**
+     * 
+     * @param string $reference a reference pointer to a database entry
+     * @throws Exception
+     */
+    
+    private function checkROWIDpresence($reference) {
+        $found = preg_match("/^ROWID-.*/", $reference);
+        if ($found  != 1) { // get excited on not-found AND on execution error
+            throw new Exception("Error, ROWID expected.");
+        }
+    }
+    
+    /**
      * creates HTML code to display a nice UI representation of a CA
      * 
      * @param string $cAReference ROWID pointer to the CA to display
      * @return string HTML code
      */
     public function previewCAinHTML($cAReference) {
-        $found = preg_match("/^ROWID-.*/", $cAReference);
-        if (!$found) {
-            return "<div>" . _("Error, ROWID expected.") . "</div>";
-        }
-
+        $this->checkROWIDpresence($cAReference);
         $cAblob = base64_decode(UIElements::getBlobFromDB($cAReference, FALSE));
 
         $func = new \core\common\X509;
@@ -337,10 +346,7 @@ class UIElements {
      * @return string HTML code
      */
     public function previewImageinHTML($imageReference) {
-        $found = preg_match("/^ROWID-.*/", $imageReference);
-        if (!$found) {
-            return "<div>" . _("Error, ROWID expected.") . "</div>";
-        }
+        $this->checkROWIDpresence($imageReference);
         return "<img style='max-width:150px' src='inc/filepreview.php?id=" . $imageReference . "' alt='" . _("Preview of logo file") . "'/>";
     }
 
@@ -351,11 +357,7 @@ class UIElements {
      * @return string HTML code
      */
     public function previewInfoFileinHTML($fileReference) {
-        $found = preg_match("/^ROWID-.*/", $fileReference);
-        if (!$found) {
-            return _("<div>Error, ROWID expected, got $fileReference.</div>");
-        }
-
+        $this->checkROWIDpresence($fileReference);
         $fileBlob = UIElements::getBlobFromDB($fileReference, FALSE);
         $decodedFileBlob = base64_decode($fileBlob);
         $fileinfo = new \finfo();
@@ -404,7 +406,7 @@ class UIElements {
      * @param string $text the text to display
      * @param string $caption the caption to display
      * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
-     * @return type
+     * @return string HTML: the box
      */
     public function boxOkay(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_OK, $text, $caption, $omittabletags);
@@ -416,7 +418,7 @@ class UIElements {
      * @param string $text the text to display
      * @param string $caption the caption to display
      * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
-     * @return type
+     * @return string HTML: the box
      */
     public function boxRemark(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_REMARK, $text, $caption, $omittabletags);
@@ -428,7 +430,7 @@ class UIElements {
      * @param string $text the text to display
      * @param string $caption the caption to display
      * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
-     * @return type
+     * @return string HTML: the box
      */
     public function boxWarning(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_WARN, $text, $caption, $omittabletags);
@@ -440,7 +442,7 @@ class UIElements {
      * @param string $text the text to display
      * @param string $caption the caption to display
      * @param bool $omittabletags the output usually has tr/td table tags, this option suppresses them
-     * @return type
+     * @return string HTML: the box
      */
     public function boxError(string $text = NULL, string $caption = NULL, bool $omittabletags = FALSE) {
         return $this->boxFlexible(\core\common\Entity::L_ERROR, $text, $caption, $omittabletags);

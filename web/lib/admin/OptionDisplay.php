@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\admin;
+use Exception;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
 

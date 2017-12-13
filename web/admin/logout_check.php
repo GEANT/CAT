@@ -13,6 +13,8 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
 
+use SimpleSAML_Auth_State;
+
 $deco = new \web\lib\admin\PageDecoration();
 
 $state = SimpleSAML_Auth_State::loadState((string) $_REQUEST['LogoutState'], 'MyLogoutState');

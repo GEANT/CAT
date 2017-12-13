@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\admin;
+use Exception;
 
 ?>
 <?php
@@ -407,7 +408,7 @@ class OptionParser {
      * @param array $filesArray incoming attribute names and values as submitted with $_FILES
      * @param int $eaptype for eap-specific attributes (only used where $object is a ProfileRADIUS instance)
      * @param string $device for device-specific attributes (only used where $object is a ProfileRADIUS instance)
-     * @return array subset of $pendingattributes: the list of by-reference entries which are definitely to be deleted
+     * @return string text to be displayed in UI with the summary of attributes added
      * @throws Exception
      */
     public function processSubmittedFields($object, array $postArray, array $filesArray, int $eaptype = NULL, string $device = NULL) {

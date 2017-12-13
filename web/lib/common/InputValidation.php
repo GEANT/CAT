@@ -391,7 +391,11 @@ public function supportedLanguage($input) {
     }
     // otherwise, use the inversion trick to convince Scrutinizer that this is
     // a vetted value
-    return array_search(CONFIG['LANGUAGES'][$input], CONFIG['LANGUAGES']);
+    $retval = array_search(CONFIG['LANGUAGES'][$input], CONFIG['LANGUAGES']);
+    if ($retval === FALSE) {
+        throw new Exception("Impossible: the value we are searching for does exist, because we reference it directly.");
+    }
+    return $retval;
 }
 
 /**
