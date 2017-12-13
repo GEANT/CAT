@@ -74,8 +74,7 @@ class TextTemplates {
         $this->templates[HEADING_TOPLEVEL_GREET] = sprintf(_("Welcome to %s"), CONFIG['APPEARANCE']['productname']);
         $this->templates[HEADING_TOPLEVEL_PURPOSE] = sprintf(_("Connect your device to %s"),CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[FRONTPAGE_ROLLER_EASY] = sprintf(_("%s installation made easy:"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
-        $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = sprintf(_("Custom built for your %s"),$parent->nomenclature_inst);
-        $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
+        $this->templates[FRONTPAGE_ROLLER_CUSTOMBUILT] = sprintf(_("Custom built for your %s"),$parent->nomenclature_inst);       
         $this->templates[FRONTPAGE_BIGDOWNLOADBUTTON] = sprintf(_("Click here to download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[PROFILE_SELECTION] = _("Select the user group");
         $this->templates[INSTITUTION_SELECTION] = _("select another");
@@ -84,5 +83,9 @@ class TextTemplates {
         $this->templates[DOWNLOAD_MESSAGE] = sprintf(_("Download your %s installer"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
         $this->templates[DOWNLOAD_REDIRECT] = _("Your local administrator has specified a redirect to a local support page.<br>When you click <b>Continue</b> this support page will be opened in a new window/tab.");
         $this->templates[DOWNLOAD_REDIRECT_CONTINUE] = _("Continue");
+        $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
+        if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
+            $this->templates[FRONTPAGE_ROLLER_SIGNEDBY] = sprintf(_("Digitally signed by the organisation that coordinates %s: %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name']);
+        }
     }
 }
