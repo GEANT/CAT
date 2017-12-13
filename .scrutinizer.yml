@@ -163,5 +163,5 @@ tools:
 
 filter:
     excluded_paths: [web/external/*, config/config-template.php, devices/devices-template.php]
-    dependency_paths: [core/PHPMailer/, core/phpqrcode.php]
+    dependency_paths: [core/PHPMailer/, core/phpqrcode.php, core/GeoIP2/]
 
