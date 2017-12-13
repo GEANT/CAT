@@ -253,7 +253,9 @@ abstract class Device_XML extends \core\DeviceConfig {
         return $helpdesk;
     }
 
-    private function getCompatibleUses() {
+/* This function is not currently used.
+ * 
+ *     private function getCompatibleUses() {
         $ssids = $this->attributes['internal:SSID'];
         $compatibleuses = new CompatibleUses();
         $ieee80211s = [];
@@ -267,6 +269,7 @@ abstract class Device_XML extends \core\DeviceConfig {
         return($compatibleuses);
     }
 
+*/
     private function getAuthenticationMethodParams($eap) {
         $inner = \core\common\EAP::innerAuth($eap);
         $outerMethod = $eap["OUTER"];
