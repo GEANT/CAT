@@ -10,3 +10,6 @@
 [submodule "core/PHPUnit"]
 	path = core/PHPUnit
 	url = https://github.com/sebastianbergmann/phpunit.git
+[submodule "core/simpleSAMLphp"]
+	path = core/simpleSAMLphp
+	url = https://github.com/simplesamlphp/simplesamlphp.git
