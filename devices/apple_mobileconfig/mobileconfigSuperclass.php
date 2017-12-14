@@ -333,6 +333,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
         $encryptionTypeString = "WPA";
         $setupModesString = "";
+        $wifiNetworkIdentification = "<key>SSID_STR</key>
+                  <string>$escapedSSID</string>";
 
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
@@ -344,6 +346,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   <array>
                      <string>System</string>
                   </array>";
+            $wifiNetworkIdentification = "";
         }
 
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
@@ -351,6 +354,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $payloadShortName = _("Hotspot 2.0 Settings");
             $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             $encryptionTypeString = "WPA";
+            $wifiNetworkIdentification = $this->passPointBlock($consortiumOi);
         }
 
         $retval = "<dict>";
@@ -389,18 +393,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                <key>PayloadUUID</key>
                   <string>" . $this->uuid() . "</string>
                <key>PayloadVersion</key>
-                  <integer>1</integer>";
-        if (!$wired) {
-            switch (count($consortiumOi)) {
-                case 0:
-                    $retval .= "<key>SSID_STR</key>
-                  <string>$escapedSSID</string>";
-                    break;
-                default:
-                    $retval .= $this->passPointBlock($consortiumOi);
-            }
-        }
-        $retval .= "</dict>";
+                  <integer>1</integer>
+                  $wifiNetworkIdentification</dict>";
         $this->serial = $this->serial + 1;
         return $retval;
     }
