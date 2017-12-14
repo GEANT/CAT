@@ -332,12 +332,18 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
         $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
         $encryptionTypeString = "WPA";
+        $setupModesString = "";
 
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
             $payloadShortName = _("Wired Network");
             $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             $encryptionTypeString = "any";
+            $setupModesString = "
+               <key>SetupModes</key>
+                  <array>
+                     <string>System</string>
+                  </array>";
         }
 
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
@@ -369,15 +375,10 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   <string>Auto</string>
                   <key>ProxyPACFallbackAllowed</key>
                   <true/>
+                  $setupModesString
                 ";
         }
-        if ($wired) {
-            $retval .= "
-               <key>SetupModes</key>
-                  <array>
-                     <string>System</string>
-                  </array>";
-        }
+        
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             if ($clientCertUUID === NULL) {
                 throw new Exception("Silverbullet REQUIRES a client certificate and we need to know the UUID!");
