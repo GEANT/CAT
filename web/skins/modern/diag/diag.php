@@ -193,7 +193,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
         return false;
     }
-    function testSociopath(realm, susp, answer) {
+    function testSociopath(realm, answer) {
         var comment = <?php echo '"' . _("Testing realm") . '..."'; ?>; 
         inProgress(1, comment);
         if ($('#tested_realm').length == 0) {
@@ -206,7 +206,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         console.log('realm - '+realm);
         $.ajax({
             url: "processSociopath.php",
-            data: {workingwith:susp, answer: answer},
+            data: {answer: answer},
             dataType: "json",
             success:function(data) {
                 $('#start_test_area').hide();
@@ -347,7 +347,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         return false;
    });
    $(document).on('change', '#idp_country, #sp_country' , function() {
-        var comment = <?php echo '"' . _("Fetching institutions list").'..."'; ?>;  
+        var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
         var type = id.substr(0,k);
@@ -534,8 +534,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         if ($(this).attr('id') == 'answer_yes') {
             answer = 2; /* Yes */
         }
-        var o = new Object();
-        testSociopath(o, answer);
+        testSociopath('', answer);
   });
   $('#realmtest').click(function(event){
         inProgress(1);
@@ -566,7 +565,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         var realm =  data.realm;
                         console.log('realm '+realm);
                         console.log(data.suspects);
-                        testSociopath(realm, data.suspects['SUSPECTS'], 0);
+                        testSociopath(realm, -1);
                     } else {
                         var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
                         result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem appears") . '"'; ?>;

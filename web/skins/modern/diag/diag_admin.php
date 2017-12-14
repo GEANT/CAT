@@ -141,7 +141,7 @@ echo _("IdP contacting SP due to technical problems");
                     result = result + '<table>';
                     result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"'; ?> + '</td><td>' + data.spcontact + '</td></tr>';
                     result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"'; ?> + '</td><td>' + data.idpcontact + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp"). '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
                     result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
                     result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.description + '</td></tr>';
                     result = result + '</div>';
