@@ -17,9 +17,8 @@ $workingwith = filter_input(INPUT_GET, 'workingwith', FILTER_DEFAULT, FILTER_REQ
 $answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_STRING);
 $loggerInstance->debug(4, $workingwith);
 $loggerInstance->debug(4, "answer $answer\n");
+$sociopath = new \core\diag\Sociopath();
 if (!$workingwith) {
-    $sociopath = $_SESSION['sociopath'];
-    $loggerInstance->debug(4, $sociopath);
     $QJSON = $_SESSION['QJSON'];
     $QPHP = json_decode($QJSON, TRUE);
     $yes = FALSE;
@@ -28,9 +27,8 @@ if (!$workingwith) {
     }
     $sociopath->revaluate($QPHP["NUMBER"], $yes);
 } else {
-    $sociopath = new \core\diag\Sociopath($workingwith);
+    error_log('MGW workingwith '.serialize($workingwith));
 }
-$_SESSION['sociopath'] = $sociopath;
 $QJSON = $sociopath->questionOracle();
 $_SESSION['QJSON'] = $QJSON;
 $loggerInstance->debug(4, json_decode($QJSON));

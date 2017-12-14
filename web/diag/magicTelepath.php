@@ -10,8 +10,10 @@
  */
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 $realm = filter_input(INPUT_GET, 'realm', FILTER_SANITIZE_STRING);
-$visited = filter_input(INPUT_GET, 'visited', FILTER_SANITIZE_STRING);
-
+$visited = filter_input(INPUT_GET,'visited', FILTER_SANITIZE_STRING);
+if (session_status != PHP_SESSION_ACTIVE) {
+    session_start();
+}
 $telepath = new \core\diag\Telepath($realm, $visited);
 $telepathArray = $telepath->magic();
 

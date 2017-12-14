@@ -161,7 +161,6 @@ class RADIUSTests extends AbstractTest {
 // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
 // so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
-        $sANlist = [];
         $sANdns = [];
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
@@ -927,10 +926,7 @@ network={
                 }
                 if (isset($certdata['extensions'])) {
                     foreach ($certdata['extensions'] as $k => $v) {
-<<<<<<< HEAD
-=======
                         //error_log('extension '.$k.' '.$certdata['extensions'][$k]);
->>>>>>> d0ff55e916bc398b201ef1f455c391cd4e2f9ca9
                         $certdata['extensions'][$k] = iconv('UTF-8', 'UTF-8//IGNORE', $certdata['extensions'][$k]);
                     }
                 }
