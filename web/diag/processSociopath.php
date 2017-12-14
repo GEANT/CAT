@@ -28,21 +28,17 @@ if (!$workingwith) {
     }
     $sociopath->revaluate($QPHP["NUMBER"], $yes);
 } else {
-    error_log('MGW workingwith '.serialize($workingwith));
     $sociopath = new \core\diag\Sociopath($workingwith);
 }
 $_SESSION['sociopath'] = $sociopath;
 $QJSON = $sociopath->questionOracle();
 $_SESSION['QJSON'] = $QJSON;
 $loggerInstance->debug(4, json_decode($QJSON));
-//$returnArray = array();
 $loggerInstance->debug(4, $workingwith);
 $loggerInstance->debug(4, $sociopath->getCurrentGuessState());
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
-    error_log('QJSON '.serialize($QJSON));
     echo $QJSON;
 } else {
-    error_log('Verdict '.serialize($sociopath->getCurrentGuessState()));
     echo $sociopath->getCurrentGuessState();
 }

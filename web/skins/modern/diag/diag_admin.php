@@ -4,9 +4,9 @@ $sp_problem = array(
     'abuse-copyright' => _("A user from this IdP has allegedly infringed copyrights"),
     'abuse-network' => _("A user from this IdP has conducted malicious network operations (spam, DDoS, ...)")
 );
-echo '<h3>'._("Which problem are you reporting?").'</h3>';
+echo '<h3>' . _("Which problem are you reporting?") . '</h3>';
 echo '<input type="radio" name="problem_type" value="1">';
-echo _("SP contacting IdP due to technical problems or abuse").'<br>';
+echo _("SP contacting IdP due to technical problems or abuse") . '<br>';
 echo '<input type="radio" name="problem_type" value="2">';
 echo _("IdP contacting SP due to technical problems");
 ?>
@@ -79,7 +79,7 @@ echo _("IdP contacting SP due to technical problems");
                 });
             });
         });
-        var comment = <?php echo '"'._("Running realm tests").'..."';?>;
+        var comment = <?php echo '"' . _("Running realm tests") . '..."';?>;
         inProgress(1, comment);
         $.ajax({
             url: "findRealm.php",
@@ -110,8 +110,8 @@ echo _("IdP contacting SP due to technical problems");
                                 $(this).removeClass('visible_row').addClass('hidden_row');
                             }
                     });
-                    $('#sp_questions > tbody').append('<tr class="error_row"><td>'+"Realm is not registered with the eduroam database:"+
-                        '</td><td>'+realm+'</td></tr>');
+                    $('#sp_questions > tbody').append('<tr class="error_row"><td>' + "Realm is not registered with the eduroam database:" +
+                        '</td><td>' + realm + '</td></tr>');
                     $('#admin_realm').val('');
                 }
             },
@@ -135,15 +135,15 @@ echo _("IdP contacting SP due to technical problems");
             success:function(data) {
                 if (data.status === 1) {
                     var result = '';
-                    var title = <?php echo '"'._("eduroam admin report submission").'"';?>;
+                    var title = <?php echo '"' . _("eduroam admin report submission") . '"';?>;
                     result = '<div class="padding">';
-                    result = result + '<h3>'+ <?php echo '"'._("SP contacting IdP due to technical problems or abuse").'"'; ?> + '</h3>';
+                    result = result + '<h3>'+ <?php echo '"' . _("SP contacting IdP due to technical problems or abuse") . '"'; ?> + '</h3>';
                     result = result + '<table>';
-                    result = result + '<tr><td>'+<?php echo '"'._("SP email").'"';?> +'</td><td>'+data.spcontact+'</td></tr>';
-                    result = result + '<tr><td>'+<?php echo '"'._("IdP email(s)").'"';?> +'</td><td>'+data.idpcontact+'</td></tr>';
-                    result = result + '<tr><td>'+<?php echo '"'._("Event's timestamp").'"';?> +'</td><td>'+data.timestamp+'</td></tr>';
-                    result = result + '<tr><td>'+<?php echo '"'._("Suspected MAC address").'"';?> +'</td><td>'+data.mac+'</td></tr>';
-                    result = result + '<tr><td>'+<?php echo '"'._("Additional description").'"';?> +'</td><td>'+data.description+'</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"';?> +'</td><td>' + data.spcontact + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"';?> +'</td><td>' + data.idpcontact + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"'._("Event's timestamp").'"';?> +'</td><td>' + data.timestamp + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"'._("Suspected MAC address").'"';?> + '</td><td>' + data.mac + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"'._("Additional description").'"';?> +'</td><td>' + data.description + '</td></tr>';
                     result = result + '</div>';
                     showInfo(result, title);
                 }
@@ -159,7 +159,7 @@ echo _("IdP contacting SP due to technical problems");
          if ($('#mac').val().length > 0) {
             if ($('#mac').val().length != 17) {
                 $('#mac').addClass('error_input');
-                $('#mac').attr('title', <?php echo '"'._("MAC address is incomplete").'"';?>);
+                $('#mac').attr('title', <?php echo '"' . _("MAC address is incomplete") . '"';?>);
             } else {
                 $('#mac').removeClass('error_input'); 
                 $('#mac').attr('title', '');
@@ -168,7 +168,7 @@ echo _("IdP contacting SP due to technical problems");
          if ($(this).attr('id') == 'email' &&  $(this).val().length > 0) {
             if (!isEmail($(this).val())) {
                 $('#email').addClass('error_input');
-                $('#email').attr('title', <?php echo '"'._("Wrong format of email").'"';?>);
+                $('#email').attr('title', <?php echo '"' . _("Wrong format of email") . '"';?>);
             } else {
                 $('#email').removeClass('error_input');
                 $('#email').attr('title', '');
@@ -246,7 +246,7 @@ echo _("IdP contacting SP due to technical problems");
         </tr>
         <tr class='hidden_row' id='send_query_to_idp'>
             <td><?php echo _("Now you can send your query"); ?></td>
-            <td><button type='submit' id='submit_idp_query' name='go'>Send</button></td>
+            <td><button type='submit' id='submit_idp_query' name='go'><?php echo _("Send"); ?></button></td>
         </tr>
         </table>
 </div>

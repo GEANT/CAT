@@ -58,52 +58,38 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php  echo $divs->div_pagetitle(_("Diagnostics site"), _("We will do our best to resolve your problems!<br>Help us and answer precisely to our questions."));?>
+            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("We will do our best to resolve your problems!<br>Help us and answer precisely to our questions."));?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
-                <?php 
-             echo _("Are you reporting the problem as"); ?>
-             <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("an end-user"); 
-             echo ' '._("or"); ?>   
-             <input type='radio' name='diagnostic_usertype' value='1'><?php echo _("an eduroam administrator"); ?>
-             
+                <?php echo _("Are you reporting the problem as"); ?>
+                <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("an end-user") . ' ' . _("or"); ?>   
+                <input type='radio' name='diagnostic_usertype' value='1'><?php echo _("an eduroam administrator"); ?>
             </div>
             <div id='diagnostic_enduser' style='display:none;'>
-                <h2><?php echo '<h2>'._("Tools for End Users"); ?></h2>
+                <h2><?php echo '<h2>' . _("Tools for End Users"); ?></h2>
                 <p>
                 <?php 
-                echo _("To resolve your problem a real-time diagnostics for your realm must be performed.");
+                    echo _("To resolve your problem a real-time diagnostics for your realm must be performed.");
                 ?>
                 </p>
                 <?php
-                echo '<h3>'._("We need some information on your home institiution - issuer of your account").'</h3>';
-                echo _("State your realm:");
+                    echo '<h3>' . _("We need some information on your home institiution - issuer of your account") . '</h3>';
+                    echo _("State your realm:");
                 ?>
                 <input type='text' name='user_realm' id='user_realm' value=''>
-                <!--<button id='realm_in_db' accesskey="C" type='button'>
-                    <?php echo _("Check if this value is registered"); ?>
-                </button>       
-                <span id="realm_info_ok" style="display:none">
-                    <?php 
-                    echo '<b>'._("Realm found").'</b>. ';
-                    echo _("Press Go! to start realm tests.")
-                    ?>
-                </span>
-                <span id="realm_info_fail" style="display:none"><?php echo _("Realm not found! We can help you but you have to select your institution."); ?></span>
-                -->
                 <?php
-                echo '<br/>'._("or").'<br/>';
-                echo _("we will try to guess your realm:").'<br/>';
-                echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
-                echo '<span id="realmselect">'._("click to select your country and organisation").'</a></span></div>';
+                    echo '<br/>' . _("or") . '<br/>';
+                    echo _("we will try to guess your realm:") . '<br/>';
+                    echo '<div id="select_idp_country"><a href="" id="idp_countries_list">';    
+                    echo '<span id="realmselect">' . _("click to select your country and organisation") . '</a></span></div>';
                 ?>
                 <div id="select_idp_area" style="display:none;">
                 </div>
                 <div>
                     <?php
-                    echo '<h3>'._("Optionally, to improve tests, you can provide information on your current location").'</h3>';
-                    echo '<div id="select_sp_country"><a href="" id="sp_countries_list">';    
-                    echo '<span id="spselect">'._("click to select a location in which you have an eduroam problem").'</a></span></div>';
+                        echo '<h3>' . _("Optionally, to improve tests, you can provide information on your current location") . '</h3>';
+                        echo '<div id="select_sp_country"><a href="" id="sp_countries_list">';    
+                        echo '<span id="spselect">' . _("click to select a location in which you have an eduroam problem") . '</a></span></div>';
                     ?>
                     <div id="select_sp_area" style="display:none;">
                     </div>
@@ -118,8 +104,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     <button id='realmtest' accesskey="T" type='button'><?php echo _("Go!"); ?>
                     </button>
                 </div>
-
-                
             </div>
             <div id='diagnostic_admin' style='display:none;'>
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
@@ -132,9 +116,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         echo "<div id='admin_test_area'></div>"; 
                     } else {
                         echo "0\">";
-                        echo _("This service is for authenticated admins only.".'<br>');
-                        echo "<a href=\"javascript:infoCAT('manage', 'admin','administrator eduroam®')\">".
-                             _("eduroam® admin access is needed")."</a>";
+                        echo _("This service is for authenticated admins only.") . '<br>';
+                        echo "<a href=\"javascript:infoCAT('manage', 'admin','administrator eduroam®')\">" .
+                             _("eduroam® admin access is needed") . "</a>";
                     }
                 ?>
             </div> 
@@ -153,7 +137,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         $('#select_'+type+'_country').hide();
         var shtml = '<table><tbody><tr id="row_'+type+'_country"></tr>';
         shtml = shtml + '<tr id="row_'+type+'_institution" style="visibility: collapse;">';
-        shtml = shtml + '<td>' + <?php echo '"'._("Select institiution").'"'; ?> + '</td><td></td></tr>';
+        shtml = shtml + '<td>' + <?php echo '"' . _("Select institiution") . '"'; ?> + '</td><td></td></tr>';
         if (type === 'idp') {
             shtml = shtml + '<tr id="row_idp_realm"></tr>';
         }
@@ -171,13 +155,13 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             type2 = 'sp';
         }
         var options = '';
-        var select = <?php echo '"<td>'._("Select country:").' </td>"';?>;
+        var select = <?php echo '"<td>' . _("Select country:") . ' </td>"';?>;
         select = select + '<td><select id="' + type1 + '_country" name="' + type1 + '_country" style="width:400px;">';
         if ($("#"+type2+"_country").is('select')) {
             options = ($('#'+type2+'_country').html());
             countryAddSelect(select, options, type1);
         } else {
-            var comment = <?php echo '"'._("Fetching countries list").'..."';?>;
+            var comment = <?php echo '"' . _("Fetching countries list") . '..."';?>;
             inProgress(1, comment);
             $.ajax({
                 url: "findRealm.php",
@@ -189,7 +173,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         options = '<option value=""></option>';
                         var countries = data.countries;
                         for (var key in countries) {
-                            options  = options + '<option value="'+key+'">'+countries[key]+'</option>';
+                            options  = options + '<option value="'+key+'">' + countries[key] + '</option>';
                         }
                         countryAddSelect(select, options, type1);
                     }
@@ -236,8 +220,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 query = '<input type="hidden" id="tested_realm" value="' + realm + '">';
                             }    
                             query = query + '<div id="current_query">'+data['TEXT']+'</div>';
-                            query = query + '<div><button id="answer_yes">' + <?php echo '"'._("Yes").'"'; ?>;
-                            query = query + '<button style="margin-left:20px;" id="answer_no">' + <?php echo '"'._("No").'"'; ?> + '</div>';
+                            query = query + '<div><button id="answer_yes">' + <?php echo '"' . _("Yes") . '"'; ?>;
+                            query = query + '<button style="margin-left:20px;" id="answer_no">' + <?php echo '"' . _("No") . '"'; ?> + '</div>';
                             $('#sociopath_queries').html(query);
                             $('#sociopath_query_area').show();
                         }
@@ -262,63 +246,63 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
        }); 
     }
     function finalVerdict(realm, verdict) {
-        var title = <?php echo '"'._("Diagnistic tests results for selected realm").'"';?>;
+        var title = <?php echo '"' . _("Diagnistic tests results for selected realm") . '"';?>;
         result = '<div class="padding">';
         result = result + '<div><h3>';
-        result = result + <?php echo '"'._("The result for tested realm:").' "';?> + realm;
+        result = result + <?php echo '"' . _("The result for tested realm:") . ' "';?> + realm;
         result = result + '</h3></p><div style="padding: 5px;"><div style="padding: 0px;">';
-        result = result + <?php echo '"'._("We located").'" ';?>  + ' ';
+        result = result + <?php echo '"' . _("We located") . '" ';?>  + ' ';
         result = result + Object.keys(verdict).length + ' ';
-        result = result + <?php echo '"'._("suspected areas which potentially can cause a problem.").'"';?> + '<br>';
-        result = result + <?php echo '"'._("Next to the problem description we show a speculated probability of this event.").'"';?>;
+        result = result + <?php echo '"' . _("suspected areas which potentially can cause a problem.") . '"';?> + '<br>';
+        result = result + <?php echo '"' . _("Next to the problem description we show a speculated probability of this event.") . '"';?>;
         result = result + '</div><div style="padding: 5px;"><table>';
         k = 1;
         for (key in verdict) {
             result = result + '<tr><td>' + k + '.</td>';
             k = k + 1;
             if (key === 'INFRA_DEVICE') {
-                result = result + '<td>' + <?php echo '"'._("Your device configuration is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("Your device configuration is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_SP_80211') {
-                result = result + '<td>' + <?php echo '"'._("WIFI network around you sucks").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("WIFI network around you sucks") . '"';?> + '</td>';
             }
             if (key === 'INFRA_SP_LAN') {
-                result = result + '<td>' + <?php echo '"'._("The network environment around you is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The network environment around you is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_SP_RADIUS') {
-                result = result + '<td>' + <?php echo '"'._("RADIUS server of your service provider has a problem").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your service provider has a problem") . '"';?> + '</td>';
             }
             if (key === 'INFRA_IDP_AUTHBACKEND') {
-                result = result + '<td>' + <?php echo '"'._("RADIUS server in your home institution has a problem to authenticate users").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server in your home institution has a problem to authenticate users") .'"';?> + '</td>';
             }
             if (key === 'INFRA_NRO_SP') {
-                result = result + '<td>' + <?php echo '"'._("The link between your current location and your federation server is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your current location and your federation server is broken") .'"';?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"'._("The link between your current location, your federation server and top level server is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your current location, your federation server and top level server is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"'._("The link between your home institution, your federation server and top level server is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your home institution, your federation server and top level server is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_ETLR') {
-                result = result + '<td>' + <?php echo '"'._("The communication to top level server is down").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The communication to top level server is down") . '"';?> + '</td>';
             }
             if (key === 'INFRA_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"'._("The link between top level server and your federation server is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your federation server is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"'._("The link between top level server and your service provider is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your service provider is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"'._("The link between your federation server and your institution server is broken").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your federation server and your institution server is broken") . '"';?> + '</td>';
             }
             if (key === 'INFRA_IdP_RADIUS') {
-                result = result + '<td>' + <?php echo '"'._("RADIUS server of your home institution has a problem").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your home institution has a problem").'"';?> + '</td>';
             }
             if (key === 'INFRA_NONEXISTENTREALM') {
-                result = result + '<td>' + <?php echo '"'._("Entered realm doesn't exist").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("Entered realm doesn't exist") . '"';?> + '</td>';
             }
-            result = result + '<td style="padding-left: 5px;">' + (verdict[key]*100).toFixed(2) + "%</td></tr>";
+            result = result + '<td style="padding-left: 5px;">' + (verdict[key] * 100).toFixed(2) + "%</td></tr>";
         }
         result = result + '</table></div></div>';
         result = result + '</div>';
@@ -331,7 +315,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             $('#diagnostic_enduser').hide();
             $('#diagnostic_admin').show();
             if ($('#isadmin').val() === "1" && $('#admin_test_area').html().length === 0) {
-                $('#admin_test_area').load('/mgw/diag/diag_admin.php');
+                $('#admin_test_area').load('/diag/diag_admin.php');
             }    
         } else {
             $('#diagnostic_admin').hide();
@@ -363,7 +347,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         return false;
    });
    $(document).on('change', '#idp_country, #sp_country' , function() {
-        var comment = <?php echo '"'._("Fetching institutions list").'..."';?>;  
+        var comment = <?php echo '"' . _("Fetching institutions list").'..."';?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
         var type = id.substr(0,k);
@@ -378,16 +362,16 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     if (data.status === 1) {
                         inProgress(0);
                         var institutions = data.institutions;
-                        var select = <?php echo '"<td>'._("Select institution:").' </td>"';?>;
-                        select = select + '<td><select id="'+type+'_inst" name="'+type+'_inst" style="width:400px;"><option value=""></option>';
+                        var select = <?php echo '"<td>' . _("Select institution:") . '</td>"';?>;
+                        select = select + '<td><select id="' + type + '_inst" name="' + type + '_inst" style="width:400px;"><option value=""></option>';
                         for (var i in institutions) {
-                            select = select + '<option value="'+institutions[i].ID+'">'+institutions[i].name+'</option>';
+                            select = select + '<option value="' + institutions[i].ID + '">' + institutions[i].name + '</option>';
                         }
                         select = select + '</select></td>';
-                        $('#row_'+type+'_institution').html('');
-                        $('#row_'+type+'_institution').append(select);
-                        $('#row_'+type+'_realm').html('');
-                        $('#row_'+type+'_institution').css('visibility', 'visible');
+                        $('#row_' + type + '_institution').html('');
+                        $('#row_' +type + '_institution').append(select);
+                        $('#row_' +type + '_realm').html('');
+                        $('#row_' +type + '_institution').css('visibility', 'visible');
                     }
                 },
                 error:function() {
@@ -396,8 +380,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 }
             }); 
         } else {
-            $('#'+type+'_inst').remove();
-            $('#row_'+type+'_institution').css('visibility', 'collapse');
+            $('#' + type + '_inst').remove();
+            $('#row_' + type + '_institution').css('visibility', 'collapse');
             $('#start_test_area').hide();
             $('#row_idp_realm').html("");
         }
@@ -410,7 +394,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             $('#start_test_area').hide();
             return false;
         }
-        var comment = <?php echo '"'._("Fetching realms list").'..."';?>;
+        var comment = <?php echo '"' . _("Fetching realms list") . '..."';?>;
         inProgress(1, comment);
         $.ajax({
             url: "findRealm.php",
@@ -422,12 +406,12 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     var realms = data.realms;
                     var realmselect = '';
                     if (realms.length > 1) {
-                        realmselect = <?php echo '"<td>'._("Check realm(s):").'</td>"';?>;
+                        realmselect = <?php echo '"<td>' . _("Check realm(s):") . '</td>"';?>;
                         realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
                         for (var i in realms) {
                             console.log("i = "+i);
                             realmselect = realmselect + '<input type="radio" name="realm" ';
-                            realmselect = realmselect + 'value="'+ realms[i] + '"';
+                            realmselect = realmselect + 'value="' + realms[i] + '"';
                             if (i === "0") {
                                 realmselect = realmselect + ' checked';
                             }
@@ -435,7 +419,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         }
                         realmselect = realmselect + '</span></td>';
                     } else {
-                        realmselect = <?php echo '"<td>'._("Realm:").'</td>"';?>;
+                        realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"';?>;
                         realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
                         realmselect = realmselect + realms[0] + '</span>';
                         realmselect = realmselect + '<input type="hidden" name="realm[]" value="' + realms[0] + '">';
@@ -489,7 +473,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             });
             t = 1;
         }
-        var comment = <?php echo '"'._("Running realm tests").'..."';?>;
+        var comment = <?php echo '"' . _("Running realm tests") . '..."';?>;
         inProgress(1, comment);
         $.ajax({
             url: "findRealm.php",
@@ -518,25 +502,22 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 $(this).removeClass('hidden_row').addClass('visible_row');
                             }
                         });
-                        $('#idp_contact_area').append('<input type="hidden" name="idp_contact" id="idp_contact" value="'+data.admins+'">');
+                        $('#idp_contact_area').append('<input type="hidden" name="idp_contact" id="idp_contact" value="' + data.admins + '">');
                     }
                 } else {
                     if (t == 0) {
                         $('#realm_info_ok').hide();
                         $('#start_test_area').hide();
                         $('#realm_info_fail').show();
-                    } else {
-                        /* closest('tr') 
-                         * $('#myTable > tbody:first').append('<tr>...</tr><tr>...</tr>');
-                         * */
-                            
+                    } else {   
                         $('#sp_questions > tbody  > tr').each(function() {
                             if ($(this).attr('class') == 'visible_row') {
                                 $(this).removeClass('visible_row').addClass('hidden_row');
                             }
                         });
-                        $('#sp_questions > tbody').append('<tr class="error_row"><td>'+"Realm is not registered with the eduroam database:"+
-                                '</td><td>'+realm+'</td></tr>');
+                        $('#sp_questions > tbody').append('<tr class="error_row"><td>' +
+                                <?php echo '"' . _("Realm is not registered with the eduroam database:") . '"'; ?> +
+                                '</td><td>' + realm + '</td></tr>');
                         $('#admin_realm').val('');
                     }    
                 }
@@ -587,13 +568,13 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         console.log(data.suspects);
                         testSociopath(realm, data.suspects['SUSPECTS'], 0);
                     } else {
-                        var title = <?php echo '"'._("Diagnistic tests results for selected realms").'"'; ?>;
-                        result = '<div class="padding"><h3>' + <?php echo '"'._("An unknown problem appears").'"';?>;
+                        var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
+                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem appears") . '"';?>;
                         result = result + '</h3>'
                         if (r.length == 1) {
-                            result = result + <?php echo '"'._("This test includes checking of following realm").'"';?>;
+                            result = result + <?php echo '"' . _("This test includes checking of following realm") . '"';?>;
                         } else {    
-                            result = result + <?php echo '"'._("This test includes checking of following realms").'"';?>;
+                            result = result + <?php echo '"' . _("This test includes checking of following realms") . '"';?>;
                         }
                         result = result + ': '
                         for (var i=0; i < r.length; i++) {
@@ -603,7 +584,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                             result = result + r[i];
                         }
                         result = result + '.<br>';
-                        result = result + <?php echo '"'._("You should report this to").'"';?> + ' <a href="mailto:admin@eduroam.pl">admin@eduroam.pl</a>';
+                        result = result + <?php echo '"' . _("You should report this to") . '"';?> + ' <a href="mailto:admin@eduroam.pl">admin@eduroam.pl</a>';
                         result = result + '</div>';
                         showInfo(result, title);
                     }
