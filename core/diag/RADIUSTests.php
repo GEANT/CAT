@@ -926,10 +926,7 @@ network={
                 }
                 if (isset($certdata['extensions'])) {
                     foreach ($certdata['extensions'] as $k => $v) {
-<<<<<<< HEAD
-=======
                         //error_log('extension '.$k.' '.$certdata['extensions'][$k]);
->>>>>>> d0ff55e916bc398b201ef1f455c391cd4e2f9ca9
                         $certdata['extensions'][$k] = iconv('UTF-8', 'UTF-8//IGNORE', $certdata['extensions'][$k]);
                     }
                 }

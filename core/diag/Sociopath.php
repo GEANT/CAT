@@ -26,8 +26,6 @@ class Sociopath extends AbstractTest {
     private $genericVerdictTexts;
 
     /**
-     * 
-     * @param array $alreadyAsked questions which were already asked before (index), and the factor modifiers of the response (value)
      *
      */
     public function __construct() {

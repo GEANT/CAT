@@ -33,7 +33,13 @@ class Logopath extends AbstractTest {
     
     // we start all our mails with a common prefix, internationalised
     private $subjectPrefix;
+    // and we end with a greeting/disclaimer
+    private $finalGreeting;
     
+    /**
+     * 
+     * @param string $userEmail
+     */
     public function __construct($userEmail = FALSE) {
         parent::__construct();
         $validator = new \web\lib\common\InputValidation();
