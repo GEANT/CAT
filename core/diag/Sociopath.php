@@ -16,6 +16,8 @@ use \Exception;
 require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 
 /**
+ * This class talks to end users, asking them annoying questions to get to the
+ * ground of where exactly the problem lies.
  */
 class Sociopath extends AbstractTest {
 
@@ -25,12 +27,12 @@ class Sociopath extends AbstractTest {
 
     /**
      * 
-     * @param array $previousGuess list of suspect elements and their current occurence factor (entries of sorts [ INFRA_DEVICE => 0.6, ... ]
      * @param array $alreadyAsked questions which were already asked before (index), and the factor modifiers of the response (value)
      *
      */
-    public function __construct($previousGuess, $alreadyAsked = []) {
+    public function __construct() {
         parent::__construct();
+        $this->previousQuestions = $_SESSION['EVIDENCE']['QUESTIONSASKED'] ?? [];
         $noCanDo = _("There is nothing you can do to solve this problem yourself.");
         $noChange = _("Please be patient and try again at a later time. Do NOT change your device configuration.");
         $infraInformed = _("The infrastructure operators have automatically been informed and will investigate the issue as soon as possible.");
@@ -84,9 +86,6 @@ class Sociopath extends AbstractTest {
                   "FACTOR" => 3,
                   "VERDICTLECTURE" => _("The evidence at hand suggests that there may be an infrastructure problem at this particular hotspot provider. There is nothing you can do to solve this problem locally. Please be patient and try again at a later time.")],
         ];
-        // stow away the current state of guesswork
-        $this->previousQuestions = $alreadyAsked;
-        $this->possibleFailureReasons = $previousGuess;        
     }
 
     /**
@@ -98,16 +97,21 @@ class Sociopath extends AbstractTest {
         $questionDetails = $this->qaArray[$questionNumber];
         if ($answer === TRUE) {
             $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR"];
-            $this->previousQuestions[$questionNumber] = $questionDetails["FACTOR"];
+            $this->loggerInstance->debug(3,"Adjusting ".$questionDetails['AREA']." by ".$questionDetails["FACTOR"]."\n");
+            $factor = $questionDetails["FACTOR"];
         } elseif ($answer === FALSE) {
             $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] / $questionDetails["FACTOR"];
-            $this->previousQuestions[$questionNumber] = 1/$questionDetails["FACTOR"];
+            $this->loggerInstance->debug(3,"Adjusting ".$questionDetails['AREA']." by 1/".$questionDetails["FACTOR"]."\n");
+            $factor = 1/$questionDetails["FACTOR"];
         } else {
-            $this->previousQuestions[$questionNumber] = 1;
+            $factor = 1;
         }
+        $this->previousQuestions[$questionNumber] = $factor;
         $this->normaliseResultSet();
-        
-        
+        $this->additionalFindings["QUESTIONSASKED"] = $this->previousQuestions;
+        $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
+        $_SESSION["EVIDENCE"] = $this->additionalFindings;
+        debug(3,$_SESSION['SUSPECTS']);
     }
     
     public function questionOracle() {
@@ -130,7 +134,7 @@ class Sociopath extends AbstractTest {
     }
     
     public function getCurrentGuessState() {
-        return json_encode([ "SUSPECTS" => $this->possibleFailureReasons, "PREVIOUSQUESTIONS" => $this->previousQuestions ]);
+        return json_encode([ "SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings ]);
     }
     
     public function verdictText($area) {
