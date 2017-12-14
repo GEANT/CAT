@@ -10,7 +10,7 @@ The CAT generates installers for numerous operating systems. Consequently, many 
 * PHP 7.0.0 or higher; on Ubuntu also the "php7.0-intl" package
 * Required PHP extensions: "gettext", "openssl", "PECL:IMagick", "GD" and "MySQL"
 * Optional PHP extensions: "GeoIP" (deprecated v1 GeoIP API)
-* simpleSAMLphp
+* simpleSAMLphp version 1.15.0 or higher
 * NSIS 3.00 or higher - either as a native Linux binary or on Wine
 * zip
 * wpa_supplicant (eapol_test utility)
