@@ -16,11 +16,11 @@
  *
  * @package Developer
  */
-function check_my_nonce($nonce, $optSalt='') {
+function check_my_nonce($nonce, $optSalt = '') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-    $lasthour = date("G")-1<0 ? date('Ymd').'23' : date("YmdG")-1;
-    if (hash_hmac('sha256', session_id().$optSalt, date("YmdG").'1qaz2wsx3edc!QAZ@WSX#EDC'.$remote) == $nonce || 
-        hash_hmac('sha256', session_id().$optSalt, $lasthour.'1qaz2wsx3edc!QAZ@WSX#EDC'.$remote) == $nonce) {
+    $lasthour = date("G") - 1 < 0 ? date('Ymd') . '23' : date("YmdG") - 1;
+    if (hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote) == $nonce || 
+        hash_hmac('sha256', session_id() . $optSalt, $lasthour . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote) == $nonce) {
         return true;
     } else {
         return false;
