@@ -300,12 +300,8 @@ class UIElements {
             }
         }
 
-
         $blob = \core\EntityWithDBProperties::fetchRawDataByIndex($reference["table"], $reference["rowindex"]);
-        if (!$blob) {
-            return FALSE;
-        }
-        return $blob;
+        return $blob; // this means we might return FALSE here if something was wrong with the original requested reference
     }
 
     /**
