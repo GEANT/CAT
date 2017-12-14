@@ -180,28 +180,22 @@ class RADIUSTests extends AbstractTest {
             }
         }
 
-        $commonName = [];
-        if (isset($servercert['full_details']['subject']['CN'])) {
-            if (is_array($servercert['full_details']['subject']['CN'])) {
-                $commonName = $servercert['full_details']['subject']['CN'];
-            } else {
-                $commonName = [$servercert['full_details']['subject']['CN']];
-            }
+        // often, there is only one name, so we store it in an array of one member
+        $commonName = [$servercert['full_details']['subject']['CN']];
+        // if we got an array of names instead, then that is already an array, so override
+        if (isset($servercert['full_details']['subject']['CN']) && is_array($servercert['full_details']['subject']['CN'])) {
+            $commonName = $servercert['full_details']['subject']['CN'];
+            $returnarray[] = RADIUSTests::CERTPROB_MULTIPLE_CN;
         }
 
         $allnames = array_unique(array_merge($commonName, $sANdns));
 // check for wildcards
-        if (preg_match("/\*/", implode($allnames))) {
-            $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
-        }
-
-// is there more than one CN? None or one is okay, more is asking for trouble.
-        if (count($commonName) > 1) {
-            $returnarray[] = RADIUSTests::CERTPROB_MULTIPLE_CN;
-        }
-
-// check for real hostname
+// check for real hostnames, and whether there is a wildcard in a name
         foreach ($allnames as $onename) {
+            if (preg_match("/\*/", $onename)) {
+                $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
+                continue; // otherwise we'd ALSO complain that it's not a real hostname
+            }
             if ($onename != "" && filter_var("foo@" . idn_to_ascii($onename), FILTER_VALIDATE_EMAIL) === FALSE) {
                 $returnarray[] = RADIUSTests::CERTPROB_NOT_A_HOSTNAME;
             }
