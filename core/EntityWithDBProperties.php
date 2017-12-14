@@ -251,13 +251,14 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
             case "profile_option": // both of these are similar
                 $columnName = "profile_id";
             case "institution_option":
+                $blobId = -1;
                 $columnName = $columnName ?? "institution_id";
                 $blobQuery = $handle->exec("SELECT $columnName as id from $table WHERE row = $row");
                 // SELECT always returns a resourse, never a boolean
                 while ($idQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $blobQuery)) { // only one row
                     $blobId = $idQuery->id;
                 }
-                if (!isset($blobId)) {
+                if ($blobId == -1) {
                     return []; // err on the side of caution: we did not find any data. It's a severe error, but not fatal. Nobody owns non-existent data.
                 }
                 

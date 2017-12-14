@@ -553,7 +553,7 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdenifier . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
         }
         if ($resize && is_file($logoFile)) {
             $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $fedIdentifier . "\n");

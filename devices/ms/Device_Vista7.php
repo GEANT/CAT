@@ -162,7 +162,7 @@ class Device_Vista7 extends WindowsCommon {
             $profileFileCont .= '
 </ServerSideCredential>
 <InnerAuthenticationMethod>
-<NonEAPAuthMethod>' . $inner_method . '</NonEAPAuthMethod>
+<NonEAPAuthMethod>' .$innerMethod. '</NonEAPAuthMethod>
 </InnerAuthenticationMethod>
 <VendorSpecific>
 <SessionResumption>false</SessionResumption>

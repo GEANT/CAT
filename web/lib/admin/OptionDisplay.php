@@ -173,6 +173,7 @@ class OptionDisplay {
         $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
         $uiElements = new UIElements();
+        $activelisttype = [];
         foreach ($list as $value) {
             $listtype = $optioninfo->optionType($value);
             $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
@@ -183,7 +184,7 @@ class OptionDisplay {
             $retval .= ">" . $uiElements->displayName($value) . "</option>";
             $iterator++;
         }
-        if (!isset($activelisttype)) {
+        if (count($activelisttype) == 0) {
             throw new \Exception("We should have found the active list type by now!");
         }
         $retval .= "</select></td>";

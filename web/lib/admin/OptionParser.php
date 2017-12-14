@@ -80,10 +80,10 @@ class OptionParser {
                 // echo "Checking $optiontype with file $filename";
                 $func = new \core\common\X509;
                 $cert = $func->processCertificate($incomingBinary);
-                if ($cert) {
+                if (is_array($cert)) { // could also be FALSE if it was incorrect incoming data
                     return TRUE;
                 }
-                // echo "Error! The certificate seems broken!";
+                // the certificate seems broken
                 return FALSE;
             case "support:info_file":
                 $info = new \finfo();
