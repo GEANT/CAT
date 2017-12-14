@@ -79,7 +79,7 @@ echo _("IdP contacting SP due to technical problems");
                 });
             });
         });
-        var comment = <?php echo '"' . _("Running realm tests") . '..."';?>;
+        var comment = <?php echo '"' . _("Running realm tests") . '..."'; ?>;
         inProgress(1, comment);
         $.ajax({
             url: "findRealm.php",
@@ -135,15 +135,15 @@ echo _("IdP contacting SP due to technical problems");
             success:function(data) {
                 if (data.status === 1) {
                     var result = '';
-                    var title = <?php echo '"' . _("eduroam admin report submission") . '"';?>;
+                    var title = <?php echo '"' . _("eduroam admin report submission") . '"'; ?>;
                     result = '<div class="padding">';
                     result = result + '<h3>'+ <?php echo '"' . _("SP contacting IdP due to technical problems or abuse") . '"'; ?> + '</h3>';
                     result = result + '<table>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"';?> +'</td><td>' + data.spcontact + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"';?> +'</td><td>' + data.idpcontact + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"'._("Event's timestamp").'"';?> +'</td><td>' + data.timestamp + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"'._("Suspected MAC address").'"';?> + '</td><td>' + data.mac + '</td></tr>';
-                    result = result + '<tr><td>' + <?php echo '"'._("Additional description").'"';?> +'</td><td>' + data.description + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"' ;?> +'</td><td>' + data.spcontact + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"'; ?> +'</td><td>' + data.idpcontact + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp").'"'; ?> +'</td><td>' + data.timestamp + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address").'"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Additional description").'"'; ?> +'</td><td>' + data.description + '</td></tr>';
                     result = result + '</div>';
                     showInfo(result, title);
                 }
@@ -159,7 +159,7 @@ echo _("IdP contacting SP due to technical problems");
          if ($('#mac').val().length > 0) {
             if ($('#mac').val().length != 17) {
                 $('#mac').addClass('error_input');
-                $('#mac').attr('title', <?php echo '"' . _("MAC address is incomplete") . '"';?>);
+                $('#mac').attr('title', <?php echo '"' . _("MAC address is incomplete") . '"'; ?>);
             } else {
                 $('#mac').removeClass('error_input'); 
                 $('#mac').attr('title', '');
@@ -168,7 +168,7 @@ echo _("IdP contacting SP due to technical problems");
          if ($(this).attr('id') == 'email' &&  $(this).val().length > 0) {
             if (!isEmail($(this).val())) {
                 $('#email').addClass('error_input');
-                $('#email').attr('title', <?php echo '"' . _("Wrong format of email") . '"';?>);
+                $('#email').attr('title', <?php echo '"' . _("Wrong format of email") . '"'; ?>);
             } else {
                 $('#email').removeClass('error_input');
                 $('#email').attr('title', '');
@@ -218,7 +218,7 @@ echo _("IdP contacting SP due to technical problems");
     </div>
     <table id='sp_questions'>
         <tr>
-            <td><?php echo _("What is the realm of the IdP in question?");?></td>
+            <td><?php echo _("What is the realm of the IdP in question?"); ?></td>
             <td>
                 <input type='text' name='admin_realm' id='admin_realm' value=''>
                 <button id='realm_in_db_admin' accesskey="C" type='button'>
