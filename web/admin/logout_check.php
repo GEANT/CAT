@@ -25,7 +25,14 @@ try {
 
 if ($ls['Code'] === 'urn:oasis:names:tc:SAML:2.0:status:Success' && !isset($ls['SubCode'])) {
     /* Successful logout. */
-    $url = "//" . htmlspecialchars($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/admin/logout_check.php"));
+    $url = "https://www.eduroam.org"; // this is the fallback if constructing our own base URL subsequently does not work
+    $cutoff = strrpos($_SERVER['PHP_SELF'], "/admin/logout_check.php");
+    if ($cutoff !== FALSE) {    
+        $substring = substr($_SERVER['PHP_SELF'], 0, $cutoff);
+        if ($substring !== FALSE) {
+            $url = "//" . htmlspecialchars($_SERVER['SERVER_NAME']) . $substring;
+        }
+    }
     header("Location: $url");
 } else {
     /* Logout failed. Tell the user to close the browser. */

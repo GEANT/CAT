@@ -47,7 +47,9 @@ function getObjectFromDB($id) {
 
     header("Cache-Control: must-revalidate");
     $offset = 60 * 60 * 24 * 30;
-    $ExpStr = "Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
+    // gmdate can't possibly fail, because it operates on time() and an integer offset
+    
+    $ExpStr = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
     header($ExpStr);
 
     //  Print out the image

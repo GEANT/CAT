@@ -211,7 +211,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * 
      * @param string $table institution_option or profile_option
      * @param string $row rowindex
-     * @return boolean
+     * @return string|FALSE the data, or FALSE if something went wrong
      */
     public static function fetchRawDataByIndex($table, $row) {
         // only for select tables!
@@ -224,7 +224,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
         $handle = DBConnection::handle("INST");
         $blobQuery = $handle->exec("SELECT option_value from $table WHERE row = $row");
-        while ($returnedData = mysqli_fetch_object($blobQuery)) {
+        // SELECT -> returns resource, not boolean
+        while ($returnedData =  /** @scrutinizer ignore-type */ mysqli_fetch_object($blobQuery)) {
             $blob = $returnedData->option_value;
         }
         if (!isset($blob)) {

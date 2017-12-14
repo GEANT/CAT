@@ -259,12 +259,18 @@ class UIElements {
         return $number . " B";
     }
 
+    /**
+     * 
+     * @param string $ref the database reference string
+     * @param boolean $checkpublic should we check if the requested piece of data is public?
+     * @return string|FALSE the requested data, or FALSE if something went wrong
+     */
     public static function getBlobFromDB($ref, $checkpublic) {
         $validator = new \web\lib\common\InputValidation();
         $reference = $validator->databaseReference($ref);
 
         if ($reference == FALSE) {
-            return;
+            return FALSE;
         }
 
         // the data is either public (just give it away) or not; in this case, only
