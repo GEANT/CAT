@@ -161,16 +161,25 @@ class RADIUSTests extends AbstractTest {
 // we share the same checks as for CAs when it comes to signature algorithm and basicconstraints
 // so call that function and memorise the outcome
         $returnarray = $this->propertyCheckIntermediate($servercert, TRUE);
-
+        $sANlist = [];
+        $sANdns = [];
         if (!isset($servercert['full_details']['extensions'])) {
             $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
             $returnarray[] = RADIUSTests::CERTPROB_NO_CDP_HTTP;
-        } else {
+        } else { // Extensions are present...
             if (!isset($servercert['full_details']['extensions']['extendedKeyUsage']) || !preg_match("/TLS Web Server Authentication/", $servercert['full_details']['extensions']['extendedKeyUsage'])) {
                 $returnarray[] = RADIUSTests::CERTPROB_NO_TLS_WEBSERVER_OID;
             }
+            if (isset($servercert['full_details']['extensions']['subjectAltName'])) {
+                $sANlist = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
+                foreach ($sANlist as $subjectAltName) {
+                    if (preg_match("/^DNS:/", $subjectAltName)) {
+                        $sANdns[] = substr($subjectAltName, 4);
+                    }
+                }
+            }
         }
-// check for wildcards
+
         $commonName = [];
         if (isset($servercert['full_details']['subject']['CN'])) {
             if (is_array($servercert['full_details']['subject']['CN'])) {
@@ -180,20 +189,8 @@ class RADIUSTests extends AbstractTest {
             }
         }
 
-        $sANlist = [];
-        if (isset($servercert['full_details']['extensions']) && isset($servercert['full_details']['extensions']['subjectAltName'])) {
-            $sANlist = explode(", ", $servercert['full_details']['extensions']['subjectAltName']);
-        }
-
-        $sANdns = [];
-        foreach ($sANlist as $subjectAltName) {
-            if (preg_match("/^DNS:/", $subjectAltName)) {
-                $sANdns[] = substr($subjectAltName, 4);
-            }
-        }
-
         $allnames = array_unique(array_merge($commonName, $sANdns));
-
+// check for wildcards
         if (preg_match("/\*/", implode($allnames))) {
             $returnarray[] = RADIUSTests::CERTPROB_WILDCARD_IN_NAME;
         }
@@ -936,7 +933,7 @@ network={
                 }
                 if (isset($certdata['extensions'])) {
                     foreach ($certdata['extensions'] as $k => $v) {
-                            //error_log('extension '.$k.' '.$certdata['extensions'][$k]);
+                        //error_log('extension '.$k.' '.$certdata['extensions'][$k]);
                         $certdata['extensions'][$k] = iconv('UTF-8', 'UTF-8//IGNORE', $certdata['extensions'][$k]);
                     }
                 }
