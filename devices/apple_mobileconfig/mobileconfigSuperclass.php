@@ -375,10 +375,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   <string>Auto</string>
                   <key>ProxyPACFallbackAllowed</key>
                   <true/>
-                  $setupModesString
                 ";
         }
-        
+        $retval .= $setupModesString;
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             if ($clientCertUUID === NULL) {
                 throw new Exception("Silverbullet REQUIRES a client certificate and we need to know the UUID!");
