@@ -175,14 +175,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
 
         $outputXml .= $this->allNetworkBlocks(
-                $this->attributes['internal:SSID'], 
-                $this->attributes['internal:consortia'], 
-                $this->attributes['eap:server_name'], 
-                $this->listCAUuids($this->attributes['internal:CAs'][0]), 
-                $this->selectedEap, 
-                $includeWired, 
-                $clientCertUUID, 
-                $this->determineOuterIdString());
+                $this->attributes['internal:SSID'], $this->attributes['internal:consortia'], $this->attributes['eap:server_name'], $this->listCAUuids($this->attributes['internal:CAs'][0]), $this->selectedEap, $includeWired, $clientCertUUID, $this->determineOuterIdString());
 
         $outputXml .= "</array>";
         $outputXml .= $this->generalPayload();
@@ -192,9 +185,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $outputXml .= $this->expiryBlock();
         }
         $outputXml .= self::FILE_END;
-        
+
         file_put_contents('installer_profile', $outputXml);
-       
+
         textdomain($dom);
 
         $fileName = $this->installerBasename . '.mobileconfig';
@@ -323,9 +316,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "
                          </array>";
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
-            $retval .= "<key>UserName</key><string>".$this->clientCert["username"]."</string>";
+            $retval .= "<key>UserName</key><string>" . $this->clientCert["username"] . "</string>";
         }
-        $retval .="
+        $retval .= "
                       <key>TTLSInnerAuthentication</key>
                          <string>" . ($eapType['INNER'] == \core\common\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>";
@@ -397,12 +390,15 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   <string>" . $this->uuid() . "</string>
                <key>PayloadVersion</key>
                   <integer>1</integer>";
-        if (!$wired && count($consortiumOi) == 0) {
-            $retval .= "<key>SSID_STR</key>
+        if (!$wired) {
+            switch (count($consortiumOi)) {
+                case 0:
+                    $retval .= "<key>SSID_STR</key>
                   <string>$escapedSSID</string>";
-        }
-        if (count($consortiumOi) > 0) {
-            $retval .= $this->passPointBlock($consortiumOi);
+                    break;
+                default:
+                    $retval .= $this->passPointBlock($consortiumOi);
+            }
         }
         $retval .= "</dict>";
         $this->serial = $this->serial + 1;
