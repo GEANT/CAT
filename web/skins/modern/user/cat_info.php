@@ -84,7 +84,7 @@ $Tou['full'] . "
                 $out = "";
                 require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
         
-                $as = new SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+                $as = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
                 if ($as->isAuthenticated()) {
                     $out .= '<script type="text/javascript">goAdmin()</script>';
                 } else {
