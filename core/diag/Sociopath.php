@@ -111,7 +111,7 @@ class Sociopath extends AbstractTest {
         $this->additionalFindings["QUESTIONSASKED"] = $this->previousQuestions;
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
-        debug(3,$_SESSION['SUSPECTS']);
+        $this->loggerInstance->debug(3,$_SESSION['SUSPECTS']);
     }
     
     public function questionOracle() {

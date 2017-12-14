@@ -23,7 +23,6 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
  */
 class Telepath extends AbstractTest {
 
-    private $additionalFindings;
     private $realm;
     private $visitedFlr;
     private $visitedHotspot;
@@ -33,9 +32,15 @@ class Telepath extends AbstractTest {
     private $testsuite;
 
     public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {
+        // Telepath is the first one in a chain, no previous inputs allowed
+        if (isset($_SESSION) && isset($_SESSION["SUSPECTS"])) {
+            unset($_SESSION["SUSPECTS"]);
+        }
+        if (isset($_SESSION) && isset($_SESSION["EVIDENCE"])) {
+        unset($_SESSION["EVIDENCE"]);
+        }
+        // now fill with default values
         parent::__construct();
-
-        $this->additionalFindings = [];
         $this->realm = $realm;
         $this->visitedFlr = $visitedFlr;
         $this->visitedHotspot = $visitedHotspot;
@@ -442,8 +447,11 @@ class Telepath extends AbstractTest {
         }
 
         $this->normaliseResultSet();
-
+        
+        $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
+        $_SESSION["EVIDENCE"] = $this->additionalFindings;
         return ["SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings];
+        
     }
 
 }

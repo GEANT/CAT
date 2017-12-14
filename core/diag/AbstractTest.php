@@ -232,7 +232,10 @@ class AbstractTest extends \core\common\Entity {
         // in the end, use the numbers of those elements which were not deterministically excluded and normalise to 1
         // to get a percentage to report on.
 
-        $this->possibleFailureReasons = [
+        // we could be in a live session with existing data, so get things from 
+        // $_SESSION if appropriate
+        
+    $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? [
             Telepath::INFRA_ETLR => 0.01,
             Telepath::INFRA_LINK_ETLR_NRO_IDP => 0.01,
             Telepath::INFRA_LINK_ETLR_NRO_SP => 0.01,
@@ -246,7 +249,9 @@ class AbstractTest extends \core\common\Entity {
             Telepath::INFRA_DEVICE => 0.3,
             Telepath::INFRA_NONEXISTENTREALM => 0.7,
         ];
-
+        
+        $this->additionalFindings = $_SESSION["EVIDENCE"] ?? [];
+        
         $oldlocale = $this->languageInstance->setTextDomain('diagnostics');
         $this->returnCodes = [];
         /**
@@ -565,5 +570,6 @@ class AbstractTest extends \core\common\Entity {
 
     
     public $possibleFailureReasons;
+    public $additionalFindings;
 
 }
