@@ -44,7 +44,9 @@ class Logopath extends AbstractTest {
         parent::__construct();
         $validator = new \web\lib\common\InputValidation();
         // remains FALSE if it was not given or bogus, otherwise stores this as mail target
-        $this->userEmail = $validator->email($userEmail);
+        if ($userEmail !== FALSE) {
+            $this->userEmail = $validator->email($userEmail);
+        }
         $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? []; // if we know nothing, don't talk to anyone
         $this->additionalFindings = $_SESSION["EVIDENCE"] ?? [];
         
