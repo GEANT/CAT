@@ -138,6 +138,13 @@ class Divs {
 </div>";
     }
 
+    public function div_pagetitle($mainText, $extraText='') {
+        return "
+<div id='institution_name'>
+    <span id='inst_name_span'>$mainText</span> <div id='inst_extra_text'>$extraText</div> 
+</div>";
+    }
+    
     public function div_institution($selectButton = TRUE) {
         return "
 <div id='institution_name'>

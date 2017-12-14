@@ -934,6 +934,12 @@ network={
                 if ($certdata['type'] != 'server' && $certdata['type'] != 'totally_selfsigned') {
                     continue;
                 }
+                if (isset($certdata['extensions'])) {
+                    foreach ($certdata['extensions'] as $k => $v) {
+                            //error_log('extension '.$k.' '.$certdata['extensions'][$k]);
+                        $certdata['extensions'][$k] = iconv('UTF-8', 'UTF-8//IGNORE', $certdata['extensions'][$k]);
+                    }
+                }
                 $serverCert = [
                     'subject' => $this->printDN($certdata['subject']),
                     'issuer' => $this->printDN($certdata['issuer']),

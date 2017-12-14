@@ -546,6 +546,23 @@ class CAT extends \core\common\Entity {
             }
         }
         return $list;
+        
     }
-
+    public function getExternalCountriesList() {
+        $olddomain = $this->languageInstance->setTextDomain("core");
+        $handle = DBConnection::handle("EXTERNAL");
+        $returnArray = []; // in if -> the while might never be executed, so initialise
+        $timeStart = microtime(true);
+        $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
+        $timeEnd = microtime(true);
+        $timeElapsed = $timeEnd - $timeStart;
+        while ($eduroamFederations = mysqli_fetch_object($federations)) {
+            $fedIdentifier = $eduroamFederations->country;
+            $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier] : $fedIdentifier;
+        } 
+        asort($returnArray, SORT_LOCALE_STRING);
+        $returnArray['time'] = $timeElapsed;
+        $this->languageInstance->setTextDomain($olddomain);
+        return($returnArray);
+    }
 }
