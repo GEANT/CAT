@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\admin;
+
 use Exception;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
@@ -65,7 +66,7 @@ class Authentication {
         $userObject = new \core\User($user);
 
         $attribMapping = [
-            "ssp-attrib-name" => "user:realname", 
+            "ssp-attrib-name" => "user:realname",
             "ssp-attrib-email" => "user:email"];
 
         foreach ($attribMapping as $SSPside => $CATside) {
@@ -95,8 +96,16 @@ class Authentication {
     public function deauthenticate() {
 
         $as = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-
-        $url = "//" . $_SERVER['SERVER_NAME'] . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/inc/logout.php")) . "/logout_check.php";
+        $servername = filter_input(INPUT_SERVER, 'SERVER_NAME', FILTER_SANITIZE_STRING);
+        $scriptself = filter_input(INPUT_SERVER, 'PHP_SELF', FILTER_SANITIZE_STRING);
+        $url = "https://www.eduroam.org"; // fallback if something goes wrong during URL construction below
+        $trailerPosition = strrpos($scriptself, "/inc/logout.php");
+        if ($trailerPosition !== FALSE) {
+            $base = substr($scriptself, 0, $trailerPosition);
+            if ($base !== FALSE) {
+                $url = "//$servername" . $base . "/logout_check.php";
+            }
+        }
 
         $as->logout([
             'ReturnTo' => $url,
