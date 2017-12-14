@@ -1,19 +1,19 @@
 <?php
 function my_nonce($optSalt = '') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-    return hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' .$remote);
+    return hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote);
 }
 error_reporting(E_ALL | E_STRICT);
 $Gui->defaultPagePrelude();
 $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 ?>
 <!-- JQuery -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js"); ?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js"); ?>"></script>
-<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/Timepicker/jquery-ui-timepicker-addon.js"); ?>"></script>
-<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/Timepicker/jquery-ui-sliderAccess.js"); ?>"></script>
-<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui-1.12.1.custom/jquery-ui.css"); ?>" media="all" />
-<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/Timepicker/jquery-ui-timepicker-addon.css"); ?>"  media="all" />
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
+<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-timepicker-addon.js"); ?>"></script>
+<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-sliderAccess.js"); ?>"></script>
+<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui-1.12.1.custom/jquery-ui.css"); ?>" media="all" />
+<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-timepicker-addon.css"); ?>"  media="all" />
 <script type="text/javascript">
     var recognisedOS = '';
     var downloadMessage;
@@ -43,7 +43,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 <body>
 <div id="main_page">
     <div id="loading_ico">
-          <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
+          <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
     </div>
     <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
     <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']); ?>">
@@ -109,7 +109,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
                     require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-                    $as = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+                    $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
                     echo '<input type="hidden" id="isadmin" value="';
                     if ($as->isAuthenticated()) {
                         echo "1\">";
@@ -194,7 +194,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         return false;
     }
     function testSociopath(realm, susp, answer) {
-        var comment = <?php echo '"'._("Testing realm").'..."'; ?>; 
+        var comment = <?php echo '"' . _("Testing realm") . '..."'; ?>; 
         inProgress(1, comment);
         if ($('#tested_realm').length == 0) {
             $('<input>').attr({
@@ -251,7 +251,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         result = result + '<div><h3>';
         result = result + <?php echo '"' . _("The result for tested realm:") . ' "'; ?> + realm;
         result = result + '</h3></p><div style="padding: 5px;"><div style="padding: 0px;">';
-        result = result + <?php echo '"' . _("We located") . '" ';?>  + ' ';
+        result = result + <?php echo '"' . _("We located") . '" '; ?>  + ' ';
         result = result + Object.keys(verdict).length + ' ';
         result = result + <?php echo '"' . _("suspected areas which potentially can cause a problem.") . '"'; ?> + '<br>';
         result = result + <?php echo '"' . _("Next to the problem description we show a speculated probability of this event.") . '"'; ?>;
@@ -273,10 +273,10 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 result = result + '<td>' + <?php echo '"' . _("RADIUS server of your service provider has a problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IDP_AUTHBACKEND') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server in your home institution has a problem to authenticate users") .'"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server in your home institution has a problem to authenticate users") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your current location and your federation server is broken") .'"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your current location and your federation server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_SP') {
                 result = result + '<td>' + <?php echo '"' . _("The link between your current location, your federation server and top level server is broken") . '"'; ?> + '</td>';
@@ -297,7 +297,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 result = result + '<td>' + <?php echo '"' . _("The link between your federation server and your institution server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IdP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your home institution has a problem").'"'; ?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your home institution has a problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NONEXISTENTREALM') {
                 result = result + '<td>' + <?php echo '"' . _("Entered realm doesn't exist") . '"'; ?> + '</td>';
