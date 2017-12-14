@@ -175,14 +175,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $outputXml .= $this->allCA($this->attributes['internal:CAs'][0]);
 
         $outputXml .= $this->allNetworkBlocks(
-                $this->attributes['internal:SSID'], 
-                $this->attributes['internal:consortia'], 
-                $this->attributes['eap:server_name'], 
-                $this->listCAUuids($this->attributes['internal:CAs'][0]), 
-                $this->selectedEap, 
-                $includeWired, 
-                $clientCertUUID, 
-                $this->determineOuterIdString());
+                $this->attributes['internal:SSID'], $this->attributes['internal:consortia'], $this->attributes['eap:server_name'], $this->listCAUuids($this->attributes['internal:CAs'][0]), $this->selectedEap, $includeWired, $clientCertUUID, $this->determineOuterIdString());
 
         $outputXml .= "</array>";
         $outputXml .= $this->generalPayload();
@@ -192,9 +185,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $outputXml .= $this->expiryBlock();
         }
         $outputXml .= self::FILE_END;
-        
+
         file_put_contents('installer_profile', $outputXml);
-       
+
         textdomain($dom);
 
         $fileName = $this->installerBasename . '.mobileconfig';
@@ -323,9 +316,9 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $retval .= "
                          </array>";
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
-            $retval .= "<key>UserName</key><string>".$this->clientCert["username"]."</string>";
+            $retval .= "<key>UserName</key><string>" . $this->clientCert["username"] . "</string>";
         }
-        $retval .="
+        $retval .= "
                       <key>TTLSInnerAuthentication</key>
                          <string>" . ($eapType['INNER'] == \core\common\EAP::NONE ? "PAP" : "MSCHAPv2") . "</string>
                    </dict>";
@@ -339,12 +332,21 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
         $payloadShortName = sprintf(_("SSID %s"), $escapedSSID);
         $payloadName = sprintf(_("%s configuration for network name %s"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $escapedSSID);
         $encryptionTypeString = "WPA";
+        $setupModesString = "";
+        $wifiNetworkIdentification = "<key>SSID_STR</key>
+                  <string>$escapedSSID</string>";
 
         if ($wired) { // override the above defaults for wired interfaces
             $payloadIdentifier = "firstactiveethernet";
             $payloadShortName = _("Wired Network");
             $payloadName = sprintf(_("%s configuration for wired network"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             $encryptionTypeString = "any";
+            $setupModesString = "
+               <key>SetupModes</key>
+                  <array>
+                     <string>System</string>
+                  </array>";
+            $wifiNetworkIdentification = "";
         }
 
         if (count($consortiumOi) > 0) { // override the above defaults for HS20 configuration
@@ -352,6 +354,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
             $payloadShortName = _("Hotspot 2.0 Settings");
             $payloadName = sprintf(_("%s Hotspot 2.0 configuration"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             $encryptionTypeString = "WPA";
+            $wifiNetworkIdentification = $this->passPointBlock($consortiumOi);
         }
 
         $retval = "<dict>";
@@ -378,13 +381,7 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                   <true/>
                 ";
         }
-        if ($wired) {
-            $retval .= "
-               <key>SetupModes</key>
-                  <array>
-                     <string>System</string>
-                  </array>";
-        }
+        $retval .= $setupModesString;
         if ($eapType['INNER'] == \core\common\EAP::NE_SILVERBULLET) {
             if ($clientCertUUID === NULL) {
                 throw new Exception("Silverbullet REQUIRES a client certificate and we need to know the UUID!");
@@ -396,15 +393,8 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
                <key>PayloadUUID</key>
                   <string>" . $this->uuid() . "</string>
                <key>PayloadVersion</key>
-                  <integer>1</integer>";
-        if (!$wired && count($consortiumOi) == 0) {
-            $retval .= "<key>SSID_STR</key>
-                  <string>$escapedSSID</string>";
-        }
-        if (count($consortiumOi) > 0) {
-            $retval .= $this->passPointBlock($consortiumOi);
-        }
-        $retval .= "</dict>";
+                  <integer>1</integer>
+                  $wifiNetworkIdentification</dict>";
         $this->serial = $this->serial + 1;
         return $retval;
     }
