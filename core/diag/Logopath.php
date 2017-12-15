@@ -193,7 +193,8 @@ class Logopath extends AbstractTest {
         foreach ($this->mailQueue as $oneMail) {
             if (in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['to']) ||
                     in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['cc']) ||
-                    in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['bcc'])) {
+                    in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['bcc']) ||
+                    in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['reply-to'])) {
                 $contactUseful = TRUE;
             }
         }
