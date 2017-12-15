@@ -20,15 +20,20 @@ class Logopath extends AbstractTest {
 
     /**
      * storing the end user's email, if he has given it to us
-     * @var string
+     * @var string|FALSE
      */
     private $userEmail;
 
     /**
      * maybe the user has some additional evidence directly on his device?
-     * @var string
+     * @var string|FALSE
      */
     private $additionalScreenshot;
+    
+    /**
+     * the list of mails to send
+     * @var array
+     */
     private $mailStack;
 
     const EDUROAM_OT = 0;
