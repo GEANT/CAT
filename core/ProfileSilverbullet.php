@@ -415,7 +415,6 @@ class ProfileSilverbullet extends AbstractProfile {
     public static function triggerNewOCSPStatement($serial) {
         $logHandle = new \core\common\Logging();
         $logHandle->debug(2, "Triggering new OCSP statement for serial $serial.\n");
-        $ocsp = ""; // the statement
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
             case "embedded":
                 // get all relevant info from DB
@@ -713,7 +712,7 @@ class ProfileSilverbullet extends AbstractProfile {
         }
         // and finally set the user expiry date to NOW(), too
         $query3 = "UPDATE silverbullet_user SET expiry = NOW() WHERE profile_id = $this->identifier AND id = ?";
-        $exec3 = $this->databaseHandle->exec($query3, "i", $userId);
+        $this->databaseHandle->exec($query3, "i", $userId);
     }
     
     /**

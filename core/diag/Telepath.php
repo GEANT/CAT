@@ -254,7 +254,7 @@ class Telepath extends AbstractTest {
         // because it's a CAT participant or because it's in the eduroam DB?
         // if so, we can exclude the INFRA_NONEXISTENTREALM cause
 
-        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM][] = ["ID1" => $this->catIdP, "ID2" => $this->dbIdP];
+        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS'] = ["ID1" => $this->catIdP, "ID2" => $this->dbIdP];
 
         if ($this->catIdP != \core\Federation::UNKNOWN_IDP || $this->dbIdP != \core\Federation::UNKNOWN_IDP) {
             unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);

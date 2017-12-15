@@ -410,4 +410,16 @@ public function optionName($input) {
     return $object->assertValidOptionName($input);
 }
 
+public function image($binary) {
+    $image = new \Imagick();
+    try {
+        $image->readImageBlob($binary);
+    } catch (\ImagickException $exception) {
+        echo "Error" . $exception->getMessage();
+        return FALSE;
+    }
+    // image survived the sanity check
+    return TRUE;
+}
+
 }

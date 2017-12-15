@@ -19,9 +19,15 @@ class Logopath extends AbstractTest {
     
     /**
      * storing the end user's email, if he has given it to us
-     * @var type 
+     * @var string
      */
     private $userEmail;
+    
+    /**
+     * maybe the user has some additional evidence directly on his device?
+     * @var string
+     */
+    private $additionalScreenshot;
     
     private $mailStack;
     
@@ -30,23 +36,35 @@ class Logopath extends AbstractTest {
     const NRO_SP = 2;
     const IDP = 3;
     const SP = 4;
+    const ENDUSER = 5;
     
-    // we start all our mails with a common prefix, internationalised
+    /** we start all our mails with a common prefix, internationalised
+     *
+     * @var string
+     */
     private $subjectPrefix;
-    // and we end with a greeting/disclaimer
+    
+    /** and we end with a greeting/disclaimer
+     *
+     * @var string
+     */
     private $finalGreeting;
     
     /**
-     * 
-     * @param string $userEmail
+     * We need to vet user inputs.
+     * @var \web\lib\common\InputValidation
      */
-    public function __construct($userEmail = FALSE) {
+    private $validatorInstance;
+    
+    // cases to consider
+    const IDP_EXISTS_BUT_NO_DATABASE = 100;
+    
+    public function __construct() {
         parent::__construct();
-        $validator = new \web\lib\common\InputValidation();
-        // remains FALSE if it was not given or bogus, otherwise stores this as mail target
-        if ($userEmail !== FALSE) {
-            $this->userEmail = $validator->email($userEmail);
-        }
+        $this->userEmail = FALSE;
+        $this->additionalScreenshot = FALSE;
+        $this->validatorInstance = new \web\lib\common\InputValidation();
+        
         $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? []; // if we know nothing, don't talk to anyone
         $this->additionalFindings = $_SESSION["EVIDENCE"] ?? [];
         
@@ -59,7 +77,7 @@ class Logopath extends AbstractTest {
                 . _("The eduroam diagnostics algorithms");
         
         $this->mailStack = [
-            "IDP_EXISTS_BUT_NO_DATABASE" => [
+            Logopath::IDP_EXISTS_BUT_NO_DATABASE => [
                 "to" => [Logopath::NRO_IDP], 
                 "cc" => [Logopath::EDUROAM_OT], 
                 "bcc" => [], 
@@ -76,6 +94,45 @@ class Logopath extends AbstractTest {
                         . "Please stop the policy violation ASAP by listing the IdP which is associated to this realm.",
                 ],
         ];
+        
+    }
+    
+    /**
+     * 
+     * @param string $userEmail
+     */
+    public function addUserEmail($userEmail) {
+        // returns FALSE if it was not given or bogus, otherwise stores this as mail target
+        $this->userEmail = $this->validatorInstance->email($userEmail);
+    }
+    
+    public function addScreenshot($binaryData) {
+        if ($this->validatorInstance->image($binaryData) === TRUE) {
+            $this->additionalScreenshot = $binaryData;
+        }
+    }
+    
+    /**
+     * looks at probabilities and evidence, and decides which mail scenario(s) to send
+     */
+    public function determineMailsToSend() {
+        // check for IDP_EXISTS_BUT_NO_DATABASE
+        if (!in_array(AbstractTest::INFRA_NONEXISTENTREALM, $this->possibleFailureReasons) && $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS']['ID2'] < 0) {
+            // do it
+        }
+    }
+    
+    /**
+     * sees if it is useful to ask the user for his contact details or screenshots
+     */
+    public function isEndUserContactUseful() {
+        
+    }
+    
+    /**
+     * sends the mails
+     */
+    public function weNeedToTalk() {
         
     }
 }

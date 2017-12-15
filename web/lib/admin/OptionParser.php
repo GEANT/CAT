@@ -67,15 +67,7 @@ class OptionParser {
             case "fed:logo_file":
             case "internal:logo_from_url":
                 // we check logo_file with ImageMagick
-                $image = new \Imagick();
-                try {
-                    $image->readImageBlob($incomingBinary);
-                } catch (\ImagickException $exception) {
-                    echo "Error" . $exception->getMessage();
-                    return FALSE;
-                }
-                // image survived the sanity check
-                return TRUE;
+                return $this->validator->image($incomingBinary);
             case "eap:ca_file":
                 // echo "Checking $optiontype with file $filename";
                 $func = new \core\common\X509;

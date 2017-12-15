@@ -47,8 +47,9 @@ class UIElements {
         $dummy_inst1 = _("identity provider");
         $dummy_inst2 = _("organisation");
         // and do something useless with the strings so that there's no "unused" complaint
-        $dummy_NRO = $dummy_NRO . $dummy_inst1 . $dummy_inst2;
-
+        if ( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
+            // Oh well.
+        }
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
         $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
     }
