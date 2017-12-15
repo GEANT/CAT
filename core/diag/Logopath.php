@@ -116,23 +116,74 @@ class Logopath extends AbstractTest {
      * looks at probabilities and evidence, and decides which mail scenario(s) to send
      */
     public function determineMailsToSend() {
+        $mailQueue = [];
         // check for IDP_EXISTS_BUT_NO_DATABASE
         if (!in_array(AbstractTest::INFRA_NONEXISTENTREALM, $this->possibleFailureReasons) && $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS']['ID2'] < 0) {
-            // do it
+            $mailQueue[] = Logopath::IDP_EXISTS_BUT_NO_DATABASE;
         }
+        
+        // after collecting all the conditions, find the target entities in all
+        // the mails, and check if they resolve to a known mail address. If they
+        // do not, this triggers more mails about missing contact info.
+        
+        $abstractRecipients = [];
+        foreach ($mailQueue as $mail) {
+            $abstractRecipients = array_unique(array_merge($this->mailStack[$mail]['to'], $this->mailStack[$mail]['cc'], $this->mailStack[$mail]['bcc'], $this->mailStack[$mail]['reply-to']));
+        }
+        // who are those guys? Here is significant legwork in terms of DB lookup
+        $concreteRecipients = [];
+        foreach ($abstractRecipients as $oneRecipient) {
+            switch ($oneRecipient) {
+                case Logopath::EDUROAM_OT:
+                    $concreteRecipients[$oneRecipient] = "eduroam-ot@lists.geant.org";
+                    break;
+                case Logopath::ENDUSER:
+                    // will be filled when sending, from $this->userEmail
+                    // hence the +1 below
+                    break;
+                case Logopath::IDP:
+                    // TODO
+                    break;
+                case Logopath::NRO_IDP:
+                    // TODO
+                    break;
+                case Logopath::SP:
+                    // TODO
+                    break;
+                case Logopath::NRO_SP:
+                    // TODO
+                    break;
+            }
+        }
+        // now see if we lack pertinent recipient info, and add corresponding
+        // mails to the list
+        if (count($abstractRecipients) != count($concreteRecipients) + 1) {
+            // there is a discrepancy, do something ...
+        }
+        return $mailQueue;
+        
     }
     
     /**
      * sees if it is useful to ask the user for his contact details or screenshots
      */
     public function isEndUserContactUseful() {
-        
+        $contactUseful = FALSE;
+        $mailList = $this->determineMailsToSend();
+        foreach ($mailList as $oneMail) {
+            if (in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['to']) ||
+                in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['cc']) ||
+                in_array(Logopath::ENDUSER, $this->mailStack[$oneMail]['bcc'])) {
+                $contactUseful = TRUE;
+            }
+        }
+        return $contactUseful;
     }
     
     /**
      * sends the mails
      */
     public function weNeedToTalk() {
-        
+        // just send the mails out, TODO
     }
 }
