@@ -12,25 +12,32 @@ require_once(dirname(dirname(__DIR__)) . "/config/_config.php");
 $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Sociopath test\n");
 session_start();
-$loggerInstance->debug(4, $_SESSION);
-$answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_STRING);
+$answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_NUMBER_INT);
 $sociopath = new \core\diag\Sociopath();
-if ($answer > -1) {
+if ($answer > 0) {
     $QJSON = $_SESSION['QJSON'];
+    $loggerInstance->debug(4, $QJSON);
     $QPHP = json_decode($QJSON, TRUE);
-    $yes = FALSE;
-    if ($answer == 2) {
-        $yes = TRUE;
+    switch ($answer) {
+        case 1:
+            $loggerInstance->debug(4, "Revaluate with FALSE");
+            $sociopath->revaluate($QPHP["NUMBER"], FALSE);
+            break;
+        case 2:
+            $loggerInstance->debug(4, "Revaluate with TRUE");
+            $sociopath->revaluate($QPHP["NUMBER"], TRUE);
+            break;
+        case 3:
+            $loggerInstance->debug(4, "Revaluate with NULL");
+            $sociopath->revaluate($QPHP["NUMBER"], NULL);
+            break;
     }
-    $sociopath->revaluate($QPHP["NUMBER"], $yes);
 }
 $QJSON = $sociopath->questionOracle();
 $_SESSION['QJSON'] = $QJSON;
-$loggerInstance->debug(4, json_decode($QJSON));
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
     echo $QJSON;
 } else {
-    $loggerInstance->debug(4, $sociopath->getCurrentGuessState());
     echo $sociopath->getCurrentGuessState();
 }
