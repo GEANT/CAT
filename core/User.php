@@ -225,7 +225,6 @@ class User extends EntityWithDBProperties {
                 case $providerStrings[4]:
                 case $providerStrings[5]:
                     if (!in_array(User::PROVIDER_STRINGS[$matches[1]],$listOfProviders)) {
-                        $providerName = $this->getEdugainName(User::PROVIDER_STRINGS[$matches[1]]);
                         $listOfProviders[] = User::PROVIDER_STRINGS[$matches[1]];
                     }
                     break;
