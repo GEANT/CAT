@@ -1,26 +1,26 @@
 <?php
-function my_nonce($optSalt='') {
+function my_nonce($optSalt = '') {
     $remote = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
-    return hash_hmac('sha256', session_id().$optSalt, date("YmdG").'1qaz2wsx3edc!QAZ@WSX#EDC'.$remote);
+    return hash_hmac('sha256', session_id() . $optSalt, date("YmdG") . '1qaz2wsx3edc!QAZ@WSX#EDC' . $remote);
 }
 error_reporting(E_ALL | E_STRICT);
 $Gui->defaultPagePrelude();
 $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
 ?>
 <!-- JQuery -->
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery.js");?>"></script>
-<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui.js");?>"></script>
-<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/Timepicker/jquery-ui-timepicker-addon.js");?>"></script>
-<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/Timepicker/jquery-ui-sliderAccess.js");?>"></script>
-<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/jquery-ui-1.12.1.custom/jquery-ui.css");?>" media="all" />
-<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL","jquery/Timepicker/jquery-ui-timepicker-addon.css");?>"  media="all" />
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery.js"); ?>"></script>
+<script type="text/javascript" src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui.js"); ?>"></script>
+<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-timepicker-addon.js"); ?>"></script>
+<script type='text/javascript' src="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-sliderAccess.js"); ?>"></script>
+<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/jquery-ui-1.12.1.custom/jquery-ui.css"); ?>" media="all" />
+<link type="text/css"  rel="stylesheet" href="<?php echo $Gui->skinObject->findResourceUrl("EXTERNAL", "jquery/Timepicker/jquery-ui-timepicker-addon.css"); ?>"  media="all" />
 <script type="text/javascript">
     var recognisedOS = '';
     var downloadMessage;
     var noDisco = 1;
     var sbPage = 1;
     var lang = "<?php echo($Gui->langObject->getLang()) ?>";
-    var dir = "<?php echo dirname(__DIR__);?>";
+    var dir = "<?php echo dirname(__DIR__); ?>";
 
 <?php
 $profile_list_size = 1;
@@ -37,28 +37,28 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
 
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS","cat-user.css");?>" />
+<link rel="stylesheet" media="screen" type="text/css" href="<?php echo $Gui->skinObject->findResourceUrl("CSS", "cat-user.css"); ?>" />
 
 </head>
 <body>
 <div id="main_page">
     <div id="loading_ico">
-          <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/loading51.gif")?>" alt="Loading stuff ..."/>
+          <span id='load_comment'></span><br><img src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/loading51.gif"); ?>" alt="Loading stuff ..."/>
     </div>
     <form id="cat_form" name="cat_form" method="POST"  accept-charset="UTF-8" action="">
-    <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']);?>">
+    <input name="myNonce" id="myNonce" type="hidden" value="<?php echo my_nonce($_SERVER['SCRIPT_NAME']); ?>">
     <?php echo $divs->div_heading(); ?>
     <div id="info_overlay"> <!-- device info -->
         <div id="info_window"></div>
-        <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+        <img id="info_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png"); ?>" ALT="Close"/>
     </div>
     <div id="main_menu_info" style="display:none"> <!-- stuff triggered form main menu -->
-          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES","icons/button_cancel.png")?>" ALT="Close"/>
+          <img id="main_menu_close" class="close_button" src="<?php echo $Gui->skinObject->findResourceUrl("IMAGES", "icons/button_cancel.png"); ?>" ALT="Close"/>
           <div id="main_menu_content"></div>
     </div>
     <div id="main_body">
         <div id="user_page">
-            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("We will do our best to resolve your problems!<br>Help us and answer precisely to our questions."));?>
+            <?php echo $divs->div_pagetitle(_("Diagnostics site"), _("We will do our best to resolve your problems!<br>Help us and answer precisely to our questions.")); ?>
             <div id="user_info" style='padding-top: 10px;'>
             <div id='diagnostic_choice'>
                 <?php echo _("Are you reporting the problem as"); ?>
@@ -96,7 +96,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 </div>
                 <div id="sociopath_query_area" style="margin-top:20px; display:none;">
                     <b>
-                        <?php echo _("Now we have a few questions..");?>
+                        <?php echo _("Now we have a few questions.."); ?>
                     </b>
                     <div id="sociopath_queries"></div>
                 </div>
@@ -109,7 +109,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
                     require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-                    $as = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+                    $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
                     echo '<input type="hidden" id="isadmin" value="';
                     if ($as->isAuthenticated()) {
                         echo "1\">";
@@ -118,7 +118,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         echo "0\">";
                         echo _("This service is for authenticated admins only.") . '<br>';
                         echo "<a href=\"javascript:infoCAT('manage', 'admin','administrator eduroam®')\">" .
-                             _("eduroam® admin access is needed") . "</a>";
+                            _("eduroam® admin access is needed") . "</a>";
                     }
                 ?>
             </div> 
@@ -155,13 +155,13 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             type2 = 'sp';
         }
         var options = '';
-        var select = <?php echo '"<td>' . _("Select country:") . ' </td>"';?>;
+        var select = <?php echo '"<td>' . _("Select country:") . ' </td>"'; ?>;
         select = select + '<td><select id="' + type1 + '_country" name="' + type1 + '_country" style="width:400px;">';
         if ($("#"+type2+"_country").is('select')) {
             options = ($('#'+type2+'_country').html());
             countryAddSelect(select, options, type1);
         } else {
-            var comment = <?php echo '"' . _("Fetching countries list") . '..."';?>;
+            var comment = <?php echo '"' . _("Fetching countries list") . '..."'; ?>;
             inProgress(1, comment);
             $.ajax({
                 url: "findRealm.php",
@@ -193,8 +193,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
         return false;
     }
-    function testSociopath(realm, susp, answer) {
-        var comment = <?php echo '"'._("Testing realm").'..."';?>; 
+    function testSociopath(realm, answer) {
+        var comment = <?php echo '"' . _("Testing realm") . '..."'; ?>; 
         inProgress(1, comment);
         if ($('#tested_realm').length == 0) {
             $('<input>').attr({
@@ -206,7 +206,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         console.log('realm - '+realm);
         $.ajax({
             url: "processSociopath.php",
-            data: {workingwith:susp, answer: answer},
+            data: {answer: answer},
             dataType: "json",
             success:function(data) {
                 $('#start_test_area').hide();
@@ -246,61 +246,61 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
        }); 
     }
     function finalVerdict(realm, verdict) {
-        var title = <?php echo '"' . _("Diagnistic tests results for selected realm") . '"';?>;
+        var title = <?php echo '"' . _("Diagnistic tests results for selected realm") . '"'; ?>;
         result = '<div class="padding">';
         result = result + '<div><h3>';
-        result = result + <?php echo '"' . _("The result for tested realm:") . ' "';?> + realm;
+        result = result + <?php echo '"' . _("The result for tested realm:") . ' "'; ?> + realm;
         result = result + '</h3></p><div style="padding: 5px;"><div style="padding: 0px;">';
-        result = result + <?php echo '"' . _("We located") . '" ';?>  + ' ';
+        result = result + <?php echo '"' . _("We located") . '" '; ?>  + ' ';
         result = result + Object.keys(verdict).length + ' ';
-        result = result + <?php echo '"' . _("suspected areas which potentially can cause a problem.") . '"';?> + '<br>';
-        result = result + <?php echo '"' . _("Next to the problem description we show a speculated probability of this event.") . '"';?>;
+        result = result + <?php echo '"' . _("suspected areas which potentially can cause a problem.") . '"'; ?> + '<br>';
+        result = result + <?php echo '"' . _("Next to the problem description we show a speculated probability of this event.") . '"'; ?>;
         result = result + '</div><div style="padding: 5px;"><table>';
         k = 1;
         for (key in verdict) {
             result = result + '<tr><td>' + k + '.</td>';
             k = k + 1;
             if (key === 'INFRA_DEVICE') {
-                result = result + '<td>' + <?php echo '"' . _("Your device configuration is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("Your device configuration is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_80211') {
-                result = result + '<td>' + <?php echo '"' . _("WIFI network around you sucks") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("WIFI network around you sucks") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_LAN') {
-                result = result + '<td>' + <?php echo '"' . _("The network environment around you is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The network environment around you is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_SP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your service provider has a problem") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your service provider has a problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IDP_AUTHBACKEND') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server in your home institution has a problem to authenticate users") .'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server in your home institution has a problem to authenticate users") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your current location and your federation server is broken") .'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your current location and your federation server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your current location, your federation server and top level server is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your current location, your federation server and top level server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_LINK_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your home institution, your federation server and top level server is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your home institution, your federation server and top level server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_ETLR') {
-                result = result + '<td>' + <?php echo '"' . _("The communication to top level server is down") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The communication to top level server is down") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_ETLR_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your federation server is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your federation server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_ETLR_NRO_SP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your service provider is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between top level server and your service provider is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NRO_IdP') {
-                result = result + '<td>' + <?php echo '"' . _("The link between your federation server and your institution server is broken") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("The link between your federation server and your institution server is broken") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_IdP_RADIUS') {
-                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your home institution has a problem").'"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("RADIUS server of your home institution has a problem") . '"'; ?> + '</td>';
             }
             if (key === 'INFRA_NONEXISTENTREALM') {
-                result = result + '<td>' + <?php echo '"' . _("Entered realm doesn't exist") . '"';?> + '</td>';
+                result = result + '<td>' + <?php echo '"' . _("Entered realm doesn't exist") . '"'; ?> + '</td>';
             }
             result = result + '<td style="padding-left: 5px;">' + (verdict[key] * 100).toFixed(2) + "%</td></tr>";
         }
@@ -347,7 +347,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         return false;
    });
    $(document).on('change', '#idp_country, #sp_country' , function() {
-        var comment = <?php echo '"' . _("Fetching institutions list").'..."';?>;  
+        var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
         var type = id.substr(0,k);
@@ -362,7 +362,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     if (data.status === 1) {
                         inProgress(0);
                         var institutions = data.institutions;
-                        var select = <?php echo '"<td>' . _("Select institution:") . '</td>"';?>;
+                        var select = <?php echo '"<td>' . _("Select institution:") . '</td>"'; ?>;
                         select = select + '<td><select id="' + type + '_inst" name="' + type + '_inst" style="width:400px;"><option value=""></option>';
                         for (var i in institutions) {
                             select = select + '<option value="' + institutions[i].ID + '">' + institutions[i].name + '</option>';
@@ -394,7 +394,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             $('#start_test_area').hide();
             return false;
         }
-        var comment = <?php echo '"' . _("Fetching realms list") . '..."';?>;
+        var comment = <?php echo '"' . _("Fetching realms list") . '..."'; ?>;
         inProgress(1, comment);
         $.ajax({
             url: "findRealm.php",
@@ -406,7 +406,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     var realms = data.realms;
                     var realmselect = '';
                     if (realms.length > 1) {
-                        realmselect = <?php echo '"<td>' . _("Check realm(s):") . '</td>"';?>;
+                        realmselect = <?php echo '"<td>' . _("Check realm(s):") . '</td>"'; ?>;
                         realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
                         for (var i in realms) {
                             console.log("i = "+i);
@@ -419,7 +419,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         }
                         realmselect = realmselect + '</span></td>';
                     } else {
-                        realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"';?>;
+                        realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"'; ?>;
                         realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
                         realmselect = realmselect + realms[0] + '</span>';
                         realmselect = realmselect + '<input type="hidden" name="realm[]" value="' + realms[0] + '">';
@@ -473,7 +473,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             });
             t = 1;
         }
-        var comment = <?php echo '"' . _("Running realm tests") . '..."';?>;
+        var comment = <?php echo '"' . _("Running realm tests") . '..."'; ?>;
         inProgress(1, comment);
         $.ajax({
             url: "findRealm.php",
@@ -534,8 +534,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         if ($(this).attr('id') == 'answer_yes') {
             answer = 2; /* Yes */
         }
-        var o = new Object();
-        testSociopath(o, answer);
+        testSociopath('', answer);
   });
   $('#realmtest').click(function(event){
         inProgress(1);
@@ -566,15 +565,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         var realm =  data.realm;
                         console.log('realm '+realm);
                         console.log(data.suspects);
-                        testSociopath(realm, data.suspects['SUSPECTS'], 0);
+                        testSociopath(realm, -1);
                     } else {
                         var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
-                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem appears") . '"';?>;
+                        result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem appears") . '"'; ?>;
                         result = result + '</h3>'
                         if (r.length == 1) {
-                            result = result + <?php echo '"' . _("This test includes checking of following realm") . '"';?>;
+                            result = result + <?php echo '"' . _("This test includes checking of following realm") . '"'; ?>;
                         } else {    
-                            result = result + <?php echo '"' . _("This test includes checking of following realms") . '"';?>;
+                            result = result + <?php echo '"' . _("This test includes checking of following realms") . '"'; ?>;
                         }
                         result = result + ': '
                         for (var i=0; i < r.length; i++) {
@@ -584,7 +583,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                             result = result + r[i];
                         }
                         result = result + '.<br>';
-                        result = result + <?php echo '"' . _("You should report this to") . '"';?> + ' <a href="mailto:admin@eduroam.pl">admin@eduroam.pl</a>';
+                        result = result + <?php echo '"' . _("You should report this to") . '"'; ?> + ' <a href="mailto:admin@eduroam.pl">admin@eduroam.pl</a>';
                         result = result + '</div>';
                         showInfo(result, title);
                     }

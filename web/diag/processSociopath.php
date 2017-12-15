@@ -13,30 +13,24 @@ $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "Sociopath test\n");
 session_start();
 $loggerInstance->debug(4, $_SESSION);
-$workingwith = filter_input(INPUT_GET, 'workingwith', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY);
 $answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_STRING);
-$loggerInstance->debug(4, $workingwith);
-$loggerInstance->debug(4, "answer $answer\n");
 $sociopath = new \core\diag\Sociopath();
-if (!$workingwith) {
+if ($answer > -1) {
     $QJSON = $_SESSION['QJSON'];
     $QPHP = json_decode($QJSON, TRUE);
     $yes = FALSE;
-    if ($answer === 2) {
+    if ($answer == 2) {
         $yes = TRUE;
     }
     $sociopath->revaluate($QPHP["NUMBER"], $yes);
-} else {
-    error_log('MGW workingwith '.serialize($workingwith));
 }
 $QJSON = $sociopath->questionOracle();
 $_SESSION['QJSON'] = $QJSON;
 $loggerInstance->debug(4, json_decode($QJSON));
-$loggerInstance->debug(4, $workingwith);
-$loggerInstance->debug(4, $sociopath->getCurrentGuessState());
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
     echo $QJSON;
 } else {
+    $loggerInstance->debug(4, $sociopath->getCurrentGuessState());
     echo $sociopath->getCurrentGuessState();
 }
