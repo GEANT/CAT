@@ -326,12 +326,22 @@ function resetDevices() {
           showInfo(data, title)});
   }
 
+  function waiting(action) {
+    if (action == 'start') {
+      var x = getWindowHCenter() - 16;
+      $("#loading_ico").css('left',x+'px');
+      $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
+      $("#loading_ico").show();
+      return;
+    }
+    if (action == 'stop') {
+      $("#loading_ico").hide();
+      return;
+    }
+  }
+  
   function goAdmin() {
-  alert("admin");
-   var x = getWindowHCenter() - 16;
-   $("#loading_ico").css('left',x+'px');
-   $("#loading_ico").attr('src','resources/images/icons/loading9.gif');
-   $("#loading_ico").show();
+   waiting('start');
    window.location.replace("<?php echo $Gui->skinObject->findResourceUrl("BASE", "admin/overview_user.php")?>?lang="+lang);
 }
 
@@ -342,6 +352,7 @@ function resetDevices() {
         alert("<?php echo(_("Missing email address")); ?>");
         return;
     }
+    waiting('start');
     $.get('<?php echo $skinObject->findResourceUrl("BASE", "user/remindIdP.php"); ?>', {key: key, mail: mail}, function(data) {
        $("#remindIdPl").html("");
        try {
@@ -363,6 +374,7 @@ function resetDevices() {
        $.each(j.data, function(i, v) {
            $("#remindIdPl").append('<li>' + v + '</li>');
        });
+       waiting('stop');
     });
   }
 

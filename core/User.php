@@ -162,17 +162,20 @@ class User extends EntityWithDBProperties {
      * that email address. We then see which pretty-print auth provider name
      * was used
      * 
-     * @param string $mail
+* @param string $mail
      * @return false|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
     public static function findLoginIdPByEmail($mail) {
         $listOfProviders = [];
+        $matchedProviders = [];
+        $skipCurl = 0;
         $realmail = filter_var($mail, FILTER_VALIDATE_EMAIL);
         if ($realmail === FALSE) {
             return FALSE;
         }
         $dbHandle = \core\DBConnection::handle("INST");
         $query = $dbHandle->exec("SELECT user_id FROM ownership WHERE orig_mail = ?", "s", $realmail);
+
         // SELECT -> resource, not boolean
         while ($oneRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $query)) {
             $matches = [];
@@ -196,8 +199,24 @@ class User extends EntityWithDBProperties {
                     if ($exactIdP === 0 || $exactIdP === FALSE) {
                         return FALSE;
                     }
-                    if (!in_array(User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP " . $moreMatches[1], $listOfProviders)) {
-                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP " . $moreMatches[1];
+                    $idp = $moreMatches[1];
+                    if (!in_array($idp, $matchedProviders)) {
+                        $matchedProviders[] = $idp;
+                        $name = $idp;
+                        if ($skipCurl == 0) {
+                            $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=pl";
+                            $ch = curl_init($url);
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                            curl_setopt($ch,CURLOPT_TIMEOUT, CONFIG_DIAGNOSTICS['eduGainResolver']['timeout']);
+                            $response = curl_exec($ch);
+                            if ($response == FALSE) {
+                                $skipCurl = 1;
+                            } else {
+                                $name = json_decode($response);
+                            }
+                            curl_close($ch);
+                        }
+                        $listOfProviders[] = User::PROVIDER_STRINGS[$providerStrings[0]] . " - IdP: " . $name;
                     }
                     break;
                 case $providerStrings[1]:
@@ -206,6 +225,7 @@ class User extends EntityWithDBProperties {
                 case $providerStrings[4]:
                 case $providerStrings[5]:
                     if (!in_array(User::PROVIDER_STRINGS[$matches[1]],$listOfProviders)) {
+                        $providerName = $this->getEdugainName(User::PROVIDER_STRINGS[$matches[1]]);
                         $listOfProviders[] = User::PROVIDER_STRINGS[$matches[1]];
                     }
                     break;

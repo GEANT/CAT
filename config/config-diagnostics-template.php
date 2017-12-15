@@ -141,4 +141,8 @@ const CONFIG_DIAGNOSTICS = [
       ],
       'accreditedCAsURL' => '',
     ],
+    'eduGainResolver' => [
+        'url' => 'https://technical.edugain.org/api.php',
+        'timeout' => 2,
+        ],
 ];
