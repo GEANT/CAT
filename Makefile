@@ -2,7 +2,7 @@ VERSION = CAT-1.2
 VV = $(VERSION)/
 .PHONY: translation
 
-all: documentation translation
+all: translation
 
 documentation:
 	rm -R phpdoc
