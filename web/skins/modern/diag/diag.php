@@ -220,8 +220,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                                 query = '<input type="hidden" id="tested_realm" value="' + realm + '">';
                             }    
                             query = query + '<div id="current_query">'+data['TEXT']+'</div>';
-                            query = query + '<div><button id="answer_yes">' + <?php echo '"' . _("Yes") . '"'; ?>;
-                            query = query + '<button style="margin-left:20px;" id="answer_no">' + <?php echo '"' . _("No") . '"'; ?> + '</div>';
+                            query = query + '<div><button id="answer_yes">' + <?php echo '"' . _("Yes") . '"'; ?> + '</button>';
+                            query = query + '<button style="margin-left:20px;" id="answer_no">' + <?php echo '"' . _("No") . '"'; ?> + '</button>';
+                            query = query + '<button style="margin-left:20px;" id="answer_noidea">' + <?php echo '"' . _("I don't know") . '"'; ?> + '</button></div>';
                             $('#sociopath_queries').html(query);
                             $('#sociopath_query_area').show();
                         }
@@ -528,11 +529,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         });
         return false;
   });
-  $(document).on('click', '#answer_yes, #answer_no' , function(e) {
+  $(document).on('click', '#answer_yes, #answer_no, #answer_noidea' , function(e) {
         e.preventDefault();
         var answer = 1; /* No */
         if ($(this).attr('id') == 'answer_yes') {
             answer = 2; /* Yes */
+        }
+        if ($(this).attr('id') == 'answer_noidea') {
+            console.log('I do not know');
+            answer = 3; /* No idea */
         }
         testSociopath('', answer);
   });
@@ -565,7 +570,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         var realm =  data.realm;
                         console.log('realm '+realm);
                         console.log(data.suspects);
-                        testSociopath(realm, -1);
+                        testSociopath(realm, 0);
                     } else {
                         var title = <?php echo '"' . _("Diagnistic tests results for selected realms") . '"'; ?>;
                         result = '<div class="padding"><h3>' + <?php echo '"' . _("An unknown problem appears") . '"'; ?>;

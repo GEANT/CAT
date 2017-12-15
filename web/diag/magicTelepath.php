@@ -24,7 +24,6 @@ if (empty($telepathArray)) {
     $returnArray['status'] = 1;
     $returnArray['realm'] = $realm;
     $returnArray['suspects'] = $telepathArray;
-    $returnArray['print_r'] = print_r(telepathArray, true);
 }
 $loggerInstance = new \core\common\Logging();
 $loggerInstance->debug(4, "magic Telepath returns:");
