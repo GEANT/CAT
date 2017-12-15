@@ -92,6 +92,9 @@ class Sociopath extends AbstractTest {
      * @param bool|NULL $answer TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
      */
     public function revaluate($questionNumber, $answer) {
+        if ($questionNumber == "") {
+            throw new Exception("We really need a question number!");
+        }
         $questionDetails = $this->qaArray[$questionNumber];
         if ($answer === TRUE) {
             $this->possibleFailureReasons[$questionDetails['AREA']] = $this->possibleFailureReasons[$questionDetails['AREA']] * $questionDetails["FACTOR"];
