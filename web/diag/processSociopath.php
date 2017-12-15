@@ -15,28 +15,26 @@ session_start();
 $answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_NUMBER_INT);
 $sociopath = new \core\diag\Sociopath();
 if ($answer > 0) {
-    $QJSON = $_SESSION['QJSON'];
-    $loggerInstance->debug(4, $QJSON);
-    $QPHP = json_decode($QJSON, TRUE);
+    $QNUM = $_SESSION['LAST_QUESTION'];
     switch ($answer) {
         case 1:
             $loggerInstance->debug(4, "Revaluate with FALSE");
-            $sociopath->revaluate($QPHP["NUMBER"], FALSE);
+            $sociopath->revaluate($QNUM, FALSE);
             break;
         case 2:
             $loggerInstance->debug(4, "Revaluate with TRUE");
-            $sociopath->revaluate($QPHP["NUMBER"], TRUE);
+            $sociopath->revaluate($QNUM, TRUE);
             break;
         case 3:
             $loggerInstance->debug(4, "Revaluate with NULL");
-            $sociopath->revaluate($QPHP["NUMBER"], NULL);
+            $sociopath->revaluate($QNUM, NULL);
             break;
     }
 }
 $QJSON = $sociopath->questionOracle();
-$_SESSION['QJSON'] = $QJSON;
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
+    $_SESSION['LAST_QUESTION'] = $QPHP["NUMBER"];
     echo $QJSON;
 } else {
     echo $sociopath->getCurrentGuessState();
