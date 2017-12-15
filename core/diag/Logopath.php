@@ -75,6 +75,10 @@ class Logopath extends AbstractTest {
         parent::__construct();
         $this->userEmail = FALSE;
         $this->additionalScreenshot = FALSE;
+        
+        $this->mailQueue = [];
+        $this->concreteRecipients = [];
+        
         $this->validatorInstance = new \web\lib\common\InputValidation();
 
         $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? []; // if we know nothing, don't talk to anyone
@@ -192,7 +196,8 @@ class Logopath extends AbstractTest {
     }
 
     /**
-     * sends the mails
+     * sends the mails. Only call this after either determineMailsToSend() or
+     * isEndUserContactUseful(), otherwise it will do nothing.
      */
     public function weNeedToTalk() {
         foreach ($this->mailQueue as $oneMail) {
