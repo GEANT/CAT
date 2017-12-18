@@ -25,7 +25,7 @@ $user = new \core\User($_SESSION['user']);
     echo $deco->productheader("FEDERATION");
     ?>
     <h1>
-        <?php echo sprintf(_("%s Overview"),$uiElements->nomenclature_fed); ?>
+        <?php echo sprintf(_("%s Overview"), $uiElements->nomenclature_fed); ?>
     </h1>
 
     <div class="infobox">
@@ -39,7 +39,7 @@ $user = new \core\User($_SESSION['user']);
                 <td>
                 </td>
                 <td>
-                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'','\x27',str_replace('"','\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
+                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'', '\x27', str_replace('"', '\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
         </table>
@@ -49,7 +49,7 @@ $user = new \core\User($_SESSION['user']);
     $mgmt = new \core\UserManagement();
 
     if (!$user->isFederationAdmin()) {
-        echo "<p>" . sprintf(_("You are not a %s manager."),$uiElements->nomenclature_fed) . "</p>";
+        echo "<p>" . sprintf(_("You are not a %s manager."), $uiElements->nomenclature_fed) . "</p>";
         echo $deco->footer();
         exit(0);
     }
@@ -206,20 +206,28 @@ $user = new \core\User($_SESSION['user']);
                       </td>";
                 // external DB sync, if configured as being necessary
                 if (CONFIG['DB']['enforce-external-sync']) {
-                    if ($idp_instance->getExternalDBSyncState() != \core\IdP::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING) {
-                        echo "<td>";
-                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                    echo "<td>";
+                    echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                     <button type='submit'>" . _("Manage DB Link") . "</button> ";
 
-                        if ($idp_instance->getExternalDBSyncState() != \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED) {
-                            echo "<div class='notacceptable'>" . _("NOT linked") . "</div>";
-                        } else {
+
+                    switch ($idp_instance->getExternalDBSyncState()) {
+                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING:
+                            break;
+                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_SYNCED:
                             echo "<div class='acceptable'>" . _("Linked") . "</div>";
-                        }
-                        echo "</form>";
-                        echo "</td>";
+                            break;
+                        case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED:
+
+                            echo "<div class='notacceptable'>" . _("NOT linked") . "</div>";
+
+
+                            break;
                     }
+                    echo "</form>";
+                    echo "</td>";
                 }
+
                 // admin management
                 echo "<td>
                                <div style='white-space: nowrap;'>
@@ -237,7 +245,7 @@ $user = new \core\User($_SESSION['user']);
                 echo "<tr>
                             <td colspan='2'>
                                <strong>" .
-                sprintf(_("Pending invitations in your %s:"),$uiElements->nomenclature_fed) . "
+                sprintf(_("Pending invitations in your %s:"), $uiElements->nomenclature_fed) . "
                                </strong>
                             </td>
                          </tr>";
