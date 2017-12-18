@@ -141,12 +141,15 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
     $sbProfileExists = FALSE;
 
     foreach ($profiles_for_this_idp as $profile_list) {
-        switch (get_class($profile_list)) {
-            case "core\ProfileSilverbullet":
-                $sbProfileExists = TRUE;
-                ?>
-                <div style='display: table-row; margin-bottom: 20px;'>
-                    <div class='profilebox' style='display: table-cell;'>
+        ?>
+        <div style='display: table-row; margin-bottom: 20px;'>
+            <div class='profilebox' style='display: table-cell;'>
+                <?php
+                switch (get_class($profile_list)) {
+                    case "core\ProfileSilverbullet":
+                        $sbProfileExists = TRUE;
+                        ?>
+
                         <h2><?php echo $profile_list->name; ?></h2>
                         <?php
                         $maxusers = $profile_list->getAttributes("internal:silverbullet_maxusers");
@@ -180,23 +183,17 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                                     echo "<tr><td><strong>$dev</strong></td><td>$count</td></tr>";
                                 }
                                 ?>
-                        </table></div>
+                        </table>
+                    </div>
                 </div>
                 <?php
                 break;
             case "core\ProfileRADIUS":
-
-
-                echo "<div style='display: table-row; margin-bottom: 20px;'>";
                 $profile_name = $profile_list->name;
                 // see if there are any profile-level overrides
                 $attribs = $profile_list->getAttributes();
-
-                echo "<div class='profilebox' style='display: table-cell;'>";
-
                 // write things into a buffer; we need some function calls to determine
                 // readiness - but want to display it before!
-
                 $has_overrides = FALSE;
                 foreach ($attribs as $attrib) {
                     if ($attrib['level'] == "Profile" && !preg_match("/^(internal:|profile:name|profile:description|eap:)/", $attrib['name'])) {

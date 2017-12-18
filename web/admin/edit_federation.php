@@ -54,9 +54,7 @@ $langObject = new \core\common\Language();
             <tr>
                 <td><?php echo _("Country:"); ?></td>
                 <td></td>
-                <td><strong><?php
-                        echo $my_fed->name;
-                        ?></strong></td>
+                <td><strong><?php echo $my_fed->name; ?></strong></td>
             </tr>
             <?php echo $uiElements->infoblock($fed_options, "fed", "FED"); ?>
         </table>

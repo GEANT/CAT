@@ -95,8 +95,7 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
                         $defaultisset = TRUE;
                     }
                     echo "</td>";
-                } else
-                if (in_array($method->getArrayRep(), $factory->device->supportedEapMethods)) {
+                } elseif (in_array($method->getArrayRep(), $factory->device->supportedEapMethods)) {
                     if ($my_profile->isEapTypeDefinitionComplete($method) !== true) {
                         echo "<td class='compat_incomplete'></td>";
                     } elseif ($method->getArrayRep() === $preflist[0] || $defaultisset === FALSE) {
