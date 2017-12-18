@@ -142,12 +142,12 @@ if (isset($_POST['submitbutton'])) {
             $candidates = $my_inst->getExternalDBSyncCandidates();
             echo "<br/><form name='form-link-inst' action='inc/manageDBLink.inc.php?inst_id=$my_inst->identifier' method='post' accept-charset='UTF-8'>";
             printf(_("Please select an entity from the %s DB which corresponds to this CAT %s."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name'], $uiElements->nomenclature_inst) . " ";
-            if ($candidates !== FALSE) {
+            if ($candidates !== FALSE && count($candidates) > 0) {
                 printf(_("Particularly promising entries (names in CAT and %s DB are a 100%% match) are on top of the list."), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
             }
             echo "<table>";
             echo "<tr><th>" . _("Link to this entity?") . "</th><th>" . sprintf(_("Name of the %s"), $uiElements->nomenclature_inst) . "</th><th>" . _("Administrators") . "</th></tr>";
-            if ($candidates !== FALSE) {
+            if ($candidates !== FALSE && count($candidates) > 0) {
                 foreach ($candidates as $candidate) {
                     $info = $cat->getExternalDBEntityDetails($candidate);
                     echo "<tr><td><input type='radio' name='inst_link' value='$candidate' onclick='document.getElementById(\"submit\").disabled = false;'>$candidate</input></td><td>";
