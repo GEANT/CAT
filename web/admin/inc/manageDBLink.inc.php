@@ -188,21 +188,6 @@ if (isset($_POST['submitbutton'])) {
     }
     ?>
 </p>
-<br/>
-<?php
-$pending_invites = $mgmt->listPendingInvitations($my_inst->identifier);
-$loggerInstance = new \core\common\Logging();
-$loggerInstance->debug(4, "Displaying pending invitations for $my_inst->identifier.\n");
-if (count($pending_invites) > 0) {
-    echo "<strong>" . _("Pending invitations for this IdP") . "</strong>";
-    echo "<table>";
-    foreach ($pending_invites as $invitee) {
-        echo "<tr><td>" . $invitee['mail'] . "</td></tr>";
-    }
-    echo "</table>";
-}
-?>
-<br/>
 <hr/>
 <form action='inc/manageDBLink.inc.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
     <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>' onclick='removeMsgbox();
