@@ -30,7 +30,10 @@ class Authentication {
      */
     public function isAuthenticated() {
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
-        return $authSimple->isAuthenticated();
+        $session = \SimpleSAML_Session::getSessionFromRequest();
+        $status = $authSimple->isAuthenticated();
+        $session->cleanup();
+        return $status;
     }
 
     /**
@@ -41,9 +44,10 @@ class Authentication {
     public function authenticate() {
         $loggerInstance = new \core\common\Logging();
         $authSimple = new \SimpleSAML\Auth\Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+        $session = \SimpleSAML_Session::getSessionFromRequest();
         $authSimple->requireAuth();
-
         $admininfo = $authSimple->getAttributes();
+        $session->cleanup();
 
         if (!isset($admininfo[CONFIG['AUTHENTICATION']['ssp-attrib-identifier']][0])) {
             $failtext = "FATAL ERROR: we did not receive a unique user identifier from the authentication source!";

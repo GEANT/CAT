@@ -22,10 +22,10 @@ if (!$key1 || $key1 != $key2) {
     exit;
 }
 
-$prividers = \core\User::findLoginIdPByEmail(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL));
-if (!$prividers) {
+$providers = \core\User::findLoginIdPByEmail(filter_input(INPUT_GET, 'mail', FILTER_SANITIZE_EMAIL));
+if (!$providers) {
     echo(json_encode(['status' => 0]));
     exit;
 }
 
-echo(json_encode(['status' => 1, 'data' => $prividers]));
+echo(json_encode(['status' => 1, 'data' => $providers]));
