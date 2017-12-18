@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -59,28 +59,32 @@ if (!$isFedAdmin && !$is_admin_with_blessing) {
 // okay... we are indeed entitled to "do stuff"
 
 if (isset($_POST['submitbutton'])) {
-    if ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_DELETE) {
-        if (isset($_POST['admin_id'])) {
-            $ownermgmt = new \core\UserManagement();
-            $ownermgmt->removeAdminFromIdP($my_inst, filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_STRING));
-            // if the user deleted himself, go back to overview page. Otherwise, just stay here and display the remaining owners
-            // we don't decide about that here; it's done by JS magic in the calling button
-            if ($_POST['admin_id'] == $_SESSION['user']) {
-                header("Location: $dest");
-                exit;
+    switch ($_POST['submitbutton']) {
+        case web\lib\common\FormElements::BUTTON_DELETE:
+            if (isset($_POST['admin_id'])) {
+                $ownermgmt = new \core\UserManagement();
+                $ownermgmt->removeAdminFromIdP($my_inst, filter_input(INPUT_POST, 'admin_id', FILTER_SANITIZE_STRING));
+                // if the user deleted himself, go back to overview page. Otherwise, just stay here and display the remaining owners
+                // we don't decide about that here; it's done by JS magic in the calling button
+                if ($_POST['admin_id'] == $_SESSION['user']) {
+                    header("Location: $dest");
+                    exit;
+                }
+            } else {
+                echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";
+                exit(1);
             }
-        } else {
-            echo "Fatal Error: asked to delete an administrator, but no administrator ID was given!";
-            exit(1);
-        }
-    } elseif ($_POST['submitbutton'] == web\lib\common\FormElements::BUTTON_TAKECONTROL) {
-        if ($isFedAdmin) {
-            $ownermgmt = new \core\UserManagement();
-            $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
-        } else {
-            echo "Fatal Error: you wanted to take control over an ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'].", but are not a ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']." operator!";
-            exit(1);
-        }
+            break;
+        case web\lib\common\FormElements::BUTTON_TAKECONTROL:
+            if ($isFedAdmin) {
+                $ownermgmt = new \core\UserManagement();
+                $ownermgmt->addAdminToIdp($my_inst, $_SESSION['user']);
+            } else {
+                echo "Fatal Error: you wanted to take control over an " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution'] . ", but are not a " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation'] . " operator!";
+                exit(1);
+            }
+            break;
+        default:
     }
 }
 ?>
@@ -96,14 +100,14 @@ if (isset($_GET['invitation'])) {
         case "SUCCESS":
             $cryptText = "";
             switch ($_GET['transportsecurity']) {
-            case "ENCRYPTED":
-                $cryptText = _("and <b>encrypted</b> to the mail domain");
-                break;
-            case "CLEAR":
-                $cryptText = _("but <b>in clear text</b> to the mail domain");
-                break;
-            default:
-                throw new Exception("Error: unknown encryption status of invitation!?!");
+                case "ENCRYPTED":
+                    $cryptText = _("and <b>encrypted</b> to the mail domain");
+                    break;
+                case "CLEAR":
+                    $cryptText = _("but <b>in clear text</b> to the mail domain");
+                    break;
+                default:
+                    throw new Exception("Error: unknown encryption status of invitation!?!");
             }
             echo $uiElements->boxRemark(sprintf(_("The invitation email was sent successfully %s."), $cryptText), _("The invitation email was sent."));
             break;
@@ -121,13 +125,13 @@ if (isset($_GET['invitation'])) {
 
 if ($isFedAdmin) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator of this %s. You can invite new administrators, who can in turn appoint further administrators on their own."),$uiElements->nomenclature_fed, $uiElements->nomenclature_inst), sprintf(_("%s Administrator"),$uiElements->nomenclature_fed));
+    echo $uiElements->boxRemark(sprintf(_("You are the %s administrator of this %s. You can invite new administrators, who can in turn appoint further administrators on their own."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst), sprintf(_("%s Administrator"), $uiElements->nomenclature_fed));
     echo "</table></div>";
 }
 
 if (!$isFedAdmin && $is_admin_with_blessing) {
     echo "<div class='ca-summary' style='position:relative;'><table>";
-    echo $uiElements->boxRemark(sprintf(_("You are an administrator of this %s, and were directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."),$uiElements->nomenclature_inst ,$uiElements->nomenclature_fed), _("Directly Appointed IdP Administrator"));
+    echo $uiElements->boxRemark(sprintf(_("You are an administrator of this %s, and were directly appointed by the %s administrator. You can appoint further administrators, but these can't in turn appoint any more administrators."), $uiElements->nomenclature_inst, $uiElements->nomenclature_fed), _("Directly Appointed IdP Administrator"));
     echo "</table></div>";
 }
 ?>
