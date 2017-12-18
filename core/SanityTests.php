@@ -1,11 +1,12 @@
 <?php
-/* 
- *******************************************************************************
+
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 
 /**
@@ -31,7 +32,9 @@
  *
  * @package Utilities
  */
+
 namespace core;
+
 use GeoIp2\Database\Reader;
 use \Exception;
 
@@ -146,7 +149,7 @@ class SanityTests extends CAT {
     private function get_exec_path($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";
-        foreach ([CONFIG, CONFIG_CONFASSISTANT, CONFIG_DIAGNOSTICS] as $config) { 
+        foreach ([CONFIG, CONFIG_CONFASSISTANT, CONFIG_DIAGNOSTICS] as $config) {
             if (!empty($config['PATHS'][$pathToCheck])) {
                 $matchArray = [];
                 preg_match('/([^ ]+) ?/', $config['PATHS'][$pathToCheck], $matchArray);
@@ -473,33 +476,49 @@ class SanityTests extends CAT {
         }
     }
 
+    const DEFAULTS = [
+        ["SETTING" => CONFIG['APPEARANCE']['from-mail'],
+            "DEFVALUE" => "cat-invite@your-cat-installation.example",
+            "COMPLAINTSTRING" => "APPEARANCE/from-mail "],
+        ["SETTING" => CONFIG['APPEARANCE']['support-contact']['url'],
+            "DEFVALUE" => "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!",
+            "COMPLAINTSTRING" => "APPEARANCE/support-contact/url "],
+        ["SETTING" => CONFIG['APPEARANCE']['support-contact']['display'],
+            "DEFVALUE" => "cat-support@our-cat-installation.example",
+            "COMPLAINTSTRING" => "APPEARANCE/support-contact/display "],
+        ["SETTING" => CONFIG['APPEARANCE']['support-contact']['developer-mail'],
+            "DEFVALUE" => "cat-develop@our-cat-installation.example",
+            "COMPLAINTSTRING" => "APPEARANCE/support-contact/mail "],
+        ["SETTING" => CONFIG['APPEARANCE']['abuse-mail'],
+            "DEFVALUE" => "my-abuse-contact@your-cat-installation.example",
+            "COMPLAINTSTRING" => "APPEARANCE/abuse-mail "],
+        ["SETTING" => CONFIG['APPEARANCE']['MOTD'],
+            "DEFVALUE" => "Release Candidate. All bugs to be shot on sight!",
+            "COMPLAINTSTRING" => "APPEARANCE/MOTD "],
+        ["SETTING" => CONFIG['APPEARANCE']['webcert_CRLDP'],
+            "DEFVALUE" => ['list', 'of', 'CRL', 'pointers'],
+            "COMPLAINTSTRING" => "APPEARANCE/webcert_CRLDP "],
+        ["SETTING" => CONFIG['DB']['INST']['host'],
+            "DEFVALUE" => "db.host.example",
+            "COMPLAINTSTRING" => "DB/INST "],
+        ["SETTING" => CONFIG['DB']['INST']['host'],
+            "DEFVALUE" => "db.host.example",
+            "COMPLAINTSTRING" => "DB/USER "],
+    ];
+
     /**
      * test if defaults in the config have been replaced with some real values
      */
     private function defaults_test() {
         $defaultvalues = "";
         $missingvalues = "";
-        if (CONFIG['APPEARANCE']['from-mail'] == "cat-invite@your-cat-installation.example") {
-            $defaultvalues .= "APPEARANCE/from-mail ";
+        // all the checks for equality with a shipped default value
+        foreach (SanityTests::DEFAULTS as $oneCheckItem) {
+            if ($oneCheckItem['SETTING'] == $oneCheckItem["DEFVALUE"]) {
+                $defaultvalues .= $oneCheckItem["COMPLAINTSTRING"];
+            }
         }
-        if (CONFIG['APPEARANCE']['support-contact']['url'] == "cat-support@our-cat-installation.example?body=Only%20English%20language%20please!") {
-            $defaultvalues .= "APPEARANCE/support-contact/url ";
-        }
-        if (CONFIG['APPEARANCE']['support-contact']['display'] == "cat-support@our-cat-installation.example") {
-            $defaultvalues .= "APPEARANCE/support-contact/display ";
-        }
-        if (CONFIG['APPEARANCE']['support-contact']['developer-mail'] == "cat-develop@our-cat-installation.example") {
-            $defaultvalues .= "APPEARANCE/support-contact/mail ";
-        }
-        if (CONFIG['APPEARANCE']['abuse-mail'] == "my-abuse-contact@your-cat-installation.example") {
-            $defaultvalues .= "APPEARANCE/abuse-mail ";
-        }
-        if (CONFIG['APPEARANCE']['MOTD'] == "Release Candidate. All bugs to be shot on sight!") {
-            $defaultvalues .= "APPEARANCE/MOTD ";
-        }
-        if (CONFIG['APPEARANCE']['webcert_CRLDP'] == ['list', 'of', 'CRL', 'pointers']) {
-            $defaultvalues .= "APPEARANCE/webcert_CRLDP ";
-        }
+        // additional checks for defaults, which are not simple equality checks
         if (empty(CONFIG['APPEARANCE']['webcert_OCSP'])) {
             $missingvalues .= "APPEARANCE/webcert_OCSP ";
         } elseif (CONFIG['APPEARANCE']['webcert_OCSP'] == ['list', 'of', 'OCSP', 'pointers']) {
@@ -507,12 +526,6 @@ class SanityTests extends CAT {
         }
         if (isset(CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]) && CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'][0]['ip'] == "192.0.2.1") {
             $defaultvalues .= "RADIUSTESTS/UDP-hosts ";
-        }
-        if (CONFIG['DB']['INST']['host'] == "db.host.example") {
-            $defaultvalues .= "DB/INST ";
-        }
-        if (CONFIG['DB']['INST']['host'] == "db.host.example") {
-            $defaultvalues .= "DB/USER ";
         }
         if (!empty(CONFIG['DB']['EXTERNAL']) && CONFIG['DB']['EXTERNAL']['host'] == "customerdb.otherhost.example") {
             $defaultvalues .= "DB/EXTERNAL ";
