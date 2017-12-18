@@ -45,7 +45,7 @@ class Menu {
                     ['text' => _("What is eduroam"), 'catInfo' => ['what_is_eduroam', _("FAQ")]],
                     ['text' => _("FAQ"), 'catInfo' => ['faq', _("FAQ")]],
                     ['text' => _("Contact"), 'catInfo' => ['contact', _("FAQ")]],
-                    ['text' => _("Diagnostics"), 'link' => 'diag/diag.php'], 
+                    ['text' => _("Diagnostics"), 'link' => '/diag/diag.php'], 
                 ]],
             ['id' => 'manage',
                 'text' => _("Manage"), 'submenu' => [
@@ -74,6 +74,9 @@ class Menu {
                 $catInfo = NULL;
                 if (!empty($menuItem['catInfo'])) {
                     $catInfo = 'javascript:infoCAT("' . $iD . '", "' . $menuItem['catInfo'][0] . '","' . $menuItem['catInfo'][1] . '")';
+                }
+                if (!empty($menuItem['link']) && substr($menuItem['link'],0,1) === '/') {
+                    $menuItem['link'] = CONFIG['ROOT_URL'] . $menuItem['link'];
                 }
                 $link = $catInfo ?? $menuItem['link'] ?? CONFIG['ROOT_URL'];
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
