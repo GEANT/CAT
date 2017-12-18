@@ -18,7 +18,9 @@
 /**
  * 
  */
+
 namespace core;
+
 use \Exception;
 
 /**
@@ -63,7 +65,7 @@ class IdP extends EntityWithDBProperties {
         $this->entityOptionTable = "institution_option";
         $this->entityIdColumn = "institution_id";
         if (!is_numeric($instId)) {
-            throw new Exception("An ".CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst']." is identified by an integer index!");
+            throw new Exception("An " . CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_inst'] . " is identified by an integer index!");
         }
         $this->identifier = (int) $instId;
 
@@ -117,7 +119,7 @@ class IdP extends EntityWithDBProperties {
     const PROFILES_INCOMPLETE = 0;
     const PROFILES_CONFIGURED = 1;
     const PROFILES_SHOWTIME = 2;
-    
+
     public function maxProfileStatus() {
         $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
         // SELECT yields a resource, not a boolean
@@ -297,7 +299,7 @@ Best regards,
     /**
      * Retrieves the external DB identifier of this institution. Returns FALSE if no ID is known.
      * 
-     * @return mixed the external identifier; or FALSE if no external ID is known
+     * @return string|FALSE the external identifier; or FALSE if no external ID is known
      */
     public function getExternalDBId() {
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -323,7 +325,19 @@ Best regards,
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution WHERE external_db_id = ? AND external_db_syncstate = ?", "si", $identifier, $syncState);
             // SELECT -> resource, not boolean
             if (mysqli_num_rows(/** @scrutinizer ignore-type */ $alreadyUsed) == 0) {
-                $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, $syncState, $this->identifier );
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = ?, external_db_syncstate = ? WHERE inst_id = ?", "sii", $identifier, $syncState, $this->identifier);
+            }
+        }
+    }
+
+    /**
+     * removes the link between a CAT institution and the external DB
+     */
+    public function removeExternalDBId() {
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            if ($this->getExternalDBId() !== FALSE) {
+                $syncState = self::EXTERNAL_DB_SYNCSTATE_NOT_SYNCED;
+                $this->databaseHandle->exec("UPDATE institution SET external_db_id = NULL, external_db_syncstate = ? WHERE inst_id = ?", "ii", $syncState, $this->identifier);
             }
         }
     }
