@@ -75,7 +75,7 @@ class Menu {
                 if (!empty($menuItem['catInfo'])) {
                     $catInfo = 'javascript:infoCAT("' . $iD . '", "' . $menuItem['catInfo'][0] . '","' . $menuItem['catInfo'][1] . '")';
                 }
-                $link = $catInfo ?? $menuItem['link'] ?? '';
+                $link = $catInfo ?? $menuItem['link'] ?? CONFIG['ROOT_URL'];
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
                 $submenu = $menuItem['submenu'] ?? [];
                 $out .= $this->printMenuItem($menuItem['text'], $link, $class);
@@ -88,6 +88,7 @@ class Menu {
     }
 
     private function printMenuItem($itemText, $itemLink = '', $itemClass = '') {
+        
         return "<li><a href='" . $itemLink . "'" . $itemClass . '>' . $itemText . "</a>";
     }
     

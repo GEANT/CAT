@@ -269,4 +269,10 @@ const CONFIG = [
         'http://sommeopenid.example/anotheruser',
         'I do not care about security!',
     ],
+    
+    /**
+     * Set ROOT_URL to your CAT server URL, failing to do so will
+     * break down some links on the user's menu
+     */
+    'ROOT_URL' => '',
 ];
