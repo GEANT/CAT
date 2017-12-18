@@ -65,12 +65,24 @@ class DBConnection {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
 
+    public function isReadOnly() {
+        return $this->readOnly;
+    }
+
     /**
      * executes a query and triggers logging to the SQL audit log if it's not a SELECT
      * @param string $querystring the query to be executed
      * @return mixed the query result as mysqli_result object; or TRUE on non-return-value statements
      */
     public function exec($querystring, $types = NULL, &...$arguments) {
+        // log exact query to audit log, if it's not a SELECT
+        $isMoreThanSelect = FALSE;
+        if (preg_match("/^SELECT/i", $querystring) == 0) {
+            $isMoreThanSelect = TRUE;
+            if ($this->readOnly) { // let's not do this.
+                throw new Exception("This is a read-only DB connection, but this is statement is not a SELECT!");
+            }
+        }
         // log exact query to debug log, if log level is at 5
         $this->loggerInstance->debug(5, "DB ATTEMPT: " . $querystring . "\n");
         if ($types != NULL) {
@@ -83,7 +95,7 @@ class DBConnection {
         if ($types == NULL) {
             $result = $this->connection->query($querystring);
             if ($result === FALSE) {
-                throw new Exception("DB: Unable to execute simple statement! Error was --> ". $this->connection->error ." <--");
+                throw new Exception("DB: Unable to execute simple statement! Error was --> " . $this->connection->error . " <--");
             }
         } else {
             // fancy! prepared statement with dedicated argument list
@@ -96,7 +108,7 @@ class DBConnection {
             }
             $prepResult = $statementObject->prepare($querystring);
             if ($prepResult === FALSE) {
-                throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> ". $statementObject->error ." <--.");
+                throw new Exception("DB: Unable to prepare statement! Statement was --> $querystring <--, error was --> " . $statementObject->error . " <--.");
             }
 
             // we have a variable number of arguments packed into the ... array
@@ -108,11 +120,11 @@ class DBConnection {
             array_unshift($localArray, $types);
             $retval = call_user_func_array([$statementObject, "bind_param"], $localArray);
             if ($retval === FALSE) {
-                throw new Exception("DB: Unable to bind parameters to prepared statement! Argument array was --> ". var_export($localArray, TRUE) ." <--. Error was --> ". $statementObject->error ." <--");
+                throw new Exception("DB: Unable to bind parameters to prepared statement! Argument array was --> " . var_export($localArray, TRUE) . " <--. Error was --> " . $statementObject->error . " <--");
             }
             $result = $statementObject->execute();
             if ($result === FALSE) {
-                throw new Exception("DB: Unable to execute prepared statement! Error was --> ". $statementObject->error ." <--");
+                throw new Exception("DB: Unable to execute prepared statement! Error was --> " . $statementObject->error . " <--");
             }
             $selectResult = $statementObject->get_result();
             if ($selectResult !== FALSE) {
@@ -123,11 +135,11 @@ class DBConnection {
         }
 
         if ($result === FALSE && $this->connection->errno) {
-            throw new Exception("ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring', errno was ".$this->connection->errno."!");
+            throw new Exception("ERROR: Cannot execute query in $this->databaseInstance database - (hopefully escaped) query was '$querystring', errno was " . $this->connection->errno . "!");
         }
 
-        // log exact query to audit log, if it's not a SELECT
-        if (preg_match("/^SELECT/i", $querystring) == 0) {
+
+        if ($isMoreThanSelect) {
             $this->loggerInstance->writeSQLAudit("[DB: " . strtoupper($this->databaseInstance) . "] " . $querystring);
             if ($types != NULL) {
                 $this->loggerInstance->writeSQLAudit("Argument type sequence: $types, parameters are: " . print_r($arguments, true));
@@ -171,7 +183,7 @@ class DBConnection {
      * @var DBConnection 
      */
     private static $instanceFRONTEND;
-    
+
     /**
      * after instantiation, keep state of which DB *this one* talks to
      * 
@@ -192,6 +204,12 @@ class DBConnection {
     private $loggerInstance;
 
     /**
+     * Keeps state whether we are a readonly DB instance
+     * @var boolean
+     */
+    private $readOnly;
+
+    /**
      * Class constructor. Cannot be called directly; use handle()
      */
     private function __construct($database) {
@@ -205,6 +223,7 @@ class DBConnection {
         if ($databaseCapitalised == "EXTERNAL" && CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") {
             $this->connection->query("SET NAMES 'latin1'");
         }
+        $this->readOnly = CONFIG['DB'][$databaseCapitalised]['readonly'];
     }
 
 }

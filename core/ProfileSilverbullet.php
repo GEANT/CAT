@@ -100,7 +100,6 @@ class ProfileSilverbullet extends AbstractProfile {
 // realm is automatically calculated, then stored in DB
 
         $this->realm = "opaquehash@$myInst->identifier-$this->identifier." . strtolower($myInst->federation) . CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix'];
-        $this->setRealm($myInst->identifier."-".$this->identifier."." . strtolower($myInst->federation) . strtolower(CONFIG_CONFASSISTANT['SILVERBULLET']['realm_suffix']));
         $localValueIfAny = "";
 
 // but there's some common internal attributes populated directly

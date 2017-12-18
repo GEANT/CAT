@@ -80,28 +80,35 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         }
         ?>
     </div>
-    <table>
-        <tr>
-            <td>
-                <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclature_inst); ?></button>
-                </form>
-            </td>
-            <td>
-                <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
-                </form>
+    <?php
+    $readonly = CONFIG['DB']['INST']['readonly'];
+    if ($readonly === FALSE) {
+        ?>
+        <table>
+            <tr>
+                <td>
+                    <form action='edit_idp.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_EDIT; ?>'><?php echo sprintf(_("Edit general %s details"), $uiElements->nomenclature_inst); ?></button>
+                    </form>
+                </td>
+                <td>
+                    <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_DELETE; ?>' onclick="return confirm('<?php echo ( CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL ? sprintf(_("After deleting the IdP, you can not recreate it yourself - you need a new invitation token from the %s administrator!"), $uiElements->nomenclature_fed) . " " : "" ) . sprintf(_("Do you really want to delete your %s %s?"), $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Delete %s"), $uiElements->nomenclature_inst); ?></button>
+                    </form>
 
-            </td>
-            <td>
-                <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-                    <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your %s and start over the configuration from scratch. Do you really want to reset all settings of your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
-                </form>
+                </td>
+                <td>
+                    <form action='edit_idp_result.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                        <button class='delete' type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_FLUSH_AND_RESTART; ?>' onclick="return confirm('<?php echo sprintf(_("This action will delete all properties of your %s and start over the configuration from scratch. Do you really want to reset all settings of your %s %s?"), $uiElements->nomenclature_inst, $uiElements->nomenclature_inst, $my_inst->name); ?>')"><?php echo sprintf(_("Reset all %s settings"), $uiElements->nomenclature_inst); ?></button>
+                    </form>
 
-            </td>
-        </tr>
-    </table>
-    <hr/>
+                </td>
+            </tr>
+        </table>
+        <hr/>
+        <?php
+    }
+    ?>
     <h2><?php echo _("Available Support actions"); ?></h2>
     <table>
         <?php
@@ -170,9 +177,15 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                         ?>
                         <br/>
                         <br/>
-                        <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&profile_id=<?php echo $profile_list->identifier; ?>' method='POST'>
-                            <button <?php echo ( is_array($completeness) ? "disabled" : "" ); ?> type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
-                        </form>
+                        <?php
+                        if ($readonly === FALSE) {
+                            ?>
+                            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>&profile_id=<?php echo $profile_list->identifier; ?>' method='POST'>
+                                <button <?php echo ( is_array($completeness) ? "disabled" : "" ); ?> type='submit' name='sb_action' value='sb_edit'><?php echo _("Manage User Base"); ?></button>
+                            </form>
+                            <?php
+                        }
+                        ?>
                     </div>
 
                     <div style='width:20px;'></div>
@@ -280,7 +293,8 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                  </form>
                    </div>";
 
-                echo "        <div class='buttongroupprofilebox' style='clear:both;'>
+                if ($readonly === FALSE) {
+                    echo "        <div class='buttongroupprofilebox' style='clear:both;'>
                           <form action='edit_profile.php?inst_id=$my_inst->identifier&amp;profile_id=$profile_list->identifier' method='post' accept-charset='UTF-8'>
                                <hr/>
                                <button type='submit' name='profile_action' value='edit'>" . _("Edit") . "</button>
@@ -291,7 +305,7 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
                                </button>
                            </form>
                       </div>";
-
+                }
                 echo "</div>";
 // dummy width to keep a little distance
                 echo "<div style='width:20px;'></div>";
@@ -329,36 +343,38 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         echo "<div style='height:20px'></div>";
     }
 
-    // the opportunity to add a new silverbullet profile is only shown if
-    // a) there is no SB profile yet
-    // b) federation wants this to happen
+    if ($readonly === FALSE) {
+        // the opportunity to add a new silverbullet profile is only shown if
+        // a) there is no SB profile yet
+        // b) federation wants this to happen
 
-    $myfed = new \core\Federation($my_inst->federation);
-    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
-        // the button is grayed out if there's no support email address configured...
-        $hasMail = count($my_inst->getAttributes("support:email"));
-        ?>
-        <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-            <div>
-                <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
-                    <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
-                </button>
-            </div>
-        </form>
-        <?php
-    }
+        $myfed = new \core\Federation($my_inst->federation);
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" && count($myfed->getAttributes("fed:silverbullet")) > 0 && $sbProfileExists === FALSE) {
+            // the button is grayed out if there's no support email address configured...
+            $hasMail = count($my_inst->getAttributes("support:email"));
+            ?>
+            <form action='edit_silverbullet.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                <div>
+                    <button type='submit' <?php echo ($hasMail > 0 ? "" : "disabled"); ?> name='profile_action' value='new'>
+                        <?php echo sprintf(_("Add %s profile ..."), \core\ProfileSilverbullet::PRODUCTNAME); ?>
+                    </button>
+                </div>
+            </form>
+            <?php
+        }
 
-    // adding a normal profile is always possible if we're configured for it
-    if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
-        ?>
-        <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
-            <div>
-                <button type='submit' name='profile_action' value='new'>
-                    <?php echo _("Add new RADIUS/EAP profile ..."); ?>
-                </button>
-            </div>
-        </form>
-        <?php
+        // adding a normal profile is always possible if we're configured for it
+        if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
+            ?>
+            <form action='edit_profile.php?inst_id=<?php echo $my_inst->identifier; ?>' method='post' accept-charset='UTF-8'>
+                <div>
+                    <button type='submit' name='profile_action' value='new'>
+                        <?php echo _("Add new RADIUS/EAP profile ..."); ?>
+                    </button>
+                </div>
+            </form>
+            <?php
+        }
     }
     echo $deco->footer();
     

@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -51,7 +51,7 @@ if ($posted_eaptype) {
         throw new Exception("POSTed EAP type value is not an integer!");
     }
     // conversion routine throws an exception if the EAP type id is not known
-    $eaptype = new \core\common\EAP((int)$posted_eaptype);
+    $eaptype = new \core\common\EAP((int) $posted_eaptype);
 }
 
 // there is either one or the other. If both are set, something's fishy.
@@ -96,7 +96,7 @@ if ($device !== NULL) {
             $attribs[] = $attrib;
         }
     }
-    
+
     $captiontext = sprintf(_("EAP-Type <strong>%s</strong>"), $eaptype->getPrintableRep());
     $keyword = "eap-specific";
     $extrainput = "<input type='hidden' name='eaptype' value='" . $eaptype->getIntegerRep() . "'>";
@@ -119,9 +119,13 @@ if ($device !== NULL) {
     }
     $optionDisplay = new \web\lib\admin\OptionDisplay($interesting_attribs, "Method");
     echo $optionDisplay->prefilledOptionTable($keyword);
+    if (CONFIG['DB']['INST']['readonly'] === FALSE) {
+        ?>
+        <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
+        <br/>
+        <hr/>
+        <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
+        <?php
+    }
     ?>
-    <button type='button' class='newoption' onclick='<?php echo "getXML(\"$keyword\")"; ?>'><?php echo _("Add new option"); ?></button>
-    <br/>
-    <hr/>
-    <button type='submit' name='submitbutton' id='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_SAVE; ?>'><?php echo _("Save data"); ?></button>
 </form>

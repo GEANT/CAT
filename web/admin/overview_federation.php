@@ -23,6 +23,7 @@ $user = new \core\User($_SESSION['user']);
 <body>
     <?php
     echo $deco->productheader("FEDERATION");
+    $readonly = CONFIG['DB']['INST']['readonly'];
     ?>
     <h1>
         <?php echo sprintf(_("%s Overview"), $uiElements->nomenclature_fed); ?>
@@ -78,10 +79,14 @@ $user = new \core\User($_SESSION['user']);
                 </tr>
                 <?php
                 echo $uiElements->infoblock($thefed->getAttributes(), "fed", "FED");
+                if ($readonly === FALSE) {
+                    ?>
+                    <tr>
+                        <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
+                    </tr>
+                    <?php
+                }
                 ?>
-                <tr>
-                    <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
-                </tr>
             </table>
         </div>
         <div class='infobox'>
@@ -168,7 +173,13 @@ $user = new \core\User($_SESSION['user']);
                 echo "<th>" . sprintf(_("%s Database Sync Status"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']) . "</th>";
             }
             ?>
-            <th><?php echo _("Administrator Management"); ?></th>
+            <th>
+                <?php
+                if ($readonly === FALSE) {
+                    echo _("Administrator Management");
+                }
+                ?>
+            </th>
         </tr>
         <?php
         foreach ($feds as $onefed) {
@@ -206,11 +217,11 @@ $user = new \core\User($_SESSION['user']);
                       </td>";
                 // external DB sync, if configured as being necessary
                 if (CONFIG['DB']['enforce-external-sync']) {
-                    echo "<td>";
-                    echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
-                                    <button type='submit'>" . _("Manage DB Link") . "</button> ";
-
-
+                    echo "<td style='display: ruby;'>";
+                    if ($readonly === FALSE) {
+                        echo "<form method='post' action='inc/manageDBLink.inc.php?inst_id=" . $idp_instance->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
+                                    <button type='submit'>" . _("Manage DB Link") . "</button></form>&nbsp;&nbsp;";
+                    }
                     switch ($idp_instance->getExternalDBSyncState()) {
                         case \core\IdP::EXTERNAL_DB_SYNCSTATE_NOTSUBJECTTOSYNCING:
                             break;
@@ -224,20 +235,22 @@ $user = new \core\User($_SESSION['user']);
 
                             break;
                     }
-                    echo "</form>";
+
                     echo "</td>";
                 }
 
                 // admin management
-                echo "<td>
-                               <div style='white-space: nowrap;'>
+                echo "<td>";
+                if ($readonly === FALSE) {
+                    echo "<div style='white-space: nowrap;'>
                                   <form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $index . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'>
                                       <button type='submit'>" .
-                _("Add/Remove Administrators") . "
+                    _("Add/Remove Administrators") . "
                                       </button>
                                   </form>
-                                </div>
-                             </td>";
+                                </div>";
+                }
+                echo "</td>";
                 // end of entry
                 echo "</tr>";
             }
@@ -259,10 +272,12 @@ $user = new \core\User($_SESSION['user']);
                         $oneinvite['mail'] . "
                                     </td>
                                     <td colspan=2>";
-                        echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
+                        if ($readonly === FALSE) {
+                            echo "<form method='post' action='overview_federation.php' accept-charset='UTF-8'>
                                 <input type='hidden' name='invitation_id' value='" . $oneinvite['token'] . "'/>
                                 <button class='delete' type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_DELETE . "'>" . _("Revoke Invitation") . "</button>
                               </form>";
+                        }
                         echo "      </td>
                                  </tr>";
                     }
@@ -271,15 +286,19 @@ $user = new \core\User($_SESSION['user']);
         }
         ?>
     </table>
-    <hr/>
-    <br/>
-    <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
-            return false;' accept-charset='UTF-8'>
-        <button type='submit' class='download'>
-            <?php echo sprintf(_("Register new %s!"), $uiElements->nomenclature_inst); ?>
-        </button>
-    </form>
-    <br/>
     <?php
+    if ($readonly === FALSE) {
+        ?>
+        <hr/>
+        <br/>
+        <form method='post' action='inc/manageNewInst.inc.php' onsubmit='popupRedirectWindow(this);
+                return false;' accept-charset='UTF-8'>
+            <button type='submit' class='download'>
+                <?php echo sprintf(_("Register new %s!"), $uiElements->nomenclature_inst); ?>
+            </button>
+        </form>
+        <br/>
+        <?php
+    }
     echo $deco->footer();
     

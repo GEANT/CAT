@@ -194,28 +194,34 @@ const CONFIG = [
         // downloads and user_options. If you give the user below exclusively
         // read-only access, all data manipulation will fail; only existing state
         // can be worked with.
+        // if set to readonly, all edit and delete buttons are removed
         'INST' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
-            'pass' => 'somepass'],
+            'pass' => 'somepass',
+            'readonly' => FALSE, ],
         // this slice of DB user is about the downloads table. The corresponding
         // DB user should have write access to update statistics and the cache
-        // locations of installers.
+        // locations of installers. 
+        // Marking this as READONLY does not make sense!
         'FRONTEND' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
-            'pass' => 'somepass'],
+            'pass' => 'somepass',
+            'readonly' => FALSE, ],
         // this slice of DB use is about user management in the user_options
         // table. Giving the corresponding user only read-only access means that
         // all user properties have to "magically" occur in the table by OOB
         // means (custom queries are also possible of course).
+        // Marking this as readonly replaced the obsolete config parameter "userdb-readonly"
         'USER' => [
             'host' => 'db.host.example',
             'db' => 'cat',
             'user' => 'someuser',
-            'pass' => 'somepass'],
+            'pass' => 'somepass',
+            'readonly' => FALSE, ],
         /*   If you use this tool in conjunction with an external customer management database, you can configure that every 
          * institution entry in CAT MUST correspond to a customer entry in an external database. If you want this, set this
          * config variable to TRUE.
@@ -229,16 +235,14 @@ const CONFIG = [
          * IdP::setExternalDBId($identifier);
          * 
          * The code for the consortium "eduroam" is already written and may serve as template. See the functions in question. */
+        // Marking this as readonly currently has no effect, as we only ever do SELECTs on that database
         'EXTERNAL' => [
             'host' => 'customerdb.otherhost.example',
             'db' => 'customer_db',
             'user' => 'customerservice',
-            'pass' => '2lame4u'],
+            'pass' => '2lame4u',
+            'readonly' => TRUE, ],
          'enforce-external-sync' => TRUE,
-         /* if you feed your user database from a third-party source and do not want CAT to update it on its own, you can 
-          * make it read-only
-          */
-         'userdb-readonly' => FALSE,
     ],
 
     /**

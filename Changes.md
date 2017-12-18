@@ -1,5 +1,17 @@
-Changes in 1.2
-==============
+Changes in 2.0-alpha2
+=====================
+- [FEATURE #1]  add a button to UNlink an institution from the external DB
+- [FEATURE #2]  all databases can be marked as readonly; the code will never
+                execute anything else than SELECTs on those databases then. All
+                buttons which usually let users edit or delete anything are not
+                displayed.
+
+Configuration parameter changes
+-------------------------------
+- CONFIG['DB']['userdb-readonly'] is replaced by CONFIG['DB']['USER']['readonly']
+
+Changes in 2.0-alpha1
+=====================
 
 Upgrade path notice: it is not possible to upgrade directly from 1.0 to 1.2
 

@@ -1,12 +1,13 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
+
 namespace core;
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
@@ -30,32 +31,32 @@ $user = new \core\User($_SESSION['user']);
     echo $deco->productheader("ADMIN");
     ?>
     <h1>
-        <?php echo _("User Overview"); ?>
+<?php echo _("User Overview"); ?>
     </h1>
     <div class="infobox">
         <h2><?php echo _("Your Personal Information"); ?></h2>
         <table>
-            <?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
+<?php echo $uiElements->infoblock($user->getAttributes(), "user", "User"); ?>
             <tr>
                 <td>
-                    <?php echo "" . _("Unique Identifier") ?>
+<?php echo "" . _("Unique Identifier") ?>
                 </td>
                 <td>
                 </td>
                 <td>
-                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'','\x27',str_replace('"','\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
+                    <span class='tooltip' style='cursor: pointer;' onclick='alert("<?php echo str_replace('\'', '\x27', str_replace('"', '\x22', $_SESSION["user"])); ?>")'><?php echo _("click to display"); ?></span>
                 </td>
             </tr>
         </table>
     </div>
     <div>
         <?php
-        if (!CONFIG['DB']['userdb-readonly']) {
+        if (CONFIG['DB']['USER']['readonly'] === FALSE) {
             echo "<a href='edit_user.php'><button>" . _("Edit User Details") . "</button></a>";
         }
 
         if ($user->isFederationAdmin()) {
-            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here to manage your %ss'),$uiElements->nomenclature_fed) . "</button></form>";
+            echo "<form action='overview_federation.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . sprintf(_('Click here to manage your %ss'), $uiElements->nomenclature_fed) . "</button></form>";
         }
         if ($user->isSuperadmin()) {
             echo "<form action='112365365321.php' method='GET' accept-charset='UTF-8'><button type='submit'>" . _('Click here to access the superadmin page') . "</button></form>";
@@ -97,7 +98,7 @@ $user = new \core\User($_SESSION['user']);
             $country[$key] = $row['country'];
             $name[$key] = $row['name'];
         }
-        echo "<tr><th>" . sprintf(_("%s Name"), $uiElements->nomenclature_inst) . "</th><th>" . sprintf(_("Other admins of this %s"), $uiElements->nomenclature_inst) . "</th><th>" . _("Administrator Management") . "</th></tr>";
+        echo "<tr><th>" . sprintf(_("%s Name"), $uiElements->nomenclature_inst) . "</th><th>" . sprintf(_("Other admins of this %s"), $uiElements->nomenclature_inst) . "</th><th>" . ( CONFIG['DB']['INST']['readonly'] === FALSE ? _("Administrator Management") : "") . "</th></tr>";
         foreach ($myFeds as $fed_id => $fed_name) {
             echo "<tr><td colspan='3'><strong>" . sprintf(_("%s %s: %s list"), $uiElements->nomenclature_fed, $fed_name, $uiElements->nomenclature_inst) . "</strong></td></tr>";
 
@@ -131,7 +132,7 @@ $user = new \core\User($_SESSION['user']);
                     echo ngettext("other user", "other users", $otherAdminCount);
                 }
                 echo "</td><td>";
-                if ($blessedUser) {
+                if ($blessedUser && CONFIG['DB']['INST']['readonly'] === FALSE) {
                     echo "<div style='white-space: nowrap;'><form method='post' action='inc/manageAdmins.inc.php?inst_id=" . $the_inst->identifier . "' onsubmit='popupRedirectWindow(this); return false;' accept-charset='UTF-8'><button type='submit'>" . _("Add/Remove Administrators") . "</button></form></div>";
                 }
                 echo "</td></tr>";
@@ -141,27 +142,29 @@ $user = new \core\User($_SESSION['user']);
     } else {
         echo "<h2>" . sprintf(_("You are not managing any %s."), $uiElements->nomenclature_inst) . "</h2>";
     }
-    if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
-        echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
-        echo "<hr/>
+    if (CONFIG['DB']['INST']['readonly'] === FALSE) {
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['selfservice_registration'] === NULL) {
+            echo "<p>" . sprintf(_("Please ask your %s administrator to invite you to become an %s administrator."), $uiElements->nomenclature_fed, $uiElements->nomenclature_inst) . "</p>";
+            echo "<hr/>
              <div style='white-space: nowrap;'>
                 <form action='action_enrollment.php' method='get' accept-charset='UTF-8'>" .
-        sprintf(_("Did you receive an invitation token to manage an %s? Please paste it here:"), $uiElements->nomenclature_inst) .
-        "        <input type='text' id='token' name='token'/>
+            sprintf(_("Did you receive an invitation token to manage an %s? Please paste it here:"), $uiElements->nomenclature_inst) .
+            "        <input type='text' id='token' name='token'/>
                     <button type='submit'>" .
-        _("Go!") . "
+            _("Go!") . "
                     </button>
                 </form>
              </div>";
-    } else { // self-service registration is allowed! Yay :-)
-        echo "<hr>
+        } else { // self-service registration is allowed! Yay :-)
+            echo "<hr>
             <div style='white-space: nowrap;'>
         <form action='action_enrollment.php' method='get'><button type='submit' accept-charset='UTF-8'>
                 <input type='hidden' id='token' name='token' value='SELF-REGISTER'/>" .
-        sprintf(_("Register new %s!"),$uiElements->nomenclature_inst) . "
+            sprintf(_("Register new %s!"), $uiElements->nomenclature_inst) . "
             </button>
         </form>
         </div>";
+        }
     }
     ?>
     <?php

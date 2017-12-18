@@ -42,7 +42,7 @@ if (isset($_POST['option'])) {
     }
 }
 $salvageFedPrivs = [];
-if (CONFIG['DB']['userdb-readonly'] === FALSE) { // we are actually writing user properties ourselves
+if (CONFIG['DB']['USER']['readonly'] === FALSE) { // we are actually writing user properties ourselves
     $federations = $user->getAttributes("user:fedadmin");
     foreach ($federations as $federation) {
         $salvageFedPrivs[] = $federation['value'];
