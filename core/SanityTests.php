@@ -62,7 +62,7 @@ class SanityTests extends CAT {
     ];
 
     /* set $profile_option_ct to the number of rows returned by "SELECT * FROM profile_option_dict" */
-    private $profile_option_ct = 33;
+    private $profile_option_ct;
     /* set $view_admin_ct to the number of rows returned by "desc view_admin" */
     private $view_admin_ct = 8;
 
@@ -74,6 +74,22 @@ class SanityTests extends CAT {
         parent::__construct();
         $this->test_result = [];
         $this->test_result['global'] = 0;
+        // parse the schema file to find out the number of expected rows...
+        $schema = file(dirname(dirname(__FILE__)) . "/schema/schema.sql");
+        $this->profile_option_ct = 0;
+        $passedTheWindmill = FALSE;
+        foreach ($schema as $schemaLine) {
+            if (preg_match("/INSERT INTO `profile_option_dict` VALUES/", $schemaLine)) {
+                $passedTheWindmill = TRUE;
+            }
+            if ($passedTheWindmill) {
+                if (substr($schemaLine, 0, 1) == '(') { // a relevant line in schema
+                    $this->profile_option_ct++;
+                } else { // anything else, quit parsing
+                    break;
+                }
+            }
+        }
     }
 
     /**
@@ -176,7 +192,7 @@ class SanityTests extends CAT {
             $this->test_return(\core\common\Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->php_needversion, but you only have " . phpversion() . ".");
         }
     }
-    
+
     /**
      * set for cat_base_url setting
      */
