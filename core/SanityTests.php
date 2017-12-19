@@ -79,12 +79,13 @@ class SanityTests extends CAT {
         $this->profile_option_ct = 0;
         $passedTheWindmill = FALSE;
         foreach ($schema as $schemaLine) {
-            if (preg_match("/INSERT INTO `profile_option_dict` VALUES/", $schemaLine)) {
+            if (preg_match("/^INSERT INTO \`profile_option_dict\` VALUES/", $schemaLine)) {
                 $passedTheWindmill = TRUE;
+                continue;
             }
             if ($passedTheWindmill) {
                 if (substr($schemaLine, 0, 1) == '(') { // a relevant line in schema
-                    $this->profile_option_ct++;
+                    $this->profile_option_ct = $this->profile_option_ct+1;
                 } else { // anything else, quit parsing
                     break;
                 }
