@@ -29,7 +29,7 @@ class Logopath extends AbstractTest {
      * @var string|FALSE
      */
     private $additionalScreenshot;
-    
+
     /**
      * the list of mails to send
      * @var array
@@ -39,9 +39,10 @@ class Logopath extends AbstractTest {
     const EDUROAM_OT = 0;
     const NRO_IDP = 1;
     const NRO_SP = 2;
-    const IDP = 3;
-    const SP = 4;
-    const ENDUSER = 5;
+    const IDP_PUBLIC = 3;
+    const IDP_PRIVATE = 4;
+    const SP = 5;
+    const ENDUSER = 6;
 
     /** we start all our mails with a common prefix, internationalised
      *
@@ -66,7 +67,7 @@ class Logopath extends AbstractTest {
      * @var array
      */
     private $mailQueue;
-    
+
     /**
      *
      * @var array
@@ -80,10 +81,10 @@ class Logopath extends AbstractTest {
         parent::__construct();
         $this->userEmail = FALSE;
         $this->additionalScreenshot = FALSE;
-        
+
         $this->mailQueue = [];
         $this->concreteRecipients = [];
-        
+
         $this->validatorInstance = new \web\lib\common\InputValidation();
 
         $this->possibleFailureReasons = $_SESSION["SUSPECTS"] ?? []; // if we know nothing, don't talk to anyone
@@ -155,23 +156,45 @@ class Logopath extends AbstractTest {
         foreach ($abstractRecipients as $oneRecipient) {
             switch ($oneRecipient) {
                 case Logopath::EDUROAM_OT:
-                    $this->concreteRecipients[$oneRecipient] = "eduroam-ot@lists.geant.org";
+                    $this->concreteRecipients[Logopath::EDUROAM_OT] = ["eduroam-ot@lists.geant.org"];
                     break;
                 case Logopath::ENDUSER:
 // will be filled when sending, from $this->userEmail
 // hence the +1 below
                     break;
-                case Logopath::IDP:
-// TODO
+                case Logopath::IDP_PUBLIC: // intentional fall-through, we populate both in one go
+                case Logopath::IDP_PRIVATE:
+                    // CAT contacts, if existing
+                    if ($this->additionalFindings['INFRA_NONEXISTENT_REALM']['DATABASE_STATUS']['ID1'] > 0) {
+                        $profile = \core\ProfileFactory::instantiate($this->additionalFindings['INFRA_NONEXISTENT_REALM']['DATABASE_STATUS']['ID1']);
+
+                        foreach ($profile->getAttributes("support:email") as $oneMailAddress) {
+                            // CAT contacts are always public
+                            $this->concreteRecipients[Logopath::IDP_PUBLIC][] = $oneMailAddress;
+                        }
+                    }
+                    // DB contacts, if existing
+                    if ($this->additionalFindings['INFRA_NONEXISTENT_REALM']['DATABASE_STATUS']['ID2'] > 0) {
+                        $cat = new \core\CAT();
+                        $info = $cat->getExternalDBEntityDetails($this->additionalFindings['INFRA_NONEXISTENT_REALM']['DATABASE_STATUS']['ID2']);
+                        foreach ($info['admins'] as $infoElement) {
+                            if (isset($infoElement['email'])) {
+                                // until DB Spec 2.0 is out and used, consider all DB contacts as private
+                                $this->concreteRecipients[Logopath::IDP_PRIVATE][] = $infoElement['email'];
+                            }
+                        }
+                    }
                     break;
-                case Logopath::NRO_IDP:
-// TODO
+                case Logopath::NRO_IDP: // same code for both, fall through
+                case Logopath::NRO_SP:
+                    $target = ($oneRecipient == Logopath::NRO_IDP ? $this->additionalFindings['INFRA_NRO_IdP'] : $this->additionalFindings['INFRA_NRO_SP']);
+                    $fed = new \core\Federation($target);
+                    $adminList = $fed->listFederationAdmins();
+                    // TODO: we only have those who are signed up for CAT currently, and by their ePTID.
+                    // in touch with OT to get all, so that we can get a list of emails
                     break;
                 case Logopath::SP:
-// TODO
-                    break;
-                case Logopath::NRO_SP:
-// TODO
+                    // TODO: needs a DB view on SPs in eduroam DB, in touch with OT
                     break;
             }
         }

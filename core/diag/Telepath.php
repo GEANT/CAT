@@ -26,7 +26,7 @@ class Telepath extends AbstractTest {
     private $realm;
     private $visitedFlr;
     private $visitedHotspot;
-    private $catIdP;
+    private $catProfile;
     private $dbIdP;
     private $idPFederation;
     private $testsuite;
@@ -37,7 +37,7 @@ class Telepath extends AbstractTest {
             unset($_SESSION["SUSPECTS"]);
         }
         if (isset($_SESSION) && isset($_SESSION["EVIDENCE"])) {
-        unset($_SESSION["EVIDENCE"]);
+            unset($_SESSION["EVIDENCE"]);
         }
         // now fill with default values
         parent::__construct();
@@ -45,7 +45,7 @@ class Telepath extends AbstractTest {
         $this->visitedFlr = $visitedFlr;
         $this->visitedHotspot = $visitedHotspot;
         $links = \core\Federation::determineIdPIdByRealm($realm);
-        $this->catIdP = $links["CAT"];
+        $this->catProfile = $links["CAT"];
         $this->dbIdP = $links["EXTERNAL"];
         $this->idPFederation = $links["FEDERATION"];
         // this is NULL if the realm is not known in either DB
@@ -254,9 +254,9 @@ class Telepath extends AbstractTest {
         // because it's a CAT participant or because it's in the eduroam DB?
         // if so, we can exclude the INFRA_NONEXISTENTREALM cause
 
-        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS'] = ["ID1" => $this->catIdP, "ID2" => $this->dbIdP];
+        $this->additionalFindings[AbstractTest::INFRA_NONEXISTENTREALM]['DATABASE_STATUS'] = ["ID1" => $this->catProfile, "ID2" => $this->dbIdP];
 
-        if ($this->catIdP != \core\Federation::UNKNOWN_IDP || $this->dbIdP != \core\Federation::UNKNOWN_IDP) {
+        if ($this->catProfile != \core\Federation::UNKNOWN_IDP || $this->dbIdP != \core\Federation::UNKNOWN_IDP) {
             unset($this->possibleFailureReasons[AbstractTest::INFRA_NONEXISTENTREALM]);
         }
 
@@ -265,39 +265,21 @@ class Telepath extends AbstractTest {
         //   if the realm maps to a CAT IdP, we can run the more thorough tests; otherwise just
         //   the normal shallow ones
 
-        if ($this->catIdP > 0) {
-            $idpObject = new \core\IdP($this->catIdP);
-            $profileObjects = $idpObject->listProfiles();
+        if ($this->catProfile > 0) {
+            $profileObject = \core\ProfileFactory::instantiate($this->catProfile);
+            $readinessLevel = $profileObject->readinessLevel();
 
-            $bestProfile = FALSE;
+            switch ($readinessLevel) {
+                case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
+                case \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $bestProfile->identifier];
+                    $this->testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), $bestProfile->getEapMethodsinOrderOfPreference(1), $bestProfile->getCollapsedAttributes()['eap:server_name'], $bestProfile->getCollapsedAttributes()["eap:ca_file"]);
 
-
-            foreach ($profileObjects as $profileObject) {
-                $mangledRealm = substr($profileObject->realm, strpos($profileObject->realm, "@") + 1);
-                $readinessLevel = $profileObject->readinessLevel();
-                if ($readinessLevel == \core\AbstractProfile::READINESS_LEVEL_SHOWTIME && $mangledRealm == $this->realm) {
-                    $bestProfile = $profileObject;
+                case \core\AbstractProfile::READINESS_LEVEL_NOTREADY:
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
+                    $this->testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);
                     break;
-                }
-                if ($readinessLevel == \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG && $profileObject->realm == $this->realm) {
-                    $bestProfile = $profileObject;
-                }
-            }
-            if ($bestProfile == FALSE) { // huh? no match on the realm. Then let's take the next-best with SUFFICIENTCONFIG
-                foreach ($profileObjects as $profileObject) {
-                    $readinessLevel = $profileObject->readinessLevel();
-                    if ($readinessLevel == \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG) {
-                        $bestProfile = $profileObject;
-                        break;
-                    }
-                }
-            }
-            if ($bestProfile != FALSE) { // still nothing? then there's only a very incomplete profile definition, and we can't work with that. Fall back to shallow
-                $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $bestProfile->identifier];
-                $this->testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), $bestProfile->getEapMethodsinOrderOfPreference(1), $bestProfile->getCollapsedAttributes()['eap:server_name'], $bestProfile->getCollapsedAttributes()["eap:ca_file"]);
-            } else {
-                $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];
-                $this->testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);
+                default:
             }
         } else {
             $this->testsuite = new RADIUSTests($this->realm, "anonymous@" . $this->realm);
@@ -447,11 +429,10 @@ class Telepath extends AbstractTest {
         }
 
         $this->normaliseResultSet();
-        
+
         $_SESSION["SUSPECTS"] = $this->possibleFailureReasons;
         $_SESSION["EVIDENCE"] = $this->additionalFindings;
         return ["SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings];
-        
     }
 
 }

@@ -327,8 +327,8 @@ class Federation extends EntityWithDBProperties {
     private static function findCandidates(\mysqli_result $dbResult, &$country) {
         $retArray = [];
         while ($row = mysqli_fetch_object($dbResult)) {
-            if (!in_array($row->inst_id, $retArray)) {
-                $retArray[] = $row->inst_id;
+            if (!in_array($row->id, $retArray)) {
+                $retArray[] = $row->id;
                 $country = strtoupper($row->country);
             }
         }
@@ -353,7 +353,7 @@ class Federation extends EntityWithDBProperties {
         $candidatesExternalDb = Federation::UNKNOWN_IDP;
         $dbHandle = DBConnection::handle("INST");
         $realmSearchStringCat = "%@$realm";
-        $candidateCatQuery = $dbHandle->exec("SELECT p.inst_id as inst_id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ?", "s", $realmSearchStringCat);
+        $candidateCatQuery = $dbHandle->exec("SELECT p.profile_id as id, i.country as country FROM profile p, institution i WHERE p.inst_id = i.inst_id AND p.realm LIKE ?", "s", $realmSearchStringCat);
         // this is a SELECT returning a resource, not a boolean
         $candidatesCat = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateCatQuery, $country);
 
@@ -363,7 +363,7 @@ class Federation extends EntityWithDBProperties {
             $realmSearchStringDb2 = "%,$realm";
             $realmSearchStringDb3 = "$realm,%";
             $realmSearchStringDb4 = "%,$realm,%";
-            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution as inst_id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
+            $candidateExternalQuery = $externalHandle->exec("SELECT id_institution as id, country FROM view_active_idp_institution WHERE inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ? or inst_realm LIKE ?", "ssss", $realmSearchStringDb1, $realmSearchStringDb2, $realmSearchStringDb3, $realmSearchStringDb4);
             // SELECT -> resource, not boolean
             $candidatesExternalDb = Federation::findCandidates(/** @scrutinizer ignore-type */ $candidateExternalQuery, $country);
         }
