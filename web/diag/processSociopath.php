@@ -37,5 +37,11 @@ if ($QPHP['NEXTEXISTS']) {
     $_SESSION['LAST_QUESTION'] = $QPHP["NUMBER"];
     echo $QJSON;
 } else {
+    $logopath = new \core\diag\Logopath();
+    if ($logopath->isEndUserContactUseful()) {
+        error_log("Chcemy się kontaktować meailowo");
+    } else {
+        error_log("nie ma sensu kontakt mailowy");
+    }
     echo $sociopath->getCurrentGuessState();
 }

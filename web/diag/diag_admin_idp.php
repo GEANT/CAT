@@ -11,14 +11,7 @@
 ?>
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
-$admin = filter_input(INPUT_GET, 'admin', FILTER_SANITIZE_NUMBER_INT);
-if ($admin == 1) {
-    $auth = new \web\lib\admin\Authentication();
-    $auth->authenticate();
-}
-error_log("web diag $admin");
 $Gui = new \web\lib\user\Gui();
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-include("../skins/" . $skinObject->skin . "/diag/diag.php");
-
+include("../skins/" . $skinObject->skin . "/diag/diag_admin_idp.php");
 
