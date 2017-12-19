@@ -13,6 +13,7 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 $Tests = [
+    'cat_base_url',
     'ssp',
     'security',
     'php',
@@ -30,7 +31,6 @@ $Tests = [
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
     $Tests[] = 'makensis';
     $Tests[] = 'makensis=>NSISmodules';
-    $Tests[] = 'makensis=>NSIS_GetVersion';
 }
 
 if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {

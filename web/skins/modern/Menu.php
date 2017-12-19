@@ -76,9 +76,10 @@ class Menu {
                     $catInfo = 'javascript:infoCAT("' . $iD . '", "' . $menuItem['catInfo'][0] . '","' . $menuItem['catInfo'][1] . '")';
                 }
                 if (!empty($menuItem['link']) && substr($menuItem['link'],0,1) === '/') {
-                    $menuItem['link'] = CONFIG['ROOT_URL'] . $menuItem['link'];
+                    $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
+                    $menuItem['link'] = $rootUrl . $menuItem['link'];
                 }
-                $link = $catInfo ?? $menuItem['link'] ?? CONFIG['ROOT_URL'];
+                $link = $catInfo ?? $menuItem['link'] ?? CONFIG['PATHS']['cat_base_url'];
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';
                 $submenu = $menuItem['submenu'] ?? [];
                 $out .= $this->printMenuItem($menuItem['text'], $link, $class);

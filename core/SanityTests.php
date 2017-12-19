@@ -176,13 +176,27 @@ class SanityTests extends CAT {
             $this->test_return(\core\common\Entity::L_ERROR, "<strong>PHP</strong> is too old. We need at least $this->php_needversion, but you only have " . phpversion() . ".");
         }
     }
+    
+    /**
+     * set for cat_base_url setting
+     */
+    private function cat_base_url_test() {
+        $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
+        preg_match('/(^.*)\/admin\/112365365321.php/', $_SERVER['SCRIPT_NAME'], $m);
+        if ($rootUrl === $m[1]) {
+            $this->test_return(\core\common\Entity::L_OK, "<strong>cat_base_url</strong> set correctly");
+        } else {
+            $rootFromScript = $m[1] === '' ? '/' : $m[1];
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>cat_base_url</strong> is set to <strong>" . CONFIG['PATHS']['cat_base_url'] . "</strong> and should be <strong>$rootFromScript</strong>");
+        }
+    }
 
     /**
      * test for simpleSAMLphp
      */
     private function ssp_test() {
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
-            $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "SS<strong>simpleSAMLphp</strong> not found!");
         } else {
             $this->test_return(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> autoloader found.");
         }
