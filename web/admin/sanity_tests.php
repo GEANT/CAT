@@ -12,21 +12,14 @@
 
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
-/**
- * The $Tests array lists the config tests to be run
- */
 $Tests = [
     'ssp',
     'security',
     'php',
     'phpModules',
-    'geoip',
-    'directories',
     'openssl',
-    'makensis',
-    'makensis=>NSISmodules',
     'zip',
-    'eapol_test',
+    'directories',
     'locales',
     'defaults',
     'databases',
@@ -34,8 +27,17 @@ $Tests = [
     'mailer',
 ];
 
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
+    $Tests[] = 'makensis';
+    $Tests[] = 'makensis=>NSISmodules';
+    $Tests[] = 'makensis=>NSIS_GetVersion';
+}
+
+if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
+    $Tests[] = 'eapol_test';
+}
+
 ini_set('display_errors', '0');
-require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 
 function print_test_results($test) {
     $out = '';

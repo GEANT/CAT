@@ -9,36 +9,7 @@
  */
 ?>
 <?php
-/**
- * The $Tests array lists the config tests to be run
- */
-$Tests = [
-    'ssp',
-    'security',
-    'php',
-    'phpModules',
-    'openssl',
-    'zip',
-    'directories',
-    'locales',
-    'defaults',
-    'databases',
-    'device_cache',
-    'mailer',
-];
-ini_set('display_errors', '0');
 require_once(dirname(dirname(__DIR__)) . '/config/_config.php');
-
-if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_SILVERBULLET'] == "LOCAL" || CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL" ) {
-    $Tests[] = 'makensis';
-    $Tests[] = 'makensis=>NSISmodules';
-    $Tests[] = 'makensis=>NSIS_GetVersion';
-}
-
-if (CONFIG['FUNCTIONALITY_LOCATIONS']['DIAGNOSTICS'] == "LOCAL") {
-    $Tests[] = 'eapol_test';
-}
-
 
 $uiElements = new web\lib\admin\UIElements();
 
