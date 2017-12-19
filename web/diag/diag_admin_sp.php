@@ -13,5 +13,5 @@
 require_once(dirname(dirname(dirname(__FILE__))) . "/config/_config.php");
 $Gui = new \web\lib\user\Gui();
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
-include("../skins/" . $skinObject->skin . "/diag/diag_admin.php");
+include("../skins/" . $skinObject->skin . "/diag/diag_admin_sp.php");
 
