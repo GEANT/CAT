@@ -91,20 +91,11 @@ if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid']) && count(CONFIG_CONFASSIST
     }
 }
 
-$custom_ssids_wpa2 = $my_inst->getAttributes("media:SSID");
-$custom_ssids_wpa = $my_inst->getAttributes("media:SSID_with_legacy");
-$wired_support = $my_inst->getAttributes("media:wired");
-
-if (count($custom_ssids_wpa) > 0) {
-    foreach ($custom_ssids_wpa as $ssidname) {
-        $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
-    }
+foreach ($my_inst->getAttributes("media:SSID_with_legacy") as $ssidname) {
+    $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES and WPA/TKIP)");
 }
-
-if (count($custom_ssids_wpa2) > 0) {
-    foreach ($custom_ssids_wpa2 as $ssidname) {
-        $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
-    }
+foreach ($my_inst->getAttributes("media:SSID") as $ssidname) {
+    $ssids[] = $ssidname['value'] . " " . _("(WPA2/AES)");
 }
 
 echo "<table>";
@@ -116,6 +107,7 @@ if (count($ssids) > 0) {
     }
     echo $uiElements->boxOkay(sprintf(_("Your installers will configure the following SSIDs: <strong>%s</strong>"), $printedlist), _("SSIDs configured"));
 }
+$wired_support = $my_inst->getAttributes("media:wired");
 if (count($wired_support) > 0) {
     echo $uiElements->boxOkay(sprintf(_("Your installers will configure wired interfaces."), $printedlist), _("Wired configured"));
 }
