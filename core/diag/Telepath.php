@@ -272,8 +272,8 @@ class Telepath extends AbstractTest {
             switch ($readinessLevel) {
                 case \core\AbstractProfile::READINESS_LEVEL_SHOWTIME:
                 case \core\AbstractProfile::READINESS_LEVEL_SUFFICIENTCONFIG:
-                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $bestProfile->identifier];
-                    $this->testsuite = new RADIUSTests($this->realm, $bestProfile->getRealmCheckOuterUsername(), $bestProfile->getEapMethodsinOrderOfPreference(1), $bestProfile->getCollapsedAttributes()['eap:server_name'], $bestProfile->getCollapsedAttributes()["eap:ca_file"]);
+                    $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => $profileObject->identifier];
+                    $this->testsuite = new RADIUSTests($this->realm, $profileObject->getRealmCheckOuterUsername(), $profileObject->getEapMethodsinOrderOfPreference(1), $profileObject->getCollapsedAttributes()['eap:server_name'], $profileObject->getCollapsedAttributes()["eap:ca_file"]);
 
                 case \core\AbstractProfile::READINESS_LEVEL_NOTREADY:
                     $this->additionalFindings[AbstractTest::INFRA_IDP_RADIUS][] = ["Profile" => "UNCONCLUSIVE"];

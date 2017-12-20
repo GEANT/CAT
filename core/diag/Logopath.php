@@ -238,7 +238,7 @@ class Logopath extends AbstractTest {
             // if user interaction would have been good, but the user didn't 
             // leave his mail address, remove him/her from the list of recipients
             foreach (Logopath::CATEGORYBINDING as $index => $functionName) {
-                if (in_array(Logopath::ENDUSER, $theMail[$index]) && $this->userEmail == FALSE) {
+                if (in_array(Logopath::ENDUSER, $theMail[$index]) && $this->userEmail === FALSE) {
                     $theMail[$index] = array_diff($theMail[$index], [Logopath::ENDUSER] );
                 }
             }
