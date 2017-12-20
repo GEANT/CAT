@@ -167,7 +167,22 @@ public static function listDevices() {
       ],
    ],
     
-    
+     
+ 'apple_hi_sierra'=>array(
+    'group' => "apple",
+    'display'=>_("Apple macOS High Sierra"),
+    'match'=>'Mac OS X 10[._]13',
+    'directory'=>'apple_mobileconfig',
+    'module'=>'mobileconfig_os_x',
+    'signer'=>'mobileconfig_sign',
+    'options'=>array(
+       'sign'=>1,
+       'device_id'=>'OS_X',
+       'mime'=>'application/x-apple-aspen-config',
+      ),
+    ),
+	
+   
  'apple_sierra'=>array(
     'group' => "apple",
     'display'=>_("Apple macOS Sierra"),
