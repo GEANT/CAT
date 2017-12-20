@@ -284,7 +284,7 @@ class UserAPI extends CAT {
     /**
      *  wrapper JSON function
      * 
-     * @param array $data the core data to be converted to JSON
+     * @param array|bool $data the core data to be converted to JSON
      * @param int $status extra status information, defaults to 1
      * @return string JSON encoded data
      */
@@ -486,7 +486,7 @@ class UserAPI extends CAT {
         $expiresString = "Expires: " . /** @scrutinizer ignore-type */ gmdate("D, d M Y H:i:s", time() + $offset) . " GMT";
         $blob = $inputImage;
 
-        if ($resize) {
+        if ($resize === TRUE) {
             $image = new \Imagick();
             $image->readImageBlob($inputImage);
             $image->setImageFormat('PNG');
@@ -511,13 +511,13 @@ class UserAPI extends CAT {
      */
     public function getIdpLogo($idp, $width = 0, $height = 0) {
         $expiresString = '';
-        $resize = 0;
+        $resize = FALSE;
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
         $idpInstance = $validator->IdP($idp);
         $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
-            $resize = 1;
+            $resize = TRUE;
             if ($height == 0) {
                 $height = 10000;
             }
@@ -526,7 +526,7 @@ class UserAPI extends CAT {
             }
             $logoFile = ROOT . '/web/downloads/logos/' . $idp . '_' . $width . '_' . $height . '.png';
         }
-        if ($resize && is_file($logoFile)) {
+        if ($resize === TRUE && is_file($logoFile)) {
             $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idp . "\n");
             $blob = file_get_contents($logoFile);
         } else {
@@ -555,12 +555,12 @@ class UserAPI extends CAT {
      */
     public function getFedLogo($fedIdentifier, $width = 0, $height = 0) {
         $expiresString = '';
-        $resize = 0;
+        $resize = FALSE;
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
         $federation = $validator->Federation($fedIdentifier);
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
-            $resize = 1;
+            $resize = TRUE;
             if ($height == 0) {
                 $height = 10000;
             }
@@ -569,7 +569,7 @@ class UserAPI extends CAT {
             }
             $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
         }
-        if ($resize && is_file($logoFile)) {
+        if ($resize === TRUE && is_file($logoFile)) {
             $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $fedIdentifier . "\n");
             $blob = file_get_contents($logoFile);
             $filetype = 'image/png';

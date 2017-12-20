@@ -705,7 +705,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * sets the expiry date of a user to a new date of choice
      * @param int $userId
-     * @param string $date
+     * @param \DateTime $date
      */
     public function setUserExpiryDate($userId, $date) {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";

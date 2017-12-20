@@ -566,9 +566,9 @@ class CAT extends \core\common\Entity {
      */
     public function getExternalCountriesList() {
         $olddomain = $this->languageInstance->setTextDomain("core");
+        $returnArray = []; // in if -> the while might never be executed, so initialise
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
-            $handle = DBConnection::handle("EXTERNAL");
-            $returnArray = []; // in if -> the while might never be executed, so initialise
+            $handle = DBConnection::handle("EXTERNAL");    
             $timeStart = microtime(true);
             $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
             $timeEnd = microtime(true);
