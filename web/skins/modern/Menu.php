@@ -75,7 +75,7 @@ class Menu {
                 if (!empty($menuItem['catInfo'])) {
                     $catInfo = 'javascript:infoCAT("' . $iD . '", "' . $menuItem['catInfo'][0] . '","' . $menuItem['catInfo'][1] . '")';
                 }
-                if (!empty($menuItem['link']) && substr($menuItem['link'],0,1) === '/') {
+                if (!empty($menuItem['link']) && substr($menuItem['link'], 0, 1) === '/') {
                     $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
                     $menuItem['link'] = $rootUrl . $menuItem['link'];
                 }
