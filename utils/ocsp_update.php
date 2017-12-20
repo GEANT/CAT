@@ -34,8 +34,8 @@ $tempdir = __DIR__."/temp_ocsp";
 mkdir($tempdir);
 
 $allStatements = $dbLink->exec("SELECT serial_number,OCSP FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp > DATE_SUB(NOW(), INTERVAL 8 DAY)");
-
-while ($statementRow = mysqli_fetch_object($allStatements)) {
+// SELECT -> mysqli_result, not boolean
+while ($statementRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allStatements)) {
 #    echo "Writing OCSP statement for serial number $statementRow->serial_number\n";
     $filename = strtoupper(dechex($statementRow->serial_number)).".der";
     if (strlen($filename) % 2 == 1) {

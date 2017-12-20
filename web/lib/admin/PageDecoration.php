@@ -78,7 +78,7 @@ class PageDecoration {
                 </div><!--langselection-->";
         $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
         if ($host === FALSE) {
-            throw new Exception("We don't know our own hostname?!? Giving up.");
+            throw new \Exception("We don't know our own hostname?!? Giving up.");
         }
         $logoUrl = "//" . $host . CONFIG['PATHS']['cat_base_url'] . "/resources/images/consortium_logo.png";        
         $retval .= "<div class='consortium_logo'>

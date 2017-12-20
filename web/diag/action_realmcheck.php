@@ -50,7 +50,7 @@ if (isset($_GET['profile_id'])) {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
 } else { // someone else's realm... only shallow checks
-    $check_realm = $validator->realm($_REQUEST['realm'] ?? $_SESSION['check_realm'] ?? FALSE);
+    $check_realm = $validator->realm($_REQUEST['realm'] ?? $_SESSION['check_realm'] ?? "");
     if ($check_realm !== FALSE) {
         $_SESSION['check_realm'] = $check_realm;
         $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);

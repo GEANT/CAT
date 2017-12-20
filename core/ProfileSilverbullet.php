@@ -620,7 +620,8 @@ class ProfileSilverbullet extends AbstractProfile {
         $loggerInstance->debug(5, "At token validation level, " . $certificatesNumber . " certificates exist.\n");
 
         $retArray = [
-            "cert_status" => \core\ProfileSilverbullet::enumerateCertDetails($certificatesResult),
+            // $certificatesResult was the result of a SELECT query; it is always a mysqli_result and not a boolean
+            "cert_status" => \core\ProfileSilverbullet::enumerateCertDetails(/** @scrutinizer ignore-type */ $certificatesResult),
             "profile" => $invitationRow->profile_id,
             "user" => $invitationRow->silverbullet_user_id,
             "expiry" => $invitationRow->expiry,

@@ -112,7 +112,11 @@ if (isset($_POST['command'])) {
                     }
                     $properName = $validator->User($elements[0]);
                     $properDate = new DateTime($elements[1] . " 00:00:00");
-                    $number = $validator->integer($elements[2] ?? 1) ?? 1;
+                    $numberOfActivations = $elements[2] ?? 1;
+                    $number = $validator->integer($numberOfActivations);
+                    if ($number === FALSE) { // invalid input received, default to sane
+                        $number = 1;
+                    }
 
                     $newId = $profile->addUser($properName, $properDate);
                     $profile->createInvitation($newId, $number);
