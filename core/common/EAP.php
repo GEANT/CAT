@@ -319,6 +319,11 @@ class EAP {
         return($eapDisplayName[serialize($eap)]);
     }
 
+    /**
+     * determines the inner authentication. Is it EAP, and which mechanism is used to convey actual auth data
+     * @param array $eap
+     * @return array
+     */
     public static function innerAuth($eap) {
         $out = [];
         if ($eap["INNER"]) { // there is an inner EAP method
@@ -352,6 +357,10 @@ class EAP {
         return $retval;
     }
 
+    /**
+     * returns a printable ("pretty-print") version of the EAP type
+     * @return string
+     */
     public function getPrintableRep() {
         $nameMapping = [
             _("PEAP-MSCHAPv2") => \core\common\EAP::EAPTYPE_PEAP_MSCHAP2,

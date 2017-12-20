@@ -31,6 +31,12 @@ class Telepath extends AbstractTest {
     private $idPFederation;
     private $testsuite;
 
+    /**
+     * prime the Telepath with info it needs to know to successfully meditate over the problem
+     * @param string $realm the realm of the user
+     * @param string|null $visitedFlr which NRO is the user visiting
+     * @param string|null $visitedHotspot external DB ID of the hotspot he visited
+     */
     public function __construct(string $realm, $visitedFlr = NULL, $visitedHotspot = NULL) {
         // Telepath is the first one in a chain, no previous inputs allowed
         if (isset($_SESSION) && isset($_SESSION["SUSPECTS"])) {
@@ -81,6 +87,13 @@ class Telepath extends AbstractTest {
 
      */
 
+    /**
+     * ask the monitoring API about the things it knows
+     * @param string $type which type of test to execute
+     * @param string $param1 test-specific parameter number 1, if any
+     * @param string $param2 test-specific parameter number 2, if any
+     * @return array
+     */
     private function genericAPIStatus($type, $param1 = NULL, $param2 = NULL) {
         $endpoints = [
             'tlr_test' => "https://monitor.eduroam.org/mapi/index.php?type=tlr_test&tlr=$param1",
@@ -158,24 +171,42 @@ class Telepath extends AbstractTest {
         return $retval;
     }
 
+    /**
+     * Are the ETLR servers in order?
+     * @return array
+     */
     private function checkEtlrStatus() {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
         return $this->genericAPIStatus("tlr_test", "TLR_EU");
     }
 
+    /**
+     * Is the uplink between an NRO server and the ETLRs in order?
+     * @param string $fed
+     * @return array
+     */
     private function checkFedEtlrUplink($fed) {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
         return $this->genericAPIStatus("federation_via_tlr", $fed);
     }
 
+    /**
+     * Is the NRO server itself in order?
+     * @param string $fed
+     * @return array
+     */
     private function checkFlrServerStatus($fed) {
         // TODO: we always check the European TLRs even though the connection in question might go via others and/or this one
         // needs a table to determine what goes where :-(
         return $this->genericAPIStatus("flrs_test", $fed);
     }
 
+    /**
+     * Does authentication traffic flow between a given source and destination NRO?
+     * @return array
+     */
     private function checkNROFlow() {
         return $this->genericAPIStatus("flr_by_federation", $this->idPFederation, $this->visitedFlr);
     }
@@ -248,6 +279,10 @@ class Telepath extends AbstractTest {
         }
     }
 
+    /**
+     * Does the main meditation job
+     * @return array the findings
+     */
     public function magic() {
 
         // simple things first: do we know anything about the realm, either

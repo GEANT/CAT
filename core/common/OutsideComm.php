@@ -8,19 +8,22 @@
  * License: see the web/copyright.php file in the file structure
  * ******************************************************************************
  */
+namespace core\common;
 
 /**
- * This file contains a number of functions for talking to the outside world
+ * This class contains a number of functions for talking to the outside world
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @author Tomasz Wolniewicz <twoln@umk.pl>
  *
  * @package Developer
  */
-
-namespace core\common;
-
 class OutsideComm {
 
+    /**
+     * downloads a file from the internet
+     * @param string $url
+     * @return string|boolean the data we got back, or FALSE on failure
+     */
     public static function downloadFile($url) {
         $loggerInstance = new \core\common\Logging();
         if (!preg_match("/:\/\//", $url)) {
@@ -41,6 +44,10 @@ class OutsideComm {
         return $data;
     }
 
+    /**
+     * create an email handle from PHPMailer for later customisation and sending
+     * @return \PHPMailer\PHPMailer\PHPMailer
+     */
     public static function mailHandle() {
 // use PHPMailer to send the mail
         $mail = new \PHPMailer\PHPMailer\PHPMailer();
@@ -70,6 +77,11 @@ class OutsideComm {
     const MAILDOMAIN_NO_STARTTLS = 1;
     const MAILDOMAIN_STARTTLS = 2;
 
+    /**
+     * verifies whether a mail address is in an existing and STARTTLS enabled mail domain
+     * @param string $address
+     * @return int status of the mail domain
+     */
     public static function mailAddressValidSecure($address) {
         $loggerInstance = new \core\common\Logging();
         if (!filter_var($address, FILTER_VALIDATE_EMAIL)) {
@@ -149,7 +161,7 @@ class OutsideComm {
      * 
      * @param string $number the number to send to: with country prefix, but without the + sign ("352123456" for a Luxembourg example)
      * @param string $content the text to send
-     * @return integer
+     * @return integer status of the sending process
      * @throws Exception
      */
     public static function sendSMS($number, $content) {

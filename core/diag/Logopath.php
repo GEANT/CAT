@@ -77,6 +77,9 @@ class Logopath extends AbstractTest {
 // cases to consider
     const IDP_EXISTS_BUT_NO_DATABASE = 100;
 
+    /**
+     * initialise the class: maintain state of existing evidence, and get translated versions of email texts etc.
+     */
     public function __construct() {
         parent::__construct();
         $this->userEmail = FALSE;
@@ -119,6 +122,8 @@ class Logopath extends AbstractTest {
     }
 
     /**
+     * if the system asked the user for his email and he's willing to give it to
+     * us, store it with this function
      * 
      * @param string $userEmail
      */
@@ -127,6 +132,12 @@ class Logopath extends AbstractTest {
         $this->userEmail = $this->validatorInstance->email($userEmail);
     }
 
+    /**
+     * if the system asked the user for a screenshot and he's willing to give one
+     * to us, store it with this function
+     * 
+     * @param string $binaryData
+     */
     public function addScreenshot($binaryData) {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
             $imagick = new \Imagick();
@@ -212,6 +223,7 @@ class Logopath extends AbstractTest {
 
     /**
      * sees if it is useful to ask the user for his contact details or screenshots
+     * @return bool
      */
     public function isEndUserContactUseful() {
         $contactUseful = FALSE;

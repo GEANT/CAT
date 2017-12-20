@@ -26,7 +26,7 @@ class Sociopath extends AbstractTest {
     private $genericVerdictTexts;
 
     /**
-     *
+     * Initialise the class. Mostly used to get translated versions of various status messages.
      */
     public function __construct() {
         parent::__construct();
@@ -88,6 +88,7 @@ class Sociopath extends AbstractTest {
     }
 
     /**
+     * re-evaluates the occurence factor of the SUSPECTS, taking the answer to the given question into account
      * 
      * @param int $questionNumber
      * @param bool|NULL $answer TRUE if the answer was "Yes", FALSE if "No", NULL is "Dont know / N/A"
@@ -117,6 +118,11 @@ class Sociopath extends AbstractTest {
         $this->loggerInstance->debug(3,$_SESSION['EVIDENCE']);
     }
     
+    /**
+     * takes a look at the current occurence factors, and which questions have
+     * already been asked, then tells the caller which question to ask next.
+     * @return string JSON encoded array with info on the next available question
+     */
     public function questionOracle() {
         reset($this->possibleFailureReasons);
         $highestCategory = key($this->possibleFailureReasons);
@@ -136,10 +142,19 @@ class Sociopath extends AbstractTest {
         return json_encode(["NEXTEXISTS" => FALSE]);
     }
     
+    /**
+     * returns the current state of play regarding SUSPECTS and related EVIDENCE
+     * @return string JSON encoded array with all the info we have
+     */
     public function getCurrentGuessState() {
         return json_encode([ "SUSPECTS" => $this->possibleFailureReasons, "EVIDENCE" => $this->additionalFindings ]);
     }
     
+    /**
+     * constructs the final diagnosis result text to show to the user
+     * @param int $area
+     * @return string
+     */
     public function verdictText($area) {
         $text = $this->genericVerdictTexts[$area];
         foreach ($this->previousQuestions as $number => $factor) {
