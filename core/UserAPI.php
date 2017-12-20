@@ -405,19 +405,17 @@ class UserAPI extends CAT {
         $returnArray = [];
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];
-        if (!isset($profile_redirect) || !$profile_redirect) {
-            $profile_redirect = 0;
-            foreach ($thedevices as $D) {
-                if (isset($D['options']) && isset($D['options']['hidden']) && $D['options']['hidden']) {
-                    continue;
-                }
-                $disp = $D['display'];
-                if ($D['device'] === '0') {
-                    $profile_redirect = 1;
-                    $disp = $c;
-                }
-                $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
+        $profile_redirect = 0;
+        foreach ($thedevices as $D) {
+            if (isset($D['options']) && isset($D['options']['hidden']) && $D['options']['hidden']) {
+                continue;
             }
+            $disp = $D['display'];
+            if ($D['device'] === '0') {
+                $profile_redirect = 1;
+                $disp = '';
+            }
+            $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
         }
         echo $this->return_json($returnArray);
     }
@@ -779,10 +777,12 @@ class UserAPI extends CAT {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
         $Dev = \devices\Devices::listDevices();
         $this->languageInstance->setTextDomain($oldDomain);
-        if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']]) && (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0)) {
+        if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']])) {
             $dev_id = $_REQUEST['device'];
             $device = $Dev[$dev_id];
-            return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
+            if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
+                return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
+            }
         }
         $browser = $_SERVER['HTTP_USER_AGENT'];
         $this->loggerInstance->debug(4, "HTTP_USER_AGENT=$browser\n");
