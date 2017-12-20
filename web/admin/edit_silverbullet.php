@@ -162,7 +162,11 @@ if (isset($_POST['command'])) {
             $mail = \core\common\OutsideComm::mailHandle();
             $invitationToken = \core\ProfileSilverbullet::generateTokenLink($_POST['token']);
             $properEmail = $validator->email(filter_input(INPUT_POST, 'address'));
-            $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
+            if ($properEmail === FALSE) {
+                $domainStatus = \core\common\OutsideComm::MAILDOMAIN_INVALID;
+            } else {
+                $domainStatus = \core\common\OutsideComm::mailAddressValidSecure($properEmail);
+            }
             // send mail if all is good, otherwise UI a warning and confirmation
             switch ($domainStatus) {
                 case \core\common\OutsideComm::MAILDOMAIN_NO_STARTTLS:

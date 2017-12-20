@@ -284,7 +284,7 @@ class UserAPI extends CAT {
     /**
      *  wrapper JSON function
      * 
-     * @param array|bool $data the core data to be converted to JSON
+     * @param array|bool|null $data the core data to be converted to JSON
      * @param int $status extra status information, defaults to 1
      * @return string JSON encoded data
      */
