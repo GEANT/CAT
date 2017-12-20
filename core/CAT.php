@@ -137,7 +137,7 @@ class CAT extends \core\common\Entity {
         $dummy_inst2 = _("organisation");
         $dummy_inst3 = _("Identity Provider");
         // and do something useless with the strings so that there's no "unused" complaint
-        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0 ) {
+        if (strlen($dummy_NRO . $dummy_inst1 . $dummy_inst2 . $dummy_inst3) < 0) {
             throw new \Exception("Strings are usually not shorter than 0 characters. We've encountered a string blackhole.");
         }
 
@@ -399,7 +399,10 @@ class CAT extends \core\common\Entity {
     }
 
     /**
+     * Calculates the number of IdPs overall in the system
      * 
+     * @param string $level completeness level of IdPs that are to be taken into consideration for counting
+     * @return int
      */
     public function totalIdPs($level) {
         $handle = DBConnection::handle(CAT::DB_TYPE);
@@ -424,8 +427,9 @@ class CAT extends \core\common\Entity {
     /**
      * Lists all identity providers in the database
      * adding information required by DiscoJuice.
-     * @param int $activeOnly if and set to non-zero will
-     * cause listing of only those institutions which have some valid profiles defined.
+     * 
+     * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @return array the list of identity providers
      *
      */
     public function listAllIdentityProviders($activeOnly = 0, $country = 0) {
@@ -445,7 +449,7 @@ class CAT extends \core\common\Entity {
         $query .= ($country ? "AND institution.country = ? " : "");
 
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
-        
+
         $allIDPs = ($country ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
         // SELECTs never return a booleans, always an object
@@ -518,6 +522,14 @@ class CAT extends \core\common\Entity {
         return($returnArray);
     }
 
+    /**
+     * get additional details about an institution from the EXTERNAL customer DB
+     * (if any; for eduroam, this would be the official eduroam database)
+     * 
+     * @param string $externalId the ID of the institution in the external DB
+     * @param string $realm the function can also try to find an inst by its realm in the external DB
+     * @return array a list of institutions, ideally with only one member
+     */
     public function getExternalDBEntityDetails($externalId, $realm = NULL) {
         $list = [];
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
@@ -546,23 +558,30 @@ class CAT extends \core\common\Entity {
             }
         }
         return $list;
-        
     }
+
+    /**
+     * the list of countries as per external DB
+     * @return array the list
+     */
     public function getExternalCountriesList() {
         $olddomain = $this->languageInstance->setTextDomain("core");
-        $handle = DBConnection::handle("EXTERNAL");
-        $returnArray = []; // in if -> the while might never be executed, so initialise
-        $timeStart = microtime(true);
-        $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
-        $timeEnd = microtime(true);
-        $timeElapsed = $timeEnd - $timeStart;
-        while ($eduroamFederations = mysqli_fetch_object($federations)) {
-            $fedIdentifier = $eduroamFederations->country;
-            $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier] : $fedIdentifier;
-        } 
-        asort($returnArray, SORT_LOCALE_STRING);
-        $returnArray['time'] = $timeElapsed;
+        if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
+            $handle = DBConnection::handle("EXTERNAL");
+            $returnArray = []; // in if -> the while might never be executed, so initialise
+            $timeStart = microtime(true);
+            $federations = $handle->exec("SELECT DISTINCT UPPER(country) AS country FROM view_active_idp_institution ORDER BY country");
+            $timeEnd = microtime(true);
+            $timeElapsed = $timeEnd - $timeStart;
+            while ($eduroamFederations = mysqli_fetch_object($federations)) {
+                $fedIdentifier = $eduroamFederations->country;
+                $returnArray[$fedIdentifier] = isset($this->knownFederations[$fedIdentifier]) ? $this->knownFederations[$fedIdentifier] : $fedIdentifier;
+            }
+            asort($returnArray, SORT_LOCALE_STRING);
+            $returnArray['time'] = $timeElapsed;
+        }
         $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
     }
+
 }

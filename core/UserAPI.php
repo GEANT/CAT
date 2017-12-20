@@ -31,6 +31,9 @@ use \Exception;
  */
 class UserAPI extends CAT {
 
+    /**
+     * nothing special to be done here.
+     */
     public function __construct() {
         parent::__construct();
     }
@@ -192,6 +195,11 @@ class UserAPI extends CAT {
         return $returnList;
     }
 
+    /**
+     * 
+     * @param string $device
+     * @param int $profileId
+     */
     public function deviceInfo($device, $profileId) {
         $this->languageInstance->setTextDomain("devices");
         $validator = new \web\lib\common\InputValidation();
@@ -243,11 +251,10 @@ class UserAPI extends CAT {
         return($returnArray);
     }
 
-    /*
+    /**
       this method needs to be used with care, it could give wrong results in some
       cicumstances
      */
-
     private function getRootURL() {
         $backtrace = debug_backtrace();
         $backtraceFileInfo = array_pop($backtrace);
@@ -272,9 +279,14 @@ class UserAPI extends CAT {
         }
         return '//' . $_SERVER['SERVER_NAME'] . $out;
     }
-    
-    /* JSON functions */
 
+    /**
+     *  wrapper JSON function
+     * 
+     * @param array $data the core data to be converted to JSON
+     * @param int $status extra status information, defaults to 1
+     * @return string JSON encoded data
+     */
     public function return_json($data, $status = 1) {
         $returnArray = [];
         $returnArray['status'] = $status;
@@ -284,9 +296,7 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Return the list of supported languages.
-     *
-     * 
+     * outputs the list of supported languages.
      */
     public function JSON_listLanguages() {
         $returnArray = [];
@@ -297,9 +307,8 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Return the list of countiers with configured IdPs
+     * outputs the list of countries with configured IdPs
      *
-     * @return string JSON encoded data
      */
     public function JSON_listCountries() {
         $federations = $this->printCountryList(1);
@@ -311,10 +320,9 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Return the list of IdPs in a given country
+     * outputs the list of IdPs in a given country
      *
      * @param string $country the country we are interested in
-     * @return string JSON encoded data
      */
     public function JSON_listIdentityProviders($country) {
         $idps = $this->listAllIdentityProviders(1, $country);
@@ -326,10 +334,9 @@ class UserAPI extends CAT {
     }
 
     /**
-     * return the list of all active IdPs
+     * outputs the list of all active IdPs
      *
-     * The IdP list is formatted for DiscoJuice
-     * @return string JSON encoded data
+     * The IdP list is formatted for DiscoJuice consumption
      */
     public function JSON_listIdentityProvidersForDisco() {
         $idps = $this->listAllIdentityProviders(1);
@@ -342,9 +349,11 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Return the list of IdPs in a given country ordered with respect to the user location
+     * outputs the list of IdPs in a given country ordered with respect to their distance to the user's location
+     * 
+     * @param string $country the country in question
+     * @param array $location the coordinates of the approximate user location
      *
-     * @return string JSON encoded data
      */
     public function JSON_orderIdentityProviders($country, $location = NULL) {
         $idps = $this->orderIdentityProviders($country, $location);
@@ -356,11 +365,10 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Produce a list of profiles available for a given IdP
+     * outputs a list of profiles available for a given IdP
      *
      * @param int $idpIdentifier the IdP identifier
      * @param int $sort should the result set be sorted? 0 = no, 1 = yes
-     * @return string JSON encoded data
      */
     public function JSON_listProfiles($idpIdentifier, $sort = 0) {
         $this->languageInstance->setTextDomain("web_user");
@@ -387,10 +395,9 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Return the list of devices available for the given profile
+     * outputs the list of devices available for the given profile
      *
      * @param int $profileId the Profile identifier
-     * @return string JSON encoded data
      */
     public function JSON_listDevices($profileId) {
         $this->languageInstance->setTextDomain("web_user");
@@ -415,11 +422,10 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Call installer generation and return the link
+     * outputs the link to the installers (additionally, actually generates it or takes it from cache)
      *
      * @param string $device identifier as in {@link devices.php}
      * @param int $prof_id profile identifier
-     * @return string JSON encoded data
      */
     public function JSON_generateInstaller($device, $prof_id) {
         $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");
@@ -461,6 +467,16 @@ class UserAPI extends CAT {
         readfile($file);
     }
 
+    /**
+     * resizes image files
+     * 
+     * @param string $inputImage
+     * @param string $destFile
+     * @param int $width
+     * @param int $height
+     * @param bool $resize shall we do resizing? width and height are ignored otherwise
+     * @return array
+     */
     private function processImage($inputImage, $destFile, $width, $height, $resize) {
         $info = new \finfo();
         $filetype = $info->buffer($inputImage, FILEINFO_MIME_TYPE);
@@ -478,7 +494,7 @@ class UserAPI extends CAT {
             $this->loggerInstance->debug(4, "Writing cached logo $destFile for IdP/Federation.\n");
             file_put_contents($destFile, $blob);
         }
-        
+
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
@@ -488,14 +504,11 @@ class UserAPI extends CAT {
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
      * @param int $idp IdP identifier
-     * @param int $disco flag turning on image generation for DiscoJuice
-     * @param int $width maximum width of the generated image 
-     * @param int $height  maximum height of the generated image
-     * if one of these is 0 then it is treated as no upper bound
-     *
+     * @param int $width maximum width of the generated image - if 0 then it is treated as no upper bound
+     * @param int $height  maximum height of the generated image - if 0 then it is treated as no upper bound
+     * @return array|null array with image information or NULL if there is no logo
      */
-    
-        public function getIdpLogo($idp, $width = 0, $height = 0) {
+    public function getIdpLogo($idp, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = 0;
         $logoFile = "";
@@ -529,14 +542,14 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Get and prepare logo file 
+     * Get and prepare federation's logo file 
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
      * @param string $fedIdentifier federation identifier
-     * @param int $width maximum width of the generated image 
-     * @param int $height  maximum height of the generated image
-     * if one of these is 0 then it is treated as no upper bound
+     * @param int $width maximum width of the generated image - if 0 then it is treated as no upper bound
+     * @param int $height maximum height of the generated image - if 0 then it is treated as no upper bound
+     * @return array|null array with image information or NULL if there is no logo
      *
      */
     public function getFedLogo($fedIdentifier, $width = 0, $height = 0) {
@@ -572,20 +585,41 @@ class UserAPI extends CAT {
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
 
-
+    /**
+     * outputs a logo
+     * 
+     * @param string|int $identifier
+     * @param string $type "federation" or "idp"
+     * @param int $width
+     * @param int $height
+     */
     public function sendLogo($identifier, $type, $width = 0, $height = 0) {
-        if ($type === "federation") {
-            $logo = $this->getFedLogo($identifier, $width, $height);
-        }
-        if ($type === "idp") {
-            $logo = $this->getIdpLogo($identifier, $width, $height);
+        switch ($type) {
+            case "federation":
+                if (is_int($identifier)) {
+                    throw new Exception("Federation identifiers are strings!");
+                }
+                $logo = $this->getFedLogo($identifier, $width, $height);
+                break;
+            case "idp":
+                if (!is_int($identifier)) {
+                    throw new Exception("Institution identifiers are integers!");
+                }
+                $logo = $this->getIdpLogo($identifier, $width, $height);
+                break;
+            default:
+                throw new Exception("Unknown type of logo requested!");
         }
         header("Content-type: " . $logo['filetype']);
         header("Cache-Control:max-age=36000, must-revalidate");
         header($logo['expires']);
         echo $logo['blob'];
     }
-    
+
+    /**
+     * find out where the user is currently located
+     * @return array
+     */
     public function locateUser() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
@@ -606,7 +640,11 @@ class UserAPI extends CAT {
         $result['geo'] = ['lat' => (float) $record['latitude'], 'lon' => (float) $record['longitude']];
         return($result);
     }
-
+    
+    /**
+     * find out where the user is currently located, using GeoIP2
+     * @return array
+     */
     public function locateUser2() {
         if (CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
@@ -632,6 +670,10 @@ class UserAPI extends CAT {
         return($result);
     }
 
+    /**
+     * outputs the user location as JSON
+     * @throws Exception
+     */
     public function JSON_locateUser() {
         header('Content-type: application/json; utf-8');
 
@@ -653,8 +695,7 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Produce support data prepared within {@link GUI::profileAttributes()}
-     * @return string JSON encoded data
+     * outputs support data prepared within {@link GUI::profileAttributes()}
      */
     public function JSON_profileAttributes($prof_id) {
 //    header('Content-type: application/json; utf-8');
@@ -662,7 +703,7 @@ class UserAPI extends CAT {
     }
 
     /**
-     * Calculate the distence in km between two points given their
+     * Calculate the distance in km between two points given their
      * geo coordinates.
      * @param array $point1 - first point as an 'lat', 'lon' array 
      * @param array $profile1 - second point as an 'lat', 'lon' array 
@@ -762,6 +803,9 @@ class UserAPI extends CAT {
         return(false);
     }
 
+    /**
+     * outputs OS guess in JSON
+     */
     public function JSON_detectOS() {
         $returnArray = $this->detectOS();
         if (is_array($returnArray)) {
@@ -771,7 +815,12 @@ class UserAPI extends CAT {
         }
         echo $this->return_json($returnArray, $status);
     }
-    
+
+    /**
+     * finds all the user certificates that originated in a given token
+     * @param string $token
+     * @return array|false returns FALSE if a token is invalid, otherwise array of certs
+     */
     public function getUserCerts($token) {
         $validator = new \web\lib\common\InputValidation();
         $cleanToken = $validator->token($token);
@@ -791,6 +840,10 @@ class UserAPI extends CAT {
         return $allcerts;
     }
 
+    /**
+     * outputs user certificates pertaining to a given token in JSON
+     * @param string $token
+     */
     public function JSON_getUserCerts($token) {
         $returnArray = $this->getUserCerts($token);
         if ($returnArray) {
@@ -804,6 +857,12 @@ class UserAPI extends CAT {
     public $device;
     private $installerPath;
 
+    /**
+     * helper function to sort profiles by their name
+     * @param \core\AbstractProfile $profile1 the first profile's information
+     * @param \core\AbstractProfile $profile2 the second profile's information
+     * @return int
+     */
     private static function profileSort($profile1, $profile2) {
         return strcasecmp($profile1->name, $profile2->name);
     }

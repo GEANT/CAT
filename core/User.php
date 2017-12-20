@@ -122,6 +122,13 @@ class User extends EntityWithDBProperties {
         return FALSE;
     }
 
+    /**
+     * shorthand function for email sending to the user
+     * 
+     * @param string $subject
+     * @param string $content
+     * @return boolean did it work?
+     */
     public function sendMailToUser($subject, $content) {
         $mailaddr = $this->getAttributes("user:email");
         if (count($mailaddr) == 0) { // we don't know user's mail address
@@ -141,6 +148,9 @@ class User extends EntityWithDBProperties {
         return $sent;
     }
 
+    /**
+     * NOOP in this class, only need to override abstract base class
+     */
     public function updateFreshness() {
         // User is always fresh
     }
@@ -152,8 +162,8 @@ class User extends EntityWithDBProperties {
         "linkedin_targetedID" => "LinkedIn",
         "twitter_targetedID" => "Twitter",
         "openid" => "Google (defunct)",
-        ];
-    
+    ];
+
     /**
      * Some users apparently forget which eduGAIN/social ID they originally used
      * to log into CAT. We can try to help them: if they tell us the email
@@ -162,7 +172,7 @@ class User extends EntityWithDBProperties {
      * that email address. We then see which pretty-print auth provider name
      * was used
      * 
-* @param string $mail
+     * @param string $mail
      * @return false|array the list of auth source IdPs we found for the mail, or FALSE if none found or invalid input
      */
     public static function findLoginIdPByEmail($mail) {
@@ -186,11 +196,11 @@ class User extends EntityWithDBProperties {
                 }
                 $lookFor .= "$name";
             }
-            $finding = preg_match("/^(".$lookFor."):(.*)/", $oneRow->user_id, $matches);
+            $finding = preg_match("/^(" . $lookFor . "):(.*)/", $oneRow->user_id, $matches);
             if ($finding === 0 || $finding === FALSE) {
                 return FALSE;
             }
-            
+
             $providerStrings = array_keys(User::PROVIDER_STRINGS);
             switch ($matches[1]) {
                 case $providerStrings[0]: // eduGAIN needs to find the exact IdP behind it
@@ -207,7 +217,7 @@ class User extends EntityWithDBProperties {
                             $url = CONFIG_DIAGNOSTICS['eduGainResolver']['url'] . "?action=get_entity_name&type=idp&e_id=$idp&lang=pl";
                             $ch = curl_init($url);
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                            curl_setopt($ch,CURLOPT_TIMEOUT, CONFIG_DIAGNOSTICS['eduGainResolver']['timeout']);
+                            curl_setopt($ch, CURLOPT_TIMEOUT, CONFIG_DIAGNOSTICS['eduGainResolver']['timeout']);
                             $response = curl_exec($ch);
                             if ($response == FALSE) {
                                 $skipCurl = 1;
@@ -224,7 +234,7 @@ class User extends EntityWithDBProperties {
                 case $providerStrings[3]:
                 case $providerStrings[4]:
                 case $providerStrings[5]:
-                    if (!in_array(User::PROVIDER_STRINGS[$matches[1]],$listOfProviders)) {
+                    if (!in_array(User::PROVIDER_STRINGS[$matches[1]], $listOfProviders)) {
                         $listOfProviders[] = User::PROVIDER_STRINGS[$matches[1]];
                     }
                     break;

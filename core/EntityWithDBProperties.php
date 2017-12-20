@@ -107,7 +107,6 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * are not considered.
      *
      * @param string $optionName optionally, the name of the attribute that is to be retrieved
-     * 
      * @return array of arrays of attributes which were set for this IdP
      */
     public function getAttributes(string $optionName = NULL) {

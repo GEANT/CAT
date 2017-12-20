@@ -120,6 +120,10 @@ class IdP extends EntityWithDBProperties {
     const PROFILES_CONFIGURED = 1;
     const PROFILES_SHOWTIME = 2;
 
+    /**
+     * looks through all the profiles of the inst and determines the highest prod-ready level among the profiles
+     * @return int highest level of completeness of all the profiles of the inst
+     */
     public function maxProfileStatus() {
         $allProfiles = $this->databaseHandle->exec("SELECT sufficient_config + showtime AS maxlevel FROM profile WHERE inst_id = $this->identifier ORDER BY maxlevel DESC LIMIT 1");
         // SELECT yields a resource, not a boolean

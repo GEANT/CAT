@@ -70,6 +70,9 @@ class SanityTests extends CAT {
     public $out;
     public $name;
 
+    /** 
+     * initialise the tests. Includes counting the number of expected rows in the profile_option_dict table.
+     */
     public function __construct() {
         parent::__construct();
         $this->test_result = [];
@@ -133,6 +136,11 @@ class SanityTests extends CAT {
         }
     }
 
+    /**
+     * enumerates the tests which are defined
+     * 
+     * @return array
+     */
     public function get_test_names() {
         $T = get_class_methods($this);
         $out = [];
@@ -157,12 +165,23 @@ class SanityTests extends CAT {
      */
     public $test_result;
 
+    /**
+     * stores the result of a given test in standardised format
+     * 
+     * @param int $level severity level of the result
+     * @param string $message verbal description of the result
+     */
     private function test_return($level, $message) {
         $this->out[$this->name][] = ['level' => $level, 'message' => $message];
         $this->test_result[$this->name] = max($this->test_result[$this->name], $level);
         $this->test_result['global'] = max($this->test_result['global'], $level);
     }
 
+    /**
+     * finds out if a path name is configured as an absolute path or only implicit (e.g. is in $PATH)
+     * @param string $pathToCheck
+     * @return array
+     */
     private function get_exec_path($pathToCheck) {
         $the_path = "";
         $exec_is = "UNDEFINED";

@@ -56,6 +56,13 @@ class ProfileSilverbullet extends AbstractProfile {
 
     const PRODUCTNAME = "Managed IdP";
 
+    /**
+     * produces a random string
+     * @param int $length the length of the string to produce
+     * @param string $keyspace the pool of characters to use for producing the string
+     * @return string
+     * @throws Exception
+     */
     public static function randomString(
     $length, $keyspace = '23456789abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     ) {
@@ -168,10 +175,19 @@ class ProfileSilverbullet extends AbstractProfile {
         </ul>";
     }
 
+    /**
+     * returns the subject to use in an invitation mail
+     * @return string
+     */
     public function invitationMailSubject() {
             return sprintf(_("Your %s access is ready"), CONFIG_CONFASSISTANT['CONSORTIUM']['display_name']);
     }
     
+    /**
+     * returns the body to use in an invitation mail
+     * @param string $invitationLink the activation token link to embed
+     * @return string
+     */
     public function invitationMailBody($invitationLink) {
         $text = _("Hello!");
         $text .= "\n\n";
@@ -237,7 +253,8 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * create a CSR
      * 
-     * @return 
+     * @param resource $privateKey the private key to create the CSR with
+     * @return array with the CSR and some meta info
      */
     private function generateCsr($privateKey) {
         // token leads us to the NRO, to set the OU property of the cert
@@ -257,8 +274,7 @@ class ProfileSilverbullet extends AbstractProfile {
 
         $this->loggerInstance->debug(5, "generateCertificate: generating private key.\n");
 
-        return [
-            "CSR" => openssl_csr_new(
+        $newCsr = openssl_csr_new(
                     ['O' => CONFIG_CONFASSISTANT['CONSORTIUM']['name'],
                 'OU' => $federation,
                 'CN' => $username,
@@ -267,7 +283,12 @@ class ProfileSilverbullet extends AbstractProfile {
                 'digest_alg' => 'sha256',
                 'req_extensions' => 'v3_req',
                     ]
-            ),
+            );
+        if ($newCsr === FALSE) {
+            throw new Exception("Unable to create a CSR!");
+        }
+        return [
+            "CSR" => $newCsr,
             "USERNAME" => $username
         ];
     }
@@ -276,6 +297,8 @@ class ProfileSilverbullet extends AbstractProfile {
      * take a CSR and sign it with our issuing CA's certificate
      * 
      * @param mixed $csr the CSR
+     * @param int $expiryDays the number of days until the cert is going to expire
+     * @return array the cert and some meta info
      */
     private function signCsr($csr, $expiryDays) {
         switch (CONFIG_CONFASSISTANT['SILVERBULLET']['CA']['type']) {
@@ -522,9 +545,11 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
+     * performs an HTTP request. Currently unused, will be for external CA API calls.
      * 
      * @param string $url the URL to send the request to
      * @param array $postValues POST values to send
+     * @return the returned HTTP content
      */
     private function httpRequest($url, $postValues) {
         $options = [
@@ -534,6 +559,12 @@ class ProfileSilverbullet extends AbstractProfile {
         return file_get_contents($url, false, $context);
     }
 
+    /**
+     * checks a certificate's status in the database and delivers its properties in an array
+     * 
+     * @param \mysqli_object $certQuery
+     * @return array properties of the cert in questions
+     */
     private static function enumerateCertDetails($certQuery) {
         $retval = [];
         while ($resource = mysqli_fetch_object($certQuery)) {
@@ -558,6 +589,12 @@ class ProfileSilverbullet extends AbstractProfile {
         return $retval;
     }
 
+    /**
+     * find out about the properties of an activation token
+     * 
+     * @param string $tokenvalue
+     * @return array the token properties
+     */
     public static function tokenStatus($tokenvalue) {
         $databaseHandle = DBConnection::handle("INST");
         $loggerInstance = new \core\common\Logging();
@@ -626,6 +663,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * this needs to be static because we do not have a known profile instance
      * 
      * @param string $certUsername a username from CN or sAN:email
+     * @return array
      */
     public static function findUserIdFromCert($certUsername) {
         $dbHandle = \core\DBConnection::handle("INST");
@@ -636,6 +674,11 @@ class ProfileSilverbullet extends AbstractProfile {
         }
     }
 
+    /**
+     * find out about the status of a given SB user; retrieves the info regarding all his tokens (and thus all his certificates)
+     * @param int $userId
+     * @return array of tokenStatus arrays
+     */
     public function userStatus($userId) {
         $retval = [];
         $userrows = $this->databaseHandle->exec("SELECT `token` FROM `silverbullet_invitation` WHERE `silverbullet_user_id` = ? AND `profile_id` = ? ", "ii", $userId, $this->identifier);
@@ -646,6 +689,11 @@ class ProfileSilverbullet extends AbstractProfile {
         return $retval;
     }
 
+    /**
+     * finds out the expiry date of a given user
+     * @param int $userId
+     * @return string
+     */
     public function getUserExpiryDate($userId) {
         $query = $this->databaseHandle->exec("SELECT expiry FROM silverbullet_user WHERE id = ? AND profile_id = ? ", "ii", $userId, $this->identifier);
         // SELECT -> resource, not boolean
@@ -654,12 +702,21 @@ class ProfileSilverbullet extends AbstractProfile {
         }
     }
     
+    /**
+     * sets the expiry date of a user to a new date of choice
+     * @param int $userId
+     * @param string $date
+     */
     public function setUserExpiryDate($userId, $date) {
         $query = "UPDATE silverbullet_user SET expiry = ? WHERE profile_id = ? AND id = ?";
         $theDate = $date->format("Y-m-d");
         $this->databaseHandle->exec($query, "sii", $theDate, $this->identifier, $userId);
     }
 
+    /**
+     * lists all users of this SB profile
+     * @return array
+     */
     public function listAllUsers() {
         $userArray = [];
         $users = $this->databaseHandle->exec("SELECT `id`, `username` FROM `silverbullet_user` WHERE `profile_id` = ? ", "i", $this->identifier);
@@ -670,6 +727,10 @@ class ProfileSilverbullet extends AbstractProfile {
         return $userArray;
     }
 
+    /**
+     * lists all users which are currently active (i.e. have pending invitations and/or valid certs)
+     * @return array
+     */
     public function listActiveUsers() {
         // users are active if they have a non-expired invitation OR a non-expired, non-revoked certificate
         $userCount = [];
@@ -687,17 +748,28 @@ class ProfileSilverbullet extends AbstractProfile {
         return $userCount;
     }
 
-    public function addUser($user, \DateTime $expiry) {
+    /**
+     * adds a new user to the profile
+     * 
+     * @param string $username
+     * @param \DateTime $expiry
+     * @return int row ID of the new user in the database
+     */
+    public function addUser($username, \DateTime $expiry) {
         $query = "INSERT INTO silverbullet_user (profile_id, username, expiry) VALUES(?,?,?)";
         $date = $expiry->format("Y-m-d");
-        $this->databaseHandle->exec($query, "iss", $this->identifier, $user, $date);
+        $this->databaseHandle->exec($query, "iss", $this->identifier, $username, $date);
         return $this->databaseHandle->lastID();
     }
 
+    /**
+     * revoke all active certificates and pending invitations of a user
+     * @param int $userId
+     */
     public function deactivateUser($userId) {
         // set the expiry date of any still valid invitations to NOW()
         $query = "SELECT id FROM silverbullet_invitation WHERE profile_id = $this->identifier AND silverbullet_user_id = ? AND expiry >= NOW()";
-        $exec = $this->databaseHandle->exec($query, "s", $userId);
+        $exec = $this->databaseHandle->exec($query, "i", $userId);
         // SELECT -> resource, not boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $exec)) {
             $this->revokeInvitation($result->id);
@@ -715,6 +787,7 @@ class ProfileSilverbullet extends AbstractProfile {
     }
     
     /**
+     * creates a full HTTP link from the hex value of the token itself
      * 
      * @param string $token
      * @return string
@@ -747,24 +820,38 @@ class ProfileSilverbullet extends AbstractProfile {
     }
 
     /**
-     *
+     * generates a new hex string to be used as an activation token
+     * 
      * @return string
      */
     private function generateToken() {
         return hash("sha512", base_convert(rand(0, (int) 10e16), 10, 36));
     }
 
+    /**
+     * creates a new invitation in the database
+     * @param int $userId
+     * @param int $activationCount
+     */
     public function createInvitation($userId, $activationCount) {
         $query = "INSERT INTO silverbullet_invitation (profile_id, silverbullet_user_id, token, quantity, expiry) VALUES (?, ?, ?, ?, DATE_ADD(NOW(), INTERVAL 7 DAY))";
         $newToken = $this->generateToken();
         $this->databaseHandle->exec($query, "iisi", $this->identifier, $userId, $newToken, $activationCount);
     }
     
+    /**
+     * revokes an invitation
+     * 
+     * @param int $invitationId
+     */
     public function revokeInvitation($invitationId) {
         $query = "UPDATE silverbullet_invitation SET expiry = NOW() WHERE id = ? AND profile_id = ?";
         $this->databaseHandle->exec($query, "ii", $invitationId, $this->identifier);
     }
 
+    /**
+     * updates the last_ack for all users (invoked when the admin claims to have re-verified continued eligibility of all users)
+     */
     public function refreshEligibility() {
         $query = "UPDATE silverbullet_user SET last_ack = NOW() WHERE profile_id = ?";
         $this->databaseHandle->exec($query, "i", $this->identifier);

@@ -77,6 +77,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     public $nomenclature_inst;
     
     /**
+     * sets the supported EAP methods for a device
      * 
      * @param array $eapArray the list of EAP methods the device supports
      */
@@ -261,6 +262,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         return _("Sorry, this should not happen - no additional information is available");
     }
     
+    /**
+     * some modules have a complex directory structure. This helper finds resources
+     * in that structure. Mostly used in the Windows modules.
+     * 
+     * @param string $file the filename to search for (without path)
+     * @return string|false the filename as found, with path, or FALSE if it does not exist
+     */
     private function findSourceFile($file) {
         if (is_file($this->module_path . '/Files/' . $this->device_id . '/' . $file)) {
             return $this->module_path . '/Files/' . $this->device_id . '/' . $file;
@@ -485,6 +493,11 @@ abstract class DeviceConfig extends \core\common\Entity {
         return $consortiumName . '-' . $this->getDeviceId() . $inst;
     }
 
+    /**
+     * returns the device_id of the current device
+     * 
+     * @return string
+     */
     private function getDeviceId() {
         $deviceId = $this->device_id;
         if (isset($this->options['device_id'])) {
@@ -496,6 +509,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         return $deviceId;
     }
 
+    /**
+     * returns the list of SSIDs that installers should treat. 
+     * 
+     * Includes both SSIDs to be set up (and whether it's a TKIP-mixed or AES-only SSID) and SSIDs to be deleted
+     * 
+     * @return array
+     */
     private function getSSIDs() {
         $ssidList = [];
         $ssidList['add'] = [];
@@ -532,6 +552,11 @@ abstract class DeviceConfig extends \core\common\Entity {
         return $ssidList;
     }
 
+    /**
+     * returns the list of Hotspot 2.0 / Passpoint roaming consortia to set up
+     * 
+     * @return array
+     */
     private function getConsortia() {
         $consortia = CONFIG_CONFASSISTANT['CONSORTIUM']['interworking-consortium-oi'];
         if (isset($this->attributes['media:consortium_OI'])) {
@@ -552,6 +577,14 @@ abstract class DeviceConfig extends \core\common\Entity {
         'application/pdf' => 'pdf',
     ];
 
+    /**
+     * saves a number of logos to a cache directory on disk.
+     * 
+     * @param array $logos list of logos (binary strings each)
+     * @param string $type a qualifier what type of logo this is
+     * @return array list of filenames and the mime types
+     * @throws Exception
+     */
     private function saveLogoFile($logos,$type) {
         $iterator = 0;
         $returnarray = [];
@@ -579,6 +612,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         return($returnarray);
     }
 
+    /**
+     * saves the Terms of Use file onto disk
+     * 
+     * @param string $blob the Terms of Use
+     * @return array with one entry, containging the filename and mime type
+     * @throws Exception
+     */
     private function saveInfoFile($blob) {
         $finfo = new \finfo(FILEINFO_MIME_TYPE);
         $mime = $finfo->buffer($blob);
@@ -593,6 +633,13 @@ abstract class DeviceConfig extends \core\common\Entity {
         return(['name' => 'local-info.' . $ext, 'mime' => $ext]);
     }
 
+    /**
+     * returns the attributes of the profile for which to generate an installer
+     * 
+     * In condensed notion, and most specific level only (i.e. ignores overriden attributes from a higher level)
+     * @param \core\AbstractProfile $profile
+     * @return array
+     */
     private function getProfileAttributes(AbstractProfile $profile) {
         $bestMatchEap = $this->selectedEap;
         if (count($bestMatchEap) > 0) {
@@ -621,12 +668,17 @@ abstract class DeviceConfig extends \core\common\Entity {
 
     /**
      * placeholder for the main device method
-     *
+     * @return string
      */
     protected function writeInstaller() {
         return("download path");
     }
 
+    /**
+     * collates the string to use as EAP outer ID
+     * 
+     * @return string
+     */
     protected function determineOuterIdString() {
         $outerId = 0;
         if (isset($this->attributes['internal:use_anon_outer']) && $this->attributes['internal:use_anon_outer'][0] == "1" && isset($this->attributes['internal:realm'])) {
@@ -682,12 +734,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     public $module_path;
 
     /**
-     * The optimal EAP type
-     *
-     */
-
-    /**
-     * optimal EAP method selected given profile and device
+     * * The optimal EAP type selected given profile and device
      * @var array
      */
     public $selectedEap;

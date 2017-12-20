@@ -687,6 +687,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
         $this->databaseHandle->exec("UPDATE profile SET showtime = TRUE WHERE profile_id = ?", "i", $this->identifier);
     }
 
+    /**
+     * internal helper - some attributes are added by the constructor "ex officio"
+     * without actual input from the admin. We can streamline their addition in
+     * this function to avoid duplication.
+     * 
+     * @param array $internalAttributes - only names and value
+     * @return array full attributes with all properties set
+     */
     protected function addInternalAttributes($internalAttributes) {
         // internal attributes share many attribute properties, so condense the generation
         $retArray = [];

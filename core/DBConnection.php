@@ -65,6 +65,10 @@ class DBConnection {
         trigger_error('Clone is not allowed.', E_USER_ERROR);
     }
 
+    /**
+     * tells the caller if the database is to be accessed read-only
+     * @return bool
+     */
     public function isReadOnly() {
         return $this->readOnly;
     }

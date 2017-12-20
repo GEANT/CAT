@@ -92,10 +92,18 @@ class Federation extends EntityWithDBProperties {
         return $dataArray;
     }
 
+    /**
+     * NOOP on Federations, but have to override the abstract parent method
+     */
     public function updateFreshness() {
         // Federation is always fresh
     }
 
+    /**
+     * gets the download statistics for the federation
+     * @param string $format either as an html *table* or *XML*
+     * @return string
+     */
     public function downloadStats($format) {
         $data = $this->downloadStatsCore();
         $retstring = "";
@@ -123,7 +131,7 @@ class Federation extends EntityWithDBProperties {
                 $retstring .= "</federation>";
                 break;
             default:
-                return false;
+                throw new Exception("Statistics can be requested only in 'table' or 'XML' format!");
         }
 
         return $retstring;
@@ -229,6 +237,11 @@ class Federation extends EntityWithDBProperties {
         return $returnarray;
     }
 
+    /**
+     * returns an array with information about the authorised administrators of the federation
+     * 
+     * @return array
+     */
     public function listFederationAdmins() {
         $returnarray = [];
         $query = "SELECT user_id FROM user_options WHERE option_name = 'user:fedadmin' AND option_value = ?";
@@ -246,6 +259,12 @@ class Federation extends EntityWithDBProperties {
         return $returnarray;
     }
 
+    /**
+     * cross-checks in the EXTERNAL customer DB which institutions exist there for the federations
+     * 
+     * @param bool $unmappedOnly if set to TRUE, only returns those which do not have a known mapping to our internally known institutions
+     * @return array
+     */
     public function listExternalEntities($unmappedOnly) {
         $returnarray = [];
 
@@ -321,8 +340,12 @@ class Federation extends EntityWithDBProperties {
     const AMBIGUOUS_IDP = -2;
 
     /**
+     * for a MySQL list of institutions, find an institution or find out that
+     * there is no single best match
      * 
      * @param \mysqli_result $dbResult
+     * @param string $country used to return the country of the inst, if can be found out
+     * @return int the identifier of the inst, or one of the special return values if unsuccessful
      */
     private static function findCandidates(\mysqli_result $dbResult, &$country) {
         $retArray = [];
@@ -371,6 +394,12 @@ class Federation extends EntityWithDBProperties {
         return ["CAT" => $candidatesCat, "EXTERNAL" => $candidatesExternalDb, "FEDERATION" => $country];
     }
 
+    /**
+     * helper function to sort institutions by their name
+     * @param array $a an array with institution a's information
+     * @param array $b an array with institution b's information
+     * @return int the comparison result
+     */
     private function usortInstitution($a, $b) {
         return strcasecmp($a["name"], $b["name"]);
     }
