@@ -129,7 +129,10 @@ class Logopath extends AbstractTest {
 
     public function addScreenshot($binaryData) {
         if ($this->validatorInstance->image($binaryData) === TRUE) {
-            $this->additionalScreenshot = $binaryData;
+            $imagick = new \Imagick();
+            $imagick->readimageblob($binaryData);
+            $imagick->setimageformat("png");
+            $this->additionalScreenshot = $imagick->getimageblob();
         }
     }
 
@@ -224,13 +227,53 @@ class Logopath extends AbstractTest {
         return $contactUseful;
     }
 
+    const CATEGORYBINDING = ['to' => 'addAddress', 'cc' => 'addCC', 'bcc' => 'addBCC', 'reply-to' => 'addReplyTo'];
     /**
      * sends the mails. Only call this after either determineMailsToSend() or
      * isEndUserContactUseful(), otherwise it will do nothing.
      */
     public function weNeedToTalk() {
         foreach ($this->mailQueue as $oneMail) {
-            // just send the mail out, TODO
+            $theMail = $this->mailStack[$oneMail];
+            // if user interaction would have been good, but the user didn't 
+            // leave his mail address, remove him/her from the list of recipients
+            foreach (Logopath::CATEGORYBINDING as $index => $functionName) {
+                if (in_array(Logopath::ENDUSER, $theMail[$index]) && $this->userEmail == FALSE) {
+                    $theMail[$index] = array_diff($theMail[$index], [Logopath::ENDUSER] );
+                }
+            }
+            
+            $handle = \core\common\OutsideComm::mailHandle();
+            // let's identify outselves
+            $handle->FromName = CONFIG['APPEARANCE']['productname'] . " Real-Time Diagnostics System";
+            // find out who to talk to
+            foreach ($theMail['to'] as $onePrincipal) {
+                foreach ($this->concreteRecipients[$onePrincipal] as $oneConcrete) {
+                    $handle->addAddress($oneConcrete);
+                }
+            }
+            foreach ($theMail['cc'] as $onePrincipal) {
+                foreach ($this->concreteRecipients[$onePrincipal] as $oneConcrete) {
+                    $handle->addCC($oneConcrete);
+                }
+            }
+            foreach ($theMail['bcc'] as $onePrincipal) {
+                foreach ($this->concreteRecipients[$onePrincipal] as $oneConcrete) {
+                    $handle->addBCC($oneConcrete);
+                }
+            }
+            foreach ($theMail['reply-to'] as $onePrincipal) {
+                foreach ($this->concreteRecipients[$onePrincipal] as $oneConcrete) {
+                    $handle->addReplyTo($oneConcrete);
+                }
+            }
+            // and add what to say
+            $handle->Subject = $theMail['subject'];
+            $handle->Body = $theMail['body'];
+            if ($this->additionalScreenshot !== FALSE) {
+                $handle->addStringAttachment($this->additionalScreenshot, "screenshot.png", "base64", "image/png", "attachment");
+            }
+            $handle->send();
         }
     }
 
