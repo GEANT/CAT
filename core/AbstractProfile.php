@@ -375,9 +375,14 @@ abstract class AbstractProfile extends EntityWithDBProperties {
     /**
      * Specifies the realm of this profile.
      * 
+     * Forcefully type-hinting $realm parameter to string - Scrutinizer seems to
+     * think that it can alternatively be an array<integer,?> which looks like a
+     * false positive. If there really is an issue, let PHP complain about it at
+     * runtime.
+     * 
      * @param string $realm the realm (potentially with the local@ part that should be used for anonymous identities)
      */
-    public function setRealm($realm) {
+    public function setRealm(string $realm) {
         $this->databaseHandle->exec("UPDATE profile SET realm = ? WHERE profile_id = ?", "si", $realm, $this->identifier);
         $this->realm = $realm;
     }
