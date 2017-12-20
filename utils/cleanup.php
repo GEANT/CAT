@@ -16,37 +16,4 @@
  */
 require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 
-
-$tm = time();
-
-$Cache = [];
-$dbHandle = \core\DBConnection::handle("FRONTEND");
-$result = $dbHandle->exec("SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
-while ($r = mysqli_fetch_row($result)) {
-    $e = explode('/', $r[0]);
-    $Cache[$e[count($e) - 2]] = 1;
-}
-$downloadsDirs = [
-    'site_installers' => dirname(dirname(__FILE__)) . "/var/installer_cache",
-    'silverbullet' => dirname(dirname(__FILE__)) . "/var/silverbullet"
-];
-foreach ($downloadsDirs as $downloads) {
-    if ($handle = opendir($downloads)) {
-        /* This is the correct way to loop over the directory. */
-        while (false !== ($entry = readdir($handle))) {
-            if ($entry === '.' || $entry === '..' || $entry === '.gitignore') {
-                continue;
-            }
-            $ftime = $tm - filemtime($downloads . '/' . $entry);
-            if ($ftime < 3600) {
-                continue;
-            }
-            if (isset($Cache[$entry])) {
-                continue;
-            }
-            \core\common\Entity::rrmdir($downloads . '/' . $entry);
-            print "$entry\n";
-        }
-        closedir($handle);
-    }
-}
+web\lib\admin\Maintenance::deleteObsoleteTempDirs();

@@ -63,40 +63,9 @@ $dbHandle = \core\DBConnection::handle("FRONTEND");
                     // we do NOT break here - after the DB deletion comes the normal
                     // filesystem cleanup
                     case web\lib\common\FormElements::BUTTON_DELETE:
-                        $downloads = dirname(dirname(dirname(__FILE__))) . "/var/installer_cache";
-                        $tm = time();
-                        $i = 0;
-
-                        $Cache = [];
-                        $result = $dbHandle->exec("SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
-                        while ($r = mysqli_fetch_row($result)) {
-                            $e = explode('/', $r[0]);
-                            $Cache[$e[count($e) - 2]] = 1;
-                        }
-
-                        if ($handle = opendir($downloads)) {
-
-                            /* This is the correct way to loop over the directory. */
-                            while (false !== ($entry = readdir($handle))) {
-                                if ($entry === '.' || $entry === '..') {
-                                    continue;
-                                }
-                                $ftime = $tm - filemtime($downloads . '/' . $entry);
-                                if ($ftime < 3600) {
-                                    continue;
-                                }
-                                if (isset($Cache[$entry])) {
-                                    continue;
-                                }
-                                \core\common\Entity::rrmdir($downloads . '/' . $entry);
-                                $i++;
-                            }
-
-                            closedir($handle);
-                        }
+                        $i = web\lib\admin\Maintenance::deleteObsoleteTempDirs();
                         echo "<div class='ca-summary'><table>" . $uiElements->boxRemark(sprintf("Deleted %d cache directories.", $i), "Cache deleted") . "</table></div>";
                         break;
-
                     default:
                         break;
                 }
