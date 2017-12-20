@@ -82,7 +82,8 @@ class UserAPI extends CAT {
         $installerProperties = [];
         $installerProperties['profile'] = $profileId;
         $installerProperties['device'] = $device;
-        $this->installerPath = $this->getCachedPath($device, $profile);
+        $cache = $this->getCache($device, $profile);
+        $this->installerPath = $cache['path'];
         if ($this->installerPath && $token == NULL && $password == NULL) {
             $this->loggerInstance->debug(4, "Using cached installer for: $device\n");
             $installerProperties['link'] = "API.php?action=downloadInstaller&lang=" . $this->languageInstance->getLang() . "&profile=$profileId&device=$device&generatedfor=$generatedFor";
@@ -105,7 +106,7 @@ class UserAPI extends CAT {
      * @param AbstractProfile $profile
      * @return boolean|string the string with the path to the cached copy, or FALSE if no cached copy exists
      */
-    private function getCachedPath($device, $profile) {
+    private function getCache($device, $profile) {
         $deviceList = \devices\Devices::listDevices();
         $deviceConfig = $deviceList[$device];
         $noCache = (isset(\devices\Devices::$Options['no_cache']) && \devices\Devices::$Options['no_cache']) ? 1 : 0;
@@ -113,14 +114,14 @@ class UserAPI extends CAT {
             $noCache = $deviceConfig['options']['no_cache'] ? 1 : 0;
         }
         if ($noCache) {
-            $this->loggerInstance->debug(5, "getCachedPath: the no_cache option set for this device\n");
+            $this->loggerInstance->debug(5, "getCache: the no_cache option set for this device\n");
             return(FALSE);
         }
-        $this->loggerInstance->debug(5, "getCachedPath: caching option set for this device\n");
+        $this->loggerInstance->debug(5, "getCache: caching option set for this device\n");
         $cache = $profile->testCache($device);
         $iPath = $cache['cache'];
         if ($iPath && is_file($iPath)) {
-            return($iPath);
+            return(['path' => $iPath, 'mime' => $cache['mime']]);
         }
         return(FALSE);
     }
