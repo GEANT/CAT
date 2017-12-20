@@ -95,6 +95,10 @@ if (isset($_POST['command'])) {
             }
             if (isset($_FILES['newusers']) && $_FILES['newusers']['size'] > 0) {
                 $content = fopen($_FILES['newusers']['tmp_name'], "r");
+                if ($content === FALSE) {
+                    // seems we can't work with this file for some reason. Ignore.
+                    continue;
+                }
                 $oneLine = TRUE;
                 while ($oneLine !== FALSE) {
                     $oneLine = fgets($content);
@@ -108,23 +112,30 @@ if (isset($_POST['command'])) {
                     }
                     $properName = $validator->User($elements[0]);
                     $properDate = new DateTime($elements[1] . " 00:00:00");
-                    $number = $elements[2] ?? 1;
+                    $number = $validator->integer($elements[2] ?? 1) ?? 1;
 
                     $newId = $profile->addUser($properName, $properDate);
-                    $profile->createInvitation($newId, $validator->integer($number));
+                    $profile->createInvitation($newId, $number);
                 }
+                fclose($content);
             }
             break;
         case \web\lib\common\FormElements::BUTTON_CHANGEUSEREXPIRY:
             if (isset($_POST['userexpiry']) && isset($_POST['userid'])) {
-                $properId = $validator->User($_POST['userid']);
+                $properId = $validator->integer($_POST['userid']);
+                if ($properId === FALSE) { // not a real user ID
+                    continue;
+                }
                 $properDate = new DateTime($_POST['userexpiry'] . " 00:00:00");
                 $profile->setUserExpiryDate($properId, $properDate);
             }
             break;
         case \web\lib\common\FormElements::BUTTON_REVOKEINVITATION:
             if (isset($_POST['invitationid'])) {
-                $filteredId = $validator->token(filter_input(INPUT_POST, 'invitationid'));
+                $filteredId = $validator->integer(filter_input(INPUT_POST, 'invitationid'));
+                if ($filteredId === FALSE) { // not a real invitation ID, ignore
+                    continue;
+                }
                 $profile->revokeInvitation($filteredId);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
@@ -138,15 +149,21 @@ if (isset($_POST['command'])) {
             break;
         case \web\lib\common\FormElements::BUTTON_DEACTIVATEUSER:
             if (isset($_POST['userid'])) {
-                $properId = $validator->User(filter_input(INPUT_POST, 'userid'));
+                $properId = $validator->integer(filter_input(INPUT_POST, 'userid'));
+                if ($properId === FALSE) { // bogus user ID, ignore
+                    continue;
+                }
                 $profile->deactivateUser($properId);
                 sleep(1); // make sure the expiry timestamps of invitations and certs are at least one second in the past
             }
             break;
         case \web\lib\common\FormElements::BUTTON_NEWINVITATION:
             if (isset($_POST['userid']) && isset($_POST['invitationsquantity'])) {
-                $properId = $validator->User($_POST['userid']);
+                $properId = $validator->integer($_POST['userid']);
                 $number = $validator->integer($_POST['invitationsquantity']);
+                if ($properId === FALSE || $number === FALSE) { // bogus inputs, ignore
+                    continue;
+                }
                 $profile->createInvitation($properId, $number);
             }
             break;

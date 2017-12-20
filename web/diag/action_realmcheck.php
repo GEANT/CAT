@@ -1,11 +1,11 @@
 <?php
-/* 
- *******************************************************************************
+/*
+ * ******************************************************************************
  * Copyright 2011-2017 DANTE Ltd. and GÉANT on behalf of the GN3, GN3+, GN4-1 
  * and GN4-2 consortia
  *
  * License: see the web/copyright.php file in the file structure
- *******************************************************************************
+ * ******************************************************************************
  */
 ?>
 <?php
@@ -16,56 +16,44 @@ $loggerInstance = new \core\common\Logging();
 $deco = new \web\lib\admin\PageDecoration();
 $validator = new \web\lib\common\InputValidation();
 $gui = new \web\lib\user\Gui();
-    
+
 $ourlocale = $gui->langObject->getLang();
-    header("Content-Type:text/html;charset=utf-8");
-    echo "<!DOCTYPE html>
+header("Content-Type:text/html;charset=utf-8");
+echo "<!DOCTYPE html>
           <html xmlns='http://www.w3.org/1999/xhtml' lang='" . $ourlocale . "'>
           <head lang='" . $ourlocale . "'>
           <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
-    // diag area needs its own CSS at some point, but use the user area one for now
-    $cssUrl = $gui->skinObject->findResourceUrl("CSS","cat.css.php");
-    echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
-    echo "<title>" . htmlspecialchars(_("Sanity check for dynamic discovery of realms")) . "</title>";
+// diag area needs its own CSS at some point, but use the user area one for now
+$cssUrl = $gui->skinObject->findResourceUrl("CSS", "cat.css.php");
+echo "<link rel='stylesheet' type='text/css' href='$cssUrl' />";
+echo "<title>" . htmlspecialchars(_("Sanity check for dynamic discovery of realms")) . "</title>";
 
+$my_profile = NULL;
+$check_realm = FALSE; // we will need to populate this with a real realm below, or have to die horribly.
 
-$check_thorough = FALSE;
 $error_message = '';
 $my_inst = $validator->IdP($_REQUEST['inst_id'], $_SESSION['user']);
 
+
 if (isset($_GET['profile_id'])) {
     $my_profile = $validator->Profile($_GET['profile_id'], $my_inst->identifier);
-} else {
-    $my_profile = NULL;
-}
-if ($my_profile != NULL) {
     if (!$my_profile instanceof \core\ProfileRADIUS) {
         throw new Exception("realm checks are only supported for RADIUS Profiles!");
     }
     $checkrealm = $my_profile->getAttributes("internal:realm");
     if (count($checkrealm) > 0) {
         // checking our own stuff. Enable thorough checks
-        $check_thorough = TRUE;
         $check_realm = $checkrealm[0]['value'];
-        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'] , $my_profile->getCollapsedAttributes()["eap:ca_file"]);
+        $testsuite = new \core\diag\RADIUSTests($check_realm, $my_profile->getRealmCheckOuterUsername(), $my_profile->getEapMethodsinOrderOfPreference(1), $my_profile->getCollapsedAttributes()['eap:server_name'], $my_profile->getCollapsedAttributes()["eap:ca_file"]);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("You asked for a realm check, but we don't know the realm for this profile!") . "</p>";
     }
 } else { // someone else's realm... only shallow checks
-    if (!empty($_REQUEST['realm'])) {
-        if ($check_realm = $validator->realm($_REQUEST['realm'])) {
-            $_SESSION['check_realm'] = $check_realm;
-        }
-    } else {
-        if (!empty($_SESSION['check_realm'])) {
-            $check_realm = $_SESSION['check_realm'];
-        } else {
-            $check_realm = FALSE;
-        }
-    }
-    if ($check_realm) {
-        $testsuite = new \core\diag\RADIUSTests($check_realm, "@".$check_realm);
+    $check_realm = $validator->realm($_REQUEST['realm'] ?? $_SESSION['check_realm'] ?? FALSE);
+    if ($check_realm !== FALSE) {
+        $_SESSION['check_realm'] = $check_realm;
+        $testsuite = new \core\diag\RADIUSTests($check_realm, "@" . $check_realm);
         $rfc7585suite = new \core\diag\RFC7585Tests($check_realm);
     } else {
         $error_message = _("No valid realm name given, cannot execute any checks!");
@@ -447,7 +435,7 @@ $(\"#live_src" . $hostindex . "_img\").show();
         $(".server_cert").hide();
 <?php
 foreach (CONFIG_DIAGNOSTICS['RADIUSTESTS']['UDP-hosts'] as $hostindex => $host) {
-    if ($check_thorough) {
+    if ($my_profile !== NULL) {
         $extraarg = "profile_id: " . $my_profile->identifier . ", ";
     } else {
         $extraarg = "";
@@ -476,10 +464,10 @@ $.get('radius_tests.php',{test_type: 'udp', $extraarg realm: realm, src: $hostin
     }
 </script>
 <?php
-print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
-if ($error_message) {
+if ($check_realm === FALSE) {
     print "<p>$error_message</p>";
 } else {
+    print "<h1>" . sprintf(_("Realm testing for: %s"), $check_realm) . "</h1>\n";
     ?>
     <div id="debug_out" style="display: none"></div>
     <div id="tabs" style="min-width: 600px; max-width:800px">
@@ -566,7 +554,7 @@ if ($error_message) {
 
                     echo "</table><br/><br/>";
                     if (count($testsuite->listerrors()) == 0) {
-                        echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");                        
+                        echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("with no DNS errors encountered. Congratulations!");
                     } else {
                         echo sprintf(_("Realm is <strong>%s</strong> "), _(($naptr > 0 ? "DYNAMIC" : "STATIC"))) . _("but there were DNS errors! Check them!") . " " . _("You should re-run the tests after fixing the errors; more errors might be uncovered at that point. The exact error causes are listed below.");
                         echo "<div class='notacceptable'><table>";
@@ -697,7 +685,7 @@ if ($error_message) {
             //     check if doesn't accept revoked certificates
             //     check if RADIUS request gets rejected timely
             //     check if truncates/dies on Operator-Name
-            if ($check_thorough) {
+            if ($my_profile !== NULL) {
                 echo "<div id='tabs-4'><fieldset class='option_container'>
                 <legend><strong>" . _("Live login test") . "</strong></legend>";
                 $prof_compl = $my_profile->getEapMethodsinOrderOfPreference(1);
@@ -749,31 +737,34 @@ if ($error_message) {
 </div>
 ";
         }
-        
+
         if (CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] == "LOCAL") {
-            $returnUrl = "../admin/overview_idp.php?inst_id=".$my_inst->identifier;
+            $returnUrl = "../admin/overview_idp.php?inst_id=" . $my_inst->identifier;
         } else {
-            $returnUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS']."/admin/overview_idp.php?inst_id=".$my_inst->identifier;
+            $returnUrl = CONFIG['FUNCTIONALITY_LOCATIONS']['CONFASSISTANT_RADIUS'] . "/admin/overview_idp.php?inst_id=" . $my_inst->identifier;
         }
         ?>
-        <form method='post' action='<?php echo $returnUrl;?>' accept-charset='UTF-8'>
-            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"),$gui->nomenclature_inst); ?></button>
+        <form method='post' action='<?php echo $returnUrl; ?>' accept-charset='UTF-8'>
+            <button type='submit' name='submitbutton' value='<?php echo web\lib\common\FormElements::BUTTON_CLOSE; ?>'><?php echo sprintf(_("Return to %s administrator area"), $gui->nomenclature_inst); ?></button>
         </form>
-        <script>
+        <?php
+        if ($check_realm !== FALSE) {
+            echo "<script>
 
 
-            var realm = '<?php echo $check_realm; ?>';
-            run_udp();
-<?php
-if ($naptr > 0) {
-    echo "run_dynamic();";
-} else {
-    echo '$("#tabs-d-li").hide();';
-}
-if (!$check_thorough) {
-    echo '$("#tabs-through").hide();';
-}
-?>
-        </script>
+            var realm = '$check_realm';
+            run_udp();";
+
+            if ($naptr > 0) {
+                echo "run_dynamic();";
+            } else {
+                echo '$("#tabs-d-li").hide();';
+            }
+            if ($my_profile === NULL) {
+                echo '$("#tabs-through").hide();';
+            }
+            echo "</script>";
+        }
+        ?>
         </body>
 

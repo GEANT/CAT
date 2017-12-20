@@ -18,8 +18,8 @@ require_once(dirname(dirname(__FILE__)) . "/config/_config.php");
 
 $dbLink = \core\DBConnection::handle("INST");
 $allSerials = $dbLink->exec("SELECT serial_number FROM silverbullet_certificate WHERE serial_number IS NOT NULL AND expiry > NOW() AND OCSP_timestamp < DATE_SUB(NOW(), INTERVAL 1 WEEK)");
-
-while ($serialRow = mysqli_fetch_object($allSerials)) {
+// SELECT query -> always returns a mysql_result, not boolean
+while ($serialRow = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allSerials)) {
 #    echo "Updating OCSP statement for serial number $serialRow->serial_number\n";
     core\ProfileSilverbullet::triggerNewOCSPStatement($serialRow->serial_number);
 }
@@ -41,7 +41,5 @@ while ($statementRow = mysqli_fetch_object($allStatements)) {
     if (strlen($filename) % 2 == 1) {
         $filename = "0" . $filename;
     }
-    $fileHandle = fopen($tempdir."/$filename","w");
-    fwrite($fileHandle, $statementRow->OCSP);
-    fclose($fileHandle);
+    file_put_contents($tempdir."/$filename", $statementRow->OCSP);
 }

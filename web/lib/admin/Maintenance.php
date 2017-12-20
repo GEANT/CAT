@@ -32,7 +32,8 @@ class Maintenance {
         $Cache = [];
         $dbHandle = \core\DBConnection::handle("FRONTEND");
         $result = $dbHandle->exec("SELECT download_path FROM downloads WHERE download_path IS NOT NULL");
-        while ($r = mysqli_fetch_row($result)) {
+        // SELECT -> mysqli_result, not a boolean
+        while ($r = mysqli_fetch_row(/** @scrutinizer ignore-type */  $result)) {
             $e = explode('/', $r[0]);
             $Cache[$e[count($e) - 2]] = 1;
         }

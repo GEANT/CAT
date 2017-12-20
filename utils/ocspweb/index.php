@@ -69,10 +69,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 $output = [];
 $retval = 999;
 $derFilePath = tempnam(realpath(sys_get_temp_dir()), "ocsp_");
-$derFile = fopen($derFilePath, "w");
-fwrite($derFile, $ocspRequestDer);
+file_put_contents($derFilePath, $ocspRequestDer);
 exec("openssl ocsp -reqin $derFilePath -req_text", $output, $retval);
-fclose($derFile);
+
 if ($retval !== 0) {
     instantDeath("openssl ocsp returned a non-zero return code. The DER data is probably bogus. B64 representation of DER data is: " . base64_encode($ocspRequestDer));
 }

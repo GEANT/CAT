@@ -76,8 +76,11 @@ class PageDecoration {
         }
         $retval .= "</form>
                 </div><!--langselection-->";
-
-        $logoUrl = "//" . $this->validator->hostname($_SERVER['SERVER_NAME']) . substr($_SERVER['PHP_SELF'], 0, (strrpos($_SERVER['PHP_SELF'], "admin/") !== FALSE ? strrpos($_SERVER['PHP_SELF'], "admin/") : strrpos($_SERVER['PHP_SELF'], "/")))."/resources/images/consortium_logo.png";        
+        $host = $this->validator->hostname($_SERVER['SERVER_NAME']);
+        if ($host === FALSE) {
+            throw new Exception("We don't know our own hostname?!? Giving up.");
+        }
+        $logoUrl = "//" . $host . CONFIG['PATHS']['cat_base_url'] . "/resources/images/consortium_logo.png";        
         $retval .= "<div class='consortium_logo'>
                     <img id='test_locate' src='$logoUrl' alt='Consortium Logo'>
                 </div> <!-- consortium_logo -->

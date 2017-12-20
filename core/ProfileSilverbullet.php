@@ -549,7 +549,7 @@ class ProfileSilverbullet extends AbstractProfile {
      * 
      * @param string $url the URL to send the request to
      * @param array $postValues POST values to send
-     * @return the returned HTTP content
+     * @return string the returned HTTP content
      */
     private function httpRequest($url, $postValues) {
         $options = [
@@ -562,7 +562,7 @@ class ProfileSilverbullet extends AbstractProfile {
     /**
      * checks a certificate's status in the database and delivers its properties in an array
      * 
-     * @param \mysqli_object $certQuery
+     * @param \mysqli_result $certQuery
      * @return array properties of the cert in questions
      */
     private static function enumerateCertDetails($certQuery) {

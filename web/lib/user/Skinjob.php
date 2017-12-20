@@ -111,20 +111,13 @@ class Skinjob {
         }
 
         $validator = new \web\lib\common\InputValidation();
-        $url = "//" . $validator->hostname($_SERVER['SERVER_NAME']); // omitting http or https means "on same protocol"
-        if ($url === FALSE) {
+        $host = $validator->hostname($_SERVER['SERVER_NAME']); 
+        if ($host === FALSE) {
             throw new Exception("We don't know our own hostname?!");
         }
-        // we need to construct the right path to the file; we are either
-        // in the admin area or on the main index.php ...
-        $KNOWN_SUFFIXES = ["admin/", "diag/", "skins/", "user/", "accountstatus/"];
-
-        foreach ($KNOWN_SUFFIXES as $suffix) {
-            if (strpos($_SERVER['PHP_SELF'], $suffix) !== FALSE) {
-                return htmlspecialchars($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], $suffix)) . $extrapath . $path . $filename, ENT_QUOTES);
-            }
-        }
-        return htmlspecialchars($url . substr($_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], "/")) . $extrapath . $path . $filename, ENT_QUOTES);
+        $url = "//" . $host; // omitting http or https means "on same protocol"
+        
+        return htmlspecialchars($url . CONFIG['PATHS']['cat_base_url'] . $extrapath . $path . $filename, ENT_QUOTES);
     }
 
 }

@@ -317,7 +317,7 @@ public function coordJsonEncoded($input) {
  * Anything else is a big error.
  * 
  * @param string $input the string to test
- * @return string echoes back the input if good, throws an Exception otherwise
+ * @return bool TRUE if the input was "on". It is not possible in HTML to signal "off"
  * @throws Exception
  */
 public function boolean($input) {

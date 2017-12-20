@@ -28,6 +28,10 @@ class Telepath extends AbstractTest {
     private $visitedHotspot;
     private $catProfile;
     private $dbIdP;
+    /**
+     *
+     * @var string|null
+     */
     private $idPFederation;
     private $testsuite;
 
@@ -354,7 +358,7 @@ class Telepath extends AbstractTest {
         }
 
         // then let's check the IdP's FLR, if we know the IdP federation at all
-        if ($this->idPFederation != NULL) {
+        if ($this->idPFederation !== NULL) {
             if (array_key_exists(AbstractTest::INFRA_NRO_IDP, $this->possibleFailureReasons)) {
                 // first the direct connectivity to the server
                 $flrServerStatus = $this->checkFlrServerStatus($this->idPFederation);

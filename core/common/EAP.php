@@ -164,7 +164,7 @@ class EAP {
 
     /**
      * Is this a password-based EAP method?
-     * @return int
+     * @return bool
      * @throws Exception
      */
     public function isPasswordRequired() {
@@ -195,7 +195,7 @@ class EAP {
 
     /**
      * Is this a certificate-based EAP method?
-     * @return int
+     * @return bool
      * @throws Exception
      */
     public function isClientCertRequired() {
@@ -217,6 +217,8 @@ class EAP {
 
     /**
      * Does an EAP type optionally allow to send a client certificate?
+     * @return bool
+     * @throws Exception
      */
     public function isClientCertOptional() {
         switch ($this->intRep) {
