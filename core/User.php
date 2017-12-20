@@ -114,7 +114,7 @@ class User extends EntityWithDBProperties {
      */
     public function isIdPOwner($idp) {
         $temp = new IdP($idp);
-        foreach ($temp->owner() as $oneowner) {
+        foreach ($temp->listOwners() as $oneowner) {
             if ($oneowner['ID'] == $this->identifier) {
                 return TRUE;
             }

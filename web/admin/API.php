@@ -191,7 +191,7 @@ switch ($sanitised_action) {
             exit(1);
         }
         echo "<CAT-API-Response>\n";
-        echo "  <success action='ADMINCOUNT'>\n    <number_of_admins>" . count($wannabeidp->owner()) . "</number_of_admins>\n  </success>\n";
+        echo "  <success action='ADMINCOUNT'>\n    <number_of_admins>" . count($wannabeidp->listOwners()) . "</number_of_admins>\n  </success>\n";
         echo "</CAT-API-Response>\n";
         exit(0);
         break;

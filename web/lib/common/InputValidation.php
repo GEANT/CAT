@@ -77,7 +77,7 @@ class InputValidation {
         $temp = new \core\IdP($input); // constructor throws an exception if NX, game over
 
         if ($owner !== NULL) { // check if the authenticated user is allowed to see this institution
-            foreach ($temp->owner() as $oneowner) {
+            foreach ($temp->listOwners() as $oneowner) {
                 if ($oneowner['ID'] == $owner) {
                     return $temp;
                 }

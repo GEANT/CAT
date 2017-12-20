@@ -95,6 +95,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         // we are called after the sub-classes have declared their default
         // databse instance in $databaseType
         $this->databaseHandle = DBConnection::handle($this->databaseType);
+        $this->attributes = [];
     }
 
     /**
@@ -277,7 +278,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
                     }
                 }
                 // okay, so it's NOT public. return the owner
-                return $inst->owner();
+                return $inst->listOwners();
             case "federation_option":
                 // federation metadata is always public
                 return FALSE;

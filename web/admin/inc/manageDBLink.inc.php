@@ -99,7 +99,7 @@ if (isset($_POST['submitbutton'])) {
                 echo "<tr><td>" . sprintf(_("Name of %s (%s)"), $uiElements->nomenclature_inst, $language) . "</td><td>" . $name['value'] . "</td></tr>";
             }
 
-            $admins = $my_inst->owner();
+            $admins = $my_inst->listOwners();
 
             foreach ($admins as $admin) {
                 $user = new \core\User($admin['ID']);

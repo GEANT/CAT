@@ -138,7 +138,7 @@ class IdP extends EntityWithDBProperties {
      * 
      * @return array owners of the institution; numbered array with members ID, MAIL and LEVEL
      */
-    public function owner() {
+    public function listOwners() {
         $returnarray = [];
         $admins = $this->databaseHandle->exec("SELECT user_id, orig_mail, blesslevel FROM ownership WHERE institution_id = $this->identifier ORDER BY user_id");
         // SELECT -> resource, not boolean
@@ -148,6 +148,21 @@ class IdP extends EntityWithDBProperties {
         return $returnarray;
     }
 
+    /**
+     * Primary owners are allowed to invite other (secondary) admins to the institution
+     * 
+     * @param string $user ID of a logged-in user
+     * @return bool TRUE if this user is an admin with FED-level blessing
+     */
+    public function isPrimaryOwner($user) {
+       foreach ($this->listOwners() as $oneOwner) {
+           if ($oneOwner['ID'] == $user && $oneOwner['LEVEL'] == "FED") {
+               return TRUE;
+           }
+       }
+       return FALSE;
+    }
+    
     /**
      * This function gets the profile count for a given IdP.
      * 

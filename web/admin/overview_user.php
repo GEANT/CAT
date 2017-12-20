@@ -110,7 +110,7 @@ $user = new \core\User($_SESSION['user']);
 
                 echo "<tr><td><a href='overview_idp.php?inst_id=$the_inst->identifier'>" . $oneinst['name'] . "</a></td><td>";
                 echo "<input type='hidden' name='inst' value='$the_inst->identifier'>";
-                $admins = $the_inst->owner();
+                $admins = $the_inst->listOwners();
                 $blessedUser = FALSE;
                 foreach ($admins as $number => $username) {
                     if ($username['ID'] != $_SESSION['user']) {

@@ -83,14 +83,8 @@ switch ($operationMode) {
         // user back to the popup (append the result of the operation later)
         $redirect_destination = "manageAdmins.inc.php?inst_id=" . $idp->identifier . "&";
         $mailaddress = abortOnBogusMail($newmailaddress, $redirect_destination);
-        // is the user admin of this IdP?
-        $is_owner = FALSE;
-        $owners = $idp->owner();
-        foreach ($owners as $oneowner) {
-            if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED") {
-                $is_owner = TRUE;
-            }
-        }
+        // is the user primary admin of this IdP?
+        $is_owner = $idp->isPrimaryOwner($_SESSION['user']);
         // check if he is (also) federation admin for the federation this IdP is in. His invitations have more blessing then.
         $fedadmin = $userObject->isFederationAdmin($idp->federation);
         // check if he is either one, if not, complain

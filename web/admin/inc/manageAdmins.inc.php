@@ -39,18 +39,9 @@ $mgmt = new \core\UserManagement();
 
 // either the operation is done by federation operator himself
 $isFedAdmin = $user->isFederationAdmin($my_inst->federation);
-
 // or an admin of the IdP with federation admin blessings
-$is_admin_with_blessing = FALSE;
-$owners = $my_inst->owner();
-foreach ($owners as $oneowner) {
-    if ($oneowner['ID'] == $_SESSION['user'] && $oneowner['LEVEL'] == "FED") {
-        $is_admin_with_blessing = TRUE;
-    }
-}
-
+$is_admin_with_blessing = $my_inst->isPrimaryOwner($_SESSION['user']);
 // if none of the two, send the user away
-
 if (!$isFedAdmin && !$is_admin_with_blessing) {
     echo sprintf(_("You do not have the necessary privileges to alter administrators of this %s. In fact, you shouldn't have come this far!"), $uiElements->nomenclature_inst);
     exit(1);
@@ -137,7 +128,8 @@ if (!$isFedAdmin && $is_admin_with_blessing) {
 ?>
 <table>
     <?php
-    foreach ($my_inst->owner() as $oneowner) {
+    $owners = $my_inst->listOwners();
+    foreach ($owners as $oneowner) {
         $ownerinfo = new \core\User($oneowner['ID']);
         $ownername = $ownerinfo->getAttributes("user:realname");
         if (count($ownername) > 0) {
