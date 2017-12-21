@@ -74,10 +74,10 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
 
     /**
      * the unique identifier of this entity instance
-     * Federations are identified by their TLD -> string (override the member)
-     * everything else has an integer row name in the DB -> int
+     * refers to the integer row name in the DB -> int; Federation has no own
+     * DB, so the identifier is of no use there -> use Fedearation->$tld
      * 
-     * @var int|string identifier of the entity instance
+     * @var int identifier of the entity instance
      */
     public $identifier;
 

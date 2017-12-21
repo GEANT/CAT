@@ -163,7 +163,7 @@ class Federation extends EntityWithDBProperties {
         if (!isset($cat->knownFederations[$fedname])) {
             throw new Exception("This federation is not known to the system!");
         }
-        $this->identifier = $fedname;
+        $this->identifier = 0; // we do not use the numeric ID of a federation
         $this->tld = $fedname;
         $this->name = $cat->knownFederations[$this->tld];
 
