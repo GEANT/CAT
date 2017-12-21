@@ -75,7 +75,7 @@ $disco = getRequest('disco','int');
 $width = getRequest('width','int') ?? 0;
 $height = getRequest('height','int') ?? 0;
 $sort = getRequest('sort','int') ?? 0;
-$generatedforR = getRequest('generatedfor','safe_text') ?? 'user';
+$generatedfor = getRequest('generatedfor','safe_text') ?? 'user';
 $token = getRequest('token','safe_text');
 
 
@@ -114,7 +114,6 @@ switch ($action) {
         if ($device === FALSE || $profile === FALSE) {
             exit;
         }
-        $loggerInstance->debug(4, "UserAPI action:DDDDD\n");
         $API->downloadInstaller($device, $profile, $generatedfor);
         break;
     case 'profileAttributes': // needs $profile set
