@@ -15,7 +15,11 @@ session_start();
 $answer = filter_input(INPUT_GET, 'answer', FILTER_SANITIZE_NUMBER_INT);
 $sociopath = new \core\diag\Sociopath();
 if ($answer > 0) {
-    $QNUM = $_SESSION['LAST_QUESTION'];
+    if (!isset($_SESSION['EVIDENCE']['QUESTIONSASKED'])) {
+        $QNUM = 1;
+    } else {
+        $QNUM = count($_SESSION['EVIDENCE']['QUESTIONSASKED']) + 1;
+    }
     switch ($answer) {
         case 1:
             $loggerInstance->debug(4, "Revaluate with FALSE");
@@ -34,7 +38,6 @@ if ($answer > 0) {
 $QJSON = $sociopath->questionOracle();
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
-    $_SESSION['LAST_QUESTION'] = $QPHP["NUMBER"];
     echo $QJSON;
 } else {
     $logopath = new \core\diag\Logopath();
