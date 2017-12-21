@@ -38,7 +38,7 @@
         $select = "<div id='sp_abuse_problem'>
 <select style='margin-left: 0px;' id='select_sp_problem'>";
         foreach ($sp_problem as $pname => $pdesc) {
-            $select = $select .  "<option value='$pname'>$pdesc</option>\n";
+            $select = $select . "<option value='$pname'>$pdesc</option>\n";
         }
         $select = $select . "</select></div>";
         $res = "
@@ -85,7 +85,7 @@
         $select = "<div id='idp_reported_problem' style='display:;'>
 <select id='select_idp_problem'>";
         foreach ($idp_problem as $pname => $pdesc) {
-            $select = $select .  "<option value='$pname'>$pdesc</option>\n";
+            $select = $select . "<option value='$pname'>$pdesc</option>\n";
         }
         $select = $select . "</select></div>";
         $res = "

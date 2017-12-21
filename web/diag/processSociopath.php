@@ -34,10 +34,7 @@ if ($answer > 0) {
 $QJSON = $sociopath->questionOracle();
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
-    error_log("save ".$QPHP["NUMBER"]);
     $_SESSION['LAST_QUESTION'] = $QPHP["NUMBER"];
-    error_log("saved ".$_SESSION["LAST_QUESTION"]);
-    $loggerInstance->debug(4, $_SESSION);
     echo $QJSON;
 } else {
     $logopath = new \core\diag\Logopath();
