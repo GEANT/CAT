@@ -23,6 +23,7 @@ $_SESSION['current_page'] = $_SERVER['SCRIPT_NAME'];
     var dir = "<?php echo dirname(__DIR__); ?>";
 
 <?php
+$admin = filter_input(INPUT_GET, 'admin', FILTER_SANITIZE_NUMBER_INT);
 $profile_list_size = 1;
 include_once(dirname(__DIR__) . '/Divs.php');
 $divs = new Divs($Gui);
@@ -63,9 +64,9 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             <div id='diagnostic_choice'>
                 <?php echo _("Are you reporting the problem as"); ?>
                 <input type='radio' name='diagnostic_usertype' value='0'><?php echo _("an end-user") . ' ' . _("or"); ?>   
-                <input type='radio' name='diagnostic_usertype' value='1'><?php echo _("an eduroam administrator"); ?>
+                <input type='radio' name='diagnostic_usertype' value='1' <?php if ($admin == 1) { echo " checked"; } ?> > <?php echo _("an eduroam administrator"); ?>
             </div>
-            <div id='diagnostic_enduser' style='display:none;'>
+            <div id='diagnostic_enduser' style='display: none;'>
                 <h2><?php echo '<h2>' . _("Tools for End Users"); ?></h2>
                 <p>
                 <?php 
@@ -96,7 +97,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 </div>
                 <div id="sociopath_query_area" style="margin-top:20px; display:none;">
                     <b>
-                        <?php echo _("Now we have a few questions.."); ?>
+                        <?php echo _("Now we have a few questions..."); ?>
                     </b>
                     <div id="sociopath_queries"></div>
                 </div>
@@ -105,19 +106,32 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                     </button>
                 </div>
             </div>
-            <div id='diagnostic_admin' style='display:none;'>
+            <div id='diagnostic_admin' style='display: <?php if (!$admin) { echo 'none'; } ?> ;'>
                 <h2><?php echo _("Tools for eduroam admins"); ?></h2>
                 <?php
                     require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
-                    $as = new SimpleSAML_Auth_Simple(CONFIG['AUTHENTICATION']['ssp-authsource']);
+                    $auth = new \web\lib\admin\Authentication();
                     echo '<input type="hidden" id="isadmin" value="';
-                    if ($as->isAuthenticated()) {
+                    if ($auth->isAuthenticated()) {
                         echo "1\">";
-                        echo "<div id='admin_test_area'></div>"; 
+                        echo "<div id='admin_test_area' style='display: ";
+                        if (!$admin) {
+                            echo 'none';
+                        }
+                        echo ";'>";
+                        echo '<h3>' . _("Which problem are you reporting?") . '</h3>';
+                        echo '<input type="radio" name="problem_type" value="1">';
+                        echo _("SP contacting IdP due to technical problems or abuse") . '<br>';
+                        echo '<input type="radio" name="problem_type" value="2">';
+                        echo _("IdP contacting SP due to technical problems");
+                        echo "<div id='idp_contact_area'></div>";
+                        echo "<div id='sp_abuse'></div>";
+                        echo "<div id='idp_problem'></div>";
+                        echo "</div>"; 
                     } else {
                         echo "0\">";
                         echo _("This service is for authenticated admins only.") . '<br>';
-                        echo "<a href=\"javascript:infoCAT('manage', 'admin','administrator eduroam®')\">" .
+                        echo "<a href=\"diag.php?admin=1\">" .
                             _("eduroam® admin access is needed") . "</a>";
                     }
                 ?>
@@ -213,7 +227,6 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 if (data) {
                     inProgress(0);
                     if (data['NEXTEXISTS']) {
-                        console.log(data);
                         if ($('#sociopath_queries').html() == '') {
                             var query = '';
                             if ($('#tested_realm').length == 0) {
@@ -310,16 +323,68 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         result = result + '</div></div>';
         showInfo(result, title);
     }
+        function formatMAC(e) {
+        var r = /([a-f0-9]{2})([a-f0-9]{2})/i,
+        str = e.target.value.replace(/[^a-f0-9]/ig, "");
+        while (r.test(str)) {
+            str = str.replace(r, '$1' + ':' + '$2');
+        }
+        e.target.value = str.slice(0, 17);
+    };
+    function isEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    };
+    function inProgress(s, comment) {
+        var b = true;
+        if (s === 1) {
+            var x = getWindowHCenter() - 16;
+            var h = ($("body").height() - 128)/2;
+            $("#loading_ico").css('left',x+'px');
+            $("#loading_ico").css('top',h+'px');
+            $("#loading_ico").show();
+            if (typeof comment !== 'undefined') {
+                $("#load_comment").html(comment);
+            } else {
+                $("#load_comment").html("");
+            }
+        } else {
+            $("#loading_ico").hide();
+            b = false;
+            $("#load_comment").html("");
+        }
+        var catForm = document.forms['cat_form'];
+        if (!catForm) {
+            catForm = document.cat_form;
+        }
+        var elements = catForm.elements;
+        for (var i = 0, len = elements.length; i < len; ++i) {
+            elements[i].disabled = b;
+        }
+    }
+    
     $('input[name="diagnostic_usertype"]').click(function() {   
         var t = $('input[name=diagnostic_usertype]:checked').val();
         if (t > 0) {
             $('#diagnostic_enduser').hide();
+            $('input[name=problem_type]').each(function() {
+                $(this).prop('checked', false);
+            });
+            $('#user_realm').val('');
+            $('#select_idp_area').html('');
+            $('#select_idp_country').show();
+            $('#select_sp_area').html('');
+            $('#select_sp_area').html('');
+            $('#sociopath_queries').show();
             $('#diagnostic_admin').show();
-            if ($('#isadmin').val() === "1" && $('#admin_test_area').html().length === 0) {
-                $('#admin_test_area').load('/diag/diag_admin.php');
-            }    
+            if ($('#isadmin').val() === "1") {
+                $('#admin_test_area').show();
+            }
         } else {
             $('#diagnostic_admin').hide();
+            $('#idp_contact_area').html('');
+            $('#sp_abuse').html('');
+            $('#idp_problem').html('');
             $('#diagnostic_enduser').show();
         }
        
@@ -340,14 +405,14 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         $('#user_realm').val("");
         countrySelection("idp");
         return false;
-   });
-   $('#sp_countries_list').click(function(event){
+    });
+    $('#sp_countries_list').click(function(event){
         /*$('#countries_list').removeAttr("href");*/
         event.preventDefault();
         countrySelection("sp");
         return false;
-   });
-   $(document).on('change', '#idp_country, #sp_country' , function() {
+    });
+    $(document).on('change', '#idp_country, #sp_country' , function() {
         var comment = <?php echo '"' . _("Fetching institutions list") . '..."'; ?>;  
         var id = $(this).attr('id');
         var k = id.indexOf('_');
@@ -387,8 +452,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             $('#row_idp_realm').html("");
         }
         return false;
-   });
-   $(document).on('change', '#idp_inst' , function() {
+    });
+    $(document).on('change', '#idp_inst' , function() {
         inst=$("#idp_inst").val();
         if (inst === '') {
             $('#row_idp_realm').html("");
@@ -439,8 +504,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
         }); 
         return false; 
-   });
-   $(document).on('click', '#realm_in_db, #realm_in_db_admin' , function() {
+    });
+    $(document).on('click', '#realm_in_db, #realm_in_db_admin' , function() {
         var id = $(this).attr('id');
         var t = 0;
         if (id === 'realm_in_db') {
@@ -476,6 +541,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
         var comment = <?php echo '"' . _("Running realm tests") . '..."'; ?>;
         inProgress(1, comment);
+        /*waiting(comment);*/
         $.ajax({
             url: "findRealm.php",
             data: {realm: realm, lang: lang},
@@ -528,8 +594,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             }
         });
         return false;
-  });
-  $(document).on('click', '#answer_yes, #answer_no, #answer_noidea' , function(e) {
+    });
+    $(document).on('click', '#answer_yes, #answer_no, #answer_noidea' , function(e) {
         e.preventDefault();
         var answer = 1; /* No */
         if ($(this).attr('id') == 'answer_yes') {
@@ -540,8 +606,8 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             answer = 3; /* No idea */
         }
         testSociopath('', answer);
-  });
-  $('#realmtest').click(function(event){
+    });
+    $('#realmtest').click(function(event){
         inProgress(1);
         var realm = '';
         if ($('#user_realm').val()) {
@@ -611,33 +677,184 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         $(currentTab).addClass('active');
         $(this).parent().addClass('active');
     });
-    function inProgress(s, comment) {
-        var b = true;
-        if (s === 1) {
-            var x = getWindowHCenter() - 16;
-            var h = ($("body").height() - 128)/2;
-            $("#loading_ico").css('left',x+'px');
-            $("#loading_ico").css('top',h+'px');
-            $("#loading_ico").show();
-            if (typeof comment !== 'undefined') {
-                $("#load_comment").html(comment);
-            } else {
-                $("#load_comment").html("");
+    $(document).on('click', '#realm_in_db_admin' , function() {
+        var id = $(this).attr('id');
+       
+        realm = $("#admin_realm").val();
+        $('#idp_contact_area').html('');
+        $('#sp_questions > tbody  > tr').each(function() {
+            if ($(this).attr('class') == 'visible_row') {
+                $(this).removeClass('visible_row').addClass('hidden_row');
             }
+            if ($(this).attr('class') == 'error_row') {
+                $(this).remove();
+            }
+            $(this).children('td').each(function() {
+                $(this).children('input').each(function() {
+                    if ($(this).prop('tagName').toLowerCase() === 'input' ||
+                            $(this).prop('tagName').toLowerCase() === 'textarea') {
+                        if ($(this).attr('id') !== 'admin_realm') {
+                            $(this).val('');
+                        }
+                    }
+                });
+                $(this).children('textarea').each(function() {    
+                    $(this).val('');
+                });
+            });
+        });
+        var comment = <?php echo '"' . _("Running realm tests") . '..."'; ?>;
+        inProgress(1, comment);
+        $.ajax({
+            url: "findRealm.php",
+            data: {realm: realm, lang: lang},
+            dataType: "json",
+            success:function(data) {
+                inProgress(0);
+                var realmFound = 0;
+                if (data.status) {
+                    var realms = data.realmlist.split(',');
+                    for (var i = 0; i < realms.length; i++) {
+                        if (realms[i] === realm) {
+                            realmFound = 1;
+                            break;
+                        }
+                    };
+                }
+                if (realmFound) { 
+                    $('#sp_questions > tbody  > tr').each(function() {
+                        if ($(this).attr('class') == 'hidden_row' && $(this).attr('id') != 'send_query_to_idp') {
+                            $(this).removeClass('hidden_row').addClass('visible_row');
+                        }
+                    });
+                    $('#idp_contact_area').append('<input type="hidden" name="idp_contact" id="idp_contact" value="'+data.admins+'">');
+                } else {
+                    $('#sp_questions > tbody  > tr').each(function() {
+                            if ($(this).attr('class') == 'visible_row') {
+                                $(this).removeClass('visible_row').addClass('hidden_row');
+                            }
+                    });
+                    $('#sp_questions > tbody').append('<tr class="error_row"><td>' + "Realm is not registered with the eduroam database:" +
+                        '</td><td>' + realm + '</td></tr>');
+                    $('#admin_realm').val('');
+                }
+            },
+            error: function (error) {
+                alert('ERROR!');
+            }
+        });
+        return false;
+    });
+    $(document).on('click', '#submit_idp_query' , function() {
+        realm = $('#admin_realm').val();
+        email = $('#email').val();
+        mac = $('#mac').val();
+        why = $('#select_sp_problem').val();
+        tst = $('#timestamp').val();
+        txt = $('#freetext').val();
+        idpc = $('#idp_contact').val();
+        $.ajax({
+            url: "adminQuery.php",
+            data: {realm: realm, type: 'idp_send', reason: why, mac: mac, email: email, timestamp: tst, freetext: txt, idpcontact: idpc,lang: lang},
+            dataType: "json",
+            success:function(data) {
+                if (data.status === 1) {
+                    var result = '';
+                    var title = <?php echo '"' . _("eduroam admin report submission") . '"'; ?>;
+                    result = '<div class="padding">';
+                    result = result + '<h3>'+ <?php echo '"' . _("SP contacting IdP due to technical problems or abuse") . '"'; ?> + '</h3>';
+                    result = result + '<table>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Reason") . '"'; ?> + '</td><td>' + data.reason + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("SP email") . '"'; ?> + '</td><td>' + data.spcontact + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("IdP email(s)") . '"'; ?> + '</td><td>' + data.idpcontact + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Event's timestamp") . '"'; ?> + '</td><td>' + data.timestamp + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Suspected MAC address") . '"'; ?> + '</td><td>' + data.mac + '</td></tr>';
+                    result = result + '<tr><td>' + <?php echo '"' . _("Additional description") . '"'; ?> +'</td><td>' + data.description + '</td></tr>';
+                    result = result + '</div>';
+                    showInfo(result, title);
+                }
+            },
+            error: function (error) {
+                alert('ERROR!');
+            }
+        });
+        return false;
+    });
+    $(document).on('blur', '#timestamp, #mac, #email' , function() {
+         $(this).val($.trim($(this).val()));
+         if ($('#mac').val().length > 0) {
+            if ($('#mac').val().length != 17) {
+                $('#mac').addClass('error_input');
+                $('#mac').attr('title', <?php echo '"' . _("MAC address is incomplete") . '"'; ?>);
+            } else {
+                $('#mac').removeClass('error_input'); 
+                $('#mac').attr('title', '');
+            }
+         } 
+         if ($(this).attr('id') == 'email' &&  $(this).val().length > 0) {
+            if (!isEmail($(this).val())) {
+                $('#email').addClass('error_input');
+                $('#email').attr('title', <?php echo '"' . _("Wrong format of email") . '"'; ?>);
+            } else {
+                $('#email').removeClass('error_input');
+                $('#email').attr('title', '');
+            }
+         }
+         if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
+             $('#send_query_to_idp').removeClass('hidden_row').addClass('visible_row');
+         } else {
+             $('#send_query_to_idp').removeClass('visible_row').addClass('hidden_row');
+         }
+    });
+    $('input[name="problem_type"]').click(function() {  
+        var t = $('input[name=problem_type]:checked').val();
+        if (t == 1) {
+            if ($('#sp_abuse').html() === '') {
+                $.get("adminQuery.php?type=sp", function(data, status) {
+                    $('#sp_abuse').html(data);
+                    $('#sp_abuse').show();
+                    $('#idp_problem').hide();
+                });
+            }
+            
         } else {
-            $("#loading_ico").hide();
-            b = false;
-            $("#load_comment").html("");
+            $('#sp_abuse').html('');
+            if ($('#idp_problem').html() === '') {
+                $.get("adminQuery.php?type=idp", function(data, status) {
+                    $('#idp_problem').html(data);
+                    $('#sp_abuse').hide();
+                    $('#idp_problem').show();
+                });
+            }
         }
-        var catForm = document.forms['cat_form'];
-        if (!catForm) {
-            catForm = document.cat_form;
+    });
+    $('#email').bind('keypress', function(e)  {
+        if(e.keyCode == 13) {
+            if ($('#timestamp').val().length > 0  && $('#mac').val().length == 17 && $('#email').val().length > 0 && isEmail($('#email').val())) {
+                $('#send_query_to_idp').removeClass('hidden_row').addClass('visible_row');
+            } else {
+                $('#send_query_to_idp').removeClass('visible_row').addClass('hidden_row');
+            }
+            return false;
         }
-        var elements = catForm.elements;
-        for (var i = 0, len = elements.length; i < len; ++i) {
-            elements[i].disabled = b;
-        }
-    }
+    }); 
+    $('#answer_yes, #answer_no').click(function(e) {
+        e.preventDefault();
+    });
+    
 </script>
-
+<style>
+.error_row td {
+        color: red;
+    }
+    .hidden_row {
+        visibility:collapse;
+    }
+    .visible_row {
+        visibility:visible;
+    }
+    .error_input {
+        border:1px solid red;
+    }
+</style>
 </body>
