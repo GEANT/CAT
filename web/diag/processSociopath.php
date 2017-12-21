@@ -34,14 +34,17 @@ if ($answer > 0) {
 $QJSON = $sociopath->questionOracle();
 $QPHP = json_decode($QJSON, TRUE);
 if ($QPHP['NEXTEXISTS']) {
+    error_log("save ".$QPHP["NUMBER"]);
     $_SESSION['LAST_QUESTION'] = $QPHP["NUMBER"];
+    error_log("saved ".$_SESSION["LAST_QUESTION"]);
+    $loggerInstance->debug(4, $_SESSION);
     echo $QJSON;
 } else {
     $logopath = new \core\diag\Logopath();
     if ($logopath->isEndUserContactUseful()) {
-        error_log("Chcemy się kontaktować meailowo");
+        $loggerInstance->debug(4, "Sociopath End User contact useful");
     } else {
-        error_log("nie ma sensu kontakt mailowy");
+        $loggerInstance->debug(4, "Sociopath End User contact NOT useful");
     }
     echo $sociopath->getCurrentGuessState();
 }
