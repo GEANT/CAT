@@ -496,7 +496,6 @@ class Device_W10 extends WindowsCommon {
         switch ($eap["OUTER"]) {
             case \core\common\EAP::TTLS:
                 if (isset($this->options['args']) && $this->options['args'] == 'gl') {
-                    $this->loggerInstance->debug(5,"Copy GEANT\n");
                     $this->copyGeantLinkFiles();
                 } else {
                     if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
