@@ -22,7 +22,7 @@ if (!in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
 }
 $user = new \core\User((!in_array("I do not care about security!", CONFIG['SUPERADMINS']) ? $_SESSION['user'] : "UNIDENTIFIED"));
 
-if (!in_array($user->identifier, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
+if (!in_array($user->userName, CONFIG['SUPERADMINS']) && !in_array("I do not care about security!", CONFIG['SUPERADMINS'])) {
     header("Location: overview_user.php");
     exit;
 }

@@ -32,6 +32,11 @@ namespace core;
 class User extends EntityWithDBProperties {
 
     /**
+     *
+     * @var string
+     */
+    public $userName;
+    /**
      * Class constructor. The required argument is a user's persistent identifier as was returned by the authentication source.
      * 
      * @param string $userId User Identifier as per authentication source
@@ -42,15 +47,15 @@ class User extends EntityWithDBProperties {
         $this->attributes = [];
         $this->entityOptionTable = "user_options";
         $this->entityIdColumn = "user_id";
-        $this->identifier = $userId;
-
+        $this->identifier = 0; // not used
+        $this->userName = $userId;
         $optioninstance = Options::instance();
 
         if (CONFIG_CONFASSISTANT['CONSORTIUM']['name'] == "eduroam" && isset(CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo']) && CONFIG_CONFASSISTANT['CONSORTIUM']['deployment-voodoo'] == "Operations Team") { // SW: APPROVED
 // e d u r o a m DB doesn't follow the usual approach
 // we could get multiple rows below (if administering multiple
 // federations), so consolidate all into the usual options
-            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $userId);
+            $info = $this->databaseHandle->exec("SELECT email, common_name, role, realm FROM view_admin WHERE eptid = ?", "s", $this->userName);
             $visited = FALSE;
             // SELECT -> resource, not boolean
             while ($userDetailQuery = mysqli_fetch_object(/** @scrutinizer ignore-type */ $info)) {
@@ -69,7 +74,7 @@ class User extends EntityWithDBProperties {
         } else {
             $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                                                 FROM $this->entityOptionTable
-                                                WHERE $this->entityIdColumn = ?", "User", "s", $userId);
+                                                WHERE $this->entityIdColumn = ?", "User", "s", $this->userName);
         }
     }
 
@@ -104,7 +109,7 @@ class User extends EntityWithDBProperties {
      * @return boolean TRUE if the user is a superadmin, FALSE if not 
      */
     public function isSuperadmin() {
-        return in_array($this->identifier, CONFIG['SUPERADMINS']);
+        return in_array($this->userName, CONFIG['SUPERADMINS']);
     }
 
     /**
@@ -115,7 +120,7 @@ class User extends EntityWithDBProperties {
     public function isIdPOwner($idp) {
         $temp = new IdP($idp);
         foreach ($temp->listOwners() as $oneowner) {
-            if ($oneowner['ID'] == $this->identifier) {
+            if ($oneowner['ID'] == $this->userName) {
                 return TRUE;
             }
         }
