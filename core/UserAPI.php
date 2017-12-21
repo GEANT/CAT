@@ -90,7 +90,7 @@ class UserAPI extends CAT {
             $installerProperties['mime'] = $cache['mime'];
         } else {
             $myInstaller = $this->generateNewInstaller($device, $profile, $generatedFor, $token, $password);
-            if ($myInstaller['link'] != 0) {
+            if ($myInstaller['link'] !== 0) {
                 $installerProperties['mime'] = $myInstaller['mime'];
             }
             $installerProperties['link'] = $myInstaller['link'];
@@ -405,15 +405,14 @@ class UserAPI extends CAT {
         $returnArray = [];
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];
-        $profile_redirect = 0;
         foreach ($thedevices as $D) {
             if (isset($D['options']) && isset($D['options']['hidden']) && $D['options']['hidden']) {
                 continue;
             }
-            $disp = $D['display'];
             if ($D['device'] === '0') {
-                $profile_redirect = 1;
                 $disp = '';
+            } else {
+                $disp = $D['display'];
             }
             $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
         }
@@ -448,7 +447,7 @@ class UserAPI extends CAT {
         $output = $this->generateInstaller($device, $prof_id, $generated_for, $token, $password);
         $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
         $this->loggerInstance->debug(4, print_r($output, true));
-        if (!$output['link']) {
+        if (empty($output['link']) || $output['link'] === 0) {
             header("HTTP/1.0 404 Not Found");
             return;
         }
