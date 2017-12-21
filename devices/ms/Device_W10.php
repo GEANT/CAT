@@ -488,7 +488,12 @@ class Device_W10 extends WindowsCommon {
         fclose($fileHandleCerts);
     }
 
-//private function write
+
+    private function copyStandardNsi() {
+        if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
+            throw new Exception("Translating needed file eap_w8.inc failed!");
+        }
+    }
 
     private function copyFiles($eap) {
         $this->loggerInstance->debug(4, "copyFiles start\n");
@@ -498,18 +503,14 @@ class Device_W10 extends WindowsCommon {
                 if (isset($this->options['args']) && $this->options['args'] == 'gl') {
                     $this->copyGeantLinkFiles();
                 } else {
-                    if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
-                        throw new Exception("Translating needed file eap_w8.inc failed!");
-                    }
+                    $this->copyStandardNsi();
                 }
                 break;
             case \core\common\EAP::PWD:
                 $this->copyPwdFiles();
                 break;
             default:
-                if (!$this->translateFile('eap_w8.inc', 'cat.NSI', $this->codePage)) {
-                    throw new Exception("Translating needed file eap_w8.inc failed!");
-                }
+                $this->copyStandardNsi();
         }
         $this->loggerInstance->debug(4, "copyFiles end\n");
         return TRUE;
