@@ -87,6 +87,9 @@ switch ($action) {
         $API->JSON_listCountries();
         break;
     case 'listIdentityProviders':
+        if ($federation === FALSE) { // federation is a mandatory parameter!
+            exit;
+        }
         $API->JSON_listIdentityProviders($federation);
         break;
     case 'listAllIdentityProviders':
@@ -153,6 +156,9 @@ switch ($action) {
         if ($location) {
             $coordinateArrayRaw = explode(':', $location);
             $coordinateArray = ['lat' => $coordinateArrayRaw[0], 'lon' => $coordinateArrayRaw[1]];
+        }
+        if ($federation === FALSE) { // is this parameter mandatory? The entire API call is not mentioned in UserAPI.md documentation currently
+            $federation = "";
         }
         $API->JSON_orderIdentityProviders($federation, $coordinateArray);
         break;

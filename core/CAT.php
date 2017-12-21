@@ -429,10 +429,11 @@ class CAT extends \core\common\Entity {
      * adding information required by DiscoJuice.
      * 
      * @param int $activeOnly if set to non-zero will cause listing of only those institutions which have some valid profiles defined.
+     * @param string $country if set, only list IdPs in a specific country
      * @return array the list of identity providers
      *
      */
-    public function listAllIdentityProviders($activeOnly = 0, $country = 0) {
+    public function listAllIdentityProviders($activeOnly = 0, $country = "") {
         $handle = DBConnection::handle("INST");
         $handle->exec("SET SESSION group_concat_max_len=10000");
         $query = "SELECT distinct institution.inst_id AS inst_id, institution.country AS country,
@@ -446,11 +447,11 @@ class CAT extends \core\common\Entity {
                           OR institution_option.option_name = 'general:geo_coordinates'
                           OR institution_option.option_name = 'general:logo_file') ";
 
-        $query .= ($country ? "AND institution.country = ? " : "");
+        $query .= ($country != "" ? "AND institution.country = ? " : "");
 
         $query .= "GROUP BY institution.inst_id ORDER BY inst_id";
 
-        $allIDPs = ($country ? $handle->exec($query, "s", $country) : $handle->exec($query));
+        $allIDPs = ($country != "" ? $handle->exec($query, "s", $country) : $handle->exec($query));
         $returnarray = [];
         // SELECTs never return a booleans, always an object
         while ($queryResult = mysqli_fetch_object(/** @scrutinizer ignore-type */ $allIDPs)) {
