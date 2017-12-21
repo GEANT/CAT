@@ -57,6 +57,7 @@ $.fn.redraw = function(){
    function listProfiles(inst_id,selected_profile){
     var j ;
     $('#welcome').hide();
+    $("#silverbullet").hide();
     $('#user_welcome').hide();
     $("#idp_logo").hide();
     $("#inst_id").val(inst_id);
@@ -179,6 +180,7 @@ function resetDevices() {
 
    function showProfile(prof){
      $("#profile_redirect").hide();
+     $("#silverbullet").hide();
      if(prof == 0) {
        $("#user_info").hide();
        $("#devices").hide();
@@ -217,6 +219,11 @@ function resetDevices() {
          txt = "<table><tr><th colspan='2'><?php escaped_echo(sprintf(_("If you encounter problems you should ask for help at your %s"), $cat->nomenclature_inst)); ?>.</th></tr></table>";
       $("#user_info").html(txt);
       $("#user_info").show();
+      if(j.silverbullet) {
+           $("#devices").hide();
+           $("#silverbullet").show();
+           return;
+       }
       resetDevices();
       $.each(j.devices,function(i,v) {
       // test if we have a global profile redirect

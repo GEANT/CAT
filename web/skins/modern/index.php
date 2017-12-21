@@ -91,6 +91,7 @@ include("user/js/cat_js.php");
                     echo $divs->div_profiles(); ?>
                 <div id="user_info"></div> <!-- this will be filled with the profile contact information -->
                 <?php echo $divs->div_user_welcome() ?>
+                <?php echo $divs->div_silverbullet() ?>
                 <div id="profile_redirect"> <!-- this is shown when the entire profile is redirected -->
                     <?php echo $Gui->textTemplates->templates[web\lib\user\DOWNLOAD_REDIRECT]; ?>
                     <br>

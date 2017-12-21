@@ -78,6 +78,15 @@ class Divs {
 ";
         return $retval;
     }
+    
+    public function div_silverbullet() {
+        $retval = "
+<div id='silverbullet'>" .
+_("You can download your eduroam installer via a personalised invitation link sent from your IT support. Please talk to the IT department to get this link.") .
+"</div>
+    ";
+        return $retval;
+    }
 
     public function div_top_welcome() {
         return "

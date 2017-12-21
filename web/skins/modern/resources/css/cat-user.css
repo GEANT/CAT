@@ -818,3 +818,10 @@ a.signin {
     font-weight: bold;
     font-style: italic;
 }
+
+#silverbullet {
+    display: none;
+    padding: 30px;
+    font-size: 14px;
+    font-weight: bold;
+}
