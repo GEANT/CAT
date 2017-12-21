@@ -104,7 +104,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @throws Exception
      */
     private function getRelevantIdentifier() {
-        switch (get_class()) {
+        switch (get_class($this)) {
             case "core\ProfileRADIUS":
             case "core\ProfileSilverbullet":
             case "core\IdP":
@@ -114,7 +114,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
             case "core\User":
                 return $this->userName;
             default:
-                throw new Exception("Operating on a class where we don't know the relevant identifier in the DB!");
+                throw new Exception("Operating on a class where we don't know the relevant identifier in the DB - ".get_class($this)."!");
         }
     }
     
