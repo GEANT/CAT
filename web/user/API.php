@@ -76,7 +76,7 @@ $width = getRequest('width', 'int') ?? 0;
 $height = getRequest('height', 'int') ?? 0;
 $sort = getRequest('sort', 'int') ?? 0;
 $generatedfor = getRequest('generatedfor', 'safe_text') ?? 'user';
-$token = getRequest('token','safe_text');
+$token = getRequest('token', 'safe_text');
 
 
 switch ($action) {
