@@ -189,8 +189,9 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param mixed $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
-        $identifierType = (is_int($this->getRelevantIdentifier()) ? "i" : "s");
-        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $this->getRelevantIdentifier(), $attrName, $attrLang, $attrValue);
+        $relevantId = $this->getRelevantIdentifier();
+        $identifierType = (is_int($relevantId) ? "i" : "s");
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $relevantId, $attrName, $attrLang, $attrValue);
         $this->updateFreshness();
     }
 
@@ -206,7 +207,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
         }
         $optioninstance = Options::instance();
         $tempAttributes = [];
-        $attributeDbExec = $this->databaseHandle->exec($query, is_int($this->getRelevantIdentifier()) ? "i" : "s", $this->getRelevantIdentifier());
+        $relevantId = $this->getRelevantIdentifier();
+        $attributeDbExec = $this->databaseHandle->exec($query, is_int($relevantId) ? "i" : "s", $relevantId);
         if (empty($attributeDbExec)) {
             return $tempAttributes;
         }
