@@ -51,18 +51,17 @@ if (isset($_SESSION['individualtoken']) && isset($_SESSION['importpassword'])) {
 
 // first block will test if the user input was valid.
 
-$p = $validator->Profile($profileId);
+$profile = $validator->Profile($profileId);
 
-if (!$p->institution || $p->institution !== $instId) {
+if (!$profile->institution || $profile->institution !== $instId) {
     header("HTTP/1.0 404 Not Found");
     return;
 }
 
 // now we generate the installer
 try {
-    $validator = new \web\lib\common\InputValidation();
     $cleanDevice = $validator->Device($device); // throws an Exception if unknown
-    $API->downloadInstaller($cleanDevice, $p->identifier, $generatedFor, $cleanToken, $password);
+    $API->downloadInstaller($cleanDevice, $profile->identifier, $generatedFor, $cleanToken, $password);
 } catch (\Exception $e) {
     $skinObject = new \web\lib\user\Skinjob();
     // find our account status page, and bail out if this doesn't work

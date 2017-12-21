@@ -51,6 +51,13 @@ class Federation extends EntityWithDBProperties {
     private $frontendHandle;
 
     /**
+     * the top-level domain of the Federation
+     * 
+     * @var string
+     */
+    public $tld;
+    
+    /**
      * retrieve the statistics from the database in an internal array representation
      * 
      * @return array
@@ -62,7 +69,7 @@ class Federation extends EntityWithDBProperties {
         $dataArray = [];
         // first, find out which profiles belong to this federation
         $cohesionQuery = "SELECT profile_id FROM profile, institution WHERE profile.inst_id = institution.inst_id AND institution.country = ?";
-        $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->identifier);
+        $profilesList = $this->databaseHandle->exec($cohesionQuery, "s", $this->tld);
         $profilesArray = [];
         // SELECT -> resource is returned, no boolean
         while ($result = mysqli_fetch_object(/** @scrutinizer ignore-type */ $profilesList)) {
@@ -120,7 +127,7 @@ class Federation extends EntityWithDBProperties {
                 break;
             case "XML":
                 // the calls to date() operate on current date, so there is no chance for a FALSE to be returned. Silencing scrutinizer.
-                $retstring .= "<federation id='$this->identifier' ts='" . /** @scrutinizer ignore-type */ date("Y-m-d") . "T" . /** @scrutinizer ignore-type */ date("H:i:s") . "'>\n";
+                $retstring .= "<federation id='$this->tld' ts='" . /** @scrutinizer ignore-type */ date("Y-m-d") . "T" . /** @scrutinizer ignore-type */ date("H:i:s") . "'>\n";
                 foreach ($data as $device => $numbers) {
                     if ($device == "TOTAL") {
                         continue;
@@ -157,7 +164,8 @@ class Federation extends EntityWithDBProperties {
             throw new Exception("This federation is not known to the system!");
         }
         $this->identifier = $fedname;
-        $this->name = $cat->knownFederations[$this->identifier];
+        $this->tld = $fedname;
+        $this->name = $cat->knownFederations[$this->tld];
 
         parent::__construct(); // we now have access to our database handle
 
@@ -167,12 +175,12 @@ class Federation extends EntityWithDBProperties {
         $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row 
                                             FROM $this->entityOptionTable
                                             WHERE $this->entityIdColumn = ?
-                                            ORDER BY option_name", "FED", "s", $this->identifier);
+                                            ORDER BY option_name", "FED", "s", $this->tld);
 
 
         $this->attributes[] = array("name" => "internal:country",
             "lang" => NULL,
-            "value" => $this->identifier,
+            "value" => $this->tld,
             "level" => "FED",
             "row" => 0,
             "flag" => NULL);
@@ -187,7 +195,7 @@ class Federation extends EntityWithDBProperties {
      * @return int identifier of the new IdP
      */
     public function newIdP($ownerId, $level, $mail) {
-        $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->identifier')");
+        $this->databaseHandle->exec("INSERT INTO institution (country) VALUES('$this->tld')");
         $identifier = $this->databaseHandle->lastID();
 
         if ($identifier == 0 || !$this->loggerInstance->writeAudit($ownerId, "NEW", "IdP $identifier")) {
@@ -212,13 +220,13 @@ class Federation extends EntityWithDBProperties {
     public function listIdentityProviders($activeOnly = 0) {
         // default query is:
         $allIDPs = $this->databaseHandle->exec("SELECT inst_id FROM institution
-               WHERE country = '$this->identifier' ORDER BY inst_id");
+               WHERE country = '$this->tld' ORDER BY inst_id");
         // the one for activeOnly is much more complex:
         if ($activeOnly) {
             $allIDPs = $this->databaseHandle->exec("SELECT distinct institution.inst_id AS inst_id
                FROM institution
                JOIN profile ON institution.inst_id = profile.inst_id
-               WHERE institution.country = '$this->identifier' 
+               WHERE institution.country = '$this->tld' 
                AND profile.showtime = 1
                ORDER BY inst_id");
         }
@@ -249,7 +257,7 @@ class Federation extends EntityWithDBProperties {
             $query = "SELECT eptid as user_id FROM view_admin WHERE role = 'fedadmin' AND realm = ?";
         }
         $userHandle = DBConnection::handle("USER"); // we need something from the USER database for a change
-        $upperFed = strtoupper($this->identifier);
+        $upperFed = strtoupper($this->tld);
         // SELECT -> resource, not boolean
         $admins = $userHandle->exec($query, "s", $upperFed);
 
@@ -274,7 +282,7 @@ class Federation extends EntityWithDBProperties {
 
 
             $externalHandle = DBConnection::handle("EXTERNAL");
-            $externals = $externalHandle->exec($query, "s", $this->identifier);
+            $externals = $externalHandle->exec($query, "s", $this->tld);
             $syncstate = IdP::EXTERNAL_DB_SYNCSTATE_SYNCED;
             $alreadyUsed = $this->databaseHandle->exec("SELECT DISTINCT external_db_id FROM institution 
                                                                                                      WHERE external_db_id IS NOT NULL 

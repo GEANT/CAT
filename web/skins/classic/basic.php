@@ -68,7 +68,7 @@ class SimpleGUI extends \core\UserAPI {
             $country = array_shift($federations);
         }
         $this->country = $validator->Federation($country);
-        $this->args['country'] = $this->country->identifier;
+        $this->args['country'] = $this->country->tld;
         $this->page = 1;
 
 // If we have IdP identifier then match country to this identifier
@@ -87,7 +87,7 @@ class SimpleGUI extends \core\UserAPI {
                 return;
             }
             $countryTemp = new \core\Federation($this->idp->federation);
-            if (strtoupper($this->country->identifier) !== strtoupper($countryTemp->identifier)) {
+            if (strtoupper($this->country->tld) !== strtoupper($countryTemp->tld)) {
                 unset($this->idp);
                 $this->page = 1;
                 $this->languageInstance->setTextDomain("web_user");
@@ -129,7 +129,7 @@ class SimpleGUI extends \core\UserAPI {
         $out .= '<select name="country" onchange="submit_form(this)">' . "\n";
         foreach ($federations as $fedId => $fedName) {
             $out .= '<option value="' . $fedId . '"';
-            if ($fedId === $this->country->identifier) {
+            if ($fedId === $this->country->tld) {
                 $out .= ' selected';
             }
             $out .= '>' . $fedName . '</option>' . "\n";
@@ -139,7 +139,7 @@ class SimpleGUI extends \core\UserAPI {
     }
 
     public function listIdPs() {
-        $instList = $this->orderIdentityProviders($this->country->identifier);
+        $instList = $this->orderIdentityProviders($this->country->tld);
         $out = '';
         $out .= sprintf(_("Select your %s"), $this->nomenclature_inst );
         $out .= '<select name="idp" onchange="submit_form(this)">';
@@ -356,7 +356,7 @@ class SimpleGUI extends \core\UserAPI {
      */
     public function yourChoice() {
         $out = '';
-        $capitalisedCountry = strtoupper($this->country->identifier);
+        $capitalisedCountry = strtoupper($this->country->tld);
         $name = isset($this->knownFederations[$capitalisedCountry]) ? $this->knownFederations[$capitalisedCountry] : $capitalisedCountry;
         $name = preg_replace('/ +/', '&nbsp;', $name);
         $out .= "$name; ";
@@ -445,7 +445,7 @@ $langObject = new \core\common\Language();
             if (!isset($_REQUEST['devices_h']) || $_REQUEST['devices_h'] == 0 || isset($_REQUEST['start_over'])) {
                 print "<p>\n";
                 print $Gui->listCountries();
-                if ($Gui->page == 2 && !isset($FED[strtoupper($Gui->country->identifier)])) {
+                if ($Gui->page == 2 && !isset($FED[strtoupper($Gui->country->tld)])) {
                     $Gui->page = 1;
                 }
                 print "<p>" . $Gui->listIdPs();

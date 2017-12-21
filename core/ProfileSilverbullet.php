@@ -123,10 +123,10 @@ class ProfileSilverbullet extends AbstractProfile {
 
 // and we need to populate eap:server_name and eap:ca_file with the NRO-specific EAP information
         $silverbulletAttributes = [
-            "eap:server_name" => "auth." . strtolower($myFed->identifier) . CONFIG_CONFASSISTANT['SILVERBULLET']['server_suffix'],
+            "eap:server_name" => "auth." . strtolower($myFed->tld) . CONFIG_CONFASSISTANT['SILVERBULLET']['server_suffix'],
         ];
         $x509 = new \core\common\X509();
-        $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->identifier) . "/root.pem", "r");
+        $caHandle = fopen(dirname(__FILE__) . "/../config/SilverbulletServerCerts/" . strtoupper($myFed->tld) . "/root.pem", "r");
         if ($caHandle !== FALSE) {
             $cAFile = fread($caHandle, 16000000);
             $silverbulletAttributes["eap:ca_file"] = $x509->der2pem(($x509->pem2der($cAFile)));

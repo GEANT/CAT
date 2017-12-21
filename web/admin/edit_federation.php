@@ -60,7 +60,7 @@ $langObject = new \core\common\Language();
         </table>
     </div>
     <?php
-    echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->identifier" . "' method='post' accept-charset='UTF-8'>
+    echo "<form enctype='multipart/form-data' action='edit_federation_result.php?fed_id=$my_fed->tld" . "' method='post' accept-charset='UTF-8'>
               <input type='hidden' name='MAX_FILE_SIZE' value='" . CONFIG['MAX_UPLOAD_SIZE'] . "'>";
     ?>
     <fieldset class="option_container">

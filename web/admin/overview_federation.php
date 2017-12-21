@@ -82,7 +82,7 @@ $user = new \core\User($_SESSION['user']);
                 if ($readonly === FALSE) {
                     ?>
                     <tr>
-                        <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->identifier); ?>'/><button type="submit">Edit</button></form></td>
+                        <td colspan='3' style='text-align:right;'><form action='edit_federation.php' method='POST'><input type="hidden" name='fed_id' value='<?php echo strtoupper($thefed->tld); ?>'/><button type="submit">Edit</button></form></td>
                     </tr>
                     <?php
                 }
@@ -189,7 +189,7 @@ $user = new \core\User($_SESSION['user']);
             // extract only pending invitations for *this* fed
             $display_pendings = FALSE;
             foreach ($pending_invites as $oneinvite) {
-                if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
+                if (strtoupper($oneinvite['country']) == strtoupper($thefed->tld)) {
                     // echo "PENDINGS!";
                     $display_pendings = TRUE;
                 }
@@ -263,7 +263,7 @@ $user = new \core\User($_SESSION['user']);
                             </td>
                          </tr>";
                 foreach ($pending_invites as $oneinvite) {
-                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->identifier)) {
+                    if (strtoupper($oneinvite['country']) == strtoupper($thefed->tld)) {
                         echo "<tr>
                                     <td>" .
                         $oneinvite['name'] . "
