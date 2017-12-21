@@ -24,7 +24,7 @@ use \Exception;
  *
  * @package ModuleWriting
  */
-class WindowsCommon extends \core\DeviceConfig {
+abstract class WindowsCommon extends \core\DeviceConfig {
 
     public function copyBasicFiles() {
         if (!($this->copyFile('wlan_test.exe') &&

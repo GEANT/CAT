@@ -27,5 +27,10 @@ class Device_RedirectDev extends \core\DeviceConfig {
         return $out;
     }
 
+    public function writeInstaller() {
+        // we aren't actually doing anything, but have to implement the method
+        // from abstract class DeviceConfig
+        return;
+    }
 
 }
