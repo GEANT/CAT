@@ -151,7 +151,7 @@ class Federation extends EntityWithDBProperties {
      * @param string $fedname - textual representation of the Federation object
      *        Example: "lu" (for Luxembourg)
      */
-    public function __construct($fedname = "") {
+    public function __construct($fedname) {
 
         // initialise the superclass variables
 
