@@ -74,7 +74,7 @@ class User extends EntityWithDBProperties {
         } else {
             $this->attributes = $this->retrieveOptionsFromDatabase("SELECT DISTINCT option_name, option_lang, option_value, row
                                                 FROM $this->entityOptionTable
-                                                WHERE $this->entityIdColumn = ?", "User", "s", $this->userName);
+                                                WHERE $this->entityIdColumn = ?", "User");
         }
     }
 

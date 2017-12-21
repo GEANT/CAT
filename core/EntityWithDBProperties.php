@@ -99,6 +99,26 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
 
     /**
+     * How is the object identified in the database?
+     * @return string|int
+     * @throws Exception
+     */
+    private function getRelevantIdentifier() {
+        switch (get_class($this)) {
+            case "\core\ProfileRADIUS":
+            case "\core\ProfileSilverbullet":
+            case "\core\IdP":
+                return $this->identifier;
+            case "\core\Federation":
+                return $this->tld;
+            case "\core\User":
+                return $this->userName;
+            default:
+                throw new Exception("Operating on a class where we don't know the relevant identifier in the DB!");
+        }
+    }
+    
+    /**
      * This function retrieves the entity's attributes. 
      * 
      * If called with the optional parameter, only attribute values for the attribute
@@ -129,7 +149,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @return array list of row id's of file-based attributes which weren't deleted
      */
     public function beginFlushAttributes() {
-        $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
+        $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
         $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND option_name NOT LIKE '%_file'");
         $this->updateFreshness();
         $execFlush = $this->databaseHandle->exec("SELECT row FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier");
@@ -147,7 +167,7 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param array $tobedeleted array of database rows which are to be deleted
      */
     public function commitFlushAttributes(array $tobedeleted) {
-        $quotedIdentifier = (!is_int($this->identifier) ? "\"" : "") . $this->identifier . (!is_int($this->identifier) ? "\"" : "");
+        $quotedIdentifier = (!is_int($this->getRelevantIdentifier()) ? "\"" : "") . $this->getRelevantIdentifier() . (!is_int($this->getRelevantIdentifier()) ? "\"" : "");
         foreach (array_keys($tobedeleted) as $row) {
             $this->databaseHandle->exec("DELETE FROM $this->entityOptionTable WHERE $this->entityIdColumn = $quotedIdentifier AND row = $row");
             $this->updateFreshness();
@@ -169,8 +189,8 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * @param mixed $attrValue Value of the attribute. Can be anything; will be stored in the DB as-is.
      */
     public function addAttribute($attrName, $attrLang, $attrValue) {
-        $identifierType = (is_int($this->identifier) ? "i" : "s");
-        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $this->identifier, $attrName, $attrLang, $attrValue);
+        $identifierType = (is_int($this->getRelevantIdentifier()) ? "i" : "s");
+        $this->databaseHandle->exec("INSERT INTO $this->entityOptionTable ($this->entityIdColumn, option_name, option_lang, option_value) VALUES(?,?,?,?)", $identifierType . "sss", $this->getRelevantIdentifier(), $attrName, $attrLang, $attrValue);
         $this->updateFreshness();
     }
 
@@ -178,17 +198,15 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
      * retrieve attributes from a database. Only does SELECT queries.
      * @param string $query sub-classes set the query to execute to get to the options
      * @param string $level the retrieved options get flagged with this "level" identifier
-     * @param string $identifierType what form does the identifier have (stored procedure indicator)
-     * @param string $identifier the identifier in the DB
      * @return array the attributes in one array
      */
-    protected function retrieveOptionsFromDatabase($query, $level, $identifierType, $identifier) {
+    protected function retrieveOptionsFromDatabase($query, $level) {
         if (substr($query, 0, 6) != "SELECT") {
             throw new Exception("This function only operates with SELECT queries!");
         }
         $optioninstance = Options::instance();
         $tempAttributes = [];
-        $attributeDbExec = $this->databaseHandle->exec($query, $identifierType, $identifier);
+        $attributeDbExec = $this->databaseHandle->exec($query, is_int($this->getRelevantIdentifier()) ? "i" : "s", $this->getRelevantIdentifier());
         if (empty($attributeDbExec)) {
             return $tempAttributes;
         }
