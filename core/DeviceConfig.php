@@ -670,9 +670,7 @@ abstract class DeviceConfig extends \core\common\Entity {
      * placeholder for the main device method
      * @return string
      */
-    protected function writeInstaller() {
-        return("download path");
-    }
+    abstract public function writeInstaller();
 
     /**
      * collates the string to use as EAP outer ID
