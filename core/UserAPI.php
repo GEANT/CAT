@@ -382,7 +382,6 @@ class UserAPI extends CAT {
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");
-                return;
                 break;
         }
         $filetype = 'image/png'; // default, only one code path where it can become different
@@ -425,13 +424,10 @@ class UserAPI extends CAT {
         switch ($geoipVersion) {
             case 0:
                 return(['status' => 'error', 'error' => 'Geolocation not supported']);
-                break;
             case 1:
                 return($this->locateUser1());
-                break;
             case 2:
                 return($this->locateUser2());
-                break;
             default:
                 throw new Exception("This version of GeoIP is not known!");
         }
