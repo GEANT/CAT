@@ -21,7 +21,7 @@ if ($answer > 0) {
         $QNUM = count($_SESSION['EVIDENCE']['QUESTIONSASKED']) + 1;
     }
     $loggerInstance->debug(4, $_SESSION['EVIDENCE']);
-    $loggerInstance->debug(4, "Answer question ".$QNUM."\n");
+    $loggerInstance->debug(4, "Answer question " . $QNUM . "\n");
     switch ($answer) {
         case 1:
             $loggerInstance->debug(4, "Revaluate with FALSE");
