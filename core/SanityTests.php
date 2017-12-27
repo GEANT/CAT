@@ -90,7 +90,7 @@ class SanityTests extends CAT {
             }
             if ($passedTheWindmill) {
                 if (substr($schemaLine, 0, 1) == '(') { // a relevant line in schema
-                    $this->profile_option_ct = $this->profile_option_ct+1;
+                    $this->profile_option_ct = $this->profile_option_ct + 1;
                 } else { // anything else, quit parsing
                     break;
                 }
@@ -239,7 +239,7 @@ class SanityTests extends CAT {
             require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
             $SSPconfig = \SimpleSAML_Configuration::getInstance();
             $sspVersion = explode('.', $SSPconfig->getVersion());
-            if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int)$sspVersion[1] >= $this->ssp_needversion['minor']) {
+            if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int) $sspVersion[1] >= $this->ssp_needversion['minor']) {
                 $this->test_return(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficently recent. You are running " . implode('.', $sspVersion));
             } else {
                 $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> is too old. We need at least " . implode('.', $this->ssp_needversion));
