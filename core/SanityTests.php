@@ -50,6 +50,8 @@ class SanityTests extends CAT {
     // because of bug:
     // Fixed bug #74005 (mail.add_x_header causes RFC-breaking lone line feed).
     private $php_needversion = '7.0.17';
+    private $ssp_needversion = ['major' => 1, 'minor' => 15];
+
 
     /* List all required NSIS modules below */
     private $NSIS_Modules = [
@@ -231,10 +233,18 @@ class SanityTests extends CAT {
      * test for simpleSAMLphp
      */
     private function ssp_test() {
+        $sspRequied = ['major' => 1, 'minor' => 15];
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
-            $this->test_return(\core\common\Entity::L_ERROR, "SS<strong>simpleSAMLphp</strong> not found!");
+            $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
-            $this->test_return(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> autoloader found.");
+            require_once(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader']);
+            $SSPconfig = \SimpleSAML_Configuration::getInstance();
+            $sspVersion = explode('.', $SSPconfig->getVersion());
+            if ((int) $sspVersion[0] >= $this->ssp_needversion['major'] && (int)$sspVersion[1] >= $this->ssp_needversion['minor']) {
+                $this->test_return(\core\common\Entity::L_OK, "<strong>simpleSAMLphp</strong> is sufficently recent. You are running " . implode('.', $sspVersion));
+            } else {
+                $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> is too old. We need at least " . implode('.', $this->ssp_needversion));
+            }
         }
     }
 
