@@ -12,6 +12,7 @@
 /**
  * This is the collection of methods dedicated for the user GUI
  * @author Tomasz Wolniewicz <twoln@umk.pl>
+ * @author Stefan Winter <stefan.winter@restena.lu>
  * @package UserAPI
  *
  * Parts of this code are based on simpleSAMLPhp discojuice module.
@@ -262,7 +263,7 @@ class UserAPI extends CAT {
       this method needs to be used with care, it could give wrong results in some
       cicumstances
      */
-    private function getRootURL() {
+    protected function getRootURL() {
         $backtrace = debug_backtrace();
         $backtraceFileInfo = array_pop($backtrace);
         $fileTemp = $backtraceFileInfo['file'];
@@ -285,160 +286,6 @@ class UserAPI extends CAT {
             $out = '';
         }
         return '//' . $_SERVER['SERVER_NAME'] . $out;
-    }
-
-    /**
-     *  wrapper JSON function
-     * 
-     * @param array|bool|null $data the core data to be converted to JSON
-     * @param int $status extra status information, defaults to 1
-     * @return string JSON encoded data
-     */
-    public function return_json($data, $status = 1) {
-        $returnArray = [];
-        $returnArray['status'] = $status;
-        $returnArray['data'] = $data;
-        $returnArray['tou'] = "Please consult Terms of Use at: " . $this->getRootURL() . "/tou.php";
-        return(json_encode($returnArray));
-    }
-
-    /**
-     * outputs the list of supported languages.
-     */
-    public function JSON_listLanguages() {
-        $returnArray = [];
-        foreach (CONFIG['LANGUAGES'] as $id => $val) {
-            $returnArray[] = ['lang' => $id, 'display' => $val['display'], 'locale' => $val['locale']];
-        }
-        echo $this->return_json($returnArray);
-    }
-
-    /**
-     * outputs the list of countries with configured IdPs
-     *
-     */
-    public function JSON_listCountries() {
-        $federations = $this->printCountryList(1);
-        $returnArray = [];
-        foreach ($federations as $id => $val) {
-            $returnArray[] = ['federation' => $id, 'display' => $val];
-        }
-        echo $this->return_json($returnArray);
-    }
-
-    /**
-     * outputs the list of IdPs in a given country
-     *
-     * @param string $country the country we are interested in
-     */
-    public function JSON_listIdentityProviders($country) {
-        $idps = $this->listAllIdentityProviders(1, $country);
-        $returnArray = [];
-        foreach ($idps as $idp) {
-            $returnArray[] = ['idp' => $idp['entityID'], 'display' => $idp['title']];
-        }
-        echo $this->return_json($returnArray);
-    }
-
-    /**
-     * outputs the list of all active IdPs
-     *
-     * The IdP list is formatted for DiscoJuice consumption
-     */
-    public function JSON_listIdentityProvidersForDisco() {
-        $idps = $this->listAllIdentityProviders(1);
-        $returnArray = [];
-        foreach ($idps as $idp) {
-            $idp['idp'] = $idp['entityID'];
-            $returnArray[] = $idp;
-        }
-        echo json_encode($returnArray);
-    }
-
-    /**
-     * outputs the list of IdPs in a given country ordered with respect to their distance to the user's location
-     * 
-     * @param string $country the country in question
-     * @param array $location the coordinates of the approximate user location
-     *
-     */
-    public function JSON_orderIdentityProviders($country, $location = NULL) {
-        $idps = $this->orderIdentityProviders($country, $location);
-        $returnArray = [];
-        foreach ($idps as $idp) {
-            $returnArray[] = ['idp' => $idp['id'], 'display' => $idp['title']];
-        }
-        echo $this->return_json($returnArray);
-    }
-
-    /**
-     * outputs a list of profiles available for a given IdP
-     *
-     * @param int $idpIdentifier the IdP identifier
-     * @param int $sort should the result set be sorted? 0 = no, 1 = yes
-     */
-    public function JSON_listProfiles($idpIdentifier, $sort = 0) {
-        $this->languageInstance->setTextDomain("web_user");
-        $returnArray = [];
-        try {
-            $idp = new IdP($idpIdentifier);
-        } catch (\Exception $fail) {
-            echo $this->return_json($returnArray, 0);
-            return;
-        }
-        $hasLogo = FALSE;
-        $logo = $idp->getAttributes('general:logo_file');
-        if (count($logo) > 0) {
-            $hasLogo = 1;
-        }
-        $profiles = $idp->listProfiles(TRUE);
-        if ($sort == 1) {
-            usort($profiles, ["UserAPI", "profileSort"]);
-        }
-        foreach ($profiles as $profile) {
-            $returnArray[] = ['profile' => $profile->identifier, 'display' => $profile->name, 'idp_name' => $profile->instName, 'logo' => $hasLogo];
-        }
-        echo $this->return_json($returnArray);
-    }
-
-    /**
-     * outputs the list of devices available for the given profile
-     *
-     * @param int $profileId the Profile identifier
-     */
-    public function JSON_listDevices($profileId) {
-        $this->languageInstance->setTextDomain("web_user");
-        $returnArray = [];
-        $profileAttributes = $this->profileAttributes($profileId);
-        $thedevices = $profileAttributes['devices'];
-        foreach ($thedevices as $D) {
-            if (isset($D['options']) && isset($D['options']['hidden']) && $D['options']['hidden']) {
-                continue;
-            }
-            if ($D['device'] === '0') {
-                $disp = '';
-            } else {
-                $disp = $D['display'];
-            }
-            $returnArray[] = ['device' => $D['id'], 'display' => $disp, 'status' => $D['status'], 'redirect' => $D['redirect']];
-        }
-        echo $this->return_json($returnArray);
-    }
-
-    /**
-     * outputs the link to the installers (additionally, actually generates it or takes it from cache)
-     *
-     * @param string $device identifier as in {@link devices.php}
-     * @param int $prof_id profile identifier
-     */
-    public function JSON_generateInstaller($device, $prof_id) {
-        $this->loggerInstance->debug(4, "JSON::generateInstaller arguments: $device,$prof_id\n");
-        $output = $this->generateInstaller($device, $prof_id);
-        $this->loggerInstance->debug(4, "output from GUI::generateInstaller:");
-        $this->loggerInstance->debug(4, print_r($output, true));
-        $this->loggerInstance->debug(4, json_encode($output));
-//    header('Content-type: application/json; utf-8');
-        echo $this->return_json($output);
     }
 
     /**
@@ -512,7 +359,7 @@ class UserAPI extends CAT {
      * @param int $height  maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
      */
-    private function getLogo($identifier, $type, $width = 0, $height = 0) {
+    protected function getLogo($identifier, $type, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = FALSE;
         $logoFile = "";
@@ -535,6 +382,8 @@ class UserAPI extends CAT {
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");
+                return;
+                break;
         }
         $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
@@ -580,11 +429,30 @@ class UserAPI extends CAT {
         echo $logo['blob'];
     }
 
+    
+    
     /**
      * find out where the user is currently located
      * @return array
      */
     public function locateUser() {
+        $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
+        switch ($geoipVersion) {
+            case 0:
+                return(['status' => 'error', 'error' => 'Geolocation not supported']);
+                break;
+            case 1:
+                return($this->locateUser1());
+                break;
+            case 2:
+                return($this->locateUser2());
+                break;
+            default:
+                throw new Exception("This version of GeoIP is not known!");
+        }
+    }
+    
+    private function locateUser1() {
         if (CONFIG['GEOIP']['version'] != 1) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv1 called, but config says this is not the version to use!'];
         }
@@ -609,7 +477,7 @@ class UserAPI extends CAT {
      * find out where the user is currently located, using GeoIP2
      * @return array
      */
-    public function locateUser2() {
+    private function locateUser2() {
         if (CONFIG['GEOIP']['version'] != 2) {
             return ['status' => 'error', 'error' => 'Function for GEOIPv2 called, but config says this is not the version to use!'];
         }
@@ -632,38 +500,6 @@ class UserAPI extends CAT {
 
         $result['geo'] = ['lat' => (float) $record->location->latitude, 'lon' => (float) $record->location->longitude];
         return($result);
-    }
-
-    /**
-     * outputs the user location as JSON
-     * @throws Exception
-     */
-    public function JSON_locateUser() {
-        header('Content-type: application/json; utf-8');
-
-        $geoipVersion = CONFIG['GEOIP']['version'] ?? 0;
-
-        switch ($geoipVersion) {
-            case 0:
-                echo json_encode(['status' => 'error', 'error' => 'Geolocation not supported']);
-                break;
-            case 1:
-                echo json_encode($this->locateUser());
-                break;
-            case 2:
-                echo json_encode($this->locateUser2());
-                break;
-            default:
-                throw new Exception("This version of GeoIP is not known!");
-        }
-    }
-
-    /**
-     * outputs support data prepared within {@link GUI::profileAttributes()}
-     */
-    public function JSON_profileAttributes($prof_id) {
-//    header('Content-type: application/json; utf-8');
-        echo $this->return_json($this->profileAttributes($prof_id));
     }
 
     /**
@@ -793,21 +629,6 @@ class UserAPI extends CAT {
         }
         return($devId);
     }
-    
-            
-
-    /**
-     * outputs OS guess in JSON
-     */
-    public function JSON_detectOS() {
-        $returnArray = $this->detectOS();
-        if (is_array($returnArray)) {
-            $status = 1;
-        } else {
-            $status = 0;
-        }
-        echo $this->return_json($returnArray, $status);
-    }
 
     /**
      * finds all the user certificates that originated in a given token
@@ -833,19 +654,6 @@ class UserAPI extends CAT {
         return $allcerts;
     }
 
-    /**
-     * outputs user certificates pertaining to a given token in JSON
-     * @param string $token
-     */
-    public function JSON_getUserCerts($token) {
-        $returnArray = $this->getUserCerts($token);
-        if ($returnArray) {
-            $status = 1;
-        } else {
-            $status = 0;
-        }
-        echo $this->return_json($returnArray, $status);
-    }
 
     public $device;
     private $installerPath;
