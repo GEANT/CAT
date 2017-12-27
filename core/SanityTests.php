@@ -233,7 +233,6 @@ class SanityTests extends CAT {
      * test for simpleSAMLphp
      */
     private function ssp_test() {
-        $sspRequied = ['major' => 1, 'minor' => 15];
         if (!is_file(CONFIG['AUTHENTICATION']['ssp-path-to-autoloader'])) {
             $this->test_return(\core\common\Entity::L_ERROR, "<strong>simpleSAMLphp</strong> not found!");
         } else {
