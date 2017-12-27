@@ -217,7 +217,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 value: realm
             }).appendTo('form');
         }  
-        console.log('realm - '+realm);
+        console.log('realm - '+realm+', answer='+answer);
         $.ajax({
             url: "processSociopath.php",
             data: {answer: answer},
@@ -226,6 +226,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                 $('#start_test_area').hide();
                 if (data) {
                     inProgress(0);
+                    console.log(data);
                     if (data['NEXTEXISTS']) {
                         if ($('#sociopath_queries').html() == '') {
                             var query = '';
@@ -389,7 +390,11 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
         }
        
     });
-    $('#user_realm').bind('keyup', function(e)  {
+    $('#user_realm').bind('autocompleteSelect', function(event, node) {
+        console.log(node);
+    });
+    $('#user_realm').bind('change keyup blur input', function(e)  {
+        console.log($('#user_realm').val());
         if (isDomain($('#user_realm').val())) {
             $('#start_test_area').show();
         } else {
@@ -488,7 +493,7 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
                         realmselect = <?php echo '"<td>' . _("Realm:") . '</td>"'; ?>;
                         realmselect = realmselect + '<td>' + "<span style='margin-left: 19px'>";
                         realmselect = realmselect + realms[0] + '</span>';
-                        realmselect = realmselect + '<input type="hidden" name="realm[]" value="' + realms[0] + '">';
+                        realmselect = realmselect + '<input type="hidden" name="realm" value="' + realms[0] + '">';
                         realmselect = realmselect + '</span></td>';
                     }
                     $('#row_idp_realm').html("");
@@ -614,11 +619,15 @@ include(dirname(__DIR__) . '/user/js/cat_js.php');
             realm = $('#user_realm').val();
         }
         if ($('#idp_inst').val()) {
-            $('input[name="realm"]').each(function() {
-                if ($(this).is(':checked')) {
-                    realm = $(this).val();
-                }     
-            });
+            if ($('input[name="realm"]').attr('type') == 'hidden') {
+                realm = $('input[name="realm"]').val();
+            } else {
+                $('input[name="realm"]').each(function() {
+                    if ($(this).is(':checked')) {
+                        realm = $(this).val();
+                    } 
+                });
+            }
         }
         console.log('realm to test '+realm);
         var visited = 0;

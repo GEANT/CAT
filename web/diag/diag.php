@@ -16,7 +16,6 @@ if ($admin == 1) {
     $auth = new \web\lib\admin\Authentication();
     $auth->authenticate();
 }
-error_log("web diag $admin");
 $Gui = new \web\lib\user\Gui();
 $skinObject = new \web\lib\user\Skinjob($_REQUEST['skin'] ?? $fedskin[0] ?? CONFIG['APPEARANCE']['skins'][0]);
 include("../skins/" . $skinObject->skin . "/diag/diag.php");
