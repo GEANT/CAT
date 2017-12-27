@@ -45,10 +45,15 @@ class UserNetAPI extends UserAPI {
      * @return string JSON encoded data
      */
     public function returnJSON($data, $status = 1) {
+        $validator = new \web\lib\common\InputValidation();
+        $host = $validator->hostname($_SERVER['SERVER_NAME']);
+        if ($host === FALSE) {
+            throw new \Exception("We don't know our own hostname?!? Giving up.");
+        }
         $returnArray = [];
         $returnArray['status'] = $status;
         $returnArray['data'] = $data;
-        $returnArray['tou'] = "Please consult Terms of Use at: " . $this->getRootURL() . "/tou.php";
+        $returnArray['tou'] = "Please consult Terms of Use at: //" . $host . \core\CAT::getRootUrlPath() . "/tou.php";
         return(json_encode($returnArray));
     }
 

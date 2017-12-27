@@ -56,11 +56,11 @@ function getRequest($varName, $filter) {
 }
 
 // make sure this is a known action
-$actionR = getRequest('action', 'safe_text');
-$action = array_search($actionR, LISTOFACTIONS) ? $actionR : FALSE;
-if ($action === FALSE) {
+$action = getRequest('action', 'safe_text');
+if (array_search($action, LISTOFACTIONS) === FALSE) {
     exit;
 }
+
 $langR = getRequest('lang', 'safe_text');
 $lang = $langR ? $validator->supportedLanguage($langR) : FALSE;
 $deviceR = getRequest('device', 'safe_text');
@@ -77,7 +77,6 @@ $height = getRequest('height', 'int') ?? 0;
 $sort = getRequest('sort', 'int') ?? 0;
 $generatedfor = getRequest('generatedfor', 'safe_text') ?? 'user';
 $token = getRequest('token', 'safe_text');
-
 
 switch ($action) {
     case 'listLanguages':

@@ -100,11 +100,10 @@ class CAT extends \core\common\Entity {
      * the default database to query in this class.
      */
     const DB_TYPE = "INST";
-
+    
     /**
      *  Constructor sets the language by calling set_lang 
      *  and stores language settings in object properties
-     *  additionally it also sets static variables $laing_index and $root
      */
     public function __construct() {
         parent::__construct();
@@ -143,7 +142,6 @@ class CAT extends \core\common\Entity {
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
         $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
-
         $this->knownFederations = [
             'AD' => _("Andorra"),
             'AT' => _("Austria"),
@@ -583,6 +581,10 @@ class CAT extends \core\common\Entity {
         }
         $this->languageInstance->setTextDomain($olddomain);
         return($returnArray);
+    }
+    
+    public static function getRootUrlPath() {
+        return substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
     }
 
 }

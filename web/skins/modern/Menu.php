@@ -76,8 +76,7 @@ class Menu {
                     $catInfo = 'javascript:infoCAT("' . $iD . '", "' . $menuItem['catInfo'][0] . '","' . $menuItem['catInfo'][1] . '")';
                 }
                 if (!empty($menuItem['link']) && substr($menuItem['link'], 0, 1) === '/') {
-                    $rootUrl = substr(CONFIG['PATHS']['cat_base_url'], -1) === '/' ? substr(CONFIG['PATHS']['cat_base_url'], 0, -1) : CONFIG['PATHS']['cat_base_url'];
-                    $menuItem['link'] = $rootUrl . $menuItem['link'];
+                    $menuItem['link'] = \core\CAT::getRootUrlPath() . $menuItem['link'];
                 }
                 $link = $catInfo ?? $menuItem['link'] ?? CONFIG['PATHS']['cat_base_url'];
                 $class = empty($menuItem['class']) ? '' : ' class="' . $menuItem['class'] . '"';

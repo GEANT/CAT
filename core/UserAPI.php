@@ -260,35 +260,6 @@ class UserAPI extends CAT {
     }
 
     /**
-      this method needs to be used with care, it could give wrong results in some
-      cicumstances
-     */
-    protected function getRootURL() {
-        $backtrace = debug_backtrace();
-        $backtraceFileInfo = array_pop($backtrace);
-        $fileTemp = $backtraceFileInfo['file'];
-        $file = substr($fileTemp, strlen(dirname(__DIR__)));
-        if ($file === FALSE) {
-            throw new Exception("No idea what's going wrong - filename cropping returned FALSE!");
-        }
-        while (substr($file, 0, 1) == '/') {
-            $file = substr($file, 1);
-            if ($file === FALSE) {
-                throw new Exception("Unable to crop leading / from a string known to start with / ???");
-            }
-        }
-        $slashCount = count(explode('/', $file));
-        $out = $_SERVER['SCRIPT_NAME'];
-        for ($iterator = 0; $iterator < $slashCount; $iterator++) {
-            $out = dirname($out);
-        }
-        if ($out == '/') {
-            $out = '';
-        }
-        return '//' . $_SERVER['SERVER_NAME'] . $out;
-    }
-
-    /**
      * Generate and send the installer
      *
      * @param string $device identifier as in {@link devices.php}
@@ -384,7 +355,7 @@ class UserAPI extends CAT {
                 throw new Exception("Unknown type of logo requested!");
         }
         $filetype = 'image/png'; // default, only one code path where it can become different
-        if (($width || $height) && is_numeric($width) && is_numeric($height)) {
+        if (is_numeric($width) && is_numeric($height) && ($width > 0 || $height > 0)) {
             $resize = TRUE;
             if ($height == 0) {
                 $height = 10000;
@@ -394,6 +365,7 @@ class UserAPI extends CAT {
             }
             $logoFile = ROOT . '/web/downloads/logos/' . $identifier . '_' . $width . '_' . $height . '.png';
         }
+        // we never use cache for full-scale images
         if ($resize === TRUE && is_file($logoFile)) {
             $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $identifier\n");
             $blob = file_get_contents($logoFile);
@@ -410,9 +382,6 @@ class UserAPI extends CAT {
         }
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
-
-
-    
     
     /**
      * find out where the user is currently located
