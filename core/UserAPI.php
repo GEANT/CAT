@@ -60,24 +60,9 @@ class UserAPI extends CAT {
         $this->loggerInstance->debug(4, "installer:$device:$profileId\n");
         $validator = new \web\lib\common\InputValidation();
         $profile = $validator->Profile($profileId);
-        $attribs = $profile->getCollapsedAttributes();
         // test if the profile is production-ready and if not if the authenticated user is an owner
-        if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
-            $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer fir profile: $profileId\n");
-            $auth = new \web\lib\admin\Authentication();
-            if (!$auth->isAuthenticated()) {
-                $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
-                header("HTTP/1.0 403 Not Authorized");
-                return;
-            }
-
-            $userObject = new User($_SESSION['user']);
-            if (!$userObject->isIdPOwner($profile->institution)) {
-                $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
-                header("HTTP/1.0 403 Not Authorized");
-                return;
-            }
-            $this->loggerInstance->debug(4, "User is the owner - allowing access\n");
+        if ($this->verifyDownloadAccess($profile) === FALSE) {
+            return;
         }
         $installerProperties = [];
         $installerProperties['profile'] = $profileId;
@@ -97,6 +82,27 @@ class UserAPI extends CAT {
         }
         $this->languageInstance->setTextDomain("web_user");
         return($installerProperties);
+    }
+    
+    private function verifyDownloadAccess($profile) {
+        $attribs = $profile->getCollapsedAttributes();
+        if (!isset($attribs['profile:production']) || (isset($attribs['profile:production']) && $attribs['profile:production'][0] != "on")) {
+            $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer for profile: $profile->identifier\n");
+            $auth = new \web\lib\admin\Authentication();
+            if (!$auth->isAuthenticated()) {
+                $this->loggerInstance->debug(2, "User NOT authenticated, rejecting request for a non-production installer\n");
+                header("HTTP/1.0 403 Not Authorized");
+                return(FALSE);
+            }
+            $userObject = new User($_SESSION['user']);
+            if (!$userObject->isIdPOwner($profile->institution)) {
+                $this->loggerInstance->debug(2, "User not an owner of a non-production profile - access forbidden\n");
+                header("HTTP/1.0 403 Not Authorized");
+                return(FALSE);
+            }
+            $this->loggerInstance->debug(4, "User is the owner - allowing access\n");
+        }
+        return(TRUE);
     }
 
     /**
