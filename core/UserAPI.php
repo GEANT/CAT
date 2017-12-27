@@ -382,7 +382,6 @@ class UserAPI extends CAT {
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");
-                break;
         }
         $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
