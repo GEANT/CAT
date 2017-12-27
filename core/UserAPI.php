@@ -506,12 +506,30 @@ class UserAPI extends CAT {
      * @param int $height  maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
      */
-    public function getIdpLogo($idp, $width = 0, $height = 0) {
+    private function getLogo($identifier, $type, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = FALSE;
         $logoFile = "";
+        $attributeName = "";
         $validator = new \web\lib\common\InputValidation();
-        $idpInstance = $validator->IdP($idp);
+        switch ($type) {
+            case "federation":
+                if (is_int($identifier)) {
+                    throw new Exception("Federation identifiers are strings!");
+                }
+                $entity = $validator->Federation($identifier);
+                $attributeName = "fed:logo_file";
+                break;
+            case "idp":
+                if (!is_int($identifier)) {
+                    throw new Exception("Institution identifiers are integers!");
+                }
+                $entity = $validator->IdP($identifier);
+                $attributeName = "general:logo_file";
+                break;
+            default:
+                throw new Exception("Unknown type of logo requested!");
+        }
         $filetype = 'image/png'; // default, only one code path where it can become different
         if (($width || $height) && is_numeric($width) && is_numeric($height)) {
             $resize = TRUE;
@@ -521,16 +539,17 @@ class UserAPI extends CAT {
             if ($width == 0) {
                 $width = 10000;
             }
-            $logoFile = ROOT . '/web/downloads/logos/' . $idp . '_' . $width . '_' . $height . '.png';
+            $logoFile = ROOT . '/web/downloads/logos/' . $identifier . '_' . $width . '_' . $height . '.png';
         }
         if ($resize === TRUE && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $idp . "\n");
+            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $identifier\n");
             $blob = file_get_contents($logoFile);
         } else {
-            $logoAttribute = $idpInstance->getAttributes('general:logo_file');
+            $logoAttribute = $entity->getAttributes($attributeName);
             if (count($logoAttribute) == 0) {
-                return;
+                return(NULL);
             }
+            $this->loggerInstance->debug(4,"RESIZE:$width:$height\n");
             $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
             $filetype = $meta['filetype'];
             $expiresString = $meta['expires'];
@@ -538,51 +557,7 @@ class UserAPI extends CAT {
         }
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
-
-    /**
-     * Get and prepare federation's logo file 
-     *
-     * When called for DiscoJuice, first check if file cache exists
-     * If not then generate the file and save it in the cache
-     * @param string $fedIdentifier federation identifier
-     * @param int $width maximum width of the generated image - if 0 then it is treated as no upper bound
-     * @param int $height maximum height of the generated image - if 0 then it is treated as no upper bound
-     * @return array|null array with image information or NULL if there is no logo
-     *
-     */
-    public function getFedLogo($fedIdentifier, $width = 0, $height = 0) {
-        $expiresString = '';
-        $resize = FALSE;
-        $logoFile = "";
-        $validator = new \web\lib\common\InputValidation();
-        $federation = $validator->Federation($fedIdentifier);
-        if (($width || $height) && is_numeric($width) && is_numeric($height)) {
-            $resize = TRUE;
-            if ($height == 0) {
-                $height = 10000;
-            }
-            if ($width == 0) {
-                $width = 10000;
-            }
-            $logoFile = ROOT . '/web/downloads/logos/' . $fedIdentifier . '_' . $width . '_' . $height . '.png';
-        }
-        if ($resize === TRUE && is_file($logoFile)) {
-            $this->loggerInstance->debug(4, "Using cached logo $logoFile for: " . $fedIdentifier . "\n");
-            $blob = file_get_contents($logoFile);
-            $filetype = 'image/png';
-        } else {
-            $logoAttribute = $federation->getAttributes('fed:logo_file');
-            if (count($logoAttribute) == 0) {
-                return;
-            }
-            $meta = $this->processImage($logoAttribute[0]['value'], $logoFile, $width, $height, $resize);
-            $filetype = $meta['filetype'];
-            $expiresString = $meta['expires'];
-            $blob = $meta['blob'];
-        }
-        return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
-    }
-
+   
     /**
      * outputs a logo
      * 
@@ -592,22 +567,7 @@ class UserAPI extends CAT {
      * @param int $height
      */
     public function sendLogo($identifier, $type, $width = 0, $height = 0) {
-        switch ($type) {
-            case "federation":
-                if (is_int($identifier)) {
-                    throw new Exception("Federation identifiers are strings!");
-                }
-                $logo = $this->getFedLogo($identifier, $width, $height);
-                break;
-            case "idp":
-                if (!is_int($identifier)) {
-                    throw new Exception("Institution identifiers are integers!");
-                }
-                $logo = $this->getIdpLogo($identifier, $width, $height);
-                break;
-            default:
-                throw new Exception("Unknown type of logo requested!");
-        }
+        $logo = $this->getLogo($identifier, $type, $width, $height);
         header("Content-type: " . $logo['filetype']);
         header("Cache-Control:max-age=36000, must-revalidate");
         header($logo['expires']);
