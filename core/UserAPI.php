@@ -776,32 +776,59 @@ class UserAPI extends CAT {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
         $Dev = \devices\Devices::listDevices();
         $this->languageInstance->setTextDomain($oldDomain);
-        if (isset($_REQUEST['device']) && isset($Dev[$_REQUEST['device']])) {
-            $dev_id = $_REQUEST['device'];
-            $device = $Dev[$dev_id];
-            if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
-                return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-            }
+        $devId = $this->deviceFromRequest();
+        if ($devId !== FALSE) {
+            $ret = $this->returnDevice($devId, $Dev[$devId]);
+            if ($ret !== FALSE) {
+                return($ret);
+            } 
         }
-        $browser = $_SERVER['HTTP_USER_AGENT'];
+// the device has not been specified or not specified correctly, try to detect if from the browser ID
+        $browser = filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING);
         $this->loggerInstance->debug(4, "HTTP_USER_AGENT=$browser\n");
-        foreach ($Dev as $dev_id => $device) {
+        foreach ($Dev as $devId => $device) {
             if (!isset($device['match'])) {
                 continue;
             }
             if (preg_match('/' . $device['match'] . '/', $browser)) {
-                if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
-                    $this->loggerInstance->debug(4, "Browser_id: $dev_id\n");
-                    return(['device' => $dev_id, 'display' => $device['display'], 'group' => $device['group']]);
-                } else {
-                    $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
-                    return(false);
-                }
+                return ($this->returnDevice($devId, $device));
             }
         }
-        $this->loggerInstance->debug(2, "Unrecognised system: " . filter_input(INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_STRING) . "\n");
+        $this->loggerInstance->debug(2, "Unrecognised system: $browser\n");
         return(false);
     }
+    
+    /*
+     * test if devise is defined and is not hidden. If all is fine return extracted information.
+     * Return FALSE if the device has not been correctly specified
+     */
+    private function returnDevice($devId, $device) {
+        if (!isset($device['options']['hidden']) || $device['options']['hidden'] == 0) {
+            $this->loggerInstance->debug(4, "Browser_id: $devId\n");
+            return(['device' => $devId, 'display' => $device['display'], 'group' => $device['group']]);
+        }
+        return(FALSE);
+    }
+   
+    /**
+     * This methods cheks if the devide has been specified as the HTTP parameters
+     * @return device id is correcty specified or FALSE otherwise
+     */
+    private function deviceFromRequest() {
+        $devId = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING);
+        if ($devId === NULL || $devId === FALSE) {
+            $this->loggerInstance->debug(2, "Invalid device id provided\n");
+            return(FALSE);
+        }
+        $Dev = \devices\Devices::listDevices();
+        if (!isset($Dev['$devId'])) {
+            $this->loggerInstance->debug(2, "Unrecognised system: $devId\n");
+            return(FALSE);
+        }
+        return($devId);
+    }
+    
+            
 
     /**
      * outputs OS guess in JSON
