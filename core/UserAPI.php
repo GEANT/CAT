@@ -325,7 +325,8 @@ class UserAPI extends CAT {
      *
      * When called for DiscoJuice, first check if file cache exists
      * If not then generate the file and save it in the cache
-     * @param int $idp IdP identifier
+     * @param int $identifier IdP of Federation identifier
+     * @param string either 'idp' or 'federation' is allowed 
      * @param int $width maximum width of the generated image - if 0 then it is treated as no upper bound
      * @param int $height  maximum height of the generated image - if 0 then it is treated as no upper bound
      * @return array|null array with image information or NULL if there is no logo
@@ -518,10 +519,9 @@ class UserAPI extends CAT {
 
     /**
      * Detect the best device driver form the browser
-     *
      * Detects the operating system and returns its id 
      * display name and group membership (as in devices.php)
-     * @return array|false OS information, indexed by 'id', 'display', 'group'
+     * @return array|FALSE OS information, indexed by 'id', 'display', 'group'
      */
     public function detectOS() {
         $oldDomain = $this->languageInstance->setTextDomain("devices");
@@ -563,7 +563,7 @@ class UserAPI extends CAT {
    
     /**
      * This methods cheks if the devide has been specified as the HTTP parameters
-     * @return device id is correcty specified or FALSE otherwise
+     * @return device id|FALSE if correcty specified or FALSE otherwise
      */
     private function deviceFromRequest() {
         $devId = filter_input(INPUT_GET, 'device', FILTER_SANITIZE_STRING) ?? filter_input(INPUT_POST, 'device', FILTER_SANITIZE_STRING);
