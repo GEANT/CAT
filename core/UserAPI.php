@@ -412,22 +412,7 @@ class UserAPI extends CAT {
         }
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
-   
-    /**
-     * outputs a logo
-     * 
-     * @param string|int $identifier
-     * @param string $type "federation" or "idp"
-     * @param int $width
-     * @param int $height
-     */
-    public function sendLogo($identifier, $type, $width = 0, $height = 0) {
-        $logo = $this->getLogo($identifier, $type, $width, $height);
-        header("Content-type: " . $logo['filetype']);
-        header("Cache-Control:max-age=36000, must-revalidate");
-        header($logo['expires']);
-        echo $logo['blob'];
-    }
+
 
     
     
