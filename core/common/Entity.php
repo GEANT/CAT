@@ -20,6 +20,7 @@
  */
 
 namespace core\common;
+
 use Exception;
 
 /**
@@ -62,7 +63,7 @@ abstract class Entity {
      */
     public function __construct() {
         $this->loggerInstance = new Logging();
-        $this->loggerInstance->debug(3, "--- BEGIN constructing class ". get_class($this)." .\n");
+        $this->loggerInstance->debug(3, "--- BEGIN constructing class " . get_class($this) . " .\n");
         $this->languageInstance = new Language();
     }
 
@@ -72,9 +73,28 @@ abstract class Entity {
      * Logs the end of lifetime of the entity to the debug log on level 5.
      */
     public function __destruct() {
-        (new Logging())->debug(5,"--- KILL Destructing class ". get_class($this)." .\n");
+        (new Logging())->debug(5, "--- KILL Destructing class " . get_class($this) . " .\n");
     }
-    
+
+    /**
+     * This is a helper fuction to retrieve a value from two-dimensional arrays
+     * The function tests if the value for the first indes is defined and then
+     * the same with the second and finally returns the value
+     * if something on the way is not defined, NULL is returned
+     * 
+     * @param array $attributeArray 
+     * @param string|int $index1 
+     * @param string|int $index2
+     * @return mixed
+     */
+    public static function getAttributeValue($attributeArray, $index1, $index2) {
+        if (isset($attributeArray[$index1]) && isset($attributeArray[$index1][$index2])) {
+            return($attributeArray[$index1][$index2]);
+        } else {
+            return(NULL);
+        }
+    }
+
     /**
      * create a temporary directory and return the location
      * @param string $purpose one of 'installer', 'logo', 'test' defined the purpose of the directory

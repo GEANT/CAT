@@ -144,24 +144,6 @@ abstract class EntityWithDBProperties extends \core\common\Entity {
     }
     
     /**
-     * This is a helper fuction to retreave a value from two-dimmentional arrays
-     * The function tests if the value for the first indes is defined and then
-     * the same with the second and finally returns the value
-     * if something on the way is not defined, NULL is returned
-     * @param array $attributeArray 
-     * @param string|int $index1 
-     * @param string|int $index2
-     * @return any value or NULL
-     */
-    public static function getAttributeValue($attributeArray, $index1, $index2) {
-        if (isset($attributeArray[$index1]) && isset($attributeArray[$index1][$index2])) {
-            return($attributeArray[$index1][$index2]);
-        } else {
-            return(NULL);
-        }
-    }
-
-    /**
      * deletes all attributes in this profile except the _file ones, these are reported as array
      *
      * @return array list of row id's of file-based attributes which weren't deleted
