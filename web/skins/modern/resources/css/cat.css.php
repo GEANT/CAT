@@ -246,7 +246,7 @@ div.device_info {
     vertical-align: top;
     border-radius: 10px 10px 10px 10px;
     box-shadow: 5px 5px 5px #666666;
-    width: 350px;
+    max-width: 350px;
     font-weight: normal;
     font-style: normal;
     display: none;
@@ -652,12 +652,7 @@ span.redirect_link a:active {
     list-style-type: none;
 }
 
-.device_list button {
-    width: 270px; 
-    font-size: 14px;  
-    font-weight: normal; 
-    font-style: normal;
-}
+
 
 .device_list td {
     vertical-align:middle;

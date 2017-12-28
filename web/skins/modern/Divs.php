@@ -108,7 +108,7 @@ _("You can download your eduroam installer via a personalised invitation link se
         <span id='line4'>" . $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT] . "</span>
         <span id='line5'>";
         if (!empty(CONFIG_CONFASSISTANT['CONSORTIUM']['signer_name'])) {
-            $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_CUSTOMBUILT];
+            $retval .= $this->Gui->textTemplates->templates[user\FRONTPAGE_ROLLER_SIGNEDBY];
         }
         $retval .= "
         </span>
