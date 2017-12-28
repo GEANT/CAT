@@ -16,9 +16,6 @@
  * @author Stefan Winter <stefan.winter@restena.lu>
  * @package Developer
  */
-/**
- * 
- */
 
 namespace devices\apple_mobileconfig;
 

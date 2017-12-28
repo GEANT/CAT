@@ -32,12 +32,6 @@
  *  
  * @package ModuleWriting
  */
-/**
- * this array holds the list of EAP methods supported by this device
- */
-/**
- * 
- */
 
 namespace devices\chromebook;
 use Exception;
