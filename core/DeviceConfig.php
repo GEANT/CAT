@@ -84,7 +84,7 @@ abstract class DeviceConfig extends \core\common\Entity {
     protected function setSupportedEapMethods($eapArray) {
         $this->supportedEapMethods = $eapArray;
         $this->loggerInstance->debug(4, "This device (" . __CLASS__ . ") supports the following EAP methods: ");
-        $this->loggerInstance->debug(4, $this->supportedEapMethods, true);
+        $this->loggerInstance->debug(4, $this->supportedEapMethods);
     }
 
     /**
@@ -105,6 +105,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         // by Scrutinizer
         if( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
             // oh well.
+            $dummy_NRO = "useless";
         }
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
