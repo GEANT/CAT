@@ -162,6 +162,6 @@ tools:
         enabled: true
 
 filter:
-    excluded_paths: [web/external/*, config/config-template.php, devices/devices-template.php]
+    excluded_paths: [web/external/*, config/config-template.php, devices/devices-template.php, config/*]
     dependency_paths: [core/PHPMailer/, core/phpqrcode.php, core/GeoIP2/, core/PHPUnit/, core/simpleSAMLphp/]
 
