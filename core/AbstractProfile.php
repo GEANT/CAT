@@ -553,63 +553,33 @@ abstract class AbstractProfile extends EntityWithDBProperties {
      * @return array list of attributes in collapsed style (index is the attrib name, value is an array of different values)
      */
     public function getCollapsedAttributes($eap = []) {
-        $attrBefore = $this->getAttributes();
-        $attrList = [];
-        if (count($eap) > 0) { // filter out eap-level attributes not pertaining to EAP type $eap
-            foreach ($attrBefore as $index => $attrib) {
-                if (!isset($attrib['eapmethod']) || $attrib['eapmethod'] == $eap || $attrib['eapmethod'] == 0) {
-                    $attrList[$index] = $attrib;
-                }
+        $collapsedList = [];
+        foreach ($this->getAttributes() as $attribute) {
+            // filter out eap-level attributes not pertaining to EAP type $eap
+            if (count($eap) > 0 && isset($attrib['eapmethod']) && $attrib['eapmethod'] != 0 && $attrib['eapmethod'] != $eap) {
+                continue;
             }
-        } else {
-            $attrList = $attrBefore;
+            // create new array indexed by attribute name
+            $collapsedList[$attribute['name']][] = $attribute['value'];
+            // and keep all language-variant names in a separate sub-array
+            if ($attribute['flag'] == "ML") {
+                $collapsedList[$attribute['name']]['langs'][$attribute['lang']] = $attribute['value'];
+            }
+        }
+        // once we have the final list, populate the respective "best-match"
+        // language to choose for the ML attributes
+        foreach ($collapsedList as $attribName => $valueArray) {
+            if (isset($valueArray['langs'])) { // we have at least one language-dependent name in this attribute
+                // for printed names on screen:
+                // assign to exact match language, fallback to "default" language, fallback to English, fallback to whatever comes first in the list
+                $collapsedList[$attribName][0] = $valueArray['langs'][$this->languageInstance->getLang()] ?? $valueArray['langs']['C'] ?? $valueArray['langs']['en'] ?? array_shift($valueArray['langs']);
+                // for names usable in filesystems (closer to good old ASCII...)
+                // prefer English, otherwise the "default" language, otherwise the same that we got above
+                $collapsedList[$attribName][1] = $valueArray['langs']['en'] ?? $valueArray['langs']['C'] ?? $collapsedList[$attribName][0];
+            }
         }
 
-        $temp1 = [];
-        $temp = [];
-        $flags = [];
-        $out = [];
-        foreach ($attrList as $attribute) {
-            $name = $attribute['name'];
-            $temp1[] = $name;
-            $level = $attribute['level'];
-            $value = $attribute['value'];
-            $lang = $attribute['lang'];
-            if (!isset($temp[$name][$level])) {
-                $temp[$name][$level] = [];
-            }
-            if ($attribute['flag'] == 'ML') {
-                $value = [$lang => $value];
-            }
-            $temp[$name][$level][] = $value;
-            $flags[$name] = $attribute['flag'];
-        }
-        foreach ($temp1 as $name) {
-            if ($flags[$name] == 'ML') {
-                $nameCandidate = [];
-                $levelsToTry = ['Profile', 'IdP', 'FED'];
-                foreach ($levelsToTry as $level) {
-                    if (empty($nameCandidate) && isset($temp[$name][$level])) {
-                        foreach ($temp[$name][$level] as $oneName) {
-                            foreach ($oneName as $language => $nameInLanguage) {
-                                $nameCandidate[$language] = $nameInLanguage;
-                            }
-                        }
-                    }
-                }
-
-                // there is a chance that we got NOTHING. That's for device-specific redirects
-                // but not profile-level ones
-                if (count($nameCandidate) > 0) {
-                    $out[$name]['langs'] = $nameCandidate;
-                    $out[$name][0] = $nameCandidate[$this->languageInstance->getLang()] ?? $nameCandidate['C'] ?? array_shift($nameCandidate);
-                    $out[$name][1] = $nameCandidate['en'] ?? $nameCandidate['C'] ?? $out[$name][0];
-                }
-            } else {
-                $out[$name] = $temp[$name]['Method'] ?? $temp[$name]['Profile'] ?? $temp[$name]['IdP'] ?? $temp[$name]['FED'];
-            }
-        }
-        return($out);
+        return $collapsedList;
     }
 
     const READINESS_LEVEL_NOTREADY = 0;
