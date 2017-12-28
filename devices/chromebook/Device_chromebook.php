@@ -189,7 +189,6 @@ class Device_Chromebook extends \core\DeviceConfig {
     /**
      * prepare a ONC file
      *
-     * {@source}
      * @return string installer path name
      */
     public function writeInstaller() {
@@ -259,7 +258,7 @@ class Device_Chromebook extends \core\DeviceConfig {
 
     /**
      * prepare module desctiption and usage information
-     * {@source}
+     * 
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {

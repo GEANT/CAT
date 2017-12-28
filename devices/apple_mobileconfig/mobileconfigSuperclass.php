@@ -109,7 +109,6 @@ abstract class mobileconfigSuperclass extends \core\DeviceConfig {
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
-     * {@source}
      */
     public function writeInstaller() {
         /** run innitial setup

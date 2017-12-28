@@ -31,6 +31,7 @@
  *  
  * @package ModuleWriting
  */
+
 namespace devices\test_module;
 
 /**
@@ -71,7 +72,7 @@ class Device_TestModule extends \core\DeviceConfig {
      *
      * It is CRUCIAL that the constructor sets $this->supportedEapMethods to an array of methods
      * available for the particular device.
-     * {@source}
+     * 
      * @final not to be redefined
      */
     final public function __construct() {
@@ -82,7 +83,6 @@ class Device_TestModule extends \core\DeviceConfig {
     /**
      * prepare a zip archive containing files and settings which normally would be used inside the module to produce an installer
      *
-     * {@source}
      * @return string installer path name
      */
     public function writeInstaller() {
@@ -108,7 +108,7 @@ class Device_TestModule extends \core\DeviceConfig {
 
     /**
      * prepare module desctiption and usage information
-     * {@source}
+     * 
      * @return string HTML text to be displayed in the information window
      */
     public function writeDeviceInfo() {
@@ -121,8 +121,7 @@ class Device_TestModule extends \core\DeviceConfig {
     /**
      * zip files and return the archive name
      *
-     * inline{@source}
-     * return string
+     * @return string
      */
     private function zipInstaller($attr) {
         if (count($attr)==0) {
