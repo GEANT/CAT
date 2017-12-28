@@ -522,7 +522,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList['del'] = [];
         if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
             foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
-                if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport']) && CONFIG_CONFASSISTANT['CONSORTIUM']['tkipsupport'] == TRUE) {
+                if (\core\EntityWithDBProperties::getAttributeValue(CONFIG_CONFASSISTANT, 'CONSORTIUM', 'tkipsupport') == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
                     $ssidList['add'][$ssid] = 'AES';
