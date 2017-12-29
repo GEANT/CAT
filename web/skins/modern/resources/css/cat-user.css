@@ -84,6 +84,13 @@ button {
     box-shadow: 10px 10px 5px rgba(100,100,100,0.4); */
 }
 
+.device_list button {
+    width: 270px; 
+    font-size: 14px;  
+    font-weight: normal; 
+    font-style: normal;
+}
+
 #roller {
     position: relative;
     height:272px;
@@ -229,7 +236,176 @@ button {
    text-align: right;
 }
 
-@media all and (max-width: 750px) {
+
+@media all and (max-width: 389px) {
+#institution_name {
+    font-size: 20px;
+    padding-top: 20px;
+    padding-bottom: 18px;
+    padding-right: 100px;
+    padding-left: 20px;
+    background: #1d4a74;
+    color: white;
+    text-align: left;
+}
+
+#top_invite {
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration: underline;
+}
+
+#top_invite:hover {
+    text-decoration: underline;
+}
+
+
+#slides span {
+    position: absolute;
+    left: 20px;
+    z-index: 20;
+}
+
+
+#user_welcome {
+    background: #ffffff;
+    padding-left: 30px;
+    padding-top: 20px;
+    padding-right: 20px;
+    font-size: 14px;
+    font-weight: normal;
+    display:none;
+}
+
+.download_button_text {
+    width: 150px;
+    position:absolute;
+    font-size:20px;
+    top:15px;
+    right: 10px;
+    padding-top:0px;
+}
+
+.download_button_text_1 {
+    width: 170px;
+    position:absolute;
+    font-size:14px;
+    top:20px;
+    height: 30px;
+    right: 5px;
+    padding-top:0px;
+    display: none;
+}
+button.guess_os {
+   position: relative;
+   height:auto;
+   width: 250px;
+   background-repeat:no-repeat;
+   background-position: 10px 15px;
+}
+
+#profile_list {
+    width: auto;
+    padding-left: 10px;
+    padding-right: 0px;
+    background-color: #1d4a74;
+    color: white;
+}
+
+#devices {
+    padding-left: auto;
+    padding-right: auto;
+}
+
+#browser {
+    width: 90%;
+}
+
+#img_roll {
+   display: none;
+}
+
+#device_list button.more_info_b {
+   display: none;
+}
+
+.device_list button {
+    width: 80vw; 
+}
+
+td.vendor {
+    display: none;
+}
+
+#hamburger {
+   position: absolute;
+   right: 0px;
+   top: 30px;
+   width: 80px;
+   cursor: pointer;
+   z-index: 140;
+}
+#menu_top {
+    position: absolute;
+    left: 0px;
+    top: 20px;
+    padding-right: 2vw;
+    z-index: 140;
+    background: #e7e7e7;
+}
+
+#menu_top > ul {
+    list-style-type: none;
+    font-weight: bold;
+    display: none;
+}
+
+#menu_top > ul li ul{
+    font-weight: normal;
+}
+
+#idp_logo {
+   max-width:20vw;
+   padding-top:30px;
+}
+
+#inst_extra_text {
+   position: absolute;
+   max-width: 30vw;
+   width: auto;
+   top: 0px;
+   right: 20px;
+   font-size: 13px;
+   padding-top: 14px;
+   color: yellow;
+   padding-left:0px;
+   text-align: right;
+}
+
+}
+
+
+@media all and (max-width: 389px) and (orientation:landscape) { 
+#menu_top {
+    font-size: 2.5vw;
+    max-width: 60vw;
+}
+
+}
+@media all and (max-width: 389px) and (orientation:portrait) { 
+#menu_top {
+    font-size: 2.5vh;
+    max-width: 60vw;
+}
+
+#roller {
+    display: none;
+}
+
+}
+
+
+@media all and (max-width: 750px) and (min-width:  390px) {
 #institution_name {
     font-size: 24px;
     padding-top: 20px;
@@ -250,7 +426,6 @@ button {
 #top_invite:hover {
     text-decoration: underline;
 }
-
 
 #slides span {
     position: absolute;
@@ -295,7 +470,6 @@ button {
     width: auto;
     min-width: 200px;
 }
-
 
 #user_welcome {
     background: #ffffff;
@@ -348,7 +522,6 @@ button.guess_os {
 }
 
 
-
 #hamburger {
    position: absolute;
    right: 0px;
@@ -394,17 +567,22 @@ button.guess_os {
    text-align: right;
 }
 
+#devices {
+    padding-left: auto;
+    padding-right: auto;
+}
+
 }
 
 
-@media all and (max-width: 750px) and (orientation:landscape) { 
+@media all and (max-width: 750px) and (min-width: 390px) and (orientation:landscape) { 
 #menu_top {
     font-size: 2.5vw;
     max-width: 60vw;
 }
 
 }
-@media all and (max-width: 750px) and (orientation:portrait) { 
+@media all and (max-width: 750px) and (min-width: 390px) and (orientation:portrait) { 
 #menu_top {
     font-size: 2.5vh;
     max-width: 60vw;
@@ -704,6 +882,7 @@ img.close_button {
    font-style: italic;
    font-family: "Times New Roman", Times, serif;
    font-size: 50px;
+   display: none;
 }
 
 button.large_button {

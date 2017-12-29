@@ -76,7 +76,7 @@ class Device_Vista7 extends WindowsCommon {
         $this->loggerInstance->debug(4, "windowsProfile");
         $this->loggerInstance->debug(4, $windowsProfile);
 
-        $this->writeProfilesNSH($windowsProfile, $caFiles, $setWired);
+        $this->writeProfilesNSH($windowsProfile, $caFiles);
         $this->writeAdditionalDeletes($delProfiles);
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $this->writeClientP12File();
@@ -440,7 +440,7 @@ xmlns:baseEap="http://www.microsoft.com/provisioning/BaseEapConnectionProperties
         fclose($fileHandle);
     }
 
-    private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {
+    private function writeProfilesNSH($wlanProfiles, $caArray) {
         $this->loggerInstance->debug(4, "writeProfilesNSH");
         $this->loggerInstance->debug(4, $wlanProfiles);
         $contentWlan = '';

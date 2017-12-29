@@ -77,7 +77,7 @@ class Device_W8 extends WindowsCommon {
         $this->loggerInstance->debug(4, "windowsProfile");
         $this->loggerInstance->debug(4, print_r($windowsProfile, true));
 
-        $this->writeProfilesNSH($windowsProfile, $caFiles, $setWired);
+        $this->writeProfilesNSH($windowsProfile, $caFiles);
         $this->writeAdditionalDeletes($delProfiles);
         if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
             $this->writeClientP12File();
@@ -398,7 +398,7 @@ class Device_W8 extends WindowsCommon {
         file_put_contents('main.nsh', $fcontents);
     }
 
-    private function writeProfilesNSH($wlanProfiles, $caArray, $wired = 0) {
+    private function writeProfilesNSH($wlanProfiles, $caArray) {
         $this->loggerInstance->debug(4, "writeProfilesNSH");
         $this->loggerInstance->debug(4, $wlanProfiles);
         $fcontentsProfile = '';

@@ -240,7 +240,8 @@ function resetDevices() {
           if(v.status == -1)
             $("#"+v.id).parent().parent().hide();
           else
-            $("#info_b_"+v.id+",#g_info_b_"+v.id).show();
+            if ($( window ).width() > 389 )
+               $("#info_b_"+v.id+",#g_info_b_"+v.id).show();
         }
         if(v.redirect != '0') {
           $("#"+v.id+",#g_"+v.id).addClass('additionalInfo');
