@@ -272,7 +272,7 @@ class OptionDisplay {
                 $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
             case \core\Options::TYPECODE_FILE:
-                $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($optionValue) . "'>";
+                $retval .= "<input readonly type='text' name='value[S$rowid-".\core\Options::TYPECODE_STRING."]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($optionValue) . "'>";
                 $uiElements = new UIElements();
                 switch ($optionName) {
                     case "eap:ca_file":
