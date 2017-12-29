@@ -333,7 +333,6 @@ class UserAPI extends CAT {
         $expiresString = '';
         $resize = FALSE;
         $logoFile = "";
-        $attributeName = "";
         $validator = new \web\lib\common\InputValidation();
         switch ($type) {
             case "federation":
