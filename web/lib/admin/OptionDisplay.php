@@ -142,7 +142,25 @@ class OptionDisplay {
         return $retval;
     }
 
-    private function selectElement($rowid, $list, $jsmagic) {
+    private function selectElement($rowid, $list) {
+        $jsmagic = "onchange='
+                               if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                   document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
+                                   } else {
+                                   document.getElementById(\"S$rowid-input-langselect\").style.display = \"none\";
+                                   }";
+        foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $oneDataType) {
+            $jsmagic .= "if (/#" . $oneDataType['name'] . "#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($oneDataType['name'] == "file" ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($oneDataType['name'] == "text" ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($oneDataType['name'] == "string" ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($oneDataType['name'] == "boolean" ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($oneDataType['name'] == "integer" ? "block" : "none") . "\";
+                             }
+                             ";
+        }
+        $jsmagic .= "'";
+
         $optioninfo = \core\Options::instance();
         $retval = "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
         $iterator = 0;
@@ -176,7 +194,28 @@ class OptionDisplay {
         $retval .= "</select>";
         return $retval;
     }
-    
+
+    const TYPECODE_STRING = 0;
+    const TYPECODE_INTEGER = 4;
+    const TYPECODE_TEXT = 1;
+    const TYPECODE_BOOLEAN = 3;
+    const TYPECODE_FILE = 2;
+    const HTML_DATATYPE_TEXTS = [
+        OptionDisplay::TYPECODE_FILE => ["name" => "file", "html" => "input type='text'", "tail" => ' size=\'10\''],
+        OptionDisplay::TYPECODE_BOOLEAN => ["name" => "boolean", "html" => "input type='checkbox'", "tail" => ''],
+        OptionDisplay::TYPECODE_INTEGER => ["name" => "integer", "html" => "input type='number'", "tail" => ''],
+        OptionDisplay::TYPECODE_STRING => ["name" => "string", "html" => "input type='file'", "tail" => ''],
+        OptionDisplay::TYPECODE_TEXT => ["name" => "text", "html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
+    ];
+
+    private function inputFields($rowid, $activetype) {
+        $retval = "";
+        foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $key => $type) {
+            $retval .= "<" . $type['html'] . " style='display:" . ($activetype['type'] == $type['name'] ? "block" : "none") . "' name='value[S$rowid-$key]' id='S" . $rowid . "-input-" . $type['name'] . "'" . $type['tail'] . ">";
+        }
+        return $retval;
+    }
+
     /**
      * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
      * @param int $rowid the HTML field base name of the option to be displayed
@@ -185,46 +224,15 @@ class OptionDisplay {
      * @throws Exception
      */
     private function noPrefillText(int $rowid, array $list) {
-        $jsmagic = "onchange='
-                               if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                   document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
-                                   } else {
-                                   document.getElementById(\"S$rowid-input-langselect\").style.display = \"none\";
-                                   }";
-        $dataTypes = ["file", "text", "string", "boolean", "integer"];
-        foreach ($dataTypes as $oneDataType) {
-            // TODO make this a $jsmagic .= after the update of cat-pilot
-            $jsmagic .= "if (/#$oneDataType#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($oneDataType == "file" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($oneDataType == "text" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($oneDataType == "string" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($oneDataType == "boolean" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($oneDataType == "integer" ? "block" : "none") . "\";
-                             }
-                             ";
-        }
-        $jsmagic .= "'";
         // first column: the <select> element with the names of options and their field-toggling JS magic
-        $selectorInfo = $this->selectElement($rowid, $list, $jsmagic);
+        $selectorInfo = $this->selectElement($rowid, $list);
         $retval = "<td>" . $selectorInfo["TEXT"] . "</td>";
         // second column: the <select> element for language selection - only visible if the active option is multi-lang
         $retval .= "<td>" . $this->selectLanguage($rowid, $selectorInfo['ACTIVE']['flag'] == "ML") . "</td>";
         // third column: the actual input fields; the data type of the active option is visible, all others hidden
-        $retval .= "<td>
-            <input type='text'     style='display:" . ($selectorInfo['ACTIVE']['type'] == "string" ? "block" : "none") . "' name='value[S$rowid-0]'  id='S" . $rowid . "-input-string'>
-            <textarea cols='30' rows='3'     style='display:" . ($selectorInfo['ACTIVE']["type"] == "text" ? "block" : "none") . "' name='value[S$rowid-1]'  id='S" . $rowid . "-input-text'></textarea>
-            <input type='file'     style='display:" . ($selectorInfo['ACTIVE']['type'] == "file" ? "block" : "none") . "' name='value[S$rowid-2]'  id='S" . $rowid . "-input-file' size='10'>
-            <input type='checkbox' style='display:" . ($selectorInfo['ACTIVE']['type'] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>
-            <input type='number' style='display:" . ($selectorInfo['ACTIVE']['type'] == "integer" ? "block" : "none") . "' name='value[S$rowid-4]'  id='S" . $rowid . "-input-integer'>";
-        $retval .= "</td>";
-
+        $retval .= "<td>" . $this->inputFields($rowid, $selectorInfo['ACTIVE']) . "</td>";
         return $retval;
     }
-
-    const TYPECODE_STRING = 0;
-    const TYPECODE_INTEGER = 4;
-    const TYPECODE_TEXT = 1;
-    const TYPECODE_BOOLEAN = 3;
 
     /**
      * generates HTML code that displays an already set option.
