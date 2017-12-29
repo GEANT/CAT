@@ -296,8 +296,10 @@ class OptionDisplay {
             case \core\Options::TYPECODE_TEXT:
                 $displayedVariant = $optionValue; // for all three types, value tag and actual display are identical
             case \core\Options::TYPECODE_BOOLEAN:
-                $displayedVariant = ($optionValue == "on" ? _("on") : _("off"));
-                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-".$listtype['type']."]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
+                if ($listtype['type'] == \core\Options::TYPECODE_BOOLEAN) {// only modify in this one case
+                    $displayedVariant = ($optionValue == "on" ? _("on") : _("off"));
+                }
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-" . $listtype['type'] . "]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
                 break;
             default:
                 // this should never happen!
