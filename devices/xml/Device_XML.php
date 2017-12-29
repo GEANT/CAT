@@ -74,7 +74,6 @@ abstract class Device_XML extends \core\DeviceConfig {
         } else {
             $eapmethods = [$this->selectedEap];
         }
-
         foreach ($eapmethods as $eap) {
             $methodList[] = $this->getAuthMethod($eap);
         }
@@ -288,13 +287,53 @@ abstract class Device_XML extends \core\DeviceConfig {
         }
     }
 
-    private function getAuthMethod($eap) {
+    private function setServerSideCredentials($eaptype) {
         $attr = $this->attributes;
-        $eapParams = $this->getAuthenticationMethodParams($eap);
-        $authmethod = new AuthenticationMethod();
+        $serversidecredential = new ServerSideCredential();
+// Certificates and server names
+        $cAlist = [];
+        $attrCaList = $attr['internal:CAs'][0];
+        foreach ($attrCaList as $ca) {
+            $caObject = new CA();
+            $caObject->setValue(base64_encode($ca['der']));
+            $caObject->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
+            $cAlist[] = $caObject;
+        }
+        $serverids = [];
+        $servers = $attr['eap:server_name'];
+        foreach ($servers as $server) {
+            $serverid = new ServerID();
+            $serverid->setValue($server);
+            $serverids[] = $serverid;
+        }
+        $serversidecredential->setProperty('EAPType', $eaptype->getValue());
+        $serversidecredential->setProperty('CA', $cAlist);
+        $serversidecredential->setProperty('ServerID', $serverids);
+        return($serversidecredential);
+    }
+    
+    private function setClientSideCredentials($eapParams) {
+        $attr = $this->attributes;
+        $clientsidecredential = new ClientSideCredential();
+// OuterIdentity 
+        if ($attr['internal:use_anon_outer'] [0]) {
+            $clientsidecredential->setProperty('OuterIdentity', $attr['internal:anon_local_value'][0] . '@' . $attr['internal:realm'][0]);
+        }
+        $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
+        
+        // Client Certificate
+        if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
+            $clientCertificateObject = new ClientCertificate();
+            $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
+            $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
+            $clientsidecredential->setProperty('ClientCertificate',$clientCertificateObject);
+        }
+        return($clientsidecredential);
+    }
+    
+    private function setEapMethod($eaptype) {
+        $attr = $this->attributes;
         $eapmethod = new EAPMethod();
-        $eaptype = new Type();
-        $eaptype->setValue($eapParams['methodID']);
         $eapmethod->setProperty('Type', $eaptype);
         if (isset($this->VendorSpecific)) {
             $vendorspecifics = [];
@@ -307,59 +346,30 @@ abstract class Device_XML extends \core\DeviceConfig {
             }
             $eapmethod->setProperty('VendorSpecific', $vendorspecifics);
         }
-        $authmethod->setProperty('EAPMethod', $eapmethod);
+        return($eapmethod);
+    }
+    
+    private function getAuthMethod($eap) {
+ //       $attr = $this->attributes;
+        $authmethod = new AuthenticationMethod();
+        $eapParams = $this->getAuthenticationMethodParams($eap);
+        $eaptype = new Type();
+        $eaptype->setValue($eapParams['methodID']);
+// Type
+        $authmethod->setProperty('EAPMethod', $this->setEapMethod($eaptype));
 
 // ServerSideCredentials
-        $serversidecredential = new ServerSideCredential();
-
-// Certificates and server names
-
-        $cAlist = [];
-        $attrCaList = $attr['internal:CAs'][0];
-        foreach ($attrCaList as $ca) {
-            $caObject = new CA();
-            $caObject->setValue(base64_encode($ca['der']));
-            $caObject->setAttributes(['format' => 'X.509', 'encoding' => 'base64']);
-            $cAlist[] = $caObject;
-        }
-
-        $serverids = [];
-        $servers = $attr['eap:server_name'];
-        foreach ($servers as $server) {
-            $serverid = new ServerID();
-            $serverid->setValue($server);
-            $serverids[] = $serverid;
-        }
-
-        $serversidecredential->setProperty('EAPType', $eaptype->getValue());
-        $serversidecredential->setProperty('CA', $cAlist);
-        $serversidecredential->setProperty('ServerID', $serverids);
-        $authmethod->setProperty('ServerSideCredential', $serversidecredential);
+        $authmethod->setProperty('ServerSideCredential', $this->setServerSideCredentials($eaptype));
 
 // ClientSideCredentials
-
-        $clientsidecredential = new ClientSideCredential();
-
-// OuterIdentity 
-        if ($attr['internal:use_anon_outer'] [0]) {
-            $clientsidecredential->setProperty('OuterIdentity', $attr['internal:anon_local_value'][0] . '@' . $attr['internal:realm'][0]);
-        }
-        $clientsidecredential->setProperty('EAPType', $eapParams['inner_methodID'] ? $eapParams['inner_methodID'] : $eapParams['methodID']);
+        $authmethod->setProperty('ClientSideCredential', $this->setClientSideCredentials($eapParams));
         
-        // Client Certificate
-        if ($this->selectedEap == \core\common\EAP::EAPTYPE_SILVERBULLET) {
-            $clientCertificateObject = new ClientCertificate();
-            $clientCertificateObject->setValue(base64_encode($this->clientCert["certdata"]));
-            $clientCertificateObject->setAttributes(['format' => 'PKCS12', 'encoding' => 'base64']);
-            
-            $clientsidecredential->setProperty('ClientCertificate',$clientCertificateObject);
-        }
-        
-        $authmethod->setProperty('ClientSideCredential', $clientsidecredential);
         if ($eapParams['inner_method']) {
             $authmethod->setProperty('InnerAuthenticationMethod', $eapParams['inner_method']);
         }
         return $authmethod;
+
+
     }
     
 
