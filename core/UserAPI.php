@@ -478,7 +478,7 @@ class UserAPI extends CAT {
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {
         $idps = $this->listAllIdentityProviders(1, $country);
-        $here = $this->setCurrentLocation(setCurrentLocation);
+        $here = $this->setCurrentLocation($currentLocation);
         $idpTitle = [];
         $resultSet = [];
         foreach ($idps as $idp) {
