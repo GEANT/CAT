@@ -799,8 +799,6 @@ network={
             switch ($this->determineCertificateType($cert, count($eapCertArray))) {
                 case RADIUSTests::SERVER_NO_CA_EXTENSION: // both are handled same, fall-through
                 case RADIUSTests::SERVER_CA_SELFSIGNED:
-                    $numberServer = $numberServer + 1;
-
                     $servercert[] = $cert;
                     if (count($servercert) == 1) {
                         if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
