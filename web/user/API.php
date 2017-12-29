@@ -57,8 +57,8 @@ function getRequest($varName, $filter) {
 
 // make sure this is a known action
 $action = getRequest('action', 'safe_text');
-if (array_search($action, LISTOFACTIONS) === FALSE) {
-    exit;
+if (in_array($action, LISTOFACTIONS)) {
+    throw new Exception("Unknown action used.");
 }
 
 $langR = getRequest('lang', 'safe_text');
