@@ -505,8 +505,7 @@ network={
         return $cmdline;
     }
 
-    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
-
+    private function createCArepository($tmpDir, &$intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
         // collect CA certificates, both the incoming EAP chain and from CAT config
         // Write the root CAs into a trusted root CA dir
         // and intermediate and first server cert into a PEM file
@@ -518,7 +517,6 @@ network={
         if (!mkdir($tmpDir . "/root-ca-eaponly/", 0700, true)) {
             throw new Exception("unable to create root CA directory (RADIUS Tests): $tmpDir/root-ca-eaponly/\n");
         }
-
 // make a copy of the EAP-received chain and add the configured intermediates, if any
         $catIntermediates = [];
         $catRoots = [];
@@ -567,6 +565,11 @@ network={
 // now c_rehash the root CA directory ...
         system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
         system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+    }
+
+    private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
+
+        $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
 
 // ... and run the verification test
         $verifyResultEaponly = [];
