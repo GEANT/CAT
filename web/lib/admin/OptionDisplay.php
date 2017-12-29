@@ -10,6 +10,7 @@
  */
 
 namespace web\lib\admin;
+
 use Exception;
 
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/config/_config.php");
@@ -141,6 +142,41 @@ class OptionDisplay {
         return $retval;
     }
 
+    private function selectElement($rowid, $list, $jsmagic) {
+        $optioninfo = \core\Options::instance();
+        $retval = "<select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
+        $iterator = 0;
+        $uiElements = new UIElements();
+        $activelisttype = [];
+        foreach ($list as $value) {
+            $listtype = $optioninfo->optionType($value);
+            $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
+            if ($iterator == $this->optionIterator) {
+                $retval .= "selected='selected'";
+                $activelisttype = $listtype;
+            }
+            $retval .= ">" . $uiElements->displayName($value) . "</option>";
+            $iterator++;
+        }
+        if (count($activelisttype) == 0) {
+            throw new \Exception("We should have found the active list type by now!");
+        }
+        $retval .= "</select>";
+        return ["TEXT" => $retval, "ACTIVE" => $activelisttype];
+    }
+
+    private function selectLanguage($rowid, $makeVisible) {
+        $retval = "<select style='display:" . ($makeVisible ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
+            <option value='' name='select_language' selected>" . _("select language") . "</option>
+            <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
+        foreach (CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
+            $thislang = $possibleLang['display'];
+            $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
+        }
+        $retval .= "</select>";
+        return $retval;
+    }
+    
     /**
      * HTML code to display a "fresh" option (including type selector and JavaScript to show/hide relevant input fields)
      * @param int $rowid the HTML field base name of the option to be displayed
@@ -149,8 +185,6 @@ class OptionDisplay {
      * @throws Exception
      */
     private function noPrefillText(int $rowid, array $list) {
-        $retval = "";
-        $optioninfo = \core\Options::instance();
         $jsmagic = "onchange='
                                if (/#ML#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"block\";
@@ -170,38 +204,18 @@ class OptionDisplay {
                              ";
         }
         $jsmagic .= "'";
-        $retval .= "<td><select id='option-S$rowid-select' name='option[S$rowid]' $jsmagic>";
-        $iterator = 0;
-        $uiElements = new UIElements();
-        $activelisttype = [];
-        foreach ($list as $value) {
-            $listtype = $optioninfo->optionType($value);
-            $retval .= "<option id='option-S$rowid-v-$value' value='$value#" . $listtype["type"] . "#" . $listtype["flag"] . "#' ";
-            if ($iterator == $this->optionIterator) {
-                $retval .= "selected='selected'";
-                $activelisttype = $listtype;
-            }
-            $retval .= ">" . $uiElements->displayName($value) . "</option>";
-            $iterator++;
-        }
-        if (count($activelisttype) == 0) {
-            throw new \Exception("We should have found the active list type by now!");
-        }
-        $retval .= "</select></td>";
+        // first column: the <select> element with the names of options and their field-toggling JS magic
+        $selectorInfo = $this->selectElement($rowid, $list, $jsmagic);
+        $retval = "<td>" . $selectorInfo["TEXT"] . "</td>";
+        // second column: the <select> element for language selection - only visible if the active option is multi-lang
+        $retval .= "<td>" . $this->selectLanguage($rowid, $selectorInfo['ACTIVE']['flag'] == "ML") . "</td>";
+        // third column: the actual input fields; the data type of the active option is visible, all others hidden
         $retval .= "<td>
-          <select style='display:" . ($activelisttype["flag"] == "ML" ? "block" : "none") . "' name='value[S$rowid-lang]' id='S" . $rowid . "-input-langselect'>
-            <option value='' name='select_language' selected>" . _("select language") . "</option>
-            <option value='C' name='all_languages'>" . _("default/other languages") . "</option>";
-        foreach (CONFIG['LANGUAGES'] as $langindex => $possibleLang) {
-            $thislang = $possibleLang['display'];
-            $retval .= "<option value='$langindex' name='$langindex'>$thislang</option>";
-        }
-        $retval .= "</select></td><td>
-            <input type='text'     style='display:" . ($activelisttype["type"] == "string" ? "block" : "none") . "' name='value[S$rowid-0]'  id='S" . $rowid . "-input-string'>
-            <textarea cols='30' rows='3'     style='display:" . ($activelisttype["type"] == "text" ? "block" : "none") . "' name='value[S$rowid-1]'  id='S" . $rowid . "-input-text'></textarea>
-            <input type='file'     style='display:" . ($activelisttype["type"] == "file" ? "block" : "none") . "' name='value[S$rowid-2]'  id='S" . $rowid . "-input-file' size='10'>
-            <input type='checkbox' style='display:" . ($activelisttype["type"] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>
-            <input type='number' style='display:" . ($activelisttype["type"] == "integer" ? "block" : "none") . "' name='value[S$rowid-4]'  id='S" . $rowid . "-input-integer'>";
+            <input type='text'     style='display:" . ($selectorInfo['ACTIVE']['type'] == "string" ? "block" : "none") . "' name='value[S$rowid-0]'  id='S" . $rowid . "-input-string'>
+            <textarea cols='30' rows='3'     style='display:" . ($selectorInfo['ACTIVE']["type"] == "text" ? "block" : "none") . "' name='value[S$rowid-1]'  id='S" . $rowid . "-input-text'></textarea>
+            <input type='file'     style='display:" . ($selectorInfo['ACTIVE']['type'] == "file" ? "block" : "none") . "' name='value[S$rowid-2]'  id='S" . $rowid . "-input-file' size='10'>
+            <input type='checkbox' style='display:" . ($selectorInfo['ACTIVE']['type'] == "boolean" ? "block" : "none") . "' name='value[S$rowid-3]'  id='S" . $rowid . "-input-boolean'>
+            <input type='number' style='display:" . ($selectorInfo['ACTIVE']['type'] == "integer" ? "block" : "none") . "' name='value[S$rowid-4]'  id='S" . $rowid . "-input-integer'>";
         $retval .= "</td>";
 
         return $retval;
