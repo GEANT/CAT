@@ -105,7 +105,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         // by Scrutinizer
         if( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
             // oh well.
-            $dummy_NRO = "useless";
+            explode(' ',$dummy_NRO);
         }
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);

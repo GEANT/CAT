@@ -104,4 +104,3 @@ if ($checkval == \core\UserManagement::TOKENSTATUS_OK_EXISTING) {
 } else {
     header("Location: edit_idp.php?inst_id=$newidp->identifier&wizard=true");
 }
-    

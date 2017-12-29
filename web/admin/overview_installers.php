@@ -163,4 +163,3 @@ echo $deco->defaultPagePrelude(_("Device Compatibility matrix"));
     </form>
     <?php
     echo $deco->footer();
-    

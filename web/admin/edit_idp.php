@@ -212,4 +212,3 @@ echo $widget->insertInHead($my_inst->federation, $inst_name);
         echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_idp.php?inst_id=$my_inst->identifier\"'>" . _("Discard changes") . "</button></div></form>";
     }
     echo $deco->footer();
-    

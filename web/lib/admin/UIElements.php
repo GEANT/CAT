@@ -49,7 +49,7 @@ class UIElements {
         // and do something useless with the strings so that there's no "unused" complaint
         if ( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
             // Oh well.
-            $dummy_NRO = "useless";
+            explode(' ',$dummy_NRO);
         }
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
         $this->nomenclature_inst = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_institution']);
