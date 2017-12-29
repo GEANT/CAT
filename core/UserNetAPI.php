@@ -167,7 +167,7 @@ class UserNetAPI extends UserAPI {
         $profileAttributes = $this->profileAttributes($profileId);
         $thedevices = $profileAttributes['devices'];
         foreach ($thedevices as $D) {
-            if (\core\Entity::getAttributeValue($D, 'options', 'hidden') === 1) {
+            if (\core\common\Entity::getAttributeValue($D, 'options', 'hidden') === 1) {
                 continue;
             }
             if ($D['device'] === '0') {
