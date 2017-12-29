@@ -739,7 +739,27 @@ network={
         return $negotiatedEapType;
     }
 
-    private function extractIncomingCAsFromEAP(&$testresults, $tmpDir) {
+    const SERVER_NO_CA_EXTENSION = 1;
+    const SERVER_CA_SELFSIGNED = 2;
+    const CA_INTERMEDIATE = 3;
+    const CA_ROOT = 4;
+
+    private function determineCertificateType(&$cert, $totalCertCount) {
+        if ($cert['ca'] == 0 && $cert['root'] == 0) {
+            return RADIUSTests::SERVER_NO_CA_EXTENSION;
+        }
+        if ($cert['ca'] == 1 && $cert['root'] == 1) {
+            if ($totalCertCount == 1) {
+                $cert['full_details']['type'] = 'totally_selfsigned';
+                return RADIUSTests::SERVER_CA_SELFSIGNED;
+            } else {
+                return RADIUSTests::CA_ROOT;
+            }
+        }
+        return RADIUSTests::CA_INTERMEDIATE;
+    }
+
+    private function extractIncomingCertsfromEAP(&$testresults, $tmpDir) {
 
         /*
          *  EAP's house rules:
@@ -767,7 +787,6 @@ network={
         $eapIntermediates = [];
         $eapIntermediateCRLs = [];
         $servercert = FALSE;
-        $totallySelfsigned = FALSE;
         $intermOdditiesEAP = [];
 
         $testresults['certdata'] = [];
@@ -783,43 +802,45 @@ network={
 // b) if it is a CA, and self-signed, and it is the only cert in
 //    the incoming cert chain
 //    (meaning the self-signed is itself the server cert)
-            if (($cert['ca'] == 0 && $cert['root'] != 1) || ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1)) {
-                if ($cert['ca'] == 1 && $cert['root'] == 1 && count($eapCertArray) == 1) {
-                    $totallySelfsigned = TRUE;
-                    $cert['full_details']['type'] = 'totally_selfsigned';
-                }
-                $numberServer++;
+            switch ($this->determineCertificateType($cert, count($eapCertArray))) {
+                case RADIUSTests::SERVER_NO_CA_EXTENSION: // both are handled same, fall-through
+                case RADIUSTests::SERVER_CA_SELFSIGNED:
+                    $numberServer = $numberServer + 1;
 
-                $servercert = $cert;
-                if ($numberServer == 1) {
-                    if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
-                        $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
+                    $servercert = $cert;
+                    if ($numberServer == 1) {
+                        if (file_put_contents($tmpDir . "/incomingserver.pem", $certPem . "\n") === FALSE) {
+                            $this->loggerInstance->debug(4, "The (first) server certificate could not be written to $tmpDir/incomingserver.pem!\n");
+                        }
+                        $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
                     }
-                    $this->loggerInstance->debug(4, "This is the (first) server certificate, with CRL content if applicable: " . print_r($servercert, true));
-                }
-            } else
-            if ($cert['root'] == 1) {
-                $numberRoot++;
+                    if ($numberServer > 1 && !in_array(RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS, $testresults['cert_oddities'])) {
+                        $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
+                    }
+                    break;
+                case RADIUSTests::CA_ROOT:
+                    $numberRoot++;
+                    if (!in_array(RADIUSTests::CERTPROB_ROOT_INCLUDED, $testresults['cert_oddities'])) {
+                        $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
+                    }
 // do not save the root CA, it serves no purpose
 // chain checks need to be against the UPLOADED CA of the
 // IdP/profile, not against an EAP-discovered CA
-            } else {
-                $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
-                $eapIntermediates[] = $certPem;
+                    break;
+                case RADIUSTests::CA_INTERMEDIATE:
+                    $intermOdditiesEAP = array_merge($intermOdditiesEAP, $this->propertyCheckIntermediate($cert));
+                    $eapIntermediates[] = $certPem;
 
-                if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
-                    $eapIntermediateCRLs[] = $cert['CRL'][0];
-                }
+                    if (isset($cert['CRL']) && isset($cert['CRL'][0])) {
+                        $eapIntermediateCRLs[] = $cert['CRL'][0];
+                    }
+                    break;
+                default:
+                    throw new Exception("Status of certificate could not be determined!");
             }
             $testresults['certdata'][] = $cert['full_details'];
         }
 
-        if ($numberRoot > 0 && !$totallySelfsigned) {
-            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_ROOT_INCLUDED;
-        }
-        if ($numberServer > 1) {
-            $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_TOO_MANY_SERVER_CERTS;
-        }
         if ($numberServer == 0) {
             $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_SERVER_CERT;
         }
@@ -894,7 +915,7 @@ network={
                 (($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $negotiatedEapType) || $radiusResult == RADIUSTests::RETVAL_OK)
         ) {
 
-            $bundle = $this->extractIncomingCAsfromEAP($testresults, $tmpDir);
+            $bundle = $this->extractIncomingCertsfromEAP($testresults, $tmpDir);
 
 // FOR OWN REALMS check:
 // 1) does the incoming chain have a root in one of the configured roots
