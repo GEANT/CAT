@@ -265,6 +265,7 @@ class OptionDisplay {
         $retval .= "</td>";
 // attribute content
         $retval .= "<td>";
+        $displayedVariant = "";
         switch ($listtype["type"]) {
             case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
