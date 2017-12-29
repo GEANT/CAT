@@ -301,4 +301,3 @@ $user = new \core\User($_SESSION['user']);
         <?php
     }
     echo $deco->footer();
-    

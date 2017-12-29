@@ -377,4 +377,3 @@ echo $widget->insertInHead($my_inst->federation, $my_inst->name);
         }
     }
     echo $deco->footer();
-    

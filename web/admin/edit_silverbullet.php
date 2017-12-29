@@ -612,4 +612,3 @@ echo $deco->defaultPagePrelude(_(sprintf(_('Managing %s users'), $uiElements->no
         <?php
     }
     echo $deco->footer();
-    

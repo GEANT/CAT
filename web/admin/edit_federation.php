@@ -74,4 +74,3 @@ $langObject = new \core\common\Language();
     <?php
     echo "<div><button type='submit' name='submitbutton' value='" . web\lib\common\FormElements::BUTTON_SAVE . "'>" . _("Save data") . "</button> <button type='button' class='delete' name='abortbutton' value='abort' onclick='javascript:window.location = \"overview_federation.php\"'>" . _("Discard changes") . "</button></div></form>";
     echo $deco->footer();
-    
