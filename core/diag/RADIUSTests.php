@@ -565,11 +565,12 @@ network={
 // now c_rehash the root CA directory ...
         system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
         system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+        return $checkstring;
     }
 
     private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
 
-        $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
+        $crlCheckString = $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
 
 // ... and run the verification test
         $verifyResultEaponly = [];
@@ -577,11 +578,11 @@ network={
 // the error log will complain if we run this test against an empty file of certs
 // so test if there's something PEMy in the file at all
         if (filesize("$tmpDir/incomingserver.pem") > 10) {
-            exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
+            exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
+            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
-            exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
+            exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
+            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 
