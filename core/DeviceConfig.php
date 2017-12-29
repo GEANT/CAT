@@ -105,7 +105,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         // by Scrutinizer
         if( $dummy_NRO . $dummy_inst1 . $dummy_inst2 == "") {
             // oh well.
-            $dummy_NRO = "useless";
+            explode(' ',$dummy_NRO);
         }
 
         $this->nomenclature_fed = _(CONFIG_CONFASSISTANT['CONSORTIUM']['nomenclature_federation']);
@@ -523,7 +523,7 @@ abstract class DeviceConfig extends \core\common\Entity {
         $ssidList['del'] = [];
         if (isset(CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'])) {
             foreach (CONFIG_CONFASSISTANT['CONSORTIUM']['ssid'] as $ssid) {
-                if (\core\EntityWithDBProperties::getAttributeValue(CONFIG_CONFASSISTANT, 'CONSORTIUM', 'tkipsupport') == TRUE) {
+                if (\core\Entity::getAttributeValue(CONFIG_CONFASSISTANT, 'CONSORTIUM', 'tkipsupport') == TRUE) {
                     $ssidList['add'][$ssid] = 'TKIP';
                 } else {
                     $ssidList['add'][$ssid] = 'AES';

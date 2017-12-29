@@ -57,4 +57,3 @@ $user = new \core\User($_SESSION['user']);
     </form>
     <?php
     echo $deco->footer();
-    
