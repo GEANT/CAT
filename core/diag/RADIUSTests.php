@@ -565,11 +565,12 @@ network={
 // now c_rehash the root CA directory ...
         system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-eaponly/ > /dev/null");
         system(CONFIG_DIAGNOSTICS['PATHS']['c_rehash'] . " $tmpDir/root-ca-allcerts/ > /dev/null");
+        return $checkstring;
     }
 
     private function thoroughChainChecks(&$testresults, &$intermOdditiesCAT, $tmpDir, $servercert, $eapIntermediates, $eapIntermediateCRLs) {
 
-        $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
+        $crlCheckString = $this->createCArepository($tmpDir, $intermOdditiesCAT, $servercert, $eapIntermediates, $eapIntermediateCRLs);
 
 // ... and run the verification test
         $verifyResultEaponly = [];
@@ -577,11 +578,11 @@ network={
 // the error log will complain if we run this test against an empty file of certs
 // so test if there's something PEMy in the file at all
         if (filesize("$tmpDir/incomingserver.pem") > 10) {
-            exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
-            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
+            exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem", $verifyResultEaponly);
+            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-eaponly/ -purpose any $tmpDir/incomingserver.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 1: " . print_r($verifyResultEaponly, TRUE) . "\n");
-            exec(CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
-            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $checkstring -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
+            exec(CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem", $verifyResultAllcerts);
+            $this->loggerInstance->debug(4, CONFIG['PATHS']['openssl'] . " verify $crlCheckString -CApath $tmpDir/root-ca-allcerts/ -purpose any $tmpDir/incomingserver.pem\n");
             $this->loggerInstance->debug(4, "Chain verify pass 2: " . print_r($verifyResultAllcerts, TRUE) . "\n");
         }
 
@@ -691,6 +692,38 @@ network={
         ];
     }
 
+    private function checkRadiusPacketFlow(&$testresults, $tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag) {
+        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
+
+        $testresults['time_millisec'] = $runtime_results['time'];
+        $packetflow_orig = $runtime_results['output'];
+
+        $packetflow = $this->filterPackettype($packetflow_orig);
+
+
+// when MS-CHAPv2 allows retry, we never formally get a reject (just a 
+// Challenge that PW was wrong but and we should try a different one; 
+// but that effectively is a reject
+// so change the flow results to take that into account
+        if ($packetflow[count($packetflow) - 1] == 11 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_691)) {
+            $packetflow[count($packetflow) - 1] = 3;
+        }
+// also, the ETLRs sometimes send a reject when the server is not 
+// responding. This should not be considered a real reject; it's a middle
+// box unduly altering the end-to-end result. Do not consider this final
+// Reject if it comes from ETLR
+        if ($packetflow[count($packetflow) - 1] == 3 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_REJECTIGNORE)) {
+            array_pop($packetflow);
+        }
+        $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
+        $packetcount = array_count_values($packetflow);
+        $testresults['packetcount'] = $packetcount;
+        $testresults['packetflow'] = $packetflow;
+
+// calculate packet counts and see what the overall flow was
+        return $this->packetCountEvaluation($testresults, $packetcount);
+    }
+
     /**
      * The big Guy. This performs an actual login with EAP and records how far 
      * it got and what oddities were observed along the way
@@ -732,43 +765,15 @@ network={
             file_put_contents($tmpDir . "/client.p12", $clientcertdata);
         }
 
-        /** execute RADIUS/EAP converation */
         $testresults = [];
-        $runtime_results = $this->executeEapolTest($tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
-
-        $testresults['time_millisec'] = $runtime_results['time'];
-        $packetflow_orig = $runtime_results['output'];
-
-        $packetflow = $this->filterPackettype($packetflow_orig);
-
-
-// when MS-CHAPv2 allows retry, we never formally get a reject (just a 
-// Challenge that PW was wrong but and we should try a different one; 
-// but that effectively is a reject
-// so change the flow results to take that into account
-        if ($packetflow[count($packetflow) - 1] == 11 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_691)) {
-            $packetflow[count($packetflow) - 1] = 3;
-        }
-// also, the ETLRs sometimes send a reject when the server is not 
-// responding. This should not be considered a real reject; it's a middle
-// box unduly altering the end-to-end result. Do not consider this final
-// Reject if it comes from ETLR
-        if ($packetflow[count($packetflow) - 1] == 3 && $this->checkLineparse($packetflow_orig, self::LINEPARSE_CHECK_REJECTIGNORE)) {
-            array_pop($packetflow);
-        }
-        $this->loggerInstance->debug(5, "Packetflow: " . print_r($packetflow, TRUE));
-        $packetcount = array_count_values($packetflow);
-        $testresults['packetcount'] = $packetcount;
-        $testresults['packetflow'] = $packetflow;
-
-// calculate packet counts and see what the overall flow was
-        $finalretval = $this->packetCountEvaluation($testresults, $packetcount);
+        /** execute RADIUS/EAP converation */
+        $radiusResult = $this->checkRadiusPacketFlow($testresults, $tmpDir, $probeindex, $eaptype, $innerUser, $password, $opnameCheck, $frag);
 
 // only to make sure we've defined this in all code paths
 // not setting it has no real-world effect, but Scrutinizer mocks
         $ackedmethod = FALSE;
         $testresults['cert_oddities'] = [];
-        if ($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT) {
+        if ($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT) {
             $ackedmethod = $this->checkLineparse($packetflow_orig, self::LINEPARSE_EAPACK);
             if (!$ackedmethod) {
                 $testresults['cert_oddities'][] = RADIUSTests::CERTPROB_NO_COMMON_EAP_METHOD;
@@ -781,7 +786,7 @@ network={
         // all
         if (
                 $eaptype != \core\common\EAP::EAPTYPE_PWD &&
-                (($finalretval == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $finalretval == RADIUSTests::RETVAL_OK)
+                (($radiusResult == RADIUSTests::RETVAL_CONVERSATION_REJECT && $ackedmethod) || $radiusResult == RADIUSTests::RETVAL_OK)
         ) {
 
 
@@ -914,8 +919,8 @@ network={
         $this->loggerInstance->debug(4, $testresults);
         $this->loggerInstance->debug(4, "\nEND\n");
         $this->UDP_reachability_result[$probeindex] = $testresults;
-        $this->UDP_reachability_executed = $finalretval;
-        return $finalretval;
+        $this->UDP_reachability_executed = $radiusResult;
+        return $radiusResult;
     }
 
     public function consolidateUdpResult($host) {
