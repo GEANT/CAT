@@ -57,7 +57,7 @@ function getRequest($varName, $filter) {
 
 // make sure this is a known action
 $action = getRequest('action', 'safe_text');
-if (in_array($action, LISTOFACTIONS)) {
+if (!in_array($action, LISTOFACTIONS)) {
     throw new Exception("Unknown action used.");
 }
 

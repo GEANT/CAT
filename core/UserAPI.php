@@ -332,43 +332,33 @@ class UserAPI extends CAT {
     protected function getLogo($identifier, $type, $width = 0, $height = 0) {
         $expiresString = '';
         $resize = FALSE;
+        $attributeName = [
+            'federation' => "fed:logo_file",
+            'idp' => "general:logo_file",
+        ];
+        
         $logoFile = "";
         $validator = new \web\lib\common\InputValidation();
         switch ($type) {
             case "federation":
-                if (is_int($identifier)) {
-                    throw new Exception("Federation identifiers are strings!");
-                }
                 $entity = $validator->Federation($identifier);
-                $attributeName = "fed:logo_file";
                 break;
             case "idp":
-                if (!is_int($identifier)) {
-                    throw new Exception("Institution identifiers are integers!");
-                }
                 $entity = $validator->IdP($identifier);
-                $attributeName = "general:logo_file";
                 break;
             default:
                 throw new Exception("Unknown type of logo requested!");
         }
         $filetype = 'image/png'; // default, only one code path where it can become different
-        if (is_numeric($width) && is_numeric($height) && ($width > 0 || $height > 0)) {
-            $resize = TRUE;
-            if ($height == 0) {
-                $height = 10000;
-            }
-            if ($width == 0) {
-                $width = 10000;
-            }
+        list($width, $height, $resize) = $this->testForResize($width, $height);
+        if ($resize) {
             $logoFile = ROOT . '/web/downloads/logos/' . $identifier . '_' . $width . '_' . $height . '.png';
         }
-        // we never use cache for full-scale images
-        if ($resize === TRUE && is_file($logoFile)) {
+        if (is_file($logoFile)) { // $logoFile could be an empty string but then we will get a FALSE
             $this->loggerInstance->debug(4, "Using cached logo $logoFile for: $identifier\n");
             $blob = file_get_contents($logoFile);
         } else {
-            $logoAttribute = $entity->getAttributes($attributeName);
+            $logoAttribute = $entity->getAttributes($attributeName[$type]);
             if (count($logoAttribute) == 0) {
                 return(NULL);
             }
@@ -381,6 +371,23 @@ class UserAPI extends CAT {
         return ["filetype" => $filetype, "expires" => $expiresString, "blob" => $blob];
     }
     
+    private function testForResize($width, $height) {
+        if (is_numeric($width) && is_numeric($height) && ($width > 0 || $height > 0)) {
+            if ($height == 0) {
+                $height = 10000;
+            }
+            if ($width == 0) {
+                $width = 10000;
+            }
+            $resize = TRUE;
+        } else {
+            $width = 0;
+            $height = 0;
+            $resize = FALSE;
+        }
+        return ([$width, $height, $resize]);
+    }
+
     /**
      * find out where the user is currently located
      * @return array
