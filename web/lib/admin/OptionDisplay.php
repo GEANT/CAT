@@ -149,13 +149,13 @@ class OptionDisplay {
                                    } else {
                                    document.getElementById(\"S$rowid-input-langselect\").style.display = \"none\";
                                    }";
-        foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $oneDataType) {
-            $jsmagic .= "if (/#" . $oneDataType['name'] . "#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
-                                  document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($oneDataType['name'] == "file" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($oneDataType['name'] == "text" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($oneDataType['name'] == "string" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($oneDataType['name'] == "boolean" ? "block" : "none") . "\";
-                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($oneDataType['name'] == "integer" ? "block" : "none") . "\";
+        foreach (array_keys(OptionDisplay::HTML_DATATYPE_TEXTS) as $key) {
+            $jsmagic .= "if (/#" . $key . "#/.test(document.getElementById(\"option-S" . $rowid . "-select\").value)) {
+                                  document.getElementById(\"S$rowid-input-file\").style.display = \"" . ($key == \core\Options::TYPECODE_FILE ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-text\").style.display = \"" . ($key == \core\Options::TYPECODE_TEXT ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-string\").style.display = \"" . ($key == \core\Options::TYPECODE_STRING ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-boolean\").style.display = \"" . ($key == \core\Options::TYPECODE_BOOLEAN ? "block" : "none") . "\";
+                                  document.getElementById(\"S$rowid-input-integer\").style.display = \"" . ($key == \core\Options::TYPECODE_INTEGER ? "block" : "none") . "\";
                              }
                              ";
         }
@@ -195,23 +195,18 @@ class OptionDisplay {
         return $retval;
     }
 
-    const TYPECODE_STRING = 0;
-    const TYPECODE_INTEGER = 4;
-    const TYPECODE_TEXT = 1;
-    const TYPECODE_BOOLEAN = 3;
-    const TYPECODE_FILE = 2;
     const HTML_DATATYPE_TEXTS = [
-        OptionDisplay::TYPECODE_FILE => ["name" => "file", "html" => "input type='text'", "tail" => ' size=\'10\''],
-        OptionDisplay::TYPECODE_BOOLEAN => ["name" => "boolean", "html" => "input type='checkbox'", "tail" => ''],
-        OptionDisplay::TYPECODE_INTEGER => ["name" => "integer", "html" => "input type='number'", "tail" => ''],
-        OptionDisplay::TYPECODE_STRING => ["name" => "string", "html" => "input type='file'", "tail" => ''],
-        OptionDisplay::TYPECODE_TEXT => ["name" => "text", "html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
+        \core\Options::TYPECODE_FILE => ["html" => "input type='file'", "tail" => ' size=\'10\''],
+        \core\Options::TYPECODE_BOOLEAN => ["html" => "input type='checkbox'", "tail" => ''],
+        \core\Options::TYPECODE_INTEGER => ["html" => "input type='number'", "tail" => ''],
+        \core\Options::TYPECODE_STRING => ["html" => "input type='string'", "tail" => ''],
+        \core\Options::TYPECODE_TEXT => ["html" => "textarea cols='30' rows='3'", "tail" => '></textarea'],
     ];
 
     private function inputFields($rowid, $activetype) {
         $retval = "";
         foreach (OptionDisplay::HTML_DATATYPE_TEXTS as $key => $type) {
-            $retval .= "<" . $type['html'] . " style='display:" . ($activetype['type'] == $type['name'] ? "block" : "none") . "' name='value[S$rowid-$key]' id='S" . $rowid . "-input-" . $type['name'] . "'" . $type['tail'] . ">";
+            $retval .= "<" . $type['html'] . " style='display:" . ($activetype['type'] == $key ? "block" : "none") . "' name='value[S$rowid-$key]' id='S" . $rowid . "-input-" . $key . "'" . $type['tail'] . ">";
         }
         return $retval;
     }
@@ -270,15 +265,13 @@ class OptionDisplay {
         $retval .= "</td>";
 // attribute content
         $retval .= "<td>";
-        $intCode = -1;
-        $displayedVariant = "";
         switch ($listtype["type"]) {
-            case "coordinates":
+            case \core\Options::TYPECODE_COORDINATES:
                 $this->allLocationCount = $this->allLocationCount + 1;
                 $link = "<button id='location_b_" . $this->allLocationCount . "' class='location_button'>" . _("Click to see location") . " $this->allLocationCount</button>";
-                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . self::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
+                $retval .= "<input readonly style='display:none' type='text' name='value[S$rowid-" . \core\Options::TYPECODE_TEXT . "]' id='S$rowid-input-text' value='$optionValue'>$link";
                 break;
-            case "file":
+            case \core\Options::TYPECODE_FILE:
                 $retval .= "<input readonly type='text' name='value[S$rowid-1]' id='S" . $rowid . "-input-string' style='display:none' value='" . urlencode($optionValue) . "'>";
                 $uiElements = new UIElements();
                 switch ($optionName) {
@@ -296,33 +289,15 @@ class OptionDisplay {
                         $retval .= _("file content");
                 }
                 break;
-            case "string":
-                if ($intCode == -1) {
-                    $intCode = self::TYPECODE_STRING;
-                }
+            case \core\Options::TYPECODE_STRING:
             // fall-thorugh is intentional; mostly identical HTML code for the three types
-            case "integer":
-                if ($intCode == -1) {
-                    $intCode = self::TYPECODE_INTEGER;
-                }
+            case \core\Options::TYPECODE_INTEGER:
             // fall-thorugh is intentional; mostly identical HTML code for the three types
-            case "text":
-                if ($intCode == -1) {
-                    $intCode = self::TYPECODE_TEXT;
-                }
+            case \core\Options::TYPECODE_TEXT:
                 $displayedVariant = $optionValue; // for all three types, value tag and actual display are identical
-            case "boolean":
-                if ($intCode == -1) {
-                    $intCode = self::TYPECODE_BOOLEAN;
-                }
-                if ($displayedVariant == "") { // a fall-through has set this before
-                    $displayedVariant = _("off");
-                    if ($optionValue == "on") {
-                        /// Device assessment is "on"
-                        $displayedVariant = _("on");
-                    }
-                }
-                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-$intCode]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
+            case \core\Options::TYPECODE_BOOLEAN:
+                $displayedVariant = ($optionValue == "on" ? _("on") : _("off"));
+                $retval .= "<strong>$displayedVariant</strong><input type='hidden' name='value[S$rowid-".$listtype['type']."]' id='S" . $rowid . "-input-" . $listtype["type"] . "' value=\"" . htmlspecialchars($optionValue) . "\" style='display:block'>";
                 break;
             default:
                 // this should never happen!

@@ -244,7 +244,7 @@ class OptionParser {
                 $optiontype = $this->optioninfoObject->optionType($name);
                 // some attributes are in the DB and were only called by reference
                 // keep those which are still referenced, throw the rest away
-                if ($optiontype["type"] == "file" && preg_match("/^ROWID-.*-([0-9]+)/", $optionPayload['content'], $retval)) {
+                if ($optiontype["type"] == \core\Options::TYPECODE_FILE && preg_match("/^ROWID-.*-([0-9]+)/", $optionPayload['content'], $retval)) {
                     unset($pendingattributes[$retval[1]]);
                     continue;
                 }
@@ -311,24 +311,24 @@ class OptionParser {
                 // except validator function to call and where in POST the
                 // content is
                 $validators = [
-                    "text" => ["function" => "string", "field" => 1, "extraarg" => [TRUE]],
-                    "coordinates" => ["function" => "coordJsonEncoded", "field" => 1, "extraarg" => []],
-                    "boolean" => ["function" => "boolean", "field" => 3, "extraarg" => []],
-                    "integer" => ["function" => "integer", "field" => 4, "extraarg" => []],
+                    \core\Options::TYPECODE_TEXT => ["function" => "string", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => [TRUE]],
+                    \core\Options::TYPECODE_COORDINATES => ["function" => "coordJsonEncoded", "field" => \core\Options::TYPECODE_TEXT, "extraarg" => []],
+                    \core\Options::TYPECODE_BOOLEAN => ["function" => "boolean", "field" => \core\Options::TYPECODE_BOOLEAN, "extraarg" => []],
+                    \core\Options::TYPECODE_INTEGER => ["function" => "integer", "field" => \core\Options::TYPECODE_INTEGER, "extraarg" => []],
                 ];
 
                 switch ($optioninfo["type"]) {
-                    case "text":
-                    case "coordinates":
-                    case "integer":
+                    case \core\Options::TYPECODE_TEXT:
+                    case \core\Options::TYPECODE_COORDINATES:
+                    case \core\Options::TYPECODE_INTEGER:
                         $varName = "$objId-" . $validators[$optioninfo['type']]['field'];
                         if (!empty($listOfEntries[$varName])) {
                             $content = call_user_func_array([$this->validator, $validators[$optioninfo['type']]['function']], array_merge([$listOfEntries[$varName]], $validators[$optioninfo['type']]['extraarg']));
                             break;
                         }
                         continue 2;
-                    case "boolean":
-                        $varName = "$objId-3";
+                    case \core\Options::TYPECODE_BOOLEAN:
+                        $varName = "$objId-".\core\Options::TYPECODE_BOOLEAN;
                         if (!empty($listOfEntries[$varName])) {
                             $contentValid = $this->validator->boolean($listOfEntries[$varName]);
                             if ($contentValid) {
@@ -340,39 +340,37 @@ class OptionParser {
                             break;
                         }
                         continue 2;
-                    case "string":
-                        if (!empty($listOfEntries["$objId-0"])) {
+                    case \core\Options::TYPECODE_STRING:
+                        if (!empty($listOfEntries["$objId-".\core\Options::TYPECODE_STRING])) {
                             switch ($objValue) {
                                 case "media:consortium_OI":
-                                    $content = $this->validator->consortiumOI($listOfEntries["$objId-0"]);
+                                    $content = $this->validator->consortiumOI($listOfEntries["$objId-".\core\Options::TYPECODE_STRING]);
                                     if ($content === FALSE) {
                                         $bad[] = $objValue;
                                         continue 3;
                                     }
                                     break;
                                 case "media:remove_SSID":
-                                    $content = $this->validator->string($listOfEntries["$objId-0"]);
+                                    $content = $this->validator->string($listOfEntries["$objId-".\core\Options::TYPECODE_STRING]);
                                     if ($content == "eduroam") {
                                         $bad[] = $objValue;
                                         continue 3;
                                     }
                                     break;
                                 default:
-                                    $content = $this->validator->string($listOfEntries["$objId-0"]);
+                                    $content = $this->validator->string($listOfEntries["$objId-".\core\Options::TYPECODE_STRING]);
                                     break;
                             }
                             break;
                         }
                         continue 2;
-                    case "file":
-// echo "In file processing ...<br/>";
-                        if (!empty($listOfEntries["$objId-1"])) { // was already in, by ROWID reference, extract
+                    case \core\Options::TYPECODE_FILE:
+                        if (!empty($listOfEntries["$objId-".\core\Options::TYPECODE_STRING])) { // was already in, by ROWID reference, extract
                             // ROWID means it's a multi-line string (simple strings are inline in the form; so allow whitespace)
-                            $content = $this->validator->string(urldecode($listOfEntries["$objId-1"]), TRUE);
+                            $content = $this->validator->string(urldecode($listOfEntries["$objId-".\core\Options::TYPECODE_STRING]), TRUE);
                             break;
-                        } else if (isset($listOfEntries["$objId-2"]) && ($listOfEntries["$objId-2"] != "")) { // let's do the download
-// echo "Trying to download file:///".$a["$obj_id-2"]."<br/>";
-                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $listOfEntries["$objId-2"]);
+                        } else if (isset($listOfEntries["$objId-".\core\Options::TYPECODE_FILE]) && ($listOfEntries["$objId-".\core\Options::TYPECODE_FILE] != "")) { // let's do the download
+                            $rawContent = \core\common\OutsideComm::downloadFile("file:///" . $listOfEntries["$objId-".\core\Options::TYPECODE_FILE]);
                             
                             if ($rawContent === FALSE || !$this->checkUploadSanity($objValue, $rawContent)) {
                                 $bad[] = $objValue;

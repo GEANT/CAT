@@ -87,7 +87,7 @@ class UserAPI extends CAT {
     
     private function verifyDownloadAccess($profile) {
         $attribs = $profile->getCollapsedAttributes();
-        if (\core\Entity::getAttributeValue($attribs, 'profile:production', 0) !== 'on') {
+        if (\core\common\Entity::getAttributeValue($attribs, 'profile:production', 0) !== 'on') {
             $this->loggerInstance->debug(4, "Attempt to download a non-production ready installer for profile: $profile->identifier\n");
             $auth = new \web\lib\admin\Authentication();
             if (!$auth->isAuthenticated()) {
@@ -187,7 +187,7 @@ class UserAPI extends CAT {
             throw new Exception("show_hidden is only be allowed to be 0 or 1, but it is $showHidden!");
         }
         foreach ($dev as $device => $deviceProperties) {
-            if (\core\Entity::getAttributeValue($deviceProperties, 'options', 'hidden') === 1 && $showHidden === 0) {
+            if (\core\common\Entity::getAttributeValue($deviceProperties, 'options', 'hidden') === 1 && $showHidden === 0) {
                 continue;
             }
             $count++;
@@ -551,7 +551,7 @@ class UserAPI extends CAT {
      * Return FALSE if the device has not been correctly specified
      */
     private function returnDevice($devId, $device) {
-        if (\core\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
+        if (\core\common\Entity::getAttributeValue($device, 'options', 'hidden') !== 1) {
             $this->loggerInstance->debug(4, "Browser_id: $devId\n");
             return(['device' => $devId, 'display' => $device['display'], 'group' => $device['group']]);
         }
