@@ -478,39 +478,12 @@ class UserAPI extends CAT {
      */
     public function orderIdentityProviders($country, $currentLocation = NULL) {
         $idps = $this->listAllIdentityProviders(1, $country);
-
-        if (is_null($currentLocation)) {
-            $currentLocation = ['lat' => "90", 'lon' => "0"];
-            $userLocation = $this->locateUser();
-            if ($userLocation['status'] == 'ok') {
-                $currentLocation = $userLocation['geo'];
-            }
-        }
+        $here = $this->setCurrentLocation(setCurrentLocation);
         $idpTitle = [];
         $resultSet = [];
         foreach ($idps as $idp) {
             $idpTitle[$idp['entityID']] = $idp['title'];
-            $dist = 10000;
-            if (isset($idp['geo'])) {
-                $G = $idp['geo'];
-                if (isset($G['lon'])) {
-                    $d1 = $this->geoDistance($currentLocation, $G);
-                    if ($d1 < $dist) {
-                        $dist = $d1;
-                    }
-                } else {
-                    foreach ($G as $g) {
-                        $d1 = $this->geoDistance($currentLocation, $g);
-                        if ($d1 < $dist) {
-                            $dist = $d1;
-                        }
-                    }
-                }
-            }
-            if ($dist > 100) {
-                $dist = 10000;
-            }
-            $d = sprintf("%06d", $dist);
+            $d = $this->getIdpDistance($idp, $here);
             $resultSet[$idp['entityID']] = $d . " " . $idp['title'];
         }
         asort($resultSet);
@@ -519,6 +492,41 @@ class UserAPI extends CAT {
             $outarray[] = ['idp' => $r, 'title' => $idpTitle[$r]];
         }
         return($outarray);
+    }
+
+    private function setCurrentLocation($currentLocation) {
+        if (is_null($currentLocation)) {
+            $currentLocation = ['lat' => "90", 'lon' => "0"];
+            $userLocation = $this->locateUser();
+            if ($userLocation['status'] == 'ok') {
+                $currentLocation = $userLocation['geo'];
+            }
+        }
+        return($currentLocation);
+    }
+    
+    private function getIdpDistance($idp, $location) {
+        $dist = 10000;
+        if (isset($idp['geo'])) {
+            $G = $idp['geo'];
+            if (isset($G['lon'])) {
+                $d1 = $this->geoDistance($location, $G);
+                if ($d1 < $dist) {
+                    $dist = $d1;
+                }
+            } else {
+                foreach ($G as $g) {
+                    $d1 = $this->geoDistance($location, $g);
+                    if ($d1 < $dist) {
+                        $dist = $d1;
+                    }
+                }
+            }
+        }
+        if ($dist > 100) {
+            $dist = 10000;
+        }
+        return(sprintf("%06d", $dist));
     }
 
     /**
