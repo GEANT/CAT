@@ -60,6 +60,13 @@ class Options {
      */
     private $typeDb;
 
+    const TYPECODE_STRING = "string";
+    const TYPECODE_INTEGER = "integer";
+    const TYPECODE_TEXT = "text";
+    const TYPECODE_BOOLEAN = "boolean";
+    const TYPECODE_FILE = "file";
+    const TYPECODE_COORDINATES = "coordinates";
+
     /**
      * Returns the handle to the (only) instance of this class.
      * 
@@ -103,9 +110,7 @@ class Options {
         $this->typeDb["internal:hint_userinput_suffix"] = ["type" => "boolean", "flag" => NULL];
         $this->typeDb["internal:realm"] = ["type" => "string", "flag" => NULL];
         $this->typeDb["internal:use_anon_outer"] = ["type" => "boolean", "flag" => NULL];
-        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];
-
-
+        $this->typeDb["internal:anon_local_value"] = ["type" => "string", "flag" => NULL];        
         $this->loggerInstance->debug(3, "--- END constructing Options instance ---\n");
     }
 

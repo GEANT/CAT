@@ -207,7 +207,7 @@ if (!$profile instanceof \core\ProfileRADIUS) {
                 $warntext = "";
                 if (is_array($eapcompleteness)) {
                     foreach ($eapcompleteness as $item) {
-                        $warntext .= "<strong>" . $item->getPrintableRep() . "</strong> ";
+                        $warntext .= "<strong>" . $uiElements->displayName($item) . "</strong> ";
                     }
                 }
                 echo $uiElements->boxWarning(sprintf(_("Supported EAP Type: <strong>%s</strong> is missing required information %s !"), $a->getPrintableRep(), $warntext) . "<br/>" . _("The EAP type was added to the profile, but you need to complete the missing information before we can produce installers for you."));
